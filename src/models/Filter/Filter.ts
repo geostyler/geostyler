@@ -1,7 +1,7 @@
 /**
  *
  *
- * @class Rule
+ * @class Filter
  */
 class Filter {
 

@@ -1,7 +1,7 @@
 /**
  *
  *
- * @class Rule
+ * @class Symbolizer
  */
 class Symbolizer {
 
