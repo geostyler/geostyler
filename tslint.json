@@ -1,5 +1,7 @@
 {
-    "extends": ["tslint-react"],
+    "extends": [
+      "tslint-react"
+    ],
     "rules": {
         "align": [
             true,
@@ -14,9 +16,9 @@
             "check-space"
         ],
         "curly": true,
-        "eofline": false,
+        "eofline": true,
         "forin": true,
-        "indent": [ true, "spaces" ],
+        "indent": [ true, "spaces", 2 ],
         "interface-name": [true, "never-prefix"],
         "jsdoc-format": true,
         "jsx-no-lambda": false,
