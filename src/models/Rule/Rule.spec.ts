@@ -8,14 +8,14 @@ it('is defined', () => {
 });
 
 describe('Constructor', () => {
-  it('can be created with only without filter or scaledenominator', () => {
+  it('can be created with symbolizer', () => {
     const symbolizer = new Symbolizer();
     const rule = new Rule(symbolizer);
     expect(rule).toBeDefined();
     expect(rule.symbolizer).toBe(symbolizer);
   });
 
-  it('can be created with style and filter', () => {
+  it('can be created with symbolizer and filter', () => {
     const symbolizer = new Symbolizer();
     const filter = new Filter();
     const rule = new Rule(symbolizer, filter);
@@ -24,7 +24,7 @@ describe('Constructor', () => {
     expect(rule.filter).toBe(filter);
   });
 
-  it('can be created with style and scaleDenominator', () => {
+  it('can be created with symbolizer and scaleDenominator', () => {
     const symbolizer = new Symbolizer();
     const scaleDenominator = new ScaleDenominator();
     const rule = new Rule(symbolizer, undefined, scaleDenominator);
@@ -33,7 +33,7 @@ describe('Constructor', () => {
     expect(rule.scaleDenominator).toBe(scaleDenominator);
   });
 
-  it('can be created with style, filter and scaleDenominator', () => {
+  it('can be created with symbolizer, filter and scaleDenominator', () => {
     const symbolizer = new Symbolizer();
     const filter = new Filter();
     const scaleDenominator = new ScaleDenominator();
