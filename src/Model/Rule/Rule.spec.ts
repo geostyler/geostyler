@@ -1,7 +1,7 @@
 import Rule from './Rule';
 import Symbolizer from '../Symbolizer/Symbolizer';
-import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
-import { Filter } from '../../Interface/Filter/Filter';
+import ScaleDenominator from '../../Type/ScaleDenominator';
+import Filter from '../../Interface/Filter/Filter';
 
 it('is defined', () => {
   expect(Rule).toBeDefined();
@@ -26,7 +26,7 @@ describe('Constructor', () => {
 
   it('can be created with symbolizer and scaleDenominator', () => {
     const symbolizer = new Symbolizer();
-    const scaleDenominator = new ScaleDenominator();
+    const scaleDenominator = {min: 12, max: 13};
     const rule = new Rule(symbolizer, undefined, scaleDenominator);
     expect(rule).toBeDefined();
     expect(rule.symbolizer).toBe(symbolizer);
@@ -36,7 +36,7 @@ describe('Constructor', () => {
   it('can be created with symbolizer, filter and scaleDenominator', () => {
     const symbolizer = new Symbolizer();
     const filter: Filter = ['!', false];
-    const scaleDenominator = new ScaleDenominator();
+    const scaleDenominator = {min: 12, max: 13};
     const rule = new Rule(symbolizer, filter, scaleDenominator);
     expect(rule).toBeDefined();
     expect(rule.symbolizer).toBe(symbolizer);
@@ -83,7 +83,7 @@ describe('Accessors', () => {
   describe('ScaleDenominator', () => {
     it('getter returns the _filter property', () => {
       const symbolizer = new Symbolizer();
-      const scaleDenominator = new ScaleDenominator();
+      const scaleDenominator = {min: 12, max: 13};
       const rule = new Rule(symbolizer, undefined, scaleDenominator);
       const got = rule.scaleDenominator;
       expect(got).toBe(scaleDenominator);
@@ -91,8 +91,8 @@ describe('Accessors', () => {
 
     it('setter sets the _scaleDenominator property', () => {
       const symbolizer = new Symbolizer();
-      const scaleDenominator = new ScaleDenominator();
-      const setScaleDenominator = new ScaleDenominator();
+      const scaleDenominator = {min: 12, max: 13};
+      const setScaleDenominator = {min: 14, max: 15};
       const rule = new Rule(symbolizer, undefined, scaleDenominator);
       rule.scaleDenominator = setScaleDenominator;
       expect(rule.scaleDenominator).toBe(setScaleDenominator);
