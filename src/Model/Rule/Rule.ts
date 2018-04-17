@@ -1,6 +1,7 @@
-import Filter from '../Filter/Filter';
+import { Filter } from '../../Interface/Filter/Filter';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Symbolizer from '../Symbolizer/Symbolizer';
+import FilterUtil from '../../util/FilterUtil/FilterUtil';
 
 /**
  * A Rule aggregates the three key parts of a style representation:
@@ -52,7 +53,7 @@ class Rule {
     scaleDenominator?: ScaleDenominator
   ) {
     this._symbolizer = symbolizer;
-    if (filter) {
+    if (filter && FilterUtil.isExpressionFilter(filter)) {
       this._filter = filter;
     }
     if (scaleDenominator) {
@@ -109,7 +110,7 @@ class Rule {
   }
 
   /**
-   * Gets the Symbolizer.
+   * Sets the Symbolizer.
    *
    * @memberof Rule
    */

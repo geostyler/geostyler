@@ -1,7 +1,7 @@
 import Rule from './Rule';
 import Symbolizer from '../Symbolizer/Symbolizer';
-import Filter from '../Filter/Filter';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
+import { Filter } from '../../Interface/Filter/Filter';
 
 it('is defined', () => {
   expect(Rule).toBeDefined();
@@ -17,7 +17,7 @@ describe('Constructor', () => {
 
   it('can be created with symbolizer and filter', () => {
     const symbolizer = new Symbolizer();
-    const filter = new Filter();
+    const filter: Filter = ['!', false];
     const rule = new Rule(symbolizer, filter);
     expect(rule).toBeDefined();
     expect(rule.symbolizer).toBe(symbolizer);
@@ -35,7 +35,7 @@ describe('Constructor', () => {
 
   it('can be created with symbolizer, filter and scaleDenominator', () => {
     const symbolizer = new Symbolizer();
-    const filter = new Filter();
+    const filter: Filter = ['!', false];
     const scaleDenominator = new ScaleDenominator();
     const rule = new Rule(symbolizer, filter, scaleDenominator);
     expect(rule).toBeDefined();
@@ -64,8 +64,8 @@ describe('Accessors', () => {
   });
   describe('Filter', () => {
     it('getter returns the _filter property', () => {
-      const symbolizer = new Symbolizer();
-      const filter = new Filter();
+      const symbolizer: Symbolizer = new Symbolizer();
+      const filter: Filter = ['!', false];
       const rule = new Rule(symbolizer, filter);
       const got = rule.filter;
       expect(got).toBe(filter);
@@ -73,8 +73,8 @@ describe('Accessors', () => {
 
     it('setter sets the _filter property', () => {
       const symbolizer = new Symbolizer();
-      const filter = new Filter();
-      const setFilter = new Filter();
+      const filter: Filter = ['!', false];
+      const setFilter: Filter = ['!', true];
       const rule = new Rule(symbolizer, filter);
       rule.filter = setFilter;
       expect(rule.filter).toBe(setFilter);
