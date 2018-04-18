@@ -1,6 +1,5 @@
 import Rule from './Rule';
 import Symbolizer from '../Symbolizer/Symbolizer';
-import ScaleDenominator from '../../Type/ScaleDenominator';
 import Filter from '../../Interface/Filter/Filter';
 
 it('is defined', () => {
