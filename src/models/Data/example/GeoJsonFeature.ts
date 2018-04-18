@@ -11,10 +11,10 @@ class GeoJsonFeature {
    * The GeoJSON object type, e.g. 'feature'
    *
    * @private
-   * @type {String}
+   * @type {string}
    * @memberof GeoJsonFeature
    */
-  private _type: String;
+  private _type: string;
 
   /**
    * The GeoJSON geometry object
@@ -29,15 +29,15 @@ class GeoJsonFeature {
    * The GeoJSON property object
    *
    * @private
-   * @type {Object}
+   * @type {object}
    * @memberof GeoJsonFeature
    */
-  private _properties: Object;
+  private _properties: object;
 
   constructor(
-    type: String,
+    type: string,
     geometry: GeoJsonGeometry,
-    properties: Object
+    properties: object
   ) {
     this._type = type;
     this._geometry = geometry;
@@ -46,9 +46,9 @@ class GeoJsonFeature {
 
   /**
    * Getter type
-   * @return {String}
+   * @return {string}
    */
-  get type(): String {
+  get type(): string {
     return this._type;
   }
 
@@ -62,17 +62,17 @@ class GeoJsonFeature {
 
   /**
    * Getter properties
-   * @return {Object}
+   * @return {object}
    */
-  get properties(): Object {
+  get properties(): object {
     return this._properties;
   }
 
   /**
    * Setter type
-   * @param {String} value
+   * @param {string} value
    */
-  set type(value: String) {
+  set type(value: string) {
     this._type = value;
   }
 
@@ -86,9 +86,9 @@ class GeoJsonFeature {
 
   /**
    * Setter properties
-   * @param {Object} value
+   * @param {object} value
    */
-  set properties(value: Object) {
+  set properties(value: object) {
     this._properties = value;
   }
 

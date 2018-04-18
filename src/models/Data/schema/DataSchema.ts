@@ -1,11 +1,11 @@
 import SchemaProperties from './SchemaProperties';
 
 /**
- * Class represents the schema of imported geo-data, to have information about available 
+ * Class represents the schema of imported geo-data, to have information about available
  * properties and data ranges.
  * Comparable to a DescribeFeatureType response for an OGC WFS.
  * This is modelled as JSON schema:
- * 
+ *
  *  {
  *    "title": "Person",
  *    "type": "object",
@@ -30,17 +30,17 @@ class DataSchema {
 
   /**
    * @private
-   * @@type {String}
+   * @@type {string}
    * @memberOf {DataSchema}
    */
-  private _title: String;
+  private _title: string;
 
   /**
    * @private
-   * @@type {String}
+   * @@type {string}
    * @memberOf {DataSchema}
    */
-  private _type: String;
+  private _type: string;
 
   /**
    * @private
@@ -50,9 +50,9 @@ class DataSchema {
   private _properties: SchemaProperties;
 
   constructor(
-    type: String,
+    type: string,
     properties: SchemaProperties,
-    title?: String,
+    title?: string,
   ) {
     this._title = title || '';
     this._type = type;
@@ -61,17 +61,17 @@ class DataSchema {
 
   /**
    * Getter title
-   * @return {String}
+   * @return {string}
    */
-  public get title(): String {
+  public get title(): string {
     return this._title;
   }
 
   /**
    * Getter type
-   * @return {String}
+   * @return {string}
    */
-  public get type(): String {
+  public get type(): string {
     return this._type;
   }
 
@@ -85,17 +85,17 @@ class DataSchema {
 
   /**
    * Setter title
-   * @param {String} value
+   * @param {string} value
    */
-  public set title(value: String) {
+  public set title(value: string) {
     this._title = value;
   }
 
   /**
    * Setter type
-   * @param {String} value
+   * @param {string} value
    */
-  public set type(value: String) {
+  public set type(value: string) {
     this._type = value;
   }
 

@@ -1,12 +1,12 @@
 /**
  * Class represents a single property of an object according to JSON schema.
  * Like:
- * 
+ *
  *   {
  *     "type": "Number",
  *     "minimum": 0
  *   }
- *   
+ *
  *
  * @class SchemaProperty
  */
@@ -14,84 +14,84 @@ class SchemaProperty {
 
   /**
    * @private
-   * @@type {String}
+   * @@type {string}
    * @memberOf {SchemaProperty}
    */
-  private _type: String;
+  private _type: string;
 
   /**
    * @private
-   * @@type {Number}
+   * @@type {number}
    * @memberOf {SchemaProperty}
    */
-  private _minimum: Number;
+  private _minimum: number;
 
   /**
    * @private
-   * @@type {Number}
+   * @@type {number}
    * @memberOf {SchemaProperty}
    */
-  private _maximum: Number;
+  private _maximum: number;
 
   constructor(
-    type: String,
-    minimum?: Number,
-    maximum?: Number
+    type: string,
+    minimum?: number,
+    maximum?: number
   ) {
     this._type = type;
-    if (minimum && !isNaN(minimum.valueOf())) {
+    if (minimum && !isNaN(minimum)) {
       this._minimum = minimum;
     }
-    if (maximum && !isNaN(maximum.valueOf())) {
+    if (maximum && !isNaN(maximum)) {
       this._maximum = maximum;
     }
   }
 
   /**
    * Getter type
-   * @return {String}
+   * @return {string}
    */
-  public get type(): String {
+  public get type(): string {
     return this._type;
   }
 
     /**
      * Getter minimum
-     * @return {Number}
+     * @return {number}
      */
-  public get minimum(): Number {
+  public get minimum(): number {
     return this._minimum;
   }
 
     /**
      * Getter maximum
-     * @return {Number}
+     * @return {number}
      */
-  public get maximum(): Number {
+  public get maximum(): number {
     return this._maximum;
   }
 
     /**
      * Setter type
-     * @param {String} value
+     * @param {string} value
      */
-  public set type(value: String) {
+  public set type(value: string) {
     this._type = value;
   }
 
     /**
      * Setter minimum
-     * @param {Number} value
+     * @param {number} value
      */
-  public set minimum(value: Number) {
+  public set minimum(value: number) {
     this._minimum = value;
   }
 
     /**
      * Setter maximum
-     * @param {Number} value
+     * @param {number} value
      */
-  public set maximum(value: Number) {
+  public set maximum(value: number) {
     this._maximum = value;
   }
 

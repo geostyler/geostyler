@@ -9,23 +9,23 @@ class GeoJsonGeometry {
    * The GeoJSON geometry type
    *
    * @private
-   * @type {String}
+   * @type {string}
    * @memberof GeoJsonGeometry
    */
-  private _type: String;
+  private _type: string;
 
   /**
    * The GeoJSON coordinates.
-   * Here as simplified definition as Array<Number> since this property will remain empty in GeoStyler. 
+   * Here as simplified definition as Array<number> since this property will remain empty in GeoStyler.
    *
    * @private
-   * @type {String}
+   * @type {string}
    * @memberof GeoJsonGeometry
    */
-  private _coordinates: Array<Number>;
+  private _coordinates: Array<number>;
 
   constructor(
-    type: String
+    type: string
   ) {
     this._type = type;
     this._coordinates = []; // we do not need the coordinates in GeoStyler
@@ -33,33 +33,33 @@ class GeoJsonGeometry {
 
   /**
    * Getter type
-   * @return {String}
+   * @return {string}
    */
-  public get type(): String {
+  public get type(): string {
     return this._type;
   }
 
   /**
    * Getter coordinates
-   * @return {null}
+   * @return {Array<number>}
    */
-  public get coordinates(): Array<Number> {
+  public get coordinates(): Array<number> {
     return this._coordinates;
   }
 
   /**
    * Setter type
-   * @param {String} value
+   * @param {string} value
    */
-  public set type(value: String) {
+  public set type(value: string) {
     this._type = value;
   }
 
   /**
    * Setter coordinates
-   * @param {null} value
+   * @param {Array<number>} value
    */
-  public set coordinates(value: Array<Number>) {
+  public set coordinates(value: Array<number>) {
     this._coordinates = value;
   }
 
