@@ -1,5 +1,4 @@
 import Data from './Data';
-import DataSchema from '../../Type/DataSchema';
 import { FeatureCollection, Point, LineString, Polygon } from 'geojson';
 
 it('is defined', () => {
