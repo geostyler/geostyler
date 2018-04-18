@@ -1,7 +1,7 @@
-import { Filter } from '../../Interface/Filter/Filter';
-import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
+import Filter from '../../Interface/Filter/Filter';
 import Symbolizer from '../Symbolizer/Symbolizer';
 import FilterUtil from '../../util/FilterUtil/FilterUtil';
+import ScaleDenominator from '../../Type/ScaleDenominator';
 
 /**
  * A Rule aggregates the three key parts of a style representation:
