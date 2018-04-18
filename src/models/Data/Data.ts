@@ -1,9 +1,9 @@
 import DataSchema from './schema/DataSchema';
-import ExampleFeatures from './example/ExampleFeatures';
+import { FeatureCollection, GeometryObject } from 'geojson';
 
 /**
  * Internal data object for imported geo data.
- * Aggregates a data schema and some example data (features).
+ * Aggregates a data schema and some example data (FeatureCollection).
  *
  * @class Data
  */
@@ -18,14 +18,14 @@ class Data {
 
   /**
    * @private
-   * @@type {ExampleFeatures}
+   * @@type {FeatureCollection<GeometryObject>}
    * @memberOf {Data}
    */
-  private _exampleFeatures: ExampleFeatures;
+  private _exampleFeatures: FeatureCollection<GeometryObject>;
 
   constructor(
     schema: DataSchema,
-    exampleFeatures: ExampleFeatures
+    exampleFeatures: FeatureCollection<GeometryObject>
   ) {
     this._schema = schema;
     this._exampleFeatures = exampleFeatures;
@@ -43,7 +43,7 @@ class Data {
      * Getter values
      * @return {DataValues}
      */
-  public get exampleFeatures(): ExampleFeatures {
+  public get exampleFeatures(): FeatureCollection<GeometryObject> {
     return this._exampleFeatures;
   }
 
@@ -59,7 +59,7 @@ class Data {
    * Setter values
    * @param {DataValues} value
    */
-  public set exampleFeatures(value: ExampleFeatures) {
+  public set exampleFeatures(value: FeatureCollection<GeometryObject>) {
     this._exampleFeatures = value;
   }
 
