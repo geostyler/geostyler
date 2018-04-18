@@ -33,14 +33,14 @@ type DataSchema = {
    *
    * @type {string}
    */
-  title: string | '';
+  title?: string;
 
   /**
    * Optional type definition for the described entity
    *
    * @type {string}
    */
-  type: string | 'object';
+  type: string;
 
   /**
    * Properties object describing the attributes of the described entity
