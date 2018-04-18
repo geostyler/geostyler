@@ -29,9 +29,7 @@
       true,
       {
         "order": [
-          "public-before-private",
-          "static-before-instance",
-          "variables-before-functions"
+          "public-instance-method"
         ]
       }
     ],
@@ -59,6 +57,7 @@
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": false,
     "no-unused-expression": true,
+    "no-unused-variable": true,
     "no-use-before-declare": true,
     "one-line": [
       true,
