@@ -1,5 +1,5 @@
 import Data from './Data';
-import DataSchema from './schema/DataSchema';
+import DataSchema from '../../Type/DataSchema';
 import { FeatureCollection, Point, LineString, Polygon } from 'geojson';
 
 it('is defined', () => {
@@ -67,10 +67,26 @@ describe('Constructor', () => {
         }
       ]
     };
-    const schema = new DataSchema('test', {});
+
+    const props = {
+      'firstName': {
+        'type': 'string'
+      },
+      'age': {
+        'type': 'integer',
+        'minimum': 0
+      }
+    };
+    const schema = {title: 'test', type: 'foo', properties: props};
     const data = new Data(schema, featureCollection);
     expect(data).toBeDefined();
     expect(data.schema).toBe(schema);
+    expect(data.schema.properties).toBe(props);
+    expect(data.schema.properties.firstName.type).toBe('string');
+    expect(data.schema.properties.age.minimum).toBe(0);
     expect(data.exampleFeatures).toBe(featureCollection);
+    expect(data.exampleFeatures.type).toBe('FeatureCollection');
+    expect(data.exampleFeatures.features.length).toBe(4);
+    expect(data.exampleFeatures.features[0].type).toBe('Feature');
   });
 });

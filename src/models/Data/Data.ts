@@ -1,5 +1,5 @@
-import DataSchema from './schema/DataSchema';
 import { FeatureCollection, GeometryObject } from 'geojson';
+import DataSchema from '../../Type/DataSchema';
 
 /**
  * Internal data object for imported geo data.
