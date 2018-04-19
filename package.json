@@ -34,7 +34,7 @@
     "lint": "tslint --project tsconfig.json --config tslint.json"
   },
   "devDependencies": {
-    "ts-jest": "22.4.3",
+    "ts-jest": "22.4.4",
     "@types/geojson": "7946.0.2",
     "@types/jest": "22.2.3",
     "@types/node": "9.6.5",
