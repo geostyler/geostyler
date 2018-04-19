@@ -1,4 +1,4 @@
-import Data from '../../Model/Data/Data';
+import Data from '../Data/Data';
 
 /**
  * Interface, which has to be implemented by all GeoStyler parser classes.

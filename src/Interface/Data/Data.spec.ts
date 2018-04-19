@@ -1,9 +1,4 @@
-import Data from './Data';
 import { FeatureCollection, Point, LineString, Polygon } from 'geojson';
-
-it('is defined', () => {
-  expect(Data).toBeDefined();
-});
 
 describe('Constructor', () => {
   it('can be created with schema and exampleFeatures', () => {
@@ -77,7 +72,7 @@ describe('Constructor', () => {
       }
     };
     const schema = {title: 'test', type: 'foo', properties: props};
-    const data = new Data(schema, featureCollection);
+    const data = {schema: schema, exampleFeatures: featureCollection};
     expect(data).toBeDefined();
     expect(data.schema).toBe(schema);
     expect(data.schema.properties).toBe(props);
