@@ -34,6 +34,7 @@
     "lint": "tslint --project tsconfig.json --config tslint.json"
   },
   "devDependencies": {
+    "geostyler-data": "git+https://github.com/terrestris/geostyler-data.git",
     "ts-jest": "22.4.4",
     "@types/geojson": "7946.0.2",
     "@types/jest": "22.2.3",
