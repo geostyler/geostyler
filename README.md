@@ -14,6 +14,7 @@ Generic styler for geodata. Work in progress, stay tuned...
 ### TypeScript Declaration Files
 
   - [GeoStyler Data](https://github.com/terrestris/geostyler-data)
+  - [GeoStyler Style](https://github.com/terrestris/geostyler-style)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
