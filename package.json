@@ -38,7 +38,7 @@
     "ts-jest": "22.4.4",
     "@types/geojson": "7946.0.2",
     "@types/jest": "22.2.3",
-    "@types/node": "9.6.6",
+    "@types/node": "10.0.3",
     "@types/react": "16.3.12",
     "@types/react-dom": "16.0.5",
     "react-styleguidist": "7.0.8",
