@@ -48,34 +48,38 @@ describe('DataProvider', () => {
           ]
         };
 
-      const internalData = dataProvider.importData(geojson, 'GeoJSON');
-      expect(internalData.exampleFeatures).toBe(geojson);
+      const internalDataPromise = dataProvider.importData(geojson, 'GeoJSON');
+      internalDataPromise.then((internalData) => {
 
-      const expectedSchema = {
-        'type': 'object',
-        'properties': {
-          'propString': {
-            'type': 'string'
-          },
-          'propNumber': {
-            'type': 'number',
-            'minimum': 10,
-            'maximum': 10
-          },
-          'propBoolean': {
-            'type': 'boolean'
-          },
-          'propArray': {
-            'type': 'array'
-          },
-          'anotherPropNumber': {
-            'type': 'number',
-            'minimum': 400.5,
-            'maximum': 400.5
-          },
-        }
-      };
-      expect(internalData.schema).toEqual(expectedSchema);
+        expect(internalData.exampleFeatures).toBe(geojson);
+
+        const expectedSchema = {
+          'type': 'object',
+          'properties': {
+            'propString': {
+              'type': 'string'
+            },
+            'propNumber': {
+              'type': 'number',
+              'minimum': 10,
+              'maximum': 10
+            },
+            'propBoolean': {
+              'type': 'boolean'
+            },
+            'propArray': {
+              'type': 'array'
+            },
+            'anotherPropNumber': {
+              'type': 'number',
+              'minimum': 400.5,
+              'maximum': 400.5
+            },
+          }
+        };
+        expect(internalData.schema).toEqual(expectedSchema);
+      });
+
     });
 
     it('"getMatchingParser" is defined and returns the correct parser', () => {

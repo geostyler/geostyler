@@ -33,9 +33,9 @@ class DataProvider {
     let parserInstance: DataParser;
     parserInstance = this.getMatchingParser(format);
 
-    const internalData = parserInstance.readData(inputData);
+    const internalDataPromise = parserInstance.readData(inputData);
 
-    return internalData;
+    return internalDataPromise;
   }
 
   /**

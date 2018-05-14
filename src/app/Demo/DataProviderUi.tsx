@@ -77,10 +77,12 @@ class DataProviderUi extends React.Component<any, any> {
 
     const geojson = JSON.parse(this.state.inputData);
 
-    const internalData = dataProvider.importData(geojson, 'GeoJSON');
+    const internalDataPromise = dataProvider.importData(geojson, 'GeoJSON');
 
-    this.setState({
-      internalData: JSON.stringify(internalData, null, 2)
+    internalDataPromise.then((internalData) => {
+      this.setState({
+        internalData: JSON.stringify(internalData, null, 2)
+      });
     });
 
   }
