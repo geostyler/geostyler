@@ -1,5 +1,5 @@
 
-import { Filter } from '../../Interface/Filter/Filter';
+import Filter from '../../Interface/Filter/Filter';
 import FilterUtil from './FilterUtil';
 
 describe('Negation', () => {
