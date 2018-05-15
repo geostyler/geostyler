@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import './DataProviderUi.css';
 
-import DataProvider from '../../DataProvider/DataProvider';
+import DataProvider from '../../../DataProvider/DataProvider';
 import GeoJsonDataParser from 'geostyler-geojson-parser';
 
 /**
@@ -51,7 +51,7 @@ class DataProviderUi extends React.Component<any, any> {
 
     this.state = {
       inputData: JSON.stringify(exampleGeojson, null, 2),
-      internalData: '' 
+      internalData: ''
     };
   }
 
@@ -65,7 +65,7 @@ class DataProviderUi extends React.Component<any, any> {
   }
 
   /**
-   * Transforms the input data (GeoJSON) to the intranal data structure (via DataProvider) and writes 
+   * Transforms the input data (GeoJSON) to the intranal data structure (via DataProvider) and writes
    * the output to the second textarea
    */
   processInputData(evt: any): void {
@@ -89,34 +89,34 @@ class DataProviderUi extends React.Component<any, any> {
   render() {
     return (
       <div className="data-prov-ui">
-        
+
           <h2>DataProvider Demo UI</h2>
-        
+
           <p>Paste a valid GeoJSON FeatureCollection into the first textarea and hit "Transform"</p>
 
-          <textarea 
+          <textarea
             name="input-data-ta"
             className="data-prov-ta"
             value={this.state.inputData}
             onChange={e => this.updateInputValue(e)}
           />
 
-          <div className="data-prov-select"> 
+          <div className="data-prov-select">
             <select>
               <option value="GeoJSON">GeoJSON</option>
             </select>
           </div>
 
           <div>
-            <button 
+            <button
               name="Transform"
               onClick={e => this.processInputData(e)}
             >Transform
             </button>
           </div>
 
-          <textarea 
-            name="output-data-ta" 
+          <textarea
+            name="output-data-ta"
             value={this.state.internalData}
             className="data-prov-ta"
           />

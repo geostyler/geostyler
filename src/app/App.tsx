@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 
-import DataProviderUi from './Demo/DataProviderUi';
+import DataProviderUi from './Demo/DataProvider/DataProviderUi';
 
 class App extends React.Component {
   render() {
