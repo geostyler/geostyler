@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/terrestris/geostyler#readme",
   "dependencies": {
-    "geostyler-data": "git+https://github.com/terrestris/geostyler-data.git#master",
-    "geostyler-geojson-parser": "git+https://github.com/terrestris/geostyler-geojson-parser.git#with-dist-folder",
+    "geostyler-data": "0.1.0",
+    "geostyler-geojson-parser": "0.1.4",
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-scripts-ts": "2.16.0"
