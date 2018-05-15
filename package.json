@@ -13,7 +13,7 @@
     "geostyler"
   ],
   "author": "",
-  "license": "SEE LICENSE IN LICENSE.md",
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/terrestris/geostyler/issues"
   },
@@ -31,17 +31,19 @@
     "eject": "react-scripts-ts eject",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "lint": "tslint --project tsconfig.json --config tslint.json"
+    "lint": "tslint --project tsconfig.json --config tslint.json",
+    "release": "np --no-yarn"
   },
   "devDependencies": {
-    "geostyler-data": "git+https://github.com/terrestris/geostyler-data.git",
-    "ts-jest": "22.4.6",
     "@types/geojson": "7946.0.3",
     "@types/jest": "22.2.3",
     "@types/node": "10.0.9",
     "@types/react": "16.3.12",
     "@types/react-dom": "16.0.5",
+    "geostyler-data": "git+https://github.com/terrestris/geostyler-data.git",
+    "np": "2.20.1",
     "react-styleguidist": "7.0.13",
+    "ts-jest": "22.4.6",
     "typescript": "2.8.1"
   }
 }
