@@ -1,11 +1,14 @@
 import * as React from 'react';
 
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
+const { TextArea } = Input;
 
 import GeoJsonDataParser from 'geostyler-geojson-parser';
 import DataProvider from '../../../DataProvider/DataProvider';
-import ComparisonFilter from '../../../Component/Filter/ComparisonFilter/ComparisonFilter';
+import ComparisonFilterUi from '../../../Component/Filter/ComparisonFilter/ComparisonFilterUi';
 import UploadButton from '../../../Component/UploadButton/UploadButton';
+
+import { ComparisonFilter } from 'geostyler-style';
 
 import './FilterDemoUi.css';
 
@@ -14,19 +17,22 @@ import './FilterDemoUi.css';
  */
 class FilterDemoUi extends React.Component<any, any> {
 
+  /** The GeoStyler compliant ComparisonFilter object */
+  gsFilter: ComparisonFilter;
+
   constructor(props: any) {
     super(props);
 
     this.state = {
       inputData: null,
-      internalData: null,
-      comparisonFilters: [],
-      addButtonVisible: false
+      gsData: null,
+      gsFilterString: '',
+      comparisonFilters: []
     };
   }
 
   /**
-   *
+   * Parses the uploaded / imported GeoJSON and forwards it to the DataProvider
    * @param e
    */
   parseGeoJson = (e: any) => {
@@ -68,9 +74,8 @@ class FilterDemoUi extends React.Component<any, any> {
 
     internalDataPromise.then((internalData) => {
       this.setState({
-        internalData: internalData,
-        comparisonFilters: [{id: 1}],
-        addButtonVisible: true
+        gsData: internalData,
+        comparisonFilters: [{id: 1}]
       });
     });
 
@@ -83,6 +88,22 @@ class FilterDemoUi extends React.Component<any, any> {
     const existChildUis = this.state.comparisonFilters;
     const lastId = existChildUis[existChildUis.length - 1].id;
     this.setState({comparisonFilters: this.state.comparisonFilters.concat([{id: lastId + 1}])});
+  }
+
+  /**
+   * Reacts if the underlying ComparisonFilter changes and save it as member.
+   */
+  onFilterChange = (compFilter: ComparisonFilter) => {
+    this.gsFilter = compFilter;
+  }
+
+  /**
+   * Serializes the ComparisonFilter object and stores it in the state obejct.
+   */
+  createFilter = () => {
+    this.setState({
+      gsFilterString: JSON.stringify(this.gsFilter, null, 2)
+    });
   }
 
   render() {
@@ -98,7 +119,7 @@ class FilterDemoUi extends React.Component<any, any> {
           />
 
           {
-            this.state.addButtonVisible ?
+            this.state.comparisonFilters.length > 0 ?
             <Button
               style={{'marginBottom': '20px', 'marginTop': '20px'}}
               shape="circle"
@@ -111,8 +132,36 @@ class FilterDemoUi extends React.Component<any, any> {
 
           {
             this.state.comparisonFilters.map((cmpFilterConf: any) => (
-              <ComparisonFilter key={cmpFilterConf.id} internalDataDef={this.state.internalData} />
+              <ComparisonFilterUi
+                key={cmpFilterConf.id}
+                internalDataDef={this.state.gsData}
+                onFilterChange={this.onFilterChange}
+              />
             ))
+          }
+
+          {
+            this.state.comparisonFilters.length > 0 ?
+            <Button
+              style={{'marginBottom': '20px', 'marginTop': '20px'}}
+              icon="enter"
+              size="large"
+              onClick={this.createFilter}
+            > Create Filter
+            </Button> :
+            null
+          }
+
+          {
+            this.state.comparisonFilters.length > 0 ?
+            <TextArea
+              rows={2}
+              value={this.state.gsFilterString}
+              style={{width: '99%', height: '300px', margin: '5px'}}
+              name="filter-style-ta"
+              className="filter-style-ta"
+            /> :
+            null
           }
 
       </div>
