@@ -5,6 +5,7 @@ import { Button } from 'antd';
 import GeoJsonDataParser from 'geostyler-geojson-parser';
 import DataProvider from '../../../DataProvider/DataProvider';
 import ComparisonFilter from '../../../Component/Filter/ComparisonFilter/ComparisonFilter';
+import UploadButton from '../../../Component/UploadButton/UploadButton';
 
 import './FilterDemoUi.css';
 
@@ -16,49 +17,37 @@ class FilterDemoUi extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
-    const exampleGeojson = {
-      type: 'FeatureCollection',
-        features: [
-          {
-            id: 1,
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [1, 1]
-            },
-            properties: {
-              propString: 'A feature with ID 1',
-              propNumber: 10,
-              propBoolean: true,
-              propArray: ['1111', 'Berga', 'foo'],
-              anotherPropNumber: 400.5
-            }
-          },
-          {
-            id: 2,
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [2, 2]
-            },
-            properties: {
-              propString: 'A feature with ID 2',
-              propNumber: 20,
-              propBoolean: true,
-              propArray: ['2222', 'Berga', 'foo'],
-              anotherPropNumber: 200.5
-            }
-          }
-        ]
-      };
-
     this.state = {
-      inputData: JSON.stringify(exampleGeojson, null, 2),
-      internalData: '',
-      childUis: [{id: 1}]
+      inputData: null,
+      internalData: null,
+      comparisonFilters: [],
+      addButtonVisible: false
+    };
+  }
+
+  /**
+   *
+   * @param e
+   */
+  parseGeoJson = (e: any) => {
+    var reader = new FileReader();
+    reader.readAsText(e.file);
+    reader.onload = () => {
+
+      const fileContent = reader.result;
+      const geojson = JSON.parse(fileContent);
+
+      // Show that you have to call onSuccess with `<some string>, file`
+      e.onSuccess('done', e.file);
+
+      this.setState({
+        inputData: geojson
+      });
+
+      // parse to internal data structure
+      this.processInputData();
     };
 
-    this.processInputData();
   }
 
   /**
@@ -66,19 +55,22 @@ class FilterDemoUi extends React.Component<any, any> {
    */
   processInputData(): void {
 
+    // create the DataProvider with some format parsers (only GeoJSON at the moment)
+    const format = 'GeoJSON';
     const parsers = [{
-      format: 'GeoJSON',
+      format: format,
       instance: new GeoJsonDataParser()
     }];
     const dataProvider = new DataProvider(parsers);
 
-    const geojson = JSON.parse(this.state.inputData);
-
-    const internalDataPromise = dataProvider.importData(geojson, 'GeoJSON');
+    // parse the input data
+    const internalDataPromise = dataProvider.importData(this.state.inputData, format);
 
     internalDataPromise.then((internalData) => {
       this.setState({
-        internalData: internalData
+        internalData: internalData,
+        comparisonFilters: [{id: 1}],
+        addButtonVisible: true
       });
     });
 
@@ -88,9 +80,9 @@ class FilterDemoUi extends React.Component<any, any> {
    * Adds another ComparisonFilter to this UI
    */
   addComparisonFilter = () => {
-    const existChildUis = this.state.childUis;
+    const existChildUis = this.state.comparisonFilters;
     const lastId = existChildUis[existChildUis.length - 1].id;
-    this.setState({childUis: this.state.childUis.concat([{id: lastId + 1}])});
+    this.setState({comparisonFilters: this.state.comparisonFilters.concat([{id: lastId + 1}])});
   }
 
   render() {
@@ -100,16 +92,25 @@ class FilterDemoUi extends React.Component<any, any> {
 
           <h2>Filter Demo UI</h2>
 
-          <Button
+          <UploadButton
             style={{'marginBottom': '20px'}}
-            shape="circle"
-            icon="plus"
-            size="large"
-            onClick={this.addComparisonFilter}
+            onUpload={this.parseGeoJson}
           />
 
           {
-            this.state.childUis.map((cmpFilterConf: any) => (
+            this.state.addButtonVisible ?
+            <Button
+              style={{'marginBottom': '20px', 'marginTop': '20px'}}
+              shape="circle"
+              icon="plus"
+              size="large"
+              onClick={this.addComparisonFilter}
+            /> :
+            null
+          }
+
+          {
+            this.state.comparisonFilters.map((cmpFilterConf: any) => (
               <ComparisonFilter key={cmpFilterConf.id} internalDataDef={this.state.internalData} />
             ))
           }
