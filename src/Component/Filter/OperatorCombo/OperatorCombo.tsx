@@ -9,11 +9,19 @@ const Option = Select.Option;
  */
 class OperatorCombo extends React.Component<any, any> {
 
+  // PROPS
+
+  /** TODO replace with appropriate type once it is available */
   operators: string[] = ['==', '*=', '!=', '<', '<=', '>', '>='];
-  
+
+  /** */
   label: string = 'Operator';
 
+  /** */
   placeholder: string = 'Select Operator';
+
+  /** Handler function which is bound to the 'onChange' of the underlying Select */
+  onOperatorChange: Function;
 
   constructor(props: any) {
     super(props);
@@ -41,11 +49,11 @@ class OperatorCombo extends React.Component<any, any> {
       <div className="gs-operator-combo">
 
         <FormItem label={this.label} colon={false} labelCol={{span: 7, offset: 0}}>
-          
-          <Select style={{ width: '100%' }} placeholder={this.placeholder}>
+
+          <Select style={{ width: '100%' }} onChange={this.props.onOperatorChange} placeholder={this.placeholder} >
               {options}
           </Select>
-          
+
         </FormItem>
 
       </div>

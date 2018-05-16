@@ -9,6 +9,8 @@ const Option = Select.Option;
  */
 class AttributeCombo extends React.Component<any, any> {
 
+  // PROPS
+
   /** the internal data object (definition structure) */
   internalDataDef: any;
 
@@ -18,7 +20,7 @@ class AttributeCombo extends React.Component<any, any> {
   /** placeholder shown when combobox has no selection */
   placeholder: string = 'Select Attribute';
 
-  /** Handler function which is bound to the 'onChange' of the AttributeCombo */
+  /** Handler function bound to the 'onChange' of the underlying Select */
   onAttributeChange: Function;
 
   constructor(props: any) {
