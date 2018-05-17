@@ -9,7 +9,7 @@ import NumberFilterField from '../NumberFilterField/NumberFilterField';
 
 import { ComparisonFilter } from 'geostyler-style';
 
-import './ComparisonFilterUi.css';
+import './ComparisonFilter.css';
 
 // default props
 interface DefaultComparisonFilterProps {}

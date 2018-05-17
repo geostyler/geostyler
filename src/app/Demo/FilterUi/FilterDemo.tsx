@@ -5,12 +5,12 @@ const { TextArea } = Input;
 
 import GeoJsonDataParser from 'geostyler-geojson-parser';
 import DataProvider from '../../../DataProvider/DataProvider';
-import ComparisonFilterUi from '../../../Component/Filter/ComparisonFilter/ComparisonFilterUi';
+import ComparisonFilterUi from '../../../Component/Filter/ComparisonFilter/ComparisonFilter';
 import UploadButton from '../../../Component/UploadButton/UploadButton';
 
 import { ComparisonFilter } from 'geostyler-style';
 
-import './FilterDemoUi.css';
+import './FilterDemo.css';
 
 // non default props
 interface FilterDemoProps {}
