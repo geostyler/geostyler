@@ -10,6 +10,7 @@ import NumberFilterField from '../NumberFilterField/NumberFilterField';
 import { ComparisonFilter } from 'geostyler-style';
 
 import './ComparisonFilter.css';
+import BoolFilterField from '../BoolFilterField/BoolFilterField';
 
 // default props
 interface DefaultComparisonFilterProps {}
@@ -22,6 +23,7 @@ interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
 interface ComparisonFilterState {
   textFieldVisible: boolean;
   numberFieldVisible: boolean;
+  boolFieldVisible: boolean;
   selectedAttribute: string;
 }
 
@@ -52,6 +54,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     this.state = {
       textFieldVisible: true,
       numberFieldVisible: false,
+      boolFieldVisible: false,
       selectedAttribute: ''
     };
   }
@@ -74,12 +77,20 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     if (attrType === 'string') {
       this.setState({
         textFieldVisible: true,
-        numberFieldVisible: false
+        numberFieldVisible: false,
+        boolFieldVisible: false
       });
     } else if (attrType === 'number') {
       this.setState({
         textFieldVisible: false,
-        numberFieldVisible: true
+        numberFieldVisible: true,
+        boolFieldVisible: false
+      });
+    } else if (attrType === 'boolean') {
+      this.setState({
+        textFieldVisible: false,
+        numberFieldVisible: false,
+        boolFieldVisible: true
       });
     }
 
@@ -114,7 +125,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    *
    * Stores the appropriate filter value as member.
    */
-  onValueChange = (newValue: string) => {
+  onValueChange = (newValue: string | boolean) => {
     this.value = newValue;
 
     // (re)create the ComparisonFilter object
@@ -164,6 +175,16 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                 <NumberFilterField
                   internalDataDef={this.props.internalDataDef}
                   selectedAttribute={this.state.selectedAttribute}
+                  onValueChange={this.onValueChange}
+                />
+              </Col> :
+              null
+          }
+          {
+            this.state.boolFieldVisible ?
+              <Col span={10}>
+                <BoolFilterField
+                  internalDataDef={this.props.internalDataDef}
                   onValueChange={this.onValueChange}
                 />
               </Col> :
