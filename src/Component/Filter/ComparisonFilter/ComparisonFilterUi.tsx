@@ -11,6 +11,19 @@ import { ComparisonFilter } from 'geostyler-style';
 
 import './ComparisonFilterUi.css';
 
+// default props
+interface DefaultComparisonFilterProps {}
+// non default props
+interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
+  internalDataDef: any;
+  onFilterChange: ((compFilter: ComparisonFilter) => void);
+}
+// state
+interface ComparisonFilterState {
+  textFieldVisible: boolean;
+  numberFieldVisible: boolean;
+}
+
 /**
  * UI for a ComparisonFilter consisting of
  *
@@ -18,20 +31,7 @@ import './ComparisonFilterUi.css';
  *   - A combo to select the operator
  *   - An input field for the value
  */
-class ComparisonFilterUi extends React.Component<any, any> {
-
-  // PROPS
-
-  /** the internal data object (definition structure) */
-  internalDataDef: any;
-
-  /** placeholder shown when combobox has no selection */
-  placeholder: string = 'Enter Value';
-
-  /** Handler function which is executed when the filter values (thus the filter itself) changes */
-  onFilterChange: Function;
-
-  // NON PROPS / MEMBERS
+class ComparisonFilterUi extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
 
   /** */
   attribute: string;
@@ -45,7 +45,7 @@ class ComparisonFilterUi extends React.Component<any, any> {
   /** TODO replace with appropriate type once it is available */
   value: string | number | boolean;
 
-  constructor(props: any) {
+  constructor(props: ComparisonFilterProps) {
     super(props);
 
     this.state = {

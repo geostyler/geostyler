@@ -4,30 +4,26 @@ import { Select } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 const Option = Select.Option;
 
+// default props
+interface DefaultAttributeComboProps {
+  label: string;
+  placeholder: string;
+}
+// non default props
+interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
+  internalDataDef: any;
+  onAttributeChange: ((newAttrName: string) => void);
+}
+
 /**
  * Combobox offering the attributes to be filtered on.
  */
-class AttributeCombo extends React.Component<any, any> {
+class AttributeCombo extends React.Component<AttributeComboProps, any> {
 
-  // PROPS
-
-  /** the internal data object (definition structure) */
-  internalDataDef: any;
-
-  /** label  for this combobox */
-  label: string = 'Attribute';
-
-  /** placeholder shown when combobox has no selection */
-  placeholder: string = 'Select Attribute';
-
-  /** Handler function bound to the 'onChange' of the underlying Select */
-  onAttributeChange: Function;
-
-  constructor(props: any) {
-    super(props);
-
-    this.state = {};
-  }
+  public static defaultProps: DefaultAttributeComboProps = {
+    label: 'Attribute',
+    placeholder: 'Select Attribute',
+  };
 
   render() {
     let options: Object[] = [];
@@ -61,9 +57,13 @@ class AttributeCombo extends React.Component<any, any> {
     return (
       <div className="gs-attr-combo">
 
-        <FormItem label={this.label} colon={false} labelCol={{span: 3, offset: 0}}>
+        <FormItem label={this.props.label} colon={false} labelCol={{span: 3, offset: 0}}>
 
-          <Select style={{ width: '100%' }} onChange={this.props.onAttributeChange} placeholder={this.placeholder}>
+          <Select
+            style={{ width: '100%' }}
+            onChange={this.props.onAttributeChange}
+            placeholder={this.props.placeholder}
+          >
               {options}
           </Select>
 

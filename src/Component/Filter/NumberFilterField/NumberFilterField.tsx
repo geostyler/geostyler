@@ -1,43 +1,41 @@
 import * as React from 'react';
-
 import { InputNumber } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
+
+// default props
+interface DefaultNumberFilterFieldProps {
+  label: string;
+  placeholder: string;
+}
+// non default props
+interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {
+  internalDataDef: any;
+  onValueChange: ((newValue: string) => void);
+}
 
 /**
  * Input field for a numeric filter value.
  */
-class NumberFilterField extends React.Component<any, any> {
+class NumberFilterField extends React.Component<NumberFilterFieldProps, any> {
 
-  // PROPS
-
-  /** label for this field */
-  label: string = 'Value';
-
-  /** placeholder shown when field has no value set */
-  placeholder: string = 'Enter Numeric Value';
-
-  /** Handler function which is bound to the 'onChange' of the underlying InputNumber */
-  onValueChange: Function;
-
-  constructor(props: any) {
-    super(props);
-
-    this.state = {};
-  }
+  public static defaultProps: DefaultNumberFilterFieldProps = {
+    label: 'Value',
+    placeholder: 'Enter Numeric Value',
+  };
 
   render() {
 
     return (
       <div className="gs-text-filter-fld">
 
-        <FormItem label={this.label} colon={false} labelCol={{span: 2, offset: 0}}>
+        <FormItem label={this.props.label} colon={false} labelCol={{span: 2, offset: 0}}>
 
           <InputNumber
             style={{ width: '100%' }}
             min={1}
             max={10}
             onChange={this.props.onValueChange}
-            placeholder={this.placeholder}
+            placeholder={this.props.placeholder}
           />
 
         </FormItem>

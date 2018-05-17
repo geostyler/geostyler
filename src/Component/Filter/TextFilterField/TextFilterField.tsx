@@ -3,27 +3,26 @@ import * as React from 'react';
 import { Input } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 
+// default props
+interface DefaultTextFilterFieldProps {
+  label: string;
+  placeholder: string;
+}
+// non default props
+interface TextFilterFieldProps extends Partial<DefaultTextFilterFieldProps> {
+  internalDataDef: any;
+  onValueChange: ((newValue: string) => void);
+}
+
 /**
  * Input field for a textual filter value.
  */
-class TextFilterField extends React.Component<any, any> {
+class TextFilterField extends React.Component<TextFilterFieldProps, any> {
 
-  // PROPS
-
-  /** label for this field */
-  label: string = 'Value';
-
-  /** placeholder shown when field has no value set */
-  placeholder: string = 'Enter Text Value';
-
-  /** Handler function bound to the 'onChange' of the underlying Input */
-  onValueChange: Function;
-
-  constructor(props: any) {
-    super(props);
-
-    this.state = {};
-  }
+  public static defaultProps: DefaultTextFilterFieldProps = {
+    label: 'Value',
+    placeholder: 'Enter Text Value',
+  };
 
   /**
    * Extracts the text value of the event object of 'onChange'
@@ -38,12 +37,12 @@ class TextFilterField extends React.Component<any, any> {
     return (
       <div className="gs-text-filter-fld">
 
-        <FormItem label={this.label} colon={false} labelCol={{span: 2, offset: 0}}>
+        <FormItem label={this.props.label} colon={false} labelCol={{span: 2, offset: 0}}>
 
           <Input
             style={{ width: '100%' }}
             onChange={this.valToString}
-            placeholder={this.placeholder}
+            placeholder={this.props.placeholder}
           />
 
         </FormItem>

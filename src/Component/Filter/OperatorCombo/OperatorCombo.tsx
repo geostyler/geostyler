@@ -4,30 +4,29 @@ import { Select } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 const Option = Select.Option;
 
+// default props
+interface DefaultOperatorComboProps {
+  label: string;
+  placeholder: string;
+}
+// non default props
+interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
+  internalDataDef: any;
+  onOperatorChange: ((newOperator: '==' | '*=' | '!=' | '<' | '<=' | '>' | '>=') => void);
+}
+
 /**
  * Combobox offering different filter operators.
  */
-class OperatorCombo extends React.Component<any, any> {
+class OperatorCombo extends React.Component<OperatorComboProps, any> {
 
-  // PROPS
+  public static defaultProps: DefaultOperatorComboProps = {
+    label: 'Operator',
+    placeholder: 'Select Operator',
+  };
 
   /** TODO replace with appropriate type once it is available */
   operators: string[] = ['==', '*=', '!=', '<', '<=', '>', '>='];
-
-  /** */
-  label: string = 'Operator';
-
-  /** */
-  placeholder: string = 'Select Operator';
-
-  /** Handler function which is bound to the 'onChange' of the underlying Select */
-  onOperatorChange: Function;
-
-  constructor(props: any) {
-    super(props);
-
-    this.state = {};
-  }
 
   render() {
 
@@ -48,9 +47,13 @@ class OperatorCombo extends React.Component<any, any> {
     return (
       <div className="gs-operator-combo">
 
-        <FormItem label={this.label} colon={false} labelCol={{span: 7, offset: 0}}>
+        <FormItem label={this.props.label} colon={false} labelCol={{span: 7, offset: 0}}>
 
-          <Select style={{ width: '100%' }} onChange={this.props.onOperatorChange} placeholder={this.placeholder} >
+          <Select
+            style={{ width: '100%' }}
+            onChange={this.props.onOperatorChange}
+            placeholder={this.props.placeholder}
+          >
               {options}
           </Select>
 

@@ -12,15 +12,29 @@ import { ComparisonFilter } from 'geostyler-style';
 
 import './FilterDemoUi.css';
 
+// non default props
+interface FilterDemoProps {}
+// state
+interface FilterDemoState {
+  inputData: any;
+  gsData: any;
+  gsFilterString: string;
+  comparisonFilters: CompFilterConf[];
+}
+// configuration object for ComparisonFilter UI
+interface CompFilterConf {
+  id: number;
+}
+
 /**
  * Simple Demo UI showing the DataProvider capabilities.
  */
-class FilterDemoUi extends React.Component<any, any> {
+class FilterDemoUi extends React.Component<FilterDemoProps, FilterDemoState> {
 
   /** The GeoStyler compliant ComparisonFilter object */
   gsFilter: ComparisonFilter;
 
-  constructor(props: any) {
+  constructor(props: FilterDemoProps) {
     super(props);
 
     this.state = {
