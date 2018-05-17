@@ -171,9 +171,9 @@ class FilterDemoUi extends React.Component<FilterDemoProps, FilterDemoState> {
           {
             this.state.comparisonFilters.length > 0 ?
             <TextArea
-              rows={2}
+              rows={8}
               value={this.state.gsFilterString}
-              style={{width: '99%', height: '300px', margin: '5px'}}
+              style={{width: '99%', margin: '5px'}}
               name="filter-style-ta"
               className="filter-style-ta"
             /> :

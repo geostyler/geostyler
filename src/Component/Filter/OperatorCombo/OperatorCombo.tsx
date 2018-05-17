@@ -47,7 +47,7 @@ class OperatorCombo extends React.Component<OperatorComboProps, any> {
     return (
       <div className="gs-operator-combo">
 
-        <FormItem label={this.props.label} colon={false} labelCol={{span: 7, offset: 0}}>
+        <FormItem label={this.props.label} colon={false} >
 
           <Select
             style={{ width: '100%' }}

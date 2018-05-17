@@ -28,7 +28,7 @@ class NumberFilterField extends React.Component<NumberFilterFieldProps, any> {
     return (
       <div className="gs-text-filter-fld">
 
-        <FormItem label={this.props.label} colon={false} labelCol={{span: 2, offset: 0}}>
+        <FormItem label={this.props.label} colon={false} >
 
           <InputNumber
             style={{ width: '100%' }}

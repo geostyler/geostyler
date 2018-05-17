@@ -57,7 +57,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, any> {
     return (
       <div className="gs-attr-combo">
 
-        <FormItem label={this.props.label} colon={false} labelCol={{span: 3, offset: 0}}>
+        <FormItem label={this.props.label} colon={false} >
 
           <Select
             style={{ width: '100%' }}
