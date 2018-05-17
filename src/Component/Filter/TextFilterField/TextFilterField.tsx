@@ -37,7 +37,7 @@ class TextFilterField extends React.Component<TextFilterFieldProps, any> {
     return (
       <div className="gs-text-filter-fld">
 
-        <FormItem label={this.props.label} colon={false}>
+        <FormItem label={this.props.label} colon={false} >
 
           <Input
             style={{ width: '100%' }}

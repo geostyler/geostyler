@@ -11,6 +11,7 @@ interface DefaultNumberFilterFieldProps {
 interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {
   internalDataDef: any;
   onValueChange: ((newValue: string) => void);
+  selectedAttribute: string;
 }
 
 /**
@@ -24,6 +25,10 @@ class NumberFilterField extends React.Component<NumberFilterFieldProps, any> {
   };
 
   render() {
+    // detect min and max value for the selected attribute
+    const attrDefs = this.props.internalDataDef.schema.properties;
+    const minVal = attrDefs[this.props.selectedAttribute].minimum;
+    const maxVal = attrDefs[this.props.selectedAttribute].maximum;
 
     return (
       <div className="gs-text-filter-fld">
@@ -32,8 +37,8 @@ class NumberFilterField extends React.Component<NumberFilterFieldProps, any> {
 
           <InputNumber
             style={{ width: '100%' }}
-            min={1}
-            max={10}
+            min={minVal}
+            max={maxVal}
             onChange={this.props.onValueChange}
             placeholder={this.props.placeholder}
           />

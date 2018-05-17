@@ -22,6 +22,7 @@ interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
 interface ComparisonFilterState {
   textFieldVisible: boolean;
   numberFieldVisible: boolean;
+  selectedAttribute: string;
 }
 
 /**
@@ -50,7 +51,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
 
     this.state = {
       textFieldVisible: true,
-      numberFieldVisible: false
+      numberFieldVisible: false,
+      selectedAttribute: ''
     };
   }
 
@@ -62,6 +64,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   onAttributeChange = (newAttrName: string) => {
 
     this.attribute = newAttrName;
+    this.setState({selectedAttribute: newAttrName});
 
     // read out attribute type
     const attrDefs = this.props.internalDataDef.schema.properties;
@@ -158,7 +161,11 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
           {
             this.state.numberFieldVisible ?
               <Col span={10}>
-                <NumberFilterField internalDataDef={this.props.internalDataDef} onValueChange={this.onValueChange} />
+                <NumberFilterField
+                  internalDataDef={this.props.internalDataDef}
+                  selectedAttribute={this.state.selectedAttribute}
+                  onValueChange={this.onValueChange}
+                />
               </Col> :
               null
           }
