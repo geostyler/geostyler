@@ -126,6 +126,8 @@ class FilterDemoUi extends React.Component<any, any> {
               icon="plus"
               size="large"
               onClick={this.addComparisonFilter}
+              // disabled since we cannot handle multiple filters at the moment
+              disabled={true}
             /> :
             null
           }
