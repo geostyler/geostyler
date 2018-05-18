@@ -26,6 +26,7 @@ class OperatorCombo extends React.Component<OperatorComboProps, any> {
     placeholder: 'Select Operator',
   };
 
+  /** Available filter operators shown in the combobox  */
   operators: string[] = ['==', '*=', '!=', '<', '<=', '>', '>='];
 
   render() {

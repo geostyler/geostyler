@@ -36,16 +36,16 @@ interface ComparisonFilterState {
  */
 class ComparisonFilterUi extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
 
-  /** */
+  /** The currently selected filter attribute */
   attribute: string;
 
-  /** */
+  /** The type of the currently selected filter attribute */
   attributeType: string;
 
-  /** */
+  /** The currently selected filter operator */
   operator: ComparisonOperator;
 
-  /** */
+  /** The currently entered filter value */
   value: string | number | boolean | null;
 
   constructor(props: ComparisonFilterProps) {

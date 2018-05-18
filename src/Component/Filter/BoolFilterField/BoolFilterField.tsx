@@ -15,7 +15,7 @@ interface BoolFilterFieldProps extends Partial<DefaultBoolFilterFieldProps> {
 }
 
 /**
- * Input field for a textual filter value.
+ * Checkbox field for a boolean filter value.
  */
 class BoolFilterField extends React.Component<BoolFilterFieldProps, any> {
 
