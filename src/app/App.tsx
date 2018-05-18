@@ -5,7 +5,8 @@ import 'antd/dist/antd.css';
 import './App.css';
 
 // import DataProviderUi from './Demo/DataProvider/DataProviderUi';
-import FilterDemo from './Demo/FilterUi/FilterDemo';
+// import FilterDemo from './Demo/FilterUi/FilterDemo';
+import RuleDemo from './Demo/Rule/RuleDemo';
 
 class App extends React.Component {
   render() {
@@ -15,7 +16,7 @@ class App extends React.Component {
           <h1 className="App-title">GeoStyler</h1>
         </header>
 
-        <FilterDemo />
+        <RuleDemo />
 
       </div>
     );
