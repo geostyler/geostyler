@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { ComparisonOperator } from 'geostyler-style';
 import { Select } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 const Option = Select.Option;
@@ -12,7 +13,7 @@ interface DefaultOperatorComboProps {
 // non default props
 interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
   internalDataDef: any;
-  onOperatorChange: ((newOperator: '==' | '*=' | '!=' | '<' | '<=' | '>' | '>=') => void);
+  onOperatorChange: ((newOperator: ComparisonOperator) => void);
 }
 
 /**
@@ -25,7 +26,6 @@ class OperatorCombo extends React.Component<OperatorComboProps, any> {
     placeholder: 'Select Operator',
   };
 
-  /** TODO replace with appropriate type once it is available */
   operators: string[] = ['==', '*=', '!=', '<', '<=', '>', '>='];
 
   render() {

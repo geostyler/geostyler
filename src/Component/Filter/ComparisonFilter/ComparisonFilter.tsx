@@ -7,7 +7,7 @@ import OperatorCombo from '../OperatorCombo/OperatorCombo';
 import TextFilterField from '../TextFilterField/TextFilterField';
 import NumberFilterField from '../NumberFilterField/NumberFilterField';
 
-import { ComparisonFilter } from 'geostyler-style';
+import { ComparisonFilter, ComparisonOperator } from 'geostyler-style';
 
 import './ComparisonFilter.css';
 import BoolFilterField from '../BoolFilterField/BoolFilterField';
@@ -42,11 +42,11 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   /** */
   attributeType: string;
 
-  /** TODO replace with appropriate type once it is available */
-  operator: '==' | '*=' | '!=' | '<' | '<=' | '>' | '>=';
+  /** */
+  operator: ComparisonOperator;
 
-  /** TODO replace with appropriate type once it is available */
-  value: string | number | boolean;
+  /** */
+  value: string | number | boolean | null;
 
   constructor(props: ComparisonFilterProps) {
     super(props);
@@ -110,10 +110,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    * Handler function, which is executed, when to underlying filter operator changes.
    *
    * Stores the appropriate operator as member.
-   *
-   * TODO replace arg type with appropriate TS type once it is available
    */
-  onOperatorChange = (newOperator: '==' | '*=' | '!=' | '<' | '<=' | '>' | '>=') => {
+  onOperatorChange = (newOperator: ComparisonOperator) => {
     this.operator = newOperator;
 
     // (re)create the ComparisonFilter object
