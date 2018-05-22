@@ -16,6 +16,7 @@ interface RuleProps extends Partial<DefaultRuleProps> {
   internalDataDef: any;
   // onFilterChange: ((compFilter: ComparisonFilter) => void);
   onRuleChange: ((rule: GsRule, keyIndex: number) => void);
+  onRemove: ((ruleIdx: number) => void);
 }
 
 /**
@@ -94,14 +95,6 @@ class Rule extends React.Component<RuleProps, any> {
     this.props.onRuleChange(rule, this.props.keyIndex);
   }
 
-  /**
-   * 
-   */
-  remove = () => {
-    // console.log('REMOVE ME!');
-    // TODO implement remove logic for a Rule
-  }
-
   render() {
 
     return (
@@ -152,7 +145,7 @@ class Rule extends React.Component<RuleProps, any> {
 
         <Row>
           <Col span={24} style={{ float: 'right' }} >
-            <RuleRemoveButton onClick={this.remove} />
+            <RuleRemoveButton ruleIdx={this.props.keyIndex} onClick={this.props.onRemove} />
           </Col>
         </Row>  
 

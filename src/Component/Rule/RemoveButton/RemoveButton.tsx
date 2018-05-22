@@ -7,7 +7,8 @@ interface DefaultRemoveButtonProps {
 }
 // non default props
 interface RemoveButtonProps extends Partial<DefaultRemoveButtonProps> {
-  onClick: (() => void);
+  ruleIdx: number;
+  onClick: ((ruleIdx: number) => void);
 }
 
 /**
@@ -29,7 +30,7 @@ class RemoveButton extends React.Component<RemoveButtonProps, any> {
           type="danger"
           icon="close-circle-o"
           size="large"
-          onClick={this.props.onClick}
+          onClick={() => this.props.onClick(this.props.ruleIdx)}
         > {this.props.text}
         </Button>
 

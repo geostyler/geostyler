@@ -107,17 +107,28 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
   }
 
   /**
-   * 
+   *
    */
   onRuleChange = (changedRule: Rule, keyIndex: number) => {
     // detect if we have this rule already in our store
     const existingRule = this.rules[keyIndex];
-    
+
     // add or replace the changed rule
     if (existingRule) {
       this.rules[keyIndex] = changedRule;
     } else {
       this.rules.push(changedRule);
+    }
+  }
+
+  /**
+   * Remove a rule by the given index (if it is not the last existing rule).
+   */
+  onRuleRemove = (ruleIdx: number) => {
+    // remove rule if it is not the last one
+    if (this.state.ruleUis.length > 1) {
+      this.setState({ruleUis: this.state.ruleUis.splice(ruleIdx, 1)});
+      this.rules.splice(ruleIdx, 1);
     }
   }
 
@@ -131,8 +142,8 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
     this.setState({
       gsStyleString: JSON.stringify(style, null, 2)
     });
-    
-  } 
+
+  }
 
   render() {
 
@@ -160,11 +171,12 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
 
           {
             this.state.ruleUis.map((ruleUi: any) => (
-              <RuleUi 
-                key={ruleUi.id} 
+              <RuleUi
+                key={ruleUi.id}
                 keyIndex={ruleUi.id}
-                internalDataDef={this.state.gsData} 
+                internalDataDef={this.state.gsData}
                 onRuleChange={this.onRuleChange}
+                onRemove={this.onRuleRemove}
               />
             ))
           }
