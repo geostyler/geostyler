@@ -9,6 +9,7 @@ interface DefaultScaleDenominatorProps {
 }
 // non default props
 interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
+  value: number | undefined;
   onChange: ((newMinScale: number) => void);
 }
 
@@ -29,7 +30,8 @@ class MinScaleDenominator extends React.Component<ScaleDenominatorProps, any> {
 
         <FormItem label={this.props.label} colon={false} >
 
-          <InputNumber 
+          <InputNumber
+            value={this.props.value}
             min={0} 
             placeholder={this.props.placeholder} 
             onChange={this.props.onChange} 

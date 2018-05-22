@@ -7,8 +7,7 @@ import { Data as GsData } from 'geostyler-data';
 import RuleNameField from './NameField/NameField';
 import ComparisonFilterUi from '../Filter/ComparisonFilter/ComparisonFilter';
 import RuleRemoveButton from './RemoveButton/RemoveButton';
-import MinScaleDenominator from '../ScaleDenominator/MinScaleDenominator';
-import MaxScaleDenominator from '../ScaleDenominator/MaxScaleDenominator';
+import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 
 // default props
 interface DefaultRuleProps {}
@@ -47,19 +46,11 @@ class Rule extends React.Component<RuleProps, any> {
   }
 
   /**
-   * Handles changing rule min. scale
+   * Handles changing rule min. and max. scale denominators.
    */
-  onMinScaleChange = (newMinScale: number) => {
-    this.minScale = newMinScale;
-
-    this.createGsRule();
-  }
-
-  /**
-   * Handles changing rule max. scale
-   */
-  onMaxScaleChange = (newMaxScale: number) => {
-    this.maxScale = newMaxScale;
+  onScaleDenomChange = (newScaleDenom: any) => {
+    this.minScale = newScaleDenom.minScaleDenom;
+    this.maxScale = newScaleDenom.maxScaleDenom;
 
     this.createGsRule();
   }
@@ -109,16 +100,8 @@ class Rule extends React.Component<RuleProps, any> {
 
           </Col>
 
-          <Col span={5}>
-
-            <MinScaleDenominator onChange={this.onMinScaleChange} />
-
-          </Col>
-
-          <Col span={5}>
-
-            <MaxScaleDenominator onChange={this.onMaxScaleChange} />
-
+          <Col span={10}>
+            <ScaleDenominator onChange={this.onScaleDenomChange}/>
           </Col>
 
         </Row>
