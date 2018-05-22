@@ -16,7 +16,6 @@ interface DefaultRuleProps {}
 interface RuleProps extends Partial<DefaultRuleProps> {
   keyIndex: number;
   internalDataDef: GsData | null;
-  // onFilterChange: ((compFilter: ComparisonFilter) => void);
   onRuleChange: ((rule: GsRule, keyIndex: number) => void);
   onRemove: ((ruleIdx: number) => void);
 }
@@ -75,7 +74,8 @@ class Rule extends React.Component<RuleProps, any> {
   }
 
   /**
-   * 
+   * Creates a GeoStyler compliant rule object according to the UI
+   * and pushes it to the passed in 'onRuleChange' function.
    */
   createGsRule = () => {
     const rule: GsRule = {
@@ -84,8 +84,7 @@ class Rule extends React.Component<RuleProps, any> {
         min: this.minScale,
         max: this.maxScale
       },
-      // TODO apply filter object
-      // filter: {}
+      filter: this.filter,
       // TODO apply symbolizer once we have a UI to create one
       symbolizer: {
         kind: 'Line',
@@ -112,13 +111,13 @@ class Rule extends React.Component<RuleProps, any> {
 
           <Col span={5}>
 
-            <MinScaleDenominator onChange={this.onMinScaleChange} /> 
+            <MinScaleDenominator onChange={this.onMinScaleChange} />
 
           </Col>
 
           <Col span={5}>
 
-            <MaxScaleDenominator onChange={this.onMaxScaleChange} /> 
+            <MaxScaleDenominator onChange={this.onMaxScaleChange} />
 
           </Col>
 
@@ -136,8 +135,8 @@ class Rule extends React.Component<RuleProps, any> {
 
           <Col span={12}>
 
-            <ComparisonFilterUi 
-              internalDataDef={this.props.internalDataDef} 
+            <ComparisonFilterUi
+              internalDataDef={this.props.internalDataDef}
               onFilterChange={this.onFilterChange}
             />
 
@@ -149,7 +148,7 @@ class Rule extends React.Component<RuleProps, any> {
           <Col span={24} style={{ float: 'right' }} >
             <RuleRemoveButton ruleIdx={this.props.keyIndex} onClick={this.props.onRemove} />
           </Col>
-        </Row>  
+        </Row>
 
       </div>
     );
