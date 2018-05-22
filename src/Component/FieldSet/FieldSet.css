@@ -1,0 +1,9 @@
+.gs-fieldset {
+  border: 1px solid lightgrey;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.gs-fieldset legend {
+  width: auto;
+}
