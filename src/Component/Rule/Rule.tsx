@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Row, Col } from 'antd';
-import { ComparisonFilter, Rule as GsRule } from 'geostyler-style';
+import { ComparisonFilter as GsComparisonFilter, Rule as GsRule } from 'geostyler-style';
 import { Data as GsData } from 'geostyler-data';
 
 import RuleNameField from './NameField/NameField';
@@ -31,7 +31,7 @@ class Rule extends React.Component<RuleProps, any> {
   name: string;
 
   /** The GeoStyler filter object */
-  filter: ComparisonFilter;
+  filter: GsComparisonFilter;
 
   /** The maximum scale for the rule */
   maxScale: number;
@@ -61,7 +61,7 @@ class Rule extends React.Component<RuleProps, any> {
   /**
    * Handles changing rule filter
    */
-  onFilterChange = (changedFilter: ComparisonFilter) => {
+  onFilterChange = (changedFilter: GsComparisonFilter) => {
     this.filter = changedFilter;
 
     this.createGsRule();

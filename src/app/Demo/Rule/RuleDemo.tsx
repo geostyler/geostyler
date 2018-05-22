@@ -9,7 +9,7 @@ import UploadButton from '../../../Component/UploadButton/UploadButton';
 import RuleUi from '../../../Component/Rule/Rule';
 
 import { Data as GsData } from 'geostyler-data';
-import { Style, Rule } from 'geostyler-style';
+import { Style as GsStyle, Rule as GsRule } from 'geostyler-style';
 
 import './RuleDemo.css';
 
@@ -33,10 +33,10 @@ interface FilterDemoState {
 class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
 
   /** The GeoStyler compliant ComparisonFilter object */
-  gsStyle: Style;
+  gsStyle: GsStyle;
 
   /** Array of GeoStyler compliant rules modelled by the UI */
-  rules: Rule[] = [];
+  rules: GsRule[] = [];
 
   constructor(props: FilterDemoProps) {
     super(props);
@@ -111,7 +111,7 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
   /**
    * React on a changed rule and apply it to the array with GeoStyler compliant rules.
    */
-  onRuleChange = (changedRule: Rule, keyIndex: number) => {
+  onRuleChange = (changedRule: GsRule, keyIndex: number) => {
     // detect if we have this rule already in our store
     const existingRule = this.rules[keyIndex];
 
@@ -138,7 +138,7 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
    * Create the GeoStyler compliant style object and save it in the state object (as stringified JSON).
    */
   createStyle = () => {
-    const style: Style = {
+    const style: GsStyle = {
       // TODO detect type
       type: 'Line',
       rules: this.rules
