@@ -134,11 +134,14 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    * Creates a GeoStyler ComparisonFilter object and passes it to the 'onFilterChange' function.
    */
   createGsFilter = () => {
-    const compFilter: ComparisonFilter = [
-      this.operator, this.attribute, this.value
-    ];
 
-    this.props.onFilterChange(compFilter);
+    if (this.operator && this.attribute && this.value) {
+      const compFilter: ComparisonFilter = [
+        this.operator, this.attribute, this.value
+      ];
+      this.props.onFilterChange(compFilter);
+    }
+
   }
 
   render() {
