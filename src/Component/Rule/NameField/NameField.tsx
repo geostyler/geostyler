@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Input } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 
+import './NameField.css';
+
 // default props
 interface DefaultNameFieldProps {
   label: string;
@@ -34,12 +36,12 @@ class NameField extends React.Component<NameFieldProps, any> {
   render() {
 
     return (
-      <div className="gs-rule-namefield" style={{ }} >
+      <div className="gs-rule-namefield" >
 
         <FormItem label={this.props.label} colon={false} >
 
           <Input
-            style={{ width: '100%' }}
+            className="gs-rule-namefield-input"
             onChange={this.valToString}
             placeholder={this.props.placeholder}
           />

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Button } from 'antd';
 
+import './RemoveButton.css';
+
 // default props
 interface DefaultRemoveButtonProps {
   text: string;
@@ -23,7 +25,7 @@ class RemoveButton extends React.Component<RemoveButtonProps, any> {
   render() {
 
     return (
-      <div className="gs-rule-removebutton" style={{ float: 'inherit' }} >
+      <div className="gs-rule-removebutton" >
 
         <Button
           style={{}}

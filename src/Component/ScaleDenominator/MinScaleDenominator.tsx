@@ -2,6 +2,8 @@ import * as React from 'react';
 import { InputNumber } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 
+import './MinScaleDenominator.css';
+
 // default props
 interface DefaultScaleDenominatorProps {
   label: string;
@@ -26,21 +28,17 @@ class MinScaleDenominator extends React.Component<ScaleDenominatorProps, any> {
   render() {
 
     return (
-      <div className="gs-min-scaledenominator" style={{ }} >
-
-        <FormItem label={this.props.label} colon={false} >
+        <FormItem className="gs-min-scaledenominator" label={this.props.label} colon={false} >
 
           <InputNumber
+            className="gs-min-scaledenominator-input"
             value={this.props.value}
             min={0} 
             placeholder={this.props.placeholder} 
             onChange={this.props.onChange} 
-            style={{ width: '100%' }} 
           />
 
         </FormItem>
-      
-      </div>
     );
   }
 }

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Input } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
 
+import './TitleField.css';
+
 // default props
 interface DefaultTitleFieldProps {
   label: string;
@@ -34,12 +36,12 @@ class TitleField extends React.Component<TitleFieldProps, any> {
   render() {
 
     return (
-      <div className="gs-rule-titlefield" style={{ }} >
+      <div className="gs-rule-titlefield" >
 
         <FormItem label={this.props.label} colon={false} >
 
           <Input
-            style={{ width: '100%' }}
+            className="gs-rule-titlefield-input"
             onChange={this.valToString}
             placeholder={this.props.placeholder}
           />

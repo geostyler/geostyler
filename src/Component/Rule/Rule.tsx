@@ -10,6 +10,8 @@ import RuleRemoveButton from './RemoveButton/RemoveButton';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 
+import './Rule.css';
+
 // default props
 interface DefaultRuleProps {}
 // non default props
@@ -91,7 +93,7 @@ class Rule extends React.Component<RuleProps, any> {
   render() {
 
     return (
-      <div className="gs-rule" style={{ border: '1px solid lightgrey', padding: 10, margin: 10}} >
+      <div className="gs-rule" >
 
         <Row gutter={16}>
 
