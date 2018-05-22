@@ -8,6 +8,7 @@ import RuleNameField from './NameField/NameField';
 import ComparisonFilterUi from '../Filter/ComparisonFilter/ComparisonFilter';
 import RuleRemoveButton from './RemoveButton/RemoveButton';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
+import Fieldset from '../FieldSet/FieldSet';
 
 // default props
 interface DefaultRuleProps {}
@@ -94,14 +95,18 @@ class Rule extends React.Component<RuleProps, any> {
 
         <Row gutter={16}>
 
-          <Col span={14}>
+          <Col span={12}>
 
             <RuleNameField onChange={this.onNameChange} />
 
           </Col>
 
-          <Col span={10}>
-            <ScaleDenominator onChange={this.onScaleDenomChange}/>
+          <Col span={12}>
+
+            <Fieldset title="Use Scale">
+              <ScaleDenominator onChange={this.onScaleDenomChange}/>
+            </Fieldset>
+
           </Col>
 
         </Row>
@@ -118,10 +123,12 @@ class Rule extends React.Component<RuleProps, any> {
 
           <Col span={12}>
 
-            <ComparisonFilterUi
-              internalDataDef={this.props.internalDataDef}
-              onFilterChange={this.onFilterChange}
-            />
+            <Fieldset title="Use Filter">
+              <ComparisonFilterUi
+                internalDataDef={this.props.internalDataDef}
+                onFilterChange={this.onFilterChange}
+              />
+            </Fieldset>
 
           </Col>
 
