@@ -7,6 +7,8 @@ import MaxScaleDenominator from './MaxScaleDenominator';
 interface DefaultScaleDenominatorProps {}
 // non default props
 interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
+  minScaleDenom: number | undefined;
+  maxScaleDenom: number | undefined;
   onChange: ((newScaleDenoms: ScaleDenominatorState) => void);
 }
 // state
@@ -24,8 +26,8 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
     super(props);
 
     this.state = {
-      minScaleDenom: undefined,
-      maxScaleDenom: undefined
+      minScaleDenom: this.props.minScaleDenom,
+      maxScaleDenom: this.props.maxScaleDenom
     };
   }
 

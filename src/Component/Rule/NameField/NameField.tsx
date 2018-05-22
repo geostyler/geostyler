@@ -11,6 +11,7 @@ interface DefaultNameFieldProps {
 }
 // non default props
 interface NameFieldProps extends Partial<DefaultNameFieldProps> {
+  value: string | undefined;
   onChange: ((newValue: string) => void);
 }
 
@@ -42,6 +43,7 @@ class NameField extends React.Component<NameFieldProps, any> {
 
           <Input
             className="gs-rule-namefield-input"
+            value={this.props.value}
             onChange={this.valToString}
             placeholder={this.props.placeholder}
           />

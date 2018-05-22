@@ -8,6 +8,7 @@ const Option = Select.Option;
 interface DefaultAttributeComboProps {
   label: string;
   placeholder: string;
+  value: string | undefined;
 }
 // non default props
 interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
@@ -15,15 +16,28 @@ interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
   onAttributeChange: ((newAttrName: string) => void);
 }
 
+interface AttributeComboState {
+  value: string | undefined;
+}
+
 /**
  * Combobox offering the attributes to be filtered on.
  */
-class AttributeCombo extends React.Component<AttributeComboProps, any> {
+class AttributeCombo extends React.Component<AttributeComboProps, AttributeComboState> {
 
   public static defaultProps: DefaultAttributeComboProps = {
     label: 'Attribute',
     placeholder: 'Select Attribute',
+    value: undefined
   };
+
+  constructor(props: AttributeComboProps) {
+    super(props);
+
+    this.state = {
+      value: this.props.value
+    };
+  }
 
   render() {
     let options: Object[] = [];
@@ -60,6 +74,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, any> {
         <FormItem label={this.props.label} colon={false} >
 
           <Select
+            defaultValue={this.state.value}
             style={{ width: '100%' }}
             onChange={this.props.onAttributeChange}
             placeholder={this.props.placeholder}

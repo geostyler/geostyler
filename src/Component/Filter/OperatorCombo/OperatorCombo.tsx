@@ -9,6 +9,7 @@ const Option = Select.Option;
 interface DefaultOperatorComboProps {
   label: string;
   placeholder: string;
+  value: ComparisonOperator | undefined;
 }
 // non default props
 interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
@@ -16,18 +17,31 @@ interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
   onOperatorChange: ((newOperator: ComparisonOperator) => void);
 }
 
+interface OperatorState {
+  value: ComparisonOperator | undefined;
+}
+
 /**
  * Combobox offering different filter operators.
  */
-class OperatorCombo extends React.Component<OperatorComboProps, any> {
+class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
 
   public static defaultProps: DefaultOperatorComboProps = {
     label: 'Operator',
     placeholder: 'Select Operator',
+    value: undefined
   };
 
   /** Available filter operators shown in the combobox  */
   operators: string[] = ['==', '*=', '!=', '<', '<=', '>', '>='];
+
+  constructor(props: OperatorComboProps) {
+    super(props);
+
+    this.state = {
+      value: this.props.value
+    };
+  }
 
   render() {
 
@@ -51,6 +65,7 @@ class OperatorCombo extends React.Component<OperatorComboProps, any> {
         <FormItem label={this.props.label} colon={false} >
 
           <Select
+            defaultValue={this.state.value}
             style={{ width: '100%' }}
             onChange={this.props.onOperatorChange}
             placeholder={this.props.placeholder}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Row, Col } from 'antd';
-import { ComparisonFilter as GsComparisonFilter, Rule as GsRule } from 'geostyler-style';
+import { Filter as GsFilter, ComparisonFilter as GsComparisonFilter, Rule as GsRule } from 'geostyler-style';
 import { Data as GsData } from 'geostyler-data';
 
 import RuleNameField from './NameField/NameField';
@@ -13,7 +13,9 @@ import Fieldset from '../FieldSet/FieldSet';
 import './Rule.css';
 
 // default props
-interface DefaultRuleProps {}
+interface DefaultRuleProps {
+  rule: GsRule;
+}
 // non default props
 interface RuleProps extends Partial<DefaultRuleProps> {
   keyIndex: number;
@@ -21,50 +23,67 @@ interface RuleProps extends Partial<DefaultRuleProps> {
   onRuleChange: ((rule: GsRule, keyIndex: number) => void);
   onRemove: ((ruleIdx: number) => void);
 }
+// state
+interface RuleState {
+  name: string;
+  filter: GsFilter | undefined;
+  maxScale: number | undefined;
+  minScale: number | undefined;
+}
 
 /**
  * UI container representing a Rule
  */
-class Rule extends React.Component<RuleProps, any> {
+class Rule extends React.Component<RuleProps, RuleState> {
 
-  /** The name of the rule */
-  name: string;
+  constructor(props: RuleProps) {
+    super(props);
 
-  /** The GeoStyler filter object */
-  filter: GsComparisonFilter;
+    if (this.props.rule) {
+      this.state = {
+        name: this.props.rule.name,
+        filter: this.props.rule.filter ? this.props.rule.filter : undefined,
+        maxScale: this.props.rule.scaleDenominator ? this.props.rule.scaleDenominator.max : undefined,
+        minScale: this.props.rule.scaleDenominator ? this.props.rule.scaleDenominator.min : undefined
+      };
 
-  /** The maximum scale for the rule */
-  maxScale: number;
+    } else {
+      this.state = {
+        name: '',
+        filter: undefined,
+        maxScale: undefined,
+        minScale: undefined
+      };
+    }
 
-  /** The minimum scale for the rule */
-  minScale: number;
+    this.createGsRule();
+  }
 
   /**
    * Handles changing rule name
    */
   onNameChange = (newName: string) => {
-    this.name = newName;
-
-    this.createGsRule();
+    this.setState({name: newName}, () => {
+      this.createGsRule();
+    });
   }
 
   /**
    * Handles changing rule min. and max. scale denominators.
    */
   onScaleDenomChange = (newScaleDenom: any) => {
-    this.minScale = newScaleDenom.minScaleDenom;
-    this.maxScale = newScaleDenom.maxScaleDenom;
-
-    this.createGsRule();
+    this.setState({minScale: newScaleDenom.minScaleDenom, maxScale: newScaleDenom.maxScaleDenom}, () => {
+      this.createGsRule();
+    });
   }
 
   /**
    * Handles changing rule filter
    */
   onFilterChange = (changedFilter: GsComparisonFilter) => {
-    this.filter = changedFilter;
-
-    this.createGsRule();
+    this.setState({filter: changedFilter}, () => {
+      this.createGsRule();
+    });
   }
 
   /**
@@ -73,12 +92,12 @@ class Rule extends React.Component<RuleProps, any> {
    */
   createGsRule = () => {
     const rule: GsRule = {
-      name: this.name,
+      name: this.state.name,
       scaleDenominator: {
-        min: this.minScale,
-        max: this.maxScale
+        min: this.state.minScale,
+        max: this.state.maxScale
       },
-      filter: this.filter,
+      filter: this.state.filter,
       // TODO apply symbolizer once we have a UI to create one
       symbolizer: {
         kind: 'Line',
@@ -91,6 +110,8 @@ class Rule extends React.Component<RuleProps, any> {
   }
 
   render() {
+    // cast the current filter object to pass over to ComparisonFilterUi
+    const cmpFilter = this.state.filter as GsComparisonFilter;
 
     return (
       <div className="gs-rule" >
@@ -99,14 +120,18 @@ class Rule extends React.Component<RuleProps, any> {
 
           <Col span={12}>
 
-            <RuleNameField onChange={this.onNameChange} />
+            <RuleNameField value={this.state.name} onChange={this.onNameChange} />
 
           </Col>
 
           <Col span={12}>
 
             <Fieldset title="Use Scale">
-              <ScaleDenominator onChange={this.onScaleDenomChange}/>
+              <ScaleDenominator
+                minScaleDenom={this.state.minScale}
+                maxScaleDenom={this.state.maxScale}
+                onChange={this.onScaleDenomChange}
+              />
             </Fieldset>
 
           </Col>
@@ -128,6 +153,7 @@ class Rule extends React.Component<RuleProps, any> {
             <Fieldset title="Use Filter">
               <ComparisonFilterUi
                 internalDataDef={this.props.internalDataDef}
+                filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
               />
             </Fieldset>
