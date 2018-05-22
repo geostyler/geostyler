@@ -6,7 +6,7 @@ interface DefaultPreviewProps {}
 interface PreviewProps extends Partial<DefaultPreviewProps> {}
 
 /**
- *
+ * Symbolizer preview UI.
  */
 class Preview extends React.Component<PreviewProps, any> {
 

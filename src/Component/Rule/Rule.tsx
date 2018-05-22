@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { Row, Col } from 'antd';
 import { ComparisonFilter, Rule as GsRule } from 'geostyler-style';
+import { Data as GsData } from 'geostyler-data';
+
 import RuleNameField from './NameField/NameField';
 import ComparisonFilterUi from '../Filter/ComparisonFilter/ComparisonFilter';
 import RuleRemoveButton from './RemoveButton/RemoveButton';
@@ -13,7 +15,7 @@ interface DefaultRuleProps {}
 // non default props
 interface RuleProps extends Partial<DefaultRuleProps> {
   keyIndex: number;
-  internalDataDef: any;
+  internalDataDef: GsData | null;
   // onFilterChange: ((compFilter: ComparisonFilter) => void);
   onRuleChange: ((rule: GsRule, keyIndex: number) => void);
   onRemove: ((ruleIdx: number) => void);
@@ -24,16 +26,16 @@ interface RuleProps extends Partial<DefaultRuleProps> {
  */
 class Rule extends React.Component<RuleProps, any> {
 
-  /** */
+  /** The name of the rule */
   name: string;
 
-  /** */
+  /** The GeoStyler filter object */
   filter: ComparisonFilter;
 
-  /** */
+  /** The maximum scale for the rule */
   maxScale: number;
 
-  /** */
+  /** The minimum scale for the rule */
   minScale: number;
 
   /**

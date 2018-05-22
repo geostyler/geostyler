@@ -13,7 +13,7 @@ interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
 }
 
 /**
- * Input field for a textual filter value.
+ * Input field for the minimum scale of a rule.
  */
 class MinScaleDenominator extends React.Component<ScaleDenominatorProps, any> {
 

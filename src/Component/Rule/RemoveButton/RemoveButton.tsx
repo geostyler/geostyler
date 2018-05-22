@@ -12,7 +12,7 @@ interface RemoveButtonProps extends Partial<DefaultRemoveButtonProps> {
 }
 
 /**
- * Input field for a textual filter value.
+ * Button to remove a rule.
  */
 class RemoveButton extends React.Component<RemoveButtonProps, any> {
 

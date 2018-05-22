@@ -13,7 +13,7 @@ interface TitleFieldProps extends Partial<DefaultTitleFieldProps> {
 }
 
 /**
- * Input field for a textual filter value.
+ * Input field for the rule title.
  */
 class TitleField extends React.Component<TitleFieldProps, any> {
 

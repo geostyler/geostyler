@@ -13,7 +13,7 @@ interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
 }
 
 /**
- * Input field for a textual filter value.
+ * Input field for the maximum scale of a rule.
  */
 class MaxScaleDenominator extends React.Component<ScaleDenominatorProps, any> {
 

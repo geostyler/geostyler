@@ -13,7 +13,7 @@ interface NameFieldProps extends Partial<DefaultNameFieldProps> {
 }
 
 /**
- * Input field for a textual filter value.
+ * Input field for the rule name.
  */
 class NameField extends React.Component<NameFieldProps, any> {
 

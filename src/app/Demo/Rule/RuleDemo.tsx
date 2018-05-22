@@ -8,6 +8,7 @@ import DataProvider from '../../../DataProvider/DataProvider';
 import UploadButton from '../../../Component/UploadButton/UploadButton';
 import RuleUi from '../../../Component/Rule/Rule';
 
+import { Data as GsData } from 'geostyler-data';
 import { Style, Rule } from 'geostyler-style';
 
 import './RuleDemo.css';
@@ -20,20 +21,21 @@ type RuleUiConf = {
 interface FilterDemoProps {}
 // state
 interface FilterDemoState {
-  inputData: any; // TODO set correct type
-  gsData: any;    // TODO set correct type
+  inputData: object | null;
+  gsData: GsData | null;
   gsStyleString: string;
   ruleUis: RuleUiConf[];
 }
 
 /**
- * Simple Demo UI showing the DataProvider capabilities.
+ * Simple Demo UI showing a Rule editor.
  */
 class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
 
   /** The GeoStyler compliant ComparisonFilter object */
   gsStyle: Style;
 
+  /** Array of GeoStyler compliant rules modelled by the UI */
   rules: Rule[] = [];
 
   constructor(props: FilterDemoProps) {
@@ -98,7 +100,7 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
   }
 
   /**
-   * Adds another ComparisonFilter to this UI
+   * Adds another ComparisonFilter to this UI.
    */
   addRuleUi = () => {
     const existChildUis = this.state.ruleUis;
@@ -107,7 +109,7 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
   }
 
   /**
-   *
+   * React on a changed rule and apply it to the array with GeoStyler compliant rules.
    */
   onRuleChange = (changedRule: Rule, keyIndex: number) => {
     // detect if we have this rule already in our store
@@ -132,6 +134,9 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
     }
   }
 
+  /**
+   * Create the GeoStyler compliant style object and save it in the state object (as stringified JSON).
+   */
   createStyle = () => {
     const style: Style = {
       // TODO detect type
