@@ -28,7 +28,7 @@ class TitleField extends React.Component<TitleFieldProps, any> {
    * Extracts the text value of the ChangeEvent
    * and passes it to the passed in 'onChange' handler.
    */
-  valToString = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     this.props.onChange(value);
   }
@@ -42,7 +42,7 @@ class TitleField extends React.Component<TitleFieldProps, any> {
 
           <Input
             className="gs-rule-titlefield-input"
-            onChange={this.valToString}
+            onChange={this.onChange}
             placeholder={this.props.placeholder}
           />
 

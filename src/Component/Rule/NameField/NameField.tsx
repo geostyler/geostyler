@@ -29,7 +29,7 @@ class NameField extends React.Component<NameFieldProps, any> {
    * Extracts the text value of the ChangeEvent
    * and passes it to the passed in 'onChange' handler.
    */
-  valToString = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     this.props.onChange(value);
   }
@@ -44,7 +44,7 @@ class NameField extends React.Component<NameFieldProps, any> {
           <Input
             className="gs-rule-namefield-input"
             value={this.props.value}
-            onChange={this.valToString}
+            onChange={this.onChange}
             placeholder={this.props.placeholder}
           />
 
