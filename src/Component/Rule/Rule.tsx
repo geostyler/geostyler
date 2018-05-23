@@ -1,7 +1,11 @@
 import * as React from 'react';
 
 import { Row, Col } from 'antd';
-import { Filter as GsFilter, ComparisonFilter as GsComparisonFilter, Rule as GsRule } from 'geostyler-style';
+import {
+  Filter as GsFilter,
+  ComparisonFilter as GsComparisonFilter,
+  Rule as GsRule,
+} from 'geostyler-style';
 import { Data as GsData } from 'geostyler-data';
 
 import RuleNameField from './NameField/NameField';
@@ -9,6 +13,7 @@ import ComparisonFilterUi from '../Filter/ComparisonFilter/ComparisonFilter';
 import RuleRemoveButton from './RemoveButton/RemoveButton';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
+import Preview from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
@@ -112,6 +117,8 @@ class Rule extends React.Component<RuleProps, RuleState> {
   render() {
     // cast the current filter object to pass over to ComparisonFilterUi
     const cmpFilter = this.state.filter as GsComparisonFilter;
+    // cast to GeoStyler compliant data model
+    const gsData = this.props.internalDataDef as GsData;
 
     return (
       <div className="gs-rule" >
@@ -141,11 +148,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
         <Row gutter={16}>
 
           <Col span={12}>
-
-            <div style={{margin: 10}}>
-              <img src="http://fillmurray.com/120/120" />
-            </div>
-
+            <Preview
+              symbolizer={this.state.symbolizer}
+              features={gsData.exampleFeatures}
+            />
           </Col>
 
           <Col span={12}>
