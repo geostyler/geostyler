@@ -15,6 +15,7 @@ interface DefaultPreviewProps {
   showOsmBackground: boolean;
   mapHeight: number;
   map: ol.Map | undefined;
+  layers: ol.layer.Base[] | undefined;
 }
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
@@ -43,7 +44,8 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     dataProjection: 'EPSG:4326',
     showOsmBackground: true,
     mapHeight: 200,
-    map: undefined
+    map: undefined,
+    layers: undefined
   };
 
   constructor(props: PreviewProps) {
@@ -80,7 +82,14 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       map.addLayer(osmLayer);
     }
 
-    // add features and zoom to them (when existing)
+    // add configured additional layers
+    if (this.props.layers) {
+      this.props.layers.forEach((layer) => {
+        map.addLayer(layer);
+      });
+    }
+
+    // add data features to style according to symbolizer and zoom to them (when existing)
     if (this.props.features) {
 
       const format = new ol.format.GeoJSON({
