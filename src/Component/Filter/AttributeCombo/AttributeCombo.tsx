@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { Select } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { Select, Form } from 'antd';
 const Option = Select.Option;
 
 // default props
@@ -71,7 +70,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
     return (
       <div className="gs-attr-combo">
 
-        <FormItem label={this.props.label} colon={false} >
+        <Form.Item label={this.props.label} colon={false} >
 
           <Select
             defaultValue={this.state.value}
@@ -82,7 +81,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
               {options}
           </Select>
 
-        </FormItem>
+        </Form.Item>
 
       </div>
     );
