@@ -16,6 +16,8 @@ interface DefaultPreviewProps {
   mapHeight: number;
   map: ol.Map | undefined;
   layers: ol.layer.Base[] | undefined;
+  controls: ol.control.Control[] | undefined;
+  interactions: ol.interaction.Interaction[] | undefined;
 }
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
@@ -45,7 +47,9 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     showOsmBackground: true,
     mapHeight: 200,
     map: undefined,
-    layers: undefined
+    layers: undefined,
+    controls: undefined,
+    interactions: undefined
   };
 
   constructor(props: PreviewProps) {
@@ -63,6 +67,8 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       // create a new OL map and bind it to this preview DIV
       map = new ol.Map({
         layers: [],
+        controls: [],
+        interactions: [],
         target: 'map',
         view: new ol.View({
           projection: this.props.projection
@@ -80,6 +86,20 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
         source: new ol.source.OSM()
       });
       map.addLayer(osmLayer);
+    }
+
+    // add configured OL control to map, when no map was passed in
+    if (!this.props.map && this.props.controls) {
+      this.props.controls.forEach((ctrl) => {
+        map.addControl(ctrl);
+      });
+    }
+
+    // add configured OL interaction to map, when no map was passed in
+    if (!this.props.map && this.props.interactions) {
+      this.props.interactions.forEach((iac) => {
+        map.addInteraction(iac);
+      });
     }
 
     // add configured additional layers
