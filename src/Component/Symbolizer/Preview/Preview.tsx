@@ -14,6 +14,7 @@ interface DefaultPreviewProps {
   dataProjection: string;
   showOsmBackground: boolean;
   mapHeight: number;
+  map: ol.Map | undefined;
 }
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
@@ -41,7 +42,8 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     projection: 'EPSG:3857',
     dataProjection: 'EPSG:4326',
     showOsmBackground: true,
-    mapHeight: 200
+    mapHeight: 200,
+    map: undefined
   };
 
   constructor(props: PreviewProps) {
@@ -54,17 +56,24 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
 
   public componentDidMount() {
 
-    const map = new ol.Map({
-      layers: [],
-      target: 'map',
-      view: new ol.View({
-        projection: this.props.projection,
-        center: [0, 0],
-        zoom: 1
-      })
-    });
+    let map: ol.Map;
+    if (!this.props.map) {
+      // create a new OL map and bind it to this preview DIV
+      map = new ol.Map({
+        layers: [],
+        target: 'map',
+        view: new ol.View({
+          projection: this.props.projection
+        })
+      });
+    } else {
+      // use passed in OL map and bind it to this preview DIV
+      map = this.props.map;
+      map.setTarget('map');
+    }
 
-    if (this.props.showOsmBackground) {
+    // show an OSM background layer if configured and no map was passed in
+    if (!this.props.map && this.props.showOsmBackground) {
       const osmLayer = new ol.layer.Tile({
         source: new ol.source.OSM()
       });
