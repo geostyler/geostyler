@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { InputNumber } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { InputNumber, Form } from 'antd';
 
 import './MaxScaleDenominator.css';
 
@@ -28,7 +27,7 @@ class MaxScaleDenominator extends React.Component<ScaleDenominatorProps, any> {
   render() {
 
     return (
-      <FormItem className="gs-max-scaledenominator" label={this.props.label} colon={false} >
+      <Form.Item className="gs-max-scaledenominator" label={this.props.label} colon={false} >
 
         <InputNumber
           className="gs-max-scaledenominator-input"
@@ -38,7 +37,7 @@ class MaxScaleDenominator extends React.Component<ScaleDenominatorProps, any> {
           onChange={this.props.onChange}
         />
 
-      </FormItem>
+      </Form.Item>
     );
   }
 }

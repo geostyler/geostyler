@@ -1,8 +1,7 @@
 import * as React from 'react';
 
 import { ComparisonOperator } from 'geostyler-style';
-import { Select } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { Select, Form } from 'antd';
 const Option = Select.Option;
 
 // default props
@@ -62,7 +61,7 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
     return (
       <div className="gs-operator-combo">
 
-        <FormItem label={this.props.label} colon={false} >
+        <Form.Item label={this.props.label} colon={false} >
 
           <Select
             defaultValue={this.state.value}
@@ -73,7 +72,7 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
               {options}
           </Select>
 
-        </FormItem>
+        </Form.Item>
 
       </div>
     );

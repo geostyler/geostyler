@@ -1,7 +1,12 @@
 import * as React from 'react';
 
 import { Row, Col } from 'antd';
-import { Filter as GsFilter, ComparisonFilter as GsComparisonFilter, Rule as GsRule } from 'geostyler-style';
+import {
+  Filter as GsFilter,
+  ComparisonFilter as GsComparisonFilter,
+  Rule as GsRule,
+  Symbolizer as GsSymbolizer
+} from 'geostyler-style';
 import { Data as GsData } from 'geostyler-data';
 
 import RuleNameField from './NameField/NameField';
@@ -9,6 +14,7 @@ import ComparisonFilterUi from '../Filter/ComparisonFilter/ComparisonFilter';
 import RuleRemoveButton from './RemoveButton/RemoveButton';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
+import Preview from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
@@ -29,6 +35,7 @@ interface RuleState {
   filter: GsFilter | undefined;
   maxScale: number | undefined;
   minScale: number | undefined;
+  symbolizer: GsSymbolizer;
 }
 
 /**
@@ -39,12 +46,18 @@ class Rule extends React.Component<RuleProps, RuleState> {
   constructor(props: RuleProps) {
     super(props);
 
+    const defaultSymb: GsSymbolizer = {
+      kind: 'Line'
+    };
+
     if (this.props.rule) {
+
       this.state = {
         name: this.props.rule.name,
         filter: this.props.rule.filter ? this.props.rule.filter : undefined,
         maxScale: this.props.rule.scaleDenominator ? this.props.rule.scaleDenominator.max : undefined,
-        minScale: this.props.rule.scaleDenominator ? this.props.rule.scaleDenominator.min : undefined
+        minScale: this.props.rule.scaleDenominator ? this.props.rule.scaleDenominator.min : undefined,
+        symbolizer: this.props.rule.symbolizer ? this.props.rule.symbolizer : defaultSymb
       };
 
     } else {
@@ -52,7 +65,8 @@ class Rule extends React.Component<RuleProps, RuleState> {
         name: '',
         filter: undefined,
         maxScale: undefined,
-        minScale: undefined
+        minScale: undefined,
+        symbolizer: defaultSymb
       };
     }
 
@@ -87,6 +101,15 @@ class Rule extends React.Component<RuleProps, RuleState> {
   }
 
   /**
+   * Handles changing rule symbolizer
+   */
+  onSymbolizerChange = (changedSymb: GsSymbolizer) => {
+    this.setState({symbolizer: changedSymb}, () => {
+      this.createGsRule();
+    });
+  }
+
+  /**
    * Creates a GeoStyler compliant rule object according to the UI
    * and pushes it to the passed in 'onRuleChange' function.
    */
@@ -98,12 +121,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
         max: this.state.maxScale
       },
       filter: this.state.filter,
-      // TODO apply symbolizer once we have a UI to create one
-      symbolizer: {
-        kind: 'Line',
-        color: '#000000',
-        width: 3
-      }
+      symbolizer: this.state.symbolizer
     };
 
     this.props.onRuleChange(rule, this.props.keyIndex);
@@ -112,6 +130,8 @@ class Rule extends React.Component<RuleProps, RuleState> {
   render() {
     // cast the current filter object to pass over to ComparisonFilterUi
     const cmpFilter = this.state.filter as GsComparisonFilter;
+    // cast to GeoStyler compliant data model
+    const gsData = this.props.internalDataDef as GsData;
 
     return (
       <div className="gs-rule" >
@@ -141,11 +161,11 @@ class Rule extends React.Component<RuleProps, RuleState> {
         <Row gutter={16}>
 
           <Col span={12}>
-
-            <div style={{margin: 10}}>
-              <img src="http://fillmurray.com/120/120" />
-            </div>
-
+            <Preview
+              symbolizer={this.state.symbolizer}
+              features={gsData.exampleFeatures}
+              onSymbolizerChange={this.onSymbolizerChange}
+            />
           </Col>
 
           <Col span={12}>

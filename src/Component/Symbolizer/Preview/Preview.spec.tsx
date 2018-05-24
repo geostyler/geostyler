@@ -16,3 +16,4 @@ describe('Preview', () => {
     expect(wrapper).not.toBeUndefined();
   });
 });
+
