@@ -1,0 +1,18 @@
+.gs-symbolizer-editor {
+  background-color: white;
+  border: 1px solid lightgrey;
+  padding: 5px;
+}
+
+.editor-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.editor-field > .label {
+  margin-right: 10px;
+  width: 140px;
+  text-align: right;
+}

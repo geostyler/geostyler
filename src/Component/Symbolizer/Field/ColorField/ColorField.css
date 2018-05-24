@@ -1,0 +1,8 @@
+.sketch-picker {
+  position: absolute;
+  z-index: 200;
+}
+
+.color-preview {
+  width: 90px;
+}
