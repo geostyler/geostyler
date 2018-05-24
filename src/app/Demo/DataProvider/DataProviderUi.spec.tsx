@@ -1,19 +1,18 @@
-import RuleDemo from './RuleDemo';
+import DataProviderUi from './DataProviderUi';
 import TestUtil from '../../../Util/TestUtil';
 
-describe('RuleDemo', () => {
+describe('FilterDemo', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(RuleDemo, {});
+    wrapper = TestUtil.shallowRenderComponent(DataProviderUi, {});
   });
 
   it('is defined', () => {
-    expect(RuleDemo).toBeDefined();
+    expect(DataProviderUi).toBeDefined();
   });
 
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-
 });
