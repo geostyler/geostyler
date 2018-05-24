@@ -40,12 +40,15 @@
     "release": "np --no-yarn"
   },
   "devDependencies": {
+    "@types/enzyme": "3.1.10",
     "@types/geojson": "7946.0.3",
     "@types/jest": "22.2.3",
     "@types/node": "10.1.2",
     "@types/ol": "4.6.1",
     "@types/react": "16.3.12",
     "@types/react-dom": "16.0.5",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
     "np": "2.20.1",
     "react-styleguidist": "7.0.14",
     "ts-jest": "22.4.6",
