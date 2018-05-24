@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Input } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { Input, Form } from 'antd';
 
 import './TitleField.css';
 
@@ -38,7 +37,7 @@ class TitleField extends React.Component<TitleFieldProps, any> {
     return (
       <div className="gs-rule-titlefield" >
 
-        <FormItem label={this.props.label} colon={false} >
+        <Form.Item label={this.props.label} colon={false} >
 
           <Input
             className="gs-rule-titlefield-input"
@@ -46,7 +45,7 @@ class TitleField extends React.Component<TitleFieldProps, any> {
             placeholder={this.props.placeholder}
           />
 
-        </FormItem>
+        </Form.Item>
 
       </div>
     );

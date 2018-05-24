@@ -2,7 +2,10 @@
   "name": "geostyler",
   "version": "0.1.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/terrestris/geostyler.git"
@@ -29,15 +32,16 @@
     "react-scripts-ts": "2.16.0"
   },
   "scripts": {
+    "prebuild": "rimraf dist/**",
     "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
+    "build": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
     "pretest": "npm run lint",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "lint": "tslint --project tsconfig.json --config tslint.json",
-    "release": "np --no-yarn"
+    "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags"
   },
   "devDependencies": {
     "@types/geojson": "7946.0.3",
@@ -46,8 +50,11 @@
     "@types/ol": "4.6.1",
     "@types/react": "16.3.12",
     "@types/react-dom": "16.0.5",
+    "copyfiles": "2.0.0",
+    "geostyler-data": "git+https://github.com/terrestris/geostyler-data.git",
     "np": "2.20.1",
     "react-styleguidist": "7.0.14",
+    "rimraf": "2.6.2",
     "ts-jest": "22.4.6",
     "typescript": "2.8.1"
   }

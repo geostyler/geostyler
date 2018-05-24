@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { Checkbox } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { Checkbox, Form } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
 
 // default props
@@ -52,14 +51,14 @@ class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolFilterFi
     return (
       <div className="gs-text-filter-fld">
 
-        <FormItem label={this.props.label} colon={false} >
+        <Form.Item label={this.props.label} colon={false} >
 
           <Checkbox
             checked={this.state.value}
             onChange={this.onChange}
           />
 
-        </FormItem>
+        </Form.Item>
 
       </div>
     );
