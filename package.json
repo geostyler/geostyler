@@ -54,7 +54,6 @@
     "@types/react-dom": "16.0.5",
     "canvas-prebuilt": "1.6.5-prerelease.1",
     "copyfiles": "2.0.0",
-    "geostyler-data": "git+https://github.com/terrestris/geostyler-data.git",
     "np": "2.20.1",
     "react-styleguidist": "7.0.14",
     "rimraf": "2.6.2",
