@@ -41,7 +41,7 @@
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "lint": "tslint --project tsconfig.json --config tslint.json",
-    "release": "np --no-yarn"
+    "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags"
   },
   "devDependencies": {
     "@types/geojson": "7946.0.3",
