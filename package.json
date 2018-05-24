@@ -36,11 +36,13 @@
     "start": "react-scripts-ts start",
     "build": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
     "pretest": "npm run lint",
-    "test": "react-scripts-ts test --env=jsdom",
+    "test": "CI=true react-scripts-ts test --env=jsdom",
+    "test:watch": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "lint": "tslint --project tsconfig.json --config tslint.json",
+    "prepublishOnly": "npm run build",
     "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags"
   },
   "devDependencies": {
@@ -53,6 +55,7 @@
     "@types/react-dom": "16.0.5",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
+    "canvas-prebuilt": "1.6.5-prerelease.1",
     "copyfiles": "2.0.0",
     "geostyler-data": "git+https://github.com/terrestris/geostyler-data.git",
     "np": "2.20.1",
