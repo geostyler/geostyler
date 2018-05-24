@@ -19,6 +19,7 @@ interface DefaultPreviewProps {
 interface PreviewProps extends Partial<DefaultPreviewProps> {
   features: FeatureCollection<GeometryObject>;
   symbolizer: Symbolizer;
+  onSymbolizerChange: ((changedSymb: Symbolizer) => void);
 }
 // state
 interface PreviewState {
@@ -29,6 +30,12 @@ interface PreviewState {
  * Symbolizer preview UI.
  */
 class Preview extends React.Component<PreviewProps, PreviewState> {
+
+  /** reference to the underlying OpenLayers map */
+  map: ol.Map;
+
+  /** refrence to the vector layer for the passed in features  */
+  dataLayer: ol.layer.Vector;
 
   public static defaultProps: DefaultPreviewProps = {
     projection: 'EPSG:3857',
@@ -44,9 +51,6 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       symbolizer: this.props.symbolizer
     };
   }
-
-  /** reference to the underlying OpenLayers map */
-  map: ol.Map;
 
   public componentDidMount() {
 
@@ -84,6 +88,8 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
 
       map.addLayer(vectorLayer);
 
+      this.dataLayer = vectorLayer;
+
       // zoom to feature extent
       const extent = vectorLayer.getSource().getExtent();
       map.getView().fit(extent);
@@ -91,6 +97,19 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     }
 
     this.map = map;
+  }
+
+  /**
+   * Adapts the style of the vector data in the map according to the changed symbolizer.
+   * Also passes the changed symbolizer to the parent's 'onSymbolizerChange' function.
+   */
+  onSymbolizerChange = (symb: Symbolizer) => {
+
+    if (this.dataLayer) {
+      this.dataLayer.setStyle(this.symbolizer2OlStyle(symb));
+    }
+
+    this.props.onSymbolizerChange(symb);
   }
 
   /**
