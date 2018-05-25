@@ -15,6 +15,8 @@ import 'openlayers/css/ol.css';
 import './Preview.css';
 import Editor from '../Editor/Editor';
 
+import OlStyleParser from 'geostyler-openlayers-parser';
+
 // default props
 interface DefaultPreviewProps {
   projection: string;
@@ -83,7 +85,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
 
   componentDidUpdate() {
     if (this.dataLayer) {
-      this.dataLayer.setStyle(this.symbolizer2OlStyle(this.state.symbolizer));
+      this.applySymbolizerToMapFeatures(this.state.symbolizer);
     }
   }
 
@@ -147,9 +149,10 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       const vectorLayer = new ol.layer.Vector({
         source: new ol.source.Vector({
           features: format.readFeatures(this.props.features)
-        }),
-        style: this.symbolizer2OlStyle(this.state.symbolizer)
+        })
       });
+
+      this.applySymbolizerToMapFeatures(this.state.symbolizer);
 
       map.addLayer(vectorLayer);
 
@@ -174,27 +177,31 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   /**
-   * Dummy implementation to transform the incoming symbolizer to an OpenLayers
-   * style object.
-   * Will be replaced by an appropiate GeoStyler parser (once it is ready)
+   * Transforms the incoming symbolizer to an OpenLayers style object the
+   * GeoStyler parser and applies it to the vector features on the map.
    *
-   * TODO replace parsing logic with appropriate GeoStyler parser
+   * @param {Symbolizer} symbolizer The symbolizer as holding the style to apply
    */
-  symbolizer2OlStyle = (symbolizer: Symbolizer): any => {
-    if (symbolizer.kind === 'Circle') {
-      return new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: symbolizer.radius || 4,
-          stroke: new ol.style.Stroke({
-            color: symbolizer.strokeColor || symbolizer.color,
-            width: symbolizer.strokeWidth || 1
-          }),
-          fill: new ol.style.Fill({
-            color: symbolizer.color
-          })
-        })
-      });
-    }
+  applySymbolizerToMapFeatures = (symbolizer: Symbolizer): any => {
+
+    const styleParser = new OlStyleParser();
+
+    // we have to wrap the symbolizer in a Style object since the writeStyle
+    // only accepts a Style object
+    const style = {
+      name: 'WrapperStyle4Symbolizer',
+      rules: [{
+        symbolizer: symbolizer
+      }]
+    };
+
+    // parser style to OL style
+    styleParser.writeStyle(style)
+      .then((olStyles: ol.style.Style[]) => {
+        // apply new OL style to vector layer
+        this.dataLayer.setStyle(olStyles[0]);
+        return olStyles[0];
+    });
   }
 
   render() {
