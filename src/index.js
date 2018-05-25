@@ -12,6 +12,11 @@ import Rule from './Component/Rule/Rule';
 import MaxScaleDenominator from './Component/ScaleDenominator/MaxScaleDenominator';
 import MinScaleDenominator from './Component/ScaleDenominator/MinScaleDenominator';
 import Preview from './Component/Symbolizer/Preview/Preview';
+import Editor from './Component/Symbolizer/Editor/Editor';
+import ColorField from './Component/Symbolizer/Field/ColorField/ColorField';
+import OpacityField from './Component/Symbolizer/Field/OpacityField/OpacityField';
+import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
+import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
 import UploadButton from './Component/UploadButton/UploadButton'
 
 export {
@@ -29,5 +34,10 @@ export {
   MaxScaleDenominator,
   MinScaleDenominator,
   Preview,
+  Editor,
+  ColorField,
+  OpacityField,
+  RadiusField,
+  WidthField,
   UploadButton
 };
