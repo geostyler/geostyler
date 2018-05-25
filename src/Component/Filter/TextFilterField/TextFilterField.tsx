@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { Input } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { Input, Form } from 'antd';
 
 // default props
 interface DefaultTextFilterFieldProps {
@@ -53,7 +52,7 @@ class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFi
     return (
       <div className="gs-text-filter-fld">
 
-        <FormItem label={this.props.label} colon={false} >
+        <Form.Item label={this.props.label} colon={false} >
 
           <Input
             value={this.state.value}
@@ -62,7 +61,7 @@ class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFi
             placeholder={this.props.placeholder}
           />
 
-        </FormItem>
+        </Form.Item>
 
       </div>
     );

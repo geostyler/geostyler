@@ -1,15 +1,15 @@
-import Preview from './Preview';
+import FilterDemo from './FilterDemo';
 import TestUtil from '../../../Util/TestUtil';
 
-describe('Preview', () => {
+describe('FilterDemo', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(Preview, {});
+    wrapper = TestUtil.shallowRenderComponent(FilterDemo, {});
   });
 
   it('is defined', () => {
-    expect(Preview).toBeDefined();
+    expect(FilterDemo).toBeDefined();
   });
 
   it('renders correctly', () => {

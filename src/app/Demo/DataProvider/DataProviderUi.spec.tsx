@@ -1,15 +1,15 @@
-import Preview from './Preview';
+import DataProviderUi from './DataProviderUi';
 import TestUtil from '../../../Util/TestUtil';
 
-describe('Preview', () => {
+describe('FilterDemo', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(Preview, {});
+    wrapper = TestUtil.shallowRenderComponent(DataProviderUi, {});
   });
 
   it('is defined', () => {
-    expect(Preview).toBeDefined();
+    expect(DataProviderUi).toBeDefined();
   });
 
   it('renders correctly', () => {

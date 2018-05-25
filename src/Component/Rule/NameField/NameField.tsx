@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Input } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { Input, Form } from 'antd';
 
 import './NameField.css';
 
@@ -39,7 +38,7 @@ class NameField extends React.Component<NameFieldProps, any> {
     return (
       <div className="gs-rule-namefield" >
 
-        <FormItem label={this.props.label} colon={false} >
+        <Form.Item label={this.props.label} colon={false} >
 
           <Input
             className="gs-rule-namefield-input"
@@ -48,7 +47,7 @@ class NameField extends React.Component<NameFieldProps, any> {
             placeholder={this.props.placeholder}
           />
 
-        </FormItem>
+        </Form.Item>
 
       </div>
     );

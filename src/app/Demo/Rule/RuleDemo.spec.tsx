@@ -1,18 +1,19 @@
-import Preview from './Preview';
+import RuleDemo from './RuleDemo';
 import TestUtil from '../../../Util/TestUtil';
 
-describe('Preview', () => {
+describe('RuleDemo', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(Preview, {});
+    wrapper = TestUtil.shallowRenderComponent(RuleDemo, {});
   });
 
   it('is defined', () => {
-    expect(Preview).toBeDefined();
+    expect(RuleDemo).toBeDefined();
   });
 
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
+
 });
