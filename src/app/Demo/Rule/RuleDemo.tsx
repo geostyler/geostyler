@@ -154,14 +154,11 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
 
     return (
       <div className="filter-demo-ui">
-
           <h2>Rule Demo</h2>
-
           <UploadButton
             style={{'marginBottom': '20px'}}
             onUpload={this.parseGeoJson}
           />
-
           {
             this.state.ruleUis.length > 0 ?
             <Button
@@ -173,7 +170,6 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
             /> :
             null
           }
-
           {
             this.state.ruleUis.map((ruleUi: any) => (
               <RuleUi
@@ -185,11 +181,14 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
               />
             ))
           }
-
           {
             this.state.ruleUis.length > 0 ?
             <Button
-              style={{'marginBottom': '20px', 'marginTop': '20px'}}
+              style={{
+                marginBottom: '20px',
+                marginTop: '20px',
+                position: 'inherit'
+              }}
               icon="enter"
               size="large"
               onClick={this.createStyle}
@@ -197,19 +196,21 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
             </Button> :
             null
           }
-
           {
             this.state.ruleUis.length > 0 ?
             <TextArea
               rows={16}
               value={this.state.gsStyleString}
-              style={{width: '99%', margin: '5px'}}
+              style={{
+                width: '99%',
+                margin: '5px',
+                position: 'inherit'
+              }}
               name="filter-style-ta"
               className="filter-style-ta"
             /> :
             null
           }
-
       </div>
     );
   }
