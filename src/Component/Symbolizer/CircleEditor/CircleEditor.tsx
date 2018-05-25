@@ -11,7 +11,14 @@ import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
 
 // default props
-interface DefaultCircleEditorProps {}
+interface DefaultCircleEditorProps {
+  radiusLabel: string;
+  fillOpacityLabel: string;
+  fillColorLabel: string;
+  strokeColorLabel: string;
+  strokeWidthLabel: string;
+  strokeOpacityLabel: string;
+}
 
 // non default props
 interface CircleEditorProps extends Partial<DefaultCircleEditorProps> {
@@ -19,22 +26,16 @@ interface CircleEditorProps extends Partial<DefaultCircleEditorProps> {
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
 }
 
-// state
-interface CircleEditorState {
-  symbolizer: CircleSymbolizer;
-}
-
-class CircleEditor extends React.Component<CircleEditorProps, CircleEditorState> {
+class CircleEditor extends React.Component<CircleEditorProps, {}> {
 
   public static defaultProps: DefaultCircleEditorProps = {
+    radiusLabel: 'Radius',
+    fillOpacityLabel: 'Fill-Opacity',
+    fillColorLabel: 'Fill-Color',
+    strokeColorLabel: 'Stroke-Color',
+    strokeWidthLabel: 'Stroke-Width',
+    strokeOpacityLabel: 'Stroke-Opacity'
   };
-
-  static getDerivedStateFromProps(nextProps: CircleEditorProps, prevState: CircleEditorState): CircleEditorState {
-    return {
-      symbolizer: nextProps.symbolizer,
-      ...prevState
-    };
-  }
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
@@ -42,21 +43,28 @@ class CircleEditor extends React.Component<CircleEditorProps, CircleEditorState>
 
   render() {
     const {
-      symbolizer
-    } = this.state;
+      symbolizer,
+      radiusLabel,
+      fillOpacityLabel,
+      fillColorLabel,
+      strokeColorLabel,
+      strokeWidthLabel,
+      strokeOpacityLabel
+    } = this.props;
 
     const {
-    radius,
-    opacity,
-    color,
-    strokeOpacity,
-    strokeColor,
-    strokeWidth
-    } = this.props.symbolizer;
+      radius,
+      opacity,
+      color,
+      strokeOpacity,
+      strokeColor,
+      strokeWidth
+    } = symbolizer;
 
     return (
       <div className="gs-circle-symbolizer-editor" >
         <RadiusField
+          label={radiusLabel}
           radius={radius}
           onChange={(value: number) => {
             symbolizer.radius = value;
@@ -65,7 +73,7 @@ class CircleEditor extends React.Component<CircleEditorProps, CircleEditorState>
         />
         <ColorField
           color={color}
-          label="Fill-Color"
+          label={fillColorLabel}
           onChange={(value: string) => {
             symbolizer.color = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -73,7 +81,7 @@ class CircleEditor extends React.Component<CircleEditorProps, CircleEditorState>
         />
         <OpacityField
           opacity={opacity}
-          label="Fill-Opacity"
+          label={fillOpacityLabel}
           onChange={(value: number) => {
             symbolizer.opacity = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -81,7 +89,7 @@ class CircleEditor extends React.Component<CircleEditorProps, CircleEditorState>
         />
         <ColorField
           color={strokeColor}
-          label="Stroke-Color"
+          label={strokeColorLabel}
           onChange={(value: string) => {
             symbolizer.strokeColor = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -89,7 +97,7 @@ class CircleEditor extends React.Component<CircleEditorProps, CircleEditorState>
         />
         <WidthField
           width={strokeWidth}
-          label="Stroke-Width"
+          label={strokeWidthLabel}
           onChange={(value: number) => {
             symbolizer.strokeWidth = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -97,7 +105,7 @@ class CircleEditor extends React.Component<CircleEditorProps, CircleEditorState>
         />
         <OpacityField
           opacity={strokeOpacity}
-          label="Stroke-Opacity"
+          label={strokeOpacityLabel}
           onChange={(value: number) => {
             symbolizer.strokeOpacity = value;
             this.props.onSymbolizerChange(symbolizer);
