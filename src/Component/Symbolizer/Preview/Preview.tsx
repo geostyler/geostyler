@@ -5,8 +5,15 @@ import * as ol from 'openlayers';
 import { FeatureCollection, GeometryObject } from 'geojson';
 import { Symbolizer } from 'geostyler-style';
 
+import './Preview.css';
+
+import {
+  Button
+} from 'antd';
+
 import 'openlayers/css/ol.css';
 import './Preview.css';
+import Editor from '../Editor/Editor';
 
 // default props
 interface DefaultPreviewProps {
@@ -18,16 +25,21 @@ interface DefaultPreviewProps {
   layers: ol.layer.Base[] | undefined;
   controls: ol.control.Control[] | undefined;
   interactions: ol.interaction.Interaction[] | undefined;
+  openEditorText: string;
+  closeEditorText: string;
 }
+
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
   features: FeatureCollection<GeometryObject>;
   symbolizer: Symbolizer;
-  onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  onSymbolizerChange: (symbolizer: Symbolizer) => void;
 }
+
 // state
 interface PreviewState {
   symbolizer: Symbolizer;
+  editorVisible: boolean;
 }
 
 /**
@@ -49,15 +61,30 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     map: undefined,
     layers: undefined,
     controls: undefined,
-    interactions: undefined
+    interactions: undefined,
+    openEditorText: 'Edit Symbolizer',
+    closeEditorText: 'Close Editor'
   };
 
-  constructor(props: PreviewProps) {
+  constructor(props: any) {
     super(props);
-
     this.state = {
-      symbolizer: this.props.symbolizer
+      editorVisible: false,
+      symbolizer: props.symbolizer
     };
+  }
+
+  static getDerivedStateFromProps(nextProps: PreviewProps, prevState: PreviewState): PreviewState {
+    return {
+      symbolizer: nextProps.symbolizer,
+      ...prevState
+    };
+  }
+
+  componentDidUpdate() {
+    if (this.dataLayer) {
+      this.dataLayer.setStyle(this.symbolizer2OlStyle(this.state.symbolizer));
+    }
   }
 
   public componentDidMount() {
@@ -138,16 +165,12 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   /**
-   * Adapts the style of the vector data in the map according to the changed symbolizer.
-   * Also passes the changed symbolizer to the parent's 'onSymbolizerChange' function.
+   *
    */
-  onSymbolizerChange = (symb: Symbolizer) => {
-
-    if (this.dataLayer) {
-      this.dataLayer.setStyle(this.symbolizer2OlStyle(symb));
-    }
-
-    this.props.onSymbolizerChange(symb);
+  onEditButtonClicked = () => {
+    this.setState({
+      editorVisible: !this.state.editorVisible
+    });
   }
 
   /**
@@ -175,10 +198,32 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   render() {
+    const {
+      mapHeight,
+      symbolizer,
+      openEditorText,
+      closeEditorText,
+      onSymbolizerChange
+    } = this.props;
 
     return (
       <div className="gs-symbolizer-preview" >
-        <div id="map" className="map" style={{ height: this.props.mapHeight }} />
+        <div id="map" className="map" style={{ height: mapHeight }}>
+          <Button
+            className="gs-edit-preview-button"
+            icon="edit"
+            onClick={this.onEditButtonClicked}
+          >
+            {this.state.editorVisible ? closeEditorText : openEditorText}
+          </Button>
+          {
+            this.state.editorVisible ?
+            <Editor
+              symbolizer={symbolizer}
+              onSymbolizerChange={onSymbolizerChange}
+            /> : null
+          }
+        </div>
       </div>
     );
   }

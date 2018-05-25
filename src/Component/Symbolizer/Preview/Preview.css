@@ -6,3 +6,10 @@
 .gs-symbolizer-preview .map {
   border: 1px solid lightgrey;
 }
+
+.gs-edit-preview-button {
+  position: absolute;
+  right: 10px;
+  bottom: 2px;
+  z-index: 1;
+}
