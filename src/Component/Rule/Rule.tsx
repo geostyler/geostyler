@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import {
   Filter as GsFilter,
   ComparisonFilter as GsComparisonFilter,
@@ -11,7 +11,7 @@ import { Data as GsData } from 'geostyler-data';
 
 import RuleNameField from './NameField/NameField';
 import ComparisonFilterUi from '../Filter/ComparisonFilter/ComparisonFilter';
-import RuleRemoveButton from './RemoveButton/RemoveButton';
+// import RuleRemoveButton from './RemoveButton/RemoveButton';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import Preview from '../Symbolizer/Preview/Preview';
@@ -22,13 +22,14 @@ import './Rule.css';
 interface DefaultRuleProps {
   rule: GsRule;
 }
+
 // non default props
 interface RuleProps extends Partial<DefaultRuleProps> {
-  keyIndex: number;
-  internalDataDef: GsData | null;
-  onRuleChange: ((rule: GsRule, keyIndex: number) => void);
-  onRemove: ((ruleIdx: number) => void);
+  internalDataDef?: GsData | null;
+  onRuleChange?: (rule: GsRule) => void;
+  onRemove?: (rule: GsRule) => void;
 }
+
 // state
 interface RuleState {
   name: string;
@@ -43,6 +44,15 @@ interface RuleState {
  * UI container representing a Rule
  */
 class Rule extends React.Component<RuleProps, RuleState> {
+
+  public static defaultProps: DefaultRuleProps = {
+    rule: {
+      name: 'My Style',
+      symbolizer: {
+        kind: 'Circle'
+      }
+    }
+  };
 
   constructor(props: RuleProps) {
     super(props);
@@ -131,10 +141,18 @@ class Rule extends React.Component<RuleProps, RuleState> {
       symbolizer: this.state.symbolizer
     };
 
-    this.props.onRuleChange(rule, this.props.keyIndex);
+    if (this.props.onRuleChange) {
+      this.props.onRuleChange(rule);
+    }
   }
 
   render() {
+    const {
+      internalDataDef,
+      rule,
+      onRemove
+    } = this.props;
+
     const {
       filter,
       name,
@@ -147,7 +165,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
     const cmpFilter = filter as GsComparisonFilter;
 
     // cast to GeoStyler compliant data model
-    const gsData = this.props.internalDataDef as GsData;
+    const gsData = internalDataDef as GsData;
 
     return (
       <div className="gs-rule" >
@@ -169,14 +187,14 @@ class Rule extends React.Component<RuleProps, RuleState> {
           <Col span={12}>
             <Preview
               symbolizer={symbolizer}
-              features={gsData.exampleFeatures}
+              features={gsData ? gsData.exampleFeatures : undefined}
               onSymbolizerChange={this.onSymbolizerChange}
             />
           </Col>
           <Col span={12}>
             <Fieldset title="Use Filter">
               <ComparisonFilterUi
-                internalDataDef={this.props.internalDataDef}
+                internalDataDef={internalDataDef}
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
               />
@@ -185,7 +203,19 @@ class Rule extends React.Component<RuleProps, RuleState> {
         </Row>
         <Row>
           <Col span={24} style={{ float: 'right' }} >
-            <RuleRemoveButton ruleIdx={this.props.keyIndex} onClick={this.props.onRemove} />
+            <Button
+              style={{}}
+              type="danger"
+              icon="close-circle-o"
+              size="large"
+              onClick={() => {
+                if (onRemove && rule) {
+                  onRemove(rule);
+                }
+              }}
+            >
+              Remove Text
+            </Button>
           </Col>
         </Row>
       </div>

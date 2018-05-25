@@ -33,7 +33,7 @@ interface DefaultPreviewProps {
 
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
-  features: FeatureCollection<GeometryObject>;
+  features?: FeatureCollection<GeometryObject>;
   symbolizer: Symbolizer;
   onSymbolizerChange: (symbolizer: Symbolizer) => void;
 }
@@ -90,7 +90,6 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   public componentDidMount() {
-
     let map: ol.Map;
     if (!this.props.map) {
       // create a new OL map and bind it to this preview DIV
@@ -140,7 +139,6 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
 
     // add data features to style according to symbolizer and zoom to them (when existing)
     if (this.props.features) {
-
       const format = new ol.format.GeoJSON({
         defaultDataProjection: this.props.dataProjection,
         featureProjection: map.getView().getProjection()
@@ -161,7 +159,6 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       // zoom to feature extent
       const extent = vectorLayer.getSource().getExtent();
       map.getView().fit(extent);
-
     }
 
     this.map = map;

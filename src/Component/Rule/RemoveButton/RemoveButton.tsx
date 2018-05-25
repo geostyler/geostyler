@@ -26,7 +26,6 @@ class RemoveButton extends React.Component<RemoveButtonProps, any> {
 
     return (
       <div className="gs-rule-removebutton" >
-
         <Button
           style={{}}
           type="danger"
