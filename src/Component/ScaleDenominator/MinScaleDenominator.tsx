@@ -10,7 +10,7 @@ interface DefaultScaleDenominatorProps {
 }
 // non default props
 interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
-  value: number | undefined;
+  value: number;
   onChange: ((newMinScale: number) => void);
 }
 

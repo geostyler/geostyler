@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Row, Col, Button } from 'antd';
 import {
-  Filter as GsFilter,
+  // Filter as GsFilter,
   ComparisonFilter as GsComparisonFilter,
   Rule as GsRule,
   Symbolizer as GsSymbolizer
@@ -32,11 +32,7 @@ interface RuleProps extends Partial<DefaultRuleProps> {
 
 // state
 interface RuleState {
-  name: string;
-  filter: GsFilter | undefined;
-  maxScale: number | undefined;
-  minScale: number | undefined;
-  symbolizer: GsSymbolizer;
+  rule: GsRule;
   symbolizerEditorVisible: boolean;
 }
 
@@ -54,70 +50,47 @@ class Rule extends React.Component<RuleProps, RuleState> {
     }
   };
 
-  constructor(props: RuleProps) {
-    super(props);
-
-    const defaultSymb: GsSymbolizer = {
-      kind: 'Circle'
+  static getDerivedStateFromProps(nextProps: RuleProps, prevState: RuleState): RuleState {
+    return {
+      rule: nextProps.rule || Rule.defaultProps.rule,
+      symbolizerEditorVisible: false
     };
-
-    if (this.props.rule) {
-      this.state = {
-        name: this.props.rule.name,
-        filter: this.props.rule.filter ? this.props.rule.filter : undefined,
-        maxScale: this.props.rule.scaleDenominator ? this.props.rule.scaleDenominator.max : undefined,
-        minScale: this.props.rule.scaleDenominator ? this.props.rule.scaleDenominator.min : undefined,
-        symbolizer: this.props.rule.symbolizer ? this.props.rule.symbolizer : defaultSymb,
-        symbolizerEditorVisible: false
-      };
-    } else {
-      this.state = {
-        name: '',
-        filter: undefined,
-        maxScale: undefined,
-        minScale: undefined,
-        symbolizer: defaultSymb,
-        symbolizerEditorVisible: false
-      };
-    }
-
-    this.createGsRule();
   }
 
   /**
    * Handles changing rule name
    */
-  onNameChange = (newName: string) => {
-    this.setState({name: newName}, () => {
-      this.createGsRule();
-    });
+  onNameChange = (name: string) => {
+    const rule = this.state.rule;
+    rule.name = name;
+    this.setState({rule});
   }
 
   /**
-   * Handles changing rule min. and max. scale denominators.
+   * Handles changing rule name
    */
-  onScaleDenomChange = (newScaleDenom: any) => {
-    this.setState({minScale: newScaleDenom.minScaleDenom, maxScale: newScaleDenom.maxScaleDenom}, () => {
-      this.createGsRule();
-    });
+  onScaleDenominatorChange = (scaleDenominator: any) => {
+    const rule = this.state.rule;
+    rule.scaleDenominator = scaleDenominator;
+    this.setState({rule});
   }
 
   /**
    * Handles changing rule filter
    */
-  onFilterChange = (changedFilter: GsComparisonFilter) => {
-    this.setState({filter: changedFilter}, () => {
-      this.createGsRule();
-    });
+  onFilterChange = (filter: GsComparisonFilter) => {
+    const rule = this.state.rule;
+    rule.filter = filter;
+    this.setState({rule});
   }
 
   /**
    * Handles changing rule symbolizer
    */
   onSymbolizerChange = (symbolizer: GsSymbolizer) => {
-    this.setState({symbolizer}, () => {
-      this.createGsRule();
-    });
+    const rule = this.state.rule;
+    rule.symbolizer = symbolizer;
+    this.setState({rule});
   }
 
   onEditPreviewButtonClicked = () => {
@@ -126,43 +99,18 @@ class Rule extends React.Component<RuleProps, RuleState> {
     });
   }
 
-  /**
-   * Creates a GeoStyler compliant rule object according to the UI
-   * and pushes it to the passed in 'onRuleChange' function.
-   */
-  createGsRule = () => {
-    const rule: GsRule = {
-      name: this.state.name,
-      scaleDenominator: {
-        min: this.state.minScale,
-        max: this.state.maxScale
-      },
-      filter: this.state.filter,
-      symbolizer: this.state.symbolizer
-    };
-
-    if (this.props.onRuleChange) {
-      this.props.onRuleChange(rule);
-    }
-  }
-
   render() {
     const {
       internalDataDef,
-      rule,
       onRemove
     } = this.props;
 
     const {
-      filter,
-      name,
-      minScale,
-      maxScale,
-      symbolizer
+      rule
     } = this.state;
 
     // cast the current filter object to pass over to ComparisonFilterUi
-    const cmpFilter = filter as GsComparisonFilter;
+    const cmpFilter = rule.filter as GsComparisonFilter;
 
     // cast to GeoStyler compliant data model
     const gsData = internalDataDef as GsData;
@@ -176,9 +124,8 @@ class Rule extends React.Component<RuleProps, RuleState> {
           <Col span={12}>
             <Fieldset title="Use Scale">
               <ScaleDenominator
-                minScaleDenom={minScale}
-                maxScaleDenom={maxScale}
-                onChange={this.onScaleDenomChange}
+                scaleDenominator={rule.scaleDenominator}
+                onChange={this.onScaleDenominatorChange}
               />
             </Fieldset>
           </Col>
@@ -186,7 +133,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
         <Row gutter={16}>
           <Col span={12}>
             <Preview
-              symbolizer={symbolizer}
+              symbolizer={rule.symbolizer}
               features={gsData ? gsData.exampleFeatures : undefined}
               onSymbolizerChange={this.onSymbolizerChange}
             />

@@ -3,18 +3,25 @@ import { Row, Col } from 'antd';
 import MinScaleDenominator from './MinScaleDenominator';
 import MaxScaleDenominator from './MaxScaleDenominator';
 
+import {
+  get as _get
+} from 'lodash';
+
+import {
+  ScaleDenominator as GsScaleDenominator
+} from 'geostyler-style';
+
 // default props
-interface DefaultScaleDenominatorProps {}
+interface DefaultScaleDenominatorProps {
+}
 // non default props
 interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
-  minScaleDenom: number | undefined;
-  maxScaleDenom: number | undefined;
+  scaleDenominator?: GsScaleDenominator;
   onChange: ((newScaleDenoms: ScaleDenominatorState) => void);
 }
 // state
 interface ScaleDenominatorState {
-  minScaleDenom: number | undefined;
-  maxScaleDenom: number | undefined;
+  scaleDenominator?: GsScaleDenominator;
 }
 
 /**
@@ -22,44 +29,54 @@ interface ScaleDenominatorState {
  */
 class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenominatorState> {
 
-  constructor(props: ScaleDenominatorProps) {
-    super(props);
-
-    this.state = {
-      minScaleDenom: this.props.minScaleDenom,
-      maxScaleDenom: this.props.maxScaleDenom
+  static getDerivedStateFromProps(
+      nextProps: ScaleDenominatorProps,
+      prevState: ScaleDenominatorState): ScaleDenominatorState {
+    return {
+      scaleDenominator: nextProps.scaleDenominator
     };
   }
 
   /**
    * Reacts on changing min scale and pushes the current state to the 'onChange' function
    */
-  onMinScaleDenomChange = (newMinScaleDenom: number) => {
-    this.setState({minScaleDenom: newMinScaleDenom}, () => {
-      this.props.onChange(this.state);
-    });
+  onMinScaleDenomChange = (minScaleDenominator: number) => {
+    let scaleDenominator = this.state.scaleDenominator;
+    if (!scaleDenominator) {
+      scaleDenominator = {};
+    }
+    scaleDenominator.min = minScaleDenominator;
+    this.setState({scaleDenominator});
   }
 
   /**
    * Reacts on changing max scale and pushes the current state to the 'onChange' function
    */
-  onMaxScaleDenomChange = (newMaxScaleDenom: number) => {
-    this.setState({maxScaleDenom: newMaxScaleDenom}, () => {
-      this.props.onChange(this.state);
-    });
+  onMaxScaleDenomChange = (maxScaleDenominator: number) => {
+    let scaleDenominator = this.state.scaleDenominator;
+    if (!scaleDenominator) {
+      scaleDenominator = {};
+    }
+    scaleDenominator.max = maxScaleDenominator;
+    this.setState({scaleDenominator});
   }
 
   render() {
 
     return (
       <div className="gs-max-scaledenominator">
-
         <Row gutter={16} >
           <Col span={12}>
-            <MinScaleDenominator value={this.state.minScaleDenom} onChange={this.onMinScaleDenomChange} />
+            <MinScaleDenominator
+              value={_get(this.state, 'scaleDenominator.min')}
+              onChange={this.onMinScaleDenomChange}
+            />
           </Col>
           <Col span={12}>
-            <MaxScaleDenominator value={this.state.maxScaleDenom} onChange={this.onMaxScaleDenomChange} />
+            <MaxScaleDenominator
+              value={_get(this.state, 'scaleDenominator.max')}
+              onChange={this.onMaxScaleDenomChange}
+            />
           </Col>
         </Row>
       </div>
