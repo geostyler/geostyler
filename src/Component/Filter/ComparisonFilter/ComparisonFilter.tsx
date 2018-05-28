@@ -12,13 +12,17 @@ import { ComparisonFilter, ComparisonOperator } from 'geostyler-style';
 import './ComparisonFilter.css';
 import BoolFilterField from '../BoolFilterField/BoolFilterField';
 
+import {
+  Data as GsData
+} from 'geostyler-data';
+
 // default props
 interface DefaultComparisonFilterProps {
   filter: ComparisonFilter;
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
-  internalDataDef: any;
+  internalDataDef: GsData;
   onFilterChange: ((compFilter: ComparisonFilter) => void);
 }
 // state
@@ -74,16 +78,17 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       // read out attribute type
       if (internalDataDef) {
         const attrDefs = internalDataDef.schema.properties;
-        const attrType = attrDefs[attrName].type;
-        stateParts.attributeType = attrType;
-
-        const valueFieldVis: {
-          textFieldVisible: boolean;
-          numberFieldVisible: boolean;
-          boolFieldVisible: boolean
-        } = this.getValueFieldVis(attrName);
-
-        this.state = Object.assign(stateParts, valueFieldVis);
+        const attribute = attrDefs[attrName];
+        if (attribute) {
+          const attrType = attrDefs[attrName].type;
+          stateParts.attributeType = attrType;
+          const valueFieldVis: {
+            textFieldVisible: boolean;
+            numberFieldVisible: boolean;
+            boolFieldVisible: boolean
+          } = this.getValueFieldVis(attrName);
+          this.state = Object.assign(stateParts, valueFieldVis);
+        }
       }
 
     } else {
