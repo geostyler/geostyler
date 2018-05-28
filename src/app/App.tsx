@@ -36,6 +36,11 @@ interface AppState {
 
 class App extends React.Component<AppProps, AppState> {
 
+  constructor(props: any) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return (
       <div className="App">
@@ -57,13 +62,10 @@ class App extends React.Component<AppProps, AppState> {
             this.setState({data});
           }}
         />
-        {
-          this.state && this.state.style ?
-          <Style
-            style={this.state.style}
-            data={this.state.data}
-          /> : null
-        }
+        <Style
+          style={this.state.style}
+          data={this.state.data}
+        />
       </div>
     );
   }

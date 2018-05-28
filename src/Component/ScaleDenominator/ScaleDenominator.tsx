@@ -17,7 +17,7 @@ interface DefaultScaleDenominatorProps {
 // non default props
 interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
   scaleDenominator?: GsScaleDenominator;
-  onChange: ((newScaleDenoms: ScaleDenominatorState) => void);
+  onChange: (scaleDenominator: GsScaleDenominator) => void;
 }
 // state
 interface ScaleDenominatorState {
@@ -31,7 +31,7 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
 
   static getDerivedStateFromProps(
       nextProps: ScaleDenominatorProps,
-      prevState: ScaleDenominatorState): ScaleDenominatorState {
+      prevState: ScaleDenominatorState): Partial<ScaleDenominatorState> {
     return {
       scaleDenominator: nextProps.scaleDenominator
     };
@@ -46,6 +46,7 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
       scaleDenominator = {};
     }
     scaleDenominator.min = minScaleDenominator;
+    this.props.onChange(scaleDenominator);
     this.setState({scaleDenominator});
   }
 
@@ -58,11 +59,11 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
       scaleDenominator = {};
     }
     scaleDenominator.max = maxScaleDenominator;
+    this.props.onChange(scaleDenominator);
     this.setState({scaleDenominator});
   }
 
   render() {
-
     return (
       <div className="gs-max-scaledenominator">
         <Row gutter={16} >

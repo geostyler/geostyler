@@ -38,10 +38,14 @@ class Style extends React.Component<StyleProps, StyleState> {
     }
   };
 
-  static getDerivedStateFromProps(nextProps: StyleProps, prevState: StyleState): StyleState {
-    return {
-      style: nextProps.style || prevState.style
-    };
+  static getDerivedStateFromProps(
+      nextProps: StyleProps,
+      prevState: StyleState): Partial<StyleState> {
+    const newState: Partial<StyleState> = {};
+    if (nextProps.style) {
+      newState.style = nextProps.style;
+    }
+    return newState;
   }
 
   /**
@@ -73,29 +77,42 @@ class Style extends React.Component<StyleProps, StyleState> {
    */
   addRule = () => {
     const style = this.state.style;
+    // TODO We need to ensure thar rule names are unique
+    const randomId = Math.floor(Math.random() * 10000);
     const newRule: GsRule = {
-      name: 'new rule',
+      name: 'rule_' + randomId,
       symbolizer: this.getSymbolizerFromStyleType(style)
     };
     style.rules = [...style.rules, newRule];
     this.setState({style});
   }
 
-  render() {
+  removeRule = (rule: GsRule) => {
     const {
-      rules
-    } = this.state.style;
+      style
+    } = this.state;
+    const newRules = style.rules.filter(r => r.name !== rule.name);
+    style.rules = newRules;
+    this.setState({style});
+  }
+
+  render() {
+    let rules: GsRule[] = [];
+    if (this.state.style) {
+      rules = this.state.style.rules;
+    }
 
     return (
       <div>
-        {rules.map((rule) => <Rule key={rule.name} rule={rule} />)}
+        {rules.map((rule) => <Rule key={rule.name} rule={rule} onRemove={this.removeRule} />)}
         <Button
           style={{'marginBottom': '20px', 'marginTop': '20px'}}
-          shape="circle"
           icon="plus"
           size="large"
           onClick={this.addRule}
-        />
+        >
+          Add Rule
+        </Button>
       </div>
     );
   }

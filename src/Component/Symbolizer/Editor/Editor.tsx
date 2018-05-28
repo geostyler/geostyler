@@ -38,7 +38,9 @@ class Editor extends React.Component<EditorProps, EditorState> {
   public static defaultProps: DefaultEditorProps = {
   };
 
-  static getDerivedStateFromProps(nextProps: EditorProps, prevState: EditorState): EditorState {
+  static getDerivedStateFromProps(
+      nextProps: EditorProps,
+      prevState: EditorState): Partial<EditorState> {
     return {
       symbolizer: nextProps.symbolizer,
       colorPickerVisible: false

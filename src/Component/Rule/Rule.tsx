@@ -50,7 +50,9 @@ class Rule extends React.Component<RuleProps, RuleState> {
     }
   };
 
-  static getDerivedStateFromProps(nextProps: RuleProps, prevState: RuleState): RuleState {
+  static getDerivedStateFromProps(
+      nextProps: RuleProps,
+      prevState: RuleState): Partial<RuleState> {
     return {
       rule: nextProps.rule || Rule.defaultProps.rule,
       symbolizerEditorVisible: false
@@ -119,7 +121,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
       <div className="gs-rule" >
         <Row gutter={16}>
           <Col span={12}>
-            <RuleNameField value={name} onChange={this.onNameChange} />
+            <RuleNameField value={rule.name} onChange={this.onNameChange} />
           </Col>
           <Col span={12}>
             <Fieldset title="Use Scale">
@@ -161,7 +163,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
                 }
               }}
             >
-              Remove Text
+              Remove Rule
             </Button>
           </Col>
         </Row>

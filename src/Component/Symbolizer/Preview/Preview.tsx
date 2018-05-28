@@ -76,10 +76,11 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     };
   }
 
-  static getDerivedStateFromProps(nextProps: PreviewProps, prevState: PreviewState): PreviewState {
+  static getDerivedStateFromProps(
+      nextProps: PreviewProps,
+      prevState: PreviewState): Partial<PreviewState> {
     return {
-      symbolizer: nextProps.symbolizer,
-      ...prevState
+      symbolizer: nextProps.symbolizer
     };
   }
 
