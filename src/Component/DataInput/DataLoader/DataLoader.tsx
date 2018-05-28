@@ -5,38 +5,38 @@ const Option = Select.Option;
 import 'antd/dist/antd.css';
 
 import {
-  Style as GsStyle,
-  StyleParser as GsStyleParser,
-} from 'geostyler-style';
+  Data as GsData,
+  DataParser as GsDataParser,
+} from 'geostyler-data';
 
 import UploadButton from '../../UploadButton/UploadButton';
 
 // default props
-interface DefaultStyleLoaderProps {
-  onStyleRead: (style: GsStyle) => void;
+interface DefaultDataLoaderProps {
+  onDataRead: (data: GsData) => void;
 }
 // non default props
-interface StyleLoaderProps extends Partial<DefaultStyleLoaderProps> {
-  parsers: GsStyleParser[];
+interface DataLoaderProps extends Partial<DefaultDataLoaderProps> {
+  parsers: GsDataParser[];
 }
 
 // state
-interface StyleLoaderState {
-  activeParser?: GsStyleParser;
+interface DataLoaderState {
+  activeParser?: GsDataParser;
 }
 
-class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
+class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
   constructor(props: any) {
     super(props);
     this.state = {};
   }
 
-  public static defaultProps: DefaultStyleLoaderProps = {
-    onStyleRead: (style: GsStyle) => {return; }
+  public static defaultProps: DefaultDataLoaderProps = {
+    onDataRead: (data: GsData) => {return; }
   };
 
-  parseStyle = (uploadObject: any) => {
+  parseData = (uploadObject: any) => {
     const {
       activeParser
     } = this.state;
@@ -49,8 +49,9 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
     reader.readAsText(file);
     reader.onload = () => {
       const fileContent = reader.result;
-      parser.readStyle(fileContent)
-      .then(this.props.onStyleRead);
+      // TODO Remove JSON.parse when type of readData is more precise
+      parser.readData(JSON.parse(fileContent))
+        .then(this.props.onDataRead);
     };
   }
 
@@ -74,7 +75,7 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
     return (
       <div>
-        Style Type:
+        Data Type:
         <Select
           style={{ width: 300 }}
           onSelect={this.onSelect}
@@ -84,8 +85,8 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
         {
           activeParser ?
           <UploadButton
-            label="Upload Style"
-            onUpload={this.parseStyle}
+            label="Upload Data"
+            onUpload={this.parseData}
           /> : null
         }
       </div>
@@ -93,4 +94,4 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
   }
 }
 
-export default StyleLoader;
+export default DataLoader;

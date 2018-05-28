@@ -1,7 +1,4 @@
 import * as React from 'react';
-
-import { Select } from 'antd';
-const Option = Select.Option;
 import 'antd/dist/antd.css';
 
 import {
@@ -15,11 +12,13 @@ import {
 
 import OlStyleParser from 'geostyler-openlayers-parser';
 import SldStyleParser from 'geostyler-sld-parser';
+import GeoJsonParser from 'geostyler-geojson-parser';
 
 import './App.css';
 
 import Style from '../Component/Style/Style';
 import StyleLoader from '../Component/DataInput/StyleLoader/StyleLoader';
+import DataLoader from '../Component/DataInput/DataLoader/DataLoader';
 
 // default props
 interface DefaultAppProps {
@@ -50,11 +49,14 @@ class App extends React.Component<AppProps, AppState> {
             this.setState({style});
           }}
         />
-        Data Type:
-        <Select style={{ width: 300 }}>
-          <Option value="geoJson">GeoJSON</Option>
-          <Option value="wfs">WFS</Option>
-        </Select>
+        <DataLoader
+          parsers={[
+            GeoJsonParser
+          ]}
+          onDataRead={(data: GsData) => {
+            this.setState({data});
+          }}
+        />
         {
           this.state && this.state.style ?
           <Style
