@@ -104,7 +104,12 @@ class Style extends React.Component<StyleProps, StyleState> {
 
     return (
       <div>
-        {rules.map((rule) => <Rule key={rule.name} rule={rule} onRemove={this.removeRule} />)}
+        {rules.map((rule) => <Rule
+          key={rule.name}
+          rule={rule}
+          onRemove={this.removeRule}
+          internalDataDef={this.props.data}
+        />)}
         <Button
           style={{'marginBottom': '20px', 'marginTop': '20px'}}
           icon="plus"

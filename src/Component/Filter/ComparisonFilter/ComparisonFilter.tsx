@@ -42,6 +42,14 @@ interface ComparisonFilterState {
  */
 class ComparisonFilterUi extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
 
+  static getDerivedStateFromProps(
+      nextProps: ComparisonFilterProps,
+      prevState: ComparisonFilterState): Partial<ComparisonFilterState> {
+    return {
+      filter: nextProps.filter
+    };
+  }
+
   constructor(props: ComparisonFilterProps) {
     super(props);
 

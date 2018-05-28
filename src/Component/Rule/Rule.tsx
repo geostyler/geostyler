@@ -143,7 +143,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
           <Col span={12}>
             <Fieldset title="Use Filter">
               <ComparisonFilterUi
-                internalDataDef={internalDataDef}
+                internalDataDef={gsData}
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
               />

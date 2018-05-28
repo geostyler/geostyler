@@ -70,7 +70,6 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
           </Option>
         );
       });
-
     }
 
     return (
