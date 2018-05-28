@@ -156,7 +156,6 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
       <div className="filter-demo-ui">
           <h2>Rule Demo</h2>
           <UploadButton
-            style={{'marginBottom': '20px'}}
             onUpload={this.parseGeoJson}
           />
           {

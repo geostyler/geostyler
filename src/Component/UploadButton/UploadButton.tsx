@@ -2,30 +2,40 @@ import * as React from 'react';
 
 import { Upload, Button, Icon } from 'antd';
 
+// default props
+interface DefaultUploadButton {
+  label: string;
+  onUpload: (uploadObject: any) => void;
+}
+
+// non default props
+interface UploadButtonProps extends Partial<DefaultUploadButton> {
+}
+
 /**
  * Button to upload / import geodata file.
  */
-class UploadButton extends React.Component<any, any> {
+class UploadButton extends React.Component<UploadButtonProps, {}> {
 
-  /** label for this field */
-  label: string = 'Click To Import GeoData';
-
-  constructor(props: any) {
-    super(props);
-
-    this.state = {};
-  }
+  public static defaultProps: DefaultUploadButton = {
+    label: 'Upload',
+    onUpload: () => {return; }
+  };
 
   render() {
+    const {
+      onUpload,
+      label
+    } = this.props;
 
     return (
       <Upload
         name="file"
         action="memory"
-        customRequest={this.props.onUpload}
+        customRequest={onUpload}
       >
         <Button>
-          <Icon type="upload" /> {this.label}
+          <Icon type="upload" /> {label}
         </Button>
       </Upload>
     );

@@ -128,7 +128,6 @@ class FilterDemoUi extends React.Component<FilterDemoProps, FilterDemoState> {
           <h2>Filter Demo UI</h2>
 
           <UploadButton
-            style={{'marginBottom': '20px'}}
             onUpload={this.parseGeoJson}
           />
 
