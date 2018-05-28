@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/terrestris/geostyler#readme",
   "dependencies": {
-    "antd": "3.5.3",
+    "antd": "3.5.4",
     "color": "3.0.0",
     "geostyler-data": "0.1.0",
     "geostyler-geojson-parser": "0.1.4",
