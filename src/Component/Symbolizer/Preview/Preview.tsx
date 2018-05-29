@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as ol from 'openlayers';
 
 import { FeatureCollection, GeometryObject } from 'geojson';
-import { Symbolizer } from 'geostyler-style';
+import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 
 import './Preview.css';
 
@@ -16,6 +16,9 @@ import './Preview.css';
 import Editor from '../Editor/Editor';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
+import {
+  isEqual as _isEqual
+} from 'lodash';
 
 // default props
 interface DefaultPreviewProps {
@@ -84,10 +87,41 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps: PreviewProps) {
     if (this.dataLayer) {
       this.applySymbolizerToMapFeatures(this.state.symbolizer);
     }
+    if (!_isEqual(this.props.features, prevProps.features)) {
+      this.updateFeatures();
+    }
+  }
+
+  updateFeatures() {
+    // Remove previous features
+    this.dataLayer.getSource().clear();
+
+    const format = new ol.format.GeoJSON({
+      defaultDataProjection: this.props.dataProjection,
+      featureProjection: this.map.getView().getProjection()
+    });
+    // add data features to style according to symbolizer and zoom to them (when existing)
+    if (this.props.features) {
+      const olFeatures = format.readFeatures(this.props.features);
+      this.dataLayer.getSource().addFeatures(olFeatures);
+    // create a simple feature to see the symbolizer anyway
+    } else {
+      const geom = this.getSampleGeomFromSymbolizer();
+      const sampleFeature = new ol.Feature({
+        geometry: geom.transform('EPSG:4326', 'EPSG:3857')
+      });
+      this.dataLayer.getSource().addFeature(sampleFeature);
+    }
+
+    // zoom to feature extent
+    const extent = this.dataLayer.getSource().getExtent();
+    this.map.getView().fit(extent, {
+      maxZoom: 12
+    });
   }
 
   public componentDidMount() {
@@ -154,15 +188,41 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       this.applySymbolizerToMapFeatures(this.state.symbolizer);
 
       map.addLayer(vectorLayer);
-
-      this.dataLayer = vectorLayer;
-
-      // zoom to feature extent
-      const extent = vectorLayer.getSource().getExtent();
-      map.getView().fit(extent);
-    }
+    const vectorLayer = new ol.layer.Vector({
+      source: new ol.source.Vector(),
+      style: this.symbolizer2OlStyle(this.state.symbolizer)
+    });
+    map.addLayer(vectorLayer);
+    this.dataLayer = vectorLayer;
 
     this.map = map;
+    this.updateFeatures();
+  }
+
+  getSampleGeomFromSymbolizer = () => {
+    const kind: SymbolizerKind = this.state.symbolizer.kind;
+    switch (kind) {
+      case 'Circle':
+      case 'Icon':
+      case 'Text':
+        return new ol.geom.Point([7.10066, 50.735851]);
+      case 'Fill':
+        return new ol.geom.Polygon([[
+            [50.734268655851345, 7.1031761169433585],
+            [50.734268655851345, 7.109270095825195],
+            [50.73824770380063, 7.109270095825195],
+            [50.73824770380063, 7.1031761169433585],
+            [50.734268655851345, 7.1031761169433585]
+          ]]);
+      case 'Line':
+        return new ol.geom.LineString([
+          [50.734268655851345, 7.1031761169433585],
+          [50.734268655851345, 7.109270095825195],
+          [50.73824770380063, 7.109270095825195]
+        ]);
+      default:
+        return new ol.geom.Point([57, 12]);
+    }
   }
 
   /**
