@@ -45,6 +45,7 @@ interface PreviewProps extends Partial<DefaultPreviewProps> {
 interface PreviewState {
   symbolizer: Symbolizer;
   editorVisible: boolean;
+  mapTargetId: string;
 }
 
 /**
@@ -73,15 +74,19 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
 
   constructor(props: PreviewProps) {
     super(props);
+
+    const randomId = Math.floor((1 + Math.random()) * 0x10000);
     this.state = {
       editorVisible: false,
-      symbolizer: props.symbolizer
+      symbolizer: props.symbolizer,
+      mapTargetId: `map_${randomId}`
     };
   }
 
   static getDerivedStateFromProps(
       nextProps: PreviewProps,
       prevState: PreviewState): Partial<PreviewState> {
+
     return {
       symbolizer: nextProps.symbolizer
     };
@@ -132,7 +137,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
         layers: [],
         controls: [],
         interactions: [],
-        target: 'map',
+        target: this.state.mapTargetId,
         view: new ol.View({
           projection: this.props.projection
         })
@@ -273,7 +278,11 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
 
     return (
       <div className="gs-symbolizer-preview" >
-        <div id="map" className="map" style={{ height: mapHeight }}>
+        <div
+          id={this.state.mapTargetId}
+          className="map"
+          style={{ height: mapHeight }}
+        >
           <Button
             className="gs-edit-preview-button"
             icon="edit"
