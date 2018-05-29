@@ -12,6 +12,7 @@ import {
 
 import { Button } from 'antd';
 import Rule from '../Rule/Rule';
+import NameField from '../NameField/NameField';
 
 // default props
 interface DefaultStyleProps {
@@ -21,6 +22,7 @@ interface DefaultStyleProps {
 // non default props
 interface StyleProps extends Partial<DefaultStyleProps> {
   data?: GsData;
+  onStyleChange?: (rule: GsStyle) => void;
 }
 
 // state
@@ -72,6 +74,23 @@ class Style extends React.Component<StyleProps, StyleState> {
     }
   }
 
+  onNameChange = (name: string) => {
+    const style = this.state.style;
+    style.name = name;
+    this.setState({style});
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(style);
+    }
+  }
+
+  onRuleChange = (rule: GsRule) => {
+    const style = this.state.style;
+    // TODO style.rules is allready update. Why?
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(style);
+    }
+  }
+
   /**
    * Adds another ComparisonFilter to this UI.
    */
@@ -104,11 +123,13 @@ class Style extends React.Component<StyleProps, StyleState> {
 
     return (
       <div>
+        <NameField value={this.state.style.name} onChange={this.onNameChange} />
         {rules.map((rule) => <Rule
           key={rule.name}
           rule={rule}
           onRemove={this.removeRule}
           internalDataDef={this.props.data}
+          onRuleChange={this.onRuleChange}
         />)}
         <Button
           style={{'marginBottom': '20px', 'marginTop': '20px'}}

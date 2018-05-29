@@ -9,7 +9,7 @@ import {
 } from 'geostyler-style';
 import { Data as GsData } from 'geostyler-data';
 
-import RuleNameField from './NameField/NameField';
+import RuleNameField from '../NameField/NameField';
 import ComparisonFilterUi from '../Filter/ComparisonFilter/ComparisonFilter';
 // import RuleRemoveButton from './RemoveButton/RemoveButton';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
@@ -66,6 +66,9 @@ class Rule extends React.Component<RuleProps, RuleState> {
     const rule = this.state.rule;
     rule.name = name;
     this.setState({rule});
+    if (this.props.onRuleChange) {
+      this.props.onRuleChange(rule);
+    }
   }
 
   /**
@@ -75,6 +78,9 @@ class Rule extends React.Component<RuleProps, RuleState> {
     const rule = this.state.rule;
     rule.scaleDenominator = scaleDenominator;
     this.setState({rule});
+    if (this.props.onRuleChange) {
+      this.props.onRuleChange(rule);
+    }
   }
 
   /**
@@ -84,6 +90,9 @@ class Rule extends React.Component<RuleProps, RuleState> {
     const rule = this.state.rule;
     rule.filter = filter;
     this.setState({rule});
+    if (this.props.onRuleChange) {
+      this.props.onRuleChange(rule);
+    }
   }
 
   /**
@@ -93,6 +102,9 @@ class Rule extends React.Component<RuleProps, RuleState> {
     const rule = this.state.rule;
     rule.symbolizer = symbolizer;
     this.setState({rule});
+    if (this.props.onRuleChange) {
+      this.props.onRuleChange(rule);
+    }
   }
 
   onEditPreviewButtonClicked = () => {
