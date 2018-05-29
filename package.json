@@ -27,7 +27,7 @@
     "geostyler-data": "0.1.0",
     "geostyler-geojson-parser": "0.1.4",
     "geostyler-openlayers-parser": "0.1.3",
-    "geostyler-style": "0.3.0",
+    "geostyler-style": "0.4.0",
     "openlayers": "4.6.5",
     "react": "16.4.0",
     "react-color": "2.14.1",
