@@ -16,6 +16,10 @@ import {
   Data as GsData
 } from 'geostyler-data';
 
+import {
+  get as _get
+} from 'lodash';
+
 // default props
 interface DefaultComparisonFilterProps {
   filter: ComparisonFilter;
@@ -114,11 +118,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    */
   getValueFieldVis = (attrName: string) => {
     // read out attribute type
-    let attrType;
-    if (this.props.internalDataDef) {
-      const attrDefs = this.props.internalDataDef.schema.properties;
-      attrType = attrDefs[attrName].type;
-    }
+    const attrType = _get(this.props, `internalDataDef.schema.properties[${attrName}].type`);
 
     // for string and any non-specified type we show a text field
     let valueFieldVis = {
