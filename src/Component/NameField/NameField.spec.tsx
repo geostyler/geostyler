@@ -1,5 +1,5 @@
 import NameField from './NameField';
-import TestUtil from '../../../Util/TestUtil';
+import TestUtil from '../../Util/TestUtil';
 
 describe('NameField', () => {
 
