@@ -82,14 +82,16 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         if (attribute) {
           const attrType = attrDefs[attrName].type;
           stateParts.attributeType = attrType;
-          const valueFieldVis: {
-            textFieldVisible: boolean;
-            numberFieldVisible: boolean;
-            boolFieldVisible: boolean
-          } = this.getValueFieldVis(attrName);
-          this.state = Object.assign(stateParts, valueFieldVis);
         }
       }
+
+      const valueFieldVis: {
+        textFieldVisible: boolean;
+        numberFieldVisible: boolean;
+        boolFieldVisible: boolean
+      } = this.getValueFieldVis(attrName);
+
+      this.state = Object.assign(stateParts, valueFieldVis);
 
     } else {
       this.state = {
@@ -112,8 +114,11 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    */
   getValueFieldVis = (attrName: string) => {
     // read out attribute type
-    const attrDefs = this.props.internalDataDef.schema.properties;
-    const attrType = attrDefs[attrName].type;
+    let attrType;
+    if (this.props.internalDataDef) {
+      const attrDefs = this.props.internalDataDef.schema.properties;
+      attrType = attrDefs[attrName].type;
+    }
 
     // for string and any non-specified type we show a text field
     let valueFieldVis = {
@@ -152,9 +157,10 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
 
     let attrType;
 
+    const valueFieldVis = this.getValueFieldVis(newAttrName);
+    this.setState(valueFieldVis);
+
     if (internalDataDef) {
-      const valueFieldVis = this.getValueFieldVis(newAttrName);
-      this.setState(valueFieldVis);
       // read out attribute type
       const attrDefs = internalDataDef.schema.properties;
       attrType = attrDefs[newAttrName].type;
