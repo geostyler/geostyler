@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 
 import {
   Data as GsData,
-  DataParser as GsDataParser,
+  DataParserConstructable as GsDataParserConstructable
 } from 'geostyler-data';
 
 import UploadButton from '../../UploadButton/UploadButton';
@@ -17,12 +17,12 @@ interface DefaultDataLoaderProps {
 }
 // non default props
 interface DataLoaderProps extends Partial<DefaultDataLoaderProps> {
-  parsers: GsDataParser[];
+  parsers: GsDataParserConstructable[];
 }
 
 // state
 interface DataLoaderState {
-  activeParser?: GsDataParser;
+  activeParser?: GsDataParserConstructable;
 }
 
 class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {

@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 
 import {
   Style as GsStyle,
-  StyleParser as GsStyleParser,
+  StyleParserConstructable as GsStyleParserConstructable
 } from 'geostyler-style';
 
 import UploadButton from '../../UploadButton/UploadButton';
@@ -17,12 +17,12 @@ interface DefaultStyleLoaderProps {
 }
 // non default props
 interface StyleLoaderProps extends Partial<DefaultStyleLoaderProps> {
-  parsers: GsStyleParser[];
+  parsers: GsStyleParserConstructable[];
 }
 
 // state
 interface StyleLoaderState {
-  activeParser?: GsStyleParser;
+  activeParser?: GsStyleParserConstructable;
 }
 
 class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
