@@ -19,6 +19,7 @@ import './App.css';
 import Style from '../Component/Style/Style';
 import StyleLoader from '../Component/DataInput/StyleLoader/StyleLoader';
 import DataLoader from '../Component/DataInput/DataLoader/DataLoader';
+import CodeEditor from '../Component/CodeEditor/CodeEditor';
 
 // default props
 interface DefaultAppProps {
@@ -44,28 +45,53 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div className="App">
-        <h1 className="App-title">GeoStyler</h1>
-        <StyleLoader
-          parsers={[
-            OlStyleParser,
-            SldStyleParser
-          ]}
-          onStyleRead={(style: GsStyle) => {
-            this.setState({style});
-          }}
-        />
-        <DataLoader
-          parsers={[
-            GeoJsonParser
-          ]}
-          onDataRead={(data: GsData) => {
-            this.setState({data});
-          }}
-        />
-        <Style
-          style={this.state.style}
-          data={this.state.data}
-        />
+        <header>
+          <h1 className="App-title">GeoStyler</h1>
+        </header>
+        <div className="settings">
+          <StyleLoader
+            parsers={[
+              OlStyleParser,
+              SldStyleParser
+            ]}
+            onStyleRead={(style: GsStyle) => {
+              this.setState({style});
+            }}
+          />
+          <DataLoader
+            parsers={[
+              GeoJsonParser
+            ]}
+            onDataRead={(data: GsData) => {
+              this.setState({data});
+            }}
+          />
+        </div>
+        <div className="main-content">
+          <div className="gui-wrapper">
+            <h2>Graphical Editor</h2>
+            <Style
+              style={this.state.style}
+              data={this.state.data}
+              onStyleChange={(style: GsStyle) => {
+                this.setState({style});
+              }}
+            />
+          </div>
+          <div className="editor-wrapper">
+            <h2>Code Editor</h2>
+            <CodeEditor
+              style={this.state.style}
+              parsers={[
+                OlStyleParser,
+                SldStyleParser
+              ]}
+              onStyleChange={(style: GsStyle) => {
+                this.setState({style});
+              }}
+            />
+          </div>
+        </div>
       </div>
     );
   }
