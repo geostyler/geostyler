@@ -17,7 +17,8 @@ import Editor from '../Editor/Editor';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
 import {
-  isEqual as _isEqual
+  isEqual as _isEqual,
+  get as _get
 } from 'lodash';
 
 // default props
@@ -190,7 +191,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   getSampleGeomFromSymbolizer = () => {
-    const kind: SymbolizerKind = this.state.symbolizer.kind;
+    const kind: SymbolizerKind = _get(this.state, 'symbolizer.kind');
     switch (kind) {
       case 'Circle':
       case 'Icon':
