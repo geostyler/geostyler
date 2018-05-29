@@ -45,7 +45,7 @@
     "eject": "react-scripts-ts eject",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "lint": "tslint --project tsconfig.json --config tslint.json && tsc --noEmit --project tsconfig.build.json",
+    "lint": "tslint --project tsconfig.json --config tslint.json && tsc --noEmit --project tsconfig.json",
     "prepublishOnly": "npm run build",
     "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags"
   },

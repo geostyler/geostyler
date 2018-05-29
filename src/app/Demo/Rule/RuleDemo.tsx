@@ -112,26 +112,28 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
    * React on a changed rule and apply it to the array with GeoStyler compliant rules.
    */
   onRuleChange = (changedRule: GsRule) => {
-    // // detect if we have this rule already in our store
-    // const existingRule = this.rules[keyIndex];
+    // detect if we have this rule already in our store
+    const keyIndex = this.rules.findIndex(r => r.name !== changedRule.name);
+    const existingRule = this.rules[keyIndex];
 
-    // // add or replace the changed rule
-    // if (existingRule) {
-    //   this.rules[keyIndex] = changedRule;
-    // } else {
-    //   this.rules.push(changedRule);
-    // }
+    // add or replace the changed rule
+    if (existingRule) {
+      this.rules[keyIndex] = changedRule;
+    } else {
+      this.rules.push(changedRule);
+    }
   }
 
   /**
    * Remove a rule by the given index (if it is not the last existing rule).
    */
   onRuleRemove = (rule: GsRule) => {
-    // // remove rule if it is not the last one
-    // if (this.state.ruleUis.length > 1) {
-    //   this.setState({ruleUis: this.state.ruleUis.splice(ruleIdx, 1)});
-    //   this.rules.splice(ruleIdx, 1);
-    // }
+    const ruleIdx = this.rules.findIndex(r => r.name !== rule.name);
+    // remove rule if it is not the last one
+    if (this.state.ruleUis.length > 1) {
+      this.setState({ruleUis: this.state.ruleUis.splice(ruleIdx, 1)});
+      this.rules.splice(ruleIdx, 1);
+    }
   }
 
   /**

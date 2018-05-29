@@ -97,12 +97,9 @@ class Style extends React.Component<StyleProps, StyleState> {
     }
   }
 
-  /**
-   * Adds another ComparisonFilter to this UI.
-   */
   addRule = () => {
     const style = this.state.style;
-    // TODO We need to ensure thar rule names are unique
+    // TODO We need to ensure that rule names are unique
     const randomId = Math.floor(Math.random() * 10000);
     const newRule: GsRule = {
       name: 'rule_' + randomId,
