@@ -31,6 +31,12 @@ interface StyleState {
 }
 
 class Style extends React.Component<StyleProps, StyleState> {
+  constructor(props: StyleProps) {
+    super(props);
+    this.state = {
+      style: Style.defaultProps.style
+    };
+  }
 
   public static defaultProps: DefaultStyleProps = {
     style: {

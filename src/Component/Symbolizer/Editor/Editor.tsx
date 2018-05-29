@@ -28,6 +28,15 @@ interface EditorState {
 }
 
 class Editor extends React.Component<EditorProps, EditorState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      symbolizer: {
+        kind: 'Circle'
+      },
+      colorPickerVisible: false
+    };
+  }
 
   /** reference to the underlying OpenLayers map */
   map: ol.Map;

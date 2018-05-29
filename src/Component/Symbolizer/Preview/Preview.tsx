@@ -71,7 +71,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     closeEditorText: 'Close Editor'
   };
 
-  constructor(props: any) {
+  constructor(props: PreviewProps) {
     super(props);
     this.state = {
       editorVisible: false,

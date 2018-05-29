@@ -40,6 +40,13 @@ interface RuleState {
  * UI container representing a Rule
  */
 class Rule extends React.Component<RuleProps, RuleState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      rule: Rule.defaultProps.rule,
+      symbolizerEditorVisible: false
+    };
+  }
 
   public static defaultProps: DefaultRuleProps = {
     rule: {
@@ -162,23 +169,19 @@ class Rule extends React.Component<RuleProps, RuleState> {
             </Fieldset>
           </Col>
         </Row>
-        <Row>
-          <Col span={24} style={{ float: 'right' }} >
-            <Button
-              style={{}}
-              type="danger"
-              icon="close-circle-o"
-              size="large"
-              onClick={() => {
-                if (onRemove && rule) {
-                  onRemove(rule);
-                }
-              }}
-            >
-              Remove Rule
-            </Button>
-          </Col>
-        </Row>
+        <Button
+          style={{}}
+          type="danger"
+          icon="close-circle-o"
+          size="large"
+          onClick={() => {
+            if (onRemove && rule) {
+              onRemove(rule);
+            }
+          }}
+        >
+          Remove Rule
+        </Button>
       </div>
     );
   }
