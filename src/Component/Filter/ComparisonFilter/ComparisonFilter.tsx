@@ -38,7 +38,7 @@ interface ComparisonFilterState {
   attributeType?: string;
   operator: ComparisonOperator | undefined;
   value: string | number | boolean | null;
-  filter: ComparisonFilter | undefined;
+  filter: ComparisonFilter;
 }
 
 /**
@@ -57,6 +57,10 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       filter: nextProps.filter
     };
   }
+
+  public static defaultProps: DefaultComparisonFilterProps = {
+    filter: ['==', '', null]
+  };
 
   constructor(props: ComparisonFilterProps) {
     super(props);
@@ -105,7 +109,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         attribute: '',
         operator: undefined,
         value: null,
-        filter: undefined
+        filter: ComparisonFilterUi.defaultProps.filter
       };
     }
 
@@ -155,7 +159,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       onFilterChange
     } = this.props;
 
-    let attrType;
+    let filter = this.state.filter;
+    filter[1] = newAttrName;
 
     const valueFieldVis = this.getValueFieldVis(newAttrName);
     this.setState(valueFieldVis);
@@ -163,32 +168,23 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     if (internalDataDef) {
       // read out attribute type
       const attrDefs = internalDataDef.schema.properties;
-      attrType = attrDefs[newAttrName].type;
-
+      const attrType = attrDefs[newAttrName].type;
       this.setState({attribute: newAttrName});
-    }
 
-    // (re)create the ComparisonFilter object if all info are collected
-    if (this.state.operator && newAttrName && this.state.value) {
-      const compFilter: ComparisonFilter = [
-        this.state.operator, newAttrName, this.state.value
-      ];
-
-      if (internalDataDef) {
-        // reset the filter value when the attribute type changed
-        if (attrType !== this.state.attributeType) {
-          compFilter[2] = null;
-          this.setState({
-            value: null,
-            // preserve the attribute type to compare with new one
-            attributeType: attrType
-          });
-        }
+      // reset the filter value when the attribute type changed
+      if (attrType !== this.state.attributeType) {
+        this.setState({
+          value: null,
+          // preserve the attribute type to compare with new one
+          attributeType: attrType
+        });
       }
-
-      this.setState({filter: compFilter});
-      onFilterChange(compFilter);
     }
+
+    onFilterChange(filter);
+    this.setState({
+      filter
+    });
   }
 
   /**
@@ -197,18 +193,11 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    * Stores the appropriate operator as member.
    */
   onOperatorChange = (newOperator: ComparisonOperator) => {
-
+    let filter = this.state.filter;
+    filter[0] = newOperator;
+    this.setState({filter});
+    this.props.onFilterChange(filter);
     this.setState({operator: newOperator});
-
-    // (re)create the ComparisonFilter object if all info are collected
-    if (newOperator && this.state.attribute && this.state.value) {
-      const compFilter: ComparisonFilter = [
-        newOperator, this.state.attribute, this.state.value
-      ];
-      this.setState({filter: compFilter});
-
-      this.props.onFilterChange(compFilter);
-    }
   }
 
   /**
@@ -217,27 +206,17 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    * Stores the appropriate filter value as member.
    */
   onValueChange = (newValue: string | number | boolean) => {
-
-    this.setState({value: newValue});
-
-    // (re)create the ComparisonFilter object if all info are collected
-    if (this.state.operator && this.state.attribute && newValue) {
-      const compFilter: ComparisonFilter = [
-        this.state.operator, this.state.attribute, newValue
-      ];
-      this.setState({filter: compFilter});
-
-      this.props.onFilterChange(compFilter);
-    }
+    let filter = this.state.filter;
+    filter[2] = newValue;
+    this.setState({filter});
+    this.props.onFilterChange(filter);
   }
 
   render() {
 
     return (
       <div className="gs-comparison-filter-ui">
-
          <Row gutter={16}>
-
           <Col span={10}>
             <AttributeCombo
               value={this.state && this.state.filter ? this.state.filter[1] : undefined}
