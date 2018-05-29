@@ -177,31 +177,16 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       });
     }
 
-    // add data features to style according to symbolizer and zoom to them (when existing)
-    if (this.props.features) {
-      const format = new ol.format.GeoJSON({
-        defaultDataProjection: this.props.dataProjection,
-        featureProjection: map.getView().getProjection()
-      });
-
-      const vectorLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({
-          features: format.readFeatures(this.props.features)
-        })
-      });
-
-      this.applySymbolizerToMapFeatures(this.state.symbolizer);
-
-      map.addLayer(vectorLayer);
     const vectorLayer = new ol.layer.Vector({
-      source: new ol.source.Vector(),
-      style: this.symbolizer2OlStyle(this.state.symbolizer)
+      source: new ol.source.Vector()
     });
+
     map.addLayer(vectorLayer);
     this.dataLayer = vectorLayer;
 
     this.map = map;
     this.updateFeatures();
+    this.applySymbolizerToMapFeatures(this.state.symbolizer);
   }
 
   getSampleGeomFromSymbolizer = () => {
