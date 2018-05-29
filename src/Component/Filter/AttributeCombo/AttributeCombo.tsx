@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Select, Form } from 'antd';
+import { Select, Form, Input } from 'antd';
 const Option = Select.Option;
 
 // default props
@@ -39,11 +39,17 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
   }
 
   render() {
+    const {
+      internalDataDef,
+      onAttributeChange,
+      label,
+      placeholder
+    } = this.props;
+
     let options: Object[] = [];
 
-    if (this.props.internalDataDef) {
-
-      const attrDefs = this.props.internalDataDef.schema.properties;
+    if (internalDataDef) {
+      const attrDefs = internalDataDef.schema.properties;
 
       // create sth like ['foo', 'bar', 'kalle'];
       const attrNames = [];
@@ -64,25 +70,32 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
           </Option>
         );
       });
-
     }
 
     return (
       <div className="gs-attr-combo">
-
-        <Form.Item label={this.props.label} colon={false} >
-
-          <Select
-            defaultValue={this.state.value}
-            style={{ width: '100%' }}
-            onChange={this.props.onAttributeChange}
-            placeholder={this.props.placeholder}
-          >
-              {options}
-          </Select>
-
+        <Form.Item label={label} colon={false} >
+          {
+            internalDataDef ?
+              <Select
+                defaultValue={this.state.value}
+                style={{ width: '100%' }}
+                onChange={onAttributeChange}
+                placeholder={placeholder}
+              >
+                  {options}
+              </Select>
+              :
+              <Input
+                defaultValue={this.state.value}
+                placeholder={placeholder}
+                style={{ width: '100%' }}
+                onChange={(event) => {
+                  onAttributeChange(event.target.value);
+                }}
+              />
+          }
         </Form.Item>
-
       </div>
     );
   }

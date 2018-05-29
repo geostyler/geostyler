@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { Input, Form } from 'antd';
+import {
+  Input,
+  // Form
+} from 'antd';
 
 import './NameField.css';
 
@@ -15,13 +18,13 @@ interface NameFieldProps extends Partial<DefaultNameFieldProps> {
 }
 
 /**
- * Input field for the rule name.
+ * Input field for a name.
  */
 class NameField extends React.Component<NameFieldProps, any> {
 
   public static defaultProps: DefaultNameFieldProps = {
     label: 'Name',
-    placeholder: 'Enter Rule Name'
+    placeholder: 'Enter Name'
   };
 
   /**
@@ -36,19 +39,14 @@ class NameField extends React.Component<NameFieldProps, any> {
   render() {
 
     return (
-      <div className="gs-rule-namefield" >
-
-        <Form.Item label={this.props.label} colon={false} >
-
-          <Input
-            className="gs-rule-namefield-input"
-            value={this.props.value}
-            onChange={this.onChange}
-            placeholder={this.props.placeholder}
-          />
-
-        </Form.Item>
-
+      <div className="gs-namefield" >
+        {this.props.label}:
+        <Input
+          className="gs-namefield-input"
+          value={this.props.value}
+          onChange={this.onChange}
+          placeholder={this.props.placeholder}
+        />
       </div>
     );
   }

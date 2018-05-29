@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as ol from 'openlayers';
 
 import { FeatureCollection, GeometryObject } from 'geojson';
-import { Symbolizer } from 'geostyler-style';
+import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 
 import './Preview.css';
 
@@ -16,6 +16,10 @@ import './Preview.css';
 import Editor from '../Editor/Editor';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
+import {
+  isEqual as _isEqual,
+  get as _get
+} from 'lodash';
 
 // default props
 interface DefaultPreviewProps {
@@ -33,7 +37,7 @@ interface DefaultPreviewProps {
 
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
-  features: FeatureCollection<GeometryObject>;
+  features?: FeatureCollection<GeometryObject>;
   symbolizer: Symbolizer;
   onSymbolizerChange: (symbolizer: Symbolizer) => void;
 }
@@ -42,6 +46,7 @@ interface PreviewProps extends Partial<DefaultPreviewProps> {
 interface PreviewState {
   symbolizer: Symbolizer;
   editorVisible: boolean;
+  mapTargetId: string;
 }
 
 /**
@@ -68,29 +73,64 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     closeEditorText: 'Close Editor'
   };
 
-  constructor(props: any) {
+  constructor(props: PreviewProps) {
     super(props);
+
+    const randomId = Math.floor((1 + Math.random()) * 0x10000);
     this.state = {
       editorVisible: false,
-      symbolizer: props.symbolizer
+      symbolizer: props.symbolizer,
+      mapTargetId: `map_${randomId}`
     };
   }
 
-  static getDerivedStateFromProps(nextProps: PreviewProps, prevState: PreviewState): PreviewState {
+  static getDerivedStateFromProps(
+      nextProps: PreviewProps,
+      prevState: PreviewState): Partial<PreviewState> {
+
     return {
-      symbolizer: nextProps.symbolizer,
-      ...prevState
+      symbolizer: nextProps.symbolizer
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps: PreviewProps) {
     if (this.dataLayer) {
       this.applySymbolizerToMapFeatures(this.state.symbolizer);
     }
+    if (!_isEqual(this.props.features, prevProps.features)) {
+      this.updateFeatures();
+    }
+  }
+
+  updateFeatures() {
+    // Remove previous features
+    this.dataLayer.getSource().clear();
+
+    const format = new ol.format.GeoJSON({
+      defaultDataProjection: this.props.dataProjection,
+      featureProjection: this.map.getView().getProjection()
+    });
+    // add data features to style according to symbolizer and zoom to them (when existing)
+    if (this.props.features) {
+      const olFeatures = format.readFeatures(this.props.features);
+      this.dataLayer.getSource().addFeatures(olFeatures);
+    // create a simple feature to see the symbolizer anyway
+    } else {
+      const geom = this.getSampleGeomFromSymbolizer();
+      const sampleFeature = new ol.Feature({
+        geometry: geom.transform('EPSG:4326', 'EPSG:3857')
+      });
+      this.dataLayer.getSource().addFeature(sampleFeature);
+    }
+
+    // zoom to feature extent
+    const extent = this.dataLayer.getSource().getExtent();
+    this.map.getView().fit(extent, {
+      maxZoom: 12
+    });
   }
 
   public componentDidMount() {
-
     let map: ol.Map;
     if (!this.props.map) {
       // create a new OL map and bind it to this preview DIV
@@ -98,7 +138,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
         layers: [],
         controls: [],
         interactions: [],
-        target: 'map',
+        target: this.state.mapTargetId,
         view: new ol.View({
           projection: this.props.projection
         })
@@ -138,33 +178,42 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       });
     }
 
-    // add data features to style according to symbolizer and zoom to them (when existing)
-    if (this.props.features) {
+    const vectorLayer = new ol.layer.Vector({
+      source: new ol.source.Vector()
+    });
 
-      const format = new ol.format.GeoJSON({
-        defaultDataProjection: this.props.dataProjection,
-        featureProjection: map.getView().getProjection()
-      });
-
-      const vectorLayer = new ol.layer.Vector({
-        source: new ol.source.Vector({
-          features: format.readFeatures(this.props.features)
-        })
-      });
-
-      this.applySymbolizerToMapFeatures(this.state.symbolizer);
-
-      map.addLayer(vectorLayer);
-
-      this.dataLayer = vectorLayer;
-
-      // zoom to feature extent
-      const extent = vectorLayer.getSource().getExtent();
-      map.getView().fit(extent);
-
-    }
+    map.addLayer(vectorLayer);
+    this.dataLayer = vectorLayer;
 
     this.map = map;
+    this.updateFeatures();
+    this.applySymbolizerToMapFeatures(this.state.symbolizer);
+  }
+
+  getSampleGeomFromSymbolizer = () => {
+    const kind: SymbolizerKind = _get(this.state, 'symbolizer.kind');
+    switch (kind) {
+      case 'Circle':
+      case 'Icon':
+      case 'Text':
+        return new ol.geom.Point([7.10066, 50.735851]);
+      case 'Fill':
+        return new ol.geom.Polygon([[
+            [50.734268655851345, 7.1031761169433585],
+            [50.734268655851345, 7.109270095825195],
+            [50.73824770380063, 7.109270095825195],
+            [50.73824770380063, 7.1031761169433585],
+            [50.734268655851345, 7.1031761169433585]
+          ]]);
+      case 'Line':
+        return new ol.geom.LineString([
+          [50.734268655851345, 7.1031761169433585],
+          [50.734268655851345, 7.109270095825195],
+          [50.73824770380063, 7.109270095825195]
+        ]);
+      default:
+        return new ol.geom.Point([57, 12]);
+    }
   }
 
   /**
@@ -215,7 +264,11 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
 
     return (
       <div className="gs-symbolizer-preview" >
-        <div id="map" className="map" style={{ height: mapHeight }}>
+        <div
+          id={this.state.mapTargetId}
+          className="map"
+          style={{ height: mapHeight }}
+        >
           <Button
             className="gs-edit-preview-button"
             icon="edit"

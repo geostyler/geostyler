@@ -12,13 +12,21 @@ import { ComparisonFilter, ComparisonOperator } from 'geostyler-style';
 import './ComparisonFilter.css';
 import BoolFilterField from '../BoolFilterField/BoolFilterField';
 
+import {
+  Data as GsData
+} from 'geostyler-data';
+
+import {
+  get as _get
+} from 'lodash';
+
 // default props
 interface DefaultComparisonFilterProps {
   filter: ComparisonFilter;
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
-  internalDataDef: any;
+  internalDataDef: GsData;
   onFilterChange: ((compFilter: ComparisonFilter) => void);
 }
 // state
@@ -27,7 +35,7 @@ interface ComparisonFilterState {
   numberFieldVisible: boolean;
   boolFieldVisible: boolean;
   attribute: string;
-  attributeType: string;
+  attributeType?: string;
   operator: ComparisonOperator | undefined;
   value: string | number | boolean | null;
   filter: ComparisonFilter | undefined;
@@ -42,42 +50,63 @@ interface ComparisonFilterState {
  */
 class ComparisonFilterUi extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
 
+  static getDerivedStateFromProps(
+      nextProps: ComparisonFilterProps,
+      prevState: ComparisonFilterState): Partial<ComparisonFilterState> {
+    return {
+      filter: nextProps.filter
+    };
+  }
+
   constructor(props: ComparisonFilterProps) {
     super(props);
 
-    if (this.props.filter) {
+    const {
+      filter,
+      internalDataDef
+    } = this.props;
 
+    if (filter) {
       // build UI by passed in filter object
+      const attrName = filter[1];
 
-      const attrName = this.props.filter[1];
-      // read out attribute type
-      const attrDefs = this.props.internalDataDef.schema.properties;
-      const attrType = attrDefs[attrName].type;
-      const stateParts = {
+      const stateParts: any = {
         attribute: attrName,
-        attributeType: attrType,
-        operator: this.props.filter[0],
-        value: this.props.filter[2],
+        operator: filter[0],
+        value: filter[2],
         filter: this.props.filter
       };
-      const valueFieldVis: {textFieldVisible: boolean; numberFieldVisible: boolean; boolFieldVisible: boolean} =
-        this.getValueFieldVis(attrName);
+
+      this.state = stateParts;
+
+      // read out attribute type
+      if (internalDataDef) {
+        const attrDefs = internalDataDef.schema.properties;
+        const attribute = attrDefs[attrName];
+        if (attribute) {
+          const attrType = attrDefs[attrName].type;
+          stateParts.attributeType = attrType;
+        }
+      }
+
+      const valueFieldVis: {
+        textFieldVisible: boolean;
+        numberFieldVisible: boolean;
+        boolFieldVisible: boolean
+      } = this.getValueFieldVis(attrName);
 
       this.state = Object.assign(stateParts, valueFieldVis);
 
     } else {
-
       this.state = {
         textFieldVisible: true,
         numberFieldVisible: false,
         boolFieldVisible: false,
         attribute: '',
-        attributeType: '',
         operator: undefined,
         value: null,
         filter: undefined
       };
-
     }
 
   }
@@ -89,8 +118,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    */
   getValueFieldVis = (attrName: string) => {
     // read out attribute type
-    const attrDefs = this.props.internalDataDef.schema.properties;
-    const attrType = attrDefs[attrName].type;
+    const attrType = _get(this.props, `internalDataDef.schema.properties[${attrName}].type`);
 
     // for string and any non-specified type we show a text field
     let valueFieldVis = {
@@ -122,15 +150,23 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    * Changes the input field for the filter value and stores the appropriate attribute name as member.
    */
   onAttributeChange = (newAttrName: string) => {
+    const {
+      internalDataDef,
+      onFilterChange
+    } = this.props;
+
+    let attrType;
 
     const valueFieldVis = this.getValueFieldVis(newAttrName);
     this.setState(valueFieldVis);
 
-    // read out attribute type
-    const attrDefs = this.props.internalDataDef.schema.properties;
-    const attrType = attrDefs[newAttrName].type;
+    if (internalDataDef) {
+      // read out attribute type
+      const attrDefs = internalDataDef.schema.properties;
+      attrType = attrDefs[newAttrName].type;
 
-    this.setState({attribute: newAttrName});
+      this.setState({attribute: newAttrName});
+    }
 
     // (re)create the ComparisonFilter object if all info are collected
     if (this.state.operator && newAttrName && this.state.value) {
@@ -138,19 +174,20 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         this.state.operator, newAttrName, this.state.value
       ];
 
-      // reset the filter value when the attribute type changed
-      if (attrType !== this.state.attributeType) {
-        compFilter[2] = null;
-        this.setState({value: null});
-
-        // preserve the attribute type to compare with new one
-        // this.attributeType = attrType;
-        this.setState({attributeType: attrType});
+      if (internalDataDef) {
+        // reset the filter value when the attribute type changed
+        if (attrType !== this.state.attributeType) {
+          compFilter[2] = null;
+          this.setState({
+            value: null,
+            // preserve the attribute type to compare with new one
+            attributeType: attrType
+          });
+        }
       }
 
       this.setState({filter: compFilter});
-
-      this.props.onFilterChange(compFilter);
+      onFilterChange(compFilter);
     }
   }
 
@@ -203,14 +240,14 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
 
           <Col span={10}>
             <AttributeCombo
-              value={this.state.filter ? this.state.filter[1] : undefined}
+              value={this.state && this.state.filter ? this.state.filter[1] : undefined}
               internalDataDef={this.props.internalDataDef}
               onAttributeChange={this.onAttributeChange}
             />
           </Col>
           <Col span={4}>
             <OperatorCombo
-              value={this.state.filter ? this.state.filter[0] : undefined}
+              value={this.state && this.state.filter ? this.state.filter[0] : undefined}
               internalDataDef={this.props.internalDataDef}
               onOperatorChange={this.onOperatorChange}
             />
@@ -219,7 +256,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
             this.state.textFieldVisible ?
               <Col span={10}>
                 <TextFilterField
-                  value={this.state.filter ? this.state.filter[2] as string : undefined}
+                  value={this.state && this.state.filter ? this.state.filter[2] as string : undefined}
                   internalDataDef={this.props.internalDataDef}
                   onValueChange={this.onValueChange}
                 />
@@ -230,7 +267,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
             this.state.numberFieldVisible ?
               <Col span={10}>
                 <NumberFilterField
-                  value={this.state.filter ? this.state.filter[2] as number : undefined}
+                  value={this.state && this.state.filter ? this.state.filter[2] as number : undefined}
                   internalDataDef={this.props.internalDataDef}
                   selectedAttribute={this.state.attribute}
                   onValueChange={this.onValueChange}
@@ -242,7 +279,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
             this.state.boolFieldVisible ?
               <Col span={10}>
                 <BoolFilterField
-                  value={this.state.filter ? this.state.filter[2] as boolean : undefined}
+                  value={this.state && this.state.filter ? this.state.filter[2] as boolean : undefined}
                   internalDataDef={this.props.internalDataDef}
                   onValueChange={this.onValueChange}
                 />

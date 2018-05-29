@@ -111,8 +111,9 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
   /**
    * React on a changed rule and apply it to the array with GeoStyler compliant rules.
    */
-  onRuleChange = (changedRule: GsRule, keyIndex: number) => {
+  onRuleChange = (changedRule: GsRule) => {
     // detect if we have this rule already in our store
+    const keyIndex = this.rules.findIndex(r => r.name !== changedRule.name);
     const existingRule = this.rules[keyIndex];
 
     // add or replace the changed rule
@@ -126,7 +127,8 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
   /**
    * Remove a rule by the given index (if it is not the last existing rule).
    */
-  onRuleRemove = (ruleIdx: number) => {
+  onRuleRemove = (rule: GsRule) => {
+    const ruleIdx = this.rules.findIndex(r => r.name !== rule.name);
     // remove rule if it is not the last one
     if (this.state.ruleUis.length > 1) {
       this.setState({ruleUis: this.state.ruleUis.splice(ruleIdx, 1)});
@@ -148,7 +150,6 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
     this.setState({
       gsStyleString: JSON.stringify(style, null, 2)
     });
-
   }
 
   render() {
@@ -157,7 +158,6 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
       <div className="filter-demo-ui">
           <h2>Rule Demo</h2>
           <UploadButton
-            style={{'marginBottom': '20px'}}
             onUpload={this.parseGeoJson}
           />
           {
@@ -175,7 +175,6 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
             this.state.ruleUis.map((ruleUi: any) => (
               <RuleUi
                 key={ruleUi.id}
-                keyIndex={ruleUi.id}
                 internalDataDef={this.state.gsData}
                 onRuleChange={this.onRuleChange}
                 onRemove={this.onRuleRemove}
