@@ -86,7 +86,9 @@ class App extends React.Component<AppProps, AppState> {
             <h2>Code Editor</h2>
             <CodeEditor
               style={this.state.style}
-              parser={SldStyleParser}
+              parsers={[
+                SldStyleParser
+              ]}
               onStyleChange={(style: GsStyle) => {
                 this.setState({style});
               }}

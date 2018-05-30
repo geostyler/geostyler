@@ -11,6 +11,9 @@ import 'codemirror/mode/javascript/javascript';
 
 import './CodeEditor.css';
 
+import { Select } from 'antd';
+const Option = Select.Option;
+
 import {
   Style as GsStyle,
   StyleParserConstructable as GsStyleParserConstructable
@@ -27,15 +30,15 @@ interface DefaultCodeEditorProps {
 // non default props
 interface CodeEditorProps extends Partial<DefaultCodeEditorProps> {
   style?: GsStyle;
-  parser?: GsStyleParserConstructable;
+  parsers?: GsStyleParserConstructable[];
   onStyleChange?: (rule: GsStyle) => void;
 }
 
 // state
 interface CodeEditorState {
   value: string;
-  style?: GsStyle;
   invalidMessage?: string;
+  activeParser?: GsStyleParserConstructable;
 }
 
 /**
@@ -81,7 +84,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 
   getModeByParser(): string {
-    if (this.props.parser && this.props.parser.name === 'SldStyleParser') {
+    if (this.state.activeParser && this.state.activeParser.name === 'SldStyleParser') {
       return 'application/xml';
     }
     return 'application/json';
@@ -89,8 +92,8 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   valueFromStyleInput(style: GsStyle) {
     return new Promise((resolve, reject) => {
-      if (this.props.parser) {
-        const StyleParser = this.props.parser;
+      if (this.state.activeParser) {
+        const StyleParser = this.state.activeParser;
         const parserInstance = new StyleParser();
         resolve(parserInstance.writeStyle(style));
       } else {
@@ -101,8 +104,8 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   styleFromValue(value: string) {
     return new Promise((resolve, reject) => {
-      if (this.props.parser) {
-        const StyleParser = this.props.parser;
+      if (this.state.activeParser && this.state.activeParser ) {
+        const StyleParser = this.state.activeParser;
         const parserInstance = new StyleParser();
         resolve(parserInstance.readStyle(value));
       } else {
@@ -115,9 +118,9 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
    *
    */
   onChange = (editor: any, data: any, value: string) => {
-    let invalidMessage;
     this.setState({
-      value
+      value,
+      invalidMessage: undefined
     });
     try {
       this.styleFromValue(value)
@@ -125,32 +128,72 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
           if (this.props.onStyleChange) {
             this.props.onStyleChange(style);
           }
-        }).catch(err => {debugger; });
-    } catch (error) {
-      invalidMessage = 'Error';
-    } finally {
+        }).catch(err => {
+          this.setState({
+            invalidMessage: err.message
+          });
+        });
+    } catch (err) {
       this.setState({
-          invalidMessage
+        invalidMessage: 'Error'
       });
     }
+  }
+
+  onSelect = (selection: string) => {
+    if (this.props.parsers) {
+      const activeParser = this.props.parsers.find(parser => parser.name === selection);
+      this.setState({activeParser}, () => {
+        if (this.props.style) {
+          this.updateValueFromStyle(this.props.style);
+        }
+      });
+    }
+  }
+
+  getParserOptions = () => {
+    let parserOptions = [
+      <Option key="GeoStyler Style" value="GeoStyler Style" >Geostyler Style</Option>
+    ];
+    if (this.props.parsers) {
+      const additionalOptions = this.props.parsers.map((parser: any) => {
+        return <Option key={parser.name} value={parser.name}>{parser.name}</Option>;
+      });
+      return [...parserOptions, ...additionalOptions];
+    }
+    return parserOptions;
   }
 
   render() {
     const value = this.state.value;
     return (
-      <CodeMirror
-        className="gs-code-editor"
-        value={value}
-        autoCursor={false}
-        options={{
-          gutters: ['CodeMirror-lint-markers'],
-          lint: true,
-          mode: this.getModeByParser(),
-          lineNumbers: true,
-          lineWrapping: true
-        }}
-        onChange={this.onChange}
-      />
+      <div>
+        <div>
+          Format: <Select
+            style={{ width: 300 }}
+            onSelect={this.onSelect}
+            defaultValue="GeoStyler Style"
+          >
+            {this.getParserOptions()}
+          </Select>
+        </div>
+        <CodeMirror
+          className="gs-code-editor"
+          value={value}
+          autoCursor={false}
+          options={{
+            gutters: ['CodeMirror-lint-markers'],
+            lint: true,
+            mode: this.getModeByParser(),
+            lineNumbers: true,
+            lineWrapping: true
+          }}
+          onChange={this.onChange}
+        />
+        <div className="gs-code-editor-errormessage">
+          {this.state.invalidMessage}
+        </div>
+      </div>
     );
   }
 }

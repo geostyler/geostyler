@@ -6,3 +6,8 @@
 .gs-code-editor .CodeMirror {
   height: inherit;
 }
+
+.gs-code-editor-errormessage {
+  color: red;
+  background-color: lightgray;
+}
