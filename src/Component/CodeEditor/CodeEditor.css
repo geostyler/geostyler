@@ -1,3 +1,8 @@
-textarea.ant-input.gs-code-editor{
+.gs-code-editor{
   height: 100%;
+  text-align: left;
+}
+
+.gs-code-editor .CodeMirror {
+  height: inherit;
 }

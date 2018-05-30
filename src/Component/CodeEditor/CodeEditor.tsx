@@ -1,4 +1,5 @@
 import * as React from 'react';
+import 'codemirror/lib/codemirror.css';
 
 import './CodeEditor.css';
 
@@ -7,9 +8,14 @@ import {
   StyleParserConstructable as GsStyleParserConstructable
 } from 'geostyler-style';
 
-// TODO Replace with monaco code editor
-import { Input } from 'antd';
-const { TextArea } = Input;
+// Favourite Editor should be Monaco Editor but its React Wrapper is currently
+// not very stable
+import {
+  UnControlled as CodeMirror
+} from 'react-codemirror2';
+
+require('codemirror/mode/xml/xml');
+require('codemirror/mode/javascript/javascript');
 
 // default props
 interface DefaultCodeEditorProps {
@@ -25,6 +31,7 @@ interface CodeEditorProps extends Partial<DefaultCodeEditorProps> {
 // state
 interface CodeEditorState {
   style: GsStyle;
+  invalid: boolean;
 }
 
 /**
@@ -39,7 +46,8 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
         name: 'Circle',
         type: 'Point',
         rules: []
-      }
+      },
+      invalid: false
     };
   }
 
@@ -59,9 +67,17 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   /**
    *
    */
-  onChange = (evt: any) => {
-    const value = evt.target.value;
-    const style = JSON.parse(value);
+  onChange = (editor: any, data: any, value: string) => {
+    let style = this.state.style;
+    try {
+      style = JSON.parse(value);
+    } catch (error) {
+      // TODO improve this
+      this.setState({
+        invalid: true
+      });
+    }
+
     this.setState({
       style
     });
@@ -72,10 +88,16 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   render() {
     const value = JSON.stringify(this.state.style, null, 2);
+
     return (
-      <TextArea
+      <CodeMirror
         className="gs-code-editor"
         value={value}
+        autoCursor={false}
+        options={{
+          mode: 'application/json',
+          lineNumbers: true
+        }}
         onChange={this.onChange}
       />
     );
