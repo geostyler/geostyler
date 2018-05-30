@@ -21,6 +21,8 @@ import StyleLoader from '../Component/DataInput/StyleLoader/StyleLoader';
 import DataLoader from '../Component/DataInput/DataLoader/DataLoader';
 import CodeEditor from '../Component/CodeEditor/CodeEditor';
 
+import GeoStylerTemplateStyle from './data/TemplateStyle';
+
 // default props
 interface DefaultAppProps {
   styleParsers: GsStyleParser[];
@@ -39,7 +41,9 @@ class App extends React.Component<AppProps, AppState> {
 
   constructor(props: any) {
     super(props);
-    this.state = {};
+    this.state = {
+      style: GeoStylerTemplateStyle
+    };
   }
 
   render() {
@@ -82,10 +86,7 @@ class App extends React.Component<AppProps, AppState> {
             <h2>Code Editor</h2>
             <CodeEditor
               style={this.state.style}
-              parsers={[
-                OlStyleParser,
-                SldStyleParser
-              ]}
+              parser={SldStyleParser}
               onStyleChange={(style: GsStyle) => {
                 this.setState({style});
               }}
