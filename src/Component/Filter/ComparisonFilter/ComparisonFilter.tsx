@@ -7,7 +7,10 @@ import OperatorCombo from '../OperatorCombo/OperatorCombo';
 import TextFilterField from '../TextFilterField/TextFilterField';
 import NumberFilterField from '../NumberFilterField/NumberFilterField';
 
-import { ComparisonFilter, ComparisonOperator } from 'geostyler-style';
+import {
+  ComparisonFilter as GsComparisonFilter,
+  ComparisonOperator
+} from 'geostyler-style';
 
 import './ComparisonFilter.css';
 import BoolFilterField from '../BoolFilterField/BoolFilterField';
@@ -17,17 +20,18 @@ import {
 } from 'geostyler-data';
 
 import {
-  get as _get
+  get as _get,
+  cloneDeep as _cloneDeep
 } from 'lodash';
 
 // default props
 interface DefaultComparisonFilterProps {
-  filter: ComparisonFilter;
+  filter: GsComparisonFilter;
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
   internalDataDef: GsData;
-  onFilterChange: ((compFilter: ComparisonFilter) => void);
+  onFilterChange: ((compFilter: GsComparisonFilter) => void);
 }
 // state
 interface ComparisonFilterState {
@@ -38,7 +42,7 @@ interface ComparisonFilterState {
   attributeType?: string;
   operator: ComparisonOperator | undefined;
   value: string | number | boolean | null;
-  filter: ComparisonFilter;
+  filter: GsComparisonFilter;
 }
 
 /**
@@ -159,7 +163,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       onFilterChange
     } = this.props;
 
-    let filter = this.state.filter;
+    let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
     filter[1] = newAttrName;
 
     const valueFieldVis = this.getValueFieldVis(newAttrName);
@@ -193,7 +197,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    * Stores the appropriate operator as member.
    */
   onOperatorChange = (newOperator: ComparisonOperator) => {
-    let filter = this.state.filter;
+    let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
     filter[0] = newOperator;
     this.setState({filter});
     this.props.onFilterChange(filter);
@@ -206,7 +210,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
    * Stores the appropriate filter value as member.
    */
   onValueChange = (newValue: string | number | boolean) => {
-    let filter = this.state.filter;
+    let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
     filter[2] = newValue;
     this.setState({filter});
     this.props.onFilterChange(filter);
