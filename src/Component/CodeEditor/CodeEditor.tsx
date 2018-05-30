@@ -167,8 +167,8 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   render() {
     const value = this.state.value;
     return (
-      <div>
-        <div>
+      <div className="gs-code-editor">
+        <div className="gs-code-editor-format-select">
           Format: <Select
             style={{ width: 300 }}
             onSelect={this.onSelect}
@@ -178,7 +178,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
           </Select>
         </div>
         <CodeMirror
-          className="gs-code-editor"
+          className="gs-code-editor-codemirror"
           value={value}
           autoCursor={false}
           options={{

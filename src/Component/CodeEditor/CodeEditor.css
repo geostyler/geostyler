@@ -1,10 +1,20 @@
 .gs-code-editor{
   height: 100%;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.gs-code-editor .CodeMirror {
-  height: inherit;
+.gs-code-editor-codemirror {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+.CodeMirror {
+  flex: 1;
 }
 
 .gs-code-editor-errormessage {
