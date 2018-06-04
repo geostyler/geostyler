@@ -58,15 +58,19 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
     const {
       colorPickerVisible = false
     } = this.state;
-
     const {
       color,
       closeText,
       editText,
       label
     } = this.props;
+    let textColor;
 
-    const textColor = Color(color).negate().grayscale().string();
+    try {
+      textColor = Color(color).negate().grayscale().string();
+    } catch (error) {
+      textColor = '#000000';
+    }
 
     return (
       <div className="editor-field color-field">
