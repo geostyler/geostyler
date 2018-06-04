@@ -31,9 +31,16 @@ class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFi
 
   constructor(props: TextFilterFieldProps) {
     super(props);
-
     this.state = {
       value: this.props.value
+    };
+  }
+
+  static getDerivedStateFromProps(
+      nextProps: TextFilterFieldProps,
+      prevState: TextFilterFieldState): Partial<TextFilterFieldState> {
+    return {
+      value: nextProps.value
     };
   }
 
