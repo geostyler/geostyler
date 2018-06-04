@@ -1,15 +1,17 @@
-
-.gs-symbolizer-preview {
-  margin-top: -35px;
-}
-
 .gs-symbolizer-preview .map {
+  position: relative;
   border: 1px solid lightgrey;
+  border-radius: 4px;
 }
 
 .gs-edit-preview-button {
   position: absolute;
-  right: 10px;
+  right: 2px;
   bottom: 2px;
   z-index: 1;
+}
+
+.gs-symbolizer-preview .gs-symbolizer-editor {
+  z-index: 1;
+  position: relative;
 }

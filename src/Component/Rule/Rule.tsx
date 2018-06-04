@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-import { Row, Col, Button } from 'antd';
+import {
+  // Row,
+  // Col,
+  Button
+} from 'antd';
 import {
   // Filter as GsFilter,
   ComparisonFilter as GsComparisonFilter,
@@ -142,28 +146,22 @@ class Rule extends React.Component<RuleProps, RuleState> {
 
     return (
       <div className="gs-rule" >
-        <Row gutter={16}>
-          <Col span={12}>
+        <div className="gs-rule-fields" >
+          <div className="gs-rule-left-fields" >
             <RuleNameField value={rule.name} onChange={this.onNameChange} />
-          </Col>
-          <Col span={12}>
+            <Preview
+              symbolizer={rule.symbolizer}
+              features={gsData ? gsData.exampleFeatures : undefined}
+              onSymbolizerChange={this.onSymbolizerChange}
+            />
+          </div>
+          <div className="gs-rule-right-fields" >
             <Fieldset title="Use Scale">
               <ScaleDenominator
                 scaleDenominator={rule.scaleDenominator}
                 onChange={this.onScaleDenominatorChange}
               />
             </Fieldset>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Preview
-              symbolizer={rule.symbolizer}
-              features={gsData ? gsData.exampleFeatures : undefined}
-              onSymbolizerChange={this.onSymbolizerChange}
-            />
-          </Col>
-          <Col span={12}>
             <Fieldset title="Use Filter">
               <ComparisonFilterUi
                 internalDataDef={gsData}
@@ -171,9 +169,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
                 onFilterChange={this.onFilterChange}
               />
             </Fieldset>
-          </Col>
-        </Row>
+          </div>
+        </div>
         <Button
+          className="gs-rule-remove-button"
           style={{}}
           type="danger"
           icon="close-circle-o"
