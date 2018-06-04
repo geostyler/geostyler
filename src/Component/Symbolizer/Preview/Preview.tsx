@@ -146,7 +146,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     } else {
       // use passed in OL map and bind it to this preview DIV
       map = this.props.map;
-      map.setTarget('map');
+      map.setTarget(this.state.mapTargetId);
     }
 
     // show an OSM background layer if configured and no map was passed in

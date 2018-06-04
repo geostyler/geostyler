@@ -30,9 +30,16 @@ class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolFilterFi
 
   constructor(props: BoolFilterFieldProps) {
     super(props);
-
     this.state = {
       value: this.props.value ? true : false
+    };
+  }
+
+  static getDerivedStateFromProps(
+      nextProps: BoolFilterFieldProps,
+      prevState: BoolFilterFieldState): Partial<BoolFilterFieldState> {
+    return {
+      value: nextProps.value
     };
   }
 

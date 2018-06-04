@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { Select } from 'antd';
 const Option = Select.Option;
-import 'antd/dist/antd.css';
 
 import {
   Data as GsData,

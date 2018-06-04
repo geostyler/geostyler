@@ -10,6 +10,10 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
 
+import {
+  cloneDeep as _cloneDeep
+} from 'lodash';
+
 // default props
 interface DefaultCircleEditorProps {
   radiusLabel: string;
@@ -43,7 +47,6 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
 
   render() {
     const {
-      symbolizer,
       radiusLabel,
       fillOpacityLabel,
       fillColorLabel,
@@ -51,6 +54,8 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
       strokeWidthLabel,
       strokeOpacityLabel
     } = this.props;
+
+    const symbolizer = _cloneDeep(this.props.symbolizer);
 
     const {
       radius,

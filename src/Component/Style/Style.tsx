@@ -19,6 +19,11 @@ interface DefaultStyleProps {
   style: GsStyle;
 }
 
+import {
+  isEqual as _isEqual,
+  cloneDeep as _cloneDeep
+} from 'lodash';
+
 // non default props
 interface StyleProps extends Partial<DefaultStyleProps> {
   data?: GsData;
@@ -81,7 +86,7 @@ class Style extends React.Component<StyleProps, StyleState> {
   }
 
   onNameChange = (name: string) => {
-    const style = this.state.style;
+    const style = _cloneDeep(this.state.style);
     style.name = name;
     this.setState({style});
     if (this.props.onStyleChange) {
@@ -89,16 +94,22 @@ class Style extends React.Component<StyleProps, StyleState> {
     }
   }
 
-  onRuleChange = (rule: GsRule) => {
-    const style = this.state.style;
-    // TODO style.rules is allready update. Why?
-    if (this.props.onStyleChange) {
-      this.props.onStyleChange(style);
+  onRuleChange = (rule: GsRule, ruleBefore: GsRule) => {
+    const style = _cloneDeep(this.state.style);
+    const ruleIdxToReplace = style.rules.findIndex(r => {
+      return _isEqual(r, ruleBefore);
+    });
+    if (ruleIdxToReplace > -1) {
+      style.rules[ruleIdxToReplace] = rule;
+      this.setState({style});
+      if (this.props.onStyleChange) {
+        this.props.onStyleChange(style);
+      }
     }
   }
 
   addRule = () => {
-    const style = this.state.style;
+    const style = _cloneDeep(this.state.style);
     // TODO We need to ensure that rule names are unique
     const randomId = Math.floor(Math.random() * 10000);
     const newRule: GsRule = {
@@ -123,17 +134,18 @@ class Style extends React.Component<StyleProps, StyleState> {
     if (this.state.style) {
       rules = this.state.style.rules;
     }
-
     return (
       <div>
         <NameField value={this.state.style.name} onChange={this.onNameChange} />
-        {rules.map((rule) => <Rule
-          key={rule.name}
-          rule={rule}
-          onRemove={this.removeRule}
-          internalDataDef={this.props.data}
-          onRuleChange={this.onRuleChange}
-        />)}
+        {
+          rules.map((rule) => <Rule
+            key={rule.name}
+            rule={rule}
+            onRemove={this.removeRule}
+            internalDataDef={this.props.data}
+            onRuleChange={this.onRuleChange}
+          />)
+        }
         <Button
           style={{'marginBottom': '20px', 'marginTop': '20px'}}
           icon="plus"

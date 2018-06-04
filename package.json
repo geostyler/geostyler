@@ -23,6 +23,7 @@
   "homepage": "https://github.com/terrestris/geostyler#readme",
   "dependencies": {
     "antd": "3.5.4",
+    "codemirror": "5.38.0",
     "color": "3.0.0",
     "geostyler-data": "0.3.0",
     "geostyler-geojson-parser": "0.1.4",
@@ -31,6 +32,7 @@
     "geostyler-style": "0.5.0",
     "openlayers": "4.6.5",
     "react": "16.4.0",
+    "react-codemirror2": "5.0.4",
     "react-color": "2.14.1",
     "react-dom": "16.4.0",
     "react-scripts-ts": "2.16.0"
@@ -50,12 +52,12 @@
     "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags"
   },
   "devDependencies": {
+    "@types/codemirror": "0.0.56",
     "@types/color": "3.0.0",
     "@types/enzyme": "3.1.10",
     "@types/geojson": "7946.0.3",
-    "@types/jest": "22.2.3",
+    "@types/jest": "23.0.0",
     "@types/node": "10.1.3",
-    "@types/ol": "4.6.1",
     "@types/react": "16.3.16",
     "@types/react-color": "2.13.5",
     "@types/react-dom": "16.0.5",
@@ -63,7 +65,7 @@
     "copyfiles": "2.0.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
-    "np": "3.0.1",
+    "np": "3.0.4",
     "react-styleguidist": "7.0.14",
     "rimraf": "2.6.2",
     "ts-jest": "22.4.6",
