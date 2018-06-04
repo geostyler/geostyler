@@ -18,6 +18,10 @@ import Preview from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
+import {
+  cloneDeep as _cloneDeep
+} from 'lodash';
+
 // default props
 interface DefaultRuleProps {
   rule: GsRule;
@@ -26,7 +30,7 @@ interface DefaultRuleProps {
 // non default props
 interface RuleProps extends Partial<DefaultRuleProps> {
   internalDataDef?: GsData | null;
-  onRuleChange?: (rule: GsRule) => void;
+  onRuleChange?: (rule: GsRule, ruleBefore?: GsRule) => void;
   onRemove?: (rule: GsRule) => void;
 }
 
@@ -70,11 +74,11 @@ class Rule extends React.Component<RuleProps, RuleState> {
    * Handles changing rule name
    */
   onNameChange = (name: string) => {
-    const rule = this.state.rule;
+    const rule: GsRule = _cloneDeep(this.state.rule);
     rule.name = name;
     this.setState({rule});
     if (this.props.onRuleChange) {
-      this.props.onRuleChange(rule);
+      this.props.onRuleChange(rule, this.state.rule);
     }
   }
 
@@ -82,11 +86,11 @@ class Rule extends React.Component<RuleProps, RuleState> {
    * Handles changing rule name
    */
   onScaleDenominatorChange = (scaleDenominator: any) => {
-    const rule = this.state.rule;
+    const rule: GsRule = _cloneDeep(this.state.rule);
     rule.scaleDenominator = scaleDenominator;
     this.setState({rule});
     if (this.props.onRuleChange) {
-      this.props.onRuleChange(rule);
+      this.props.onRuleChange(rule, this.state.rule);
     }
   }
 
@@ -94,11 +98,11 @@ class Rule extends React.Component<RuleProps, RuleState> {
    * Handles changing rule filter
    */
   onFilterChange = (filter: GsComparisonFilter) => {
-    const rule = this.state.rule;
+    const rule: GsRule = _cloneDeep(this.state.rule);
     rule.filter = filter;
     this.setState({rule});
     if (this.props.onRuleChange) {
-      this.props.onRuleChange(rule);
+      this.props.onRuleChange(rule, this.state.rule);
     }
   }
 
@@ -106,11 +110,11 @@ class Rule extends React.Component<RuleProps, RuleState> {
    * Handles changing rule symbolizer
    */
   onSymbolizerChange = (symbolizer: GsSymbolizer) => {
-    const rule = this.state.rule;
+    const rule: GsRule = _cloneDeep(this.state.rule);
     rule.symbolizer = symbolizer;
     this.setState({rule});
     if (this.props.onRuleChange) {
-      this.props.onRuleChange(rule);
+      this.props.onRuleChange(rule, this.state.rule);
     }
   }
 

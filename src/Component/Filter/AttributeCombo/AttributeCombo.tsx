@@ -32,9 +32,16 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
 
   constructor(props: AttributeComboProps) {
     super(props);
-
     this.state = {
       value: this.props.value
+    };
+  }
+
+  static getDerivedStateFromProps(
+     nextProps: AttributeComboProps,
+     prevState: AttributeComboState): Partial<AttributeComboState> {
+    return {
+      value: nextProps.value
     };
   }
 
@@ -78,7 +85,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
           {
             internalDataDef ?
               <Select
-                defaultValue={this.state.value}
+                value={this.state.value}
                 style={{ width: '100%' }}
                 onChange={onAttributeChange}
                 placeholder={placeholder}
@@ -87,7 +94,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
               </Select>
               :
               <Input
-                defaultValue={this.state.value}
+                value={this.state.value}
                 placeholder={placeholder}
                 style={{ width: '100%' }}
                 onChange={(event) => {

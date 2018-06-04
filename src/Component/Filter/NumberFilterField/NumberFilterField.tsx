@@ -32,9 +32,16 @@ class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFi
 
   constructor(props: NumberFilterFieldProps) {
     super(props);
-
     this.state = {
       value: this.props.value
+    };
+  }
+
+  static getDerivedStateFromProps(
+      nextProps: NumberFilterFieldProps,
+      prevState: NumberFilterFieldState): Partial<NumberFilterFieldState> {
+    return {
+      value: nextProps.value
     };
   }
 
