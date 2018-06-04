@@ -36,9 +36,16 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
 
   constructor(props: OperatorComboProps) {
     super(props);
-
     this.state = {
       value: this.props.value
+    };
+  }
+
+  static getDerivedStateFromProps(
+      nextProps: OperatorComboProps,
+      prevState: OperatorState): Partial<OperatorState> {
+    return {
+      value: nextProps.value
     };
   }
 
@@ -64,12 +71,12 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
         <Form.Item label={this.props.label} colon={false} >
 
           <Select
-            defaultValue={this.state.value}
+            value={this.state.value}
             style={{ width: '100%' }}
             onChange={this.props.onOperatorChange}
             placeholder={this.props.placeholder}
           >
-              {options}
+            {options}
           </Select>
 
         </Form.Item>

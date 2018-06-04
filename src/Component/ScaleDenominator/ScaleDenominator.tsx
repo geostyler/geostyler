@@ -4,7 +4,8 @@ import MinScaleDenominator from './MinScaleDenominator';
 import MaxScaleDenominator from './MaxScaleDenominator';
 
 import {
-  get as _get
+  get as _get,
+  cloneDeep as _cloneDeep
 } from 'lodash';
 
 import {
@@ -45,7 +46,7 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
    * Reacts on changing min scale and pushes the current state to the 'onChange' function
    */
   onMinScaleDenomChange = (minScaleDenominator: number) => {
-    let scaleDenominator = this.state.scaleDenominator;
+    let scaleDenominator = _cloneDeep(this.state.scaleDenominator);
     if (!scaleDenominator) {
       scaleDenominator = {};
     }
@@ -58,7 +59,7 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
    * Reacts on changing max scale and pushes the current state to the 'onChange' function
    */
   onMaxScaleDenomChange = (maxScaleDenominator: number) => {
-    let scaleDenominator = this.state.scaleDenominator;
+    let scaleDenominator = _cloneDeep(this.state.scaleDenominator);
     if (!scaleDenominator) {
       scaleDenominator = {};
     }
