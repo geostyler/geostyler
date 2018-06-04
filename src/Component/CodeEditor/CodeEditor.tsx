@@ -42,7 +42,7 @@ interface CodeEditorState {
 }
 
 /**
- * Button to upload / import geodata file.
+ * The CodeEditor.
  */
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 

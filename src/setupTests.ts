@@ -4,6 +4,10 @@ import * as Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
+
+// Range poylfill comes from:
+// https://stackoverflow.com/questions/42213522/mocking-document-createrange-for-jest
+
 global.Range = function Range() {};
 
 const createContextualFragment = (html) => {
