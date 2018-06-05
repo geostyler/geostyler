@@ -39,7 +39,7 @@ class Style extends React.Component<StyleProps, StyleState> {
   constructor(props: StyleProps) {
     super(props);
     this.state = {
-      style: Style.defaultProps.style
+      style: props.style || Style.defaultProps.style
     };
   }
 
@@ -51,14 +51,12 @@ class Style extends React.Component<StyleProps, StyleState> {
     }
   };
 
-  static getDerivedStateFromProps(
-      nextProps: StyleProps,
-      prevState: StyleState): Partial<StyleState> {
-    const newState: Partial<StyleState> = {};
-    if (nextProps.style) {
-      newState.style = nextProps.style;
+  componentDidUpdate(prevProps: any, prevState: any) {
+    if (this.props.style && !_isEqual(this.props.style, prevProps.style)) {
+      this.setState({
+        style: this.props.style
+      });
     }
-    return newState;
   }
 
   /**
@@ -118,15 +116,19 @@ class Style extends React.Component<StyleProps, StyleState> {
     };
     style.rules = [...style.rules, newRule];
     this.setState({style});
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(style);
+    }
   }
 
   removeRule = (rule: GsRule) => {
-    const {
-      style
-    } = this.state;
+    const style = _cloneDeep(this.state.style);
     const newRules = style.rules.filter(r => r.name !== rule.name);
     style.rules = newRules;
     this.setState({style});
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(style);
+    }
   }
 
   render() {
@@ -135,7 +137,7 @@ class Style extends React.Component<StyleProps, StyleState> {
       rules = this.state.style.rules;
     }
     return (
-      <div>
+      <div className="gs-style" >
         <NameField value={this.state.style.name} onChange={this.onNameChange} />
         {
           rules.map((rule) => <Rule

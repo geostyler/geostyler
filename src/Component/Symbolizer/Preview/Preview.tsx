@@ -64,7 +64,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     projection: 'EPSG:3857',
     dataProjection: 'EPSG:4326',
     showOsmBackground: true,
-    mapHeight: 200,
+    mapHeight: 267,
     map: undefined,
     layers: undefined,
     controls: undefined,
