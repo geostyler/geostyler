@@ -5,7 +5,7 @@ import ComparisonFilter from './Component/Filter/ComparisonFilter/ComparisonFilt
 import NumberFilterField from './Component/Filter/NumberFilterField/NumberFilterField';
 import OperatorCombo from './Component/Filter/OperatorCombo/OperatorCombo';
 import TextFilterField from './Component/Filter/TextFilterField/TextFilterField';
-import NameField from './Component/Rule/NameField/NameField';
+import NameField from './Component/NameField/NameField';
 import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
 import TitleField from './Component/Rule/TitleField/TitleField';
 import Rule from './Component/Rule/Rule';
