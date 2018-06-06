@@ -8,6 +8,7 @@ interface DefaultAttributeComboProps {
   label: string;
   placeholder: string;
   value: string | undefined;
+  attributeNameFilter: (attrName: string) => boolean;
 }
 // non default props
 interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
@@ -27,7 +28,8 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
   public static defaultProps: DefaultAttributeComboProps = {
     label: 'Attribute',
     placeholder: 'Select Attribute',
-    value: undefined
+    value: undefined,
+    attributeNameFilter: () => true
   };
 
   constructor(props: AttributeComboProps) {
@@ -50,7 +52,8 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
       internalDataDef,
       onAttributeChange,
       label,
-      placeholder
+      placeholder,
+      attributeNameFilter
     } = this.props;
 
     let options: Object[] = [];
@@ -67,7 +70,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
       }
 
       // create an option per attribute
-      options = attrNames.map(attrName => {
+      options = attrNames.filter(attributeNameFilter!).map(attrName => {
         return (
           <Option
             key={attrName}

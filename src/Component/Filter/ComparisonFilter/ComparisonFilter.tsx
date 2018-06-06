@@ -27,6 +27,7 @@ import {
 // default props
 interface DefaultComparisonFilterProps {
   filter: GsComparisonFilter;
+  attributeNameFilter: (attributeName: string) => boolean;
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
@@ -63,7 +64,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   }
 
   public static defaultProps: DefaultComparisonFilterProps = {
-    filter: ['==', '', null]
+    filter: ['==', '', null],
+    attributeNameFilter: () => true
   };
 
   constructor(props: ComparisonFilterProps) {
@@ -226,6 +228,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
               value={this.state && this.state.filter ? this.state.filter[1] : undefined}
               internalDataDef={this.props.internalDataDef}
               onAttributeChange={this.onAttributeChange}
+              attributeNameFilter={this.props.attributeNameFilter}
             />
           </Col>
           <Col span={4}>
