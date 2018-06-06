@@ -3,7 +3,9 @@ import TestUtil from '../../../Util/TestUtil';
 
 describe('ComparisonFilter', () => {
 
+  const dummyFilterFn = jest.fn();
   let wrapper: any;
+
   beforeEach(() => {
     // wrapper = TestUtil.mountComponent(AttributeCombo);
     let i = 0;
@@ -11,7 +13,12 @@ describe('ComparisonFilter', () => {
       i = i + 1;
     };
     const dummyData = TestUtil.getDummyGsData();
-    wrapper = TestUtil.shallowRenderComponent(ComparisonFilter, {internalDataDef: dummyData, onFilterChange: dummyFn});
+    const defaultProps = {
+      internalDataDef: dummyData,
+      onFilterChange: dummyFn,
+      attributeNameFilter: dummyFilterFn
+    };
+    wrapper = TestUtil.shallowRenderComponent(ComparisonFilter, defaultProps);
   });
 
   it('is defined', () => {
@@ -21,5 +28,4 @@ describe('ComparisonFilter', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-
 });
