@@ -3,7 +3,7 @@
 [github](https://github.com/terrestris/geostyler) /
 [npm](https://www.npmjs.com/package/geostyler)
 
-Generic styler for geodata. Work in progress, stay tuned...
+Generic styler for geodata.
 
 [![Build Status](https://travis-ci.org/terrestris/geostyler.svg?branch=master)](https://travis-ci.org/terrestris/geostyler)
 [![Greenkeeper badge](https://badges.greenkeeper.io/terrestris/geostyler.svg)](https://greenkeeper.io/)
@@ -34,7 +34,14 @@ Generic styler for geodata. Work in progress, stay tuned...
 
 ### StyleParser Implementations
 
-Work in progress
-
+  - SLD (
+      [github](https://github.com/terrestris/geostyler-sld-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-sld-parser)
+    )
+  - OpenLayers Style (
+      [github](https://github.com/terrestris/geostyler-openlayers-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-openlayers-parser)
+    )
+    
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 The most recent version of the Create React App README can be found [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
