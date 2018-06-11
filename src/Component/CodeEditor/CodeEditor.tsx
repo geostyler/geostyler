@@ -84,7 +84,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 
   getModeByParser(): string {
-    if (this.state.activeParser && this.state.activeParser.name === 'SldStyleParser') {
+    if (this.state.activeParser && this.state.activeParser.title === 'SldStyleParser') {
       return 'application/xml';
     }
     return 'application/json';
@@ -142,7 +142,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   onSelect = (selection: string) => {
     if (this.props.parsers) {
-      const activeParser = this.props.parsers.find(parser => parser.name === selection);
+      const activeParser = this.props.parsers.find(parser => parser.title === selection);
       this.setState({activeParser}, () => {
         if (this.props.style) {
           this.updateValueFromStyle(this.props.style);
@@ -157,7 +157,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     ];
     if (this.props.parsers) {
       const additionalOptions = this.props.parsers.map((parser: any) => {
-        return <Option key={parser.name} value={parser.name}>{parser.name}</Option>;
+        return <Option key={parser.title} value={parser.title}>{parser.title}</Option>;
       });
       return [...parserOptions, ...additionalOptions];
     }

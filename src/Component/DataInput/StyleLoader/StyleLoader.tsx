@@ -56,12 +56,12 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
   getParserOptions = () => {
     return this.props.parsers.map((parser: any) => {
-      return <Option key={parser.name} value={parser.name}>{parser.name}</Option>;
+      return <Option key={parser.title} value={parser.title}>{parser.title}</Option>;
     });
   }
 
   onSelect = (selection: string) => {
-    const activeParser = this.props.parsers.find(parser => parser.name === selection);
+    const activeParser = this.props.parsers.find(parser => parser.title === selection);
     if (activeParser) {
       this.setState({activeParser});
     }
