@@ -51,7 +51,10 @@ if [ -n "$TRAVIS_TAG" ]; then
   cp -r $SRC_DIR/styleguide/. docs/v$VERSION/
 fi
 
-# # Copy the src dir from previous build folder.
+# Cleanup existing resources.
+rm -Rf ./static ./styleguide ./asset-manifest.json ./manifest.json ./service-worker.js ./style.css ./index.html
+
+# Copy the src dir from previous build folder.
 cp -r $SRC_DIR/ .
 
 git add .

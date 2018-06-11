@@ -5,7 +5,7 @@ script:
 - npm run test
 - npm run build
 after_success:
-- "./.ci/update-gh-pages.sh > /dev/null 2>&1"
+- "./.ci/update-gh-pages.sh"
 cache: false
 env:
   global:
