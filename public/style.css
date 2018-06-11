@@ -1,0 +1,15 @@
+header {
+  padding: 10px;
+  font-size: 1.5em;
+}
+
+header > a {
+  float: right;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.App {
+  width: 100%;
+  padding: 0 10px;
+}

@@ -1,6 +1,12 @@
 language: node_js
 node_js:
-- "8"
+- '8'
 script:
 - npm run test
+- npm run build
+after_success:
+- "./.ci/update-gh-pages.sh > /dev/null 2>&1"
 cache: false
+env:
+  global:
+    secure: KW5GaJZGnQUNBjPoDAn9oH9e7VmrDLS3AwFvFbQYZB0enp0JR2Xjj8lD79juzipdfnWR1AUh8jDr7ZULUCxRuGTdBp2Q2wc1GFxPLUTmXYcS/MvYa4fH5Zj5/VCXkbFTIZHy/scId4OCsHzSX+OsmqvkcW5TZWj1UdAraLQ+Z8EjWsGw8Hs0Aj+ER/42mytYlGQJXAJz2KYlDJgNBsv6QkNXy6Qh65gdrovucPyLRhES3QsDNuY+Qw+SQZ0SrmVWvWSmotWkdBYu2mqahwyYf27cW5o8NKHgiT1fGtUGUnEwQtpJb20Zz6mqgeV0BAZM3pg2rDTQpiLGA+QKQ7rqnveZyKxWLL1CYS4of+YlIn8keFfMFDA4EhuBs1bF9LiQ0XVXPDQXgO5J/+RmTU7Xq9/ykDCf9YfXrcbXqWfXWA01MBjdt4iybfMx7XsNZKxUH6HBP13KRMI8mlLjh3GhBD8mdNR1o/Lv6v92deP+XfOby75FEJnn5CjCxQvB3UrluR88jyuOlcTm90Vkq2Y8Da+nMzt+zwkysJS5NQ3xQGUQSFoSObCOLiZ8WxmZZYNmuBb2QmVLElS2/NP8oeYv0jWHQu2mnu2RqHiJk56IT20PzDLLNpa+NS2eT68gggzrWSVywtPsU3b55ZJiVlh9k07f4lff9hgHC4+c/nDwk/Q=
