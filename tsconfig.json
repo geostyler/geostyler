@@ -27,6 +27,7 @@
     "webpack",
     "jest",
     "src/setupTests.ts",
-    "src/index.tsx"
+    "src/index.tsx",
+    "**.config.js"
   ]
 }
