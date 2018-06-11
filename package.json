@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/terrestris/geostyler/issues"
   },
-  "homepage": "https://github.com/terrestris/geostyler#readme",
+  "homepage": ".",
   "dependencies": {
     "antd": "3.6.2",
     "codemirror": "5.38.0",
@@ -38,18 +38,20 @@
     "react-scripts-ts": "2.16.0"
   },
   "scripts": {
-    "prebuild": "rimraf dist/**",
-    "start": "react-scripts-ts start",
-    "build": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
-    "pretest": "npm run lint",
-    "test": "CI=true react-scripts-ts test --env=jsdom",
-    "test:watch": "react-scripts-ts test --env=jsdom",
+    "build": "npm run build:dist && npm run build:app && npm run build:styleguide",
+    "build:app": "react-scripts-ts build",
+    "build:dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
+    "build:styleguide": "styleguidist build",
     "eject": "react-scripts-ts eject",
-    "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build",
     "lint": "tslint --project tsconfig.json --config tslint.json && tsc --noEmit --project tsconfig.json",
+    "pretest": "npm run lint",
+    "prebuild": "rimraf dist/** && rimraf build/**",
     "prepublishOnly": "npm run build",
-    "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags"
+    "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags",
+    "styleguide": "styleguidist server",
+    "start": "react-scripts-ts start",
+    "test": "CI=true react-scripts-ts test --env=jsdom",
+    "test:watch": "react-scripts-ts test --env=jsdom"
   },
   "devDependencies": {
     "@types/codemirror": "0.0.56",
