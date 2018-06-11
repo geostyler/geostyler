@@ -54,10 +54,14 @@ fi
 # Cleanup existing resources.
 rm -Rf ./static ./styleguide ./asset-manifest.json ./manifest.json ./service-worker.js ./style.css ./index.html
 
-# Copy the src dir from previous build folder.
-cp -r $SRC_DIR/ .
+ls -lah $SRC_DIR
 
-git add .
+# Copy the src dir from previous build folder.
+cp -r $SRC_DIR/* .
+
+ls -lah
+
+git add --all
 git commit -m "$GH_PAGES_COMMIT_MSG"
 git push --quiet $GH_PAGES_REPO_AUTHENTICATED $GH_PAGES_BRANCH
 
