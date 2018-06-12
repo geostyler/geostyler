@@ -16,7 +16,7 @@ import {
 interface DefaultFillEditorProps {
   fillOpacityLabel: string;
   fillColorLabel: string;
-  strokeColorLabel: string;
+  outlineColorLabel: string;
 }
 
 // non default props
@@ -30,7 +30,7 @@ class FillEditor extends React.Component<FillEditorProps, {}> {
   public static defaultProps: DefaultFillEditorProps = {
     fillOpacityLabel: 'Fill-Opacity',
     fillColorLabel: 'Fill-Color',
-    strokeColorLabel: 'Stroke-Color'
+    outlineColorLabel: 'Stroke-Color'
   };
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
@@ -39,9 +39,9 @@ class FillEditor extends React.Component<FillEditorProps, {}> {
 
   render() {
     const {
-      fillOpacityLabel,
       fillColorLabel,
-      strokeColorLabel
+      fillOpacityLabel,
+      outlineColorLabel
     } = this.props;
 
     const symbolizer = _cloneDeep(this.props.symbolizer);
@@ -72,7 +72,7 @@ class FillEditor extends React.Component<FillEditorProps, {}> {
         />
         <ColorField
           color={outlineColor}
-          label={strokeColorLabel}
+          label={outlineColorLabel}
           onChange={(value: string) => {
             symbolizer.outlineColor = value;
             this.props.onSymbolizerChange(symbolizer);
