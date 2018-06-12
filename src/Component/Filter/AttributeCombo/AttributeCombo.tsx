@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Select, Form, Input } from 'antd';
+import { Data } from 'geostyler-data';
 const Option = Select.Option;
 
 // default props
@@ -12,7 +13,7 @@ interface DefaultAttributeComboProps {
 }
 // non default props
 interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
-  internalDataDef: any;
+  internalDataDef: Data;
   onAttributeChange: ((newAttrName: string) => void);
 }
 

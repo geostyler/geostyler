@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { InputNumber } from 'antd';
 import FormItem from 'antd/lib/form/FormItem';
+import { Data } from 'geostyler-data';
 
 // default props
 interface DefaultNumberFilterFieldProps {
@@ -10,7 +11,7 @@ interface DefaultNumberFilterFieldProps {
 }
 // non default props
 interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {
-  internalDataDef: any;
+  internalDataDef: Data;
   onValueChange: ((newValue: number) => void);
   selectedAttribute: string;
 }
