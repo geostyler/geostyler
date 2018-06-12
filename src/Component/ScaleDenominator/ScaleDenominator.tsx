@@ -26,7 +26,7 @@ interface ScaleDenominatorState {
 }
 
 /**
- * Cmbined UI fpr input fields for the minimum and maximum scale of a rule.
+ * Combined UI for input fields for the minimum and maximum scale of a rule.
  */
 class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenominatorState> {
   constructor(props: ScaleDenominatorProps) {
