@@ -84,7 +84,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 
   getModeByParser(): string {
-    if (this.state.activeParser && this.state.activeParser.title === 'SldStyleParser') {
+    if (this.state.activeParser && this.state.activeParser.title === 'SLD Style Parser') {
       return 'application/xml';
     }
     return 'application/json';
