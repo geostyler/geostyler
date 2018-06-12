@@ -28,6 +28,13 @@ import {
 interface DefaultComparisonFilterProps {
   filter: GsComparisonFilter;
   attributeNameFilter: (attributeName: string) => boolean;
+  attributeLabel: string | undefined;
+  attributePlaceholderString: string | undefined;
+  comperatorLabel: string | undefined;
+  comperatorPlaceholderString: string | undefined;
+  valueLabel: string | undefined;
+  valuePlaceholder: string | undefined;
+  onValidationChanged: (status: ValidationStatus) => void;
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
@@ -66,7 +73,14 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
 
   public static defaultProps: DefaultComparisonFilterProps = {
     filter: ['==', '', null],
-    attributeNameFilter: () => true
+    attributeNameFilter: () => true,
+    attributeLabel: undefined,
+    attributePlaceholderString: undefined,
+    comperatorLabel: undefined,
+    comperatorPlaceholderString: undefined,
+    valueLabel: undefined,
+    valuePlaceholder: undefined,
+    onValidationChanged: () => false
   };
 
   private operatorsMap: Object = {
@@ -241,6 +255,9 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
               internalDataDef={this.props.internalDataDef}
               onAttributeChange={this.onAttributeChange}
               attributeNameFilter={this.props.attributeNameFilter}
+                label={this.props.attributeLabel}
+                placeholder={this.props.attributePlaceholderString}
+                validateStatus={this.state.validateStatus.attribute}
             />
           </Col>
           <Col span={4}>
@@ -249,6 +266,9 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
               internalDataDef={this.props.internalDataDef}
               onOperatorChange={this.onOperatorChange}
               operators={this.state.allowedOperators}
+                label={this.props.comperatorLabel}
+                placeholder={this.props.comperatorPlaceholderString}
+                validateStatus={this.state.validateStatus.operator}
             />
           </Col>
           {
@@ -258,6 +278,9 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                   value={this.state && this.state.filter ? this.state.filter[2] as string : undefined}
                   internalDataDef={this.props.internalDataDef}
                   onValueChange={this.onValueChange}
+                    label={this.props.valueLabel}
+                    placeholder={this.props.valuePlaceholder}
+                    validateStatus={this.state.validateStatus.value}
                 />
               </Col> :
               null
@@ -270,6 +293,9 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                   internalDataDef={this.props.internalDataDef}
                   selectedAttribute={this.state.attribute}
                   onValueChange={this.onValueChange}
+                    label={this.props.valueLabel}
+                    placeholder={this.props.valuePlaceholder}
+                    validateStatus={this.state.validateStatus.value}
                 />
               </Col> :
               null
@@ -281,11 +307,11 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                   value={this.state && this.state.filter ? this.state.filter[2] as boolean : undefined}
                   internalDataDef={this.props.internalDataDef}
                   onValueChange={this.onValueChange}
+                    label={this.props.valueLabel}
                 />
               </Col> :
               null
           }
-
         </Row>
 
       </div>
