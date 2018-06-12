@@ -3,6 +3,9 @@ import * as React from 'react';
 import { ComparisonOperator } from 'geostyler-style';
 import { Select, Form } from 'antd';
 import { Data } from 'geostyler-data';
+import {
+  indexOf as _indexOf,
+} from 'lodash';
 const Option = Select.Option;
 
 // default props
@@ -10,6 +13,7 @@ interface DefaultOperatorComboProps {
   label: string;
   placeholder: string;
   value: ComparisonOperator | undefined;
+  operators: string[];
 }
 // non default props
 interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
@@ -29,11 +33,9 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
   public static defaultProps: DefaultOperatorComboProps = {
     label: 'Operator',
     placeholder: 'Select Operator',
-    value: undefined
+    value: undefined,
+    operators: ['==', '*=', '!=', '<', '<=', '>', '>=']
   };
-
-  /** Available filter operators shown in the combobox  */
-  operators: string[] = ['==', '*=', '!=', '<', '<=', '>', '>='];
 
   constructor(props: OperatorComboProps) {
     super(props);
@@ -45,17 +47,29 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
   static getDerivedStateFromProps(
       nextProps: OperatorComboProps,
       prevState: OperatorState): Partial<OperatorState> {
+
+    let value: ComparisonOperator | undefined = nextProps.value;
+
+    // check if we have to change value according to new allowed operators
+    if (nextProps.operators) {
+      if (_indexOf(nextProps.operators, nextProps.value) === -1) {
+        // current operator is not in allowed list, so we use an allowed one
+        value = nextProps.operators[0] as ComparisonOperator;
+      }
+    }
+
     return {
-      value: nextProps.value
+      value: value
     };
   }
 
   render() {
 
     let options: Object[] = [];
+    const operators = this.props.operators || ['==', '*=', '!=', '<', '<=', '>', '>='];
 
     // create an option per attribute
-    options = this.operators.map(operator => {
+    options = operators.map(operator => {
       return (
         <Option
           key={operator}

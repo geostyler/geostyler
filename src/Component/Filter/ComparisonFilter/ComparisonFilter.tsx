@@ -44,6 +44,7 @@ interface ComparisonFilterState {
   operator: ComparisonOperator | undefined;
   value: string | number | boolean | null;
   filter: GsComparisonFilter;
+  allowedOperators: string[];
 }
 
 /**
@@ -66,6 +67,12 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   public static defaultProps: DefaultComparisonFilterProps = {
     filter: ['==', '', null],
     attributeNameFilter: () => true
+  };
+
+  private operatorsMap: Object = {
+    string: ['==', '*=', '!='],
+    number: ['==', '!=', '<', '<=', '>', '>='],
+    boolean: ['==', '!=']
   };
 
   constructor(props: ComparisonFilterProps) {
@@ -96,6 +103,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         if (attribute) {
           const attrType = attrDefs[attrName].type;
           stateParts.attributeType = attrType;
+
+          stateParts.allowedOperators = this.operatorsMap[attrType];
         }
       }
 
@@ -115,7 +124,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         attribute: '',
         operator: undefined,
         value: null,
-        filter: ComparisonFilterUi.defaultProps.filter
+        filter: ComparisonFilterUi.defaultProps.filter,
+        allowedOperators: ['==', '*=', '!=', '<', '<=', '>', '>=']
       };
     }
 
@@ -179,10 +189,12 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
 
       // reset the filter value when the attribute type changed
       if (attrType !== this.state.attributeType) {
+
         this.setState({
           value: null,
           // preserve the attribute type to compare with new one
-          attributeType: attrType
+          attributeType: attrType,
+          allowedOperators: this.operatorsMap[attrType]
         });
       }
     }
@@ -236,6 +248,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
               value={this.state && this.state.filter ? this.state.filter[0] : undefined}
               internalDataDef={this.props.internalDataDef}
               onOperatorChange={this.onOperatorChange}
+              operators={this.state.allowedOperators}
             />
           </Col>
           {
