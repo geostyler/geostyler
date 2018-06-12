@@ -11,6 +11,7 @@ import CircleEditor from '../CircleEditor/CircleEditor';
 import './Editor.css';
 
 import 'openlayers/css/ol.css';
+import LineEditor from '../LineEditor/LineEditor';
 
 // default props
 interface DefaultEditorProps {}
@@ -68,6 +69,13 @@ class Editor extends React.Component<EditorProps, EditorState> {
       case 'Circle':
         return (
           <CircleEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={this.onSymbolizerChange}
+          />
+        );
+      case 'Line':
+        return (
+          <LineEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
           />
