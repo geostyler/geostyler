@@ -13,6 +13,7 @@ import UploadButton from '../../UploadButton/UploadButton';
 // default props
 interface DefaultDataLoaderProps {
   onDataRead: (data: GsData) => void;
+  label: string;
 }
 // non default props
 interface DataLoaderProps extends Partial<DefaultDataLoaderProps> {
@@ -32,7 +33,8 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
   }
 
   public static defaultProps: DefaultDataLoaderProps = {
-    onDataRead: (data: GsData) => {return; }
+    onDataRead: (data: GsData) => {return; },
+    label: 'Load Data: '
   };
 
   parseData = (uploadObject: any) => {
@@ -69,12 +71,15 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
   render() {
     const {
+      label
+    } = this.props;
+    const {
       activeParser
     } = this.state;
 
     return (
       <div>
-        Data Type:
+        {label}
         <Select
           style={{ width: 300 }}
           onSelect={this.onSelect}

@@ -14,6 +14,7 @@ import UploadButton from '../../UploadButton/UploadButton';
 // default props
 interface DefaultStyleLoaderProps {
   onStyleRead: (style: GsStyle) => void;
+  label: string;
 }
 // non default props
 interface StyleLoaderProps extends Partial<DefaultStyleLoaderProps> {
@@ -33,7 +34,8 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
   }
 
   public static defaultProps: DefaultStyleLoaderProps = {
-    onStyleRead: (style: GsStyle) => {return; }
+    onStyleRead: (style: GsStyle) => {return; },
+    label: 'Load Style: '
   };
 
   parseStyle = (uploadObject: any) => {
@@ -69,12 +71,15 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
   render() {
     const {
+      label
+    } = this.props;
+    const {
       activeParser
     } = this.state;
 
     return (
       <div>
-        Style Type:
+        {label}
         <Select
           style={{ width: 300 }}
           onSelect={this.onSelect}
