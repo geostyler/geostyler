@@ -10,7 +10,6 @@ import {
   Data as GsData
 } from 'geostyler-data';
 
-import OlStyleParser from 'geostyler-openlayers-parser';
 import SldStyleParser from 'geostyler-sld-parser';
 import GeoJsonParser from 'geostyler-geojson-parser';
 
@@ -27,6 +26,7 @@ import GeoStylerTemplateStyle from './data/TemplateStyle';
 interface DefaultAppProps {
   styleParsers: GsStyleParser[];
 }
+
 // non default props
 interface AppProps extends Partial<DefaultAppProps> {
 }
@@ -55,7 +55,6 @@ class App extends React.Component<AppProps, AppState> {
         <div className="settings">
           <StyleLoader
             parsers={[
-              OlStyleParser,
               SldStyleParser
             ]}
             onStyleRead={(style: GsStyle) => {
