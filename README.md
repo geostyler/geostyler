@@ -7,6 +7,7 @@ Generic styler for geodata.
 
 [![Build Status](https://travis-ci.org/terrestris/geostyler.svg?branch=master)](https://travis-ci.org/terrestris/geostyler)
 [![Greenkeeper badge](https://badges.greenkeeper.io/terrestris/geostyler.svg)](https://greenkeeper.io/)
+[![Coverage Status](https://coveralls.io/repos/github/terrestris/geostyler/badge.svg?branch=master)](https://coveralls.io/github/terrestris/geostyler?branch=master)
 
 ## Related projects
 
