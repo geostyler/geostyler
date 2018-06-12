@@ -10,6 +10,8 @@ interface DefaultAttributeComboProps {
   placeholder: string;
   value: string | undefined;
   attributeNameFilter: (attrName: string) => boolean;
+  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  help?: React.ReactNode;
 }
 // non default props
 interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
@@ -30,7 +32,9 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
     label: 'Attribute',
     placeholder: 'Select Attribute',
     value: undefined,
-    attributeNameFilter: () => true
+    attributeNameFilter: () => true,
+    validateStatus: 'success',
+    help: 'Please select an attribute.'
   };
 
   constructor(props: AttributeComboProps) {
@@ -83,9 +87,16 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
       });
     }
 
+    const helpTxt = this.props.validateStatus !== 'success' ? this.props.help : null;
+
     return (
       <div className="gs-attr-combo">
-        <Form.Item label={label} colon={false} >
+        <Form.Item
+          label={label}
+          colon={false}
+          validateStatus={this.props.validateStatus}
+          help={helpTxt}
+        >
           {
             internalDataDef ?
               <Select

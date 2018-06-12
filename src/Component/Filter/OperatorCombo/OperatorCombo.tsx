@@ -14,6 +14,8 @@ interface DefaultOperatorComboProps {
   placeholder: string;
   value: ComparisonOperator | undefined;
   operators: string[];
+  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  help?: React.ReactNode;
 }
 // non default props
 interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
@@ -34,7 +36,9 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
     label: 'Operator',
     placeholder: 'Select Operator',
     value: undefined,
-    operators: ['==', '*=', '!=', '<', '<=', '>', '>=']
+    operators: ['==', '*=', '!=', '<', '<=', '>', '>='],
+    validateStatus: 'error',
+    help: 'Please select an operator.'
   };
 
   constructor(props: OperatorComboProps) {
@@ -80,11 +84,16 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
       );
     });
 
+    const helpTxt = this.props.validateStatus !== 'success' ? this.props.help : null;
+
     return (
       <div className="gs-operator-combo">
-
-        <Form.Item label={this.props.label} colon={false} >
-
+        <Form.Item
+          label={this.props.label}
+          colon={false}
+          validateStatus={this.props.validateStatus}
+          help={helpTxt}
+        >
           <Select
             value={this.state.value}
             style={{ width: '100%' }}

@@ -8,6 +8,8 @@ interface DefaultTextFilterFieldProps {
   label: string;
   placeholder: string;
   value: string | undefined;
+  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  help?: React.ReactNode;
 }
 // non default props
 interface TextFilterFieldProps extends Partial<DefaultTextFilterFieldProps> {
@@ -27,7 +29,9 @@ class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFi
   public static defaultProps: DefaultTextFilterFieldProps = {
     label: 'Value',
     placeholder: 'Enter Text Value',
-    value: undefined
+    value: undefined,
+    validateStatus: 'success',
+    help: 'Please enter a text.'
   };
 
   constructor(props: TextFilterFieldProps) {
@@ -57,10 +61,18 @@ class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFi
 
   render() {
 
+    const helpTxt = this.props.validateStatus !== 'success' ? this.props.help : null;
+
     return (
       <div className="gs-text-filter-fld">
 
-        <Form.Item label={this.props.label} colon={false} >
+        <Form.Item
+          label={this.props.label}
+          colon={false}
+          validateStatus={this.props.validateStatus}
+          help={helpTxt}
+          hasFeedback={true}
+        >
 
           <Input
             value={this.state.value}

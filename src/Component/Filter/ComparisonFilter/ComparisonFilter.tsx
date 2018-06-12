@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-import { Row, Col } from 'antd';
+import {
+  Row,
+  Col,
+  Form
+} from 'antd';
 
 import AttributeCombo from '../AttributeCombo/AttributeCombo';
 import OperatorCombo from '../OperatorCombo/OperatorCombo';
@@ -21,7 +25,12 @@ import {
 
 import {
   get as _get,
-  cloneDeep as _cloneDeep
+  cloneDeep as _cloneDeep,
+  isEqual as _isEqual,
+  isNaN as _isNaN,
+  isNumber as _isNumber,
+  isEmpty as _isEmpty,
+  isFunction as _isFunction
 } from 'lodash';
 
 // default props
@@ -41,6 +50,13 @@ interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
   internalDataDef: Data;
   onFilterChange: ((compFilter: GsComparisonFilter) => void);
 }
+
+interface ValidationStatus {
+  attribute: 'success' | 'warning' | 'error' | 'validating';
+  operator: 'success' | 'warning' | 'error' | 'validating';
+  value: 'success' | 'warning' | 'error' | 'validating';
+}
+
 // state
 interface ComparisonFilterState {
   textFieldVisible: boolean;
@@ -52,6 +68,7 @@ interface ComparisonFilterState {
   value: string | number | boolean | null;
   filter: GsComparisonFilter;
   allowedOperators: string[];
+  validateStatus: ValidationStatus;
 }
 
 /**
@@ -105,7 +122,12 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         attribute: attrName,
         operator: filter[0],
         value: filter[2],
-        filter: this.props.filter
+        filter: this.props.filter,
+        validateStatus: {
+          attribute: 'error',
+          operator: 'error',
+          value: 'error'
+        }
       };
 
       this.state = stateParts;
@@ -139,10 +161,24 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         operator: undefined,
         value: null,
         filter: ComparisonFilterUi.defaultProps.filter,
-        allowedOperators: ['==', '*=', '!=', '<', '<=', '>', '>=']
+        allowedOperators: ['==', '*=', '!=', '<', '<=', '>', '>='],
+        validateStatus: {
+          attribute: 'error',
+          operator: 'error',
+          value: 'error'
+        }
       };
     }
+  }
 
+  /**
+   *
+   * @param previousProps
+   */
+  componentDidUpdate(previousProps: ComparisonFilterProps) {
+    if (!_isEqual(previousProps.filter, this.props.filter)) {
+      this.validateFilter();
+    }
   }
 
   /**
@@ -186,7 +222,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   onAttributeChange = (newAttrName: string) => {
     const {
       internalDataDef,
-      onFilterChange
+      onFilterChange,
+      onValidationChanged
     } = this.props;
 
     let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
@@ -213,9 +250,20 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       }
     }
 
+    const isValid = this.validateAttribute(newAttrName);
+    const validationStateNew: ValidationStatus = {
+      ...this.state.validateStatus,
+      attribute: isValid ? 'success' : 'error'
+    };
+
+    if (_isFunction(onValidationChanged)) {
+      onValidationChanged(validationStateNew);
+    }
+
     onFilterChange(filter);
     this.setState({
-      filter
+      filter,
+      validateStatus: validationStateNew
     });
   }
 
@@ -229,7 +277,21 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     filter[0] = newOperator;
     this.setState({filter});
     this.props.onFilterChange(filter);
-    this.setState({operator: newOperator});
+
+    const isValid = this.validateOperator(newOperator);
+    const validationStateNew: ValidationStatus = {
+      ...this.state.validateStatus,
+      operator: isValid ? 'success' : 'error'
+    };
+
+    this.setState({
+      validateStatus: validationStateNew,
+      operator: newOperator
+    });
+
+    if (_isFunction(this.props.onValidationChanged)) {
+      this.props.onValidationChanged(validationStateNew);
+    }
   }
 
   /**
@@ -240,80 +302,149 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   onValueChange = (newValue: string | number | boolean) => {
     let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
     filter[2] = newValue;
-    this.setState({filter});
+
+    // validate value fields
+    let isValid = this.validateValue(newValue);
+    const validationStateNew: ValidationStatus = {
+      ...this.state.validateStatus,
+      value: isValid ? 'success' : 'error'
+    };
+
+    this.setState({
+      validateStatus: validationStateNew,
+      filter
+    });
+
+    if (_isFunction(this.props.onValidationChanged)) {
+      this.props.onValidationChanged(validationStateNew);
+    }
+
     this.props.onFilterChange(filter);
+  }
+
+  /**
+   *
+   */
+  validateAttribute = (attributeName: string) => {
+    return !_isEmpty(attributeName);
+  }
+
+  /**
+   *
+   */
+  validateValue = (value: string | number | boolean | null) => {
+    if (!value) {
+      return false;
+    }
+    switch (this.state.attributeType) {
+      case 'number':
+        return _isNumber(Number(value)) && !_isNaN(Number(value));
+      case 'boolean':
+        return true;
+      default:
+        return !_isEmpty(value);
+    }
+  }
+
+  /**
+   *
+   */
+  validateOperator = (operator: string) => {
+    return !_isEmpty(operator);
+  }
+
+  /**
+   *
+   */
+  validateFilter = () => {
+    const { filter } = this.props;
+    if (!filter || !Array.isArray(filter)) {
+      return {
+        attribute: 'error',
+        operator: 'error',
+        value: 'error'
+      };
+    }
+
+    const validationStatus: ValidationStatus = {
+      attribute: this.validateAttribute(filter[0]) ? 'success' : 'error',
+      operator: this.validateOperator(filter[1]) ? 'success' : 'error',
+      value: this.validateValue(filter[2]) ? 'success' : 'error'
+    };
+    return validationStatus;
   }
 
   render() {
 
     return (
       <div className="gs-comparison-filter-ui">
-         <Row gutter={16}>
-          <Col span={10}>
-            <AttributeCombo
-              value={this.state && this.state.filter ? this.state.filter[1] : undefined}
-              internalDataDef={this.props.internalDataDef}
-              onAttributeChange={this.onAttributeChange}
-              attributeNameFilter={this.props.attributeNameFilter}
+        <Form>
+          <Row gutter={16} justify="center">
+            <Col span={10}>
+              <AttributeCombo
+                value={this.state && this.state.filter ? this.state.filter[1] : undefined}
+                internalDataDef={this.props.internalDataDef}
+                onAttributeChange={this.onAttributeChange}
+                attributeNameFilter={this.props.attributeNameFilter}
                 label={this.props.attributeLabel}
                 placeholder={this.props.attributePlaceholderString}
                 validateStatus={this.state.validateStatus.attribute}
-            />
-          </Col>
-          <Col span={4}>
-            <OperatorCombo
-              value={this.state && this.state.filter ? this.state.filter[0] : undefined}
-              internalDataDef={this.props.internalDataDef}
-              onOperatorChange={this.onOperatorChange}
-              operators={this.state.allowedOperators}
+              />
+            </Col>
+            <Col span={4}>
+              <OperatorCombo
+                value={this.state && this.state.filter ? this.state.filter[0] : undefined}
+                internalDataDef={this.props.internalDataDef}
+                onOperatorChange={this.onOperatorChange}
                 label={this.props.comperatorLabel}
+                operators={this.state.allowedOperators}
                 placeholder={this.props.comperatorPlaceholderString}
                 validateStatus={this.state.validateStatus.operator}
-            />
-          </Col>
-          {
-            this.state.textFieldVisible ?
-              <Col span={10}>
-                <TextFilterField
-                  value={this.state && this.state.filter ? this.state.filter[2] as string : undefined}
-                  internalDataDef={this.props.internalDataDef}
-                  onValueChange={this.onValueChange}
+              />
+            </Col>
+            {
+              this.state.textFieldVisible ?
+                <Col span={10}>
+                  <TextFilterField
+                    value={this.state && this.state.filter ? this.state.filter[2] as string : undefined}
+                    internalDataDef={this.props.internalDataDef}
+                    onValueChange={this.onValueChange}
                     label={this.props.valueLabel}
                     placeholder={this.props.valuePlaceholder}
                     validateStatus={this.state.validateStatus.value}
-                />
-              </Col> :
-              null
-          }
-          {
-            this.state.numberFieldVisible ?
-              <Col span={10}>
-                <NumberFilterField
-                  value={this.state && this.state.filter ? this.state.filter[2] as number : undefined}
-                  internalDataDef={this.props.internalDataDef}
-                  selectedAttribute={this.state.attribute}
-                  onValueChange={this.onValueChange}
+                  />
+                </Col> :
+                null
+            }
+            {
+              this.state.numberFieldVisible ?
+                <Col span={10}>
+                  <NumberFilterField
+                    value={this.state && this.state.filter ? this.state.filter[2] as number : undefined}
+                    internalDataDef={this.props.internalDataDef}
+                    selectedAttribute={this.state.attribute}
+                    onValueChange={this.onValueChange}
                     label={this.props.valueLabel}
                     placeholder={this.props.valuePlaceholder}
                     validateStatus={this.state.validateStatus.value}
-                />
-              </Col> :
-              null
-          }
-          {
-            this.state.boolFieldVisible ?
-              <Col span={10}>
-                <BoolFilterField
-                  value={this.state && this.state.filter ? this.state.filter[2] as boolean : undefined}
-                  internalDataDef={this.props.internalDataDef}
-                  onValueChange={this.onValueChange}
+                  />
+                </Col> :
+                null
+            }
+            {
+              this.state.boolFieldVisible ?
+                <Col span={10}>
+                  <BoolFilterField
+                    value={this.state && this.state.filter ? this.state.filter[2] as boolean : undefined}
+                    internalDataDef={this.props.internalDataDef}
+                    onValueChange={this.onValueChange}
                     label={this.props.valueLabel}
-                />
-              </Col> :
-              null
-          }
-        </Row>
-
+                  />
+                </Col> :
+                null
+            }
+          </Row>
+        </Form>
       </div>
     );
   }
