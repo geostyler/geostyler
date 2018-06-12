@@ -329,14 +329,14 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   }
 
   /**
-   *
+   * Function that validates passed attribute name
    */
   validateAttribute = (attributeName: string) => {
     return !_isEmpty(attributeName);
   }
 
   /**
-   *
+   * Function that validates passed attribute value
    */
   validateValue = (value: string | number | boolean | null) => {
     if (!value) {
@@ -353,14 +353,14 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   }
 
   /**
-   *
+   * Function that validates passed operator
    */
   validateOperator = (operator: string) => {
     return !_isEmpty(operator);
   }
 
   /**
-   *
+   * Function that validates given filter in props
    */
   validateFilter = () => {
     const { filter } = this.props;
