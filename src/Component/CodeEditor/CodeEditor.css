@@ -21,3 +21,13 @@
   color: red;
   background-color: lightgray;
 }
+
+.gs-code-editor-toolbar {
+  width: 100%;
+  padding: 5px;
+}
+
+.gs-code-editor-download-button {
+  float: right;
+}
+
