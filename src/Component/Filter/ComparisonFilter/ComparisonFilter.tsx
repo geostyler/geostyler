@@ -131,7 +131,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         filter: this.props.filter,
         validateStatus: {
           attribute: 'error',
-          operator: 'error',
+          operator: 'success',
           value: 'error'
         }
       };
@@ -170,7 +170,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         allowedOperators: ['==', '*=', '!=', '<', '<=', '>', '>='],
         validateStatus: {
           attribute: 'error',
-          operator: 'error',
+          operator: 'success',
           value: 'error'
         }
       };
@@ -365,19 +365,24 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   validateFilter = () => {
     const { filter } = this.props;
     if (!filter || !Array.isArray(filter)) {
-      return {
-        attribute: 'error',
-        operator: 'error',
-        value: 'error'
-      };
+      this.setState({
+        validateStatus: {
+          attribute: 'error',
+          operator: 'error',
+          value: 'error'
+        }
+      });
     }
 
-    const validationStatus: ValidationStatus = {
-      attribute: this.validateAttribute(filter[0]) ? 'success' : 'error',
-      operator: this.validateOperator(filter[1]) ? 'success' : 'error',
-      value: this.validateValue(filter[2]) ? 'success' : 'error'
+    const validateStatus: ValidationStatus = {
+      attribute: this.validateAttribute(filter![1]) ? 'success' : 'error',
+      operator: this.validateOperator(filter![0]) ? 'success' : 'error',
+      value: this.validateValue(filter![2]) ? 'success' : 'error'
     };
-    return validationStatus;
+
+    this.setState({
+      validateStatus
+    });
   }
 
   render() {
