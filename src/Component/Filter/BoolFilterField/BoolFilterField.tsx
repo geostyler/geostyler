@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Checkbox, Form } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
+import { Data } from 'geostyler-data';
 
 // default props
 interface DefaultBoolFilterFieldProps {
@@ -10,7 +11,7 @@ interface DefaultBoolFilterFieldProps {
 }
 // non default props
 interface BoolFilterFieldProps extends Partial<DefaultBoolFilterFieldProps> {
-  internalDataDef: any;
+  internalDataDef: Data;
   onValueChange: ((newValue: boolean) => void);
 }
 // state

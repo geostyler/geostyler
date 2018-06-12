@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Input, Form } from 'antd';
+import { Data } from 'geostyler-data';
 
 // default props
 interface DefaultTextFilterFieldProps {
@@ -10,7 +11,7 @@ interface DefaultTextFilterFieldProps {
 }
 // non default props
 interface TextFilterFieldProps extends Partial<DefaultTextFilterFieldProps> {
-  internalDataDef: any;
+  internalDataDef: Data;
   onValueChange: ((newValue: string) => void);
 }
 // state

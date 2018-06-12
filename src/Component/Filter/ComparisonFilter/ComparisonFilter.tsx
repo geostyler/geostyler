@@ -16,7 +16,7 @@ import './ComparisonFilter.css';
 import BoolFilterField from '../BoolFilterField/BoolFilterField';
 
 import {
-  Data as GsData
+  Data as Data
 } from 'geostyler-data';
 
 import {
@@ -31,7 +31,7 @@ interface DefaultComparisonFilterProps {
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
-  internalDataDef: GsData;
+  internalDataDef: Data;
   onFilterChange: ((compFilter: GsComparisonFilter) => void);
 }
 // state

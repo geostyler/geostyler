@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { ComparisonOperator } from 'geostyler-style';
 import { Select, Form } from 'antd';
+import { Data } from 'geostyler-data';
 const Option = Select.Option;
 
 // default props
@@ -12,7 +13,7 @@ interface DefaultOperatorComboProps {
 }
 // non default props
 interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
-  internalDataDef: any;
+  internalDataDef: Data;
   onOperatorChange: ((newOperator: ComparisonOperator) => void);
 }
 
