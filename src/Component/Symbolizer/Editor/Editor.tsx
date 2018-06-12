@@ -12,6 +12,7 @@ import './Editor.css';
 
 import 'openlayers/css/ol.css';
 import LineEditor from '../LineEditor/LineEditor';
+import FillEditor from '../FillEditor/FillEditor';
 
 // default props
 interface DefaultEditorProps {}
@@ -76,6 +77,13 @@ class Editor extends React.Component<EditorProps, EditorState> {
       case 'Line':
         return (
           <LineEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={this.onSymbolizerChange}
+          />
+        );
+      case 'Fill':
+        return (
+          <FillEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
           />
