@@ -39,10 +39,13 @@ interface DefaultComparisonFilterProps {
   attributeNameFilter: (attributeName: string) => boolean;
   attributeLabel: string | undefined;
   attributePlaceholderString: string | undefined;
-  comperatorLabel: string | undefined;
-  comperatorPlaceholderString: string | undefined;
+  attributeValidationHelpString: string | undefined;
+  operatorLabel: string | undefined;
+  operatorPlaceholderString: string | undefined;
+  operatorValidationHelpString: string | undefined;
   valueLabel: string | undefined;
   valuePlaceholder: string | undefined;
+  valueValidationHelpString: string | undefined;
   onValidationChanged: (status: ValidationStatus) => void;
 }
 // non default props
@@ -93,10 +96,13 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     attributeNameFilter: () => true,
     attributeLabel: undefined,
     attributePlaceholderString: undefined,
-    comperatorLabel: undefined,
-    comperatorPlaceholderString: undefined,
+    attributeValidationHelpString: undefined,
+    operatorLabel: undefined,
+    operatorPlaceholderString: undefined,
+    operatorValidationHelpString: undefined,
     valueLabel: undefined,
     valuePlaceholder: undefined,
+    valueValidationHelpString: undefined,
     onValidationChanged: () => false
   };
 
@@ -389,6 +395,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                 label={this.props.attributeLabel}
                 placeholder={this.props.attributePlaceholderString}
                 validateStatus={this.state.validateStatus.attribute}
+                help={this.props.attributeValidationHelpString}
               />
             </Col>
             <Col span={4}>
@@ -396,10 +403,11 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                 value={this.state && this.state.filter ? this.state.filter[0] : undefined}
                 internalDataDef={this.props.internalDataDef}
                 onOperatorChange={this.onOperatorChange}
-                label={this.props.comperatorLabel}
                 operators={this.state.allowedOperators}
-                placeholder={this.props.comperatorPlaceholderString}
+                placeholder={this.props.operatorPlaceholderString}
+                label={this.props.operatorLabel}
                 validateStatus={this.state.validateStatus.operator}
+                help={this.props.operatorValidationHelpString}
               />
             </Col>
             {
@@ -412,6 +420,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                     label={this.props.valueLabel}
                     placeholder={this.props.valuePlaceholder}
                     validateStatus={this.state.validateStatus.value}
+                    help={this.props.valueValidationHelpString}
                   />
                 </Col> :
                 null
@@ -427,6 +436,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                     label={this.props.valueLabel}
                     placeholder={this.props.valuePlaceholder}
                     validateStatus={this.state.validateStatus.value}
+                    help={this.props.valueValidationHelpString}
                   />
                 </Col> :
                 null
