@@ -66,6 +66,7 @@
     "@types/react-dom": "16.0.6",
     "canvas-prebuilt": "1.6.5-prerelease.1",
     "copyfiles": "2.0.0",
+    "coveralls": "3.0.1",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-16": "1.1.1",
     "react-styleguidist": "7.0.17",
@@ -74,5 +75,13 @@
     "react-docgen-typescript": "1.5.0",
     "ts-jest": "22.4.6",
     "typescript": "2.8.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/Component/**/*.{tsx,jsx}",
+      "src/DataProvider/**/*.{tsx,jsx}",
+      "src/Util/**/*.{tsx,jsx}",
+      "src/app/**/*.{tsx,jsx}"
+    ]
   }
 }
