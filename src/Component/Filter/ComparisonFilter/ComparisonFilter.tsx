@@ -27,8 +27,6 @@ import {
   get as _get,
   cloneDeep as _cloneDeep,
   isEqual as _isEqual,
-  isNaN as _isNaN,
-  isNumber as _isNumber,
   isEmpty as _isEmpty,
   isFunction as _isFunction
 } from 'lodash';
@@ -47,6 +45,7 @@ interface DefaultComparisonFilterProps {
   valuePlaceholder?: string;
   valueValidationHelpString?: string;
   onValidationChanged?: (status: ValidationStatus) => void;
+  validators: Validators;
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
@@ -58,6 +57,12 @@ interface ValidationStatus {
   attribute: 'success' | 'warning' | 'error' | 'validating';
   operator: 'success' | 'warning' | 'error' | 'validating';
   value: 'success' | 'warning' | 'error' | 'validating';
+}
+
+interface Validators {
+  attribute: (attrName: string) => boolean;
+  operator: (operator: string) => boolean;
+  value: (value: string | number | boolean| null) => boolean;
 }
 
 // state
@@ -103,7 +108,12 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     valueLabel: undefined,
     valuePlaceholder: undefined,
     valueValidationHelpString: undefined,
-    onValidationChanged: () => false
+    onValidationChanged: () => false,
+    validators: {
+      attribute: attributeName => !_isEmpty(attributeName),
+      operator: operatorName => !_isEmpty(operatorName),
+      value: value => true
+    }
   };
 
   private operatorsMap: Object = {
@@ -130,9 +140,9 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         value: filter[2],
         filter: this.props.filter,
         validateStatus: {
-          attribute: 'error',
-          operator: 'success',
-          value: 'error'
+          attribute: attrName ? 'success' : 'error',
+          operator: filter[0] ? 'success' : 'error',
+          value: filter[2] ? 'success' : 'error'
         }
       };
 
@@ -170,7 +180,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         allowedOperators: ['==', '*=', '!=', '<', '<=', '>', '>='],
         validateStatus: {
           attribute: 'error',
-          operator: 'success',
+          operator: 'error',
           value: 'error'
         }
       };
@@ -229,7 +239,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     const {
       internalDataDef,
       onFilterChange,
-      onValidationChanged
+      onValidationChanged,
+      validators
     } = this.props;
 
     let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
@@ -256,7 +267,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       }
     }
 
-    const isValid = this.validateAttribute(newAttrName);
+    const isValid = validators!.attribute(newAttrName);
     const validationStateNew: ValidationStatus = {
       ...this.state.validateStatus,
       attribute: isValid ? 'success' : 'error'
@@ -284,7 +295,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     this.setState({filter});
     this.props.onFilterChange(filter);
 
-    const isValid = this.validateOperator(newOperator);
+    const isValid = this.props.validators!.operator(newOperator);
     const validationStateNew: ValidationStatus = {
       ...this.state.validateStatus,
       operator: isValid ? 'success' : 'error'
@@ -310,7 +321,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     filter[2] = newValue;
 
     // validate value fields
-    let isValid = this.validateValue(newValue);
+    let isValid = this.props.validators!.value(newValue);
     const validationStateNew: ValidationStatus = {
       ...this.state.validateStatus,
       value: isValid ? 'success' : 'error'
@@ -329,41 +340,14 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   }
 
   /**
-   * Function that validates passed attribute name
-   */
-  validateAttribute = (attributeName: string) => {
-    return !_isEmpty(attributeName);
-  }
-
-  /**
-   * Function that validates passed attribute value
-   */
-  validateValue = (value: string | number | boolean | null) => {
-    if (!value) {
-      return false;
-    }
-    switch (this.state.attributeType) {
-      case 'number':
-        return _isNumber(Number(value)) && !_isNaN(Number(value));
-      case 'boolean':
-        return true;
-      default:
-        return !_isEmpty(value);
-    }
-  }
-
-  /**
-   * Function that validates passed operator
-   */
-  validateOperator = (operator: string) => {
-    return !_isEmpty(operator);
-  }
-
-  /**
    * Function that validates given filter in props
    */
   validateFilter = () => {
-    const { filter } = this.props;
+    const {
+      filter,
+      validators
+    } = this.props;
+
     if (!filter || !Array.isArray(filter)) {
       this.setState({
         validateStatus: {
@@ -375,9 +359,9 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     }
 
     const validateStatus: ValidationStatus = {
-      attribute: this.validateAttribute(filter![1]) ? 'success' : 'error',
-      operator: this.validateOperator(filter![0]) ? 'success' : 'error',
-      value: this.validateValue(filter![2]) ? 'success' : 'error'
+      attribute: validators!.attribute(filter![1]) ? 'success' : 'error',
+      operator: validators!.operator(filter![0]) ? 'success' : 'error',
+      value: validators!.value(filter![2]) ? 'success' : 'error'
     };
 
     this.setState({
