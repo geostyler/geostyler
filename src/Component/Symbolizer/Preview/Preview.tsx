@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import * as ol from 'openlayers';
 
-import { FeatureCollection, GeometryObject } from 'geojson';
 import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 
 import './Preview.css';
@@ -20,6 +19,7 @@ import {
   isEqual as _isEqual,
   get as _get
 } from 'lodash';
+import { Data } from 'geostyler-data';
 
 // default props
 interface DefaultPreviewProps {
@@ -37,7 +37,7 @@ interface DefaultPreviewProps {
 
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
-  features?: FeatureCollection<GeometryObject>;
+  internalDataDef?: Data; 
   symbolizer: Symbolizer;
   onSymbolizerChange: (symbolizer: Symbolizer) => void;
 }
@@ -97,7 +97,10 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     if (this.dataLayer) {
       this.applySymbolizerToMapFeatures(this.state.symbolizer);
     }
-    if (!_isEqual(this.props.features, prevProps.features)) {
+
+    const features = this.props.internalDataDef ? this.props.internalDataDef.exampleFeatures : undefined;
+    const prevFeatures = prevProps.internalDataDef ? prevProps.internalDataDef.exampleFeatures : undefined;
+    if (!_isEqual(features, prevFeatures)) {
       this.updateFeatures();
     }
   }
@@ -111,8 +114,8 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       featureProjection: this.map.getView().getProjection()
     });
     // add data features to style according to symbolizer and zoom to them (when existing)
-    if (this.props.features) {
-      const olFeatures = format.readFeatures(this.props.features);
+    if (this.props.internalDataDef && this.props.internalDataDef.exampleFeatures) {
+      const olFeatures = format.readFeatures(this.props.internalDataDef.exampleFeatures);
       this.dataLayer.getSource().addFeatures(olFeatures);
     // create a simple feature to see the symbolizer anyway
     } else {
@@ -259,6 +262,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       symbolizer,
       openEditorText,
       closeEditorText,
+      internalDataDef,
       onSymbolizerChange
     } = this.props;
 
@@ -280,6 +284,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
             this.state.editorVisible ?
             <Editor
               symbolizer={symbolizer}
+              internalDataDef={internalDataDef}
               onSymbolizerChange={onSymbolizerChange}
             /> : null
           }

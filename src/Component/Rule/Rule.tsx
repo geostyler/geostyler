@@ -151,7 +151,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
             <RuleNameField value={rule.name} onChange={this.onNameChange} />
             <Preview
               symbolizer={rule.symbolizer}
-              features={gsData ? gsData.exampleFeatures : undefined}
+              internalDataDef={gsData}
               onSymbolizerChange={this.onSymbolizerChange}
             />
           </div>

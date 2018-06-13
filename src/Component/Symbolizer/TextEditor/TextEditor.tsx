@@ -14,6 +14,10 @@ import {
 } from 'lodash';
 import FontPicker from '../Field/FontPicker/FontPicker';
 import OffsetField from '../Field/OffsetField/OffsetField';
+import AttributeCombo from '../../Filter/AttributeCombo/AttributeCombo';
+import { Data } from 'geostyler-data';
+
+import './TextEditor.css';
 
 // default props
 interface DefaultTextEditorProps {
@@ -27,6 +31,7 @@ interface DefaultTextEditorProps {
 // non default props
 interface TextEditorProps extends Partial<DefaultTextEditorProps> {
   symbolizer: TextSymbolizer;
+  internalDataDef?: Data;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
 }
 
@@ -50,7 +55,8 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
       colorLabel,
       sizeLabel,
       offsetXLabel,
-      offsetYLabel
+      offsetYLabel,
+      internalDataDef
     } = this.props;
 
     const symbolizer = _cloneDeep(this.props.symbolizer);
@@ -72,7 +78,19 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
     }
 
     return (
+
       <div className="gs-text-symbolizer-editor" >
+         <div className="editor-field width-field">
+          <span className="label">Foo</span>
+          <AttributeCombo
+            value={symbolizer.field}
+            internalDataDef={internalDataDef}
+            onAttributeChange={(newAttrName: string) => {
+              symbolizer.field = newAttrName;
+              this.props.onSymbolizerChange(symbolizer);
+            }}
+          />
+        </div>
         <ColorField
           color={color}
           label={colorLabel}

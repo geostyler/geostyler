@@ -14,6 +14,7 @@ import TextEditor from '../TextEditor/TextEditor';
 import './Editor.css';
 
 import 'openlayers/css/ol.css';
+import { Data } from 'geostyler-data';
 
 // default props
 interface DefaultEditorProps {}
@@ -21,6 +22,7 @@ interface DefaultEditorProps {}
 // non default props
 interface EditorProps extends Partial<DefaultEditorProps> {
   symbolizer: Symbolizer;
+  internalDataDef?: Data;
   onSymbolizerChange: (symbolizer: Symbolizer) => void;
 }
 
@@ -93,6 +95,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
         return (
           <TextEditor
             symbolizer={symbolizer}
+            internalDataDef={this.props.internalDataDef}
             onSymbolizerChange={this.onSymbolizerChange}
           />
         );
