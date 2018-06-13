@@ -62,7 +62,7 @@ class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolFilterFi
         <Form.Item label={this.props.label} colon={false} >
 
           <Checkbox
-            checked={this.state.value}
+            checked={this.state.value === true}
             onChange={this.onChange}
           />
 
