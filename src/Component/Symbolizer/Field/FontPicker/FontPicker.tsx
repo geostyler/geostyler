@@ -14,7 +14,7 @@ interface FontPickerDefaultProps {
 
 // non default props
 interface FontPickerProps extends Partial<FontPickerDefaultProps> {
-  onChange: ((font: string[]) => void);
+  onChange: ((fonts: string[]) => void);
 }
 
 /**
@@ -25,7 +25,11 @@ class FontPicker extends React.Component<FontPickerProps, {}> {
   public static defaultProps: FontPickerDefaultProps = {
     font: ['Arial'],
     label: 'Font',
-    fontOptions: ['Arial', 'Verdana', 'Courier New', 'Lucida Console', 'Times New Roman', 'Georgia']
+    fontOptions: [
+      'Arial', 'Verdana', 'Sans-serif',
+      'Courier New', 'Lucida Console', 'Monospace',
+      'Times New Roman', 'Georgia', 'Serif'
+    ]
   };
 
   render() {
@@ -45,7 +49,12 @@ class FontPicker extends React.Component<FontPickerProps, {}> {
     return (
       <div className="editor-field font-picker">
         <span className="label">{`${label}:`}</span>
-        <Select mode="tags" value={font} style={{ width: 90 }} onChange={this.props.onChange}>
+        <Select
+          mode="tags"
+          value={font}
+          style={{ width: 90 }}
+          onChange={this.props.onChange}
+        >
           {children}
         </Select>
       </div>
