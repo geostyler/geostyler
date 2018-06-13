@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { InputNumber } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { InputNumber, Form } from 'antd';
 import { Data } from 'geostyler-data';
 
 // default props
@@ -8,6 +7,8 @@ interface DefaultNumberFilterFieldProps {
   label: string;
   placeholder: string;
   value: number | undefined;
+  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  help?: React.ReactNode;
 }
 // non default props
 interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {
@@ -28,7 +29,9 @@ class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFi
   public static defaultProps: DefaultNumberFilterFieldProps = {
     label: 'Value',
     placeholder: 'Enter Numeric Value',
-    value: undefined
+    value: undefined,
+    validateStatus: 'success',
+    help: 'Please enter a number.'
   };
 
   constructor(props: NumberFilterFieldProps) {
@@ -52,33 +55,37 @@ class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFi
    */
   onChange = (e: number) => {
     this.setState({value: e});
-
     this.props.onValueChange(e);
   }
 
   render() {
+    const {
+      validateStatus,
+      help,
+      placeholder
+    } = this.props;
 
-    // detect min and max value for the selected attribute
-    const attrDefs = this.props.internalDataDef.schema.properties;
-    const minVal = attrDefs[this.props.selectedAttribute].minimum;
-    const maxVal = attrDefs[this.props.selectedAttribute].maximum;
+    const helpTxt = validateStatus !== 'success' ? help : null;
 
     return (
       <div className="gs-text-filter-fld">
-
-        <FormItem label={this.props.label} colon={false} >
-
+        <Form.Item
+          label={this.props.label}
+          colon={false}
+          validateStatus={this.props.validateStatus}
+          help={helpTxt}
+          hasFeedback={true}
+        >
           <InputNumber
+            defaultValue={this.state.value}
             value={this.state.value}
-            style={{ width: '100%' }}
-            min={minVal}
-            max={maxVal}
+            style={{
+              width: '100%'
+            }}
             onChange={this.onChange}
-            placeholder={this.props.placeholder}
+            placeholder={placeholder}
           />
-
-        </FormItem>
-
+        </Form.Item>
       </div>
     );
   }

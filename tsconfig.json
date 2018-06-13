@@ -23,9 +23,11 @@
     "build",
     "dist",
     "scripts",
+    "coverage",
     "acceptance-tests",
     "webpack",
     "jest",
+    "coverage",
     "src/setupTests.ts",
     "src/index.tsx",
     "**.config.js"

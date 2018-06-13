@@ -8,7 +8,9 @@ interface DefaultFieldSetProps {}
 // non default props
 interface FieldSetProps extends Partial<DefaultFieldSetProps> {
   title: string;
+  onCheckChange?: (e: any) => void;
 }
+
 // state
 interface FieldSetState {
   visible: boolean;
@@ -30,8 +32,12 @@ class FieldSet extends React.Component<FieldSetProps, FieldSetState> {
   /**
    * Toggles the state according to the checkbox check state.
    */
-  onCheckchange = (e: any) => {
+  onCheckChange = (e: any) => {
     this.setState({visible: e.target.checked});
+
+    if (this.props.onCheckChange) {
+      this.props.onCheckChange(e);
+    }
   }
 
   render() {
@@ -42,7 +48,12 @@ class FieldSet extends React.Component<FieldSetProps, FieldSetState> {
 
         <fieldset className="gs-fieldset">
           <legend>
-            <Checkbox checked={this.state.visible} onChange={this.onCheckchange}>{this.props.title}</Checkbox>
+            <Checkbox
+              checked={this.state.visible}
+              onChange={this.onCheckChange}
+            >
+              {this.props.title}
+            </Checkbox>
           </legend>
           {React.Children.map(children, (child, i) => {
             // Ignore all childs if checkbix is unchecked

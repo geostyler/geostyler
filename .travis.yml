@@ -2,8 +2,10 @@ language: node_js
 node_js:
 - '8'
 script:
-- npm run test
+- npm run test -- --coverage
 - npm run build
+after_script:
+- cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
 after_success:
 - "./.ci/update-gh-pages.sh > /dev/null 2>&1"
 cache: false
