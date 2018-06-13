@@ -8,6 +8,8 @@ interface DefaultNumberFilterFieldProps {
   label: string;
   placeholder: string;
   value: number | undefined;
+  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  help?: React.ReactNode;
 }
 // non default props
 interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {
@@ -28,7 +30,9 @@ class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFi
   public static defaultProps: DefaultNumberFilterFieldProps = {
     label: 'Value',
     placeholder: 'Enter Numeric Value',
-    value: undefined
+    value: undefined,
+    validateStatus: 'success',
+    help: 'Please enter a number.'
   };
 
   constructor(props: NumberFilterFieldProps) {
@@ -63,10 +67,18 @@ class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFi
     const minVal = attrDefs[this.props.selectedAttribute].minimum;
     const maxVal = attrDefs[this.props.selectedAttribute].maximum;
 
+    const helpTxt = this.props.validateStatus !== 'success' ? this.props.help : null;
+
     return (
       <div className="gs-text-filter-fld">
 
-        <FormItem label={this.props.label} colon={false} >
+        <FormItem
+          label={this.props.label}
+          colon={false}
+          validateStatus={this.props.validateStatus}
+          help={helpTxt}
+          hasFeedback={true}
+        >
 
           <InputNumber
             value={this.state.value}
