@@ -9,6 +9,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
 
+import 'blob';
 import {
   saveAs
 } from 'file-saver';
