@@ -23,6 +23,7 @@
     "build",
     "dist",
     "scripts",
+    "coverage",
     "acceptance-tests",
     "webpack",
     "jest",
