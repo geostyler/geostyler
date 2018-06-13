@@ -21,6 +21,7 @@ import './TextEditor.css';
 
 // default props
 interface DefaultTextEditorProps {
+  fieldLabel: string;
   opacityLabel: string;
   colorLabel: string;
   sizeLabel: string;
@@ -38,6 +39,7 @@ interface TextEditorProps extends Partial<DefaultTextEditorProps> {
 class TextEditor extends React.Component<TextEditorProps, {}> {
 
   public static defaultProps: DefaultTextEditorProps = {
+    fieldLabel: 'Field',
     opacityLabel: 'Text-Opacity',
     colorLabel: 'Text-Color',
     sizeLabel: 'Text-Size',
@@ -51,6 +53,7 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
 
   render() {
     const {
+      fieldLabel,
       opacityLabel,
       colorLabel,
       sizeLabel,
@@ -80,8 +83,8 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
     return (
 
       <div className="gs-text-symbolizer-editor" >
-         <div className="editor-field width-field">
-          <span className="label">Foo</span>
+         <div className="editor-field attribute-field">
+          <span className="label">{fieldLabel}</span>
           <AttributeCombo
             value={symbolizer.field}
             internalDataDef={internalDataDef}
