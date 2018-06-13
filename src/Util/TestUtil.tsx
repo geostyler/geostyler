@@ -91,6 +91,29 @@ export class TestUtil {
 
     return lineSimpleLine;
   }
+
+  /**
+   * Returns a simple polygon symbolizer object.
+   *
+   * @returns {Style} The polgy style object
+   */
+  static getPolygonStyle = () => {
+    const polygonTransparentPolygon: Style = {
+      name: 'Transparent Polygon',
+      type: 'Fill',
+      rules: [{
+        name: '',
+        symbolizer: {
+          kind: 'Fill',
+          color: '#000080',
+          opacity: 0.5,
+          outlineColor: '#FFFFFF'
+        }
+      }]
+    };
+
+    return polygonTransparentPolygon;
+  }
 }
 
 export default TestUtil;
