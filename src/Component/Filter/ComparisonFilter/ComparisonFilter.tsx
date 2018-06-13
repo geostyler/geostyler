@@ -37,16 +37,16 @@ import {
 interface DefaultComparisonFilterProps {
   filter: GsComparisonFilter;
   attributeNameFilter: (attributeName: string) => boolean;
-  attributeLabel: string | undefined;
-  attributePlaceholderString: string | undefined;
-  attributeValidationHelpString: string | undefined;
-  operatorLabel: string | undefined;
-  operatorPlaceholderString: string | undefined;
-  operatorValidationHelpString: string | undefined;
-  valueLabel: string | undefined;
-  valuePlaceholder: string | undefined;
-  valueValidationHelpString: string | undefined;
-  onValidationChanged: (status: ValidationStatus) => void;
+  attributeLabel?: string;
+  attributePlaceholderString?: string;
+  attributeValidationHelpString?: string;
+  operatorLabel?: string;
+  operatorPlaceholderString?: string;
+  operatorValidationHelpString?: string;
+  valueLabel?: string;
+  valuePlaceholder?: string;
+  valueValidationHelpString?: string;
+  onValidationChanged?: (status: ValidationStatus) => void;
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
