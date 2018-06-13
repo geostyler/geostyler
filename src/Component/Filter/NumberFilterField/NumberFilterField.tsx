@@ -32,7 +32,7 @@ class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFi
     placeholder: 'Enter Numeric Value',
     value: undefined,
     validateStatus: 'success',
-    help: 'Please enter a text.'
+    help: 'Please enter a number.'
   };
 
   constructor(props: NumberFilterFieldProps) {
