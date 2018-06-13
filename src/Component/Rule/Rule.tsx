@@ -9,7 +9,9 @@ import {
   // Filter as GsFilter,
   ComparisonFilter as GsComparisonFilter,
   Rule as GsRule,
-  Symbolizer as GsSymbolizer
+  Symbolizer as GsSymbolizer,
+  Filter as GsFilter,
+  ScaleDenominator as GsScaleDenominator
 } from 'geostyler-style';
 import { Data as GsData } from 'geostyler-data';
 
@@ -42,6 +44,8 @@ interface RuleProps extends Partial<DefaultRuleProps> {
 interface RuleState {
   rule: GsRule;
   symbolizerEditorVisible: boolean;
+  storedFilter?: GsFilter;
+  storedScaleDenominator?: GsScaleDenominator;
 }
 
 /**
@@ -128,6 +132,44 @@ class Rule extends React.Component<RuleProps, RuleState> {
     });
   }
 
+  onScaleCheckChange = (e: any) => {
+    const checked = e.target.checked;
+    const rule: GsRule = _cloneDeep(this.state.rule);
+
+    if (checked) {
+      rule.scaleDenominator = this.state.storedScaleDenominator;
+    } else {
+      this.setState({
+        storedScaleDenominator: rule.scaleDenominator
+      });
+      rule.scaleDenominator = undefined;
+    }
+
+    this.setState({rule});
+    if (this.props.onRuleChange) {
+      this.props.onRuleChange(rule, this.state.rule);
+    }
+  }
+
+  onFilterCheckChange = (e: any) => {
+    const checked = e.target.checked;
+    const rule: GsRule = _cloneDeep(this.state.rule);
+
+    if (checked) {
+      rule.filter = this.state.storedFilter;
+    } else {
+      this.setState({
+        storedFilter: rule.filter
+      });
+      rule.filter = undefined;
+    }
+
+    this.setState({rule});
+    if (this.props.onRuleChange) {
+      this.props.onRuleChange(rule, this.state.rule);
+    }
+  }
+
   render() {
     const {
       internalDataDef,
@@ -156,13 +198,19 @@ class Rule extends React.Component<RuleProps, RuleState> {
             />
           </div>
           <div className="gs-rule-right-fields" >
-            <Fieldset title="Use Scale">
+            <Fieldset
+              title="Use Scale"
+              onCheckChange={this.onScaleCheckChange}
+            >
               <ScaleDenominator
                 scaleDenominator={rule.scaleDenominator}
                 onChange={this.onScaleDenominatorChange}
               />
             </Fieldset>
-            <Fieldset title="Use Filter">
+            <Fieldset
+              title="Use Filter"
+              onCheckChange={this.onFilterCheckChange}
+            >
               <ComparisonFilterUi
                 internalDataDef={gsData}
                 filter={cmpFilter}
