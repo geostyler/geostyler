@@ -36,7 +36,7 @@
     "react": "16.4.1",
     "react-codemirror2": "5.0.4",
     "react-color": "2.14.1",
-    "react-dom": "16.4.0",
+    "react-dom": "16.4.1",
     "react-scripts-ts": "2.16.0"
   },
   "scripts": {
