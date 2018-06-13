@@ -9,9 +9,14 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
 
+import 'blob';
+import {
+  saveAs
+} from 'file-saver';
+
 import './CodeEditor.css';
 
-import { Select } from 'antd';
+import { Select, Button } from 'antd';
 const Option = Select.Option;
 
 import {
@@ -25,6 +30,8 @@ import {
 
 // default props
 interface DefaultCodeEditorProps {
+  formatSelectLabel?: string;
+  downloadButtonLabel?: string;
 }
 
 // non default props
@@ -47,18 +54,14 @@ interface CodeEditorState {
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   public static defaultProps: DefaultCodeEditorProps = {
+    formatSelectLabel: 'Format',
+    downloadButtonLabel: 'Save as File'
   };
 
   constructor(props: CodeEditorProps) {
     super(props);
     this.state = {
       value: ''
-    };
-  }
-
-  static getDerivedStateFromProps(nextProps: CodeEditorProps) {
-    return {
-      style: nextProps.style
     };
   }
 
@@ -164,18 +167,50 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     return parserOptions;
   }
 
+  onDownloadButtonClick = () => {
+    const {
+      activeParser,
+      value
+    } = this.state;
+    const {
+      style
+    } = this.props;
+    if (style) {
+      let type = 'application/json;charset=utf-8';
+      if (activeParser && activeParser.title === 'SLD Style Parser') {
+        type = 'text/xml;charset=utf-8';
+      }
+      const blob = new Blob([value], {type});
+      saveAs(blob, style.name);
+    }
+
+  }
+
   render() {
+    const {
+      formatSelectLabel,
+      downloadButtonLabel
+    } = this.props;
+
     const value = this.state.value;
     return (
       <div className="gs-code-editor">
-        <div className="gs-code-editor-format-select">
-          Format: <Select
+        <div className="gs-code-editor-toolbar" >
+          {formatSelectLabel}: <Select
+            className="gs-code-editor-format-select"
             style={{ width: 300 }}
             onSelect={this.onSelect}
             defaultValue="GeoStyler Style"
           >
             {this.getParserOptions()}
           </Select>
+          <Button
+            className="gs-code-editor-download-button"
+            type="primary"
+            onClick={this.onDownloadButtonClick}
+          >
+            {downloadButtonLabel}
+          </Button>
         </div>
         <CodeMirror
           className="gs-code-editor-codemirror"
