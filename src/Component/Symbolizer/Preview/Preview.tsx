@@ -93,11 +93,12 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     };
   }
 
-  componentDidUpdate(prevProps: PreviewProps) {
+  componentDidUpdate(prevProps: PreviewProps, prevState: PreviewState) {
     if (this.dataLayer) {
       this.applySymbolizerToMapFeatures(this.state.symbolizer);
     }
-    if (!_isEqual(this.props.features, prevProps.features)) {
+    if (!_isEqual(this.props.features, prevProps.features) ||
+        !_isEqual(this.state.symbolizer.kind, prevState.symbolizer.kind)) {
       this.updateFeatures();
     }
   }
@@ -118,7 +119,8 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     } else {
       const geom = this.getSampleGeomFromSymbolizer();
       const sampleFeature = new ol.Feature({
-        geometry: geom.transform('EPSG:4326', 'EPSG:3857')
+        geometry: geom.transform('EPSG:4326', 'EPSG:3857'),
+        Name: 'Sample Feature'
       });
       this.dataLayer.getSource().addFeature(sampleFeature);
     }
@@ -199,20 +201,20 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
         return new ol.geom.Point([7.10066, 50.735851]);
       case 'Fill':
         return new ol.geom.Polygon([[
-            [50.734268655851345, 7.1031761169433585],
-            [50.734268655851345, 7.109270095825195],
-            [50.73824770380063, 7.109270095825195],
-            [50.73824770380063, 7.1031761169433585],
-            [50.734268655851345, 7.1031761169433585]
+            [7.1031761169433585, 50.734268655851345],
+            [7.109270095825195, 50.734268655851345, ],
+            [7.109270095825195, 50.73824770380063],
+            [7.1031761169433585, 50.73824770380063],
+            [7.1031761169433585, 50.734268655851345, ]
           ]]);
       case 'Line':
         return new ol.geom.LineString([
-          [50.734268655851345, 7.1031761169433585],
-          [50.734268655851345, 7.109270095825195],
-          [50.73824770380063, 7.109270095825195]
+          [7.1031761169433585, 50.734268655851345],
+          [7.109270095825195, 50.734268655851345],
+          [7.109270095825195, 50.73824770380063]
         ]);
       default:
-        return new ol.geom.Point([57, 12]);
+        return new ol.geom.Point([7.10066, 50.735851]);
     }
   }
 

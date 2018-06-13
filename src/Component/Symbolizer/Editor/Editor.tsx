@@ -3,7 +3,8 @@ import * as React from 'react';
 import * as ol from 'openlayers';
 
 import {
-  Symbolizer
+  Symbolizer,
+  SymbolizerKind
 } from 'geostyler-style';
 
 import CircleEditor from '../CircleEditor/CircleEditor';
@@ -14,6 +15,11 @@ import TextEditor from '../TextEditor/TextEditor';
 import './Editor.css';
 
 import 'openlayers/css/ol.css';
+
+import {
+  cloneDeep as _cloneDeep
+} from 'lodash';
+import KindField from '../Field/KindField/KindField';
 
 // default props
 interface DefaultEditorProps {}
@@ -27,7 +33,6 @@ interface EditorProps extends Partial<DefaultEditorProps> {
 // state
 interface EditorState {
   symbolizer: Symbolizer;
-  colorPickerVisible: boolean;
 }
 
 class Editor extends React.Component<EditorProps, EditorState> {
@@ -36,8 +41,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
     this.state = {
       symbolizer: {
         kind: 'Circle'
-      },
-      colorPickerVisible: false
+      }
     };
   }
 
@@ -54,8 +58,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
       nextProps: EditorProps,
       prevState: EditorState): Partial<EditorState> {
     return {
-      symbolizer: nextProps.symbolizer,
-      colorPickerVisible: false
+      symbolizer: nextProps.symbolizer
     };
   }
 
@@ -64,9 +67,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   getUiFromSymbolizer = (symbolizer: Symbolizer): React.ReactNode => {
-    const {
-      // colorPickerVisible
-    } = this.state;
     switch (symbolizer.kind) {
       case 'Circle':
         return (
@@ -102,8 +102,16 @@ class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   render() {
+    const symbolizer = _cloneDeep(this.state.symbolizer);
     return (
       <div className="gs-symbolizer-editor" >
+        <KindField
+          kind={symbolizer.kind}
+          onChange={(kind: SymbolizerKind) => {
+            symbolizer.kind = kind;
+            this.onSymbolizerChange(symbolizer);
+          }}
+        />
         {this.getUiFromSymbolizer(this.props.symbolizer)}
       </div>
     );
