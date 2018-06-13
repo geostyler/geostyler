@@ -93,9 +93,9 @@ export class TestUtil {
   }
 
   /**
-   * Returns a simple polygon symbolizer object.
+   * Returns a simple polygon style object.
    *
-   * @returns {Style} The polgy style object
+   * @returns {Style} The polygon style object
    */
   static getPolygonStyle = () => {
     const polygonTransparentPolygon: Style = {
@@ -113,6 +113,31 @@ export class TestUtil {
     };
 
     return polygonTransparentPolygon;
+  }
+
+  /**
+   * Returns a simple labeled point style object.
+   * 
+   * @returns {Style} The labeled style object
+   */
+  static getLabeledPointStyle = () => {
+    const pointStyledLabel: Style = {
+      name: 'Styled Label',
+      type: 'Point',
+      rules: [{
+        name: '',
+        symbolizer: {
+          kind: 'Text',
+          color: '#000000',
+          field: 'name',
+          font: ['Arial'],
+          size: 12,
+          offset: [0, 5]
+        }
+      }]
+    };
+
+    return pointStyledLabel;
   }
 }
 

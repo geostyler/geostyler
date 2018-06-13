@@ -7,12 +7,13 @@ import {
 } from 'geostyler-style';
 
 import CircleEditor from '../CircleEditor/CircleEditor';
+import LineEditor from '../LineEditor/LineEditor';
+import FillEditor from '../FillEditor/FillEditor';
+import TextEditor from '../TextEditor/TextEditor';
 
 import './Editor.css';
 
 import 'openlayers/css/ol.css';
-import LineEditor from '../LineEditor/LineEditor';
-import FillEditor from '../FillEditor/FillEditor';
 
 // default props
 interface DefaultEditorProps {}
@@ -84,6 +85,13 @@ class Editor extends React.Component<EditorProps, EditorState> {
       case 'Fill':
         return (
           <FillEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={this.onSymbolizerChange}
+          />
+        );
+      case 'Text':
+        return (
+          <TextEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
           />
