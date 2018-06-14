@@ -52,7 +52,6 @@ class FontPicker extends React.Component<FontPickerProps, {}> {
         <Select
           mode="tags"
           value={font}
-          style={{ width: 90 }}
           onChange={this.props.onChange}
         >
           {children}
