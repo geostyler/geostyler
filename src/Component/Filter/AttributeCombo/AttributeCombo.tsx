@@ -84,7 +84,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
             key={attrName}
             value={attrName}
           >
-            {!hideAttributeType ? `${attrName} (${attrDefs[attrName].type})` : attrName}
+            {hideAttributeType ? attrName : `${attrName} (${attrDefs[attrName].type})`}
           </Option>
         );
       });
