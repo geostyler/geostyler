@@ -34,6 +34,7 @@ import {
 // default props
 interface DefaultComparisonFilterProps {
   filter: GsComparisonFilter;
+  hideAttributeType: boolean;
   attributeNameFilter: (attributeName: string) => boolean;
   attributeLabel?: string;
   attributePlaceholderString?: string;
@@ -98,6 +99,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
 
   public static defaultProps: DefaultComparisonFilterProps = {
     filter: ['==', '', null],
+    hideAttributeType: false,
     attributeNameFilter: () => true,
     attributeLabel: undefined,
     attributePlaceholderString: undefined,
@@ -399,6 +401,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                 placeholder={this.props.attributePlaceholderString}
                 validateStatus={this.state.validateStatus.attribute}
                 help={this.props.attributeValidationHelpString}
+                hideAttributeType={this.props.hideAttributeType}
               />
             </Col>
             <Col span={4}>
