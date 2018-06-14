@@ -422,6 +422,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                   <TextFilterField
                     value={this.state && this.state.filter ? this.state.filter[2] as string : undefined}
                     internalDataDef={this.props.internalDataDef}
+                    selectedAttribute={this.state.attribute}
                     onValueChange={this.onValueChange}
                     label={this.props.valueLabel}
                     placeholder={this.props.valuePlaceholder}

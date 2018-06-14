@@ -22,9 +22,9 @@ describe('TextFilterField', () => {
     expect(wrapper).not.toBeUndefined();
   });
 
-  describe('#onChange', () => {
+  describe('#onInputChange', () => {
     it('is defined', () => {
-      expect(wrapper.instance().onChange).toBeDefined();
+      expect(wrapper.instance().onInputChange).toBeDefined();
     });
 
     it('calls onValueChange of props', () => {
@@ -33,9 +33,14 @@ describe('TextFilterField', () => {
           value: 'Test'
         }
       };
-
-      wrapper.instance().onChange(evtMock);
+      wrapper.instance().onInputChange(evtMock);
       expect(dummyFn.mock.calls).toHaveLength(1);
+    });
+  });
+
+  describe('#onAutoCompleteChange', () => {
+    it('is defined', () => {
+      expect(wrapper.instance().onAutoCompleteChange).toBeDefined();
     });
   });
 

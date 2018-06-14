@@ -1,7 +1,12 @@
 import * as React from 'react';
 
-import { Input, Form } from 'antd';
+import { Input, Form, AutoComplete } from 'antd';
 import { Data } from 'geostyler-data';
+
+import {
+  get as _get
+} from 'lodash';
+import { Feature } from 'geojson';
 
 // default props
 interface DefaultTextFilterFieldProps {
@@ -15,6 +20,7 @@ interface DefaultTextFilterFieldProps {
 interface TextFilterFieldProps extends Partial<DefaultTextFilterFieldProps> {
   internalDataDef: Data;
   onValueChange: ((newValue: string) => void);
+  selectedAttribute: string;
 }
 // state
 interface TextFilterFieldState {
@@ -53,19 +59,39 @@ class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFi
    * Extracts the text value of the event object of 'onChange'
    * and passes it to the passed in 'onValueChange' handler.
    */
-  onChange = (e: any) => {
+  onInputChange = (e: any) => {
     this.props.onValueChange(e.target.value);
-
     this.setState({value: e.target.value});
   }
 
-  render() {
+  onAutoCompleteChange = (value: string) => {
+    this.props.onValueChange(value);
+    this.setState({value: value});
+  }
 
+  getSampleValuesFromFeatures = (): string[] => {
+    const {
+      selectedAttribute,
+      internalDataDef
+    } = this.props;
+    let sampleValues: string[] = [];
+    const features = _get(internalDataDef, 'exampleFeatures.features') || [];
+
+    features.forEach((feature: Feature) => {
+      const value = _get(feature, `properties[${selectedAttribute}]`);
+      if (value && sampleValues.indexOf(value) === -1) {
+        sampleValues.push(value);
+      }
+    });
+    return sampleValues.sort();
+  }
+
+  render() {
     const helpTxt = this.props.validateStatus !== 'success' ? this.props.help : null;
+    const sampleValues: string[] = this.getSampleValuesFromFeatures();
 
     return (
       <div className="gs-text-filter-fld">
-
         <Form.Item
           label={this.props.label}
           colon={false}
@@ -73,16 +99,27 @@ class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFi
           help={helpTxt}
           hasFeedback={true}
         >
-
+        {
+          sampleValues.length > 0 ?
+          <AutoComplete
+            value={this.state.value}
+            style={{ width: '100%' }}
+            onChange={this.onAutoCompleteChange}
+            placeholder={this.props.placeholder}
+            dataSource={sampleValues}
+            filterOption={(value: string , option: any) => {
+              return option.key.toLowerCase().includes(value.toLowerCase());
+            }}
+          />
+          :
           <Input
             value={this.state.value}
             style={{ width: '100%' }}
-            onChange={this.onChange}
+            onChange={this.onInputChange}
             placeholder={this.props.placeholder}
           />
-
+        }
         </Form.Item>
-
       </div>
     );
   }
