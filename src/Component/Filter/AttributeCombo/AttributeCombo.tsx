@@ -9,6 +9,7 @@ interface DefaultAttributeComboProps {
   label: string;
   placeholder: string;
   value: string | undefined;
+  hideAttributeType: boolean;
   attributeNameFilter: (attrName: string) => boolean;
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
   help?: React.ReactNode;
@@ -32,6 +33,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
     label: 'Attribute',
     placeholder: 'Select Attribute',
     value: undefined,
+    hideAttributeType: false,
     attributeNameFilter: () => true,
     validateStatus: 'success',
     help: 'Please select an attribute.'
@@ -58,7 +60,8 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
       onAttributeChange,
       label,
       placeholder,
-      attributeNameFilter
+      attributeNameFilter,
+      hideAttributeType
     } = this.props;
 
     let options: Object[] = [];
@@ -81,7 +84,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
             key={attrName}
             value={attrName}
           >
-          {attrName} ({attrDefs[attrName].type})
+            {!hideAttributeType ? `${attrName} (${attrDefs[attrName].type})` : attrName}
           </Option>
         );
       });
@@ -105,7 +108,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
                 onChange={onAttributeChange}
                 placeholder={placeholder}
               >
-                  {options}
+                {options}
               </Select>
               :
               <Input
