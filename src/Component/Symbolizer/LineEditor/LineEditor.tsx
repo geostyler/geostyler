@@ -8,6 +8,7 @@ import {
 import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
 import WidthField from '../Field/WidthField/WidthField';
+import LineDashField from '../Field/LineDashField/LineDashField';
 
 import {
   cloneDeep as _cloneDeep
@@ -18,6 +19,7 @@ interface DefaultLineEditorProps {
   colorLabel: string;
   widthLabel: string;
   opacityLabel: string;
+  dashLabel: string;
 }
 
 // non default props
@@ -31,7 +33,8 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
   public static defaultProps: DefaultLineEditorProps = {
     colorLabel: 'Color',
     widthLabel: 'Width',
-    opacityLabel: 'Opacity'
+    opacityLabel: 'Opacity',
+    dashLabel: 'Dash Pattern'
   };
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
@@ -42,7 +45,8 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
     const {
       colorLabel,
       widthLabel,
-      opacityLabel
+      opacityLabel,
+      dashLabel
     } = this.props;
 
     const symbolizer = _cloneDeep(this.props.symbolizer);
@@ -51,6 +55,7 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
       color,
       width,
       opacity,
+      dasharray
     } = symbolizer;
 
     return (
@@ -76,6 +81,14 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
           label={opacityLabel}
           onChange={(value: number) => {
             symbolizer.opacity = value;
+            this.props.onSymbolizerChange(symbolizer);
+          }}
+        />
+        <LineDashField
+          dashArray={dasharray}
+          label={dashLabel}
+          onChange={(value: number[]) => {
+            symbolizer.dasharray = value;
             this.props.onSymbolizerChange(symbolizer);
           }}
         />
