@@ -9,11 +9,12 @@ import './LineDashField.css';
 // default props
 interface LineDashFieldDefaultProps {
   label: string;
+  dashArray: number[];
 }
 
 // non default props
 interface LineDashFieldProps extends Partial<LineDashFieldDefaultProps> {
-  dashArray?: number[];
+  // dashArray?: number[];
   onChange: ((dashArray: number[]) => void);
 }
 
@@ -28,7 +29,8 @@ interface LineDashFieldState {
 class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldState> {
 
   public static defaultProps: LineDashFieldDefaultProps = {
-    label: 'Dash Pattern'
+    label: 'Dash Pattern',
+    dashArray: []
   };
 
   constructor(props: LineDashFieldProps) {
@@ -56,7 +58,7 @@ class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldSta
     } = this.state;
 
     return (
-      <div className="editor-field offset-field">
+      <div className="editor-field linedash-field">
         <span className="label">{`${label}:`}</span>
         {
           dashArray.map((dash, idx) => <InputNumber
