@@ -273,15 +273,15 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       attribute: isValid ? 'success' : 'error'
     };
 
-    if (_isFunction(onValidationChanged)) {
-      onValidationChanged(validationStateNew);
-    }
-
     onFilterChange(filter);
     this.setState({
       filter,
       validateStatus: validationStateNew
-    });
+    },            () => {
+        if (_isFunction(onValidationChanged)) {
+          onValidationChanged(validationStateNew);
+        }
+      });
   }
 
   /**
@@ -301,14 +301,18 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       operator: isValid ? 'success' : 'error'
     };
 
-    this.setState({
-      validateStatus: validationStateNew,
-      operator: newOperator
-    });
+    this.setState(
+      {
+        validateStatus: validationStateNew,
+        operator: newOperator
+      },
+      () => {
+        if (_isFunction(this.props.onValidationChanged)) {
+          this.props.onValidationChanged(validationStateNew);
+        }
+      }
+    );
 
-    if (_isFunction(this.props.onValidationChanged)) {
-      this.props.onValidationChanged(validationStateNew);
-    }
   }
 
   /**
@@ -327,14 +331,17 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       value: isValid ? 'success' : 'error'
     };
 
-    this.setState({
-      validateStatus: validationStateNew,
-      filter
-    });
-
-    if (_isFunction(this.props.onValidationChanged)) {
-      this.props.onValidationChanged(validationStateNew);
-    }
+    this.setState(
+      {
+        validateStatus: validationStateNew,
+        filter
+      },
+      () => {
+        if (_isFunction(this.props.onValidationChanged)) {
+          this.props.onValidationChanged(validationStateNew);
+        }
+      }
+    );
 
     this.props.onFilterChange(filter);
   }
@@ -345,7 +352,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   validateFilter = () => {
     const {
       filter,
-      validators
+      validators,
+      onValidationChanged
     } = this.props;
 
     if (!filter || !Array.isArray(filter)) {
@@ -364,8 +372,14 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       value: validators!.value(filter![2]) ? 'success' : 'error'
     };
 
-    this.setState({
-      validateStatus
+    this.setState(
+      {
+        validateStatus
+      },
+      () => {
+        if (_isFunction(onValidationChanged)) {
+        onValidationChanged(validateStatus);
+      }
     });
   }
 
