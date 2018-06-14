@@ -107,7 +107,9 @@ class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFi
             onChange={this.onAutoCompleteChange}
             placeholder={this.props.placeholder}
             dataSource={sampleValues}
-            filterOption={(value: string , option: any) => option.key.includes(value)}
+            filterOption={(value: string , option: any) => {
+              return option.key.toLowerCase().includes(value.toLowerCase());
+            }}
           />
           :
           <Input
