@@ -21,9 +21,12 @@ import {
   cloneDeep as _cloneDeep
 } from 'lodash';
 import KindField from '../Field/KindField/KindField';
+import IconEditor from '../IconEditor/IconEditor';
 
 // default props
-interface DefaultEditorProps {}
+interface DefaultEditorProps {
+  defaultIconSource: string;
+}
 
 // non default props
 interface EditorProps extends Partial<DefaultEditorProps> {
@@ -54,6 +57,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
   dataLayer: ol.layer.Vector;
 
   public static defaultProps: DefaultEditorProps = {
+    defaultIconSource: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg'
   };
 
   static getDerivedStateFromProps(
@@ -73,6 +77,17 @@ class Editor extends React.Component<EditorProps, EditorState> {
       case 'Circle':
         return (
           <CircleEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={this.onSymbolizerChange}
+          />
+        );
+      case 'Icon':
+        if (!symbolizer.image) {
+          symbolizer.image = this.props.defaultIconSource;
+        }
+        return (
+          <IconEditor
+            defaultIconSource={this.props.defaultIconSource}
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
           />
@@ -100,7 +115,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
           />
         );
       default:
-        return `Symbolizer kind ${symbolizer.kind} not yet supported!`;
+        return `Unknown Symbolizer!`;
     }
   }
 

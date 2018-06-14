@@ -16,3 +16,10 @@
   width: 140px;
   text-align: right;
 }
+
+.editor-field .ant-input-number,
+.editor-field .ant-select-selection,
+.editor-field .ant-input,
+.editor-field .color-preview {
+  width: 200px;
+}

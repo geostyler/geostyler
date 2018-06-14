@@ -255,7 +255,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
         // apply new OL style to vector layer
         this.dataLayer.setStyle(olStyles[0]);
         return olStyles[0];
-    });
+      });
   }
 
   render() {
