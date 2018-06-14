@@ -15,7 +15,7 @@ interface DefaultAttributeComboProps {
 }
 // non default props
 interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
-  internalDataDef: Data;
+  internalDataDef?: Data;
   onAttributeChange: ((newAttrName: string) => void);
 }
 
