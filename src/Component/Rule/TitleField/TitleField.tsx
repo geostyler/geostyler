@@ -5,11 +5,14 @@ import './TitleField.css';
 
 // default props
 interface DefaultTitleFieldProps {
+  /** Label for this field */
   label: string;
+  /** The default text to place into the empty field */
   placeholder: string;
 }
 // non default props
 interface TitleFieldProps extends Partial<DefaultTitleFieldProps> {
+  /** Callback for onChange */
   onChange: ((newValue: string) => void);
 }
 

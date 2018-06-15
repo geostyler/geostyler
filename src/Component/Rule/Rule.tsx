@@ -30,13 +30,17 @@ import {
 
 // default props
 interface DefaultRuleProps {
+  /** Optional Rule object holding inital values for the component */
   rule: GsRule;
 }
 
 // non default props
 interface RuleProps extends Partial<DefaultRuleProps> {
+  /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: GsData | null;
+  /** Callback for a changed Rule */
   onRuleChange?: (rule: GsRule, ruleBefore?: GsRule) => void;
+  /** Callback for onClick of the RemoveButton */
   onRemove?: (rule: GsRule) => void;
 }
 
