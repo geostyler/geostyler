@@ -6,13 +6,13 @@ import {
 
 // default props
 interface RadiusFieldDefaultProps {
-  radius: number;
   label: string;
 }
 
 // non default props
 interface RadiusFieldProps extends Partial<RadiusFieldDefaultProps> {
   onChange: ((radius: number) => void);
+  radius?: number;
 }
 
 /**
@@ -21,7 +21,6 @@ interface RadiusFieldProps extends Partial<RadiusFieldDefaultProps> {
 class RadiusField extends React.Component<RadiusFieldProps, {}> {
 
   public static defaultProps: RadiusFieldDefaultProps = {
-    radius: 10,
     label: 'Radius'
   };
 
@@ -36,7 +35,7 @@ class RadiusField extends React.Component<RadiusFieldProps, {}> {
         <span className="label">{`${label}:`}</span>
         <InputNumber
           min={0}
-          defaultValue={radius}
+          value={radius}
           onChange={this.props.onChange}
         />
       </div>

@@ -6,13 +6,13 @@ import {
 
 // default props
 interface OpacityFieldDefaultProps {
-  opacity: number;
   label: string;
 }
 
 // non default props
 interface OpacityFieldProps extends Partial<OpacityFieldDefaultProps> {
   onChange: ((opacity: number) => void);
+  opacity?: number;
 }
 
 /**
@@ -21,7 +21,6 @@ interface OpacityFieldProps extends Partial<OpacityFieldDefaultProps> {
 class OpacityField extends React.Component<OpacityFieldProps, {}> {
 
   public static defaultProps: OpacityFieldDefaultProps = {
-    opacity: 1,
     label: 'Opacity'
   };
 
@@ -38,7 +37,7 @@ class OpacityField extends React.Component<OpacityFieldProps, {}> {
           min={0}
           max={1}
           step={0.01}
-          defaultValue={opacity}
+          value={opacity}
           onChange={this.props.onChange}
         />
       </div>

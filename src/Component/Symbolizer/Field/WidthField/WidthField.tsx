@@ -6,13 +6,13 @@ import {
 
 // default props
 interface WidthFieldDefaultProps {
-  width: number;
   label: string;
 }
 
 // non default props
 interface WidthFieldProps extends Partial<WidthFieldDefaultProps> {
   onChange: ((radius: number) => void);
+  width?: number;
 }
 
 /**
@@ -21,7 +21,6 @@ interface WidthFieldProps extends Partial<WidthFieldDefaultProps> {
 class WidthField extends React.Component<WidthFieldProps, {}> {
 
   public static defaultProps: WidthFieldDefaultProps = {
-    width: 2,
     label: 'Width'
   };
 
@@ -36,7 +35,7 @@ class WidthField extends React.Component<WidthFieldProps, {}> {
         <span className="label">{`${label}:`}</span>
         <InputNumber
           min={0}
-          defaultValue={width}
+          value={width}
           onChange={this.props.onChange}
         />
       </div>

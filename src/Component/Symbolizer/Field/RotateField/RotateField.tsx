@@ -6,13 +6,13 @@ import {
 
 // default props
 interface RotateFieldDefaultProps {
-  rotate: number;
   label: string;
 }
 
 // non default props
 interface RotateFieldProps extends Partial<RotateFieldDefaultProps> {
   onChange: ((radius: number) => void);
+  rotate?: number;
 }
 
 /**
@@ -21,7 +21,6 @@ interface RotateFieldProps extends Partial<RotateFieldDefaultProps> {
 class RotateField extends React.Component<RotateFieldProps, {}> {
 
   public static defaultProps: RotateFieldDefaultProps = {
-    rotate: 2,
     label: 'Rotate'
   };
 
@@ -37,7 +36,7 @@ class RotateField extends React.Component<RotateFieldProps, {}> {
         <InputNumber
           min={-360}
           max={360}
-          defaultValue={rotate}
+          value={rotate}
           onChange={this.props.onChange}
         />
       </div>

@@ -73,11 +73,11 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
     } = symbolizer;
 
     // split the current offset
-    let offsetX = 0;
-    let offsetY = 0;
+    let offsetX;
+    let offsetY;
     if (offset) {
       offsetX = offset[0];
-      offsetY = offset[0];
+      offsetY = offset[1];
     }
 
     return (
@@ -105,7 +105,7 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
         <FontPicker
           font={font}
           onChange={(value: string[]) => {
-            symbolizer.font = value;
+            symbolizer.font = value.length > 0 ? value : undefined;
             this.props.onSymbolizerChange(symbolizer);
           }}
         />

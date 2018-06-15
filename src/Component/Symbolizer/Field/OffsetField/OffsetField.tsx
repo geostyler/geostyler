@@ -6,13 +6,13 @@ import {
 
 // default props
 interface OffsetFieldDefaultProps {
-  offset: number;
   label: string;
 }
 
 // non default props
 interface OffsetFieldProps extends Partial<OffsetFieldDefaultProps> {
   onChange: ((radius: number) => void);
+  offset?: number;
 }
 
 /**
@@ -21,7 +21,6 @@ interface OffsetFieldProps extends Partial<OffsetFieldDefaultProps> {
 class OffsetField extends React.Component<OffsetFieldProps, {}> {
 
   public static defaultProps: OffsetFieldDefaultProps = {
-    offset: 0,
     label: ''
   };
 
@@ -35,7 +34,7 @@ class OffsetField extends React.Component<OffsetFieldProps, {}> {
       <div className="editor-field offset-field">
         <span className="label">{`${label}:`}</span>
         <InputNumber
-          defaultValue={offset}
+          value={offset}
           step={1}
           onChange={this.props.onChange}
         />
