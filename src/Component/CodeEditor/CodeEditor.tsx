@@ -204,13 +204,6 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
           >
             {this.getParserOptions()}
           </Select>
-          <Button
-            className="gs-code-editor-download-button"
-            type="primary"
-            onClick={this.onDownloadButtonClick}
-          >
-            {downloadButtonLabel}
-          </Button>
         </div>
         <CodeMirror
           className="gs-code-editor-codemirror"
@@ -228,6 +221,13 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
         <div className="gs-code-editor-errormessage">
           {this.state.invalidMessage}
         </div>
+        <Button
+            className="gs-code-editor-download-button"
+            type="primary"
+            onClick={this.onDownloadButtonClick}
+        >
+            {downloadButtonLabel}
+        </Button>
       </div>
     );
   }

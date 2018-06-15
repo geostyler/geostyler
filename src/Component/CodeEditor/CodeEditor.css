@@ -3,7 +3,7 @@
   text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .gs-code-editor-codemirror {
@@ -28,6 +28,7 @@
 }
 
 .gs-code-editor-download-button {
-  float: right;
+  width: 150px;
+  margin-top: 10px;
 }
 
