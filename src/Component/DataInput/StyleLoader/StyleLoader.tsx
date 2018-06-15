@@ -78,7 +78,7 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
     } = this.state;
 
     return (
-      <div>
+      <div className={activeParser ? 'gs-dataloader-right' : ''}>
         {label}
         <Select
           style={{ width: 300 }}

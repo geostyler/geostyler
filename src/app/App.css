@@ -24,3 +24,7 @@
   flex-direction: column;
   max-width: 34%;
 }
+
+.gs-dataloader-right {
+  margin-left: 135px;
+}

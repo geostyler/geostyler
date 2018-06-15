@@ -78,7 +78,7 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
     } = this.state;
 
     return (
-      <div>
+      <div className={activeParser ? 'gs-dataloader-right' : ''}>
         {label}
         <Select
           style={{ width: 300 }}
