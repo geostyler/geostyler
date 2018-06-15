@@ -63,7 +63,8 @@ interface ValidationStatus {
 interface Validators {
   attribute: (attrName: string) => boolean;
   operator: (operator: string) => boolean;
-  value: (value: string | number | boolean | null, internalDataDef?: Data, attrType?: string) => ValidationResult;
+  value: (value: string | number | boolean | null, internalDataDef?: Data, selectedAttribute?: string)
+    => ValidationResult;
 }
 
 // state
@@ -105,14 +106,14 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
 
   /**
    * Default validation function for filter values.
-   * 
+   *
    * @param {string | number | boolean | null} newValue The new filter value
    * @param {Data} internalDataDef The internal data object
    * @param {string} selectedAttribute The currently seledted attribute field
    */
   static validateValue = (
-      newValue: string | number | boolean | null, 
-      internalDataDef: Data, 
+      newValue: string | number | boolean | null,
+      internalDataDef: Data,
       selectedAttribute: string): ValidationResult => {
 
     let isValid = true;
