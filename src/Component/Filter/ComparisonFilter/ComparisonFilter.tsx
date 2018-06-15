@@ -63,7 +63,7 @@ interface ValidationStatus {
 interface Validators {
   attribute: (attrName: string) => boolean;
   operator: (operator: string) => boolean;
-  value: (value: string | number | boolean| null) => boolean;
+  value: (value: string | number | boolean | null, internalDataDef?: Data, attrType?: string) => ValidationResult;
 }
 
 // state
@@ -78,7 +78,13 @@ interface ComparisonFilterState {
   filter: GsComparisonFilter;
   allowedOperators: string[];
   validateStatus: ValidationStatus;
+  valueValidationHelpString: string | undefined;
 }
+
+type ValidationResult = {
+  isValid: boolean;
+  errorMsg: string;
+};
 
 /**
  * UI for a ComparisonFilter consisting of
@@ -94,6 +100,53 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       prevState: ComparisonFilterState): Partial<ComparisonFilterState> {
     return {
       filter: nextProps.filter
+    };
+  }
+
+  /**
+   * Default validation function for filter values.
+   * 
+   * @param {string | number | boolean | null} newValue The new filter value
+   * @param {Data} internalDataDef The internal data object
+   * @param {string} selectedAttribute The currently seledted attribute field
+   */
+  static validateValue = (
+      newValue: string | number | boolean | null, 
+      internalDataDef: Data, 
+      selectedAttribute: string): ValidationResult => {
+
+    let isValid = true;
+    let errorMsg = '';
+    // read out attribute type
+    const attrType = _get(internalDataDef, `schema.properties[${selectedAttribute}].type`);
+
+    switch (attrType) {
+      case 'number':
+        // detect min / max from schema
+        const minVal = _get(internalDataDef, `schema.properties[${selectedAttribute}].minimum`);
+        const maxVal = _get(internalDataDef, `schema.properties[${selectedAttribute}].maximum`);
+
+        if (!isNaN(minVal) && !isNaN(maxVal)) {
+
+          if (typeof newValue !== 'number') {
+            isValid = false;
+            errorMsg = 'Please enter a number';
+          } else if (newValue < minVal) {
+            isValid = false;
+            errorMsg = 'Minimum Value is ' + minVal;
+          } else if (newValue > maxVal) {
+            isValid = false;
+            errorMsg = 'Maximum Value is ' + maxVal;
+          }
+        }
+        break;
+      default:
+        break;
+    }
+
+    return {
+      isValid: isValid,
+      errorMsg: errorMsg
     };
   }
 
@@ -114,7 +167,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     validators: {
       attribute: attributeName => !_isEmpty(attributeName),
       operator: operatorName => !_isEmpty(operatorName),
-      value: value => true
+      value: ComparisonFilterUi.validateValue
     }
   };
 
@@ -129,7 +182,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
 
     const {
       filter,
-      internalDataDef
+      internalDataDef,
+      valueValidationHelpString
     } = this.props;
 
     if (filter) {
@@ -145,7 +199,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
           attribute: attrName ? 'success' : 'error',
           operator: filter[0] ? 'success' : 'error',
           value: filter[2] ? 'success' : 'error'
-        }
+        },
+        valueValidationHelpString: valueValidationHelpString
       };
 
       this.state = stateParts;
@@ -184,7 +239,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
           attribute: 'error',
           operator: 'error',
           value: 'error'
-        }
+        },
+        valueValidationHelpString: valueValidationHelpString
       };
     }
   }
@@ -327,16 +383,18 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     filter[2] = newValue;
 
     // validate value fields
-    let isValid = this.props.validators!.value(newValue);
+    let validationRes = this.props.validators!.value(newValue, this.props.internalDataDef, this.state.attribute);
+
     const validationStateNew: ValidationStatus = {
       ...this.state.validateStatus,
-      value: isValid ? 'success' : 'error'
+      value: validationRes.isValid ? 'success' : 'error'
     };
 
     this.setState(
       {
         validateStatus: validationStateNew,
-        filter
+        filter,
+        valueValidationHelpString: validationRes.errorMsg
       },
       () => {
         if (_isFunction(this.props.onValidationChanged)) {
@@ -368,10 +426,11 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       });
     }
 
+    const validationRes = validators!.value(filter![2], this.props.internalDataDef, this.state.attribute);
     const validateStatus: ValidationStatus = {
       attribute: validators!.attribute(filter![1]) ? 'success' : 'error',
       operator: validators!.operator(filter![0]) ? 'success' : 'error',
-      value: validators!.value(filter![2]) ? 'success' : 'error'
+      value: validationRes.isValid ? 'success' : 'error'
     };
 
     this.setState(
@@ -443,7 +502,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                     label={this.props.valueLabel}
                     placeholder={this.props.valuePlaceholder}
                     validateStatus={this.state.validateStatus.value}
-                    help={this.props.valueValidationHelpString}
+                    help={this.state.valueValidationHelpString}
                   />
                 </Col> :
                 null
