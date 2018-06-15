@@ -153,6 +153,9 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   updateFeatures() {
+    const {
+      projection
+    } = this.props;
     // Remove previous features
     this.dataLayer.getSource().clear();
 
@@ -168,7 +171,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     } else {
       const geom = this.getSampleGeomFromSymbolizer();
       const sampleFeature = new OlFeature({
-        geometry: geom.transform('EPSG:4326', 'EPSG:3857'),
+        geometry: geom.transform('EPSG:4326', projection),
         Name: 'Sample Feature'
       });
       this.dataLayer.getSource().addFeature(sampleFeature);

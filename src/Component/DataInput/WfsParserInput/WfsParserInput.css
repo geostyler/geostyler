@@ -1,0 +1,19 @@
+.ant-row.ant-form-item {
+  display: flex;
+}
+
+.ant-row .ant-form-item-label {
+  flex: 2;
+}
+
+.ant-row .ant-form-item-control-wrapper {
+  flex: 3;
+}
+
+.ant-modal-footer {
+  display: none;
+}
+
+.wfs-parser-submit-button {
+  float: right;
+}

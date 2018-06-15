@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Select } from 'antd';
+import { Select, Modal } from 'antd';
 const Option = Select.Option;
 
 import {
@@ -9,6 +9,21 @@ import {
 } from 'geostyler-data';
 
 import UploadButton from '../../UploadButton/UploadButton';
+import WfsParserInput from '../WfsParserInput/WfsParserInput';
+
+/**
+ * Interface representing the parameters to be send to WFS
+ */
+export interface ReadParams {
+  url: string;
+  version: string;
+  typeName: string;
+  featureID?: string;
+  propertyName?: string[];
+  maxFeatures?: number;
+  fetchParams?: Object;
+  srsName: string;
+}
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
@@ -32,13 +47,16 @@ interface DataLoaderProps extends Partial<DefaultDataLoaderProps> {
 // state
 interface DataLoaderState {
   activeParser?: GsDataParserConstructable;
+  modalVisible?: boolean;
 }
 
 class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
   constructor(props: DataLoaderProps) {
     super(props);
-    this.state = {};
+    this.state = {
+      modalVisible: false
+    };
   }
 
   static componentName: string = 'DataLoader';
@@ -47,7 +65,7 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
     onDataRead: (data: GsData) => {return; }
   };
 
-  parseData = (uploadObject: any) => {
+  parseUploadData = (uploadObject: any) => {
     const {
       activeParser
     } = this.state;
@@ -59,11 +77,30 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
     const reader = new FileReader();
     reader.readAsText(file);
     reader.onload = () => {
-      const fileContent = reader.result;
+      const fileContent = reader.result.toString();
       // TODO Remove JSON.parse when type of readData is more precise
       parser.readData(JSON.parse(fileContent))
         .then(this.props.onDataRead);
     };
+  }
+
+  parseWfsData = (wfsReadParams: ReadParams) => {
+    const {
+      activeParser
+    } = this.state;
+    if (!activeParser) {
+      return;
+    }
+    const parser = new activeParser();
+    // The dataProjection of the Preview
+    wfsReadParams.srsName = 'EPSG:4326';
+    parser.readData(wfsReadParams)
+      .then((data: GsData) => {
+        this.props.onDataRead!(data);
+        this.setState({
+          modalVisible: false
+        });
+      });
   }
 
   getParserOptions = () => {
@@ -75,8 +112,50 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
   onSelect = (selection: string) => {
     const activeParser = this.props.parsers.find(parser => parser.title === selection);
     if (activeParser) {
-      this.setState({activeParser});
+      this.setState({
+        activeParser,
+        modalVisible: activeParser.title === 'WFS Data Parser'
+      });
     }
+  }
+
+  getInputFromParser = () => {
+    const {
+      activeParser
+    } = this.state;
+
+    if (activeParser) {
+      switch (activeParser.title) {
+        case 'GeoJSON Style Parser':
+          return (
+            <UploadButton
+              label="Upload Data"
+              onUpload={this.parseUploadData}
+            />
+          );
+        case 'WFS Data Parser':
+          return (
+            <Modal
+              title={activeParser.title}
+              visible={this.state.modalVisible}
+              onCancel={() => this.setState({modalVisible: false})}
+              onOk={() => this.setState({modalVisible: false})}
+            >
+              <WfsParserInput
+                onClick={this.parseWfsData}
+              />
+            </Modal>
+          );
+        default:
+          return (
+            <UploadButton
+              label="Upload Data"
+              onUpload={this.parseUploadData}
+            />
+          );
+      }
+    }
+    return null;
   }
 
   render() {
@@ -97,13 +176,7 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
         >
           {this.getParserOptions()}
         </Select>
-        {
-          activeParser ?
-          <UploadButton
-            label={locale.uploadButtonLabel}
-            onUpload={this.parseData}
-          /> : null
-        }
+        {this.getInputFromParser()}
       </div>
     );
   }
