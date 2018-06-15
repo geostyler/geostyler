@@ -126,8 +126,8 @@ class Editor extends React.Component<EditorProps, EditorState> {
         <KindField
           kind={symbolizer.kind}
           onChange={(kind: SymbolizerKind) => {
-            symbolizer.kind = kind;
-            this.onSymbolizerChange(symbolizer);
+            const newSymbolizer = {kind} as Symbolizer;
+            this.onSymbolizerChange(newSymbolizer);
           }}
         />
         {this.getUiFromSymbolizer(this.props.symbolizer)}
