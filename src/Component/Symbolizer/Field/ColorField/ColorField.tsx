@@ -13,15 +13,16 @@ import './ColorField.css';
 
 // default props
 interface ColorFieldDefaultProps {
-  color: string;
   closeText: string;
   editText: string;
+  chooseText: string;
   label: string;
 }
 
 // non default props
 interface ColorFieldProps extends Partial<ColorFieldDefaultProps> {
   onChange: ((color: string) => void);
+  color?: string;
 }
 
 // state
@@ -35,9 +36,9 @@ interface ColorFieldState {
 class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
 
   public static defaultProps: ColorFieldDefaultProps = {
-    color: '#AA1337',
     closeText: 'Close',
     editText: 'Change',
+    chooseText: 'Pick',
     label: 'Color'
   };
 
@@ -61,15 +62,20 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
     const {
       color,
       closeText,
+      chooseText,
       editText,
       label
     } = this.props;
     let textColor;
 
-    try {
-      textColor = Color(color).negate().grayscale().string();
-    } catch (error) {
+    if (!color) {
       textColor = '#000000';
+    } else {
+      try {
+        textColor = Color(color).negate().grayscale().string();
+      } catch (error) {
+        textColor = '#000000';
+      }
     }
 
     return (
@@ -84,7 +90,7 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
             }}
             onClick={this.onColorPreviewClick}
           >
-            {colorPickerVisible ? closeText : editText}
+            {colorPickerVisible ? closeText : color ? editText : chooseText}
           </Button>
           {
             colorPickerVisible ?

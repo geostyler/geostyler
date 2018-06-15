@@ -6,12 +6,12 @@ import {
 
 // default props
 interface SizeFieldDefaultProps {
-  size: number;
   label: string;
 }
 
 // non default props
 interface SizeFieldProps extends Partial<SizeFieldDefaultProps> {
+  size?: number;
   onChange: ((radius: number) => void);
 }
 
@@ -21,7 +21,6 @@ interface SizeFieldProps extends Partial<SizeFieldDefaultProps> {
 class SizeField extends React.Component<SizeFieldProps, {}> {
 
   public static defaultProps: SizeFieldDefaultProps = {
-    size: 2,
     label: 'Size'
   };
 
@@ -36,7 +35,7 @@ class SizeField extends React.Component<SizeFieldProps, {}> {
         <span className="label">{`${label}:`}</span>
         <InputNumber
           step={0.1}
-          defaultValue={size}
+          value={size}
           onChange={this.props.onChange}
         />
       </div>

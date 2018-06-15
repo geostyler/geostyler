@@ -7,7 +7,6 @@ const Option = Select.Option;
 
 // default props
 interface FontPickerDefaultProps {
-  font: string[];
   label: string;
   fontOptions: string[];
 }
@@ -15,6 +14,7 @@ interface FontPickerDefaultProps {
 // non default props
 interface FontPickerProps extends Partial<FontPickerDefaultProps> {
   onChange: ((fonts: string[]) => void);
+  font?: string[];
 }
 
 /**
@@ -23,7 +23,6 @@ interface FontPickerProps extends Partial<FontPickerDefaultProps> {
 class FontPicker extends React.Component<FontPickerProps, {}> {
 
   public static defaultProps: FontPickerDefaultProps = {
-    font: ['Arial'],
     label: 'Font',
     fontOptions: [
       'Arial', 'Verdana', 'Sans-serif',
