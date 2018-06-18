@@ -5,11 +5,14 @@ import './RemoveButton.css';
 
 // default props
 interface DefaultRemoveButtonProps {
+  /** Button text */
   text: string;
 }
 // non default props
 interface RemoveButtonProps extends Partial<DefaultRemoveButtonProps> {
+  /** Index of the correspondig Rule object */
   ruleIdx: number;
+  /** Callback for onClick */
   onClick: ((ruleIdx: number) => void);
 }
 

@@ -6,17 +6,29 @@ const Option = Select.Option;
 
 // default props
 interface DefaultAttributeComboProps {
+  /** Label for this field */
   label: string;
+  /** The default text to place into the empty field */
   placeholder: string;
+  /** Initial value set to the field */
   value: string | undefined;
+  /** Set true to hide the attribute's type in the select options */
   hideAttributeType: boolean;
+  /**
+   * A custom filter function which is passed each attribute.
+   * Should return true to accept each attribute or false to reject it.
+   */
   attributeNameFilter: (attrName: string) => boolean;
+  /** Validation status */
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  /** Element to show a help text */
   help?: React.ReactNode;
 }
 // non default props
 interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
+  /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: Data;
+  /** Callback function for onChange */
   onAttributeChange: ((newAttrName: string) => void);
 }
 

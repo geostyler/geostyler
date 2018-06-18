@@ -7,7 +7,9 @@ import './FieldSet.css';
 interface DefaultFieldSetProps {}
 // non default props
 interface FieldSetProps extends Partial<DefaultFieldSetProps> {
+  /** Title to be rendered on top of the FieldSet */
   title: string;
+  /** Callback function for onChange of the checkbox  */
   onCheckChange?: (e: any) => void;
 }
 
@@ -17,7 +19,8 @@ interface FieldSetState {
 }
 
 /**
- * Input field for a numeric filter value.
+ * A container for grouping sets of fields similar to a HTML fieldset element.
+ * A title and a checkbox will be rendered on the top border of the component.
  */
 class FieldSet extends React.Component<FieldSetProps, FieldSetState> {
 

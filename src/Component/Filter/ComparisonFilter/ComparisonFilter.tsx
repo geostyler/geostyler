@@ -33,24 +33,43 @@ import {
 
 // default props
 interface DefaultComparisonFilterProps {
+  /** Initial comparison filter object */
   filter: GsComparisonFilter;
+  /** Set true to hide the attribute's type in the AttributeCombo select options */
   hideAttributeType: boolean;
+  /**
+   * A custom filter function which is passed each attribute.
+   * Should return true to accept each attribute or false to reject it.
+   */
   attributeNameFilter: (attributeName: string) => boolean;
+  /** Label for the underlying AttributeCombo */
   attributeLabel?: string;
+  /** Placeholder text for the underlying AttributeCombo */
   attributePlaceholderString?: string;
+  /** Validation help text for the underlying AttributeCombo */
   attributeValidationHelpString?: string;
+  /** Label for the underlying OperatorCombo */
   operatorLabel?: string;
+  /** Placeholder for the underlying OperatorCombo */
   operatorPlaceholderString?: string;
+  /** Validation help text for the underlying OperatorCombo */
   operatorValidationHelpString?: string;
+  /** Label for the underlying value field */
   valueLabel?: string;
+  /** Placeholder for the underlying value field */
   valuePlaceholder?: string;
+  /** Validation help text for the underlying value field */
   valueValidationHelpString?: string;
+  /** Callback for onValidationChanged */
   onValidationChanged?: (status: ValidationStatus) => void;
+  /** Object aggregating validation functions for attribute, operator and value */
   validators: Validators;
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
+  /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
+  /** Callback function for onFilterChange */
   onFilterChange: ((compFilter: GsComparisonFilter) => void);
 }
 

@@ -6,12 +6,16 @@ import { Data } from 'geostyler-data';
 
 // default props
 interface DefaultBoolFilterFieldProps {
+  /** Label for this field */
   label: string;
+  /** Initial value set to the field */
   value: boolean;
 }
 // non default props
 interface BoolFilterFieldProps extends Partial<DefaultBoolFilterFieldProps> {
+  /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
+  /** Callback function for onChange */
   onValueChange: ((newValue: boolean) => void);
 }
 // state

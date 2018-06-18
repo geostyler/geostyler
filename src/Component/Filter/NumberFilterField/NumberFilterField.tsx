@@ -4,16 +4,24 @@ import { Data } from 'geostyler-data';
 
 // default props
 interface DefaultNumberFilterFieldProps {
+  /** Label for this field */
   label: string;
+  /** The default text to place into the empty field */
   placeholder: string;
+  /** Initial value set to the field */
   value: number | undefined;
+  /** Validation status */
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  /** Element to show a help text */
   help?: React.ReactNode;
 }
 // non default props
 interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {
+  /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
+  /** Callback for onChange */
   onValueChange: ((newValue: number) => void);
+  /** The selected attribute name */
   selectedAttribute: string;
 }
 // state

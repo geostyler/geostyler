@@ -10,16 +10,24 @@ import { Feature } from 'geojson';
 
 // default props
 interface DefaultTextFilterFieldProps {
+  /** Label for this field */
   label: string;
+  /** The default text to place into the empty field */
   placeholder: string;
+  /** Initial value set to the field */
   value: string | undefined;
+  /** Validation status */
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  /** Element to show a help text */
   help?: React.ReactNode;
 }
 // non default props
 interface TextFilterFieldProps extends Partial<DefaultTextFilterFieldProps> {
+  /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
+  /** Callback function for onChange */
   onValueChange: ((newValue: string) => void);
+  /** The selected attribute name */
   selectedAttribute: string;
 }
 // state
