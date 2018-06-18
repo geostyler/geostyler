@@ -8,7 +8,16 @@ describe('ComparisonFilter', () => {
   const onFilterChange = jest.fn();
   const attrValidator = jest.fn();
   const operatorValidator = jest.fn();
-  const valueValidator = jest.fn();
+  // TODO check why jest.fn() / mockReturnValue does not work here
+  // use native function and counter as fallback
+  let valueValidatorCalled = 0;
+  const valueValidator = () => {
+    valueValidatorCalled++;
+    return {
+      isValid: false,
+      errorMsg: 'Please enter valid input'
+    };
+  };
 
   let wrapper: any;
 
@@ -34,7 +43,7 @@ describe('ComparisonFilter', () => {
     onFilterChange.mockReset();
     attrValidator.mockReset();
     operatorValidator.mockReset();
-    valueValidator.mockReset();
+    valueValidatorCalled = 0;
   });
 
   it('is defined', () => {
@@ -119,7 +128,7 @@ describe('ComparisonFilter', () => {
       wrapper.instance().validateFilter();
       expect(attrValidator.mock.calls).toHaveLength(1);
       expect(operatorValidator.mock.calls).toHaveLength(1);
-      expect(valueValidator.mock.calls).toHaveLength(1);
+      expect(valueValidatorCalled).toBe(1);
     });
   });
 });
