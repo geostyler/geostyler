@@ -470,7 +470,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       <div className="gs-comparison-filter-ui">
         <Form>
           <Row gutter={16} justify="center">
-            <Col span={10}>
+            <Col span={10} className="gs-small-col">
               <AttributeCombo
                 value={this.state && this.state.filter ? this.state.filter[1] : undefined}
                 internalDataDef={this.props.internalDataDef}
@@ -483,7 +483,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                 hideAttributeType={this.props.hideAttributeType}
               />
             </Col>
-            <Col span={4}>
+            <Col span={4} className="gs-small-col">
               <OperatorCombo
                 value={this.state && this.state.filter ? this.state.filter[0] : undefined}
                 internalDataDef={this.props.internalDataDef}
@@ -497,7 +497,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
             </Col>
             {
               this.state.textFieldVisible ?
-                <Col span={10}>
+                <Col span={10} className="gs-small-col">
                   <TextFilterField
                     value={this.state && this.state.filter ? this.state.filter[2] as string : undefined}
                     internalDataDef={this.props.internalDataDef}
@@ -513,7 +513,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
             }
             {
               this.state.numberFieldVisible ?
-                <Col span={10}>
+                <Col span={10} className="gs-small-col">
                   <NumberFilterField
                     value={this.state && this.state.filter ? this.state.filter[2] as number : undefined}
                     internalDataDef={this.props.internalDataDef}
@@ -529,7 +529,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
             }
             {
               this.state.boolFieldVisible ?
-                <Col span={10}>
+                <Col span={10} className="gs-small-col">
                   <BoolFilterField
                     value={this.state && this.state.filter ? this.state.filter[2] as boolean : undefined}
                     internalDataDef={this.props.internalDataDef}

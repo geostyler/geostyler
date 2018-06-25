@@ -70,15 +70,15 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
 
   render() {
     return (
-      <div className="gs-max-scaledenominator">
+      <div className="gs-scaledenominator">
         <Row gutter={16} >
-          <Col span={12}>
+          <Col span={12} className="gs-small-col">
             <MinScaleDenominator
               value={_get(this.state, 'scaleDenominator.min')}
               onChange={this.onMinScaleDenomChange}
             />
           </Col>
-          <Col span={12}>
+          <Col span={12} className="gs-small-col">
             <MaxScaleDenominator
               value={_get(this.state, 'scaleDenominator.max')}
               onChange={this.onMaxScaleDenomChange}

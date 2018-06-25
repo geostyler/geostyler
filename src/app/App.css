@@ -28,3 +28,26 @@
 .gs-dataloader-right {
   margin-left: 135px;
 }
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+  .gs-small-col {
+    width: auto;
+  }
+
+  .main-content {
+    display: block;
+  }
+
+  .editor-wrapper {
+    max-width: 95%;
+  }
+
+  .gs-dataloader-right {
+    margin-left: auto;
+  }
+
+  header > a {
+    margin-right: 10px;
+  }
+}
