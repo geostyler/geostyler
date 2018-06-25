@@ -140,8 +140,8 @@ class Style extends React.Component<StyleProps, StyleState> {
       <div className="gs-style" >
         <NameField value={this.state.style.name} onChange={this.onNameChange} />
         {
-          rules.map((rule) => <Rule
-            key={rule.name}
+          rules.map((rule, idx) => <Rule
+            key={'rule_' + idx}
             rule={rule}
             onRemove={this.removeRule}
             internalDataDef={this.props.data}
