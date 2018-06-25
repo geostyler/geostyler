@@ -31,7 +31,7 @@
     "geostyler-geojson-parser": "0.2.0",
     "geostyler-openlayers-parser": "0.5.0",
     "geostyler-sld-parser": "0.7.0",
-    "geostyler-style": "0.6.0",
+    "geostyler-style": "0.7.0",
     "openlayers": "4.6.5",
     "react": "16.4.1",
     "react-codemirror2": "5.0.4",
