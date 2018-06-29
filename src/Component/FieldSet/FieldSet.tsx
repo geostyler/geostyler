@@ -63,7 +63,7 @@ class FieldSet extends React.Component<FieldSetProps, FieldSetState> {
             if (this.state.visible) {
               return child;
             }
-            return;
+            return undefined;
           })}
         </fieldset>
 
