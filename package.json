@@ -34,7 +34,7 @@
     "geostyler-style": "0.7.0",
     "openlayers": "4.6.5",
     "react": "16.4.1",
-    "react-codemirror2": "5.0.4",
+    "react-codemirror2": "5.1.0",
     "react-color": "2.14.1",
     "react-dom": "16.4.1",
     "react-scripts-ts": "2.16.0"
