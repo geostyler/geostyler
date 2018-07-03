@@ -52,7 +52,7 @@
     "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags",
     "styleguide": "styleguidist server",
     "start": "react-scripts-ts start",
-    "test": "CI=true react-scripts-ts test --env=jsdom",
+    "test": "CI=true react-scripts-ts test --env=jsdom --runInBand",
     "test:watch": "react-scripts-ts test --env=jsdom"
   },
   "devDependencies": {
