@@ -13,11 +13,17 @@ import MaxScaleDenominator from './Component/ScaleDenominator/MaxScaleDenominato
 import MinScaleDenominator from './Component/ScaleDenominator/MinScaleDenominator';
 import Preview from './Component/Symbolizer/Preview/Preview';
 import Editor from './Component/Symbolizer/Editor/Editor';
+import CircleEditor from './Component/Symbolizer/CircleEditor/CircleEditor';
+import LineEditor from './Component/Symbolizer/LineEditor/LineEditor';
+import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
+import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
+import IconEditor from './Component/Symbolizer/IconEditor/IconEditor';
 import ColorField from './Component/Symbolizer/Field/ColorField/ColorField';
 import OpacityField from './Component/Symbolizer/Field/OpacityField/OpacityField';
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
-import UploadButton from './Component/UploadButton/UploadButton'
+import UploadButton from './Component/UploadButton/UploadButton';
+import Style from './Component/Style/Style';
 
 export {
   FieldSet,
@@ -39,5 +45,11 @@ export {
   OpacityField,
   RadiusField,
   WidthField,
-  UploadButton
+  UploadButton,
+  CircleEditor,
+  IconEditor,
+  LineEditor,
+  FillEditor,
+  TextEditor,
+  Style
 };
