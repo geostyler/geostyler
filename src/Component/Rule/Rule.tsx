@@ -88,10 +88,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
   onNameChange = (name: string) => {
     const rule: GsRule = _cloneDeep(this.state.rule);
     rule.name = name;
-    this.setState({rule});
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
+    this.setState({rule});
   }
 
   /**
@@ -100,10 +100,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
   onScaleDenominatorChange = (scaleDenominator: any) => {
     const rule: GsRule = _cloneDeep(this.state.rule);
     rule.scaleDenominator = scaleDenominator;
-    this.setState({rule});
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
+    this.setState({rule});
   }
 
   /**
@@ -112,10 +112,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
   onFilterChange = (filter: GsComparisonFilter) => {
     const rule: GsRule = _cloneDeep(this.state.rule);
     rule.filter = filter;
-    this.setState({rule});
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
+    this.setState({rule});
   }
 
   /**
@@ -124,10 +124,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
   onSymbolizerChange = (symbolizer: GsSymbolizer) => {
     const rule: GsRule = _cloneDeep(this.state.rule);
     rule.symbolizer = symbolizer;
-    this.setState({rule});
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
+    this.setState({rule});
   }
 
   onEditPreviewButtonClicked = () => {
@@ -149,10 +149,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
       rule.scaleDenominator = undefined;
     }
 
-    this.setState({rule});
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
+    this.setState({rule});
   }
 
   onFilterCheckChange = (e: any) => {
@@ -168,10 +168,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
       rule.filter = undefined;
     }
 
-    this.setState({rule});
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
+    this.setState({rule});
   }
 
   render() {
