@@ -131,7 +131,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     // zoom to feature extent
     const extent = this.dataLayer.getSource().getExtent();
     this.map.getView().fit(extent, {
-      maxZoom: 12
+      maxZoom: 20
     });
   }
 

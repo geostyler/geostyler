@@ -465,7 +465,6 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   }
 
   render() {
-
     return (
       <div className="gs-comparison-filter-ui">
         <Form>

@@ -28,6 +28,8 @@ import {
 interface StyleProps extends Partial<DefaultStyleProps> {
   data?: GsData;
   onStyleChange?: (rule: GsStyle) => void;
+  /** The data projection of example features */
+  dataProjection?: string;
 }
 
 // state
@@ -146,6 +148,7 @@ class Style extends React.Component<StyleProps, StyleState> {
             onRemove={this.removeRule}
             internalDataDef={this.props.data}
             onRuleChange={this.onRuleChange}
+            dataProjection={this.props.dataProjection}
           />)
         }
         <Button

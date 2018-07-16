@@ -32,6 +32,8 @@ import {
 interface DefaultRuleProps {
   /** Optional Rule object holding inital values for the component */
   rule: GsRule;
+  /** The data projection of example features */
+  dataProjection?: string;
 }
 
 // non default props
@@ -70,7 +72,8 @@ class Rule extends React.Component<RuleProps, RuleState> {
       symbolizer: {
         kind: 'Circle'
       }
-    }
+    },
+    dataProjection: 'EPSG:4326'
   };
 
   static getDerivedStateFromProps(
@@ -176,6 +179,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
 
   render() {
     const {
+      dataProjection,
       internalDataDef,
       onRemove
     } = this.props;
@@ -196,6 +200,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
           <div className="gs-rule-left-fields" >
             <RuleNameField value={rule.name} onChange={this.onNameChange} />
             <Preview
+              dataProjection={dataProjection}
               symbolizer={rule.symbolizer}
               internalDataDef={gsData}
               onSymbolizerChange={this.onSymbolizerChange}
