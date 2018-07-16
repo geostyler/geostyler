@@ -86,10 +86,10 @@ class Style extends React.Component<StyleProps, StyleState> {
   onNameChange = (name: string) => {
     const style = _cloneDeep(this.state.style);
     style.name = name;
-    this.setState({style});
     if (this.props.onStyleChange) {
       this.props.onStyleChange(style);
     }
+    this.setState({style});
   }
 
   onRuleChange = (rule: GsRule, ruleBefore: GsRule) => {
@@ -99,10 +99,10 @@ class Style extends React.Component<StyleProps, StyleState> {
     });
     if (ruleIdxToReplace > -1) {
       style.rules[ruleIdxToReplace] = rule;
-      this.setState({style});
       if (this.props.onStyleChange) {
         this.props.onStyleChange(style);
       }
+      this.setState({style});
     }
   }
 
@@ -115,20 +115,20 @@ class Style extends React.Component<StyleProps, StyleState> {
       symbolizer: this.getSymbolizerFromStyleType(style)
     };
     style.rules = [...style.rules, newRule];
-    this.setState({style});
     if (this.props.onStyleChange) {
       this.props.onStyleChange(style);
     }
+    this.setState({style});
   }
 
   removeRule = (rule: GsRule) => {
     const style = _cloneDeep(this.state.style);
     const newRules = style.rules.filter(r => r.name !== rule.name);
     style.rules = newRules;
-    this.setState({style});
     if (this.props.onStyleChange) {
       this.props.onStyleChange(style);
     }
+    this.setState({style});
   }
 
   render() {
