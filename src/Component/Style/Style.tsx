@@ -17,6 +17,30 @@ import NameField from '../NameField/NameField';
 // default props
 interface DefaultStyleProps {
   style: GsStyle;
+  /** i18n */
+  nameFieldLabel?: string;
+  nameFieldPlaceholder?: string;
+  addRuleBtnText?: string;
+  removeRuleBtnText?: string;
+  ruleNameFieldLabelText?: string;
+  ruleNameFieldPlaceholder?: string;
+  previewOpenSymbolizerEditorText?: string;
+  previewCloseSymbolizerEditorText?: string;
+  scaleFieldSetTitle?: string;
+  minScaleDenominatorLabelText?: string;
+  maxScaleDenominatorLabelText?: string;
+  minScaleDenominatorPlaceholderText?: string;
+  maxScaleDenominatorPlaceholderText?: string;
+  filterFieldSetTitle?: string;
+  filterAttributeLabelText?: string;
+  filterAttributePlaceholderText?: string;
+  filterAttributeValidationHelpText?: string;
+  filterOperatorLabelText?: string;
+  filterOperatorPlaceholderText?: string;
+  filterOperatorValidationHelpText?: string;
+  filterValueLabelText?: string;
+  filterValuePlaceholderText?: string;
+  filterValueValidationHelpText?: string;
 }
 
 import {
@@ -50,7 +74,8 @@ class Style extends React.Component<StyleProps, StyleState> {
       name: 'My Style',
       type: 'Point',
       rules: []
-    }
+    },
+    addRuleBtnText: 'Add Rule'
   };
 
   componentDidUpdate(prevProps: any, prevState: any) {
@@ -140,7 +165,12 @@ class Style extends React.Component<StyleProps, StyleState> {
     }
     return (
       <div className="gs-style" >
-        <NameField value={this.state.style.name} onChange={this.onNameChange} />
+        <NameField
+          value={this.state.style.name}
+          onChange={this.onNameChange}
+          label={this.props.nameFieldLabel}
+          placeholder={this.props.nameFieldPlaceholder}
+        />
         {
           rules.map((rule, idx) => <Rule
             key={'rule_' + idx}
@@ -149,6 +179,26 @@ class Style extends React.Component<StyleProps, StyleState> {
             internalDataDef={this.props.data}
             onRuleChange={this.onRuleChange}
             dataProjection={this.props.dataProjection}
+            removeRuleBtnText={this.props.removeRuleBtnText}
+            ruleNameFieldLabelText={this.props.ruleNameFieldLabelText}
+            ruleNameFieldPlaceHolder={this.props.ruleNameFieldPlaceholder}
+            previewOpenSymbolizerEditorText={this.props.previewOpenSymbolizerEditorText}
+            previewCloseSymbolizerEditorText={this.props.previewCloseSymbolizerEditorText}
+            scaleFieldSetTitle={this.props.scaleFieldSetTitle}
+            minScaleDenominatorLabelText={this.props.minScaleDenominatorLabelText}
+            maxScaleDenominatorLabelText={this.props.maxScaleDenominatorLabelText}
+            minScaleDenominatorPlaceholderText={this.props.minScaleDenominatorPlaceholderText}
+            maxScaleDenominatorPlaceholderText={this.props.maxScaleDenominatorPlaceholderText}
+            filterFieldSetTitle={this.props.filterFieldSetTitle}
+            filterAttributeLabelText={this.props.filterAttributeLabelText}
+            filterAttributePlaceholderText={this.props.filterAttributePlaceholderText}
+            filterAttributeValidationHelpText={this.props.filterAttributeValidationHelpText}
+            filterOperatorLabelText={this.props.filterOperatorLabelText}
+            filterOperatorPlaceholderText={this.props.filterOperatorPlaceholderText}
+            filterOperatorValidationHelpText={this.props.filterOperatorValidationHelpText}
+            filterValueLabelText={this.props.filterValueLabelText}
+            filterValuePlaceholderText={this.props.filterValuePlaceholderText}
+            filterValueValidationHelpText={this.props.filterValueValidationHelpText}
           />)
         }
         <Button
@@ -157,7 +207,7 @@ class Style extends React.Component<StyleProps, StyleState> {
           size="large"
           onClick={this.addRule}
         >
-          Add Rule
+          {this.props.addRuleBtnText}
         </Button>
       </div>
     );

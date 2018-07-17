@@ -34,6 +34,27 @@ interface DefaultRuleProps {
   rule: GsRule;
   /** The data projection of example features */
   dataProjection?: string;
+  /** i18n */
+  removeRuleBtnText?: string;
+  ruleNameFieldLabelText?: string;
+  ruleNameFieldPlaceHolder?: string;
+  previewOpenSymbolizerEditorText?: string;
+  previewCloseSymbolizerEditorText?: string;
+  scaleFieldSetTitle?: string;
+  minScaleDenominatorLabelText?: string;
+  maxScaleDenominatorLabelText?: string;
+  minScaleDenominatorPlaceholderText?: string;
+  maxScaleDenominatorPlaceholderText?: string;
+  filterFieldSetTitle?: string;
+  filterAttributeLabelText?: string;
+  filterAttributePlaceholderText?: string;
+  filterAttributeValidationHelpText?: string;
+  filterOperatorLabelText?: string;
+  filterOperatorPlaceholderText?: string;
+  filterOperatorValidationHelpText?: string;
+  filterValueLabelText?: string;
+  filterValuePlaceholderText?: string;
+  filterValueValidationHelpText?: string;
 }
 
 // non default props
@@ -73,7 +94,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
         kind: 'Circle'
       }
     },
-    dataProjection: 'EPSG:4326'
+    dataProjection: 'EPSG:4326',
+    removeRuleBtnText: 'Remove Rule',
+    scaleFieldSetTitle: 'Use Scale',
+    filterFieldSetTitle: 'Use Filter'
   };
 
   static getDerivedStateFromProps(
@@ -198,32 +222,52 @@ class Rule extends React.Component<RuleProps, RuleState> {
       <div className="gs-rule" >
         <div className="gs-rule-fields" >
           <div className="gs-rule-left-fields" >
-            <RuleNameField value={rule.name} onChange={this.onNameChange} />
+            <RuleNameField
+              value={rule.name}
+              onChange={this.onNameChange}
+              label={this.props.ruleNameFieldLabelText}
+              placeholder={this.props.ruleNameFieldPlaceHolder}
+            />
             <Preview
               dataProjection={dataProjection}
               symbolizer={rule.symbolizer}
               internalDataDef={gsData}
               onSymbolizerChange={this.onSymbolizerChange}
+              openEditorText={this.props.previewOpenSymbolizerEditorText}
+              closeEditorText={this.props.previewCloseSymbolizerEditorText}
             />
           </div>
           <div className="gs-rule-right-fields" >
             <Fieldset
-              title="Use Scale"
+              title={this.props.scaleFieldSetTitle}
               onCheckChange={this.onScaleCheckChange}
             >
               <ScaleDenominator
                 scaleDenominator={rule.scaleDenominator}
                 onChange={this.onScaleDenominatorChange}
+                minScaleDenominatorLabelText={this.props.minScaleDenominatorLabelText}
+                maxScaleDenominatorLabelText={this.props.maxScaleDenominatorLabelText}
+                minScaleDenominatorPlaceholderText={this.props.minScaleDenominatorPlaceholderText}
+                maxScaleDenominatorPlaceholderText={this.props.maxScaleDenominatorPlaceholderText}
               />
             </Fieldset>
             <Fieldset
-              title="Use Filter"
+              title={this.props.filterFieldSetTitle}
               onCheckChange={this.onFilterCheckChange}
             >
               <ComparisonFilterUi
                 internalDataDef={gsData}
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
+                attributeLabel={this.props.filterAttributeLabelText}
+                attributePlaceholderString={this.props.filterAttributePlaceholderText}
+                attributeValidationHelpString={this.props.filterAttributeValidationHelpText}
+                operatorLabel={this.props.filterOperatorLabelText}
+                operatorPlaceholderString={this.props.filterOperatorPlaceholderText}
+                operatorValidationHelpString={this.props.filterOperatorValidationHelpText}
+                valueLabel={this.props.filterValueLabelText}
+                valuePlaceholder={this.props.filterValuePlaceholderText}
+                valueValidationHelpString={this.props.filterValueValidationHelpText}
               />
             </Fieldset>
           </div>
@@ -240,7 +284,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
             }
           }}
         >
-          Remove Rule
+          {this.props.removeRuleBtnText}
         </Button>
       </div>
     );

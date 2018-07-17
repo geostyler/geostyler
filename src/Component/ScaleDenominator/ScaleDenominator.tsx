@@ -14,6 +14,11 @@ import {
 
 // default props
 interface DefaultScaleDenominatorProps {
+  /** i18n */
+  minScaleDenominatorLabelText?: string;
+  maxScaleDenominatorLabelText?: string;
+  minScaleDenominatorPlaceholderText?: string;
+  maxScaleDenominatorPlaceholderText?: string;
 }
 // non default props
 interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
@@ -76,12 +81,16 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
             <MinScaleDenominator
               value={_get(this.state, 'scaleDenominator.min')}
               onChange={this.onMinScaleDenomChange}
+              label={this.props.minScaleDenominatorLabelText}
+              placeholder={this.props.minScaleDenominatorPlaceholderText}
             />
           </Col>
           <Col span={12} className="gs-small-col">
             <MaxScaleDenominator
               value={_get(this.state, 'scaleDenominator.max')}
               onChange={this.onMaxScaleDenomChange}
+              label={this.props.maxScaleDenominatorLabelText}
+              placeholder={this.props.maxScaleDenominatorPlaceholderText}
             />
           </Col>
         </Row>
