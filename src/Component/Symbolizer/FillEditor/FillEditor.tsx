@@ -13,7 +13,7 @@ import {
 } from 'lodash';
 
 // default props
-interface DefaultFillEditorProps {
+export interface DefaultFillEditorProps {
   fillOpacityLabel: string;
   fillColorLabel: string;
   outlineColorLabel: string;

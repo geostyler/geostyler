@@ -20,13 +20,14 @@ import { Data } from 'geostyler-data';
 import './TextEditor.css';
 
 // default props
-interface DefaultTextEditorProps {
+export interface DefaultTextEditorProps {
   fieldLabel: string;
   opacityLabel: string;
   colorLabel: string;
   sizeLabel: string;
   offsetXLabel: string;
   offsetYLabel: string;
+  fontLabel?: string;
 }
 
 // non default props
@@ -104,6 +105,7 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
         />
         <FontPicker
           font={font}
+          label={this.props.fontLabel}
           onChange={(value: string[]) => {
             symbolizer.font = value.length > 0 ? value : undefined;
             this.props.onSymbolizerChange(symbolizer);

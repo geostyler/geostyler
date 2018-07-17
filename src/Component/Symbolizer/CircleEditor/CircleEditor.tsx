@@ -15,7 +15,7 @@ import {
 } from 'lodash';
 
 // default props
-interface DefaultCircleEditorProps {
+export interface DefaultCircleEditorProps {
   radiusLabel: string;
   fillOpacityLabel: string;
   fillColorLabel: string;

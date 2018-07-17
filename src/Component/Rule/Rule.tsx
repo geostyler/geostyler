@@ -15,12 +15,12 @@ import {
 } from 'geostyler-style';
 import { Data as GsData } from 'geostyler-data';
 
-import RuleNameField from '../NameField/NameField';
-import ComparisonFilterUi from '../Filter/ComparisonFilter/ComparisonFilter';
+import RuleNameField, { DefaultNameFieldProps } from '../NameField/NameField';
+import ComparisonFilterUi, { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 // import RuleRemoveButton from './RemoveButton/RemoveButton';
-import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
+import ScaleDenominator, { DefaultScaleDenominatorProps } from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
-import Preview from '../Symbolizer/Preview/Preview';
+import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
@@ -36,25 +36,12 @@ interface DefaultRuleProps {
   dataProjection?: string;
   /** i18n */
   removeRuleBtnText?: string;
-  ruleNameFieldLabelText?: string;
-  ruleNameFieldPlaceHolder?: string;
-  previewOpenSymbolizerEditorText?: string;
-  previewCloseSymbolizerEditorText?: string;
   scaleFieldSetTitle?: string;
-  minScaleDenominatorLabelText?: string;
-  maxScaleDenominatorLabelText?: string;
-  minScaleDenominatorPlaceholderText?: string;
-  maxScaleDenominatorPlaceholderText?: string;
   filterFieldSetTitle?: string;
-  filterAttributeLabelText?: string;
-  filterAttributePlaceholderText?: string;
-  filterAttributeValidationHelpText?: string;
-  filterOperatorLabelText?: string;
-  filterOperatorPlaceholderText?: string;
-  filterOperatorValidationHelpText?: string;
-  filterValueLabelText?: string;
-  filterValuePlaceholderText?: string;
-  filterValueValidationHelpText?: string;
+  filterUiProps?: DefaultComparisonFilterProps;
+  scaleDenominatorProps?: DefaultScaleDenominatorProps;
+  previewProps?: DefaultPreviewProps;
+  ruleNameProps?: DefaultNameFieldProps;
 }
 
 // non default props
@@ -225,16 +212,14 @@ class Rule extends React.Component<RuleProps, RuleState> {
             <RuleNameField
               value={rule.name}
               onChange={this.onNameChange}
-              label={this.props.ruleNameFieldLabelText}
-              placeholder={this.props.ruleNameFieldPlaceHolder}
+              {...this.props.ruleNameProps}
             />
             <Preview
               dataProjection={dataProjection}
               symbolizer={rule.symbolizer}
               internalDataDef={gsData}
               onSymbolizerChange={this.onSymbolizerChange}
-              openEditorText={this.props.previewOpenSymbolizerEditorText}
-              closeEditorText={this.props.previewCloseSymbolizerEditorText}
+              {...this.props.previewProps}
             />
           </div>
           <div className="gs-rule-right-fields" >
@@ -245,10 +230,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
               <ScaleDenominator
                 scaleDenominator={rule.scaleDenominator}
                 onChange={this.onScaleDenominatorChange}
-                minScaleDenominatorLabelText={this.props.minScaleDenominatorLabelText}
-                maxScaleDenominatorLabelText={this.props.maxScaleDenominatorLabelText}
-                minScaleDenominatorPlaceholderText={this.props.minScaleDenominatorPlaceholderText}
-                maxScaleDenominatorPlaceholderText={this.props.maxScaleDenominatorPlaceholderText}
+                {...this.props.scaleDenominatorProps}
               />
             </Fieldset>
             <Fieldset
@@ -259,15 +241,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
                 internalDataDef={gsData}
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
-                attributeLabel={this.props.filterAttributeLabelText}
-                attributePlaceholderString={this.props.filterAttributePlaceholderText}
-                attributeValidationHelpString={this.props.filterAttributeValidationHelpText}
-                operatorLabel={this.props.filterOperatorLabelText}
-                operatorPlaceholderString={this.props.filterOperatorPlaceholderText}
-                operatorValidationHelpString={this.props.filterOperatorValidationHelpText}
-                valueLabel={this.props.filterValueLabelText}
-                valuePlaceholder={this.props.filterValuePlaceholderText}
-                valueValidationHelpString={this.props.filterValueValidationHelpText}
+                {...this.props.filterUiProps}
               />
             </Fieldset>
           </div>

@@ -20,9 +20,14 @@ import {
   get as _get
 } from 'lodash';
 import { Data } from 'geostyler-data';
+import { DefaultCircleEditorProps } from '../CircleEditor/CircleEditor';
+import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
+import { DefaultLineEditorProps } from '../LineEditor/LineEditor';
+import { DefaultFillEditorProps } from '../FillEditor/FillEditor';
+import { DefaultTextEditorProps } from '../TextEditor/TextEditor';
 
 // default props
-interface DefaultPreviewProps {
+export interface DefaultPreviewProps {
   projection: string;
   dataProjection: string;
   showOsmBackground: boolean;
@@ -33,11 +38,17 @@ interface DefaultPreviewProps {
   interactions: ol.interaction.Interaction[] | undefined;
   openEditorText: string;
   closeEditorText: string;
+  unknownSymbolizerText?: string;
+  circleEditorProps?: DefaultCircleEditorProps;
+  iconEditorProps?: DefaultIconEditorProps;
+  lineEditorProps?: DefaultLineEditorProps;
+  fillEditorProps?: DefaultFillEditorProps;
+  textEditorProps?: DefaultTextEditorProps;
 }
 
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
-  internalDataDef?: Data; 
+  internalDataDef?: Data;
   symbolizer: Symbolizer;
   onSymbolizerChange: (symbolizer: Symbolizer) => void;
 }
@@ -100,7 +111,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
 
     const features = this.props.internalDataDef ? this.props.internalDataDef.exampleFeatures : undefined;
     const prevFeatures = prevProps.internalDataDef ? prevProps.internalDataDef.exampleFeatures : undefined;
-    if (!_isEqual(features, prevFeatures) || 
+    if (!_isEqual(features, prevFeatures) ||
        !_isEqual(this.state.symbolizer.kind, prevState.symbolizer.kind)) {
       this.updateFeatures();
     }
@@ -265,11 +276,15 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
   render() {
     const {
       mapHeight,
-      symbolizer,
       openEditorText,
       closeEditorText,
-      internalDataDef,
-      onSymbolizerChange
+      projection,
+      map,
+      controls,
+      interactions,
+      dataProjection,
+      showOsmBackground,
+      ...editorProps
     } = this.props;
 
     return (
@@ -288,11 +303,9 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
           </Button>
           {
             this.state.editorVisible ?
-            <Editor
-              symbolizer={symbolizer}
-              internalDataDef={internalDataDef}
-              onSymbolizerChange={onSymbolizerChange}
-            /> : null
+              <Editor
+                {...editorProps}
+              /> : null
           }
         </div>
       </div>

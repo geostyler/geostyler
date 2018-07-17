@@ -13,7 +13,7 @@ import {
 } from 'geostyler-style';
 
 // default props
-interface DefaultScaleDenominatorProps {
+export interface DefaultScaleDenominatorProps {
   /** i18n */
   minScaleDenominatorLabelText?: string;
   maxScaleDenominatorLabelText?: string;

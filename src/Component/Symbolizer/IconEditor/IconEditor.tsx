@@ -16,7 +16,7 @@ import RotateField from '../Field/RotateField/RotateField';
 import SizeField from '../Field/SizeField/SizeField';
 
 // default props
-interface DefaultIconEditorProps {
+export interface DefaultIconEditorProps {
   imageLabel: string;
   opacityLabel: string;
   rotateLabel: string;

@@ -12,7 +12,7 @@ import {
 
 import { Button } from 'antd';
 import Rule from '../Rule/Rule';
-import NameField from '../NameField/NameField';
+import NameField, { DefaultNameFieldProps } from '../NameField/NameField';
 
 // default props
 interface DefaultStyleProps {
@@ -22,31 +22,21 @@ interface DefaultStyleProps {
   nameFieldPlaceholder?: string;
   addRuleBtnText?: string;
   removeRuleBtnText?: string;
-  ruleNameFieldLabelText?: string;
-  ruleNameFieldPlaceholder?: string;
-  previewOpenSymbolizerEditorText?: string;
-  previewCloseSymbolizerEditorText?: string;
-  scaleFieldSetTitle?: string;
-  minScaleDenominatorLabelText?: string;
-  maxScaleDenominatorLabelText?: string;
-  minScaleDenominatorPlaceholderText?: string;
-  maxScaleDenominatorPlaceholderText?: string;
   filterFieldSetTitle?: string;
-  filterAttributeLabelText?: string;
-  filterAttributePlaceholderText?: string;
-  filterAttributeValidationHelpText?: string;
-  filterOperatorLabelText?: string;
-  filterOperatorPlaceholderText?: string;
-  filterOperatorValidationHelpText?: string;
-  filterValueLabelText?: string;
-  filterValuePlaceholderText?: string;
-  filterValueValidationHelpText?: string;
+  scaleFieldSetTitle?: string;
+  filterUiProps?: DefaultComparisonFilterProps;
+  scaleDenominatorProps?: DefaultScaleDenominatorProps;
+  previewProps?: DefaultPreviewProps;
+  ruleNameProps?: DefaultNameFieldProps;
 }
 
 import {
   isEqual as _isEqual,
   cloneDeep as _cloneDeep
 } from 'lodash';
+import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
+import { DefaultScaleDenominatorProps } from '../ScaleDenominator/ScaleDenominator';
+import { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 // non default props
 interface StyleProps extends Partial<DefaultStyleProps> {
@@ -180,25 +170,12 @@ class Style extends React.Component<StyleProps, StyleState> {
             onRuleChange={this.onRuleChange}
             dataProjection={this.props.dataProjection}
             removeRuleBtnText={this.props.removeRuleBtnText}
-            ruleNameFieldLabelText={this.props.ruleNameFieldLabelText}
-            ruleNameFieldPlaceHolder={this.props.ruleNameFieldPlaceholder}
-            previewOpenSymbolizerEditorText={this.props.previewOpenSymbolizerEditorText}
-            previewCloseSymbolizerEditorText={this.props.previewCloseSymbolizerEditorText}
-            scaleFieldSetTitle={this.props.scaleFieldSetTitle}
-            minScaleDenominatorLabelText={this.props.minScaleDenominatorLabelText}
-            maxScaleDenominatorLabelText={this.props.maxScaleDenominatorLabelText}
-            minScaleDenominatorPlaceholderText={this.props.minScaleDenominatorPlaceholderText}
-            maxScaleDenominatorPlaceholderText={this.props.maxScaleDenominatorPlaceholderText}
+            filterUiProps={this.props.filterUiProps}
+            scaleDenominatorProps={this.props.scaleDenominatorProps}
+            previewProps={this.props.previewProps}
+            ruleNameProps={this.props.ruleNameProps}
             filterFieldSetTitle={this.props.filterFieldSetTitle}
-            filterAttributeLabelText={this.props.filterAttributeLabelText}
-            filterAttributePlaceholderText={this.props.filterAttributePlaceholderText}
-            filterAttributeValidationHelpText={this.props.filterAttributeValidationHelpText}
-            filterOperatorLabelText={this.props.filterOperatorLabelText}
-            filterOperatorPlaceholderText={this.props.filterOperatorPlaceholderText}
-            filterOperatorValidationHelpText={this.props.filterOperatorValidationHelpText}
-            filterValueLabelText={this.props.filterValueLabelText}
-            filterValuePlaceholderText={this.props.filterValuePlaceholderText}
-            filterValueValidationHelpText={this.props.filterValueValidationHelpText}
+            scaleFieldSetTitle={this.props.scaleFieldSetTitle}
           />)
         }
         <Button

@@ -32,7 +32,7 @@ import {
 } from 'lodash';
 
 // default props
-interface DefaultComparisonFilterProps {
+export interface DefaultComparisonFilterProps {
   /** Initial comparison filter object */
   filter: GsComparisonFilter;
   /** Set true to hide the attribute's type in the AttributeCombo select options */
