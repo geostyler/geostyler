@@ -15,12 +15,12 @@ import {
 } from 'geostyler-style';
 import { Data as GsData } from 'geostyler-data';
 
-import RuleNameField from '../NameField/NameField';
-import ComparisonFilterUi from '../Filter/ComparisonFilter/ComparisonFilter';
+import RuleNameField, { DefaultNameFieldProps } from '../NameField/NameField';
+import ComparisonFilterUi, { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 // import RuleRemoveButton from './RemoveButton/RemoveButton';
-import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
+import ScaleDenominator, { DefaultScaleDenominatorProps } from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
-import Preview from '../Symbolizer/Preview/Preview';
+import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
@@ -34,6 +34,14 @@ interface DefaultRuleProps {
   rule: GsRule;
   /** The data projection of example features */
   dataProjection?: string;
+  /** i18n */
+  removeRuleBtnText?: string;
+  scaleFieldSetTitle?: string;
+  filterFieldSetTitle?: string;
+  filterUiProps?: DefaultComparisonFilterProps;
+  scaleDenominatorProps?: DefaultScaleDenominatorProps;
+  previewProps?: DefaultPreviewProps;
+  ruleNameProps?: DefaultNameFieldProps;
 }
 
 // non default props
@@ -73,7 +81,10 @@ class Rule extends React.Component<RuleProps, RuleState> {
         kind: 'Circle'
       }
     },
-    dataProjection: 'EPSG:4326'
+    dataProjection: 'EPSG:4326',
+    removeRuleBtnText: 'Remove Rule',
+    scaleFieldSetTitle: 'Use Scale',
+    filterFieldSetTitle: 'Use Filter'
   };
 
   static getDerivedStateFromProps(
@@ -198,32 +209,39 @@ class Rule extends React.Component<RuleProps, RuleState> {
       <div className="gs-rule" >
         <div className="gs-rule-fields" >
           <div className="gs-rule-left-fields" >
-            <RuleNameField value={rule.name} onChange={this.onNameChange} />
+            <RuleNameField
+              value={rule.name}
+              onChange={this.onNameChange}
+              {...this.props.ruleNameProps}
+            />
             <Preview
               dataProjection={dataProjection}
               symbolizer={rule.symbolizer}
               internalDataDef={gsData}
               onSymbolizerChange={this.onSymbolizerChange}
+              {...this.props.previewProps}
             />
           </div>
           <div className="gs-rule-right-fields" >
             <Fieldset
-              title="Use Scale"
+              title={this.props.scaleFieldSetTitle}
               onCheckChange={this.onScaleCheckChange}
             >
               <ScaleDenominator
                 scaleDenominator={rule.scaleDenominator}
                 onChange={this.onScaleDenominatorChange}
+                {...this.props.scaleDenominatorProps}
               />
             </Fieldset>
             <Fieldset
-              title="Use Filter"
+              title={this.props.filterFieldSetTitle}
               onCheckChange={this.onFilterCheckChange}
             >
               <ComparisonFilterUi
                 internalDataDef={gsData}
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
+                {...this.props.filterUiProps}
               />
             </Fieldset>
           </div>
@@ -240,7 +258,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
             }
           }}
         >
-          Remove Rule
+          {this.props.removeRuleBtnText}
         </Button>
       </div>
     );

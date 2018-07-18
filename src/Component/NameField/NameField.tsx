@@ -7,7 +7,7 @@ import {
 import './NameField.css';
 
 // default props
-interface DefaultNameFieldProps {
+export interface DefaultNameFieldProps {
   label: string;
   placeholder: string;
 }

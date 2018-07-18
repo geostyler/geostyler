@@ -15,7 +15,7 @@ import {
 } from 'lodash';
 
 // default props
-interface DefaultLineEditorProps {
+export interface DefaultLineEditorProps {
   colorLabel: string;
   widthLabel: string;
   opacityLabel: string;
