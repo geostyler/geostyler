@@ -18,15 +18,36 @@ import { Data as GsData } from 'geostyler-data';
 import RuleNameField, { DefaultNameFieldProps } from '../NameField/NameField';
 import ComparisonFilterUi, { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 // import RuleRemoveButton from './RemoveButton/RemoveButton';
-import ScaleDenominator, { DefaultScaleDenominatorProps } from '../ScaleDenominator/ScaleDenominator';
+import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
+import en_US from './locale/en_US';
+import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+
 import {
   cloneDeep as _cloneDeep
 } from 'lodash';
+
+/** i18n */
+interface RuleLocale {
+    removeRuleBtnText: string;
+    scaleFieldSetTitle: string;
+    filterFieldSetTitle: string;
+    nameFieldLabel: string;
+    nameFieldPlaceholder: string;
+    attributeLabel?: string;
+    attributePlaceholderString?: string;
+    attributeValidationHelpString?: string;
+    operatorLabel?: string;
+    operatorPlaceholderString?: string;
+    operatorValidationHelpString?: string;
+    valueLabel?: string;
+    valuePlaceholder?: string;
+    valueValidationHelpString?: string;
+}
 
 // default props
 interface DefaultRuleProps {
@@ -34,12 +55,7 @@ interface DefaultRuleProps {
   rule: GsRule;
   /** The data projection of example features */
   dataProjection?: string;
-  /** i18n */
-  removeRuleBtnText?: string;
-  scaleFieldSetTitle?: string;
-  filterFieldSetTitle?: string;
   filterUiProps?: DefaultComparisonFilterProps;
-  scaleDenominatorProps?: DefaultScaleDenominatorProps;
   previewProps?: DefaultPreviewProps;
   ruleNameProps?: DefaultNameFieldProps;
 }
@@ -81,10 +97,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
         kind: 'Circle'
       }
     },
-    dataProjection: 'EPSG:4326',
-    removeRuleBtnText: 'Remove Rule',
-    scaleFieldSetTitle: 'Use Scale',
-    filterFieldSetTitle: 'Use Filter'
+    dataProjection: 'EPSG:4326'
   };
 
   static getDerivedStateFromProps(
@@ -188,7 +201,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
     this.setState({rule});
   }
 
-  render() {
+  renderRule = (locale: RuleLocale) => {
     const {
       dataProjection,
       internalDataDef,
@@ -212,7 +225,8 @@ class Rule extends React.Component<RuleProps, RuleState> {
             <RuleNameField
               value={rule.name}
               onChange={this.onNameChange}
-              {...this.props.ruleNameProps}
+              label={locale.nameFieldLabel}
+              placeholder={locale.nameFieldPlaceholder}
             />
             <Preview
               dataProjection={dataProjection}
@@ -224,23 +238,31 @@ class Rule extends React.Component<RuleProps, RuleState> {
           </div>
           <div className="gs-rule-right-fields" >
             <Fieldset
-              title={this.props.scaleFieldSetTitle}
+              title={locale.scaleFieldSetTitle}
               onCheckChange={this.onScaleCheckChange}
             >
               <ScaleDenominator
                 scaleDenominator={rule.scaleDenominator}
                 onChange={this.onScaleDenominatorChange}
-                {...this.props.scaleDenominatorProps}
               />
             </Fieldset>
             <Fieldset
-              title={this.props.filterFieldSetTitle}
+              title={locale.filterFieldSetTitle}
               onCheckChange={this.onFilterCheckChange}
             >
               <ComparisonFilterUi
                 internalDataDef={gsData}
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
+                attributeLabel={locale.attributeLabel}
+                attributePlaceholderString={locale.attributePlaceholderString}
+                attributeValidationHelpString={locale.attributeValidationHelpString}
+                operatorLabel={locale.operatorLabel}
+                operatorPlaceholderString={locale.operatorPlaceholderString}
+                operatorValidationHelpString={locale.operatorValidationHelpString}
+                valueLabel={locale.valueLabel}
+                valuePlaceholder={locale.valuePlaceholder}
+                valueValidationHelpString={locale.valueValidationHelpString}
                 {...this.props.filterUiProps}
               />
             </Fieldset>
@@ -258,9 +280,20 @@ class Rule extends React.Component<RuleProps, RuleState> {
             }
           }}
         >
-          {this.props.removeRuleBtnText}
+          {locale.removeRuleBtnText}
         </Button>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <LocaleReceiver
+        componentName="GsRule"
+        defaultLocale={en_US}
+      >
+        {this.renderRule}
+      </LocaleReceiver>
     );
   }
 }

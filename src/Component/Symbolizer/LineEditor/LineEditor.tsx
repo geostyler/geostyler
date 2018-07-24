@@ -14,8 +14,11 @@ import {
   cloneDeep as _cloneDeep
 } from 'lodash';
 
-// default props
-export interface DefaultLineEditorProps {
+import en_US from './locale/en_US';
+import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+
+// i18n
+interface LineEditorLocale {
   colorLabel: string;
   widthLabel: string;
   opacityLabel: string;
@@ -23,32 +26,17 @@ export interface DefaultLineEditorProps {
 }
 
 // non default props
-interface LineEditorProps extends Partial<DefaultLineEditorProps> {
+interface LineEditorProps {
   symbolizer: LineSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
 }
 
 class LineEditor extends React.Component<LineEditorProps, {}> {
-
-  public static defaultProps: DefaultLineEditorProps = {
-    colorLabel: 'Color',
-    widthLabel: 'Width',
-    opacityLabel: 'Opacity',
-    dashLabel: 'Dash Pattern'
-  };
-
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  render() {
-    const {
-      colorLabel,
-      widthLabel,
-      opacityLabel,
-      dashLabel
-    } = this.props;
-
+  renderLineEditor = (locale: LineEditorLocale) => {
     const symbolizer = _cloneDeep(this.props.symbolizer);
 
     const {
@@ -62,7 +50,7 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
       <div className="gs-line-symbolizer-editor" >
         <ColorField
           color={color}
-          label={colorLabel}
+          label={locale.colorLabel}
           onChange={(value: string) => {
             symbolizer.color = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -70,7 +58,7 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
         />
         <WidthField
           width={width}
-          label={widthLabel}
+          label={locale.widthLabel}
           onChange={(value: number) => {
             symbolizer.width = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -78,7 +66,7 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
         />
         <OpacityField
           opacity={opacity}
-          label={opacityLabel}
+          label={locale.opacityLabel}
           onChange={(value: number) => {
             symbolizer.opacity = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -86,7 +74,7 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
         />
         <LineDashField
           dashArray={dasharray}
-          label={dashLabel}
+          label={locale.dashLabel}
           onChange={(value: number[]) => {
             symbolizer.dasharray = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -94,6 +82,18 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
         />
       </div>
     );
+  }
+
+  render() {
+    return(
+      <LocaleReceiver
+        componentName="GsLineEditor"
+        defaultLocale={en_US}
+      >
+        {this.renderLineEditor}
+      </LocaleReceiver>
+    );
+    
   }
 }
 

@@ -7,10 +7,10 @@ import {
   SymbolizerKind
 } from 'geostyler-style';
 
-import CircleEditor, { DefaultCircleEditorProps } from '../CircleEditor/CircleEditor';
-import LineEditor, { DefaultLineEditorProps } from '../LineEditor/LineEditor';
-import FillEditor, { DefaultFillEditorProps } from '../FillEditor/FillEditor';
-import TextEditor, { DefaultTextEditorProps } from '../TextEditor/TextEditor';
+import CircleEditor from '../CircleEditor/CircleEditor';
+import LineEditor from '../LineEditor/LineEditor';
+import FillEditor from '../FillEditor/FillEditor';
+import TextEditor from '../TextEditor/TextEditor';
 
 import './Editor.css';
 
@@ -28,11 +28,7 @@ interface DefaultEditorProps {
   defaultIconSource: string;
   unknownSymbolizerText?: string;
   kindLabelText?: string;
-  circleEditorProps?: DefaultCircleEditorProps;
   iconEditorProps?: DefaultIconEditorProps;
-  lineEditorProps?: DefaultLineEditorProps;
-  fillEditorProps?: DefaultFillEditorProps;
-  textEditorProps?: DefaultTextEditorProps;
 }
 
 // non default props
@@ -87,7 +83,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
           <CircleEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
-            {...this.props.circleEditorProps}
           />
         );
       case 'Icon':
@@ -107,7 +102,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
           <LineEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
-            {...this.props.lineEditorProps}
           />
         );
       case 'Fill':
@@ -115,7 +109,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
           <FillEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
-            {...this.props.fillEditorProps}
           />
         );
       case 'Text':
@@ -124,7 +117,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
             symbolizer={symbolizer}
             internalDataDef={this.props.internalDataDef}
             onSymbolizerChange={this.onSymbolizerChange}
-            {...this.props.textEditorProps}
           />
         );
       default:
@@ -137,7 +129,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
     return (
       <div className="gs-symbolizer-editor" >
         <KindField
-          label={this.props.kindLabelText}
           kind={symbolizer.kind}
           onChange={(kind: SymbolizerKind) => {
             const newSymbolizer = {kind} as Symbolizer;

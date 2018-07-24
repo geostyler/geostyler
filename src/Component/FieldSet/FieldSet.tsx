@@ -59,7 +59,7 @@ class FieldSet extends React.Component<FieldSetProps, FieldSetState> {
             </Checkbox>
           </legend>
           {React.Children.map(children, (child, i) => {
-            // Ignore all childs if checkbix is unchecked
+            // Ignore all childs if checkbox is unchecked
             if (this.state.visible) {
               return child;
             }

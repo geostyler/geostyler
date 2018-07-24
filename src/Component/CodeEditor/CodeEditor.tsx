@@ -28,14 +28,16 @@ import {
   isEqual as _isEqual
 } from 'lodash';
 
-// default props
-interface DefaultCodeEditorProps {
-  formatSelectLabel?: string;
-  downloadButtonLabel?: string;
+import en_US from './locale/en_US';
+import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+
+interface CodeEditorLocale {
+  downloadButtonLabel: string;
+  formatSelectLabel: string;
 }
 
 // non default props
-interface CodeEditorProps extends Partial<DefaultCodeEditorProps> {
+interface CodeEditorProps {
   style?: GsStyle;
   parsers?: GsStyleParserConstructable[];
   onStyleChange?: (rule: GsStyle) => void;
@@ -52,11 +54,6 @@ interface CodeEditorState {
  * The CodeEditor.
  */
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
-
-  public static defaultProps: DefaultCodeEditorProps = {
-    formatSelectLabel: 'Format',
-    downloadButtonLabel: 'Save as File'
-  };
 
   constructor(props: CodeEditorProps) {
     super(props);
@@ -186,17 +183,12 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   }
 
-  render() {
-    const {
-      formatSelectLabel,
-      downloadButtonLabel
-    } = this.props;
-
+  renderCodeEditor = (locale: CodeEditorLocale) => {
     const value = this.state.value;
     return (
       <div className="gs-code-editor">
         <div className="gs-code-editor-toolbar" >
-          {formatSelectLabel}: <Select
+          {locale.formatSelectLabel}: <Select
             className="gs-code-editor-format-select"
             style={{ width: 300 }}
             onSelect={this.onSelect}
@@ -226,9 +218,20 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
             type="primary"
             onClick={this.onDownloadButtonClick}
         >
-            {downloadButtonLabel}
+            {locale.downloadButtonLabel}
         </Button>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <LocaleReceiver
+        componentName="GsCodeEditor"
+        defaultLocale={en_US}
+      >
+        {this.renderCodeEditor}
+      </LocaleReceiver>
     );
   }
 }

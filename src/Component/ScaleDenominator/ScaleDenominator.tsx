@@ -12,16 +12,19 @@ import {
   ScaleDenominator as GsScaleDenominator
 } from 'geostyler-style';
 
-// default props
-export interface DefaultScaleDenominatorProps {
-  /** i18n */
-  minScaleDenominatorLabelText?: string;
-  maxScaleDenominatorLabelText?: string;
-  minScaleDenominatorPlaceholderText?: string;
-  maxScaleDenominatorPlaceholderText?: string;
+import en_US from './locale/en_US';
+import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+
+/** i18n */
+export interface ScaleDenominatorLocale {
+  minScaleDenominatorLabelText: string;
+  maxScaleDenominatorLabelText: string;
+  minScaleDenominatorPlaceholderText: string;
+  maxScaleDenominatorPlaceholderText: string;
 }
+
 // non default props
-interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
+interface ScaleDenominatorProps {
   scaleDenominator?: GsScaleDenominator;
   onChange: (scaleDenominator: GsScaleDenominator) => void;
 }
@@ -73,7 +76,7 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
     this.setState({scaleDenominator});
   }
 
-  render() {
+  renderScaleDenominator = (locale: ScaleDenominatorLocale) => {
     return (
       <div className="gs-scaledenominator">
         <Row gutter={16} >
@@ -81,20 +84,31 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
             <MinScaleDenominator
               value={_get(this.state, 'scaleDenominator.min')}
               onChange={this.onMinScaleDenomChange}
-              label={this.props.minScaleDenominatorLabelText}
-              placeholder={this.props.minScaleDenominatorPlaceholderText}
+              label={locale.minScaleDenominatorLabelText}
+              placeholder={locale.minScaleDenominatorPlaceholderText}
             />
           </Col>
           <Col span={12} className="gs-small-col">
             <MaxScaleDenominator
               value={_get(this.state, 'scaleDenominator.max')}
               onChange={this.onMaxScaleDenomChange}
-              label={this.props.maxScaleDenominatorLabelText}
-              placeholder={this.props.maxScaleDenominatorPlaceholderText}
+              label={locale.maxScaleDenominatorLabelText}
+              placeholder={locale.maxScaleDenominatorPlaceholderText}
             />
           </Col>
         </Row>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <LocaleReceiver
+        componentName="GsScaleDenominator"
+        defaultLocale={en_US}
+      >
+        {this.renderScaleDenominator}
+      </LocaleReceiver>
     );
   }
 }
