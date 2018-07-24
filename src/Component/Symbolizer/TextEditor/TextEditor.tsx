@@ -19,19 +19,23 @@ import { Data } from 'geostyler-data';
 
 import './TextEditor.css';
 
-// default props
-export interface DefaultTextEditorProps {
+import en_US from './locale/en_US';
+import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+
+// i18n
+interface TextEditorLocale {
   fieldLabel: string;
   opacityLabel: string;
   colorLabel: string;
   sizeLabel: string;
   offsetXLabel: string;
   offsetYLabel: string;
-  fontLabel?: string;
+  fontLabel: string;
+  attributeComboPlaceholder: string;
 }
 
 // non default props
-interface TextEditorProps extends Partial<DefaultTextEditorProps> {
+interface TextEditorProps {
   symbolizer: TextSymbolizer;
   internalDataDef?: Data;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
@@ -39,27 +43,12 @@ interface TextEditorProps extends Partial<DefaultTextEditorProps> {
 
 class TextEditor extends React.Component<TextEditorProps, {}> {
 
-  public static defaultProps: DefaultTextEditorProps = {
-    fieldLabel: 'Field',
-    opacityLabel: 'Text-Opacity',
-    colorLabel: 'Text-Color',
-    sizeLabel: 'Text-Size',
-    offsetXLabel: 'Offset X',
-    offsetYLabel: 'Offset Y'
-  };
-
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  render() {
+  renderTextEditor = (locale: TextEditorLocale) => {
     const {
-      fieldLabel,
-      opacityLabel,
-      colorLabel,
-      sizeLabel,
-      offsetXLabel,
-      offsetYLabel,
       internalDataDef
     } = this.props;
 
@@ -82,12 +71,12 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
     }
 
     return (
-
       <div className="gs-text-symbolizer-editor" >
          <div className="editor-field attribute-field">
-          <span className="label">{fieldLabel}</span>
+          <span className="label">{locale.fieldLabel}:</span>
           <AttributeCombo
             value={symbolizer.field}
+            placeholder={locale.attributeComboPlaceholder}
             internalDataDef={internalDataDef}
             onAttributeChange={(newAttrName: string) => {
               symbolizer.field = newAttrName;
@@ -97,7 +86,7 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
         </div>
         <ColorField
           color={color}
-          label={colorLabel}
+          label={locale.colorLabel}
           onChange={(value: string) => {
             symbolizer.color = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -105,7 +94,7 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
         />
         <FontPicker
           font={font}
-          label={this.props.fontLabel}
+          label={locale.fontLabel}
           onChange={(value: string[]) => {
             symbolizer.font = value.length > 0 ? value : undefined;
             this.props.onSymbolizerChange(symbolizer);
@@ -113,7 +102,7 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
         />
         <OpacityField
           opacity={opacity}
-          label={opacityLabel}
+          label={locale.opacityLabel}
           onChange={(value: number) => {
             symbolizer.opacity = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -121,7 +110,7 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
         />
         <WidthField
           width={size}
-          label={sizeLabel}
+          label={locale.sizeLabel}
           onChange={(value: number) => {
             symbolizer.size = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -129,7 +118,7 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
         />
         <OffsetField
           offset={offsetX}
-          label={offsetXLabel}
+          label={locale.offsetXLabel}
           onChange={(value: number) => {
             let newOffset: [number, number] = [value, (symbolizer.offset ? symbolizer.offset[1] : 0)];
             symbolizer.offset = newOffset;
@@ -138,7 +127,7 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
         />
         <OffsetField
           offset={offsetY}
-          label={offsetYLabel}
+          label={locale.offsetYLabel}
           onChange={(value: number) => {
             let newOffset: [number, number] = [(symbolizer.offset ? symbolizer.offset[0] : 0), value];
             symbolizer.offset = newOffset;
@@ -146,6 +135,17 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
           }}
         />
       </div>
+    );
+  }
+
+  render() {
+    return(
+      <LocaleReceiver
+        componentName="GsTextEditor"
+        defaultLocale={en_US}
+      >
+        {this.renderTextEditor}
+      </LocaleReceiver>
     );
   }
 }

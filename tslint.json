@@ -36,16 +36,7 @@
     "no-any": false,
     "no-arg": true,
     "no-bitwise": true,
-    "no-console": [
-      true,
-      "log",
-      "error",
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
+    "no-console": false,
     "no-consecutive-blank-lines": true,
     "no-construct": true,
     "no-debugger": false,

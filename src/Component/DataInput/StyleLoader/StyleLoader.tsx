@@ -11,6 +11,9 @@ import {
 
 import UploadButton from '../../UploadButton/UploadButton';
 
+import en_US from './locale/en_US';
+import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+
 // default props
 interface DefaultStyleLoaderProps {
   onStyleRead: (style: GsStyle) => void;
@@ -69,17 +72,14 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
     }
   }
 
-  render() {
-    const {
-      label
-    } = this.props;
+  renderStyleLoader = (locale: any) => {
     const {
       activeParser
     } = this.state;
 
     return (
       <div className={activeParser ? 'gs-dataloader-right' : ''}>
-        {label}
+        {locale.label}
         <Select
           style={{ width: 300 }}
           onSelect={this.onSelect}
@@ -94,6 +94,17 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
           /> : null
         }
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <LocaleReceiver
+        componentName="GsStyleLoader"
+        defaultLocale={en_US}
+      >
+        {this.renderStyleLoader}
+      </LocaleReceiver>
     );
   }
 }

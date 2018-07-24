@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es5",
     "lib": ["es6", "dom"],
     "sourceMap": true,
@@ -28,8 +28,8 @@
     "webpack",
     "jest",
     "coverage",
-    "src/setupTests.ts",
     "src/index.tsx",
+    "src/setupTests.ts",
     "**.config.js"
   ]
 }

@@ -22,6 +22,9 @@ import CodeEditor from '../Component/CodeEditor/CodeEditor';
 
 import GeoStylerTemplateStyle from './data/TemplateStyle';
 
+import en_US from './locale/en_US';
+import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+
 // default props
 interface DefaultAppProps {
   styleParsers: GsStyleParser[];
@@ -46,7 +49,7 @@ class App extends React.Component<AppProps, AppState> {
     };
   }
 
-  render() {
+  renderApp = (locale: any) => {
     return (
       <div className="App">
         <header>
@@ -72,7 +75,7 @@ class App extends React.Component<AppProps, AppState> {
         </div>
         <div className="main-content">
           <div className="gui-wrapper">
-            <h2>Graphical Editor</h2>
+            <h2>{locale.graphicalEditor}</h2>
             <Style
               style={this.state.style}
               data={this.state.data}
@@ -82,7 +85,7 @@ class App extends React.Component<AppProps, AppState> {
             />
           </div>
           <div className="editor-wrapper">
-            <h2>Code Editor</h2>
+            <h2>{locale.codeEditor}</h2>
             <CodeEditor
               style={this.state.style}
               parsers={[
@@ -95,6 +98,17 @@ class App extends React.Component<AppProps, AppState> {
           </div>
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <LocaleReceiver
+        componentName="GsApp"
+        defaultLocale={en_US}
+      >
+      {this.renderApp}
+      </LocaleReceiver>
     );
   }
 }

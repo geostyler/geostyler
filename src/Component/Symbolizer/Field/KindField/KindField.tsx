@@ -4,13 +4,28 @@ import {
   Select
 } from 'antd';
 import { SymbolizerKind } from 'geostyler-style';
+
+import en_US from './locale/en_US';
+import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+
 const Option = Select.Option;
+
+// i18n
+interface KindFieldLocale {
+  label: string;
+  symbolizerKinds: {
+    Circle: string;
+    Fill: string;
+    Icon: string;
+    Line: string;
+    Text: string;
+  };
+}
 
 // default props
 interface KindFieldDefaultProps {
   kind: SymbolizerKind;
   symbolizerKinds: SymbolizerKind[];
-  label: string;
 }
 
 // non default props
@@ -25,40 +40,49 @@ class KindField extends React.Component<KindFieldProps, {}> {
 
   public static defaultProps: KindFieldDefaultProps = {
     kind: 'Circle',
-    symbolizerKinds: ['Circle', 'Fill', 'Icon', 'Line', 'Text'],
-    label: 'Kind'
+    symbolizerKinds: ['Circle', 'Fill', 'Icon', 'Line', 'Text']
   };
 
-  getKindSelectOptions = () => {
+  getKindSelectOptions = (locale: KindFieldLocale) => {
     return this.props.symbolizerKinds!.map(kind => {
       return (
         <Option
           key={kind}
           value={kind}
         >
-          {kind}
+          {locale.symbolizerKinds[kind]}
         </Option>
       );
     });
   }
 
-  render() {
+  renderKindField = (locale: KindFieldLocale) => {
     const {
       kind,
-      label,
       onChange
     } = this.props;
 
     return (
       <div className="editor-field kind-field">
-        <span className="label">{`${label}:`}</span>
+        <span className="label">{`${locale.label}:`}</span>
         <Select
           value={kind}
           onChange={onChange}
         >
-          {this.getKindSelectOptions()}
+          {this.getKindSelectOptions(locale)}
         </Select>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <LocaleReceiver
+        componentName="GsKindField"
+        defaultLocale={en_US}
+      >
+        {this.renderKindField}
+      </LocaleReceiver>
     );
   }
 }

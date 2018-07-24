@@ -11,11 +11,18 @@ import {
 
 import './ColorField.css';
 
-// default props
-interface ColorFieldDefaultProps {
+import en_US from './locale/en_US';
+import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+
+// i18n
+interface ColorFieldLocale {
   closeText: string;
   editText: string;
   chooseText: string;
+}
+
+// default props
+interface ColorFieldDefaultProps {
   label: string;
 }
 
@@ -36,9 +43,6 @@ interface ColorFieldState {
 class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
 
   public static defaultProps: ColorFieldDefaultProps = {
-    closeText: 'Close',
-    editText: 'Change',
-    chooseText: 'Pick',
     label: 'Color'
   };
 
@@ -55,15 +59,12 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
     });
   }
 
-  render() {
+  renderColorField = (locale: ColorFieldLocale) => {
     const {
       colorPickerVisible = false
     } = this.state;
     const {
       color,
-      closeText,
-      chooseText,
-      editText,
       label
     } = this.props;
     let textColor;
@@ -90,7 +91,7 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
             }}
             onClick={this.onColorPreviewClick}
           >
-            {colorPickerVisible ? closeText : color ? editText : chooseText}
+            {colorPickerVisible ? locale.closeText : color ? locale.editText : locale.chooseText}
           </Button>
           {
             colorPickerVisible ?
@@ -104,6 +105,17 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
           }
           </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <LocaleReceiver
+        componentName="GsColorField"
+        defaultLocale={en_US}
+      >
+        {this.renderColorField}
+      </LocaleReceiver>
     );
   }
 }
