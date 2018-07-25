@@ -46,7 +46,7 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
     label: 'Color'
   };
 
-  constructor(props: any) {
+  constructor(props: ColorFieldProps) {
     super(props);
     this.state = {
       colorPickerVisible: false

@@ -82,7 +82,7 @@ interface RuleState {
  * UI container representing a Rule
  */
 class Rule extends React.Component<RuleProps, RuleState> {
-  constructor(props: any) {
+  constructor(props: RuleProps) {
     super(props);
     this.state = {
       rule: Rule.defaultProps.rule,

@@ -38,10 +38,6 @@ interface KindFieldProps extends Partial<KindFieldDefaultProps> {
  */
 class KindField extends React.Component<KindFieldProps, {}> {
 
-  constructor(props: any) {
-    super(props);
-  }
-
   public static defaultProps: KindFieldDefaultProps = {
     kind: 'Circle',
     symbolizerKinds: ['Circle', 'Fill', 'Icon', 'Line', 'Text']

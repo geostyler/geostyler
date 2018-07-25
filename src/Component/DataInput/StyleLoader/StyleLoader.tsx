@@ -37,7 +37,7 @@ interface StyleLoaderState {
 
 class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
-  constructor(props: any) {
+  constructor(props: StyleLoaderProps) {
     super(props);
     this.state = {};
   }

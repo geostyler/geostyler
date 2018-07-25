@@ -58,7 +58,7 @@ interface CodeEditorState {
  */
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
-  constructor(props: any) {
+  constructor(props: CodeEditorProps) {
     super(props);
     this.state = {
       value: ''

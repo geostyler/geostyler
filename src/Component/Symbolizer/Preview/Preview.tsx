@@ -81,7 +81,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     interactions: undefined
   };
 
-  constructor(props: any) {
+  constructor(props: PreviewProps) {
     super(props);
 
     const randomId = Math.floor((1 + Math.random()) * 0x10000);

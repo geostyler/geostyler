@@ -35,10 +35,6 @@ interface CircleEditorProps {
 
 class CircleEditor extends React.Component<CircleEditorProps, {}> {
 
-  constructor(props: any) {
-    super(props);
-  }
-
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
