@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { Style } from 'geostyler-style';
+import { LocaleProvider } from 'antd';
+import en_US from '../locale/en_US';
 
 /**
  * A set of some useful static helper methods.
@@ -32,6 +34,21 @@ export class TestUtil {
    */
   static shallowRenderComponent = (Component: any, props?: any, options?: any) => {
     const wrapper = shallow(<Component {...props} />, options);
+    return wrapper;
+  }
+
+  /**
+   * Shallow rendering for the given component.
+   * Useful for testing components as a unit, and to ensure that your tests
+   * aren't indirectly asserting on behavior of child components.
+   * This function wraps LocaleProvider around component.
+   *
+   * @param {Component} Component The Component to render.
+   * @param {Object} props The props to be used.
+   * @param {Object} options The options to be set.
+   */
+  static shallowRenderComponentWithLocale = (Component: any, props?: any, options?: any) => {
+    const wrapper = shallow(<LocaleProvider locale={en_US}><Component {...props} /></LocaleProvider>, options);
     return wrapper;
   }
 

@@ -10,7 +10,7 @@ describe('Rule', () => {
       i = i + 1;
     };
     const dummyData = TestUtil.getDummyGsData();
-    wrapper = TestUtil.shallowRenderComponent(Rule, {
+    wrapper = TestUtil.shallowRenderComponentWithLocale(Rule, {
       keyIndex: 0,
       internalDataDef: dummyData,
       onRuleChange: dummyFn,
