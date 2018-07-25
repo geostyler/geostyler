@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export interface LocaleProps {
-    locale: any;
+    locale: object;
 }
 
 // type HOC<PWrapped, PHoc> = React.ComponentClass<PWrapped & PHoc>;
@@ -37,10 +37,6 @@ export const localize = <P extends {}>(Component: React.ComponentType<P & Locale
         static contextTypes = {
             antLocale: PropTypes.object
         };
-
-        constructor(props: any) {
-            super(props);
-        }
 
         render() {
             const { antLocale } = this.context;
