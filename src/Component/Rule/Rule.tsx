@@ -228,6 +228,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
               onChange={this.onNameChange}
               label={locale.nameFieldLabel}
               placeholder={locale.nameFieldPlaceholder}
+              {...this.props.ruleNameProps}
             />
             <Preview
               dataProjection={dataProjection}
