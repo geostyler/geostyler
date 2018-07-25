@@ -36,7 +36,7 @@ interface DataLoaderState {
 
 class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
-  constructor(props: any) {
+  constructor(props: DataLoaderProps) {
     super(props);
     this.state = {};
   }

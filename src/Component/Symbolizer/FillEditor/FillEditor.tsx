@@ -29,10 +29,6 @@ interface FillEditorProps {
 }
 
 class FillEditor extends React.Component<FillEditorProps, {}> {
-
-  constructor(props: any) {
-    super(props);
-  }
   
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);

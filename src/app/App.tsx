@@ -48,7 +48,7 @@ interface AppState {
 
 class App extends React.Component<AppProps, AppState> {
 
-  constructor(props: any) {
+  constructor(props: AppProps) {
     super(props);
     this.state = {
       style: GeoStylerTemplateStyle

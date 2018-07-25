@@ -33,10 +33,6 @@ interface LineEditorProps {
 
 class LineEditor extends React.Component<LineEditorProps, {}> {
 
-  constructor(props: any) {
-    super(props);
-  }
-
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }

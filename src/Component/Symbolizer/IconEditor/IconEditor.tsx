@@ -39,10 +39,6 @@ interface IconEditorProps extends Partial<DefaultIconEditorProps> {
 
 class IconEditor extends React.Component<IconEditorProps, {}> {
 
-  constructor(props: any) {
-    super(props);
-  }
-
   public static defaultProps: DefaultIconEditorProps = {
     defaultIconSource: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg'
   };

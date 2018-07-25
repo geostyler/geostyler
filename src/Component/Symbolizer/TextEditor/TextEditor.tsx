@@ -43,10 +43,6 @@ interface TextEditorProps {
 
 class TextEditor extends React.Component<TextEditorProps, {}> {
 
-  constructor(props: any) {
-    super(props);
-  }
-
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
