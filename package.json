@@ -22,6 +22,7 @@
   },
   "homepage": ".",
   "dependencies": {
+    "@types/prop-types": "15.5.4",
     "antd": "3.7.2",
     "blob": "0.0.4",
     "codemirror": "5.39.2",
@@ -33,6 +34,7 @@
     "geostyler-sld-parser": "0.7.1",
     "geostyler-style": "0.7.0",
     "openlayers": "4.6.5",
+    "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-codemirror2": "5.1.0",
     "react-color": "2.14.1",

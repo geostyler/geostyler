@@ -14,8 +14,7 @@ import {
   cloneDeep as _cloneDeep
 } from 'lodash';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
 export interface CircleEditorLocale {
@@ -31,15 +30,20 @@ export interface CircleEditorLocale {
 interface CircleEditorProps {
   symbolizer: CircleSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  locale?: CircleEditorLocale;
 }
 
 class CircleEditor extends React.Component<CircleEditorProps, {}> {
+
+  constructor(props: any) {
+    super(props);
+  }
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  renderCircleEditor = (locale: CircleEditorLocale) => {
+  render() {
     const symbolizer = _cloneDeep(this.props.symbolizer);
 
     const {
@@ -50,6 +54,10 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
       strokeColor,
       strokeWidth
     } = symbolizer;
+
+    const {
+      locale
+    } = this.props;
 
     return (
       <div className="gs-circle-symbolizer-editor" >
@@ -104,17 +112,6 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
       </div>
     );
   }
-
-  render() {
-    return(
-      <LocaleReceiver
-        componentName="GsCircleEditor"
-        defaultLocale={en_US}
-      >
-        {this.renderCircleEditor}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default CircleEditor;
+export default localize(CircleEditor);

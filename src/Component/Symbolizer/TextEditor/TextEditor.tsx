@@ -19,8 +19,7 @@ import { Data } from 'geostyler-data';
 
 import './TextEditor.css';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
 interface TextEditorLocale {
@@ -39,17 +38,23 @@ interface TextEditorProps {
   symbolizer: TextSymbolizer;
   internalDataDef?: Data;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  locale?: TextEditorLocale;
 }
 
 class TextEditor extends React.Component<TextEditorProps, {}> {
+
+  constructor(props: any) {
+    super(props);
+  }
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  renderTextEditor = (locale: TextEditorLocale) => {
+  render() {
     const {
-      internalDataDef
+      internalDataDef,
+      locale
     } = this.props;
 
     const symbolizer = _cloneDeep(this.props.symbolizer);
@@ -137,17 +142,6 @@ class TextEditor extends React.Component<TextEditorProps, {}> {
       </div>
     );
   }
-
-  render() {
-    return(
-      <LocaleReceiver
-        componentName="GsTextEditor"
-        defaultLocale={en_US}
-      >
-        {this.renderTextEditor}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default TextEditor;
+export default localize(TextEditor);

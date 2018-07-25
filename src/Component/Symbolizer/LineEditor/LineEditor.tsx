@@ -14,8 +14,7 @@ import {
   cloneDeep as _cloneDeep
 } from 'lodash';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
 interface LineEditorLocale {
@@ -29,14 +28,20 @@ interface LineEditorLocale {
 interface LineEditorProps {
   symbolizer: LineSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  locale?: LineEditorLocale;
 }
 
 class LineEditor extends React.Component<LineEditorProps, {}> {
+
+  constructor(props: any) {
+    super(props);
+  }
+
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  renderLineEditor = (locale: LineEditorLocale) => {
+  render() {
     const symbolizer = _cloneDeep(this.props.symbolizer);
 
     const {
@@ -45,6 +50,10 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
       opacity,
       dasharray
     } = symbolizer;
+
+    const {
+      locale
+    } = this.props;
 
     return (
       <div className="gs-line-symbolizer-editor" >
@@ -83,18 +92,6 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
       </div>
     );
   }
-
-  render() {
-    return(
-      <LocaleReceiver
-        componentName="GsLineEditor"
-        defaultLocale={en_US}
-      >
-        {this.renderLineEditor}
-      </LocaleReceiver>
-    );
-    
-  }
 }
 
-export default LineEditor;
+export default localize(LineEditor);

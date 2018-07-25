@@ -12,8 +12,7 @@ import {
   cloneDeep as _cloneDeep
 } from 'lodash';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
 interface FillEditorLocale {
@@ -26,15 +25,20 @@ interface FillEditorLocale {
 interface FillEditorProps {
   symbolizer: FillSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  locale?: FillEditorLocale;
 }
 
 class FillEditor extends React.Component<FillEditorProps, {}> {
 
+  constructor(props: any) {
+    super(props);
+  }
+  
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  renderFillEditor = (locale: FillEditorLocale) => {
+  render() {
     const symbolizer = _cloneDeep(this.props.symbolizer);
 
     const {
@@ -42,6 +46,10 @@ class FillEditor extends React.Component<FillEditorProps, {}> {
       opacity,
       outlineColor
     } = symbolizer;
+
+    const {
+      locale
+    } = this.props;
 
     return (
       <div className="gs-fill-symbolizer-editor" >
@@ -72,17 +80,6 @@ class FillEditor extends React.Component<FillEditorProps, {}> {
       </div>
     );
   }
-
-  render() {
-    return(
-      <LocaleReceiver
-        componentName="GsFillEditor"
-        defaultLocale={en_US}
-      >
-        {this.renderFillEditor}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default FillEditor;
+export default localize(FillEditor);

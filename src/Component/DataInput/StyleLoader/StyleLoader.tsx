@@ -11,14 +11,20 @@ import {
 
 import UploadButton from '../../UploadButton/UploadButton';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+
+// i18n
+interface StyleLoaderLocale {
+  label: string;
+  uploadButtonLabel: string;
+}
 
 // default props
 interface DefaultStyleLoaderProps {
   onStyleRead: (style: GsStyle) => void;
-  label: string;
+  locale?: StyleLoaderLocale;
 }
+
 // non default props
 interface StyleLoaderProps extends Partial<DefaultStyleLoaderProps> {
   parsers: GsStyleParserConstructable[];
@@ -38,7 +44,6 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
   public static defaultProps: DefaultStyleLoaderProps = {
     onStyleRead: (style: GsStyle) => {return; },
-    label: 'Load Style: '
   };
 
   parseStyle = (uploadObject: any) => {
@@ -72,10 +77,14 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
     }
   }
 
-  renderStyleLoader = (locale: any) => {
+  render() {
     const {
       activeParser
     } = this.state;
+
+    const { 
+      locale 
+    } = this.props;
 
     return (
       <div className={activeParser ? 'gs-dataloader-right' : ''}>
@@ -89,24 +98,13 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
         {
           activeParser ?
           <UploadButton
-            label="Upload Style"
+            label={locale.uploadButtonLabel}
             onUpload={this.parseStyle}
           /> : null
         }
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsStyleLoader"
-        defaultLocale={en_US}
-      >
-        {this.renderStyleLoader}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default StyleLoader;
+export default localize(StyleLoader);

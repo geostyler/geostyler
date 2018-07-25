@@ -12,10 +12,9 @@ import {
   ScaleDenominator as GsScaleDenominator
 } from 'geostyler-style';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../LocaleWrapper/LocaleWrapper';
 
-/** i18n */
+// i18n
 export interface ScaleDenominatorLocale {
   minScaleDenominatorLabelText: string;
   maxScaleDenominatorLabelText: string;
@@ -27,6 +26,7 @@ export interface ScaleDenominatorLocale {
 interface ScaleDenominatorProps {
   scaleDenominator?: GsScaleDenominator;
   onChange: (scaleDenominator: GsScaleDenominator) => void;
+  locale?: ScaleDenominatorLocale;
 }
 // state
 interface ScaleDenominatorState {
@@ -37,7 +37,7 @@ interface ScaleDenominatorState {
  * Combined UI for input fields for the minimum and maximum scale of a rule.
  */
 class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenominatorState> {
-  constructor(props: ScaleDenominatorProps) {
+  constructor(props: any) {
     super(props);
     this.state = {};
   }
@@ -76,7 +76,11 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
     this.setState({scaleDenominator});
   }
 
-  renderScaleDenominator = (locale: ScaleDenominatorLocale) => {
+  render() {
+    const {
+      locale
+    } = this.props;
+
     return (
       <div className="gs-scaledenominator">
         <Row gutter={16} >
@@ -100,17 +104,6 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsScaleDenominator"
-        defaultLocale={en_US}
-      >
-        {this.renderScaleDenominator}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default ScaleDenominator;
+export default localize(ScaleDenominator);

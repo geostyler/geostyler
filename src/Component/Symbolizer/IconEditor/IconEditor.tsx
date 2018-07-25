@@ -15,8 +15,7 @@ import {
 import RotateField from '../Field/RotateField/RotateField';
 import SizeField from '../Field/SizeField/SizeField';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
 interface IconEditorLocale {
@@ -29,6 +28,7 @@ interface IconEditorLocale {
 // default props
 export interface DefaultIconEditorProps {
   defaultIconSource: string;
+  locale?: IconEditorLocale;
 }
 
 // non default props
@@ -39,6 +39,10 @@ interface IconEditorProps extends Partial<DefaultIconEditorProps> {
 
 class IconEditor extends React.Component<IconEditorProps, {}> {
 
+  constructor(props: any) {
+    super(props);
+  }
+
   public static defaultProps: DefaultIconEditorProps = {
     defaultIconSource: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg'
   };
@@ -47,9 +51,10 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  renderIconEditor = (locale: IconEditorLocale) => {
+  render() {
     const {
-      defaultIconSource
+      defaultIconSource,
+      locale
     } = this.props;
 
     const symbolizer = _cloneDeep(this.props.symbolizer);
@@ -100,17 +105,6 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsIconEditor"
-        defaultLocale={en_US}
-      >
-        {this.renderIconEditor}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default IconEditor;
+export default localize(IconEditor);

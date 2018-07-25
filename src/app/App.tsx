@@ -22,12 +22,18 @@ import CodeEditor from '../Component/CodeEditor/CodeEditor';
 
 import GeoStylerTemplateStyle from './data/TemplateStyle';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../Component/LocaleWrapper/LocaleWrapper';
+
+// i18n
+interface AppLocale {
+  graphicalEditor: string;
+  codeEditor: string;
+}
 
 // default props
 interface DefaultAppProps {
   styleParsers: GsStyleParser[];
+  locale?: AppLocale;
 }
 
 // non default props
@@ -49,7 +55,8 @@ class App extends React.Component<AppProps, AppState> {
     };
   }
 
-  renderApp = (locale: any) => {
+  render() {
+    const { locale } = this.props;
     return (
       <div className="App">
         <header>
@@ -100,17 +107,6 @@ class App extends React.Component<AppProps, AppState> {
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsApp"
-        defaultLocale={en_US}
-      >
-      {this.renderApp}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default App;
+export default localize(App);
