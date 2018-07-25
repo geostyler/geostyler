@@ -1,36 +1,93 @@
 'use strict';
 
 import en_US from 'antd/lib/locale-provider/en_US';
-import en_US2 from '../Component/Rule/locale/en_US';
-import en_US3 from '../app/locale/en_US';
-import en_US4 from '../Component/DataInput/StyleLoader/locale/en_US';
-import en_US5 from '../Component/DataInput/DataLoader/locale/en_US';
-import en_US6 from '../Component/Style/locale/en_US';
-import en_US7 from '../Component/CodeEditor/locale/en_US';
-import en_US8 from '../Component/Symbolizer/Preview/locale/en_US';
-import en_US9 from '../Component/Symbolizer/CircleEditor/locale/en_US';
-import en_US10 from '../Component/Symbolizer/Field/ColorField/locale/en_US';
-import en_US11 from '../Component/Symbolizer/FillEditor/locale/en_US';
-import en_US12 from '../Component/Symbolizer/IconEditor/locale/en_US';
-import en_US13 from '../Component/Symbolizer/LineEditor/locale/en_US';
-import en_US14 from '../Component/Symbolizer/TextEditor/locale/en_US';
-import en_US15 from '../Component/Symbolizer/Field/KindField/locale/en_US';
-import en_US18 from '../Component/ScaleDenominator/locale/en_US';
 export default {
-    GsRule: en_US2,
-    GsApp: en_US3,
-    GsStyleLoader: en_US4,
-    GsDataLoader: en_US5,
-    GsStyle: en_US6,
-    GsCodeEditor: en_US7,
-    GsPreview: en_US8,
-    GsCircleEditor: en_US9,
-    GsColorField: en_US10,
-    GsFillEditor: en_US11,
-    GsIconEditor: en_US12,
-    GsLineEditor: en_US13,
-    GsTextEditor: en_US14,
-    GsKindField: en_US15,
-    GsScaleDenominator: en_US18,
+    GsApp: {
+        graphicalEditor: 'Graphical Editor',
+        codeEditor: 'Code Editor'
+    },
+    GsRule: {
+        removeRuleBtnText: 'Remove Rule',
+        scaleFieldSetTitle: 'Use scale',
+        filterFieldSetTitle: 'Use filter',
+        nameFieldLabel: 'Name',
+        nameFieldPlaceholder: 'Name eingeben'
+    },
+    GsStyle: {
+        addRuleBtnText: 'Add Rule',
+        nameFieldLabel: 'Name',
+        nameFieldPlaceholder: 'Enter Name'
+    },
+    GsStyleLoader: {
+        label: 'Load Style: ',
+        uploadButtonLabel: 'Upload Style'
+    },
+    GsDataLoader: {
+        label: 'Load Data: ',
+        uploadButtonLabel: 'Upload Data'
+    },
+    GsCodeEditor: {
+        downloadButtonLabel: 'Save as File',
+        formatSelectLabel: 'Format'
+    },
+    GsCircleEditor: {
+        radiusLabel: 'Radius',
+        fillOpacityLabel: 'Fill-Opacity',
+        fillColorLabel: 'Fill-Color',
+        strokeColorLabel: 'Stroke-Color',
+        strokeWidthLabel: 'Stroke-Width',
+        strokeOpacityLabel: 'Stroke-Opacity'
+    },
+    GsFillEditor: {
+        fillOpacityLabel: 'Fill-Opacity',
+        fillColorLabel: 'Fill-Color',
+        outlineColorLabel: 'Stroke-Color'
+    },
+    GsIconEditor: {
+        imageLabel: 'Source',
+        sizeLabel: 'Size',
+        rotateLabel: 'Rotation',
+        opacityLabel: 'Opacity'
+    },
+    GsLineEditor: {
+        colorLabel: 'Color',
+        widthLabel: 'Width',
+        opacityLabel: 'Opacity',
+        dashLabel: 'Dash Pattern'
+    },
+    GsTextEditor: {
+        fieldLabel: 'Field',
+        opacityLabel: 'Text-Opacity',
+        colorLabel: 'Text-Color',
+        sizeLabel: 'Text-Size',
+        offsetXLabel: 'Offset X',
+        offsetYLabel: 'Offset Y',
+        attributeComboPlaceholder: 'Select Field'
+    },
+    GsPreview: {
+        openEditorText: 'Edit Symbolizer',
+        closeEditorText: 'Close Editor'
+    },
+    GsColorField: {
+        closeText: 'Close',
+        editText: 'Change',
+        chooseText: 'Pick',
+    },
+    GsKindField: {
+        label: 'Kind',
+        symbolizerKinds: {
+            Circle: 'Circle',
+            Fill: 'Fill',
+            Icon: 'Icon',
+            Line: 'Line',
+            Text: 'Text'
+        }
+    },
+    GsScaleDenominator: {
+        minScaleDenominatorLabelText: 'Min. Scale',
+        maxScaleDenominatorLabelText: 'Max. Scale',
+        minScaleDenominatorPlaceholderText: 'Enter min. Scale (Optional)',
+        maxScaleDenominatorPlaceholderText: 'Enter max. Scale (Optional)'
+    },
     ...en_US
 };

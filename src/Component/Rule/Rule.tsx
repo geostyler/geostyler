@@ -30,7 +30,7 @@ import {
   cloneDeep as _cloneDeep
 } from 'lodash';
 
-/** i18n */
+// i18n
 interface RuleLocale {
     removeRuleBtnText: string;
     scaleFieldSetTitle: string;
