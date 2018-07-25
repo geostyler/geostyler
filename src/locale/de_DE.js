@@ -11,7 +11,16 @@ export default {
         scaleFieldSetTitle: 'Maßstab verwenden',
         filterFieldSetTitle: 'Filter verwenden',
         nameFieldLabel: 'Name',
-        nameFieldPlaceholder: 'Name eingeben'
+        nameFieldPlaceholder: 'Name eingeben',
+        attributeLabel: 'Attribut',
+        attributePlaceholderString: 'Attribut wählen',
+        attributeValidationHelpString: 'Bitte wähle ein Attribut.',
+        operatorLabel: 'Operator',
+        operatorPlaceholderString: 'Operator wählen',
+        operatorValidationHelpString: 'Bitte wähle einen Operator.',
+        valueLabel: 'Wert',
+        valuePlaceholder: 'Wert eingeben',
+        valueValidationHelpString: 'Bitte gib einen Wert ein.'
     },
     GsStyle: {
         addRuleBtnText: 'Regel hinzufügen',

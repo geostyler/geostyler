@@ -33,6 +33,7 @@
     "geostyler-openlayers-parser": "0.5.0",
     "geostyler-sld-parser": "0.7.1",
     "geostyler-style": "0.7.0",
+    "moment": "2.22.2",
     "openlayers": "4.6.5",
     "prop-types": "^15.6.2",
     "react": "16.4.1",
