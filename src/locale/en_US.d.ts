@@ -70,9 +70,11 @@ declare const _default: {
     };
     GsStyleLoader: {
         label: string;
+        uploadButtonLabel: string;
     };
     GsDataLoader: {
         label: string;
+        uploadButtonLabel: string;
     };
     GsStyle: {
         addRuleBtnText: string;

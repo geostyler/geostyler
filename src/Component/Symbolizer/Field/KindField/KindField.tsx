@@ -5,8 +5,7 @@ import {
 } from 'antd';
 import { SymbolizerKind } from 'geostyler-style';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 
 const Option = Select.Option;
 
@@ -26,6 +25,7 @@ interface KindFieldLocale {
 interface KindFieldDefaultProps {
   kind: SymbolizerKind;
   symbolizerKinds: SymbolizerKind[];
+  locale?: KindFieldLocale;
 }
 
 // non default props
@@ -37,6 +37,10 @@ interface KindFieldProps extends Partial<KindFieldDefaultProps> {
  * KindField
  */
 class KindField extends React.Component<KindFieldProps, {}> {
+
+  constructor(props: any) {
+    super(props);
+  }
 
   public static defaultProps: KindFieldDefaultProps = {
     kind: 'Circle',
@@ -56,10 +60,11 @@ class KindField extends React.Component<KindFieldProps, {}> {
     });
   }
 
-  renderKindField = (locale: KindFieldLocale) => {
+  render() {
     const {
       kind,
-      onChange
+      onChange,
+      locale
     } = this.props;
 
     return (
@@ -74,17 +79,6 @@ class KindField extends React.Component<KindFieldProps, {}> {
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsKindField"
-        defaultLocale={en_US}
-      >
-        {this.renderKindField}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default KindField;
+export default localize(KindField);

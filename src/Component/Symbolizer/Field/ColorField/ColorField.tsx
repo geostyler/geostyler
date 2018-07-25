@@ -11,8 +11,7 @@ import {
 
 import './ColorField.css';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 
 // i18n
 interface ColorFieldLocale {
@@ -24,6 +23,7 @@ interface ColorFieldLocale {
 // default props
 interface ColorFieldDefaultProps {
   label: string;
+  locale?: ColorFieldLocale;
 }
 
 // non default props
@@ -59,13 +59,14 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
     });
   }
 
-  renderColorField = (locale: ColorFieldLocale) => {
+  render() {
     const {
       colorPickerVisible = false
     } = this.state;
     const {
       color,
-      label
+      label,
+      locale
     } = this.props;
     let textColor;
 
@@ -107,17 +108,6 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsColorField"
-        defaultLocale={en_US}
-      >
-        {this.renderColorField}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default ColorField;
+export default localize(ColorField);

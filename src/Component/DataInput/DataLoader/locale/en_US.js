@@ -1,5 +1,6 @@
 'use strict';
 
 export default {
-    label: 'Load Data: '
+    label: 'Load Data: ',
+    uploadButtonLabel: 'Upload Data'
 };

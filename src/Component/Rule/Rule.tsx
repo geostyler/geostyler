@@ -24,8 +24,7 @@ import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 import {
   cloneDeep as _cloneDeep
@@ -58,6 +57,7 @@ interface DefaultRuleProps {
   filterUiProps?: DefaultComparisonFilterProps;
   previewProps?: DefaultPreviewProps;
   ruleNameProps?: DefaultNameFieldProps;
+  locale?: RuleLocale;
 }
 
 // non default props
@@ -201,11 +201,12 @@ class Rule extends React.Component<RuleProps, RuleState> {
     this.setState({rule});
   }
 
-  renderRule = (locale: RuleLocale) => {
+  render() {
     const {
       dataProjection,
       internalDataDef,
-      onRemove
+      onRemove,
+      locale
     } = this.props;
 
     const {
@@ -254,16 +255,8 @@ class Rule extends React.Component<RuleProps, RuleState> {
                 internalDataDef={gsData}
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
-                attributeLabel={locale.attributeLabel}
-                attributePlaceholderString={locale.attributePlaceholderString}
-                attributeValidationHelpString={locale.attributeValidationHelpString}
-                operatorLabel={locale.operatorLabel}
-                operatorPlaceholderString={locale.operatorPlaceholderString}
-                operatorValidationHelpString={locale.operatorValidationHelpString}
-                valueLabel={locale.valueLabel}
-                valuePlaceholder={locale.valuePlaceholder}
-                valueValidationHelpString={locale.valueValidationHelpString}
                 {...this.props.filterUiProps}
+                {...this.props.locale}
               />
             </Fieldset>
           </div>
@@ -285,17 +278,6 @@ class Rule extends React.Component<RuleProps, RuleState> {
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsRule"
-        defaultLocale={en_US}
-      >
-        {this.renderRule}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default Rule;
+export default localize(Rule);

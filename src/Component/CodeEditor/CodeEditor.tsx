@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 // Favourite Editor should be Monaco Editor but its React Wrapper is currently
 // not very stable
 import {
@@ -28,16 +27,20 @@ import {
   isEqual as _isEqual
 } from 'lodash';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../LocaleWrapper/LocaleWrapper';
 
+// i18n
 interface CodeEditorLocale {
   downloadButtonLabel: string;
   formatSelectLabel: string;
 }
 
+interface DefaultCodeEditorProps {
+  locale?: CodeEditorLocale;
+}
+
 // non default props
-interface CodeEditorProps {
+interface CodeEditorProps extends Partial<DefaultCodeEditorProps> {
   style?: GsStyle;
   parsers?: GsStyleParserConstructable[];
   onStyleChange?: (rule: GsStyle) => void;
@@ -55,7 +58,7 @@ interface CodeEditorState {
  */
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
-  constructor(props: CodeEditorProps) {
+  constructor(props: any) {
     super(props);
     this.state = {
       value: ''
@@ -183,8 +186,9 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   }
 
-  renderCodeEditor = (locale: CodeEditorLocale) => {
+  render() {
     const value = this.state.value;
+    const { locale } = this.props;
     return (
       <div className="gs-code-editor">
         <div className="gs-code-editor-toolbar" >
@@ -223,17 +227,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsCodeEditor"
-        defaultLocale={en_US}
-      >
-        {this.renderCodeEditor}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default CodeEditor;
+// export default localeWrap('CodeEditor')(CodeEditor);
+export default localize(CodeEditor);

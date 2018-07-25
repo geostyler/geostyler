@@ -5,5 +5,5 @@ export default {
   scaleFieldSetTitle: 'Maßstab verwenden',
   filterFieldSetTitle: 'Filter verwenden',
   nameFieldLabel: 'Name',
-  nameFieldPlaceholder: 'Name eingeben',
+  nameFieldPlaceholder: 'Name eingeben'
 };

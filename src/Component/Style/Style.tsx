@@ -14,8 +14,7 @@ import { Button } from 'antd';
 import Rule from '../Rule/Rule';
 import NameField, { DefaultNameFieldProps } from '../NameField/NameField';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 /** i18n */
 interface StyleLocale {
@@ -30,6 +29,7 @@ interface DefaultStyleProps {
   filterUiProps?: DefaultComparisonFilterProps;
   previewProps?: DefaultPreviewProps;
   ruleNameProps?: DefaultNameFieldProps;
+  locale?: StyleLocale;
 }
 
 import {
@@ -53,7 +53,7 @@ interface StyleState {
 }
 
 class Style extends React.Component<StyleProps, StyleState> {
-  constructor(props: StyleProps) {
+  constructor(props: any) {
     super(props);
     this.state = {
       style: props.style || Style.defaultProps.style
@@ -148,11 +148,17 @@ class Style extends React.Component<StyleProps, StyleState> {
     this.setState({style});
   }
 
-  renderStyle = (locale: StyleLocale) => {
+  render() {
     let rules: GsRule[] = [];
+
+    const {
+      locale
+    } = this.props;
+
     if (this.state.style) {
       rules = this.state.style.rules;
     }
+
     return (
       <div className="gs-style" >
         <NameField
@@ -185,17 +191,6 @@ class Style extends React.Component<StyleProps, StyleState> {
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsStyle"
-        defaultLocale={en_US}
-      >
-      {this.renderStyle}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default Style;
+export default localize(Style);

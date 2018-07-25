@@ -1,7 +1,7 @@
 'use strict';
 
 export default {
-    label: 'Kind',
+    label: 'Art',
     symbolizerKinds: {
         Circle: 'Kreis',
         Fill: 'Füllung',

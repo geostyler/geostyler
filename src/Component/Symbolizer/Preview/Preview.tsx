@@ -22,9 +22,9 @@ import {
 import { Data } from 'geostyler-data';
 import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
 
-import en_US from './locale/en_US';
-import LocaleReceiver from 'antd/lib/locale-provider/LocaleReceiver';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
+// i18n
 interface PreviewLocale {
   openEditorText: string;
   closeEditorText: string;
@@ -42,6 +42,7 @@ export interface DefaultPreviewProps {
   interactions: ol.interaction.Interaction[] | undefined;
   unknownSymbolizerText?: string;
   iconEditorProps?: DefaultIconEditorProps;
+  locale?: PreviewLocale;
 }
 
 // non default props
@@ -80,7 +81,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     interactions: undefined
   };
 
-  constructor(props: PreviewProps) {
+  constructor(props: any) {
     super(props);
 
     const randomId = Math.floor((1 + Math.random()) * 0x10000);
@@ -269,7 +270,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       });
   }
 
-  renderPreview = (locale: PreviewLocale) => {
+  render() {
     const {
       mapHeight,
       projection,
@@ -278,6 +279,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       interactions,
       dataProjection,
       showOsmBackground,
+      locale,
       ...editorProps
     } = this.props;
 
@@ -305,17 +307,6 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
       </div>
     );
   }
-
-  render() {
-    return (
-      <LocaleReceiver
-        componentName="GsPreview"
-        defaultLocale={en_US}
-      >
-        {this.renderPreview}
-      </LocaleReceiver>
-    );
-  }
 }
 
-export default Preview;
+export default localize(Preview);

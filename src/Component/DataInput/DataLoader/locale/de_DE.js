@@ -1,5 +1,6 @@
 'use strict';
 
 export default {
-    label: 'Daten laden: '
+    label: 'Daten laden: ',
+    uploadButtonLabel: 'Daten hochladen'
 };
