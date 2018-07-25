@@ -6,7 +6,7 @@ describe('FillEditor', () => {
   let wrapper: any;
   beforeEach(() => {
     const polygonStyle = TestUtil.getPolygonStyle();
-    wrapper = TestUtil.shallowRenderComponent(FillEditor, {
+    wrapper = TestUtil.shallowRenderComponentWithLocale(FillEditor, {
       symbolizer: polygonStyle.rules[0].symbolizer
     });
   });

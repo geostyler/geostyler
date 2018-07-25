@@ -6,7 +6,7 @@ describe('TextEditor', () => {
   let wrapper: any;
   beforeEach(() => {
     const labelStyle = TestUtil.getLabeledPointStyle();
-    wrapper = TestUtil.shallowRenderComponent(TextEditor, {
+    wrapper = TestUtil.shallowRenderComponentWithLocale(TextEditor, {
       symbolizer: labelStyle.rules[0].symbolizer
     });
   });

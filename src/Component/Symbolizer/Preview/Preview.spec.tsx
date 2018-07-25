@@ -5,7 +5,7 @@ describe('Preview', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(Preview, {});
+    wrapper = TestUtil.shallowRenderComponentWithLocale(Preview, {});
   });
 
   it('is defined', () => {

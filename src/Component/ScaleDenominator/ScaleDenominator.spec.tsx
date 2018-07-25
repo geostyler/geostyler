@@ -10,7 +10,7 @@ describe('ScaleDenominator', () => {
       i = i + 1;
     };
 
-    wrapper = TestUtil.shallowRenderComponent(ScaleDenominator, {
+    wrapper = TestUtil.shallowRenderComponentWithLocale(ScaleDenominator, {
       minScaleDenom: 0,
       maxScaleDenom: 1000,
       onChange: dummyFn

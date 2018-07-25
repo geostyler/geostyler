@@ -6,7 +6,7 @@ describe('LineEditor', () => {
   let wrapper: any;
   beforeEach(() => {
     const linestyle = TestUtil.getLineStyle();
-    wrapper = TestUtil.shallowRenderComponent(LineEditor, {
+    wrapper = TestUtil.shallowRenderComponentWithLocale(LineEditor, {
       symbolizer: linestyle.rules[0].symbolizer
     });
   });
