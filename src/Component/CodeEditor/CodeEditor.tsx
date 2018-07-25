@@ -229,5 +229,4 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 }
 
-// export default localeWrap('CodeEditor')(CodeEditor);
 export default localize(CodeEditor);

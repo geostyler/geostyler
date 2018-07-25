@@ -15,7 +15,7 @@ import {
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 // i18n
-export interface ScaleDenominatorLocale {
+interface ScaleDenominatorLocale {
   minScaleDenominatorLabelText: string;
   maxScaleDenominatorLabelText: string;
   minScaleDenominatorPlaceholderText: string;

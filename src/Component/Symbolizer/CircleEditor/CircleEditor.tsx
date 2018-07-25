@@ -17,7 +17,7 @@ import {
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-export interface CircleEditorLocale {
+interface CircleEditorLocale {
   radiusLabel: string;
   fillOpacityLabel: string;
   fillColorLabel: string;
