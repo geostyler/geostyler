@@ -22,15 +22,15 @@ import './TextEditor.css';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface TextEditorLocale {
+export interface TextEditorLocale {
   fieldLabel: string;
-  opacityLabel: string;
-  colorLabel: string;
-  sizeLabel: string;
-  offsetXLabel: string;
-  offsetYLabel: string;
-  fontLabel: string;
-  attributeComboPlaceholder: string;
+  opacityLabel?: string;
+  colorLabel?: string;
+  sizeLabel?: string;
+  offsetXLabel?: string;
+  offsetYLabel?: string;
+  fontLabel?: string;
+  attributeComboPlaceholder?: string;
 }
 
 // non default props

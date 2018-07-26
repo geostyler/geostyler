@@ -15,10 +15,10 @@ import {
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface FillEditorLocale {
-  fillOpacityLabel: string;
-  fillColorLabel: string;
-  outlineColorLabel: string;
+export interface FillEditorLocale {
+  fillOpacityLabel?: string;
+  fillColorLabel?: string;
+  outlineColorLabel?: string;
 }
 
 // non default props

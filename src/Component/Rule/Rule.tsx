@@ -31,12 +31,12 @@ import {
 } from 'lodash';
 
 // i18n
-interface RuleLocale {
+export interface RuleLocale {
     removeRuleBtnText: string;
     scaleFieldSetTitle: string;
     filterFieldSetTitle: string;
-    nameFieldLabel: string;
-    nameFieldPlaceholder: string;
+    nameFieldLabel?: string;
+    nameFieldPlaceholder?: string;
     attributeLabel?: string;
     attributePlaceholderString?: string;
     attributeValidationHelpString?: string;

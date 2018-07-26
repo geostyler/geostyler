@@ -17,13 +17,13 @@ import {
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface CircleEditorLocale {
-  radiusLabel: string;
-  fillOpacityLabel: string;
-  fillColorLabel: string;
-  strokeColorLabel: string;
-  strokeWidthLabel: string;
-  strokeOpacityLabel: string;
+export interface CircleEditorLocale {
+  radiusLabel?: string;
+  fillOpacityLabel?: string;
+  fillColorLabel?: string;
+  strokeColorLabel?: string;
+  strokeWidthLabel?: string;
+  strokeOpacityLabel?: string;
 }
 
 // non default props

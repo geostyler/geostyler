@@ -25,7 +25,7 @@ import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface PreviewLocale {
+export interface PreviewLocale {
   openEditorText: string;
   closeEditorText: string;
 }

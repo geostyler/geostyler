@@ -25,7 +25,7 @@ import GeoStylerTemplateStyle from './data/TemplateStyle';
 import { localize } from '../Component/LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface AppLocale {
+export interface AppLocale {
   graphicalEditor: string;
   codeEditor: string;
 }

@@ -15,11 +15,11 @@ import {
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface ScaleDenominatorLocale {
-  minScaleDenominatorLabelText: string;
-  maxScaleDenominatorLabelText: string;
-  minScaleDenominatorPlaceholderText: string;
-  maxScaleDenominatorPlaceholderText: string;
+export interface ScaleDenominatorLocale {
+  minScaleDenominatorLabelText?: string;
+  maxScaleDenominatorLabelText?: string;
+  minScaleDenominatorPlaceholderText?: string;
+  maxScaleDenominatorPlaceholderText?: string;
 }
 
 // non default props
