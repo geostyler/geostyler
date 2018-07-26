@@ -1,11 +1,14 @@
-import Preview from './Preview';
+import { Preview } from './Preview';
 import TestUtil from '../../../Util/TestUtil';
+import en_US from '../../../locale/en_US';
 
 describe('Preview', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponentWithLocale(Preview, {});
+    wrapper = TestUtil.shallowRenderComponent(Preview, {
+      locale: en_US.GsPreview
+    });
   });
 
   it('is defined', () => {

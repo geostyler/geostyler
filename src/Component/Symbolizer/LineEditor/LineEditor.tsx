@@ -31,7 +31,7 @@ interface LineEditorProps {
   locale?: LineEditorLocale;
 }
 
-class LineEditor extends React.Component<LineEditorProps, {}> {
+export class LineEditor extends React.Component<LineEditorProps, {}> {
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
