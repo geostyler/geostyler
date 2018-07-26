@@ -24,7 +24,7 @@ import { KindFieldLocale } from './Component/Symbolizer/Field/KindField/KindFiel
 import { ScaleDenominatorLocale } from './Component/ScaleDenominator/ScaleDenominator';
 import './index.css';
 
-interface GsLocale extends Locale {
+export interface GsLocale extends Locale {
   GsRule: RuleLocale;
   GsApp: AppLocale;
   GsStyleLoader: StyleLoaderLocale;
