@@ -28,7 +28,7 @@ interface FillEditorProps {
   locale?: FillEditorLocale;
 }
 
-class FillEditor extends React.Component<FillEditorProps, {}> {
+export class FillEditor extends React.Component<FillEditorProps, {}> {
   
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);

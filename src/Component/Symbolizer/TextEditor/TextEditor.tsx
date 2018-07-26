@@ -41,7 +41,7 @@ interface TextEditorProps {
   locale?: TextEditorLocale;
 }
 
-class TextEditor extends React.Component<TextEditorProps, {}> {
+export class TextEditor extends React.Component<TextEditorProps, {}> {
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);

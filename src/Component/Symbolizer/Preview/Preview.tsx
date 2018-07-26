@@ -62,7 +62,7 @@ interface PreviewState {
 /**
  * Symbolizer preview UI.
  */
-class Preview extends React.Component<PreviewProps, PreviewState> {
+export class Preview extends React.Component<PreviewProps, PreviewState> {
 
   /** reference to the underlying OpenLayers map */
   map: ol.Map;
