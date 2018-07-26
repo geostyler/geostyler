@@ -14,7 +14,7 @@ import './ColorField.css';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface ColorFieldLocale {
+export interface ColorFieldLocale {
   closeText: string;
   editText: string;
   chooseText: string;

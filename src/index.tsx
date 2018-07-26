@@ -7,24 +7,39 @@ import de_DE from './locale/de_DE';
 import en_US from './locale/en_US';
 import { LocaleProvider } from 'antd';
 import { Locale } from 'antd/lib/locale-provider/index';
+import { AppLocale } from './app/App';
+import { RuleLocale } from './Component/Rule/Rule';
+import { StyleLoaderLocale } from './Component/DataInput/StyleLoader/StyleLoader';
+import { DataLoaderLocale } from './Component/DataInput/DataLoader/DataLoader';
+import { StyleLocale } from './Component/Style/Style';
+import { CodeEditorLocale } from './Component/CodeEditor/CodeEditor';
+import { PreviewLocale } from './Component/Symbolizer/Preview/Preview';
+import { CircleEditorLocale } from './Component/Symbolizer/CircleEditor/CircleEditor';
+import { ColorFieldLocale } from './Component/Symbolizer/Field/ColorField/ColorField';
+import { FillEditorLocale } from './Component/Symbolizer/FillEditor/FillEditor';
+import { IconEditorLocale } from './Component/Symbolizer/IconEditor/IconEditor';
+import { LineEditorLocale } from './Component/Symbolizer/LineEditor/LineEditor';
+import { TextEditorLocale } from './Component/Symbolizer/TextEditor/TextEditor';
+import { KindFieldLocale } from './Component/Symbolizer/Field/KindField/KindField';
+import { ScaleDenominatorLocale } from './Component/ScaleDenominator/ScaleDenominator';
 import './index.css';
 
 interface GsLocale extends Locale {
-  GsRule: object;
-  GsApp: object;
-  GsStyleLoader: object;
-  GsDataLoader: object;
-  GsStyle: object;
-  GsCodeEditor: object;
-  GsPreview: object;
-  GsCircleEditor: object;
-  GsColorField: object;
-  GsFillEditor: object;
-  GsIconEditor: object;
-  GsLineEditor: object;
-  GsTextEditor: object;
-  GsKindField: object;
-  GsScaleDenominator: object;
+  GsRule: RuleLocale;
+  GsApp: AppLocale;
+  GsStyleLoader: StyleLoaderLocale;
+  GsDataLoader: DataLoaderLocale;
+  GsStyle: StyleLocale;
+  GsCodeEditor: CodeEditorLocale;
+  GsPreview: PreviewLocale;
+  GsCircleEditor: CircleEditorLocale;
+  GsColorField: ColorFieldLocale;
+  GsFillEditor: FillEditorLocale;
+  GsIconEditor: IconEditorLocale;
+  GsLineEditor: LineEditorLocale;
+  GsTextEditor: TextEditorLocale;
+  GsKindField: KindFieldLocale;
+  GsScaleDenominator: ScaleDenominatorLocale;
 }
 
 interface DefaultStarterState {

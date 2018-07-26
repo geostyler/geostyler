@@ -17,11 +17,11 @@ import {
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface LineEditorLocale {
-  colorLabel: string;
-  widthLabel: string;
-  opacityLabel: string;
-  dashLabel: string;
+export interface LineEditorLocale {
+  colorLabel?: string;
+  widthLabel?: string;
+  opacityLabel?: string;
+  dashLabel?: string;
 }
 
 // non default props

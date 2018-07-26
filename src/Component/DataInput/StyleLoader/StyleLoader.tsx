@@ -14,7 +14,7 @@ import UploadButton from '../../UploadButton/UploadButton';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface StyleLoaderLocale {
+export interface StyleLoaderLocale {
   label: string;
   uploadButtonLabel: string;
 }

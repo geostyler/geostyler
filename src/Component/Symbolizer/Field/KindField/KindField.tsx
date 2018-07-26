@@ -10,7 +10,7 @@ import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 const Option = Select.Option;
 
 // i18n
-interface KindFieldLocale {
+export interface KindFieldLocale {
   label: string;
   symbolizerKinds: {
     Circle: string;

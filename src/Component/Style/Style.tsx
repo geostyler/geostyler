@@ -17,7 +17,7 @@ import NameField, { DefaultNameFieldProps } from '../NameField/NameField';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface StyleLocale {
+export interface StyleLocale {
   addRuleBtnText: string;
   nameFieldLabel?: string;
   nameFieldPlaceholder?: string;

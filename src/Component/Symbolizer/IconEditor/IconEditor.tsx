@@ -18,11 +18,11 @@ import SizeField from '../Field/SizeField/SizeField';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface IconEditorLocale {
-  imageLabel: string;
-  sizeLabel: string;
-  rotateLabel: string;
-  opacityLabel: string;
+export interface IconEditorLocale {
+  imageLabel?: string;
+  sizeLabel?: string;
+  rotateLabel?: string;
+  opacityLabel?: string;
 }
 
 // default props

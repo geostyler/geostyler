@@ -13,7 +13,7 @@ import UploadButton from '../../UploadButton/UploadButton';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface DataLoaderLocale {
+export interface DataLoaderLocale {
   label: string;
   uploadButtonLabel: string;
 }

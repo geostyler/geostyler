@@ -30,7 +30,7 @@ import {
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 // i18n
-interface CodeEditorLocale {
+export interface CodeEditorLocale {
   downloadButtonLabel: string;
   formatSelectLabel: string;
 }
