@@ -8,8 +8,8 @@ export default {
     },
     GsRule: {
         removeRuleBtnText: 'Regel entfernen',
-        scaleFieldSetTitle: 'Maßstab verwenden',
-        filterFieldSetTitle: 'Filter verwenden',
+        scaleFieldTitle: 'Maßstab verwenden',
+        filterFieldTitle: 'Filter verwenden',
         nameFieldLabel: 'Name',
         nameFieldPlaceholder: 'Name eingeben',
         attributeLabel: 'Attribut',
@@ -93,10 +93,10 @@ export default {
         }
     },
     GsScaleDenominator: {
-        minScaleDenominatorLabelText: 'Min. Maßstab',
-        maxScaleDenominatorLabelText: 'Max. Maßstab',
-        minScaleDenominatorPlaceholderText: 'Min. Maßstab eingeben (Optional)',
-        maxScaleDenominatorPlaceholderText: 'Max. Maßstab eingeben (Optional)'
+        minScaleDenominatorLabelText: 'Min. Maßstabszahl',
+        maxScaleDenominatorLabelText: 'Max. Maßstabszahl',
+        minScaleDenominatorPlaceholderText: 'Min. Maßstabszahl eingeben (Optional)',
+        maxScaleDenominatorPlaceholderText: 'Max. Maßstabszahl eingeben (Optional)'
     },
     ...de_DE
 };

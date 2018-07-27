@@ -8,8 +8,8 @@ export default {
     },
     GsRule: {
         removeRuleBtnText: 'Remove Rule',
-        scaleFieldSetTitle: 'Use scale',
-        filterFieldSetTitle: 'Use filter',
+        scaleFieldTitle: 'Use scale',
+        filterFieldTitle: 'Use filter',
         nameFieldLabel: 'Name',
         nameFieldPlaceholder: 'Name eingeben'
     },

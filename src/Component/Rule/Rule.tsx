@@ -33,8 +33,8 @@ import {
 // i18n
 export interface RuleLocale {
     removeRuleBtnText: string;
-    scaleFieldSetTitle: string;
-    filterFieldSetTitle: string;
+    scaleFieldTitle: string;
+    filterFieldTitle: string;
     nameFieldLabel?: string;
     nameFieldPlaceholder?: string;
     attributeLabel?: string;
@@ -240,7 +240,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
           </div>
           <div className="gs-rule-right-fields" >
             <Fieldset
-              title={locale.scaleFieldSetTitle}
+              title={locale.scaleFieldTitle}
               onCheckChange={this.onScaleCheckChange}
             >
               <ScaleDenominator
@@ -249,7 +249,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               />
             </Fieldset>
             <Fieldset
-              title={locale.filterFieldSetTitle}
+              title={locale.filterFieldTitle}
               onCheckChange={this.onFilterCheckChange}
             >
               <ComparisonFilterUi
