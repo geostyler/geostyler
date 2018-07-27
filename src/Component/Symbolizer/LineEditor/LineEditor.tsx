@@ -9,6 +9,8 @@ import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
 import WidthField from '../Field/WidthField/WidthField';
 import LineDashField from '../Field/LineDashField/LineDashField';
+import LineCapField from '../Field/LineCapField/LineCapField';
+import LineJoinField from '../Field/LineJoinField/LineJoinField';
 
 const _cloneDeep = require('lodash/cloneDeep');
 
@@ -44,7 +46,9 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
       color,
       width,
       opacity,
-      dasharray
+      dasharray,
+      cap,
+      join
     } = symbolizer;
 
     const {
@@ -82,6 +86,22 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
           label={locale.dashLabel}
           onChange={(value: number[]) => {
             symbolizer.dasharray = value;
+            this.props.onSymbolizerChange(symbolizer);
+          }}
+        />
+        <LineCapField
+          cap={cap}
+          label={capLabel}
+          onChange={(value: LineSymbolizer['cap']) => {
+            symbolizer.cap = value;
+            this.props.onSymbolizerChange(symbolizer);
+          }}
+        />
+        <LineJoinField
+          join={join}
+          label={joinLabel}
+          onChange={(value: LineSymbolizer['join']) => {
+            symbolizer.join = value;
             this.props.onSymbolizerChange(symbolizer);
           }}
         />
