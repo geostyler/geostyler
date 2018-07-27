@@ -11,6 +11,7 @@ import WidthField from '../Field/WidthField/WidthField';
 import LineDashField from '../Field/LineDashField/LineDashField';
 import LineCapField from '../Field/LineCapField/LineCapField';
 import LineJoinField from '../Field/LineJoinField/LineJoinField';
+import OffsetField from '../Field/OffsetField/OffsetField';
 
 const _cloneDeep = require('lodash/cloneDeep');
 
@@ -48,7 +49,8 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
       opacity,
       dasharray,
       cap,
-      join
+      join,
+      dashOffset
     } = symbolizer;
 
     const {
@@ -88,6 +90,15 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
             symbolizer.dasharray = value;
             this.props.onSymbolizerChange(symbolizer);
           }}
+        />
+        <OffsetField
+          offset={dashOffset}
+          label={dashOffsetLabel}
+          onChange={(value: LineSymbolizer['dashOffset']) => {
+            symbolizer.dashOffset = value;
+            this.props.onSymbolizerChange(symbolizer);
+          }}
+          disabled={symbolizer.dasharray === undefined || symbolizer.dasharray.length === 0}
         />
         <LineCapField
           cap={cap}

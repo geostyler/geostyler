@@ -119,6 +119,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
 
   componentDidUpdate(prevProps: PreviewProps, prevState: PreviewState) {
     if (this.dataLayer) {
+      debugger;
       this.applySymbolizerToMapFeatures(this.state.symbolizer);
     }
 
@@ -281,6 +282,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     styleParser.writeStyle(style)
       .then((olStyles: OlStyle[]) => {
         // apply new OL style to vector layer
+        debugger;
         this.dataLayer.setStyle(olStyles[0]);
         return olStyles[0];
       });
