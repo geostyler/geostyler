@@ -9,9 +9,7 @@ import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
 import WidthField from '../Field/WidthField/WidthField';
 
-import {
-  cloneDeep as _cloneDeep
-} from 'lodash';
+const _cloneDeep = require('lodash/cloneDeep');
 import FontPicker from '../Field/FontPicker/FontPicker';
 import OffsetField from '../Field/OffsetField/OffsetField';
 import AttributeCombo from '../../Filter/AttributeCombo/AttributeCombo';

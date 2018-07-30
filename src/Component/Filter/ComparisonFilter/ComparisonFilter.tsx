@@ -23,13 +23,11 @@ import {
   Data as Data
 } from 'geostyler-data';
 
-import {
-  get as _get,
-  cloneDeep as _cloneDeep,
-  isEqual as _isEqual,
-  isEmpty as _isEmpty,
-  isFunction as _isFunction
-} from 'lodash';
+const _get = require('lodash/get');
+const _cloneDeep = require('lodash/cloneDeep');
+const _isEqual = require('lodash/isEqual');
+const _isEmpty = require('lodash/isEmpty');
+const _isFunction = require('lodash/isFunction');
 
 // default props
 export interface DefaultComparisonFilterProps {
