@@ -8,9 +8,7 @@ import {
 import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
 
-import {
-  cloneDeep as _cloneDeep
-} from 'lodash';
+const _cloneDeep = require('lodash/cloneDeep');
 
 // default props
 export interface DefaultFillEditorProps {
