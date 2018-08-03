@@ -143,7 +143,6 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
     const style: GsStyle = {
       name: 'GeoStylerStyle',
       // TODO detect type
-      type: 'Line',
       rules: this.rules
     };
 

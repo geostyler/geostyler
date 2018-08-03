@@ -63,7 +63,6 @@ class Style extends React.Component<StyleProps, StyleState> {
   public static defaultProps: DefaultStyleProps = {
     style: {
       name: 'My Style',
-      type: 'Point',
       rules: []
     }
   };
@@ -79,25 +78,52 @@ class Style extends React.Component<StyleProps, StyleState> {
   /**
    *
    */
-  getSymbolizerFromStyleType(style: GsStyle): GsSymbolizer {
-    switch (style.type) {
-      case 'Point':
-        return {
-          kind: 'Circle'
-        };
-      case 'Line':
-        return {
-          kind: 'Line'
-        };
-      case 'Fill':
-        return {
-          kind: 'Fill'
-        };
-      default:
-        return {
-          kind: 'Circle'
-        };
-    }
+  getSymbolizerFromStyleType(style: GsStyle): GsSymbolizer[] {
+    const symbolizer: GsSymbolizer = { 
+      kind: style.rules[0].symbolizer[0].kind
+    } as GsSymbolizer;
+
+    return [symbolizer];
+
+    // NOTE: This snippet can be used, if a new rule should have the same amount of symbolizers as the first rule
+    // 
+    // const symbolizers: GsSymbolizer[] = style.rules[0].symbolizer.map((symb: GsSymbolizer) => {
+    //   const sym: GsSymbolizer = {
+    //     kind: symb.kind
+    //   } as GsSymbolizer;
+    //   return sym;
+    // });
+    // return symbolizers;
+    
+    // NOTE: This snippet can be used, if property type of Style will NOT be removed
+    // 
+    // const symbolizers: GsSymbolizer[] = [];
+    // const types: GsSymbolizer[] = [];
+    // style.type.forEach( (t: string) => {
+    //   switch (t) {
+    //     case 'Point':
+    //       types.push({
+    //         kind: 'Circle'
+    //       });
+    //       break;
+    //     case 'Line':
+    //       types.push({
+    //         kind: 'Line'
+    //       });
+    //       break;
+    //     case 'Fill':
+    //       types.push({
+    //         kind: 'Fill'
+    //       });
+    //       break;
+    //     default:
+    //       types.push({
+    //         kind: 'Circle'
+    //       });
+    //       break;
+    //   }
+    // });
+    // return types;
   }
 
   onNameChange = (name: string) => {
@@ -148,6 +174,36 @@ class Style extends React.Component<StyleProps, StyleState> {
     this.setState({style});
   }
 
+  addSymbolizer = (rule: GsRule) => {
+    const style = _cloneDeep(this.state.style);
+    // TODO generate some kind of id
+    // right now, all properties of symbolizer must match
+    const newSymbolizer: GsSymbolizer = {
+      kind: style.rules[0].symbolizer[0].kind
+    };
+    const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
+    if (ruleIdx > -1) {
+      style.rules[ruleIdx].symbolizer.push(newSymbolizer);
+      if (this.props.onStyleChange) {
+        this.props.onStyleChange(style);
+      }
+      this.setState({style});
+    }
+  }
+
+  removeSymbolizer = (rule: GsRule, symbolizer: GsSymbolizer) => {
+    const style = _cloneDeep(this.state.style);
+    const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
+    // if all properties of a symbolizer are equal, remove this symbolizer
+    const newSymbolizers = style.rules[ruleIdx].symbolizer
+      .filter((symb: GsSymbolizer) => !_isEqual(symb, symbolizer));
+    style.rules[ruleIdx].symbolizer = newSymbolizers;
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(style);
+    }
+    this.setState({style});
+  }
+
   render() {
     let rules: GsRule[] = [];
 
@@ -172,6 +228,8 @@ class Style extends React.Component<StyleProps, StyleState> {
             key={'rule_' + idx}
             rule={rule}
             onRemove={this.removeRule}
+            onAddSymbolizer={this.addSymbolizer}
+            onRemoveSymbolizer={this.removeSymbolizer}
             internalDataDef={this.props.data}
             onRuleChange={this.onRuleChange}
             dataProjection={this.props.dataProjection}

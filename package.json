@@ -32,6 +32,7 @@
     "geostyler-openlayers-parser": "0.8.0",
     "geostyler-sld-parser": "0.10.0",
     "geostyler-style": "0.8.0",
+    "lodash": "4.17.10",
     "moment": "2.22.2",
     "prop-types": "15.6.2",
     "ol": "4.6.5",
@@ -39,8 +40,7 @@
     "react-codemirror2": "5.1.0",
     "react-color": "2.14.1",
     "react-dom": "16.4.2",
-    "react-scripts-ts": "2.17.0",
-    "lodash": "4.17.10"
+    "react-scripts-ts": "2.17.0"
   },
   "scripts": {
     "build": "npm run build:dist && npm run build:app && npm run build:styleguide",

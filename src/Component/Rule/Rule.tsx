@@ -66,6 +66,10 @@ interface RuleProps extends Partial<DefaultRuleProps> {
   onRuleChange?: (rule: GsRule, ruleBefore?: GsRule) => void;
   /** Callback for onClick of the RemoveButton */
   onRemove?: (rule: GsRule) => void;
+  /** Callback for onClick of the AddSymbolizerButton */
+  onAddSymbolizer?: (rule: GsRule) => void;
+  /** Callback for onClick of the RemoveSymbolizerButton */
+  onRemoveSymbolizer?: (rule: GsRule, symbolizer: GsSymbolizer) => void;
 }
 
 // state
@@ -93,9 +97,9 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   public static defaultProps: DefaultRuleProps = {
     rule: {
       name: 'My Style',
-      symbolizer: {
+      symbolizer: [{
         kind: 'Circle'
-      }
+      }]
     },
     dataProjection: 'EPSG:4326'
   };
@@ -148,9 +152,9 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   /**
    * Handles changing rule symbolizer
    */
-  onSymbolizerChange = (symbolizer: GsSymbolizer) => {
-    const rule: GsRule = _cloneDeep(this.state.rule);
-    rule.symbolizer = symbolizer;
+  onSymbolizerChange = (symbolizer: GsSymbolizer, key: number) => {
+    let rule: GsRule = _cloneDeep(this.state.rule);
+    rule.symbolizer[key] = symbolizer;
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
@@ -235,6 +239,16 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               symbolizer={rule.symbolizer}
               internalDataDef={gsData}
               onSymbolizerChange={this.onSymbolizerChange}
+              onAddSymbolizer={() => {
+                if (this.props.onAddSymbolizer) {
+                  this.props.onAddSymbolizer(this.props.rule);
+                }
+              }}
+              onRemoveSymbolizer={(symb: GsSymbolizer) => {
+                if (this.props.onRemoveSymbolizer) {
+                  this.props.onRemoveSymbolizer(this.props.rule, symb);
+                }
+              }}
               {...this.props.previewProps}
             />
           </div>

@@ -95,14 +95,13 @@ export class TestUtil {
   static getLineStyle = () => {
     const lineSimpleLine: Style = {
       name: 'Simple Line',
-      type: 'Line',
       rules: [{
         name: '',
-        symbolizer: {
+        symbolizer: [{
           kind: 'Line',
           color: '#000000',
           width: 3
-        }
+        }]
       }]
     };
 
@@ -117,15 +116,14 @@ export class TestUtil {
   static getPolygonStyle = () => {
     const polygonTransparentPolygon: Style = {
       name: 'Transparent Polygon',
-      type: 'Fill',
       rules: [{
         name: '',
-        symbolizer: {
+        symbolizer: [{
           kind: 'Fill',
           color: '#000080',
           opacity: 0.5,
           outlineColor: '#FFFFFF'
-        }
+        }]
       }]
     };
 
@@ -140,17 +138,16 @@ export class TestUtil {
   static getLabeledPointStyle = () => {
     const pointStyledLabel: Style = {
       name: 'Styled Label',
-      type: 'Point',
       rules: [{
         name: '',
-        symbolizer: {
+        symbolizer: [{
           kind: 'Text',
           color: '#000000',
           field: 'name',
           font: ['Arial'],
           size: 12,
           offset: [0, 5]
-        }
+        }]
       }]
     };
 
