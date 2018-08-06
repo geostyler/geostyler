@@ -8,10 +8,8 @@ import {
 import OpacityField from '../Field/OpacityField/OpacityField';
 import ImageField from '../Field/ImageField/ImageField';
 
-import {
-  cloneDeep as _cloneDeep,
-  isEmpty as _isEmpty
-} from 'lodash';
+const _cloneDeep = require('lodash/cloneDeep');
+const _isEmpty = require('lodash/isEmpty');
 import RotateField from '../Field/RotateField/RotateField';
 import SizeField from '../Field/SizeField/SizeField';
 

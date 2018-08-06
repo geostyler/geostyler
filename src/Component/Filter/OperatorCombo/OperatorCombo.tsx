@@ -3,9 +3,7 @@ import * as React from 'react';
 import { ComparisonOperator } from 'geostyler-style';
 import { Select, Form } from 'antd';
 import { Data } from 'geostyler-data';
-import {
-  indexOf as _indexOf,
-} from 'lodash';
+const _indexOf = require('lodash/indexOf');
 const Option = Select.Option;
 
 // default props

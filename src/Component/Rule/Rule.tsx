@@ -24,9 +24,7 @@ import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
-import {
-  cloneDeep as _cloneDeep
-} from 'lodash';
+const _cloneDeep = require('lodash/cloneDeep');
 
 // default props
 interface DefaultRuleProps {

@@ -30,10 +30,8 @@ interface DefaultStyleProps {
   ruleNameProps?: DefaultNameFieldProps;
 }
 
-import {
-  isEqual as _isEqual,
-  cloneDeep as _cloneDeep
-} from 'lodash';
+const _isEqual = require('lodash/isEqual');
+const _cloneDeep = require('lodash/cloneDeep');
 import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { DefaultScaleDenominatorProps } from '../ScaleDenominator/ScaleDenominator';
 import { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
@@ -111,7 +109,7 @@ class Style extends React.Component<StyleProps, StyleState> {
 
   onRuleChange = (rule: GsRule, ruleBefore: GsRule) => {
     const style = _cloneDeep(this.state.style);
-    const ruleIdxToReplace = style.rules.findIndex(r => {
+    const ruleIdxToReplace = style.rules.findIndex((r: any) => {
       return _isEqual(r, ruleBefore);
     });
     if (ruleIdxToReplace > -1) {
@@ -140,7 +138,7 @@ class Style extends React.Component<StyleProps, StyleState> {
 
   removeRule = (rule: GsRule) => {
     const style = _cloneDeep(this.state.style);
-    const newRules = style.rules.filter(r => r.name !== rule.name);
+    const newRules = style.rules.filter((r: any) => r.name !== rule.name);
     style.rules = newRules;
     if (this.props.onStyleChange) {
       this.props.onStyleChange(style);
