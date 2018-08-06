@@ -10,9 +10,7 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
 
-import {
-  cloneDeep as _cloneDeep
-} from 'lodash';
+const _cloneDeep = require('lodash/cloneDeep');
 
 // default props
 export interface DefaultCircleEditorProps {

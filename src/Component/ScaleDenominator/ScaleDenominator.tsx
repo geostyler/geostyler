@@ -3,10 +3,8 @@ import { Row, Col } from 'antd';
 import MinScaleDenominator from './MinScaleDenominator';
 import MaxScaleDenominator from './MaxScaleDenominator';
 
-import {
-  get as _get,
-  cloneDeep as _cloneDeep
-} from 'lodash';
+const _get = require('lodash/get');
+const _cloneDeep = require('lodash/cloneDeep');
 
 import {
   ScaleDenominator as GsScaleDenominator

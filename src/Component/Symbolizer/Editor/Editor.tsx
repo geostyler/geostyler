@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import * as ol from 'openlayers';
+import OlMap from 'ol/map';
+import OlLayerVector from 'ol/layer/vector';
 
 import {
   Symbolizer,
@@ -14,12 +15,11 @@ import TextEditor, { DefaultTextEditorProps } from '../TextEditor/TextEditor';
 
 import './Editor.css';
 
-import 'openlayers/css/ol.css';
+import 'ol/ol.css';
 import { Data } from 'geostyler-data';
 
-import {
-  cloneDeep as _cloneDeep
-} from 'lodash';
+const  _cloneDeep = require('lodash/cloneDeep');
+
 import KindField from '../Field/KindField/KindField';
 import IconEditor, { DefaultIconEditorProps } from '../IconEditor/IconEditor';
 
@@ -58,10 +58,10 @@ class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   /** reference to the underlying OpenLayers map */
-  map: ol.Map;
+  map: OlMap;
 
   /** refrence to the vector layer for the passed in features  */
-  dataLayer: ol.layer.Vector;
+  dataLayer: OlLayerVector;
 
   public static defaultProps: DefaultEditorProps = {
     defaultIconSource: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg',
