@@ -33,10 +33,10 @@
     "geostyler-sld-parser": "0.7.1",
     "geostyler-style": "0.7.0",
     "ol": "4.6.5",
-    "react": "16.4.1",
+    "react": "16.4.2",
     "react-codemirror2": "5.1.0",
     "react-color": "2.14.1",
-    "react-dom": "16.4.1",
+    "react-dom": "16.4.2",
     "react-scripts-ts": "2.16.0",
     "lodash": "4.17.10"
   },
