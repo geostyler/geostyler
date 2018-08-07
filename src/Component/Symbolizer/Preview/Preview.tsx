@@ -54,8 +54,6 @@ export interface DefaultPreviewProps {
   layers: OlLayerBase[] | undefined;
   controls: OlControl[] | undefined;
   interactions: OlInteraction[] | undefined;
-  openEditorText: string;
-  closeEditorText: string;
   unknownSymbolizerText?: string;
   iconEditorProps?: DefaultIconEditorProps;
   locale?: PreviewLocale;
