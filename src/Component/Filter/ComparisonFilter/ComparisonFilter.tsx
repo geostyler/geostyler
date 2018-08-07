@@ -52,6 +52,8 @@ export interface DefaultComparisonFilterProps {
   operatorPlaceholderString?: string;
   /** Validation help text for the underlying OperatorCombo */
   operatorValidationHelpString?: string;
+  /** Mapping function for operator names of unterlying OperatorCombo */
+  operatorNameMappingFunction?: (originalOperatorName: string) => string;
   /** Label for the underlying value field */
   valueLabel?: string;
   /** Placeholder for the underlying value field */
@@ -178,6 +180,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     operatorLabel: undefined,
     operatorPlaceholderString: undefined,
     operatorValidationHelpString: undefined,
+    operatorNameMappingFunction: n => n,
     valueLabel: undefined,
     valuePlaceholder: undefined,
     valueValidationHelpString: undefined,
@@ -486,6 +489,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                 internalDataDef={this.props.internalDataDef}
                 onOperatorChange={this.onOperatorChange}
                 operators={this.state.allowedOperators}
+                operatorNameMappingFunction={this.props.operatorNameMappingFunction}
                 placeholder={this.props.operatorPlaceholderString}
                 label={this.props.operatorLabel}
                 validateStatus={this.state.validateStatus.operator}
