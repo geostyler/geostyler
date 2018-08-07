@@ -16,6 +16,8 @@ interface DefaultOperatorComboProps {
   value: ComparisonOperator | undefined;
   /** List of operators to show in this combo */
   operators: string[];
+  /** Mapping function for operator names in this combo */
+  operatorNameMappingFunction?: (originalOperatorName: string) => string;
   /** Validation status */
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
   /** Element to show a help text */
@@ -43,6 +45,7 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
     placeholder: 'Select Operator',
     value: undefined,
     operators: ['==', '*=', '!=', '<', '<=', '>', '>='],
+    operatorNameMappingFunction: n => n,
     validateStatus: 'error',
     help: 'Please select an operator.'
   };
@@ -85,7 +88,7 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
           key={operator}
           value={operator}
         >
-        {operator}
+        {this.props.operatorNameMappingFunction(operator)}
         </Option>
       );
     });
