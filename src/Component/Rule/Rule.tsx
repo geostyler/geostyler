@@ -26,9 +26,7 @@ import './Rule.css';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
-import {
-  cloneDeep as _cloneDeep
-} from 'lodash';
+const _cloneDeep = require('lodash/cloneDeep');
 
 // i18n
 export interface RuleLocale {

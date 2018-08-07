@@ -23,9 +23,7 @@ import {
   StyleParserConstructable as GsStyleParserConstructable
 } from 'geostyler-style';
 
-import {
-  isEqual as _isEqual
-} from 'lodash';
+const _isEqual = require('lodash/isEqual');
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 

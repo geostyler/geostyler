@@ -10,9 +10,7 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 import WidthField from '../Field/WidthField/WidthField';
 import LineDashField from '../Field/LineDashField/LineDashField';
 
-import {
-  cloneDeep as _cloneDeep
-} from 'lodash';
+const _cloneDeep = require('lodash/cloneDeep');
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 

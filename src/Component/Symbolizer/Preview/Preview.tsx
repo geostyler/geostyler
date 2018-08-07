@@ -1,6 +1,20 @@
 import * as React from 'react';
 
-import * as ol from 'openlayers';
+import OlMap from 'ol/map';
+import OlLayerBase from 'ol/layer/base';
+import OlControl from 'ol/control/control';
+import OlInteraction from 'ol/interaction/interaction';
+import OlLayerVector from 'ol/layer/vector';
+import OlSourceVector from 'ol/source/vector';
+import OlGeomPoint from 'ol/geom/point';
+import OlGeomLineString from 'ol/geom/linestring';
+import OlGeomPolygon from 'ol/geom/polygon';
+import OlFormatGeoJSON from 'ol/format/geojson';
+import OlFeature from 'ol/feature';
+import OlView from 'ol/view';
+import OlLayerTile from 'ol/layer/tile';
+import OlSourceOSM from 'ol/source/osm';
+import OlStyle from 'ol/style/style';
 
 import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 
@@ -10,15 +24,15 @@ import {
   Button
 } from 'antd';
 
-import 'openlayers/css/ol.css';
+import 'ol/ol.css';
 import './Preview.css';
 import Editor from '../Editor/Editor';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
-import {
-  isEqual as _isEqual,
-  get as _get
-} from 'lodash';
+
+const _get = require('lodash/get');
+const _isEqual = require('lodash/isEqual');
+
 import { Data } from 'geostyler-data';
 import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
 
@@ -36,10 +50,12 @@ export interface DefaultPreviewProps {
   dataProjection: string;
   showOsmBackground: boolean;
   mapHeight: number;
-  map: ol.Map | undefined;
-  layers: ol.layer.Base[] | undefined;
-  controls: ol.control.Control[] | undefined;
-  interactions: ol.interaction.Interaction[] | undefined;
+  map: OlMap | undefined;
+  layers: OlLayerBase[] | undefined;
+  controls: OlControl[] | undefined;
+  interactions: OlInteraction[] | undefined;
+  openEditorText: string;
+  closeEditorText: string;
   unknownSymbolizerText?: string;
   iconEditorProps?: DefaultIconEditorProps;
   locale?: PreviewLocale;
@@ -65,10 +81,10 @@ interface PreviewState {
 export class Preview extends React.Component<PreviewProps, PreviewState> {
 
   /** reference to the underlying OpenLayers map */
-  map: ol.Map;
+  map: OlMap;
 
   /** refrence to the vector layer for the passed in features  */
-  dataLayer: ol.layer.Vector;
+  dataLayer: OlLayerVector;
 
   public static defaultProps: DefaultPreviewProps = {
     projection: 'EPSG:3857',
@@ -118,7 +134,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     // Remove previous features
     this.dataLayer.getSource().clear();
 
-    const format = new ol.format.GeoJSON({
+    const format = new OlFormatGeoJSON({
       defaultDataProjection: this.props.dataProjection,
       featureProjection: this.map.getView().getProjection()
     });
@@ -129,7 +145,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     // create a simple feature to see the symbolizer anyway
     } else {
       const geom = this.getSampleGeomFromSymbolizer();
-      const sampleFeature = new ol.Feature({
+      const sampleFeature = new OlFeature({
         geometry: geom.transform('EPSG:4326', 'EPSG:3857'),
         Name: 'Sample Feature'
       });
@@ -144,15 +160,15 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   public componentDidMount() {
-    let map: ol.Map;
+    let map: OlMap;
     if (!this.props.map) {
       // create a new OL map and bind it to this preview DIV
-      map = new ol.Map({
+      map = new OlMap({
         layers: [],
         controls: [],
         interactions: [],
         target: this.state.mapTargetId,
-        view: new ol.View({
+        view: new OlView({
           projection: this.props.projection
         })
       });
@@ -164,8 +180,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
 
     // show an OSM background layer if configured and no map was passed in
     if (!this.props.map && this.props.showOsmBackground) {
-      const osmLayer = new ol.layer.Tile({
-        source: new ol.source.OSM()
+      const osmLayer = new OlLayerTile({
+        source: new OlSourceOSM()
       });
       map.addLayer(osmLayer);
     }
@@ -191,8 +207,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       });
     }
 
-    const vectorLayer = new ol.layer.Vector({
-      source: new ol.source.Vector()
+    const vectorLayer = new OlLayerVector({
+      source: new OlSourceVector()
     });
 
     map.addLayer(vectorLayer);
@@ -209,9 +225,9 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       case 'Circle':
       case 'Icon':
       case 'Text':
-        return new ol.geom.Point([7.10066, 50.735851]);
+        return new OlGeomPoint([7.10066, 50.735851]);
       case 'Fill':
-        return new ol.geom.Polygon([[
+        return new OlGeomPolygon([[
             [7.1031761169433585, 50.734268655851345],
             [7.109270095825195, 50.734268655851345, ],
             [7.109270095825195, 50.73824770380063],
@@ -219,7 +235,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
             [7.1031761169433585, 50.734268655851345, ]
           ]]);
       case 'Line':
-        return new ol.geom.LineString([
+        return new OlGeomLineString([
           [7.062578201293945, 50.721786104206004],
           [7.077512741088867, 50.729610159968296],
           [7.082319259643555, 50.732435192351126],
@@ -229,7 +245,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           [7.129182815551758, 50.7504679214779]
         ]);
       default:
-        return new ol.geom.Point([7.10066, 50.735851]);
+        return new OlGeomPoint([7.10066, 50.735851]);
     }
   }
 
@@ -263,7 +279,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
 
     // parser style to OL style
     styleParser.writeStyle(style)
-      .then((olStyles: ol.style.Style[]) => {
+      .then((olStyles: OlStyle[]) => {
         // apply new OL style to vector layer
         this.dataLayer.setStyle(olStyles[0]);
         return olStyles[0];
@@ -284,7 +300,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     } = this.props;
 
     return (
-      <div className="gs-symbolizer-preview" >
+      <div className="gs-symbolizer-preview">
         <div
           id={this.state.mapTargetId}
           className="map"
