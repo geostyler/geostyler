@@ -34,11 +34,15 @@ const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
 
 import { Data } from 'geostyler-data';
-import { DefaultCircleEditorProps } from '../CircleEditor/CircleEditor';
 import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
-import { DefaultLineEditorProps } from '../LineEditor/LineEditor';
-import { DefaultFillEditorProps } from '../FillEditor/FillEditor';
-import { DefaultTextEditorProps } from '../TextEditor/TextEditor';
+
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface PreviewLocale {
+  openEditorText: string;
+  closeEditorText: string;
+}
 
 // default props
 export interface DefaultPreviewProps {
@@ -50,14 +54,9 @@ export interface DefaultPreviewProps {
   layers: OlLayerBase[] | undefined;
   controls: OlControl[] | undefined;
   interactions: OlInteraction[] | undefined;
-  openEditorText: string;
-  closeEditorText: string;
   unknownSymbolizerText?: string;
-  circleEditorProps?: DefaultCircleEditorProps;
   iconEditorProps?: DefaultIconEditorProps;
-  lineEditorProps?: DefaultLineEditorProps;
-  fillEditorProps?: DefaultFillEditorProps;
-  textEditorProps?: DefaultTextEditorProps;
+  locale?: PreviewLocale;
 }
 
 // non default props
@@ -77,7 +76,7 @@ interface PreviewState {
 /**
  * Symbolizer preview UI.
  */
-class Preview extends React.Component<PreviewProps, PreviewState> {
+export class Preview extends React.Component<PreviewProps, PreviewState> {
 
   /** reference to the underlying OpenLayers map */
   map: OlMap;
@@ -93,9 +92,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
     map: undefined,
     layers: undefined,
     controls: undefined,
-    interactions: undefined,
-    openEditorText: 'Edit Symbolizer',
-    closeEditorText: 'Close Editor'
+    interactions: undefined
   };
 
   constructor(props: PreviewProps) {
@@ -290,19 +287,18 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
   render() {
     const {
       mapHeight,
-      openEditorText,
-      closeEditorText,
       projection,
       map,
       controls,
       interactions,
       dataProjection,
       showOsmBackground,
+      locale,
       ...editorProps
     } = this.props;
 
     return (
-      <div className="gs-symbolizer-preview" >
+      <div className="gs-symbolizer-preview">
         <div
           id={this.state.mapTargetId}
           className="map"
@@ -313,7 +309,7 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
             icon="edit"
             onClick={this.onEditButtonClicked}
           >
-            {this.state.editorVisible ? closeEditorText : openEditorText}
+            {this.state.editorVisible ? locale.closeEditorText : locale.openEditorText}
           </Button>
           {
             this.state.editorVisible ?
@@ -327,4 +323,4 @@ class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 }
 
-export default Preview;
+export default localize(Preview);

@@ -1,5 +1,6 @@
-import LineEditor from './LineEditor';
+import { LineEditor } from './LineEditor';
 import TestUtil from '../../../Util/TestUtil';
+import en_US from '../../../locale/en_US';
 
 describe('LineEditor', () => {
 
@@ -7,7 +8,8 @@ describe('LineEditor', () => {
   beforeEach(() => {
     const linestyle = TestUtil.getLineStyle();
     wrapper = TestUtil.shallowRenderComponent(LineEditor, {
-      symbolizer: linestyle.rules[0].symbolizer
+      symbolizer: linestyle.rules[0].symbolizer,
+      locale: en_US.GsLineEditor
     });
   });
 

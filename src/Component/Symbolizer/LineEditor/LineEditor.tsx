@@ -12,41 +12,30 @@ import LineDashField from '../Field/LineDashField/LineDashField';
 
 const _cloneDeep = require('lodash/cloneDeep');
 
-// default props
-export interface DefaultLineEditorProps {
-  colorLabel: string;
-  widthLabel: string;
-  opacityLabel: string;
-  dashLabel: string;
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface LineEditorLocale {
+  colorLabel?: string;
+  widthLabel?: string;
+  opacityLabel?: string;
+  dashLabel?: string;
 }
 
 // non default props
-interface LineEditorProps extends Partial<DefaultLineEditorProps> {
+interface LineEditorProps {
   symbolizer: LineSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  locale?: LineEditorLocale;
 }
 
-class LineEditor extends React.Component<LineEditorProps, {}> {
-
-  public static defaultProps: DefaultLineEditorProps = {
-    colorLabel: 'Color',
-    widthLabel: 'Width',
-    opacityLabel: 'Opacity',
-    dashLabel: 'Dash Pattern'
-  };
+export class LineEditor extends React.Component<LineEditorProps, {}> {
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
   render() {
-    const {
-      colorLabel,
-      widthLabel,
-      opacityLabel,
-      dashLabel
-    } = this.props;
-
     const symbolizer = _cloneDeep(this.props.symbolizer);
 
     const {
@@ -56,11 +45,15 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
       dasharray
     } = symbolizer;
 
+    const {
+      locale
+    } = this.props;
+
     return (
       <div className="gs-line-symbolizer-editor" >
         <ColorField
           color={color}
-          label={colorLabel}
+          label={locale.colorLabel}
           onChange={(value: string) => {
             symbolizer.color = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -68,7 +61,7 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
         />
         <WidthField
           width={width}
-          label={widthLabel}
+          label={locale.widthLabel}
           onChange={(value: number) => {
             symbolizer.width = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -76,7 +69,7 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
         />
         <OpacityField
           opacity={opacity}
-          label={opacityLabel}
+          label={locale.opacityLabel}
           onChange={(value: number) => {
             symbolizer.opacity = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -84,7 +77,7 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
         />
         <LineDashField
           dashArray={dasharray}
-          label={dashLabel}
+          label={locale.dashLabel}
           onChange={(value: number[]) => {
             symbolizer.dasharray = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -95,4 +88,4 @@ class LineEditor extends React.Component<LineEditorProps, {}> {
   }
 }
 
-export default LineEditor;
+export default localize(LineEditor);

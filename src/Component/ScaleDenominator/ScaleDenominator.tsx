@@ -10,18 +10,21 @@ import {
   ScaleDenominator as GsScaleDenominator
 } from 'geostyler-style';
 
-// default props
-export interface DefaultScaleDenominatorProps {
-  /** i18n */
+import { localize } from '../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface ScaleDenominatorLocale {
   minScaleDenominatorLabelText?: string;
   maxScaleDenominatorLabelText?: string;
   minScaleDenominatorPlaceholderText?: string;
   maxScaleDenominatorPlaceholderText?: string;
 }
+
 // non default props
-interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
+interface ScaleDenominatorProps {
   scaleDenominator?: GsScaleDenominator;
   onChange: (scaleDenominator: GsScaleDenominator) => void;
+  locale?: ScaleDenominatorLocale;
 }
 // state
 interface ScaleDenominatorState {
@@ -31,7 +34,7 @@ interface ScaleDenominatorState {
 /**
  * Combined UI for input fields for the minimum and maximum scale of a rule.
  */
-class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenominatorState> {
+export class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenominatorState> {
   constructor(props: ScaleDenominatorProps) {
     super(props);
     this.state = {};
@@ -72,6 +75,10 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
   }
 
   render() {
+    const {
+      locale
+    } = this.props;
+
     return (
       <div className="gs-scaledenominator">
         <Row gutter={16} >
@@ -79,16 +86,16 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
             <MinScaleDenominator
               value={_get(this.state, 'scaleDenominator.min')}
               onChange={this.onMinScaleDenomChange}
-              label={this.props.minScaleDenominatorLabelText}
-              placeholder={this.props.minScaleDenominatorPlaceholderText}
+              label={locale.minScaleDenominatorLabelText}
+              placeholder={locale.minScaleDenominatorPlaceholderText}
             />
           </Col>
           <Col span={12} className="gs-small-col">
             <MaxScaleDenominator
               value={_get(this.state, 'scaleDenominator.max')}
               onChange={this.onMaxScaleDenomChange}
-              label={this.props.maxScaleDenominatorLabelText}
-              placeholder={this.props.maxScaleDenominatorPlaceholderText}
+              label={locale.maxScaleDenominatorLabelText}
+              placeholder={locale.maxScaleDenominatorPlaceholderText}
             />
           </Col>
         </Row>
@@ -97,4 +104,4 @@ class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenom
   }
 }
 
-export default ScaleDenominator;
+export default localize(ScaleDenominator);

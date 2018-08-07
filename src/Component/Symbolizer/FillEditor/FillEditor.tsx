@@ -10,38 +10,29 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 
 const _cloneDeep = require('lodash/cloneDeep');
 
-// default props
-export interface DefaultFillEditorProps {
-  fillOpacityLabel: string;
-  fillColorLabel: string;
-  outlineColorLabel: string;
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface FillEditorLocale {
+  fillOpacityLabel?: string;
+  fillColorLabel?: string;
+  outlineColorLabel?: string;
 }
 
 // non default props
-interface FillEditorProps extends Partial<DefaultFillEditorProps> {
+interface FillEditorProps {
   symbolizer: FillSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  locale?: FillEditorLocale;
 }
 
-class FillEditor extends React.Component<FillEditorProps, {}> {
-
-  public static defaultProps: DefaultFillEditorProps = {
-    fillOpacityLabel: 'Fill-Opacity',
-    fillColorLabel: 'Fill-Color',
-    outlineColorLabel: 'Stroke-Color'
-  };
-
+export class FillEditor extends React.Component<FillEditorProps, {}> {
+  
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
   render() {
-    const {
-      fillColorLabel,
-      fillOpacityLabel,
-      outlineColorLabel
-    } = this.props;
-
     const symbolizer = _cloneDeep(this.props.symbolizer);
 
     const {
@@ -50,11 +41,15 @@ class FillEditor extends React.Component<FillEditorProps, {}> {
       outlineColor
     } = symbolizer;
 
+    const {
+      locale
+    } = this.props;
+
     return (
       <div className="gs-fill-symbolizer-editor" >
         <ColorField
           color={color}
-          label={fillColorLabel}
+          label={locale.fillColorLabel}
           onChange={(value: string) => {
             symbolizer.color = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -62,7 +57,7 @@ class FillEditor extends React.Component<FillEditorProps, {}> {
         />
         <OpacityField
           opacity={opacity}
-          label={fillOpacityLabel}
+          label={locale.fillOpacityLabel}
           onChange={(value: number) => {
             symbolizer.opacity = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -70,7 +65,7 @@ class FillEditor extends React.Component<FillEditorProps, {}> {
         />
         <ColorField
           color={outlineColor}
-          label={outlineColorLabel}
+          label={locale.outlineColorLabel}
           onChange={(value: string) => {
             symbolizer.outlineColor = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -81,4 +76,4 @@ class FillEditor extends React.Component<FillEditorProps, {}> {
   }
 }
 
-export default FillEditor;
+export default localize(FillEditor);

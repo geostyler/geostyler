@@ -10,11 +10,20 @@ import {
 
 import UploadButton from '../../UploadButton/UploadButton';
 
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface DataLoaderLocale {
+  label: string;
+  uploadButtonLabel: string;
+}
+
 // default props
 interface DefaultDataLoaderProps {
   onDataRead: (data: GsData) => void;
-  label: string;
+  locale?: DataLoaderLocale; 
 }
+
 // non default props
 interface DataLoaderProps extends Partial<DefaultDataLoaderProps> {
   parsers: GsDataParserConstructable[];
@@ -27,14 +36,13 @@ interface DataLoaderState {
 
 class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
-  constructor(props: any) {
+  constructor(props: DataLoaderProps) {
     super(props);
     this.state = {};
   }
 
   public static defaultProps: DefaultDataLoaderProps = {
-    onDataRead: (data: GsData) => {return; },
-    label: 'Load Data: '
+    onDataRead: (data: GsData) => {return; }
   };
 
   parseData = (uploadObject: any) => {
@@ -71,15 +79,16 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
   render() {
     const {
-      label
-    } = this.props;
-    const {
       activeParser
     } = this.state;
 
+    const {
+      locale
+    } = this.props;
+
     return (
       <div className={activeParser ? 'gs-dataloader-right' : ''}>
-        {label}
+        {locale.label}
         <Select
           style={{ width: 300 }}
           onSelect={this.onSelect}
@@ -89,7 +98,7 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
         {
           activeParser ?
           <UploadButton
-            label="Upload Data"
+            label={locale.uploadButtonLabel}
             onUpload={this.parseData}
           /> : null
         }
@@ -98,4 +107,4 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
   }
 }
 
-export default DataLoader;
+export default localize(DataLoader);

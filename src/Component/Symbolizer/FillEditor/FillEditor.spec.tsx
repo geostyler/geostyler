@@ -1,5 +1,6 @@
-import FillEditor from './FillEditor';
+import { FillEditor } from './FillEditor';
 import TestUtil from '../../../Util/TestUtil';
+import en_US from '../../../locale/en_US';
 
 describe('FillEditor', () => {
 
@@ -7,7 +8,8 @@ describe('FillEditor', () => {
   beforeEach(() => {
     const polygonStyle = TestUtil.getPolygonStyle();
     wrapper = TestUtil.shallowRenderComponent(FillEditor, {
-      symbolizer: polygonStyle.rules[0].symbolizer
+      symbolizer: polygonStyle.rules[0].symbolizer,
+      locale: en_US.GsFillEditor
     });
   });
 

@@ -1,5 +1,6 @@
-import Rule from './Rule';
+import { Rule } from './Rule';
 import TestUtil from '../../Util/TestUtil';
+import en_US from '../../locale/en_US';
 
 describe('Rule', () => {
 
@@ -14,7 +15,8 @@ describe('Rule', () => {
       keyIndex: 0,
       internalDataDef: dummyData,
       onRuleChange: dummyFn,
-      onRemove: dummyFn
+      onRemove: dummyFn,
+      locale: en_US.GsRule
     });
   });
 

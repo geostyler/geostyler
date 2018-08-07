@@ -14,26 +14,27 @@ import { Button } from 'antd';
 import Rule from '../Rule/Rule';
 import NameField, { DefaultNameFieldProps } from '../NameField/NameField';
 
+import { localize } from '../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface StyleLocale {
+  addRuleBtnText: string;
+  nameFieldLabel?: string;
+  nameFieldPlaceholder?: string;
+}
+
 // default props
 interface DefaultStyleProps {
   style: GsStyle;
-  /** i18n */
-  nameFieldLabel?: string;
-  nameFieldPlaceholder?: string;
-  addRuleBtnText?: string;
-  removeRuleBtnText?: string;
-  filterFieldSetTitle?: string;
-  scaleFieldSetTitle?: string;
   filterUiProps?: DefaultComparisonFilterProps;
-  scaleDenominatorProps?: DefaultScaleDenominatorProps;
   previewProps?: DefaultPreviewProps;
   ruleNameProps?: DefaultNameFieldProps;
+  locale?: StyleLocale;
 }
 
 const _isEqual = require('lodash/isEqual');
 const _cloneDeep = require('lodash/cloneDeep');
 import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-import { DefaultScaleDenominatorProps } from '../ScaleDenominator/ScaleDenominator';
 import { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 // non default props
@@ -62,8 +63,7 @@ class Style extends React.Component<StyleProps, StyleState> {
       name: 'My Style',
       type: 'Point',
       rules: []
-    },
-    addRuleBtnText: 'Add Rule'
+    }
   };
 
   componentDidUpdate(prevProps: any, prevState: any) {
@@ -148,16 +148,22 @@ class Style extends React.Component<StyleProps, StyleState> {
 
   render() {
     let rules: GsRule[] = [];
+
+    const {
+      locale
+    } = this.props;
+
     if (this.state.style) {
       rules = this.state.style.rules;
     }
+
     return (
       <div className="gs-style" >
         <NameField
           value={this.state.style.name}
           onChange={this.onNameChange}
-          label={this.props.nameFieldLabel}
-          placeholder={this.props.nameFieldPlaceholder}
+          label={locale.nameFieldLabel}
+          placeholder={locale.nameFieldPlaceholder}
         />
         {
           rules.map((rule, idx) => <Rule
@@ -167,13 +173,9 @@ class Style extends React.Component<StyleProps, StyleState> {
             internalDataDef={this.props.data}
             onRuleChange={this.onRuleChange}
             dataProjection={this.props.dataProjection}
-            removeRuleBtnText={this.props.removeRuleBtnText}
             filterUiProps={this.props.filterUiProps}
-            scaleDenominatorProps={this.props.scaleDenominatorProps}
             previewProps={this.props.previewProps}
             ruleNameProps={this.props.ruleNameProps}
-            filterFieldSetTitle={this.props.filterFieldSetTitle}
-            scaleFieldSetTitle={this.props.scaleFieldSetTitle}
           />)
         }
         <Button
@@ -182,11 +184,11 @@ class Style extends React.Component<StyleProps, StyleState> {
           size="large"
           onClick={this.addRule}
         >
-          {this.props.addRuleBtnText}
+          {locale.addRuleBtnText}
         </Button>
       </div>
     );
   }
 }
 
-export default Style;
+export default localize(Style);

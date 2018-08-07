@@ -22,9 +22,18 @@ import CodeEditor from '../Component/CodeEditor/CodeEditor';
 
 import GeoStylerTemplateStyle from './data/TemplateStyle';
 
+import { localize } from '../Component/LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface AppLocale {
+  graphicalEditor: string;
+  codeEditor: string;
+}
+
 // default props
 interface DefaultAppProps {
   styleParsers: GsStyleParser[];
+  locale?: AppLocale;
 }
 
 // non default props
@@ -39,7 +48,7 @@ interface AppState {
 
 class App extends React.Component<AppProps, AppState> {
 
-  constructor(props: any) {
+  constructor(props: AppProps) {
     super(props);
     this.state = {
       style: GeoStylerTemplateStyle
@@ -47,6 +56,7 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   render() {
+    const { locale } = this.props;
     return (
       <div className="App">
         <header>
@@ -72,7 +82,7 @@ class App extends React.Component<AppProps, AppState> {
         </div>
         <div className="main-content">
           <div className="gui-wrapper">
-            <h2>Graphical Editor</h2>
+            <h2>{locale.graphicalEditor}</h2>
             <Style
               style={this.state.style}
               data={this.state.data}
@@ -82,7 +92,7 @@ class App extends React.Component<AppProps, AppState> {
             />
           </div>
           <div className="editor-wrapper">
-            <h2>Code Editor</h2>
+            <h2>{locale.codeEditor}</h2>
             <CodeEditor
               style={this.state.style}
               parsers={[
@@ -99,4 +109,4 @@ class App extends React.Component<AppProps, AppState> {
   }
 }
 
-export default App;
+export default localize(App);

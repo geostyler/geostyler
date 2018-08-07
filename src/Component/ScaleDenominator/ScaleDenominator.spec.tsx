@@ -1,5 +1,6 @@
-import ScaleDenominator from './ScaleDenominator';
+import { ScaleDenominator } from './ScaleDenominator';
 import TestUtil from '../../Util/TestUtil';
+import en_US from '../../locale/en_US';
 
 describe('ScaleDenominator', () => {
 
@@ -13,7 +14,8 @@ describe('ScaleDenominator', () => {
     wrapper = TestUtil.shallowRenderComponent(ScaleDenominator, {
       minScaleDenom: 0,
       maxScaleDenom: 1000,
-      onChange: dummyFn
+      onChange: dummyFn,
+      locale: en_US.GsScaleDenominator
     });
   });
 

@@ -11,11 +11,20 @@ import {
 
 import UploadButton from '../../UploadButton/UploadButton';
 
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface StyleLoaderLocale {
+  label: string;
+  uploadButtonLabel: string;
+}
+
 // default props
 interface DefaultStyleLoaderProps {
   onStyleRead: (style: GsStyle) => void;
-  label: string;
+  locale?: StyleLoaderLocale;
 }
+
 // non default props
 interface StyleLoaderProps extends Partial<DefaultStyleLoaderProps> {
   parsers: GsStyleParserConstructable[];
@@ -28,14 +37,13 @@ interface StyleLoaderState {
 
 class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
-  constructor(props: any) {
+  constructor(props: StyleLoaderProps) {
     super(props);
     this.state = {};
   }
 
   public static defaultProps: DefaultStyleLoaderProps = {
     onStyleRead: (style: GsStyle) => {return; },
-    label: 'Load Style: '
   };
 
   parseStyle = (uploadObject: any) => {
@@ -71,15 +79,16 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
   render() {
     const {
-      label
-    } = this.props;
-    const {
       activeParser
     } = this.state;
 
+    const { 
+      locale 
+    } = this.props;
+
     return (
       <div className={activeParser ? 'gs-dataloader-right' : ''}>
-        {label}
+        {locale.label}
         <Select
           style={{ width: 300 }}
           onSelect={this.onSelect}
@@ -89,7 +98,7 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
         {
           activeParser ?
           <UploadButton
-            label="Upload Style"
+            label={locale.uploadButtonLabel}
             onUpload={this.parseStyle}
           /> : null
         }
@@ -98,4 +107,4 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
   }
 }
 
-export default StyleLoader;
+export default localize(StyleLoader);

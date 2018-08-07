@@ -18,13 +18,33 @@ import { Data as GsData } from 'geostyler-data';
 import RuleNameField, { DefaultNameFieldProps } from '../NameField/NameField';
 import ComparisonFilterUi, { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 // import RuleRemoveButton from './RemoveButton/RemoveButton';
-import ScaleDenominator, { DefaultScaleDenominatorProps } from '../ScaleDenominator/ScaleDenominator';
+import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
+import { localize } from '../LocaleWrapper/LocaleWrapper';
+
 const _cloneDeep = require('lodash/cloneDeep');
+
+// i18n
+export interface RuleLocale {
+    removeRuleBtnText: string;
+    scaleFieldTitle: string;
+    filterFieldTitle: string;
+    nameFieldLabel?: string;
+    nameFieldPlaceholder?: string;
+    attributeLabel?: string;
+    attributePlaceholderString?: string;
+    attributeValidationHelpString?: string;
+    operatorLabel?: string;
+    operatorPlaceholderString?: string;
+    operatorValidationHelpString?: string;
+    valueLabel?: string;
+    valuePlaceholder?: string;
+    valueValidationHelpString?: string;
+}
 
 // default props
 interface DefaultRuleProps {
@@ -32,14 +52,10 @@ interface DefaultRuleProps {
   rule: GsRule;
   /** The data projection of example features */
   dataProjection?: string;
-  /** i18n */
-  removeRuleBtnText?: string;
-  scaleFieldSetTitle?: string;
-  filterFieldSetTitle?: string;
   filterUiProps?: DefaultComparisonFilterProps;
-  scaleDenominatorProps?: DefaultScaleDenominatorProps;
   previewProps?: DefaultPreviewProps;
   ruleNameProps?: DefaultNameFieldProps;
+  locale?: RuleLocale;
 }
 
 // non default props
@@ -63,8 +79,8 @@ interface RuleState {
 /**
  * UI container representing a Rule
  */
-class Rule extends React.Component<RuleProps, RuleState> {
-  constructor(props: any) {
+export class Rule extends React.Component<RuleProps, RuleState> {
+  constructor(props: RuleProps) {
     super(props);
     this.state = {
       rule: Rule.defaultProps.rule,
@@ -79,10 +95,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
         kind: 'Circle'
       }
     },
-    dataProjection: 'EPSG:4326',
-    removeRuleBtnText: 'Remove Rule',
-    scaleFieldSetTitle: 'Use Scale',
-    filterFieldSetTitle: 'Use Filter'
+    dataProjection: 'EPSG:4326'
   };
 
   static getDerivedStateFromProps(
@@ -190,7 +203,8 @@ class Rule extends React.Component<RuleProps, RuleState> {
     const {
       dataProjection,
       internalDataDef,
-      onRemove
+      onRemove,
+      locale
     } = this.props;
 
     const {
@@ -210,6 +224,8 @@ class Rule extends React.Component<RuleProps, RuleState> {
             <RuleNameField
               value={rule.name}
               onChange={this.onNameChange}
+              label={locale.nameFieldLabel}
+              placeholder={locale.nameFieldPlaceholder}
               {...this.props.ruleNameProps}
             />
             <Preview
@@ -222,17 +238,16 @@ class Rule extends React.Component<RuleProps, RuleState> {
           </div>
           <div className="gs-rule-right-fields" >
             <Fieldset
-              title={this.props.scaleFieldSetTitle}
+              title={locale.scaleFieldTitle}
               onCheckChange={this.onScaleCheckChange}
             >
               <ScaleDenominator
                 scaleDenominator={rule.scaleDenominator}
                 onChange={this.onScaleDenominatorChange}
-                {...this.props.scaleDenominatorProps}
               />
             </Fieldset>
             <Fieldset
-              title={this.props.filterFieldSetTitle}
+              title={locale.filterFieldTitle}
               onCheckChange={this.onFilterCheckChange}
             >
               <ComparisonFilterUi
@@ -240,6 +255,7 @@ class Rule extends React.Component<RuleProps, RuleState> {
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
                 {...this.props.filterUiProps}
+                {...this.props.locale}
               />
             </Fieldset>
           </div>
@@ -256,11 +272,11 @@ class Rule extends React.Component<RuleProps, RuleState> {
             }
           }}
         >
-          {this.props.removeRuleBtnText}
+          {locale.removeRuleBtnText}
         </Button>
       </div>
     );
   }
 }
 
-export default Rule;
+export default localize(Rule);

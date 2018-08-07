@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 // Favourite Editor should be Monaco Editor but its React Wrapper is currently
 // not very stable
 import {
@@ -26,10 +25,16 @@ import {
 
 const _isEqual = require('lodash/isEqual');
 
-// default props
+import { localize } from '../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface CodeEditorLocale {
+  downloadButtonLabel: string;
+  formatSelectLabel: string;
+}
+
 interface DefaultCodeEditorProps {
-  formatSelectLabel?: string;
-  downloadButtonLabel?: string;
+  locale?: CodeEditorLocale;
 }
 
 // non default props
@@ -50,11 +55,6 @@ interface CodeEditorState {
  * The CodeEditor.
  */
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
-
-  public static defaultProps: DefaultCodeEditorProps = {
-    formatSelectLabel: 'Format',
-    downloadButtonLabel: 'Save as File'
-  };
 
   constructor(props: CodeEditorProps) {
     super(props);
@@ -185,16 +185,12 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 
   render() {
-    const {
-      formatSelectLabel,
-      downloadButtonLabel
-    } = this.props;
-
     const value = this.state.value;
+    const { locale } = this.props;
     return (
       <div className="gs-code-editor">
         <div className="gs-code-editor-toolbar" >
-          {formatSelectLabel}: <Select
+          {locale.formatSelectLabel}: <Select
             className="gs-code-editor-format-select"
             style={{ width: 300 }}
             onSelect={this.onSelect}
@@ -224,11 +220,11 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
             type="primary"
             onClick={this.onDownloadButtonClick}
         >
-            {downloadButtonLabel}
+            {locale.downloadButtonLabel}
         </Button>
       </div>
     );
   }
 }
 
-export default CodeEditor;
+export default localize(CodeEditor);

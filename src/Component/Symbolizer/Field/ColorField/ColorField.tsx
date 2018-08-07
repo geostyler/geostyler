@@ -11,12 +11,19 @@ import {
 
 import './ColorField.css';
 
-// default props
-interface ColorFieldDefaultProps {
+import { localize } from '../../../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface ColorFieldLocale {
   closeText: string;
   editText: string;
   chooseText: string;
+}
+
+// default props
+interface ColorFieldDefaultProps {
   label: string;
+  locale?: ColorFieldLocale;
 }
 
 // non default props
@@ -36,13 +43,10 @@ interface ColorFieldState {
 class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
 
   public static defaultProps: ColorFieldDefaultProps = {
-    closeText: 'Close',
-    editText: 'Change',
-    chooseText: 'Pick',
     label: 'Color'
   };
 
-  constructor(props: any) {
+  constructor(props: ColorFieldProps) {
     super(props);
     this.state = {
       colorPickerVisible: false
@@ -61,10 +65,8 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
     } = this.state;
     const {
       color,
-      closeText,
-      chooseText,
-      editText,
-      label
+      label,
+      locale
     } = this.props;
     let textColor;
 
@@ -90,7 +92,7 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
             }}
             onClick={this.onColorPreviewClick}
           >
-            {colorPickerVisible ? closeText : color ? editText : chooseText}
+            {colorPickerVisible ? locale.closeText : color ? locale.editText : locale.chooseText}
           </Button>
           {
             colorPickerVisible ?
@@ -108,4 +110,4 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
   }
 }
 
-export default ColorField;
+export default localize(ColorField);
