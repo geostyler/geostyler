@@ -16,7 +16,7 @@ interface DefaultOperatorComboProps {
   value: ComparisonOperator | undefined;
   /** List of operators to show in this combo */
   operators: string[];
-  /** Mapping function for operator names this combo */
+  /** Mapping function for operator names in this combo */
   operatorNameMappingFunction?: (originalOperatorName: string) => string;
   /** Validation status */
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';

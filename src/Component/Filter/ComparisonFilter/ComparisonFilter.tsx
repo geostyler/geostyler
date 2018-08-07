@@ -52,7 +52,7 @@ export interface DefaultComparisonFilterProps {
   operatorPlaceholderString?: string;
   /** Validation help text for the underlying OperatorCombo */
   operatorValidationHelpString?: string;
-  /** Mapping function for operator names of unterlying OperatorCombo */
+  /** Mapping function for operator names of underlying OperatorCombo */
   operatorNameMappingFunction?: (originalOperatorName: string) => string;
   /** Label for the underlying value field */
   valueLabel?: string;
