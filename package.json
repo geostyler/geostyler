@@ -30,7 +30,7 @@
     "geostyler-data": "0.5.0",
     "geostyler-geojson-parser": "0.3.0",
     "geostyler-openlayers-parser": "0.7.0",
-    "geostyler-sld-parser": "0.7.1",
+    "geostyler-sld-parser": "0.8.0",
     "geostyler-style": "0.7.0",
     "ol": "4.6.5",
     "react": "16.4.2",
