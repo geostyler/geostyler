@@ -23,6 +23,9 @@ export interface LineEditorLocale {
   widthLabel?: string;
   opacityLabel?: string;
   dashLabel?: string;
+  dashOffsetLabel?: string;
+  capLabel?: string;
+  joinLabel?: string;
 }
 
 // non default props
@@ -93,7 +96,7 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
         />
         <OffsetField
           offset={dashOffset}
-          label={dashOffsetLabel}
+          label={locale.dashOffsetLabel}
           onChange={(value: LineSymbolizer['dashOffset']) => {
             symbolizer.dashOffset = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -102,7 +105,7 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
         />
         <LineCapField
           cap={cap}
-          label={capLabel}
+          label={locale.capLabel}
           onChange={(value: LineSymbolizer['cap']) => {
             symbolizer.cap = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -110,7 +113,7 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
         />
         <LineJoinField
           join={join}
-          label={joinLabel}
+          label={locale.joinLabel}
           onChange={(value: LineSymbolizer['join']) => {
             symbolizer.join = value;
             this.props.onSymbolizerChange(symbolizer);
