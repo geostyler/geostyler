@@ -53,6 +53,8 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
     };
   }
 
+  static componentName: string = 'ColorField';
+
   onColorPreviewClick = () => {
     this.setState({
       colorPickerVisible: !this.state.colorPickerVisible
@@ -110,4 +112,4 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
   }
 }
 
-export default localize(ColorField);
+export default localize(ColorField, ColorField.componentName);

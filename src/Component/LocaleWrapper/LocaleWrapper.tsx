@@ -5,7 +5,7 @@ export interface LocaleProps {
     locale?: object;
 }
 
-export const localize = <P extends {}>(Component: React.ComponentType<P & LocaleProps>) => {
+export const localize = <P extends {}>(Component: React.ComponentType<P & LocaleProps>, componentName: string) => {
     class Wrap extends React.Component<P & LocaleProps> {
         static contextTypes = {
             antLocale: PropTypes.object
@@ -15,7 +15,7 @@ export const localize = <P extends {}>(Component: React.ComponentType<P & Locale
             const { antLocale } = this.context;
             return (
                 <Component 
-                    locale={antLocale['Gs' + Component.name]}
+                    locale={antLocale['Gs' + componentName]}
                     {...this.props}
                 />
             );

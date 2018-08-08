@@ -24,6 +24,7 @@ import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
 import UploadButton from './Component/UploadButton/UploadButton';
 import Style from './Component/Style/Style';
+import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 
 export {
   FieldSet,
@@ -51,5 +52,6 @@ export {
   LineEditor,
   FillEditor,
   TextEditor,
-  Style
+  Style,
+  localize
 };

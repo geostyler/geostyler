@@ -41,6 +41,8 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
     this.state = {};
   }
 
+  static componentName: string = 'DataLoader';
+
   public static defaultProps: DefaultDataLoaderProps = {
     onDataRead: (data: GsData) => {return; }
   };
@@ -107,4 +109,4 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
   }
 }
 
-export default localize(DataLoader);
+export default localize(DataLoader, DataLoader.componentName);

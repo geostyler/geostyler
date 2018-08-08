@@ -28,6 +28,8 @@ interface FillEditorProps {
 
 export class FillEditor extends React.Component<FillEditorProps, {}> {
   
+  static componentName: string = 'FillEditor';
+
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
@@ -76,4 +78,4 @@ export class FillEditor extends React.Component<FillEditorProps, {}> {
   }
 }
 
-export default localize(FillEditor);
+export default localize(FillEditor, FillEditor.componentName);

@@ -58,6 +58,8 @@ class Style extends React.Component<StyleProps, StyleState> {
     };
   }
 
+  static componentName: string = 'Style';
+
   public static defaultProps: DefaultStyleProps = {
     style: {
       name: 'My Style',
@@ -191,4 +193,4 @@ class Style extends React.Component<StyleProps, StyleState> {
   }
 }
 
-export default localize(Style);
+export default localize(Style, Style.componentName);

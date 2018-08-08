@@ -106,6 +106,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     };
   }
 
+  static componentName: string = 'Preview';
+
   static getDerivedStateFromProps(
       nextProps: PreviewProps,
       prevState: PreviewState): Partial<PreviewState> {
@@ -323,4 +325,4 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 }
 
-export default localize(Preview);
+export default localize(Preview, Preview.componentName);

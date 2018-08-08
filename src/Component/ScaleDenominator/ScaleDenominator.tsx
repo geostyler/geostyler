@@ -48,6 +48,8 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
     };
   }
 
+  static componentName: string = 'ScaleDenominator';
+
   /**
    * Reacts on changing min scale and pushes the current state to the 'onChange' function
    */
@@ -104,4 +106,4 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
   }
 }
 
-export default localize(ScaleDenominator);
+export default localize(ScaleDenominator, ScaleDenominator.componentName);
