@@ -46,3 +46,15 @@ Generic styler for geodata.
     
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 The most recent version of the Create React App README can be found [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
+## Development
+
+It often makes sense, setting up a local development environment where changes in one module will directly reflect in the other modules.
+
+For this usecase, `npm link` is very helpful. However, when a linked package has the same dependency as the linking package, npm does not resolve dependencies very well. This might lead to unexpected errors, because multiple instances of the same dependency exist. In our case this might happen with openlayers, which is being used in `geostyler` and `geostyler-openlayers-parser`.
+
+To counteract this problem, an alias must be defined in `geostyler`. To do so, in `geostyler/node_modules/react-scripts-ts/config/webpack.config.dev.js` following line needs to be added:
+
+```
+(Line 118): 'ol': path.join(__dirname, '../..', 'ol')
+```
