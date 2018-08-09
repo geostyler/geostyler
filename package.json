@@ -31,7 +31,7 @@
     "geostyler-geojson-parser": "0.3.0",
     "geostyler-openlayers-parser": "0.7.1",
     "geostyler-sld-parser": "0.8.0",
-    "geostyler-style": "0.7.0",
+    "geostyler-style": "0.8.0",
     "moment": "2.22.2",
     "prop-types": "15.6.2",
     "ol": "4.6.5",
