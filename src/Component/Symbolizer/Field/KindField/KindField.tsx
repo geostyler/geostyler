@@ -43,6 +43,8 @@ class KindField extends React.Component<KindFieldProps, {}> {
     symbolizerKinds: ['Circle', 'Fill', 'Icon', 'Line', 'Text']
   };
 
+  static componentName: string = 'KindField';
+
   getKindSelectOptions = (locale: KindFieldLocale) => {
     return this.props.symbolizerKinds!.map(kind => {
       return (
@@ -77,4 +79,4 @@ class KindField extends React.Component<KindFieldProps, {}> {
   }
 }
 
-export default localize(KindField);
+export default localize(KindField, KindField.componentName);

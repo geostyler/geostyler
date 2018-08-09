@@ -41,6 +41,8 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
     defaultIconSource: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg'
   };
 
+  static componentName: string = 'IconEditor';
+
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
@@ -101,4 +103,4 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
   }
 }
 
-export default localize(IconEditor);
+export default localize(IconEditor, IconEditor.componentName);

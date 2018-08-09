@@ -33,6 +33,8 @@ interface CircleEditorProps {
 
 class CircleEditor extends React.Component<CircleEditorProps, {}> {
 
+  static componentName: string = 'CircleEditor';
+
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
@@ -108,4 +110,4 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
   }
 }
 
-export default localize(CircleEditor);
+export default localize(CircleEditor, CircleEditor.componentName);

@@ -31,6 +31,8 @@ interface LineEditorProps {
 
 export class LineEditor extends React.Component<LineEditorProps, {}> {
 
+  static componentName: string = 'LineEditor';
+
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
@@ -88,4 +90,4 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
   }
 }
 
-export default localize(LineEditor);
+export default localize(LineEditor, LineEditor.componentName);

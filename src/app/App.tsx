@@ -55,6 +55,8 @@ class App extends React.Component<AppProps, AppState> {
     };
   }
 
+  static componentName: string = 'App';
+
   render() {
     const { locale } = this.props;
     return (
@@ -109,4 +111,4 @@ class App extends React.Component<AppProps, AppState> {
   }
 }
 
-export default localize(App);
+export default localize(App, App.componentName);

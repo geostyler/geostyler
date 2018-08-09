@@ -88,6 +88,8 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     };
   }
 
+  static componentName: string = 'Rule';
+
   public static defaultProps: DefaultRuleProps = {
     rule: {
       name: 'My Style',
@@ -279,4 +281,4 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   }
 }
 
-export default localize(Rule);
+export default localize(Rule, Rule.componentName);

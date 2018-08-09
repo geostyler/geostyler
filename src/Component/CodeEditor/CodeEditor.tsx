@@ -63,6 +63,8 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     };
   }
 
+  static componentName: string = 'CodeEditor';
+
   componentDidMount() {
     if (this.props.style) {
       this.updateValueFromStyle(this.props.style);
@@ -227,4 +229,4 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 }
 
-export default localize(CodeEditor);
+export default localize(CodeEditor, CodeEditor.componentName);

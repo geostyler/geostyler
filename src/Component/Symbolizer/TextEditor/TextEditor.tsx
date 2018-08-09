@@ -41,6 +41,8 @@ interface TextEditorProps {
 
 export class TextEditor extends React.Component<TextEditorProps, {}> {
 
+  static componentName: string = 'TextEditor';
+  
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
@@ -138,4 +140,4 @@ export class TextEditor extends React.Component<TextEditorProps, {}> {
   }
 }
 
-export default localize(TextEditor);
+export default localize(TextEditor, TextEditor.componentName);

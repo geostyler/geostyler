@@ -42,6 +42,8 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
     this.state = {};
   }
 
+  static componentName: string = 'StyleLoader';
+
   public static defaultProps: DefaultStyleLoaderProps = {
     onStyleRead: (style: GsStyle) => {return; },
   };
@@ -107,4 +109,4 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
   }
 }
 
-export default localize(StyleLoader);
+export default localize(StyleLoader, StyleLoader.componentName);
