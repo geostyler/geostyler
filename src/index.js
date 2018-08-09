@@ -19,9 +19,12 @@ import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
 import IconEditor from './Component/Symbolizer/IconEditor/IconEditor';
 import ColorField from './Component/Symbolizer/Field/ColorField/ColorField';
+import OffsetField from './Component/Symbolizer/Field/OffsetField/OffsetField';
 import OpacityField from './Component/Symbolizer/Field/OpacityField/OpacityField';
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
+import LineCapField from './Component/Symbolizer/Field/LineCapField/LineCapField';
+import LineJoinField from './Component/Symbolizer/Field/LineJoinField/LineJoinField';
 import UploadButton from './Component/UploadButton/UploadButton';
 import Style from './Component/Style/Style';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
@@ -43,9 +46,12 @@ export {
   Preview,
   Editor,
   ColorField,
+  OffsetField,
   OpacityField,
   RadiusField,
   WidthField,
+  LineCapField,
+  LineJoinField,
   UploadButton,
   CircleEditor,
   IconEditor,

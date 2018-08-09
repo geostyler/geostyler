@@ -7,6 +7,7 @@ import {
 // default props
 interface OffsetFieldDefaultProps {
   label: string;
+  disabled?: boolean;
 }
 
 // non default props
@@ -27,7 +28,8 @@ class OffsetField extends React.Component<OffsetFieldProps, {}> {
   render() {
     const {
       offset,
-      label
+      label,
+      ...inputProps
     } = this.props;
 
     return (
@@ -37,6 +39,7 @@ class OffsetField extends React.Component<OffsetFieldProps, {}> {
           value={offset}
           step={1}
           onChange={this.props.onChange}
+          {...inputProps}
         />
       </div>
     );

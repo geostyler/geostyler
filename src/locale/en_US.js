@@ -53,7 +53,10 @@ export default {
         colorLabel: 'Color',
         widthLabel: 'Width',
         opacityLabel: 'Opacity',
-        dashLabel: 'Dash Pattern'
+        dashLabel: 'Dash Pattern',
+        dashOffsetLabel: 'Dash Offset',
+        capLabel: 'Cap',
+        joinLabel: 'Join'
     },
     GsTextEditor: {
         fieldLabel: 'Field',

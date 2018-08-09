@@ -276,7 +276,6 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
         symbolizer: symbolizer
       }]
     };
-
     // parser style to OL style
     styleParser.writeStyle(style)
       .then((olStyles: OlStyle[]) => {

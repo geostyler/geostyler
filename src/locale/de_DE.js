@@ -62,7 +62,10 @@ export default {
         colorLabel: 'Farbe',
         widthLabel: 'Breite',
         opacityLabel: 'Deckkraft',
-        dashLabel: 'Strichmuster'
+        dashLabel: 'Strichmuster',
+        dashOffsetLabel: 'Strichmuster Versatz',
+        capLabel: 'Verschluss',
+        joinLabel: 'Verknüpfung'
     },
     GsTextEditor: {
         fieldLabel: 'Feld',
