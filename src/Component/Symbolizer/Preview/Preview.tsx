@@ -38,7 +38,7 @@ import OlStyleParser from 'geostyler-openlayers-parser';
 
 const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
-// const _cloneDeep = require('lodash/cloneDeep');
+const _cloneDeep = require('lodash/cloneDeep');
 
 import { Data } from 'geostyler-data';
 import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
@@ -311,12 +311,14 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
         // because openlayers only supports returning a single function, or an array of
         // styles, but not both mixed.
         if (textSymbolizerIdxs.length > 0) {
-
           const newStyleFuncWithTextStyleFn = (feat: OlFeature, resolution: number) => {
+            // IMPORTANT: need to copy olStyles, otherwise page crashes when changing window size. 
+            //            Closure problems...
+            const olStylesCopy = _cloneDeep(olStyles);
             // push all TextSymbolizers into textStyleFns
             const textStyleFns: ol.StyleFunction[] = [];
             textSymbolizerIdxs.forEach((idx: number) => {
-              const textFn: ol.StyleFunction = olStyles[0][idx] as ol.StyleFunction;
+              const textFn: ol.StyleFunction = olStylesCopy[0][idx] as ol.StyleFunction;
               textStyleFns.push(textFn);
             });
             // create new array with ol.style.Text styles based on textStyleFns
@@ -330,11 +332,11 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
 
             // remove all TextSymbolizers from olStyles 
             for (let i = textSymbolizerIdxs.length - 1; i >= 0; i--) {
-              olStyles[0].splice(textSymbolizerIdxs[i], 1);
+              olStylesCopy[0].splice(textSymbolizerIdxs[i], 1);
             }
 
             // push all non-text styles to nonFnStyles and create new ol.style Objects
-            const nonFnStyles: OlStyle[] = olStyles[0] as OlStyle[];
+            const nonFnStyles: OlStyle[] = olStylesCopy[0] as OlStyle[];
             nonFnStyles.map((olStyle: OlStyle) => {
                 if (olStyle.getFill() instanceof OlStyleFill) {
                   return new OlStyle({
