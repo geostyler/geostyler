@@ -98,7 +98,8 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     rule: {
       name: 'My Style',
       symbolizer: [{
-        kind: 'Circle'
+        kind: 'Mark',
+        wellKnownName: 'Circle'
       }]
     },
     dataProjection: 'EPSG:4326'

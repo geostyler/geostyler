@@ -38,6 +38,16 @@ export default {
         strokeWidthLabel: 'Stroke-Width',
         strokeOpacityLabel: 'Stroke-Opacity'
     },
+    GsWellKnownNameEditor: {
+        radiusLabel: 'Radius',
+        radius2Label: 'Radius2',
+        fillOpacityLabel: 'Fill-Opacity',
+        fillColorLabel: 'Fill-Color',
+        strokeColorLabel: 'Stroke-Color',
+        strokeWidthLabel: 'Stroke-Width',
+        strokeOpacityLabel: 'Stroke-Opacity',
+        rotationLabel: 'Rotation'
+    },
     GsFillEditor: {
         fillOpacityLabel: 'Fill-Opacity',
         fillColorLabel: 'Fill-Color',
@@ -79,7 +89,7 @@ export default {
     GsKindField: {
         label: 'Kind',
         symbolizerKinds: {
-            Circle: 'Circle',
+            Mark: 'Mark',
             Fill: 'Fill',
             Icon: 'Icon',
             Line: 'Line',
@@ -91,6 +101,17 @@ export default {
         maxScaleDenominatorLabelText: 'Max. Scale',
         minScaleDenominatorPlaceholderText: 'Enter min. Scale (Optional)',
         maxScaleDenominatorPlaceholderText: 'Enter max. Scale (Optional)'
+    },
+    GsWellKnownNameField: {
+        label: 'WellKnownName',
+        wellKnownNames: {
+          Circle: 'Circle',
+          Square: 'Square',
+          Triangle: 'Triangle',
+          Star: 'Star',
+          Cross: 'Cross',
+          X: 'X'
+        }
     },
     ...en_US
 };

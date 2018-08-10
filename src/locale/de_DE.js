@@ -47,6 +47,16 @@ export default {
         strokeWidthLabel: 'Randbreite',
         strokeOpacityLabel: 'Deckkraft Rand'
     },
+    GsWellKnownNameEditor: {
+        radiusLabel: 'Radius',
+        radius2Label: 'Radius2',
+        fillOpacityLabel: 'Deckkraft Füllung',
+        fillColorLabel: 'Füllfarbe',
+        strokeColorLabel: 'Randfarbe',
+        strokeWidthLabel: 'Randbreite',
+        strokeOpacityLabel: 'Deckkraft Rand',
+        rotationLabel: 'Rotation'
+    },
     GsFillEditor: {
         fillOpacityLabel: 'Deckkraft Füllung',
         fillColorLabel: 'Füllfarbe',
@@ -88,7 +98,7 @@ export default {
     GsKindField: {
         label: 'Art',
         symbolizerKinds: {
-            Circle: 'Kreis',
+            Mark: 'Mark',
             Fill: 'Füllung',
             Icon: 'Icon',
             Line: 'Linie',
@@ -100,6 +110,17 @@ export default {
         maxScaleDenominatorLabelText: 'Max. Maßstabszahl',
         minScaleDenominatorPlaceholderText: 'Min. Maßstabszahl eingeben (Optional)',
         maxScaleDenominatorPlaceholderText: 'Max. Maßstabszahl eingeben (Optional)'
+    },
+    GsWellKnownNameField: {
+        label: 'WellKnownName',
+        wellKnownNames: {
+          Circle: 'Kreis',
+          Square: 'Quadrat',
+          Triangle: 'Dreieck',
+          Star: 'Stern',
+          Cross: 'Kreuz',
+          X: 'X'
+        }
     },
     ...de_DE
 };

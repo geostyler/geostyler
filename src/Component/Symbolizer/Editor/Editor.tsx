@@ -8,7 +8,7 @@ import {
   SymbolizerKind
 } from 'geostyler-style';
 
-import CircleEditor from '../CircleEditor/CircleEditor';
+import MarkEditor from '../MarkEditor/MarkEditor';
 import LineEditor from '../LineEditor/LineEditor';
 import FillEditor from '../FillEditor/FillEditor';
 import TextEditor from '../TextEditor/TextEditor';
@@ -48,7 +48,8 @@ class Editor extends React.Component<EditorProps, EditorState> {
     super(props);
     this.state = {
       symbolizer: {
-        kind: 'Circle'
+        kind: 'Mark',
+        wellKnownName: 'Circle'
       }
     };
   }
@@ -78,9 +79,9 @@ class Editor extends React.Component<EditorProps, EditorState> {
 
   getUiFromSymbolizer = (symbolizer: Symbolizer): React.ReactNode => {
     switch (symbolizer.kind) {
-      case 'Circle':
+      case 'Mark':
         return (
-          <CircleEditor
+          <MarkEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
           />
@@ -132,6 +133,9 @@ class Editor extends React.Component<EditorProps, EditorState> {
           kind={symbolizer.kind}
           onChange={(kind: SymbolizerKind) => {
             const newSymbolizer = {kind} as Symbolizer;
+            if (newSymbolizer.kind === 'Mark') {
+              newSymbolizer.wellKnownName = 'Circle';
+            }
             this.onSymbolizerChange(newSymbolizer);
           }}
         />
