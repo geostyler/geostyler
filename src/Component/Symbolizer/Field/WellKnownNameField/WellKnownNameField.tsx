@@ -37,7 +37,7 @@ interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefaultProps
 /**
  * WellKnownNameField
  */
-class WellKnownNameField extends React.Component<WellKnownNameFieldProps, {}> {
+export class WellKnownNameField extends React.Component<WellKnownNameFieldProps, {}> {
 
   static componentName: string = 'WellKnownNameField';
 

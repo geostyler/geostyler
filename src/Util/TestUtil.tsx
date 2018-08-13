@@ -87,6 +87,24 @@ export class TestUtil {
     };
   }
 
+  static getMarkStyle = () => {
+    const simpleSquare: Style = {
+      name: 'Simple Square',
+      type: 'Point',
+      rules: [{
+        name: '',
+        symbolizer: {
+          kind: 'Mark',
+          wellKnownName: 'Square',
+          points: 4,
+          angle: 45
+        }
+      }]
+    };
+
+    return simpleSquare;
+  }
+
   /**
    * Returns a simple line symbolizer object.
    *

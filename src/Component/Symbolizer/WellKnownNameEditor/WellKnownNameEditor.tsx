@@ -31,7 +31,7 @@ interface WellKnownNameEditorProps {
   locale?: WellKnownNameEditorLocale;
 }
 
-class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps, {}> {
+export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps, {}> {
   
   static componentName: string = 'WellKnownNameEditor';
 
