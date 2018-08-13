@@ -14,7 +14,7 @@ export const localize = <P extends {}>(Component: React.ComponentType<P & Locale
         render() {
             const { antLocale } = this.context;
             return (
-                <Component 
+                <Component
                     locale={antLocale['Gs' + componentName]}
                     {...this.props}
                 />

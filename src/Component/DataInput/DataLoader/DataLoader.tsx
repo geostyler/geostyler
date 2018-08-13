@@ -21,7 +21,7 @@ export interface DataLoaderLocale {
 // default props
 interface DefaultDataLoaderProps {
   onDataRead: (data: GsData) => void;
-  locale?: DataLoaderLocale; 
+  locale?: DataLoaderLocale;
 }
 
 // non default props
