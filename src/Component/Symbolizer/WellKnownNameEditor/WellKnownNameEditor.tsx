@@ -9,6 +9,7 @@ import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
 import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
+import RotateField from '../Field/RotateField/RotateField';
 
 const  _cloneDeep = require('lodash/cloneDeep');
 
@@ -42,6 +43,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
       radius,
       color,
       opacity,
+      rotate,
       strokeColor,
       strokeWidth,
       strokeOpacity
@@ -98,6 +100,14 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
           label={locale.strokeOpacityLabel}
           onChange={(value: number) => {
             symbolizer.strokeOpacity = value;
+            this.props.onSymbolizerChange(symbolizer);
+          }}
+        />
+        <RotateField
+          rotate={rotate}
+          label={locale.rotationLabel}
+          onChange={(value: number) => {
+            symbolizer.rotate = value;
             this.props.onSymbolizerChange(symbolizer);
           }}
         />
