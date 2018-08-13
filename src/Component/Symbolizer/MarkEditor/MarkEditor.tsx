@@ -54,7 +54,11 @@ class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState> {
           wellKnownName={symbolizer.wellKnownName}
           onChange={(wkn: WellKnownName) => {
             symbolizer.wellKnownName = wkn;
-            this.onSymbolizerChange(symbolizer);
+            const newSymbolizer: MarkSymbolizer = {
+              kind: 'Mark',
+              wellKnownName: wkn
+            } as MarkSymbolizer;
+            this.onSymbolizerChange(newSymbolizer);
           }}
         />
         <WellKnownNameEditor
