@@ -32,6 +32,8 @@ interface WellKnownNameEditorProps {
 }
 
 class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps, {}> {
+  
+  static componentName: string = 'WellKnownNameEditor';
 
   render () {
     const symbolizer = _cloneDeep(this.props.symbolizer);
@@ -104,4 +106,4 @@ class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps, {}> 
   }
 }
 
-export default localize(WellKnownNameEditor);
+export default localize(WellKnownNameEditor, WellKnownNameEditor.componentName);

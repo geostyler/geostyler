@@ -39,6 +39,8 @@ interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefaultProps
  */
 class WellKnownNameField extends React.Component<WellKnownNameFieldProps, {}> {
 
+  static componentName: string = 'WellKnownNameField';
+
   public static defaultProps: WellKnownNameFieldDefaultProps = {
     wellKnownName: 'Circle',
     wellKnownNames: ['Circle', 'Square', 'Triangle', 'Star', 'Cross', 'X']
@@ -78,4 +80,4 @@ class WellKnownNameField extends React.Component<WellKnownNameFieldProps, {}> {
   }
 }
 
-export default localize(WellKnownNameField);
+export default localize(WellKnownNameField, WellKnownNameField.componentName);
