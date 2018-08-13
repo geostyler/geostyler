@@ -30,14 +30,6 @@ export default {
         downloadButtonLabel: 'Save as File',
         formatSelectLabel: 'Format'
     },
-    GsCircleEditor: {
-        radiusLabel: 'Radius',
-        fillOpacityLabel: 'Fill-Opacity',
-        fillColorLabel: 'Fill-Color',
-        strokeColorLabel: 'Stroke-Color',
-        strokeWidthLabel: 'Stroke-Width',
-        strokeOpacityLabel: 'Stroke-Opacity'
-    },
     GsWellKnownNameEditor: {
         radiusLabel: 'Radius',
         radius2Label: 'Radius2',
