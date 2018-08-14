@@ -3,7 +3,8 @@ import * as React from 'react';
 import {
   Style as GsStyle,
   Rule as GsRule,
-  Symbolizer as GsSymbolizer
+  Symbolizer as GsSymbolizer,
+  MarkSymbolizer as GsMarkSymbolizer
 } from 'geostyler-style';
 
 import {
@@ -81,55 +82,17 @@ class Style extends React.Component<StyleProps, StyleState> {
    *
    */
   getSymbolizerFromStyleType(style: GsStyle): GsSymbolizer[] {
-    const symbolizer: GsSymbolizer = {
-      kind: style.rules[0].symbolizer[0].kind
-    } as GsSymbolizer;
-
-    if (symbolizer.kind === 'Icon') {
-      symbolizer.image = this.props.defaultIconSource;
+    const symbolizer: GsMarkSymbolizer = style.rules[0].symbolizer[0] as GsMarkSymbolizer;
+    if (style.rules[0].symbolizer[0].kind === 'Mark') {
+      return [{
+        kind: symbolizer.kind,
+        wellKnownName: symbolizer.wellKnownName
+      } as GsMarkSymbolizer];
+    } else {
+      return [{
+        kind: symbolizer.kind
+      } as GsSymbolizer];
     }
-
-    return [symbolizer];
-
-    // NOTE: This snippet can be used, if a new rule should have the same amount of symbolizers as the first rule
-    //
-    // const symbolizers: GsSymbolizer[] = style.rules[0].symbolizer.map((symb: GsSymbolizer) => {
-    //   const sym: GsSymbolizer = {
-    //     kind: symb.kind
-    //   } as GsSymbolizer;
-    //   return sym;
-    // });
-    // return symbolizers;
-
-    // NOTE: This snippet can be used, if property type of Style will NOT be removed
-    //
-    // const symbolizers: GsSymbolizer[] = [];
-    // const types: GsSymbolizer[] = [];
-    // style.type.forEach( (t: string) => {
-    //   switch (t) {
-    //     case 'Point':
-    //       types.push({
-    //         kind: 'Circle'
-    //       });
-    //       break;
-    //     case 'Line':
-    //       types.push({
-    //         kind: 'Line'
-    //       });
-    //       break;
-    //     case 'Fill':
-    //       types.push({
-    //         kind: 'Fill'
-    //       });
-    //       break;
-    //     default:
-    //       types.push({
-    //         kind: 'Circle'
-    //       });
-    //       break;
-    //   }
-    // });
-    // return types;
   }
 
   onNameChange = (name: string) => {

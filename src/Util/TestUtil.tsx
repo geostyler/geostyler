@@ -90,15 +90,14 @@ export class TestUtil {
   static getMarkStyle = () => {
     const simpleSquare: Style = {
       name: 'Simple Square',
-      type: 'Point',
       rules: [{
         name: '',
-        symbolizer: {
+        symbolizer: [{
           kind: 'Mark',
           wellKnownName: 'Square',
           points: 4,
           angle: 45
-        }
+        }]
       }]
     };
 
