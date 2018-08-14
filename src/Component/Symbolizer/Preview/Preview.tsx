@@ -171,7 +171,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       });
       this.dataLayer.getSource().addFeature(sampleFeature);
     }
-    
+
     // zoom to feature extent
     const extent = this.dataLayer.getSource().getExtent();
     this.map.getView().fit(extent, {
