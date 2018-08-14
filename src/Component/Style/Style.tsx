@@ -26,6 +26,7 @@ export interface StyleLocale {
 // default props
 interface DefaultStyleProps {
   style: GsStyle;
+  defaultIconSource?: string;
   filterUiProps?: DefaultComparisonFilterProps;
   previewProps?: DefaultPreviewProps;
   ruleNameProps?: DefaultNameFieldProps;
@@ -64,7 +65,8 @@ class Style extends React.Component<StyleProps, StyleState> {
     style: {
       name: 'My Style',
       rules: []
-    }
+    },
+    defaultIconSource: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg'
   };
 
   componentDidUpdate(prevProps: any, prevState: any) {
@@ -181,6 +183,9 @@ class Style extends React.Component<StyleProps, StyleState> {
     const newSymbolizer: GsSymbolizer = {
       kind: style.rules[0].symbolizer[0].kind
     };
+    if (newSymbolizer.kind === 'Icon') {
+      newSymbolizer.image = this.props.defaultIconSource;
+    }
     const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
     if (ruleIdx > -1) {
       style.rules[ruleIdx].symbolizer.push(newSymbolizer);
