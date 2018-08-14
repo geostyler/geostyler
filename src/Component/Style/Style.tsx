@@ -82,17 +82,21 @@ class Style extends React.Component<StyleProps, StyleState> {
   /**
    *
    */
-  getSymbolizerFromStyleType(style: GsStyle): GsSymbolizer[] {
-    const symbolizer: GsMarkSymbolizer = style.rules[0].symbolizer[0] as GsMarkSymbolizer;
-    if (style.rules[0].symbolizer[0].kind === 'Mark') {
-      return [{
+  getDefaultSymbolizer(symbolizer: GsSymbolizer): GsSymbolizer {
+    if (symbolizer.kind === 'Mark') {
+      return {
         kind: symbolizer.kind,
-        wellKnownName: symbolizer.wellKnownName
-      } as GsMarkSymbolizer];
+        wellKnownName: 'Circle'
+      } as GsMarkSymbolizer;
+    } else if (symbolizer.kind === 'Icon') {
+      return {
+        kind: symbolizer.kind,
+        image: this.props.defaultIconSource
+      } as GsIconSymbolizer;
     } else {
-      return [{
+      return {
         kind: symbolizer.kind
-      } as GsSymbolizer];
+      } as GsSymbolizer;
     }
   }
 
@@ -125,7 +129,7 @@ class Style extends React.Component<StyleProps, StyleState> {
     const randomId = Math.floor(Math.random() * 10000);
     const newRule: GsRule = {
       name: 'rule_' + randomId,
-      symbolizer: this.getSymbolizerFromStyleType(style)
+      symbolizer: [this.getDefaultSymbolizer(style.rules[0].symbolizer[0])]
     };
     style.rules = [...style.rules, newRule];
     if (this.props.onStyleChange) {
@@ -148,22 +152,7 @@ class Style extends React.Component<StyleProps, StyleState> {
     const style = _cloneDeep(this.state.style);
     // TODO generate some kind of id
     // right now, all properties of symbolizer must match
-    let newSymbolizer: GsSymbolizer;
-    if (style.rules[0].symbolizer[0].kind === 'Mark') {
-      const markSymbolizer: GsMarkSymbolizer = {
-        kind: 'Mark',
-        wellKnownName: 'Circle'
-      };
-      newSymbolizer = markSymbolizer;
-    } else if (style.rules[0].symbolizer[0].kind === 'Icon') {
-      const iconSymbolizer: GsIconSymbolizer = {
-        kind: 'Icon',
-        image: this.props.defaultIconSource
-      };
-      newSymbolizer = iconSymbolizer;
-    } else {
-      newSymbolizer.kind = style.rules[0].symbolizer[0].kind;
-    }
+    let newSymbolizer: GsSymbolizer = this.getDefaultSymbolizer(rule.symbolizer[0]);
     const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
     if (ruleIdx > -1) {
       style.rules[ruleIdx].symbolizer.push(newSymbolizer);
