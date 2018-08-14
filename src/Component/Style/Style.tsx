@@ -85,6 +85,10 @@ class Style extends React.Component<StyleProps, StyleState> {
       kind: style.rules[0].symbolizer[0].kind
     } as GsSymbolizer;
 
+    if (symbolizer.kind === 'Icon') {
+      symbolizer.image = this.props.defaultIconSource;
+    }
+
     return [symbolizer];
 
     // NOTE: This snippet can be used, if a new rule should have the same amount of symbolizers as the first rule
