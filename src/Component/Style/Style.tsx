@@ -4,7 +4,8 @@ import {
   Style as GsStyle,
   Rule as GsRule,
   Symbolizer as GsSymbolizer,
-  MarkSymbolizer as GsMarkSymbolizer
+  MarkSymbolizer as GsMarkSymbolizer,
+  IconSymbolizer as GsIconSymbolizer
 } from 'geostyler-style';
 
 import {
@@ -147,11 +148,21 @@ class Style extends React.Component<StyleProps, StyleState> {
     const style = _cloneDeep(this.state.style);
     // TODO generate some kind of id
     // right now, all properties of symbolizer must match
-    const newSymbolizer: GsSymbolizer = {
-      kind: style.rules[0].symbolizer[0].kind
-    };
-    if (newSymbolizer.kind === 'Icon') {
-      newSymbolizer.image = this.props.defaultIconSource;
+    let newSymbolizer: GsSymbolizer;
+    if (style.rules[0].symbolizer[0].kind === 'Mark') {
+      const markSymbolizer: GsMarkSymbolizer = {
+        kind: 'Mark',
+        wellKnownName: 'Circle'
+      };
+      newSymbolizer = markSymbolizer;
+    } else if (style.rules[0].symbolizer[0].kind === 'Icon') {
+      const iconSymbolizer: GsIconSymbolizer = {
+        kind: 'Icon',
+        image: this.props.defaultIconSource
+      };
+      newSymbolizer = iconSymbolizer;
+    } else {
+      newSymbolizer.kind = style.rules[0].symbolizer[0].kind;
     }
     const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
     if (ruleIdx > -1) {
