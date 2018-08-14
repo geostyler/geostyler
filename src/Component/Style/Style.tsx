@@ -169,6 +169,9 @@ class Style extends React.Component<StyleProps, StyleState> {
     // if all properties of a symbolizer are equal, remove this symbolizer
     const newSymbolizers = style.rules[ruleIdx].symbolizer
       .filter((symb: GsSymbolizer) => !_isEqual(symb, symbolizer));
+    if (newSymbolizers.length === 0) {
+      newSymbolizers.push(this.getDefaultSymbolizer({kind: 'Mark'} as GsSymbolizer));
+    }
     style.rules[ruleIdx].symbolizer = newSymbolizers;
     if (this.props.onStyleChange) {
       this.props.onStyleChange(style);
