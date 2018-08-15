@@ -48,12 +48,16 @@ export interface DefaultComparisonFilterProps {
   attributeValidationHelpString?: string;
   /** Label for the underlying OperatorCombo */
   operatorLabel?: string;
+  /** Show title of selected item in underlying OperatorCombo */
+  showOperatorTitles: boolean;
   /** Placeholder for the underlying OperatorCombo */
   operatorPlaceholderString?: string;
   /** Validation help text for the underlying OperatorCombo */
   operatorValidationHelpString?: string;
   /** Mapping function for operator names of underlying OperatorCombo */
   operatorNameMappingFunction?: (originalOperatorName: string) => string;
+  /** Mapping function for operator title in underlying OperatorCombo */
+  operatorTitleMappingFunction?: (originalOperatorName: string) => string;
   /** Label for the underlying value field */
   valueLabel?: string;
   /** Placeholder for the underlying value field */
@@ -178,9 +182,11 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     attributePlaceholderString: undefined,
     attributeValidationHelpString: undefined,
     operatorLabel: undefined,
+    showOperatorTitles: true,
     operatorPlaceholderString: undefined,
     operatorValidationHelpString: undefined,
     operatorNameMappingFunction: n => n,
+    operatorTitleMappingFunction: t => t,
     valueLabel: undefined,
     valuePlaceholder: undefined,
     valueValidationHelpString: undefined,
@@ -494,6 +500,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                 label={this.props.operatorLabel}
                 validateStatus={this.state.validateStatus.operator}
                 help={this.props.operatorValidationHelpString}
+                operatorTitleMappingFunction={this.props.operatorTitleMappingFunction}
+                showTitles={this.props.showOperatorTitles}
               />
             </Col>
             {

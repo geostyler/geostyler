@@ -10,6 +10,8 @@ const Option = Select.Option;
 interface DefaultOperatorComboProps {
   /** Label for this field */
   label: string;
+  /** Show title of selected item */
+  showTitles: boolean;
   /** The default text to place into the empty field */
   placeholder: string;
   /** Initial value set to the field */
@@ -18,6 +20,8 @@ interface DefaultOperatorComboProps {
   operators: string[];
   /** Mapping function for operator names in this combo */
   operatorNameMappingFunction?: (originalOperatorName: string) => string;
+  /** Mapping function for operator title in this combo */
+  operatorTitleMappingFunction?: (originalOperatorName: string) => string;
   /** Validation status */
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
   /** Element to show a help text */
@@ -42,10 +46,12 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
 
   public static defaultProps: DefaultOperatorComboProps = {
     label: 'Operator',
+    showTitles: true,
     placeholder: 'Select Operator',
     value: undefined,
     operators: ['==', '*=', '!=', '<', '<=', '>', '>='],
     operatorNameMappingFunction: n => n,
+    operatorTitleMappingFunction: t => t,
     validateStatus: 'error',
     help: 'Please select an operator.'
   };
@@ -83,10 +89,15 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
 
     // create an option per attribute
     options = operators.map(operator => {
+      const title = this.props.showTitles
+        ? this.props.operatorTitleMappingFunction(operator)
+        : ' ';
+
       return (
         <Option
           key={operator}
           value={operator}
+          title={title}
         >
         {this.props.operatorNameMappingFunction(operator)}
         </Option>
