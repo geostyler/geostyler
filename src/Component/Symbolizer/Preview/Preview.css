@@ -21,4 +21,5 @@
   border: 1px solid lightgrey;
   padding: 5px;
   z-index: 2;
+  overflow: visible;
 }
