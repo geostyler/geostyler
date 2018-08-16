@@ -19,6 +19,8 @@ interface DefaultAttributeComboProps {
    * Should return true to accept each attribute or false to reject it.
    */
   attributeNameFilter: (attrName: string) => boolean;
+  /** Mapping function for attribute names of this combo */
+  attributeNameMappingFunction?: (originalAttributeName: string) => string;
   /** Validation status */
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
   /** Element to show a help text */
@@ -47,6 +49,7 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
     value: undefined,
     hideAttributeType: false,
     attributeNameFilter: () => true,
+    attributeNameMappingFunction: n => n,
     validateStatus: 'success',
     help: 'Please select an attribute.'
   };
@@ -91,12 +94,13 @@ class AttributeCombo extends React.Component<AttributeComboProps, AttributeCombo
 
       // create an option per attribute
       options = attrNames.filter(attributeNameFilter!).map(attrName => {
+        const attrNameMapped = this.props.attributeNameMappingFunction(attrName);
         return (
           <Option
             key={attrName}
             value={attrName}
           >
-            {hideAttributeType ? attrName : `${attrName} (${attrDefs[attrName].type})`}
+            {hideAttributeType ? attrNameMapped : `${attrNameMapped} (${attrDefs[attrName].type})`}
           </Option>
         );
       });
