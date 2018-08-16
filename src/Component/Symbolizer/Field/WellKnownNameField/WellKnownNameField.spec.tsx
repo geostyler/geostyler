@@ -19,4 +19,27 @@ describe('WellKnownNameField', () => {
     expect(wrapper).not.toBeUndefined();
   });
 
+  it('creates 6 default options', () => {
+    expect(wrapper.instance().getWKNSelectOptions()).toHaveLength(6);
+  });
+
+  it('can handle wellKnownNames property', () => {
+    expect.assertions(2);
+    wrapper.setProps({
+      wellKnownNames: ['Circle', 'Square']
+    });
+    expect(wrapper.instance().props.wellKnownNames).toHaveLength(2);
+    expect(wrapper.instance().getWKNSelectOptions()).toHaveLength(2);
+  });
+
+  it('can handle wellKnownName property', () => {
+    expect.assertions(2);
+    wrapper.setProps({
+      wellKnownName: 'Square'
+    });
+    expect(wrapper.instance().props.wellKnownName).toEqual('Square');
+    const select = wrapper.find('Select');
+    const selectValue = select.props().value;
+    expect(selectValue).toEqual('Square');
+  });
 });
