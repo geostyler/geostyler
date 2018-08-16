@@ -84,8 +84,8 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
       activeParser
     } = this.state;
 
-    const { 
-      locale 
+    const {
+      locale
     } = this.props;
 
     return (

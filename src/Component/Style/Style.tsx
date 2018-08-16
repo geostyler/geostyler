@@ -81,7 +81,7 @@ class Style extends React.Component<StyleProps, StyleState> {
    *
    */
   getSymbolizerFromStyleType(style: GsStyle): GsSymbolizer[] {
-    const symbolizer: GsSymbolizer = { 
+    const symbolizer: GsSymbolizer = {
       kind: style.rules[0].symbolizer[0].kind
     } as GsSymbolizer;
 
@@ -92,7 +92,7 @@ class Style extends React.Component<StyleProps, StyleState> {
     return [symbolizer];
 
     // NOTE: This snippet can be used, if a new rule should have the same amount of symbolizers as the first rule
-    // 
+    //
     // const symbolizers: GsSymbolizer[] = style.rules[0].symbolizer.map((symb: GsSymbolizer) => {
     //   const sym: GsSymbolizer = {
     //     kind: symb.kind
@@ -100,9 +100,9 @@ class Style extends React.Component<StyleProps, StyleState> {
     //   return sym;
     // });
     // return symbolizers;
-    
+
     // NOTE: This snippet can be used, if property type of Style will NOT be removed
-    // 
+    //
     // const symbolizers: GsSymbolizer[] = [];
     // const types: GsSymbolizer[] = [];
     // style.type.forEach( (t: string) => {

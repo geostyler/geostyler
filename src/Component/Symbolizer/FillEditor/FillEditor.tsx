@@ -27,7 +27,7 @@ interface FillEditorProps {
 }
 
 export class FillEditor extends React.Component<FillEditorProps, {}> {
-  
+
   static componentName: string = 'FillEditor';
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {

@@ -42,7 +42,7 @@ interface TextEditorProps {
 export class TextEditor extends React.Component<TextEditorProps, {}> {
 
   static componentName: string = 'TextEditor';
-  
+
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }

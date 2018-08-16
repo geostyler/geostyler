@@ -298,7 +298,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     // parser style to OL style
     styleParser.writeStyle(style)
       .then((olStyles: (OlStyle|ol.StyleFunction)[][]) => {
-        
+
         const textSymbolizerIdxs: number[] = [];
         olStyles[0].forEach((olStyle: OlStyle|ol.StyleFunction, idx: number) => {
           if (!(olStyle instanceof OlStyle)) {
@@ -306,13 +306,13 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           }
         });
 
-        // If at least one textSymbolizer is being used, restructure to 
+        // If at least one textSymbolizer is being used, restructure to
         // return a function that returns an array of styles. This needs to be done,
         // because openlayers only supports returning a single function, or an array of
         // styles, but not both mixed.
         if (textSymbolizerIdxs.length > 0) {
           const newStyleFuncWithTextStyleFn = (feat: OlFeature, resolution: number) => {
-            // IMPORTANT: need to copy olStyles, otherwise page crashes when changing window size. 
+            // IMPORTANT: need to copy olStyles, otherwise page crashes when changing window size.
             //            Closure problems...
             const olStylesCopy = _cloneDeep(olStyles);
             // push all TextSymbolizers into textStyleFns
@@ -330,7 +330,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
               });
             });
 
-            // remove all TextSymbolizers from olStyles 
+            // remove all TextSymbolizers from olStyles
             for (let i = textSymbolizerIdxs.length - 1; i >= 0; i--) {
               olStylesCopy[0].splice(textSymbolizerIdxs[i], 1);
             }
@@ -357,9 +357,9 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           };
           this.dataLayer.setStyle(newStyleFuncWithTextStyleFn);
           return newStyleFuncWithTextStyleFn;
-          
+
         } else {
-          
+
           // apply new OL style to vector layer
           this.dataLayer.setStyle(olStyles[0] as OlStyle[]);
           return olStyles[0];

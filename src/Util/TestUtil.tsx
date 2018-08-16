@@ -132,7 +132,7 @@ export class TestUtil {
 
   /**
    * Returns a simple labeled point style object.
-   * 
+   *
    * @returns {Style} The labeled style object
    */
   static getLabeledPointStyle = () => {
