@@ -7,6 +7,7 @@ import { WellKnownName } from 'geostyler-style';
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 
+const _get = require('lodash/get');
 const Option = Select.Option;
 
 // i18n
@@ -48,12 +49,14 @@ export class WellKnownNameField extends React.Component<WellKnownNameFieldProps,
 
   getWKNSelectOptions = (locale: WellKnownNameFieldLocale) => {
     return this.props.wellKnownNames!.map(name => {
+      // if locales are not available, set Option text to name value
+      const loc = _get(locale, 'wellKnownNames[' + name + ']') || name;
       return (
         <Option
           key={name}
           value={name}
         >
-          {locale.wellKnownNames[name]}
+          {loc}
         </Option>
       );
     });
@@ -68,7 +71,7 @@ export class WellKnownNameField extends React.Component<WellKnownNameFieldProps,
 
     return (
       <div className="editor-field wellknownname-field">
-        <span className="label">{`${locale.label}:`}</span>
+        <span className="label">{`${_get(locale, 'label')}:`}</span>
         <Select
           value={wellKnownName}
           onChange={onChange}

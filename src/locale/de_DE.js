@@ -41,7 +41,6 @@ export default {
     },
     GsWellKnownNameEditor: {
         radiusLabel: 'Radius',
-        radius2Label: 'Radius2',
         fillOpacityLabel: 'Deckkraft Füllung',
         fillColorLabel: 'Füllfarbe',
         strokeColorLabel: 'Randfarbe',

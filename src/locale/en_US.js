@@ -32,7 +32,6 @@ export default {
     },
     GsWellKnownNameEditor: {
         radiusLabel: 'Radius',
-        radius2Label: 'Radius2',
         fillOpacityLabel: 'Fill-Opacity',
         fillColorLabel: 'Fill-Color',
         strokeColorLabel: 'Stroke-Color',

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import { 
+import {
   MarkSymbolizer,
   Symbolizer
  } from 'geostyler-style';
@@ -12,11 +12,11 @@ import WidthField from '../Field/WidthField/WidthField';
 import RotateField from '../Field/RotateField/RotateField';
 
 const  _cloneDeep = require('lodash/cloneDeep');
+const _get = require('lodash/get');
 
 // i18n
 interface WellKnownNameEditorLocale {
   radiusLabel?: string;
-  radius2Label?: string;
   fillOpacityLabel?: string;
   fillColorLabel?: string;
   strokeColorLabel?: string;
@@ -33,7 +33,7 @@ interface WellKnownNameEditorProps {
 }
 
 export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps, {}> {
-  
+
   static componentName: string = 'WellKnownNameEditor';
 
   render () {
@@ -56,7 +56,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     return (
       <div>
         <RadiusField
-          label={locale.radiusLabel}
+          label={_get(locale, 'radiusLabel')}
           radius={radius}
           onChange={(value: number) => {
             symbolizer.radius = value;
@@ -65,7 +65,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
         />
         <ColorField
           color={color}
-          label={locale.fillColorLabel}
+          label={_get(locale, 'fillColorLabel')}
           onChange={(value: string) => {
             symbolizer.color = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -73,7 +73,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
         />
         <OpacityField
           opacity={opacity}
-          label={locale.fillOpacityLabel}
+          label={_get(locale, 'fillOpacityLabel')}
           onChange={(value: number) => {
             symbolizer.opacity = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -81,7 +81,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
         />
         <ColorField
           color={strokeColor}
-          label={locale.strokeColorLabel}
+          label={_get(locale, 'strokeColorLabel')}
           onChange={(value: string) => {
             symbolizer.strokeColor = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -89,7 +89,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
         />
         <WidthField
           width={strokeWidth}
-          label={locale.strokeWidthLabel}
+          label={_get(locale, 'strokeWidthLabel')}
           onChange={(value: number) => {
             symbolizer.strokeWidth = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -97,7 +97,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
         />
         <OpacityField
           opacity={strokeOpacity}
-          label={locale.strokeOpacityLabel}
+          label={_get(locale, 'strokeOpacityLabel')}
           onChange={(value: number) => {
             symbolizer.strokeOpacity = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -105,7 +105,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
         />
         <RotateField
           rotate={rotate}
-          label={locale.rotationLabel}
+          label={_get(locale, 'rotationLabel')}
           onChange={(value: number) => {
             symbolizer.rotate = value;
             this.props.onSymbolizerChange(symbolizer);
