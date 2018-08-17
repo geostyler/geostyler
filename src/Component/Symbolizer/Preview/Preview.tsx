@@ -242,7 +242,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   getSampleGeomFromSymbolizer = () => {
     const kind: SymbolizerKind = _get(this.state, 'symbolizer[0].kind');
     switch (kind) {
-      case 'Circle':
+      case 'Mark':
       case 'Icon':
       case 'Text':
         return new OlGeomPoint([7.10066, 50.735851]);
@@ -401,7 +401,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
                 <TabPane
                   key={idx}
                   tab={idx}
-                  closable={this.props.symbolizer.length > 1}
+                  closable={true}
                 >
                   <Editor
                     symbolizer={symb}

@@ -13,7 +13,7 @@ const Option = Select.Option;
 export interface KindFieldLocale {
   label: string;
   symbolizerKinds: {
-    Circle: string;
+    Mark: string;
     Fill: string;
     Icon: string;
     Line: string;
@@ -39,8 +39,8 @@ interface KindFieldProps extends Partial<KindFieldDefaultProps> {
 class KindField extends React.Component<KindFieldProps, {}> {
 
   public static defaultProps: KindFieldDefaultProps = {
-    kind: 'Circle',
-    symbolizerKinds: ['Circle', 'Fill', 'Icon', 'Line', 'Text']
+    kind: 'Mark',
+    symbolizerKinds: ['Mark', 'Fill', 'Icon', 'Line', 'Text']
   };
 
   static componentName: string = 'KindField';

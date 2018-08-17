@@ -39,13 +39,14 @@ export default {
         downloadButtonLabel: 'Als Datei speichern',
         formatSelectLabel: 'Format'
     },
-    GsCircleEditor: {
+    GsWellKnownNameEditor: {
         radiusLabel: 'Radius',
         fillOpacityLabel: 'Deckkraft Füllung',
         fillColorLabel: 'Füllfarbe',
         strokeColorLabel: 'Randfarbe',
         strokeWidthLabel: 'Randbreite',
-        strokeOpacityLabel: 'Deckkraft Rand'
+        strokeOpacityLabel: 'Deckkraft Rand',
+        rotationLabel: 'Rotation'
     },
     GsFillEditor: {
         fillOpacityLabel: 'Deckkraft Füllung',
@@ -88,7 +89,7 @@ export default {
     GsKindField: {
         label: 'Art',
         symbolizerKinds: {
-            Circle: 'Kreis',
+            Mark: 'Mark',
             Fill: 'Füllung',
             Icon: 'Icon',
             Line: 'Linie',
@@ -100,6 +101,17 @@ export default {
         maxScaleDenominatorLabelText: 'Max. Maßstabszahl',
         minScaleDenominatorPlaceholderText: 'Min. Maßstabszahl eingeben (Optional)',
         maxScaleDenominatorPlaceholderText: 'Max. Maßstabszahl eingeben (Optional)'
+    },
+    GsWellKnownNameField: {
+        label: 'WellKnownName',
+        wellKnownNames: {
+          Circle: 'Kreis',
+          Square: 'Quadrat',
+          Triangle: 'Dreieck',
+          Star: 'Stern',
+          Cross: 'Kreuz',
+          X: 'X'
+        }
     },
     ...de_DE
 };

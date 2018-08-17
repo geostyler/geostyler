@@ -14,7 +14,6 @@ import { DataLoaderLocale } from './Component/DataInput/DataLoader/DataLoader';
 import { StyleLocale } from './Component/Style/Style';
 import { CodeEditorLocale } from './Component/CodeEditor/CodeEditor';
 import { PreviewLocale } from './Component/Symbolizer/Preview/Preview';
-import { CircleEditorLocale } from './Component/Symbolizer/CircleEditor/CircleEditor';
 import { ColorFieldLocale } from './Component/Symbolizer/Field/ColorField/ColorField';
 import { FillEditorLocale } from './Component/Symbolizer/FillEditor/FillEditor';
 import { IconEditorLocale } from './Component/Symbolizer/IconEditor/IconEditor';
@@ -32,7 +31,6 @@ export interface GsLocale extends Locale {
   GsStyle: StyleLocale;
   GsCodeEditor: CodeEditorLocale;
   GsPreview: PreviewLocale;
-  GsCircleEditor: CircleEditorLocale;
   GsColorField: ColorFieldLocale;
   GsFillEditor: FillEditorLocale;
   GsIconEditor: IconEditorLocale;

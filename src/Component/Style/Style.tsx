@@ -3,7 +3,9 @@ import * as React from 'react';
 import {
   Style as GsStyle,
   Rule as GsRule,
-  Symbolizer as GsSymbolizer
+  Symbolizer as GsSymbolizer,
+  MarkSymbolizer as GsMarkSymbolizer,
+  IconSymbolizer as GsIconSymbolizer
 } from 'geostyler-style';
 
 import {
@@ -15,6 +17,8 @@ import Rule from '../Rule/Rule';
 import NameField, { DefaultNameFieldProps } from '../NameField/NameField';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
+
+const _get = require('lodash/get');
 
 // i18n
 export interface StyleLocale {
@@ -80,56 +84,29 @@ class Style extends React.Component<StyleProps, StyleState> {
   /**
    *
    */
-  getSymbolizerFromStyleType(style: GsStyle): GsSymbolizer[] {
-    const symbolizer: GsSymbolizer = {
-      kind: style.rules[0].symbolizer[0].kind
-    } as GsSymbolizer;
-
-    if (symbolizer.kind === 'Icon') {
-      symbolizer.image = this.props.defaultIconSource;
+  getDefaultSymbolizer(symbolizer: GsSymbolizer): GsSymbolizer {
+    if (symbolizer) {
+      if (symbolizer.kind === 'Mark') {
+        return {
+          kind: symbolizer.kind,
+          wellKnownName: 'Circle'
+        } as GsMarkSymbolizer;
+      } else if (symbolizer.kind === 'Icon') {
+        return {
+          kind: symbolizer.kind,
+          image: this.props.defaultIconSource
+        } as GsIconSymbolizer;
+      } else {
+        return {
+          kind: symbolizer.kind
+        } as GsSymbolizer;
+      }
+    } else {
+      return {
+        kind: 'Mark',
+        wellKnownName: 'Circle'
+      } as GsMarkSymbolizer;
     }
-
-    return [symbolizer];
-
-    // NOTE: This snippet can be used, if a new rule should have the same amount of symbolizers as the first rule
-    //
-    // const symbolizers: GsSymbolizer[] = style.rules[0].symbolizer.map((symb: GsSymbolizer) => {
-    //   const sym: GsSymbolizer = {
-    //     kind: symb.kind
-    //   } as GsSymbolizer;
-    //   return sym;
-    // });
-    // return symbolizers;
-
-    // NOTE: This snippet can be used, if property type of Style will NOT be removed
-    //
-    // const symbolizers: GsSymbolizer[] = [];
-    // const types: GsSymbolizer[] = [];
-    // style.type.forEach( (t: string) => {
-    //   switch (t) {
-    //     case 'Point':
-    //       types.push({
-    //         kind: 'Circle'
-    //       });
-    //       break;
-    //     case 'Line':
-    //       types.push({
-    //         kind: 'Line'
-    //       });
-    //       break;
-    //     case 'Fill':
-    //       types.push({
-    //         kind: 'Fill'
-    //       });
-    //       break;
-    //     default:
-    //       types.push({
-    //         kind: 'Circle'
-    //       });
-    //       break;
-    //   }
-    // });
-    // return types;
   }
 
   onNameChange = (name: string) => {
@@ -161,7 +138,7 @@ class Style extends React.Component<StyleProps, StyleState> {
     const randomId = Math.floor(Math.random() * 10000);
     const newRule: GsRule = {
       name: 'rule_' + randomId,
-      symbolizer: this.getSymbolizerFromStyleType(style)
+      symbolizer: [this.getDefaultSymbolizer(_get(style, 'rules[0].symbolizer[0]'))]
     };
     style.rules = [...style.rules, newRule];
     if (this.props.onStyleChange) {
@@ -184,12 +161,7 @@ class Style extends React.Component<StyleProps, StyleState> {
     const style = _cloneDeep(this.state.style);
     // TODO generate some kind of id
     // right now, all properties of symbolizer must match
-    const newSymbolizer: GsSymbolizer = {
-      kind: style.rules[0].symbolizer[0].kind
-    };
-    if (newSymbolizer.kind === 'Icon') {
-      newSymbolizer.image = this.props.defaultIconSource;
-    }
+    let newSymbolizer: GsSymbolizer = this.getDefaultSymbolizer(_get(rule, 'symbolizer[0]'));
     const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
     if (ruleIdx > -1) {
       style.rules[ruleIdx].symbolizer.push(newSymbolizer);

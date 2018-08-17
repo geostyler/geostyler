@@ -30,13 +30,14 @@ export default {
         downloadButtonLabel: 'Save as File',
         formatSelectLabel: 'Format'
     },
-    GsCircleEditor: {
+    GsWellKnownNameEditor: {
         radiusLabel: 'Radius',
         fillOpacityLabel: 'Fill-Opacity',
         fillColorLabel: 'Fill-Color',
         strokeColorLabel: 'Stroke-Color',
         strokeWidthLabel: 'Stroke-Width',
-        strokeOpacityLabel: 'Stroke-Opacity'
+        strokeOpacityLabel: 'Stroke-Opacity',
+        rotationLabel: 'Rotation'
     },
     GsFillEditor: {
         fillOpacityLabel: 'Fill-Opacity',
@@ -79,7 +80,7 @@ export default {
     GsKindField: {
         label: 'Kind',
         symbolizerKinds: {
-            Circle: 'Circle',
+            Mark: 'Mark',
             Fill: 'Fill',
             Icon: 'Icon',
             Line: 'Line',
@@ -91,6 +92,17 @@ export default {
         maxScaleDenominatorLabelText: 'Max. Scale',
         minScaleDenominatorPlaceholderText: 'Enter min. Scale (Optional)',
         maxScaleDenominatorPlaceholderText: 'Enter max. Scale (Optional)'
+    },
+    GsWellKnownNameField: {
+        label: 'WellKnownName',
+        wellKnownNames: {
+          Circle: 'Circle',
+          Square: 'Square',
+          Triangle: 'Triangle',
+          Star: 'Star',
+          Cross: 'Cross',
+          X: 'X'
+        }
     },
     ...en_US
 };

@@ -1,54 +1,52 @@
 import * as React from 'react';
-
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import {
-  Symbolizer,
-  CircleSymbolizer
-} from 'geostyler-style';
+  MarkSymbolizer,
+  Symbolizer
+ } from 'geostyler-style';
 
 import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
 import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
+import RotateField from '../Field/RotateField/RotateField';
 
-const _cloneDeep = require('lodash/cloneDeep');
-
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
+const  _cloneDeep = require('lodash/cloneDeep');
+const _get = require('lodash/get');
 
 // i18n
-export interface CircleEditorLocale {
+interface WellKnownNameEditorLocale {
   radiusLabel?: string;
   fillOpacityLabel?: string;
   fillColorLabel?: string;
   strokeColorLabel?: string;
   strokeWidthLabel?: string;
   strokeOpacityLabel?: string;
+  rotationLabel?: string;
 }
 
 // non default props
-interface CircleEditorProps {
-  symbolizer: CircleSymbolizer;
+interface WellKnownNameEditorProps {
+  symbolizer: MarkSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
-  locale?: CircleEditorLocale;
+  locale?: WellKnownNameEditorLocale;
 }
 
-class CircleEditor extends React.Component<CircleEditorProps, {}> {
+export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps, {}> {
 
-  static componentName: string = 'CircleEditor';
+  static componentName: string = 'WellKnownNameEditor';
 
-  onSymbolizerChange = (symbolizer: Symbolizer) => {
-    this.props.onSymbolizerChange(symbolizer);
-  }
-
-  render() {
+  render () {
     const symbolizer = _cloneDeep(this.props.symbolizer);
 
     const {
       radius,
-      opacity,
       color,
-      strokeOpacity,
+      opacity,
+      rotate,
       strokeColor,
-      strokeWidth
+      strokeWidth,
+      strokeOpacity
     } = symbolizer;
 
     const {
@@ -56,9 +54,9 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
     } = this.props;
 
     return (
-      <div className="gs-circle-symbolizer-editor" >
+      <div>
         <RadiusField
-          label={locale.radiusLabel}
+          label={_get(locale, 'radiusLabel')}
           radius={radius}
           onChange={(value: number) => {
             symbolizer.radius = value;
@@ -67,7 +65,7 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
         />
         <ColorField
           color={color}
-          label={locale.fillColorLabel}
+          label={_get(locale, 'fillColorLabel')}
           onChange={(value: string) => {
             symbolizer.color = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -75,7 +73,7 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
         />
         <OpacityField
           opacity={opacity}
-          label={locale.fillOpacityLabel}
+          label={_get(locale, 'fillOpacityLabel')}
           onChange={(value: number) => {
             symbolizer.opacity = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -83,7 +81,7 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
         />
         <ColorField
           color={strokeColor}
-          label={locale.strokeColorLabel}
+          label={_get(locale, 'strokeColorLabel')}
           onChange={(value: string) => {
             symbolizer.strokeColor = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -91,7 +89,7 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
         />
         <WidthField
           width={strokeWidth}
-          label={locale.strokeWidthLabel}
+          label={_get(locale, 'strokeWidthLabel')}
           onChange={(value: number) => {
             symbolizer.strokeWidth = value;
             this.props.onSymbolizerChange(symbolizer);
@@ -99,9 +97,17 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
         />
         <OpacityField
           opacity={strokeOpacity}
-          label={locale.strokeOpacityLabel}
+          label={_get(locale, 'strokeOpacityLabel')}
           onChange={(value: number) => {
             symbolizer.strokeOpacity = value;
+            this.props.onSymbolizerChange(symbolizer);
+          }}
+        />
+        <RotateField
+          rotate={rotate}
+          label={_get(locale, 'rotationLabel')}
+          onChange={(value: number) => {
+            symbolizer.rotate = value;
             this.props.onSymbolizerChange(symbolizer);
           }}
         />
@@ -110,4 +116,4 @@ class CircleEditor extends React.Component<CircleEditorProps, {}> {
   }
 }
 
-export default localize(CircleEditor, CircleEditor.componentName);
+export default localize(WellKnownNameEditor, WellKnownNameEditor.componentName);
