@@ -401,7 +401,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
                 <TabPane
                   key={idx}
                   tab={idx}
-                  closable={this.props.symbolizer.length > 1}
+                  closable={true}
                 >
                   <Editor
                     symbolizer={symb}
