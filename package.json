@@ -79,7 +79,7 @@
     "enzyme-adapter-react-16": "1.1.1",
     "np": "3.0.4",
     "react-docgen-typescript": "1.6.2",
-    "react-styleguidist": "7.2.3",
+    "react-styleguidist": "7.2.4",
     "rimraf": "2.6.2",
     "ts-jest": "22.4.6",
     "typescript": "2.9.2"
