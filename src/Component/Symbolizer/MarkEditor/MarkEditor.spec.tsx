@@ -9,7 +9,7 @@ describe('MarkEditor', () => {
   beforeEach(() => {
     markstyle = TestUtil.getMarkStyle();
     wrapper = TestUtil.shallowRenderComponent(MarkEditor, {
-      symbolizer: markstyle.rules[0].symbolizer[0]
+      symbolizer: markstyle.rules[0].symbolizers[0]
     });
   });
 
@@ -26,7 +26,7 @@ describe('MarkEditor', () => {
     wrapper.setProps({
       onSymbolizerChange: ((symb: any) => counter++)
     });
-    wrapper.instance().onSymbolizerChange(markstyle.rules[0].symbolizer[0]);
+    wrapper.instance().onSymbolizerChange(markstyle.rules[0].symbolizers[0]);
     expect(counter).toEqual(1);
   });
 

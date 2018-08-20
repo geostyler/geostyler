@@ -97,7 +97,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   public static defaultProps: DefaultRuleProps = {
     rule: {
       name: 'My Style',
-      symbolizer: [{
+      symbolizers: [{
         kind: 'Mark',
         wellKnownName: 'Circle'
       }]
@@ -155,7 +155,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
    */
   onSymbolizerChange = (symbolizer: GsSymbolizer, key: number) => {
     let rule: GsRule = _cloneDeep(this.state.rule);
-    rule.symbolizer[key] = symbolizer;
+    rule.symbolizers[key] = symbolizer;
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
@@ -237,7 +237,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
             />
             <Preview
               dataProjection={dataProjection}
-              symbolizer={rule.symbolizer}
+              symbolizers={rule.symbolizers}
               internalDataDef={gsData}
               onSymbolizerChange={this.onSymbolizerChange}
               onAddSymbolizer={() => {

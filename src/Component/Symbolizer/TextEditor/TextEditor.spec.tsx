@@ -8,7 +8,7 @@ describe('TextEditor', () => {
   beforeEach(() => {
     const labelStyle = TestUtil.getLabeledPointStyle();
     wrapper = TestUtil.shallowRenderComponent(TextEditor, {
-      symbolizer: labelStyle.rules[0].symbolizer,
+      symbolizer: labelStyle.rules[0].symbolizers,
       locale: en_US.GsTextEditor
     });
   });

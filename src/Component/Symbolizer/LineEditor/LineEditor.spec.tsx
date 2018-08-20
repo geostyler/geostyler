@@ -8,7 +8,7 @@ describe('LineEditor', () => {
   beforeEach(() => {
     const linestyle = TestUtil.getLineStyle();
     wrapper = TestUtil.shallowRenderComponent(LineEditor, {
-      symbolizer: linestyle.rules[0].symbolizer,
+      symbolizer: linestyle.rules[0].symbolizers,
       locale: en_US.GsLineEditor
     });
   });

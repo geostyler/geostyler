@@ -138,7 +138,7 @@ class Style extends React.Component<StyleProps, StyleState> {
     const randomId = Math.floor(Math.random() * 10000);
     const newRule: GsRule = {
       name: 'rule_' + randomId,
-      symbolizer: [this.getDefaultSymbolizer(_get(style, 'rules[0].symbolizer[0]'))]
+      symbolizers: [this.getDefaultSymbolizer(_get(style, 'rules[0].symbolizers[0]'))]
     };
     style.rules = [...style.rules, newRule];
     if (this.props.onStyleChange) {
@@ -161,10 +161,10 @@ class Style extends React.Component<StyleProps, StyleState> {
     const style = _cloneDeep(this.state.style);
     // TODO generate some kind of id
     // right now, all properties of symbolizer must match
-    let newSymbolizer: GsSymbolizer = this.getDefaultSymbolizer(_get(rule, 'symbolizer[0]'));
+    let newSymbolizer: GsSymbolizer = this.getDefaultSymbolizer(_get(rule, 'symbolizers[0]'));
     const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
     if (ruleIdx > -1) {
-      style.rules[ruleIdx].symbolizer.push(newSymbolizer);
+      style.rules[ruleIdx].symbolizers.push(newSymbolizer);
       if (this.props.onStyleChange) {
         this.props.onStyleChange(style);
       }
@@ -176,9 +176,9 @@ class Style extends React.Component<StyleProps, StyleState> {
     const style = _cloneDeep(this.state.style);
     const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
     // if all properties of a symbolizer are equal, remove this symbolizer
-    const newSymbolizers = style.rules[ruleIdx].symbolizer
+    const newSymbolizers = style.rules[ruleIdx].symbolizers
       .filter((symb: GsSymbolizer) => !_isEqual(symb, symbolizer));
-    style.rules[ruleIdx].symbolizer = newSymbolizers;
+    style.rules[ruleIdx].symbolizers = newSymbolizers;
     if (this.props.onStyleChange) {
       this.props.onStyleChange(style);
     }

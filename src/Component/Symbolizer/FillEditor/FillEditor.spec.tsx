@@ -8,7 +8,7 @@ describe('FillEditor', () => {
   beforeEach(() => {
     const polygonStyle = TestUtil.getPolygonStyle();
     wrapper = TestUtil.shallowRenderComponent(FillEditor, {
-      symbolizer: polygonStyle.rules[0].symbolizer,
+      symbolizer: polygonStyle.rules[0].symbolizers,
       locale: en_US.GsFillEditor
     });
   });
