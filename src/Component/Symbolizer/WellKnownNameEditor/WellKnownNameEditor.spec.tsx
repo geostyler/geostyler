@@ -8,7 +8,7 @@ describe('WellKnownNameEditor', () => {
   beforeEach(() => {
     const markstyle = TestUtil.getMarkStyle();
     wrapper = TestUtil.shallowRenderComponent(WellKnownNameEditor, {
-      symbolizer: markstyle.rules[0].symbolizer,
+      symbolizer: markstyle.rules[0].symbolizers,
       locale: en_US.GsLineEditor
     });
   });

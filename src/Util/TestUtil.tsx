@@ -92,7 +92,7 @@ export class TestUtil {
       name: 'Simple Square',
       rules: [{
         name: '',
-        symbolizer: [{
+        symbolizers: [{
           kind: 'Mark',
           wellKnownName: 'Square',
           points: 4,
@@ -114,7 +114,7 @@ export class TestUtil {
       name: 'Simple Line',
       rules: [{
         name: '',
-        symbolizer: [{
+        symbolizers: [{
           kind: 'Line',
           color: '#000000',
           width: 3
@@ -135,7 +135,7 @@ export class TestUtil {
       name: 'Transparent Polygon',
       rules: [{
         name: '',
-        symbolizer: [{
+        symbolizers: [{
           kind: 'Fill',
           color: '#000080',
           opacity: 0.5,
@@ -157,7 +157,7 @@ export class TestUtil {
       name: 'Styled Label',
       rules: [{
         name: '',
-        symbolizer: [{
+        symbolizers: [{
           kind: 'Text',
           color: '#000000',
           field: 'name',

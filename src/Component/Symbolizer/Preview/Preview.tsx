@@ -69,7 +69,7 @@ export interface DefaultPreviewProps {
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
   internalDataDef?: Data;
-  symbolizer: Symbolizer[];
+  symbolizers: Symbolizer[];
   onSymbolizerChange: (symbolizer: Symbolizer, key: number) => void;
   onAddSymbolizer?: () => void;
   onRemoveSymbolizer?: (symbolizer: Symbolizer) => void;
@@ -77,7 +77,7 @@ interface PreviewProps extends Partial<DefaultPreviewProps> {
 
 // state
 interface PreviewState {
-  symbolizer: Symbolizer[];
+  symbolizers: Symbolizer[];
   editorVisible: boolean;
   mapTargetId: string;
 }
@@ -110,7 +110,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     const randomId = Math.floor((1 + Math.random()) * 0x10000);
     this.state = {
       editorVisible: false,
-      symbolizer: props.symbolizer,
+      symbolizers: props.symbolizers,
       mapTargetId: `map_${randomId}`
     };
   }
@@ -122,13 +122,13 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       prevState: PreviewState): Partial<PreviewState> {
 
     return {
-      symbolizer: nextProps.symbolizer
+      symbolizers: nextProps.symbolizers
     };
   }
 
   componentDidUpdate(prevProps: PreviewProps, prevState: PreviewState) {
     if (this.dataLayer) {
-      this.applySymbolizerToMapFeatures(this.state.symbolizer);
+      this.applySymbolizersToMapFeatures(this.state.symbolizers);
     }
 
     const features = this.props.internalDataDef ? this.props.internalDataDef.exampleFeatures : undefined;
@@ -137,8 +137,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     if (!_isEqual(features, prevFeatures)) {
       equal = false;
     }
-    this.state.symbolizer.some((symb: Symbolizer, idx: number) => {
-      if (!prevState.symbolizer[idx] || !_isEqual(symb.kind, prevState.symbolizer[idx].kind)) {
+    this.state.symbolizers.some((symb: Symbolizer, idx: number) => {
+      if (!prevState.symbolizers[idx] || !_isEqual(symb.kind, prevState.symbolizers[idx].kind)) {
         equal = false;
         return true;
       } else {
@@ -236,11 +236,11 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
 
     this.map = map;
     this.updateFeatures();
-    this.applySymbolizerToMapFeatures(this.state.symbolizer);
+    this.applySymbolizersToMapFeatures(this.state.symbolizers);
   }
 
   getSampleGeomFromSymbolizer = () => {
-    const kind: SymbolizerKind = _get(this.state, 'symbolizer[0].kind');
+    const kind: SymbolizerKind = _get(this.state, 'symbolizers[0].kind');
     switch (kind) {
       case 'Mark':
       case 'Icon':
@@ -284,7 +284,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
    *
    * @param {Symbolizer} symbolizer The symbolizer as holding the style to apply
    */
-  applySymbolizerToMapFeatures = (symbolizer: Symbolizer[]): any => {
+  applySymbolizersToMapFeatures = (symbolizers: Symbolizer[]): any => {
     const styleParser = new OlStyleParser();
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
@@ -292,7 +292,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     const style = {
       name: 'WrapperStyle4Symbolizer',
       rules: [{
-        symbolizer: symbolizer
+        symbolizers: symbolizers
       }]
     };
     // parser style to OL style
@@ -379,7 +379,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       }
     } else if (action === 'remove') {
       const symbIdx = parseInt(tabIdx, 10);
-      const symb: Symbolizer = this.props.symbolizer[symbIdx];
+      const symb: Symbolizer = this.props.symbolizers[symbIdx];
       if (this.props.onRemoveSymbolizer) {
         this.props.onRemoveSymbolizer(symb);
       }
@@ -429,7 +429,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       dataProjection,
       showOsmBackground,
       locale,
-      symbolizer,
+      symbolizers,
       onSymbolizerChange,
       ...editorProps
     } = this.props;
@@ -450,7 +450,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           </Button>
           {
             this.state.editorVisible ?
-              this.getUIFromSymbolizers(this.state.symbolizer, {...editorProps}) : null
+              this.getUIFromSymbolizers(this.state.symbolizers, {...editorProps}) : null
           }
         </div>
       </div>
