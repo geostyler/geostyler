@@ -42,7 +42,8 @@ export default {
     GsFillEditor: {
         fillOpacityLabel: 'Fill-Opacity',
         fillColorLabel: 'Fill-Color',
-        outlineColorLabel: 'Stroke-Color'
+        outlineColorLabel: 'Stroke-Color',
+        graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsIconEditor: {
         imageLabel: 'Source',

@@ -53,7 +53,8 @@ export default {
     GsFillEditor: {
         fillOpacityLabel: 'Deckkraft Füllung',
         fillColorLabel: 'Füllfarbe',
-        outlineColorLabel: 'Randfarbe'
+        outlineColorLabel: 'Randfarbe',
+        graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsIconEditor: {
         imageLabel: 'Quelle',
