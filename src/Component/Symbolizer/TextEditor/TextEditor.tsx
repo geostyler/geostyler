@@ -18,6 +18,7 @@ import { Data } from 'geostyler-data';
 import './TextEditor.css';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import RotateField from '../Field/RotateField/RotateField';
 
 // i18n
 export interface TextEditorLocale {
@@ -28,6 +29,9 @@ export interface TextEditorLocale {
   offsetXLabel?: string;
   offsetYLabel?: string;
   fontLabel?: string;
+  rotateLabel?: string;
+  haloColorLabel?: string;
+  haloWidthLabel?: string;
   attributeComboPlaceholder?: string;
 }
 
@@ -61,6 +65,9 @@ export class TextEditor extends React.Component<TextEditorProps, {}> {
       font,
       offset,
       size,
+      rotate,
+      haloColor,
+      haloWidth
     } = symbolizer;
 
     // split the current offset
@@ -132,6 +139,30 @@ export class TextEditor extends React.Component<TextEditorProps, {}> {
           onChange={(value: number) => {
             let newOffset: [number, number] = [(symbolizer.offset ? symbolizer.offset[0] : 0), value];
             symbolizer.offset = newOffset;
+            this.props.onSymbolizerChange(symbolizer);
+          }}
+        />
+        <RotateField
+          rotate={rotate}
+          label={locale.rotateLabel}
+          onChange={(value: number) => {
+            symbolizer.rotate = value;
+            this.props.onSymbolizerChange(symbolizer);
+          }}
+        />
+        <ColorField
+          color={haloColor}
+          label={locale.haloColorLabel}
+          onChange={(value: string) => {
+            symbolizer.haloColor = value;
+            this.props.onSymbolizerChange(symbolizer);
+          }}
+        />
+        <WidthField
+          width={haloWidth}
+          label={locale.haloWidthLabel}
+          onChange={(value: number) => {
+            symbolizer.haloWidth = value;
             this.props.onSymbolizerChange(symbolizer);
           }}
         />
