@@ -61,7 +61,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
   dataLayer: OlLayerVector;
 
   public static defaultProps: DefaultEditorProps = {
-    defaultIconSource: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg',
+    defaultIconSource: 'img/openLayers_logo.svg',
     unknownSymbolizerText: `Unknown Symbolizer!`
   };
 

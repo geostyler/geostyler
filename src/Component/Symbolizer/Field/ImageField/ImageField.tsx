@@ -22,7 +22,7 @@ interface ImageFieldProps extends Partial<ImageFieldDefaultProps> {
 class ImageField extends React.Component<ImageFieldProps, {}> {
 
   public static defaultProps: ImageFieldDefaultProps = {
-    image: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg',
+    image: 'img/openLayers_logo.svg',
     label: 'Image',
     placeholder: 'URL to image'
   };

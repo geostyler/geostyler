@@ -56,7 +56,7 @@ describe('GraphicEditor', () => {
   it('returns IconSymbolizer as default IconGraphic', () => {
     const dummyIcon: IconSymbolizer = {
       kind: 'Icon',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg'
+      image: 'img/openLayers_logo.svg'
     };
     expect(wrapper.instance().getDefaultIconGraphic()).toEqual(dummyIcon);
   });

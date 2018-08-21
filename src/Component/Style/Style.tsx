@@ -70,7 +70,7 @@ class Style extends React.Component<StyleProps, StyleState> {
       name: 'My Style',
       rules: []
     },
-    defaultIconSource: 'https://upload.wikimedia.org/wikipedia/commons/6/67/OpenLayers_logo.svg'
+    defaultIconSource: 'img/openLayers_logo.svg'
   };
 
   componentDidUpdate(prevProps: any, prevState: any) {
