@@ -57,7 +57,9 @@ export default {
         dashLabel: 'Dash Pattern',
         dashOffsetLabel: 'Dash Offset',
         capLabel: 'Cap',
-        joinLabel: 'Join'
+        joinLabel: 'Join',
+        graphicStrokeTypeLabel: 'Graphic Stroke Type',
+        graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsTextEditor: {
         fieldLabel: 'Field',

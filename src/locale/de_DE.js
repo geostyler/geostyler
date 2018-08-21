@@ -66,7 +66,9 @@ export default {
         dashLabel: 'Strichmuster',
         dashOffsetLabel: 'Strichmuster Versatz',
         capLabel: 'Verschluss',
-        joinLabel: 'Verknüpfung'
+        joinLabel: 'Verknüpfung',
+        graphicStrokeTypeLabel: 'Graphic Stroke Type',
+        graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsTextEditor: {
         fieldLabel: 'Feld',
