@@ -5,27 +5,28 @@ import {
   GraphicType,
   IconSymbolizer
 } from 'geostyler-style';
-// import MarkEditor from '../MarkEditor/MarkEditor';
 
 describe('GraphicEditor', () => {
 
   const dummyGraphicType: GraphicType = 'Mark';
-  const dummyGraphic: PointSymbolizer = {
+  const dummyGraphicMark: PointSymbolizer = {
     kind: 'Mark',
     wellKnownName: 'Circle'
   };
-
-  const dummyOnGraphicChange = (g: PointSymbolizer, gType: GraphicType): void => {
-    return;
+  const dummyGraphicIcon: PointSymbolizer = {
+    kind: 'Icon',
+    image: 'img/openLayers_logo.svg'
   };
+  const onGraphicChangeSpy = jest.fn();
 
   let wrapper: any;
   beforeEach(() => {
     wrapper = TestUtil.shallowRenderComponent(GraphicEditor, {
-      graphic: dummyGraphic,
+      graphic: dummyGraphicMark,
       graphicType: dummyGraphicType,
-      onGraphicChange: dummyOnGraphicChange
+      onGraphicChange: onGraphicChangeSpy
     });
+    onGraphicChangeSpy.mockClear();
   });
 
   it('is defined', () => {
@@ -36,13 +37,13 @@ describe('GraphicEditor', () => {
     expect(wrapper).not.toBeUndefined();
   });
 
-  it('renders MarkEditor if graphicType is Mark', () => {
-    expect(wrapper.instance().getGraphicFields(dummyGraphicType).props.symbolizer.kind)
+  it('renders MarkEditor if graphic is Mark', () => {
+    expect(wrapper.instance().getGraphicFields(dummyGraphicMark).props.symbolizer.kind)
       .toEqual('Mark');
   });
 
-  it('renders IconEditor if graphicType is Icon', () => {
-    expect(wrapper.instance().getGraphicFields('Icon').props.symbolizer.kind).toEqual('Icon');
+  it('renders IconEditor if graphic is Icon', () => {
+    expect(wrapper.instance().getGraphicFields(dummyGraphicIcon).props.symbolizer.kind).toEqual('Icon');
   });
 
   it('renders nothing if graphicType is not Mark or Icon', () => {
@@ -50,7 +51,7 @@ describe('GraphicEditor', () => {
   });
 
   it('returns CircleSymbolizer as default MarkGraphic', () => {
-    expect(wrapper.instance().getDefaultMarkGraphic()).toEqual(dummyGraphic);
+    expect(wrapper.instance().getDefaultMarkGraphic()).toEqual(dummyGraphicMark);
   });
 
   it('returns IconSymbolizer as default IconGraphic', () => {
@@ -61,17 +62,25 @@ describe('GraphicEditor', () => {
     expect(wrapper.instance().getDefaultIconGraphic()).toEqual(dummyIcon);
   });
 
-  // it('handles onGraphicTypeChange', () => {
-  //   const wrapperInstance = wrapper.instance();
-  //   console.log(wrapperInstance);
-  //   // const onGraphicChangeSpy = jest.spyOn(wrapperInstance.props, 'onGraphicChange');
-  //   wrapperInstance.onGraphicTypeChange('Mark');
-  //   wrapperInstance.onGraphicTypeChange('Icon');
-  //   wrapperInstance.onGraphicTypeChange('Wrong');
-  //   wrapperInstance.onGraphicTypeChange();
-  //   expect(wrapperInstance.props.onGraphicChange).toHaveBeenCalledTimes(4);
+  it('handles onGraphicTypeChange', () => {
+    expect.assertions(9);
+    expect(onGraphicChangeSpy).not.toHaveBeenCalled();
+    const wrapperInstance = wrapper.instance();
 
-  //   // onGraphicChangeSpy.mockReset();
-  //   // onGraphicChangeSpy.mockRestore();
-  // });
+    wrapperInstance.onGraphicTypeChange('Mark');
+    expect(onGraphicChangeSpy).toHaveBeenCalled();
+    expect(onGraphicChangeSpy).toHaveBeenCalledWith(dummyGraphicMark);
+
+    wrapperInstance.onGraphicTypeChange('Icon');
+    expect(onGraphicChangeSpy).toHaveBeenCalled();
+    expect(onGraphicChangeSpy).toHaveBeenCalledWith(dummyGraphicIcon);
+
+    wrapperInstance.onGraphicTypeChange('Wrong');
+    expect(onGraphicChangeSpy).toHaveBeenCalled();
+    expect(onGraphicChangeSpy).toHaveBeenCalledWith(undefined);
+
+    wrapperInstance.onGraphicTypeChange();
+    expect(onGraphicChangeSpy).toHaveBeenCalled();
+    expect(onGraphicChangeSpy).toHaveBeenCalledWith(undefined);
+  });
 });
