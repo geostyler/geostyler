@@ -5,7 +5,8 @@ import OlLayerVector from 'ol/layer/vector';
 
 import {
   Symbolizer,
-  SymbolizerKind
+  SymbolizerKind,
+  IconMime
 } from 'geostyler-style';
 
 import MarkEditor from '../MarkEditor/MarkEditor';
@@ -77,6 +78,27 @@ class Editor extends React.Component<EditorProps, EditorState> {
     this.props.onSymbolizerChange(symbolizer);
   }
 
+  /**
+   * Extract image mime-type from filename. Supported mime-types are
+   * image/png, image/jpeg, image/gif and image/svg+xml
+   *
+   * @param {String} path The image filepath
+   * @return {IconMime} The mime-type of the image or undefined if mime-type not supported
+   */
+  getImageFormat = (path: string): IconMime => {
+    const imgExt = path.split('.').pop();
+    switch (imgExt) {
+      case 'png':
+      case 'jpeg':
+      case 'gif':
+        return `image/${imgExt}` as IconMime;
+      case 'svg':
+        return `image/${imgExt}+xml` as IconMime;
+      default:
+        return undefined;
+    }
+  }
+
   getUiFromSymbolizer = (symbolizer: Symbolizer): React.ReactNode => {
     switch (symbolizer.kind) {
       case 'Mark':
@@ -89,6 +111,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
       case 'Icon':
         if (!symbolizer.image) {
           symbolizer.image = this.props.defaultIconSource;
+          symbolizer.format = this.getImageFormat(symbolizer.image);
         }
         return (
           <IconEditor

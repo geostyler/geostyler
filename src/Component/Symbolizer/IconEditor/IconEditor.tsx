@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import {
   Symbolizer,
-  IconSymbolizer
+  IconSymbolizer,
+  IconMime
 } from 'geostyler-style';
 
 import OpacityField from '../Field/OpacityField/OpacityField';
@@ -69,8 +70,9 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
         <ImageField
           image={imageSrc}
           label={locale.imageLabel}
-          onChange={(value: string) => {
+          onChange={(value: string, mime: IconMime) => {
             symbolizer.image = value;
+            symbolizer.format = mime;
             this.props.onSymbolizerChange(symbolizer);
           }}
         />
@@ -82,6 +84,7 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
             this.props.onSymbolizerChange(symbolizer);
           }}
         />
+
         <RotateField
           rotate={rotate}
           label={locale.rotateLabel}
