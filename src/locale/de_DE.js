@@ -46,7 +46,9 @@ export default {
         strokeColorLabel: 'Randfarbe',
         strokeWidthLabel: 'Randbreite',
         strokeOpacityLabel: 'Deckkraft Rand',
-        rotationLabel: 'Rotation'
+        rotateLabel: 'Drehung',
+        haloColorLabel: 'Halofarbe',
+        haloWidthLabel: 'Halobreite'
     },
     GsFillEditor: {
         fillOpacityLabel: 'Deckkraft Füllung',
@@ -56,7 +58,7 @@ export default {
     GsIconEditor: {
         imageLabel: 'Quelle',
         sizeLabel: 'Größe',
-        rotateLabel: 'Rotation',
+        rotateLabel: 'Drehung',
         opacityLabel: 'Deckkraft'
     },
     GsLineEditor: {
@@ -77,7 +79,8 @@ export default {
         sizeLabel: 'Textgröße',
         offsetXLabel: 'Versatz X',
         offsetYLabel: 'Versatz Y',
-        attributeComboPlaceholder: 'Feld wählen'
+        attributeComboPlaceholder: 'Feld wählen',
+        rotateLabel: 'Drehung'
     },
     GsPreview: {
         openEditorText: 'Symbolisierung editieren',

@@ -22,7 +22,7 @@ interface WellKnownNameEditorLocale {
   strokeColorLabel?: string;
   strokeWidthLabel?: string;
   strokeOpacityLabel?: string;
-  rotationLabel?: string;
+  rotateLabel?: string;
 }
 
 // non default props
@@ -105,7 +105,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
         />
         <RotateField
           rotate={rotate}
-          label={_get(locale, 'rotationLabel')}
+          label={_get(locale, 'rotateLabel')}
           onChange={(value: number) => {
             symbolizer.rotate = value;
             this.props.onSymbolizerChange(symbolizer);

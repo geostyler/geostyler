@@ -37,7 +37,7 @@ export default {
         strokeColorLabel: 'Stroke-Color',
         strokeWidthLabel: 'Stroke-Width',
         strokeOpacityLabel: 'Stroke-Opacity',
-        rotationLabel: 'Rotation'
+        rotateLabel: 'Rotation'
     },
     GsFillEditor: {
         fillOpacityLabel: 'Fill-Opacity',
@@ -68,7 +68,10 @@ export default {
         sizeLabel: 'Text-Size',
         offsetXLabel: 'Offset X',
         offsetYLabel: 'Offset Y',
-        attributeComboPlaceholder: 'Select Field'
+        attributeComboPlaceholder: 'Select Field',
+        rotateLabel: 'Rotation',
+        haloColorLabel: 'Halo-Color',
+        haloWidthLabel: 'Halo-Width'
     },
     GsPreview: {
         openEditorText: 'Edit Symbolizer',
