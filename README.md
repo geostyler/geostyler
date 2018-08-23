@@ -9,6 +9,10 @@ Generic styler for geodata.
 [![Greenkeeper badge](https://badges.greenkeeper.io/terrestris/geostyler.svg)](https://greenkeeper.io/)
 [![Coverage Status](https://coveralls.io/repos/github/terrestris/geostyler/badge.svg?branch=master)](https://coveralls.io/github/terrestris/geostyler?branch=master)
 
+## Documentation
+
+Geostyler Documentation: [Docs](https://terrestris.github.io/geostyler/styleguide/)
+
 ## Related projects
 
 ### TypeScript Declaration Files
