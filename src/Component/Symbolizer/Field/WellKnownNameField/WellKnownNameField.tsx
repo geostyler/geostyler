@@ -44,7 +44,10 @@ export class WellKnownNameField extends React.Component<WellKnownNameFieldProps,
 
   public static defaultProps: WellKnownNameFieldDefaultProps = {
     wellKnownName: 'Circle',
-    wellKnownNames: ['Circle', 'Square', 'Triangle', 'Star', 'Cross', 'X']
+    wellKnownNames: ['Circle', 'Square', 'Triangle', 'Star', 'Cross', 'X',
+                    'shape://backslash', 'shape://carrow', 'shape://dot',
+                    'shape://horline', 'shape://oarrow', 'shape://plus',
+                    'shape://slash', 'shape://times', 'shape://vertline']
   };
 
   getWKNSelectOptions = (locale: WellKnownNameFieldLocale) => {
