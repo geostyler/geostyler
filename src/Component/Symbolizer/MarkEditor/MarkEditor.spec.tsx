@@ -31,7 +31,7 @@ describe('MarkEditor', () => {
   });
 
   it('gets the right default MarkSymbolizer', () => {
-    expect.assertions(15);
+    expect.assertions(16);
     const circle: MarkSymbolizer = wrapper.instance().getDefaultMarkSymbolizer('Circle');
     const square: MarkSymbolizer = wrapper.instance().getDefaultMarkSymbolizer('Square');
     const triangle: MarkSymbolizer = wrapper.instance().getDefaultMarkSymbolizer('Triangle');
@@ -46,6 +46,7 @@ describe('MarkEditor', () => {
     const times: MarkSymbolizer = wrapper.instance().getDefaultMarkSymbolizer('shape://times');
     const carrow: MarkSymbolizer = wrapper.instance().getDefaultMarkSymbolizer('shape://carrow');
     const oarrow: MarkSymbolizer = wrapper.instance().getDefaultMarkSymbolizer('shape://oarrow');
+    const dot: MarkSymbolizer = wrapper.instance().getDefaultMarkSymbolizer('shape://dot');
     const emptyWkn: MarkSymbolizer = wrapper.instance().getDefaultMarkSymbolizer();
 
     expect(circle.wellKnownName).toEqual('Circle');
@@ -62,6 +63,7 @@ describe('MarkEditor', () => {
     expect(times.wellKnownName).toEqual('shape://times');
     expect(carrow.wellKnownName).toEqual('shape://carrow');
     expect(oarrow.wellKnownName).toEqual('shape://oarrow');
+    expect(dot.wellKnownName).toEqual('shape://dot');
     expect(emptyWkn.wellKnownName).toEqual('Circle');
   });
 });
