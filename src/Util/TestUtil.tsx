@@ -94,9 +94,7 @@ export class TestUtil {
         name: '',
         symbolizers: [{
           kind: 'Mark',
-          wellKnownName: 'Square',
-          points: 4,
-          angle: 45
+          wellKnownName: 'Square'
         }]
       }]
     };

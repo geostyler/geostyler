@@ -20,7 +20,7 @@ describe('WellKnownNameField', () => {
   });
 
   it('creates 6 default options', () => {
-    expect(wrapper.instance().getWKNSelectOptions()).toHaveLength(6);
+    expect(wrapper.instance().getWKNSelectOptions()).toHaveLength(15);
   });
 
   it('can handle wellKnownNames property', () => {
