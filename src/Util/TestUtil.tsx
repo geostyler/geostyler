@@ -168,6 +168,32 @@ export class TestUtil {
 
     return pointStyledLabel;
   }
+
+  /**
+   * Returns a style object containing two rules.
+   *
+   * @returns {Style} The style object with two rules
+   */
+  static getTwoRulesStyle = (): Style => {
+    const twoRulesStyle: Style = {
+      name: 'Two Rules',
+      rules: [{
+        name: 'rule0',
+        symbolizers: [{
+          kind: 'Mark',
+          wellKnownName: 'Circle'
+        }]
+      }, {
+        name: 'rule1',
+        symbolizers: [{
+          kind: 'Mark',
+          wellKnownName: 'Cross'
+        }]
+      }]
+    };
+
+    return twoRulesStyle;
+  }
 }
 
 export default TestUtil;

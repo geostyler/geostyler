@@ -55,7 +55,7 @@ interface StyleState {
   style: GsStyle;
 }
 
-class Style extends React.Component<StyleProps, StyleState> {
+export class Style extends React.Component<StyleProps, StyleState> {
   constructor(props: StyleProps) {
     super(props);
     this.state = {
