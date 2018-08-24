@@ -30,7 +30,7 @@
     "geostyler-data": "0.5.0",
     "geostyler-geojson-parser": "0.3.0",
     "geostyler-openlayers-parser": "0.11.0",
-    "geostyler-sld-parser": "0.14.0",
+    "geostyler-sld-parser": "0.15.0",
     "geostyler-style": "0.12.0",
     "lodash": "4.17.10",
     "moment": "2.22.2",
