@@ -22,7 +22,7 @@
   },
   "homepage": ".",
   "dependencies": {
-    "antd": "3.8.4",
+    "antd": "3.9.0",
     "blob": "0.0.4",
     "codemirror": "5.40.0",
     "color": "3.0.0",
