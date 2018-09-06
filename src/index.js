@@ -23,7 +23,7 @@ import OffsetField from './Component/Symbolizer/Field/OffsetField/OffsetField';
 import OpacityField from './Component/Symbolizer/Field/OpacityField/OpacityField';
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
-import GraphicField from './Component/Symbolizer/Field/GraphicField/GraphicField';
+import GraphicTypeField from './Component/Symbolizer/Field/GraphicTypeField/GraphicTypeField';
 import LineCapField from './Component/Symbolizer/Field/LineCapField/LineCapField';
 import LineJoinField from './Component/Symbolizer/Field/LineJoinField/LineJoinField';
 import UploadButton from './Component/UploadButton/UploadButton';
@@ -52,7 +52,7 @@ export {
   OpacityField,
   RadiusField,
   WidthField,
-  GraphicField,
+  GraphicTypeField,
   LineCapField,
   LineJoinField,
   UploadButton,
