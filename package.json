@@ -73,7 +73,7 @@
     "@types/react": "16.4.8",
     "@types/react-color": "2.13.6",
     "@types/react-dom": "16.0.7",
-    "canvas-prebuilt": "1.6.5-prerelease.1",
+    "canvas-prebuilt": "1.6.12",
     "copyfiles": "2.0.0",
     "coveralls": "3.0.1",
     "enzyme": "3.5.0",
