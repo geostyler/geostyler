@@ -11,6 +11,7 @@ import TitleField from './Component/Rule/TitleField/TitleField';
 import Rule from './Component/Rule/Rule';
 import MaxScaleDenominator from './Component/ScaleDenominator/MaxScaleDenominator';
 import MinScaleDenominator from './Component/ScaleDenominator/MinScaleDenominator';
+import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
 import Preview from './Component/Symbolizer/Preview/Preview';
 import Editor from './Component/Symbolizer/Editor/Editor';
 import LineEditor from './Component/Symbolizer/LineEditor/LineEditor';
@@ -52,6 +53,7 @@ export {
   Rule,
   MaxScaleDenominator,
   MinScaleDenominator,
+  ScaleDenominator,
   Preview,
   Editor,
   GraphicEditor,
