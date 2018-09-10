@@ -78,6 +78,8 @@ interface RuleState {
   symbolizerEditorVisible: boolean;
   storedFilter?: GsFilter;
   storedScaleDenominator?: GsScaleDenominator;
+  scaleFieldChecked?: boolean;
+  filterFieldChecked?: boolean;
 }
 
 /**
@@ -184,7 +186,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
-    this.setState({rule});
+    this.setState({rule, scaleFieldChecked: checked});
   }
 
   onFilterCheckChange = (e: any) => {
@@ -203,7 +205,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
-    this.setState({rule});
+    this.setState({rule, filterFieldChecked: checked});
   }
 
   render() {
@@ -215,7 +217,9 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     } = this.props;
 
     const {
-      rule
+      rule,
+      scaleFieldChecked,
+      filterFieldChecked
     } = this.state;
 
     // cast the current filter object to pass over to ComparisonFilterUi
@@ -257,6 +261,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
             <Fieldset
               title={locale.scaleFieldTitle}
               onCheckChange={this.onScaleCheckChange}
+              checked={scaleFieldChecked}
             >
               <ScaleDenominator
                 scaleDenominator={rule.scaleDenominator}
@@ -266,6 +271,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
             <Fieldset
               title={locale.filterFieldTitle}
               onCheckChange={this.onFilterCheckChange}
+              checked={filterFieldChecked}
             >
               <ComparisonFilterUi
                 internalDataDef={gsData}
