@@ -100,7 +100,7 @@ export default {
         maxScaleDenominatorPlaceholderText: 'Enter max. Scale (Optional)'
     },
     GsWellKnownNameField: {
-        label: 'WellKnownName',
+        label: 'Symbol',
         wellKnownNames: {
           Circle: 'Circle',
           Square: 'Square',
