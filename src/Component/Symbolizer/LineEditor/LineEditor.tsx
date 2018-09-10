@@ -117,7 +117,7 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
                 symbolizer.dashOffset = value;
                 this.props.onSymbolizerChange(symbolizer);
               }}
-              disabled={symbolizer.dasharray === undefined || symbolizer.dasharray.length === 0}
+              disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
             />
             <LineCapField
               cap={cap}
