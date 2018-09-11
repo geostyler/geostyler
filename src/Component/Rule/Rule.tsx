@@ -110,8 +110,14 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   static getDerivedStateFromProps(
       nextProps: RuleProps,
       prevState: RuleState): Partial<RuleState> {
+    const rule = nextProps.rule || Rule.defaultProps.rule;
+
     return {
-      rule: nextProps.rule || Rule.defaultProps.rule,
+      rule,
+      filterFieldChecked: rule.filter ?
+        true : false,
+      scaleFieldChecked: rule.scaleDenominator ?
+        true : false,
       symbolizerEditorVisible: false
     };
   }
