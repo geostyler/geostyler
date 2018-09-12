@@ -53,6 +53,7 @@ export interface PreviewLocale {
 
 // default props
 export interface DefaultPreviewProps {
+  enableSymbolizerButton: boolean;
   projection: string;
   dataProjection: string;
   showOsmBackground: boolean;
@@ -94,6 +95,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   dataLayer: OlLayerVector;
 
   public static defaultProps: DefaultPreviewProps = {
+    enableSymbolizerButton: true,
     projection: 'EPSG:3857',
     dataProjection: 'EPSG:4326',
     showOsmBackground: true,
@@ -416,7 +418,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           )
         }
       </Tabs>
-  );
+    );
   }
 
   render() {
@@ -431,6 +433,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       locale,
       symbolizers,
       onSymbolizerChange,
+      enableSymbolizerButton,
       ...editorProps
     } = this.props;
 
@@ -441,6 +444,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           className="map"
           style={{ height: mapHeight }}
         >
+        {
+          enableSymbolizerButton &&
           <Button
             className="gs-edit-preview-button"
             icon="edit"
@@ -448,10 +453,11 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           >
             {this.state.editorVisible ? locale.closeEditorText : locale.openEditorText}
           </Button>
-          {
-            this.state.editorVisible ?
-              this.getUIFromSymbolizers(this.state.symbolizers, {...editorProps}) : null
-          }
+        }
+        {
+          this.state.editorVisible && enableSymbolizerButton ?
+            this.getUIFromSymbolizers(this.state.symbolizers, {...editorProps}) : null
+        }
         </div>
       </div>
     );
