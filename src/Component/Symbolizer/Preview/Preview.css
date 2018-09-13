@@ -4,7 +4,7 @@
   border-radius: 4px;
 }
 
-.gs-edit-preview-button {
+.gs-symbolizer-preview .gs-edit-preview-button {
   position: absolute;
   right: 2px;
   bottom: 2px;
@@ -16,7 +16,7 @@
   position: relative;
 }
 
-.gs-symbolizer-preview-tabs {
+.gs-symbolizer-preview .gs-symbolizer-preview-tabs {
   background-color: white;
   border: 1px solid lightgrey;
   padding: 5px;

@@ -52,16 +52,16 @@ class Starter extends React.Component <{}, DefaultStarterState>{
       locale: en_US
     };
   }
-  
+
   onChange = (e: boolean) => {
-    if(e){
+    if (e) {
       moment.locale('de');
       this.setState({locale: de_DE})
     } else {
       moment.locale('en');
       this.setState({locale: en_US});
     }
-  };
+  }
 
   render() {
     const {
@@ -72,8 +72,8 @@ class Starter extends React.Component <{}, DefaultStarterState>{
       <LocaleProvider locale={locale}>
         <div>
           <div>
-            <button onClick={()=>{this.onChange(true)}}>German</button>
-            <button onClick={()=>{this.onChange(false)}}>English</button>
+            <button onClick={() => {this.onChange(true); }}>German</button>
+            <button onClick={() => {this.onChange(false); }}>English</button>
           </div>
           <App />
         </div>
