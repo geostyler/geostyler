@@ -36,10 +36,10 @@
     "moment": "2.22.2",
     "prop-types": "15.6.2",
     "ol": "4.6.5",
-    "react": "16.5.0",
+    "react": "16.5.1",
     "react-codemirror2": "5.1.0",
     "react-color": "2.14.1",
-    "react-dom": "16.5.0",
+    "react-dom": "16.5.1",
     "react-scripts-ts": "2.17.0"
   },
   "scripts": {
