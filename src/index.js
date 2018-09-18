@@ -17,6 +17,7 @@ import Editor from './Component/Symbolizer/Editor/Editor';
 import LineEditor from './Component/Symbolizer/LineEditor/LineEditor';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
+import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor';
 import IconEditor from './Component/Symbolizer/IconEditor/IconEditor';
 import GraphicEditor from './Component/Symbolizer/GraphicEditor/GraphicEditor';
 import MarkEditor from './Component/Symbolizer/MarkEditor/MarkEditor';
@@ -78,6 +79,7 @@ export {
   LineEditor,
   FillEditor,
   TextEditor,
+  PropTextEditor,
   Style,
   localize
 };
