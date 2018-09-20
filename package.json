@@ -82,7 +82,7 @@
     "react-docgen-typescript": "1.8.1",
     "react-styleguidist": "7.3.8",
     "rimraf": "2.6.2",
-    "ts-jest": "22.4.6",
+    "ts-jest": "23.1.4",
     "typescript": "2.9.2"
   },
   "jest": {
