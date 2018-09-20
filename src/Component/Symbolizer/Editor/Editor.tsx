@@ -116,7 +116,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
         return (
           <TextEditor
             symbolizer={symbolizer}
-            internalDataDef={this.props.internalDataDef}
             onSymbolizerChange={this.onSymbolizerChange}
           />
         );

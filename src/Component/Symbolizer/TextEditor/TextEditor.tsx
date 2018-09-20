@@ -13,7 +13,6 @@ import WidthField from '../Field/WidthField/WidthField';
 const _cloneDeep = require('lodash/cloneDeep');
 import FontPicker from '../Field/FontPicker/FontPicker';
 import OffsetField from '../Field/OffsetField/OffsetField';
-import { Data } from 'geostyler-data';
 
 import './TextEditor.css';
 
@@ -38,7 +37,6 @@ export interface TextEditorLocale {
 // non default props
 interface TextEditorProps {
   symbolizer: TextSymbolizer;
-  internalDataDef?: Data;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
   locale?: TextEditorLocale;
 }

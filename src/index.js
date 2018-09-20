@@ -36,6 +36,7 @@ import GraphicTypeField from './Component/Symbolizer/Field/GraphicTypeField/Grap
 import LineCapField from './Component/Symbolizer/Field/LineCapField/LineCapField';
 import LineJoinField from './Component/Symbolizer/Field/LineJoinField/LineJoinField';
 import LineDashField from './Component/Symbolizer/Field/LineDashField/LineDashField';
+import FontPicker from './Component/Symbolizer/Field/FontPicker/FontPicker';
 import UploadButton from './Component/UploadButton/UploadButton';
 import Style from './Component/Style/Style';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
@@ -74,6 +75,7 @@ export {
   LineCapField,
   LineJoinField,
   LineDashField,
+  FontPicker,
   UploadButton,
   IconEditor,
   LineEditor,
