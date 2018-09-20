@@ -17,6 +17,7 @@ import Editor from './Component/Symbolizer/Editor/Editor';
 import LineEditor from './Component/Symbolizer/LineEditor/LineEditor';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
+import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor';
 import IconEditor from './Component/Symbolizer/IconEditor/IconEditor';
 import GraphicEditor from './Component/Symbolizer/GraphicEditor/GraphicEditor';
 import MarkEditor from './Component/Symbolizer/MarkEditor/MarkEditor';
@@ -35,6 +36,7 @@ import GraphicTypeField from './Component/Symbolizer/Field/GraphicTypeField/Grap
 import LineCapField from './Component/Symbolizer/Field/LineCapField/LineCapField';
 import LineJoinField from './Component/Symbolizer/Field/LineJoinField/LineJoinField';
 import LineDashField from './Component/Symbolizer/Field/LineDashField/LineDashField';
+import FontPicker from './Component/Symbolizer/Field/FontPicker/FontPicker';
 import UploadButton from './Component/UploadButton/UploadButton';
 import Style from './Component/Style/Style';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
@@ -73,11 +75,13 @@ export {
   LineCapField,
   LineJoinField,
   LineDashField,
+  FontPicker,
   UploadButton,
   IconEditor,
   LineEditor,
   FillEditor,
   TextEditor,
+  PropTextEditor,
   Style,
   localize
 };

@@ -74,7 +74,17 @@ export default {
         graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsTextEditor: {
-        fieldLabel: 'Feld',
+        templateFieldLabel: 'Textvorlage',
+        opacityLabel: 'Deckkraft',
+        colorLabel: 'Textfarbe',
+        sizeLabel: 'Textgröße',
+        offsetXLabel: 'Versatz X',
+        offsetYLabel: 'Versatz Y',
+        attributeComboPlaceholder: 'Feld wählen',
+        rotateLabel: 'Drehung'
+    },
+    GsPropTextEditor: {
+        propFieldLabel: 'Feld',
         opacityLabel: 'Deckkraft',
         colorLabel: 'Textfarbe',
         sizeLabel: 'Textgröße',
