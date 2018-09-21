@@ -76,8 +76,8 @@ interface RuleProps extends Partial<DefaultRuleProps> {
 interface RuleState {
   rule: GsRule;
   symbolizerEditorVisible: boolean;
-  storedFilter?: GsFilter;
-  storedScaleDenominator?: GsScaleDenominator;
+  storedFilter: GsFilter;
+  storedScaleDenominator: GsScaleDenominator;
   scaleFieldChecked?: boolean;
   filterFieldChecked?: boolean;
 }
@@ -90,7 +90,9 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     super(props);
     this.state = {
       rule: Rule.defaultProps.rule,
-      symbolizerEditorVisible: false
+      symbolizerEditorVisible: false,
+      storedFilter: ['=='],
+      storedScaleDenominator: {}
     };
   }
 
