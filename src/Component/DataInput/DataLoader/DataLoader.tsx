@@ -136,6 +136,7 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
         case 'WFS Data Parser':
           return (
             <Modal
+              className="wfs-parser-modal"
               title={activeParser.title}
               visible={this.state.modalVisible}
               onCancel={() => this.setState({modalVisible: false})}
