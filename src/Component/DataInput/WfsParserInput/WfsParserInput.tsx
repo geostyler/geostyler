@@ -9,9 +9,7 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-import {
-  get as _get
-} from 'lodash';
+const _get = require('lodash/get');
 
 import './WfsParserInput.css';
 
