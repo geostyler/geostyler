@@ -69,6 +69,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
       url: 'https://ows.terrestris.de/geoserver/terrestris/ows',
       version: '1.1.0',
       typeName: 'terrestris:bundeslaender',
+      maxFeatures: 10,
       validation: {
         url: undefined,
         version: undefined,
@@ -168,7 +169,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
     } = this.state;
 
     return (
-      <div>
+      <div className="wfs-parser-input">
         <Form.Item
           label={this.props.urlLabel}
           validateStatus={_get(this.state, 'validation.url.status')}
