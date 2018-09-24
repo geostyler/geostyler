@@ -172,12 +172,19 @@ export class Style extends React.Component<StyleProps, StyleState> {
     }
   }
 
-  removeSymbolizer = (rule: GsRule, symbolizer: GsSymbolizer) => {
+  removeSymbolizer = (rule: GsRule, symbolizer: GsSymbolizer, key: number) => {
     const style = _cloneDeep(this.state.style);
     const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
-    // if all properties of a symbolizer are equal, remove this symbolizer
+
     const newSymbolizers = style.rules[ruleIdx].symbolizers
-      .filter((symb: GsSymbolizer) => !_isEqual(symb, symbolizer));
+    .filter((symb: GsSymbolizer, index: number) => {
+      if (key) {
+        return key !== index;
+      } else {
+          // if all properties of a symbolizer are equal, remove this symbolizer
+          return !_isEqual(symb, symbolizer);
+        }
+      });
     style.rules[ruleIdx].symbolizers = newSymbolizers;
     if (this.props.onStyleChange) {
       this.props.onStyleChange(style);

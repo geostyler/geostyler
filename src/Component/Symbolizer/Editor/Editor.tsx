@@ -1,8 +1,5 @@
 import * as React from 'react';
 
-import OlMap from 'ol/map';
-import OlLayerVector from 'ol/layer/vector';
-
 import {
   Symbolizer,
   SymbolizerKind
@@ -32,7 +29,7 @@ interface DefaultEditorProps {
 }
 
 // non default props
-interface EditorProps extends Partial<DefaultEditorProps> {
+export interface EditorProps extends Partial<DefaultEditorProps> {
   symbolizer: Symbolizer;
   internalDataDef?: Data;
   onSymbolizerChange: (symbolizer: Symbolizer) => void;
@@ -53,12 +50,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
       }
     };
   }
-
-  /** reference to the underlying OpenLayers map */
-  map: OlMap;
-
-  /** refrence to the vector layer for the passed in features  */
-  dataLayer: OlLayerVector;
 
   public static defaultProps: DefaultEditorProps = {
     defaultIconSource: 'img/openLayers_logo.svg',
