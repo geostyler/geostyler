@@ -12,6 +12,13 @@ import { Data } from 'geostyler-data';
 import './EditorWindow.css';
 import { Button } from 'antd';
 
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface EditorWindowLocale {
+  symbolizersEditor: string;
+}
+
 // default props
 export interface DefaultEditorWindowProps {
   onAdd: () => void;
@@ -19,6 +26,7 @@ export interface DefaultEditorWindowProps {
   onRemove: (symbolizer: Symbolizer, idx: number) => void;
   symbolizers: Symbolizer[];
   onSymbolizerChange: (symbolizer: Symbolizer, key: number) => void;
+  locale: EditorWindowLocale;
 }
 
 // non default props
@@ -37,6 +45,8 @@ interface EditorWindowState {
  */
 export class EditorWindow extends React.Component<EditorWindowProps, EditorWindowState> {
 
+  static componentName: string = 'EditorWindow';
+
   render() {
     const {
       x,
@@ -45,7 +55,8 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
       onClose,
       onRemove,
       symbolizers,
-      onSymbolizerChange
+      onSymbolizerChange,
+      locale
     } = this.props;
 
     return (
@@ -71,7 +82,7 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
         >
           <div className="header">
             <span className="title">
-              Symbolizers Editor
+              {locale.symbolizersEditor}
             </span>
             <Button
               icon="close"
@@ -92,4 +103,4 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
   }
 }
 
-export default EditorWindow;
+export default localize(EditorWindow, EditorWindow.componentName);

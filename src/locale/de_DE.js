@@ -133,5 +133,12 @@ export default {
         Mark: 'Punktsymbol',
         Icon: 'Bilddatei'
     },
+    GsEditorWindow: {
+      symbolizersEditor: 'Symoblisierungseditor'
+    },
+    GsMultiEditor: {
+      add: 'Hinzufügen',
+      remove: 'entfernen'
+    },
     ...de_DE
 };

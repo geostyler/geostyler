@@ -13,12 +13,21 @@ import { Tabs, Button } from 'antd';
 import Editor from '../Editor/Editor';
 const TabPane = Tabs.TabPane;
 
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+
+// i18n
+export interface MultiEditorLocale {
+  add: string;
+  remove: string;
+}
+
 // default props
 interface DefaultMultiEditorProps {
   onAdd: () => void;
   onRemove: (symbolizer: Symbolizer, idx: number) => void;
   symbolizers: Symbolizer[];
   onSymbolizerChange: (symbolizer: Symbolizer, idx: number) => void;
+  locale: MultiEditorLocale;
 }
 
 // non default props
@@ -32,6 +41,9 @@ interface MultiEditorState {
 }
 
 class MultiEditor extends React.Component<MultiEditorProps, MultiEditorState> {
+
+  static componentName: string = 'MultiEditor';
+
   constructor(props: any) {
     super(props);
   }
@@ -43,6 +55,7 @@ class MultiEditor extends React.Component<MultiEditorProps, MultiEditorState> {
       symbolizers,
       editorProps,
       onSymbolizerChange,
+      locale,
       ...passThroughProps
     } = this.props;
 
@@ -67,7 +80,7 @@ class MultiEditor extends React.Component<MultiEditorProps, MultiEditorState> {
                   onRemove(symbolizer, idx);
                 }}
               >
-                Remove
+                {locale.remove}
               </Button>
             }
           </TabPane>
@@ -79,7 +92,7 @@ class MultiEditor extends React.Component<MultiEditorProps, MultiEditorState> {
         className="gs-symbolizer-multi-editor"
         defaultActiveKey="0"
         animated={false}
-        tabBarExtraContent={<Button onClick={onAdd}>Add</Button>}
+        tabBarExtraContent={<Button onClick={onAdd}>{locale.add}</Button>}
         {...passThroughProps}
       >
         {tabs}
@@ -88,4 +101,4 @@ class MultiEditor extends React.Component<MultiEditorProps, MultiEditorState> {
   }
 }
 
-export default MultiEditor;
+export default localize(MultiEditor, MultiEditor.componentName);

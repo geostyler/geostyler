@@ -40,7 +40,7 @@ import { Data } from 'geostyler-data';
 import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import { EditorWindow } from '../EditorWindow/EditorWindow';
+import EditorWindow from '../EditorWindow/EditorWindow';
 
 // i18n
 export interface PreviewLocale {
