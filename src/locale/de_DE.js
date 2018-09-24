@@ -134,11 +134,11 @@ export default {
         Icon: 'Bilddatei'
     },
     GsEditorWindow: {
-      symbolizersEditor: 'Symoblisierungseditor'
+      symbolizersEditor: 'Symbolisierungseditor'
     },
     GsMultiEditor: {
       add: 'Hinzufügen',
-      remove: 'entfernen'
+      remove: 'Entfernen'
     },
     ...de_DE
 };
