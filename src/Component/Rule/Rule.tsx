@@ -69,7 +69,7 @@ interface RuleProps extends Partial<DefaultRuleProps> {
   /** Callback for onClick of the AddSymbolizerButton */
   onAddSymbolizer?: (rule: GsRule) => void;
   /** Callback for onClick of the RemoveSymbolizerButton */
-  onRemoveSymbolizer?: (rule: GsRule, symbolizer: GsSymbolizer) => void;
+  onRemoveSymbolizer?: (rule: GsRule, symbolizer: GsSymbolizer, key: number) => void;
 }
 
 // state
@@ -257,9 +257,9 @@ export class Rule extends React.Component<RuleProps, RuleState> {
                   this.props.onAddSymbolizer(this.props.rule);
                 }
               }}
-              onRemoveSymbolizer={(symb: GsSymbolizer) => {
+              onRemoveSymbolizer={(symb: GsSymbolizer, key: number) => {
                 if (this.props.onRemoveSymbolizer) {
-                  this.props.onRemoveSymbolizer(this.props.rule, symb);
+                  this.props.onRemoveSymbolizer(this.props.rule, symb, key);
                 }
               }}
               {...this.props.previewProps}

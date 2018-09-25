@@ -24,15 +24,11 @@ import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 import './Preview.css';
 
 import {
-  Button,
-  Tabs
+  Button
 } from 'antd';
-
-const TabPane = Tabs.TabPane;
 
 import 'ol/ol.css';
 import './Preview.css';
-import Editor from '../Editor/Editor';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
 
@@ -44,6 +40,7 @@ import { Data } from 'geostyler-data';
 import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import EditorWindow from '../EditorWindow/EditorWindow';
 
 // i18n
 export interface PreviewLocale {
@@ -73,7 +70,7 @@ interface PreviewProps extends Partial<DefaultPreviewProps> {
   symbolizers: Symbolizer[];
   onSymbolizerChange: (symbolizer: Symbolizer, key: number) => void;
   onAddSymbolizer?: () => void;
-  onRemoveSymbolizer?: (symbolizer: Symbolizer) => void;
+  onRemoveSymbolizer?: (symbolizer: Symbolizer, key: number) => void;
 }
 
 // state
@@ -81,6 +78,7 @@ interface PreviewState {
   symbolizers: Symbolizer[];
   editorVisible: boolean;
   mapTargetId: string;
+  editorId: string;
 }
 
 /**
@@ -93,6 +91,9 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
 
   /** refrence to the vector layer for the passed in features  */
   dataLayer: OlLayerVector;
+
+  /** reference to the editButton */
+  _editButton: any;
 
   public static defaultProps: DefaultPreviewProps = {
     hideEditButton: false,
@@ -113,7 +114,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     this.state = {
       editorVisible: false,
       symbolizers: props.symbolizers,
-      mapTargetId: `map_${randomId}`
+      mapTargetId: `map_${randomId}`,
+      editorId: `gs-edit-preview-button_${randomId}`
     };
   }
 
@@ -373,93 +375,61 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       });
   }
 
-  /**
-   * Checks if removeSymbolizer Button or addSymbolizer Button was clicked.
-   * Calls corresponding function, if it was passed through props.
-   */
-  onAddRemoveSymbolizer = (tabIdx: string, action: string) => {
-    if (action === 'add') {
-      if (this.props.onAddSymbolizer) {
-        this.props.onAddSymbolizer();
-      }
-    } else if (action === 'remove') {
-      const symbIdx = parseInt(tabIdx, 10);
-      const symb: Symbolizer = this.props.symbolizers[symbIdx];
-      if (this.props.onRemoveSymbolizer) {
-        this.props.onRemoveSymbolizer(symb);
-      }
-    }
-  }
-
-  getUIFromSymbolizers = (symbolizers: Symbolizer[], editorProps: any): React.ReactNode => {
-    return(
-      <Tabs
-        className="gs-symbolizer-preview-tabs"
-        type="editable-card"
-        defaultActiveKey="0"
-        onEdit={this.onAddRemoveSymbolizer}
-      >
-        {
-          symbolizers.map(
-            (symb: Symbolizer, idx: number) => {
-              return (
-                <TabPane
-                  key={idx}
-                  tab={idx}
-                  closable={true}
-                >
-                  <Editor
-                    symbolizer={symb}
-                    onSymbolizerChange={(sym: Symbolizer) => {
-                      this.props.onSymbolizerChange(sym, idx);
-                    }}
-                    {...editorProps}
-                  />
-                </TabPane>
-              );
-            }
-          )
-        }
-      </Tabs>
-    );
-  }
-
   render() {
     const {
       mapHeight,
-      projection,
-      map,
-      controls,
-      interactions,
-      dataProjection,
-      showOsmBackground,
       locale,
       symbolizers,
-      onSymbolizerChange,
       hideEditButton,
-      ...editorProps
+      onSymbolizerChange,
+      onAddSymbolizer,
+      onRemoveSymbolizer
     } = this.props;
+
+    const {
+      editorVisible,
+      editorId,
+      mapTargetId
+    } = this.state;
+
+    let windowX, windowY;
+
+    if (editorVisible && !hideEditButton ) {
+      const buttonElement = document.getElementById(editorId);
+      const buttonBounds = buttonElement.getBoundingClientRect();
+      windowX = buttonBounds.right + window.scrollX;
+      windowY = buttonBounds.top + window.scrollY;
+    }
 
     return (
       <div className="gs-symbolizer-preview">
         <div
-          id={this.state.mapTargetId}
+          id={mapTargetId}
           className="map"
           style={{ height: mapHeight }}
         >
         {
           !hideEditButton &&
           <Button
+            id={editorId}
             className="gs-edit-preview-button"
             icon="edit"
             onClick={this.onEditButtonClicked}
           >
-            {this.state.editorVisible ? locale.closeEditorText : locale.openEditorText}
+            {editorVisible ? locale.closeEditorText : locale.openEditorText}
           </Button>
         }
         {
-          this.state.editorVisible && !hideEditButton ?
-            this.getUIFromSymbolizers(this.state.symbolizers, {...editorProps}) : null
+          editorVisible && !hideEditButton ?
+            <EditorWindow
+              x={windowX}
+              y={windowY}
+              onAdd={onAddSymbolizer}
+              onClose={this.onEditButtonClicked}
+              onRemove={onRemoveSymbolizer}
+              symbolizers={symbolizers}
+              onSymbolizerChange={onSymbolizerChange}
+            /> : null
         }
         </div>
       </div>

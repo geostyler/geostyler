@@ -122,5 +122,12 @@ export default {
           X: 'X'
         }
     },
+    GsEditorWindow: {
+      symbolizersEditor: 'Symbolizer Editor'
+    },
+    GsMultiEditor: {
+      add: 'Add',
+      remove: 'Remove'
+    },
     ...en_US
 };

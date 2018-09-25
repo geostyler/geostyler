@@ -21,6 +21,24 @@
     "url": "https://github.com/terrestris/geostyler/issues"
   },
   "homepage": ".",
+  "scripts": {
+    "build": "npm run build:dist && npm run build:app && npm run build:styleguide",
+    "build:app": "react-scripts-ts build",
+    "build:dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
+    "build:styleguide": "styleguidist build",
+    "eject": "react-scripts-ts eject",
+    "lint": "tslint --project tsconfig.json --config tslint.json && tsc --noEmit --project tsconfig.json",
+    "lint:prod": "tslint --project tsconfig.json --config tslint.prod.json && tsc --noEmit --project tsconfig.json",
+    "pretest": "npm run lint:prod",
+    "prebuild": "rimraf dist/** && rimraf build/**",
+    "prepublishOnly": "npm run build",
+    "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags",
+    "styleguide": "styleguidist server",
+    "start": "react-scripts-ts start",
+    "start:styleguide": "styleguidist server",
+    "test": "CI=true react-scripts-ts test --env=jsdom --runInBand --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\"",
+    "test:watch": "react-scripts-ts test --env=jsdom --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\""
+  },
   "dependencies": {
     "antd": "3.9.3",
     "blob": "0.0.4",
@@ -41,25 +59,8 @@
     "react-codemirror2": "5.1.0",
     "react-color": "2.14.1",
     "react-dom": "16.5.2",
+    "react-rnd": "9.0.2",
     "react-scripts-ts": "2.17.0"
-  },
-  "scripts": {
-    "build": "npm run build:dist && npm run build:app && npm run build:styleguide",
-    "build:app": "react-scripts-ts build",
-    "build:dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
-    "build:styleguide": "styleguidist build",
-    "eject": "react-scripts-ts eject",
-    "lint": "tslint --project tsconfig.json --config tslint.json && tsc --noEmit --project tsconfig.json",
-    "lint:prod": "tslint --project tsconfig.json --config tslint.prod.json && tsc --noEmit --project tsconfig.json",
-    "pretest": "npm run lint:prod",
-    "prebuild": "rimraf dist/** && rimraf build/**",
-    "prepublishOnly": "npm run build",
-    "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags",
-    "styleguide": "styleguidist server",
-    "start": "react-scripts-ts start",
-    "start:styleguide": "styleguidist server",
-    "test": "CI=true react-scripts-ts test --env=jsdom --runInBand --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\"",
-    "test:watch": "react-scripts-ts test --env=jsdom --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\""
   },
   "devDependencies": {
     "@types/codemirror": "0.0.60",
