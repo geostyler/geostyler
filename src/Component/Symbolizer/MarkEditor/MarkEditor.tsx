@@ -45,19 +45,6 @@ class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState> {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  getDefaultMarkSymbolizer = (wkn: WellKnownName): MarkSymbolizer => {
-    let defaultSymbolizer: MarkSymbolizer = {
-      kind: 'Mark'
-    } as MarkSymbolizer;
-    if (wkn) {
-      defaultSymbolizer.wellKnownName = wkn;
-    } else {
-      defaultSymbolizer.wellKnownName = 'Circle';
-    }
-
-    return defaultSymbolizer;
-  }
-
   render() {
     const symbolizer = _cloneDeep(this.state.symbolizer);
 
@@ -66,8 +53,8 @@ class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState> {
         <WellKnownNameField
           wellKnownName={symbolizer.wellKnownName}
           onChange={(wkn: WellKnownName) => {
-            const newSymbolizer = this.getDefaultMarkSymbolizer(wkn);
-            this.onSymbolizerChange(newSymbolizer);
+            symbolizer.wellKnownName = wkn;
+            this.onSymbolizerChange(symbolizer);
           }}
         />
         <WellKnownNameEditor
