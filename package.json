@@ -22,7 +22,7 @@
   },
   "homepage": ".",
   "scripts": {
-    "build": "npm run build:dist && npm run build:app && nm run build:browser && npm run build:styleguide",
+    "build": "npm run build:dist && npm run build:app && npm run build:browser && npm run build:styleguide",
     "build:app": "react-scripts-ts build",
     "build:dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
     "build:styleguide": "styleguidist build",
