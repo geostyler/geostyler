@@ -2,6 +2,8 @@ import FieldSet from './Component/FieldSet/FieldSet';
 import AttributeCombo from './Component/Filter/AttributeCombo/AttributeCombo';
 import BoolFilterField from './Component/Filter/BoolFilterField/BoolFilterField';
 import ComparisonFilter from './Component/Filter/ComparisonFilter/ComparisonFilter';
+import DataLoader from './Component/DataInput/DataLoader/DataLoader';
+import DataProvider from './DataProvider/DataProvider';
 import NumberFilterField from './Component/Filter/NumberFilterField/NumberFilterField';
 import OperatorCombo from './Component/Filter/OperatorCombo/OperatorCombo';
 import TextFilterField from './Component/Filter/TextFilterField/TextFilterField';
@@ -17,6 +19,7 @@ import Editor from './Component/Symbolizer/Editor/Editor';
 import LineEditor from './Component/Symbolizer/LineEditor/LineEditor';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
+import CodeEditor from './Component/CodeEditor/CodeEditor';
 import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor';
 import IconEditor from './Component/Symbolizer/IconEditor/IconEditor';
 import GraphicEditor from './Component/Symbolizer/GraphicEditor/GraphicEditor';
@@ -39,7 +42,16 @@ import LineDashField from './Component/Symbolizer/Field/LineDashField/LineDashFi
 import FontPicker from './Component/Symbolizer/Field/FontPicker/FontPicker';
 import UploadButton from './Component/UploadButton/UploadButton';
 import Style from './Component/Style/Style';
+import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
+
+import { LocaleProvider } from 'antd';
+import de_DE from './locale/de_DE';
+import en_US from './locale/en_US';
+ const locale = {
+  de_DE,
+  en_US
+};
 
 export {
   FieldSet,
@@ -83,5 +95,11 @@ export {
   TextEditor,
   PropTextEditor,
   Style,
-  localize
+  localize,
+  locale,
+  LocaleProvider,
+  DataLoader,
+  DataProvider,
+  CodeEditor,
+  StyleLoader
 };
