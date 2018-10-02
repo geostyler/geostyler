@@ -1,4 +1,5 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require("webpack");
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -43,7 +44,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("geostyler.css")
+    new ExtractTextPlugin("geostyler.css"),
+    new webpack.optimize.UglifyJsPlugin(),
   ],
   // When importing a module whose path matches one of the following, just
   // assume a corresponding global variable exists and use that instead.
