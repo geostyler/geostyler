@@ -12,6 +12,7 @@
 /dist
 /build
 /dist
+/browser
 
 # misc
 .DS_Store
