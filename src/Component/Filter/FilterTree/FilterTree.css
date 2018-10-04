@@ -1,0 +1,21 @@
+.gs-filter-tree {
+  text-align: left;
+}
+
+.gs-filter-tree.ant-tree .style-filter-node.and-filter,
+.gs-filter-tree.ant-tree .style-filter-node.or-filter,
+.gs-filter-tree.ant-tree .style-filter-node.not-filter {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.05);
+  margin-bottom: 5px;
+}
+
+.gs-filter-tree.ant-tree .style-filter-node .ant-tree-node-content-wrapper {
+  height: inherit;
+}
+
+.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-node-content-wrapper {
+  border: 1px solid #40a9ff;
+  border-radius: 4px;
+}
+

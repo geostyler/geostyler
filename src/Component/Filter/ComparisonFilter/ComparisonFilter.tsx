@@ -70,6 +70,8 @@ export interface DefaultComparisonFilterProps {
   onValidationChanged?: (status: ValidationStatus) => void;
   /** Object aggregating validation functions for attribute, operator and value */
   validators: Validators;
+  /** Show ui in micro mode. Which disables labels etc. */
+  microUI: boolean;
 }
 // non default props
 interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
@@ -198,7 +200,8 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       attribute: attributeName => !_isEmpty(attributeName),
       operator: operatorName => !_isEmpty(operatorName),
       value: ComparisonFilterUi.validateValue
-    }
+    },
+    microUI: false
   };
 
   private operatorsMap: Object = {
@@ -475,51 +478,83 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   }
 
   render() {
+    const {
+      attributeNameFilter,
+      attributeLabel,
+      attributePlaceholderString,
+      attributeNameMappingFunction,
+      attributeValidationHelpString,
+      internalDataDef,
+      hideAttributeType,
+      operatorNameMappingFunction,
+      operatorPlaceholderString,
+      operatorLabel,
+      operatorValidationHelpString,
+      operatorTitleMappingFunction,
+      showOperatorTitles,
+      valueLabel,
+      valuePlaceholder,
+      microUI
+    } = this.props;
+
+    const {
+      attribute,
+      allowedOperators,
+      filter,
+      validateStatus,
+      valueValidationHelpString
+    } = this.state;
+
+    let className = 'gs-comparison-filter-ui';
+    if (microUI) {
+      className += ' micro';
+    }
+
     return (
-      <div className="gs-comparison-filter-ui">
+      <div className={className}>
         <Form>
           <Row gutter={16} justify="center">
             <Col span={10} className="gs-small-col">
               <AttributeCombo
-                value={this.state && this.state.filter ? this.state.filter[1] : undefined}
-                internalDataDef={this.props.internalDataDef}
+                value={filter ? filter[1] : undefined}
+                internalDataDef={internalDataDef}
                 onAttributeChange={this.onAttributeChange}
-                attributeNameFilter={this.props.attributeNameFilter}
-                attributeNameMappingFunction={this.props.attributeNameMappingFunction}
-                label={this.props.attributeLabel}
-                placeholder={this.props.attributePlaceholderString}
-                validateStatus={this.state.validateStatus.attribute}
-                help={this.props.attributeValidationHelpString}
-                hideAttributeType={this.props.hideAttributeType}
+                attributeNameFilter={attributeNameFilter}
+                attributeNameMappingFunction={attributeNameMappingFunction}
+                label={attributeLabel}
+                placeholder={attributePlaceholderString}
+                validateStatus={validateStatus.attribute}
+                help={attributeValidationHelpString}
+                hideAttributeType={hideAttributeType}
               />
             </Col>
             <Col span={4} className="gs-small-col">
               <OperatorCombo
-                value={this.state && this.state.filter ? this.state.filter[0] : undefined}
-                internalDataDef={this.props.internalDataDef}
+                value={filter ? filter[0] : undefined}
+                internalDataDef={internalDataDef}
                 onOperatorChange={this.onOperatorChange}
-                operators={this.state.allowedOperators}
-                operatorNameMappingFunction={this.props.operatorNameMappingFunction}
-                placeholder={this.props.operatorPlaceholderString}
-                label={this.props.operatorLabel}
-                validateStatus={this.state.validateStatus.operator}
-                help={this.props.operatorValidationHelpString}
-                operatorTitleMappingFunction={this.props.operatorTitleMappingFunction}
-                showTitles={this.props.showOperatorTitles}
+                operators={allowedOperators}
+                operatorNameMappingFunction={operatorNameMappingFunction}
+                placeholder={operatorPlaceholderString}
+                label={operatorLabel}
+                validateStatus={validateStatus.operator}
+                help={operatorValidationHelpString}
+                operatorTitleMappingFunction={operatorTitleMappingFunction}
+                showTitles={showOperatorTitles}
               />
             </Col>
             {
               this.state.textFieldVisible ?
                 <Col span={10} className="gs-small-col">
                   <TextFilterField
-                    value={this.state && this.state.filter ? this.state.filter[2] as string : undefined}
-                    internalDataDef={this.props.internalDataDef}
-                    selectedAttribute={this.state.attribute}
+                    value={filter ? filter[2] as string : undefined}
+                    internalDataDef={internalDataDef}
+                    selectedAttribute={attribute}
                     onValueChange={this.onValueChange}
-                    label={this.props.valueLabel}
-                    placeholder={this.props.valuePlaceholder}
-                    validateStatus={this.state.validateStatus.value}
-                    help={this.props.valueValidationHelpString}
+                    label={valueLabel}
+                    placeholder={valuePlaceholder}
+                    validateStatus={validateStatus.value}
+                    help={valueValidationHelpString}
                   />
                 </Col> :
                 null
@@ -528,14 +563,14 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
               this.state.numberFieldVisible ?
                 <Col span={10} className="gs-small-col">
                   <NumberFilterField
-                    value={this.state && this.state.filter ? this.state.filter[2] as number : undefined}
-                    internalDataDef={this.props.internalDataDef}
-                    selectedAttribute={this.state.attribute}
+                    value={filter ? filter[2] as number : undefined}
+                    internalDataDef={internalDataDef}
+                    selectedAttribute={attribute}
                     onValueChange={this.onValueChange}
-                    label={this.props.valueLabel}
-                    placeholder={this.props.valuePlaceholder}
-                    validateStatus={this.state.validateStatus.value}
-                    help={this.state.valueValidationHelpString}
+                    label={valueLabel}
+                    placeholder={valuePlaceholder}
+                    validateStatus={validateStatus.value}
+                    help={valueValidationHelpString}
                   />
                 </Col> :
                 null
@@ -544,10 +579,10 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
               this.state.boolFieldVisible ?
                 <Col span={10} className="gs-small-col">
                   <BoolFilterField
-                    value={this.state && this.state.filter ? this.state.filter[2] as boolean : undefined}
-                    internalDataDef={this.props.internalDataDef}
+                    value={filter ? filter[2] as boolean : undefined}
+                    internalDataDef={internalDataDef}
                     onValueChange={this.onValueChange}
-                    label={this.props.valueLabel}
+                    label={valueLabel}
                   />
                 </Col> :
                 null
