@@ -42,7 +42,7 @@
     "test:watch": "react-scripts-ts test --env=jsdom --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\""
   },
   "dependencies": {
-    "antd": "3.9.3",
+    "antd": "3.10.1",
     "blob": "0.0.4",
     "codemirror": "5.40.2",
     "color": "3.0.0",
