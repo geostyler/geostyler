@@ -16,7 +16,7 @@ class DataProvider {
     this._parsers = parsers;
 
     if (this._parsers.length === 0) {
-      new Console().error('The DataProvider was instanciated with an empty "parsers" configuration. ' + 
+      new Console().error('The DataProvider was instanciated with an empty "parsers" configuration. ' +
         'The data import will not work - was this intentionally?');
     }
   }
@@ -24,9 +24,9 @@ class DataProvider {
   /**
    * Imports the given data and transforms it into the internal data structure. Therefore an appropriate parser is
    * detected by the given format.
-   * 
-   * @param inputData 
-   * @param format 
+   *
+   * @param inputData
+   * @param format
    */
   importData(inputData: any, format: string) {
 

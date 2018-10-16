@@ -5,7 +5,7 @@ describe('DataProvider', () => {
   it('is defined', () => {
     expect(DataProvider).toBeDefined();
   });
-  
+
   describe('Constructor', () => {
     it('can be created with parsers', () => {
       const parsers = [{
@@ -95,5 +95,5 @@ describe('DataProvider', () => {
       expect(returnParser).toBe(gjParser);
     });
   });
-  
+
 });

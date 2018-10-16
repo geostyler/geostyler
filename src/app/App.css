@@ -1,18 +1,53 @@
+#root {
+  height: 100%;
+}
+
 .App {
   text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.App-header {
-  background-color: #222;
-  padding: 5px;
-  color: white;
+.main-content {
+  display: flex;
+  flex: 1;
 }
 
-.App-intro {
-  font-size: large;
+.gui-wrapper {
+  flex: 2;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.editor-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 34%;
+}
+
+.gs-dataloader-right {
+  margin-left: 135px;
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+  .gs-small-col {
+    width: auto;
+  }
+
+  .main-content {
+    display: block;
+  }
+
+  .editor-wrapper {
+    max-width: 95%;
+  }
+
+  .gs-dataloader-right {
+    margin-left: auto;
+  }
+
+  header > a {
+    margin-right: 10px;
+  }
 }

@@ -1,0 +1,34 @@
+.gs-code-editor{
+  height: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.gs-code-editor-codemirror {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+.CodeMirror {
+  flex: 1;
+}
+
+.gs-code-editor-errormessage {
+  color: red;
+  background-color: lightgray;
+}
+
+.gs-code-editor-toolbar {
+  width: 100%;
+  padding: 5px;
+}
+
+.gs-code-editor-download-button {
+  width: 150px;
+  margin-top: 10px;
+}
+

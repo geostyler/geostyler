@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "build/dist",
-    "module": "esnext",
+    "outDir": "dist",
+    "module": "commonjs",
     "target": "es5",
     "lib": ["es6", "dom"],
     "sourceMap": true,
@@ -14,17 +14,23 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },
   "exclude": [
     "node_modules",
     "build",
+    "browser",
+    "dist",
     "scripts",
+    "coverage",
     "acceptance-tests",
     "webpack",
     "jest",
-    "src/setupTests.ts"
+    "coverage",
+    "src/index.tsx",
+    "src/setupTests.ts",
+    "**.config.js"
   ]
 }
