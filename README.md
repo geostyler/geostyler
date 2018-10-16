@@ -1,4 +1,4 @@
-# GeoStyler
+![GeoStyler Logo](/docs/Geo_Styler_Logo_300_RGB.jpg)
 
 [github](https://github.com/terrestris/geostyler) /
 [npm](https://www.npmjs.com/package/geostyler)
