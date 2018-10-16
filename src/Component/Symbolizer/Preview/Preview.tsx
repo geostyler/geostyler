@@ -62,6 +62,7 @@ export interface DefaultPreviewProps {
   unknownSymbolizerText?: string;
   iconEditorProps?: DefaultIconEditorProps;
   locale?: PreviewLocale;
+  onMapDidMount?: (map: OlMap) => void;
 }
 
 // non default props
@@ -104,7 +105,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     map: undefined,
     layers: undefined,
     controls: undefined,
-    interactions: undefined
+    interactions: undefined,
+    onMapDidMount: (map: OlMap) => undefined
   };
 
   constructor(props: PreviewProps) {
@@ -244,6 +246,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     this.map = map;
     this.updateFeatures();
     this.applySymbolizersToMapFeatures(this.state.symbolizers);
+
+    this.props.onMapDidMount(map);
   }
 
   getSampleGeomFromSymbolizer = () => {
