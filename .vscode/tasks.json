@@ -5,7 +5,12 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "start",
+      "script": "build:dist",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "build:browser",
       "problemMatcher": []
     }
   ]
