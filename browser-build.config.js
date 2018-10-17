@@ -1,7 +1,9 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require("webpack");
+require("@babel/polyfill");
+
 module.exports = {
-  entry: "./src/index.js",
+  entry: ['@babel/polyfill', './src/index.js'],
   output: {
     filename: "geostyler.js",
     path: __dirname + "/browser",
@@ -38,7 +40,7 @@ module.exports = {
         include: /src\/locale/,
         loader: "babel-loader",
         query: {
-          presets: ["@babel/env"]
+          presets: ["@babel/preset-env"]
         }
       }
     ]

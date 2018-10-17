@@ -66,6 +66,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.1.2",
+    "@babel/polyfill": "7.0.0",
     "@babel/preset-env": "7.1.0",
     "@babel/preset-stage-0": "7.0.0",
     "@types/codemirror": "0.0.64",
