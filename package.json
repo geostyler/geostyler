@@ -1,6 +1,6 @@
 {
   "name": "geostyler",
-  "version": "0.15.2",
+  "version": "0.16.0",
   "description": "",
   "main": "dist/index.js",
   "files": [
