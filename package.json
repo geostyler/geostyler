@@ -69,7 +69,7 @@
     "@babel/polyfill": "7.0.0",
     "@babel/preset-env": "7.1.0",
     "@babel/preset-stage-0": "7.0.0",
-    "@types/codemirror": "0.0.64",
+    "@types/codemirror": "0.0.65",
     "@types/color": "3.0.0",
     "@types/enzyme": "3.1.14",
     "@types/file-saver": "1.3.1",
