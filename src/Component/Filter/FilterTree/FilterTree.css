@@ -10,6 +10,16 @@
   margin-bottom: 5px;
 }
 
+.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-switcher {
+  display: none;
+}
+
+.gs-filter-tree.ant-tree .ant-tree-node-content-wrapper,
+.gs-filter-tree.ant-tree .ant-tree-node-content-wrapper,
+.gs-filter-tree.ant-tree .ant-tree-node-content-wrapper {
+  width: calc(100% - 24px);
+}
+
 .gs-filter-tree.ant-tree .style-filter-node .ant-tree-node-content-wrapper {
   height: inherit;
 }
@@ -18,4 +28,32 @@
   border: 1px solid #40a9ff;
   border-radius: 4px;
 }
+
+.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-node-content-wrapper:not(:hover) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.gs-filter-tree.ant-tree .node-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.gs-filter-tree.ant-tree .node-title .filter-tools {
+  visibility: hidden;
+}
+
+.gs-filter-tree.ant-tree .node-title:hover .filter-tools,
+.gs-filter-tree.ant-tree .node-title .filter-tools:hover {
+  visibility: visible;
+}
+
+.gs-filter-tree.ant-tree .node-title .filter-tools .anticon {
+  color: black;
+}
+
+.gs-filter-tree.ant-tree .node-title .filter-tools .anticon-minus {
+  font-size: 10px;
+}
+
 

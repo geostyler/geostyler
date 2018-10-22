@@ -1,7 +1,12 @@
 import * as React from 'react';
 
 import {
-  Tree
+  Tree,
+  Icon,
+  Dropdown,
+  Menu,
+  Button,
+  Tooltip
 } from 'antd';
 
 const _get = require('lodash/get');
@@ -67,8 +72,14 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     if (filter === rootFilter) {
       this.props.onFilterChange(filter);
     }
+
     let newFilter = [...rootFilter];
-    _set(newFilter, position, filter);
+    if (position === '') {
+      newFilter = filter;
+    } else {
+      _set(newFilter, position, filter);
+    }
+
     this.props.onFilterChange(newFilter);
   }
 
@@ -78,6 +89,75 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     } = this.props;
     const operator = filter[0];
 
+    let showRemoveButton = false;
+
+    const parentPosition = position.substring(0, position.length - 3);
+    const parentFilter = position === '' ? null : this.getFilterByNodeKey(parentPosition);
+
+    if (parentFilter) {
+      const parentOperator = parentFilter[0];
+      if (parentOperator === '&&' || parentOperator === '||') {
+        showRemoveButton = true;
+      }
+    }
+
+    const addFilterMenu = (
+      <Menu onClick={({key}) => this.onAddClick(position, key)}>
+        <Menu.Item key="and">And-Filter</Menu.Item>
+        <Menu.Item key="or">Or-Filter</Menu.Item>
+        <Menu.Item key="not">Not-Filter</Menu.Item>
+        <Menu.Item key="comparison">Comparison-Filter</Menu.Item>
+      </Menu>
+    );
+
+    const changeFilterMenu = (
+      <Menu onClick={({key}) => this.onChangeClick(position, key)}>
+        <Menu.Item key="and">And-Filter</Menu.Item>
+        <Menu.Item key="or">Or-Filter</Menu.Item>
+        <Menu.Item key="not">Not-Filter</Menu.Item>
+        <Menu.Item key="comparison">Comparison-Filter</Menu.Item>
+      </Menu>
+    );
+
+    const addButton = (
+      <Tooltip title="Add Filter" placement="left">
+        <Dropdown
+          trigger={['click']}
+          overlay={addFilterMenu}
+        >
+          <Button size="small">
+            <Icon type="plus"/>
+          </Button>
+        </Dropdown>
+      </Tooltip>
+    );
+
+    const removeButton = (
+      <Tooltip title="Remove Filter" placement="right">
+        <Button
+          size="small"
+          onClick={() => this.onRemoveClick(position)}
+        >
+          <Icon
+            type="minus"
+          />
+        </Button>
+      </Tooltip>
+    );
+
+    const changeButton = (
+      <Tooltip title="Change Filter" placement="left">
+        <Dropdown
+          trigger={['click']}
+          overlay={changeFilterMenu}
+        >
+          <Button size="small">
+            <Icon type="filter"/>
+          </Button>
+        </Dropdown>
+      </Tooltip>
+    );
+
     if (operator === '&&') {
       const combinedFilters = filter.slice(1);
       return (
@@ -85,7 +165,16 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
           className="style-filter-node and-filter"
           key={position}
           isLeaf={false}
-          title="And"
+          title={
+            <span className="node-title">
+              <span className="filter-text">And</span>
+              <span className="filter-tools">
+                {changeButton}
+                {addButton}
+                {showRemoveButton ? removeButton : undefined}
+              </span>
+            </span>
+          }
         >
           {
             combinedFilters.map((subFilter, index) => {
@@ -102,7 +191,16 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
           className="style-filter-node or-filter"
           key={position}
           isLeaf={false}
-          title="Or"
+          title={
+            <span className="node-title">
+              <span className="filter-text">Or</span>
+              <span className="filter-tools">
+                {changeButton}
+                {addButton}
+                {showRemoveButton ? removeButton : undefined}
+              </span>
+            </span>
+          }
         >
           {
             combinedFilters.map((subFilter, index) => {
@@ -118,7 +216,15 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
           className="style-filter-node not-filter"
           key={position}
           isLeaf={false}
-          title="Not"
+          title={
+            <span className="node-title">
+              <span className="filter-text">Not</span>
+              <span className="filter-tools">
+                {changeButton}
+                {showRemoveButton ? removeButton : undefined}
+              </span>
+            </span>
+          }
         >
           {this.getNodeByFilter(filter[1], `${position}[1]`)}
         </TreeNode>
@@ -130,16 +236,125 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
           key={position}
           isLeaf={true}
           title={
-            <ComparisonFilterUi
-              microUI={true}
-              internalDataDef={internalDataDef}
-              filter={filter as GsComparisonFilter}
-              onFilterChange={f => this.onComparisonFilterChange(f, position)}
-            />
+            <span className="node-title">
+              <span>
+                <ComparisonFilterUi
+                  microUI={true}
+                  internalDataDef={internalDataDef}
+                  filter={filter as GsComparisonFilter}
+                  onFilterChange={f => this.onComparisonFilterChange(f, position)}
+                />
+              </span>
+              <span className="filter-tools">
+                {changeButton}
+                {showRemoveButton ? removeButton : undefined}
+              </span>
+            </span>
           }
         />
       );
     }
+  }
+
+  onAddClick = (position: string, key: string) => {
+    const {
+      filter,
+      onFilterChange
+    } = this.props;
+
+    let addedFilter: GsFilter ;
+    const newFilter: GsFilter = [...filter];
+
+    switch (key) {
+      case 'and':
+        addedFilter = ['&&', ['==', '', ''], ['==', '', '']];
+        break;
+      case 'or':
+        addedFilter = ['||', ['==', '', ''], ['==', '', '']];
+        break;
+      case 'not':
+        addedFilter = ['!', ['==', '', '']];
+        break;
+      case 'comparison':
+      default:
+        addedFilter = ['==', '', ''];
+        break;
+    }
+
+    if (position === '') {
+      newFilter.push(addedFilter);
+    } else {
+      const previousFilter = _get(newFilter, position);
+      previousFilter.push(addedFilter);
+      _set(newFilter, position, previousFilter);
+    }
+
+    onFilterChange(newFilter);
+  }
+
+  onChangeClick = (position: string, key: string) => {
+    const {
+      filter,
+      onFilterChange
+    } = this.props;
+
+    let addedFilter: GsFilter ;
+    const newFilter: GsFilter = [...filter];
+    const previousFilter = position === '' ? newFilter : _get(newFilter, position);
+
+    switch (key) {
+      case 'and':
+        if (previousFilter && previousFilter[0] === '&&' || previousFilter[0] === '||' ) {
+          addedFilter = previousFilter;
+          addedFilter[0] = '&&';
+        } else {
+          addedFilter = ['&&', ['==', '', ''], ['==', '', '']];
+        }
+        break;
+      case 'or':
+        if (previousFilter && previousFilter[0] === '&&' || previousFilter[0] === '||' ) {
+          addedFilter = previousFilter;
+          addedFilter[0] = '||';
+        } else {
+          addedFilter = ['||', ['==', '', ''], ['==', '', '']];
+        }
+        break;
+      case 'not':
+        addedFilter = ['!', ['==', '', '']];
+        break;
+      case 'comparison':
+      default:
+        addedFilter = ['==', '', ''];
+        break;
+    }
+
+    if (position === '') {
+      onFilterChange(addedFilter);
+      return;
+    } else {
+      _set(newFilter, position, addedFilter);
+    }
+
+    onFilterChange(newFilter);
+  }
+
+  onRemoveClick = (position: string) => {
+    const {
+      filter,
+      onFilterChange
+    } = this.props;
+
+    const parentPosition = position.substring(0, position.length - 3);
+    const parentFilter = this.getFilterByNodeKey(parentPosition);
+    let newFilter;
+
+    if (parentFilter.length <= 2) {
+      newFilter = this.removeAtPosition(filter, parentPosition);
+    } else {
+      newFilter = this.removeAtPosition(filter, position);
+    }
+
+    onFilterChange(newFilter);
   }
 
   positionStringAsArray = (positionString: string) => {
