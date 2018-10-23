@@ -65,6 +65,10 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     };
   }
 
+  /**
+   * Changehandler for ComparsionFilters.
+   *
+   */
   onComparisonFilterChange = (filter: GsFilter, position: string) => {
     const {
       filter: rootFilter
@@ -83,6 +87,11 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     this.props.onFilterChange(newFilter);
   }
 
+  /**
+   * Creates a TreeNode for a given filter at the given position.
+   *
+   * @return Tree.TreeNode
+   */
   getNodeByFilter = (filter: GsFilter, position: string = ''): any => {
     const {
       internalDataDef
@@ -92,7 +101,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     let showRemoveButton = false;
 
     const parentPosition = position.substring(0, position.length - 3);
-    const parentFilter = position === '' ? null : this.getFilterByNodeKey(parentPosition);
+    const parentFilter = position === '' ? null : this.getFilterAtPosition(parentPosition);
 
     if (parentFilter) {
       const parentOperator = parentFilter[0];
@@ -102,7 +111,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     }
 
     const addFilterMenu = (
-      <Menu onClick={({key}) => this.onAddClick(position, key)}>
+      <Menu onClick={({key}) => this.addFilter(position, key)}>
         <Menu.Item key="and">And-Filter</Menu.Item>
         <Menu.Item key="or">Or-Filter</Menu.Item>
         <Menu.Item key="not">Not-Filter</Menu.Item>
@@ -111,7 +120,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     );
 
     const changeFilterMenu = (
-      <Menu onClick={({key}) => this.onChangeClick(position, key)}>
+      <Menu onClick={({key}) => this.changeFilter(position, key)}>
         <Menu.Item key="and">And-Filter</Menu.Item>
         <Menu.Item key="or">Or-Filter</Menu.Item>
         <Menu.Item key="not">Not-Filter</Menu.Item>
@@ -136,7 +145,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
       <Tooltip title="Remove Filter" placement="right">
         <Button
           size="small"
-          onClick={() => this.onRemoveClick(position)}
+          onClick={() => this.removeFilter(position)}
         >
           <Icon
             type="minus"
@@ -256,7 +265,12 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     }
   }
 
-  onAddClick = (position: string, key: string) => {
+  /**
+   * Handler for the add button.
+   * Adds a filter of a given type at the given position.
+   *
+   */
+  addFilter = (position: string, type: string) => {
     const {
       filter,
       onFilterChange
@@ -265,7 +279,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     let addedFilter: GsFilter ;
     const newFilter: GsFilter = [...filter];
 
-    switch (key) {
+    switch (type) {
       case 'and':
         addedFilter = ['&&', ['==', '', ''], ['==', '', '']];
         break;
@@ -292,7 +306,11 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     onFilterChange(newFilter);
   }
 
-  onChangeClick = (position: string, key: string) => {
+  /**
+   * Changes a filter at a position to a given typ.
+   *
+   */
+  changeFilter = (position: string, type: string) => {
     const {
       filter,
       onFilterChange
@@ -302,7 +320,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     const newFilter: GsFilter = [...filter];
     const previousFilter = position === '' ? newFilter : _get(newFilter, position);
 
-    switch (key) {
+    switch (type) {
       case 'and':
         if (previousFilter && previousFilter[0] === '&&' || previousFilter[0] === '||' ) {
           addedFilter = previousFilter;
@@ -338,14 +356,18 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     onFilterChange(newFilter);
   }
 
-  onRemoveClick = (position: string) => {
+  /**
+   * Removes a filter at a given position.
+   *
+   */
+  removeFilter = (position: string) => {
     const {
       filter,
       onFilterChange
     } = this.props;
 
     const parentPosition = position.substring(0, position.length - 3);
-    const parentFilter = this.getFilterByNodeKey(parentPosition);
+    const parentFilter = this.getFilterAtPosition(parentPosition);
     let newFilter;
 
     if (parentFilter.length <= 2) {
@@ -357,6 +379,9 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     onFilterChange(newFilter);
   }
 
+  /**
+   * Transforms a position String like '[2][3]' to an positionArray like [2, 3].
+   */
   positionStringAsArray = (positionString: string) => {
     return positionString
       .replace('][', ',')
@@ -366,11 +391,17 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
       .map(i => parseInt(i, 10));
   }
 
+  /**
+   * Transforms am positionArray like [2, 3] to a string like '[2][3]'.
+   */
   positionArrayAsString = (positionArray: number[]) => {
     return `[${positionArray.toString().replace(',', '][')}]`;
   }
 
-  getFilterByNodeKey = (position: string) => {
+  /**
+   * Returns the filter at a specific position.
+   */
+  getFilterAtPosition = (position: string) => {
     const {
       filter: rootFilter
     } = this.props;
@@ -381,6 +412,9 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     }
   }
 
+  /**
+   * Removes a subfilter from a given filter at the given position.
+   */
   removeAtPosition = (filter: GsFilter, position: string): GsFilter => {
     let newFilter = [...filter];
     const dragNodeSubPosition = position.substr(position.length - 3);
@@ -395,6 +429,10 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     return newFilter;
   }
 
+  /**
+   * Inserts a given subfilter to a given parentfilter by its position and its
+   * dropPosition.
+   */
   insertAtPosition = (
     rootFilter: GsFilter,
     insertFilter: GsFilter,
@@ -435,6 +473,10 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     return newFilter;
   }
 
+  /**
+   * Drop handler which is passed to the Tree.
+   * Removes filter from the dragged position and adds it to the dropped position.
+   */
   onDrop = (dropObject: any) => {
     const {
       filter: rootFilter
@@ -493,6 +535,10 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     this.props.onFilterChange(newFilter);
   }
 
+  /**
+   * Expand handler which is passed to the Tree.
+   * Sets the expandedKeys to the state and so back to the tree.
+   */
   onExpand = (expandedKeys: string[]) => {
     this.setState({expandedKeys});
   }
