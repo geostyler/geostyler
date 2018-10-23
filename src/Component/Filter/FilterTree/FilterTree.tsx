@@ -120,7 +120,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
     );
 
     const addButton = (
-      <Tooltip title="Add Filter" placement="left">
+      <Tooltip title="Add Filter" placement="top">
         <Dropdown
           trigger={['click']}
           overlay={addFilterMenu}
@@ -445,36 +445,48 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
       node
     } = dropObject;
 
-    const dragNodePosition = dragNode.props.eventKey;
-    const draggedFilter = _get(rootFilter, dragNodePosition);
-    const dropTargetPosition = node.props.eventKey === '0-0' ? '' : node.props.eventKey;
     let newFilter = [...rootFilter];
 
+    const dragNodePosition = dragNode.props.eventKey;
+    const draggedFilter = _get(rootFilter, dragNodePosition);
+    const dragParentPosition = dragNodePosition.substring(0, dragNodePosition.length - 3);
+    const dragParentFilter = dragParentPosition === '' ? rootFilter : _get(rootFilter, dragParentPosition);
     const dragPositionArray = this.positionStringAsArray(dragNodePosition);
+    const dragSubPosition = dragPositionArray[dragPositionArray.length - 1];
+
+    const dropTargetPosition = node.props.eventKey === '0-0' ? '' : node.props.eventKey;
+    const dropParentPosition = dropTargetPosition.substring(0, dropTargetPosition.length - 3);
     const dropPositionArray = this.positionStringAsArray(dropTargetPosition);
+    const dropSubPosition = dropPositionArray[dropPositionArray.length - 1];
+
+    const sameParent = dragParentPosition === dropParentPosition;
+    const draggedLastRemaingChild = dragParentFilter.length <= 2;
     let removePositionArray = [...dragPositionArray];
 
     // Get remove position. Calculate the modified indexes after the node is added.
-    if (dropTargetPosition === '') {
-      // We dropped to the root node
-      removePositionArray[0] = dragPositionArray[0] + 1;
+
+    // We dropped to the root node
+    if (dropTargetPosition === '' || dropParentPosition === '') {
+      const droppedBefore = dropTargetPosition === '' || dropPositionArray[0] < dragPositionArray[0];
+      if (droppedBefore) {
+        removePositionArray[0] = dragPositionArray[0] + 1;
+      }
+    }
+    // We dropped inside the same CompositionFilter
+    if (sameParent) {
+      if (dropSubPosition < dragSubPosition) {
+        const subIndex = removePositionArray.length - 1;
+        removePositionArray[subIndex] = dragSubPosition + 1;
+      }
     } else {
-      // Position of parent
-      const indexOfParent = dropPositionArray.length - 1;
-      if (dragNodePosition.length > dropTargetPosition.length && dragPositionArray[indexOfParent]) {
-        if (dragPositionArray[indexOfParent] > dropPositionArray[indexOfParent]) {
-          removePositionArray[indexOfParent] = dragPositionArray[indexOfParent] + 1;
-        } else {
-          removePositionArray[indexOfParent] = dragPositionArray[indexOfParent] - 1;
-        }
+      if (draggedLastRemaingChild) {
+        removePositionArray = this.positionStringAsArray(dragParentPosition);
       }
     }
 
     const removePosition = this.positionArrayAsString(removePositionArray);
-
     // Insert into new position
     newFilter = this.insertAtPosition(newFilter, draggedFilter, dropTargetPosition, dropPosition);
-
     // Remove from old position
     newFilter = this.removeAtPosition(newFilter, removePosition);
 
