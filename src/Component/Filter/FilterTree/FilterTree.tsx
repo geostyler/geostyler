@@ -26,7 +26,6 @@ import {
 } from 'geostyler-data';
 
 import ComparisonFilterUi from '../ComparisonFilter/ComparisonFilter';
-import { TreeNode } from 'antd/lib/tree-select';
 
 // default props
 export interface DefaultFilterTreeProps {
@@ -52,7 +51,7 @@ interface FilterTreeState {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
+export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
 
   public static defaultProps: DefaultFilterTreeProps = {
     filter: ['==', '', null]
@@ -167,101 +166,101 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
       </Tooltip>
     );
 
-    if (operator === '&&') {
-      const combinedFilters = filter.slice(1);
-      return (
-        <TreeNode
-          className="style-filter-node and-filter"
-          key={position}
-          isLeaf={false}
-          title={
-            <span className="node-title">
-              <span className="filter-text">And</span>
-              <span className="filter-tools">
-                {changeButton}
-                {addButton}
-                {showRemoveButton ? removeButton : undefined}
+    const combinedFilters = filter.slice(1);
+    switch (operator) {
+      case '&&':
+        return (
+          <TreeNode
+            className="style-filter-node and-filter"
+            key={position}
+            isLeaf={false}
+            title={
+              <span className="node-title">
+                <span className="filter-text">And</span>
+                <span className="filter-tools">
+                  {changeButton}
+                  {addButton}
+                  {showRemoveButton ? removeButton : undefined}
+                </span>
               </span>
-            </span>
-          }
-        >
-          {
-            combinedFilters.map((subFilter, index) => {
-              const pos = `${position}[${index + 1}]`;
-              return this.getNodeByFilter(subFilter, pos);
-            })
-          }
-        </TreeNode>
-      );
-    } else if (operator === '||') {
-      const combinedFilters = filter.slice(1);
-      return (
-        <TreeNode
-          className="style-filter-node or-filter"
-          key={position}
-          isLeaf={false}
-          title={
-            <span className="node-title">
-              <span className="filter-text">Or</span>
-              <span className="filter-tools">
-                {changeButton}
-                {addButton}
-                {showRemoveButton ? removeButton : undefined}
+            }
+          >
+            {
+              combinedFilters.map((subFilter, index) => {
+                const pos = `${position}[${index + 1}]`;
+                return this.getNodeByFilter(subFilter, pos);
+              })
+            }
+          </TreeNode>
+        );
+      case '||':
+        return (
+          <TreeNode
+            className="style-filter-node or-filter"
+            key={position}
+            isLeaf={false}
+            title={
+              <span className="node-title">
+                <span className="filter-text">Or</span>
+                <span className="filter-tools">
+                  {changeButton}
+                  {addButton}
+                  {showRemoveButton ? removeButton : undefined}
+                </span>
               </span>
-            </span>
-          }
-        >
-          {
-            combinedFilters.map((subFilter, index) => {
-              const pos = `${position}[${index + 1}]`;
-              return this.getNodeByFilter(subFilter, pos);
-            })
-          }
-        </TreeNode>
-      );
-    } else if (operator === '!') {
-      return (
-        <TreeNode
-          className="style-filter-node not-filter"
-          key={position}
-          isLeaf={false}
-          title={
-            <span className="node-title">
-              <span className="filter-text">Not</span>
-              <span className="filter-tools">
-                {changeButton}
-                {showRemoveButton ? removeButton : undefined}
+            }
+          >
+            {
+              combinedFilters.map((subFilter, index) => {
+                const pos = `${position}[${index + 1}]`;
+                return this.getNodeByFilter(subFilter, pos);
+              })
+            }
+          </TreeNode>
+        );
+      case '!':
+        return (
+          <TreeNode
+            className="style-filter-node not-filter"
+            key={position}
+            isLeaf={false}
+            title={
+              <span className="node-title">
+                <span className="filter-text">Not</span>
+                <span className="filter-tools">
+                  {changeButton}
+                  {showRemoveButton ? removeButton : undefined}
+                </span>
               </span>
-            </span>
-          }
-        >
-          {this.getNodeByFilter(filter[1], `${position}[1]`)}
-        </TreeNode>
-      );
-    } else {
-      return (
-        <TreeNode
-          className="style-filter-node comparison-filter"
-          key={position}
-          isLeaf={true}
-          title={
-            <span className="node-title">
-              <span>
-                <ComparisonFilterUi
-                  microUI={true}
-                  internalDataDef={internalDataDef}
-                  filter={filter as GsComparisonFilter}
-                  onFilterChange={f => this.onComparisonFilterChange(f, position)}
-                />
+            }
+          >
+            {this.getNodeByFilter(filter[1], `${position}[1]`)}
+          </TreeNode>
+        );
+      default:
+        return (
+          <TreeNode
+            className="style-filter-node comparison-filter"
+            key={position}
+            isLeaf={true}
+            title={
+              <span className="node-title">
+                <span>
+                  <ComparisonFilterUi
+                    microUI={true}
+                    internalDataDef={internalDataDef}
+                    filter={filter as GsComparisonFilter}
+                    onFilterChange={f => this.onComparisonFilterChange(f, position)}
+                  />
+                </span>
+                <span className="filter-tools">
+                  {changeButton}
+                  {showRemoveButton ? removeButton : undefined}
+                </span>
               </span>
-              <span className="filter-tools">
-                {changeButton}
-                {showRemoveButton ? removeButton : undefined}
-              </span>
-            </span>
-          }
-        />
-      );
+            }
+          />
+        );
     }
   }
 
@@ -322,7 +321,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
 
     switch (type) {
       case 'and':
-        if (previousFilter && previousFilter[0] === '&&' || previousFilter[0] === '||' ) {
+        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
           addedFilter = previousFilter;
           addedFilter[0] = '&&';
         } else {
@@ -330,7 +329,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
         }
         break;
       case 'or':
-        if (previousFilter && previousFilter[0] === '&&' || previousFilter[0] === '||' ) {
+        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
           addedFilter = previousFilter;
           addedFilter[0] = '||';
         } else {
@@ -384,9 +383,9 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
    */
   positionStringAsArray = (positionString: string) => {
     return positionString
-      .replace('][', ',')
-      .replace(']', '')
-      .replace('[', '')
+      .replace(/\]\[/g, ',')
+      .replace(/\]/g, '')
+      .replace(/\[/g, '')
       .split(',')
       .map(i => parseInt(i, 10));
   }
@@ -395,7 +394,7 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
    * Transforms am positionArray like [2, 3] to a string like '[2][3]'.
    */
   positionArrayAsString = (positionArray: number[]) => {
-    return `[${positionArray.toString().replace(',', '][')}]`;
+    return `[${positionArray.toString().replace(/,/g, '][')}]`;
   }
 
   /**
@@ -403,12 +402,12 @@ class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
    */
   getFilterAtPosition = (position: string) => {
     const {
-      filter: rootFilter
+      filter
     } = this.props;
     if (position === '') {
-      return rootFilter;
+      return filter;
     } else {
-      return _get(rootFilter, position);
+      return _get(filter, position);
     }
   }
 
