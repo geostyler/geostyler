@@ -23,6 +23,8 @@ export interface DefaultGraphicTypeFieldProps {
   label?: String;
   /** Language package */
   locale?: GraphicTypeFieldLocale;
+  /** If true GraphicTypeField can be cleared  */
+  clearable?: boolean;
 }
 
 interface GraphicTypeFieldProps extends DefaultGraphicTypeFieldProps {
@@ -39,7 +41,8 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps, {}
 
   public static defaultProps: DefaultGraphicTypeFieldProps = {
     graphicTypes: ['Mark', 'Icon'],
-    label: 'Graphic'
+    label: 'Graphic',
+    clearable: true
   };
 
   /**
@@ -50,7 +53,7 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps, {}
    */
   getTypeSelectOptions = (locale: GraphicTypeFieldLocale): React.ReactNode[] => {
     return (this.props.graphicTypes.map((type: GraphicType) => {
-      const loc = _get(locale, 'graphicTypes[' + type + ']') || type;
+      const loc = _get(locale, type) || type;
       return (
         <Option
           key={type}
@@ -69,6 +72,7 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps, {}
       graphicType,
       graphicTypes,
       onChange,
+      clearable,
       ...passThroughProps
     } = this.props;
 
@@ -78,7 +82,7 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps, {}
         <Select
           value={graphicType}
           onChange={onChange}
-          allowClear={true}
+          allowClear={clearable}
           {...passThroughProps}
         >
           {this.getTypeSelectOptions(locale)}

@@ -4,7 +4,11 @@ import { Checkbox } from 'antd';
 import './FieldSet.css';
 
 // default props
-interface DefaultFieldSetProps {}
+interface DefaultFieldSetProps {
+  /** Check/uncheck Checkbox */
+  checked: boolean;
+}
+
 // non default props
 interface FieldSetProps extends Partial<DefaultFieldSetProps> {
   /** Title to be rendered on top of the FieldSet */
@@ -13,31 +17,24 @@ interface FieldSetProps extends Partial<DefaultFieldSetProps> {
   onCheckChange?: (e: any) => void;
 }
 
-// state
-interface FieldSetState {
-  visible: boolean;
-}
-
 /**
  * A container for grouping sets of fields similar to a HTML fieldset element.
  * A title and a checkbox will be rendered on the top border of the component.
  */
-class FieldSet extends React.Component<FieldSetProps, FieldSetState> {
+class FieldSet extends React.Component<FieldSetProps, {}> {
 
   constructor(props: FieldSetProps) {
     super(props);
-
-    this.state = {
-      visible: true
-    };
   }
+
+  public static defaultProps: DefaultFieldSetProps = {
+    checked: true
+  };
 
   /**
    * Toggles the state according to the checkbox check state.
    */
   onCheckChange = (e: any) => {
-    this.setState({visible: e.target.checked});
-
     if (this.props.onCheckChange) {
       this.props.onCheckChange(e);
     }
@@ -45,14 +42,17 @@ class FieldSet extends React.Component<FieldSetProps, FieldSetState> {
 
   render() {
 
-    const children = this.props.children;
+    const {
+      children,
+      checked
+    } = this.props;
 
     return (
 
         <fieldset className="gs-fieldset">
           <legend>
             <Checkbox
-              checked={this.state.visible}
+              checked={checked}
               onChange={this.onCheckChange}
             >
               {this.props.title}
@@ -60,7 +60,7 @@ class FieldSet extends React.Component<FieldSetProps, FieldSetState> {
           </legend>
           {React.Children.map(children, (child, i) => {
             // Ignore all childs if checkbox is unchecked
-            if (this.state.visible) {
+            if (checked) {
               return child;
             }
             return undefined;

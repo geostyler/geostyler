@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount, shallow } from 'enzyme';
-import { Style } from 'geostyler-style';
+import { Style, Filter } from 'geostyler-style';
 import { LocaleProvider } from 'antd';
 import en_US from '../locale/en_US';
 
@@ -87,6 +87,22 @@ export class TestUtil {
     };
   }
 
+  static getDummyGsFilter = (): Filter  => {
+    return [
+      '&&',
+      ['==', 'state', 'germany'],
+      [
+        '||',
+        ['>=', 'population', 100000],
+        ['<', 'population', 200000]
+      ],
+      [
+        '!',
+        ['==', 'name', 'Schalke']
+      ]
+    ];
+  }
+
   static getMarkStyle = () => {
     const simpleSquare: Style = {
       name: 'Simple Square',
@@ -158,7 +174,7 @@ export class TestUtil {
         symbolizers: [{
           kind: 'Text',
           color: '#000000',
-          field: 'name',
+          label: '{{name}}',
           font: ['Arial'],
           size: 12,
           offset: [0, 5]

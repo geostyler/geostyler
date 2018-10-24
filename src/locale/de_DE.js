@@ -41,17 +41,17 @@ export default {
     },
     GsWellKnownNameEditor: {
         radiusLabel: 'Radius',
-        fillOpacityLabel: 'Deckkraft Füllung',
+        fillOpacityLabel: 'Fülldeckkraft',
         fillColorLabel: 'Füllfarbe',
-        strokeColorLabel: 'Randfarbe',
-        strokeWidthLabel: 'Randbreite',
-        strokeOpacityLabel: 'Deckkraft Rand',
+        strokeColorLabel: 'Strichfarbe',
+        strokeWidthLabel: 'Strichstärke',
+        strokeOpacityLabel: 'Strichdeckkraft',
         rotateLabel: 'Drehung',
         haloColorLabel: 'Halofarbe',
         haloWidthLabel: 'Halobreite'
     },
     GsFillEditor: {
-        fillOpacityLabel: 'Deckkraft Füllung',
+        fillOpacityLabel: 'Fülldeckkraft',
         fillColorLabel: 'Füllfarbe',
         outlineColorLabel: 'Randfarbe',
         graphicFillTypeLabel: 'Graphic Fill Type'
@@ -74,8 +74,18 @@ export default {
         graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsTextEditor: {
-        fieldLabel: 'Feld',
-        opacityLabel: 'Deckkraft Text',
+        templateFieldLabel: 'Textvorlage',
+        opacityLabel: 'Deckkraft',
+        colorLabel: 'Textfarbe',
+        sizeLabel: 'Textgröße',
+        offsetXLabel: 'Versatz X',
+        offsetYLabel: 'Versatz Y',
+        attributeComboPlaceholder: 'Feld wählen',
+        rotateLabel: 'Drehung'
+    },
+    GsPropTextEditor: {
+        propFieldLabel: 'Feld',
+        opacityLabel: 'Deckkraft',
         colorLabel: 'Textfarbe',
         sizeLabel: 'Textgröße',
         offsetXLabel: 'Versatz X',
@@ -95,9 +105,9 @@ export default {
     GsKindField: {
         label: 'Art',
         symbolizerKinds: {
-            Mark: 'Mark',
+            Mark: 'Punktsymbol',
             Fill: 'Füllung',
-            Icon: 'Icon',
+            Icon: 'Bilddatei',
             Line: 'Linie',
             Text: 'Text'
         }
@@ -109,7 +119,7 @@ export default {
         maxScaleDenominatorPlaceholderText: 'Max. Maßstabszahl eingeben (Optional)'
     },
     GsWellKnownNameField: {
-        label: 'WellKnownName',
+        label: 'Symbol',
         wellKnownNames: {
           Circle: 'Kreis',
           Square: 'Quadrat',
@@ -118,6 +128,17 @@ export default {
           Cross: 'Kreuz',
           X: 'X'
         }
+    },
+    GsGraphicTypeField: {
+        Mark: 'Punktsymbol',
+        Icon: 'Bilddatei'
+    },
+    GsEditorWindow: {
+      symbolizersEditor: 'Symbolisierungseditor'
+    },
+    GsMultiEditor: {
+      add: 'Hinzufügen',
+      remove: 'Entfernen'
     },
     ...de_DE
 };

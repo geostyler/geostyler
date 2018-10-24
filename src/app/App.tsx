@@ -12,6 +12,7 @@ import {
 
 import SldStyleParser from 'geostyler-sld-parser';
 import GeoJsonParser from 'geostyler-geojson-parser';
+import GeoWfsParser from 'geostyler-wfs-parser';
 
 import './App.css';
 
@@ -75,7 +76,8 @@ class App extends React.Component<AppProps, AppState> {
           />
           <DataLoader
             parsers={[
-              GeoJsonParser
+              GeoJsonParser,
+              GeoWfsParser
             ]}
             onDataRead={(data: GsData) => {
               this.setState({data});

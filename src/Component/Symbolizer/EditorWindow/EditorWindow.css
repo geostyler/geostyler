@@ -1,0 +1,16 @@
+.editor-window {
+  background-color: white;
+  border: 3px solid grey;
+  border-radius: 3px;
+  z-index: 10;
+}
+
+.editor-window .header {
+  background-color: lightgrey;
+  padding: 3px;
+  display: flex;
+}
+
+.editor-window .header .title {
+  flex: 1;
+}

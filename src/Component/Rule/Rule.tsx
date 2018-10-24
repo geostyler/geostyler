@@ -1,12 +1,9 @@
 import * as React from 'react';
 
 import {
-  // Row,
-  // Col,
   Button
 } from 'antd';
 import {
-  // Filter as GsFilter,
   ComparisonFilter as GsComparisonFilter,
   Rule as GsRule,
   Symbolizer as GsSymbolizer,
@@ -16,8 +13,7 @@ import {
 import { Data as GsData } from 'geostyler-data';
 
 import RuleNameField, { DefaultNameFieldProps } from '../NameField/NameField';
-import ComparisonFilterUi, { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-// import RuleRemoveButton from './RemoveButton/RemoveButton';
+import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
@@ -25,6 +21,7 @@ import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 import './Rule.css';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
+import FilterTree from '../Filter/FilterTree/FilterTree';
 
 const _cloneDeep = require('lodash/cloneDeep');
 
@@ -69,15 +66,17 @@ interface RuleProps extends Partial<DefaultRuleProps> {
   /** Callback for onClick of the AddSymbolizerButton */
   onAddSymbolizer?: (rule: GsRule) => void;
   /** Callback for onClick of the RemoveSymbolizerButton */
-  onRemoveSymbolizer?: (rule: GsRule, symbolizer: GsSymbolizer) => void;
+  onRemoveSymbolizer?: (rule: GsRule, symbolizer: GsSymbolizer, key: number) => void;
 }
 
 // state
 interface RuleState {
   rule: GsRule;
   symbolizerEditorVisible: boolean;
-  storedFilter?: GsFilter;
-  storedScaleDenominator?: GsScaleDenominator;
+  storedFilter: GsFilter;
+  storedScaleDenominator: GsScaleDenominator;
+  scaleFieldChecked?: boolean;
+  filterFieldChecked?: boolean;
 }
 
 /**
@@ -88,7 +87,9 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     super(props);
     this.state = {
       rule: Rule.defaultProps.rule,
-      symbolizerEditorVisible: false
+      symbolizerEditorVisible: false,
+      storedFilter: ['=='],
+      storedScaleDenominator: {}
     };
   }
 
@@ -108,8 +109,14 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   static getDerivedStateFromProps(
       nextProps: RuleProps,
       prevState: RuleState): Partial<RuleState> {
+    const rule = nextProps.rule || Rule.defaultProps.rule;
+
     return {
-      rule: nextProps.rule || Rule.defaultProps.rule,
+      rule,
+      filterFieldChecked: rule.filter ?
+        true : false,
+      scaleFieldChecked: rule.scaleDenominator ?
+        true : false,
       symbolizerEditorVisible: false
     };
   }
@@ -184,7 +191,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
-    this.setState({rule});
+    this.setState({rule, scaleFieldChecked: checked});
   }
 
   onFilterCheckChange = (e: any) => {
@@ -203,7 +210,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
-    this.setState({rule});
+    this.setState({rule, filterFieldChecked: checked});
   }
 
   render() {
@@ -215,7 +222,9 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     } = this.props;
 
     const {
-      rule
+      rule,
+      scaleFieldChecked,
+      filterFieldChecked
     } = this.state;
 
     // cast the current filter object to pass over to ComparisonFilterUi
@@ -245,9 +254,9 @@ export class Rule extends React.Component<RuleProps, RuleState> {
                   this.props.onAddSymbolizer(this.props.rule);
                 }
               }}
-              onRemoveSymbolizer={(symb: GsSymbolizer) => {
+              onRemoveSymbolizer={(symb: GsSymbolizer, key: number) => {
                 if (this.props.onRemoveSymbolizer) {
-                  this.props.onRemoveSymbolizer(this.props.rule, symb);
+                  this.props.onRemoveSymbolizer(this.props.rule, symb, key);
                 }
               }}
               {...this.props.previewProps}
@@ -257,6 +266,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
             <Fieldset
               title={locale.scaleFieldTitle}
               onCheckChange={this.onScaleCheckChange}
+              checked={scaleFieldChecked}
             >
               <ScaleDenominator
                 scaleDenominator={rule.scaleDenominator}
@@ -266,13 +276,12 @@ export class Rule extends React.Component<RuleProps, RuleState> {
             <Fieldset
               title={locale.filterFieldTitle}
               onCheckChange={this.onFilterCheckChange}
+              checked={filterFieldChecked}
             >
-              <ComparisonFilterUi
+              <FilterTree
                 internalDataDef={gsData}
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
-                {...this.props.filterUiProps}
-                {...this.props.locale}
               />
             </Fieldset>
           </div>

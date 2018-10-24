@@ -4,7 +4,19 @@ const pointSimplePoint: Style = {
   name: 'GeoStyler Template Style',
   rules: [{
     name: 'City of Bonn',
-    filter: ['==', 'Name', 'Bonn'],
+    filter: [
+      '&&',
+      ['==', 'state', 'germany'],
+      [
+        '||',
+        ['>=', 'population', 100000],
+        ['<', 'population', 200000]
+      ],
+      [
+        '!',
+        ['==', 'name', 'Schalke']
+      ]
+    ],
     scaleDenominator: {
       min: 10000,
       max: 20000
