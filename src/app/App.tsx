@@ -1,6 +1,9 @@
 import * as React from 'react';
 import 'antd/dist/antd.css';
 
+import OlInteractionMouseWheelZoom from 'ol/interaction/mousewheelzoom';
+import OlInteractionDragPan from 'ol/interaction/dragpan';
+
 import {
   Style as GsStyle,
   StyleParser as GsStyleParser
@@ -56,6 +59,9 @@ class App extends React.Component<AppProps, AppState> {
     };
   }
 
+  private zoomInteraction = new OlInteractionMouseWheelZoom();
+  private dragpanInteraction = new OlInteractionDragPan();
+
   static componentName: string = 'App';
 
   render() {
@@ -92,6 +98,17 @@ class App extends React.Component<AppProps, AppState> {
               data={this.state.data}
               onStyleChange={(style: GsStyle) => {
                 this.setState({style});
+              }}
+              previewProps={{
+                interactions: [this.zoomInteraction, this.dragpanInteraction],
+                hideEditButton: false,
+                projection: 'EPSG:3857',
+                dataProjection: 'EPSG:4326',
+                showOsmBackground: true,
+                mapHeight: 267,
+                map: undefined,
+                layers: undefined,
+                controls: undefined
               }}
             />
           </div>

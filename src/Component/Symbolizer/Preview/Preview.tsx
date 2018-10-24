@@ -14,12 +14,15 @@ import OlFeature from 'ol/feature';
 import OlView from 'ol/view';
 import OlLayerTile from 'ol/layer/tile';
 import OlSourceOSM from 'ol/source/osm';
-import OlStyle from 'ol/style/style';
-import OlStyleImage from 'ol/style/image';
-import OlStyleFill from 'ol/style/fill';
-import OlStyleText from 'ol/style/text';
 
-import { Symbolizer, SymbolizerKind } from 'geostyler-style';
+import MapUtil from '@terrestris/ol-util/dist/MapUtil/MapUtil';
+
+import {
+  Symbolizer,
+  SymbolizerKind,
+  ScaleDenominator,
+  Style
+} from 'geostyler-style';
 
 import './Preview.css';
 
@@ -34,7 +37,6 @@ import OlStyleParser from 'geostyler-openlayers-parser';
 
 const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
-const _cloneDeep = require('lodash/cloneDeep');
 
 import { Data } from 'geostyler-data';
 import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
@@ -59,6 +61,7 @@ export interface DefaultPreviewProps {
   layers: OlLayerBase[] | undefined;
   controls: OlControl[] | undefined;
   interactions: OlInteraction[] | undefined;
+  scaleDenominator?: ScaleDenominator;
   unknownSymbolizerText?: string;
   iconEditorProps?: DefaultIconEditorProps;
   locale?: PreviewLocale;
@@ -106,6 +109,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     layers: undefined,
     controls: undefined,
     interactions: undefined,
+    scaleDenominator: undefined,
     onMapDidMount: (map: OlMap) => undefined
   };
 
@@ -158,7 +162,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
 
   updateFeatures() {
     const {
-      projection
+      projection,
+      scaleDenominator
     } = this.props;
     // Remove previous features
     this.dataLayer.getSource().clear();
@@ -180,12 +185,19 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       });
       this.dataLayer.getSource().addFeature(sampleFeature);
     }
-
-    // zoom to feature extent
-    const extent = this.dataLayer.getSource().getExtent();
-    this.map.getView().fit(extent, {
-      maxZoom: 20
-    });
+    const minScale = _get(scaleDenominator, 'min');
+    const maxScale = _get(scaleDenominator, 'max');
+    if (typeof minScale !== 'undefined' || typeof maxScale !== 'undefined') {
+      // if scaleDenominator was set, zoom to scale within scaleDenominator
+      const scale = typeof maxScale !== 'undefined' ? maxScale - 1 : minScale;
+      this.zoomToFeatureOnScale(scale);
+    } else {
+      // zoom to feature extent
+      const extent = this.dataLayer.getSource().getExtent();
+      this.map.getView().fit(extent, {
+        maxZoom: 20
+      });
+    }
   }
 
   public componentDidMount() {
@@ -250,6 +262,18 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     this.props.onMapDidMount(map);
   }
 
+  /**
+   * Centers on a feature and zooms to given scale.
+   */
+  zoomToFeatureOnScale = (scale: number) => {
+    const resolution = MapUtil.getResolutionForScale(scale, 'm');
+    const extent = this.dataLayer.getSource().getExtent();
+    this.map.getView().fit(extent, {
+      maxZoom: 20
+    });
+    this.map.getView().setResolution(resolution);
+  }
+
   getSampleGeomFromSymbolizer = () => {
     const kind: SymbolizerKind = _get(this.state, 'symbolizers[0].kind');
     switch (kind) {
@@ -296,85 +320,36 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
    * @param {Symbolizer} symbolizer The symbolizer as holding the style to apply
    */
   applySymbolizersToMapFeatures = (symbolizers: Symbolizer[]): any => {
+    const { scaleDenominator } = this.props;
     const styleParser = new OlStyleParser();
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
     // only accepts a Style object
-    const style = {
+    const style: Style = {
       name: 'WrapperStyle4Symbolizer',
       rules: [{
+        name: 'Wrapper Rule',
         symbolizers: symbolizers
       }]
     };
+    if (scaleDenominator) {
+      style.rules[0].scaleDenominator = scaleDenominator;
+    }
     // parser style to OL style
     styleParser.writeStyle(style)
-      .then((olStyles: (OlStyle|ol.StyleFunction)[][]) => {
-
-        const textSymbolizerIdxs: number[] = [];
-        olStyles[0].forEach((olStyle: OlStyle|ol.StyleFunction, idx: number) => {
-          if (!(olStyle instanceof OlStyle)) {
-            textSymbolizerIdxs.push(idx);
-          }
-        });
-
-        // If at least one textSymbolizer is being used, restructure to
-        // return a function that returns an array of styles. This needs to be done,
-        // because openlayers only supports returning a single function, or an array of
-        // styles, but not both mixed.
-        if (textSymbolizerIdxs.length > 0) {
-          const newStyleFuncWithTextStyleFn = (feat: OlFeature, resolution: number) => {
-            // IMPORTANT: need to copy olStyles, otherwise page crashes when changing window size.
-            //            Closure problems...
-            const olStylesCopy = _cloneDeep(olStyles);
-            // push all TextSymbolizers into textStyleFns
-            const textStyleFns: ol.StyleFunction[] = [];
-            textSymbolizerIdxs.forEach((idx: number) => {
-              const textFn: ol.StyleFunction = olStylesCopy[0][idx] as ol.StyleFunction;
-              textStyleFns.push(textFn);
-            });
-            // create new array with ol.style.Text styles based on textStyleFns
-            const textStyles: OlStyle[] = textStyleFns.map((textStyleFn: ol.StyleFunction) => {
-              const textStyle: OlStyle = textStyleFn(feat, resolution) as OlStyle;
-              const text: OlStyleText = textStyle.getText();
-              return new OlStyle({
-                text: text
-              });
-            });
-
-            // remove all TextSymbolizers from olStyles
-            for (let i = textSymbolizerIdxs.length - 1; i >= 0; i--) {
-              olStylesCopy[0].splice(textSymbolizerIdxs[i], 1);
-            }
-
-            // push all non-text styles to nonFnStyles and create new ol.style Objects
-            const nonFnStyles: OlStyle[] = olStylesCopy[0] as OlStyle[];
-            nonFnStyles.map((olStyle: OlStyle) => {
-                if (olStyle.getFill() instanceof OlStyleFill) {
-                  return new OlStyle({
-                    fill: olStyle.getFill()
-                  });
-                } else if (olStyle.getImage() instanceof OlStyleImage) {
-                  return new OlStyle({
-                    image: olStyle.getImage()
-                  });
-                } else {
-                  return new OlStyle({
-                    stroke: olStyle.getStroke()
-                  });
-                }
-            });
-            // return array of styles that includes text and non-text styles
-            return [...textStyles, ...nonFnStyles];
-          };
-          this.dataLayer.setStyle(newStyleFuncWithTextStyleFn);
-          return newStyleFuncWithTextStyleFn;
-
+      .then((olStyle: any) => {
+        this.dataLayer.setStyle(olStyle);
+        const minScale = _get(style, 'rules[0].scaleDenominator.min');
+        const maxScale = _get(style, 'rules[0].scaleDenominator.max');
+        if (typeof minScale !== 'undefined' || typeof maxScale !== 'undefined') {
+          // if scaleDenominator was set, zoom to scale within scaleDenominator
+          const scale = typeof maxScale !== 'undefined' ? maxScale - 1 : minScale;
+          this.zoomToFeatureOnScale(scale);
         } else {
-
-          // apply new OL style to vector layer
-          this.dataLayer.setStyle(olStyles[0] as OlStyle[]);
-          return olStyles[0];
-
+          const extent = this.dataLayer.getSource().getExtent();
+          this.map.getView().fit(extent, {
+            maxZoom: 20
+          });
         }
       });
   }

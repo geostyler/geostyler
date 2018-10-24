@@ -42,6 +42,7 @@
     "test:watch": "react-scripts-ts test --env=jsdom --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\""
   },
   "dependencies": {
+    "@terrestris/ol-util": "0.4.0",
     "antd": "3.9.3",
     "blob": "0.0.4",
     "codemirror": "5.41.0",

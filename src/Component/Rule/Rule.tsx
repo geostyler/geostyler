@@ -247,6 +247,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
             <Preview
               dataProjection={dataProjection}
               symbolizers={rule.symbolizers}
+              scaleDenominator={rule.scaleDenominator}
               internalDataDef={gsData}
               onSymbolizerChange={this.onSymbolizerChange}
               onAddSymbolizer={() => {

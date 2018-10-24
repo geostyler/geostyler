@@ -12,6 +12,7 @@
       "timeEnd",
       "trace"
     ],
-    "no-debugger": true
+    "no-debugger": true,
+    "no-unused-variable": true
   }
 }
