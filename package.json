@@ -57,10 +57,10 @@
     "moment": "2.22.2",
     "ol": "4.6.5",
     "prop-types": "15.6.2",
-    "react": "16.5.2",
+    "react": "16.6.0",
     "react-codemirror2": "5.1.0",
     "react-color": "2.14.1",
-    "react-dom": "16.5.2",
+    "react-dom": "16.6.0",
     "react-rnd": "9.0.2",
     "react-scripts-ts": "2.17.0"
   },
