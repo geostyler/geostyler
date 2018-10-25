@@ -14,3 +14,7 @@
 .editor-window .header .title {
   flex: 1;
 }
+
+.editor-window-header:hover {
+  cursor: pointer;
+}
