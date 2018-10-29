@@ -1,5 +1,5 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const webpack = require("webpack");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 require("@babel/polyfill");
 
 module.exports = {
@@ -47,7 +47,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin("geostyler.css"),
-    new webpack.optimize.UglifyJsPlugin(),
+    new UglifyJsPlugin(),
   ],
   // When importing a module whose path matches one of the following, just
   // assume a corresponding global variable exists and use that instead.
