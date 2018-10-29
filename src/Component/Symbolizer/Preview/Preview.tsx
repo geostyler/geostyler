@@ -15,9 +15,6 @@ import OlView from 'ol/view';
 import OlLayerTile from 'ol/layer/tile';
 import OlSourceOSM from 'ol/source/osm';
 import OlStyle from 'ol/style/style';
-import OlStyleImage from 'ol/style/image';
-import OlStyleFill from 'ol/style/fill';
-import OlStyleText from 'ol/style/text';
 
 import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 
@@ -34,7 +31,6 @@ import OlStyleParser from 'geostyler-openlayers-parser';
 
 const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
-const _cloneDeep = require('lodash/cloneDeep');
 
 import { Data } from 'geostyler-data';
 import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
@@ -290,12 +286,12 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   /**
-   * Transforms the incoming symbolizer to an OpenLayers style object the
+   * Transforms the incoming symbolizers to an OpenLayers style object the
    * GeoStyler parser and applies it to the vector features on the map.
    *
-   * @param {Symbolizer} symbolizer The symbolizer as holding the style to apply
+   * @param {Symbolizer[]} symbolizers The symbolizers holding the style to apply
    */
-  applySymbolizersToMapFeatures = (symbolizers: Symbolizer[]): any => {
+  applySymbolizersToMapFeatures = (symbolizers: Symbolizer[]) => {
     const styleParser = new OlStyleParser();
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
@@ -308,74 +304,10 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     };
     // parser style to OL style
     styleParser.writeStyle(style)
-      .then((olStyles: (OlStyle|ol.StyleFunction)[][]) => {
-
-        const textSymbolizerIdxs: number[] = [];
-        olStyles[0].forEach((olStyle: OlStyle|ol.StyleFunction, idx: number) => {
-          if (!(olStyle instanceof OlStyle)) {
-            textSymbolizerIdxs.push(idx);
-          }
-        });
-
-        // If at least one textSymbolizer is being used, restructure to
-        // return a function that returns an array of styles. This needs to be done,
-        // because openlayers only supports returning a single function, or an array of
-        // styles, but not both mixed.
-        if (textSymbolizerIdxs.length > 0) {
-          const newStyleFuncWithTextStyleFn = (feat: OlFeature, resolution: number) => {
-            // IMPORTANT: need to copy olStyles, otherwise page crashes when changing window size.
-            //            Closure problems...
-            const olStylesCopy = _cloneDeep(olStyles);
-            // push all TextSymbolizers into textStyleFns
-            const textStyleFns: ol.StyleFunction[] = [];
-            textSymbolizerIdxs.forEach((idx: number) => {
-              const textFn: ol.StyleFunction = olStylesCopy[0][idx] as ol.StyleFunction;
-              textStyleFns.push(textFn);
-            });
-            // create new array with ol.style.Text styles based on textStyleFns
-            const textStyles: OlStyle[] = textStyleFns.map((textStyleFn: ol.StyleFunction) => {
-              const textStyle: OlStyle = textStyleFn(feat, resolution) as OlStyle;
-              const text: OlStyleText = textStyle.getText();
-              return new OlStyle({
-                text: text
-              });
-            });
-
-            // remove all TextSymbolizers from olStyles
-            for (let i = textSymbolizerIdxs.length - 1; i >= 0; i--) {
-              olStylesCopy[0].splice(textSymbolizerIdxs[i], 1);
-            }
-
-            // push all non-text styles to nonFnStyles and create new ol.style Objects
-            const nonFnStyles: OlStyle[] = olStylesCopy[0] as OlStyle[];
-            nonFnStyles.map((olStyle: OlStyle) => {
-                if (olStyle.getFill() instanceof OlStyleFill) {
-                  return new OlStyle({
-                    fill: olStyle.getFill()
-                  });
-                } else if (olStyle.getImage() instanceof OlStyleImage) {
-                  return new OlStyle({
-                    image: olStyle.getImage()
-                  });
-                } else {
-                  return new OlStyle({
-                    stroke: olStyle.getStroke()
-                  });
-                }
-            });
-            // return array of styles that includes text and non-text styles
-            return [...textStyles, ...nonFnStyles];
-          };
-          this.dataLayer.setStyle(newStyleFuncWithTextStyleFn);
-          return newStyleFuncWithTextStyleFn;
-
-        } else {
-
-          // apply new OL style to vector layer
-          this.dataLayer.setStyle(olStyles[0] as OlStyle[]);
-          return olStyles[0];
-
-        }
+      .then((olStyles: (OlStyle|OlStyle[]|ol.StyleFunction)) => {
+        // apply new OL style to vector layer
+        this.dataLayer.setStyle(olStyles);
+        return olStyles;
       });
   }
 
