@@ -79,8 +79,9 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
             topLeft: false,
             topRight: false
           }}
+          dragHandleClassName="editor-window-header"
         >
-          <div className="header">
+          <div className="header editor-window-header">
             <span className="title">
               {locale.symbolizersEditor}
             </span>
