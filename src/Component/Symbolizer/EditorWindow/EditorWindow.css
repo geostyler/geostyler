@@ -16,5 +16,9 @@
 }
 
 .editor-window-header:hover {
-  cursor: pointer;
+  cursor: grab;
+}
+
+.editor-window-header:active {
+  cursor: grabbing;
 }
