@@ -10,6 +10,7 @@ import {
 import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
+import WidthField from '../Field/WidthField/WidthField';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _get = require('lodash/get');
@@ -23,6 +24,7 @@ export interface FillEditorLocale {
   fillOpacityLabel?: string;
   fillColorLabel?: string;
   outlineColorLabel?: string;
+  outlineWidthLabel?: string;
   graphicFillTypeLabel?: string;
 }
 
@@ -42,13 +44,14 @@ export class FillEditor extends React.Component<FillEditorProps, {}> {
   }
 
   render() {
-    const symbolizer = _cloneDeep(this.props.symbolizer);
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
 
     const {
       color,
       opacity,
       outlineColor,
-      graphicFill
+      graphicFill,
+      outlineWidth
     } = symbolizer;
 
     const {
@@ -80,6 +83,14 @@ export class FillEditor extends React.Component<FillEditorProps, {}> {
               label={locale.outlineColorLabel}
               onChange={(value: string) => {
                 symbolizer.outlineColor = value;
+                this.props.onSymbolizerChange(symbolizer);
+              }}
+            />
+            <WidthField
+              width={outlineWidth}
+              label={locale.outlineWidthLabel}
+              onChange={(value: number) => {
+                symbolizer.outlineWidth = value;
                 this.props.onSymbolizerChange(symbolizer);
               }}
             />
