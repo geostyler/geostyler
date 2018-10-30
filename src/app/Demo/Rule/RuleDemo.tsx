@@ -58,7 +58,7 @@ class RuleDemo extends React.Component<FilterDemoProps, FilterDemoState> {
     reader.readAsText(e.file);
     reader.onload = () => {
 
-      const fileContent = reader.result;
+      const fileContent = reader.result as string;
       const geojson = JSON.parse(fileContent);
 
       // Show that you have to call onSuccess with `<some string>, file`

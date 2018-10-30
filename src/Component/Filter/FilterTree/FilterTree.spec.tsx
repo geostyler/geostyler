@@ -9,7 +9,7 @@ describe('FilterTree', () => {
   let wrapper: any;
   let dummyData;
   let dummyFilter: GsFilter;
-  let onFilterChangeDummy: Function;
+  let onFilterChangeDummy: any;
 
   beforeEach(() => {
     dummyData = TestUtil.getDummyGsData();
@@ -124,7 +124,7 @@ describe('FilterTree', () => {
       ];
       changeFilter('[2]', 'not');
       expect(onFilterChangeDummy).toHaveBeenLastCalledWith(got3);
-      jest.restoreAllMocks();
+      onFilterChangeDummy.mockRestore();
 
       const got4: GsFilter = [
         '&&',
