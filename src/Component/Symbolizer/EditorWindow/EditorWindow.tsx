@@ -25,7 +25,7 @@ export interface DefaultEditorWindowProps {
   onClose: () => void;
   onRemove: (symbolizer: Symbolizer, idx: number) => void;
   symbolizers: Symbolizer[];
-  onSymbolizerChange: (symbolizer: Symbolizer, key: number) => void;
+  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
   locale: EditorWindowLocale;
 }
 
@@ -55,7 +55,7 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
       onClose,
       onRemove,
       symbolizers,
-      onSymbolizerChange,
+      onSymbolizersChange,
       locale
     } = this.props;
 
@@ -93,7 +93,7 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
           </div>
           <MultiEditor
             symbolizers={symbolizers}
-            onSymbolizerChange={onSymbolizerChange}
+            onSymbolizersChange={onSymbolizersChange}
             onAdd={onAdd}
             onRemove={onRemove}
           />

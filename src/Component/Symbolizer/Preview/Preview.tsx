@@ -65,7 +65,7 @@ export interface DefaultPreviewProps {
 interface PreviewProps extends Partial<DefaultPreviewProps> {
   internalDataDef?: Data;
   symbolizers: Symbolizer[];
-  onSymbolizerChange: (symbolizer: Symbolizer, key: number) => void;
+  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
   onAddSymbolizer?: () => void;
   onRemoveSymbolizer?: (symbolizer: Symbolizer, key: number) => void;
 }
@@ -317,7 +317,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       locale,
       symbolizers,
       hideEditButton,
-      onSymbolizerChange,
+      onSymbolizersChange,
       onAddSymbolizer,
       onRemoveSymbolizer
     } = this.props;
@@ -364,7 +364,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
               onClose={this.onEditButtonClicked}
               onRemove={onRemoveSymbolizer}
               symbolizers={symbolizers}
-              onSymbolizerChange={onSymbolizerChange}
+              onSymbolizersChange={onSymbolizersChange}
             /> : null
         }
         </div>
