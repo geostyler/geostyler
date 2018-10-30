@@ -36,7 +36,7 @@ export interface MultiEditorProps extends Partial<DefaultMultiEditorProps> {
   editorProps?: any;
 }
 
-class MultiEditor extends React.Component<MultiEditorProps> {
+export class MultiEditor extends React.Component<MultiEditorProps> {
 
   static componentName: string = 'MultiEditor';
 
