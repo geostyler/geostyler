@@ -55,7 +55,7 @@ class MultiEditor extends React.Component<MultiEditorProps> {
         return (
           <TabPane
             className="gs-symbolizer-multi-editor-tab"
-            key={idx}
+            key={idx.toString()}
             tab={idx}
             closable={true}
           >
