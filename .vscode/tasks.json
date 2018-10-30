@@ -12,6 +12,11 @@
       "type": "npm",
       "script": "build:browser",
       "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": []
     }
   ]
 }
