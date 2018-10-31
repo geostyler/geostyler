@@ -19,6 +19,7 @@ interface SLDRendererProps extends Partial<SLDRendererDefaultProps> {
   symbolizers: Symbolizer[];
   wmsBaseUrl: string;
   layer: string;
+  wmsParams?: any;
 }
 
 // state
@@ -69,9 +70,9 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
   }
 
   /**
-   * The function that sets the legends graphic for each rule
+   * The function that sets the legends graphic for the symbolizers
    *
-   * @param {Object} rule The Sld rule
+   * @param {Symbolizer[]} symbolizers The passed symbolizer
    */
   setLegendGraphicUrlForRule = (symbolizers: Symbolizer[]) => {
     const {
@@ -91,7 +92,8 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
         wmsBaseUrl,
         layer,
         width,
-        height
+        height,
+        wmsParams
       } = this.props;
       const style: Style = {
         name: 'sld-renderer-style',
@@ -111,7 +113,8 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
             'LAYER': layer,
             'SLD_BODY': sld,
             'WIDTH': width,
-            'HEIGHT': height
+            'HEIGHT': height,
+            ...wmsParams
           };
           HTTPUtil.post({
             url: wmsBaseUrl,
