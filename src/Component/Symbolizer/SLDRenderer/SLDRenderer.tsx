@@ -4,7 +4,7 @@ const _isEqual = require('lodash/isEqual');
 
 import './SLDRenderer.css';
 import { StyleParserConstructable, Style, Symbolizer } from 'geostyler-style';
-import HTTPUtil from 'src/Util/HTTPUtil';
+import HTTPUtil from '../../../Util/HTTPUtil';
 
 // non default props
 interface SLDRendererProps {

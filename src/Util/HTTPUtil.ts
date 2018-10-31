@@ -1,4 +1,4 @@
-import 'url-search-params';
+const URLSearchParams = require('url-search-params');
 
 type PostOptions = {
   url: string;
