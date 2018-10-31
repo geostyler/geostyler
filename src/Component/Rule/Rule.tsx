@@ -1,12 +1,9 @@
 import * as React from 'react';
 
 import {
-  // Row,
-  // Col,
   Button
 } from 'antd';
 import {
-  // Filter as GsFilter,
   ComparisonFilter as GsComparisonFilter,
   Rule as GsRule,
   Symbolizer as GsSymbolizer,
@@ -16,8 +13,7 @@ import {
 import { Data as GsData } from 'geostyler-data';
 
 import RuleNameField, { DefaultNameFieldProps } from '../NameField/NameField';
-import ComparisonFilterUi, { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-// import RuleRemoveButton from './RemoveButton/RemoveButton';
+import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
@@ -25,6 +21,7 @@ import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 import './Rule.css';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
+import FilterTree from '../Filter/FilterTree/FilterTree';
 
 const _cloneDeep = require('lodash/cloneDeep');
 
@@ -281,12 +278,10 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               onCheckChange={this.onFilterCheckChange}
               checked={filterFieldChecked}
             >
-              <ComparisonFilterUi
+              <FilterTree
                 internalDataDef={gsData}
                 filter={cmpFilter}
                 onFilterChange={this.onFilterChange}
-                {...this.props.filterUiProps}
-                {...this.props.locale}
               />
             </Fieldset>
           </div>

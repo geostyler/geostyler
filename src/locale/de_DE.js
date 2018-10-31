@@ -54,6 +54,7 @@ export default {
         fillOpacityLabel: 'Fülldeckkraft',
         fillColorLabel: 'Füllfarbe',
         outlineColorLabel: 'Randfarbe',
+        outlineWidthLabel: 'Randbreite',
         graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsIconEditor: {
