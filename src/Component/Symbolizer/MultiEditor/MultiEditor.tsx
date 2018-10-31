@@ -45,7 +45,8 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
       onSymbolizersChange,
       symbolizers
     } = this.props;
-    const newSymbolizer = this.getDefaultSymbolizer(symbolizers[0].kind);
+    const symbolizerKind = symbolizers.length > 0 ? symbolizers[0].kind : undefined;
+    const newSymbolizer = this.getDefaultSymbolizer(symbolizerKind);
     onSymbolizersChange([...symbolizers, newSymbolizer]);
   }
 

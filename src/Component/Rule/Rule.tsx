@@ -67,7 +67,7 @@ interface RuleProps extends Partial<DefaultRuleProps> {
   onAddSymbolizer?: (rule: GsRule) => void;
   /** Callback for onClick of the RemoveSymbolizerButton */
   onRemoveSymbolizer?: (rule: GsRule, symbolizer: GsSymbolizer, key: number) => void;
-  /** Callbakc for onClick of the Renderer */
+  /** Callback for onClick of the Renderer */
   onRendererClick?: (symbolizers: GsSymbolizer[], rule: GsRule) => void;
 }
 
