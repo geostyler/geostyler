@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "antd": "3.10.3",
-    "blob": "0.0.4",
+    "blob": "0.0.5",
     "codemirror": "5.41.0",
     "color": "3.1.0",
     "file-saver": "1.3.8",
