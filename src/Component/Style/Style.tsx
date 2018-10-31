@@ -1,5 +1,11 @@
 import * as React from 'react';
 
+const _get = require('lodash/get');
+const _isEqual = require('lodash/isEqual');
+const _cloneDeep = require('lodash/cloneDeep');
+
+import { Button } from 'antd';
+
 import {
   Style as GsStyle,
   Rule as GsRule,
@@ -12,13 +18,11 @@ import {
   Data as GsData
 } from 'geostyler-data';
 
-import { Button } from 'antd';
 import Rule from '../Rule/Rule';
 import NameField, { DefaultNameFieldProps } from '../NameField/NameField';
+import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-
-const _get = require('lodash/get');
 
 // i18n
 export interface StyleLocale {
@@ -35,10 +39,6 @@ interface DefaultStyleProps {
   ruleNameProps?: DefaultNameFieldProps;
   locale?: StyleLocale;
 }
-
-const _isEqual = require('lodash/isEqual');
-const _cloneDeep = require('lodash/cloneDeep');
-import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 // non default props
 interface StyleProps extends Partial<DefaultStyleProps> {
