@@ -5,9 +5,16 @@ const _isEqual = require('lodash/isEqual');
 import './SLDRenderer.css';
 import { StyleParserConstructable, Style, Symbolizer } from 'geostyler-style';
 import HTTPUtil from '../../../Util/HTTPUtil';
+import loading from './LoadingIcon';
+
+interface SLDRendererDefaultProps {
+  requestDelay: number;
+  width: number;
+  height: number;
+}
 
 // non default props
-interface SLDRendererProps {
+interface SLDRendererProps extends Partial<SLDRendererDefaultProps> {
   onClick?: (symbolizers: Symbolizer[]) => void;
   symbolizers: Symbolizer[];
   wmsBaseUrl: string;
@@ -26,6 +33,14 @@ interface SLDRendererState {
 export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererState> {
 
   _styleParser: StyleParserConstructable;
+
+  _requestTimeout: any;
+
+  public static defaultProps: SLDRendererDefaultProps = {
+    requestDelay: 500,
+    width: 150,
+    height: 100
+  };
 
   constructor(props: SLDRendererProps) {
     super(props);
@@ -60,54 +75,71 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
    */
   setLegendGraphicUrlForRule = (symbolizers: Symbolizer[]) => {
     const {
-      wmsBaseUrl,
-      layer
+      requestDelay
     } = this.props;
 
-    const style: Style = {
-      name: 'sld-renderer-style',
-      rules: [{
-        name: '',
-        symbolizers: symbolizers
-      }]
-    };
-    this._styleParser.writeStyle(style)
-      .then((sld) => {
-        const params = {
-          'SERVICE': 'WMS',
-          'VERSION': '1.3.0',
-          'REQUEST': 'GetLegendGraphic',
-          'FORMAT': 'image/png',
-          'TRANSPARENT': 'true',
-          'LAYER': layer,
-          'SLD_BODY': sld,
-          'WIDTH': 100 * 1.5,
-          'HEIGHT': 100
-        };
-        HTTPUtil.post({
-          url: wmsBaseUrl,
-          params: params
-        })
-          .then((response: any) => {
-            if (response && response.ok) {
-              response.blob().then((blob: Blob) => {
-                const legendDataUrl = window.URL.createObjectURL(blob);
-                this.setState({legendDataUrl});
-              });
-            }
+    this.setState({
+      legendDataUrl: loading
+    });
+
+    if (this._requestTimeout) {
+      clearTimeout(this._requestTimeout);
+    }
+
+    this._requestTimeout = setTimeout(() => {
+      const {
+        wmsBaseUrl,
+        layer,
+        width,
+        height
+      } = this.props;
+      const style: Style = {
+        name: 'sld-renderer-style',
+        rules: [{
+          name: '',
+          symbolizers: symbolizers
+        }]
+      };
+      this._styleParser.writeStyle(style)
+        .then((sld) => {
+          const params = {
+            'SERVICE': 'WMS',
+            'VERSION': '1.3.0',
+            'REQUEST': 'GetLegendGraphic',
+            'FORMAT': 'image/png',
+            'TRANSPARENT': 'true',
+            'LAYER': layer,
+            'SLD_BODY': sld,
+            'WIDTH': width,
+            'HEIGHT': height
+          };
+          HTTPUtil.post({
+            url: wmsBaseUrl,
+            params: params
           })
-          .catch((error: any) => {
-            this.setState({
-              alt: error
+            .then((response: any) => {
+              if (response && response.ok) {
+                response.blob().then((blob: Blob) => {
+                  const legendDataUrl = window.URL.createObjectURL(blob);
+                  this.setState({legendDataUrl});
+                });
+              }
+            })
+            .catch((error: any) => {
+              this.setState({
+                alt: error
+              });
             });
-          });
-      });
+        });
+    }, requestDelay);
   }
 
   render() {
     const {
       onClick,
-      symbolizers
+      symbolizers,
+      height,
+      width
     } = this.props;
     const {
       alt,
@@ -123,6 +155,8 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
         className="gs-symbolizer-sldrenderer"
       >
         <img
+          width={width}
+          height={height}
           src={legendDataUrl}
           alt={alt}
         />
