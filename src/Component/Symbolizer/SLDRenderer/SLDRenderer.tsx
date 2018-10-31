@@ -10,7 +10,7 @@ import HTTPUtil from 'src/Util/HTTPUtil';
 interface SLDRendererProps {
   onClick?: (symbolizers: Symbolizer[]) => void;
   symbolizers: Symbolizer[];
-  baseUrl: string;
+  wmsBaseUrl: string;
   layer: string;
 }
 
@@ -60,7 +60,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
    */
   setLegendGraphicUrlForRule = (symbolizers: Symbolizer[]) => {
     const {
-      baseUrl,
+      wmsBaseUrl,
       layer
     } = this.props;
 
@@ -85,7 +85,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
           'HEIGHT': 100
         };
         HTTPUtil.post({
-          url: baseUrl,
+          url: wmsBaseUrl,
           params: params
         })
           .then((response: any) => {
