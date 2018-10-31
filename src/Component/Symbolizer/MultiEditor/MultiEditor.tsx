@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-  Symbolizer
+  Symbolizer, IconSymbolizer, MarkSymbolizer, SymbolizerKind
 } from 'geostyler-style';
 
 import './MultiEditor.css';
@@ -26,7 +26,7 @@ interface DefaultMultiEditorProps {
   onAdd: () => void;
   onRemove: (symbolizer: Symbolizer, idx: number) => void;
   symbolizers: Symbolizer[];
-  onSymbolizerChange: (symbolizer: Symbolizer, idx: number) => void;
+  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
   locale: MultiEditorLocale;
 }
 
@@ -36,9 +36,67 @@ export interface MultiEditorProps extends Partial<DefaultMultiEditorProps> {
   editorProps?: any;
 }
 
-class MultiEditor extends React.Component<MultiEditorProps> {
+export class MultiEditor extends React.Component<MultiEditorProps> {
 
   static componentName: string = 'MultiEditor';
+
+  addSymbolizer = () => {
+    const {
+      onSymbolizersChange,
+      symbolizers
+    } = this.props;
+    const symbolizerKind = symbolizers.length > 0 ? symbolizers[0].kind : undefined;
+    const newSymbolizer = this.getDefaultSymbolizer(symbolizerKind);
+    onSymbolizersChange([...symbolizers, newSymbolizer]);
+  }
+
+  removeSymbolizer = (key: number) => {
+    const {
+      onSymbolizersChange,
+      symbolizers
+    } = this.props;
+    const symbolizersClone = [...symbolizers];
+    symbolizersClone.splice(key, 1);
+    onSymbolizersChange(symbolizersClone);
+  }
+
+  onSymbolizerChange = (symbolizer: Symbolizer, key: number) => {
+    const {
+      onSymbolizersChange,
+      symbolizers
+    } = this.props;
+    const symbolizersClone = [...symbolizers];
+    symbolizersClone[key] = symbolizer;
+    onSymbolizersChange(symbolizersClone);
+  }
+
+  /**
+   *
+   */
+  getDefaultSymbolizer(kind?: SymbolizerKind): Symbolizer {
+    if (kind) {
+      if (kind === 'Mark') {
+        return {
+          kind,
+          wellKnownName: 'Circle'
+        } as MarkSymbolizer;
+      } else if (kind === 'Icon') {
+        return {
+          kind,
+          image: ''
+        } as IconSymbolizer;
+      } else {
+        return {
+          kind
+        } as Symbolizer;
+      }
+    } else {
+      return {
+        kind: 'Mark',
+        wellKnownName: 'Circle'
+      } as MarkSymbolizer;
+    }
+  }
 
   render() {
     const {
@@ -46,7 +104,6 @@ class MultiEditor extends React.Component<MultiEditorProps> {
       onRemove,
       symbolizers,
       editorProps,
-      onSymbolizerChange,
       locale,
       ...passThroughProps
     } = this.props;
@@ -62,14 +119,14 @@ class MultiEditor extends React.Component<MultiEditorProps> {
             <Editor
               symbolizer={symbolizer}
               onSymbolizerChange={(sym: Symbolizer) => {
-                onSymbolizerChange(sym, idx);
+                this.onSymbolizerChange(sym, idx);
               }}
               {...editorProps}
             />
-            {idx === 0 ? null :
+            {symbolizers.length === 1 ? null :
               <Button
                 onClick={() => {
-                  onRemove(symbolizer, idx);
+                  this.removeSymbolizer(idx);
                 }}
               >
                 {locale.remove}
@@ -84,7 +141,11 @@ class MultiEditor extends React.Component<MultiEditorProps> {
         className="gs-symbolizer-multi-editor"
         defaultActiveKey="0"
         animated={false}
-        tabBarExtraContent={<Button onClick={onAdd}>{locale.add}</Button>}
+        tabBarExtraContent={(
+          <Button onClick={this.addSymbolizer}>
+            {locale.add}
+          </Button>
+        )}
         {...passThroughProps}
       >
         {tabs}

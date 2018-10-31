@@ -73,16 +73,4 @@ describe('Style', () => {
     wrapper.instance().removeRule(lineStyle.rules[0]);
     expect(wrapper.state().style.rules).toHaveLength(0);
   });
-
-  it('adds a Symbolizer', () => {
-    expect(wrapper.state().style.rules[0].symbolizers).toHaveLength(1);
-    wrapper.instance().addSymbolizer(lineStyle.rules[0]);
-    expect(wrapper.state().style.rules[0].symbolizers).toHaveLength(2);
-  });
-
-  it('removes a Symbolizer', () => {
-    expect(wrapper.state().style.rules[0].symbolizers).toHaveLength(1);
-    wrapper.instance().removeSymbolizer(lineStyle.rules[0], lineStyle.rules[0].symbolizers[0]);
-    expect(wrapper.state().style.rules[0].symbolizers).toHaveLength(0);
-  });
 });

@@ -1,5 +1,11 @@
 import * as React from 'react';
 
+const _get = require('lodash/get');
+const _isEqual = require('lodash/isEqual');
+const _cloneDeep = require('lodash/cloneDeep');
+
+import { Button } from 'antd';
+
 import {
   Style as GsStyle,
   Rule as GsRule,
@@ -12,13 +18,11 @@ import {
   Data as GsData
 } from 'geostyler-data';
 
-import { Button } from 'antd';
 import Rule from '../Rule/Rule';
 import NameField, { DefaultNameFieldProps } from '../NameField/NameField';
+import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-
-const _get = require('lodash/get');
 
 // i18n
 export interface StyleLocale {
@@ -32,15 +36,9 @@ interface DefaultStyleProps {
   style: GsStyle;
   defaultIconSource?: string;
   filterUiProps?: DefaultComparisonFilterProps;
-  previewProps?: DefaultPreviewProps;
   ruleNameProps?: DefaultNameFieldProps;
   locale?: StyleLocale;
 }
-
-const _isEqual = require('lodash/isEqual');
-const _cloneDeep = require('lodash/cloneDeep');
-import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-import { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 // non default props
 interface StyleProps extends Partial<DefaultStyleProps> {
@@ -157,41 +155,6 @@ export class Style extends React.Component<StyleProps, StyleState> {
     this.setState({style});
   }
 
-  addSymbolizer = (rule: GsRule) => {
-    const style = _cloneDeep(this.state.style);
-    // TODO generate some kind of id
-    // right now, all properties of symbolizer must match
-    let newSymbolizer: GsSymbolizer = this.getDefaultSymbolizer(_get(rule, 'symbolizers[0]'));
-    const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
-    if (ruleIdx > -1) {
-      style.rules[ruleIdx].symbolizers.push(newSymbolizer);
-      if (this.props.onStyleChange) {
-        this.props.onStyleChange(style);
-      }
-      this.setState({style});
-    }
-  }
-
-  removeSymbolizer = (rule: GsRule, symbolizer: GsSymbolizer, key: number) => {
-    const style = _cloneDeep(this.state.style);
-    const ruleIdx = style.rules.findIndex((r: GsRule) => r.name === rule.name);
-
-    const newSymbolizers = style.rules[ruleIdx].symbolizers
-    .filter((symb: GsSymbolizer, index: number) => {
-      if (key) {
-        return key !== index;
-      } else {
-          // if all properties of a symbolizer are equal, remove this symbolizer
-          return !_isEqual(symb, symbolizer);
-        }
-      });
-    style.rules[ruleIdx].symbolizers = newSymbolizers;
-    if (this.props.onStyleChange) {
-      this.props.onStyleChange(style);
-    }
-    this.setState({style});
-  }
-
   render() {
     let rules: GsRule[] = [];
 
@@ -216,13 +179,10 @@ export class Style extends React.Component<StyleProps, StyleState> {
             key={'rule_' + idx}
             rule={rule}
             onRemove={this.removeRule}
-            onAddSymbolizer={this.addSymbolizer}
-            onRemoveSymbolizer={this.removeSymbolizer}
             internalDataDef={this.props.data}
             onRuleChange={this.onRuleChange}
             dataProjection={this.props.dataProjection}
             filterUiProps={this.props.filterUiProps}
-            previewProps={this.props.previewProps}
             ruleNameProps={this.props.ruleNameProps}
           />)
         }

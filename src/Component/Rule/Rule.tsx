@@ -16,12 +16,13 @@ import RuleNameField, { DefaultNameFieldProps } from '../NameField/NameField';
 import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
-import Preview, { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 import './Rule.css';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import FilterTree from '../Filter/FilterTree/FilterTree';
+import Renderer from '../Symbolizer/Renderer/Renderer';
+import EditorWindow from '../Symbolizer/EditorWindow/EditorWindow';
 
 const _cloneDeep = require('lodash/cloneDeep');
 
@@ -50,7 +51,6 @@ interface DefaultRuleProps {
   /** The data projection of example features */
   dataProjection?: string;
   filterUiProps?: DefaultComparisonFilterProps;
-  previewProps?: DefaultPreviewProps;
   ruleNameProps?: DefaultNameFieldProps;
   locale?: RuleLocale;
 }
@@ -67,10 +67,13 @@ interface RuleProps extends Partial<DefaultRuleProps> {
   onAddSymbolizer?: (rule: GsRule) => void;
   /** Callback for onClick of the RemoveSymbolizerButton */
   onRemoveSymbolizer?: (rule: GsRule, symbolizer: GsSymbolizer, key: number) => void;
+  /** Callback for onClick of the Renderer */
+  onRendererClick?: (symbolizers: GsSymbolizer[], rule: GsRule) => void;
 }
 
 // state
 interface RuleState {
+  editorVisible: boolean;
   rule: GsRule;
   symbolizerEditorVisible: boolean;
   storedFilter: GsFilter;
@@ -86,6 +89,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   constructor(props: RuleProps) {
     super(props);
     this.state = {
+      editorVisible: false,
       rule: Rule.defaultProps.rule,
       symbolizerEditorVisible: false,
       storedFilter: ['=='],
@@ -160,19 +164,13 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   /**
    * Handles changing rule symbolizer
    */
-  onSymbolizerChange = (symbolizer: GsSymbolizer, key: number) => {
+  onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
     let rule: GsRule = _cloneDeep(this.state.rule);
-    rule.symbolizers[key] = symbolizer;
+    rule.symbolizers = symbolizers;
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
     this.setState({rule});
-  }
-
-  onEditPreviewButtonClicked = () => {
-    this.setState({
-      symbolizerEditorVisible: !this.state.symbolizerEditorVisible
-    });
   }
 
   onScaleCheckChange = (e: any) => {
@@ -215,13 +213,13 @@ export class Rule extends React.Component<RuleProps, RuleState> {
 
   render() {
     const {
-      dataProjection,
       internalDataDef,
       onRemove,
       locale
     } = this.props;
 
     const {
+      editorVisible,
       rule,
       scaleFieldChecked,
       filterFieldChecked
@@ -244,23 +242,24 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               placeholder={locale.nameFieldPlaceholder}
               {...this.props.ruleNameProps}
             />
-            <Preview
-              dataProjection={dataProjection}
+            <Renderer
               symbolizers={rule.symbolizers}
-              internalDataDef={gsData}
-              onSymbolizerChange={this.onSymbolizerChange}
-              onAddSymbolizer={() => {
-                if (this.props.onAddSymbolizer) {
-                  this.props.onAddSymbolizer(this.props.rule);
-                }
+              onClick={() => {
+                this.setState({
+                  editorVisible: !editorVisible
+                });
               }}
-              onRemoveSymbolizer={(symb: GsSymbolizer, key: number) => {
-                if (this.props.onRemoveSymbolizer) {
-                  this.props.onRemoveSymbolizer(this.props.rule, symb, key);
-                }
-              }}
-              {...this.props.previewProps}
             />
+            {
+              !editorVisible ? null :
+                <EditorWindow
+                  onClose={() => {
+                    this.setState({editorVisible: false});
+                  }}
+                  symbolizers={rule.symbolizers}
+                  onSymbolizersChange={this.onSymbolizersChange}
+                />
+            }
           </div>
           <div className="gs-rule-right-fields" >
             <Fieldset
