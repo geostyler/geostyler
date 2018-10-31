@@ -32,7 +32,6 @@ interface DefaultStyleProps {
   style: GsStyle;
   defaultIconSource?: string;
   filterUiProps?: DefaultComparisonFilterProps;
-  previewProps?: DefaultPreviewProps;
   ruleNameProps?: DefaultNameFieldProps;
   locale?: StyleLocale;
 }
@@ -40,7 +39,6 @@ interface DefaultStyleProps {
 const _isEqual = require('lodash/isEqual');
 const _cloneDeep = require('lodash/cloneDeep');
 import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-import { DefaultPreviewProps } from '../Symbolizer/Preview/Preview';
 
 // non default props
 interface StyleProps extends Partial<DefaultStyleProps> {

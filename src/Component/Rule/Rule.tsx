@@ -173,12 +173,6 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     this.setState({rule});
   }
 
-  onEditPreviewButtonClicked = () => {
-    this.setState({
-      symbolizerEditorVisible: !this.state.symbolizerEditorVisible
-    });
-  }
-
   onScaleCheckChange = (e: any) => {
     const checked = e.target.checked;
     const rule: GsRule = _cloneDeep(this.state.rule);
