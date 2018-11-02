@@ -55,6 +55,7 @@ export default {
         fillColorLabel: 'Füllfarbe',
         outlineColorLabel: 'Randfarbe',
         outlineWidthLabel: 'Randbreite',
+        outlineDasharrayLabel: 'Rand-Strichmuster',
         graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsIconEditor: {

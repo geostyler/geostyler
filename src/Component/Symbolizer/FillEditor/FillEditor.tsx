@@ -17,6 +17,7 @@ const _get = require('lodash/get');
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import LineDashField from '../Field/LineDashField/LineDashField';
 
 const Panel = Collapse.Panel;
 
@@ -27,6 +28,7 @@ export interface FillEditorLocale {
   outlineColorLabel?: string;
   outlineWidthLabel?: string;
   graphicFillTypeLabel?: string;
+  outlineDasharrayLabel?: string;
 }
 
 interface FillEditorDefaultProps {
@@ -59,7 +61,8 @@ export class FillEditor extends React.Component<FillEditorProps, {}> {
       opacity,
       outlineColor,
       graphicFill,
-      outlineWidth
+      outlineWidth,
+      outlineDasharray
     } = symbolizer;
 
     const {
@@ -99,6 +102,14 @@ export class FillEditor extends React.Component<FillEditorProps, {}> {
               label={locale.outlineWidthLabel}
               onChange={(value: number) => {
                 symbolizer.outlineWidth = value;
+                this.props.onSymbolizerChange(symbolizer);
+              }}
+            />
+            <LineDashField
+              dashArray={outlineDasharray}
+              label={locale.outlineDasharrayLabel}
+              onChange={(value: number[]) => {
+                symbolizer.outlineDasharray = value;
                 this.props.onSymbolizerChange(symbolizer);
               }}
             />

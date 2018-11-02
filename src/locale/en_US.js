@@ -54,6 +54,7 @@ export default {
         fillColorLabel: 'Fill-Color',
         outlineColorLabel: 'Outline-Color',
         outlineWidthLabel: 'Outline-Width',
+        outlineDasharrayLabel: 'Outline-Dasharray',
         graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsIconEditor: {
