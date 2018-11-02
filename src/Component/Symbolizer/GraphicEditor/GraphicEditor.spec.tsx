@@ -14,8 +14,7 @@ describe('GraphicEditor', () => {
     wellKnownName: 'Circle'
   };
   const dummyGraphicIcon: PointSymbolizer = {
-    kind: 'Icon',
-    image: 'img/GeoStyler.png'
+    kind: 'Icon'
   };
   const onGraphicChangeSpy = jest.fn();
 
@@ -56,8 +55,7 @@ describe('GraphicEditor', () => {
 
   it('returns IconSymbolizer as default IconGraphic', () => {
     const dummyIcon: IconSymbolizer = {
-      kind: 'Icon',
-      image: 'img/GeoStyler.png'
+      kind: 'Icon'
     };
     expect(wrapper.instance().getDefaultIconGraphic()).toEqual(dummyIcon);
   });

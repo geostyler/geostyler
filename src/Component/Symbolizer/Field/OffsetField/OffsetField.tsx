@@ -1,6 +1,7 @@
 import * as React from 'react';
 
-import InputNumber, { InputNumberProps } from 'antd/lib/input-number';
+import { InputNumber } from 'antd';
+import { InputNumberProps } from 'antd/lib/input-number';
 
 // default props
 interface OffsetFieldDefaultProps {
@@ -26,6 +27,7 @@ class OffsetField extends React.Component<OffsetFieldProps, {}> {
     const {
       offset,
       label,
+      onChange,
       ...inputProps
     } = this.props;
 
@@ -35,7 +37,7 @@ class OffsetField extends React.Component<OffsetFieldProps, {}> {
         <InputNumber
           value={offset}
           step={1}
-          onChange={this.props.onChange}
+          onChange={onChange}
           {...inputProps}
         />
       </div>

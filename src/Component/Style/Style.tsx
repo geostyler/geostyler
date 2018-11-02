@@ -34,7 +34,6 @@ export interface StyleLocale {
 // default props
 interface DefaultStyleProps {
   style: GsStyle;
-  defaultIconSource: string;
   locale: StyleLocale;
 }
 
@@ -68,8 +67,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
     style: {
       name: 'My Style',
       rules: []
-    },
-    defaultIconSource: 'src/GeoStyler.png'
+    }
   };
 
   componentDidUpdate(prevProps: any, prevState: any) {

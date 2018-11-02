@@ -12,7 +12,7 @@ describe('Style', () => {
       };
       const iconSymbolizer: IconSymbolizer = {
         kind: 'Icon',
-        image: 'img/GeoStyler.png'
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png'
       };
       const fillSymbolizer: FillSymbolizer = {
         kind: 'Fill',

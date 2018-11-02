@@ -23,7 +23,6 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 // default props
 interface DefaultEditorProps {
-  defaultIconSource: string;
   unknownSymbolizerText?: string;
 }
 
@@ -49,7 +48,6 @@ class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   public static defaultProps: DefaultEditorProps = {
-    defaultIconSource: 'img/GeoStyler.png',
     unknownSymbolizerText: `Unknown Symbolizer!`
   };
 
@@ -75,12 +73,8 @@ class Editor extends React.Component<EditorProps, EditorState> {
           />
         );
       case 'Icon':
-        if (!symbolizer.image) {
-          symbolizer.image = this.props.defaultIconSource;
-        }
         return (
           <IconEditor
-            defaultIconSource={this.props.defaultIconSource}
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
             {...this.props.iconEditorProps}
