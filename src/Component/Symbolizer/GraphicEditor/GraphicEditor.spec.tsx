@@ -15,7 +15,7 @@ describe('GraphicEditor', () => {
   };
   const dummyGraphicIcon: PointSymbolizer = {
     kind: 'Icon',
-    image: 'img/openLayers_logo.svg'
+    image: 'img/GeoStyler.png'
   };
   const onGraphicChangeSpy = jest.fn();
 
@@ -57,7 +57,7 @@ describe('GraphicEditor', () => {
   it('returns IconSymbolizer as default IconGraphic', () => {
     const dummyIcon: IconSymbolizer = {
       kind: 'Icon',
-      image: 'img/openLayers_logo.svg'
+      image: 'img/GeoStyler.png'
     };
     expect(wrapper.instance().getDefaultIconGraphic()).toEqual(dummyIcon);
   });

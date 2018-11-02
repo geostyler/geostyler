@@ -19,6 +19,7 @@ const  _cloneDeep = require('lodash/cloneDeep');
 
 import KindField from '../Field/KindField/KindField';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
+import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 // default props
 interface DefaultEditorProps {
@@ -43,15 +44,12 @@ class Editor extends React.Component<EditorProps, EditorState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      symbolizer: {
-        kind: 'Mark',
-        wellKnownName: 'Circle'
-      }
+      symbolizer: SymbolizerUtil.generateSymbolizer()
     };
   }
 
   public static defaultProps: DefaultEditorProps = {
-    defaultIconSource: 'img/openLayers_logo.svg',
+    defaultIconSource: 'img/GeoStyler.png',
     unknownSymbolizerText: `Unknown Symbolizer!`
   };
 
@@ -121,10 +119,7 @@ class Editor extends React.Component<EditorProps, EditorState> {
         <KindField
           kind={symbolizer.kind}
           onChange={(kind: SymbolizerKind) => {
-            const newSymbolizer = {kind} as Symbolizer;
-            if (newSymbolizer.kind === 'Mark') {
-              newSymbolizer.wellKnownName = 'Circle';
-            }
+            const newSymbolizer = SymbolizerUtil.generateSymbolizer(kind);
             this.onSymbolizerChange(newSymbolizer);
           }}
         />

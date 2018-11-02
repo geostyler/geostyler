@@ -9,9 +9,7 @@ import { Button } from 'antd';
 import {
   Style as GsStyle,
   Rule as GsRule,
-  Symbolizer as GsSymbolizer,
-  MarkSymbolizer as GsMarkSymbolizer,
-  IconSymbolizer as GsIconSymbolizer
+  SymbolizerKind
 } from 'geostyler-style';
 
 import {
@@ -24,6 +22,7 @@ import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilt
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
+import SymbolizerUtil from '../../Util/SymbolizerUtil';
 
 // i18n
 export interface StyleLocale {
@@ -70,7 +69,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       name: 'My Style',
       rules: []
     },
-    defaultIconSource: 'img/openLayers_logo.svg'
+    defaultIconSource: 'src/GeoStyler.png'
   };
 
   componentDidUpdate(prevProps: any, prevState: any) {
@@ -78,34 +77,6 @@ export class Style extends React.Component<StyleProps, StyleState> {
       this.setState({
         style: this.props.style
       });
-    }
-  }
-
-  /**
-   *
-   */
-  getDefaultSymbolizer(symbolizer: GsSymbolizer): GsSymbolizer {
-    if (symbolizer) {
-      if (symbolizer.kind === 'Mark') {
-        return {
-          kind: symbolizer.kind,
-          wellKnownName: 'Circle'
-        } as GsMarkSymbolizer;
-      } else if (symbolizer.kind === 'Icon') {
-        return {
-          kind: symbolizer.kind,
-          image: this.props.defaultIconSource
-        } as GsIconSymbolizer;
-      } else {
-        return {
-          kind: symbolizer.kind
-        } as GsSymbolizer;
-      }
-    } else {
-      return {
-        kind: 'Mark',
-        wellKnownName: 'Circle'
-      } as GsMarkSymbolizer;
     }
   }
 
@@ -136,9 +107,10 @@ export class Style extends React.Component<StyleProps, StyleState> {
     const style = _cloneDeep(this.state.style);
     // TODO We need to ensure that rule names are unique
     const randomId = Math.floor(Math.random() * 10000);
+    const symbolizerKind: SymbolizerKind = _get(style, 'rules[0].symbolizers[0].kind');
     const newRule: GsRule = {
       name: 'rule_' + randomId,
-      symbolizers: [this.getDefaultSymbolizer(_get(style, 'rules[0].symbolizers[0]'))]
+      symbolizers: [SymbolizerUtil.generateSymbolizer(symbolizerKind)]
     };
     style.rules = [...style.rules, newRule];
     if (this.props.onStyleChange) {

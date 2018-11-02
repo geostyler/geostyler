@@ -36,7 +36,7 @@ class GraphicEditor extends React.Component <GraphicEditorProps, {}> {
   public static defaultProps: DefaultGraphicEditorProps = {
     graphicTypeFieldLabel: 'Graphic-Type',
     iconEditorProps: {
-      defaultIconSource: 'img/openLayers_logo.svg'
+      defaultIconSource: 'img/GeoStyler.png'
     }
   };
 

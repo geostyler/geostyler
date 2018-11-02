@@ -40,7 +40,7 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
 
   public static defaultProps: DefaultIconEditorProps = {
     locale: en_US.GsIconEditor,
-    defaultIconSource: 'img/openLayers_logo.svg'
+    defaultIconSource: 'img/GeoStyler.png'
   };
 
   static componentName: string = 'IconEditor';
