@@ -16,6 +16,7 @@ const _cloneDeep = require('lodash/cloneDeep');
 const _get = require('lodash/get');
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
 
 const Panel = Collapse.Panel;
 
@@ -28,16 +29,23 @@ export interface FillEditorLocale {
   graphicFillTypeLabel?: string;
 }
 
+interface FillEditorDefaultProps {
+  locale: FillEditorLocale;
+}
+
 // non default props
-interface FillEditorProps {
+interface FillEditorProps extends Partial<FillEditorDefaultProps> {
   symbolizer: FillSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
-  locale?: FillEditorLocale;
 }
 
 export class FillEditor extends React.Component<FillEditorProps, {}> {
 
   static componentName: string = 'FillEditor';
+
+  public static defaultProps: FillEditorDefaultProps = {
+    locale: en_US.GsFillEditor
+  };
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);

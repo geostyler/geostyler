@@ -15,9 +15,9 @@ interface DefaultTextFilterFieldProps {
   /** Initial value set to the field */
   value: string | undefined;
   /** Validation status */
-  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  validateStatus: 'success' | 'warning' | 'error' | 'validating';
   /** Element to show a help text */
-  help?: React.ReactNode;
+  help: React.ReactNode;
 }
 // non default props
 interface TextFilterFieldProps extends Partial<DefaultTextFilterFieldProps> {

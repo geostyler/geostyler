@@ -21,6 +21,7 @@ const _cloneDeep = require('lodash/cloneDeep');
 const _get = require('lodash/get');
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
 
 const Panel = Collapse.Panel;
 
@@ -37,17 +38,24 @@ export interface LineEditorLocale {
   graphicFillTypeLabel?: string;
 }
 
+export interface LineEditorDefaultProps {
+  /** Language package */
+  locale: LineEditorLocale;
+}
+
 // non default props
-interface LineEditorProps {
+export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
   /** Symbolizer */
   symbolizer: LineSymbolizer;
   /** Callback when symbolizer changes */
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
-  /** Language package */
-  locale?: LineEditorLocale;
 }
 
 export class LineEditor extends React.Component<LineEditorProps, {}> {
+
+  public static defaultProps: LineEditorDefaultProps = {
+    locale: en_US.GsLineEditor
+  };
 
   static componentName: string = 'LineEditor';
 

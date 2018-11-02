@@ -14,6 +14,7 @@ import RotateField from '../Field/RotateField/RotateField';
 import SizeField from '../Field/SizeField/SizeField';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
 
 // i18n
 export interface IconEditorLocale {
@@ -26,11 +27,11 @@ export interface IconEditorLocale {
 // default props
 export interface DefaultIconEditorProps {
   defaultIconSource: string;
-  locale?: IconEditorLocale;
+  locale: IconEditorLocale;
 }
 
 // non default props
-interface IconEditorProps extends Partial<DefaultIconEditorProps> {
+export interface IconEditorProps extends Partial<DefaultIconEditorProps> {
   symbolizer: IconSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
 }
@@ -38,6 +39,7 @@ interface IconEditorProps extends Partial<DefaultIconEditorProps> {
 class IconEditor extends React.Component<IconEditorProps, {}> {
 
   public static defaultProps: DefaultIconEditorProps = {
+    locale: en_US.GsIconEditor,
     defaultIconSource: 'img/openLayers_logo.svg'
   };
 

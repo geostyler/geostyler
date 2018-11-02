@@ -18,6 +18,7 @@ import './TextEditor.css';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import RotateField from '../Field/RotateField/RotateField';
+import en_US from '../../../locale/en_US';
 
 // i18n
 export interface TextEditorLocale {
@@ -34,11 +35,14 @@ export interface TextEditorLocale {
   attributeComboPlaceholder?: string;
 }
 
+interface TextEditorDefaultProps {
+  locale: TextEditorLocale;
+}
+
 // non default props
-interface TextEditorProps {
+interface TextEditorProps extends Partial<TextEditorDefaultProps> {
   symbolizer: TextSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
-  locale?: TextEditorLocale;
 }
 
 /**
@@ -47,6 +51,10 @@ interface TextEditorProps {
  * feature properties and text without curly braces as static text.
  */
 export class TextEditor extends React.Component<TextEditorProps, {}> {
+
+  public static defaultProps: TextEditorDefaultProps = {
+    locale: en_US.GsTextEditor
+  };
 
   static componentName: string = 'TextEditor';
 

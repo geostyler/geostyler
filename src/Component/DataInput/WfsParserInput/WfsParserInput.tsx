@@ -9,24 +9,25 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-const _get = require('lodash/get');
-
-import './WfsParserInput.css';
-
-// TODO should be replaced with import {ReadParams} from 'geostyler-wfs-parser'
-// once it exists
-interface ReadParams {
+// TODO This should be importable from the wfs-parser
+interface WfsParams {
   url: string;
   version: string;
   typeName: string;
   featureID?: string;
   propertyName?: string[];
+  srsName?: string;
   maxFeatures?: number;
   fetchParams?: Object;
 }
 
-// default props
-interface WfsParserInputDefaultProps {
+import en_US from '../../../locale/en_US';
+
+const _get = require('lodash/get');
+
+import './WfsParserInput.css';
+
+export interface WfsParserInputLocale {
   requestButtonText: string;
   urlLabel: string;
   versionLabel: string;
@@ -37,13 +38,18 @@ interface WfsParserInputDefaultProps {
   fetchParamsLabel: string;
 }
 
+// default props
+interface WfsParserInputDefaultProps {
+  locale: WfsParserInputLocale;
+}
+
 // non default props
 interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps> {
-  onClick: ((wfsParams: ReadParams) => void);
+  onClick: (wfsParams: WfsParams) => void;
 }
 
 // state
-interface WfsParserState extends ReadParams {
+interface WfsParserState extends WfsParams {
   validation: any;
 }
 
@@ -53,14 +59,7 @@ interface WfsParserState extends ReadParams {
 class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState> {
 
   public static defaultProps: WfsParserInputDefaultProps = {
-    requestButtonText: 'Get Data',
-    urlLabel: 'Url',
-    versionLabel: 'Version',
-    typeNameLabel: 'FeatureTypeName',
-    featureIDLabel: 'FeatureID',
-    propertyNameLabel: 'PropertyName',
-    maxFeaturesLabel: 'MaxFeatures',
-    fetchParamsLabel: 'fetchParams'
+    locale: en_US.GsWfsParserInput
   };
 
   constructor(props: any) {
@@ -156,7 +155,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
 
   render() {
     const {
-      requestButtonText
+      locale
     } = this.props;
 
     const {
@@ -171,7 +170,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
     return (
       <div className="wfs-parser-input">
         <Form.Item
-          label={this.props.urlLabel}
+          label={locale.urlLabel}
           validateStatus={_get(this.state, 'validation.url.status')}
           help={_get(this.state, 'validation.url.message')}
           hasFeedback={true}
@@ -183,7 +182,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
           />
         </Form.Item>
         <Form.Item
-          label={this.props.typeNameLabel}
+          label={locale.typeNameLabel}
           validateStatus={_get(this.state, 'validation.typeName.status')}
           help={_get(this.state, 'validation.typeName.message')}
           hasFeedback={true}
@@ -195,7 +194,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
           />
         </Form.Item>
         <Form.Item
-          label={this.props.versionLabel}
+          label={locale.versionLabel}
           validateStatus={_get(this.state, 'validation.version.status')}
           help={_get(this.state, 'validation.version.message')}
           hasFeedback={true}
@@ -214,7 +213,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
           </Select>
         </Form.Item>
         <Form.Item
-          label={this.props.featureIDLabel}
+          label={locale.featureIDLabel}
           validateStatus={_get(this.state, 'validation.featureID.status')}
           help={_get(this.state, 'validation.featureID.message')}
           hasFeedback={true}
@@ -225,7 +224,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
           />
         </Form.Item>
         <Form.Item
-          label={this.props.propertyNameLabel}
+          label={locale.propertyNameLabel}
           validateStatus={_get(this.state, 'validation.propertyName.status')}
           help={_get(this.state, 'validation.propertyName.message')}
           hasFeedback={true}
@@ -238,7 +237,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
           />
         </Form.Item>
         <Form.Item
-          label={this.props.maxFeaturesLabel}
+          label={locale.maxFeaturesLabel}
           validateStatus={_get(this.state, 'validation.maxFeatures.status')}
           help={_get(this.state, 'validation.maxFeatures.message')}
           hasFeedback={true}
@@ -257,7 +256,7 @@ class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState
             type="primary"
             onClick={this.onClick}
           >
-            {requestButtonText}
+            {locale.requestButtonText}
           </Button>
         </Form.Item>
       </div>

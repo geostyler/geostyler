@@ -26,6 +26,7 @@ export interface ReadParams {
 }
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
 
 // i18n
 export interface DataLoaderLocale {
@@ -36,7 +37,7 @@ export interface DataLoaderLocale {
 // default props
 interface DefaultDataLoaderProps {
   onDataRead: (data: GsData) => void;
-  locale?: DataLoaderLocale;
+  locale: DataLoaderLocale;
 }
 
 // non default props
@@ -62,6 +63,7 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
   static componentName: string = 'DataLoader';
 
   public static defaultProps: DefaultDataLoaderProps = {
+    locale: en_US.GsDataLoader,
     onDataRead: (data: GsData) => {return; }
   };
 
@@ -129,7 +131,6 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
         case 'GeoJSON Style Parser':
           return (
             <UploadButton
-              label="Upload Data"
               onUpload={this.parseUploadData}
             />
           );
@@ -150,7 +151,6 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
         default:
           return (
             <UploadButton
-              label="Upload Data"
               onUpload={this.parseUploadData}
             />
           );

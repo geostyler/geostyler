@@ -113,6 +113,10 @@ export default {
             Text: 'Text'
         }
     },
+    GsGraphicTypeField: {
+      Mark: 'Mark',
+      Icon: 'Icon'
+    },
     GsScaleDenominator: {
         minScaleDenominatorLabelText: 'Min. Maßstabszahl',
         maxScaleDenominatorLabelText: 'Max. Maßstabszahl',
@@ -140,6 +144,9 @@ export default {
     GsMultiEditor: {
       add: 'Hinzufügen',
       remove: 'Entfernen'
+    },
+    GsUploadButton: {
+      upload: 'Upload'
     },
     ...de_DE
 };

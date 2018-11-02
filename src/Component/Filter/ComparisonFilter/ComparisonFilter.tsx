@@ -41,31 +41,31 @@ export interface DefaultComparisonFilterProps {
    */
   attributeNameFilter: (attributeName: string) => boolean;
   /** Label for the underlying AttributeCombo */
-  attributeLabel?: string;
+  attributeLabel: string;
   /** Placeholder text for the underlying AttributeCombo */
-  attributePlaceholderString?: string;
+  attributePlaceholderString: string;
   /** Validation help text for the underlying AttributeCombo */
-  attributeValidationHelpString?: string;
+  attributeValidationHelpString: string;
   /** Mapping function for attribute names of underlying AttributeCombo */
-  attributeNameMappingFunction?: (originalAttributeName: string) => string;
+  attributeNameMappingFunction: (originalAttributeName: string) => string;
   /** Label for the underlying OperatorCombo */
-  operatorLabel?: string;
+  operatorLabel: string;
   /** Show title of selected item in underlying OperatorCombo */
   showOperatorTitles: boolean;
   /** Placeholder for the underlying OperatorCombo */
-  operatorPlaceholderString?: string;
+  operatorPlaceholderString: string;
   /** Validation help text for the underlying OperatorCombo */
-  operatorValidationHelpString?: string;
+  operatorValidationHelpString: string;
   /** Mapping function for operator names of underlying OperatorCombo */
-  operatorNameMappingFunction?: (originalOperatorName: string) => string;
+  operatorNameMappingFunction: (originalOperatorName: string) => string;
   /** Mapping function for operator title in underlying OperatorCombo */
-  operatorTitleMappingFunction?: (originalOperatorName: string) => string;
+  operatorTitleMappingFunction: (originalOperatorName: string) => string;
   /** Label for the underlying value field */
-  valueLabel?: string;
+  valueLabel: string;
   /** Placeholder for the underlying value field */
-  valuePlaceholder?: string;
+  valuePlaceholder: string;
   /** Validation help text for the underlying value field */
-  valueValidationHelpString?: string;
+  valueValidationHelpString: string;
   /** Callback for onValidationChanged */
   onValidationChanged?: (status: ValidationStatus) => void;
   /** Object aggregating validation functions for attribute, operator and value */
@@ -74,7 +74,7 @@ export interface DefaultComparisonFilterProps {
   microUI: boolean;
 }
 // non default props
-interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
+export interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback function for onFilterChange */

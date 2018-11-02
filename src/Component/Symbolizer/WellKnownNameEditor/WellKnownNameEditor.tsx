@@ -10,6 +10,7 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
 import RotateField from '../Field/RotateField/RotateField';
+import en_US from '../../../locale/en_US';
 
 const  _cloneDeep = require('lodash/cloneDeep');
 const _get = require('lodash/get');
@@ -25,14 +26,21 @@ interface WellKnownNameEditorLocale {
   rotateLabel?: string;
 }
 
+interface WellKnownNameEditorDefaultProps {
+  locale: WellKnownNameEditorLocale;
+}
+
 // non default props
-interface WellKnownNameEditorProps {
+interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDefaultProps> {
   symbolizer: MarkSymbolizer;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
-  locale?: WellKnownNameEditorLocale;
 }
 
 export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps, {}> {
+
+  public static defaultProps: WellKnownNameEditorDefaultProps = {
+    locale: en_US.GsWellKnownNameEditor
+  };
 
   static componentName: string = 'WellKnownNameEditor';
 

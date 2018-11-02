@@ -19,13 +19,13 @@ interface DefaultOperatorComboProps {
   /** List of operators to show in this combo */
   operators: string[];
   /** Mapping function for operator names in this combo */
-  operatorNameMappingFunction?: (originalOperatorName: string) => string;
+  operatorNameMappingFunction: (originalOperatorName: string) => string;
   /** Mapping function for operator title in this combo */
-  operatorTitleMappingFunction?: (originalOperatorName: string) => string;
+  operatorTitleMappingFunction: (originalOperatorName: string) => string;
   /** Validation status */
-  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  validateStatus: 'success' | 'warning' | 'error' | 'validating';
   /** Element to show a help text */
-  help?: React.ReactNode;
+  help: React.ReactNode;
 }
 // non default props
 interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
