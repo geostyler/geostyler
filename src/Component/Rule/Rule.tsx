@@ -12,19 +12,20 @@ import {
 } from 'geostyler-style';
 import { Data as GsData } from 'geostyler-data';
 
-import RuleNameField, { DefaultNameFieldProps } from '../NameField/NameField';
-import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
+import { localize } from '../LocaleWrapper/LocaleWrapper';
+
+import RuleNameField, { NameFieldProps } from '../NameField/NameField';
+import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
-
-import './Rule.css';
-
-import { localize } from '../LocaleWrapper/LocaleWrapper';
 import FilterTree from '../Filter/FilterTree/FilterTree';
 import Renderer from '../Symbolizer/Renderer/Renderer';
 import EditorWindow from '../Symbolizer/EditorWindow/EditorWindow';
 
 const _cloneDeep = require('lodash/cloneDeep');
+
+import './Rule.css';
+import en_US from '../../locale/en_US';
 
 // i18n
 export interface RuleLocale {
@@ -49,10 +50,9 @@ interface DefaultRuleProps {
   /** Optional Rule object holding inital values for the component */
   rule: GsRule;
   /** The data projection of example features */
-  dataProjection?: string;
-  filterUiProps?: DefaultComparisonFilterProps;
-  ruleNameProps?: DefaultNameFieldProps;
-  locale?: RuleLocale;
+  dataProjection: string;
+  rendererType: 'SLD' | 'OpenLayers';
+  locale: RuleLocale;
 }
 
 // non default props
@@ -69,6 +69,10 @@ interface RuleProps extends Partial<DefaultRuleProps> {
   onRemoveSymbolizer?: (rule: GsRule, symbolizer: GsSymbolizer, key: number) => void;
   /** Callback for onClick of the Renderer */
   onRendererClick?: (symbolizers: GsSymbolizer[], rule: GsRule) => void;
+  /** Properties that will be passed to the Comparison Filters */
+  filterUiProps?: Partial<ComparisonFilterProps>;
+  /** Properties that will be passed to the RuleNameField */
+  ruleNameProps?: Partial<NameFieldProps>;
 }
 
 // state
@@ -100,6 +104,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   static componentName: string = 'Rule';
 
   public static defaultProps: DefaultRuleProps = {
+    locale: en_US.GsRule,
     rule: {
       name: 'My Style',
       symbolizers: [{
@@ -107,7 +112,8 @@ export class Rule extends React.Component<RuleProps, RuleState> {
         wellKnownName: 'Circle'
       }]
     },
-    dataProjection: 'EPSG:4326'
+    dataProjection: 'EPSG:4326',
+    rendererType: 'OpenLayers'
   };
 
   static getDerivedStateFromProps(

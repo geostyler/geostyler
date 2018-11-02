@@ -11,9 +11,9 @@ interface DefaultNumberFilterFieldProps {
   /** Initial value set to the field */
   value: number | undefined;
   /** Validation status */
-  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  validateStatus: 'success' | 'warning' | 'error' | 'validating';
   /** Element to show a help text */
-  help?: React.ReactNode;
+  help: React.ReactNode;
 }
 // non default props
 interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {

@@ -19,10 +19,11 @@ import {
 } from 'geostyler-data';
 
 import Rule from '../Rule/Rule';
-import NameField, { DefaultNameFieldProps } from '../NameField/NameField';
-import { DefaultComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
+import NameField, { NameFieldProps } from '../NameField/NameField';
+import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
+import en_US from '../../locale/en_US';
 
 // i18n
 export interface StyleLocale {
@@ -34,10 +35,8 @@ export interface StyleLocale {
 // default props
 interface DefaultStyleProps {
   style: GsStyle;
-  defaultIconSource?: string;
-  filterUiProps?: DefaultComparisonFilterProps;
-  ruleNameProps?: DefaultNameFieldProps;
-  locale?: StyleLocale;
+  defaultIconSource: string;
+  locale: StyleLocale;
 }
 
 // non default props
@@ -46,6 +45,8 @@ interface StyleProps extends Partial<DefaultStyleProps> {
   onStyleChange?: (rule: GsStyle) => void;
   /** The data projection of example features */
   dataProjection?: string;
+  filterUiProps?: Partial<ComparisonFilterProps>;
+  ruleNameProps?: Partial<NameFieldProps>;
 }
 
 // state
@@ -64,6 +65,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
   static componentName: string = 'Style';
 
   public static defaultProps: DefaultStyleProps = {
+    locale: en_US.GsStyle,
     style: {
       name: 'My Style',
       rules: []
@@ -159,6 +161,9 @@ export class Style extends React.Component<StyleProps, StyleState> {
     let rules: GsRule[] = [];
 
     const {
+      dataProjection,
+      filterUiProps,
+      ruleNameProps,
       locale
     } = this.props;
 
@@ -181,9 +186,9 @@ export class Style extends React.Component<StyleProps, StyleState> {
             onRemove={this.removeRule}
             internalDataDef={this.props.data}
             onRuleChange={this.onRuleChange}
-            dataProjection={this.props.dataProjection}
-            filterUiProps={this.props.filterUiProps}
-            ruleNameProps={this.props.ruleNameProps}
+            dataProjection={dataProjection}
+            filterUiProps={filterUiProps}
+            ruleNameProps={ruleNameProps}
           />)
         }
         <Button

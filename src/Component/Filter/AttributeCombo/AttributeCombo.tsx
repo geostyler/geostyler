@@ -22,9 +22,9 @@ interface DefaultAttributeComboProps {
   /** Mapping function for attribute names of this combo */
   attributeNameMappingFunction?: (originalAttributeName: string) => string;
   /** Validation status */
-  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
+  validateStatus: 'success' | 'warning' | 'error' | 'validating';
   /** Element to show a help text */
-  help?: React.ReactNode;
+  help: React.ReactNode;
 }
 // non default props
 interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {

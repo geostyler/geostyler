@@ -6,6 +6,7 @@ import {
 import { SymbolizerKind } from 'geostyler-style';
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../../locale/en_US';
 
 const Option = Select.Option;
 
@@ -25,7 +26,7 @@ export interface KindFieldLocale {
 interface KindFieldDefaultProps {
   kind: SymbolizerKind;
   symbolizerKinds: SymbolizerKind[];
-  locale?: KindFieldLocale;
+  locale: KindFieldLocale;
 }
 
 // non default props
@@ -39,6 +40,7 @@ interface KindFieldProps extends Partial<KindFieldDefaultProps> {
 class KindField extends React.Component<KindFieldProps, {}> {
 
   public static defaultProps: KindFieldDefaultProps = {
+    locale: en_US.GsKindField,
     kind: 'Mark',
     symbolizerKinds: ['Mark', 'Fill', 'Icon', 'Line', 'Text']
   };

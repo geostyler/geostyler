@@ -1,17 +1,14 @@
 import * as React from 'react';
 
-import {
-  InputNumber
-} from 'antd';
+import InputNumber, { InputNumberProps } from 'antd/lib/input-number';
 
 // default props
 interface OffsetFieldDefaultProps {
   label: string;
-  disabled?: boolean;
 }
 
 // non default props
-interface OffsetFieldProps extends Partial<OffsetFieldDefaultProps> {
+interface OffsetFieldProps extends Partial<OffsetFieldDefaultProps>, Partial<InputNumberProps> {
   onChange: ((radius: number) => void);
   offset?: number;
 }

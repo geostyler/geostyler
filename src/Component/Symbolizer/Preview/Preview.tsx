@@ -33,10 +33,11 @@ const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
 
 import { Data } from 'geostyler-data';
-import { DefaultIconEditorProps } from '../IconEditor/IconEditor';
+import { IconEditorProps } from '../IconEditor/IconEditor';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import EditorWindow from '../EditorWindow/EditorWindow';
+import en_US from '../../../locale/en_US';
 
 // i18n
 export interface PreviewLocale {
@@ -51,23 +52,22 @@ export interface DefaultPreviewProps {
   dataProjection: string;
   showOsmBackground: boolean;
   mapHeight: number;
-  map: OlMap | undefined;
-  layers: OlLayerBase[] | undefined;
-  controls: OlControl[] | undefined;
-  interactions: OlInteraction[] | undefined;
-  unknownSymbolizerText?: string;
-  iconEditorProps?: DefaultIconEditorProps;
-  locale?: PreviewLocale;
-  onMapDidMount?: (map: OlMap) => void;
+  locale: PreviewLocale;
 }
 
 // non default props
 interface PreviewProps extends Partial<DefaultPreviewProps> {
   internalDataDef?: Data;
   symbolizers: Symbolizer[];
+  iconEditorProps?: Partial<IconEditorProps>;
   onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
   onAddSymbolizer?: () => void;
   onRemoveSymbolizer?: (symbolizer: Symbolizer, key: number) => void;
+  onMapDidMount?: (map: OlMap) => void;
+  map?: OlMap;
+  layers?: OlLayerBase[];
+  controls?: OlControl[];
+  interactions?: OlInteraction[];
 }
 
 // state
@@ -93,16 +93,12 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   _editButton: any;
 
   public static defaultProps: DefaultPreviewProps = {
+    locale: en_US.GsPreview,
     hideEditButton: false,
     projection: 'EPSG:3857',
     dataProjection: 'EPSG:4326',
     showOsmBackground: true,
-    mapHeight: 267,
-    map: undefined,
-    layers: undefined,
-    controls: undefined,
-    interactions: undefined,
-    onMapDidMount: (map: OlMap) => undefined
+    mapHeight: 267
   };
 
   constructor(props: PreviewProps) {
@@ -185,6 +181,14 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   public componentDidMount() {
+    const {
+      controls,
+      interactions,
+      layers,
+      onMapDidMount,
+      showOsmBackground
+    } = this.props;
+
     let map: OlMap;
     if (!this.props.map) {
       // create a new OL map and bind it to this preview DIV
@@ -204,7 +208,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     }
 
     // show an OSM background layer if configured and no map was passed in
-    if (!this.props.map && this.props.showOsmBackground) {
+    if (!this.props.map && showOsmBackground) {
       const osmLayer = new OlLayerTile({
         source: new OlSourceOSM()
       });
@@ -212,22 +216,22 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     }
 
     // add configured OL control to map, when no map was passed in
-    if (!this.props.map && this.props.controls) {
+    if (!this.props.map && controls) {
       this.props.controls.forEach((ctrl) => {
         map.addControl(ctrl);
       });
     }
 
     // add configured OL interaction to map, when no map was passed in
-    if (!this.props.map && this.props.interactions) {
+    if (!this.props.map && interactions) {
       this.props.interactions.forEach((iac) => {
         map.addInteraction(iac);
       });
     }
 
     // add configured additional layers
-    if (this.props.layers) {
-      this.props.layers.forEach((layer) => {
+    if (layers) {
+      layers.forEach((layer) => {
         map.addLayer(layer);
       });
     }
@@ -243,7 +247,9 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     this.updateFeatures();
     this.applySymbolizersToMapFeatures(this.state.symbolizers);
 
-    this.props.onMapDidMount(map);
+    if (onMapDidMount) {
+      onMapDidMount(map);
+    }
   }
 
   getSampleGeomFromSymbolizer = () => {

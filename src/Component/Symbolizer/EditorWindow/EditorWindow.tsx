@@ -30,7 +30,7 @@ export interface DefaultEditorWindowProps {
 }
 
 // non default props
-interface EditorWindowProps extends Partial<DefaultEditorWindowProps> {
+export interface EditorWindowProps extends Partial<DefaultEditorWindowProps> {
   internalDataDef?: Data;
   x?: number;
   y?: number;

@@ -26,6 +26,16 @@ export default {
         label: 'Load Data: ',
         uploadButtonLabel: 'Upload Data'
     },
+    GsWfsParserInput: {
+      requestButtonText: 'Get Data',
+      urlLabel: 'Url',
+      versionLabel: 'Version',
+      typeNameLabel: 'FeatureTypeName',
+      featureIDLabel: 'FeatureID',
+      propertyNameLabel: 'PropertyName',
+      maxFeaturesLabel: 'MaxFeatures',
+      fetchParamsLabel: 'fetchParams'
+    },
     GsCodeEditor: {
         downloadButtonLabel: 'Save as File',
         formatSelectLabel: 'Format'
@@ -106,6 +116,10 @@ export default {
             Text: 'Text'
         }
     },
+    GsGraphicTypeField: {
+      Mark: 'Mark',
+      Icon: 'Icon'
+    },
     GsScaleDenominator: {
         minScaleDenominatorLabelText: 'Min. Scale',
         maxScaleDenominatorLabelText: 'Max. Scale',
@@ -129,6 +143,9 @@ export default {
     GsMultiEditor: {
       add: 'Add',
       remove: 'Remove'
+    },
+    GsUploadButton: {
+      upload: 'Upload'
     },
     ...en_US
 };

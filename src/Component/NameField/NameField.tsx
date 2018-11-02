@@ -12,7 +12,7 @@ export interface DefaultNameFieldProps {
   placeholder: string;
 }
 // non default props
-interface NameFieldProps extends Partial<DefaultNameFieldProps> {
+export interface NameFieldProps extends Partial<DefaultNameFieldProps> {
   value: string | undefined;
   onChange: ((newValue: string) => void);
 }

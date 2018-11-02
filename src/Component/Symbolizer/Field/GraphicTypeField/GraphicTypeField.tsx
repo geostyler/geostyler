@@ -4,6 +4,7 @@ import { Select } from 'antd';
 import { GraphicType } from 'geostyler-style';
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../../locale/en_US';
 
 const _get = require('lodash/get');
 
@@ -18,16 +19,16 @@ interface GraphicTypeFieldLocale {
 
 export interface DefaultGraphicTypeFieldProps {
   /** List of selectable GraphicTypes for Select */
-  graphicTypes?: GraphicType[];
+  graphicTypes: GraphicType[];
   /** Label rendered next to Select */
-  label?: String;
+  label: String;
   /** Language package */
-  locale?: GraphicTypeFieldLocale;
+  locale: GraphicTypeFieldLocale;
   /** If true GraphicTypeField can be cleared  */
-  clearable?: boolean;
+  clearable: boolean;
 }
 
-interface GraphicTypeFieldProps extends DefaultGraphicTypeFieldProps {
+export interface GraphicTypeFieldProps extends DefaultGraphicTypeFieldProps {
   /** Currently selected GraphicType */
   graphicType?: GraphicType;
   /** Callback when selection changes */
@@ -40,6 +41,7 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps, {}
   static componentName: string = 'GraphicTypeField';
 
   public static defaultProps: DefaultGraphicTypeFieldProps = {
+    locale: en_US.GsGraphicTypeField,
     graphicTypes: ['Mark', 'Icon'],
     label: 'Graphic',
     clearable: true

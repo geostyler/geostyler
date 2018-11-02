@@ -14,6 +14,7 @@ import Editor from '../Editor/Editor';
 const TabPane = Tabs.TabPane;
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
 
 // i18n
 export interface MultiEditorLocale {
@@ -23,10 +24,6 @@ export interface MultiEditorLocale {
 
 // default props
 interface DefaultMultiEditorProps {
-  onAdd: () => void;
-  onRemove: (symbolizer: Symbolizer, idx: number) => void;
-  symbolizers: Symbolizer[];
-  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
   locale: MultiEditorLocale;
 }
 
@@ -34,11 +31,19 @@ interface DefaultMultiEditorProps {
 export interface MultiEditorProps extends Partial<DefaultMultiEditorProps> {
   internalDataDef?: Data;
   editorProps?: any;
+  symbolizers: Symbolizer[];
+  onAdd?: () => void;
+  onRemove?: (symbolizer: Symbolizer, idx: number) => void;
+  onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
 }
 
 export class MultiEditor extends React.Component<MultiEditorProps> {
 
   static componentName: string = 'MultiEditor';
+
+  public static defaultProps: DefaultMultiEditorProps = {
+    locale: en_US.GsMultiEditor
+  };
 
   addSymbolizer = () => {
     const {

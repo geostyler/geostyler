@@ -19,6 +19,7 @@ import './PropTextEditor.css';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import RotateField from '../Field/RotateField/RotateField';
+import en_US from '../../../locale/en_US';
 
 // i18n
 export interface PropTextEditorLocale {
@@ -35,12 +36,15 @@ export interface PropTextEditorLocale {
   attributeComboPlaceholder?: string;
 }
 
+interface PropTextEditorDefaultProps {
+  locale: PropTextEditorLocale;
+}
+
 // non default props
-interface PropTextEditorProps {
+interface PropTextEditorProps extends Partial<PropTextEditorDefaultProps> {
   symbolizer: TextSymbolizer;
   internalDataDef?: Data;
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
-  locale?: PropTextEditorLocale;
 }
 
 /**
@@ -49,6 +53,10 @@ interface PropTextEditorProps {
  * of a feature. No static text is allowed.
  */
 export class PropTextEditor extends React.Component<PropTextEditorProps, {}> {
+
+  public static defaultProps: PropTextEditorDefaultProps = {
+    locale: en_US.GsPropTextEditor
+  };
 
   static componentName: string = 'PropTextEditor';
 

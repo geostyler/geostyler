@@ -18,20 +18,19 @@ import { Data } from 'geostyler-data';
 const  _cloneDeep = require('lodash/cloneDeep');
 
 import KindField from '../Field/KindField/KindField';
-import IconEditor, { DefaultIconEditorProps } from '../IconEditor/IconEditor';
+import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 
 // default props
 interface DefaultEditorProps {
   defaultIconSource: string;
   unknownSymbolizerText?: string;
-  kindLabelText?: string;
-  iconEditorProps?: DefaultIconEditorProps;
 }
 
 // non default props
 export interface EditorProps extends Partial<DefaultEditorProps> {
   symbolizer: Symbolizer;
   internalDataDef?: Data;
+  iconEditorProps: Partial<IconEditorProps>;
   onSymbolizerChange: (symbolizer: Symbolizer) => void;
 }
 

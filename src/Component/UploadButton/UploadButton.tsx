@@ -1,10 +1,15 @@
 import * as React from 'react';
 
 import { Upload, Button, Icon } from 'antd';
+import en_US from '../../locale/en_US';
+
+interface UploadButtonLocale {
+  upload: string;
+}
 
 // default props
 interface DefaultUploadButton {
-  label: string;
+  locale: UploadButtonLocale;
   onUpload: (uploadObject: any) => void;
 }
 
@@ -18,14 +23,14 @@ interface UploadButtonProps extends Partial<DefaultUploadButton> {
 class UploadButton extends React.Component<UploadButtonProps, {}> {
 
   public static defaultProps: DefaultUploadButton = {
-    label: 'Upload',
+    locale: en_US.GsUploadButton,
     onUpload: () => {return; }
   };
 
   render() {
     const {
       onUpload,
-      label
+      locale
     } = this.props;
 
     return (
@@ -35,7 +40,7 @@ class UploadButton extends React.Component<UploadButtonProps, {}> {
         customRequest={onUpload}
       >
         <Button>
-          <Icon type="upload" /> {label}
+          <Icon type="upload" /> {locale.upload}
         </Button>
       </Upload>
     );

@@ -11,6 +11,7 @@ import {
 import UploadButton from '../../UploadButton/UploadButton';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
 
 // i18n
 export interface StyleLoaderLocale {
@@ -21,7 +22,7 @@ export interface StyleLoaderLocale {
 // default props
 interface DefaultStyleLoaderProps {
   onStyleRead: (style: GsStyle) => void;
-  locale?: StyleLoaderLocale;
+  locale: StyleLoaderLocale;
 }
 
 // non default props
@@ -44,7 +45,8 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
   static componentName: string = 'StyleLoader';
 
   public static defaultProps: DefaultStyleLoaderProps = {
-    onStyleRead: (style: GsStyle) => {return; },
+    locale: en_US.GsStyleLoader,
+    onStyleRead: (style: GsStyle) => {return; }
   };
 
   parseStyle = (uploadObject: any) => {
@@ -99,7 +101,6 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
         {
           activeParser ?
           <UploadButton
-            label={locale.uploadButtonLabel}
             onUpload={this.parseStyle}
           /> : null
         }

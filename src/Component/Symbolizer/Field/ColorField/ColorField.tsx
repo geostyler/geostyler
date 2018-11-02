@@ -12,6 +12,7 @@ import {
 import './ColorField.css';
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../../locale/en_US';
 
 // i18n
 export interface ColorFieldLocale {
@@ -23,7 +24,7 @@ export interface ColorFieldLocale {
 // default props
 interface ColorFieldDefaultProps {
   label: string;
-  locale?: ColorFieldLocale;
+  locale: ColorFieldLocale;
 }
 
 // non default props
@@ -43,6 +44,7 @@ interface ColorFieldState {
 class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
 
   public static defaultProps: ColorFieldDefaultProps = {
+    locale: en_US.GsColorField,
     label: 'Color'
   };
 

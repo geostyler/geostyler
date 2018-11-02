@@ -6,18 +6,16 @@ import {
   IconSymbolizer
 } from 'geostyler-style';
 import MarkEditor from '../MarkEditor/MarkEditor';
-import IconEditor, { DefaultIconEditorProps } from '../IconEditor/IconEditor';
-import GraphicTypeField, { DefaultGraphicTypeFieldProps } from '../Field/GraphicTypeField/GraphicTypeField';
+import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
+import GraphicTypeField, { GraphicTypeFieldProps } from '../Field/GraphicTypeField/GraphicTypeField';
 
 const _get = require('lodash/get');
 
 export interface DefaultGraphicEditorProps {
   /** Label being used on TypeField */
   graphicTypeFieldLabel: string;
-  /** Default GraphicTypeFieldProps */
-  graphicTypeFieldProps?: DefaultGraphicTypeFieldProps;
   /** Default IconEditorProps */
-  iconEditorProps?: DefaultIconEditorProps;
+  iconEditorProps: Partial<IconEditorProps>;
 }
 
 // non default props
@@ -28,6 +26,8 @@ interface GraphicEditorProps extends Partial<DefaultGraphicEditorProps> {
   graphicType: GraphicType;
   /** Gets called when changing a graphic */
   onGraphicChange: ((graphic: PointSymbolizer) => void);
+  /** Default GraphicTypeFieldProps */
+  graphicTypeFieldProps?: GraphicTypeFieldProps;
 }
 
 /** GraphicEditor to select between different graphic options */

@@ -26,6 +26,7 @@ import {
 const _isEqual = require('lodash/isEqual');
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
+import en_US from '../../locale/en_US';
 
 // i18n
 export interface CodeEditorLocale {
@@ -34,7 +35,7 @@ export interface CodeEditorLocale {
 }
 
 interface DefaultCodeEditorProps {
-  locale?: CodeEditorLocale;
+  locale: CodeEditorLocale;
 }
 
 // non default props
@@ -56,6 +57,8 @@ interface CodeEditorState {
  */
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
+  static componentName: string = 'CodeEditor';
+
   constructor(props: CodeEditorProps) {
     super(props);
     this.state = {
@@ -63,7 +66,9 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     };
   }
 
-  static componentName: string = 'CodeEditor';
+  public static defaultProps: DefaultCodeEditorProps = {
+    locale: en_US.GsCodeEditor
+  };
 
   componentDidMount() {
     if (this.props.style) {
