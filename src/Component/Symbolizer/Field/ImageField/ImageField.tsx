@@ -6,13 +6,13 @@ import {
 
 // default props
 interface ImageFieldDefaultProps {
-  image: string;
   label: string;
   placeholder: string;
 }
 
 // non default props
 interface ImageFieldProps extends Partial<ImageFieldDefaultProps> {
+  value?: string;
   onChange: ((image: string) => void);
 }
 
@@ -22,14 +22,13 @@ interface ImageFieldProps extends Partial<ImageFieldDefaultProps> {
 class ImageField extends React.Component<ImageFieldProps, {}> {
 
   public static defaultProps: ImageFieldDefaultProps = {
-    image: 'img/openLayers_logo.svg',
     label: 'Image',
     placeholder: 'URL to image'
   };
 
   render() {
     const {
-      image,
+      value,
       label,
       placeholder,
       onChange
@@ -39,12 +38,11 @@ class ImageField extends React.Component<ImageFieldProps, {}> {
       <div className="editor-field image-field">
         <span className="label">{`${label}:`}</span>
         <Input
-          value={image}
+          value={value}
           placeholder={placeholder}
-          defaultValue={image}
+          defaultValue={value}
           onChange={(evt: any) => {
-            const value = evt.target.value;
-            onChange(value);
+            onChange(evt.target.value);
           }}
         />
       </div>

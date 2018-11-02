@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-  Symbolizer, IconSymbolizer, MarkSymbolizer, SymbolizerKind
+  Symbolizer
 } from 'geostyler-style';
 
 import './MultiEditor.css';
@@ -15,6 +15,7 @@ const TabPane = Tabs.TabPane;
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 // i18n
 export interface MultiEditorLocale {
@@ -51,7 +52,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
       symbolizers
     } = this.props;
     const symbolizerKind = symbolizers.length > 0 ? symbolizers[0].kind : undefined;
-    const newSymbolizer = this.getDefaultSymbolizer(symbolizerKind);
+    const newSymbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind);
     onSymbolizersChange([...symbolizers, newSymbolizer]);
   }
 
@@ -73,34 +74,6 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     const symbolizersClone = [...symbolizers];
     symbolizersClone[key] = symbolizer;
     onSymbolizersChange(symbolizersClone);
-  }
-
-  /**
-   *
-   */
-  getDefaultSymbolizer(kind?: SymbolizerKind): Symbolizer {
-    if (kind) {
-      if (kind === 'Mark') {
-        return {
-          kind,
-          wellKnownName: 'Circle'
-        } as MarkSymbolizer;
-      } else if (kind === 'Icon') {
-        return {
-          kind,
-          image: ''
-        } as IconSymbolizer;
-      } else {
-        return {
-          kind
-        } as Symbolizer;
-      }
-    } else {
-      return {
-        kind: 'Mark',
-        wellKnownName: 'Circle'
-      } as MarkSymbolizer;
-    }
   }
 
   render() {

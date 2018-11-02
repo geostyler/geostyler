@@ -27,21 +27,6 @@ describe('Style', () => {
     expect(wrapper.state().style).toEqual(lineStyle);
   });
 
-  it('gets the right default Symbolizer', () => {
-    const mark = wrapper.instance().getDefaultSymbolizer({kind: 'Mark'});
-    const icon = wrapper.instance().getDefaultSymbolizer({kind: 'Icon'});
-    const text = wrapper.instance().getDefaultSymbolizer({kind: 'Text'});
-    const fill = wrapper.instance().getDefaultSymbolizer({kind: 'Fill'});
-    const line = wrapper.instance().getDefaultSymbolizer({kind: 'Line'});
-
-    expect(mark).toHaveProperty('kind', 'Mark');
-    expect(mark).toHaveProperty('wellKnownName', 'Circle');
-    expect(icon).toHaveProperty('kind', 'Icon');
-    expect(text).toHaveProperty('kind', 'Text');
-    expect(fill).toHaveProperty('kind', 'Fill');
-    expect(line).toHaveProperty('kind', 'Line');
-  });
-
   it('onNameChange changes Style.name', () => {
     expect(wrapper.state().style.name).toEqual(lineStyle.name);
     wrapper.instance().onNameChange('new Name');

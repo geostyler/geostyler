@@ -26,7 +26,6 @@ export interface IconEditorLocale {
 
 // default props
 export interface DefaultIconEditorProps {
-  defaultIconSource: string;
   locale: IconEditorLocale;
 }
 
@@ -39,8 +38,7 @@ export interface IconEditorProps extends Partial<DefaultIconEditorProps> {
 class IconEditor extends React.Component<IconEditorProps, {}> {
 
   public static defaultProps: DefaultIconEditorProps = {
-    locale: en_US.GsIconEditor,
-    defaultIconSource: 'img/openLayers_logo.svg'
+    locale: en_US.GsIconEditor
   };
 
   static componentName: string = 'IconEditor';
@@ -51,7 +49,6 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
 
   render() {
     const {
-      defaultIconSource,
       locale
     } = this.props;
 
@@ -64,12 +61,12 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
       rotate
     } = symbolizer;
 
-    const imageSrc = !_isEmpty(image) ? image : defaultIconSource;
+    const imageSrc = !_isEmpty(image) ? image : 'URL to Icon';
 
     return (
       <div className="gs-icon-symbolizer-editor" >
         <ImageField
-          image={imageSrc}
+          value={imageSrc}
           label={locale.imageLabel}
           onChange={(value: string) => {
             symbolizer.image = value;
