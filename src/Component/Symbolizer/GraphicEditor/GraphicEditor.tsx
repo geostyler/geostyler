@@ -8,7 +8,7 @@ import {
 import MarkEditor from '../MarkEditor/MarkEditor';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 import GraphicTypeField, { GraphicTypeFieldProps } from '../Field/GraphicTypeField/GraphicTypeField';
-import SymbolizerUtil from 'src/Util/SymbolizerUtil';
+import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 const _get = require('lodash/get');
 

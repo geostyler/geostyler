@@ -1,21 +1,17 @@
 import GraphicEditor from './GraphicEditor';
 import TestUtil from '../../../Util/TestUtil';
 import {
-  PointSymbolizer,
   GraphicType,
+  MarkSymbolizer,
   IconSymbolizer
 } from 'geostyler-style';
+import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 describe('GraphicEditor', () => {
 
   const dummyGraphicType: GraphicType = 'Mark';
-  const dummyGraphicMark: PointSymbolizer = {
-    kind: 'Mark',
-    wellKnownName: 'Circle'
-  };
-  const dummyGraphicIcon: PointSymbolizer = {
-    kind: 'Icon'
-  };
+  const dummyGraphicMark: MarkSymbolizer = SymbolizerUtil.markSymbolizer;
+  const dummyGraphicIcon: IconSymbolizer = SymbolizerUtil.iconSymbolizer;
   const onGraphicChangeSpy = jest.fn();
 
   let wrapper: any;
@@ -47,17 +43,6 @@ describe('GraphicEditor', () => {
 
   it('renders nothing if graphicType is not Mark or Icon', () => {
     expect(wrapper.instance().getGraphicFields('Text')).toBeUndefined();
-  });
-
-  it('returns CircleSymbolizer as default MarkGraphic', () => {
-    expect(wrapper.instance().getDefaultMarkGraphic()).toEqual(dummyGraphicMark);
-  });
-
-  it('returns IconSymbolizer as default IconGraphic', () => {
-    const dummyIcon: IconSymbolizer = {
-      kind: 'Icon'
-    };
-    expect(wrapper.instance().getDefaultIconGraphic()).toEqual(dummyIcon);
   });
 
   it('handles onGraphicTypeChange', () => {
