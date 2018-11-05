@@ -70,6 +70,12 @@ export class Style extends React.Component<StyleProps, StyleState> {
     }
   };
 
+  public shouldComponentUpdate(nextProps: StyleProps, nextState: StyleState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
+  }
+
   componentDidUpdate(prevProps: any, prevState: any) {
     if (this.props.style && !_isEqual(this.props.style, prevProps.style)) {
       this.setState({

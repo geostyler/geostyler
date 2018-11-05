@@ -4,6 +4,8 @@ import {
   InputNumber, Button
 } from 'antd';
 
+const _isEqual = require('lodash/isEqual');
+
 import './LineDashField.css';
 
 // default props
@@ -46,9 +48,16 @@ class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldSta
       };
     }
 
+  public shouldComponentUpdate(nextProps: LineDashFieldProps, nextState: LineDashFieldState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
+  }
+
   render() {
     const {
-      label
+      label,
+      onChange
     } = this.props;
 
     const {
@@ -69,7 +78,7 @@ class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldSta
               // replace current dash value
               dashArray[idx] = value;
               this.setState({dashArray});
-              this.props.onChange(dashArray);
+              onChange(dashArray);
             }}
           />)
         }

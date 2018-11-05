@@ -8,6 +8,8 @@ import { SymbolizerKind } from 'geostyler-style';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
+const _isEqual = require('lodash/isEqual');
+
 const Option = Select.Option;
 
 // i18n
@@ -37,13 +39,18 @@ interface KindFieldProps extends Partial<KindFieldDefaultProps> {
 /**
  * KindField
  */
-class KindField extends React.Component<KindFieldProps, {}> {
+class KindField extends React.Component<KindFieldProps> {
 
   public static defaultProps: KindFieldDefaultProps = {
     locale: en_US.GsKindField,
     kind: 'Mark',
     symbolizerKinds: ['Mark', 'Fill', 'Icon', 'Line', 'Text']
   };
+
+  public shouldComponentUpdate(nextProps: KindFieldProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   static componentName: string = 'KindField';
 

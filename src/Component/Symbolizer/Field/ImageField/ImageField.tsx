@@ -19,7 +19,7 @@ interface ImageFieldProps extends Partial<ImageFieldDefaultProps> {
 /**
  * ImageField
  */
-class ImageField extends React.Component<ImageFieldProps, {}> {
+class ImageField extends React.PureComponent<ImageFieldProps> {
 
   public static defaultProps: ImageFieldDefaultProps = {
     label: 'Image',

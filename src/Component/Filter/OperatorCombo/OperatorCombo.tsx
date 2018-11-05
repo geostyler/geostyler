@@ -4,6 +4,7 @@ import { ComparisonOperator } from 'geostyler-style';
 import { Select, Form } from 'antd';
 import { Data } from 'geostyler-data';
 const _indexOf = require('lodash/indexOf');
+const _isEqual = require('lodash/isEqual');
 const Option = Select.Option;
 
 // default props
@@ -80,6 +81,12 @@ class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
     return {
       value: value
     };
+  }
+
+  public shouldComponentUpdate(nextProps: OperatorComboProps, nextState: OperatorState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
   }
 
   render() {

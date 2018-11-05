@@ -12,8 +12,9 @@ import WidthField from '../Field/WidthField/WidthField';
 import RotateField from '../Field/RotateField/RotateField';
 import en_US from '../../../locale/en_US';
 
-const  _cloneDeep = require('lodash/cloneDeep');
+const _cloneDeep = require('lodash/cloneDeep');
 const _get = require('lodash/get');
+const _isEqual = require('lodash/isEqual');
 
 // i18n
 interface WellKnownNameEditorLocale {
@@ -36,7 +37,12 @@ interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDefaultPro
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
 }
 
-export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps, {}> {
+export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps> {
+
+  public shouldComponentUpdate(nextProps: WellKnownNameEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   public static defaultProps: WellKnownNameEditorDefaultProps = {
     locale: en_US.GsWellKnownNameEditor
@@ -44,8 +50,52 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
 
   static componentName: string = 'WellKnownNameEditor';
 
-  render () {
+  onRadiusChange = (value: number) => {
     const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.radius = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onColorChange = (value: string) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.color = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onOpacityChange = (value: number) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.opacity = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onStrokeColorChange = (value: string) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.strokeColor = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onStrokeWidthChange = (value: number) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.strokeWidth = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onStrokeOpacityChange = (value: number) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.strokeOpacity = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onRotateChange = (value: number) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.rotate = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  render () {
+    const {
+      symbolizer
+    } = this.props;
 
     const {
       radius,
@@ -66,58 +116,37 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
         <RadiusField
           label={_get(locale, 'radiusLabel')}
           radius={radius}
-          onChange={(value: number) => {
-            symbolizer.radius = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onRadiusChange}
         />
         <ColorField
           color={color}
           label={_get(locale, 'fillColorLabel')}
-          onChange={(value: string) => {
-            symbolizer.color = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onColorChange}
         />
         <OpacityField
           opacity={opacity}
           label={_get(locale, 'fillOpacityLabel')}
-          onChange={(value: number) => {
-            symbolizer.opacity = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onOpacityChange}
         />
         <ColorField
           color={strokeColor}
           label={_get(locale, 'strokeColorLabel')}
-          onChange={(value: string) => {
-            symbolizer.strokeColor = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onStrokeColorChange}
         />
         <WidthField
           width={strokeWidth}
           label={_get(locale, 'strokeWidthLabel')}
-          onChange={(value: number) => {
-            symbolizer.strokeWidth = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onStrokeWidthChange}
         />
         <OpacityField
           opacity={strokeOpacity}
           label={_get(locale, 'strokeOpacityLabel')}
-          onChange={(value: number) => {
-            symbolizer.strokeOpacity = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onStrokeOpacityChange}
         />
         <RotateField
           rotate={rotate}
           label={_get(locale, 'rotateLabel')}
-          onChange={(value: number) => {
-            symbolizer.rotate = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onRotateChange}
         />
       </div>
     );

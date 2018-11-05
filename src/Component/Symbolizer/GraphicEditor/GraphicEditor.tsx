@@ -11,6 +11,7 @@ import GraphicTypeField, { GraphicTypeFieldProps } from '../Field/GraphicTypeFie
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 const _get = require('lodash/get');
+const _isEqual = require('lodash/isEqual');
 
 export interface DefaultGraphicEditorProps {
   /** Label being used on TypeField */
@@ -32,11 +33,16 @@ interface GraphicEditorProps extends Partial<DefaultGraphicEditorProps> {
 }
 
 /** GraphicEditor to select between different graphic options */
-class GraphicEditor extends React.Component <GraphicEditorProps, {}> {
+class GraphicEditor extends React.Component <GraphicEditorProps> {
 
   public static defaultProps: DefaultGraphicEditorProps = {
     graphicTypeFieldLabel: 'Graphic-Type'
   };
+
+  public shouldComponentUpdate(nextProps: GraphicEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   /**
    * Get the right Editor depending on kind of PointSymbolizer
@@ -51,18 +57,14 @@ class GraphicEditor extends React.Component <GraphicEditorProps, {}> {
       return (
         <MarkEditor
           symbolizer={markGraphic}
-          onSymbolizerChange={(symb: MarkSymbolizer) => {
-            this.props.onGraphicChange(symb);
-          }}
+          onSymbolizerChange={this.props.onGraphicChange}
         />
       );
     } else if (_get(graphic, 'kind') === 'Icon') {
       return (
         <IconEditor
           symbolizer={graphic}
-          onSymbolizerChange={(symb: IconSymbolizer) => {
-            this.props.onGraphicChange(symb);
-          }}
+          onSymbolizerChange={this.props.onGraphicChange}
           {...iconEditorProps}
         />
       );
@@ -105,9 +107,7 @@ class GraphicEditor extends React.Component <GraphicEditorProps, {}> {
       <GraphicTypeField
         label={graphicTypeFieldLabel}
         graphicType={graphicType}
-        onChange={(type: GraphicType) => {
-          this.onGraphicTypeChange(type);
-        }}
+        onChange={this.onGraphicTypeChange}
         {...graphicTypeFieldProps}
       />
       {this.getGraphicFields(graphic, iconEditorProps)}

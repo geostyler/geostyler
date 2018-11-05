@@ -10,6 +10,7 @@ import WellKnownNameField from '../Field/WellKnownNameField/WellKnownNameField';
 import WellKnownNameEditor from '../WellKnownNameEditor/WellKnownNameEditor';
 
 const _cloneDeep = require('lodash/cloneDeep');
+const _isEqual = require('lodash/isEqual');
 
 // non default props
 interface MarkEditorProps {
@@ -41,27 +42,36 @@ class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState> {
     };
   }
 
+  public shouldComponentUpdate(nextProps: MarkEditorProps, nextState: MarkEditorState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
+  }
+
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  render() {
+  onWellKnownNameChange = (wkn: WellKnownName) => {
     const symbolizer = _cloneDeep(this.state.symbolizer);
+    symbolizer.wellKnownName = wkn;
+    this.onSymbolizerChange(symbolizer);
+  }
+
+  render() {
+    const {
+      symbolizer
+     } = this.state;
 
     return (
       <div className="gs-mark-symbolizer-editor" >
         <WellKnownNameField
           wellKnownName={symbolizer.wellKnownName}
-          onChange={(wkn: WellKnownName) => {
-            symbolizer.wellKnownName = wkn;
-            this.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onWellKnownNameChange}
         />
         <WellKnownNameEditor
           symbolizer={symbolizer}
-          onSymbolizerChange={(symb: Symbolizer) => {
-            this.onSymbolizerChange(symb);
-          }}
+          onSymbolizerChange={this.onSymbolizerChange}
         />
       </div>
     );

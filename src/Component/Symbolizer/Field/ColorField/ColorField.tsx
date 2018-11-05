@@ -14,6 +14,8 @@ import './ColorField.css';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
+const _isEqual = require('lodash/isEqual');
+
 // i18n
 export interface ColorFieldLocale {
   closeText: string;
@@ -53,6 +55,12 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
     this.state = {
       colorPickerVisible: false
     };
+  }
+
+  public shouldComponentUpdate(nextProps: ColorFieldProps, nextState: ColorFieldState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
   }
 
   static componentName: string = 'ColorField';

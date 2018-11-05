@@ -9,6 +9,8 @@ import {
     LineSymbolizer
 } from 'geostyler-style';
 
+const _isEqual = require('lodash/isEqual');
+
 // default props
 interface LineJoinFieldDefaultProps {
   label: string;
@@ -24,12 +26,17 @@ interface LineJoinFieldProps extends Partial<LineJoinFieldDefaultProps> {
 /**
  * LineJoinField to select between different line-join options
  */
-class LineJoinField extends React.Component<LineJoinFieldProps, {}> {
+class LineJoinField extends React.Component<LineJoinFieldProps> {
 
   public static defaultProps: LineJoinFieldDefaultProps = {
     label: 'Line-Join',
     joinOptions: ['bevel', 'round', 'miter']
   };
+
+  public shouldComponentUpdate(nextProps: LineJoinFieldProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   getJoinSelectOptions = () => {
     return this.props.joinOptions.map(joinOpt => {

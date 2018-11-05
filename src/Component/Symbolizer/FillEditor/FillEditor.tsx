@@ -14,6 +14,7 @@ import WidthField from '../Field/WidthField/WidthField';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _get = require('lodash/get');
+const _isEqual = require('lodash/isEqual');
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
@@ -41,7 +42,7 @@ interface FillEditorProps extends Partial<FillEditorDefaultProps> {
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
 }
 
-export class FillEditor extends React.Component<FillEditorProps, {}> {
+export class FillEditor extends React.Component<FillEditorProps> {
 
   static componentName: string = 'FillEditor';
 
@@ -49,12 +50,55 @@ export class FillEditor extends React.Component<FillEditorProps, {}> {
     locale: en_US.GsFillEditor
   };
 
+  public shouldComponentUpdate(nextProps: FillEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
+
   onSymbolizerChange = (symbolizer: Symbolizer) => {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  render() {
+  onFillColorChange = (value: string) => {
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.color = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onFillOpacityChange = (value: number) => {
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.opacity = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onOutlineColorChange = (value: string) => {
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.outlineColor = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onOutlineWidthChange = (value: number) => {
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.outlineWidth = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onOutlineDasharrayChange = (value: number[]) => {
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.outlineDasharray = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onGraphicChange = (gFill: PointSymbolizer) => {
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.graphicFill = gFill;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  render() {
+    const {
+      symbolizer
+    } = this.props;
 
     const {
       color,
@@ -76,42 +120,27 @@ export class FillEditor extends React.Component<FillEditorProps, {}> {
             <ColorField
               color={color}
               label={locale.fillColorLabel}
-              onChange={(value: string) => {
-                symbolizer.color = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onFillColorChange}
             />
             <OpacityField
               opacity={opacity}
               label={locale.fillOpacityLabel}
-              onChange={(value: number) => {
-                symbolizer.opacity = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onFillOpacityChange}
             />
             <ColorField
               color={outlineColor}
               label={locale.outlineColorLabel}
-              onChange={(value: string) => {
-                symbolizer.outlineColor = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onOutlineColorChange}
             />
             <WidthField
               width={outlineWidth}
               label={locale.outlineWidthLabel}
-              onChange={(value: number) => {
-                symbolizer.outlineWidth = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onOutlineWidthChange}
             />
             <LineDashField
               dashArray={outlineDasharray}
               label={locale.outlineDasharrayLabel}
-              onChange={(value: number[]) => {
-                symbolizer.outlineDasharray = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onOutlineDasharrayChange}
             />
           </Panel>
           <Panel header="Graphic Fill" key="2">
@@ -119,10 +148,7 @@ export class FillEditor extends React.Component<FillEditorProps, {}> {
                 graphicTypeFieldLabel={locale.graphicFillTypeLabel}
                 graphic={graphicFill}
                 graphicType={_get(graphicFill, 'kind')}
-                onGraphicChange={(gFill: PointSymbolizer) => {
-                  symbolizer.graphicFill = gFill;
-                  this.props.onSymbolizerChange(symbolizer);
-                }}
+                onGraphicChange={this.onGraphicChange}
               />
           </Panel>
         </Collapse>

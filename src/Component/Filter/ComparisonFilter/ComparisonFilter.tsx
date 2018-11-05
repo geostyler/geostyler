@@ -131,6 +131,12 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     };
   }
 
+  public shouldComponentUpdate(nextProps: ComparisonFilterProps, nextState: ComparisonFilterState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
+  }
+
   /**
    * Default validation function for filter values.
    *

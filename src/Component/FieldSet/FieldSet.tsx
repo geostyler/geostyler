@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Checkbox } from 'antd';
 
+const _isEqual = require('lodash/isEqual');
+
 import './FieldSet.css';
 
 // default props
@@ -21,7 +23,7 @@ interface FieldSetProps extends Partial<DefaultFieldSetProps> {
  * A container for grouping sets of fields similar to a HTML fieldset element.
  * A title and a checkbox will be rendered on the top border of the component.
  */
-class FieldSet extends React.Component<FieldSetProps, {}> {
+class FieldSet extends React.Component<FieldSetProps> {
 
   constructor(props: FieldSetProps) {
     super(props);
@@ -30,6 +32,11 @@ class FieldSet extends React.Component<FieldSetProps, {}> {
   public static defaultProps: DefaultFieldSetProps = {
     checked: true
   };
+
+  public shouldComponentUpdate(nextProps: FieldSetProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   /**
    * Toggles the state according to the checkbox check state.

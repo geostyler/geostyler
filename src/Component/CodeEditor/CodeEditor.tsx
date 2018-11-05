@@ -36,6 +36,7 @@ export interface CodeEditorLocale {
 
 interface DefaultCodeEditorProps {
   locale: CodeEditorLocale;
+  delay: number;
 }
 
 // non default props
@@ -59,21 +60,31 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   static componentName: string = 'CodeEditor';
 
+  private editTimeout: any;
+
   constructor(props: CodeEditorProps) {
     super(props);
+    this.editTimeout =  null;
     this.state = {
       value: ''
     };
   }
 
   public static defaultProps: DefaultCodeEditorProps = {
-    locale: en_US.GsCodeEditor
+    locale: en_US.GsCodeEditor,
+    delay: 500
   };
 
   componentDidMount() {
     if (this.props.style) {
       this.updateValueFromStyle(this.props.style);
     }
+  }
+
+  public shouldComponentUpdate(nextProps: CodeEditorProps, nextState: CodeEditorState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
   }
 
   componentDidUpdate(prevProps: CodeEditorProps, prevState: CodeEditorState) {
@@ -159,6 +170,19 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     }
   }
 
+  handleOnChange = (editor: any, data: any, value: string) => {
+    const {
+      delay
+    } = this.props;
+    clearTimeout(this.editTimeout);
+    this.editTimeout = setTimeout(
+      () => {
+        this.onChange(editor, data, value);
+      },
+      delay
+    );
+  }
+
   getParserOptions = () => {
     let parserOptions = [
       <Option key="GeoStyler Style" value="GeoStyler Style" >Geostyler Style</Option>
@@ -217,7 +241,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
             lineNumbers: true,
             lineWrapping: true
           }}
-          onChange={this.onChange}
+          onChange={this.handleOnChange}
         />
         <div className="gs-code-editor-errormessage">
           {this.state.invalidMessage}

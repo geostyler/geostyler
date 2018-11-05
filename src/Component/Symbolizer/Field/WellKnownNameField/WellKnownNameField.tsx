@@ -9,6 +9,7 @@ import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
 const _get = require('lodash/get');
+const _isEqual = require('lodash/isEqual');
 const Option = Select.Option;
 
 // i18n
@@ -39,7 +40,7 @@ interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefaultProps
 /**
  * WellKnownNameField
  */
-export class WellKnownNameField extends React.Component<WellKnownNameFieldProps, {}> {
+export class WellKnownNameField extends React.Component<WellKnownNameFieldProps> {
 
   static componentName: string = 'WellKnownNameField';
 
@@ -51,6 +52,11 @@ export class WellKnownNameField extends React.Component<WellKnownNameFieldProps,
                     'shape://horline', 'shape://oarrow', 'shape://plus',
                     'shape://slash', 'shape://times', 'shape://vertline']
   };
+
+  public shouldComponentUpdate(nextProps: WellKnownNameFieldProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   getWKNSelectOptions = (locale: WellKnownNameFieldLocale) => {
     return this.props.wellKnownNames!.map(name => {

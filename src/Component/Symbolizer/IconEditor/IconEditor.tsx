@@ -10,6 +10,7 @@ import ImageField from '../Field/ImageField/ImageField';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEmpty = require('lodash/isEmpty');
+const _isEqual = require('lodash/isEqual');
 import RotateField from '../Field/RotateField/RotateField';
 import SizeField from '../Field/SizeField/SizeField';
 
@@ -35,15 +36,44 @@ export interface IconEditorProps extends Partial<DefaultIconEditorProps> {
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
 }
 
-class IconEditor extends React.Component<IconEditorProps, {}> {
+class IconEditor extends React.Component<IconEditorProps> {
 
   public static defaultProps: DefaultIconEditorProps = {
     locale: en_US.GsIconEditor
   };
 
+  public shouldComponentUpdate(nextProps: IconEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
+
   static componentName: string = 'IconEditor';
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onImageSrcChange = (value: string) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.image = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onSizeChange = (value: number) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.size = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onRotateChange = (value: number) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.rotate = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onOpacityChange = (value: number) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.opacity = value;
     this.props.onSymbolizerChange(symbolizer);
   }
 
@@ -52,7 +82,9 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
       locale
     } = this.props;
 
-    const symbolizer = _cloneDeep(this.props.symbolizer);
+    const {
+      symbolizer
+    } = this.props;
 
     const {
       opacity,
@@ -68,34 +100,22 @@ class IconEditor extends React.Component<IconEditorProps, {}> {
         <ImageField
           value={imageSrc}
           label={locale.imageLabel}
-          onChange={(value: string) => {
-            symbolizer.image = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onImageSrcChange}
         />
         <SizeField
           size={size}
           label={locale.sizeLabel}
-          onChange={(value: number) => {
-            symbolizer.size = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onSizeChange}
         />
         <RotateField
           rotate={rotate}
           label={locale.rotateLabel}
-          onChange={(value: number) => {
-            symbolizer.rotate = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onRotateChange}
         />
         <OpacityField
           opacity={opacity}
           label={locale.opacityLabel}
-          onChange={(value: number) => {
-            symbolizer.opacity = value;
-            this.props.onSymbolizerChange(symbolizer);
-          }}
+          onChange={this.onOpacityChange}
         />
       </div>
     );

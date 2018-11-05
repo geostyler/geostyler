@@ -9,6 +9,8 @@ import {
     LineSymbolizer
 } from 'geostyler-style';
 
+const _isEqual = require('lodash/isEqual');
+
 // default props
 interface LineCapFieldDefaultProps {
   label: string;
@@ -24,12 +26,17 @@ interface LineCapFieldProps extends Partial<LineCapFieldDefaultProps> {
 /**
  * LineCapField to select between different line-cap options
  */
-class LineCapField extends React.Component<LineCapFieldProps, {}> {
+class LineCapField extends React.Component<LineCapFieldProps> {
 
   public static defaultProps: LineCapFieldDefaultProps = {
     label: 'Line-Cap',
     capOptions: ['butt', 'round', 'square']
   };
+
+  public shouldComponentUpdate(nextProps: LineCapFieldProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   getCapSelectOptions = () => {
     return this.props.capOptions.map(capOpt => {

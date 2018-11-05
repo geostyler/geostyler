@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Select } from 'antd';
 const Option = Select.Option;
+const _isEqual = require('lodash/isEqual');
 
 import {
   Style as GsStyle,
@@ -40,6 +41,12 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
   constructor(props: StyleLoaderProps) {
     super(props);
     this.state = {};
+  }
+
+  public shouldComponentUpdate(nextProps: StyleLoaderProps, nextState: StyleLoaderState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
   }
 
   static componentName: string = 'StyleLoader';

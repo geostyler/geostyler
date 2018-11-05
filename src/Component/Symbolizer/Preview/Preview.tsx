@@ -124,6 +124,12 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     };
   }
 
+  public shouldComponentUpdate(nextProps: PreviewProps, nextState: PreviewState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
+  }
+
   componentDidUpdate(prevProps: PreviewProps, prevState: PreviewState) {
     if (this.dataLayer) {
       this.applySymbolizersToMapFeatures(this.state.symbolizers);
