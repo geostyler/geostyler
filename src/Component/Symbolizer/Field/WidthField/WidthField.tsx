@@ -18,7 +18,7 @@ interface WidthFieldProps extends Partial<WidthFieldDefaultProps> {
 /**
  * WidthField
  */
-class WidthField extends React.Component<WidthFieldProps, {}> {
+class WidthField extends React.PureComponent<WidthFieldProps> {
 
   public static defaultProps: WidthFieldDefaultProps = {
     label: 'Width'

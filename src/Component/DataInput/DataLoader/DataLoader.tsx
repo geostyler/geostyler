@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { Select, Modal } from 'antd';
 const Option = Select.Option;
+const _isEqual = require('lodash/isEqual');
 
 import {
   Data as GsData,
@@ -58,6 +59,12 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
     this.state = {
       modalVisible: false
     };
+  }
+
+  public shouldComponentUpdate(nextProps: DataLoaderProps, nextState: DataLoaderState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
   }
 
   static componentName: string = 'DataLoader';
@@ -121,6 +128,10 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
     }
   }
 
+  closeModal = () => {
+    this.setState({modalVisible: false});
+  }
+
   getInputFromParser = () => {
     const {
       activeParser
@@ -140,8 +151,8 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
               className="wfs-parser-modal"
               title={activeParser.title}
               visible={this.state.modalVisible}
-              onCancel={() => this.setState({modalVisible: false})}
-              onOk={() => this.setState({modalVisible: false})}
+              onCancel={this.closeModal}
+              onOk={this.closeModal}
             >
               <WfsParserInput
                 onClick={this.parseWfsData}

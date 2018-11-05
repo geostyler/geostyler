@@ -18,7 +18,7 @@ interface RotateFieldProps extends Partial<RotateFieldDefaultProps> {
 /**
  * RotateField
  */
-class RotateField extends React.Component<RotateFieldProps, {}> {
+class RotateField extends React.PureComponent<RotateFieldProps> {
 
   public static defaultProps: RotateFieldDefaultProps = {
     label: 'Rotate'

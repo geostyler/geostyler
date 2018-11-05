@@ -7,6 +7,7 @@ import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
 const _get = require('lodash/get');
+const _isEqual = require('lodash/isEqual');
 
 const Option = Select.Option;
 
@@ -36,7 +37,7 @@ export interface GraphicTypeFieldProps extends DefaultGraphicTypeFieldProps {
 }
 
 /** GraphicTypeField to select between different GraphicTypes */
-export class GraphicTypeField extends React.Component <GraphicTypeFieldProps, {}> {
+export class GraphicTypeField extends React.Component <GraphicTypeFieldProps> {
 
   static componentName: string = 'GraphicTypeField';
 
@@ -46,6 +47,11 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps, {}
     label: 'Graphic',
     clearable: true
   };
+
+  public shouldComponentUpdate(nextProps: GraphicTypeFieldProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   /**
    * Iterates over props.graphicTypes and returns an Option according to GraphicType

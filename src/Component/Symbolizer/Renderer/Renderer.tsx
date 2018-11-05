@@ -33,7 +33,7 @@ interface RendererProps {
 /**
  * Symbolizer Renderer UI.
  */
-export class Renderer extends React.PureComponent<RendererProps> {
+export class Renderer extends React.Component<RendererProps> {
 
   /** reference to the underlying OpenLayers map */
   _map: OlMap;
@@ -45,6 +45,11 @@ export class Renderer extends React.PureComponent<RendererProps> {
   constructor(props: RendererProps) {
     super(props);
     this._mapId = _uniqueId('map_');
+  }
+
+  public shouldComponentUpdate(nextProps: RendererProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
   }
 
   public componentDidMount() {

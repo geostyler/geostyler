@@ -14,6 +14,7 @@ import { Button } from 'antd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
+const _isEqual = require('lodash/isEqual');
 // i18n
 export interface EditorWindowLocale {
   symbolizersEditor: string;
@@ -44,6 +45,12 @@ interface EditorWindowState {
  * Symbolizer editorwindow UI.
  */
 export class EditorWindow extends React.Component<EditorWindowProps, EditorWindowState> {
+
+  public shouldComponentUpdate(nextProps: EditorWindowProps, nextState: EditorWindowState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
+  }
 
   static componentName: string = 'EditorWindow';
 

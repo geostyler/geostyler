@@ -17,6 +17,8 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
+const _isEqual = require('lodash/isEqual');
+
 // i18n
 export interface MultiEditorLocale {
   add: string;
@@ -39,6 +41,11 @@ export interface MultiEditorProps extends Partial<DefaultMultiEditorProps> {
 }
 
 export class MultiEditor extends React.Component<MultiEditorProps> {
+
+  public shouldComponentUpdate(nextProps: MultiEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   static componentName: string = 'MultiEditor';
 

@@ -131,6 +131,12 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     };
   }
 
+  public shouldComponentUpdate(nextProps: ComparisonFilterProps, nextState: ComparisonFilterState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
+  }
+
   /**
    * Default validation function for filter values.
    *
@@ -358,7 +364,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
       }
     }
 
-    const isValid = validators!.attribute(newAttrName);
+    const isValid = validators.attribute(newAttrName);
     const validationStateNew: ValidationStatus = {
       ...this.state.validateStatus,
       attribute: isValid ? 'success' : 'error'
@@ -386,7 +392,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     this.setState({filter});
     this.props.onFilterChange(filter);
 
-    const isValid = this.props.validators!.operator(newOperator);
+    const isValid = this.props.validators.operator(newOperator);
     const validationStateNew: ValidationStatus = {
       ...this.state.validateStatus,
       operator: isValid ? 'success' : 'error'
@@ -416,7 +422,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     filter[2] = newValue;
 
     // validate value fields
-    let validationRes = this.props.validators!.value(newValue, this.props.internalDataDef, this.state.attribute);
+    let validationRes = this.props.validators.value(newValue, this.props.internalDataDef, this.state.attribute);
 
     const validationStateNew: ValidationStatus = {
       ...this.state.validateStatus,
@@ -457,12 +463,13 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
           value: 'error'
         }
       });
+      return;
     }
 
-    const validationRes = validators!.value(filter![2], this.props.internalDataDef, this.state.attribute);
+    const validationRes = validators.value(filter[2], this.props.internalDataDef, this.state.attribute);
     const validateStatus: ValidationStatus = {
-      attribute: validators!.attribute(filter![1]) ? 'success' : 'error',
-      operator: validators!.operator(filter![0]) ? 'success' : 'error',
+      attribute: validators.attribute(filter[1]) ? 'success' : 'error',
+      operator: validators.operator(filter[0]) ? 'success' : 'error',
       value: validationRes.isValid ? 'success' : 'error'
     };
 

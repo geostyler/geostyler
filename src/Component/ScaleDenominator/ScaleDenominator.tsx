@@ -5,6 +5,7 @@ import MaxScaleDenominator from './MaxScaleDenominator';
 
 const _get = require('lodash/get');
 const _cloneDeep = require('lodash/cloneDeep');
+const _isEqual = require('lodash/isEqual');
 
 import {
   ScaleDenominator as GsScaleDenominator
@@ -46,6 +47,12 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
     return {
       scaleDenominator: nextProps.scaleDenominator
     };
+  }
+
+  public shouldComponentUpdate(nextProps: ScaleDenominatorProps, nextState: ScaleDenominatorState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
   }
 
   static componentName: string = 'ScaleDenominator';

@@ -11,6 +11,7 @@ import {
 
 const _get = require('lodash/get');
 const _set = require('lodash/set');
+const _isEqual = require('lodash/isEqual');
 
 const TreeNode = Tree.TreeNode;
 
@@ -62,6 +63,12 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     this.state = {
       expandedKeys: []
     };
+  }
+
+  public shouldComponentUpdate = (nextProps: FilterTreeProps, nextState: FilterTreeState): boolean => {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
   }
 
   /**

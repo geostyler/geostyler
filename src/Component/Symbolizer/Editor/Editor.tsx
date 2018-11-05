@@ -15,7 +15,8 @@ import './Editor.css';
 import 'ol/ol.css';
 import { Data } from 'geostyler-data';
 
-const  _cloneDeep = require('lodash/cloneDeep');
+const _cloneDeep = require('lodash/cloneDeep');
+const _isEqual = require('lodash/isEqual');
 
 import KindField from '../Field/KindField/KindField';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
@@ -45,6 +46,12 @@ class Editor extends React.Component<EditorProps, EditorState> {
     this.state = {
       symbolizer: SymbolizerUtil.generateSymbolizer()
     };
+  }
+
+  public shouldComponentUpdate(nextProps: EditorProps, nextState: EditorState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
   }
 
   public static defaultProps: DefaultEditorProps = {
@@ -106,16 +113,18 @@ class Editor extends React.Component<EditorProps, EditorState> {
     }
   }
 
+  onKindFieldChange = (kind: SymbolizerKind) => {
+    const newSymbolizer = SymbolizerUtil.generateSymbolizer(kind);
+    this.onSymbolizerChange(newSymbolizer);
+  }
+
   render() {
     const symbolizer = _cloneDeep(this.state.symbolizer);
     return (
       <div className="gs-symbolizer-editor" >
         <KindField
           kind={symbolizer.kind}
-          onChange={(kind: SymbolizerKind) => {
-            const newSymbolizer = SymbolizerUtil.generateSymbolizer(kind);
-            this.onSymbolizerChange(newSymbolizer);
-          }}
+          onChange={this.onKindFieldChange}
         />
         {this.getUiFromSymbolizer(this.props.symbolizer)}
       </div>

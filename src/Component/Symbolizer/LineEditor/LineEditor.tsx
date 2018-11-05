@@ -19,6 +19,7 @@ import GraphicEditor from '../GraphicEditor/GraphicEditor';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _get = require('lodash/get');
+const _isEqual = require('lodash/isEqual');
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
@@ -51,7 +52,12 @@ export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
   onSymbolizerChange: ((changedSymb: Symbolizer) => void);
 }
 
-export class LineEditor extends React.Component<LineEditorProps, {}> {
+export class LineEditor extends React.Component<LineEditorProps> {
+
+  public shouldComponentUpdate(nextProps: LineEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   public static defaultProps: LineEditorDefaultProps = {
     locale: en_US.GsLineEditor
@@ -63,8 +69,64 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
     this.props.onSymbolizerChange(symbolizer);
   }
 
-  render() {
+  onColorChange = (value: string) => {
     const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.color = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onWidthChange = (value: number) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.width = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onOpacityChange = (value: number) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.opacity = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onDasharrayChange = (value: number[]) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.dasharray = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onDashOffsetChange = (value: LineSymbolizer['dashOffset']) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.dashOffset = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onCapChange = (value: LineSymbolizer['cap']) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.cap = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onJoinChange = (value: LineSymbolizer['join']) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.join = value;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onGraphicStrokeChange = (gStroke: PointSymbolizer) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.graphicStroke = gStroke;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  onGraphicFillChange = (gFill: PointSymbolizer) => {
+    const symbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.graphicFill = gFill;
+    this.props.onSymbolizerChange(symbolizer);
+  }
+
+  render() {
+    const {
+      symbolizer
+     } = this.props;
 
     const {
       color,
@@ -89,59 +151,38 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
             <ColorField
               color={color}
               label={locale.colorLabel}
-              onChange={(value: string) => {
-                symbolizer.color = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onColorChange}
             />
             <WidthField
               width={width}
               label={locale.widthLabel}
-              onChange={(value: number) => {
-                symbolizer.width = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onWidthChange}
             />
             <OpacityField
               opacity={opacity}
               label={locale.opacityLabel}
-              onChange={(value: number) => {
-                symbolizer.opacity = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onOpacityChange}
             />
             <LineDashField
               dashArray={dasharray}
               label={locale.dashLabel}
-              onChange={(value: number[]) => {
-                symbolizer.dasharray = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onDasharrayChange}
             />
             <OffsetField
               offset={dashOffset}
               label={locale.dashOffsetLabel}
-              onChange={(value: LineSymbolizer['dashOffset']) => {
-                symbolizer.dashOffset = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onDashOffsetChange}
               disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
             />
             <LineCapField
               cap={cap}
               label={locale.capLabel}
-              onChange={(value: LineSymbolizer['cap']) => {
-                symbolizer.cap = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onCapChange}
             />
             <LineJoinField
               join={join}
               label={locale.joinLabel}
-              onChange={(value: LineSymbolizer['join']) => {
-                symbolizer.join = value;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onChange={this.onJoinChange}
             />
           </Panel>
           <Panel header="Graphic Stroke" key="2">
@@ -149,10 +190,7 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
               graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
               graphic={graphicStroke}
               graphicType={_get(graphicStroke, 'kind')}
-              onGraphicChange={(gStroke: PointSymbolizer) => {
-                symbolizer.graphicStroke = gStroke;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onGraphicChange={this.onGraphicStrokeChange}
             />
           </Panel>
           <Panel header="Graphic Fill" key="3">
@@ -160,10 +198,7 @@ export class LineEditor extends React.Component<LineEditorProps, {}> {
               graphicTypeFieldLabel={locale.graphicFillTypeLabel}
               graphic={graphicFill}
               graphicType={_get(graphicFill, 'kind')}
-              onGraphicChange={(gFill: PointSymbolizer) => {
-                symbolizer.graphicFill = gFill;
-                this.props.onSymbolizerChange(symbolizer);
-              }}
+              onGraphicChange={this.onGraphicFillChange}
             />
           </Panel>
         </Collapse>

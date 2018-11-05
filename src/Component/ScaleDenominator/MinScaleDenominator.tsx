@@ -17,7 +17,7 @@ interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
 /**
  * Input field for the minimum scale of a rule.
  */
-class MinScaleDenominator extends React.Component<ScaleDenominatorProps, any> {
+class MinScaleDenominator extends React.PureComponent<ScaleDenominatorProps> {
 
   public static defaultProps: DefaultScaleDenominatorProps = {
     label: 'Min. Scale',

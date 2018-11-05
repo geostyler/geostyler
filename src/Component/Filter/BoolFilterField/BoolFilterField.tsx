@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Checkbox, Form } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
 import { Data } from 'geostyler-data';
+const _isEqual = require('lodash/isEqual');
 
 // default props
 interface DefaultBoolFilterFieldProps {
@@ -46,6 +47,12 @@ class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolFilterFi
     return {
       value: nextProps.value
     };
+  }
+
+  public shouldComponentUpdate(nextProps: BoolFilterFieldProps, nextState: BoolFilterFieldState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
   }
 
   /**

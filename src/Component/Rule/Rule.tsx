@@ -23,6 +23,7 @@ import Renderer from '../Symbolizer/Renderer/Renderer';
 import EditorWindow from '../Symbolizer/EditorWindow/EditorWindow';
 
 const _cloneDeep = require('lodash/cloneDeep');
+const _isEqual = require('lodash/isEqual');
 
 import './Rule.css';
 import en_US from '../../locale/en_US';
@@ -131,6 +132,12 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     };
   }
 
+  public shouldComponentUpdate(nextProps: RuleProps, nextState: RuleState): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    const diffState = !_isEqual(this.state, nextState);
+    return diffProps || diffState;
+  }
+
   /**
    * Handles changing rule name
    */
@@ -217,10 +224,34 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     this.setState({rule, filterFieldChecked: checked});
   }
 
+  onRendererClick = () => {
+    const {
+      editorVisible
+    } = this.state;
+
+    this.setState({
+      editorVisible: !editorVisible
+    });
+  }
+
+  onEditorWindowClose = () => {
+    this.setState({
+      editorVisible: false
+    });
+  }
+
+  onRemoveButtonClick = () => {
+    const { onRemove } = this.props;
+    const { rule } = this.state;
+
+    if (onRemove && rule) {
+      onRemove(rule);
+    }
+  }
+
   render() {
     const {
       internalDataDef,
-      onRemove,
       locale
     } = this.props;
 
@@ -250,18 +281,12 @@ export class Rule extends React.Component<RuleProps, RuleState> {
             />
             <Renderer
               symbolizers={rule.symbolizers}
-              onClick={() => {
-                this.setState({
-                  editorVisible: !editorVisible
-                });
-              }}
+              onClick={this.onRendererClick}
             />
             {
               !editorVisible ? null :
                 <EditorWindow
-                  onClose={() => {
-                    this.setState({editorVisible: false});
-                  }}
+                  onClose={this.onEditorWindowClose}
                   symbolizers={rule.symbolizers}
                   onSymbolizersChange={this.onSymbolizersChange}
                 />
@@ -297,11 +322,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
           type="danger"
           icon="close-circle-o"
           size="large"
-          onClick={() => {
-            if (onRemove && rule) {
-              onRemove(rule);
-            }
-          }}
+          onClick={this.onRemoveButtonClick}
         >
           {locale.removeRuleBtnText}
         </Button>
