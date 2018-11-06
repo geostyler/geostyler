@@ -1,3 +1,8 @@
+.gs-rule-table {
+  padding: 10px;
+}
+
+
 .gs-rule-table .gs-symbolizer-renderer {
   width: 60px;
   height: 60px;

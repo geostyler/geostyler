@@ -8,12 +8,14 @@ const _cloneDeep = require('lodash/cloneDeep');
 import {
   Table,
   Input,
-  InputNumber
+  InputNumber,
+  Icon
 } from 'antd';
 
 import {
   Rule as GsRule,
-  Symbolizer as GsSymbolizer
+  Symbolizer as GsSymbolizer,
+  Filter as GsFilter
 } from 'geostyler-style';
 
 import {
@@ -27,6 +29,7 @@ import './RuleTable.css';
 import Renderer from '../Symbolizer/Renderer/Renderer';
 import { EditorWindow } from '../Symbolizer/EditorWindow/EditorWindow';
 import { TableProps } from 'antd/lib/table';
+import { FilterEditorWindow } from '../Filter/FilterEditorWindow/FilterEditorWindow';
 
 // i18n
 export interface RuleTableLocale {
@@ -53,7 +56,8 @@ interface RuleTableProps extends Partial<RuleTableDefaultProps> {
 // state
 interface RuleTableState {
   ruleEditIndex: number;
-  editorVisible: boolean;
+  symbolizerEditorVisible: boolean;
+  filterEditorVisible: boolean;
 }
 
 export interface RuleRecord extends GsRule {
@@ -68,7 +72,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     super(props);
     this.state = {
       ruleEditIndex: null,
-      editorVisible: false
+      symbolizerEditorVisible: false,
+      filterEditorVisible: false
     };
   }
 
@@ -97,7 +102,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   onSymbolizerClick = (record: RuleRecord) => {
     this.setState({
       ruleEditIndex: record.key,
-      editorVisible: true
+      symbolizerEditorVisible: true,
+      filterEditorVisible: false
     });
   }
 
@@ -126,7 +132,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
 
   filterRenderer = (text: string, record: RuleRecord, index: number) => {
     return (
-      <Input
+      <Input.Search
         value={JSON.stringify(record.filter)}
         onChange={(event) => {
           try {
@@ -136,8 +142,24 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
             // TODO Feedback
           }
         }}
+        enterButton={(
+          <Icon
+            type="edit"
+          />
+        )}
+        onSearch={() => {
+          this.onFilterEditClick(record.key);
+        }}
       />
     );
+  }
+
+  onFilterEditClick = (ruleEditIndex: number) => {
+    this.setState({
+      ruleEditIndex,
+      symbolizerEditorVisible: false,
+      filterEditorVisible: true
+    });
   }
 
   minScaleRenderer = (text: string, record: RuleRecord, index: number) => {
@@ -179,6 +201,13 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     this.setValueForRule(ruleEditIndex, 'symbolizers', symbolizers);
   }
 
+  onFilterChange = (filter: GsFilter) => {
+    const {
+      ruleEditIndex,
+    } = this.state;
+    this.setValueForRule(ruleEditIndex, 'filter', filter);
+  }
+
   setValueForRule = (ruleIndex: number, key: string, value: any) => {
     const {
       onRulesChange,
@@ -191,19 +220,15 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     }
   }
 
-  onRendererClick = () => {
-    const {
-      editorVisible
-    } = this.state;
-
+  onSymbolizerEditorWindowClose = () => {
     this.setState({
-      editorVisible: !editorVisible
+      symbolizerEditorVisible: false
     });
   }
 
-  onEditorWindowClose = () => {
+  onFilterEditorWindowClose = () => {
     this.setState({
-      editorVisible: false
+      filterEditorVisible: false
     });
   }
 
@@ -215,7 +240,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     } = this.props;
     const {
       ruleEditIndex,
-      editorVisible
+      symbolizerEditorVisible,
+      filterEditorVisible
     } = this.state;
 
     return (
@@ -248,11 +274,19 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           {...restProps}
         />
         {
-          !editorVisible ? null :
+          !symbolizerEditorVisible ? null :
             <EditorWindow
-              onClose={this.onEditorWindowClose}
+              onClose={this.onSymbolizerEditorWindowClose}
               symbolizers={rules[ruleEditIndex].symbolizers}
               onSymbolizersChange={this.onSymbolizersChange}
+            />
+        }
+        {
+          !filterEditorVisible ? null :
+            <FilterEditorWindow
+              onClose={this.onFilterEditorWindowClose}
+              filter={rules[ruleEditIndex].filter}
+              onFilterChange={this.onFilterChange}
             />
         }
       </div>

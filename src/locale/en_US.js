@@ -142,6 +142,9 @@ export default {
     GsEditorWindow: {
       symbolizersEditor: 'Symbolizer Editor'
     },
+    GsFilterEditorWindow: {
+      filterEditor: 'Filter Editor'
+    },
     GsMultiEditor: {
       add: 'Add',
       remove: 'Remove'
