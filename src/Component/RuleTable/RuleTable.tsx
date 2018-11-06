@@ -57,7 +57,9 @@ interface RuleTableProps extends Partial<RuleTableDefaultProps> {
 interface RuleTableState {
   ruleEditIndex: number;
   symbolizerEditorVisible: boolean;
+  symbolizerEditorPosition: DOMRect;
   filterEditorVisible: boolean;
+  filterEditorPosition: DOMRect;
 }
 
 export interface RuleRecord extends GsRule {
@@ -73,7 +75,9 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     this.state = {
       ruleEditIndex: null,
       symbolizerEditorVisible: false,
-      filterEditorVisible: false
+      symbolizerEditorPosition: null,
+      filterEditorVisible: false,
+      filterEditorPosition: null
     };
   }
 
@@ -99,10 +103,11 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     });
   }
 
-  onSymbolizerClick = (record: RuleRecord) => {
+  onSymbolizerClick = (record: RuleRecord, symbolizerEditorPosition: DOMRect) => {
     this.setState({
       ruleEditIndex: record.key,
       symbolizerEditorVisible: true,
+      symbolizerEditorPosition,
       filterEditorVisible: false
     });
   }
@@ -111,8 +116,9 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     return (
       <Renderer
         symbolizers={record.symbolizers}
-        onClick={() => {
-          this.onSymbolizerClick(record);
+        onClick={(symbolizers, event) => {
+          const filterPosition = event.target.getBoundingClientRect();
+          this.onSymbolizerClick(record, filterPosition);
         }}
       />
     );
@@ -123,8 +129,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       <Input
         value={record.name}
         onChange={(event) => {
-          const newName = event.target.value;
-          this.setValueForRule(record.key, 'name', newName);
+          const target = event.target;
+          this.setValueForRule(record.key, 'name', target.value);
         }}
       />
     );
@@ -147,16 +153,18 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
             type="edit"
           />
         )}
-        onSearch={() => {
-          this.onFilterEditClick(record.key);
+        onSearch={(value, event: any) => {
+          const filterPosition = event.target.getBoundingClientRect();
+          this.onFilterEditClick(record.key, filterPosition);
         }}
       />
     );
   }
 
-  onFilterEditClick = (ruleEditIndex: number) => {
+  onFilterEditClick = (ruleEditIndex: number, filterEditorPosition: DOMRect) => {
     this.setState({
       ruleEditIndex,
+      filterEditorPosition,
       symbolizerEditorVisible: false,
       filterEditorVisible: true
     });
@@ -241,7 +249,9 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const {
       ruleEditIndex,
       symbolizerEditorVisible,
-      filterEditorVisible
+      symbolizerEditorPosition,
+      filterEditorVisible,
+      filterEditorPosition
     } = this.state;
 
     return (
@@ -276,6 +286,12 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         {
           !symbolizerEditorVisible ? null :
             <SymbolizerEditorWindow
+              x={
+                symbolizerEditorPosition
+                ? symbolizerEditorPosition.x + symbolizerEditorPosition.width
+                : undefined
+              }
+              y={symbolizerEditorPosition ? symbolizerEditorPosition.y : undefined}
               onClose={this.onSymbolizerEditorWindowClose}
               symbolizers={rules[ruleEditIndex].symbolizers}
               onSymbolizersChange={this.onSymbolizersChange}
@@ -284,6 +300,12 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         {
           !filterEditorVisible ? null :
             <FilterEditorWindow
+              x={filterEditorPosition ? filterEditorPosition.x : undefined}
+              y={
+                filterEditorPosition
+                ? filterEditorPosition.y + filterEditorPosition.height
+                : undefined
+              }
               onClose={this.onFilterEditorWindowClose}
               filter={rules[ruleEditIndex].filter}
               onFilterChange={this.onFilterChange}
