@@ -29,7 +29,7 @@ export interface DefaultEditorWindowProps {
 // non default props
 export interface EditorWindowProps extends Partial<DefaultEditorWindowProps> {
   symbolizers: Symbolizer[];
-  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
+  onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   onAdd?: () => void;
   onClose?: () => void;
   onRemove?: (symbolizer: Symbolizer, idx: number) => void;
