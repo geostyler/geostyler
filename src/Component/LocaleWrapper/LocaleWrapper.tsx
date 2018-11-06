@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+const _get = require('lodash/get');
 
 export interface LocaleProps {
     locale?: object;
@@ -13,9 +14,10 @@ export const localize = <P extends {}>(Component: React.ComponentType<P & Locale
 
     render() {
       const { antLocale } = this.context;
+      const locale = _get(antLocale, 'Gs' + componentName);
       return (
         <Component
-          locale={antLocale['Gs' + componentName]}
+          locale={locale}
           {...this.props}
         />
       );

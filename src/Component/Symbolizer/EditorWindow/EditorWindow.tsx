@@ -13,6 +13,7 @@ import './EditorWindow.css';
 import { Button } from 'antd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
 
 const _isEqual = require('lodash/isEqual');
 // i18n
@@ -22,16 +23,16 @@ export interface EditorWindowLocale {
 
 // default props
 export interface DefaultEditorWindowProps {
-  onAdd: () => void;
-  onClose: () => void;
-  onRemove: (symbolizer: Symbolizer, idx: number) => void;
-  symbolizers: Symbolizer[];
-  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
   locale: EditorWindowLocale;
 }
 
 // non default props
 export interface EditorWindowProps extends Partial<DefaultEditorWindowProps> {
+  symbolizers: Symbolizer[];
+  onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
+  onAdd?: () => void;
+  onClose?: () => void;
+  onRemove?: (symbolizer: Symbolizer, idx: number) => void;
   internalDataDef?: Data;
   x?: number;
   y?: number;
@@ -45,6 +46,10 @@ interface EditorWindowState {
  * Symbolizer editorwindow UI.
  */
 export class EditorWindow extends React.Component<EditorWindowProps, EditorWindowState> {
+
+  public static defaultProps: DefaultEditorWindowProps = {
+    locale: en_US.GsEditorWindow
+  };
 
   public shouldComponentUpdate(nextProps: EditorWindowProps, nextState: EditorWindowState): boolean {
     const diffProps = !_isEqual(this.props, nextProps);
