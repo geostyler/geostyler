@@ -2,6 +2,7 @@ import FieldSet from './Component/FieldSet/FieldSet';
 import AttributeCombo from './Component/Filter/AttributeCombo/AttributeCombo';
 import BoolFilterField from './Component/Filter/BoolFilterField/BoolFilterField';
 import ComparisonFilter from './Component/Filter/ComparisonFilter/ComparisonFilter';
+import FilterEditorWindow from './Component/Filter/FilterEditorWindow/FilterEditorWindow';
 import DataLoader from './Component/DataInput/DataLoader/DataLoader';
 import DataProvider from './DataProvider/DataProvider';
 import NumberFilterField from './Component/Filter/NumberFilterField/NumberFilterField';
@@ -15,7 +16,8 @@ import MaxScaleDenominator from './Component/ScaleDenominator/MaxScaleDenominato
 import MinScaleDenominator from './Component/ScaleDenominator/MinScaleDenominator';
 import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
 import Preview from './Component/Symbolizer/Preview/Preview';
-import Editor from './Component/Symbolizer/Editor/Editor';
+import SymbolizerEditorWindow from './Component/Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
+import MultiEditor from './Component/Symbolizer/MultiEditor/MultiEditor';
 import LineEditor from './Component/Symbolizer/LineEditor/LineEditor';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
@@ -46,9 +48,10 @@ import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 
 import { LocaleProvider } from 'antd';
+
 import de_DE from './locale/de_DE';
 import en_US from './locale/en_US';
- const locale = {
+const locale = {
   de_DE,
   en_US
 };
@@ -58,6 +61,7 @@ export {
   AttributeCombo,
   BoolFilterField,
   ComparisonFilter,
+  FilterEditorWindow,
   NumberFilterField,
   OperatorCombo,
   TextFilterField,
@@ -72,6 +76,8 @@ export {
   Editor,
   GraphicEditor,
   MarkEditor,
+  MultiEditor,
+  SymbolizerEditor,
   WellKnownNameEditor,
   ColorField,
   ImageField,
