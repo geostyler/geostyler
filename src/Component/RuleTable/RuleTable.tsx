@@ -27,9 +27,9 @@ import en_US from '../../locale/en_US';
 
 import './RuleTable.css';
 import Renderer from '../Symbolizer/Renderer/Renderer';
-import { EditorWindow } from '../Symbolizer/EditorWindow/EditorWindow';
+import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
+import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { TableProps } from 'antd/lib/table';
-import { FilterEditorWindow } from '../Filter/FilterEditorWindow/FilterEditorWindow';
 
 // i18n
 export interface RuleTableLocale {
@@ -275,7 +275,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         />
         {
           !symbolizerEditorVisible ? null :
-            <EditorWindow
+            <SymbolizerEditorWindow
               onClose={this.onSymbolizerEditorWindowClose}
               symbolizers={rules[ruleEditIndex].symbolizers}
               onSymbolizersChange={this.onSymbolizersChange}

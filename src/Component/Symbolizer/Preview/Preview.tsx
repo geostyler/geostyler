@@ -36,7 +36,7 @@ import { Data } from 'geostyler-data';
 import { IconEditorProps } from '../IconEditor/IconEditor';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import EditorWindow from '../EditorWindow/EditorWindow';
+import SymbolizerEditorWindow from '../SymbolizerEditorWindow/SymbolizerEditorWindow';
 import en_US from '../../../locale/en_US';
 
 // i18n
@@ -367,7 +367,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
         }
         {
           editorVisible && !hideEditButton ?
-            <EditorWindow
+            <SymbolizerEditorWindow
               x={windowX}
               y={windowY}
               onClose={this.onEditButtonClicked}

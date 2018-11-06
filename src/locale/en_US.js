@@ -139,7 +139,7 @@ export default {
           X: 'X'
         }
     },
-    GsEditorWindow: {
+    GsSymbolizerEditorWindow: {
       symbolizersEditor: 'Symbolizer Editor'
     },
     GsFilterEditorWindow: {

@@ -140,7 +140,7 @@ export default {
         Mark: 'Punktsymbol',
         Icon: 'Bilddatei'
     },
-    GsEditorWindow: {
+    GsSymbolizerEditorWindow: {
       symbolizersEditor: 'Symbolisierungseditor'
     },
     GsFilterEditorWindow: {
