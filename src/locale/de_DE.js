@@ -24,6 +24,7 @@ export default {
     },
     GsStyle: {
         addRuleBtnText: 'Regel hinzufügen',
+        removeRulesBtnText: 'Regeln entfernen',
         nameFieldLabel: 'Name',
         nameFieldPlaceholder: 'Name eingeben'
     },
@@ -139,8 +140,11 @@ export default {
         Mark: 'Punktsymbol',
         Icon: 'Bilddatei'
     },
-    GsEditorWindow: {
+    GsSymbolizerEditorWindow: {
       symbolizersEditor: 'Symbolisierungseditor'
+    },
+    GsFilterEditorWindow: {
+      filterEditor: 'Filtereditor'
     },
     GsMultiEditor: {
       add: 'Hinzufügen',
@@ -148,6 +152,13 @@ export default {
     },
     GsUploadButton: {
       upload: 'Upload'
+    },
+    GsRuleTable: {
+      symbolizersColumnTitle: 'Symbolisierung',
+      nameColumnTitle: 'Name',
+      filterColumnTitle: 'Filter',
+      minScaleColumnTitle: 'Min. Maßstab',
+      maxScaleColumnTitle: 'Max. Maßstab'
     },
     ...de_DE
 };

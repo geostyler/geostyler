@@ -20,7 +20,7 @@ import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import FilterTree from '../Filter/FilterTree/FilterTree';
 import Renderer from '../Symbolizer/Renderer/Renderer';
-import EditorWindow from '../Symbolizer/EditorWindow/EditorWindow';
+import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEqual = require('lodash/isEqual');
@@ -285,7 +285,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
             />
             {
               !editorVisible ? null :
-                <EditorWindow
+                <SymbolizerEditorWindow
                   onClose={this.onEditorWindowClose}
                   symbolizers={rule.symbolizers}
                   onSymbolizersChange={this.onSymbolizersChange}

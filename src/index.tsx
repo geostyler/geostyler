@@ -52,16 +52,16 @@ class Starter extends React.Component <{}, DefaultStarterState>{
       locale: en_US
     };
   }
-  
+
   onChange = (e: boolean) => {
-    if(e){
+    if (e) {
       moment.locale('de');
-      this.setState({locale: de_DE})
+      this.setState({locale: de_DE});
     } else {
       moment.locale('en');
       this.setState({locale: en_US});
     }
-  };
+  }
 
   render() {
     const {

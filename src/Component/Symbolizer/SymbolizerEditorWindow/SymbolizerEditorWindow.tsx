@@ -9,7 +9,7 @@ import MultiEditor from '../MultiEditor/MultiEditor';
 
 import { Data } from 'geostyler-data';
 
-import './EditorWindow.css';
+import './SymbolizerEditorWindow.css';
 import { Button } from 'antd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
@@ -17,55 +17,45 @@ import en_US from '../../../locale/en_US';
 
 const _isEqual = require('lodash/isEqual');
 // i18n
-export interface EditorWindowLocale {
+export interface SymbolizerEditorWindowLocale {
   symbolizersEditor: string;
 }
 
 // default props
-export interface DefaultEditorWindowProps {
-  locale: EditorWindowLocale;
+export interface DefaultSymbolizerEditorWindowProps {
+  locale: SymbolizerEditorWindowLocale;
 }
 
 // non default props
-export interface EditorWindowProps extends Partial<DefaultEditorWindowProps> {
+export interface SymbolizerEditorWindowProps extends Partial<DefaultSymbolizerEditorWindowProps> {
   symbolizers: Symbolizer[];
-  onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
-  onAdd?: () => void;
-  onClose?: () => void;
-  onRemove?: (symbolizer: Symbolizer, idx: number) => void;
   internalDataDef?: Data;
   x?: number;
   y?: number;
-}
-
-// state
-interface EditorWindowState {
+  onClose: () => void;
+  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
 }
 
 /**
  * Symbolizer editorwindow UI.
  */
-export class EditorWindow extends React.Component<EditorWindowProps, EditorWindowState> {
+export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWindowProps> {
 
-  public static defaultProps: DefaultEditorWindowProps = {
-    locale: en_US.GsEditorWindow
+  public static defaultProps: DefaultSymbolizerEditorWindowProps = {
+    locale: en_US.GsSymbolizerEditorWindow
   };
 
-  public shouldComponentUpdate(nextProps: EditorWindowProps, nextState: EditorWindowState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
+  public shouldComponentUpdate(nextProps: SymbolizerEditorWindowProps): boolean {
+    return !_isEqual(this.props, nextProps);
   }
 
-  static componentName: string = 'EditorWindow';
+  static componentName: string = 'SymbolizerEditorWindow';
 
   render() {
     const {
       x,
       y,
-      onAdd,
       onClose,
-      onRemove,
       symbolizers,
       onSymbolizersChange,
       locale
@@ -74,7 +64,7 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
     return (
       ReactDOM.createPortal(
         <Rnd
-          className="editor-window"
+          className="symbolizer-editor-window"
           default={{
             x: x || window.innerWidth / 2,
             y: y || window.innerHeight / 2,
@@ -91,9 +81,9 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
             topLeft: false,
             topRight: false
           }}
-          dragHandleClassName="editor-window-header"
+          dragHandleClassName="symbolizer-editor-window-header"
         >
-          <div className="header editor-window-header">
+          <div className="header symbolizer-editor-window-header">
             <span className="title">
               {locale.symbolizersEditor}
             </span>
@@ -106,8 +96,6 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
           <MultiEditor
             symbolizers={symbolizers}
             onSymbolizersChange={onSymbolizersChange}
-            onAdd={onAdd}
-            onRemove={onRemove}
           />
         </Rnd>,
         document.body
@@ -116,4 +104,4 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
   }
 }
 
-export default localize(EditorWindow, EditorWindow.componentName);
+export default localize(SymbolizerEditorWindow, SymbolizerEditorWindow.componentName);

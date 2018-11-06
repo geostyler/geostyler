@@ -15,6 +15,7 @@ export default {
     },
     GsStyle: {
         addRuleBtnText: 'Add Rule',
+        removeRulesBtnText: 'Remove Rules',
         nameFieldLabel: 'Name',
         nameFieldPlaceholder: 'Enter Name'
     },
@@ -138,8 +139,11 @@ export default {
           X: 'X'
         }
     },
-    GsEditorWindow: {
+    GsSymbolizerEditorWindow: {
       symbolizersEditor: 'Symbolizer Editor'
+    },
+    GsFilterEditorWindow: {
+      filterEditor: 'Filter Editor'
     },
     GsMultiEditor: {
       add: 'Add',
@@ -147,6 +151,13 @@ export default {
     },
     GsUploadButton: {
       upload: 'Upload'
+    },
+    GsRuleTable: {
+      symbolizersColumnTitle: 'Symbolizers',
+      nameColumnTitle: 'Name',
+      filterColumnTitle: 'Filter',
+      minScaleColumnTitle: 'Min. Scale',
+      maxScaleColumnTitle: 'Max. Scale'
     },
     ...en_US
 };

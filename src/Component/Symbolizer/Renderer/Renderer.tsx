@@ -24,10 +24,10 @@ import 'ol/ol.css';
 import './Renderer.css';
 
 // non default props
-interface RendererProps {
+export interface RendererProps {
   symbolizers: Symbolizer[];
   symbolizerKind?: SymbolizerKind;
-  onClick?: (symbolizers: Symbolizer[]) => void;
+  onClick?: (symbolizers: Symbolizer[], event: any) => void;
 }
 
 /**
@@ -163,9 +163,9 @@ export class Renderer extends React.Component<RendererProps> {
     const { onClick, symbolizers } = this.props;
     return (
       <div
-        onClick={() => {
+        onClick={(event) => {
           if (onClick) {
-            onClick(symbolizers);
+            onClick(symbolizers, event);
           }
         }}
         className="gs-symbolizer-renderer"
