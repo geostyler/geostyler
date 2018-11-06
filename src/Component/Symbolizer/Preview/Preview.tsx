@@ -330,8 +330,6 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       symbolizers,
       hideEditButton,
       onSymbolizersChange,
-      onAddSymbolizer,
-      onRemoveSymbolizer
     } = this.props;
 
     const {
@@ -372,9 +370,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
             <EditorWindow
               x={windowX}
               y={windowY}
-              onAdd={onAddSymbolizer}
               onClose={this.onEditButtonClicked}
-              onRemove={onRemoveSymbolizer}
               symbolizers={symbolizers}
               onSymbolizersChange={onSymbolizersChange}
             /> : null

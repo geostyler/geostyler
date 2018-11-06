@@ -29,32 +29,24 @@ export interface DefaultEditorWindowProps {
 // non default props
 export interface EditorWindowProps extends Partial<DefaultEditorWindowProps> {
   symbolizers: Symbolizer[];
-  onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
-  onAdd?: () => void;
-  onClose?: () => void;
-  onRemove?: (symbolizer: Symbolizer, idx: number) => void;
   internalDataDef?: Data;
   x?: number;
   y?: number;
-}
-
-// state
-interface EditorWindowState {
+  onClose: () => void;
+  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
 }
 
 /**
  * Symbolizer editorwindow UI.
  */
-export class EditorWindow extends React.Component<EditorWindowProps, EditorWindowState> {
+export class EditorWindow extends React.Component<EditorWindowProps> {
 
   public static defaultProps: DefaultEditorWindowProps = {
     locale: en_US.GsEditorWindow
   };
 
-  public shouldComponentUpdate(nextProps: EditorWindowProps, nextState: EditorWindowState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
+  public shouldComponentUpdate(nextProps: EditorWindowProps): boolean {
+    return !_isEqual(this.props, nextProps);
   }
 
   static componentName: string = 'EditorWindow';
@@ -63,9 +55,7 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
     const {
       x,
       y,
-      onAdd,
       onClose,
-      onRemove,
       symbolizers,
       onSymbolizersChange,
       locale
@@ -106,8 +96,6 @@ export class EditorWindow extends React.Component<EditorWindowProps, EditorWindo
           <MultiEditor
             symbolizers={symbolizers}
             onSymbolizersChange={onSymbolizersChange}
-            onAdd={onAdd}
-            onRemove={onRemove}
           />
         </Rnd>,
         document.body

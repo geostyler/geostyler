@@ -35,8 +35,6 @@ export interface MultiEditorProps extends Partial<DefaultMultiEditorProps> {
   internalDataDef?: Data;
   editorProps?: any;
   symbolizers: Symbolizer[];
-  onAdd?: () => void;
-  onRemove?: (symbolizer: Symbolizer, idx: number) => void;
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
 }
 
@@ -85,8 +83,6 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
 
   render() {
     const {
-      onAdd,
-      onRemove,
       symbolizers,
       editorProps,
       locale,
