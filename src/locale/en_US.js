@@ -15,6 +15,7 @@ export default {
     },
     GsStyle: {
         addRuleBtnText: 'Add Rule',
+        removeRulesBtnText: 'Remove Rules',
         nameFieldLabel: 'Name',
         nameFieldPlaceholder: 'Enter Name'
     },
@@ -147,6 +148,13 @@ export default {
     },
     GsUploadButton: {
       upload: 'Upload'
+    },
+    GsRuleTable: {
+      symbolizersColumnTitle: 'Symbolizers',
+      nameColumnTitle: 'Name',
+      filterColumnTitle: 'Filter',
+      minScaleColumnTitle: 'Min. Scale',
+      maxScaleColumnTitle: 'Max. Scale'
     },
     ...en_US
 };

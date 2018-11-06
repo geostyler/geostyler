@@ -4,7 +4,9 @@ const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
 const _cloneDeep = require('lodash/cloneDeep');
 
-import { Button } from 'antd';
+import {
+  Button
+} from 'antd';
 
 import {
   Style as GsStyle,
@@ -23,10 +25,12 @@ import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilt
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
+import RuleTable from '../RuleTable/RuleTable';
 
 // i18n
 export interface StyleLocale {
   addRuleBtnText: string;
+  removeRulesBtnText: string;
   nameFieldLabel?: string;
   nameFieldPlaceholder?: string;
 }
@@ -35,6 +39,7 @@ export interface StyleLocale {
 interface DefaultStyleProps {
   style: GsStyle;
   locale: StyleLocale;
+  compact: boolean;
 }
 
 // non default props
@@ -50,19 +55,22 @@ interface StyleProps extends Partial<DefaultStyleProps> {
 // state
 interface StyleState {
   style: GsStyle;
+  selectedRowKeys: number[];
 }
 
 export class Style extends React.Component<StyleProps, StyleState> {
   constructor(props: StyleProps) {
     super(props);
     this.state = {
-      style: props.style || Style.defaultProps.style
+      style: props.style || Style.defaultProps.style,
+      selectedRowKeys: []
     };
   }
 
   static componentName: string = 'Style';
 
   public static defaultProps: DefaultStyleProps = {
+    compact: false,
     locale: en_US.GsStyle,
     style: {
       name: 'My Style',
@@ -107,6 +115,15 @@ export class Style extends React.Component<StyleProps, StyleState> {
     }
   }
 
+  onRulesChange = (rules: GsRule[]) => {
+    const style = _cloneDeep(this.state.style);
+    style.rules = rules;
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(style);
+    }
+    this.setState({style});
+  }
+
   addRule = () => {
     const style = _cloneDeep(this.state.style);
     // TODO We need to ensure that rule names are unique
@@ -123,9 +140,28 @@ export class Style extends React.Component<StyleProps, StyleState> {
     this.setState({style});
   }
 
+  removeRules = () => {
+    const {
+      selectedRowKeys,
+      style
+    } = this.state;
+    const styleClone = _cloneDeep(style);
+    const newRules = styleClone.rules.filter((rule: GsRule, index: number) => {
+      return !selectedRowKeys.includes(index);
+    });
+    styleClone.rules = newRules;
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(styleClone);
+    }
+    this.setState({
+      selectedRowKeys: [],
+      style: styleClone
+    });
+  }
+
   removeRule = (rule: GsRule) => {
     const style = _cloneDeep(this.state.style);
-    const newRules = style.rules.filter((r: any) => r.name !== rule.name);
+    const newRules = style.rules.filter((r: GsRule) => r.name !== rule.name);
     style.rules = newRules;
     if (this.props.onStyleChange) {
       this.props.onStyleChange(style);
@@ -133,19 +169,33 @@ export class Style extends React.Component<StyleProps, StyleState> {
     this.setState({style});
   }
 
+  onRulesSelectionChange = (selectedRowKeys: number[]) => {
+    this.setState({
+      selectedRowKeys
+    });
+  }
+
   render() {
     let rules: GsRule[] = [];
 
     const {
+      compact,
       dataProjection,
       filterUiProps,
       ruleNameProps,
       locale
     } = this.props;
 
-    if (this.state.style) {
-      rules = this.state.style.rules;
+    const {
+      style,
+      selectedRowKeys
+    } = this.state;
+
+    if (style) {
+      rules = style.rules;
     }
+
+    const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
 
     return (
       <div className="gs-style" >
@@ -155,8 +205,16 @@ export class Style extends React.Component<StyleProps, StyleState> {
           label={locale.nameFieldLabel}
           placeholder={locale.nameFieldPlaceholder}
         />
-        {
-          rules.map((rule, idx) => <Rule
+        { compact
+          ? <RuleTable
+            rules={rules}
+            onRulesChange={this.onRulesChange}
+            rowSelection={{
+              selectedRowKeys,
+              onChange: this.onRulesSelectionChange
+            }}
+          />
+          : rules.map((rule, idx) => <Rule
             key={'rule_' + idx}
             rule={rule}
             onRemove={this.removeRule}
@@ -167,14 +225,28 @@ export class Style extends React.Component<StyleProps, StyleState> {
             ruleNameProps={ruleNameProps}
           />)
         }
-        <Button
-          style={{'marginBottom': '20px', 'marginTop': '20px'}}
-          icon="plus"
-          size="large"
-          onClick={this.addRule}
-        >
-          {locale.addRuleBtnText}
-        </Button>
+        <Button.Group>
+          <Button
+            style={{'marginBottom': '20px', 'marginTop': '20px'}}
+            icon="plus"
+            size="large"
+            onClick={this.addRule}
+          >
+            {locale.addRuleBtnText}
+          </Button>
+          {
+            !compact ? null :
+            <Button
+              style={{'marginBottom': '20px', 'marginTop': '20px'}}
+              icon="minus"
+              disabled={!allowRemove}
+              size="large"
+              onClick={this.removeRules}
+            >
+              {locale.removeRulesBtnText}
+            </Button>
+          }
+        </Button.Group>
       </div>
     );
   }

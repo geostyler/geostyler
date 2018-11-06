@@ -24,7 +24,7 @@ import 'ol/ol.css';
 import './Renderer.css';
 
 // non default props
-interface RendererProps {
+export interface RendererProps {
   symbolizers: Symbolizer[];
   symbolizerKind?: SymbolizerKind;
   onClick?: (symbolizers: Symbolizer[]) => void;
