@@ -18,8 +18,8 @@ interface LineJoinFieldDefaultProps {
 }
 
 // non default props
-interface LineJoinFieldProps extends Partial<LineJoinFieldDefaultProps> {
-  onChange: ((caps: LineSymbolizer['join']) => void);
+export interface LineJoinFieldProps extends Partial<LineJoinFieldDefaultProps> {
+  onChange?: (caps: LineSymbolizer['join']) => void;
   join?: LineSymbolizer['join'];
 }
 

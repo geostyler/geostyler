@@ -587,7 +587,6 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                 <Col span={10} className="gs-small-col">
                   <BoolFilterField
                     value={filter ? filter[2] as boolean : undefined}
-                    internalDataDef={internalDataDef}
                     onValueChange={this.onValueChange}
                     label={valueLabel}
                   />

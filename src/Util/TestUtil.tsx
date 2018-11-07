@@ -3,6 +3,7 @@ import { mount, shallow } from 'enzyme';
 import { Style, Filter } from 'geostyler-style';
 import { LocaleProvider } from 'antd';
 import en_US from '../locale/en_US';
+import { Data } from 'geostyler-data';
 
 /**
  * A set of some useful static helper methods.
@@ -55,14 +56,16 @@ export class TestUtil {
   /**
    *
    */
-  static getDummyGsData = () => {
+  static getDummyGsData = (): Data => {
     return {
       schema: {
+        title: 'DummyData',
+        type: 'object',
         properties: {
           foo: {
             type: 'number',
-            min: 1,
-            max: 1
+            minimum: 1,
+            maximum: 1
           },
           bar: {
             type: 'string',
@@ -71,18 +74,16 @@ export class TestUtil {
       },
       exampleFeatures: {
         type: 'FeatureCollection',
-        features: [
-          {
-            type: 'Feature',
-            properties: {
-              foo: 1
-            },
-            geometry: {
-              type: 'Point',
-              coordinates: [0, 0]
-            }
+        features: [{
+          type: 'Feature',
+          properties: {
+            foo: 1
+          },
+          geometry: {
+            type: 'Point',
+            coordinates: [0, 0]
           }
-        ]
+        }]
       }
     };
   }

@@ -45,7 +45,7 @@ interface WfsParserInputDefaultProps {
 }
 
 // non default props
-interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps> {
+export interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps> {
   onClick: (wfsParams: WfsParams) => void;
 }
 

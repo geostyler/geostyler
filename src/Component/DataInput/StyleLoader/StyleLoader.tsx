@@ -27,7 +27,7 @@ interface DefaultStyleLoaderProps {
 }
 
 // non default props
-interface StyleLoaderProps extends Partial<DefaultStyleLoaderProps> {
+export interface StyleLoaderProps extends Partial<DefaultStyleLoaderProps> {
   parsers: GsStyleParserConstructable[];
 }
 

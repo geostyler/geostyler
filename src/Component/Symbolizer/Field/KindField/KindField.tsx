@@ -32,8 +32,8 @@ interface KindFieldDefaultProps {
 }
 
 // non default props
-interface KindFieldProps extends Partial<KindFieldDefaultProps> {
-  onChange: ((kind: SymbolizerKind) => void);
+export interface KindFieldProps extends Partial<KindFieldDefaultProps> {
+  onChange?: (kind: SymbolizerKind) => void;
 }
 
 /**

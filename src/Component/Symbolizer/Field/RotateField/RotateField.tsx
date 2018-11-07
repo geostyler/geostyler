@@ -10,8 +10,8 @@ interface RotateFieldDefaultProps {
 }
 
 // non default props
-interface RotateFieldProps extends Partial<RotateFieldDefaultProps> {
-  onChange: ((radius: number) => void);
+export interface RotateFieldProps extends Partial<RotateFieldDefaultProps> {
+  onChange?: (radius: number) => void;
   rotate?: number;
 }
 
@@ -26,6 +26,7 @@ class RotateField extends React.PureComponent<RotateFieldProps> {
 
   render() {
     const {
+      onChange,
       rotate,
       label
     } = this.props;
@@ -37,7 +38,7 @@ class RotateField extends React.PureComponent<RotateFieldProps> {
           min={-360}
           max={360}
           value={rotate}
-          onChange={this.props.onChange}
+          onChange={onChange}
         />
       </div>
     );

@@ -1,19 +1,16 @@
-import MinScaleDenominator from './MinScaleDenominator';
+import MinScaleDenominator, { MinScaleDenominatorProps } from './MinScaleDenominator';
 import TestUtil from '../../Util/TestUtil';
 
 describe('MinScaleDenominator', () => {
 
   let wrapper: any;
+  let onChangeDummy: jest.Mock;
   beforeEach(() => {
-    let i = 0;
-    const dummyFn = () => {
-      i = i + 1;
+    onChangeDummy = jest.fn();
+    const props: MinScaleDenominatorProps = {
+      onChange: onChangeDummy
     };
-
-    wrapper = TestUtil.shallowRenderComponent(MinScaleDenominator, {
-      value: 0,
-      onChange: dummyFn
-    });
+    wrapper = TestUtil.shallowRenderComponent(MinScaleDenominator, props);
   });
 
   it('is defined', () => {

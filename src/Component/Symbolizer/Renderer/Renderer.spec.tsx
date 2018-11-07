@@ -1,4 +1,4 @@
-import { Renderer } from './Renderer';
+import { Renderer, RendererProps } from './Renderer';
 import TestUtil from '../../../Util/TestUtil';
 import { Symbolizer } from 'geostyler-style';
 
@@ -12,10 +12,11 @@ describe('Renderer', () => {
   }];
 
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(Renderer, {
-      onSymbolizerChange: jest.fn(),
+    const props: RendererProps = {
+      onClick: jest.fn(),
       symbolizers: dummySymbolizers
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(Renderer, props);
   });
 
   it('is defined', () => {

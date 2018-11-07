@@ -14,8 +14,8 @@ interface FontPickerDefaultProps {
 }
 
 // non default props
-interface FontPickerProps extends Partial<FontPickerDefaultProps> {
-  onChange: ((fonts: string[]) => void);
+export interface FontPickerProps extends Partial<FontPickerDefaultProps> {
+  onChange?: (fonts: string[]) => void;
   font?: string[];
 }
 
@@ -41,6 +41,7 @@ class FontPicker extends React.Component<FontPickerProps> {
   render() {
     const {
       font,
+      onChange,
       label,
       fontOptions
     } = this.props;
@@ -58,7 +59,7 @@ class FontPicker extends React.Component<FontPickerProps> {
         <Select
           mode="tags"
           value={font}
-          onChange={this.props.onChange}
+          onChange={onChange}
         >
           {children}
         </Select>

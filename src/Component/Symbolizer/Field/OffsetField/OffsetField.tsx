@@ -9,8 +9,8 @@ interface OffsetFieldDefaultProps {
 }
 
 // non default props
-interface OffsetFieldProps extends Partial<OffsetFieldDefaultProps>, Partial<InputNumberProps> {
-  onChange: ((radius: number) => void);
+export interface OffsetFieldProps extends Partial<OffsetFieldDefaultProps>, Partial<InputNumberProps> {
+  onChange?: (radius: number) => void;
   offset?: number;
 }
 

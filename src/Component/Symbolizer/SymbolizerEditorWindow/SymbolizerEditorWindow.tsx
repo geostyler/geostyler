@@ -32,8 +32,8 @@ export interface SymbolizerEditorWindowProps extends Partial<DefaultSymbolizerEd
   internalDataDef?: Data;
   x?: number;
   y?: number;
-  onClose: () => void;
-  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
+  onClose?: () => void;
+  onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
 }
 
 /**

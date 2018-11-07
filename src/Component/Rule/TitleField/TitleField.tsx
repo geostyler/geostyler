@@ -11,9 +11,9 @@ interface DefaultTitleFieldProps {
   placeholder: string;
 }
 // non default props
-interface TitleFieldProps extends Partial<DefaultTitleFieldProps> {
+export interface TitleFieldProps extends Partial<DefaultTitleFieldProps> {
   /** Callback for onChange */
-  onChange: ((newValue: string) => void);
+  onChange?: (newValue: string) => void;
 }
 
 /**
@@ -31,8 +31,12 @@ class TitleField extends React.Component<TitleFieldProps, any> {
    * and passes it to the passed in 'onChange' handler.
    */
   onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    this.props.onChange(value);
+    const {
+      onChange
+    } = this.props;
+    if (onChange) {
+      onChange(e.target.value);
+    }
   }
 
   render() {

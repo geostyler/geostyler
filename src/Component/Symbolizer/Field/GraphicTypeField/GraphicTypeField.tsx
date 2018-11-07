@@ -29,11 +29,11 @@ export interface DefaultGraphicTypeFieldProps {
   clearable: boolean;
 }
 
-export interface GraphicTypeFieldProps extends DefaultGraphicTypeFieldProps {
+export interface GraphicTypeFieldProps extends Partial<DefaultGraphicTypeFieldProps> {
   /** Currently selected GraphicType */
   graphicType?: GraphicType;
   /** Callback when selection changes */
-  onChange: ((type: GraphicType) => void);
+  onChange?: (type: GraphicType) => void;
 }
 
 /** GraphicTypeField to select between different GraphicTypes */

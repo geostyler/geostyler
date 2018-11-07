@@ -160,7 +160,10 @@ export class Renderer extends React.Component<RendererProps> {
   }
 
   render() {
-    const { onClick, symbolizers } = this.props;
+    const {
+      onClick,
+      symbolizers
+    } = this.props;
     return (
       <div
         onClick={(event) => {

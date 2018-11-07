@@ -1,19 +1,16 @@
-import MaxScaleDenominator from './MaxScaleDenominator';
+import MaxScaleDenominator, { MaxScaleDenominatorProps } from './MaxScaleDenominator';
 import TestUtil from '../../Util/TestUtil';
 
 describe('MaxScaleDenominator', () => {
 
   let wrapper: any;
+  let onChangeDummy: jest.Mock;
   beforeEach(() => {
-    let i = 0;
-    const dummyFn = () => {
-      i = i + 1;
+    onChangeDummy = jest.fn();
+    const props: MaxScaleDenominatorProps = {
+      onChange: onChangeDummy
     };
-
-    wrapper = TestUtil.shallowRenderComponent(MaxScaleDenominator, {
-      value: 0,
-      onChange: dummyFn
-    });
+    wrapper = TestUtil.shallowRenderComponent(MaxScaleDenominator, props);
   });
 
   it('is defined', () => {

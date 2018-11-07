@@ -14,7 +14,7 @@ export interface DefaultNameFieldProps {
 // non default props
 export interface NameFieldProps extends Partial<DefaultNameFieldProps> {
   value: string | undefined;
-  onChange: ((newValue: string) => void);
+  onChange?: (newValue: string) => void;
 }
 
 /**
@@ -31,8 +31,12 @@ class NameField extends React.PureComponent<NameFieldProps> {
    * and passes it to the passed in 'onChange' handler.
    */
   onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    this.props.onChange(value);
+    const {
+      onChange
+    } = this.props;
+    if (onChange) {
+      onChange(e.target.value);
+    }
   }
 
   render() {

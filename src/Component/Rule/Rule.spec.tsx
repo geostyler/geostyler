@@ -1,23 +1,23 @@
-import { Rule } from './Rule';
+import { Rule, RuleProps } from './Rule';
 import TestUtil from '../../Util/TestUtil';
 import en_US from '../../locale/en_US';
 
 describe('Rule', () => {
 
   let wrapper: any;
+  let onRuleChangeDummmy: jest.Mock;
+  let onRemoveDummmy: jest.Mock;
   beforeEach(() => {
-    let i = 0;
-    const dummyFn = () => {
-      i = i + 1;
-    };
     const dummyData = TestUtil.getDummyGsData();
-    wrapper = TestUtil.shallowRenderComponent(Rule, {
-      keyIndex: 0,
+    onRuleChangeDummmy = jest.fn();
+    onRemoveDummmy = jest.fn();
+    const props: RuleProps = {
       internalDataDef: dummyData,
-      onRuleChange: dummyFn,
-      onRemove: dummyFn,
+      onRuleChange: onRuleChangeDummmy,
+      onRemove: onRemoveDummmy,
       locale: en_US.GsRule
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(Rule, props);
   });
 
   it('is defined', () => {

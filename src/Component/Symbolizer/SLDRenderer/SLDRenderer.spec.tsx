@@ -1,4 +1,4 @@
-import { SLDRenderer } from './SLDRenderer';
+import SLDRenderer, { SLDRendererProps } from './SLDRenderer';
 import TestUtil from '../../../Util/TestUtil';
 import { Symbolizer } from 'geostyler-style';
 
@@ -12,11 +12,12 @@ describe('SLDRenderer', () => {
   }];
 
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(SLDRenderer, {
-      baseUrl: 'https://ows.terrestris.de/geoserver/wms',
+    const props: SLDRendererProps = {
+      wmsBaseUrl: 'https://ows.terrestris.de/geoserver/wms',
       layer: 'osm:osm-fuel',
       symbolizers: dummySymbolizers
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(SLDRenderer, props);
   });
 
   it('is defined', () => {

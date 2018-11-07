@@ -1,17 +1,16 @@
-import TitleField from './TitleField';
+import TitleField, { TitleFieldProps } from './TitleField';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('TitleField', () => {
 
   let wrapper: any;
+  let onChangeDummy: jest.Mock;
   beforeEach(() => {
-    let i = 0;
-    const dummyFn = () => {
-      i = i + 1;
+    onChangeDummy = jest.fn();
+    const props: TitleFieldProps = {
+      onChange: onChangeDummy
     };
-    wrapper = TestUtil.shallowRenderComponent(TitleField, {
-      onChange: dummyFn
-    });
+    wrapper = TestUtil.shallowRenderComponent(TitleField, props);
   });
 
   it('is defined', () => {

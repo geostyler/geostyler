@@ -1,16 +1,18 @@
-import { WellKnownNameEditor } from './WellKnownNameEditor';
+import WellKnownNameEditor, { WellKnownNameEditorProps } from './WellKnownNameEditor';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
+import { MarkSymbolizer } from 'geostyler-style';
 
 describe('WellKnownNameEditor', () => {
 
   let wrapper: any;
   beforeEach(() => {
     const markstyle = TestUtil.getMarkStyle();
-    wrapper = TestUtil.shallowRenderComponent(WellKnownNameEditor, {
-      symbolizer: markstyle.rules[0].symbolizers,
-      locale: en_US.GsLineEditor
-    });
+    const props: WellKnownNameEditorProps = {
+      symbolizer: markstyle.rules[0].symbolizers[0] as MarkSymbolizer,
+      locale: en_US.GsWellKnownNameEditor
+    };
+    wrapper = TestUtil.shallowRenderComponent(WellKnownNameEditor, props);
   });
 
   it('is defined', () => {

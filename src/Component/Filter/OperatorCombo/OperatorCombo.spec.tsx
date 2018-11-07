@@ -1,19 +1,18 @@
-import OperatorCombo from './OperatorCombo';
+import OperatorCombo, { OperatorComboProps } from './OperatorCombo';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('OperatorCombo', () => {
 
   let wrapper: any;
+  let dummyOnOperatorChange = jest.fn();
   beforeEach(() => {
-    let i = 0;
-    const dummyFn = () => {
-      i = i + 1;
-    };
+    dummyOnOperatorChange = jest.fn();
     const dummyData = TestUtil.getDummyGsData();
-    wrapper = TestUtil.shallowRenderComponent(OperatorCombo, {
+    const props: OperatorComboProps = {
       internalDataDef: dummyData,
-      onOperatorChange: dummyFn
-    });
+      onOperatorChange: dummyOnOperatorChange
+    };
+    wrapper = TestUtil.shallowRenderComponent(OperatorCombo, props);
   });
 
   it('is defined', () => {

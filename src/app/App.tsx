@@ -88,6 +88,7 @@ class App extends React.Component<AppProps, AppState> {
           <div className="gui-wrapper">
             <h2>{locale.graphicalEditor}</h2>
             <Style
+              compact={true}
               style={this.state.style}
               data={this.state.data}
               onStyleChange={(style: GsStyle) => {

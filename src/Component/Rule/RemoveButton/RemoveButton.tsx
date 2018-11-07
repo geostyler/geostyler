@@ -9,7 +9,7 @@ interface DefaultRemoveButtonProps {
   text: string;
 }
 // non default props
-interface RemoveButtonProps extends Partial<DefaultRemoveButtonProps> {
+export interface RemoveButtonProps extends Partial<DefaultRemoveButtonProps> {
   /** Index of the correspondig Rule object */
   ruleIdx: number;
   /** Callback for onClick */

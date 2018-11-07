@@ -1,11 +1,12 @@
-import LineDashField from './LineDashField';
+import LineDashField, { LineDashFieldProps } from './LineDashField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('OffsetField', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(LineDashField, {});
+    const props: LineDashFieldProps = {};
+    wrapper = TestUtil.shallowRenderComponent(LineDashField, props);
   });
 
   it('is defined', () => {

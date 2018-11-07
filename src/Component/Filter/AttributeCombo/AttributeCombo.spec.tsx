@@ -1,4 +1,4 @@
-import AttributeCombo from './AttributeCombo';
+import AttributeCombo, { AttributeComboProps } from './AttributeCombo';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('AttributeCombo', () => {
@@ -12,12 +12,12 @@ describe('AttributeCombo', () => {
     const dummyFn = () => {
       i = i + 1;
     };
-    const defaultProps = {
+    const props: AttributeComboProps = {
       internalDataDef: dummyData,
       onAttributeChange: dummyFn,
       attributeNameFilter: dummyFilterFn
     };
-    wrapper = TestUtil.shallowRenderComponent(AttributeCombo, defaultProps);
+    wrapper = TestUtil.shallowRenderComponent(AttributeCombo, props);
   });
 
   afterEach(() => {

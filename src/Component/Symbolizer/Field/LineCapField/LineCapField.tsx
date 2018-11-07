@@ -18,8 +18,8 @@ interface LineCapFieldDefaultProps {
 }
 
 // non default props
-interface LineCapFieldProps extends Partial<LineCapFieldDefaultProps> {
-  onChange: ((caps: LineSymbolizer['cap']) => void);
+export interface LineCapFieldProps extends Partial<LineCapFieldDefaultProps> {
+  onChange?: (caps: LineSymbolizer['cap']) => void;
   cap?: LineSymbolizer['cap'];
 }
 

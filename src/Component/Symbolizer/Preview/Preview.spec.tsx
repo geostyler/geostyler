@@ -1,4 +1,4 @@
-import { Preview } from './Preview';
+import Preview, { PreviewProps } from './Preview';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { Symbolizer } from 'geostyler-style';
@@ -13,11 +13,12 @@ describe('Preview', () => {
   }];
 
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(Preview, {
+    const props: PreviewProps = {
       locale: en_US.GsPreview,
-      onSymbolizerChange: jest.fn(),
+      onSymbolizersChange: jest.fn(),
       symbolizers: dummySymbolizers
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(Preview, props);
   });
 
   it('is defined', () => {

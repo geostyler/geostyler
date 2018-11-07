@@ -1,4 +1,4 @@
-import MarkEditor from './MarkEditor';
+import MarkEditor, { MarkEditorProps } from './MarkEditor';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('MarkEditor', () => {
@@ -7,9 +7,10 @@ describe('MarkEditor', () => {
   let markstyle: any;
   beforeEach(() => {
     markstyle = TestUtil.getMarkStyle();
-    wrapper = TestUtil.shallowRenderComponent(MarkEditor, {
+    const props: MarkEditorProps = {
       symbolizer: markstyle.rules[0].symbolizers[0]
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(MarkEditor, props);
   });
 
   it('is defined', () => {
@@ -20,12 +21,4 @@ describe('MarkEditor', () => {
     expect(wrapper).not.toBeUndefined();
   });
 
-  it('calls props.onSymbolizerChange()', () => {
-    let counter: number = 0;
-    wrapper.setProps({
-      onSymbolizerChange: ((symb: any) => counter++)
-    });
-    wrapper.instance().onSymbolizerChange(markstyle.rules[0].symbolizers[0]);
-    expect(counter).toEqual(1);
-  });
 });

@@ -21,13 +21,13 @@ interface DefaultTextFilterFieldProps {
   help: React.ReactNode;
 }
 // non default props
-interface TextFilterFieldProps extends Partial<DefaultTextFilterFieldProps> {
+export interface TextFilterFieldProps extends Partial<DefaultTextFilterFieldProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback function for onChange */
-  onValueChange: ((newValue: string) => void);
+  onValueChange?: (newValue: string) => void;
   /** The selected attribute name */
-  selectedAttribute: string;
+  selectedAttribute?: string;
 }
 // state
 interface TextFilterFieldState {
@@ -73,12 +73,22 @@ class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFi
    * and passes it to the passed in 'onValueChange' handler.
    */
   onInputChange = (e: any) => {
-    this.props.onValueChange(e.target.value);
+    const {
+      onValueChange
+    } = this.props;
+    if (onValueChange) {
+      onValueChange(e.target.value);
+    }
     this.setState({value: e.target.value});
   }
 
   onAutoCompleteChange = (value: string) => {
-    this.props.onValueChange(value);
+    const {
+      onValueChange
+    } = this.props;
+    if (onValueChange) {
+      onValueChange(value);
+    }
     this.setState({value: value});
   }
 

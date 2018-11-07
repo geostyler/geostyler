@@ -28,7 +28,7 @@ interface DefaultAttributeComboProps {
   help: React.ReactNode;
 }
 // non default props
-interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
+export interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: Data;
   /** Callback function for onChange */

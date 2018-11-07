@@ -4,39 +4,43 @@ import { InputNumber, Form } from 'antd';
 import './MinScaleDenominator.css';
 
 // default props
-interface DefaultScaleDenominatorProps {
+interface DefaultMinScaleDenominatorProps {
   label: string;
   placeholder: string;
 }
 // non default props
-interface ScaleDenominatorProps extends Partial<DefaultScaleDenominatorProps> {
-  value: number;
-  onChange: ((newMinScale: number) => void);
+export interface MinScaleDenominatorProps extends Partial<DefaultMinScaleDenominatorProps> {
+  value?: number;
+  onChange?: (newMinScale: number) => void;
 }
 
 /**
  * Input field for the minimum scale of a rule.
  */
-class MinScaleDenominator extends React.PureComponent<ScaleDenominatorProps> {
+class MinScaleDenominator extends React.PureComponent<MinScaleDenominatorProps> {
 
-  public static defaultProps: DefaultScaleDenominatorProps = {
+  public static defaultProps: DefaultMinScaleDenominatorProps = {
     label: 'Min. Scale',
     placeholder: 'Enter min. Scale (Optional)'
   };
 
   render() {
+    const {
+      placeholder,
+      label,
+      value,
+      onChange
+    } = this.props;
 
     return (
-        <Form.Item className="gs-min-scaledenominator" label={this.props.label} colon={false} >
-
+        <Form.Item className="gs-min-scaledenominator" label={label} colon={false} >
           <InputNumber
             className="gs-min-scaledenominator-input"
-            value={this.props.value}
+            value={value}
             min={0}
-            placeholder={this.props.placeholder}
-            onChange={this.props.onChange}
+            placeholder={placeholder}
+            onChange={onChange}
           />
-
         </Form.Item>
     );
   }

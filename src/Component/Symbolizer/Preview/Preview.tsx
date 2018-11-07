@@ -56,11 +56,11 @@ export interface DefaultPreviewProps {
 }
 
 // non default props
-interface PreviewProps extends Partial<DefaultPreviewProps> {
+export interface PreviewProps extends Partial<DefaultPreviewProps> {
   internalDataDef?: Data;
   symbolizers: Symbolizer[];
   iconEditorProps?: Partial<IconEditorProps>;
-  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
+  onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   onAddSymbolizer?: () => void;
   onRemoveSymbolizer?: (symbolizer: Symbolizer, key: number) => void;
   onMapDidMount?: (map: OlMap) => void;

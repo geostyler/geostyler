@@ -41,9 +41,9 @@ interface TextEditorDefaultProps {
 }
 
 // non default props
-interface TextEditorProps extends Partial<TextEditorDefaultProps> {
+export interface TextEditorProps extends Partial<TextEditorDefaultProps> {
   symbolizer: TextSymbolizer;
-  onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
 /**
@@ -64,70 +64,116 @@ export class TextEditor extends React.Component<TextEditorProps> {
 
   static componentName: string = 'TextEditor';
 
-  onSymbolizerChange = (symbolizer: Symbolizer) => {
-    this.props.onSymbolizerChange(symbolizer);
-  }
-
   onLabelChange = (e: any) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.label = e.target.value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onColorChange = (value: string) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.color = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onFontChange = (value: string[]) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.font = value.length > 0 ? value : undefined;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.opacity = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onSizeChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.size = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onOffsetXChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     let newOffset: [number, number] = [value, (symbolizer.offset ? symbolizer.offset[1] : 0)];
     symbolizer.offset = newOffset;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onOffsetYChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     let newOffset: [number, number] = [(symbolizer.offset ? symbolizer.offset[0] : 0), value];
     symbolizer.offset = newOffset;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onRotateChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.rotate = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onHaloColorChange = (value: string) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.haloColor = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onHaloWidthChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.haloWidth = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   render() {

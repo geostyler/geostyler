@@ -17,7 +17,7 @@ interface DefaultNumberFilterFieldProps {
   help: React.ReactNode;
 }
 // non default props
-interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {
+export interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback for onChange */

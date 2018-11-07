@@ -33,7 +33,7 @@ export interface DefaultFilterTreeProps {
   filter: GsFilter;
 }
 // non default props
-interface FilterTreeProps extends Partial<DefaultFilterTreeProps> {
+export interface FilterTreeProps extends Partial<DefaultFilterTreeProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback function for onFilterChange */

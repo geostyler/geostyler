@@ -46,7 +46,7 @@ interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
 }
 
 // non default props
-interface RuleTableProps extends Partial<RuleTableDefaultProps> {
+export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   data?: GsData;
   rules: GsRule[];
   onRulesChange?: (rules: GsRule[]) => void;

@@ -12,9 +12,9 @@ interface DefaultFieldSetProps {
 }
 
 // non default props
-interface FieldSetProps extends Partial<DefaultFieldSetProps> {
+export interface FieldSetProps extends Partial<DefaultFieldSetProps> {
   /** Title to be rendered on top of the FieldSet */
-  title: string;
+  title?: string;
   /** Callback function for onChange of the checkbox  */
   onCheckChange?: (e: any) => void;
 }
@@ -51,7 +51,8 @@ class FieldSet extends React.Component<FieldSetProps> {
 
     const {
       children,
-      checked
+      checked,
+      title
     } = this.props;
 
     return (
@@ -62,7 +63,7 @@ class FieldSet extends React.Component<FieldSetProps> {
               checked={checked}
               onChange={this.onCheckChange}
             >
-              {this.props.title}
+              {title}
             </Checkbox>
           </legend>
           {React.Children.map(children, (child, i) => {

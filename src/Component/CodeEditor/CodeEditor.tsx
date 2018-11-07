@@ -40,7 +40,7 @@ interface DefaultCodeEditorProps {
 }
 
 // non default props
-interface CodeEditorProps extends Partial<DefaultCodeEditorProps> {
+export interface CodeEditorProps extends Partial<DefaultCodeEditorProps> {
   style?: GsStyle;
   parsers?: GsStyleParserConstructable[];
   onStyleChange?: (rule: GsStyle) => void;

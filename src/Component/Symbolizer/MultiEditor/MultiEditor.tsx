@@ -58,7 +58,9 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     } = this.props;
     const symbolizerKind = symbolizers.length > 0 ? symbolizers[0].kind : undefined;
     const newSymbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind);
-    onSymbolizersChange([...symbolizers, newSymbolizer]);
+    if (onSymbolizersChange) {
+      onSymbolizersChange([...symbolizers, newSymbolizer]);
+    }
   }
 
   removeSymbolizer = (key: number) => {
@@ -68,7 +70,9 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     } = this.props;
     const symbolizersClone = [...symbolizers];
     symbolizersClone.splice(key, 1);
-    onSymbolizersChange(symbolizersClone);
+    if (onSymbolizersChange) {
+      onSymbolizersChange(symbolizersClone);
+    }
   }
 
   onSymbolizerChange = (symbolizer: Symbolizer, key: number) => {
@@ -78,7 +82,9 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     } = this.props;
     const symbolizersClone = [...symbolizers];
     symbolizersClone[key] = symbolizer;
-    onSymbolizersChange(symbolizersClone);
+    if (onSymbolizersChange) {
+      onSymbolizersChange(symbolizersClone);
+    }
   }
 
   render() {

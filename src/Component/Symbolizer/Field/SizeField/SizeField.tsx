@@ -10,9 +10,9 @@ interface SizeFieldDefaultProps {
 }
 
 // non default props
-interface SizeFieldProps extends Partial<SizeFieldDefaultProps> {
+export interface SizeFieldProps extends Partial<SizeFieldDefaultProps> {
   size?: number;
-  onChange: ((radius: number) => void);
+  onChange?: (radius: number) => void;
 }
 
 /**
@@ -26,6 +26,7 @@ class SizeField extends React.PureComponent<SizeFieldProps> {
 
   render() {
     const {
+      onChange,
       size,
       label
     } = this.props;
@@ -36,7 +37,7 @@ class SizeField extends React.PureComponent<SizeFieldProps> {
         <InputNumber
           step={0.1}
           value={size}
-          onChange={this.props.onChange}
+          onChange={onChange}
         />
       </div>
     );

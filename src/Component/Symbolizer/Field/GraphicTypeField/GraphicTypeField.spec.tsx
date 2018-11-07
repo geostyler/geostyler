@@ -1,11 +1,12 @@
-import { GraphicTypeField } from './GraphicTypeField';
+import { GraphicTypeField, GraphicTypeFieldProps } from './GraphicTypeField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('GraphicTypeField', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(GraphicTypeField, {});
+    const props: GraphicTypeFieldProps = {};
+    wrapper = TestUtil.shallowRenderComponent(GraphicTypeField, props);
   });
 
   it('is defined', () => {

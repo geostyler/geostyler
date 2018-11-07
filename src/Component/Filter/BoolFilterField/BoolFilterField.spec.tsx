@@ -1,16 +1,12 @@
 import TestUtil from '../../../Util/TestUtil';
-import BoolFilterField from './BoolFilterField';
+import BoolFilterField, { BoolFilterFieldProps } from './BoolFilterField';
 
 describe('BoolFilterField', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    let i = 0;
-    const dummyFn = () => {
-      i = i + 1;
-    };
-    const dummyData = TestUtil.getDummyGsData();
-    wrapper = TestUtil.shallowRenderComponent(BoolFilterField, {internalDataDef: dummyData, onValueChange: dummyFn});
+    const props: BoolFilterFieldProps = {};
+    wrapper = TestUtil.shallowRenderComponent(BoolFilterField, props);
   });
 
   it('is defined', () => {

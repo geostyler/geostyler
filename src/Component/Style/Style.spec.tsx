@@ -1,4 +1,4 @@
-import { Style } from './Style';
+import { Style, StyleProps } from './Style';
 import TestUtil from '../../Util/TestUtil';
 import en_US from '../../locale/en_US';
 const _cloneDeep = require('lodash/cloneDeep');
@@ -8,11 +8,11 @@ describe('Style', () => {
   let wrapper: any;
   let lineStyle = TestUtil.getLineStyle();
   beforeEach(() => {
-
-    wrapper = TestUtil.shallowRenderComponent(Style, {
+    const props: StyleProps = {
       locale: en_US.GsStyle,
       style: lineStyle
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(Style, props);
   });
 
   it('is defined', () => {

@@ -42,7 +42,7 @@ interface DefaultDataLoaderProps {
 }
 
 // non default props
-interface DataLoaderProps extends Partial<DefaultDataLoaderProps> {
+export interface DataLoaderProps extends Partial<DefaultDataLoaderProps> {
   parsers: GsDataParserConstructable[];
 }
 

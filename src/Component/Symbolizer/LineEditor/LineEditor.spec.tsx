@@ -1,16 +1,18 @@
-import { LineEditor } from './LineEditor';
+import { LineEditor, LineEditorProps } from './LineEditor';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
+import { LineSymbolizer } from 'geostyler-style';
 
 describe('LineEditor', () => {
 
   let wrapper: any;
   beforeEach(() => {
     const linestyle = TestUtil.getLineStyle();
-    wrapper = TestUtil.shallowRenderComponent(LineEditor, {
-      symbolizer: linestyle.rules[0].symbolizers,
+    const props: LineEditorProps = {
+      symbolizer: linestyle.rules[0].symbolizers[0] as LineSymbolizer,
       locale: en_US.GsLineEditor
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(LineEditor, props);
   });
 
   it('is defined', () => {

@@ -29,7 +29,7 @@ interface DefaultOperatorComboProps {
   help: React.ReactNode;
 }
 // non default props
-interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
+export interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback function for onChange */

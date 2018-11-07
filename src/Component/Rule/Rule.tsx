@@ -57,7 +57,7 @@ interface DefaultRuleProps {
 }
 
 // non default props
-interface RuleProps extends Partial<DefaultRuleProps> {
+export interface RuleProps extends Partial<DefaultRuleProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: GsData | null;
   /** Callback for a changed Rule */

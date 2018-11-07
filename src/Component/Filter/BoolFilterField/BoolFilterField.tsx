@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { Checkbox, Form } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
-import { Data } from 'geostyler-data';
 const _isEqual = require('lodash/isEqual');
 
 // default props
@@ -13,11 +12,9 @@ interface DefaultBoolFilterFieldProps {
   value: boolean;
 }
 // non default props
-interface BoolFilterFieldProps extends Partial<DefaultBoolFilterFieldProps> {
-  /** Reference to internal data object (holding schema and example features) */
-  internalDataDef: Data;
+export interface BoolFilterFieldProps extends Partial<DefaultBoolFilterFieldProps> {
   /** Callback function for onChange */
-  onValueChange: ((newValue: boolean) => void);
+  onValueChange?: ((newValue: boolean) => void);
 }
 // state
 interface BoolFilterFieldState {
@@ -60,7 +57,13 @@ class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolFilterFi
    * and passes it to the passed in 'onValueChange' handler.
    */
   onChange = (e: CheckboxChangeEvent) => {
-    this.props.onValueChange(e.target.checked);
+    const {
+      onValueChange
+    } = this.props;
+
+    if (onValueChange) {
+      onValueChange(e.target.checked);
+    }
 
     this.setState({value: e.target.checked});
   }

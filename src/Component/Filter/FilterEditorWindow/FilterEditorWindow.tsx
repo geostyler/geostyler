@@ -29,8 +29,8 @@ export interface FilterEditorWindowProps extends Partial<DefaultFilterEditorWind
   internalDataDef?: Data;
   x?: number;
   y?: number;
-  onClose: () => void;
-  onFilterChange: (filter: Filter) => void;
+  onClose?: () => void;
+  onFilterChange?: (filter: Filter) => void;
 }
 
 /**

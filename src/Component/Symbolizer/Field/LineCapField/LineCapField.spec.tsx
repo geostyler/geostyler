@@ -1,11 +1,12 @@
-import LineCapField from './LineCapField';
+import LineCapField, { LineCapFieldProps } from './LineCapField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('LineCapField', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(LineCapField, {});
+    const props: LineCapFieldProps = {};
+    wrapper = TestUtil.shallowRenderComponent(LineCapField, props);
   });
 
   it('is defined', () => {

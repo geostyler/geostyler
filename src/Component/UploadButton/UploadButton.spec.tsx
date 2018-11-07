@@ -1,11 +1,12 @@
-import UploadButton from './UploadButton';
+import UploadButton, { UploadButtonProps } from './UploadButton';
 import TestUtil from '../../Util/TestUtil';
 
 describe('UploadButton', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(UploadButton, {});
+    const props: UploadButtonProps = {};
+    wrapper = TestUtil.shallowRenderComponent(UploadButton, props);
   });
 
   it('is defined', () => {

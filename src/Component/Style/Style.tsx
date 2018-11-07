@@ -43,7 +43,7 @@ interface DefaultStyleProps {
 }
 
 // non default props
-interface StyleProps extends Partial<DefaultStyleProps> {
+export interface StyleProps extends Partial<DefaultStyleProps> {
   data?: GsData;
   onStyleChange?: (rule: GsStyle) => void;
   /** The data projection of example features */
