@@ -51,7 +51,7 @@
     "geostyler-geojson-parser": "0.4.3",
     "geostyler-openlayers-parser": "0.18.1",
     "geostyler-sld-parser": "0.17.1",
-    "geostyler-style": "0.14.1",
+    "geostyler-style": "0.14.2",
     "geostyler-wfs-parser": "0.7.2",
     "lodash": "4.17.11",
     "moment": "2.22.2",
