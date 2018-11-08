@@ -18,7 +18,7 @@ export interface WidthFieldProps extends Partial<WidthFieldDefaultProps> {
 /**
  * WidthField
  */
-class WidthField extends React.PureComponent<WidthFieldProps> {
+export class WidthField extends React.PureComponent<WidthFieldProps> {
 
   public static defaultProps: WidthFieldDefaultProps = {
     label: 'Width'

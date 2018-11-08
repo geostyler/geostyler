@@ -22,7 +22,7 @@ interface MarkEditorState {
   symbolizer: MarkSymbolizer;
 }
 
-class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState> {
+export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState> {
 
   constructor(props: MarkEditorProps) {
     super(props);

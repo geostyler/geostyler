@@ -1,4 +1,4 @@
-import TextEditor, { TextEditorProps } from './TextEditor';
+import { TextEditor, TextEditorProps } from './TextEditor';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { TextSymbolizer } from 'geostyler-style';

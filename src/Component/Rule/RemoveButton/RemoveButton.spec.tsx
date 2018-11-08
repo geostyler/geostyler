@@ -1,4 +1,4 @@
-import RemoveButton, { RemoveButtonProps } from './RemoveButton';
+import { RemoveButton, RemoveButtonProps } from './RemoveButton';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('RemoveButton', () => {

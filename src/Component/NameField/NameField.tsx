@@ -20,7 +20,7 @@ export interface NameFieldProps extends Partial<DefaultNameFieldProps> {
 /**
  * Input field for a name.
  */
-class NameField extends React.PureComponent<NameFieldProps> {
+export class NameField extends React.PureComponent<NameFieldProps> {
   public static defaultProps: DefaultNameFieldProps = {
     label: 'Name',
     placeholder: 'Enter Name'

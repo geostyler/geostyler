@@ -5,10 +5,12 @@ const { TextArea } = Input;
 
 import GeoJsonDataParser from 'geostyler-geojson-parser';
 import DataProvider from '../../../DataProvider/DataProvider';
-import ComparisonFilterUi from '../../../Component/Filter/ComparisonFilter/ComparisonFilter';
+import ComparisonFilter from '../../../Component/Filter/ComparisonFilter/ComparisonFilter';
 import UploadButton from '../../../Component/UploadButton/UploadButton';
 
-import { ComparisonFilter } from 'geostyler-style';
+import {
+  ComparisonFilter as GsComparisonFilter
+} from 'geostyler-style';
 
 import './FilterDemo.css';
 
@@ -32,7 +34,7 @@ interface CompFilterConf {
 class FilterDemoUi extends React.Component<FilterDemoProps, FilterDemoState> {
 
   /** The GeoStyler compliant ComparisonFilter object */
-  gsFilter: ComparisonFilter;
+  gsFilter: GsComparisonFilter;
 
   constructor(props: FilterDemoProps) {
     super(props);
@@ -107,7 +109,7 @@ class FilterDemoUi extends React.Component<FilterDemoProps, FilterDemoState> {
   /**
    * Reacts if the underlying ComparisonFilter changes and save it as member.
    */
-  onFilterChange = (compFilter: ComparisonFilter) => {
+  onFilterChange = (compFilter: GsComparisonFilter) => {
     this.gsFilter = compFilter;
   }
 
@@ -147,7 +149,7 @@ class FilterDemoUi extends React.Component<FilterDemoProps, FilterDemoState> {
 
           {
             this.state.comparisonFilters.map((cmpFilterConf: any) => (
-              <ComparisonFilterUi
+              <ComparisonFilter
                 key={cmpFilterConf.id}
                 internalDataDef={this.state.gsData}
                 onFilterChange={this.onFilterChange}

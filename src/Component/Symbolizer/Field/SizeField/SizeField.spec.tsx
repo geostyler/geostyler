@@ -1,4 +1,4 @@
-import SizeField, { SizeFieldProps } from './SizeField';
+import { SizeField, SizeFieldProps } from './SizeField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('SizeField', () => {

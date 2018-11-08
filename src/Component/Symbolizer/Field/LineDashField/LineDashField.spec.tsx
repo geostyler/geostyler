@@ -1,4 +1,4 @@
-import LineDashField, { LineDashFieldProps } from './LineDashField';
+import { LineDashField, LineDashFieldProps } from './LineDashField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('OffsetField', () => {

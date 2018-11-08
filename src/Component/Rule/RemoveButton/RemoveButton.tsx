@@ -19,7 +19,7 @@ export interface RemoveButtonProps extends Partial<DefaultRemoveButtonProps> {
 /**
  * Button to remove a rule.
  */
-class RemoveButton extends React.Component<RemoveButtonProps, any> {
+export class RemoveButton extends React.Component<RemoveButtonProps> {
 
   public static defaultProps: DefaultRemoveButtonProps = {
     text: 'Remove Rule'

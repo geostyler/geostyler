@@ -26,7 +26,7 @@ export interface LineJoinFieldProps extends Partial<LineJoinFieldDefaultProps> {
 /**
  * LineJoinField to select between different line-join options
  */
-class LineJoinField extends React.Component<LineJoinFieldProps> {
+export class LineJoinField extends React.Component<LineJoinFieldProps> {
 
   public static defaultProps: LineJoinFieldDefaultProps = {
     label: 'Line-Join',

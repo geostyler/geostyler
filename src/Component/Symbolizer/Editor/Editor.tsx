@@ -40,7 +40,7 @@ interface EditorState {
   symbolizer: Symbolizer;
 }
 
-class Editor extends React.Component<EditorProps, EditorState> {
+export class Editor extends React.Component<EditorProps, EditorState> {
   constructor(props: any) {
     super(props);
     this.state = {

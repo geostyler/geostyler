@@ -121,7 +121,7 @@ type ValidationResult = {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-class ComparisonFilterUi extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
+export class ComparisonFilter extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
 
   static getDerivedStateFromProps(
       nextProps: ComparisonFilterProps,
@@ -205,7 +205,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     validators: {
       attribute: attributeName => !_isEmpty(attributeName),
       operator: operatorName => !_isEmpty(operatorName),
-      value: ComparisonFilterUi.validateValue
+      value: ComparisonFilter.validateValue
     },
     microUI: false
   };
@@ -272,7 +272,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         attribute: '',
         operator: undefined,
         value: null,
-        filter: ComparisonFilterUi.defaultProps.filter,
+        filter: ComparisonFilter.defaultProps.filter,
         allowedOperators: ['==', '*=', '!=', '<', '<=', '>', '>='],
         validateStatus: {
           attribute: 'error',
@@ -600,4 +600,4 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   }
 }
 
-export default ComparisonFilterUi;
+export default ComparisonFilter;

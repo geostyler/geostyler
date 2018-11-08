@@ -43,7 +43,7 @@ interface ColorFieldState {
 /**
  * ColorField
  */
-class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
+export class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
 
   public static defaultProps: ColorFieldDefaultProps = {
     locale: en_US.GsColorField,

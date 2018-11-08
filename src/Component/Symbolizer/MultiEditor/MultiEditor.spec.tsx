@@ -1,4 +1,4 @@
-import MultiEditor, { MultiEditorProps } from './MultiEditor';
+import { MultiEditor, MultiEditorProps } from './MultiEditor';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { Symbolizer } from 'geostyler-style';

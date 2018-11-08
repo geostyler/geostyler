@@ -1,4 +1,4 @@
-import FieldSet, { FieldSetProps } from './FieldSet';
+import { FieldSet, FieldSetProps } from './FieldSet';
 import TestUtil from '../../Util/TestUtil';
 
 describe('FieldSet', () => {

@@ -1,4 +1,4 @@
-import MarkEditor, { MarkEditorProps } from './MarkEditor';
+import { MarkEditor, MarkEditorProps } from './MarkEditor';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('MarkEditor', () => {

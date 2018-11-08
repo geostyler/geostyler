@@ -1,4 +1,4 @@
-import OperatorCombo, { OperatorComboProps } from './OperatorCombo';
+import { OperatorCombo, OperatorComboProps } from './OperatorCombo';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('OperatorCombo', () => {

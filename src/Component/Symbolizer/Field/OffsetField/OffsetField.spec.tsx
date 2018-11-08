@@ -1,4 +1,4 @@
-import OffsetField, { OffsetFieldProps } from './OffsetField';
+import { OffsetField, OffsetFieldProps } from './OffsetField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('OffsetField', () => {

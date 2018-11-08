@@ -22,7 +22,7 @@ export interface FontPickerProps extends Partial<FontPickerDefaultProps> {
 /**
  * FontPicker to select font types / families
  */
-class FontPicker extends React.Component<FontPickerProps> {
+export class FontPicker extends React.Component<FontPickerProps> {
 
   public static defaultProps: FontPickerDefaultProps = {
     label: 'Font',

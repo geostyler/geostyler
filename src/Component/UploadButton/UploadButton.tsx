@@ -26,7 +26,7 @@ export interface UploadButtonProps extends Partial<DefaultUploadButton> {
 /**
  * Button to upload / import geodata file.
  */
-class UploadButton extends React.Component<UploadButtonProps> {
+export class UploadButton extends React.Component<UploadButtonProps> {
 
   public shouldComponentUpdate(nextProps: UploadButtonProps): boolean {
     const diffProps = !_isEqual(this.props, nextProps);

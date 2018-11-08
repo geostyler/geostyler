@@ -24,7 +24,7 @@ interface BoolFilterFieldState {
 /**
  * Checkbox field for a boolean filter value.
  */
-class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolFilterFieldState> {
+export class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolFilterFieldState> {
 
   public static defaultProps: DefaultBoolFilterFieldProps = {
     label: 'Value',

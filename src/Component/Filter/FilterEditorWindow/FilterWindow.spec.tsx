@@ -1,4 +1,4 @@
-import FilterEditorWindow, { FilterEditorWindowProps } from './FilterEditorWindow';
+import { FilterEditorWindow, FilterEditorWindowProps } from './FilterEditorWindow';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('FilterEditorWindow', () => {

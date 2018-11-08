@@ -1,4 +1,4 @@
-import GraphicEditor, { GraphicEditorProps } from './GraphicEditor';
+import { GraphicEditor, GraphicEditorProps } from './GraphicEditor';
 import TestUtil from '../../../Util/TestUtil';
 import {
   GraphicType,

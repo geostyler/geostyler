@@ -1,4 +1,4 @@
-import LineCapField, { LineCapFieldProps } from './LineCapField';
+import { LineCapField, LineCapFieldProps } from './LineCapField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('LineCapField', () => {

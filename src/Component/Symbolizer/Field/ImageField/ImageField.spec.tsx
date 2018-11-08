@@ -1,4 +1,4 @@
-import ImageField, { ImageFieldProps } from './ImageField';
+import { ImageField, ImageFieldProps } from './ImageField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('ImageField', () => {

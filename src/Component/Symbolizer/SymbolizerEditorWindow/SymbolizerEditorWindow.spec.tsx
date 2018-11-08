@@ -1,4 +1,4 @@
-import SymbolizerEditorWindow, { SymbolizerEditorWindowProps } from './SymbolizerEditorWindow';
+import { SymbolizerEditorWindow, SymbolizerEditorWindowProps } from './SymbolizerEditorWindow';
 import TestUtil from '../../../Util/TestUtil';
 import { Symbolizer } from 'geostyler-style';
 

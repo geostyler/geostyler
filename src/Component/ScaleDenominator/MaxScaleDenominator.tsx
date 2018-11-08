@@ -17,7 +17,7 @@ export interface MaxScaleDenominatorProps extends Partial<DefaultMaxScaleDenomin
 /**
  * Input field for the maximum scale of a rule.
  */
-class MaxScaleDenominator extends React.PureComponent<MaxScaleDenominatorProps> {
+export class MaxScaleDenominator extends React.PureComponent<MaxScaleDenominatorProps> {
 
   public static defaultProps: DefaultMaxScaleDenominatorProps = {
     label: 'Max. Scale',

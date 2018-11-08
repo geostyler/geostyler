@@ -1,4 +1,4 @@
-import UploadButton, { UploadButtonProps } from './UploadButton';
+import { UploadButton, UploadButtonProps } from './UploadButton';
 import TestUtil from '../../Util/TestUtil';
 
 describe('UploadButton', () => {

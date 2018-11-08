@@ -17,7 +17,7 @@ export interface OffsetFieldProps extends Partial<OffsetFieldDefaultProps>, Part
 /**
  * OffsetField for map labels
  */
-class OffsetField extends React.PureComponent<OffsetFieldProps> {
+export class OffsetField extends React.PureComponent<OffsetFieldProps> {
 
   public static defaultProps: OffsetFieldDefaultProps = {
     label: ''

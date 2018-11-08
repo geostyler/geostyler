@@ -23,7 +23,7 @@ export interface FieldSetProps extends Partial<DefaultFieldSetProps> {
  * A container for grouping sets of fields similar to a HTML fieldset element.
  * A title and a checkbox will be rendered on the top border of the component.
  */
-class FieldSet extends React.Component<FieldSetProps> {
+export class FieldSet extends React.Component<FieldSetProps> {
 
   constructor(props: FieldSetProps) {
     super(props);

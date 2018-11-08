@@ -19,7 +19,7 @@ export interface TitleFieldProps extends Partial<DefaultTitleFieldProps> {
 /**
  * Input field for the rule title.
  */
-class TitleField extends React.Component<TitleFieldProps, any> {
+export class TitleField extends React.Component<TitleFieldProps> {
 
   public static defaultProps: DefaultTitleFieldProps = {
     label: 'Title',

@@ -1,4 +1,4 @@
-import ScaleDenominator, { ScaleDenominatorProps } from './ScaleDenominator';
+import { ScaleDenominator, ScaleDenominatorProps } from './ScaleDenominator';
 import TestUtil from '../../Util/TestUtil';
 
 describe('ScaleDenominator', () => {

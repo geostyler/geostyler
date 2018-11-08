@@ -36,7 +36,7 @@ interface StyleLoaderState {
   activeParser?: GsStyleParserConstructable;
 }
 
-class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
+export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
   constructor(props: StyleLoaderProps) {
     super(props);

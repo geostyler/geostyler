@@ -26,7 +26,7 @@ import {
   Data as Data
 } from 'geostyler-data';
 
-import ComparisonFilterUi from '../ComparisonFilter/ComparisonFilter';
+import ComparisonFilter from '../ComparisonFilter/ComparisonFilter';
 
 // default props
 export interface DefaultFilterTreeProps {
@@ -253,7 +253,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
             title={
               <span className="node-title">
                 <span>
-                  <ComparisonFilterUi
+                  <ComparisonFilter
                     microUI={true}
                     internalDataDef={internalDataDef}
                     filter={filter as GsComparisonFilter}

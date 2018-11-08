@@ -5,15 +5,17 @@
       "name": "Debug Jest Tests",
       "type": "node",
       "request": "launch",
-      "port": 9230,
-      "runtimeArgs": [
-        "--inspect-brk=9230",
-        "${workspaceRoot}/node_modules/.bin/jest",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts-ts",
+      "args": [
+        "test",
         "--runInBand",
-        "--watch"
+        "--no-cache",
+        "--env=jsdom"
       ],
-      "runtimeExecutable": null,
-      "console": "integratedTerminal"
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "type": "node",

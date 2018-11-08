@@ -1,4 +1,4 @@
-import CodeEditor, { CodeEditorProps } from './CodeEditor';
+import { CodeEditor, CodeEditorProps } from './CodeEditor';
 import TestUtil from '../../Util/TestUtil';
 
 describe('CodeEditor', () => {

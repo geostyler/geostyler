@@ -57,7 +57,7 @@ interface WfsParserState extends WfsParams {
 /**
  * WfsParserInput
  */
-class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState> {
+export class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState> {
 
   public static defaultProps: WfsParserInputDefaultProps = {
     locale: en_US.GsWfsParserInput

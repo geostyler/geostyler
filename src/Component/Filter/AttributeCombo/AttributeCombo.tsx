@@ -42,7 +42,7 @@ interface AttributeComboState {
 /**
  * Combobox offering the attributes to be filtered on.
  */
-class AttributeCombo extends React.Component<AttributeComboProps, AttributeComboState> {
+export class AttributeCombo extends React.Component<AttributeComboProps, AttributeComboState> {
 
   public static defaultProps: DefaultAttributeComboProps = {
     label: 'Attribute',

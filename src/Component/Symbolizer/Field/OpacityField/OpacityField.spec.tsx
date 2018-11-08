@@ -1,4 +1,4 @@
-import OpacityField, { OpacityFieldProps } from './OpacityField';
+import { OpacityField, OpacityFieldProps } from './OpacityField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('OpacityField', () => {

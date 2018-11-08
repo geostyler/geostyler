@@ -17,7 +17,7 @@ export interface MinScaleDenominatorProps extends Partial<DefaultMinScaleDenomin
 /**
  * Input field for the minimum scale of a rule.
  */
-class MinScaleDenominator extends React.PureComponent<MinScaleDenominatorProps> {
+export class MinScaleDenominator extends React.PureComponent<MinScaleDenominatorProps> {
 
   public static defaultProps: DefaultMinScaleDenominatorProps = {
     label: 'Min. Scale',

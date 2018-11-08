@@ -26,7 +26,7 @@ export interface LineCapFieldProps extends Partial<LineCapFieldDefaultProps> {
 /**
  * LineCapField to select between different line-cap options
  */
-class LineCapField extends React.Component<LineCapFieldProps> {
+export class LineCapField extends React.Component<LineCapFieldProps> {
 
   public static defaultProps: LineCapFieldDefaultProps = {
     label: 'Line-Cap',

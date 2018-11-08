@@ -1,4 +1,4 @@
-import ComparisonFilter, { ComparisonFilterProps } from './ComparisonFilter';
+import { ComparisonFilter, ComparisonFilterProps } from './ComparisonFilter';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('ComparisonFilter', () => {

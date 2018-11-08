@@ -18,7 +18,7 @@ export interface RadiusFieldProps extends Partial<RadiusFieldDefaultProps> {
 /**
  * RadiusField
  */
-class RadiusField extends React.PureComponent<RadiusFieldProps> {
+export class RadiusField extends React.PureComponent<RadiusFieldProps> {
 
   public static defaultProps: RadiusFieldDefaultProps = {
     label: 'Radius'

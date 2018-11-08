@@ -1,4 +1,4 @@
-import LineJoinField, { LineJoinFieldProps } from './LineJoinField';
+import { LineJoinField, LineJoinFieldProps } from './LineJoinField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('LineJoinField', () => {

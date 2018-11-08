@@ -1,4 +1,4 @@
-import TextFilterField, { TextFilterFieldProps } from './TextFilterField';
+import { TextFilterField, TextFilterFieldProps } from './TextFilterField';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('TextFilterField', () => {

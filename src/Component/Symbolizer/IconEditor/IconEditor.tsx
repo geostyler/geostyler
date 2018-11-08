@@ -36,7 +36,7 @@ export interface IconEditorProps extends Partial<DefaultIconEditorProps> {
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
-class IconEditor extends React.Component<IconEditorProps> {
+export class IconEditor extends React.Component<IconEditorProps> {
 
   public static defaultProps: DefaultIconEditorProps = {
     locale: en_US.GsIconEditor

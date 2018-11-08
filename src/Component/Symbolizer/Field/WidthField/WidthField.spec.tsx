@@ -1,4 +1,4 @@
-import WidthField, { WidthFieldProps } from './WidthField';
+import { WidthField, WidthFieldProps } from './WidthField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('WidthField', () => {

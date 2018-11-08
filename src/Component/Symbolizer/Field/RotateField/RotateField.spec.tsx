@@ -1,4 +1,4 @@
-import RotateField, { RotateFieldProps } from './RotateField';
+import { RotateField, RotateFieldProps } from './RotateField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('RotateField', () => {

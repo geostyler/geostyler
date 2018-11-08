@@ -1,4 +1,4 @@
-import MaxScaleDenominator, { MaxScaleDenominatorProps } from './MaxScaleDenominator';
+import { MaxScaleDenominator, MaxScaleDenominatorProps } from './MaxScaleDenominator';
 import TestUtil from '../../Util/TestUtil';
 
 describe('MaxScaleDenominator', () => {

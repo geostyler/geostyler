@@ -39,7 +39,7 @@ export interface KindFieldProps extends Partial<KindFieldDefaultProps> {
 /**
  * KindField
  */
-class KindField extends React.Component<KindFieldProps> {
+export class KindField extends React.Component<KindFieldProps> {
 
   public static defaultProps: KindFieldDefaultProps = {
     locale: en_US.GsKindField,

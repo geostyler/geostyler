@@ -56,7 +56,7 @@ interface CodeEditorState {
 /**
  * The CodeEditor.
  */
-class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
+export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   static componentName: string = 'CodeEditor';
 

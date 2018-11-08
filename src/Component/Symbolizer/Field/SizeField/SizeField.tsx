@@ -18,7 +18,7 @@ export interface SizeFieldProps extends Partial<SizeFieldDefaultProps> {
 /**
  * SizeField
  */
-class SizeField extends React.PureComponent<SizeFieldProps> {
+export class SizeField extends React.PureComponent<SizeFieldProps> {
 
   public static defaultProps: SizeFieldDefaultProps = {
     label: 'Size'

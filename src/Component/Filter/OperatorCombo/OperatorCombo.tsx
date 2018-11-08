@@ -43,7 +43,7 @@ interface OperatorState {
 /**
  * Combobox offering different filter operators.
  */
-class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
+export class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
 
   public static defaultProps: DefaultOperatorComboProps = {
     label: 'Operator',

@@ -1,4 +1,4 @@
-import WfsParserInput, { WfsParserInputProps } from './WfsParserInput';
+import { WfsParserInput, WfsParserInputProps } from './WfsParserInput';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('WfsParserInput', () => {

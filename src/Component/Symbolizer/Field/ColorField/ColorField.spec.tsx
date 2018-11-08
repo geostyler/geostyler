@@ -1,4 +1,4 @@
-import ColorField, { ColorFieldProps } from './ColorField';
+import { ColorField, ColorFieldProps } from './ColorField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('ColorField', () => {

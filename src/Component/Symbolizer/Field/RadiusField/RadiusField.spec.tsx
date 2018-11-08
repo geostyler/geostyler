@@ -1,4 +1,4 @@
-import RadiusField, { RadiusFieldProps } from './RadiusField';
+import { RadiusField, RadiusFieldProps } from './RadiusField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('RadiusField', () => {

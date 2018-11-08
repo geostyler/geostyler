@@ -12,6 +12,7 @@ import {
 } from 'geostyler-style';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
+import en_US from '../../locale/en_US';
 
 // i18n
 export interface ScaleDenominatorLocale {
@@ -21,12 +22,16 @@ export interface ScaleDenominatorLocale {
   maxScaleDenominatorPlaceholderText?: string;
 }
 
-// non default props
-export interface ScaleDenominatorProps {
-  scaleDenominator?: GsScaleDenominator;
-  onChange?: (scaleDenominator: GsScaleDenominator) => void;
+interface ScaleDenominatorDefaultProps {
   locale?: ScaleDenominatorLocale;
 }
+
+// non default props
+export interface ScaleDenominatorProps extends Partial<ScaleDenominatorDefaultProps> {
+  scaleDenominator?: GsScaleDenominator;
+  onChange?: (scaleDenominator: GsScaleDenominator) => void;
+}
+
 // state
 interface ScaleDenominatorState {
   scaleDenominator?: GsScaleDenominator;
@@ -40,6 +45,10 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
     super(props);
     this.state = {};
   }
+
+  public static defaultProps: ScaleDenominatorDefaultProps = {
+    locale: en_US.GsScaleDenominator
+  };
 
   static getDerivedStateFromProps(
       nextProps: ScaleDenominatorProps,

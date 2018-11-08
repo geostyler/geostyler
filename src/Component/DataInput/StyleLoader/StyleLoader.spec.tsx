@@ -1,4 +1,4 @@
-import StyleLoader, { StyleLoaderProps } from './StyleLoader';
+import { StyleLoader, StyleLoaderProps } from './StyleLoader';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('StyleLoader', () => {

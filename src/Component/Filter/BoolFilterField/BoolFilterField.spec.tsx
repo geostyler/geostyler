@@ -1,5 +1,5 @@
 import TestUtil from '../../../Util/TestUtil';
-import BoolFilterField, { BoolFilterFieldProps } from './BoolFilterField';
+import { BoolFilterField,  BoolFilterFieldProps } from './BoolFilterField';
 
 describe('BoolFilterField', () => {
 

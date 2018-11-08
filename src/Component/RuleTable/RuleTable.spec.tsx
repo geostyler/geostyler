@@ -1,4 +1,4 @@
-import RuleTable, { RuleTableProps } from './RuleTable';
+import { RuleTable, RuleTableProps } from './RuleTable';
 import TestUtil from '../../Util/TestUtil';
 
 describe('RuleTable', () => {

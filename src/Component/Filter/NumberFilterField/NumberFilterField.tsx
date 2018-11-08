@@ -33,7 +33,7 @@ interface NumberFilterFieldState {
 /**
  * Input field for a numeric filter value.
  */
-class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFilterFieldState> {
+export class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFilterFieldState> {
 
   public static defaultProps: DefaultNumberFilterFieldProps = {
     label: 'Value',

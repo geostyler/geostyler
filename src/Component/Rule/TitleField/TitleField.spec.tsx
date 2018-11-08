@@ -1,4 +1,4 @@
-import TitleField, { TitleFieldProps } from './TitleField';
+import { TitleField, TitleFieldProps } from './TitleField';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('TitleField', () => {

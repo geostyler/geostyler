@@ -37,7 +37,7 @@ interface TextFilterFieldState {
 /**
  * Input field for a textual filter value.
  */
-class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFieldState> {
+export class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFieldState> {
 
   public static defaultProps: DefaultTextFilterFieldProps = {
     label: 'Value',

@@ -1,4 +1,4 @@
-import Preview, { PreviewProps } from './Preview';
+import { Preview, PreviewProps } from './Preview';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { Symbolizer } from 'geostyler-style';

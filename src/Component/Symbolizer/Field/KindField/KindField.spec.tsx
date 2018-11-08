@@ -1,4 +1,4 @@
-import KindField, { KindFieldProps } from './KindField';
+import { KindField, KindFieldProps } from './KindField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('KindField', () => {

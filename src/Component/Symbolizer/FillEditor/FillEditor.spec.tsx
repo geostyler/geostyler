@@ -1,4 +1,4 @@
-import FillEditor, { FillEditorProps } from './FillEditor';
+import { FillEditor, FillEditorProps } from './FillEditor';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { FillSymbolizer } from 'geostyler-style';

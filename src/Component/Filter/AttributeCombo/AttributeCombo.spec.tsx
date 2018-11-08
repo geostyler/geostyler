@@ -1,4 +1,4 @@
-import AttributeCombo, { AttributeComboProps } from './AttributeCombo';
+import { AttributeCombo, AttributeComboProps } from './AttributeCombo';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('AttributeCombo', () => {

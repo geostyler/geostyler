@@ -1,4 +1,4 @@
-import NameField, { NameFieldProps } from './NameField';
+import { NameField, NameFieldProps } from './NameField';
 import TestUtil from '../../Util/TestUtil';
 
 describe('NameField', () => {

@@ -1,4 +1,4 @@
-import PropTextEditor, { PropTextEditorProps } from './PropTextEditor';
+import { PropTextEditor, PropTextEditorProps } from './PropTextEditor';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { TextSymbolizer } from 'geostyler-style';

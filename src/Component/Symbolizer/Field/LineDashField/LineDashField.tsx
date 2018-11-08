@@ -27,7 +27,7 @@ interface LineDashFieldState {
 /**
  * LineDashField to edit dashes for LineSymbolizers
  */
-class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldState> {
+export class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldState> {
 
   public static defaultProps: LineDashFieldDefaultProps = {
     label: 'Dash Pattern'

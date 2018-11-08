@@ -18,7 +18,7 @@ export interface OpacityFieldProps extends Partial<OpacityFieldDefaultProps> {
 /**
  * OpacityField
  */
-class OpacityField extends React.PureComponent<OpacityFieldProps> {
+export class OpacityField extends React.PureComponent<OpacityFieldProps> {
 
   public static defaultProps: OpacityFieldDefaultProps = {
     label: 'Opacity'

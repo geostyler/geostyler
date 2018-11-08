@@ -1,4 +1,4 @@
-import IconEditor, { IconEditorProps } from './IconEditor';
+import { IconEditor, IconEditorProps } from './IconEditor';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('IconEditor', () => {

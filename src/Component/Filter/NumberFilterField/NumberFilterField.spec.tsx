@@ -1,4 +1,4 @@
-import NumberFilterField, { NumberFilterFieldProps } from './NumberFilterField';
+import { NumberFilterField, NumberFilterFieldProps } from './NumberFilterField';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('NumberFilterField', () => {

@@ -1,4 +1,4 @@
-import DataLoader, { DataLoaderProps } from './DataLoader';
+import { DataLoader, DataLoaderProps } from './DataLoader';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('DataLoader', () => {

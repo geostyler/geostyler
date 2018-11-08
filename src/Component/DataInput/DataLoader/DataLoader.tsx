@@ -52,7 +52,7 @@ interface DataLoaderState {
   modalVisible?: boolean;
 }
 
-class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
+export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
   constructor(props: DataLoaderProps) {
     super(props);

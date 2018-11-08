@@ -1,4 +1,4 @@
-import SLDRenderer, { SLDRendererProps } from './SLDRenderer';
+import { SLDRenderer, SLDRendererProps } from './SLDRenderer';
 import TestUtil from '../../../Util/TestUtil';
 import { Symbolizer } from 'geostyler-style';
 

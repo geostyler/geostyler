@@ -33,7 +33,7 @@ export interface GraphicEditorProps extends Partial<DefaultGraphicEditorProps> {
 }
 
 /** GraphicEditor to select between different graphic options */
-class GraphicEditor extends React.Component <GraphicEditorProps> {
+export class GraphicEditor extends React.Component <GraphicEditorProps> {
 
   public static defaultProps: DefaultGraphicEditorProps = {
     graphicTypeFieldLabel: 'Graphic-Type'

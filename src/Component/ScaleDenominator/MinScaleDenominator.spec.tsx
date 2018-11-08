@@ -1,4 +1,4 @@
-import MinScaleDenominator, { MinScaleDenominatorProps } from './MinScaleDenominator';
+import { MinScaleDenominator, MinScaleDenominatorProps } from './MinScaleDenominator';
 import TestUtil from '../../Util/TestUtil';
 
 describe('MinScaleDenominator', () => {

@@ -1,4 +1,4 @@
-import FontPicker, { FontPickerProps } from './FontPicker';
+import { FontPicker, FontPickerProps } from './FontPicker';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('FontPicker', () => {
