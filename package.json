@@ -39,7 +39,7 @@
     "start": "react-scripts-ts start",
     "start:styleguide": "styleguidist server",
     "test": "react-scripts-ts test --env=jsdom --runInBand --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\" --coverage",
-    "test:ci": "CI=true react-scripts-ts test --env=jsdom --runInBand --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\"",
+    "test:ci": "CI=true react-scripts-ts test --env=jsdom --runInBand --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\" --coverage",
     "test:watch": "react-scripts-ts test --env=jsdom --transformIgnorePatterns \"<rootDir>/node_modules/(?!ol|antd|codemirror)\""
   },
   "dependencies": {

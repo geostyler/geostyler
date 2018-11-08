@@ -202,6 +202,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     if (this.props.onRuleChange) {
       this.props.onRuleChange(rule, this.state.rule);
     }
+
     this.setState({rule, scaleFieldChecked: checked});
   }
 
