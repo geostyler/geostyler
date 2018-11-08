@@ -9,16 +9,16 @@ import {
 import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
 import WidthField from '../Field/WidthField/WidthField';
+import FontPicker from '../Field/FontPicker/FontPicker';
+import OffsetField from '../Field/OffsetField/OffsetField';
+import RotateField from '../Field/RotateField/RotateField';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEqual = require('lodash/isEqual');
-import FontPicker from '../Field/FontPicker/FontPicker';
-import OffsetField from '../Field/OffsetField/OffsetField';
 
 import './TextEditor.css';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import RotateField from '../Field/RotateField/RotateField';
 import en_US from '../../../locale/en_US';
 
 // i18n
