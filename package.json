@@ -73,7 +73,7 @@
     "@types/geojson": "7946.0.4",
     "@types/jest": "23.3.9",
     "@types/lodash": "4.14.118",
-    "@types/node": "10.12.3",
+    "@types/node": "10.12.4",
     "@types/ol": "4.6.2",
     "@babel/polyfill": "7.0.0",
     "@babel/preset-env": "7.1.5",
