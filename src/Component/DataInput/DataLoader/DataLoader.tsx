@@ -87,6 +87,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     reader.readAsText(file);
     reader.onload = () => {
       const fileContent = reader.result.toString();
+
       // TODO Remove JSON.parse when type of readData is more precise
       parser.readData(JSON.parse(fileContent))
         .then(this.props.onDataRead);
@@ -105,7 +106,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     wfsReadParams.srsName = 'EPSG:4326';
     parser.readData(wfsReadParams)
       .then((data: GsData) => {
-        this.props.onDataRead!(data);
+        this.props.onDataRead(data);
         this.setState({
           modalVisible: false
         });
