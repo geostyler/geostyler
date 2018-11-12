@@ -4,12 +4,12 @@ import { InputNumber, Form } from 'antd';
 import './MinScaleDenominator.css';
 
 // default props
-interface DefaultMinScaleDenominatorProps {
+interface MinScaleDenominatorDefaultProps {
   label: string;
   placeholder: string;
 }
 // non default props
-export interface MinScaleDenominatorProps extends Partial<DefaultMinScaleDenominatorProps> {
+export interface MinScaleDenominatorProps extends Partial<MinScaleDenominatorDefaultProps> {
   value?: number;
   onChange?: (newMinScale: number) => void;
 }
@@ -19,7 +19,7 @@ export interface MinScaleDenominatorProps extends Partial<DefaultMinScaleDenomin
  */
 export class MinScaleDenominator extends React.PureComponent<MinScaleDenominatorProps> {
 
-  public static defaultProps: DefaultMinScaleDenominatorProps = {
+  public static defaultProps: MinScaleDenominatorDefaultProps = {
     label: 'Min. Scale',
     placeholder: 'Enter min. Scale (Optional)'
   };

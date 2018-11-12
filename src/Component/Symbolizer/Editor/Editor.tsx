@@ -23,12 +23,12 @@ import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 // default props
-interface DefaultEditorProps {
+interface EditorDefaultProps {
   unknownSymbolizerText?: string;
 }
 
 // non default props
-export interface EditorProps extends Partial<DefaultEditorProps> {
+export interface EditorProps extends Partial<EditorDefaultProps> {
   symbolizer: Symbolizer;
   internalDataDef?: Data;
   iconEditorProps?: Partial<IconEditorProps>;
@@ -54,7 +54,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     return diffProps || diffState;
   }
 
-  public static defaultProps: DefaultEditorProps = {
+  public static defaultProps: EditorDefaultProps = {
     unknownSymbolizerText: 'Unknown Symbolizer!'
   };
 

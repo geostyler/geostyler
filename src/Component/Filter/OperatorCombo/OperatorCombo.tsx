@@ -8,7 +8,7 @@ const _isEqual = require('lodash/isEqual');
 const Option = Select.Option;
 
 // default props
-interface DefaultOperatorComboProps {
+interface OperatorComboDefaultProps {
   /** Label for this field */
   label: string;
   /** Show title of selected item */
@@ -29,7 +29,7 @@ interface DefaultOperatorComboProps {
   help: React.ReactNode;
 }
 // non default props
-export interface OperatorComboProps extends Partial<DefaultOperatorComboProps> {
+export interface OperatorComboProps extends Partial<OperatorComboDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback function for onChange */
@@ -45,7 +45,7 @@ interface OperatorState {
  */
 export class OperatorCombo extends React.Component<OperatorComboProps, OperatorState> {
 
-  public static defaultProps: DefaultOperatorComboProps = {
+  public static defaultProps: OperatorComboDefaultProps = {
     label: 'Operator',
     showTitles: true,
     placeholder: 'Select Operator',

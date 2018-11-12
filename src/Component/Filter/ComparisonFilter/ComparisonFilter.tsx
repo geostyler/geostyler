@@ -30,7 +30,7 @@ const _isEmpty = require('lodash/isEmpty');
 const _isFunction = require('lodash/isFunction');
 
 // default props
-export interface DefaultComparisonFilterProps {
+export interface ComparisonFilterDefaultProps {
   /** Initial comparison filter object */
   filter: GsComparisonFilter;
   /** Set true to hide the attribute's type in the AttributeCombo select options */
@@ -74,7 +74,7 @@ export interface DefaultComparisonFilterProps {
   microUI: boolean;
 }
 // non default props
-export interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
+export interface ComparisonFilterProps extends Partial<ComparisonFilterDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback function for onFilterChange */
@@ -184,7 +184,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     };
   }
 
-  public static defaultProps: DefaultComparisonFilterProps = {
+  public static defaultProps: ComparisonFilterDefaultProps = {
     filter: ['==', '', null],
     hideAttributeType: false,
     attributeNameFilter: () => true,

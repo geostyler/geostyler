@@ -5,6 +5,7 @@ import { Symbolizer } from 'geostyler-style';
 describe('Renderer', () => {
 
   let wrapper: any;
+  let onClickDummy: jest.Mock;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
     wellKnownName: 'Circle',
@@ -12,8 +13,9 @@ describe('Renderer', () => {
   }];
 
   beforeEach(() => {
+    onClickDummy = jest.fn();
     const props: RendererProps = {
-      onClick: jest.fn(),
+      onClick: onClickDummy,
       symbolizers: dummySymbolizers
     };
     wrapper = TestUtil.shallowRenderComponent(Renderer, props);

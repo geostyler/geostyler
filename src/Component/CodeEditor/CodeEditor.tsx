@@ -34,13 +34,13 @@ export interface CodeEditorLocale {
   formatSelectLabel: string;
 }
 
-interface DefaultCodeEditorProps {
+interface CodeEditorDefaultProps {
   locale: CodeEditorLocale;
   delay: number;
 }
 
 // non default props
-export interface CodeEditorProps extends Partial<DefaultCodeEditorProps> {
+export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
   style?: GsStyle;
   parsers?: GsStyleParserConstructable[];
   onStyleChange?: (rule: GsStyle) => void;
@@ -70,7 +70,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     };
   }
 
-  public static defaultProps: DefaultCodeEditorProps = {
+  public static defaultProps: CodeEditorDefaultProps = {
     locale: en_US.GsCodeEditor,
     delay: 500
   };

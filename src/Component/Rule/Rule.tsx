@@ -47,7 +47,7 @@ export interface RuleLocale {
 }
 
 // default props
-interface DefaultRuleProps {
+interface RuleDefaultProps {
   /** Optional Rule object holding inital values for the component */
   rule: GsRule;
   /** The data projection of example features */
@@ -57,7 +57,7 @@ interface DefaultRuleProps {
 }
 
 // non default props
-export interface RuleProps extends Partial<DefaultRuleProps> {
+export interface RuleProps extends Partial<RuleDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: GsData | null;
   /** Callback for a changed Rule */
@@ -104,7 +104,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
 
   static componentName: string = 'Rule';
 
-  public static defaultProps: DefaultRuleProps = {
+  public static defaultProps: RuleDefaultProps = {
     locale: en_US.GsRule,
     rule: {
       name: 'My Style',

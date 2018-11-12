@@ -5,14 +5,14 @@ import { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
 const _isEqual = require('lodash/isEqual');
 
 // default props
-interface DefaultBoolFilterFieldProps {
+interface BoolFilterFieldDefaultProps {
   /** Label for this field */
   label: string;
   /** Initial value set to the field */
   value: boolean;
 }
 // non default props
-export interface BoolFilterFieldProps extends Partial<DefaultBoolFilterFieldProps> {
+export interface BoolFilterFieldProps extends Partial<BoolFilterFieldDefaultProps> {
   /** Callback function for onChange */
   onValueChange?: ((newValue: boolean) => void);
 }
@@ -26,7 +26,7 @@ interface BoolFilterFieldState {
  */
 export class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolFilterFieldState> {
 
-  public static defaultProps: DefaultBoolFilterFieldProps = {
+  public static defaultProps: BoolFilterFieldDefaultProps = {
     label: 'Value',
     value: false
   };

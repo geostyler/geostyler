@@ -14,12 +14,12 @@ interface UploadButtonLocale {
 const _isEqual = require('lodash/isEqual');
 
 // default props
-interface DefaultUploadButton {
+interface UploadButtonDefaultProps {
   locale: UploadButtonLocale;
 }
 
 // non default props
-export interface UploadButtonProps extends Partial<DefaultUploadButton> {
+export interface UploadButtonProps extends Partial<UploadButtonDefaultProps> {
   onUpload?: (uploadObject: any) => void;
 }
 
@@ -33,7 +33,7 @@ export class UploadButton extends React.Component<UploadButtonProps> {
     return diffProps;
   }
 
-  public static defaultProps: DefaultUploadButton = {
+  public static defaultProps: UploadButtonDefaultProps = {
     locale: en_US.GsUploadButton
   };
 

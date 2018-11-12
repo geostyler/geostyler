@@ -8,7 +8,7 @@ const _isEqual = require('lodash/isEqual');
 import { Feature } from 'geojson';
 
 // default props
-interface DefaultTextFilterFieldProps {
+interface TextFilterFieldDefaultProps {
   /** Label for this field */
   label: string;
   /** The default text to place into the empty field */
@@ -21,7 +21,7 @@ interface DefaultTextFilterFieldProps {
   help: React.ReactNode;
 }
 // non default props
-export interface TextFilterFieldProps extends Partial<DefaultTextFilterFieldProps> {
+export interface TextFilterFieldProps extends Partial<TextFilterFieldDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback function for onChange */
@@ -39,7 +39,7 @@ interface TextFilterFieldState {
  */
 export class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFieldState> {
 
-  public static defaultProps: DefaultTextFilterFieldProps = {
+  public static defaultProps: TextFilterFieldDefaultProps = {
     label: 'Value',
     placeholder: 'Enter Text Value',
     value: undefined,

@@ -6,6 +6,7 @@ import { Symbolizer } from 'geostyler-style';
 describe('Preview', () => {
 
   let wrapper: any;
+  let onSymbolizersChangeDummy: jest.Mock;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
     wellKnownName: 'Circle',
@@ -13,9 +14,10 @@ describe('Preview', () => {
   }];
 
   beforeEach(() => {
+    onSymbolizersChangeDummy = jest.fn();
     const props: PreviewProps = {
       locale: en_US.GsPreview,
-      onSymbolizersChange: jest.fn(),
+      onSymbolizersChange: onSymbolizersChangeDummy,
       symbolizers: dummySymbolizers
     };
     wrapper = TestUtil.shallowRenderComponent(Preview, props);

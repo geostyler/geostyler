@@ -46,7 +46,7 @@ export interface PreviewLocale {
 }
 
 // default props
-export interface DefaultPreviewProps {
+export interface PreviewDefaultProps {
   hideEditButton: boolean;
   projection: string;
   dataProjection: string;
@@ -56,7 +56,7 @@ export interface DefaultPreviewProps {
 }
 
 // non default props
-export interface PreviewProps extends Partial<DefaultPreviewProps> {
+export interface PreviewProps extends Partial<PreviewDefaultProps> {
   internalDataDef?: Data;
   symbolizers: Symbolizer[];
   iconEditorProps?: Partial<IconEditorProps>;
@@ -92,7 +92,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   /** reference to the editButton */
   _editButton: any;
 
-  public static defaultProps: DefaultPreviewProps = {
+  public static defaultProps: PreviewDefaultProps = {
     locale: en_US.GsPreview,
     hideEditButton: false,
     projection: 'EPSG:3857',

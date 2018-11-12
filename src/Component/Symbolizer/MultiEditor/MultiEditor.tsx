@@ -26,12 +26,12 @@ export interface MultiEditorLocale {
 }
 
 // default props
-interface DefaultMultiEditorProps {
+interface MultiEditorDefaultProps {
   locale: MultiEditorLocale;
 }
 
 // non default props
-export interface MultiEditorProps extends Partial<DefaultMultiEditorProps> {
+export interface MultiEditorProps extends Partial<MultiEditorDefaultProps> {
   internalDataDef?: Data;
   editorProps?: any;
   symbolizers: Symbolizer[];
@@ -47,7 +47,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
 
   static componentName: string = 'MultiEditor';
 
-  public static defaultProps: DefaultMultiEditorProps = {
+  public static defaultProps: MultiEditorDefaultProps = {
     locale: en_US.GsMultiEditor
   };
 

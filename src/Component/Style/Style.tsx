@@ -36,14 +36,14 @@ export interface StyleLocale {
 }
 
 // default props
-interface DefaultStyleProps {
+interface StyleDefaultProps {
   style: GsStyle;
   locale: StyleLocale;
   compact: boolean;
 }
 
 // non default props
-export interface StyleProps extends Partial<DefaultStyleProps> {
+export interface StyleProps extends Partial<StyleDefaultProps> {
   data?: GsData;
   onStyleChange?: (rule: GsStyle) => void;
   /** The data projection of example features */
@@ -69,7 +69,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
   static componentName: string = 'Style';
 
-  public static defaultProps: DefaultStyleProps = {
+  public static defaultProps: StyleDefaultProps = {
     compact: false,
     locale: en_US.GsStyle,
     style: {

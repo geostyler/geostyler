@@ -26,19 +26,19 @@ export interface IconEditorLocale {
 }
 
 // default props
-export interface DefaultIconEditorProps {
+export interface IconEditorDefaultProps {
   locale: IconEditorLocale;
 }
 
 // non default props
-export interface IconEditorProps extends Partial<DefaultIconEditorProps> {
+export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
   symbolizer: IconSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
 export class IconEditor extends React.Component<IconEditorProps> {
 
-  public static defaultProps: DefaultIconEditorProps = {
+  public static defaultProps: IconEditorDefaultProps = {
     locale: en_US.GsIconEditor
   };
 

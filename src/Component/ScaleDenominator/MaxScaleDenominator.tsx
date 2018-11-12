@@ -4,12 +4,12 @@ import { InputNumber, Form } from 'antd';
 import './MaxScaleDenominator.css';
 
 // default props
-interface DefaultMaxScaleDenominatorProps {
+interface MaxScaleDenominatorDefaultProps {
   label: string;
   placeholder: string;
 }
 // non default props
-export interface MaxScaleDenominatorProps extends Partial<DefaultMaxScaleDenominatorProps> {
+export interface MaxScaleDenominatorProps extends Partial<MaxScaleDenominatorDefaultProps> {
   value?: number;
   onChange?: (newMinScale: number) => void;
 }
@@ -19,7 +19,7 @@ export interface MaxScaleDenominatorProps extends Partial<DefaultMaxScaleDenomin
  */
 export class MaxScaleDenominator extends React.PureComponent<MaxScaleDenominatorProps> {
 
-  public static defaultProps: DefaultMaxScaleDenominatorProps = {
+  public static defaultProps: MaxScaleDenominatorDefaultProps = {
     label: 'Max. Scale',
     placeholder: 'Enter max. Scale (Optional)'
   };

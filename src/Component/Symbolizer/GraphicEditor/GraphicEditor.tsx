@@ -13,13 +13,13 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
 
-export interface DefaultGraphicEditorProps {
+export interface GraphicEditorDefaultProps {
   /** Label being used on TypeField */
   graphicTypeFieldLabel: string;
 }
 
 // non default props
-export interface GraphicEditorProps extends Partial<DefaultGraphicEditorProps> {
+export interface GraphicEditorProps extends Partial<GraphicEditorDefaultProps> {
   /** PointSymbolizer that is being used as graphic */
   graphic: PointSymbolizer;
   /** Currently selected GraphicType */
@@ -35,7 +35,7 @@ export interface GraphicEditorProps extends Partial<DefaultGraphicEditorProps> {
 /** GraphicEditor to select between different graphic options */
 export class GraphicEditor extends React.Component <GraphicEditorProps> {
 
-  public static defaultProps: DefaultGraphicEditorProps = {
+  public static defaultProps: GraphicEditorDefaultProps = {
     graphicTypeFieldLabel: 'Graphic-Type'
   };
 

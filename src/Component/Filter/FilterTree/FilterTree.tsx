@@ -29,11 +29,11 @@ import {
 import ComparisonFilter from '../ComparisonFilter/ComparisonFilter';
 
 // default props
-export interface DefaultFilterTreeProps {
+export interface FilterTreeDefaultProps {
   filter: GsFilter;
 }
 // non default props
-export interface FilterTreeProps extends Partial<DefaultFilterTreeProps> {
+export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback function for onFilterChange */
@@ -54,7 +54,7 @@ interface FilterTreeState {
  */
 export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
 
-  public static defaultProps: DefaultFilterTreeProps = {
+  public static defaultProps: FilterTreeDefaultProps = {
     filter: ['==', '', null]
   };
 

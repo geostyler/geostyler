@@ -36,13 +36,13 @@ export interface DataLoaderLocale {
 }
 
 // default props
-interface DefaultDataLoaderProps {
+interface DataLoaderDefaultProps {
   onDataRead: (data: GsData) => void;
   locale: DataLoaderLocale;
 }
 
 // non default props
-export interface DataLoaderProps extends Partial<DefaultDataLoaderProps> {
+export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
   parsers: GsDataParserConstructable[];
 }
 
@@ -69,7 +69,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
 
   static componentName: string = 'DataLoader';
 
-  public static defaultProps: DefaultDataLoaderProps = {
+  public static defaultProps: DataLoaderDefaultProps = {
     locale: en_US.GsDataLoader,
     onDataRead: (data: GsData) => {return; }
   };

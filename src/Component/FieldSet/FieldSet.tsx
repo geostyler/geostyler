@@ -6,13 +6,13 @@ const _isEqual = require('lodash/isEqual');
 import './FieldSet.css';
 
 // default props
-interface DefaultFieldSetProps {
+interface FieldSetDefaultProps {
   /** Check/uncheck Checkbox */
   checked: boolean;
 }
 
 // non default props
-export interface FieldSetProps extends Partial<DefaultFieldSetProps> {
+export interface FieldSetProps extends Partial<FieldSetDefaultProps> {
   /** Title to be rendered on top of the FieldSet */
   title?: string;
   /** Callback function for onChange of the checkbox  */
@@ -29,7 +29,7 @@ export class FieldSet extends React.Component<FieldSetProps> {
     super(props);
   }
 
-  public static defaultProps: DefaultFieldSetProps = {
+  public static defaultProps: FieldSetDefaultProps = {
     checked: true
   };
 

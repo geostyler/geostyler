@@ -4,14 +4,14 @@ import { Input, Form } from 'antd';
 import './TitleField.css';
 
 // default props
-interface DefaultTitleFieldProps {
+interface TitleFieldDefaultProps {
   /** Label for this field */
   label: string;
   /** The default text to place into the empty field */
   placeholder: string;
 }
 // non default props
-export interface TitleFieldProps extends Partial<DefaultTitleFieldProps> {
+export interface TitleFieldProps extends Partial<TitleFieldDefaultProps> {
   /** Callback for onChange */
   onChange?: (newValue: string) => void;
 }
@@ -21,7 +21,7 @@ export interface TitleFieldProps extends Partial<DefaultTitleFieldProps> {
  */
 export class TitleField extends React.Component<TitleFieldProps> {
 
-  public static defaultProps: DefaultTitleFieldProps = {
+  public static defaultProps: TitleFieldDefaultProps = {
     label: 'Title',
     placeholder: 'Enter Rule Description (Title)'
   };
