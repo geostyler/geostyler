@@ -1,22 +1,16 @@
-import { ScaleDenominator } from './ScaleDenominator';
+import { ScaleDenominator, ScaleDenominatorProps } from './ScaleDenominator';
 import TestUtil from '../../Util/TestUtil';
-import en_US from '../../locale/en_US';
 
 describe('ScaleDenominator', () => {
 
   let wrapper: any;
+  let onChangeDummy: jest.Mock;
   beforeEach(() => {
-    let i = 0;
-    const dummyFn = () => {
-      i = i + 1;
+    onChangeDummy = jest.fn();
+    const props: ScaleDenominatorProps = {
+      onChange: onChangeDummy
     };
-
-    wrapper = TestUtil.shallowRenderComponent(ScaleDenominator, {
-      minScaleDenom: 0,
-      maxScaleDenom: 1000,
-      onChange: dummyFn,
-      locale: en_US.GsScaleDenominator
-    });
+    wrapper = TestUtil.shallowRenderComponent(ScaleDenominator, props);
   });
 
   it('is defined', () => {

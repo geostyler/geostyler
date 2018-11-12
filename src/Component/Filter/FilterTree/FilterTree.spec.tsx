@@ -1,6 +1,5 @@
-import { FilterTree } from './FilterTree';
+import { FilterTree, FilterTreeProps } from './FilterTree';
 import TestUtil from '../../../Util/TestUtil';
-import en_US from '../../../locale/en_US';
 
 import { Filter as GsFilter } from 'geostyler-style';
 
@@ -13,26 +12,14 @@ describe('FilterTree', () => {
 
   beforeEach(() => {
     dummyData = TestUtil.getDummyGsData();
-    dummyFilter = [
-        '&&',
-        ['==', 'state', 'germany'],
-        [
-          '||',
-          ['>=', 'population', 100000],
-          ['<', 'population', 200000]
-        ],
-        [
-          '!',
-          ['==', 'name', 'Schalke']
-        ]
-      ];
+    dummyFilter = TestUtil.getDummyGsFilter();
     onFilterChangeDummy = jest.fn();
-    wrapper = TestUtil.shallowRenderComponent(FilterTree, {
+    const props: FilterTreeProps = {
       filter: dummyFilter,
       internalDataDef: dummyData,
-      onFilterChange: onFilterChangeDummy,
-      locale: en_US.GsRule
-    });
+      onFilterChange: onFilterChangeDummy
+    };
+    wrapper = TestUtil.shallowRenderComponent(FilterTree, props);
   });
 
   it('is defined', () => {

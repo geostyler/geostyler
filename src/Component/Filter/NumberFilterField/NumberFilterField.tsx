@@ -4,7 +4,7 @@ import { Data } from 'geostyler-data';
 const _isEqual = require('lodash/isEqual');
 
 // default props
-interface DefaultNumberFilterFieldProps {
+interface NumberFilterFieldDefaultProps {
   /** Label for this field */
   label: string;
   /** The default text to place into the empty field */
@@ -17,7 +17,7 @@ interface DefaultNumberFilterFieldProps {
   help: React.ReactNode;
 }
 // non default props
-interface NumberFilterFieldProps extends Partial<DefaultNumberFilterFieldProps> {
+export interface NumberFilterFieldProps extends Partial<NumberFilterFieldDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback for onChange */
@@ -33,9 +33,9 @@ interface NumberFilterFieldState {
 /**
  * Input field for a numeric filter value.
  */
-class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFilterFieldState> {
+export class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFilterFieldState> {
 
-  public static defaultProps: DefaultNumberFilterFieldProps = {
+  public static defaultProps: NumberFilterFieldDefaultProps = {
     label: 'Value',
     placeholder: 'Enter Numeric Value',
     value: undefined,

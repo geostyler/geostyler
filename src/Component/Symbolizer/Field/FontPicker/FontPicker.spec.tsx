@@ -1,11 +1,12 @@
-import FontPicker from './FontPicker';
+import { FontPicker, FontPickerProps } from './FontPicker';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('FontPicker', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(FontPicker, {});
+    const props: FontPickerProps = {};
+    wrapper = TestUtil.shallowRenderComponent(FontPicker, props);
   });
 
   it('is defined', () => {

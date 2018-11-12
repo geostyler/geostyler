@@ -1,11 +1,11 @@
-import FieldSet from './FieldSet';
+import { FieldSet, FieldSetProps } from './FieldSet';
 import TestUtil from '../../Util/TestUtil';
 
 describe('FieldSet', () => {
-
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.mountComponent(FieldSet);
+    const props: FieldSetProps = {};
+    wrapper = TestUtil.mountComponent(FieldSet, props);
   });
 
   it('is defined', () => {

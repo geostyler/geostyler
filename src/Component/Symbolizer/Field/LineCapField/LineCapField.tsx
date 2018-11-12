@@ -18,15 +18,15 @@ interface LineCapFieldDefaultProps {
 }
 
 // non default props
-interface LineCapFieldProps extends Partial<LineCapFieldDefaultProps> {
-  onChange: ((caps: LineSymbolizer['cap']) => void);
+export interface LineCapFieldProps extends Partial<LineCapFieldDefaultProps> {
+  onChange?: (caps: LineSymbolizer['cap']) => void;
   cap?: LineSymbolizer['cap'];
 }
 
 /**
  * LineCapField to select between different line-cap options
  */
-class LineCapField extends React.Component<LineCapFieldProps> {
+export class LineCapField extends React.Component<LineCapFieldProps> {
 
   public static defaultProps: LineCapFieldDefaultProps = {
     label: 'Line-Cap',

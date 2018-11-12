@@ -10,15 +10,15 @@ interface OpacityFieldDefaultProps {
 }
 
 // non default props
-interface OpacityFieldProps extends Partial<OpacityFieldDefaultProps> {
-  onChange: ((opacity: number) => void);
+export interface OpacityFieldProps extends Partial<OpacityFieldDefaultProps> {
+  onChange?: (opacity: number) => void;
   opacity?: number;
 }
 
 /**
  * OpacityField
  */
-class OpacityField extends React.PureComponent<OpacityFieldProps> {
+export class OpacityField extends React.PureComponent<OpacityFieldProps> {
 
   public static defaultProps: OpacityFieldDefaultProps = {
     label: 'Opacity'
@@ -26,6 +26,7 @@ class OpacityField extends React.PureComponent<OpacityFieldProps> {
 
   render() {
     const {
+      onChange,
       opacity,
       label
     } = this.props;
@@ -38,7 +39,7 @@ class OpacityField extends React.PureComponent<OpacityFieldProps> {
           max={1}
           step={0.01}
           value={opacity}
-          onChange={this.props.onChange}
+          onChange={onChange}
         />
       </div>
     );

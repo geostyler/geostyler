@@ -1,10 +1,11 @@
-import { Renderer } from './Renderer';
+import { Renderer, RendererProps } from './Renderer';
 import TestUtil from '../../../Util/TestUtil';
 import { Symbolizer } from 'geostyler-style';
 
 describe('Renderer', () => {
 
   let wrapper: any;
+  let onClickDummy: jest.Mock;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
     wellKnownName: 'Circle',
@@ -12,10 +13,12 @@ describe('Renderer', () => {
   }];
 
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(Renderer, {
-      onSymbolizerChange: jest.fn(),
+    onClickDummy = jest.fn();
+    const props: RendererProps = {
+      onClick: onClickDummy,
       symbolizers: dummySymbolizers
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(Renderer, props);
   });
 
   it('is defined', () => {

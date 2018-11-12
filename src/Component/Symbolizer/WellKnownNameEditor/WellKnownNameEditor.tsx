@@ -32,9 +32,9 @@ interface WellKnownNameEditorDefaultProps {
 }
 
 // non default props
-interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDefaultProps> {
+export interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDefaultProps> {
   symbolizer: MarkSymbolizer;
-  onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
 export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps> {
@@ -51,45 +51,80 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
   static componentName: string = 'WellKnownNameEditor';
 
   onRadiusChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.radius = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onColorChange = (value: string) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.color = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.opacity = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onStrokeColorChange = (value: string) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.strokeColor = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onStrokeWidthChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.strokeWidth = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onStrokeOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.strokeOpacity = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onRotateChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.rotate = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   render () {

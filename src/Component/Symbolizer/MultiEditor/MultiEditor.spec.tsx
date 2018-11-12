@@ -1,4 +1,4 @@
-import { MultiEditor } from './MultiEditor';
+import { MultiEditor, MultiEditorProps } from './MultiEditor';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { Symbolizer } from 'geostyler-style';
@@ -6,7 +6,7 @@ import { Symbolizer } from 'geostyler-style';
 describe('Renderer', () => {
 
   let wrapper: any;
-  let dummyOnSymbolizerChange: any = jest.fn();
+  let dummyOnSymbolizerChange: jest.Mock;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
     wellKnownName: 'Circle',
@@ -19,11 +19,12 @@ describe('Renderer', () => {
 
   beforeEach(() => {
     dummyOnSymbolizerChange = jest.fn();
-    wrapper = TestUtil.shallowRenderComponent(MultiEditor, {
-      locale: en_US.GsPreview,
+    const props: MultiEditorProps = {
+      locale: en_US.GsMultiEditor,
       onSymbolizersChange: dummyOnSymbolizerChange,
       symbolizers: dummySymbolizers
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(MultiEditor, props);
   });
 
   it('is defined', () => {

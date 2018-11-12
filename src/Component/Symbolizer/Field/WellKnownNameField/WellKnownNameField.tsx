@@ -33,8 +33,8 @@ interface WellKnownNameFieldDefaultProps {
 }
 
 // non default props
-interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefaultProps> {
-  onChange: ((kind: WellKnownName) => void);
+export interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefaultProps> {
+  onChange?: (kind: WellKnownName) => void;
 }
 
 /**

@@ -11,15 +11,15 @@ interface ImageFieldDefaultProps {
 }
 
 // non default props
-interface ImageFieldProps extends Partial<ImageFieldDefaultProps> {
+export interface ImageFieldProps extends Partial<ImageFieldDefaultProps> {
   value?: string;
-  onChange: ((image: string) => void);
+  onChange?: (image: string) => void;
 }
 
 /**
  * ImageField
  */
-class ImageField extends React.PureComponent<ImageFieldProps> {
+export class ImageField extends React.PureComponent<ImageFieldProps> {
 
   public static defaultProps: ImageFieldDefaultProps = {
     label: 'Image',
@@ -42,7 +42,9 @@ class ImageField extends React.PureComponent<ImageFieldProps> {
           placeholder={placeholder}
           defaultValue={value}
           onChange={(evt: any) => {
-            onChange(evt.target.value);
+            if (onChange) {
+              onChange(evt.target.value);
+            }
           }}
         />
       </div>

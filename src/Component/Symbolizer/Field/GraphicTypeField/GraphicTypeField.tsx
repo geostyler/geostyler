@@ -18,7 +18,7 @@ interface GraphicTypeFieldLocale {
   Icon: string;
 }
 
-export interface DefaultGraphicTypeFieldProps {
+export interface GraphicTypeFieldDefaultProps {
   /** List of selectable GraphicTypes for Select */
   graphicTypes: GraphicType[];
   /** Label rendered next to Select */
@@ -29,11 +29,11 @@ export interface DefaultGraphicTypeFieldProps {
   clearable: boolean;
 }
 
-export interface GraphicTypeFieldProps extends DefaultGraphicTypeFieldProps {
+export interface GraphicTypeFieldProps extends Partial<GraphicTypeFieldDefaultProps> {
   /** Currently selected GraphicType */
   graphicType?: GraphicType;
   /** Callback when selection changes */
-  onChange: ((type: GraphicType) => void);
+  onChange?: (type: GraphicType) => void;
 }
 
 /** GraphicTypeField to select between different GraphicTypes */
@@ -41,7 +41,7 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps> {
 
   static componentName: string = 'GraphicTypeField';
 
-  public static defaultProps: DefaultGraphicTypeFieldProps = {
+  public static defaultProps: GraphicTypeFieldDefaultProps = {
     locale: en_US.GsGraphicTypeField,
     graphicTypes: ['Mark', 'Icon'],
     label: 'Graphic',

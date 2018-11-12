@@ -1,11 +1,12 @@
-import LineJoinField from './LineJoinField';
+import { LineJoinField, LineJoinFieldProps } from './LineJoinField';
 import TestUtil from '../../../../Util/TestUtil';
 
 describe('LineJoinField', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(LineJoinField, {});
+    const props: LineJoinFieldProps = {};
+    wrapper = TestUtil.shallowRenderComponent(LineJoinField, props);
   });
 
   it('is defined', () => {

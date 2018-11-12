@@ -1,4 +1,4 @@
-import GraphicEditor from './GraphicEditor';
+import { GraphicEditor, GraphicEditorProps } from './GraphicEditor';
 import TestUtil from '../../../Util/TestUtil';
 import {
   GraphicType,
@@ -16,11 +16,12 @@ describe('GraphicEditor', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(GraphicEditor, {
+    const props: GraphicEditorProps = {
       graphic: dummyGraphicMark,
       graphicType: dummyGraphicType,
       onGraphicChange: onGraphicChangeSpy
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(GraphicEditor, props);
     onGraphicChangeSpy.mockClear();
   });
 

@@ -30,7 +30,7 @@ const _isEmpty = require('lodash/isEmpty');
 const _isFunction = require('lodash/isFunction');
 
 // default props
-export interface DefaultComparisonFilterProps {
+export interface ComparisonFilterDefaultProps {
   /** Initial comparison filter object */
   filter: GsComparisonFilter;
   /** Set true to hide the attribute's type in the AttributeCombo select options */
@@ -74,7 +74,7 @@ export interface DefaultComparisonFilterProps {
   microUI: boolean;
 }
 // non default props
-export interface ComparisonFilterProps extends Partial<DefaultComparisonFilterProps> {
+export interface ComparisonFilterProps extends Partial<ComparisonFilterDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef: Data;
   /** Callback function for onFilterChange */
@@ -121,7 +121,7 @@ type ValidationResult = {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-class ComparisonFilterUi extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
+export class ComparisonFilter extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
 
   static getDerivedStateFromProps(
       nextProps: ComparisonFilterProps,
@@ -184,7 +184,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     };
   }
 
-  public static defaultProps: DefaultComparisonFilterProps = {
+  public static defaultProps: ComparisonFilterDefaultProps = {
     filter: ['==', '', null],
     hideAttributeType: false,
     attributeNameFilter: () => true,
@@ -205,7 +205,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
     validators: {
       attribute: attributeName => !_isEmpty(attributeName),
       operator: operatorName => !_isEmpty(operatorName),
-      value: ComparisonFilterUi.validateValue
+      value: ComparisonFilter.validateValue
     },
     microUI: false
   };
@@ -272,7 +272,7 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
         attribute: '',
         operator: undefined,
         value: null,
-        filter: ComparisonFilterUi.defaultProps.filter,
+        filter: ComparisonFilter.defaultProps.filter,
         allowedOperators: ['==', '*=', '!=', '<', '<=', '>', '>='],
         validateStatus: {
           attribute: 'error',
@@ -587,7 +587,6 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
                 <Col span={10} className="gs-small-col">
                   <BoolFilterField
                     value={filter ? filter[2] as boolean : undefined}
-                    internalDataDef={internalDataDef}
                     onValueChange={this.onValueChange}
                     label={valueLabel}
                   />
@@ -601,4 +600,4 @@ class ComparisonFilterUi extends React.Component<ComparisonFilterProps, Comparis
   }
 }
 
-export default ComparisonFilterUi;
+export default ComparisonFilter;

@@ -1,4 +1,4 @@
-import ComparisonFilter from './ComparisonFilter';
+import { ComparisonFilter, ComparisonFilterProps } from './ComparisonFilter';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('ComparisonFilter', () => {
@@ -23,7 +23,7 @@ describe('ComparisonFilter', () => {
 
   beforeEach(() => {
     const dummyData = TestUtil.getDummyGsData();
-    const defaultProps = {
+    const props: ComparisonFilterProps = {
       internalDataDef: dummyData,
       onFilterChange,
       attributeNameFilter: dummyFilterFn,
@@ -34,7 +34,7 @@ describe('ComparisonFilter', () => {
         value: valueValidator
       }
     };
-    wrapper = TestUtil.shallowRenderComponent(ComparisonFilter, defaultProps);
+    wrapper = TestUtil.shallowRenderComponent(ComparisonFilter, props);
   });
 
   afterEach(() => {

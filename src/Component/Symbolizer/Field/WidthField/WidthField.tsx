@@ -10,15 +10,15 @@ interface WidthFieldDefaultProps {
 }
 
 // non default props
-interface WidthFieldProps extends Partial<WidthFieldDefaultProps> {
-  onChange: ((radius: number) => void);
+export interface WidthFieldProps extends Partial<WidthFieldDefaultProps> {
+  onChange?: (radius: number) => void;
   width?: number;
 }
 
 /**
  * WidthField
  */
-class WidthField extends React.PureComponent<WidthFieldProps> {
+export class WidthField extends React.PureComponent<WidthFieldProps> {
 
   public static defaultProps: WidthFieldDefaultProps = {
     label: 'Width'
@@ -26,6 +26,7 @@ class WidthField extends React.PureComponent<WidthFieldProps> {
 
   render() {
     const {
+      onChange,
       width,
       label
     } = this.props;
@@ -36,7 +37,7 @@ class WidthField extends React.PureComponent<WidthFieldProps> {
         <InputNumber
           min={0}
           value={width}
-          onChange={this.props.onChange}
+          onChange={onChange}
         />
       </div>
     );

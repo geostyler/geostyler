@@ -34,13 +34,13 @@ export interface CodeEditorLocale {
   formatSelectLabel: string;
 }
 
-interface DefaultCodeEditorProps {
+interface CodeEditorDefaultProps {
   locale: CodeEditorLocale;
   delay: number;
 }
 
 // non default props
-interface CodeEditorProps extends Partial<DefaultCodeEditorProps> {
+export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
   style?: GsStyle;
   parsers?: GsStyleParserConstructable[];
   onStyleChange?: (rule: GsStyle) => void;
@@ -56,7 +56,7 @@ interface CodeEditorState {
 /**
  * The CodeEditor.
  */
-class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
+export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
   static componentName: string = 'CodeEditor';
 
@@ -70,7 +70,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     };
   }
 
-  public static defaultProps: DefaultCodeEditorProps = {
+  public static defaultProps: CodeEditorDefaultProps = {
     locale: en_US.GsCodeEditor,
     delay: 500
   };
@@ -93,7 +93,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     }
   }
 
-  updateValueFromStyle (style: GsStyle) {
+  updateValueFromStyle = (style: GsStyle) => {
     this.valueFromStyleInput(style)
       .then((parsedStyle: string) => {
         this.setState({
@@ -102,17 +102,23 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
       });
   }
 
-  getModeByParser(): string {
-    if (this.state.activeParser && this.state.activeParser.title === 'SLD Style Parser') {
+  getModeByParser = (): string => {
+    const {
+      activeParser
+    } = this.state;
+    if (activeParser && activeParser.title === 'SLD Style Parser') {
       return 'application/xml';
     }
     return 'application/json';
   }
 
-  valueFromStyleInput(style: GsStyle) {
+  valueFromStyleInput = (style: GsStyle) => {
+    const {
+      activeParser
+    } = this.state;
     return new Promise((resolve, reject) => {
-      if (this.state.activeParser) {
-        const StyleParser = this.state.activeParser;
+      if (activeParser) {
+        const StyleParser = activeParser;
         const parserInstance = new StyleParser();
         resolve(parserInstance.writeStyle(style));
       } else {
@@ -121,10 +127,13 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     });
   }
 
-  styleFromValue(value: string) {
+  styleFromValue = (value: string) => {
+    const {
+      activeParser
+    } = this.state;
     return new Promise((resolve, reject) => {
-      if (this.state.activeParser && this.state.activeParser ) {
-        const StyleParser = this.state.activeParser;
+      if (activeParser) {
+        const StyleParser = activeParser;
         const parserInstance = new StyleParser();
         resolve(parserInstance.readStyle(value));
       } else {
@@ -141,11 +150,14 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
       value,
       invalidMessage: undefined
     });
+    const {
+      onStyleChange
+    } = this.props;
     try {
       this.styleFromValue(value)
         .then((style: GsStyle) => {
-          if (this.props.onStyleChange) {
-            this.props.onStyleChange(style);
+          if (onStyleChange) {
+            onStyleChange(style);
           }
         }).catch(err => {
           this.setState({
@@ -160,11 +172,15 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 
   onSelect = (selection: string) => {
-    if (this.props.parsers) {
-      const activeParser = this.props.parsers.find(parser => parser.title === selection);
+    const {
+      parsers,
+      style
+    } = this.props;
+    if (parsers) {
+      const activeParser = parsers.find(parser => parser.title === selection);
       this.setState({activeParser}, () => {
-        if (this.props.style) {
-          this.updateValueFromStyle(this.props.style);
+        if (style) {
+          this.updateValueFromStyle(style);
         }
       });
     }

@@ -7,21 +7,21 @@ import {
 import './NameField.css';
 
 // default props
-export interface DefaultNameFieldProps {
+export interface NameFieldDefaultProps {
   label: string;
   placeholder: string;
 }
 // non default props
-export interface NameFieldProps extends Partial<DefaultNameFieldProps> {
+export interface NameFieldProps extends Partial<NameFieldDefaultProps> {
   value: string | undefined;
-  onChange: ((newValue: string) => void);
+  onChange?: (newValue: string) => void;
 }
 
 /**
  * Input field for a name.
  */
-class NameField extends React.PureComponent<NameFieldProps> {
-  public static defaultProps: DefaultNameFieldProps = {
+export class NameField extends React.PureComponent<NameFieldProps> {
+  public static defaultProps: NameFieldDefaultProps = {
     label: 'Name',
     placeholder: 'Enter Name'
   };
@@ -31,8 +31,12 @@ class NameField extends React.PureComponent<NameFieldProps> {
    * and passes it to the passed in 'onChange' handler.
    */
   onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    this.props.onChange(value);
+    const {
+      onChange
+    } = this.props;
+    if (onChange) {
+      onChange(e.target.value);
+    }
   }
 
   render() {

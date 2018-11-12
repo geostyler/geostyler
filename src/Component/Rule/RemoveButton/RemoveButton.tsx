@@ -4,12 +4,12 @@ import { Button } from 'antd';
 import './RemoveButton.css';
 
 // default props
-interface DefaultRemoveButtonProps {
+interface RemoveButtonDefaultProps {
   /** Button text */
   text: string;
 }
 // non default props
-interface RemoveButtonProps extends Partial<DefaultRemoveButtonProps> {
+export interface RemoveButtonProps extends Partial<RemoveButtonDefaultProps> {
   /** Index of the correspondig Rule object */
   ruleIdx: number;
   /** Callback for onClick */
@@ -19,9 +19,9 @@ interface RemoveButtonProps extends Partial<DefaultRemoveButtonProps> {
 /**
  * Button to remove a rule.
  */
-class RemoveButton extends React.Component<RemoveButtonProps, any> {
+export class RemoveButton extends React.Component<RemoveButtonProps> {
 
-  public static defaultProps: DefaultRemoveButtonProps = {
+  public static defaultProps: RemoveButtonDefaultProps = {
     text: 'Remove Rule'
   };
 

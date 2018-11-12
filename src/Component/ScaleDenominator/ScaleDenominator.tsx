@@ -12,6 +12,7 @@ import {
 } from 'geostyler-style';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
+import en_US from '../../locale/en_US';
 
 // i18n
 export interface ScaleDenominatorLocale {
@@ -21,12 +22,16 @@ export interface ScaleDenominatorLocale {
   maxScaleDenominatorPlaceholderText?: string;
 }
 
-// non default props
-interface ScaleDenominatorProps {
-  scaleDenominator?: GsScaleDenominator;
-  onChange: (scaleDenominator: GsScaleDenominator) => void;
+interface ScaleDenominatorDefaultProps {
   locale?: ScaleDenominatorLocale;
 }
+
+// non default props
+export interface ScaleDenominatorProps extends Partial<ScaleDenominatorDefaultProps> {
+  scaleDenominator?: GsScaleDenominator;
+  onChange?: (scaleDenominator: GsScaleDenominator) => void;
+}
+
 // state
 interface ScaleDenominatorState {
   scaleDenominator?: GsScaleDenominator;
@@ -40,6 +45,10 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
     super(props);
     this.state = {};
   }
+
+  public static defaultProps: ScaleDenominatorDefaultProps = {
+    locale: en_US.GsScaleDenominator
+  };
 
   static getDerivedStateFromProps(
       nextProps: ScaleDenominatorProps,
@@ -61,12 +70,17 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
    * Reacts on changing min scale and pushes the current state to the 'onChange' function
    */
   onMinScaleDenomChange = (minScaleDenominator: number) => {
+    const {
+      onChange
+    } = this.props;
     let scaleDenominator = _cloneDeep(this.state.scaleDenominator);
     if (!scaleDenominator) {
       scaleDenominator = {};
     }
     scaleDenominator.min = minScaleDenominator;
-    this.props.onChange(scaleDenominator);
+    if (onChange) {
+      onChange(scaleDenominator);
+    }
     this.setState({scaleDenominator});
   }
 
@@ -74,12 +88,17 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
    * Reacts on changing max scale and pushes the current state to the 'onChange' function
    */
   onMaxScaleDenomChange = (maxScaleDenominator: number) => {
+    const {
+      onChange
+    } = this.props;
     let scaleDenominator = _cloneDeep(this.state.scaleDenominator);
     if (!scaleDenominator) {
       scaleDenominator = {};
     }
     scaleDenominator.max = maxScaleDenominator;
-    this.props.onChange(scaleDenominator);
+    if (onChange) {
+      onChange(scaleDenominator);
+    }
     this.setState({scaleDenominator});
   }
 

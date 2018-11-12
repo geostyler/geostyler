@@ -14,8 +14,8 @@ interface SLDRendererDefaultProps {
 }
 
 // non default props
-interface SLDRendererProps extends Partial<SLDRendererDefaultProps> {
-  onClick?: (symbolizers: Symbolizer[]) => void;
+export interface SLDRendererProps extends Partial<SLDRendererDefaultProps> {
+  onClick?: (symbolizers: Symbolizer[], event: any) => void;
   symbolizers: Symbolizer[];
   wmsBaseUrl: string;
   layer: string;
@@ -150,9 +150,9 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
     } = this.state;
     return (
       <div
-        onClick={() => {
+        onClick={(event) => {
           if (onClick) {
-            onClick(symbolizers);
+            onClick(symbolizers, event);
           }
         }}
         className="gs-symbolizer-sldrenderer"

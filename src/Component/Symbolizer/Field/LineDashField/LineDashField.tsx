@@ -14,9 +14,9 @@ interface LineDashFieldDefaultProps {
 }
 
 // non default props
-interface LineDashFieldProps extends Partial<LineDashFieldDefaultProps> {
+export interface LineDashFieldProps extends Partial<LineDashFieldDefaultProps> {
   dashArray?: number[];
-  onChange: ((dashArray: number[]) => void);
+  onChange?: (dashArray: number[]) => void;
 }
 
 // state
@@ -27,7 +27,7 @@ interface LineDashFieldState {
 /**
  * LineDashField to edit dashes for LineSymbolizers
  */
-class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldState> {
+export class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldState> {
 
   public static defaultProps: LineDashFieldDefaultProps = {
     label: 'Dash Pattern'
@@ -78,7 +78,9 @@ class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldSta
               // replace current dash value
               dashArray[idx] = value;
               this.setState({dashArray});
-              onChange(dashArray);
+              if (onChange) {
+                onChange(dashArray);
+              }
             }}
           />)
         }

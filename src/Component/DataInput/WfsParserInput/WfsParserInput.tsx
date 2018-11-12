@@ -45,7 +45,7 @@ interface WfsParserInputDefaultProps {
 }
 
 // non default props
-interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps> {
+export interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps> {
   onClick: (wfsParams: WfsParams) => void;
 }
 
@@ -57,7 +57,7 @@ interface WfsParserState extends WfsParams {
 /**
  * WfsParserInput
  */
-class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState> {
+export class WfsParserInput extends React.Component<WfsParserInputProps, WfsParserState> {
 
   public static defaultProps: WfsParserInputDefaultProps = {
     locale: en_US.GsWfsParserInput

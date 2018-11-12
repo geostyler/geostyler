@@ -36,13 +36,13 @@ export interface DataLoaderLocale {
 }
 
 // default props
-interface DefaultDataLoaderProps {
+interface DataLoaderDefaultProps {
   onDataRead: (data: GsData) => void;
   locale: DataLoaderLocale;
 }
 
 // non default props
-interface DataLoaderProps extends Partial<DefaultDataLoaderProps> {
+export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
   parsers: GsDataParserConstructable[];
 }
 
@@ -52,7 +52,7 @@ interface DataLoaderState {
   modalVisible?: boolean;
 }
 
-class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
+export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
   constructor(props: DataLoaderProps) {
     super(props);
@@ -69,7 +69,7 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
   static componentName: string = 'DataLoader';
 
-  public static defaultProps: DefaultDataLoaderProps = {
+  public static defaultProps: DataLoaderDefaultProps = {
     locale: en_US.GsDataLoader,
     onDataRead: (data: GsData) => {return; }
   };
@@ -87,6 +87,7 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
     reader.readAsText(file);
     reader.onload = () => {
       const fileContent = reader.result.toString();
+
       // TODO Remove JSON.parse when type of readData is more precise
       parser.readData(JSON.parse(fileContent))
         .then(this.props.onDataRead);
@@ -105,7 +106,7 @@ class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
     wfsReadParams.srsName = 'EPSG:4326';
     parser.readData(wfsReadParams)
       .then((data: GsData) => {
-        this.props.onDataRead!(data);
+        this.props.onDataRead(data);
         this.setState({
           modalVisible: false
         });

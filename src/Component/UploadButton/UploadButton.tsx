@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-import { Upload, Button, Icon } from 'antd';
+import {
+  Upload,
+  Button,
+  Icon
+} from 'antd';
 import en_US from '../../locale/en_US';
 
 interface UploadButtonLocale {
@@ -10,28 +14,27 @@ interface UploadButtonLocale {
 const _isEqual = require('lodash/isEqual');
 
 // default props
-interface DefaultUploadButton {
+interface UploadButtonDefaultProps {
   locale: UploadButtonLocale;
-  onUpload: (uploadObject: any) => void;
 }
 
 // non default props
-interface UploadButtonProps extends Partial<DefaultUploadButton> {
+export interface UploadButtonProps extends Partial<UploadButtonDefaultProps> {
+  onUpload?: (uploadObject: any) => void;
 }
 
 /**
  * Button to upload / import geodata file.
  */
-class UploadButton extends React.Component<UploadButtonProps> {
+export class UploadButton extends React.Component<UploadButtonProps> {
 
   public shouldComponentUpdate(nextProps: UploadButtonProps): boolean {
     const diffProps = !_isEqual(this.props, nextProps);
     return diffProps;
   }
 
-  public static defaultProps: DefaultUploadButton = {
-    locale: en_US.GsUploadButton,
-    onUpload: () => {return; }
+  public static defaultProps: UploadButtonDefaultProps = {
+    locale: en_US.GsUploadButton
   };
 
   render() {

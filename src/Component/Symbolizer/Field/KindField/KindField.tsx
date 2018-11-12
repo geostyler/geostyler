@@ -32,14 +32,14 @@ interface KindFieldDefaultProps {
 }
 
 // non default props
-interface KindFieldProps extends Partial<KindFieldDefaultProps> {
-  onChange: ((kind: SymbolizerKind) => void);
+export interface KindFieldProps extends Partial<KindFieldDefaultProps> {
+  onChange?: (kind: SymbolizerKind) => void;
 }
 
 /**
  * KindField
  */
-class KindField extends React.Component<KindFieldProps> {
+export class KindField extends React.Component<KindFieldProps> {
 
   public static defaultProps: KindFieldDefaultProps = {
     locale: en_US.GsKindField,

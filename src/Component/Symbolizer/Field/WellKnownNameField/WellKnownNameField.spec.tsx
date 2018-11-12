@@ -1,4 +1,4 @@
-import { WellKnownNameField } from './WellKnownNameField';
+import { WellKnownNameField, WellKnownNameFieldProps } from './WellKnownNameField';
 import TestUtil from '../../../../Util/TestUtil';
 import en_US from '../../../../locale/en_US';
 
@@ -6,9 +6,10 @@ describe('WellKnownNameField', () => {
 
   let wrapper: any;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(WellKnownNameField, {
+    const props: WellKnownNameFieldProps = {
       locale: en_US.GsWellKnownNameField
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(WellKnownNameField, props);
   });
 
   it('is defined', () => {

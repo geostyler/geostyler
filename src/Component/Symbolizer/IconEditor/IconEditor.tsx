@@ -26,19 +26,19 @@ export interface IconEditorLocale {
 }
 
 // default props
-export interface DefaultIconEditorProps {
+export interface IconEditorDefaultProps {
   locale: IconEditorLocale;
 }
 
 // non default props
-export interface IconEditorProps extends Partial<DefaultIconEditorProps> {
+export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
   symbolizer: IconSymbolizer;
-  onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
-class IconEditor extends React.Component<IconEditorProps> {
+export class IconEditor extends React.Component<IconEditorProps> {
 
-  public static defaultProps: DefaultIconEditorProps = {
+  public static defaultProps: IconEditorDefaultProps = {
     locale: en_US.GsIconEditor
   };
 
@@ -49,32 +49,48 @@ class IconEditor extends React.Component<IconEditorProps> {
 
   static componentName: string = 'IconEditor';
 
-  onSymbolizerChange = (symbolizer: Symbolizer) => {
-    this.props.onSymbolizerChange(symbolizer);
-  }
-
   onImageSrcChange = (value: string) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.image = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onSizeChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.size = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onRotateChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.rotate = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.opacity = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   render() {

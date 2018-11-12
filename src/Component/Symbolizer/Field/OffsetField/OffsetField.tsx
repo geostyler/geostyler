@@ -9,15 +9,15 @@ interface OffsetFieldDefaultProps {
 }
 
 // non default props
-interface OffsetFieldProps extends Partial<OffsetFieldDefaultProps>, Partial<InputNumberProps> {
-  onChange: ((radius: number) => void);
+export interface OffsetFieldProps extends Partial<OffsetFieldDefaultProps>, Partial<InputNumberProps> {
+  onChange?: (radius: number) => void;
   offset?: number;
 }
 
 /**
  * OffsetField for map labels
  */
-class OffsetField extends React.PureComponent<OffsetFieldProps> {
+export class OffsetField extends React.PureComponent<OffsetFieldProps> {
 
   public static defaultProps: OffsetFieldDefaultProps = {
     label: ''

@@ -1,4 +1,4 @@
-import NumberFilterField from './NumberFilterField';
+import { NumberFilterField, NumberFilterFieldProps } from './NumberFilterField';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('NumberFilterField', () => {
@@ -7,12 +7,13 @@ describe('NumberFilterField', () => {
   const dummyFn = jest.fn();
   beforeEach(() => {
     const dummyData = TestUtil.getDummyGsData();
-    wrapper = TestUtil.shallowRenderComponent(NumberFilterField, {
+    const props: NumberFilterFieldProps = {
       internalDataDef: dummyData,
       onValueChange: dummyFn,
       selectedAttribute: 'foo',
       validateStatus: 'success'
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(NumberFilterField, props);
   });
 
   afterEach(() => {

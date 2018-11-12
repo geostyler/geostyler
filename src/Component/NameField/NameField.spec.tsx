@@ -1,18 +1,17 @@
-import NameField from './NameField';
+import { NameField, NameFieldProps } from './NameField';
 import TestUtil from '../../Util/TestUtil';
 
 describe('NameField', () => {
 
   let wrapper: any;
+  let onChangeDummy: jest.Mock;
   beforeEach(() => {
-    let i = 0;
-    const dummyFn = () => {
-      i = i + 1;
-    };
-    wrapper = TestUtil.shallowRenderComponent(NameField, {
+    onChangeDummy = jest.fn();
+    const props: NameFieldProps = {
       value: 'foo',
-      onChange: dummyFn
-    });
+      onChange: onChangeDummy
+    };
+    wrapper = TestUtil.shallowRenderComponent(NameField, props);
   });
 
   it('is defined', () => {

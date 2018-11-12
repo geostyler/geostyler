@@ -23,16 +23,16 @@ import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 // default props
-interface DefaultEditorProps {
+interface EditorDefaultProps {
   unknownSymbolizerText?: string;
 }
 
 // non default props
-export interface EditorProps extends Partial<DefaultEditorProps> {
+export interface EditorProps extends Partial<EditorDefaultProps> {
   symbolizer: Symbolizer;
   internalDataDef?: Data;
-  iconEditorProps: Partial<IconEditorProps>;
-  onSymbolizerChange: (symbolizer: Symbolizer) => void;
+  iconEditorProps?: Partial<IconEditorProps>;
+  onSymbolizerChange?: (symbolizer: Symbolizer) => void;
 }
 
 // state
@@ -40,7 +40,7 @@ interface EditorState {
   symbolizer: Symbolizer;
 }
 
-class Editor extends React.Component<EditorProps, EditorState> {
+export class Editor extends React.Component<EditorProps, EditorState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -54,8 +54,8 @@ class Editor extends React.Component<EditorProps, EditorState> {
     return diffProps || diffState;
   }
 
-  public static defaultProps: DefaultEditorProps = {
-    unknownSymbolizerText: `Unknown Symbolizer!`
+  public static defaultProps: EditorDefaultProps = {
+    unknownSymbolizerText: 'Unknown Symbolizer!'
   };
 
   static getDerivedStateFromProps(
@@ -67,7 +67,12 @@ class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
-    this.props.onSymbolizerChange(symbolizer);
+    const {
+      onSymbolizerChange
+    } = this.props;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   getUiFromSymbolizer = (symbolizer: Symbolizer): React.ReactNode => {

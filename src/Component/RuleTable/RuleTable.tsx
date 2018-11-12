@@ -46,7 +46,7 @@ interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
 }
 
 // non default props
-interface RuleTableProps extends Partial<RuleTableDefaultProps> {
+export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   data?: GsData;
   rules: GsRule[];
   onRulesChange?: (rules: GsRule[]) => void;
@@ -73,11 +73,11 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   constructor(props: RuleTableProps) {
     super(props);
     this.state = {
-      ruleEditIndex: null,
+      ruleEditIndex: undefined,
       symbolizerEditorVisible: false,
-      symbolizerEditorPosition: null,
+      symbolizerEditorPosition: undefined,
       filterEditorVisible: false,
-      filterEditorPosition: null
+      filterEditorPosition: undefined
     };
   }
 
@@ -112,7 +112,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     });
   }
 
-  symbolizerRenderer = (text: string, record: RuleRecord, index: number) => {
+  symbolizerRenderer = (text: string, record: RuleRecord) => {
     return (
       <Renderer
         symbolizers={record.symbolizers}
@@ -124,7 +124,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   }
 
-  nameRenderer = (text: string, record: RuleRecord, index: number) => {
+  nameRenderer = (text: string, record: RuleRecord) => {
     return (
       <Input
         value={record.name}
@@ -136,7 +136,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   }
 
-  filterRenderer = (text: string, record: RuleRecord, index: number) => {
+  filterRenderer = (text: string, record: RuleRecord) => {
     return (
       <Input.Search
         value={JSON.stringify(record.filter)}

@@ -49,7 +49,7 @@ export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
   /** Symbolizer */
   symbolizer: LineSymbolizer;
   /** Callback when symbolizer changes */
-  onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
 export class LineEditor extends React.Component<LineEditorProps> {
@@ -65,62 +65,103 @@ export class LineEditor extends React.Component<LineEditorProps> {
 
   static componentName: string = 'LineEditor';
 
-  onSymbolizerChange = (symbolizer: Symbolizer) => {
-    this.props.onSymbolizerChange(symbolizer);
-  }
-
   onColorChange = (value: string) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.color = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onWidthChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.width = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.opacity = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onDasharrayChange = (value: number[]) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.dasharray = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onDashOffsetChange = (value: LineSymbolizer['dashOffset']) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.dashOffset = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onCapChange = (value: LineSymbolizer['cap']) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.cap = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onJoinChange = (value: LineSymbolizer['join']) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.join = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onGraphicStrokeChange = (gStroke: PointSymbolizer) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.graphicStroke = gStroke;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onGraphicFillChange = (gFill: PointSymbolizer) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.graphicFill = gFill;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   render() {

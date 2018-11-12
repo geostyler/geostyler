@@ -37,9 +37,9 @@ interface FillEditorDefaultProps {
 }
 
 // non default props
-interface FillEditorProps extends Partial<FillEditorDefaultProps> {
+export interface FillEditorProps extends Partial<FillEditorDefaultProps> {
   symbolizer: FillSymbolizer;
-  onSymbolizerChange: ((changedSymb: Symbolizer) => void);
+  onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
 export class FillEditor extends React.Component<FillEditorProps> {
@@ -55,44 +55,70 @@ export class FillEditor extends React.Component<FillEditorProps> {
     return diffProps;
   }
 
-  onSymbolizerChange = (symbolizer: Symbolizer) => {
-    this.props.onSymbolizerChange(symbolizer);
-  }
-
   onFillColorChange = (value: string) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.color = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onFillOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.opacity = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onOutlineColorChange = (value: string) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.outlineColor = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onOutlineWidthChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.outlineWidth = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onOutlineDasharrayChange = (value: number[]) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.outlineDasharray = value;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   onGraphicChange = (gFill: PointSymbolizer) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.graphicFill = gFill;
-    this.props.onSymbolizerChange(symbolizer);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
   }
 
   render() {

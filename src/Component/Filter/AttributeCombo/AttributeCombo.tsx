@@ -6,7 +6,7 @@ const Option = Select.Option;
 const _isEqual = require('lodash/isEqual');
 
 // default props
-interface DefaultAttributeComboProps {
+interface AttributeComboDefaultProps {
   /** Label for this field */
   label: string;
   /** The default text to place into the empty field */
@@ -28,7 +28,7 @@ interface DefaultAttributeComboProps {
   help: React.ReactNode;
 }
 // non default props
-interface AttributeComboProps extends Partial<DefaultAttributeComboProps> {
+export interface AttributeComboProps extends Partial<AttributeComboDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: Data;
   /** Callback function for onChange */
@@ -42,9 +42,9 @@ interface AttributeComboState {
 /**
  * Combobox offering the attributes to be filtered on.
  */
-class AttributeCombo extends React.Component<AttributeComboProps, AttributeComboState> {
+export class AttributeCombo extends React.Component<AttributeComboProps, AttributeComboState> {
 
-  public static defaultProps: DefaultAttributeComboProps = {
+  public static defaultProps: AttributeComboDefaultProps = {
     label: 'Attribute',
     placeholder: 'Select Attribute',
     value: undefined,

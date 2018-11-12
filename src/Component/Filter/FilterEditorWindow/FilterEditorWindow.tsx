@@ -19,18 +19,18 @@ export interface FilterEditorWindowLocale {
 }
 
 // default props
-export interface DefaultFilterEditorWindowProps {
+export interface FilterEditorWindowDefaultProps {
   locale: FilterEditorWindowLocale;
 }
 
 // non default props
-export interface FilterEditorWindowProps extends Partial<DefaultFilterEditorWindowProps> {
+export interface FilterEditorWindowProps extends Partial<FilterEditorWindowDefaultProps> {
   filter: Filter;
   internalDataDef?: Data;
   x?: number;
   y?: number;
-  onClose: () => void;
-  onFilterChange: (filter: Filter) => void;
+  onClose?: () => void;
+  onFilterChange?: (filter: Filter) => void;
 }
 
 /**
@@ -38,7 +38,7 @@ export interface FilterEditorWindowProps extends Partial<DefaultFilterEditorWind
  */
 export class FilterEditorWindow extends React.Component<FilterEditorWindowProps> {
 
-  public static defaultProps: DefaultFilterEditorWindowProps = {
+  public static defaultProps: FilterEditorWindowDefaultProps = {
     locale: en_US.GsFilterEditorWindow
   };
 

@@ -26,12 +26,12 @@ export interface MultiEditorLocale {
 }
 
 // default props
-interface DefaultMultiEditorProps {
+interface MultiEditorDefaultProps {
   locale: MultiEditorLocale;
 }
 
 // non default props
-export interface MultiEditorProps extends Partial<DefaultMultiEditorProps> {
+export interface MultiEditorProps extends Partial<MultiEditorDefaultProps> {
   internalDataDef?: Data;
   editorProps?: any;
   symbolizers: Symbolizer[];
@@ -47,7 +47,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
 
   static componentName: string = 'MultiEditor';
 
-  public static defaultProps: DefaultMultiEditorProps = {
+  public static defaultProps: MultiEditorDefaultProps = {
     locale: en_US.GsMultiEditor
   };
 
@@ -58,7 +58,9 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     } = this.props;
     const symbolizerKind = symbolizers.length > 0 ? symbolizers[0].kind : undefined;
     const newSymbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind);
-    onSymbolizersChange([...symbolizers, newSymbolizer]);
+    if (onSymbolizersChange) {
+      onSymbolizersChange([...symbolizers, newSymbolizer]);
+    }
   }
 
   removeSymbolizer = (key: number) => {
@@ -68,7 +70,9 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     } = this.props;
     const symbolizersClone = [...symbolizers];
     symbolizersClone.splice(key, 1);
-    onSymbolizersChange(symbolizersClone);
+    if (onSymbolizersChange) {
+      onSymbolizersChange(symbolizersClone);
+    }
   }
 
   onSymbolizerChange = (symbolizer: Symbolizer, key: number) => {
@@ -78,7 +82,9 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     } = this.props;
     const symbolizersClone = [...symbolizers];
     symbolizersClone[key] = symbolizer;
-    onSymbolizersChange(symbolizersClone);
+    if (onSymbolizersChange) {
+      onSymbolizersChange(symbolizersClone);
+    }
   }
 
   render() {

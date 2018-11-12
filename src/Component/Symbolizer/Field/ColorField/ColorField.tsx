@@ -30,8 +30,8 @@ interface ColorFieldDefaultProps {
 }
 
 // non default props
-interface ColorFieldProps extends Partial<ColorFieldDefaultProps> {
-  onChange: ((color: string) => void);
+export interface ColorFieldProps extends Partial<ColorFieldDefaultProps> {
+  onChange?: (color: string) => void;
   color?: string;
 }
 
@@ -43,7 +43,7 @@ interface ColorFieldState {
 /**
  * ColorField
  */
-class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
+export class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
 
   public static defaultProps: ColorFieldDefaultProps = {
     locale: en_US.GsColorField,
@@ -78,7 +78,8 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
     const {
       color,
       label,
-      locale
+      locale,
+      onChange
     } = this.props;
     let textColor;
 
@@ -112,7 +113,9 @@ class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
               color={color}
               disableAlpha={true}
               onChangeComplete={(colorResult: ColorResult) => {
-                this.props.onChange(colorResult.hex);
+                if (onChange) {
+                  onChange(colorResult.hex);
+                }
               }}
             /> : null
           }

@@ -1,17 +1,19 @@
-import TextFilterField from './TextFilterField';
+import { TextFilterField, TextFilterFieldProps } from './TextFilterField';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('TextFilterField', () => {
 
   let wrapper: any;
-  const dummyFn = jest.fn();
+  let onValueChangeDummy: jest.Mock;
   beforeEach(() => {
     const dummyData = TestUtil.getDummyGsData();
-    wrapper = TestUtil.shallowRenderComponent(TextFilterField, {
+    onValueChangeDummy = jest.fn();
+    const props: TextFilterFieldProps = {
       internalDataDef: dummyData,
-      onValueChange: dummyFn,
+      onValueChange: onValueChangeDummy,
       validateStatus: 'success'
-    });
+    };
+    wrapper = TestUtil.shallowRenderComponent(TextFilterField, props);
   });
 
   it('is defined', () => {
@@ -34,7 +36,7 @@ describe('TextFilterField', () => {
         }
       };
       wrapper.instance().onInputChange(evtMock);
-      expect(dummyFn.mock.calls).toHaveLength(1);
+      expect(onValueChangeDummy.mock.calls).toHaveLength(1);
     });
   });
 

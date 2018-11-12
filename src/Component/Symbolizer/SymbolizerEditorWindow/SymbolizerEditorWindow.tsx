@@ -22,18 +22,18 @@ export interface SymbolizerEditorWindowLocale {
 }
 
 // default props
-export interface DefaultSymbolizerEditorWindowProps {
+export interface SymbolizerEditorWindowDefaultProps {
   locale: SymbolizerEditorWindowLocale;
 }
 
 // non default props
-export interface SymbolizerEditorWindowProps extends Partial<DefaultSymbolizerEditorWindowProps> {
+export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWindowDefaultProps> {
   symbolizers: Symbolizer[];
   internalDataDef?: Data;
   x?: number;
   y?: number;
-  onClose: () => void;
-  onSymbolizersChange: (symbolizers: Symbolizer[]) => void;
+  onClose?: () => void;
+  onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
 }
 
 /**
@@ -41,7 +41,7 @@ export interface SymbolizerEditorWindowProps extends Partial<DefaultSymbolizerEd
  */
 export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWindowProps> {
 
-  public static defaultProps: DefaultSymbolizerEditorWindowProps = {
+  public static defaultProps: SymbolizerEditorWindowDefaultProps = {
     locale: en_US.GsSymbolizerEditorWindow
   };
 

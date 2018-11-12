@@ -21,13 +21,13 @@ export interface StyleLoaderLocale {
 }
 
 // default props
-interface DefaultStyleLoaderProps {
+interface StyleLoaderDefaultProps {
   onStyleRead: (style: GsStyle) => void;
   locale: StyleLoaderLocale;
 }
 
 // non default props
-interface StyleLoaderProps extends Partial<DefaultStyleLoaderProps> {
+export interface StyleLoaderProps extends Partial<StyleLoaderDefaultProps> {
   parsers: GsStyleParserConstructable[];
 }
 
@@ -36,7 +36,7 @@ interface StyleLoaderState {
   activeParser?: GsStyleParserConstructable;
 }
 
-class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
+export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
   constructor(props: StyleLoaderProps) {
     super(props);
@@ -51,7 +51,7 @@ class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
   static componentName: string = 'StyleLoader';
 
-  public static defaultProps: DefaultStyleLoaderProps = {
+  public static defaultProps: StyleLoaderDefaultProps = {
     locale: en_US.GsStyleLoader,
     onStyleRead: (style: GsStyle) => {return; }
   };

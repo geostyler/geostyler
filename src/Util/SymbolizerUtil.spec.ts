@@ -1,7 +1,7 @@
 import SymbolizerUtil from './SymbolizerUtil';
 import { MarkSymbolizer, IconSymbolizer, FillSymbolizer, LineSymbolizer, TextSymbolizer } from 'geostyler-style';
 
-describe('Style', () => {
+describe('SymbolizerUtil', () => {
 
   describe('generateSymbolizer', () => {
     it('generates symbolizer as expected', () => {

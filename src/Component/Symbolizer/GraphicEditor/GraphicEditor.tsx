@@ -13,19 +13,19 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
 
-export interface DefaultGraphicEditorProps {
+export interface GraphicEditorDefaultProps {
   /** Label being used on TypeField */
   graphicTypeFieldLabel: string;
 }
 
 // non default props
-interface GraphicEditorProps extends Partial<DefaultGraphicEditorProps> {
+export interface GraphicEditorProps extends Partial<GraphicEditorDefaultProps> {
   /** PointSymbolizer that is being used as graphic */
   graphic: PointSymbolizer;
   /** Currently selected GraphicType */
   graphicType: GraphicType;
   /** Gets called when changing a graphic */
-  onGraphicChange: ((graphic: PointSymbolizer) => void);
+  onGraphicChange?: (graphic: PointSymbolizer) => void;
   /** Default GraphicTypeFieldProps */
   graphicTypeFieldProps?: GraphicTypeFieldProps;
   /** Default IconEditorProps */
@@ -33,9 +33,9 @@ interface GraphicEditorProps extends Partial<DefaultGraphicEditorProps> {
 }
 
 /** GraphicEditor to select between different graphic options */
-class GraphicEditor extends React.Component <GraphicEditorProps> {
+export class GraphicEditor extends React.Component <GraphicEditorProps> {
 
-  public static defaultProps: DefaultGraphicEditorProps = {
+  public static defaultProps: GraphicEditorDefaultProps = {
     graphicTypeFieldLabel: 'Graphic-Type'
   };
 
@@ -52,19 +52,22 @@ class GraphicEditor extends React.Component <GraphicEditorProps> {
    * @return {React.ReactNode} MarkEditor or IconEditor or undefined
    */
   getGraphicFields = (graphic: PointSymbolizer, iconEditorProps?: any): React.ReactNode => {
+    const {
+      onGraphicChange
+    } = this.props;
     if (_get(graphic, 'kind') === 'Mark') {
       let markGraphic: MarkSymbolizer = graphic as MarkSymbolizer;
       return (
         <MarkEditor
           symbolizer={markGraphic}
-          onSymbolizerChange={this.props.onGraphicChange}
+          onSymbolizerChange={onGraphicChange}
         />
       );
     } else if (_get(graphic, 'kind') === 'Icon') {
       return (
         <IconEditor
           symbolizer={graphic}
-          onSymbolizerChange={this.props.onGraphicChange}
+          onSymbolizerChange={onGraphicChange}
           {...iconEditorProps}
         />
       );
@@ -84,12 +87,14 @@ class GraphicEditor extends React.Component <GraphicEditorProps> {
       onGraphicChange
     } = this.props;
 
-    if (gType === 'Mark') {
-      onGraphicChange(SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer);
-    } else if (gType === 'Icon') {
-      onGraphicChange(SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer);
-    } else {
-      onGraphicChange(undefined);
+    if (onGraphicChange) {
+      if (gType === 'Mark') {
+        onGraphicChange(SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer);
+      } else if (gType === 'Icon') {
+        onGraphicChange(SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer);
+      } else {
+        onGraphicChange(undefined);
+      }
     }
   }
 

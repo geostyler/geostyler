@@ -6,15 +6,15 @@ const _isEqual = require('lodash/isEqual');
 import './FieldSet.css';
 
 // default props
-interface DefaultFieldSetProps {
+interface FieldSetDefaultProps {
   /** Check/uncheck Checkbox */
   checked: boolean;
 }
 
 // non default props
-interface FieldSetProps extends Partial<DefaultFieldSetProps> {
+export interface FieldSetProps extends Partial<FieldSetDefaultProps> {
   /** Title to be rendered on top of the FieldSet */
-  title: string;
+  title?: string;
   /** Callback function for onChange of the checkbox  */
   onCheckChange?: (e: any) => void;
 }
@@ -23,13 +23,13 @@ interface FieldSetProps extends Partial<DefaultFieldSetProps> {
  * A container for grouping sets of fields similar to a HTML fieldset element.
  * A title and a checkbox will be rendered on the top border of the component.
  */
-class FieldSet extends React.Component<FieldSetProps> {
+export class FieldSet extends React.Component<FieldSetProps> {
 
   constructor(props: FieldSetProps) {
     super(props);
   }
 
-  public static defaultProps: DefaultFieldSetProps = {
+  public static defaultProps: FieldSetDefaultProps = {
     checked: true
   };
 
@@ -51,7 +51,8 @@ class FieldSet extends React.Component<FieldSetProps> {
 
     const {
       children,
-      checked
+      checked,
+      title
     } = this.props;
 
     return (
@@ -62,7 +63,7 @@ class FieldSet extends React.Component<FieldSetProps> {
               checked={checked}
               onChange={this.onCheckChange}
             >
-              {this.props.title}
+              {title}
             </Checkbox>
           </legend>
           {React.Children.map(children, (child, i) => {
