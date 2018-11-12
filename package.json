@@ -104,9 +104,8 @@
   "jest": {
     "collectCoverageFrom": [
       "src/Component/**/*.{tsx,jsx}",
-      "src/DataProvider/**/*.{tsx,jsx}",
-      "src/Util/**/*.{tsx,jsx}",
-      "src/app/**/*.{tsx,jsx}"
+      "src/DataProvider/**/*.{ts,js}",
+      "src/Util/**/*.{ts,js}"
     ]
   }
 }
