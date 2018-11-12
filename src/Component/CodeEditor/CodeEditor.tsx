@@ -7,6 +7,8 @@ import {
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/javascript/javascript';
+import 'codemirror-colorpicker/dist/codemirror-colorpicker.css';
+import 'codemirror-colorpicker';
 
 import 'blob';
 import {
@@ -218,6 +220,20 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   render() {
     const value = this.state.value;
     const { locale } = this.props;
+
+    const codeMirrorOptions = {
+      gutters: ['CodeMirror-lint-markers'],
+      lint: true,
+      mode: this.getModeByParser(),
+      lineNumbers: true,
+      lineWrapping: true,
+      colorpicker: {
+        mode: 'edit',
+        type: 'sketch',
+        outputFormat : 'hex'
+      }
+    };
+
     return (
       <div className="gs-code-editor">
         <div className="gs-code-editor-toolbar" >
@@ -234,13 +250,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
           className="gs-code-editor-codemirror"
           value={value}
           autoCursor={false}
-          options={{
-            gutters: ['CodeMirror-lint-markers'],
-            lint: true,
-            mode: this.getModeByParser(),
-            lineNumbers: true,
-            lineWrapping: true
-          }}
+          options={codeMirrorOptions}
           onChange={this.handleOnChange}
         />
         <div className="gs-code-editor-errormessage">
