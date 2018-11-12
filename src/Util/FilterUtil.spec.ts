@@ -12,7 +12,7 @@ describe('FilterUtil', () => {
 
   describe('writeAsCql', () => {
     it('writes a geostyler-style filter as an cql string', () => {
-        const cql = '(state = germany AND (population = 100000 OR population = 200000) AND (name = Schalke))';
+        const cql = 'state = germany AND (population >= 100000 OR population < 200000) AND (NOT name = Schalke)';
         const got = FilterUtil.writeAsCql(filter);
         expect(got).toEqual(cql);
     });

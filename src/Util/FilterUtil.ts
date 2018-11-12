@@ -22,9 +22,9 @@ class FilterUtil {
    * @param {Filter} filter A geostyler-style Filter.
    * @returns {string} A CQL string representation of the geostyler-style Filter.
    */
-  static writeAsCql(filter: Filter): string {
+  static writeAsCql(filter: Filter, isChildFilter?: boolean): string {
     const operator: Operator = filter[0];
-    let cql: string;
+    let cql: string = '';
     let isNestedFilter = false;
 
     if (FilterUtil.operatorMapping[operator]) {
@@ -33,21 +33,26 @@ class FilterUtil {
 
     if (isNestedFilter) {
       const nestedOperator: CombinationOperator | NegationOpertaor = FilterUtil.operatorMapping[operator];
-      if (nestedOperator === '!') {
+      if (operator === '!') {
         const childFilter = FilterUtil.writeAsCql(filter[1]);
         cql = `(${nestedOperator} ${childFilter})`;
-        return cql;
+      } else {
+        const childFilters = [...filter];
+        childFilters.shift();
+        const childCqls = childFilters.map((childFilter: Filter) => {
+          return FilterUtil.writeAsCql(childFilter, true);
+        });
+        const joinedCqls = childCqls.join(` ${nestedOperator} `);
+        cql += isChildFilter ? '(' : '';
+        cql += `${joinedCqls}`;
+        cql += isChildFilter ? ')' : '';
       }
-      const childFilters = [...filter];
-      childFilters.shift();
-      const childCqls = childFilters.map(FilterUtil.writeAsCql);
-      const joinedCqls = childCqls.join(` ${nestedOperator} `);
-      cql = `(${joinedCqls})`;
-      return cql;
     } else {
-      cql = `${filter[1]} = ${filter[2]}`;
-      return cql;
+      const cqlOperator = operator === '==' ? '=' : operator;
+      cql = `${filter[1]} ${cqlOperator} ${filter[2]}`;
     }
+
+    return cql;
   }
 
   // TODO Parse cqlString and create a filter
