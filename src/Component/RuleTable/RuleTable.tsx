@@ -175,9 +175,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const value = minScaleDenominator ? parseFloat(minScaleDenominator) : undefined;
     return (
       <InputNumber
+        className="scale-denominator min-scale-denominator"
         value={value}
         min={0}
-        formatter={val => `1:${val}`}
+        formatter={val => val ? `1:${val}` : ''}
         parser={(val: string) => parseFloat(val.replace('1:', ''))}
         onChange={(newValue: number) => {
           this.setValueForRule(record.key, 'scaleDenominator.min', newValue);
@@ -191,9 +192,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const value = maxScaleDenominator ? parseFloat(maxScaleDenominator) : undefined;
     return (
       <InputNumber
+        className="scale-denominator max-scale-denominator"
         value={value}
         min={0}
-        formatter={val => `1:${val}`}
+        formatter={val => val ? `1:${val}` : ''}
         parser={(val: string) => parseFloat(val.replace('1:', ''))}
         onChange={(newValue: number) => {
           this.setValueForRule(record.key, 'scaleDenominator.max', newValue);
