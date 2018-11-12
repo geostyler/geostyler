@@ -175,6 +175,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const value = minScaleDenominator ? parseFloat(minScaleDenominator) : undefined;
     return (
       <InputNumber
+        className="scale-denominator min-scale-denominator"
         value={value}
         min={0}
         formatter={val => `1:${val}`}
@@ -191,6 +192,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const value = maxScaleDenominator ? parseFloat(maxScaleDenominator) : undefined;
     return (
       <InputNumber
+        className="scale-denominator max-scale-denominator"
         value={value}
         min={0}
         formatter={val => `1:${val}`}
