@@ -4,7 +4,7 @@ import TestUtil from '../../../Util/TestUtil';
 describe('OperatorCombo', () => {
 
   let wrapper: any;
-  let dummyOnOperatorChange = jest.fn();
+  let dummyOnOperatorChange: jest.Mock;
   beforeEach(() => {
     dummyOnOperatorChange = jest.fn();
     const dummyData = TestUtil.getDummyGsData();
