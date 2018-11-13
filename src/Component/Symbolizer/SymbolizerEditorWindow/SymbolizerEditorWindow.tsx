@@ -71,6 +71,9 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
             width: undefined,
             height: undefined
           }}
+          style={{
+            zIndex: 20000
+          }}
           enableResizing={{
             bottom: false,
             bottomLeft: false,
