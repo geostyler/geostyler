@@ -7,6 +7,8 @@ script:
 - npm run build
 after_script:
 - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
+after_success:
+- "./.ci/update-gh-pages.sh > /dev/null 2>&1"
 cache: false
 env:
   global:
