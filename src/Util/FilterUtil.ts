@@ -23,6 +23,9 @@ class FilterUtil {
    * @returns {string} A CQL string representation of the geostyler-style Filter.
    */
   static writeAsCql(filter: Filter, isChildFilter?: boolean): string {
+    if (!filter) {
+      return '';
+    }
     const operator: Operator = filter[0];
     let cql: string = '';
     let isNestedFilter = false;
