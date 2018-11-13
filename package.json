@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/terrestris/geostyler/issues"
   },
-  "homepage": ".",
+  "homepage": "https://github.com/terrestris/geostyler",
   "scripts": {
     "build": "npm run build:dist && npm run build:browser && npm run build:styleguide",
     "build:dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
@@ -35,6 +35,7 @@
     "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags",
     "styleguide": "styleguidist server",
     "start:styleguide": "styleguidist server",
+    "start:dev": "webpack --mode=development --watch --config dev-build.config.js",
     "test": "jest --coverage",
     "test:ci": "jest --ci --coverage",
     "test:watch": "jest --watchAll"
