@@ -17,6 +17,11 @@ if [ $TRAVIS_BRANCH != "master" ]; then
   return 0;
 fi
 
+if ! [ -n "$TRAVIS_TAG" ]; then
+  # Only update when a tag was pushed / a new release was published
+  return 0;
+fi
+
 VERSION=$(node -pe "require('./package.json').version")
 
 ORIGINAL_AUTHOR_NAME=$(git show -s --format="%aN" $TRAVIS_COMMIT)
@@ -45,14 +50,12 @@ cd $GH_PAGES_DIR
 # The src directory containg the build artifacts.
 SRC_DIR=$TRAVIS_BUILD_DIR/build/styleguide
 
-if [ -n "$TRAVIS_TAG" ]; then
-  # Cleanup latest directory.
-  rm -RF ./latest/*
+# Cleanup latest directory.
+rm -RF ./latest/*
 
-  mkdir -p v$VERSION
-  cp -r $SRC_DIR/. v$VERSION/
-  cp -r $SRC_DIR/. latest/
-fi
+mkdir -p v$VERSION
+cp -r $SRC_DIR/. v$VERSION/
+cp -r $SRC_DIR/. latest/
 
 git add --all
 git commit -m "$GH_PAGES_COMMIT_MSG"
