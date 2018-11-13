@@ -1,5 +1,7 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 require("@babel/polyfill");
 
 module.exports = {
@@ -9,30 +11,38 @@ module.exports = {
     path: __dirname + "/browser",
     library: "GeoStyler"
   },
+  mode: 'production',
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: [".ts", ".tsx", ".js", ".json"]
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        parallel: true
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
   },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            {
-              loader: "css-loader",
-              options: {
-                minimize: true
-              }
-            }
-          ]
-        })
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          "css-loader"
+        ],
       },
-      // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       {
-        test: /\.tsx?$/,
-        loader: "awesome-typescript-loader"
+        test: /\.(ts|tsx)$/,
+        include: __dirname + '/src',
+        use: [
+          {
+            loader: require.resolve('ts-loader'),
+          },
+        ],
       },
       // locale js files need to be transpiled to es5
       {
@@ -46,8 +56,15 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("geostyler.css"),
-    new UglifyJsPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "geostyler.css"
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      async: false,
+      watch: __dirname + '/src',
+      tsconfig: __dirname + '/tsconfig.prod.json',
+      tslint: __dirname + '/tslint.prod.json',
+    }),
   ],
   // When importing a module whose path matches one of the following, just
   // assume a corresponding global variable exists and use that instead.

@@ -22,6 +22,7 @@
     "node_modules",
     "build",
     "browser",
+    "config",
     "dist",
     "scripts",
     "coverage",
@@ -29,8 +30,7 @@
     "webpack",
     "jest",
     "coverage",
-    "src/index.tsx",
-    "src/setupTests.ts",
-    "**.config.js"
+    "**.config.js",
+    "**/*.spec.tsx"
   ]
 }
