@@ -3,7 +3,6 @@ import * as React from 'react';
 import { Select, Form, Input } from 'antd';
 import { Data } from 'geostyler-data';
 const Option = Select.Option;
-const _isEqual = require('lodash/isEqual');
 
 // default props
 interface AttributeComboDefaultProps {
@@ -68,12 +67,6 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
     return {
       value: nextProps.value
     };
-  }
-
-  public shouldComponentUpdate(nextProps: AttributeComboProps, nextState: AttributeComboState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
   }
 
   render() {

@@ -131,12 +131,6 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     };
   }
 
-  public shouldComponentUpdate(nextProps: ComparisonFilterProps, nextState: ComparisonFilterState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
   /**
    * Default validation function for filter values.
    *

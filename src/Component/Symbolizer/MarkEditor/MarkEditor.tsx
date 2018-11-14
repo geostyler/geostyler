@@ -10,7 +10,6 @@ import WellKnownNameField from '../Field/WellKnownNameField/WellKnownNameField';
 import WellKnownNameEditor from '../WellKnownNameEditor/WellKnownNameEditor';
 
 const _cloneDeep = require('lodash/cloneDeep');
-const _isEqual = require('lodash/isEqual');
 
 // non default props
 export interface MarkEditorProps {
@@ -40,12 +39,6 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
     return {
       symbolizer: nextProps.symbolizer
     };
-  }
-
-  public shouldComponentUpdate(nextProps: MarkEditorProps, nextState: MarkEditorState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
   }
 
   onWellKnownNameChange = (wkn: WellKnownName) => {

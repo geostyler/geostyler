@@ -4,65 +4,35 @@ import {
   InputNumber, Button
 } from 'antd';
 
-const _isEqual = require('lodash/isEqual');
-
 import './LineDashField.css';
 
 // default props
 interface LineDashFieldDefaultProps {
   label: string;
+  dashArray: number[];
 }
 
 // non default props
 export interface LineDashFieldProps extends Partial<LineDashFieldDefaultProps> {
-  dashArray?: number[];
   onChange?: (dashArray: number[]) => void;
-}
-
-// state
-interface LineDashFieldState {
-  dashArray: number[];
 }
 
 /**
  * LineDashField to edit dashes for LineSymbolizers
  */
-export class LineDashField extends React.Component<LineDashFieldProps, LineDashFieldState> {
+export class LineDashField extends React.Component<LineDashFieldProps> {
 
   public static defaultProps: LineDashFieldDefaultProps = {
-    label: 'Dash Pattern'
+    label: 'Dash Pattern',
+    dashArray: []
   };
-
-  constructor(props: LineDashFieldProps) {
-    super(props);
-    this.state = {
-      dashArray: props.dashArray || []
-    };
-  }
-
-  static getDerivedStateFromProps(
-    nextProps: LineDashFieldProps,
-    prevState: LineDashFieldState): Partial<LineDashFieldState> {
-      return {
-        dashArray: nextProps.dashArray || []
-      };
-    }
-
-  public shouldComponentUpdate(nextProps: LineDashFieldProps, nextState: LineDashFieldState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
 
   render() {
     const {
       label,
-      onChange
+      onChange,
+      dashArray
     } = this.props;
-
-    const {
-      dashArray,
-    } = this.state;
 
     return (
       <div className="editor-field linedash-field">
@@ -76,10 +46,10 @@ export class LineDashField extends React.Component<LineDashFieldProps, LineDashF
             style={{ width: 55 }}
             onChange={(value: number) => {
               // replace current dash value
-              dashArray[idx] = value;
-              this.setState({dashArray});
+              let newDashArray = [...dashArray];
+              newDashArray[idx] = value;
               if (onChange) {
-                onChange(dashArray);
+                onChange(newDashArray);
               }
             }}
           />)
@@ -89,9 +59,11 @@ export class LineDashField extends React.Component<LineDashFieldProps, LineDashF
           icon="plus"
           onClick={() => {
             // add a new dash (UI)
-            dashArray.push(1);
-            this.setState({dashArray});
-            this.props.onChange(dashArray);
+            let newDashArray = [...dashArray];
+            newDashArray.push(1);
+            if (onChange) {
+              onChange(newDashArray);
+            }
           }}
         />
         <Button
@@ -99,9 +71,11 @@ export class LineDashField extends React.Component<LineDashFieldProps, LineDashF
           icon="minus"
           onClick={() => {
             // remove last dash (UI)
-            dashArray.splice(dashArray.length - 1, 1);
-            this.setState({dashArray});
-            this.props.onChange(dashArray);
+            let newDashArray = [...dashArray];
+            newDashArray.splice(newDashArray.length - 1, 1);
+            if (onChange) {
+              onChange(newDashArray);
+            }
           }}
         />
       </div>

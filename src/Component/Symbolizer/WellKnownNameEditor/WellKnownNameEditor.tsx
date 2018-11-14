@@ -39,7 +39,8 @@ export interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDef
 
 export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps> {
 
-  public shouldComponentUpdate(nextProps: WellKnownNameEditorProps): boolean {
+  public shouldComponentUpdate(nextProps: WellKnownNameEditorProps, nextState: any, cont: any): boolean {
+    console.log(cont);
     const diffProps = !_isEqual(this.props, nextProps);
     return diffProps;
   }

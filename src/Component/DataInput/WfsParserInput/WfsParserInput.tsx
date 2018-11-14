@@ -24,7 +24,6 @@ interface WfsParams {
 import en_US from '../../../locale/en_US';
 
 const _get = require('lodash/get');
-const _isEqual = require('lodash/isEqual');
 
 import './WfsParserInput.css';
 
@@ -80,12 +79,6 @@ export class WfsParserInput extends React.Component<WfsParserInputProps, WfsPars
         fetchParams: undefined
       }
     };
-  }
-
-  public shouldComponentUpdate(nextProps: WfsParserInputProps, nextState: WfsParserState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
   }
 
   onUrlChange = (event: any) => {

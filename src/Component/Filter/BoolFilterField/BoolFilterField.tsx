@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import { Checkbox, Form } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
-const _isEqual = require('lodash/isEqual');
 
 // default props
 interface BoolFilterFieldDefaultProps {
@@ -44,12 +43,6 @@ export class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolF
     return {
       value: nextProps.value
     };
-  }
-
-  public shouldComponentUpdate(nextProps: BoolFilterFieldProps, nextState: BoolFilterFieldState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
   }
 
   /**
