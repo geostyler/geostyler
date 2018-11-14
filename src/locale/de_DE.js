@@ -10,6 +10,7 @@ export default {
         colorLabel: 'Farbe wählen',
         radiusLabel: 'Radius festlegen',
         opacityLabel: 'Deckkraft festlegen',
+        symbolLabel: 'Symbol wählen'
     },
     GsRule: {
         removeRuleBtnText: 'Regel entfernen',
@@ -33,8 +34,9 @@ export default {
         nameFieldLabel: 'Name',
         nameFieldPlaceholder: 'Name eingeben',
         colorLabel: 'Farbe wählen',
-        radiusLabel: 'Radius festlegen',
-        opacityLabel: 'Deckkraft festlegen',
+        radiusLabel: 'Radius wählen',
+        opacityLabel: 'Deckkraft wählen',
+        symbolLabel: 'Symbol wählen',
         multiEditLabel: 'Selektion editieren'
     },
     GsStyleLoader: {

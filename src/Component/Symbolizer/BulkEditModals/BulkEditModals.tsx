@@ -8,7 +8,8 @@ import {
 
 import {
   Style as GsStyle,
-  Rule as GsRule
+  Rule as GsRule,
+  WellKnownName
 } from 'geostyler-style';
 
 import ColorField from '../../Symbolizer/Field/ColorField/ColorField';
@@ -17,12 +18,14 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import RadiusField from '../../Symbolizer/Field/RadiusField/RadiusField';
 import OpacityField from '../../Symbolizer/Field/OpacityField/OpacityField';
+import { WellKnownNameField } from '../Field/WellKnownNameField/WellKnownNameField';
 
 // i18n
 export interface StyleLocale {
   colorLabel: string;
   radiusLabel: string;
   opacityLabel: string;
+  symbolLabel: string;
 }
 
 // default props
@@ -30,9 +33,9 @@ interface BulkEditModalsDefaultProps {
   colorModalVisible: boolean;
   sizeModalVisible: boolean;
   opacityModalVisible: boolean;
+  symbolModalVisible: boolean;
   style: GsStyle;
   locale: StyleLocale;
-  compact: boolean;
   selectedRowKeys: number[];
   modalsClosed: Function;
 }
@@ -42,9 +45,11 @@ export interface BulkEditModalsProps extends Partial<BulkEditModalsDefaultProps>
   colorModalVisible: boolean;
   sizeModalVisible: boolean;
   opacityModalVisible: boolean;
+  symbolModalVisible: boolean;
   updateMultiColors?: (x: string) => void;
   updateMultiSizes?: (x: number) => void;
   updateMultiOpacities?: (x: number) => void;
+  updateMultiSymbols?: (x: string) => void;
   selectedRowKeys: number[];
   modalsClosed: Function;
 }
@@ -68,30 +73,11 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     colorModalVisible: false,
     sizeModalVisible: false,
     opacityModalVisible: false,
-      compact: false,
+    symbolModalVisible: false,
     locale: en_US.GsBulkEditModals,
     selectedRowKeys: [],
     modalsClosed: (): any => undefined
   };
-
-  public static getDerivedStateFromProps(props: BulkEditModalsProps, currentState: BulkEditModalsState) {
-    if (props.colorModalVisible) {
-      return {
-        colorModalVisible: true
-      };
-    }
-    if (props.sizeModalVisible) {
-      return {
-        sizeModalVisible: true
-      };
-    }
-    if (props.opacityModalVisible) {
-      return {
-        opacityModalVisible: true
-      };
-    }
-    return null;
-  }
 
   public shouldComponentUpdate(nextProps: BulkEditModalsProps, nextState: BulkEditModalsState): boolean {
     const diffProps = !_isEqual(this.props, nextProps);
@@ -104,6 +90,7 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     let color = '#000000';
     let size = 5;
     let opacity = 1;
+    let symbol: WellKnownName = 'Circle';
 
     const {
       locale,
@@ -128,6 +115,10 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
         if (sym.opacity) {
           opacity = sym.opacity;
         }
+        if (sym.symbol) {
+          symbol = sym.wellKnownName;
+        }
+        console.log(sym)
       }
     }
 
@@ -170,6 +161,18 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
             opacity={opacity}
             label={locale.opacityLabel}
             onChange={this.props.updateMultiOpacities}
+          />
+        </Modal>
+        <Modal
+          title={locale.symbolLabel}
+          visible={this.props.symbolModalVisible}
+          wrapClassName="gs-modal-opacity"
+          footer={null}
+          onCancel={() => this.props.modalsClosed()}
+        >
+          <WellKnownNameField
+            wellKnownName={symbol}
+            onChange={this.props.updateMultiSymbols}
           />
         </Modal>
       </div>

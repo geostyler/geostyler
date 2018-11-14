@@ -10,6 +10,7 @@ export default {
         colorLabel: 'Select color',
         radiusLabel: 'Select radius',
         opacityLabel: 'Select opacity',
+        symbolLabel: 'Select symbol'
     },
     GsRule: {
         removeRuleBtnText: 'Remove Rule',
@@ -26,6 +27,7 @@ export default {
         colorLabel: 'Select color',
         radiusLabel: 'Select radius',
         opacityLabel: 'Select opacity',
+        symbolLabel: 'Select symbol',
         multiEditLabel: 'Multi edit'
     },
     GsStyleLoader: {

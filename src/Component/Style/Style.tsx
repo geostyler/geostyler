@@ -40,6 +40,7 @@ export interface StyleLocale {
   colorLabel: string;
   radiusLabel: string;
   opacityLabel: string;
+  symbolLabel: string;
   multiEditLabel: string;
 }
 
@@ -67,6 +68,7 @@ interface StyleState {
   colorModalVisible: boolean;
   sizeModalVisible: boolean;
   opacityModalVisible: boolean;
+  symbolModalVisible: boolean;
 }
 
 export class Style extends React.Component<StyleProps, StyleState> {
@@ -77,7 +79,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       selectedRowKeys: [],
       colorModalVisible: false,
       sizeModalVisible: false,
-      opacityModalVisible: false
+      opacityModalVisible: false,
+      symbolModalVisible: false
     };
   }
 
@@ -200,6 +203,9 @@ export class Style extends React.Component<StyleProps, StyleState> {
       case 'opacity':
         this.setState({opacityModalVisible: true});
         break;
+      case 'symbol':
+        this.setState({symbolModalVisible: true});
+        break;
       default:
     }
   }
@@ -214,6 +220,9 @@ export class Style extends React.Component<StyleProps, StyleState> {
         sym[property] = value;
       });
     });
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(style);
+    }
     this.setState({style});
   }
 
@@ -227,6 +236,10 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
   updateMultiOpacities = (opacity: any) => {
     this.updateAllSelected(opacity, 'opacity');
+  }
+
+  updateMultiSymbols = (symbol: any) => {
+    this.updateAllSelected(symbol, 'wellKnownName');
   }
 
   render() {
@@ -245,7 +258,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       selectedRowKeys,
       colorModalVisible,
       sizeModalVisible,
-      opacityModalVisible
+      opacityModalVisible,
+      symbolModalVisible
     } = this.state;
 
     if (style) {
@@ -323,6 +337,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
                 <Menu.Item key="color">{locale.colorLabel}</Menu.Item>
                 <Menu.Item key="size">{locale.radiusLabel}</Menu.Item>
                 <Menu.Item key="opacity">{locale.opacityLabel}</Menu.Item>
+                <Menu.Item key="symbol">{locale.symbolLabel}</Menu.Item>
               </Menu.SubMenu>
             </Menu>
           }
@@ -331,15 +346,18 @@ export class Style extends React.Component<StyleProps, StyleState> {
           colorModalVisible={colorModalVisible}
           sizeModalVisible={sizeModalVisible}
           opacityModalVisible={opacityModalVisible}
+          symbolModalVisible={symbolModalVisible}
           selectedRowKeys={selectedRowKeys}
           updateMultiColors={this.updateMultiColors}
           updateMultiSizes={this.updateMultiSizes}
           updateMultiOpacities={this.updateMultiOpacities}
+          updateMultiSymbols={this.updateMultiSymbols}
           style={this.state.style}
           modalsClosed={() => this.setState({
             colorModalVisible: false,
             sizeModalVisible: false,
-            opacityModalVisible: false
+            opacityModalVisible: false,
+            symbolModalVisible: false
           })}
         />
       </div>
