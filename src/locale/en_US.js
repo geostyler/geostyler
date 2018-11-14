@@ -152,6 +152,18 @@ export default {
     GsUploadButton: {
       upload: 'Upload'
     },
+    GsFilterTree: {
+        andDrpdwnLabel: 'AND-Filter',
+        orDrpdwnLabel: 'OR-Filter',
+        notDrpdwnLabel: 'NOT-Filter',
+        comparisonDrpdwnLabel: 'Comparison-Filter',
+        addFilterLabel: 'Add Filter',
+        changeFilterLabel: 'Change Filter',
+        removeFilterLabel: 'Remove Filter',
+        andFilterText: 'AND',
+        orFilterText: 'OR',
+        notFilterText: 'NOT'
+    },
     GsRuleTable: {
       symbolizersColumnTitle: 'Symbolizers',
       nameColumnTitle: 'Name',

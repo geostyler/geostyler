@@ -47,9 +47,7 @@ export default {
         strokeColorLabel: 'Strichfarbe',
         strokeWidthLabel: 'Strichstärke',
         strokeOpacityLabel: 'Strichdeckkraft',
-        rotateLabel: 'Drehung',
-        haloColorLabel: 'Halofarbe',
-        haloWidthLabel: 'Halobreite'
+        rotateLabel: 'Drehung'
     },
     GsFillEditor: {
         fillOpacityLabel: 'Fülldeckkraft',
@@ -84,7 +82,9 @@ export default {
         offsetXLabel: 'Versatz X',
         offsetYLabel: 'Versatz Y',
         attributeComboPlaceholder: 'Feld wählen',
-        rotateLabel: 'Drehung'
+        rotateLabel: 'Drehung',
+        haloColorLabel: 'Halofarbe',
+        haloWidthLabel: 'Halobreite'
     },
     GsPropTextEditor: {
         propFieldLabel: 'Feld',
@@ -152,6 +152,18 @@ export default {
     },
     GsUploadButton: {
       upload: 'Upload'
+    },
+    GsFilterTree: {
+        andDrpdwnLabel: 'UND-Filter',
+        orDrpdwnLabel: 'ODER-Filter',
+        notDrpdwnLabel: 'NICHT-Filter',
+        comparisonDrpdwnLabel: 'Vergleichs-Filter',
+        addFilterLabel: 'Filter hinzufügen',
+        changeFilterLabel: 'Filter ändern',
+        removeFilterLabel: 'Filter entfernen',
+        andFilterText: 'UND',
+        orFilterText: 'ODER',
+        notFilterText: 'NICHT'
     },
     GsRuleTable: {
       symbolizersColumnTitle: 'Symbolisierung',

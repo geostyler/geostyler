@@ -12,6 +12,7 @@ import {
 const _get = require('lodash/get');
 const _set = require('lodash/set');
 const _isEqual = require('lodash/isEqual');
+const _cloneDeep = require('lodash/cloneDeep');
 
 const TreeNode = Tree.TreeNode;
 
@@ -27,10 +28,26 @@ import {
 } from 'geostyler-data';
 
 import ComparisonFilter from '../ComparisonFilter/ComparisonFilter';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
+
+interface FilterTreeLocale {
+  andDrpdwnLabel: string;
+  orDrpdwnLabel: string;
+  notDrpdwnLabel: string;
+  comparisonDrpdwnLabel: string;
+  addFilterLabel: string;
+  changeFilterLabel: string;
+  removeFilterLabel: string;
+  andFilterText: string;
+  orFilterText: string;
+  notFilterText: string;
+}
 
 // default props
 export interface FilterTreeDefaultProps {
   filter: GsFilter;
+  locale: FilterTreeLocale;
 }
 // non default props
 export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
@@ -55,8 +72,11 @@ interface FilterTreeState {
 export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
 
   public static defaultProps: FilterTreeDefaultProps = {
-    filter: ['==', '', null]
+    filter: ['==', '', null],
+    locale: en_US.GsFilterTree
   };
+
+  static componentName = 'FilterTree';
 
   constructor(props: FilterTreeProps) {
     super(props);
@@ -68,6 +88,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
   public shouldComponentUpdate = (nextProps: FilterTreeProps, nextState: FilterTreeState): boolean => {
     const diffProps = !_isEqual(this.props, nextProps);
     const diffState = !_isEqual(this.state, nextState);
+    console.log(JSON.stringify(this.props.filter) + ' <--old\n' + JSON.stringify(nextProps.filter));
     return diffProps || diffState;
   }
 
@@ -79,11 +100,13 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     const {
       filter: rootFilter
     } = this.props;
-    if (filter === rootFilter) {
+    // if (filter === rootFilter) {
+    if (_isEqual(filter, rootFilter)) {
       this.props.onFilterChange(filter);
     }
 
-    let newFilter = [...rootFilter];
+    // let newFilter = [...rootFilter];
+    let newFilter = _cloneDeep(rootFilter);
     if (position === '') {
       newFilter = filter;
     } else {
@@ -100,7 +123,8 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
    */
   getNodeByFilter = (filter: GsFilter, position: string = ''): any => {
     const {
-      internalDataDef
+      internalDataDef,
+      locale
     } = this.props;
     const operator = filter[0];
 
@@ -118,24 +142,24 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
 
     const addFilterMenu = (
       <Menu onClick={({key}) => this.addFilter(position, key)}>
-        <Menu.Item key="and">And-Filter</Menu.Item>
-        <Menu.Item key="or">Or-Filter</Menu.Item>
-        <Menu.Item key="not">Not-Filter</Menu.Item>
-        <Menu.Item key="comparison">Comparison-Filter</Menu.Item>
+        <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
+        <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
+        <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
+        <Menu.Item key="comparison">{locale.comparisonDrpdwnLabel}</Menu.Item>
       </Menu>
     );
 
     const changeFilterMenu = (
       <Menu onClick={({key}) => this.changeFilter(position, key)}>
-        <Menu.Item key="and">And-Filter</Menu.Item>
-        <Menu.Item key="or">Or-Filter</Menu.Item>
-        <Menu.Item key="not">Not-Filter</Menu.Item>
-        <Menu.Item key="comparison">Comparison-Filter</Menu.Item>
+        <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
+        <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
+        <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
+        <Menu.Item key="comparison">{locale.comparisonDrpdwnLabel}</Menu.Item>
       </Menu>
     );
 
     const addButton = (
-      <Tooltip title="Add Filter" placement="top">
+      <Tooltip title={locale.addFilterLabel} placement="top">
         <Dropdown
           trigger={['click']}
           overlay={addFilterMenu}
@@ -148,7 +172,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     );
 
     const removeButton = (
-      <Tooltip title="Remove Filter" placement="right">
+      <Tooltip title={locale.removeFilterLabel} placement="right">
         <Button
           size="small"
           onClick={() => this.removeFilter(position)}
@@ -161,7 +185,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     );
 
     const changeButton = (
-      <Tooltip title="Change Filter" placement="left">
+      <Tooltip title={locale.changeFilterLabel} placement="left">
         <Dropdown
           trigger={['click']}
           overlay={changeFilterMenu}
@@ -183,7 +207,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
             isLeaf={false}
             title={
               <span className="node-title">
-                <span className="filter-text">And</span>
+                <span className="filter-text">{locale.andFilterText}</span>
                 <span className="filter-tools">
                   {changeButton}
                   {addButton}
@@ -208,7 +232,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
             isLeaf={false}
             title={
               <span className="node-title">
-                <span className="filter-text">Or</span>
+                <span className="filter-text">{locale.orFilterText}</span>
                 <span className="filter-tools">
                   {changeButton}
                   {addButton}
@@ -233,7 +257,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
             isLeaf={false}
             title={
               <span className="node-title">
-                <span className="filter-text">Not</span>
+                <span className="filter-text">{locale.notFilterText}</span>
                 <span className="filter-tools">
                   {changeButton}
                   {showRemoveButton ? removeButton : undefined}
@@ -283,7 +307,8 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     } = this.props;
 
     let addedFilter: GsFilter ;
-    const newFilter: GsFilter = [...filter];
+    // const newFilter: GsFilter = [...filter];
+    const newFilter: GsFilter = _cloneDeep(filter);
 
     switch (type) {
       case 'and':
@@ -323,7 +348,8 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     } = this.props;
 
     let addedFilter: GsFilter ;
-    const newFilter: GsFilter = [...filter];
+    // const newFilter: GsFilter = [...filter];
+    const newFilter: GsFilter = _cloneDeep(filter);
     const previousFilter = position === '' ? newFilter : _get(newFilter, position);
 
     switch (type) {
@@ -570,4 +596,4 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
   }
 }
 
-export default FilterTree;
+export default localize(FilterTree, FilterTree.componentName);
