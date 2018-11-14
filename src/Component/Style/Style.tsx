@@ -5,13 +5,17 @@ const _isEqual = require('lodash/isEqual');
 const _cloneDeep = require('lodash/cloneDeep');
 
 import {
-  Button
+  Button,
+  Menu,
+  Icon,
+  Modal
 } from 'antd';
 
 import {
   Style as GsStyle,
   Rule as GsRule,
-  SymbolizerKind
+  SymbolizerKind,
+  Symbolizer as GsSymbolizer
 } from 'geostyler-style';
 
 import {
@@ -20,12 +24,15 @@ import {
 
 import Rule from '../Rule/Rule';
 import NameField, { NameFieldProps } from '../NameField/NameField';
+import ColorField from '../Symbolizer/Field/ColorField/ColorField';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import RuleTable from '../RuleTable/RuleTable';
+import RadiusField from '../Symbolizer/Field/RadiusField/RadiusField';
+import OpacityField from '../Symbolizer/Field/OpacityField/OpacityField';
 
 // i18n
 export interface StyleLocale {
@@ -33,6 +40,10 @@ export interface StyleLocale {
   removeRulesBtnText: string;
   nameFieldLabel?: string;
   nameFieldPlaceholder?: string;
+  colorLabel: string;
+  radiusLabel: string;
+  opacityLabel: string;
+  multiEditLabel: string;
 }
 
 // default props
@@ -56,6 +67,9 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
 interface StyleState {
   style: GsStyle;
   selectedRowKeys: number[];
+  colorModalVisible: boolean;
+  sizeModalVisible: boolean;
+  opacityModalVisible: boolean;
 }
 
 export class Style extends React.Component<StyleProps, StyleState> {
@@ -63,7 +77,10 @@ export class Style extends React.Component<StyleProps, StyleState> {
     super(props);
     this.state = {
       style: props.style || Style.defaultProps.style,
-      selectedRowKeys: []
+      selectedRowKeys: [],
+      colorModalVisible: false,
+      sizeModalVisible: false,
+      opacityModalVisible: false
     };
   }
 
@@ -175,8 +192,51 @@ export class Style extends React.Component<StyleProps, StyleState> {
     });
   }
 
+  onMultiEdit = (param: any) => {
+    switch (param.key) {
+      case 'color':
+        this.setState({colorModalVisible: true});
+        break;
+      case 'size':
+        this.setState({sizeModalVisible: true});
+        break;
+      case 'opacity':
+        this.setState({opacityModalVisible: true});
+        break;
+      default:
+    }
+  }
+
+  updateAllSelected = (value: any, property: string) => {
+    const style = _cloneDeep(this.state.style);
+    const selectedRules = style.rules.filter((rule: GsRule, index: number) => {
+      return this.state.selectedRowKeys.includes(index);
+    });
+    selectedRules.forEach((rule: GsRule) => {
+      rule.symbolizers.forEach((sym: GsSymbolizer) => {
+        sym[property] = value;
+      });
+    });
+    this.setState({style});
+  }
+
+  updateMultiColors = (color: string) => {
+    this.updateAllSelected(color, 'color');
+  }
+
+  updateMultiSizes = (size: any) => {
+    this.updateAllSelected(size, 'radius');
+  }
+
+  updateMultiOpacities = (opacity: any) => {
+    this.updateAllSelected(opacity, 'opacity');
+  }
+
   render() {
     let rules: GsRule[] = [];
+    let color = '#000000';
+    let size = 5;
+    let opacity = 1;
 
     const {
       compact,
@@ -193,6 +253,22 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
     if (style) {
       rules = style.rules;
+      const selectedRules = rules.filter((rule: GsRule, index: number) => {
+        return selectedRowKeys.includes(index);
+      });
+
+      if (selectedRules[0] && selectedRules[0].symbolizers && selectedRules[0].symbolizers[0]) {
+        const sym: any = selectedRules[0].symbolizers[0];
+        if (sym.color) {
+          color = sym.color;
+        }
+        if (sym.radius) {
+          size = sym.radius;
+        }
+        if (sym.opacity) {
+          opacity = sym.opacity;
+        }
+      }
     }
 
     const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
@@ -246,7 +322,69 @@ export class Style extends React.Component<StyleProps, StyleState> {
               {locale.removeRulesBtnText}
             </Button>
           }
+          {
+            !compact ? null :
+            <Menu
+              style={{
+                display: 'inline-block',
+                top: '15px',
+                position: 'absolute',
+                width: '60%'
+              }}
+              mode="vertical"
+              onClick={this.onMultiEdit}
+              selectable={false}
+            >
+              <Menu.SubMenu
+                popupClassName="styler-multiedit-popup"
+                title={<span><Icon type="menu-unfold" /><span>{locale.multiEditLabel}</span></span>}
+              >
+                <Menu.Item key="color">{locale.colorLabel}</Menu.Item>
+                <Menu.Item key="size">{locale.radiusLabel}</Menu.Item>
+                <Menu.Item key="opacity">{locale.opacityLabel}</Menu.Item>
+              </Menu.SubMenu>
+            </Menu>
+          }
         </Button.Group>
+        <Modal
+          title={locale.colorLabel}
+          visible={this.state.colorModalVisible}
+          wrapClassName="gs-modal-color"
+          footer={null}
+          onCancel={() => this.setState({colorModalVisible: false})}
+        >
+          <ColorField
+            color={color}
+            label={locale.colorLabel}
+            onChange={this.updateMultiColors}
+          />
+        </Modal>
+        <Modal
+          title={locale.radiusLabel}
+          visible={this.state.sizeModalVisible}
+          wrapClassName="gs-modal-size"
+          footer={null}
+          onCancel={() => this.setState({sizeModalVisible: false})}
+        >
+          <RadiusField
+            radius={size}
+            label={locale.radiusLabel}
+            onChange={this.updateMultiSizes}
+          />
+        </Modal>
+        <Modal
+          title={locale.opacityLabel}
+          visible={this.state.opacityModalVisible}
+          wrapClassName="gs-modal-opacity"
+          footer={null}
+          onCancel={() => this.setState({opacityModalVisible: false})}
+        >
+          <OpacityField
+            opacity={opacity}
+            label={locale.opacityLabel}
+            onChange={this.updateMultiOpacities}
+          />
+        </Modal>
       </div>
     );
   }

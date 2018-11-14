@@ -26,7 +26,11 @@ export default {
         addRuleBtnText: 'Regel hinzufügen',
         removeRulesBtnText: 'Regeln entfernen',
         nameFieldLabel: 'Name',
-        nameFieldPlaceholder: 'Name eingeben'
+        nameFieldPlaceholder: 'Name eingeben',
+        colorLabel: 'Farbe wählen',
+        radiusLabel: 'Radius festlegen',
+        opacityLabel: 'Deckkraft festlegen',
+        multiEditLabel: 'Selektion editieren'
     },
     GsStyleLoader: {
         label: 'Stil laden: ',
