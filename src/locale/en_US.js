@@ -6,6 +6,11 @@ export default {
         graphicalEditor: 'Graphical Editor',
         codeEditor: 'Code Editor'
     },
+    GsBulkEditModals: {
+        colorLabel: 'Select color',
+        radiusLabel: 'Select radius',
+        opacityLabel: 'Select opacity',
+    },
     GsRule: {
         removeRuleBtnText: 'Remove Rule',
         scaleFieldTitle: 'Use scale',

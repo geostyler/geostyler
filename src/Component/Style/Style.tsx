@@ -7,8 +7,7 @@ const _cloneDeep = require('lodash/cloneDeep');
 import {
   Button,
   Menu,
-  Icon,
-  Modal
+  Icon
 } from 'antd';
 
 import {
@@ -24,15 +23,13 @@ import {
 
 import Rule from '../Rule/Rule';
 import NameField, { NameFieldProps } from '../NameField/NameField';
-import ColorField from '../Symbolizer/Field/ColorField/ColorField';
+import BulkEditModals from '../Symbolizer/BulkEditModals/BulkEditModals';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import RuleTable from '../RuleTable/RuleTable';
-import RadiusField from '../Symbolizer/Field/RadiusField/RadiusField';
-import OpacityField from '../Symbolizer/Field/OpacityField/OpacityField';
 
 // i18n
 export interface StyleLocale {
@@ -234,9 +231,6 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
   render() {
     let rules: GsRule[] = [];
-    let color = '#000000';
-    let size = 5;
-    let opacity = 1;
 
     const {
       compact,
@@ -248,27 +242,14 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
     const {
       style,
-      selectedRowKeys
+      selectedRowKeys,
+      colorModalVisible,
+      sizeModalVisible,
+      opacityModalVisible
     } = this.state;
 
     if (style) {
       rules = style.rules;
-      const selectedRules = rules.filter((rule: GsRule, index: number) => {
-        return selectedRowKeys.includes(index);
-      });
-
-      if (selectedRules[0] && selectedRules[0].symbolizers && selectedRules[0].symbolizers[0]) {
-        const sym: any = selectedRules[0].symbolizers[0];
-        if (sym.color) {
-          color = sym.color;
-        }
-        if (sym.radius) {
-          size = sym.radius;
-        }
-        if (sym.opacity) {
-          opacity = sym.opacity;
-        }
-      }
     }
 
     const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
@@ -346,45 +327,21 @@ export class Style extends React.Component<StyleProps, StyleState> {
             </Menu>
           }
         </Button.Group>
-        <Modal
-          title={locale.colorLabel}
-          visible={this.state.colorModalVisible}
-          wrapClassName="gs-modal-color"
-          footer={null}
-          onCancel={() => this.setState({colorModalVisible: false})}
-        >
-          <ColorField
-            color={color}
-            label={locale.colorLabel}
-            onChange={this.updateMultiColors}
-          />
-        </Modal>
-        <Modal
-          title={locale.radiusLabel}
-          visible={this.state.sizeModalVisible}
-          wrapClassName="gs-modal-size"
-          footer={null}
-          onCancel={() => this.setState({sizeModalVisible: false})}
-        >
-          <RadiusField
-            radius={size}
-            label={locale.radiusLabel}
-            onChange={this.updateMultiSizes}
-          />
-        </Modal>
-        <Modal
-          title={locale.opacityLabel}
-          visible={this.state.opacityModalVisible}
-          wrapClassName="gs-modal-opacity"
-          footer={null}
-          onCancel={() => this.setState({opacityModalVisible: false})}
-        >
-          <OpacityField
-            opacity={opacity}
-            label={locale.opacityLabel}
-            onChange={this.updateMultiOpacities}
-          />
-        </Modal>
+        <BulkEditModals
+          colorModalVisible={colorModalVisible}
+          sizeModalVisible={sizeModalVisible}
+          opacityModalVisible={opacityModalVisible}
+          selectedRowKeys={selectedRowKeys}
+          updateMultiColors={this.updateMultiColors}
+          updateMultiSizes={this.updateMultiSizes}
+          updateMultiOpacities={this.updateMultiOpacities}
+          style={this.state.style}
+          modalsClosed={() => this.setState({
+            colorModalVisible: false,
+            sizeModalVisible: false,
+            opacityModalVisible: false
+          })}
+        />
       </div>
     );
   }

@@ -6,6 +6,11 @@ export default {
         graphicalEditor: 'Graphischer Editor',
         codeEditor: 'Code Editor'
     },
+    GsBulkEditModals: {
+        colorLabel: 'Farbe wählen',
+        radiusLabel: 'Radius festlegen',
+        opacityLabel: 'Deckkraft festlegen',
+    },
     GsRule: {
         removeRuleBtnText: 'Regel entfernen',
         scaleFieldTitle: 'Maßstab verwenden',
