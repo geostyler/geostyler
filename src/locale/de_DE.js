@@ -160,5 +160,19 @@ export default {
       minScaleColumnTitle: 'Min. Maßstab',
       maxScaleColumnTitle: 'Max. Maßstab'
     },
+    GsRuleGenerator: {
+      attribute: 'Attribute',
+      generateButtonText: 'Regeln generiern',
+      levelOfMeasurement: 'Skalenniveau',
+      nominal: 'Nominal',
+      ordinal: 'Ordinal',
+      cardinal: 'Kardinal',
+      numberOfRules: 'Regelanzahl',
+      colorRamp: 'Color Ramp',
+      colorRampPlaceholder: 'Auswählen…'
+    },
+    GsRuleGeneratorWindow: {
+      ruleGenerator: 'Regelgenerator'
+    },
     ...de_DE
 };

@@ -1,0 +1,35 @@
+.gs-rule-generator {
+  padding: 20px;
+}
+
+.gs-rule-generator .gs-attr-combo .ant-form-item {
+  display: flex;
+}
+
+.gs-rule-generator .gs-attr-combo .ant-form-item .ant-form-item-control-wrapper {
+  flex: 1;
+}
+
+.gs-rule-generator .gs-rule-generator-submit-button {
+  float: right;
+}
+
+.gs-rule-generator .color-preview-group {
+  display: flex;
+}
+
+.gs-rule-generator .color-preview-group  .color-preview {
+  max-width: 5px;
+  height: 20px;
+}
+
+.gs-rule-generator .color-ramp-select .ant-select-selection {
+  background-color: inherit;
+}
+
+.gs-rule-generator .color-ramp-select,
+.gs-rule-generator .color-ramp-select .ant-select-arrow ,
+li.color-ramp-option {
+  font-weight: bold;
+  color: white;
+}
