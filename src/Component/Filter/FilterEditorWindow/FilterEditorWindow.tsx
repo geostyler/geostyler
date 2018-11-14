@@ -69,9 +69,6 @@ export class FilterEditorWindow extends React.Component<FilterEditorWindowProps>
             width: undefined,
             height: undefined
           }}
-          style={{
-            zIndex: 20000
-          }}
           enableResizing={{
             bottom: false,
             bottomLeft: false,
