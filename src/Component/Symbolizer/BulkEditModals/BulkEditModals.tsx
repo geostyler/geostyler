@@ -118,7 +118,6 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
         if (sym.symbol) {
           symbol = sym.wellKnownName;
         }
-        console.log(sym)
       }
     }
 
