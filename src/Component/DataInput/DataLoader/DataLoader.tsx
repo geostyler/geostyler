@@ -75,6 +75,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
   };
 
   parseUploadData = (uploadObject: any) => {
+    uploadObject.onProgress();
     const {
       activeParser
     } = this.state;
@@ -90,7 +91,13 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
 
       // TODO Remove JSON.parse when type of readData is more precise
       parser.readData(JSON.parse(fileContent))
-        .then(this.props.onDataRead);
+        .then((data: GsData) => {
+          this.props.onDataRead(data);
+          uploadObject.onSuccess(null, uploadObject.file);
+        })
+        .catch((e) => {
+          uploadObject.onError(e, 'Upload failed. Invalid Data.');
+        });
     };
   }
 
