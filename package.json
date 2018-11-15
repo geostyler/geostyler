@@ -46,7 +46,7 @@
     "color": "3.1.0",
     "file-saver": "2.0.0",
     "geostyler-data": "0.5.2",
-    "geostyler-geojson-parser": "0.4.5",
+    "geostyler-geojson-parser": "0.4.6",
     "geostyler-openlayers-parser": "0.18.2",
     "geostyler-sld-parser": "0.17.2",
     "geostyler-style": "0.14.2",
