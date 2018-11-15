@@ -59,9 +59,9 @@
     "url-search-params": "1.1.0"
   },
   "devDependencies": {
-    "@babel/core": "7.1.5",
+    "@babel/core": "7.1.6",
     "@babel/polyfill": "7.0.0",
-    "@babel/preset-env": "7.1.5",
+    "@babel/preset-env": "7.1.6",
     "@types/codemirror": "0.0.68",
     "@types/color": "3.0.0",
     "@types/enzyme": "3.1.15",
