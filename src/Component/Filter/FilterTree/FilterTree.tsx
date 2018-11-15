@@ -88,7 +88,6 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
   public shouldComponentUpdate = (nextProps: FilterTreeProps, nextState: FilterTreeState): boolean => {
     const diffProps = !_isEqual(this.props, nextProps);
     const diffState = !_isEqual(this.state, nextState);
-    console.log(JSON.stringify(this.props.filter) + ' <--old\n' + JSON.stringify(nextProps.filter));
     return diffProps || diffState;
   }
 
