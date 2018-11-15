@@ -75,7 +75,6 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
   };
 
   parseUploadData = (uploadObject: any) => {
-    uploadObject.onProgress();
     const {
       activeParser
     } = this.state;
