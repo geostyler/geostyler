@@ -169,7 +169,9 @@ export default {
       cardinal: 'Kardinal',
       numberOfRules: 'Regelanzahl',
       colorRamp: 'Color Ramp',
-      colorRampPlaceholder: 'Auswählen…'
+      colorRampPlaceholder: 'Auswählen…',
+      colorRampMinClassesWarning: 'Color Ramp benötigt mindestens 3 Klassen',
+      symbolizer: 'Symbolizer'
     },
     GsRuleGeneratorWindow: {
       ruleGenerator: 'Regelgenerator'

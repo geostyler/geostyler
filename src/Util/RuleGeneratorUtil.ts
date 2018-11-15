@@ -1,6 +1,17 @@
 import { Data } from 'geostyler-data';
 import { LevelOfMeasurement } from 'src/Component/RuleGenerator/RuleGenerator';
-import { Rule, Filter, MarkSymbolizer } from 'geostyler-style';
+import {
+  Rule,
+  Filter,
+  SymbolizerKind,
+  Symbolizer,
+  WellKnownName
+} from 'geostyler-style';
+import SymbolizerUtil from './SymbolizerUtil';
+
+const generateColormap = require('colormap');
+// Unsure if we can rely on this file in future releases
+export const colorScales = require('colormap/colorScale');
 
 const _get = require('lodash/get');
 
@@ -30,24 +41,44 @@ class RuleGeneratorUtil {
     return distinctValues;
   }
 
+  static guessSymbolizerFromData(data: Data): SymbolizerKind {
+    const firstFeatureGeometryType: GeoJSON.GeoJsonGeometryTypes
+      = _get(data, 'exampleFeatures.features[0].geometry.type');
+
+    switch (firstFeatureGeometryType) {
+      case 'Point':
+      case 'MultiPoint':
+        return 'Mark';
+      case 'LineString':
+      case 'MultiLineString':
+        return 'Line';
+      case 'Polygon':
+      case 'MultiPolygon':
+        return 'Fill';
+      default:
+        return 'Mark';
+    }
+  }
+
   static generateRules(
     data: Data,
     levelOfMeasurement: LevelOfMeasurement,
     numberOfClasses: number,
     attributeName: string,
-    colors: string[]
+    colors: string[] = [],
+    symbolizerKind: SymbolizerKind,
+    wellKnownName?: WellKnownName
   ): Rule[] {
     let rules: Rule[];
-    // const attributeType = _get(data, `schema.properties[${attributeName}].type`);
     if (levelOfMeasurement === 'nominal') {
       const distinctValues = RuleGeneratorUtil.getDistinctValues(data, attributeName);
+      distinctValues.splice(numberOfClasses, distinctValues.length - 2);
       rules = distinctValues.map((distinctValue, index: number) => {
         const filter: Filter = ['==', attributeName, distinctValue];
-        const symbolizer: MarkSymbolizer = {
-          kind: 'Mark',
-          wellKnownName: 'Square',
-          color: colors[index]
-        };
+        const symbolizer: Symbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind, {
+          color: colors[index],
+          wellKnownName
+        });
         return {
           name: distinctValue,
           filter,
@@ -56,6 +87,13 @@ class RuleGeneratorUtil {
       });
     }
     return rules;
+  }
+
+  static getColorRamp(colormap: string, nshades: number) {
+    const minClasses = _get(colorScales, `[${colormap}].length`);
+    if (nshades > minClasses) {
+      return generateColormap({colormap, nshades});
+    }
   }
 
 }
