@@ -1,5 +1,6 @@
 import AttributeCombo from './Component/Filter/AttributeCombo/AttributeCombo';
 import BoolFilterField from './Component/Filter/BoolFilterField/BoolFilterField';
+import BulkEditModals from './Component/Symbolizer/BulkEditModals/BulkEditModals';
 import CodeEditor from './Component/CodeEditor/CodeEditor';
 import ColorField from './Component/Symbolizer/Field/ColorField/ColorField';
 import ComparisonFilter from './Component/Filter/ComparisonFilter/ComparisonFilter';
@@ -59,6 +60,7 @@ const locale = {
 export {
   AttributeCombo,
   BoolFilterField,
+  BulkEditModals,
   CodeEditor,
   ColorField,
   ComparisonFilter,

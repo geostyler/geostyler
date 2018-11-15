@@ -6,6 +6,12 @@ export default {
         graphicalEditor: 'Graphischer Editor',
         codeEditor: 'Code Editor'
     },
+    GsBulkEditModals: {
+        colorLabel: 'Farbe wählen',
+        radiusLabel: 'Radius festlegen',
+        opacityLabel: 'Deckkraft festlegen',
+        symbolLabel: 'Symbol wählen'
+    },
     GsRule: {
         removeRuleBtnText: 'Regel entfernen',
         scaleFieldTitle: 'Maßstab verwenden',
@@ -26,7 +32,12 @@ export default {
         addRuleBtnText: 'Regel hinzufügen',
         removeRulesBtnText: 'Regeln entfernen',
         nameFieldLabel: 'Name',
-        nameFieldPlaceholder: 'Name eingeben'
+        nameFieldPlaceholder: 'Name eingeben',
+        colorLabel: 'Farbe wählen',
+        radiusLabel: 'Radius wählen',
+        opacityLabel: 'Deckkraft wählen',
+        symbolLabel: 'Symbol wählen',
+        multiEditLabel: 'Selektion editieren'
     },
     GsStyleLoader: {
         label: 'Stil laden: ',
