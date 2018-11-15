@@ -99,12 +99,10 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     const {
       filter: rootFilter
     } = this.props;
-    // if (filter === rootFilter) {
     if (_isEqual(filter, rootFilter)) {
       this.props.onFilterChange(filter);
     }
 
-    // let newFilter = [...rootFilter];
     let newFilter = _cloneDeep(rootFilter);
     if (position === '') {
       newFilter = filter;
@@ -347,7 +345,6 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     } = this.props;
 
     let addedFilter: GsFilter ;
-    // const newFilter: GsFilter = [...filter];
     const newFilter: GsFilter = _cloneDeep(filter);
     const previousFilter = position === '' ? newFilter : _get(newFilter, position);
 
