@@ -16,7 +16,6 @@ import 'ol/ol.css';
 import { Data } from 'geostyler-data';
 
 const _cloneDeep = require('lodash/cloneDeep');
-const _isEqual = require('lodash/isEqual');
 
 import KindField from '../Field/KindField/KindField';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
@@ -46,12 +45,6 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     this.state = {
       symbolizer: SymbolizerUtil.generateSymbolizer()
     };
-  }
-
-  public shouldComponentUpdate(nextProps: EditorProps, nextState: EditorState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
   }
 
   public static defaultProps: EditorDefaultProps = {

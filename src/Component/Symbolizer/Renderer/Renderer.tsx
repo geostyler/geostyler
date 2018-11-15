@@ -47,11 +47,6 @@ export class Renderer extends React.Component<RendererProps> {
     this._mapId = _uniqueId('map_');
   }
 
-  public shouldComponentUpdate(nextProps: RendererProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
   public componentDidMount() {
     const {
       symbolizers

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Checkbox } from 'antd';
 
-const _isEqual = require('lodash/isEqual');
-
 import './FieldSet.css';
 
 // default props
@@ -32,11 +30,6 @@ export class FieldSet extends React.Component<FieldSetProps> {
   public static defaultProps: FieldSetDefaultProps = {
     checked: true
   };
-
-  public shouldComponentUpdate(nextProps: FieldSetProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
 
   /**
    * Toggles the state according to the checkbox check state.

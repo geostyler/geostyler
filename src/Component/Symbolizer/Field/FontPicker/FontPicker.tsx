@@ -5,8 +5,6 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-const _isEqual = require('lodash/isEqual');
-
 // default props
 interface FontPickerDefaultProps {
   label: string;
@@ -32,11 +30,6 @@ export class FontPicker extends React.Component<FontPickerProps> {
       'Times New Roman', 'Georgia', 'Serif'
     ]
   };
-
-  public shouldComponentUpdate(nextProps: FontPickerProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
 
   render() {
     const {

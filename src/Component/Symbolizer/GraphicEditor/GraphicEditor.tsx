@@ -11,7 +11,6 @@ import GraphicTypeField, { GraphicTypeFieldProps } from '../Field/GraphicTypeFie
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 const _get = require('lodash/get');
-const _isEqual = require('lodash/isEqual');
 
 export interface GraphicEditorDefaultProps {
   /** Label being used on TypeField */
@@ -38,11 +37,6 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
   public static defaultProps: GraphicEditorDefaultProps = {
     graphicTypeFieldLabel: 'Graphic-Type'
   };
-
-  public shouldComponentUpdate(nextProps: GraphicEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
 
   /**
    * Get the right Editor depending on kind of PointSymbolizer

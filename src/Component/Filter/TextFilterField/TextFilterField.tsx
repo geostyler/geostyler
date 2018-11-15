@@ -4,7 +4,6 @@ import { Input, Form, AutoComplete } from 'antd';
 import { Data } from 'geostyler-data';
 
 const _get = require('lodash/get');
-const _isEqual = require('lodash/isEqual');
 import { Feature } from 'geojson';
 
 // default props
@@ -60,12 +59,6 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
     return {
       value: nextProps.value
     };
-  }
-
-  public shouldComponentUpdate(nextProps: TextFilterFieldProps, nextState: TextFilterFieldState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
   }
 
   /**
