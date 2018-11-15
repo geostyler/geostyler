@@ -5,13 +5,16 @@ const _isEqual = require('lodash/isEqual');
 const _cloneDeep = require('lodash/cloneDeep');
 
 import {
-  Button
+  Button,
+  Menu,
+  Icon
 } from 'antd';
 
 import {
   Style as GsStyle,
   Rule as GsRule,
-  SymbolizerKind
+  SymbolizerKind,
+  Symbolizer as GsSymbolizer
 } from 'geostyler-style';
 
 import {
@@ -20,6 +23,7 @@ import {
 
 import Rule from '../Rule/Rule';
 import NameField, { NameFieldProps } from '../NameField/NameField';
+import BulkEditModals from '../Symbolizer/BulkEditModals/BulkEditModals';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
@@ -33,6 +37,11 @@ export interface StyleLocale {
   removeRulesBtnText: string;
   nameFieldLabel?: string;
   nameFieldPlaceholder?: string;
+  colorLabel: string;
+  radiusLabel: string;
+  opacityLabel: string;
+  symbolLabel: string;
+  multiEditLabel: string;
 }
 
 // default props
@@ -56,6 +65,10 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
 interface StyleState {
   style: GsStyle;
   selectedRowKeys: number[];
+  colorModalVisible: boolean;
+  sizeModalVisible: boolean;
+  opacityModalVisible: boolean;
+  symbolModalVisible: boolean;
 }
 
 export class Style extends React.Component<StyleProps, StyleState> {
@@ -63,7 +76,11 @@ export class Style extends React.Component<StyleProps, StyleState> {
     super(props);
     this.state = {
       style: props.style || Style.defaultProps.style,
-      selectedRowKeys: []
+      selectedRowKeys: [],
+      colorModalVisible: false,
+      sizeModalVisible: false,
+      opacityModalVisible: false,
+      symbolModalVisible: false
     };
   }
 
@@ -175,6 +192,56 @@ export class Style extends React.Component<StyleProps, StyleState> {
     });
   }
 
+  onMultiEdit = (param: any) => {
+    switch (param.key) {
+      case 'color':
+        this.setState({colorModalVisible: true});
+        break;
+      case 'size':
+        this.setState({sizeModalVisible: true});
+        break;
+      case 'opacity':
+        this.setState({opacityModalVisible: true});
+        break;
+      case 'symbol':
+        this.setState({symbolModalVisible: true});
+        break;
+      default:
+    }
+  }
+
+  updateAllSelected = (value: any, property: string) => {
+    const style = _cloneDeep(this.state.style);
+    const selectedRules = style.rules.filter((rule: GsRule, index: number) => {
+      return this.state.selectedRowKeys.includes(index);
+    });
+    selectedRules.forEach((rule: GsRule) => {
+      rule.symbolizers.forEach((sym: GsSymbolizer) => {
+        sym[property] = value;
+      });
+    });
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(style);
+    }
+    this.setState({style});
+  }
+
+  updateMultiColors = (color: string) => {
+    this.updateAllSelected(color, 'color');
+  }
+
+  updateMultiSizes = (size: any) => {
+    this.updateAllSelected(size, 'radius');
+  }
+
+  updateMultiOpacities = (opacity: any) => {
+    this.updateAllSelected(opacity, 'opacity');
+  }
+
+  updateMultiSymbols = (symbol: any) => {
+    this.updateAllSelected(symbol, 'wellKnownName');
+  }
+
   render() {
     let rules: GsRule[] = [];
 
@@ -188,7 +255,11 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
     const {
       style,
-      selectedRowKeys
+      selectedRowKeys,
+      colorModalVisible,
+      sizeModalVisible,
+      opacityModalVisible,
+      symbolModalVisible
     } = this.state;
 
     if (style) {
@@ -246,7 +317,49 @@ export class Style extends React.Component<StyleProps, StyleState> {
               {locale.removeRulesBtnText}
             </Button>
           }
+          {
+            !compact ? null :
+            <Menu
+              style={{
+                display: 'inline-block',
+                top: '15px',
+                position: 'absolute',
+                width: '60%'
+              }}
+              mode="vertical"
+              onClick={this.onMultiEdit}
+              selectable={false}
+            >
+              <Menu.SubMenu
+                popupClassName="styler-multiedit-popup"
+                title={<span><Icon type="menu-unfold" /><span>{locale.multiEditLabel}</span></span>}
+              >
+                <Menu.Item key="color">{locale.colorLabel}</Menu.Item>
+                <Menu.Item key="size">{locale.radiusLabel}</Menu.Item>
+                <Menu.Item key="opacity">{locale.opacityLabel}</Menu.Item>
+                <Menu.Item key="symbol">{locale.symbolLabel}</Menu.Item>
+              </Menu.SubMenu>
+            </Menu>
+          }
         </Button.Group>
+        <BulkEditModals
+          colorModalVisible={colorModalVisible}
+          sizeModalVisible={sizeModalVisible}
+          opacityModalVisible={opacityModalVisible}
+          symbolModalVisible={symbolModalVisible}
+          selectedRowKeys={selectedRowKeys}
+          updateMultiColors={this.updateMultiColors}
+          updateMultiSizes={this.updateMultiSizes}
+          updateMultiOpacities={this.updateMultiOpacities}
+          updateMultiSymbols={this.updateMultiSymbols}
+          style={this.state.style}
+          modalsClosed={() => this.setState({
+            colorModalVisible: false,
+            sizeModalVisible: false,
+            opacityModalVisible: false,
+            symbolModalVisible: false
+          })}
+        />
       </div>
     );
   }
