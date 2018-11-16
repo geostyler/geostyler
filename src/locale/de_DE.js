@@ -171,7 +171,11 @@ export default {
       colorRamp: 'Color Ramp',
       colorRampPlaceholder: 'Auswählen…',
       colorRampMinClassesWarning: 'Color Ramp benötigt mindestens 3 Klassen',
-      symbolizer: 'Symbolizer'
+      symbolizer: 'Symbolizer',
+      classification: 'Klassifizierungs Methode',
+      classificationPlaceholder: 'Auswählen…',
+      equalInterval: 'Gleiches Interval',
+      quantile: 'Quantil'
     },
     GsRuleGeneratorWindow: {
       ruleGenerator: 'Regelgenerator'
