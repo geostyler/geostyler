@@ -46,21 +46,40 @@ class SymbolizerUtil {
   /**
    * Generates a symbolizer (with kind Mark with wellknownName Circle if none provided).
    * @param {SymbolizerKind} kind An optional SymbolizerKind
+   * @param {object} values Optional values
    */
-  static generateSymbolizer(kind?: SymbolizerKind): Symbolizer {
+  static generateSymbolizer(kind?: SymbolizerKind, values?: object): Symbolizer {
     switch (kind) {
       case 'Mark':
-        return SymbolizerUtil.markSymbolizer;
+        return {
+          ...SymbolizerUtil.markSymbolizer,
+          ...values
+        };
       case 'Icon':
-        return SymbolizerUtil.iconSymbolizer;
+        return {
+          ...SymbolizerUtil.iconSymbolizer,
+          ...values
+        };
       case 'Fill':
-        return SymbolizerUtil.fillSymbolizer;
+        return {
+          ...SymbolizerUtil.fillSymbolizer,
+          ...values
+        };
       case 'Line':
-        return SymbolizerUtil.lineSymbolizer;
+        return {
+          ...SymbolizerUtil.lineSymbolizer,
+          ...values
+        };
       case 'Text':
-        return SymbolizerUtil.textSymbolizer;
+        return {
+          ...SymbolizerUtil.textSymbolizer,
+          ...values
+        };
       default:
-        return SymbolizerUtil.defaultSymbolizer;
+        return {
+          ...SymbolizerUtil.defaultSymbolizer,
+          ...values
+          };
     }
   }
 

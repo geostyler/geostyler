@@ -37,7 +37,8 @@ export default {
         radiusLabel: 'Radius wählen',
         opacityLabel: 'Deckkraft wählen',
         symbolLabel: 'Symbol wählen',
-        multiEditLabel: 'Selektion editieren'
+        multiEditLabel: 'Selektion editieren',
+        ruleGeneratorWindowBtnText: 'Klassifizierung'
     },
     GsStyleLoader: {
         label: 'Stil laden: ',
@@ -182,6 +183,26 @@ export default {
       filterColumnTitle: 'Filter',
       minScaleColumnTitle: 'Min. Maßstab',
       maxScaleColumnTitle: 'Max. Maßstab'
+    },
+    GsRuleGenerator: {
+      attribute: 'Attribute',
+      generateButtonText: 'Klassifizieren',
+      levelOfMeasurement: 'Skalenniveau',
+      nominal: 'Nominal',
+      ordinal: 'Ordinal',
+      cardinal: 'Kardinal',
+      numberOfRules: 'Klassenanzahl',
+      colorRamp: 'Color Ramp',
+      colorRampPlaceholder: 'Auswählen…',
+      colorRampMinClassesWarning: 'Color Ramp benötigt mindestens 3 Klassen',
+      symbolizer: 'Symbolizer',
+      classification: 'Klassifizierungs Methode',
+      classificationPlaceholder: 'Auswählen…',
+      equalInterval: 'Gleiches Interval',
+      quantile: 'Quantil'
+    },
+    GsRuleGeneratorWindow: {
+      ruleGenerator: 'Klassifizierung'
     },
     ...de_DE
 };

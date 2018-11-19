@@ -46,6 +46,8 @@ import UploadButton from './Component/UploadButton/UploadButton';
 import WellKnownNameEditor from './Component/Symbolizer/WellKnownNameEditor/WellKnownNameEditor';
 import WellKnownNameField from './Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
+import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
+import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 
 import { LocaleProvider } from 'antd';
@@ -109,5 +111,7 @@ export {
   UploadButton,
   WellKnownNameEditor,
   WellKnownNameField,
+  RuleGeneratorWindow,
+  RuleGenerator,
   WidthField
 };

@@ -28,7 +28,8 @@ export default {
         radiusLabel: 'Select radius',
         opacityLabel: 'Select opacity',
         symbolLabel: 'Select symbol',
-        multiEditLabel: 'Multi edit'
+        multiEditLabel: 'Multi edit',
+        ruleGeneratorWindowBtnText: 'Classification'
     },
     GsStyleLoader: {
         label: 'Load Style: ',
@@ -181,6 +182,26 @@ export default {
       filterColumnTitle: 'Filter',
       minScaleColumnTitle: 'Min. Scale',
       maxScaleColumnTitle: 'Max. Scale'
+    },
+    GsRuleGenerator: {
+      attribute: 'Attribute',
+      generateButtonText: 'Classify',
+      levelOfMeasurement: 'Level of Measurement',
+      nominal: 'Nominal',
+      ordinal: 'Ordinal',
+      cardinal: 'Cardinal',
+      numberOfRules: 'Number of Classes',
+      colorRamp: 'Color Ramp',
+      colorRampPlaceholder: 'Select…',
+      colorRampMinClassesWarning: 'Color Ramp requires at least 3 classes',
+      symbolizer: 'Symbolizer',
+      classification: 'Classification Method',
+      classificationPlaceholder: 'Select…',
+      equalInterval: 'Equal Interval',
+      quantile: 'Quantile'
+    },
+    GsRuleGeneratorWindow: {
+      ruleGenerator: 'Classification'
     },
     ...en_US
 };

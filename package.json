@@ -44,6 +44,7 @@
     "blob": "0.0.5",
     "codemirror": "5.41.0",
     "color": "3.1.0",
+    "colormap": "2.3.0",
     "file-saver": "2.0.0",
     "geostyler-data": "0.5.2",
     "geostyler-geojson-parser": "0.4.6",
