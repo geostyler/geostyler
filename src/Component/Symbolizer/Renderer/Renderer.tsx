@@ -151,6 +151,9 @@ export class Renderer extends React.Component<RendererProps> {
         // apply new OL style to vector layer
         this._layer.setStyle(olStyles);
         return olStyles;
+      })
+      .catch(() => {
+        return;
       });
   }
 

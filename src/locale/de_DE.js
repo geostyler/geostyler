@@ -185,12 +185,12 @@ export default {
     },
     GsRuleGenerator: {
       attribute: 'Attribute',
-      generateButtonText: 'Regeln generiern',
+      generateButtonText: 'Klassifizieren',
       levelOfMeasurement: 'Skalenniveau',
       nominal: 'Nominal',
       ordinal: 'Ordinal',
       cardinal: 'Kardinal',
-      numberOfRules: 'Regelanzahl',
+      numberOfRules: 'Klassenanzahl',
       colorRamp: 'Color Ramp',
       colorRampPlaceholder: 'Auswählen…',
       colorRampMinClassesWarning: 'Color Ramp benötigt mindestens 3 Klassen',
@@ -201,7 +201,7 @@ export default {
       quantile: 'Quantil'
     },
     GsRuleGeneratorWindow: {
-      ruleGenerator: 'Regelgenerator'
+      ruleGenerator: 'Klassifizierung'
     },
     ...de_DE
 };

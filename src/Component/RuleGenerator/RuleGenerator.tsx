@@ -10,8 +10,9 @@ import { RadioChangeEvent } from 'antd/lib/radio';
 import RuleGeneratorUtil, { colorScales } from '../../Util/RuleGeneratorUtil';
 import { KindField } from '../Symbolizer/Field/KindField/KindField';
 import { WellKnownNameField } from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
-
+import { localize } from '../LocaleWrapper/LocaleWrapper';
 const _get = require('lodash/get');
+const _cloneDeep = require('lodash/cloneDeep');
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 export type ClassificationMethod = 'equalInterval' | 'quantile';
@@ -56,7 +57,6 @@ interface RuleGeneratorState {
 
 // non default props
 export interface RuleGeneratorProps extends Partial<RuleGeneratorDefaultProps> {
-  rules: Rule[];
   internalDataDef: Data;
   onRulesChange?: (rules: Rule[]) => void;
 }
@@ -76,6 +76,8 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
       'turbidity', 'velocity-blue', 'velocity-green'
     ]
   };
+
+  static componentName: string = 'RuleGenerator';
 
   constructor(props: RuleGeneratorProps) {
     super(props);
@@ -120,10 +122,8 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
   }
 
   onNumberChange = (numberOfRules: number) => {
-    let {
-      colorRamp,
-      colorRampName
-    } = this.state;
+    let colorRamp = _cloneDeep(this.state.colorRamp);
+    let colorRampName = this.state.colorRampName;
 
     if (numberOfRules <= 2) {
       colorRamp = undefined;
@@ -217,12 +217,19 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
   }
 
   onSymbolizerKindChange = (symbolizerKind: SymbolizerKind) => {
-    const {
+    let {
       wellKnownName
     } = this.state;
+
+    if (symbolizerKind === 'Mark' && !wellKnownName) {
+      wellKnownName = 'Circle';
+    } else {
+      wellKnownName = undefined;
+    }
+
     this.setState({
       symbolizerKind,
-      wellKnownName: symbolizerKind === 'Mark' ? wellKnownName : undefined
+      wellKnownName
     });
   }
 
@@ -385,6 +392,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
               className="gs-rule-generator-submit-button"
               type="primary"
               onClick={this.onGenerateClick}
+              disabled={numberOfRules < 3 || !colorRamp || !attributeName}
             >
               {locale.generateButtonText}
             </Button>
@@ -395,4 +403,4 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
   }
 }
 
-export default RuleGenerator;
+export default localize(RuleGenerator, RuleGenerator.componentName);

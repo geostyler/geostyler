@@ -3,16 +3,16 @@ import {
   RuleGeneratorWindowProps
 } from './RuleGeneratorWindow';
 import TestUtil from '../../Util/TestUtil';
-import { Rule } from 'geostyler-style';
+import { Data } from 'geostyler-data';
 
 describe('SymbolizerEditorWindow', () => {
 
   let wrapper: any;
-  const dummyRules: Rule[] = TestUtil.getTwoRulesStyle().rules;
+  const dummyData: Data = TestUtil.getDummyGsData();
 
   beforeEach(() => {
     const props: RuleGeneratorWindowProps = {
-      rules: dummyRules
+      internalDataDef: dummyData
     };
     wrapper = TestUtil.shallowRenderComponent(RuleGeneratorWindow, props);
   });

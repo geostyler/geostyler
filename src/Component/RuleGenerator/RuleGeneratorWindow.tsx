@@ -29,8 +29,7 @@ export interface RuleGeneratorWindowDefaultProps {
 
 // non default props
 export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDefaultProps> {
-  rules?: Rule[];
-  internalDataDef?: Data;
+  internalDataDef: Data;
   x?: number;
   y?: number;
   onClose?: () => void;
@@ -50,14 +49,13 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
     return !_isEqual(this.props, nextProps);
   }
 
-  static componentName: string = 'SymbolizerEditorWindow';
+  static componentName: string = 'RuleGeneratorWindow';
 
   render() {
     const {
       x,
       y,
       onClose,
-      rules,
       onRulesChange,
       locale,
       internalDataDef
@@ -83,6 +81,7 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
             topLeft: false,
             topRight: false
           }}
+          bounds="window"
           dragHandleClassName="rule-generator-window-header"
         >
           <div className="header rule-generator-window-header">
@@ -97,7 +96,6 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
           </div>
           <RuleGenerator
             internalDataDef={internalDataDef}
-            rules={rules}
             onRulesChange={onRulesChange}
           />
         </Rnd>,

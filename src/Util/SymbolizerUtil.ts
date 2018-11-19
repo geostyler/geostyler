@@ -46,6 +46,7 @@ class SymbolizerUtil {
   /**
    * Generates a symbolizer (with kind Mark with wellknownName Circle if none provided).
    * @param {SymbolizerKind} kind An optional SymbolizerKind
+   * @param {object} values Optional values
    */
   static generateSymbolizer(kind?: SymbolizerKind, values?: object): Symbolizer {
     switch (kind) {
