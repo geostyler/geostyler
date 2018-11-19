@@ -197,8 +197,7 @@ class RuleGeneratorUtil {
         const value = sortedValues[(i * valuesPerClass)];
         bounds[i] = value;
       } else {
-        // Set last bound to max value + 1 so that it cannot exclude itself.
-        bounds[i] = sortedValues[(sortedValues.length - 1)] + 1;
+        bounds[i] = sortedValues[(sortedValues.length - 1)];
       }
     }
 
