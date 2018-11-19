@@ -211,6 +211,229 @@ export class TestUtil {
 
     return twoRulesStyle;
   }
+
+  static getComplexGsDummyData = (): Data => {
+    return {
+      'schema': {
+        'type': 'object',
+        'title': 'bundeslaender',
+        'properties': {
+          'the_geom': {
+            'type': 'string'
+          },
+          'ADE': {
+            'type': 'number'
+          },
+          'RS': {
+            'type': 'string'
+          },
+          'RS_0': {
+            'type': 'string'
+          },
+          'GEN': {
+            'type': 'string'
+          },
+          'pop': {
+            'type': 'number'
+          },
+          'area': {
+            'type': 'number'
+          },
+          'dense': {
+            'type': 'number'
+          },
+          'kuerzel': {
+            'type': 'string'
+          }
+        }
+      },
+      'exampleFeatures': {
+        'type': 'FeatureCollection',
+        'features': [
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.1',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '02',
+              'RS_0': '020000000000',
+              'GEN': 'Hamburg',
+              'pop': 1,
+              'area': 755,
+              'dense': 2397.3509933774835,
+              'kuerzel': 'HH'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.2',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '03',
+              'RS_0': '030000000000',
+              'GEN': 'Niedersachsen',
+              'pop': 2,
+              'area': 47593,
+              'dense': 166.95732565713445,
+              'kuerzel': 'NI'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.3',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '04',
+              'RS_0': '040000000000',
+              'GEN': 'Bremen',
+              'pop': 3,
+              'area': 420,
+              'dense': 1616.6666666666667,
+              'kuerzel': 'HB'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.4',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '05',
+              'RS_0': '050000000000',
+              'GEN': 'Nordrhein-Westfalen',
+              'pop': 4,
+              'area': 34113,
+              'dense': 524.4335004250579,
+              'kuerzel': 'NW'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.5',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '06',
+              'RS_0': '060000000000',
+              'GEN': 'Hessen',
+              'pop': 5,
+              'area': 21115,
+              'dense': 294.2457968269003,
+              'kuerzel': 'HE'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.6',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '07',
+              'RS_0': '070000000000',
+              'GEN': 'Rheinland-Pfalz',
+              'pop': 6,
+              'area': 19854,
+              'dense': 204.79500352573788,
+              'kuerzel': 'RP'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.7',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '08',
+              'RS_0': '080000000000',
+              'GEN': 'Baden-Württemberg',
+              'pop': 7,
+              'area': 35751,
+              'dense': 306.34108136835334,
+              'kuerzel': 'BW'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.8',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '09',
+              'RS_0': '090000000000',
+              'GEN': 'Bayern',
+              'pop': 8,
+              'area': 70550,
+              'dense': 183.2884479092842,
+              'kuerzel': 'BY'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.9',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '10',
+              'RS_0': '100000000000',
+              'GEN': 'Saarland',
+              'pop': 9,
+              'area': 2569,
+              'dense': 388.08875048657063,
+              'kuerzel': 'SL'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.10',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [0, 0]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '11',
+              'RS_0': '110000000000',
+              'GEN': 'Berlin',
+              'pop': 10,
+              'area': 892,
+              'dense': 4007.847533632287,
+              'kuerzel': 'BE'
+            }
+          }
+        ]
+      }
+    };
+  }
 }
 
 export default TestUtil;

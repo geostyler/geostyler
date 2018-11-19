@@ -186,15 +186,20 @@ class RuleGeneratorUtil {
    * @param {number} numberOfClasses The number of classes to generate.
    */
   static getQuantileRanges(series: number[], numberOfClasses: number) {
-
     const bounds: number[] = [-Infinity];
     const sortedValues = series.sort((a, b) => a === b ? 0 : a < b ? -1 : 1);
     const valuesPerClass = Math.floor(series.length / numberOfClasses);
     bounds[0] = sortedValues[0];
 
     for (let i = 1; i <= numberOfClasses; i++) {
-      const value = sortedValues[(i * valuesPerClass)];
-      bounds[i] = value;
+      if (i < numberOfClasses) {
+
+        const value = sortedValues[(i * valuesPerClass)];
+        bounds[i] = value;
+      } else {
+        // Set last bound to max value + 1 so that it cannot exclude itself.
+        bounds[i] = sortedValues[(sortedValues.length - 1)] + 1;
+      }
     }
 
     return RuleGeneratorUtil.boundsToRanges(bounds);
