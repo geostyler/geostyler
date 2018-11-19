@@ -28,7 +28,8 @@ export default {
         radiusLabel: 'Select radius',
         opacityLabel: 'Select opacity',
         symbolLabel: 'Select symbol',
-        multiEditLabel: 'Multi edit'
+        multiEditLabel: 'Multi edit',
+        ruleGeneratorWindowBtnText: 'Classification'
     },
     GsStyleLoader: {
         label: 'Load Style: ',

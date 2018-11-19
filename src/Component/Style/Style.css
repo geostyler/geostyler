@@ -1,0 +1,9 @@
+.gs-style-name-classification-row {
+  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.gs-namefield {
+  flex: 1;
+}

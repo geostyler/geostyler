@@ -30,6 +30,9 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import RuleTable from '../RuleTable/RuleTable';
+import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
+
+import './Style.css';
 
 // i18n
 export interface StyleLocale {
@@ -42,6 +45,7 @@ export interface StyleLocale {
   opacityLabel: string;
   symbolLabel: string;
   multiEditLabel: string;
+  ruleGeneratorWindowBtnText: string;
 }
 
 // default props
@@ -69,6 +73,7 @@ interface StyleState {
   sizeModalVisible: boolean;
   opacityModalVisible: boolean;
   symbolModalVisible: boolean;
+  ruleGeneratorWindowVisible: boolean;
 }
 
 export class Style extends React.Component<StyleProps, StyleState> {
@@ -80,7 +85,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       colorModalVisible: false,
       sizeModalVisible: false,
       opacityModalVisible: false,
-      symbolModalVisible: false
+      symbolModalVisible: false,
+      ruleGeneratorWindowVisible: false
     };
   }
 
@@ -242,6 +248,14 @@ export class Style extends React.Component<StyleProps, StyleState> {
     this.updateAllSelected(symbol, 'wellKnownName');
   }
 
+  showRuleGeneratorWindow = () => {
+    this.setState({ruleGeneratorWindowVisible: true});
+  }
+
+  onRuleGeneratorWindowClose = () => {
+    this.setState({ruleGeneratorWindowVisible: false});
+  }
+
   render() {
     let rules: GsRule[] = [];
 
@@ -250,7 +264,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       dataProjection,
       filterUiProps,
       ruleNameProps,
-      locale
+      locale,
+      data
     } = this.props;
 
     const {
@@ -259,7 +274,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       colorModalVisible,
       sizeModalVisible,
       opacityModalVisible,
-      symbolModalVisible
+      symbolModalVisible,
+      ruleGeneratorWindowVisible
     } = this.state;
 
     if (style) {
@@ -270,12 +286,29 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
     return (
       <div className="gs-style" >
-        <NameField
-          value={this.state.style.name}
-          onChange={this.onNameChange}
-          label={locale.nameFieldLabel}
-          placeholder={locale.nameFieldPlaceholder}
-        />
+        <div className="gs-style-name-classification-row">
+          <NameField
+            value={this.state.style.name}
+            onChange={this.onNameChange}
+            label={locale.nameFieldLabel}
+            placeholder={locale.nameFieldPlaceholder}
+          />
+          <Button
+            className="gs-style-rulegenerator"
+            onClick={this.showRuleGeneratorWindow}
+            disabled={!data}
+          >
+            {locale.ruleGeneratorWindowBtnText}
+          </Button>
+        </div>
+        {
+          !ruleGeneratorWindowVisible ? null :
+          <RuleGeneratorWindow
+            internalDataDef={data}
+            onClose={this.onRuleGeneratorWindowClose}
+            onRulesChange={this.onRulesChange}
+          />
+        }
         { compact
           ? <RuleTable
             rules={rules}

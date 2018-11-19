@@ -37,7 +37,8 @@ export default {
         radiusLabel: 'Radius wählen',
         opacityLabel: 'Deckkraft wählen',
         symbolLabel: 'Symbol wählen',
-        multiEditLabel: 'Selektion editieren'
+        multiEditLabel: 'Selektion editieren',
+        ruleGeneratorWindowBtnText: 'Klassifizierung'
     },
     GsStyleLoader: {
         label: 'Stil laden: ',
