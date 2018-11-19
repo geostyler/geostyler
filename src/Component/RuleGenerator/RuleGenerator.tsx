@@ -312,12 +312,6 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
                 {locale.nominal}
               </Radio.Button>
               <Radio.Button
-                value="ordinal"
-                disabled={attributeType === 'string'}
-              >
-                {locale.ordinal}
-              </Radio.Button>
-              <Radio.Button
                 value="cardinal"
                 disabled={attributeType === 'string'}
               >
