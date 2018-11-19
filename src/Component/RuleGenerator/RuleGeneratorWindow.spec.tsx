@@ -5,7 +5,7 @@ import {
 import TestUtil from '../../Util/TestUtil';
 import { Data } from 'geostyler-data';
 
-describe('SymbolizerEditorWindow', () => {
+describe('RuleGeneratorWindow', () => {
 
   let wrapper: any;
   const dummyData: Data = TestUtil.getDummyGsData();

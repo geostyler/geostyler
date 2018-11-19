@@ -77,7 +77,8 @@ export class TestUtil {
         features: [{
           type: 'Feature',
           properties: {
-            foo: 1
+            foo: 1,
+            bar: 'bar'
           },
           geometry: {
             type: 'Point',
