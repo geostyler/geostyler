@@ -34,7 +34,10 @@ module.exports = {
     }, {
       name: 'RuleTable',
       components: 'src/Component/RuleTable/**/*.tsx'
-    },{
+    }, {
+      name: 'RuleGenerator',
+      components: 'src/Component/RuleGenerator/**/*.tsx'
+    }, {
       name: 'ScaleDenominator',
       components: 'src/Component/ScaleDenominator/**/*.tsx'
     }, {
