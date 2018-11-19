@@ -1,8 +1,8 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-require("@babel/polyfill");
+require('@babel/polyfill');
 
 module.exports = {
   entry: ["@babel/polyfill", "./src/index.js"],
@@ -11,27 +11,16 @@ module.exports = {
     path: __dirname + "/browser",
     library: "GeoStyler"
   },
-  mode: 'production',
+  mode: 'development',
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: [".ts", ".tsx", ".js", ".json"]
-  },
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        parallel: true
-      }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
   },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
           "css-loader"
         ],
       },
@@ -62,8 +51,8 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin({
       async: false,
       watch: __dirname + '/src',
-      tsconfig: __dirname + '/tsconfig.prod.json',
-      tslint: __dirname + '/tslint.prod.json',
+      tsconfig: __dirname + '/tsconfig.json',
+      tslint: __dirname + '/tslint.json',
     }),
   ],
   // When importing a module whose path matches one of the following, just

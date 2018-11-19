@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { InputNumber, Form } from 'antd';
 import { Data } from 'geostyler-data';
-const _isEqual = require('lodash/isEqual');
 
 // default props
 interface NumberFilterFieldDefaultProps {
@@ -56,12 +55,6 @@ export class NumberFilterField extends React.Component<NumberFilterFieldProps, N
     return {
       value: nextProps.value
     };
-  }
-
-  public shouldComponentUpdate(nextProps: NumberFilterFieldProps, nextState: NumberFilterFieldState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
   }
 
   /**

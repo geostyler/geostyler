@@ -70,7 +70,13 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
     reader.onload = () => {
       const fileContent = reader.result;
       parser.readStyle(fileContent)
-      .then(this.props.onStyleRead);
+      .then((style: GsStyle) => {
+        uploadObject.onSuccess(null, uploadObject.file);
+        this.props.onStyleRead(style);
+      })
+      .catch((e: any) => {
+        uploadObject.onError(e, 'Upload failed. Invalid Style.');
+      });
     };
   }
 

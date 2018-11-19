@@ -1,3 +1,4 @@
+const webpackConfig = require('./webpack.common.config');
 module.exports = {
   title: 'GeoStyler',
   styleguideDir: './build/styleguide',
@@ -5,7 +6,7 @@ module.exports = {
     .withCustomConfig('./tsconfig.json')
     .parse,
   components: 'src/Component/**/*.tsx',
-  webpackConfig: require('react-scripts-ts/config/webpack.config.dev.js'),
+  webpackConfig: webpackConfig,
   getExampleFilename(componentPath) {
     return componentPath.replace(/\.tsx?$/, '.example.md')
   },
@@ -15,7 +16,7 @@ module.exports = {
     '**/*.spec.{js,jsx,ts,tsx}',
     '**/*.d.ts'
   ],
-  showUsage: true,
+  usageMode: 'expand',
   sections: [{
     name: 'Introduction',
     content: 'README.md'
@@ -31,6 +32,9 @@ module.exports = {
       name: 'Rule',
       components: 'src/Component/Rule/**/*.tsx'
     }, {
+      name: 'RuleTable',
+      components: 'src/Component/RuleTable/**/*.tsx'
+    },{
       name: 'ScaleDenominator',
       components: 'src/Component/ScaleDenominator/**/*.tsx'
     }, {

@@ -6,6 +6,12 @@ export default {
         graphicalEditor: 'Graphical Editor',
         codeEditor: 'Code Editor'
     },
+    GsBulkEditModals: {
+        colorLabel: 'Select color',
+        radiusLabel: 'Select radius',
+        opacityLabel: 'Select opacity',
+        symbolLabel: 'Select symbol'
+    },
     GsRule: {
         removeRuleBtnText: 'Remove Rule',
         scaleFieldTitle: 'Use scale',
@@ -17,7 +23,12 @@ export default {
         addRuleBtnText: 'Add Rule',
         removeRulesBtnText: 'Remove Rules',
         nameFieldLabel: 'Name',
-        nameFieldPlaceholder: 'Enter Name'
+        nameFieldPlaceholder: 'Enter Name',
+        colorLabel: 'Select color',
+        radiusLabel: 'Select radius',
+        opacityLabel: 'Select opacity',
+        symbolLabel: 'Select symbol',
+        multiEditLabel: 'Multi edit'
     },
     GsStyleLoader: {
         label: 'Load Style: ',
@@ -151,6 +162,18 @@ export default {
     },
     GsUploadButton: {
       upload: 'Upload'
+    },
+    GsFilterTree: {
+        andDrpdwnLabel: 'AND-Filter',
+        orDrpdwnLabel: 'OR-Filter',
+        notDrpdwnLabel: 'NOT-Filter',
+        comparisonDrpdwnLabel: 'Comparison-Filter',
+        addFilterLabel: 'Add Filter',
+        changeFilterLabel: 'Change Filter',
+        removeFilterLabel: 'Remove Filter',
+        andFilterText: 'AND',
+        orFilterText: 'OR',
+        notFilterText: 'NOT'
     },
     GsRuleTable: {
       symbolizersColumnTitle: 'Symbolizers',

@@ -2,8 +2,35 @@
   padding: 10px;
 }
 
+.gs-rule-table .ant-table-body td {
+  padding: 0;
+  border-bottom: 0;
+}
 
-.gs-rule-table .gs-symbolizer-renderer {
-  width: 60px;
-  height: 60px;
+.gs-rule-table .ant-table-body .ant-input,
+.gs-rule-table .ant-table-body .ant-input-number,
+.gs-rule-table .ant-table-body .gs-symbolizer-renderer {
+  border-radius: 0;
+}
+
+.gs-rule-table .ant-table-body .ant-input {
+  padding: 0 10;
+}
+
+.gs-rule-table .ant-table-body .ant-input-search .ant-input-search-button {
+  border-radius: 0;
+  display: none;
+}
+
+.gs-rule-table .ant-table-body .ant-input-search:hover .ant-input-search-button {
+  display: inherit;
+}
+
+.gs-rule-table .ant-table-body .gs-symbolizer-renderer {
+  height: 32px;
+  width: 32px;
+}
+
+.gs-rule-table .ant-table-body .scale-denominator {
+  width: 100%
 }

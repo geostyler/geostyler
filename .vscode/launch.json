@@ -5,12 +5,12 @@
       "name": "Debug Jest Tests",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts-ts",
+      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/jest",
+      "port": 9230,
       "args": [
-        "test",
         "--runInBand",
         "--no-cache",
-        "--env=jsdom"
+        "--watchAll"
       ],
       "cwd": "${workspaceRoot}",
       "protocol": "inspector",

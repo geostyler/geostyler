@@ -6,6 +6,12 @@ export default {
         graphicalEditor: 'Graphischer Editor',
         codeEditor: 'Code Editor'
     },
+    GsBulkEditModals: {
+        colorLabel: 'Farbe wählen',
+        radiusLabel: 'Radius festlegen',
+        opacityLabel: 'Deckkraft festlegen',
+        symbolLabel: 'Symbol wählen'
+    },
     GsRule: {
         removeRuleBtnText: 'Regel entfernen',
         scaleFieldTitle: 'Maßstab verwenden',
@@ -26,7 +32,12 @@ export default {
         addRuleBtnText: 'Regel hinzufügen',
         removeRulesBtnText: 'Regeln entfernen',
         nameFieldLabel: 'Name',
-        nameFieldPlaceholder: 'Name eingeben'
+        nameFieldPlaceholder: 'Name eingeben',
+        colorLabel: 'Farbe wählen',
+        radiusLabel: 'Radius wählen',
+        opacityLabel: 'Deckkraft wählen',
+        symbolLabel: 'Symbol wählen',
+        multiEditLabel: 'Selektion editieren'
     },
     GsStyleLoader: {
         label: 'Stil laden: ',
@@ -47,9 +58,7 @@ export default {
         strokeColorLabel: 'Strichfarbe',
         strokeWidthLabel: 'Strichstärke',
         strokeOpacityLabel: 'Strichdeckkraft',
-        rotateLabel: 'Drehung',
-        haloColorLabel: 'Halofarbe',
-        haloWidthLabel: 'Halobreite'
+        rotateLabel: 'Drehung'
     },
     GsFillEditor: {
         fillOpacityLabel: 'Fülldeckkraft',
@@ -84,7 +93,9 @@ export default {
         offsetXLabel: 'Versatz X',
         offsetYLabel: 'Versatz Y',
         attributeComboPlaceholder: 'Feld wählen',
-        rotateLabel: 'Drehung'
+        rotateLabel: 'Drehung',
+        haloColorLabel: 'Halofarbe',
+        haloWidthLabel: 'Halobreite'
     },
     GsPropTextEditor: {
         propFieldLabel: 'Feld',
@@ -152,6 +163,18 @@ export default {
     },
     GsUploadButton: {
       upload: 'Upload'
+    },
+    GsFilterTree: {
+        andDrpdwnLabel: 'UND-Filter',
+        orDrpdwnLabel: 'ODER-Filter',
+        notDrpdwnLabel: 'NICHT-Filter',
+        comparisonDrpdwnLabel: 'Vergleichs-Filter',
+        addFilterLabel: 'Filter hinzufügen',
+        changeFilterLabel: 'Filter ändern',
+        removeFilterLabel: 'Filter entfernen',
+        andFilterText: 'UND',
+        orFilterText: 'ODER',
+        notFilterText: 'NICHT'
     },
     GsRuleTable: {
       symbolizersColumnTitle: 'Symbolisierung',

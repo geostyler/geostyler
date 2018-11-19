@@ -11,8 +11,6 @@ interface UploadButtonLocale {
   upload: string;
 }
 
-const _isEqual = require('lodash/isEqual');
-
 // default props
 interface UploadButtonDefaultProps {
   locale: UploadButtonLocale;
@@ -27,11 +25,6 @@ export interface UploadButtonProps extends Partial<UploadButtonDefaultProps> {
  * Button to upload / import geodata file.
  */
 export class UploadButton extends React.Component<UploadButtonProps> {
-
-  public shouldComponentUpdate(nextProps: UploadButtonProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
 
   public static defaultProps: UploadButtonDefaultProps = {
     locale: en_US.GsUploadButton

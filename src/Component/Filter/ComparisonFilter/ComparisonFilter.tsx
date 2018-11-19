@@ -131,12 +131,6 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     };
   }
 
-  public shouldComponentUpdate(nextProps: ComparisonFilterProps, nextState: ComparisonFilterState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
   /**
    * Default validation function for filter values.
    *
@@ -218,7 +212,6 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
 
   constructor(props: ComparisonFilterProps) {
     super(props);
-
     const {
       filter,
       internalDataDef,
@@ -295,7 +288,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
   }
 
   /**
-   * Retuns the state part showing which balue UI should be rendered according to attribute type.
+   * Retuns the state part showing which value UI should be rendered according to attribute type.
    *
    * @param {string} The attribute name to get the value visalization state for
    */
@@ -370,15 +363,17 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       attribute: isValid ? 'success' : 'error'
     };
 
-    onFilterChange(filter);
     this.setState({
       filter,
       validateStatus: validationStateNew
-    },            () => {
-        if (_isFunction(onValidationChanged)) {
-          onValidationChanged(validationStateNew);
-        }
-      });
+    }, () => {
+      if (onFilterChange) {
+        onFilterChange(filter);
+      }
+      if (_isFunction(onValidationChanged)) {
+        onValidationChanged(validationStateNew);
+      }
+    });
   }
 
   /**
@@ -387,10 +382,12 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
    * Stores the appropriate operator as member.
    */
   onOperatorChange = (newOperator: ComparisonOperator) => {
+    const {
+      onFilterChange
+    } = this.props;
     let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
     filter[0] = newOperator;
     this.setState({filter});
-    this.props.onFilterChange(filter);
 
     const isValid = this.props.validators.operator(newOperator);
     const validationStateNew: ValidationStatus = {
@@ -404,6 +401,9 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
         operator: newOperator
       },
       () => {
+        if (onFilterChange) {
+          onFilterChange(filter);
+        }
         if (_isFunction(this.props.onValidationChanged)) {
           this.props.onValidationChanged(validationStateNew);
         }
@@ -418,6 +418,9 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
    * Stores the appropriate filter value as member.
    */
   onValueChange = (newValue: string | number | boolean) => {
+    const {
+      onFilterChange
+    } = this.props;
     let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
     filter[2] = newValue;
 
@@ -436,13 +439,14 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
         valueValidationHelpString: validationRes.errorMsg
       },
       () => {
+        if (onFilterChange) {
+          onFilterChange(filter);
+        }
         if (_isFunction(this.props.onValidationChanged)) {
           this.props.onValidationChanged(validationStateNew);
         }
       }
     );
-
-    this.props.onFilterChange(filter);
   }
 
   /**

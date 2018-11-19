@@ -30,6 +30,7 @@ import Renderer from '../Symbolizer/Renderer/Renderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { TableProps } from 'antd/lib/table';
+import FilterUtil from '../../Util/FilterUtil';
 
 // i18n
 export interface RuleTableLocale {
@@ -137,16 +138,20 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   filterRenderer = (text: string, record: RuleRecord) => {
+    const cql = FilterUtil.writeAsCql(record.filter);
+
     return (
       <Input.Search
-        value={JSON.stringify(record.filter)}
+        value={cql}
         onChange={(event) => {
-          try {
-            const newFilter = JSON.parse(event.target.value);
-            this.setValueForRule(record.key, 'filter', newFilter);
-          } catch (error) {
-            // TODO Feedback
-          }
+          // TODO The CQL representation is currently not editable
+          // const value = event.target.value;
+          // try {
+          //   const newFilter = FilterUtil.readFromCql(value);
+          //   this.setValueForRule(record.key, 'filter', newFilter);
+          // } catch (error) {
+          //   // TODO Feedback
+          // }
         }}
         enterButton={(
           <Icon
@@ -175,9 +180,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const value = minScaleDenominator ? parseFloat(minScaleDenominator) : undefined;
     return (
       <InputNumber
+        className="scale-denominator min-scale-denominator"
         value={value}
         min={0}
-        formatter={val => `1:${val}`}
+        formatter={val => val ? `1:${val}` : ''}
         parser={(val: string) => parseFloat(val.replace('1:', ''))}
         onChange={(newValue: number) => {
           this.setValueForRule(record.key, 'scaleDenominator.min', newValue);
@@ -191,9 +197,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const value = maxScaleDenominator ? parseFloat(maxScaleDenominator) : undefined;
     return (
       <InputNumber
+        className="scale-denominator max-scale-denominator"
         value={value}
         min={0}
-        formatter={val => `1:${val}`}
+        formatter={val => val ? `1:${val}` : ''}
         parser={(val: string) => parseFloat(val.replace('1:', ''))}
         onChange={(newValue: number) => {
           this.setValueForRule(record.key, 'scaleDenominator.max', newValue);
