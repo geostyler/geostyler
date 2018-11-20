@@ -27,6 +27,7 @@ const _isEqual = require('lodash/isEqual');
 
 import './Rule.css';
 import en_US from '../../locale/en_US';
+import { SLDRenderer, SLDRendererProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 
 // i18n
 export interface RuleLocale {
@@ -53,6 +54,7 @@ interface RuleDefaultProps {
   /** The data projection of example features */
   dataProjection: string;
   rendererType: 'SLD' | 'OpenLayers';
+  sldRendererProps: SLDRendererProps;
   locale: RuleLocale;
 }
 
@@ -114,7 +116,15 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       }]
     },
     dataProjection: 'EPSG:4326',
-    rendererType: 'OpenLayers'
+    rendererType: 'OpenLayers',
+    sldRendererProps: {
+      symbolizers: [{
+        kind: 'Mark',
+        wellKnownName: 'Circle'
+      }],
+      wmsBaseUrl: '',
+      layer: ''
+    }
   };
 
   static getDerivedStateFromProps(
@@ -253,6 +263,8 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   render() {
     const {
       internalDataDef,
+      rendererType,
+      sldRendererProps,
       locale
     } = this.props;
 
@@ -262,6 +274,20 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       scaleFieldChecked,
       filterFieldChecked
     } = this.state;
+
+    let featureRenderer;
+    if (rendererType === 'SLD') {
+      featureRenderer = <SLDRenderer
+        symbolizers={rule.symbolizers}
+        onClick={this.onRendererClick}
+        {...sldRendererProps}
+      />;
+    } else {
+      featureRenderer = <Renderer
+        symbolizers={rule.symbolizers}
+        onClick={this.onRendererClick}
+      />;
+    }
 
     // cast the current filter object to pass over to ComparisonFilterUi
     const cmpFilter = rule.filter as GsComparisonFilter;
@@ -280,10 +306,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               placeholder={locale.nameFieldPlaceholder}
               {...this.props.ruleNameProps}
             />
-            <Renderer
-              symbolizers={rule.symbolizers}
-              onClick={this.onRendererClick}
-            />
+            {featureRenderer}
             {
               !editorVisible ? null :
                 <SymbolizerEditorWindow

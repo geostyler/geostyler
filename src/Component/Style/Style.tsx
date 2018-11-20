@@ -21,7 +21,7 @@ import {
   Data as GsData
 } from 'geostyler-data';
 
-import Rule from '../Rule/Rule';
+import Rule, { RuleProps } from '../Rule/Rule';
 import NameField, { NameFieldProps } from '../NameField/NameField';
 import BulkEditModals from '../Symbolizer/BulkEditModals/BulkEditModals';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
@@ -31,6 +31,7 @@ import en_US from '../../locale/en_US';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import RuleTable from '../RuleTable/RuleTable';
 import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
+import { SLDRendererProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 
 import './Style.css';
 
@@ -63,6 +64,9 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   dataProjection?: string;
   filterUiProps?: Partial<ComparisonFilterProps>;
   ruleNameProps?: Partial<NameFieldProps>;
+  ruleProps?: Partial<RuleProps>;
+  ruleRendererType?: 'SLD' | 'OpenLayers';
+  sldRendererProps?: SLDRendererProps;
 }
 
 // state
@@ -264,6 +268,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       dataProjection,
       filterUiProps,
       ruleNameProps,
+      ruleRendererType,
+      sldRendererProps,
       locale,
       data
     } = this.props;
@@ -327,6 +333,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
             dataProjection={dataProjection}
             filterUiProps={filterUiProps}
             ruleNameProps={ruleNameProps}
+            rendererType={ruleRendererType}
+            sldRendererProps={sldRendererProps}
           />)
         }
         <Button.Group>

@@ -19,6 +19,7 @@ export interface SLDRendererProps extends Partial<SLDRendererDefaultProps> {
   symbolizers: Symbolizer[];
   wmsBaseUrl: string;
   layer: string;
+  additionalHeaders?: any;
   wmsParams?: any;
 }
 
@@ -76,7 +77,8 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
    */
   setLegendGraphicUrlForRule = (symbolizers: Symbolizer[]) => {
     const {
-      requestDelay
+      requestDelay,
+      additionalHeaders
     } = this.props;
 
     this.setState({
@@ -118,7 +120,8 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
           };
           HTTPUtil.post({
             url: wmsBaseUrl,
-            params: params
+            params: params,
+            additionalHeaders: additionalHeaders
           })
             .then((response: any) => {
               if (response && response.ok) {
