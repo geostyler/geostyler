@@ -32,10 +32,12 @@ import Preview from './Component/Symbolizer/Preview/Preview';
 import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor';
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
+import Renderer from './Component/Symbolizer/Renderer/Renderer';
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
 import Rule from './Component/Rule/Rule';
 import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
 import SizeField from './Component/Symbolizer/Field/SizeField/SizeField';
+import SLDRenderer from './Component/Symbolizer/SLDRenderer/SLDRenderer';
 import Style from './Component/Style/Style';
 import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
 import SymbolizerEditorWindow from './Component/Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
@@ -98,13 +100,16 @@ export {
   PropTextEditor,
   RadiusField,
   RemoveButton,
+  Renderer,
   RotateField,
   Rule,
   ScaleDenominator,
   SizeField,
+  SLDRenderer,
   Style,
   StyleLoader,
   SymbolizerEditor,
+  SymbolizerEditorWindow,
   TextEditor,
   TextFilterField,
   TitleField,
