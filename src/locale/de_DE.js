@@ -127,10 +127,6 @@ export default {
             Text: 'Text'
         }
     },
-    GsGraphicTypeField: {
-      Mark: 'Mark',
-      Icon: 'Icon'
-    },
     GsScaleDenominator: {
         minScaleDenominatorLabelText: 'Min. Maßstabszahl',
         maxScaleDenominatorLabelText: 'Max. Maßstabszahl',
