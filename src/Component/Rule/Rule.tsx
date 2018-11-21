@@ -19,7 +19,7 @@ import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilt
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import FilterTree from '../Filter/FilterTree/FilterTree';
-import Renderer from '../Symbolizer/Renderer/Renderer';
+import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 
 const _cloneDeep = require('lodash/cloneDeep');
@@ -54,7 +54,8 @@ interface RuleDefaultProps {
   /** The data projection of example features */
   dataProjection: string;
   rendererType: 'SLD' | 'OpenLayers';
-  sldRendererProps: SLDRendererProps;
+  sldRendererProps?: SLDRendererProps;
+  oLRendererProps?: RendererProps;
   locale: RuleLocale;
 }
 
@@ -116,15 +117,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       }]
     },
     dataProjection: 'EPSG:4326',
-    rendererType: 'OpenLayers',
-    sldRendererProps: {
-      symbolizers: [{
-        kind: 'Mark',
-        wellKnownName: 'Circle'
-      }],
-      wmsBaseUrl: '',
-      layer: ''
-    }
+    rendererType: 'OpenLayers'
   };
 
   static getDerivedStateFromProps(
@@ -264,6 +257,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     const {
       internalDataDef,
       rendererType,
+      oLRendererProps,
       sldRendererProps,
       locale
     } = this.props;
@@ -286,6 +280,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       featureRenderer = <Renderer
         symbolizers={rule.symbolizers}
         onClick={this.onRendererClick}
+        {...oLRendererProps}
       />;
     }
 
