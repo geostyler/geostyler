@@ -15,7 +15,8 @@ import {
 import {
   Rule as GsRule,
   Symbolizer as GsSymbolizer,
-  Filter as GsFilter
+  Filter as GsFilter,
+  Symbolizer
 } from 'geostyler-style';
 
 import {
@@ -26,11 +27,13 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
 import './RuleTable.css';
-import Renderer from '../Symbolizer/Renderer/Renderer';
+import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { TableProps } from 'antd/lib/table';
 import FilterUtil from '../../Util/FilterUtil';
+import { SLDRendererProps, SLDRenderer } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 // i18n
 export interface RuleTableLocale {
@@ -44,6 +47,9 @@ export interface RuleTableLocale {
 // default props
 interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
   locale: RuleTableLocale;
+  rendererType: 'SLD' | 'OpenLayers';
+  sldRendererProps?: SLDRendererProps;
+  oLRendererProps?: RendererProps;
 }
 
 // non default props
@@ -52,6 +58,8 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   rules: GsRule[];
   onRulesChange?: (rules: GsRule[]) => void;
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
+  /** Properties that will be passed to the Comparison Filters */
+  filterUiProps?: Partial<ComparisonFilterProps>;
 }
 
 // state
@@ -83,7 +91,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   public static defaultProps: RuleTableDefaultProps = {
-    locale: en_US.GsRuleTable
+    locale: en_US.GsRuleTable,
+    rendererType: 'OpenLayers'
   };
 
   public shouldComponentUpdate(nextProps: RuleTableProps, nextState: RuleTableState): boolean {
@@ -114,14 +123,29 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   symbolizerRenderer = (text: string, record: RuleRecord) => {
+    const {
+      rendererType,
+      sldRendererProps
+    } = this.props;
+
+    const onSymbolizerClick = (symbolizers: Symbolizer[], event: any) => {
+      const filterPosition = event.target.getBoundingClientRect();
+      this.onSymbolizerClick(record, filterPosition);
+    };
+
     return (
-      <Renderer
-        symbolizers={record.symbolizers}
-        onClick={(symbolizers, event) => {
-          const filterPosition = event.target.getBoundingClientRect();
-          this.onSymbolizerClick(record, filterPosition);
-        }}
-      />
+      rendererType === 'SLD' ? (
+        <SLDRenderer
+          symbolizers={record.symbolizers}
+          onClick={onSymbolizerClick}
+          {...sldRendererProps}
+        />
+      ) : (
+          <Renderer
+            symbolizers={record.symbolizers}
+            onClick={onSymbolizerClick}
+          />
+        )
     );
   }
 
@@ -251,6 +275,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const {
       locale,
       rules,
+      filterUiProps,
+      data,
       ...restProps
     } = this.props;
     const {
@@ -316,6 +342,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
               onClose={this.onFilterEditorWindowClose}
               filter={rules[ruleEditIndex].filter}
               onFilterChange={this.onFilterChange}
+              filterUiProps={filterUiProps}
+              internalDataDef={data}
             />
         }
       </div>
