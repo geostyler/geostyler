@@ -56,7 +56,7 @@
     "moment": "2.22.2",
     "react-codemirror2": "5.1.0",
     "react-color": "2.14.1",
-    "react-rnd": "9.0.3",
+    "react-rnd": "9.0.4",
     "url-search-params": "1.1.0"
   },
   "devDependencies": {
