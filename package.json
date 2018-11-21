@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "blob": "0.0.5",
-    "codemirror": "5.41.0",
+    "codemirror": "5.42.0",
     "color": "3.1.0",
     "colormap": "2.3.0",
     "file-saver": "2.0.0",
