@@ -19,7 +19,7 @@ import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilt
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import FilterTree from '../Filter/FilterTree/FilterTree';
-import Renderer from '../Symbolizer/Renderer/Renderer';
+import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 
 const _cloneDeep = require('lodash/cloneDeep');
@@ -27,6 +27,7 @@ const _isEqual = require('lodash/isEqual');
 
 import './Rule.css';
 import en_US from '../../locale/en_US';
+import { SLDRenderer, SLDRendererProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 
 // i18n
 export interface RuleLocale {
@@ -53,6 +54,8 @@ interface RuleDefaultProps {
   /** The data projection of example features */
   dataProjection: string;
   rendererType: 'SLD' | 'OpenLayers';
+  sldRendererProps?: SLDRendererProps;
+  oLRendererProps?: RendererProps;
   locale: RuleLocale;
 }
 
@@ -253,6 +256,9 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   render() {
     const {
       internalDataDef,
+      rendererType,
+      oLRendererProps,
+      sldRendererProps,
       locale
     } = this.props;
 
@@ -262,6 +268,21 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       scaleFieldChecked,
       filterFieldChecked
     } = this.state;
+
+    let featureRenderer;
+    if (rendererType === 'SLD') {
+      featureRenderer = <SLDRenderer
+        symbolizers={rule.symbolizers}
+        onClick={this.onRendererClick}
+        {...sldRendererProps}
+      />;
+    } else {
+      featureRenderer = <Renderer
+        symbolizers={rule.symbolizers}
+        onClick={this.onRendererClick}
+        {...oLRendererProps}
+      />;
+    }
 
     // cast the current filter object to pass over to ComparisonFilterUi
     const cmpFilter = rule.filter as GsComparisonFilter;
@@ -280,10 +301,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               placeholder={locale.nameFieldPlaceholder}
               {...this.props.ruleNameProps}
             />
-            <Renderer
-              symbolizers={rule.symbolizers}
-              onClick={this.onRendererClick}
-            />
+            {featureRenderer}
             {
               !editorVisible ? null :
                 <SymbolizerEditorWindow
