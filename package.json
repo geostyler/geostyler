@@ -100,7 +100,7 @@
     "react": "16.6.0",
     "react-docgen-typescript": "1.12.2",
     "react-dom": "16.6.0",
-    "react-styleguidist": "8.0.5",
+    "react-styleguidist": "8.0.6",
     "rimraf": "2.6.2",
     "source-map-loader": "0.2.4",
     "ts-jest": "23.10.4",
