@@ -329,12 +329,16 @@ export class Style extends React.Component<StyleProps, StyleState> {
               selectedRowKeys,
               onChange: this.onRulesSelectionChange
             }}
+            rendererType={ruleRendererType}
+            sldRendererProps={sldRendererProps}
+            filterUiProps={filterUiProps}
+            data={data}
           />
           : rules.map((rule, idx) => <Rule
             key={'rule_' + idx}
             rule={rule}
             onRemove={this.removeRule}
-            internalDataDef={this.props.data}
+            internalDataDef={data}
             onRuleChange={this.onRuleChange}
             dataProjection={dataProjection}
             filterUiProps={filterUiProps}

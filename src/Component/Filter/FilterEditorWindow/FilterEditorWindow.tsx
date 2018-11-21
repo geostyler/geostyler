@@ -11,6 +11,7 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { Filter } from 'geostyler-style';
 import FilterTree from '../FilterTree/FilterTree';
+import { ComparisonFilterProps } from '../ComparisonFilter/ComparisonFilter';
 
 const _isEqual = require('lodash/isEqual');
 // i18n
@@ -31,6 +32,8 @@ export interface FilterEditorWindowProps extends Partial<FilterEditorWindowDefau
   y?: number;
   onClose?: () => void;
   onFilterChange?: (filter: Filter) => void;
+  /** Properties that will be passed to the comparison filters */
+  filterUiProps?: Partial<ComparisonFilterProps>;
 }
 
 /**
@@ -56,6 +59,7 @@ export class FilterEditorWindow extends React.Component<FilterEditorWindowProps>
       onClose,
       filter,
       onFilterChange,
+      filterUiProps,
       locale
     } = this.props;
 
@@ -96,6 +100,7 @@ export class FilterEditorWindow extends React.Component<FilterEditorWindowProps>
                 internalDataDef={internalDataDef}
                 filter={filter}
                 onFilterChange={onFilterChange}
+                filterUiProps={filterUiProps}
             />
           </div>
         </Rnd>,
