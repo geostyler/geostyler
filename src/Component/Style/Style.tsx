@@ -54,6 +54,7 @@ interface StyleDefaultProps {
   style: GsStyle;
   locale: StyleLocale;
   compact: boolean;
+  enableClassification: boolean;
 }
 
 // non default props
@@ -102,7 +103,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
     style: {
       name: 'My Style',
       rules: []
-    }
+    },
+    enableClassification: true
   };
 
   public shouldComponentUpdate(nextProps: StyleProps, nextState: StyleState): boolean {
@@ -270,6 +272,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       ruleNameProps,
       ruleRendererType,
       sldRendererProps,
+      enableClassification,
       locale,
       data
     } = this.props;
@@ -299,16 +302,19 @@ export class Style extends React.Component<StyleProps, StyleState> {
             label={locale.nameFieldLabel}
             placeholder={locale.nameFieldPlaceholder}
           />
-          <Button
-            className="gs-style-rulegenerator"
-            onClick={this.showRuleGeneratorWindow}
-            disabled={!data}
-          >
-            {locale.ruleGeneratorWindowBtnText}
-          </Button>
+          {
+            enableClassification ?
+              <Button
+                className="gs-style-rulegenerator"
+                onClick={this.showRuleGeneratorWindow}
+                disabled={!data}
+              >
+                {locale.ruleGeneratorWindowBtnText}
+              </Button> : null
+          }
         </div>
         {
-          !ruleGeneratorWindowVisible ? null :
+          (!ruleGeneratorWindowVisible) ? null :
           <RuleGeneratorWindow
             internalDataDef={data}
             onClose={this.onRuleGeneratorWindowClose}
