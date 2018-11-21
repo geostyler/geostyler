@@ -59,12 +59,6 @@ describe('ComparisonFilter', () => {
       expect(wrapper.instance().onAttributeChange).toBeDefined();
     });
 
-    it('calls onValidationChanged is available', () => {
-      const attribute: string = 'foo';
-      wrapper.instance().onAttributeChange(attribute);
-      expect(onValidationChanged.mock.calls).toHaveLength(1);
-    });
-
     it('calls onFilterChange', () => {
       const attribute: string = 'foo';
       wrapper.instance().onAttributeChange(attribute);
@@ -77,10 +71,10 @@ describe('ComparisonFilter', () => {
       expect(wrapper.instance().onOperatorChange).toBeDefined();
     });
 
-    it('calls onValidationChanged is available', () => {
+    it('calls onFilterChange is available', () => {
       const operator: string = '==';
       wrapper.instance().onOperatorChange(operator);
-      expect(onValidationChanged.mock.calls).toHaveLength(1);
+      expect(onFilterChange.mock.calls).toHaveLength(1);
     });
   });
 
@@ -89,10 +83,10 @@ describe('ComparisonFilter', () => {
       expect(wrapper.instance().onValueChange).toBeDefined();
     });
 
-    it('calls onValidationChanged is available', () => {
+    it('calls onFilterChange is available', () => {
       const value: string = 'Peter';
       wrapper.instance().onValueChange(value);
-      expect(onValidationChanged.mock.calls).toHaveLength(1);
+      expect(onFilterChange.mock.calls).toHaveLength(1);
     });
   });
 
@@ -129,6 +123,11 @@ describe('ComparisonFilter', () => {
       expect(attrValidator.mock.calls).toHaveLength(1);
       expect(operatorValidator.mock.calls).toHaveLength(1);
       expect(valueValidatorCalled).toBe(1);
+    });
+
+    it('calls onValidationChanged is available', () => {
+      wrapper.instance().validateFilter();
+      expect(onValidationChanged.mock.calls).toHaveLength(1);
     });
   });
 });

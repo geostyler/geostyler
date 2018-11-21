@@ -329,7 +329,6 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     const {
       internalDataDef,
       onFilterChange,
-      onValidationChanged,
       validators
     } = this.props;
 
@@ -370,9 +369,6 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       if (onFilterChange) {
         onFilterChange(filter);
       }
-      if (_isFunction(onValidationChanged)) {
-        onValidationChanged(validationStateNew);
-      }
     });
   }
 
@@ -403,9 +399,6 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       () => {
         if (onFilterChange) {
           onFilterChange(filter);
-        }
-        if (_isFunction(this.props.onValidationChanged)) {
-          this.props.onValidationChanged(validationStateNew);
         }
       }
     );
@@ -441,9 +434,6 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       () => {
         if (onFilterChange) {
           onFilterChange(filter);
-        }
-        if (_isFunction(this.props.onValidationChanged)) {
-          this.props.onValidationChanged(validationStateNew);
         }
       }
     );
