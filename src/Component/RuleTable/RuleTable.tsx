@@ -134,15 +134,18 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     };
 
     return (
-      rendererType === 'SLD' ? <SLDRenderer
-      symbolizers={record.symbolizers}
-      onClick={onSymbolizerClick}
-      {...sldRendererProps}
-    />
-      : <Renderer
-        symbolizers={record.symbolizers}
-        onClick={onSymbolizerClick}
-      />
+      rendererType === 'SLD' ? (
+        <SLDRenderer
+          symbolizers={record.symbolizers}
+          onClick={onSymbolizerClick}
+          {...sldRendererProps}
+        />
+      ) : (
+          <Renderer
+            symbolizers={record.symbolizers}
+            onClick={onSymbolizerClick}
+          />
+        )
     );
   }
 
