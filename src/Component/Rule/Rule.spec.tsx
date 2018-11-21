@@ -5,6 +5,8 @@ import en_US from '../../locale/en_US';
 import {
   Rule as GsRule
 } from 'geostyler-style';
+import { SLDRenderer } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import { Renderer } from '../Symbolizer/Renderer/Renderer';
 
 describe('Rule', () => {
 
@@ -182,6 +184,24 @@ describe('Rule', () => {
       expect(wrapper.state().editorVisible).toBe(!editorVisible);
       renderer.simulate('click');
       expect(wrapper.state().editorVisible).toBe(editorVisible);
+    });
+  });
+
+  describe('renders configured: ', () => {
+    it('SLD renderer', () => {
+      wrapper.setProps({
+        rendererType: 'SLD'
+      });
+      const targetRenderer = wrapper.find(SLDRenderer);
+      expect(targetRenderer).toBeDefined();
+    });
+
+    it('OpenLayers renderer', () => {
+      wrapper.setProps({
+        rendererType: 'OpenLayers'
+      });
+      const targetRenderer = wrapper.find(Renderer);
+      expect(targetRenderer).toBeDefined();
     });
   });
 
