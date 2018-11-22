@@ -27,7 +27,8 @@ interface RuleGeneratorLocale {
   numberOfRules: string;
   colorRamp: string;
   colorRampPlaceholder: string;
-  colorRampMinClassesWarning: string;
+  colorRampMinClassesWarningPre: string;
+  colorRampMinClassesWarningPost: string;
   symbolizer: string;
   classification: string;
   classificationPlaceholder: string;
@@ -62,6 +63,7 @@ export interface RuleGeneratorProps extends Partial<RuleGeneratorDefaultProps> {
 }
 
 export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGeneratorState> {
+  private minNrClasses: number;
 
   public static defaultProps: RuleGeneratorDefaultProps = {
     locale: en_US.GsRuleGenerator,
@@ -88,8 +90,10 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
 
     const symbolizerKind = RuleGeneratorUtil.guessSymbolizerFromData(internalDataDef);
 
+    this.minNrClasses = 3;
+
     this.state = {
-      numberOfRules: 2,
+      numberOfRules: this.minNrClasses,
       symbolizerKind
     };
   }
@@ -107,6 +111,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
     this.setState({
       attributeName,
       attributeType,
+      classificationMethod: this.props.classificationMethods[0],
       levelOfMeasurement: attributeType === 'string' ? 'nominal' : 'cardinal',
       numberOfRules: numberOfRules || this.state.numberOfRules
     });
@@ -337,7 +342,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
           }
           <Form.Item label={locale.numberOfRules}>
             <InputNumber
-              min={2}
+              min={this.minNrClasses}
               max={100}
               value={numberOfRules}
               onChange={this.onNumberChange}
@@ -366,7 +371,9 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
             }
             <Form.Item
               label={locale.colorRamp}
-              help={numberOfRules < 3 ? locale.colorRampMinClassesWarning : undefined}
+              help={numberOfRules < this.minNrClasses ?
+                `${locale.colorRampMinClassesWarningPre} ${this.minNrClasses} ${locale.colorRampMinClassesWarningPost}`
+                : undefined}
             >
               <Select
                 className="color-ramp-select"
@@ -375,7 +382,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
                 optionFilterProp="children"
                 value={colorRampName}
                 onChange={this.onColorRampNameChange}
-                disabled={numberOfRules < 3}
+                disabled={numberOfRules < this.minNrClasses}
               >
                 {this.getColorOptions()}
               </Select>
@@ -386,7 +393,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
               className="gs-rule-generator-submit-button"
               type="primary"
               onClick={this.onGenerateClick}
-              disabled={numberOfRules < 3 || !colorRamp || !attributeName}
+              disabled={numberOfRules < this.minNrClasses || !attributeName}
             >
               {locale.generateButtonText}
             </Button>
