@@ -206,6 +206,12 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
   onMultiEdit = (param: any) => {
     switch (param.key) {
+      case 'addRule':
+        this.addRule();
+        break;
+      case 'removeRule':
+        this.removeRules();
+        break;
       case 'color':
         this.setState({colorModalVisible: true});
         break;
@@ -262,6 +268,47 @@ export class Style extends React.Component<StyleProps, StyleState> {
     this.setState({ruleGeneratorWindowVisible: false});
   }
 
+  createFooter = () => {
+    const {
+      locale
+    } = this.props;
+
+    const {
+      style,
+      selectedRowKeys
+    } = this.state;
+
+    const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
+
+    return (
+      <Menu
+        mode="horizontal"
+        onClick={this.onMultiEdit}
+        selectable={false}
+        >
+        <Menu.Item key="addRule">
+          <Icon type="plus" />
+            {locale.addRuleBtnText}
+        </Menu.Item>
+        <Menu.Item key="removeRule"
+          disabled={!allowRemove}
+          >
+          <Icon type="minus" />
+            {locale.removeRulesBtnText}
+        </Menu.Item>
+        <Menu.SubMenu
+          popupClassName="styler-multiedit-popup"
+          title={<span><Icon type="menu-unfold" /><span>{locale.multiEditLabel}</span></span>}
+          >
+          <Menu.Item key="color">{locale.colorLabel}</Menu.Item>
+          <Menu.Item key="size">{locale.radiusLabel}</Menu.Item>
+          <Menu.Item key="opacity">{locale.opacityLabel}</Menu.Item>
+          <Menu.Item key="symbol">{locale.symbolLabel}</Menu.Item>
+        </Menu.SubMenu>
+      </Menu>
+    );
+  }
+
   render() {
     let rules: GsRule[] = [];
 
@@ -290,8 +337,6 @@ export class Style extends React.Component<StyleProps, StyleState> {
     if (style) {
       rules = style.rules;
     }
-
-    const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
 
     return (
       <div className="gs-style" >
@@ -333,6 +378,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             sldRendererProps={sldRendererProps}
             filterUiProps={filterUiProps}
             data={data}
+            footer={this.createFooter}
           />
           : rules.map((rule, idx) => <Rule
             key={'rule_' + idx}
@@ -347,52 +393,17 @@ export class Style extends React.Component<StyleProps, StyleState> {
             sldRendererProps={sldRendererProps}
           />)
         }
-        <Button.Group>
+        {
+          compact ? null :
           <Button
             style={{'marginBottom': '20px', 'marginTop': '20px'}}
             icon="plus"
             size="large"
             onClick={this.addRule}
           >
-            {locale.addRuleBtnText}
-          </Button>
-          {
-            !compact ? null :
-            <Button
-              style={{'marginBottom': '20px', 'marginTop': '20px'}}
-              icon="minus"
-              disabled={!allowRemove}
-              size="large"
-              onClick={this.removeRules}
-            >
-              {locale.removeRulesBtnText}
-            </Button>
-          }
-          {
-            !compact ? null :
-            <Menu
-              style={{
-                display: 'inline-block',
-                top: '15px',
-                position: 'absolute',
-                width: '60%'
-              }}
-              mode="vertical"
-              onClick={this.onMultiEdit}
-              selectable={false}
-            >
-              <Menu.SubMenu
-                popupClassName="styler-multiedit-popup"
-                title={<span><Icon type="menu-unfold" /><span>{locale.multiEditLabel}</span></span>}
-              >
-                <Menu.Item key="color">{locale.colorLabel}</Menu.Item>
-                <Menu.Item key="size">{locale.radiusLabel}</Menu.Item>
-                <Menu.Item key="opacity">{locale.opacityLabel}</Menu.Item>
-                <Menu.Item key="symbol">{locale.symbolLabel}</Menu.Item>
-              </Menu.SubMenu>
-            </Menu>
-          }
-        </Button.Group>
+          {locale.addRuleBtnText}
+        </Button>
+        }
         <BulkEditModals
           colorModalVisible={colorModalVisible}
           sizeModalVisible={sizeModalVisible}
