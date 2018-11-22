@@ -204,7 +204,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
     });
   }
 
-  onMultiEdit = (param: any) => {
+  onTableMenuClick = (param: any) => {
     switch (param.key) {
       case 'addRule':
         this.addRule();
@@ -283,7 +283,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
     return (
       <Menu
         mode="horizontal"
-        onClick={this.onMultiEdit}
+        onClick={this.onTableMenuClick}
         selectable={false}
         >
         <Menu.Item key="addRule">
