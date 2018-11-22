@@ -7,3 +7,8 @@
 .gs-namefield {
   flex: 1;
 }
+
+.gs-rule-table .ant-table-footer {
+  margin-top: 1px;
+  padding: 0;
+}

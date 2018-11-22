@@ -56,6 +56,7 @@ interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
 export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   data?: GsData;
   rules: GsRule[];
+  footer?: (currentPageData?: any) => React.ReactNode;
   onRulesChange?: (rules: GsRule[]) => void;
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
   /** Properties that will be passed to the Comparison Filters */
