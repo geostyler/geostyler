@@ -1,4 +1,4 @@
-This demonstrates the use of GraphicEditor.
+This demonstrates the use of `GraphicEditor`.
 
 ```jsx
 const React = require('react');

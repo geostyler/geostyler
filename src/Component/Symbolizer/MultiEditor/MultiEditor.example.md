@@ -1,4 +1,4 @@
-This demonstrates the use of MultiEditor.
+This demonstrates the use of `MultiEditor`.
 
 ```jsx
 const React = require('react');

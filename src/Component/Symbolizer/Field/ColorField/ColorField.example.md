@@ -1,4 +1,4 @@
-This demonstrates the use of ColorField.
+This demonstrates the use of `ColorField`.
 
 ```jsx
 const React = require('react');

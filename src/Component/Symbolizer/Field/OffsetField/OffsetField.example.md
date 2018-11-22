@@ -1,4 +1,4 @@
-This demonstrates the use of OffsetField.
+This demonstrates the use of `OffsetField`.
 
 ```jsx
 const React = require('react');

@@ -1,4 +1,4 @@
-This demonstrates the use of FontPicker.
+This demonstrates the use of `FontPicker`.
 
 ```jsx
 const React = require('react');
@@ -30,7 +30,7 @@ class FontPickerExample extends React.Component {
     return (
       <FontPicker
         font={font}
-        fontOptions={['arial', 'mySuperFont', 'Foo', 'Bar']}
+        fontOptions={['monospace', 'fantasy', 'serif', 'sans-serif']}
         onChange={this.onChange}
       />
     );

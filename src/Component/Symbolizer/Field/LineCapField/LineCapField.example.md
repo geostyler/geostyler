@@ -1,4 +1,4 @@
-This demonstrates the use of LineCapField.
+This demonstrates the use of `LineCapField`.
 
 ```jsx
 const React = require('react');

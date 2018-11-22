@@ -1,4 +1,4 @@
-This demonstrates the use of WidthField.
+This demonstrates the use of `WidthField`.
 
 ```jsx
 const React = require('react');

@@ -1,4 +1,4 @@
-This demonstrates the use of LineEditor.
+This demonstrates the use of `LineEditor`.
 
 ```jsx
 const React = require('react');

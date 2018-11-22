@@ -1,4 +1,4 @@
-This demonstrates the use of WellKnownNameEditor.
+This demonstrates the use of `WellKnownNameEditor`.
 
 ```jsx
 const React = require('react');

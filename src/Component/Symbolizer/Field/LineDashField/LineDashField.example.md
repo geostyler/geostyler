@@ -1,4 +1,4 @@
-This demonstrates the use of LineDashField.
+This demonstrates the use of `LineDashField`.
 
 ```jsx
 const React = require('react');

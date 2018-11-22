@@ -1,4 +1,4 @@
-This demonstrates the use of Preview.
+This demonstrates the use of `Preview`.
 
 ```jsx
 const React = require('react');

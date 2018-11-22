@@ -1,4 +1,4 @@
-This demonstrates the use of TextEditor.
+This demonstrates the use of `TextEditor`.
 
 ```jsx
 const React = require('react');

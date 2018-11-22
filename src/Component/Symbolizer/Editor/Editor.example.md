@@ -1,4 +1,4 @@
-This demonstrates the use of Editor.
+This demonstrates the use of `Editor`.
 
 ```jsx
 const React = require('react');

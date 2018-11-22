@@ -1,4 +1,4 @@
-This demonstrates the use of Renderer.
+This demonstrates the use of `Renderer`.
 
 ```jsx
 const React = require('react');

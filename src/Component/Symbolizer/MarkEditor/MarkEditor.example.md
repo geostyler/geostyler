@@ -1,4 +1,4 @@
-This demonstrates the use of MarkEditor.
+This demonstrates the use of `MarkEditor`.
 
 ```jsx
 const React = require('react');

@@ -1,4 +1,4 @@
-This demonstrates the use of KindField.
+This demonstrates the use of `KindField`.
 
 ```jsx
 const React = require('react');

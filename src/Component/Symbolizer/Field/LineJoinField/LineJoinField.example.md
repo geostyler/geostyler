@@ -1,4 +1,4 @@
-This demonstrates the use of LineJoinField.
+This demonstrates the use of `LineJoinField`.
 
 ```jsx
 const React = require('react');

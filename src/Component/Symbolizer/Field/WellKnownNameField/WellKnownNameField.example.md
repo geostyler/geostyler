@@ -1,4 +1,4 @@
-This demonstrates the use of WellKnownNameField.
+This demonstrates the use of `WellKnownNameField`.
 
 ```jsx
 const React = require('react');

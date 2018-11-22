@@ -1,4 +1,4 @@
-This demonstrates the use of OpacityField.
+This demonstrates the use of `OpacityField`.
 
 ```jsx
 const React = require('react');

@@ -1,4 +1,4 @@
-This demonstrates the use of SymbolizerEditorWindow.
+This demonstrates the use of `SymbolizerEditorWindow`.
 
 ```jsx
 const React = require('react');

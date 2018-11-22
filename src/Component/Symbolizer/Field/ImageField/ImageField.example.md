@@ -1,4 +1,4 @@
-This demonstrates the use of ImageField.
+This demonstrates the use of `ImageField`.
 
 ```jsx
 const React = require('react');

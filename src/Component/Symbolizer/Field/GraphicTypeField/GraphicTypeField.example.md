@@ -1,4 +1,4 @@
-This demonstrates the use of GraphicTypeField.
+This demonstrates the use of `GraphicTypeField`.
 
 ```jsx
 const React = require('react');

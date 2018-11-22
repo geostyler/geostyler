@@ -1,4 +1,4 @@
-This demonstrates the use of PropTextEditor.
+This demonstrates the use of `PropTextEditor`.
 
 ```jsx
 const React = require('react');

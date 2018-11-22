@@ -1,4 +1,4 @@
-This demonstrates the use of FillEditor.
+This demonstrates the use of `FillEditor`.
 
 ```jsx
 const React = require('react');

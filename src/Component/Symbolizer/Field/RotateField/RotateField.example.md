@@ -1,4 +1,4 @@
-This demonstrates the use of RotateField.
+This demonstrates the use of `RotateField`.
 
 ```jsx
 const React = require('react');

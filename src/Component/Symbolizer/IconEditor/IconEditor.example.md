@@ -1,4 +1,4 @@
-This demonstrates the use of IconEditor.
+This demonstrates the use of `IconEditor`.
 
 ```jsx
 const React = require('react');

@@ -1,4 +1,4 @@
-This demonstrates the use of SizeField.
+This demonstrates the use of `SizeField`.
 
 ```jsx
 const React = require('react');
