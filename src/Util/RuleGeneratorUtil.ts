@@ -48,7 +48,7 @@ class RuleGeneratorUtil {
         });
         return distinctValues;
       }
-      // TODO Implement logic for others then string. Maybe we don't even want to
+      // TODO Implement logic for others than string. Maybe we don't even want to
       // allow this
       return distinctValues;
     }
@@ -87,13 +87,14 @@ class RuleGeneratorUtil {
     } = params;
 
     let rules: Rule[] = [];
+    const cRamp = colorRamp || [];
     if (levelOfMeasurement === 'nominal') {
       const distinctValues = RuleGeneratorUtil.getDistinctValues(data, attributeName);
       distinctValues.splice(numberOfRules, distinctValues.length - 2);
       rules = distinctValues.map((distinctValue, index: number) => {
         const filter: Filter = ['==', attributeName, distinctValue];
         const symbolizer: Symbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind, {
-          color: colorRamp[index],
+          color: cRamp[index],
           wellKnownName
         });
         return {
@@ -131,7 +132,7 @@ class RuleGeneratorUtil {
             [isLast ? '<=' : '<', attributeName,  range[1]],
           ];
           const symbolizer: Symbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind, {
-            color: colorRamp[index],
+            color: cRamp[index],
             wellKnownName
           });
           return {
