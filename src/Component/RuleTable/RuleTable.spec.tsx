@@ -49,12 +49,14 @@ describe('RuleTable', () => {
       };
       onSymbolizerClick(wrapper.instance().getRuleRecords()[1], dummyRect);
       const state = wrapper.state();
-      expect(state).toEqual({
+      const newValues = {
         ruleEditIndex: 1,
         symbolizerEditorVisible: true,
         symbolizerEditorPosition: dummyRect,
         filterEditorVisible: false
-      });
+      };
+      const got = {...state, ...newValues};
+      expect(state).toEqual(got);
     });
   });
 
