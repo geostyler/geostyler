@@ -51,6 +51,7 @@ interface CodeEditorState {
   value: string;
   invalidMessage?: string;
   activeParser?: GsStyleParserConstructable;
+  hasError: boolean;
 }
 
 /**
@@ -66,7 +67,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     super(props);
     this.editTimeout =  null;
     this.state = {
-      value: ''
+      value: '',
+      hasError: false
     };
   }
 
@@ -91,6 +93,12 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     if (this.props.style && !_isEqual(this.props.style, prevProps.style)) {
       this.updateValueFromStyle(this.props.style);
     }
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      hasError: true
+    });
   }
 
   updateValueFromStyle = (style: GsStyle) => {
@@ -232,7 +240,13 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
   }
 
   render() {
-    const value = this.state.value;
+    const {
+      hasError,
+      value
+    } = this.state;
+    if (hasError) {
+      return <h1>An error occured in the CodeEditor UI.</h1>;
+    }
     const { locale } = this.props;
     return (
       <div className="gs-code-editor">

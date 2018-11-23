@@ -70,6 +70,7 @@ interface RuleTableState {
   symbolizerEditorPosition: DOMRect;
   filterEditorVisible: boolean;
   filterEditorPosition: DOMRect;
+  hasError: boolean;
 }
 
 export interface RuleRecord extends GsRule {
@@ -87,7 +88,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       symbolizerEditorVisible: false,
       symbolizerEditorPosition: undefined,
       filterEditorVisible: false,
-      filterEditorPosition: undefined
+      filterEditorPosition: undefined,
+      hasError: false
     };
   }
 
@@ -100,6 +102,12 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const diffProps = !_isEqual(this.props, nextProps);
     const diffState = !_isEqual(this.state, nextState);
     return diffProps || diffState;
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      hasError: true
+    });
   }
 
   getRuleRecords = (): RuleRecord[] => {
@@ -273,6 +281,9 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   render() {
+    if (this.state.hasError) {
+      return <h1>An error occured in the RuleTable UI.</h1>;
+    }
     const {
       locale,
       rules,
