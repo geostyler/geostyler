@@ -9,7 +9,8 @@ import {
   Table,
   Input,
   InputNumber,
-  Icon
+  Icon,
+  Popover
 } from 'antd';
 
 import {
@@ -163,9 +164,12 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   filterRenderer = (text: string, record: RuleRecord) => {
+    const {
+      locale
+    } = this.props;
     const cql = FilterUtil.writeAsCql(record.filter);
-
-    return (
+    let filterCell: React.ReactNode;
+    const inputSearch = (
       <Input.Search
         value={cql}
         onChange={(event) => {
@@ -187,8 +191,19 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           const filterPosition = event.target.getBoundingClientRect();
           this.onFilterEditClick(record.key, filterPosition);
         }}
-      />
-    );
+      />);
+    if (cql.length > 0) {
+      filterCell = (
+        <Popover
+          content={cql}
+          title={locale.filterColumnTitle}
+        >
+          {inputSearch}
+        </Popover>);
+    } else {
+      filterCell = inputSearch;
+    }
+    return filterCell;
   }
 
   onFilterEditClick = (ruleEditIndex: number, filterEditorPosition: DOMRect) => {
