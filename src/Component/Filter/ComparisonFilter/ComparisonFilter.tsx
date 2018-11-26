@@ -107,6 +107,7 @@ interface ComparisonFilterState {
   allowedOperators: string[];
   validateStatus: ValidationStatus;
   valueValidationHelpString: string | undefined;
+  hasError: boolean; // JavaScript errors
 }
 
 type ValidationResult = {
@@ -272,7 +273,8 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
           operator: 'error',
           value: 'error'
         },
-        valueValidationHelpString: valueValidationHelpString
+        valueValidationHelpString: valueValidationHelpString,
+        hasError: false
       };
     }
   }
@@ -285,6 +287,12 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     if (!_isEqual(previousProps.filter, this.props.filter)) {
       this.validateFilter();
     }
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      hasError: true
+    });
   }
 
   /**
@@ -479,6 +487,9 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
   }
 
   render() {
+    if (this.state.hasError) {
+      return <h1>An error occured in the ComparisonFilter UI.</h1>;
+    }
     const {
       attributeNameFilter,
       attributeLabel,

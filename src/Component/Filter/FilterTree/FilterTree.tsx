@@ -62,6 +62,7 @@ export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
 // state
 interface FilterTreeState {
   expandedKeys: string[];
+  hasError: boolean;
 }
 
 /**
@@ -83,7 +84,8 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
   constructor(props: FilterTreeProps) {
     super(props);
     this.state = {
-      expandedKeys: []
+      expandedKeys: [],
+      hasError: false
     };
   }
 
@@ -91,6 +93,12 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     const diffProps = !_isEqual(this.props, nextProps);
     const diffState = !_isEqual(this.state, nextState);
     return diffProps || diffState;
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      hasError: true
+    });
   }
 
   /**
@@ -576,6 +584,9 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
   }
 
   render() {
+    if (this.state.hasError) {
+      return <h1>An error occured in the FilterTree UI.</h1>;
+    }
     const {
       filter
     } = this.props;
