@@ -58,7 +58,8 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
       onClose,
       symbolizers,
       onSymbolizersChange,
-      locale
+      locale,
+      internalDataDef
     } = this.props;
 
     return (
@@ -94,6 +95,7 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
             />
           </div>
           <MultiEditor
+            internalDataDef={internalDataDef}
             symbolizers={symbolizers}
             onSymbolizersChange={onSymbolizersChange}
           />

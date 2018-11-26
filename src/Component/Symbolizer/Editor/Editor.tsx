@@ -112,6 +112,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           <TextEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
+            internalDataDef={this.props.internalDataDef}
           />
         );
       default:

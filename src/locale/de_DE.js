@@ -96,7 +96,8 @@ export default {
         attributeComboPlaceholder: 'Feld wählen',
         rotateLabel: 'Drehung',
         haloColorLabel: 'Halofarbe',
-        haloWidthLabel: 'Halobreite'
+        haloWidthLabel: 'Halobreite',
+        attributeNotFound: 'Attribut nicht vorhanden'
     },
     GsPropTextEditor: {
         propFieldLabel: 'Feld',

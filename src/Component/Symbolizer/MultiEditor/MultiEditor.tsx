@@ -92,6 +92,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
       symbolizers,
       editorProps,
       locale,
+      internalDataDef,
       ...passThroughProps
     } = this.props;
 
@@ -108,6 +109,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
               onSymbolizerChange={(sym: Symbolizer) => {
                 this.onSymbolizerChange(sym, idx);
               }}
+              internalDataDef={internalDataDef}
               {...editorProps}
             />
             {symbolizers.length === 1 ? null :

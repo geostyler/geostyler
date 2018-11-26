@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Input } from 'antd';
+import { Mention } from 'antd';
+const { toString, toContentState } = Mention;
 
 import {
   Symbolizer,
@@ -20,6 +21,7 @@ import './TextEditor.css';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import { Data } from 'geostyler-data';
 
 // i18n
 export interface TextEditorLocale {
@@ -34,16 +36,19 @@ export interface TextEditorLocale {
   haloColorLabel?: string;
   haloWidthLabel?: string;
   attributeComboPlaceholder?: string;
+  attributeNotFound?: string;
 }
 
 interface TextEditorDefaultProps {
   locale: TextEditorLocale;
+  internalDataDef?: Data;
 }
 
 // non default props
 export interface TextEditorProps extends Partial<TextEditorDefaultProps> {
   symbolizer: TextSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  internalDataDef?: Data;
 }
 
 /**
@@ -64,12 +69,12 @@ export class TextEditor extends React.Component<TextEditorProps> {
 
   static componentName: string = 'TextEditor';
 
-  onLabelChange = (e: any) => {
+  onLabelChange = (state: any) => {
     const {
       onSymbolizerChange
     } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.label = e.target.value;
+    symbolizer.label = toString(state);
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
@@ -178,7 +183,8 @@ export class TextEditor extends React.Component<TextEditorProps> {
 
   render() {
     const {
-      locale
+      locale,
+      internalDataDef
     } = this.props;
 
     const symbolizer = _cloneDeep(this.props.symbolizer);
@@ -201,15 +207,19 @@ export class TextEditor extends React.Component<TextEditorProps> {
       offsetX = offset[0];
       offsetY = offset[1];
     }
+    const properties = internalDataDef && internalDataDef.schema ? Object.keys(internalDataDef.schema.properties) : [];
 
     return (
       <div className="gs-text-symbolizer-editor" >
          <div className="editor-field attribute-field">
           <span className="label">{locale.templateFieldLabel}:</span>
-          <Input
+          <Mention
             placeholder={locale.templateFieldLabel}
-            value={symbolizer.label}
+            defaultValue={toContentState(symbolizer.label)}
             onChange={this.onLabelChange}
+            suggestions={properties}
+            prefix="{{"
+            notFoundContent={locale.attributeNotFound}
           />
         </div>
         <ColorField
