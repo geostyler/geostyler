@@ -26,7 +26,7 @@
   display: inherit;
 }
 
-.gs-rule-table .ant-table-body .gs-symbolizer-renderer{
+.gs-rule-table .ant-table-body .gs-symbolizer-renderer {
   height: 32px;
   width: 32px;
 }
