@@ -128,6 +128,8 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
               </Select>
               :
               <Input
+                draggable={true}
+                onDragStart={(e) => e.preventDefault()}
                 value={this.state.value}
                 placeholder={placeholder}
                 style={{ width: '100%' }}

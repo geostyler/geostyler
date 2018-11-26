@@ -76,7 +76,11 @@ export class NumberFilterField extends React.Component<NumberFilterFieldProps, N
     const helpTxt = validateStatus !== 'success' ? help : null;
 
     return (
-      <div className="gs-text-filter-fld">
+      <div
+        className="gs-text-filter-fld"
+        draggable={true}
+        onDragStart={(e) => e.preventDefault()}
+      >
         <Form.Item
           label={this.props.label}
           colon={false}
