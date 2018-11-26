@@ -37,6 +37,7 @@ export interface CodeEditorLocale {
 interface CodeEditorDefaultProps {
   locale: CodeEditorLocale;
   delay: number;
+  showSaveButton: boolean;
 }
 
 // non default props
@@ -44,6 +45,7 @@ export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
   style?: GsStyle;
   parsers?: GsStyleParserConstructable[];
   onStyleChange?: (rule: GsStyle) => void;
+  showSaveButton?: boolean;
 }
 
 // state
@@ -74,7 +76,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
 
   public static defaultProps: CodeEditorDefaultProps = {
     locale: en_US.GsCodeEditor,
-    delay: 500
+    delay: 500,
+    showSaveButton: true
   };
 
   componentDidMount() {
@@ -241,13 +244,16 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
 
   render() {
     const {
+      locale,
+      showSaveButton
+    } = this.props;
+    const {
       hasError,
       value
     } = this.state;
     if (hasError) {
       return <h1>An error occured in the CodeEditor UI.</h1>;
     }
-    const { locale } = this.props;
     return (
       <div className="gs-code-editor">
         <div className="gs-code-editor-toolbar" >
@@ -276,6 +282,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
         <div className="gs-code-editor-errormessage">
           {this.state.invalidMessage}
         </div>
+        {showSaveButton ?
         <Button
             className="gs-code-editor-download-button"
             type="primary"
@@ -283,6 +290,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
         >
             {locale.downloadButtonLabel}
         </Button>
+        : undefined}
       </div>
     );
   }
