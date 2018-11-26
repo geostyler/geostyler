@@ -26,9 +26,15 @@
   display: inherit;
 }
 
-.gs-rule-table .ant-table-body .gs-symbolizer-renderer {
+.gs-rule-table .ant-table-body .gs-symbolizer-renderer{
   height: 32px;
   width: 32px;
+}
+
+.gs-rule-table .ant-table-body .gs-symbolizer-sldrenderer,
+.gs-rule-table .ant-table-body .gs-symbolizer-sldrenderer img {
+  height: 32px;
+  width: 48px;
 }
 
 .gs-rule-table .ant-table-body .scale-denominator {
