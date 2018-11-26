@@ -129,6 +129,8 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
           />
           :
           <Input
+            draggable={true}
+            onDragStart={(e) => e.preventDefault()}
             value={this.state.value}
             style={{ width: '100%' }}
             onChange={this.onInputChange}
