@@ -94,7 +94,8 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
 
     this.state = {
       numberOfRules: this.minNrClasses,
-      symbolizerKind
+      symbolizerKind,
+      wellKnownName: 'Circle'
     };
   }
 

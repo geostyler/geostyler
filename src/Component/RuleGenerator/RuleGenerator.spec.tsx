@@ -89,7 +89,7 @@ describe('RuleGenerator', () => {
   });
 
   it('handles onWellKnownNameFieldChange correctly', () => {
-    expect(wrapper.state('wellKnownName')).toBeUndefined();
+    expect(wrapper.state('wellKnownName')).toEqual('Circle');
     wrapper.instance().onWellKnownNameFieldChange('Square');
     expect(wrapper.state('wellKnownName')).toEqual('Square');
   });

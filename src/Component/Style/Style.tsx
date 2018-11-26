@@ -79,6 +79,7 @@ interface StyleState {
   opacityModalVisible: boolean;
   symbolModalVisible: boolean;
   ruleGeneratorWindowVisible: boolean;
+  hasError: boolean;
 }
 
 export class Style extends React.Component<StyleProps, StyleState> {
@@ -91,7 +92,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       sizeModalVisible: false,
       opacityModalVisible: false,
       symbolModalVisible: false,
-      ruleGeneratorWindowVisible: false
+      ruleGeneratorWindowVisible: false,
+      hasError: false
     };
   }
 
@@ -119,6 +121,12 @@ export class Style extends React.Component<StyleProps, StyleState> {
         style: this.props.style
       });
     }
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      hasError: true
+    });
   }
 
   onNameChange = (name: string) => {
@@ -310,6 +318,10 @@ export class Style extends React.Component<StyleProps, StyleState> {
   }
 
   render() {
+    if (this.state.hasError) {
+      return <h1>An error occured in the Style UI.</h1>;
+    }
+
     let rules: GsRule[] = [];
 
     const {

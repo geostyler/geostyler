@@ -37,13 +37,15 @@ export interface EditorProps extends Partial<EditorDefaultProps> {
 // state
 interface EditorState {
   symbolizer: Symbolizer;
+  hasError: boolean;
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      symbolizer: SymbolizerUtil.generateSymbolizer()
+      symbolizer: SymbolizerUtil.generateSymbolizer(),
+      hasError: false
     };
   }
 
@@ -57,6 +59,12 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     return {
       symbolizer: nextProps.symbolizer
     };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      hasError: true
+    });
   }
 
   onSymbolizerChange = (symbolizer: Symbolizer) => {
@@ -117,6 +125,9 @@ export class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   render() {
+    if (this.state.hasError) {
+      return <h1>An error occured in the Symbolizer Editor UI.</h1>;
+    }
     const symbolizer = _cloneDeep(this.state.symbolizer);
     return (
       <div className="gs-symbolizer-editor" >

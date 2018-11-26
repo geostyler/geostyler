@@ -9,7 +9,8 @@ import {
   Table,
   Input,
   InputNumber,
-  Icon
+  Icon,
+  Popover
 } from 'antd';
 
 import {
@@ -70,6 +71,7 @@ interface RuleTableState {
   symbolizerEditorPosition: DOMRect;
   filterEditorVisible: boolean;
   filterEditorPosition: DOMRect;
+  hasError: boolean;
 }
 
 export interface RuleRecord extends GsRule {
@@ -87,7 +89,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       symbolizerEditorVisible: false,
       symbolizerEditorPosition: undefined,
       filterEditorVisible: false,
-      filterEditorPosition: undefined
+      filterEditorPosition: undefined,
+      hasError: false
     };
   }
 
@@ -100,6 +103,12 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const diffProps = !_isEqual(this.props, nextProps);
     const diffState = !_isEqual(this.state, nextState);
     return diffProps || diffState;
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      hasError: true
+    });
   }
 
   getRuleRecords = (): RuleRecord[] => {
@@ -163,9 +172,12 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   filterRenderer = (text: string, record: RuleRecord) => {
+    const {
+      locale
+    } = this.props;
     const cql = FilterUtil.writeAsCql(record.filter);
-
-    return (
+    let filterCell: React.ReactNode;
+    const inputSearch = (
       <Input.Search
         value={cql}
         onChange={(event) => {
@@ -187,8 +199,19 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           const filterPosition = event.target.getBoundingClientRect();
           this.onFilterEditClick(record.key, filterPosition);
         }}
-      />
-    );
+      />);
+    if (cql.length > 0) {
+      filterCell = (
+        <Popover
+          content={cql}
+          title={locale.filterColumnTitle}
+        >
+          {inputSearch}
+        </Popover>);
+    } else {
+      filterCell = inputSearch;
+    }
+    return filterCell;
   }
 
   onFilterEditClick = (ruleEditIndex: number, filterEditorPosition: DOMRect) => {
@@ -273,6 +296,9 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   render() {
+    if (this.state.hasError) {
+      return <h1>An error occured in the RuleTable UI.</h1>;
+    }
     const {
       locale,
       rules,

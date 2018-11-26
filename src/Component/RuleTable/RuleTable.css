@@ -31,6 +31,12 @@
   width: 32px;
 }
 
+.gs-rule-table .ant-table-body .gs-symbolizer-sldrenderer,
+.gs-rule-table .ant-table-body .gs-symbolizer-sldrenderer img {
+  height: 32px;
+  width: 48px;
+}
+
 .gs-rule-table .ant-table-body .scale-denominator {
   width: 100%
 }

@@ -11,10 +11,11 @@
   display: none;
 }
 
-.gs-comparison-filter-ui.micro input {
+.gs-comparison-filter-ui.micro input,
+.gs-comparison-filter-ui.micro .ant-input,
+.gs-comparison-filter-ui.micro .ant-input-number {
   font-size: 0.9em;
-  padding: 4px 11px;
-  padding: 2px;
+  padding: 0 4px;
   height: 24px;
 }
 
@@ -24,5 +25,17 @@
 }
 
 .gs-comparison-filter-ui.micro .ant-select-selection__rendered {
-  line-height: inherit;
+  line-height: 24px;
+}
+
+.gs-comparison-filter-ui.micro .ant-select-selection__rendered ul {
+  padding: 0;
+}
+
+.gs-comparison-filter-ui.micro .ant-select-selection__rendered ul li {
+  padding: 0;
+}
+
+.gs-comparison-filter-ui.micro .gs-operator-combo .ant-select-arrow {
+  right: 2px;
 }
