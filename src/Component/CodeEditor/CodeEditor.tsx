@@ -243,13 +243,13 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
   }
 
   render() {
-    const value = this.state.value;
     const {
       locale,
       showSaveButton
     } = this.props;
     const {
-      hasError
+      hasError,
+      value
     } = this.state;
     if (hasError) {
       return <h1>An error occured in the CodeEditor UI.</h1>;
