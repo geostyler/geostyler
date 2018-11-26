@@ -276,6 +276,13 @@ export class Style extends React.Component<StyleProps, StyleState> {
     this.setState({ruleGeneratorWindowVisible: false});
   }
 
+  /**
+   * Checks if a specific menu item of multi-edit menu should be disabled.
+   *
+   * @param name Name of menu item
+   * @param rowKeys array of selected rowkeys
+   * @return boolean true if menu item should be disabled, otherwise false
+   */
   disableMenu = (name: string, rowKeys: number[]): boolean => {
     const {
       style
