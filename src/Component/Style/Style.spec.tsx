@@ -58,4 +58,37 @@ describe('Style', () => {
     wrapper.instance().removeRule(lineStyle.rules[0]);
     expect(wrapper.state().style.rules).toHaveLength(0);
   });
+
+  it('disables the color menu item', () => {
+    let twoRules = TestUtil.getTwoRulesStyle();
+    wrapper.instance().setState({style: twoRules});
+    let disabled = wrapper.instance().disableMenu('color', [0, 1]);
+    expect(disabled).toEqual(false);
+    twoRules.rules[0].symbolizers[0].kind = 'Icon';
+    wrapper.instance().setState({style: twoRules});
+    disabled = wrapper.instance().disableMenu('color', [0, 1]);
+    expect(disabled).toEqual(true);
+  });
+
+  it('disables the size menu item', () => {
+    let twoRules = TestUtil.getTwoRulesStyle();
+    wrapper.instance().setState({style: twoRules});
+    let disabled = wrapper.instance().disableMenu('size', [0, 1]);
+    expect(disabled).toEqual(false);
+    twoRules.rules[0].symbolizers[0].kind = 'Line';
+    wrapper.instance().setState({style: twoRules});
+    disabled = wrapper.instance().disableMenu('size', [0, 1]);
+    expect(disabled).toEqual(true);
+  });
+
+  it('disables the symbol menu item', () => {
+    let twoRules = TestUtil.getTwoRulesStyle();
+    wrapper.instance().setState({style: twoRules});
+    let disabled = wrapper.instance().disableMenu('symbol', [0, 1]);
+    expect(disabled).toEqual(false);
+    twoRules.rules[0].symbolizers[0].kind = 'Line';
+    wrapper.instance().setState({style: twoRules});
+    disabled = wrapper.instance().disableMenu('symbol', [0, 1]);
+    expect(disabled).toEqual(true);
+  });
 });
