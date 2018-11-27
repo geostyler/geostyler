@@ -41,6 +41,7 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
+    "@terrestris/ol-util": "0.5.0",
     "blob": "0.0.5",
     "codemirror": "5.42.0",
     "color": "3.1.0",
@@ -63,7 +64,6 @@
     "@babel/core": "7.1.6",
     "@babel/polyfill": "7.0.0",
     "@babel/preset-env": "7.1.6",
-    "@terrestris/ol-util": "0.5.0",
     "@types/codemirror": "0.0.69",
     "@types/color": "3.0.0",
     "@types/enzyme": "3.1.15",
