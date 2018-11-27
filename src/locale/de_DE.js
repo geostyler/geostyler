@@ -179,7 +179,9 @@ export default {
       nameColumnTitle: 'Name',
       filterColumnTitle: 'Filter',
       minScaleColumnTitle: 'Min. Maßstab',
-      maxScaleColumnTitle: 'Max. Maßstab'
+      maxScaleColumnTitle: 'Max. Maßstab',
+      amountColumnTitle: 'Anzahl',
+      duplicatesColumnTitle: 'Doppelte'
     },
     GsRuleGenerator: {
       attribute: 'Attribute',

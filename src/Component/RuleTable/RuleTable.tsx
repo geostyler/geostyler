@@ -10,7 +10,8 @@ import {
   Input,
   InputNumber,
   Icon,
-  Popover
+  Popover,
+  Tooltip
 } from 'antd';
 
 import {
@@ -43,6 +44,8 @@ export interface RuleTableLocale {
   filterColumnTitle: string;
   minScaleColumnTitle: string;
   maxScaleColumnTitle: string;
+  amountColumnTitle: string;
+  duplicatesColumnTitle: string;
 }
 
 // default props
@@ -190,6 +193,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     let filterCell: React.ReactNode;
     const inputSearch = (
       <Input.Search
+        className="gs-rule-table-filter-cell"
         value={cql}
         onChange={(event) => {
           // TODO The CQL representation is currently not editable
@@ -265,6 +269,45 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           this.setValueForRule(record.key, 'scaleDenominator.max', newValue);
         }}
       />
+    );
+  }
+
+  amountRenderer = (text: string, record: RuleRecord) => {
+    const {
+      data
+    } = this.props;
+    let amount: (number|'-') = '-';
+    const filter: GsFilter|undefined = record.filter;
+    if (data && filter) {
+      try {
+        amount = FilterUtil.getNumberOfMatches(filter, data);
+      } catch (error) {
+        amount = '-';
+      }
+    } else if (data) {
+      amount = data.exampleFeatures.features.length;
+    }
+    return (
+      <div className="ant-input gs-rule-table-numeric-cell">{amount}</div>
+    );
+  }
+
+  duplicatesRenderer = (text: string, record: RuleRecord) => {
+    const {
+      data,
+      rules
+    } = this.props;
+
+    let duplicates: (number|'-') = '-';
+    if (data && rules) {
+      try {
+        duplicates = FilterUtil.getNumberOfDuplicates(rules, data, record.key);
+      } catch (error) {
+        duplicates = '-';
+      }
+    }
+    return (
+      <div className="ant-input gs-rule-table-numeric-cell">{duplicates}</div>
     );
   }
 
@@ -349,6 +392,17 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
             title: locale.maxScaleColumnTitle,
             dataIndex: 'maxScale',
             render: this.maxScaleRenderer
+          }, {
+            title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
+            dataIndex: 'amount',
+            render: this.amountRenderer
+          }, {
+            title: (
+              <Tooltip title={locale.duplicatesColumnTitle}>
+                <Icon type="block" />
+              </Tooltip>),
+            dataIndex: 'duplicates',
+            render: this.duplicatesRenderer
           }]}
           dataSource={this.getRuleRecords()}
           pagination={false}
