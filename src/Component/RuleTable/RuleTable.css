@@ -40,3 +40,8 @@
 .gs-rule-table .ant-table-body .scale-denominator {
   width: 100%
 }
+
+.gs-rule-table .ant-table-body .gs-rule-table-filter-cell>input,
+.gs-rule-table .ant-table-body .gs-rule-table-numeric-cell {
+  cursor: default;
+}
