@@ -353,6 +353,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
               }
               y={symbolizerEditorPosition ? symbolizerEditorPosition.y : undefined}
               onClose={this.onSymbolizerEditorWindowClose}
+              internalDataDef={data}
               symbolizers={rules[ruleEditIndex].symbolizers}
               onSymbolizersChange={this.onSymbolizersChange}
             />

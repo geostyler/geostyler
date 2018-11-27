@@ -97,7 +97,8 @@ export default {
         attributeComboPlaceholder: 'Select Field',
         rotateLabel: 'Rotation',
         haloColorLabel: 'Halo-Color',
-        haloWidthLabel: 'Halo-Width'
+        haloWidthLabel: 'Halo-Width',
+        attributeNotFound: 'Field not found'
     },
     GsPropTextEditor: {
         propFieldLabel: 'Field',
