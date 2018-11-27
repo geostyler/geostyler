@@ -5,7 +5,11 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 require("@babel/polyfill");
 
 module.exports = {
-  entry: ["@babel/polyfill", "./src/index.js"],
+  entry: [
+    "@babel/polyfill",
+    "whatwg-fetch",
+    "./src/index.js"
+  ],
   output: {
     filename: "geostyler.js",
     path: __dirname + "/browser",
