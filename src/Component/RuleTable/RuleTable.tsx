@@ -160,14 +160,25 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   nameRenderer = (text: string, record: RuleRecord) => {
-    return (
+    const {
+      locale
+    } = this.props;
+
+    const input = (
       <Input
         value={record.name}
         onChange={(event) => {
           const target = event.target;
           this.setValueForRule(record.key, 'name', target.value);
         }}
-      />
+      />);
+    return (
+      <Popover
+        content={record.name}
+        title={locale.nameColumnTitle}
+      >
+        {input}
+      </Popover>
     );
   }
 
