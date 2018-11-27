@@ -81,6 +81,85 @@ class FilterUtil {
   // }
 
   /**
+   * Handle nested filters.
+   */
+  static handleNestedFilter = (filter: Filter, feature: any): boolean => {
+    switch (filter[0]) {
+      case '&&':
+        let intermediate = true;
+        let restFilter = filter.slice(1);
+        restFilter.forEach((f: Filter) => {
+          if (!FilterUtil.featureMatchesFilter(f, feature)) {
+            intermediate = false;
+          }
+        });
+        return intermediate;
+      case '||':
+        intermediate = false;
+        restFilter = filter.slice(1);
+        restFilter.forEach((f: Filter) => {
+          if (FilterUtil.featureMatchesFilter(f, feature)) {
+            intermediate = true;
+          }
+        });
+        return intermediate;
+      case '!':
+        return !FilterUtil.featureMatchesFilter(filter[1], feature);
+      default:
+        throw new Error(`Cannot parse Filter. Unknown combination or negation operator.`);
+    }
+  }
+
+  /**
+   * Handle simple filters, i.e. non-nested filters.
+   */
+  static handleSimpleFilter = (filter: Filter, feature: any): boolean => {
+    const prop: any = _get(feature, 'properties[' + filter[1] + ']');
+      switch (filter[0]) {
+        case '==':
+          // tslint:disable-next-line
+          return (prop == filter[2]);
+        case '*=':
+          if (prop && filter[2].length > prop.length) {
+            return false;
+          } else if (prop) {
+            return (prop.indexOf(filter[2]) !== -1);
+          } else {
+            return false;
+          }
+        case '!=':
+          // tslint:disable-next-line
+          return (prop != filter[2]);
+        case '<':
+          if (typeof prop === typeof filter[2]) {
+            return (prop < filter[2]);
+          } else {
+            return false;
+          }
+        case '<=':
+          if (typeof prop === typeof filter[2]) {
+            return (prop <= filter[2]);
+          } else {
+            return false;
+          }
+        case '>':
+          if (typeof prop === typeof filter[2]) {
+            return (prop > filter[2]);
+          } else {
+            return false;
+          }
+        case '>=':
+          if (typeof prop === typeof filter[2]) {
+            return (prop >= filter[2]);
+          } else {
+            return false;
+          }
+        default:
+          throw new Error(`Cannot parse Filter. Unknown comparison operator.`);
+      }
+  }
+
+  /**
    * Checks if a feature matches the specified filter.
    * Returns true if it matches, otherwise returns false.
    */
@@ -95,76 +174,9 @@ class FilterUtil {
       isNestedFilter = true;
     }
     if (isNestedFilter) {
-      switch (filter[0]) {
-        case '&&':
-          let intermediate = true;
-          let restFilter = filter.slice(1);
-          restFilter.forEach((f: Filter) => {
-            if (!FilterUtil.featureMatchesFilter(f, feature)) {
-              intermediate = false;
-            }
-          });
-          matchesFilter = intermediate;
-          break;
-        case '||':
-          intermediate = false;
-          restFilter = filter.slice(1);
-          restFilter.forEach((f: Filter) => {
-            if (FilterUtil.featureMatchesFilter(f, feature)) {
-              intermediate = true;
-            }
-          });
-          matchesFilter = intermediate;
-          break;
-        case '!':
-          matchesFilter = !FilterUtil.featureMatchesFilter(filter[1], feature);
-          break;
-        default:
-          throw new Error(`Cannot parse Filter. Unknown combination or negation operator.`);
-      }
+      matchesFilter = FilterUtil.handleNestedFilter(filter, feature);
     } else {
-      const prop: any = _get(feature, 'properties[' + filter[1] + ']');
-      switch (filter[0]) {
-        case '==':
-          // tslint:disable-next-line
-          matchesFilter = prop == filter[2];
-          break;
-        case '*=':
-          if (prop && filter[2].length > prop.length) {
-            matchesFilter = false;
-          } else if (prop) {
-            matchesFilter = prop.indexOf(filter[2]) !== -1;
-          } else {
-            matchesFilter = false;
-          }
-          break;
-        case '!=':
-          // tslint:disable-next-line
-          matchesFilter = prop != filter[2];
-          break;
-        case '<':
-          if (typeof prop === typeof filter[2]) {
-            matchesFilter = prop < filter[2];
-          }
-          break;
-        case '<=':
-          if (typeof prop === typeof filter[2]) {
-            matchesFilter = prop <= filter[2];
-          }
-          break;
-        case '>':
-          if (typeof prop === typeof filter[2]) {
-            matchesFilter = prop > filter[2];
-          }
-          break;
-        case '>=':
-          if (typeof prop === typeof filter[2]) {
-            matchesFilter = prop >= filter[2];
-          }
-          break;
-        default:
-          throw new Error(`Cannot parse Filter. Unknown comparison operator.`);
-      }
+      matchesFilter = FilterUtil.handleSimpleFilter(filter, feature);
     }
     return matchesFilter;
   }
