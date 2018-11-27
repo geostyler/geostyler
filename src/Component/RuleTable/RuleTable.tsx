@@ -10,7 +10,8 @@ import {
   Input,
   InputNumber,
   Icon,
-  Popover
+  Popover,
+  Tooltip
 } from 'antd';
 
 import {
@@ -381,11 +382,14 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
             dataIndex: 'maxScale',
             render: this.maxScaleRenderer
           }, {
-            title: locale.amountColumnTitle,
+            title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
             dataIndex: 'amount',
             render: this.amountRenderer
           }, {
-            title: locale.duplicatesColumnTitle,
+            title: (
+              <Tooltip title={locale.duplicatesColumnTitle}>
+                <Icon type="copy" />
+              </Tooltip>),
             dataIndex: 'duplicates',
             render: this.duplicatesRenderer
           }]}
