@@ -388,7 +388,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           }, {
             title: (
               <Tooltip title={locale.duplicatesColumnTitle}>
-                <Icon type="copy" />
+                <Icon type="block" />
               </Tooltip>),
             dataIndex: 'duplicates',
             render: this.duplicatesRenderer
