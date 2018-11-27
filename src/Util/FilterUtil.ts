@@ -115,48 +115,46 @@ class FilterUtil {
    */
   static handleSimpleFilter = (filter: Filter, feature: any): boolean => {
     const prop: any = _get(feature, 'properties[' + filter[1] + ']');
-      switch (filter[0]) {
-        case '==':
-          // tslint:disable-next-line
-          return (prop == filter[2]);
-        case '*=':
-          if (prop && filter[2].length > prop.length) {
-            return false;
-          } else if (prop) {
-            return (prop.indexOf(filter[2]) !== -1);
-          } else {
-            return false;
-          }
-        case '!=':
-          // tslint:disable-next-line
-          return (prop != filter[2]);
-        case '<':
-          if (typeof prop === typeof filter[2]) {
-            return (prop < filter[2]);
-          } else {
-            return false;
-          }
-        case '<=':
-          if (typeof prop === typeof filter[2]) {
-            return (prop <= filter[2]);
-          } else {
-            return false;
-          }
-        case '>':
-          if (typeof prop === typeof filter[2]) {
-            return (prop > filter[2]);
-          } else {
-            return false;
-          }
-        case '>=':
-          if (typeof prop === typeof filter[2]) {
-            return (prop >= filter[2]);
-          } else {
-            return false;
-          }
-        default:
-          throw new Error(`Cannot parse Filter. Unknown comparison operator.`);
-      }
+    switch (filter[0]) {
+      case '==':
+        return (prop === filter[2]);
+      case '*=':
+        if (prop && filter[2].length > prop.length) {
+          return false;
+        } else if (prop) {
+          return (prop.indexOf(filter[2]) !== -1);
+        } else {
+          return false;
+        }
+      case '!=':
+        return (prop !== filter[2]);
+      case '<':
+        if (typeof prop === typeof filter[2]) {
+          return (prop < filter[2]);
+        } else {
+          return false;
+        }
+      case '<=':
+        if (typeof prop === typeof filter[2]) {
+          return (prop <= filter[2]);
+        } else {
+          return false;
+        }
+      case '>':
+        if (typeof prop === typeof filter[2]) {
+          return (prop > filter[2]);
+        } else {
+          return false;
+        }
+      case '>=':
+        if (typeof prop === typeof filter[2]) {
+          return (prop >= filter[2]);
+        } else {
+          return false;
+        }
+      default:
+        throw new Error(`Cannot parse Filter. Unknown comparison operator.`);
+    }
   }
 
   /**
