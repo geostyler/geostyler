@@ -44,6 +44,7 @@ interface CodeEditorDefaultProps {
 export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
   style?: GsStyle;
   parsers?: GsStyleParserConstructable[];
+  defaultParser?: GsStyleParserConstructable;
   onStyleChange?: (rule: GsStyle) => void;
   showSaveButton?: boolean;
 }
@@ -81,9 +82,13 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
   };
 
   componentDidMount() {
-    if (this.props.style) {
-      this.updateValueFromStyle(this.props.style);
-    }
+    this.setState({
+      activeParser: this.props.defaultParser
+    }, () => {
+      if (this.props.style) {
+        this.updateValueFromStyle(this.props.style);
+      }
+    });
   }
 
   public shouldComponentUpdate(nextProps: CodeEditorProps, nextState: CodeEditorState): boolean {
@@ -249,7 +254,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     } = this.props;
     const {
       hasError,
-      value
+      value,
+      activeParser
     } = this.state;
     if (hasError) {
       return <h1>An error occured in the CodeEditor UI.</h1>;
@@ -261,7 +267,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
             className="gs-code-editor-format-select"
             style={{ width: 300 }}
             onSelect={this.onSelect}
-            defaultValue="GeoStyler Style"
+            value={activeParser ? activeParser.title : 'GeoStyler Style'}
           >
             {this.getParserOptions()}
           </Select>

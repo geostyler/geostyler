@@ -2,6 +2,7 @@ import { CodeEditor, CodeEditorProps } from './CodeEditor';
 import TestUtil from '../../Util/TestUtil';
 
 import SldStyleParser from 'geostyler-sld-parser';
+import { StyleParserConstructable } from 'geostyler-style';
 
 describe('CodeEditor', () => {
   let wrapper: any;
@@ -27,6 +28,23 @@ describe('CodeEditor', () => {
 
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
+  });
+
+  describe('defaultParser', () => {
+    it('sets the defaultParser if passed as prop', () => {
+      const defaultParserProps: CodeEditorProps = {
+        style: dummyStyle,
+        onStyleChange: onStyleChangeDummy,
+        parsers: [
+          SldStyleParser
+        ],
+        defaultParser: SldStyleParser,
+        delay
+      };
+      const defaultValueWrapper = TestUtil.shallowRenderComponent(CodeEditor, defaultParserProps);
+      const activeParser: StyleParserConstructable = defaultValueWrapper.state('activeParser');
+      expect(activeParser.title).toEqual(SldStyleParser.title);
+    });
   });
 
   describe('updateValueFromStyle', () => {
