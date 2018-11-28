@@ -1,7 +1,8 @@
 const webpackConfig = require('./webpack.common.config');
+const packagejson = require('./package.json');
 module.exports = {
   title: 'GeoStyler',
-  styleguideDir: './build/styleguide',
+  styleguideDir: './build/v' + packagejson.version,
   propsParser: require('react-docgen-typescript')
     .withCustomConfig('./tsconfig.json')
     .parse,
@@ -9,6 +10,9 @@ module.exports = {
   webpackConfig: webpackConfig,
   getExampleFilename(componentPath) {
     return componentPath.replace(/\.tsx?$/, '.example.md')
+  },
+  template: {
+    favicon: 'https://terrestris.github.io/geostyler/favicon.ico'
   },
   ignore: [
     '**/__tests__/**',

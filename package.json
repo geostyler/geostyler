@@ -25,7 +25,7 @@
   "scripts": {
     "build": "npm run build:dist && npm run build:browser && npm run build:styleguide",
     "build:dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
-    "build:styleguide": "styleguidist build",
+    "build:styleguide": "styleguidist build && npm run create:latest",
     "build:browser": "webpack --config browser-build.config.js",
     "lint": "tslint --project tsconfig.json --config tslint.json && tsc --noEmit --project tsconfig.json",
     "lint:prod": "tslint --project tsconfig.json --config tslint.prod.json && tsc --noEmit --project tsconfig.json",
@@ -34,6 +34,7 @@
     "prepublishOnly": "npm run build",
     "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags",
     "styleguide": "styleguidist server",
+    "create:latest": "cp public/gh-pages-index.html build/index.html && cp public/favicon.ico build/favicon.ico && cp -r build/v* build/latest",
     "start:styleguide": "styleguidist server",
     "start:dev": "webpack --mode=development --watch --config dev-build.config.js",
     "test": "jest --coverage",
