@@ -129,29 +129,13 @@ class FilterUtil {
       case '!=':
         return (prop !== filter[2]);
       case '<':
-        if (typeof prop === typeof filter[2]) {
-          return (prop < filter[2]);
-        } else {
-          return false;
-        }
+        return (parseFloat(prop) < parseFloat(filter[2]));
       case '<=':
-        if (typeof prop === typeof filter[2]) {
-          return (prop <= filter[2]);
-        } else {
-          return false;
-        }
+        return (parseFloat(prop) <= parseFloat(filter[2]));
       case '>':
-        if (typeof prop === typeof filter[2]) {
-          return (prop > filter[2]);
-        } else {
-          return false;
-        }
+        return (parseFloat(prop) > parseFloat(filter[2]));
       case '>=':
-        if (typeof prop === typeof filter[2]) {
-          return (prop >= filter[2]);
-        } else {
-          return false;
-        }
+        return (parseFloat(prop) >= parseFloat(filter[2]));
       default:
         throw new Error(`Cannot parse Filter. Unknown comparison operator.`);
     }
