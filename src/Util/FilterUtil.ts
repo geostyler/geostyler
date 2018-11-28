@@ -117,7 +117,7 @@ class FilterUtil {
     const prop: any = _get(feature, 'properties[' + filter[1] + ']');
     switch (filter[0]) {
       case '==':
-        return (prop === filter[2]);
+        return (('' + prop) === ('' + filter[2]));
       case '*=':
         if (prop && filter[2].length > prop.length) {
           return false;
@@ -127,7 +127,7 @@ class FilterUtil {
           return false;
         }
       case '!=':
-        return (prop !== filter[2]);
+        return (('' + prop) !== ('' + filter[2]));
       case '<':
         return (parseFloat(prop) < parseFloat(filter[2]));
       case '<=':
