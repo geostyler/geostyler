@@ -84,11 +84,12 @@ export class ImageField extends React.PureComponent<ImageFieldProps, ImageFieldS
     } = this.state;
 
     return (
-      <div className="editor-field image-field">
+      <div className="editor-field gs-image-field">
         <span className="label">{`${label}:`}</span>
         {
           iconLibraries ?
             (<Input
+              className="gs-image-field-gallery-addon"
               value={value}
               placeholder={placeholder}
               defaultValue={value}

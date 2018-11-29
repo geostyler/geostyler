@@ -25,14 +25,52 @@
 
 .gs-icon-selector-window-grid {
   cursor: pointer;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.gs-icon-selector-window-grid:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  /* box-shadow: 1px 0px 3px 1px rgba(0, 0, 0, 0.5); */
 }
 
 .gs-icon-selector-window-grid-selected {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: inset 0px 0px 2px 2px rgba(24, 144, 255, 0.8);
+}
+
+.gs-icon-selector-window-grid-selected:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0px 0px 2px 2px rgba(24, 144, 255, 0.8);
 }
 
 .gs-icon-selector-window-body {
   overflow-y: auto;
   /* TODO proper height detection so that cards don't overflow window */
   height: calc(100% - 30px);
+}
+
+.gs-icon-selector-window-body > .gs-lib-row {
+  display: flex;
+  padding: 3px 0 3px 3px;
+}
+
+.gs-icon-selector-window-body > .gs-lib-row > .gs-label {
+  padding-right: 10px;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+.gs-icon-selector-window-body > .gs-lib-row > .gs-select {
+  flex: 1;
+}
+
+.gs-icon-selector-window-grid-avatar {
+  align-self: center;
+}
+
+.gs-icon-selector-window-grid-description {
+  text-align: center;
+  padding-top: 5px;
 }

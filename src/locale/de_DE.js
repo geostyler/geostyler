@@ -205,7 +205,8 @@ export default {
       ruleGenerator: 'Klassifizierung'
     },
     GsIconSelectorWindow: {
-        windowLabel: 'Wähle Icon'
+        windowLabel: 'Wähle Icon',
+        librarySelectLabel: 'Wähle Bibliothek'
     },
     ...de_DE
 };

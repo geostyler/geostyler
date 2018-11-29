@@ -21,6 +21,7 @@ const _isEqual = require('lodash/isEqual');
 // i18n
 export interface IconSelectorWindowLocale {
   windowLabel?: string;
+  librarySelectLabel?: string;
 }
 
 // default props
@@ -155,12 +156,14 @@ export class IconSelectorWindow extends React.Component<IconSelectorWindowProps,
         }}
       >
         <Avatar
+          className="gs-icon-selector-window-grid-avatar"
           size="default"
           src={icon.src}
           alt={icon.caption}
           shape="square"
           />
         <Card.Meta
+          className="gs-icon-selector-window-grid-description"
           description={icon.caption}
         />
       </Card.Grid>
@@ -216,19 +219,23 @@ export class IconSelectorWindow extends React.Component<IconSelectorWindowProps,
             />
           </div>
           <div className="gs-icon-selector-window-body">
-            <Select
-              allowClear={false}
-              defaultValue={selectedLibIndex}
-              onChange={this.libChange}
-            >
-              {
-                iconLibraries.map((lib: IconLibrary, index: number) => {
-                  return (
-                    <Option value={index} key={index.toString()}>{lib.name}</Option>
-                  );
-                })
-              }
-            </Select>
+            <div className="gs-lib-row">
+              <span className="gs-label">{`${locale.librarySelectLabel}:`}</span>
+              <Select
+                className="gs-select"
+                allowClear={false}
+                defaultValue={selectedLibIndex}
+                onChange={this.libChange}
+                >
+                {
+                  iconLibraries.map((lib: IconLibrary, index: number) => {
+                    return (
+                      <Option value={index} key={index.toString()}>{lib.name}</Option>
+                      );
+                    })
+                  }
+              </Select>
+            </div>
             <Card className="gs-icon-selector-window-card">
               {
                 iconLibraries[selectedLibIndex].icons.map((icon: any, index: number) => {

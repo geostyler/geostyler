@@ -37,7 +37,7 @@ export interface MultiEditorProps extends Partial<MultiEditorDefaultProps> {
   editorProps?: any;
   symbolizers: Symbolizer[];
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
-  iconLibraries: IconLibrary[];
+  iconLibraries?: IconLibrary[];
 }
 
 export class MultiEditor extends React.Component<MultiEditorProps> {
