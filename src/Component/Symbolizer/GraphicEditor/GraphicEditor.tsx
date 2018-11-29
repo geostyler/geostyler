@@ -9,7 +9,7 @@ import MarkEditor from '../MarkEditor/MarkEditor';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 import GraphicTypeField, { GraphicTypeFieldProps } from '../Field/GraphicTypeField/GraphicTypeField';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import { IconLibrary } from '../IconSelectorWindow/IconSelectorWindow';
+import { IconLibrary } from '../IconSelector/IconSelector';
 
 const _get = require('lodash/get');
 

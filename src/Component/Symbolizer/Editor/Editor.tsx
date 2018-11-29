@@ -20,7 +20,7 @@ const _cloneDeep = require('lodash/cloneDeep');
 import KindField from '../Field/KindField/KindField';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import { IconLibrary } from '../IconSelectorWindow/IconSelectorWindow';
+import { IconLibrary } from '../IconSelector/IconSelector';
 
 // default props
 interface EditorDefaultProps {

@@ -16,7 +16,7 @@ const TabPane = Tabs.TabPane;
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import { IconLibrary } from '../IconSelectorWindow/IconSelectorWindow';
+import { IconLibrary } from '../IconSelector/IconSelector';
 
 const _isEqual = require('lodash/isEqual');
 

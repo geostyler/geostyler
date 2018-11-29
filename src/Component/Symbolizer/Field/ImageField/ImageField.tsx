@@ -6,7 +6,8 @@ import {
   Tooltip
 } from 'antd';
 
-import IconSelectorWindow, { IconLibrary } from '../../IconSelectorWindow/IconSelectorWindow';
+import IconSelectorWindow from '../../IconSelectorWindow/IconSelectorWindow';
+import { IconLibrary } from '../../IconSelector/IconSelector';
 
 import './ImageField.css';
 
@@ -86,32 +87,18 @@ export class ImageField extends React.PureComponent<ImageFieldProps, ImageFieldS
     return (
       <div className="editor-field gs-image-field">
         <span className="label">{`${label}:`}</span>
-        {
-          iconLibraries ?
-            (<Input
-              className="gs-image-field-gallery-addon"
-              value={value}
-              placeholder={placeholder}
-              defaultValue={value}
-              addonAfter={this.getIconSelectorButton()}
-              onChange={(evt: any) => {
-                if (onChange) {
-                  onChange(evt.target.value);
-                }
-              }}
-            />)
-          :
-            (<Input
-              value={value}
-              placeholder={placeholder}
-              defaultValue={value}
-              onChange={(evt: any) => {
-                if (onChange) {
-                  onChange(evt.target.value);
-                }
-              }}
-            />)
-        }
+        <Input
+          className={iconLibraries ? 'gs-image-field-gallery-addon' : undefined}
+          value={value}
+          placeholder={placeholder}
+          defaultValue={value}
+          addonAfter={iconLibraries ? this.getIconSelectorButton() : undefined}
+          onChange={(evt: any) => {
+            if (onChange) {
+              onChange(evt.target.value);
+            }
+          }}
+        />
         {
           !windowVisible ? null :
           <IconSelectorWindow

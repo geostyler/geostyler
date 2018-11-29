@@ -7,7 +7,7 @@ import {
 
 import OpacityField from '../Field/OpacityField/OpacityField';
 import ImageField from '../Field/ImageField/ImageField';
-import { IconLibrary } from '../IconSelectorWindow/IconSelectorWindow';
+import { IconLibrary } from '../IconSelector/IconSelector';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEmpty = require('lodash/isEmpty');
@@ -24,6 +24,7 @@ export interface IconEditorLocale {
   sizeLabel?: string;
   rotateLabel?: string;
   opacityLabel?: string;
+  iconTooltipLabel?: string;
 }
 
 // default props
@@ -120,6 +121,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
           value={imageSrc}
           label={locale.imageLabel}
           iconLibraries={iconLibraries}
+          tooltipLabel={locale.iconTooltipLabel}
           onChange={this.onImageSrcChange}
         />
         <SizeField

@@ -6,7 +6,7 @@ import { Rnd } from 'react-rnd';
 import { Symbolizer } from 'geostyler-style';
 
 import MultiEditor from '../MultiEditor/MultiEditor';
-import { IconLibrary } from '../IconSelectorWindow/IconSelectorWindow';
+import { IconLibrary } from '../IconSelector/IconSelector';
 
 import { Data } from 'geostyler-data';
 

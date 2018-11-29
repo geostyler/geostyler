@@ -36,7 +36,7 @@ import { TableProps } from 'antd/lib/table';
 import FilterUtil from '../../Util/FilterUtil';
 import { SLDRendererProps, SLDRenderer } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-import { IconLibrary } from '../Symbolizer/IconSelectorWindow/IconSelectorWindow';
+import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 // i18n
 export interface RuleTableLocale {

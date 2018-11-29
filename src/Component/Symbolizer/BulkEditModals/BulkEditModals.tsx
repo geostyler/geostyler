@@ -19,6 +19,11 @@ import en_US from '../../../locale/en_US';
 import RadiusField from '../../Symbolizer/Field/RadiusField/RadiusField';
 import OpacityField from '../../Symbolizer/Field/OpacityField/OpacityField';
 import { WellKnownNameField } from '../Field/WellKnownNameField/WellKnownNameField';
+import KindField from '../Field/KindField/KindField';
+import ImageField from '../Field/ImageField/ImageField';
+import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
+
+import './BulkEditModals.css';
 
 // i18n
 export interface StyleLocale {
@@ -26,6 +31,8 @@ export interface StyleLocale {
   radiusLabel: string;
   opacityLabel: string;
   symbolLabel: string;
+  imageFieldLabel: string;
+  imageFieldTooltipLabel: string;
 }
 
 // default props
@@ -49,18 +56,24 @@ export interface BulkEditModalsProps extends Partial<BulkEditModalsDefaultProps>
   updateMultiColors?: (x: string) => void;
   updateMultiSizes?: (x: number) => void;
   updateMultiOpacities?: (x: number) => void;
-  updateMultiSymbols?: (x: string) => void;
+  updateMultiSymbols?: (x: string, y: string) => void;
   selectedRowKeys: number[];
   modalsClosed: Function;
+  iconLibraries?: IconLibrary[];
 }
 
 // state
 interface BulkEditModalsState {
+  kind: 'Icon' | 'Mark';
 }
 
 export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEditModalsState> {
   constructor(props: BulkEditModalsProps) {
     super(props);
+
+    this.state = {
+      kind: 'Mark'
+    };
   }
 
   static componentName: string = 'BulkEditModals';
@@ -85,6 +98,12 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     return diffProps || diffState;
   }
 
+  onKindFieldChange = (kind: ('Icon'|'Mark')) => {
+    this.setState({
+      kind
+    });
+  }
+
   render() {
     let rules: GsRule[] = [];
     let color = '#000000';
@@ -95,8 +114,13 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     const {
       locale,
       style,
-      selectedRowKeys
+      selectedRowKeys,
+      iconLibraries
     } = this.props;
+
+    const {
+      kind
+    } = this.state;
 
     if (style) {
       rules = style.rules;
@@ -115,8 +139,12 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
         if (sym.opacity) {
           opacity = sym.opacity;
         }
-        if (sym.symbol) {
+        if (sym.kind && sym.kind === 'Mark' && sym.wellKnownName) {
           symbol = sym.wellKnownName;
+        }
+
+        if (sym.kind && sym.kind === 'Icon' && sym.image) {
+          symbol = sym.image;
         }
       }
     }
@@ -169,10 +197,43 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
           footer={null}
           onCancel={() => this.props.modalsClosed()}
         >
-          <WellKnownNameField
-            wellKnownName={symbol}
-            onChange={this.props.updateMultiSymbols}
+          <KindField
+            symbolizerKinds={['Mark', 'Icon']}
+            kind={kind}
+            onChange={this.onKindFieldChange}
           />
+          {
+            kind === 'Mark' ? (
+              <WellKnownNameField
+                wellKnownName={symbol}
+                onChange={(val: string) => {
+                  this.props.updateMultiSymbols(val, kind);
+                }}
+              />
+            ) : (
+              <div>
+                <ImageField
+                  label={locale.imageFieldLabel}
+                  value={symbol}
+                  onChange={(val: string) => {
+                    this.props.updateMultiSymbols(val, kind);
+                  }}
+                  />
+                  {
+                    !iconLibraries ? null : (
+                      <div className="gs-bulk-edit-modals-icon-selector">
+                        <IconSelector
+                          iconLibraries={iconLibraries}
+                          onIconSelect={(val: string) => {
+                            this.props.updateMultiSymbols(val, kind);
+                          }}
+                          selectedIconSrc={symbol}
+                        />
+                      </div>)
+                  }
+              </div>
+            )
+          }
         </Modal>
       </div>
     );

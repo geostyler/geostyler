@@ -4,7 +4,7 @@ import { Style, Filter } from 'geostyler-style';
 import { LocaleProvider } from 'antd';
 import en_US from '../locale/en_US';
 import { Data } from 'geostyler-data';
-import { IconLibrary } from '../Component/Symbolizer/IconSelectorWindow/IconSelectorWindow';
+import { IconLibrary } from '../Component/Symbolizer/IconSelector/IconSelector';
 
 /**
  * A set of some useful static helper methods.

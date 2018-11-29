@@ -21,7 +21,7 @@ import Fieldset from '../FieldSet/FieldSet';
 import FilterTree from '../Filter/FilterTree/FilterTree';
 import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
-import { IconLibrary } from '../Symbolizer/IconSelectorWindow/IconSelectorWindow';
+import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEqual = require('lodash/isEqual');
