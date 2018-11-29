@@ -373,7 +373,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         <Table
           className="gs-rule-table"
           columns={[{
-            title: locale.symbolizersColumnTitle,
+            title: (
+              <Tooltip title={locale.symbolizersColumnTitle}>
+                <Icon type="bg-colors" />
+              </Tooltip>),
             dataIndex: 'symbolizers',
             render: this.symbolizerRenderer
           }, {
