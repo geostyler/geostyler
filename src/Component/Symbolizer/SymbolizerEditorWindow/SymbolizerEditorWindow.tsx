@@ -6,6 +6,7 @@ import { Rnd } from 'react-rnd';
 import { Symbolizer } from 'geostyler-style';
 
 import MultiEditor from '../MultiEditor/MultiEditor';
+import { IconLibrary } from '../IconSelector/IconSelector';
 
 import { Data } from 'geostyler-data';
 
@@ -34,6 +35,7 @@ export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWin
   y?: number;
   onClose?: () => void;
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
+  iconLibraries?: IconLibrary[];
 }
 
 /**
@@ -59,7 +61,8 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
       symbolizers,
       onSymbolizersChange,
       locale,
-      internalDataDef
+      internalDataDef,
+      iconLibraries
     } = this.props;
 
     return (
@@ -98,6 +101,7 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
             internalDataDef={internalDataDef}
             symbolizers={symbolizers}
             onSymbolizersChange={onSymbolizersChange}
+            iconLibraries={iconLibraries}
           />
         </Rnd>,
         document.body

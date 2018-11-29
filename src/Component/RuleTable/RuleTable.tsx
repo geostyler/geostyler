@@ -36,6 +36,7 @@ import { TableProps } from 'antd/lib/table';
 import FilterUtil from '../../Util/FilterUtil';
 import { SLDRendererProps, SLDRenderer } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
+import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 // i18n
 export interface RuleTableLocale {
@@ -65,6 +66,7 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
   /** Properties that will be passed to the Comparison Filters */
   filterUiProps?: Partial<ComparisonFilterProps>;
+  iconLibraries?: IconLibrary[];
 }
 
 // state
@@ -358,6 +360,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       rules,
       filterUiProps,
       data,
+      iconLibraries,
       ...restProps
     } = this.props;
     const {
@@ -421,6 +424,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
               internalDataDef={data}
               symbolizers={rules[ruleEditIndex].symbolizers}
               onSymbolizersChange={this.onSymbolizersChange}
+              iconLibraries={iconLibraries}
             />
         }
         {

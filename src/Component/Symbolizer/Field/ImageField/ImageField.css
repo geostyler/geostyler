@@ -1,0 +1,11 @@
+.gs-image-field-gallery-icon {
+  cursor: pointer;
+}
+
+.gs-image-field > .ant-input-group-wrapper {
+  width: auto;
+}
+
+.gs-image-field-gallery-addon {
+  width: calc(200px - 37px) !important;
+}

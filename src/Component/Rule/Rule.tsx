@@ -21,6 +21,7 @@ import Fieldset from '../FieldSet/FieldSet';
 import FilterTree from '../Filter/FilterTree/FilterTree';
 import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
+import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEqual = require('lodash/isEqual');
@@ -77,6 +78,7 @@ export interface RuleProps extends Partial<RuleDefaultProps> {
   filterUiProps?: Partial<ComparisonFilterProps>;
   /** Properties that will be passed to the RuleNameField */
   ruleNameProps?: Partial<NameFieldProps>;
+  iconLibraries?: IconLibrary[];
 }
 
 // state
@@ -259,7 +261,8 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       rendererType,
       oLRendererProps,
       sldRendererProps,
-      locale
+      locale,
+      iconLibraries
     } = this.props;
 
     const {
@@ -308,6 +311,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
                   onClose={this.onEditorWindowClose}
                   symbolizers={rule.symbolizers}
                   onSymbolizersChange={this.onSymbolizersChange}
+                  iconLibraries={iconLibraries}
                 />
             }
           </div>

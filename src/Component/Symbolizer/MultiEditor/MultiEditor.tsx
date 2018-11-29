@@ -16,6 +16,7 @@ const TabPane = Tabs.TabPane;
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
+import { IconLibrary } from '../IconSelector/IconSelector';
 
 const _isEqual = require('lodash/isEqual');
 
@@ -36,6 +37,7 @@ export interface MultiEditorProps extends Partial<MultiEditorDefaultProps> {
   editorProps?: any;
   symbolizers: Symbolizer[];
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
+  iconLibraries?: IconLibrary[];
 }
 
 export class MultiEditor extends React.Component<MultiEditorProps> {
@@ -93,6 +95,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
       editorProps,
       locale,
       internalDataDef,
+      iconLibraries,
       ...passThroughProps
     } = this.props;
 
@@ -110,6 +113,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
                 this.onSymbolizerChange(sym, idx);
               }}
               internalDataDef={internalDataDef}
+              iconLibraries={iconLibraries}
               {...editorProps}
             />
             {symbolizers.length === 1 ? null :

@@ -10,7 +10,9 @@ export default {
         colorLabel: 'Select color',
         radiusLabel: 'Select radius',
         opacityLabel: 'Select opacity',
-        symbolLabel: 'Select symbol'
+        symbolLabel: 'Select symbol',
+        imageFieldLabel: 'Source',
+        imageFieldTooltipLabel: 'Open Gallery'
     },
     GsRule: {
         removeRuleBtnText: 'Remove Rule',
@@ -74,7 +76,8 @@ export default {
         imageLabel: 'Source',
         sizeLabel: 'Size',
         rotateLabel: 'Rotation',
-        opacityLabel: 'Opacity'
+        opacityLabel: 'Opacity',
+        iconTooltipLabel: 'Open Gallery'
     },
     GsLineEditor: {
         colorLabel: 'Color',
@@ -206,6 +209,12 @@ export default {
     },
     GsRuleGeneratorWindow: {
       ruleGenerator: 'Classification'
+    },
+    GsIconSelectorWindow: {
+        windowLabel: 'Select Icon'
+    },
+    GsIconSelector: {
+        librarySelectLabel: 'Select Library'
     },
     ...en_US
 };

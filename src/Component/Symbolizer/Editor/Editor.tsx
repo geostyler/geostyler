@@ -20,6 +20,7 @@ const _cloneDeep = require('lodash/cloneDeep');
 import KindField from '../Field/KindField/KindField';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
+import { IconLibrary } from '../IconSelector/IconSelector';
 
 // default props
 interface EditorDefaultProps {
@@ -32,6 +33,7 @@ export interface EditorProps extends Partial<EditorDefaultProps> {
   internalDataDef?: Data;
   iconEditorProps?: Partial<IconEditorProps>;
   onSymbolizerChange?: (symbolizer: Symbolizer) => void;
+  iconLibraries?: IconLibrary[];
 }
 
 // state
@@ -77,6 +79,11 @@ export class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   getUiFromSymbolizer = (symbolizer: Symbolizer): React.ReactNode => {
+    const {
+      iconEditorProps,
+      iconLibraries
+    } = this.props;
+
     switch (symbolizer.kind) {
       case 'Mark':
         return (
@@ -90,7 +97,8 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           <IconEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
-            {...this.props.iconEditorProps}
+            iconLibraries={iconLibraries}
+            {...iconEditorProps}
           />
         );
       case 'Line':

@@ -14,7 +14,8 @@ import {
   Style as GsStyle,
   Rule as GsRule,
   SymbolizerKind,
-  Symbolizer as GsSymbolizer
+  Symbolizer as GsSymbolizer,
+  WellKnownName as GsWellKnownName
 } from 'geostyler-style';
 
 import {
@@ -32,6 +33,7 @@ import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import RuleTable from '../RuleTable/RuleTable';
 import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
 import { SLDRendererProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 import './Style.css';
 
@@ -68,6 +70,7 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   ruleProps?: Partial<RuleProps>;
   ruleRendererType?: 'SLD' | 'OpenLayers';
   sldRendererProps?: SLDRendererProps;
+  iconLibraries?: IconLibrary[];
 }
 
 // state
@@ -236,14 +239,24 @@ export class Style extends React.Component<StyleProps, StyleState> {
     }
   }
 
-  updateAllSelected = (value: any, property: string) => {
+  updateAllSelected = (updates: {value: any; property: string; }[]) => {
     const style = _cloneDeep(this.state.style);
     const selectedRules = style.rules.filter((rule: GsRule, index: number) => {
       return this.state.selectedRowKeys.includes(index);
     });
     selectedRules.forEach((rule: GsRule) => {
-      rule.symbolizers.forEach((sym: GsSymbolizer) => {
-        sym[property] = value;
+      rule.symbolizers.forEach((sym: any) => {
+        updates.forEach((upd: any) => {
+          const property = upd.property;
+          const value = upd.value;
+          sym[property] = value;
+          if (property === 'kind' && value === 'Icon' && sym.wellKnownName) {
+            delete sym.wellKnownName;
+          }
+          if (property === 'kind' && value === 'Mark' && sym.image) {
+            delete sym.image;
+          }
+        });
       });
     });
     if (this.props.onStyleChange) {
@@ -253,19 +266,29 @@ export class Style extends React.Component<StyleProps, StyleState> {
   }
 
   updateMultiColors = (color: string) => {
-    this.updateAllSelected(color, 'color');
+    this.updateAllSelected([{value: color, property: 'color'}]);
   }
 
   updateMultiSizes = (size: any) => {
-    this.updateAllSelected(size, 'radius');
+    this.updateAllSelected([{value: size, property: 'radius'}]);
   }
 
   updateMultiOpacities = (opacity: any) => {
-    this.updateAllSelected(opacity, 'opacity');
+    this.updateAllSelected([{value: opacity, property: 'opacity'}]);
   }
 
-  updateMultiSymbols = (symbol: any) => {
-    this.updateAllSelected(symbol, 'wellKnownName');
+  updateMultiSymbols = (symbol: (GsWellKnownName|string), kind: SymbolizerKind) => {
+    if (kind === 'Mark') {
+      this.updateAllSelected([
+        {value: symbol, property: 'wellKnownName'},
+        {value: kind, property: 'kind'}
+      ]);
+    } else {
+      this.updateAllSelected([
+        {value: symbol, property: 'image'},
+        {value: kind, property: 'kind'}
+      ]);
+    }
   }
 
   showRuleGeneratorWindow = () => {
@@ -305,7 +328,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
           let symbolizers = style.rules[key].symbolizers;
           symbolizers.forEach((symbolizer: GsSymbolizer) => {
             let kind = symbolizer.kind;
-            if (kind !== 'Mark') {
+            if (kind !== 'Mark' && kind !== 'Icon') {
               isValid = false;
             }
           });
@@ -393,7 +416,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       sldRendererProps,
       enableClassification,
       locale,
-      data
+      data,
+      iconLibraries
     } = this.props;
 
     const {
@@ -451,6 +475,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             filterUiProps={filterUiProps}
             data={data}
             footer={this.createFooter}
+            iconLibraries={iconLibraries}
           />
           : rules.map((rule, idx) => <Rule
             key={'rule_' + idx}
@@ -463,6 +488,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             ruleNameProps={ruleNameProps}
             rendererType={ruleRendererType}
             sldRendererProps={sldRendererProps}
+            iconLibraries={iconLibraries}
           />)
         }
         {
@@ -487,6 +513,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
           updateMultiOpacities={this.updateMultiOpacities}
           updateMultiSymbols={this.updateMultiSymbols}
           style={this.state.style}
+          iconLibraries={iconLibraries}
           modalsClosed={() => this.setState({
             colorModalVisible: false,
             sizeModalVisible: false,
