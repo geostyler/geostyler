@@ -396,14 +396,18 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
             title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
             dataIndex: 'amount',
             render: this.amountRenderer
-          }, {
-            title: (
-              <Tooltip title={locale.duplicatesColumnTitle}>
-                <Icon type="block" />
-              </Tooltip>),
-            dataIndex: 'duplicates',
-            render: this.duplicatesRenderer
-          }]}
+          }
+          // TODO This breaks the app (due to performance). Reactivate when
+          // FilterUtil.getNumberOfDuplicates is optimised.
+          // , {
+          //   title: (
+          //     <Tooltip title={locale.duplicatesColumnTitle}>
+          //       <Icon type="block" />
+          //     </Tooltip>),
+          //   dataIndex: 'duplicates',
+          //   render: this.duplicatesRenderer
+          // }
+        ]}
           dataSource={this.getRuleRecords()}
           pagination={false}
           {...restProps}
