@@ -7,6 +7,7 @@ import {
 
 import OpacityField from '../Field/OpacityField/OpacityField';
 import ImageField from '../Field/ImageField/ImageField';
+import { IconLibrary } from '../IconSelectorWindow/IconSelectorWindow';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEmpty = require('lodash/isEmpty');
@@ -34,6 +35,7 @@ export interface IconEditorDefaultProps {
 export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
   symbolizer: IconSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  iconLibraries?: IconLibrary[];
 }
 
 export class IconEditor extends React.Component<IconEditorProps> {
@@ -99,7 +101,8 @@ export class IconEditor extends React.Component<IconEditorProps> {
     } = this.props;
 
     const {
-      symbolizer
+      symbolizer,
+      iconLibraries
     } = this.props;
 
     const {
@@ -116,6 +119,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
         <ImageField
           value={imageSrc}
           label={locale.imageLabel}
+          iconLibraries={iconLibraries}
           onChange={this.onImageSrcChange}
         />
         <SizeField

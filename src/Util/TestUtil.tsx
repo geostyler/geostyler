@@ -4,6 +4,7 @@ import { Style, Filter } from 'geostyler-style';
 import { LocaleProvider } from 'antd';
 import en_US from '../locale/en_US';
 import { Data } from 'geostyler-data';
+import { IconLibrary } from '../Component/Symbolizer/IconSelectorWindow/IconSelectorWindow';
 
 /**
  * A set of some useful static helper methods.
@@ -87,6 +88,30 @@ export class TestUtil {
         }]
       }
     };
+  }
+
+  static getDummyGsIconLibraries  = (): IconLibrary[] => {
+    return ([
+      {
+        name: 'lib 1',
+        icons: [
+          {
+            src: 'foo.bar/image.png',
+            caption: 'foobar'
+          },
+          {
+            src: 'heinz.de/erhardt.jpg',
+            caption: 'Heinz'
+          }
+        ]
+      }, {
+        name: 'lib 2',
+        icons: [{
+          src: 'walter.com/frosch.jpg',
+          caption: 'Walter'
+        }]
+      }
+    ]);
   }
 
   static getDummyGsFilter = (): Filter  => {

@@ -9,6 +9,7 @@ import MarkEditor from '../MarkEditor/MarkEditor';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 import GraphicTypeField, { GraphicTypeFieldProps } from '../Field/GraphicTypeField/GraphicTypeField';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
+import { IconLibrary } from '../IconSelectorWindow/IconSelectorWindow';
 
 const _get = require('lodash/get');
 
@@ -29,6 +30,7 @@ export interface GraphicEditorProps extends Partial<GraphicEditorDefaultProps> {
   graphicTypeFieldProps?: GraphicTypeFieldProps;
   /** Default IconEditorProps */
   iconEditorProps?: Partial<IconEditorProps>;
+  iconLibraries?: IconLibrary[];
 }
 
 /** GraphicEditor to select between different graphic options */
@@ -47,7 +49,8 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
    */
   getGraphicFields = (graphic: PointSymbolizer, iconEditorProps?: any): React.ReactNode => {
     const {
-      onGraphicChange
+      onGraphicChange,
+      iconLibraries
     } = this.props;
     if (_get(graphic, 'kind') === 'Mark') {
       let markGraphic: MarkSymbolizer = graphic as MarkSymbolizer;
@@ -62,6 +65,7 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
         <IconEditor
           symbolizer={graphic}
           onSymbolizerChange={onGraphicChange}
+          iconLibraries={iconLibraries}
           {...iconEditorProps}
         />
       );

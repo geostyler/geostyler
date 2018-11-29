@@ -32,6 +32,7 @@ import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import RuleTable from '../RuleTable/RuleTable';
 import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
 import { SLDRendererProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import { IconLibrary } from '../Symbolizer/IconSelectorWindow/IconSelectorWindow';
 
 import './Style.css';
 
@@ -68,6 +69,7 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   ruleProps?: Partial<RuleProps>;
   ruleRendererType?: 'SLD' | 'OpenLayers';
   sldRendererProps?: SLDRendererProps;
+  iconLibraries?: IconLibrary[];
 }
 
 // state
@@ -393,7 +395,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       sldRendererProps,
       enableClassification,
       locale,
-      data
+      data,
+      iconLibraries
     } = this.props;
 
     const {
@@ -451,6 +454,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             filterUiProps={filterUiProps}
             data={data}
             footer={this.createFooter}
+            iconLibraries={iconLibraries}
           />
           : rules.map((rule, idx) => <Rule
             key={'rule_' + idx}
@@ -463,6 +467,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             ruleNameProps={ruleNameProps}
             rendererType={ruleRendererType}
             sldRendererProps={sldRendererProps}
+            iconLibraries={iconLibraries}
           />)
         }
         {

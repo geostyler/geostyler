@@ -207,5 +207,8 @@ export default {
     GsRuleGeneratorWindow: {
       ruleGenerator: 'Classification'
     },
+    GsIconSelectorWindow: {
+        windowLabel: 'Select Icon'
+    },
     ...en_US
 };

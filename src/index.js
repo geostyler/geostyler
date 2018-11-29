@@ -13,6 +13,7 @@ import FontPicker from './Component/Symbolizer/Field/FontPicker/FontPicker';
 import GraphicEditor from './Component/Symbolizer/GraphicEditor/GraphicEditor';
 import GraphicTypeField from './Component/Symbolizer/Field/GraphicTypeField/GraphicTypeField';
 import IconEditor from './Component/Symbolizer/IconEditor/IconEditor';
+import IconSelectorWindow from './Component/Symbolizer/IconSelectorWindow/IconSelectorWindow';
 import ImageField from './Component/Symbolizer/Field/ImageField/ImageField';
 import KindField from './Component/Symbolizer/Field/KindField/KindField';
 import LineCapField from './Component/Symbolizer/Field/LineCapField/LineCapField';
@@ -78,6 +79,7 @@ export {
   GraphicEditor,
   GraphicTypeField,
   IconEditor,
+  IconSelectorWindow,
   ImageField,
   KindField,
   LineCapField,
