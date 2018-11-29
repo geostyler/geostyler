@@ -245,11 +245,17 @@ export class Style extends React.Component<StyleProps, StyleState> {
       return this.state.selectedRowKeys.includes(index);
     });
     selectedRules.forEach((rule: GsRule) => {
-      rule.symbolizers.forEach((sym: GsSymbolizer) => {
+      rule.symbolizers.forEach((sym: any) => {
         updates.forEach((upd: any) => {
           const property = upd.property;
           const value = upd.value;
           sym[property] = value;
+          if (property === 'kind' && value === 'Icon' && sym.wellKnownName) {
+            delete sym.wellKnownName;
+          }
+          if (property === 'kind' && value === 'Mark' && sym.image) {
+            delete sym.image;
+          }
         });
       });
     });
