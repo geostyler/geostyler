@@ -114,28 +114,29 @@ class FilterUtil {
    * Handle simple filters, i.e. non-nested filters.
    */
   static handleSimpleFilter = (filter: Filter, feature: any): boolean => {
-    const prop: any = _get(feature, 'properties[' + filter[1] + ']');
+    const featureValue: any = _get(feature, 'properties[' + filter[1] + ']');
+    const filterValue = filter[2];
     switch (filter[0]) {
       case '==':
-        return (('' + prop) === ('' + filter[2]));
+        return (('' + featureValue) === ('' + filterValue));
       case '*=':
-        if (prop && filter[2].length > prop.length) {
+        if (featureValue && filterValue.length > featureValue.length) {
           return false;
-        } else if (prop) {
-          return (prop.indexOf(filter[2]) !== -1);
+        } else if (featureValue) {
+          return (featureValue.indexOf(filterValue) !== -1);
         } else {
           return false;
         }
       case '!=':
-        return (('' + prop) !== ('' + filter[2]));
+        return (('' + featureValue) !== ('' + filterValue));
       case '<':
-        return (parseFloat(prop) < parseFloat(filter[2]));
+        return (parseFloat(featureValue) < parseFloat(filterValue));
       case '<=':
-        return (parseFloat(prop) <= parseFloat(filter[2]));
+        return (parseFloat(featureValue) <= parseFloat(filterValue));
       case '>':
-        return (parseFloat(prop) > parseFloat(filter[2]));
+        return (parseFloat(featureValue) > parseFloat(filterValue));
       case '>=':
-        return (parseFloat(prop) >= parseFloat(filter[2]));
+        return (parseFloat(featureValue) >= parseFloat(filterValue));
       default:
         throw new Error(`Cannot parse Filter. Unknown comparison operator.`);
     }
