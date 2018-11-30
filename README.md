@@ -16,6 +16,8 @@ GeoStyler Documentation: [Docs](https://terrestris.github.io/geostyler/)
 ## Demo
 
 GeoStyler Demo: [Demo](https://terrestris.github.io/geostyler-demo/)
+Code: https://github.com/terrestris/geostyler-demo
+
 
 ## Related projects
 
