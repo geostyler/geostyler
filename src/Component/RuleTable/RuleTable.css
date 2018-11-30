@@ -13,10 +13,6 @@
   border-radius: 0;
 }
 
-.gs-rule-table .ant-table-body .ant-input {
-  padding: 0 10;
-}
-
 .gs-rule-table .ant-table-body .ant-input-search .ant-input-search-button {
   border-radius: 0;
   display: none;
@@ -28,7 +24,7 @@
 
 .gs-rule-table .ant-table-body .gs-symbolizer-renderer {
   height: 32px;
-  width: 32px;
+  width: 48px;
 }
 
 .gs-rule-table .ant-table-body .gs-symbolizer-sldrenderer,

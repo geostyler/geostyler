@@ -376,7 +376,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         <Table
           className="gs-rule-table"
           columns={[{
-            title: locale.symbolizersColumnTitle,
+            title: (
+              <Tooltip title={locale.symbolizersColumnTitle}>
+                <Icon type="bg-colors" />
+              </Tooltip>),
             dataIndex: 'symbolizers',
             render: this.symbolizerRenderer
           }, {
@@ -399,14 +402,18 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
             title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
             dataIndex: 'amount',
             render: this.amountRenderer
-          }, {
-            title: (
-              <Tooltip title={locale.duplicatesColumnTitle}>
-                <Icon type="block" />
-              </Tooltip>),
-            dataIndex: 'duplicates',
-            render: this.duplicatesRenderer
-          }]}
+          }
+          // TODO This breaks the app (due to performance). Reactivate when
+          // FilterUtil.getNumberOfDuplicates is optimised.
+          // , {
+          //   title: (
+          //     <Tooltip title={locale.duplicatesColumnTitle}>
+          //       <Icon type="block" />
+          //     </Tooltip>),
+          //   dataIndex: 'duplicates',
+          //   render: this.duplicatesRenderer
+          // }
+        ]}
           dataSource={this.getRuleRecords()}
           pagination={false}
           {...restProps}

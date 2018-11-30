@@ -1,8 +1,6 @@
 .gs-symbolizer-sldrenderer {
   position: relative;
   border: 1px solid lightgrey;
-  border-radius: 4px;
   background-color: white;
   cursor: pointer;
 }
-
