@@ -58,9 +58,11 @@ import { LocaleProvider } from 'antd';
 
 import de_DE from './locale/de_DE';
 import en_US from './locale/en_US';
+import es_ES from './locale/es_ES';
 const locale = {
   de_DE,
-  en_US
+  en_US,
+  es_ES,
 };
 
 export {
