@@ -53,7 +53,9 @@ export default {
     },
     GsCodeEditor: {
         downloadButtonLabel: 'Save as File',
-        formatSelectLabel: 'Format'
+        copyButtonLabel: 'Copy to Clipboard',
+        formatSelectLabel: 'Format',
+        styleCopied: 'Style copied to clipboard!'
     },
     GsWellKnownNameEditor: {
         radiusLabel: 'Radius',

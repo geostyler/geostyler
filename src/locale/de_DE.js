@@ -52,7 +52,9 @@ export default {
     },
     GsCodeEditor: {
         downloadButtonLabel: 'Als Datei speichern',
-        formatSelectLabel: 'Format'
+        copyButtonLabel: 'In Zwischenablage kopieren',
+        formatSelectLabel: 'Format',
+        styleCopied: 'Style in Zwischenablage kopiert!'
     },
     GsWellKnownNameEditor: {
         radiusLabel: 'Radius',

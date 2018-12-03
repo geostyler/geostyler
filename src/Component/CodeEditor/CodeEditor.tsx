@@ -15,7 +15,11 @@ import {
 
 import './CodeEditor.css';
 
-import { Select, Button } from 'antd';
+import {
+  Button,
+  message,
+  Select
+} from 'antd';
 const Option = Select.Option;
 
 import {
@@ -32,12 +36,15 @@ import en_US from '../../locale/en_US';
 export interface CodeEditorLocale {
   downloadButtonLabel: string;
   formatSelectLabel: string;
+  copyButtonLabel: string;
+  styleCopied: string;
 }
 
 interface CodeEditorDefaultProps {
   locale: CodeEditorLocale;
   delay: number;
   showSaveButton: boolean;
+  showCopyButton: boolean;
 }
 
 // non default props
@@ -46,7 +53,6 @@ export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
   parsers?: GsStyleParserConstructable[];
   defaultParser?: GsStyleParserConstructable;
   onStyleChange?: (rule: GsStyle) => void;
-  showSaveButton?: boolean;
 }
 
 // state
@@ -78,7 +84,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
   public static defaultProps: CodeEditorDefaultProps = {
     locale: en_US.GsCodeEditor,
     delay: 500,
-    showSaveButton: true
+    showSaveButton: false,
+    showCopyButton: false
   };
 
   componentDidMount() {
@@ -237,20 +244,56 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       style
     } = this.props;
     if (style) {
+      let fileName = style.name;
       let type = 'application/json;charset=utf-8';
       if (activeParser && activeParser.title === 'SLD Style Parser') {
         type = 'text/xml;charset=utf-8';
+        fileName += '.sld';
       }
       const blob = new Blob([value], {type});
-      saveAs(blob, style.name);
+      saveAs(blob, fileName);
     }
+  }
 
+  onCopyButtonClick = () => {
+    const {
+      value
+    } = this.state;
+    this.copyToClipboard(value);
+  }
+
+  /**
+   * Copies the a value to the clipboard.
+   * Credits: https://hackernoon.com/copying-text-to-clipboard-with-javascript-df4d4988697f
+   *
+   * @param {string} str The string to copy to the clipboard.
+   */
+  copyToClipboard = (str: string) => {
+    const {
+      locale
+    } = this.props;
+    const el = document.createElement('textarea');
+    el.value = str;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    const selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    message.info(locale.styleCopied);
+    if (selected) {
+      document.getSelection().removeAllRanges();
+      document.getSelection().addRange(selected);
+    }
   }
 
   render() {
     const {
       locale,
-      showSaveButton
+      showSaveButton,
+      showCopyButton
     } = this.props;
     const {
       hasError,
@@ -288,15 +331,28 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
         <div className="gs-code-editor-errormessage">
           {this.state.invalidMessage}
         </div>
-        {showSaveButton ?
-        <Button
-            className="gs-code-editor-download-button"
-            type="primary"
-            onClick={this.onDownloadButtonClick}
-        >
-            {locale.downloadButtonLabel}
-        </Button>
-        : undefined}
+        <div className="gs-code-editor-bottombar">
+          {
+            !showCopyButton ? null :
+              <Button
+                className="gs-code-editor-copy-button"
+                type="primary"
+                onClick={this.onCopyButtonClick}
+              >
+                {locale.copyButtonLabel}
+              </Button>
+          }
+          {
+            !showSaveButton ? null :
+              <Button
+                className="gs-code-editor-download-button"
+                type="primary"
+                onClick={this.onDownloadButtonClick}
+              >
+                {locale.downloadButtonLabel}
+              </Button>
+          }
+        </div>
       </div>
     );
   }
