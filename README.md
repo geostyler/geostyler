@@ -45,12 +45,15 @@ Code: https://github.com/terrestris/geostyler-demo
 
 ### StyleParser Implementations
 
-  - SLD (
-      [github](https://github.com/terrestris/geostyler-sld-parser) /
-      [npm](https://www.npmjs.com/package/geostyler-sld-parser)
+  - Mapbox Style (
+      [github](https://github.com/terrestris/geostyler-mapbox-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-mapbox-parser)
     )
   - OpenLayers Style (
       [github](https://github.com/terrestris/geostyler-openlayers-parser) /
       [npm](https://www.npmjs.com/package/geostyler-openlayers-parser)
     )
-    
+  - SLD (
+      [github](https://github.com/terrestris/geostyler-sld-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-sld-parser)
+    )
