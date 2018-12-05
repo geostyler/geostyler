@@ -22,7 +22,7 @@ export default {
         nameFieldPlaceholder: 'Ingrese nombre'
     },
     GsStyle: {
-        addRuleBtnText: 'Añador regla',
+        addRuleBtnText: 'Añadir regla',
         removeRulesBtnText: 'Eliminar reglas',
         nameFieldLabel: 'Nombre',
         nameFieldPlaceholder: 'Ingrese nombre',
@@ -53,7 +53,9 @@ export default {
     },
     GsCodeEditor: {
         downloadButtonLabel: 'Guardar archivo',
-        formatSelectLabel: 'Formato'
+        copyButtonLabel: 'Copiar al portapapeles',
+        formatSelectLabel: 'Formato',
+        styleCopied: 'Estilo copiado al portapapales!'
     },
     GsWellKnownNameEditor: {
         radiusLabel: 'Radio',
