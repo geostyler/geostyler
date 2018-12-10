@@ -127,9 +127,10 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
       const selectedRules = rules.filter((rule: GsRule, index: number) => {
         return selectedRowKeys.includes(index);
       });
+      const firstRule = selectedRules.find(rule => rule.symbolizers && rule.symbolizers.length > 0);
 
-      if (selectedRules[0] && selectedRules[0].symbolizers && selectedRules[0].symbolizers[0]) {
-        const sym: any = selectedRules[0].symbolizers[0];
+      if (firstRule && firstRule.symbolizers && firstRule.symbolizers[0]) {
+        const sym: any = firstRule.symbolizers[0];
         if (sym.color) {
           color = sym.color;
         }
