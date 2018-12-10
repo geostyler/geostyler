@@ -2,7 +2,8 @@ import {
   Filter,
   Operator,
   CombinationOperator,
-  NegationOpertaor
+  NegationOpertaor,
+  Rule
 } from 'geostyler-style';
 
 import {
@@ -174,6 +175,57 @@ class FilterUtil {
       }
     });
     return matches;
+  }
+
+  static calculateDuplicates(matches: any[][]): number[] {
+    const duplicates: number[] = [];
+    const ids: object[] = [];
+
+    matches.forEach((features) => {
+      const idMap = {};
+      features.forEach(feat => idMap[feat.id] = true);
+      ids.push(idMap);
+    });
+
+    matches.forEach((features, index) => {
+      let counter = 0;
+      ids.forEach((idMap, idIndex) => {
+        if (index !== idIndex) {
+          features.forEach(feat => {
+            if (idMap[feat.id]) {
+              ++counter;
+            }
+          });
+        }
+      });
+      duplicates.push(counter);
+    });
+
+    return duplicates;
+  }
+
+  static calculateCountAndDuplicates(rules: Rule[], data: Data): {
+    counts?: number[],
+    duplicates?: number[]
+  } {
+    if (!rules || !data) {
+      return {};
+    }
+    const result: {
+      counts: number[],
+      duplicates: number[]
+    } = {
+      counts: [],
+      duplicates: []
+    };
+    const matches: any[][] = [];
+    rules.forEach((rule, index) => {
+      const currentMatches = rule.filter ? FilterUtil.getMatches(rule.filter, data) : data.exampleFeatures.features;
+      result.counts.push(currentMatches.length);
+      matches[index] = currentMatches;
+    });
+    result.duplicates = FilterUtil.calculateDuplicates(matches);
+    return result;
   }
 
 }

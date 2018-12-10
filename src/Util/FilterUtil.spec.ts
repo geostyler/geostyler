@@ -1,5 +1,5 @@
 import FilterUtil from './FilterUtil';
-import { Filter } from 'geostyler-style';
+import { Filter, Rule } from 'geostyler-style';
 import TestUtil from './TestUtil';
 
 describe('FilterUtil', () => {
@@ -55,6 +55,34 @@ describe('FilterUtil', () => {
       let dummyData = TestUtil.getComplexGsDummyData();
       const matches = FilterUtil.getMatches(filter, dummyData);
       expect(matches).toHaveLength(0);
+    });
+  });
+
+  describe('calculateCountAndDuplicates', () => {
+    it('returns the right number of duplicates', () => {
+      let dummyData = TestUtil.getComplexGsDummyData();
+      let filter2 = TestUtil.getDummyGsFilter();
+
+      dummyData.exampleFeatures.features[0].properties.state = 'germany';
+      dummyData.exampleFeatures.features[0].properties.population = 150000;
+      dummyData.exampleFeatures.features[0].properties.name = 'NotSchalke';
+
+      const rules: Rule[] = [{
+        name: 'rule1',
+        symbolizers: [],
+        filter: []
+      }, {
+        name: 'rule2',
+        symbolizers: [],
+        filter: filter2
+      }];
+
+      const result = FilterUtil.calculateCountAndDuplicates(rules, dummyData);
+
+      expect(result.counts[0]).toBeCloseTo(10);
+      expect(result.counts[1]).toBeCloseTo(1);
+      expect(result.duplicates[0]).toBeCloseTo(1);
+      expect(result.duplicates[1]).toBeCloseTo(1);
     });
   });
 
