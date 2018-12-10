@@ -85,7 +85,7 @@
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "copyfiles": "2.1.0",
     "coveralls": "3.0.1",
-    "enzyme": "3.7.0",
+    "enzyme": "3.8.0",
     "enzyme-adapter-react-16": "1.7.1",
     "file-loader": "2.0.0",
     "fork-ts-checker-webpack-plugin": "0.5.0",
