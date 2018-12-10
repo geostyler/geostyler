@@ -77,6 +77,12 @@ interface RuleTableState {
   filterEditorVisible: boolean;
   filterEditorPosition: DOMRect;
   hasError: boolean;
+  data: GsData;
+  rules: GsRule[];
+  countsAndDuplicates: {
+    counts: number[],
+    duplicates: number[]
+  };
 }
 
 export interface RuleRecord extends GsRule {
@@ -95,7 +101,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       symbolizerEditorPosition: undefined,
       filterEditorVisible: false,
       filterEditorPosition: undefined,
-      hasError: false
+      hasError: false,
+      data: undefined,
+      rules: undefined,
+      countsAndDuplicates: undefined
     };
   }
 
@@ -103,6 +112,85 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     locale: en_US.GsRuleTable,
     rendererType: 'OpenLayers'
   };
+
+  static getDerivedStateFromProps(nextProps: RuleTableProps, prevState: RuleTableState) {
+    let countsAndDuplicates;
+    try {
+      let filtersEqual = true;
+      nextProps.rules.forEach((rule, index) => {
+        try {
+          filtersEqual = filtersEqual && _isEqual(prevState.rules[index].filter, rule.filter);
+        } catch (e) {
+          filtersEqual = false;
+        }
+      });
+      // we should refrain from using _isEqual on the data as it's very slow on largish datasets
+      // thus it's the responsibility of the calling code to make sure the object only gets updated when actual data
+      // changes
+      if (filtersEqual && nextProps.data === prevState.data) {
+        return {};
+      }
+      countsAndDuplicates = RuleTable.calculateCountAndDuplicates(nextProps.rules, nextProps.data);
+    } catch (e) {
+      // make sure to update state when checks/calculation fails
+    }
+    return {
+      data: nextProps.data,
+      rules: nextProps.rules,
+      countsAndDuplicates
+    };
+  }
+
+  static calculateDuplicates(matches: any[][]): number[] {
+    const duplicates: number[] = [];
+    const ids: object[] = [];
+
+    matches.forEach((features) => {
+      const idMap = {};
+      features.forEach(feat => idMap[feat.id] = true);
+      ids.push(idMap);
+    });
+
+    matches.forEach((features, index) => {
+      let counter = 0;
+      ids.forEach((idMap, idIndex) => {
+        if (index !== idIndex) {
+          features.forEach(feat => {
+            if (idMap[feat.id]) {
+              ++counter;
+            }
+          });
+        }
+      });
+      duplicates.push(counter);
+    });
+
+    return duplicates;
+  }
+
+  static calculateCountAndDuplicates(rules: GsRule[], data: GsData): {
+    counts?: number[],
+    duplicates?: number[]
+  } {
+    if (!rules || !data) {
+      return {};
+    }
+    const result: {
+      counts: number[],
+      duplicates: number[]
+    } = {
+      counts: [],
+      duplicates: []
+    };
+    const matches: any[][] = [];
+    rules.forEach((rule, index) => {
+      const currentMatches = rule.filter ? FilterUtil.getMatches(rule.filter, data) : data.exampleFeatures.features;
+      result.counts.push(currentMatches.length);
+      matches[index] = currentMatches;
+    });
+    result.duplicates = RuleTable.calculateDuplicates(matches);
+    return result;
+  }
 
   public shouldComponentUpdate(nextProps: RuleTableProps, nextState: RuleTableState): boolean {
     const diffProps = !_isEqual(this.props, nextProps);
@@ -282,7 +370,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const filter: GsFilter|undefined = record.filter;
     if (data && filter) {
       try {
-        amount = FilterUtil.getNumberOfMatches(filter, data);
+        amount = this.state.countsAndDuplicates.counts[record.key];
       } catch (error) {
         amount = '-';
       }
@@ -303,7 +391,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     let duplicates: (number|'-') = '-';
     if (data && rules) {
       try {
-        duplicates = FilterUtil.getNumberOfDuplicates(rules, data, record.key);
+        duplicates = this.state.countsAndDuplicates.duplicates[record.key];
       } catch (error) {
         duplicates = '-';
       }
@@ -402,17 +490,14 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
             title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
             dataIndex: 'amount',
             render: this.amountRenderer
+          }, {
+            title: (
+              <Tooltip title={locale.duplicatesColumnTitle}>
+                <Icon type="block" />
+              </Tooltip>),
+            dataIndex: 'duplicates',
+            render: this.duplicatesRenderer
           }
-          // TODO This breaks the app (due to performance). Reactivate when
-          // FilterUtil.getNumberOfDuplicates is optimised.
-          // , {
-          //   title: (
-          //     <Tooltip title={locale.duplicatesColumnTitle}>
-          //       <Icon type="block" />
-          //     </Tooltip>),
-          //   dataIndex: 'duplicates',
-          //   render: this.duplicatesRenderer
-          // }
         ]}
           dataSource={this.getRuleRecords()}
           pagination={false}

@@ -1,5 +1,5 @@
 import FilterUtil from './FilterUtil';
-import { Filter, Rule } from 'geostyler-style';
+import { Filter } from 'geostyler-style';
 import TestUtil from './TestUtil';
 
 describe('FilterUtil', () => {
@@ -58,38 +58,4 @@ describe('FilterUtil', () => {
     });
   });
 
-  describe('getNumberOfMatches', () => {
-    it('returns the right number of matched features', () => {
-      let dummyData = TestUtil.getComplexGsDummyData();
-      dummyData.exampleFeatures.features[0].properties.state = 'germany';
-      dummyData.exampleFeatures.features[0].properties.population = 150000;
-      dummyData.exampleFeatures.features[0].properties.name = 'NotSchalke';
-      const numberMatches = FilterUtil.getNumberOfMatches(filter, dummyData);
-      expect(numberMatches).toBeCloseTo(1);
-    });
-  });
-
-  describe('getNumberOfDuplicates', () => {
-    it('returns the right number of duplicates', () => {
-      let dummyData = TestUtil.getComplexGsDummyData();
-      let filter2 = TestUtil.getDummyGsFilter();
-
-      dummyData.exampleFeatures.features[0].properties.state = 'germany';
-      dummyData.exampleFeatures.features[0].properties.population = 150000;
-      dummyData.exampleFeatures.features[0].properties.name = 'NotSchalke';
-
-      const dummyRules: Rule[] = [{
-        name: 'rule1',
-        symbolizers: [],
-        filter: filter
-      }, {
-        name: 'rule2',
-        symbolizers: [],
-        filter: filter2
-      }];
-
-      const numberDuplicates = FilterUtil.getNumberOfDuplicates(dummyRules, dummyData, 0);
-      expect(numberDuplicates).toBeCloseTo(1);
-    });
-  });
 });
