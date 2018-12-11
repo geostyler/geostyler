@@ -11,8 +11,6 @@ import {
 } from 'geostyler-data';
 
 const _get = require('lodash/get');
-const _isEqual = require('lodash/isEqual');
-const _cloneDeep = require('lodash/cloneDeep');
 
 /**
  * @class SymbolizerUtil
@@ -171,86 +169,65 @@ class FilterUtil {
   static getMatches = (filter: Filter, data: Data): any[] => {
     const matches: any[] = [];
     data.exampleFeatures.features.forEach(feature => {
-      try {
-        const match = FilterUtil.featureMatchesFilter(filter, feature);
-        if (match) {
-          matches.push(feature);
-        }
-      } catch (error) {
-        throw error;
+      const match = FilterUtil.featureMatchesFilter(filter, feature);
+      if (match) {
+        matches.push(feature);
       }
     });
     return matches;
   }
 
-  /**
-   * Returns the number of features that match a given filter.
-   */
-  static getNumberOfMatches = (filter: Filter, data: Data): number => {
-    let matches: any[];
-    try {
-      matches = FilterUtil.getMatches(filter, data);
-    } catch (error) {
-      throw error;
-    }
-    return matches.length;
+  static calculateDuplicates(matches: any[][]): number[] {
+    const duplicates: number[] = [];
+    const ids: object[] = [];
+
+    matches.forEach((features) => {
+      const idMap = {};
+      features.forEach(feat => idMap[feat.id] = true);
+      ids.push(idMap);
+    });
+
+    matches.forEach((features, index) => {
+      let counter = 0;
+      ids.forEach((idMap, idIndex) => {
+        if (index !== idIndex) {
+          features.forEach(feat => {
+            if (idMap[feat.id]) {
+              ++counter;
+            }
+          });
+        }
+      });
+      duplicates.push(counter);
+    });
+
+    return duplicates;
   }
 
-  /**
-   * Returns the number of features that match the filter at a given rulekey
-   * as well as any other rule's filter.
-   */
-  static getNumberOfDuplicates = (rules: Rule[], data: Data, rulekey: number): number => {
-    try {
-      // create filters array
-      // if a rule does not have a filter, an empty array will be pushed instead
-      const filters: Filter[] = [];
-      rules.forEach((rule: Rule) => {
-        if (rule.filter) {
-          filters.push(rule.filter);
-        } else {
-          filters.push([]);
-        }
-      });
-
-      // get all matches of all filters
-      const allFiltersMatches: any[][] = [];
-      filters.forEach((filter: Filter) => {
-        try {
-          const matches: any[] = FilterUtil.getMatches(filter, data);
-          allFiltersMatches.push(matches);
-        } catch (error) {
-          throw error;
-        }
-      });
-
-      // check for duplicates
-      let duplicates: number = 0;
-
-      // create flat array of all matches except the ones of currently checked filter results
-      const restFiltersMatches = _cloneDeep(allFiltersMatches);
-      restFiltersMatches.splice(rulekey, 1);
-      const flatRestMatches: any[] = restFiltersMatches.reduce((acc: any, val: any) => acc.concat(val), []);
-
-      // check for each match if it also exists in other filters matches
-      // if so, increase counter
-      allFiltersMatches[rulekey].forEach((match: any) => {
-        let contained: boolean = false;
-        for (let i = 0; i < flatRestMatches.length; i++) {
-          if (_isEqual(match, flatRestMatches[i])) {
-            contained = true;
-            break;
-          }
-        }
-        if (contained) {
-          duplicates++;
-        }
-      });
-      return duplicates;
-    } catch (error) {
-      throw error;
+  static calculateCountAndDuplicates(rules: Rule[], data: Data): {
+    counts?: number[],
+    duplicates?: number[]
+  } {
+    if (!rules || !data) {
+      return {};
     }
+    const result: {
+      counts: number[],
+      duplicates: number[]
+    } = {
+      counts: [],
+      duplicates: []
+    };
+    const matches: any[][] = [];
+    rules.forEach((rule, index) => {
+      const currentMatches = rule.filter ? FilterUtil.getMatches(rule.filter, data) : data.exampleFeatures.features;
+      result.counts.push(currentMatches.length);
+      matches[index] = currentMatches;
+    });
+    result.duplicates = FilterUtil.calculateDuplicates(matches);
+    return result;
   }
+
 }
 
 export default FilterUtil;

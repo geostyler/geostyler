@@ -58,18 +58,7 @@ describe('FilterUtil', () => {
     });
   });
 
-  describe('getNumberOfMatches', () => {
-    it('returns the right number of matched features', () => {
-      let dummyData = TestUtil.getComplexGsDummyData();
-      dummyData.exampleFeatures.features[0].properties.state = 'germany';
-      dummyData.exampleFeatures.features[0].properties.population = 150000;
-      dummyData.exampleFeatures.features[0].properties.name = 'NotSchalke';
-      const numberMatches = FilterUtil.getNumberOfMatches(filter, dummyData);
-      expect(numberMatches).toBeCloseTo(1);
-    });
-  });
-
-  describe('getNumberOfDuplicates', () => {
+  describe('calculateCountAndDuplicates', () => {
     it('returns the right number of duplicates', () => {
       let dummyData = TestUtil.getComplexGsDummyData();
       let filter2 = TestUtil.getDummyGsFilter();
@@ -78,18 +67,23 @@ describe('FilterUtil', () => {
       dummyData.exampleFeatures.features[0].properties.population = 150000;
       dummyData.exampleFeatures.features[0].properties.name = 'NotSchalke';
 
-      const dummyRules: Rule[] = [{
+      const rules: Rule[] = [{
         name: 'rule1',
         symbolizers: [],
-        filter: filter
+        filter: []
       }, {
         name: 'rule2',
         symbolizers: [],
         filter: filter2
       }];
 
-      const numberDuplicates = FilterUtil.getNumberOfDuplicates(dummyRules, dummyData, 0);
-      expect(numberDuplicates).toBeCloseTo(1);
+      const result = FilterUtil.calculateCountAndDuplicates(rules, dummyData);
+
+      expect(result.counts[0]).toBeCloseTo(10);
+      expect(result.counts[1]).toBeCloseTo(1);
+      expect(result.duplicates[0]).toBeCloseTo(1);
+      expect(result.duplicates[1]).toBeCloseTo(1);
     });
   });
+
 });
