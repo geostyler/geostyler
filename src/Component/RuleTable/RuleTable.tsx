@@ -34,7 +34,7 @@ import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow'
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { TableProps } from 'antd/lib/table';
 import FilterUtil from '../../Util/FilterUtil';
-import { SLDRendererProps, SLDRenderer } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
@@ -53,8 +53,8 @@ export interface RuleTableLocale {
 interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
   locale: RuleTableLocale;
   rendererType: 'SLD' | 'OpenLayers';
-  sldRendererProps?: SLDRendererProps;
-  oLRendererProps?: RendererProps;
+  sldRendererProps?: SLDRendererAdditonalProps;
+  oLRendererProps?: Partial<RendererProps>;
 }
 
 // non default props

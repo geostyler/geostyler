@@ -32,7 +32,7 @@ import en_US from '../../locale/en_US';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import RuleTable from '../RuleTable/RuleTable';
 import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
-import { SLDRendererProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import { SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 import './Style.css';
@@ -69,7 +69,7 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   ruleNameProps?: Partial<NameFieldProps>;
   ruleProps?: Partial<RuleProps>;
   ruleRendererType?: 'SLD' | 'OpenLayers';
-  sldRendererProps?: SLDRendererProps;
+  sldRendererProps?: SLDRendererAdditonalProps;
   iconLibraries?: IconLibrary[];
 }
 

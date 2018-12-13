@@ -135,10 +135,10 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
       gridClassName += ' gs-icon-selector-grid-selected';
     }
     return (
+      // @ts-ignore
       <Card.Grid
         key={index.toString()}
         className={gridClassName}
-        // @ts-ignore
         onClick={() => {
           if (onIconSelect) {
             onIconSelect(icon.src);

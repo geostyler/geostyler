@@ -28,7 +28,7 @@ const _isEqual = require('lodash/isEqual');
 
 import './Rule.css';
 import en_US from '../../locale/en_US';
-import { SLDRenderer, SLDRendererProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 
 // i18n
 export interface RuleLocale {
@@ -55,8 +55,8 @@ interface RuleDefaultProps {
   /** The data projection of example features */
   dataProjection: string;
   rendererType: 'SLD' | 'OpenLayers';
-  sldRendererProps?: SLDRendererProps;
-  oLRendererProps?: RendererProps;
+  sldRendererProps?: SLDRendererAdditonalProps;
+  oLRendererProps?: Partial<RendererProps>;
   locale: RuleLocale;
 }
 
@@ -123,8 +123,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   };
 
   static getDerivedStateFromProps(
-      nextProps: RuleProps,
-      prevState: RuleState): Partial<RuleState> {
+      nextProps: RuleProps): Partial<RuleState> {
     const rule = nextProps.rule || Rule.defaultProps.rule;
 
     return {

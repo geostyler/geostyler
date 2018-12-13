@@ -1,4 +1,4 @@
-const TerserPlugin = require('terser-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -8,7 +8,7 @@ module.exports = {
   entry: [
     "@babel/polyfill",
     "whatwg-fetch",
-    "./src/index.js"
+    "./src/index.ts"
   ],
   output: {
     filename: "geostyler.js",
@@ -45,15 +45,6 @@ module.exports = {
             loader: require.resolve('ts-loader'),
           },
         ],
-      },
-      // locale js files need to be transpiled to es5
-      {
-        test: /\.js?$/,
-        include: /src\/locale/,
-        loader: "babel-loader",
-        query: {
-          presets: ["@babel/preset-env"]
-        }
       }
     ]
   },

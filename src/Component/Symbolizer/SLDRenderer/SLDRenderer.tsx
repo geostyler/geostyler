@@ -13,14 +13,17 @@ interface SLDRendererDefaultProps {
   height: number;
 }
 
-// non default props
-export interface SLDRendererProps extends Partial<SLDRendererDefaultProps> {
-  onClick?: (symbolizers: Symbolizer[], event: any) => void;
-  symbolizers: Symbolizer[];
+export interface SLDRendererAdditonalProps extends Partial<SLDRendererDefaultProps> {
   wmsBaseUrl: string;
   layer: string;
   additionalHeaders?: any;
   wmsParams?: any;
+}
+
+// non default props
+export interface SLDRendererProps extends Partial<SLDRendererAdditonalProps> {
+  onClick?: (symbolizers: Symbolizer[], event: any) => void;
+  symbolizers: Symbolizer[];
 }
 
 // state
