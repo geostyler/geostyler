@@ -6,6 +6,7 @@ import ColorField from './Component/Symbolizer/Field/ColorField/ColorField';
 import ComparisonFilter from './Component/Filter/ComparisonFilter/ComparisonFilter';
 import DataLoader from './Component/DataInput/DataLoader/DataLoader';
 import DataProvider from './DataProvider/DataProvider';
+import Editor from './Component/Symbolizer/Editor/Editor';
 import FieldSet from './Component/FieldSet/FieldSet';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import FilterEditorWindow from './Component/Filter/FilterEditorWindow/FilterEditorWindow';
@@ -114,7 +115,6 @@ export {
   SLDRenderer,
   Style,
   StyleLoader,
-  SymbolizerEditor,
   SymbolizerEditorWindow,
   TextEditor,
   TextFilterField,
