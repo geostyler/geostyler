@@ -73,7 +73,7 @@
     "@types/node": "10.12.14",
     "@types/ol": "4.6.2",
     "@types/prop-types": "15.5.8",
-    "@types/react": "16.7.13",
+    "@types/react": "16.7.17",
     "@types/react-color": "2.13.6",
     "@types/react-dom": "16.0.11",
     "antd": "3.11.2",
