@@ -1,3 +1,8 @@
+/*!
+  Copyright (c) 2018 terrestris GmbH & Co. KG
+  Licensed under the BSD 2-Clause "Simplified" License, see
+  https://github.com/terrestris/geostyler/blob/master/LICENSE
+*/
 import AttributeCombo from './Component/Filter/AttributeCombo/AttributeCombo';
 import BoolFilterField from './Component/Filter/BoolFilterField/BoolFilterField';
 import BulkEditModals from './Component/Symbolizer/BulkEditModals/BulkEditModals';
