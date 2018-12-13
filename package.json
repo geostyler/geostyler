@@ -36,7 +36,6 @@
     "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags",
     "styleguide": "styleguidist server",
     "start:styleguide": "styleguidist server",
-    "start:dev": "webpack --mode=development --watch --config dev-build.config.js",
     "test": "jest --coverage",
     "test:ci": "jest --ci --coverage",
     "test:watch": "jest --watchAll"
