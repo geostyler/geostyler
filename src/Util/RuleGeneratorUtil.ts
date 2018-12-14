@@ -1,3 +1,4 @@
+import * as Color from 'color';
 import { Data } from 'geostyler-data';
 import {
   LevelOfMeasurement,
@@ -11,10 +12,11 @@ import {
   WellKnownName
 } from 'geostyler-style';
 import SymbolizerUtil from './SymbolizerUtil';
+import {
+  scale as chromaScale, ColorSpaces
+}  from 'chroma-js';
 
-const generateColormap = require('colormap');
 // Unsure if we can rely on this file in future releases
-export const colorScales = require('colormap/colorScale');
 
 const _get = require('lodash/get');
 
@@ -23,7 +25,8 @@ export interface RuleGenerationParams {
   levelOfMeasurement: LevelOfMeasurement;
   numberOfRules: number;
   attributeName: string;
-  colorRamp: string[];
+  colors: string[];
+  colorSpace?: keyof ColorSpaces;
   symbolizerKind: SymbolizerKind;
   wellKnownName?: WellKnownName;
   classificationMethod?: ClassificationMethod;
@@ -74,27 +77,33 @@ class RuleGeneratorUtil {
     }
   }
 
+  static generateColors(colors: string[], numberOfRules: number, colorSpace: keyof ColorSpaces = 'hsl'): string[] {
+    return chromaScale(colors).mode(colorSpace).colors(numberOfRules);
+  }
+
   static generateRules(params: RuleGenerationParams): Rule[] {
     const {
       data,
       levelOfMeasurement,
       numberOfRules,
       attributeName,
-      colorRamp,
+      colors: inputColors,
+      colorSpace,
       symbolizerKind,
       wellKnownName,
       classificationMethod
     } = params;
 
+    const colors = RuleGeneratorUtil.generateColors(inputColors, numberOfRules, colorSpace);
+
     let rules: Rule[] = [];
-    const cRamp = colorRamp || [];
     if (levelOfMeasurement === 'nominal') {
       const distinctValues = RuleGeneratorUtil.getDistinctValues(data, attributeName);
       distinctValues.splice(numberOfRules, distinctValues.length - 2);
       rules = distinctValues.map((distinctValue, index: number) => {
         const filter: Filter = ['==', attributeName, distinctValue];
         const symbolizer: Symbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind, {
-          color: cRamp[index],
+          color: colors[index],
           wellKnownName
         });
         return {
@@ -132,7 +141,7 @@ class RuleGeneratorUtil {
             [isLast ? '<=' : '<', attributeName,  range[1]],
           ];
           const symbolizer: Symbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind, {
-            color: cRamp[index],
+            color: colors[index],
             wellKnownName
           });
           return {
@@ -146,11 +155,21 @@ class RuleGeneratorUtil {
     return rules;
   }
 
-  static getColorRamp(colormap: string, nshades: number) {
-    const minClasses = _get(colorScales, `[${colormap}].length`);
-    if (nshades > minClasses) {
-      return generateColormap({colormap, nshades});
-    }
+  static generateBackgroundStyleFromColors = (colors: string[]) => {
+    const gradients = colors.map((color: string) => `linear-gradient(${color}, ${color})`);
+    const backgroundImage = gradients.join(',');
+    const size = colors.map((color: string, index: number) => {
+      const width = (index + 1) * (100 / colors.length);
+      return `${width}% 100%`;
+    });
+    const backgroundSize = size.join(',');
+    const textColor = Color(colors[0]).isLight() ? '#000000' : '#FFFFFF';
+    return {
+      backgroundImage: backgroundImage,
+      backgroundSize: backgroundSize,
+      backgroundRepeat: 'no-repeat',
+      color: textColor
+    };
   }
 
   /**

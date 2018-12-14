@@ -1,0 +1,13 @@
+.gs-color-ramp-select {
+  border-radius: 4px;
+}
+
+.gs-color-ramp-select,
+.gs-color-ramp-select .ant-select-arrow ,
+li.gs-color-ramp-option {
+  font-weight: bold;
+}
+
+.gs-color-ramp-select .ant-select-selection {
+  background-color: inherit;
+}

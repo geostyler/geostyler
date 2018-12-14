@@ -34,9 +34,9 @@ describe('RuleGeneratorUtil', () => {
     });
   });
 
-  describe('#getColorRamp', () => {
+  describe('#generateBackgroundStyleFromColors', () => {
     it('is defined', () => {
-      expect(RuleGeneratorUtil.getColorRamp).toBeDefined();
+      expect(RuleGeneratorUtil.generateBackgroundStyleFromColors).toBeDefined();
     });
   });
 

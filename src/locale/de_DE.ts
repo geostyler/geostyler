@@ -197,6 +197,7 @@ export default {
       cardinal: 'Kardinal',
       numberOfRules: 'Klassenanzahl',
       colorRamp: 'Color Ramp',
+      colorSpace: 'Farbraum',
       colorRampPlaceholder: 'Auswählen…',
       colorRampMinClassesWarningPre: 'Color Ramp benötigt mindestens',
       colorRampMinClassesWarningPost: 'Klassen',
@@ -204,7 +205,8 @@ export default {
       classification: 'Klassifizierungs Methode',
       classificationPlaceholder: 'Auswählen…',
       equalInterval: 'Gleiches Interval',
-      quantile: 'Quantil'
+      quantile: 'Quantil',
+      preview: 'Vorschau'
     },
     GsRuleGeneratorWindow: {
       ruleGenerator: 'Klassifizierung'
