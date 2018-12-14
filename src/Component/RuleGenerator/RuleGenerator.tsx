@@ -15,10 +15,10 @@ import { ColorSpaces, brewer } from 'chroma-js';
 import { ColorRampCombo } from './ColorRampCombo/ColorRampCombo';
 import { ColorSpaceCombo } from './ColorSpaceCombo/ColorSpaceCombo';
 import ColorsPreview from './ColorsPreview/ColorsPreview';
+import { ClassificationMethod, ClassificationCombo } from './ClassificationCombo/ClassificationCombo';
 const _get = require('lodash/get');
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
-export type ClassificationMethod = 'equalInterval' | 'quantile';
 
 interface RuleGeneratorLocale {
   attribute: string;
@@ -35,10 +35,9 @@ interface RuleGeneratorLocale {
   symbolizer: string;
   classification: string;
   classificationPlaceholder: string;
-  equalInterval: string;
-  quantile: string;
   colorSpace: string;
   preview: string;
+  numberOfRulesViaKmeans: string;
 }
 
 // default props
@@ -61,6 +60,7 @@ interface RuleGeneratorState {
   wellKnownName?: WellKnownName;
   classificationMethod?: ClassificationMethod;
   colorSpace: keyof ColorSpaces;
+  hasError: boolean;
 }
 
 // non default props
@@ -93,15 +93,22 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
 
     const symbolizerKind = RuleGeneratorUtil.guessSymbolizerFromData(internalDataDef);
 
-    this.minNrClasses = 3;
+    this.minNrClasses = 2;
 
     this.state = {
-      numberOfRules: this.minNrClasses,
       symbolizerKind,
       wellKnownName: 'Circle',
       colorRamp: 'GeoStyler',
-      colorSpace: 'hsl'
+      colorSpace: 'hsl',
+      numberOfRules: 2,
+      hasError: false
     };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      hasError: true
+    });
   }
 
   onAttributeChange = (attributeName: string) => {
@@ -109,17 +116,17 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
       internalDataDef
     } = this.props;
     const attributeType = _get(internalDataDef, `schema.properties[${attributeName}].type`);
-    let numberOfRules: number;
-    if (attributeType === 'string') {
-      const distinctValues = RuleGeneratorUtil.getDistinctValues(internalDataDef, attributeName);
-      numberOfRules = distinctValues.length;
+    let {
+      classificationMethod
+    } = this.state;
+    if (attributeType === 'string' && classificationMethod === 'kmeans') {
+      classificationMethod = undefined;
     }
     this.setState({
       attributeName,
       attributeType,
-      classificationMethod: 'equalInterval',
       levelOfMeasurement: attributeType === 'string' ? 'nominal' : 'cardinal',
-      numberOfRules: numberOfRules || this.state.numberOfRules
+      classificationMethod
     });
   }
 
@@ -128,8 +135,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
     this.setState({levelOfMeasurement});
   }
 
-  onClassificationChange = (event: RadioChangeEvent) => {
-    const classificationMethod = event.target.value;
+  onClassificationChange = (classificationMethod: ClassificationMethod) => {
     this.setState({classificationMethod});
   }
 
@@ -196,12 +202,22 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
         wellKnownName
       });
 
+    if (classificationMethod === 'kmeans') {
+      this.setState({
+        numberOfRules: rules.length
+      });
+    }
+
     if (onRulesChange) {
       onRulesChange(rules);
     }
   }
 
   render() {
+    if (this.state.hasError) {
+      return <h1>An error occured in the RuleGenerator UI.</h1>;
+    }
+
     const {
       colorRamps,
       colorSpaces,
@@ -230,8 +246,11 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
             value={attributeName}
             internalDataDef={internalDataDef}
             onAttributeChange={this.onAttributeChange}
+            validateStatus={attributeName ? 'success' : 'warning'}
           />
-          <Form.Item label={locale.levelOfMeasurement}>
+          <Form.Item
+            label={locale.levelOfMeasurement}
+          >
             <Radio.Group
               onChange={this.onLevelOfMeasurementChange}
               value={levelOfMeasurement}
@@ -254,27 +273,29 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
             levelOfMeasurement !== 'cardinal' ? null :
             <Form.Item
               label={locale.classification}
-              required={levelOfMeasurement !== 'cardinal'}
             >
-              <Radio.Group
+              <ClassificationCombo
+                classification={classificationMethod}
                 onChange={this.onClassificationChange}
-                value={classificationMethod}
-                buttonStyle="solid"
-              >
-                <Radio.Button
-                  value="equalInterval"
-                >
-                  {locale.equalInterval}
-                </Radio.Button>
-                <Radio.Button
-                  value="quantile"
-                >
-                  {locale.quantile}
-                </Radio.Button>
-              </Radio.Group>
+              />
             </Form.Item>
           }
-          <Form.Item label={locale.numberOfRules}>
+          <Form.Item
+            label={locale.numberOfRules}
+            validateStatus={
+              classificationMethod === 'kmeans'
+                ? 'warning'
+                : numberOfRules < this.minNrClasses
+                  ? 'error'
+                  : undefined
+            }
+            help={classificationMethod === 'kmeans'
+              ? locale.numberOfRulesViaKmeans
+              : numberOfRules < this.minNrClasses
+              ? `${locale.colorRampMinClassesWarningPre} ${this.minNrClasses} ${locale.colorRampMinClassesWarningPost}`
+              : undefined
+            }
+          >
             <InputNumber
               min={this.minNrClasses}
               max={100}
@@ -284,7 +305,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
           </Form.Item>
           <fieldset>
             <legend>{locale.symbolizer}</legend>
-            <Form.Item>
+            <Form.Item >
               <KindField
                 kind={symbolizerKind}
                 symbolizerKinds={[

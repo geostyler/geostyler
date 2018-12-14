@@ -52,12 +52,10 @@ describe('RuleGenerator', () => {
   });
 
   it('handles onClassificationChange correctly', () => {
-    const dummyEqualInterval = {target: {value: 'equalInterval'}};
-    const dummyQunatile = {target: {value: 'quantile'}};
-    wrapper.instance().onClassificationChange(dummyEqualInterval);
+    wrapper.instance().onClassificationChange('equalInterval');
     expect(wrapper.state('classificationMethod')).toEqual('equalInterval');
 
-    wrapper.instance().onClassificationChange(dummyQunatile);
+    wrapper.instance().onClassificationChange('quantile');
     expect(wrapper.state('classificationMethod')).toEqual('quantile');
   });
 

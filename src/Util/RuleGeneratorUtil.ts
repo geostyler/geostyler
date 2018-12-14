@@ -1,8 +1,7 @@
 import * as Color from 'color';
 import { Data } from 'geostyler-data';
 import {
-  LevelOfMeasurement,
-  ClassificationMethod
+  LevelOfMeasurement
 } from 'src/Component/RuleGenerator/RuleGenerator';
 import {
   Rule,
@@ -13,8 +12,11 @@ import {
 } from 'geostyler-style';
 import SymbolizerUtil from './SymbolizerUtil';
 import {
-  scale as chromaScale, ColorSpaces
+  ColorSpaces,
+  scale as chromaScale,
+  limits as chromaLimits
 }  from 'chroma-js';
+import { ClassificationMethod } from 'src/Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
 
 // Unsure if we can rely on this file in future releases
 
@@ -85,7 +87,6 @@ class RuleGeneratorUtil {
     const {
       data,
       levelOfMeasurement,
-      numberOfRules,
       attributeName,
       colors: inputColors,
       colorSpace,
@@ -93,8 +94,9 @@ class RuleGeneratorUtil {
       wellKnownName,
       classificationMethod
     } = params;
+    let numberOfRules = params.numberOfRules;
 
-    const colors = RuleGeneratorUtil.generateColors(inputColors, numberOfRules, colorSpace);
+    let colors = RuleGeneratorUtil.generateColors(inputColors, numberOfRules, colorSpace);
 
     let rules: Rule[] = [];
     if (levelOfMeasurement === 'nominal') {
@@ -124,10 +126,18 @@ class RuleGeneratorUtil {
 
         switch (classificationMethod) {
           case 'equalInterval':
-            ranges = RuleGeneratorUtil.getEqualIntervalRanges(values, numberOfRules);
+            ranges = RuleGeneratorUtil.getRanges(values, numberOfRules, 'e');
             break;
-            case 'quantile':
-            ranges = RuleGeneratorUtil.getQuantileRanges(values, numberOfRules);
+          case 'quantile':
+            ranges = RuleGeneratorUtil.getRanges(values, numberOfRules, 'q');
+            break;
+          case 'logarithmic':
+            ranges = RuleGeneratorUtil.getRanges(values, numberOfRules, 'l');
+            break;
+          case 'kmeans':
+            ranges = RuleGeneratorUtil.getRanges(values, numberOfRules, 'k');
+            numberOfRules = ranges.length;
+            colors = RuleGeneratorUtil.generateColors(inputColors, numberOfRules, colorSpace);
             break;
           default:
             break;
@@ -173,54 +183,18 @@ class RuleGeneratorUtil {
   }
 
   /**
-   * Inspired by GeoStats.js: http://www.intermezzo-coop.eu/mapping/geostats/
+   * Get Ranges for quantile spread statistic.
    *
    * @param {number[]} series The data values.
    * @param {number} numberOfClasses The number of classes to generate.
-   * @param {number} forceMin An optional forced minimum value.
-   * @param {number} forceMax An optional forced maximum value.
+   * @param {'e'|'q'|'l'|'k'} mode The mode in which the ranges should be generated:
+   *  - e: equidistant
+   *  - q: quantile
+   *  - l: logarihtmic
+   *  - k: k-means
    */
-  static getEqualIntervalRanges(series: number[], numberOfClasses: number, forceMin?: number, forceMax?: number) {
-
-    const min = !forceMin ? Math.min(...series) : forceMin;
-    const max = !forceMax ? Math.max(...series) : forceMax;
-    const bounds = [];
-    let val = min;
-    const interval = (max - min) / numberOfClasses;
-
-    for (let i = 0; i <= numberOfClasses; i++) {
-        bounds[i] = val;
-        val += interval;
-    }
-
-    // -> Fix last bound to Max of values
-    bounds[numberOfClasses] = max;
-
-    return RuleGeneratorUtil.boundsToRanges(bounds);
-  }
-
-  /**
-   * Inspired by GeoStats.js: http://www.intermezzo-coop.eu/mapping/geostats/
-   *
-   * @param {number[]} series The data values.
-   * @param {number} numberOfClasses The number of classes to generate.
-   */
-  static getQuantileRanges(series: number[], numberOfClasses: number) {
-    const bounds: number[] = [-Infinity];
-    const sortedValues = series.sort((a, b) => a === b ? 0 : a < b ? -1 : 1);
-    const valuesPerClass = Math.floor(series.length / numberOfClasses);
-    bounds[0] = sortedValues[0];
-
-    for (let i = 1; i <= numberOfClasses; i++) {
-      if (i < numberOfClasses) {
-
-        const value = sortedValues[(i * valuesPerClass)];
-        bounds[i] = value;
-      } else {
-        bounds[i] = sortedValues[(sortedValues.length - 1)];
-      }
-    }
-
+  static getRanges(series: number[], numberOfClasses: number, mode: 'e' | 'q' | 'l' | 'k' = 'e') {
+    const bounds = chromaLimits(series, mode, numberOfClasses);
     return RuleGeneratorUtil.boundsToRanges(bounds);
   }
 

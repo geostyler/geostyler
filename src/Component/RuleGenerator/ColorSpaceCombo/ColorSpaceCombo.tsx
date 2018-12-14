@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import './ColorSpaceCombo.css';
-
 import { ColorSpaces } from 'chroma-js';
 
 import { Select } from 'antd';
