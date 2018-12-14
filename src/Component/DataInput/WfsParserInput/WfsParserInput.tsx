@@ -68,7 +68,7 @@ export class WfsParserInput extends React.Component<WfsParserInputProps, WfsPars
       url: 'https://ows.terrestris.de/geoserver/terrestris/ows',
       version: '1.1.0',
       typeName: 'terrestris:bundeslaender',
-      maxFeatures: 10,
+      maxFeatures: undefined,
       validation: {
         url: undefined,
         version: undefined,
