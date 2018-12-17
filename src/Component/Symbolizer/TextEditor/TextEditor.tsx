@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Mention } from 'antd';
-const { toString } = Mention;
+const { toString, toContentState } = Mention;
 
 import {
   Symbolizer,
@@ -215,7 +215,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
           <span className="label">{locale.templateFieldLabel}:</span>
           <Mention
             placeholder={locale.templateFieldLabel}
-            // defaultValue={toContentState(symbolizer.label)}
+            defaultValue={toContentState(symbolizer.label)}
             onChange={this.onLabelChange}
             suggestions={properties}
             prefix="{{"

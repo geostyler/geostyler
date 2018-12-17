@@ -305,7 +305,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
           </Form.Item>
           <fieldset>
             <legend>{locale.symbolizer}</legend>
-            <Form.Item >
+            <Form.Item>
               <KindField
                 kind={symbolizerKind}
                 symbolizerKinds={[
