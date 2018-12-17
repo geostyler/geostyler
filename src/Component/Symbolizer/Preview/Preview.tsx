@@ -1,20 +1,20 @@
 import * as React from 'react';
 
-import OlMap from 'ol/map';
-import OlLayerBase from 'ol/layer/base';
-import OlControl from 'ol/control/control';
-import OlInteraction from 'ol/interaction/interaction';
-import OlLayerVector from 'ol/layer/vector';
-import OlSourceVector from 'ol/source/vector';
-import OlGeomPoint from 'ol/geom/point';
-import OlGeomLineString from 'ol/geom/linestring';
-import OlGeomPolygon from 'ol/geom/polygon';
-import OlFormatGeoJSON from 'ol/format/geojson';
-import OlFeature from 'ol/feature';
-import OlView from 'ol/view';
-import OlLayerTile from 'ol/layer/tile';
-import OlSourceOSM from 'ol/source/osm';
-import OlStyle from 'ol/style/style';
+import OlMap from 'ol/Map';
+import OlLayerBase from 'ol/layer/Base';
+import OlControl from 'ol/control/Control';
+import OlInteraction from 'ol/interaction/Interaction';
+import OlLayerVector from 'ol/layer/Vector';
+import OlSourceVector from 'ol/source/Vector';
+import OlGeomPoint from 'ol/geom/Point';
+import OlGeomLineString from 'ol/geom/LineString';
+import OlGeomPolygon from 'ol/geom/Polygon';
+import OlFormatGeoJSON from 'ol/format/GeoJSON';
+import OlFeature from 'ol/Feature';
+import OlView from 'ol/View';
+import OlLayerTile from 'ol/layer/Tile';
+import OlSourceOSM from 'ol/source/OSM';
+import OlStyle from 'ol/style/Style';
 
 import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 

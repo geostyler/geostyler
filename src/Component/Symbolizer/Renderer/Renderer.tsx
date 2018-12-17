@@ -4,15 +4,15 @@ const _isEqual = require('lodash/isEqual');
 const _get = require('lodash/get');
 const _uniqueId = require('lodash/uniqueId');
 
-import OlMap from 'ol/map';
-import OlLayerVector from 'ol/layer/vector';
-import OlSourceVector from 'ol/source/vector';
-import OlGeomPoint from 'ol/geom/point';
-import OlGeomLineString from 'ol/geom/linestring';
-import OlGeomPolygon from 'ol/geom/polygon';
-import OlFeature from 'ol/feature';
-import OlView from 'ol/view';
-import OlStyle from 'ol/style/style';
+import OlMap from 'ol/Map';
+import OlLayerVector from 'ol/layer/Vector';
+import OlSourceVector from 'ol/source/Vector';
+import OlGeomPoint from 'ol/geom/Point';
+import OlGeomLineString from 'ol/geom/LineString';
+import OlGeomPolygon from 'ol/geom/Polygon';
+import OlFeature from 'ol/Feature';
+import OlView from 'ol/View';
+import OlStyle from 'ol/style/Style';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
 
