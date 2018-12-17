@@ -1,7 +1,7 @@
+import * as Color from 'color';
 import { Data } from 'geostyler-data';
 import {
-  LevelOfMeasurement,
-  ClassificationMethod
+  LevelOfMeasurement
 } from 'src/Component/RuleGenerator/RuleGenerator';
 import {
   Rule,
@@ -11,10 +11,14 @@ import {
   WellKnownName
 } from 'geostyler-style';
 import SymbolizerUtil from './SymbolizerUtil';
+import {
+  ColorSpaces,
+  scale as chromaScale,
+  limits as chromaLimits
+}  from 'chroma-js';
+import { ClassificationMethod } from 'src/Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
 
-const generateColormap = require('colormap');
 // Unsure if we can rely on this file in future releases
-export const colorScales = require('colormap/colorScale');
 
 const _get = require('lodash/get');
 
@@ -23,7 +27,8 @@ export interface RuleGenerationParams {
   levelOfMeasurement: LevelOfMeasurement;
   numberOfRules: number;
   attributeName: string;
-  colorRamp: string[];
+  colors: string[];
+  colorSpace?: keyof ColorSpaces;
   symbolizerKind: SymbolizerKind;
   wellKnownName?: WellKnownName;
   classificationMethod?: ClassificationMethod;
@@ -74,27 +79,33 @@ class RuleGeneratorUtil {
     }
   }
 
+  static generateColors(colors: string[], numberOfRules: number, colorSpace: keyof ColorSpaces = 'hsl'): string[] {
+    return chromaScale(colors).mode(colorSpace).colors(numberOfRules);
+  }
+
   static generateRules(params: RuleGenerationParams): Rule[] {
     const {
       data,
       levelOfMeasurement,
-      numberOfRules,
       attributeName,
-      colorRamp,
+      colors: inputColors,
+      colorSpace,
       symbolizerKind,
       wellKnownName,
       classificationMethod
     } = params;
+    let numberOfRules = params.numberOfRules;
+
+    let colors = RuleGeneratorUtil.generateColors(inputColors, numberOfRules, colorSpace);
 
     let rules: Rule[] = [];
-    const cRamp = colorRamp || [];
     if (levelOfMeasurement === 'nominal') {
       const distinctValues = RuleGeneratorUtil.getDistinctValues(data, attributeName);
       distinctValues.splice(numberOfRules, distinctValues.length - 2);
       rules = distinctValues.map((distinctValue, index: number) => {
         const filter: Filter = ['==', attributeName, distinctValue];
         const symbolizer: Symbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind, {
-          color: cRamp[index],
+          color: colors[index],
           wellKnownName
         });
         return {
@@ -115,10 +126,18 @@ class RuleGeneratorUtil {
 
         switch (classificationMethod) {
           case 'equalInterval':
-            ranges = RuleGeneratorUtil.getEqualIntervalRanges(values, numberOfRules);
+            ranges = RuleGeneratorUtil.getRanges(values, numberOfRules, 'e');
             break;
-            case 'quantile':
-            ranges = RuleGeneratorUtil.getQuantileRanges(values, numberOfRules);
+          case 'quantile':
+            ranges = RuleGeneratorUtil.getRanges(values, numberOfRules, 'q');
+            break;
+          case 'logarithmic':
+            ranges = RuleGeneratorUtil.getRanges(values, numberOfRules, 'l');
+            break;
+          case 'kmeans':
+            ranges = RuleGeneratorUtil.getRanges(values, numberOfRules, 'k');
+            numberOfRules = ranges.length;
+            colors = RuleGeneratorUtil.generateColors(inputColors, numberOfRules, colorSpace);
             break;
           default:
             break;
@@ -132,7 +151,7 @@ class RuleGeneratorUtil {
             [isLast ? '<=' : '<', attributeName,  range[1]],
           ];
           const symbolizer: Symbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind, {
-            color: cRamp[index],
+            color: colors[index],
             wellKnownName
           });
           return {
@@ -146,62 +165,36 @@ class RuleGeneratorUtil {
     return rules;
   }
 
-  static getColorRamp(colormap: string, nshades: number) {
-    const minClasses = _get(colorScales, `[${colormap}].length`);
-    if (nshades > minClasses) {
-      return generateColormap({colormap, nshades});
-    }
+  static generateBackgroundStyleFromColors = (colors: string[]) => {
+    const gradients = colors.map((color: string) => `linear-gradient(${color}, ${color})`);
+    const backgroundImage = gradients.join(',');
+    const size = colors.map((color: string, index: number) => {
+      const width = (index + 1) * (100 / colors.length);
+      return `${width}% 100%`;
+    });
+    const backgroundSize = size.join(',');
+    const textColor = Color(colors[0]).isLight() ? '#000000' : '#FFFFFF';
+    return {
+      backgroundImage: backgroundImage,
+      backgroundSize: backgroundSize,
+      backgroundRepeat: 'no-repeat',
+      color: textColor
+    };
   }
 
   /**
-   * Inspired by GeoStats.js: http://www.intermezzo-coop.eu/mapping/geostats/
+   * Get Ranges for quantile spread statistic.
    *
    * @param {number[]} series The data values.
    * @param {number} numberOfClasses The number of classes to generate.
-   * @param {number} forceMin An optional forced minimum value.
-   * @param {number} forceMax An optional forced maximum value.
+   * @param {'e'|'q'|'l'|'k'} mode The mode in which the ranges should be generated:
+   *  - e: equidistant
+   *  - q: quantile
+   *  - l: logarihtmic
+   *  - k: k-means
    */
-  static getEqualIntervalRanges(series: number[], numberOfClasses: number, forceMin?: number, forceMax?: number) {
-
-    const min = !forceMin ? Math.min(...series) : forceMin;
-    const max = !forceMax ? Math.max(...series) : forceMax;
-    const bounds = [];
-    let val = min;
-    const interval = (max - min) / numberOfClasses;
-
-    for (let i = 0; i <= numberOfClasses; i++) {
-        bounds[i] = val;
-        val += interval;
-    }
-
-    // -> Fix last bound to Max of values
-    bounds[numberOfClasses] = max;
-
-    return RuleGeneratorUtil.boundsToRanges(bounds);
-  }
-
-  /**
-   * Inspired by GeoStats.js: http://www.intermezzo-coop.eu/mapping/geostats/
-   *
-   * @param {number[]} series The data values.
-   * @param {number} numberOfClasses The number of classes to generate.
-   */
-  static getQuantileRanges(series: number[], numberOfClasses: number) {
-    const bounds: number[] = [-Infinity];
-    const sortedValues = series.sort((a, b) => a === b ? 0 : a < b ? -1 : 1);
-    const valuesPerClass = Math.floor(series.length / numberOfClasses);
-    bounds[0] = sortedValues[0];
-
-    for (let i = 1; i <= numberOfClasses; i++) {
-      if (i < numberOfClasses) {
-
-        const value = sortedValues[(i * valuesPerClass)];
-        bounds[i] = value;
-      } else {
-        bounds[i] = sortedValues[(sortedValues.length - 1)];
-      }
-    }
-
+  static getRanges(series: number[], numberOfClasses: number, mode: 'e' | 'q' | 'l' | 'k' = 'e') {
+    const bounds = chromaLimits(series, mode, numberOfClasses);
     return RuleGeneratorUtil.boundsToRanges(bounds);
   }
 

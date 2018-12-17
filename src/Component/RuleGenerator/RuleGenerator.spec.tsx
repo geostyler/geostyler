@@ -60,21 +60,17 @@ describe('RuleGenerator', () => {
   });
 
   it('handles onNumberChange correctly', () => {
-    expect(wrapper.state('colorRamp')).toBeUndefined();
-    wrapper.setState({colorRampName: 'spring'});
     wrapper.instance().onNumberChange(5);
-    expect(wrapper.state('numberOfRules')).toBeCloseTo(5);
-    expect(wrapper.state('colorRamp')).toBeDefined();
+    expect(wrapper.state('numberOfRules')).toBe(5);
 
     wrapper.instance().onNumberChange(2);
-    expect(wrapper.state('numberOfRules')).toBeCloseTo(2);
-    expect(wrapper.state('colorRamp')).toBeUndefined();
+    expect(wrapper.state('numberOfRules')).toBe(2);
   });
 
-  it('handles onColorRampNameChange correctly', () => {
-    expect(wrapper.state('colorRampName')).toBeUndefined();
-    wrapper.instance().onColorRampNameChange('spring');
-    expect(wrapper.state('colorRampName')).toEqual('spring');
+  it('handles onColorRampChange correctly', () => {
+    expect(wrapper.state('colorRamp')).toBe('GeoStyler');
+    wrapper.instance().onColorRampChange('GreenRed');
+    expect(wrapper.state('colorRamp')).toEqual('GreenRed');
   });
 
   it('handles onSymbolizerKindChange correctly', () => {

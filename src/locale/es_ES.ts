@@ -198,16 +198,29 @@ export default {
       nominal: 'Nominal',
       ordinal: 'Ordinal',
       cardinal: 'Cardinal',
-      numberOfRules: 'número de clases',
+      numberOfRules: 'Número de clases',
       colorRamp: 'Rampa de color',
+      colorSpace: 'Espacio de color',
       colorRampPlaceholder: 'Seleccionar…',
       colorRampMinClassesWarningPre: 'La rampa de color requiere al menos',
       colorRampMinClassesWarningPost: 'clases',
       symbolizer: 'Simbolizador',
       classification: 'Método de clasificación',
       classificationPlaceholder: 'Seleccionar…',
-      equalInterval: 'Intervalo igual',
-      quantile: 'Quantile'
+      preview: 'Avance de color',
+      numberOfRulesViaKmeans: '…afectados por la clasificación k-Means.'
+    },
+    GsColorRampCombo: {
+      colorRampPlaceholder: 'Seleccionar…'
+    },
+    GsColorSpaceCombo: {
+      colorSpacePlaceholder: 'Seleccionar…'
+    },
+    GsClassificationCombo: {
+      equalInterval: 'Equal Interval',
+      quantile: 'Quantile ',
+      logarithmic: 'Logarithmic',
+      kmeans: 'k-Means'
     },
     GsRuleGeneratorWindow: {
       ruleGenerator: 'Clasificación'

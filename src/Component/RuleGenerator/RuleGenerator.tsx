@@ -1,21 +1,24 @@
 import * as React from 'react';
 import { Rule, SymbolizerKind, WellKnownName } from 'geostyler-style';
 import { Data } from 'geostyler-data';
-import { Radio, Form, Button, InputNumber, Select } from 'antd';
+import { Radio, Form, Button, InputNumber } from 'antd';
 import en_US from '../../locale/en_US';
 import AttributeCombo from '../Filter/AttributeCombo/AttributeCombo';
 
 import './RuleGenerator.css';
 import { RadioChangeEvent } from 'antd/lib/radio';
-import RuleGeneratorUtil, { colorScales } from '../../Util/RuleGeneratorUtil';
+import RuleGeneratorUtil from '../../Util/RuleGeneratorUtil';
 import { KindField } from '../Symbolizer/Field/KindField/KindField';
 import { WellKnownNameField } from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
+import { ColorSpaces, brewer } from 'chroma-js';
+import { ColorRampCombo } from './ColorRampCombo/ColorRampCombo';
+import { ColorSpaceCombo } from './ColorSpaceCombo/ColorSpaceCombo';
+import ColorsPreview from './ColorsPreview/ColorsPreview';
+import { ClassificationMethod, ClassificationCombo } from './ClassificationCombo/ClassificationCombo';
 const _get = require('lodash/get');
-const _cloneDeep = require('lodash/cloneDeep');
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
-export type ClassificationMethod = 'equalInterval' | 'quantile';
 
 interface RuleGeneratorLocale {
   attribute: string;
@@ -32,16 +35,19 @@ interface RuleGeneratorLocale {
   symbolizer: string;
   classification: string;
   classificationPlaceholder: string;
-  equalInterval: string;
-  quantile: string;
+  colorSpace: string;
+  preview: string;
+  numberOfRulesViaKmeans: string;
 }
 
 // default props
 interface RuleGeneratorDefaultProps {
   unknownSymbolizerText?: string;
   locale: RuleGeneratorLocale;
-  classificationMethods: ClassificationMethod[];
-  colorRampNames: string[];
+  colorRamps: {
+    [name: string]: string[]
+  };
+  colorSpaces: (keyof ColorSpaces)[];
 }
 
 interface RuleGeneratorState {
@@ -49,11 +55,12 @@ interface RuleGeneratorState {
   attributeType?: string;
   numberOfRules?: number;
   levelOfMeasurement?: LevelOfMeasurement;
-  colorRamp?: string[];
-  colorRampName?: string;
+  colorRamp?: string;
   symbolizerKind?: SymbolizerKind;
   wellKnownName?: WellKnownName;
   classificationMethod?: ClassificationMethod;
+  colorSpace: keyof ColorSpaces;
+  hasError: boolean;
 }
 
 // non default props
@@ -67,16 +74,12 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
 
   public static defaultProps: RuleGeneratorDefaultProps = {
     locale: en_US.GsRuleGenerator,
-    classificationMethods: ['equalInterval', 'quantile'],
-    colorRampNames: [
-      'jet', 'hsv', 'hot', 'cool', 'spring', 'summer', 'autumn', 'winter', 'bone',
-      'copper', 'greys', 'YIGnBu', 'greens', 'YIOrRd', 'bluered', 'RdBu', 'picnic',
-      'rainbow', 'portland', 'blackbody', 'earth', 'electric',
-      'viridis', 'inferno', 'magma', 'plasma', 'warm', 'rainbow-soft',
-      'bathymetry', 'cdom', 'chlorophyll', 'density', 'freesurface-blue',
-      'freesurface-red', 'oxygen', 'par', 'phase', 'salinity', 'temperature',
-      'turbidity', 'velocity-blue', 'velocity-green'
-    ]
+    colorSpaces: ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'], // rgba, cmyk and gl crash
+    colorRamps: {
+      GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
+      GreenRed: ['#00FF00', '#FF0000'],
+      ...brewer
+    }
   };
 
   static componentName: string = 'RuleGenerator';
@@ -90,13 +93,22 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
 
     const symbolizerKind = RuleGeneratorUtil.guessSymbolizerFromData(internalDataDef);
 
-    this.minNrClasses = 3;
+    this.minNrClasses = 2;
 
     this.state = {
-      numberOfRules: this.minNrClasses,
       symbolizerKind,
-      wellKnownName: 'Circle'
+      wellKnownName: 'Circle',
+      colorRamp: 'GeoStyler',
+      colorSpace: 'hsl',
+      numberOfRules: 2,
+      hasError: false
     };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    this.setState({
+      hasError: true
+    });
   }
 
   onAttributeChange = (attributeName: string) => {
@@ -104,17 +116,17 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
       internalDataDef
     } = this.props;
     const attributeType = _get(internalDataDef, `schema.properties[${attributeName}].type`);
-    let numberOfRules: number;
-    if (attributeType === 'string') {
-      const distinctValues = RuleGeneratorUtil.getDistinctValues(internalDataDef, attributeName);
-      numberOfRules = distinctValues.length;
+    let {
+      classificationMethod
+    } = this.state;
+    if (attributeType === 'string' && classificationMethod === 'kmeans') {
+      classificationMethod = undefined;
     }
     this.setState({
       attributeName,
       attributeType,
-      classificationMethod: this.props.classificationMethods[0],
       levelOfMeasurement: attributeType === 'string' ? 'nominal' : 'cardinal',
-      numberOfRules: numberOfRules || this.state.numberOfRules
+      classificationMethod
     });
   }
 
@@ -128,98 +140,16 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
   }
 
   onNumberChange = (numberOfRules: number) => {
-    let colorRamp = _cloneDeep(this.state.colorRamp);
-    let colorRampName = this.state.colorRampName;
-
-    if (numberOfRules <= 2) {
-      colorRamp = undefined;
-      colorRampName = undefined;
-    } else if (colorRampName) {
-      colorRamp = RuleGeneratorUtil.getColorRamp(colorRampName, numberOfRules);
-      if (!colorRamp) {
-        colorRampName = undefined;
-      }
-    }
-
     this.setState({
-      numberOfRules,
-      colorRamp,
-      colorRampName
-    });
-  }
-
-  getBackgroundStyleFromColors = (colors: string[]) => {
-    const gradients = colors.map((color: string) => `linear-gradient(${color}, ${color})`);
-    const backgroundImage = gradients.join(',');
-    const size = colors.map((color: string, index: number) => {
-      const width = (index + 1) * (100 / colors.length);
-      return `${width}% 100%`;
-    });
-    const backgroundSize = size.join(',');
-    return {
-      backgroundImage: backgroundImage,
-      backgroundSize: backgroundSize,
-      backgroundRepeat: 'no-repeat'
-    };
-  }
-
-  getClassificationOptions = () => {
-    const {
-      classificationMethods,
-      locale
-    } = this.props;
-    return classificationMethods.map((classificationMethod: ClassificationMethod) => {
-      return (
-        <Select.Option
-          className="classification-option"
-          key={classificationMethod}
-          value={classificationMethod}
-        >
-          {locale[classificationMethod] || classificationMethod}
-        </Select.Option>
-      );
-    });
-  }
-
-  getColorOptions = () => {
-    const {
       numberOfRules
-    } = this.state;
-
-    const {
-      colorRampNames
-    } = this.props;
-
-    const filteredColorMaps = colorRampNames.filter((colorRampName: string) => {
-      const minClasses = _get(colorScales, `[${colorRampName}].length`);
-      return numberOfRules > minClasses;
-    });
-
-    return filteredColorMaps.map((colorRampName) => {
-      const colors = RuleGeneratorUtil.getColorRamp(colorRampName, numberOfRules);
-      const style = this.getBackgroundStyleFromColors(colors);
-      return (
-        <Select.Option
-          className="color-ramp-option"
-          key={colorRampName}
-          value={colorRampName}
-          style={style}
-        >
-          {colorRampName}
-        </Select.Option>
-      );
     });
   }
 
-  onColorRampNameChange = (colorRampName: string) => {
-    const {
-      numberOfRules
-    } = this.state;
-    const colorRamp = RuleGeneratorUtil.getColorRamp(colorRampName, numberOfRules);
-    this.setState({
-      colorRampName,
-      colorRamp
-    });
+  onColorRampChange = (colorRamp: string) => {
+    this.setState({colorRamp});
+  }
+  onColorSpaceChange = (colorSpace: keyof ColorSpaces) => {
+    this.setState({colorSpace});
   }
 
   onSymbolizerKindChange = (symbolizerKind: SymbolizerKind) => {
@@ -248,55 +178,66 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
   onGenerateClick = () => {
     const {
       onRulesChange,
-      internalDataDef
+      internalDataDef,
+      colorRamps
     } = this.props;
     const {
+      attributeName,
+      classificationMethod,
+      colorRamp,
       levelOfMeasurement,
       numberOfRules,
-      attributeName,
-      colorRamp,
       symbolizerKind,
-      wellKnownName,
-      classificationMethod
+      wellKnownName
     } = this.state;
 
     const rules = RuleGeneratorUtil.generateRules({
+        attributeName,
+        classificationMethod,
+        colors: colorRamps[colorRamp],
         data: internalDataDef,
         levelOfMeasurement,
         numberOfRules,
-        attributeName,
-        colorRamp,
         symbolizerKind,
-        wellKnownName,
-        classificationMethod
+        wellKnownName
       });
+
+    if (classificationMethod === 'kmeans') {
+      this.setState({
+        numberOfRules: rules.length
+      });
+    }
+
     if (onRulesChange) {
       onRulesChange(rules);
     }
   }
 
   render() {
+    if (this.state.hasError) {
+      return <h1>An error occured in the RuleGenerator UI.</h1>;
+    }
+
     const {
-      locale,
-      internalDataDef
+      colorRamps,
+      colorSpaces,
+      internalDataDef,
+      locale
     } = this.props;
 
     const {
       attributeName,
       attributeType,
-      numberOfRules,
-      levelOfMeasurement,
-      colorRampName,
+      classificationMethod,
       colorRamp,
+      colorSpace,
+      levelOfMeasurement,
+      numberOfRules,
       symbolizerKind,
-      wellKnownName,
-      classificationMethod
+      wellKnownName
     } = this.state;
 
-    let colorRampStyle = {};
-    if (colorRamp) {
-      colorRampStyle = this.getBackgroundStyleFromColors(colorRamp);
-    }
+    const previewColors = RuleGeneratorUtil.generateColors(colorRamps[colorRamp], numberOfRules, colorSpace);
 
     return (
       <div className="gs-rule-generator" >
@@ -305,8 +246,11 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
             value={attributeName}
             internalDataDef={internalDataDef}
             onAttributeChange={this.onAttributeChange}
+            validateStatus={attributeName ? 'success' : 'warning'}
           />
-          <Form.Item label={locale.levelOfMeasurement}>
+          <Form.Item
+            label={locale.levelOfMeasurement}
+          >
             <Radio.Group
               onChange={this.onLevelOfMeasurementChange}
               value={levelOfMeasurement}
@@ -329,19 +273,29 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
             levelOfMeasurement !== 'cardinal' ? null :
             <Form.Item
               label={locale.classification}
-              required={levelOfMeasurement !== 'cardinal'}
             >
-              <Select
-                className="classification-select"
-                placeholder={locale.classificationPlaceholder}
-                value={classificationMethod}
+              <ClassificationCombo
+                classification={classificationMethod}
                 onChange={this.onClassificationChange}
-              >
-                {this.getClassificationOptions()}
-              </Select>
+              />
             </Form.Item>
           }
-          <Form.Item label={locale.numberOfRules}>
+          <Form.Item
+            label={locale.numberOfRules}
+            validateStatus={
+              classificationMethod === 'kmeans'
+                ? 'warning'
+                : numberOfRules < this.minNrClasses
+                  ? 'error'
+                  : undefined
+            }
+            help={classificationMethod === 'kmeans'
+              ? locale.numberOfRulesViaKmeans
+              : numberOfRules < this.minNrClasses
+              ? `${locale.colorRampMinClassesWarningPre} ${this.minNrClasses} ${locale.colorRampMinClassesWarningPost}`
+              : undefined
+            }
+          >
             <InputNumber
               min={this.minNrClasses}
               max={100}
@@ -376,17 +330,27 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
                 `${locale.colorRampMinClassesWarningPre} ${this.minNrClasses} ${locale.colorRampMinClassesWarningPost}`
                 : undefined}
             >
-              <Select
-                className="color-ramp-select"
-                style={colorRampStyle}
-                placeholder={locale.colorRampPlaceholder}
-                optionFilterProp="children"
-                value={colorRampName}
-                onChange={this.onColorRampNameChange}
-                disabled={numberOfRules < this.minNrClasses}
-              >
-                {this.getColorOptions()}
-              </Select>
+              <ColorRampCombo
+                colorRamps={colorRamps}
+                colorRamp={colorRamp}
+                onChange={this.onColorRampChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.colorSpace}
+            >
+              <ColorSpaceCombo
+                colorSpace={colorSpace}
+                colorSpaces={colorSpaces}
+                onChange={this.onColorSpaceChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.preview}
+            >
+              <ColorsPreview
+                colors={previewColors}
+              />
             </Form.Item>
           </fieldset>
           <Form.Item>
