@@ -1,9 +1,6 @@
 import * as React from 'react';
 
 import OlMap from 'ol/Map';
-import OlLayerBase from 'ol/layer/Base';
-import OlControl from 'ol/control/Control';
-import OlInteraction from 'ol/interaction/Interaction';
 import OlLayerVector from 'ol/layer/Vector';
 import OlSourceVector from 'ol/source/Vector';
 import OlGeomPoint from 'ol/geom/Point';
@@ -14,7 +11,6 @@ import OlFeature from 'ol/Feature';
 import OlView from 'ol/View';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOSM from 'ol/source/OSM';
-import OlStyle from 'ol/style/Style';
 
 import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 
@@ -63,11 +59,11 @@ export interface PreviewProps extends Partial<PreviewDefaultProps> {
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   onAddSymbolizer?: () => void;
   onRemoveSymbolizer?: (symbolizer: Symbolizer, key: number) => void;
-  onMapDidMount?: (map: OlMap) => void;
-  map?: OlMap;
-  layers?: OlLayerBase[];
-  controls?: OlControl[];
-  interactions?: OlInteraction[];
+  onMapDidMount?: (map: any) => void;
+  map?: any;
+  layers?: any[];
+  controls?: any[];
+  interactions?: any[];
 }
 
 // state
@@ -84,10 +80,10 @@ interface PreviewState {
 export class Preview extends React.Component<PreviewProps, PreviewState> {
 
   /** reference to the underlying OpenLayers map */
-  map: OlMap;
+  map: any;
 
   /** refrence to the vector layer for the passed in features  */
-  dataLayer: OlLayerVector;
+  dataLayer: any;
 
   /** reference to the editButton */
   _editButton: any;
@@ -195,7 +191,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       showOsmBackground
     } = this.props;
 
-    let map: OlMap;
+    let map: any;
     if (!this.props.map) {
       // create a new OL map and bind it to this preview DIV
       map = new OlMap({
@@ -316,7 +312,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     };
     // parser style to OL style
     styleParser.writeStyle(style)
-      .then((olStyles: (OlStyle|OlStyle[]|ol.StyleFunction)) => {
+      .then((olStyles: any) => {
         // apply new OL style to vector layer
         this.dataLayer.setStyle(olStyles);
         return olStyles;

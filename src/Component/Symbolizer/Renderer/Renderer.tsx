@@ -12,7 +12,6 @@ import OlGeomLineString from 'ol/geom/LineString';
 import OlGeomPolygon from 'ol/geom/Polygon';
 import OlFeature from 'ol/Feature';
 import OlView from 'ol/View';
-import OlStyle from 'ol/style/Style';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
 
@@ -36,9 +35,9 @@ export interface RendererProps {
 export class Renderer extends React.Component<RendererProps> {
 
   /** reference to the underlying OpenLayers map */
-  _map: OlMap;
+  _map: any;
 
-  _layer: OlLayerVector;
+  _layer: any;
 
   _mapId: string;
 
@@ -147,7 +146,7 @@ export class Renderer extends React.Component<RendererProps> {
     };
     // parser style to OL style
     styleParser.writeStyle(style)
-      .then((olStyles: (OlStyle|OlStyle[]|ol.StyleFunction)) => {
+      .then((olStyles: any) => {
         // apply new OL style to vector layer
         this._layer.setStyle(olStyles);
         return olStyles;
