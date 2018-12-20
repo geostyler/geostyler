@@ -49,7 +49,7 @@
     "@types/lodash": "4.14.119",
     "@types/ol": "4.6.2",
     "@types/react": "16.7.17",
-    "@types/react-color": "2.13.6",
+    "@types/react-color": "2.14.0",
     "@types/react-dom": "16.0.11",
     "blob": "0.0.5",
     "chroma-js": "2.0.2",
