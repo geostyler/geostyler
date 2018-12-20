@@ -98,7 +98,7 @@
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "postcss-flexbugs-fixes": "4.1.0",
     "postcss-loader": "3.0.0",
-    "react": "16.6.0",
+    "react": "16.7.0",
     "react-docgen-typescript": "1.12.2",
     "react-dom": "16.6.0",
     "react-styleguidist": "8.0.6",
