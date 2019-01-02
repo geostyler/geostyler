@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@types/chroma-js": "1.4.0",
-    "@types/codemirror": "0.0.70",
+    "@types/codemirror": "0.0.71",
     "@types/color": "3.0.0",
     "@types/file-saver": "2.0.0",
     "@types/geojson": "7946.0.4",
