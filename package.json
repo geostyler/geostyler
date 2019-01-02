@@ -41,7 +41,7 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
-    "@types/chroma-js": "1.4.0",
+    "@types/chroma-js": "1.4.1",
     "@types/codemirror": "0.0.71",
     "@types/color": "3.0.0",
     "@types/file-saver": "2.0.0",

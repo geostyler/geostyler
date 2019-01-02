@@ -1,11 +1,10 @@
 import * as React from 'react';
 
-import { ColorSpaces } from 'chroma-js';
-
 import { Select } from 'antd';
 
 import en_US from '../../../locale/en_US';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import { InterpolationMode } from 'chroma-js';
 
 const _isEqual = require('lodash/isEqual');
 
@@ -17,13 +16,13 @@ export interface ColorSpaceComboLocale {
 // default props
 export interface ColorSpaceComboDefaultProps {
   locale: ColorSpaceComboLocale;
-  colorSpaces: (keyof ColorSpaces)[];
+  colorSpaces: (InterpolationMode)[];
 }
 
 // non default props
 export interface ColorSpaceComboProps extends ColorSpaceComboDefaultProps {
-  onChange?: (colorSpace: keyof ColorSpaces) => void;
-  colorSpace?: keyof ColorSpaces;
+  onChange?: (colorSpace: InterpolationMode) => void;
+  colorSpace?: InterpolationMode;
 }
 
 /**
@@ -47,7 +46,7 @@ export class ColorSpaceCombo extends React.Component<ColorSpaceComboProps> {
       colorSpaces
     } = this.props;
 
-    return colorSpaces.map((colorSpace: keyof ColorSpaces) => {
+    return colorSpaces.map((colorSpace: InterpolationMode) => {
       return (
         <Select.Option
           className="color-space-option"
