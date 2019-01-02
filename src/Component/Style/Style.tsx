@@ -71,6 +71,8 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   ruleRendererType?: 'SLD' | 'OpenLayers';
   sldRendererProps?: SLDRendererAdditonalProps;
   iconLibraries?: IconLibrary[];
+  showAmountColumn?: boolean;
+  showDuplicatesColumn?: boolean;
 }
 
 // state
@@ -417,7 +419,9 @@ export class Style extends React.Component<StyleProps, StyleState> {
       enableClassification,
       locale,
       data,
-      iconLibraries
+      iconLibraries,
+      showAmountColumn,
+      showDuplicatesColumn
     } = this.props;
 
     const {
@@ -476,6 +480,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
             data={data}
             footer={this.createFooter}
             iconLibraries={iconLibraries}
+            showAmountColumn={showAmountColumn}
+            showDuplicatesColumn={showDuplicatesColumn}
           />
           : rules.map((rule, idx) => <Rule
             key={'rule_' + idx}
