@@ -218,6 +218,15 @@ class FilterUtil {
       counts: [],
       duplicates: []
     };
+
+    // Add id to feature if missing
+    data.exampleFeatures.features = data.exampleFeatures.features.map((feature, idx) => {
+      if (!feature.id) {
+        feature.id = idx;
+      }
+      return feature;
+    });
+
     const matches: any[][] = [];
     rules.forEach((rule, index) => {
       const currentMatches = rule.filter ? FilterUtil.getMatches(rule.filter, data) : data.exampleFeatures.features;
