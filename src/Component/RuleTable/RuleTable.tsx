@@ -32,7 +32,7 @@ import './RuleTable.css';
 import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
-import { TableProps } from 'antd/lib/table';
+import { TableProps, ColumnProps } from 'antd/lib/table';
 import FilterUtil from '../../Util/FilterUtil';
 import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
@@ -87,6 +87,10 @@ interface RuleTableState {
 
 export interface RuleRecord extends GsRule {
   key: number;
+  amount?: number;
+  duplicates?: number;
+  maxScale?: number;
+  minScale?: number;
 }
 
 export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
@@ -399,7 +403,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       showDuplicatesColumn
     } = this.props;
 
-    const columns = [{
+    const columns: ColumnProps<RuleRecord>[] = [{
       title: (
         <Tooltip title={locale.symbolizersColumnTitle}>
           <Icon type="bg-colors" />
@@ -422,7 +426,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       title: locale.maxScaleColumnTitle,
       dataIndex: 'maxScale',
       render: this.maxScaleRenderer
-      }];
+    }];
 
     if (showAmountColumn) {
       columns.push({

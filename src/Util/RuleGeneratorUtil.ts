@@ -12,9 +12,9 @@ import {
 } from 'geostyler-style';
 import SymbolizerUtil from './SymbolizerUtil';
 import {
-  ColorSpaces,
   scale as chromaScale,
-  limits as chromaLimits
+  limits as chromaLimits,
+  InterpolationMode
 }  from 'chroma-js';
 import { ClassificationMethod } from 'src/Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
 
@@ -28,7 +28,7 @@ export interface RuleGenerationParams {
   numberOfRules: number;
   attributeName: string;
   colors: string[];
-  colorSpace?: keyof ColorSpaces;
+  colorSpace?: InterpolationMode;
   symbolizerKind: SymbolizerKind;
   wellKnownName?: WellKnownName;
   classificationMethod?: ClassificationMethod;
@@ -79,7 +79,7 @@ class RuleGeneratorUtil {
     }
   }
 
-  static generateColors(colors: string[], numberOfRules: number, colorSpace: keyof ColorSpaces = 'hsl'): string[] {
+  static generateColors(colors: string[], numberOfRules: number, colorSpace: InterpolationMode = 'hsl'): string[] {
     return chromaScale(colors).mode(colorSpace).colors(numberOfRules);
   }
 

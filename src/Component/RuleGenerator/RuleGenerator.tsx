@@ -11,7 +11,7 @@ import RuleGeneratorUtil from '../../Util/RuleGeneratorUtil';
 import { KindField } from '../Symbolizer/Field/KindField/KindField';
 import { WellKnownNameField } from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import { ColorSpaces, brewer } from 'chroma-js';
+import { brewer, InterpolationMode } from 'chroma-js';
 import { ColorRampCombo } from './ColorRampCombo/ColorRampCombo';
 import { ColorSpaceCombo } from './ColorSpaceCombo/ColorSpaceCombo';
 import ColorsPreview from './ColorsPreview/ColorsPreview';
@@ -47,7 +47,7 @@ interface RuleGeneratorDefaultProps {
   colorRamps: {
     [name: string]: string[]
   };
-  colorSpaces: (keyof ColorSpaces)[];
+  colorSpaces: (InterpolationMode)[];
 }
 
 interface RuleGeneratorState {
@@ -59,7 +59,7 @@ interface RuleGeneratorState {
   symbolizerKind?: SymbolizerKind;
   wellKnownName?: WellKnownName;
   classificationMethod?: ClassificationMethod;
-  colorSpace: keyof ColorSpaces;
+  colorSpace: InterpolationMode;
   hasError: boolean;
 }
 
@@ -148,7 +148,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
   onColorRampChange = (colorRamp: string) => {
     this.setState({colorRamp});
   }
-  onColorSpaceChange = (colorSpace: keyof ColorSpaces) => {
+  onColorSpaceChange = (colorSpace: InterpolationMode) => {
     this.setState({colorSpace});
   }
 
