@@ -102,7 +102,7 @@
     "react-docgen-typescript": "1.12.2",
     "react-dom": "16.7.0",
     "react-styleguidist": "8.0.6",
-    "rimraf": "2.6.2",
+    "rimraf": "2.6.3",
     "source-map-loader": "0.2.4",
     "terser-webpack-plugin": "1.2.1",
     "ts-jest": "23.10.5",
