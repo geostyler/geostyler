@@ -12,6 +12,11 @@ import {
 
 const _get = require('lodash/get');
 
+export type CountResult = {
+  counts?: number[],
+  duplicates?: number[]
+};
+
 /**
  * @class SymbolizerUtil
  */
@@ -165,6 +170,10 @@ class FilterUtil {
   /**
    * Returns those features that match a given filter.
    * If no feature matches, returns an empty array.
+   *
+   * @param {Filter} filter A geostyler filter object.
+   * @param {Data} data A geostyler data object.
+   * @return {Feature[]} An Array of geojson feature objects.
    */
   static getMatches = (filter: Filter, data: Data): any[] => {
     const matches: any[] = [];
@@ -177,6 +186,15 @@ class FilterUtil {
     return matches;
   }
 
+  /**
+   * Calculates the number of features that are covered by more then one rule per
+   * rule.
+   *
+   * @param {object} matches An object containing the count of matches for every
+   *  filter. Seperate by scales.
+   * @returns {number[]} An array containing the number of duplicates for each
+   *  rule.
+   */
   static calculateDuplicates(matches: any): number[] {
     const scales = Object.keys(matches);
     const duplicates: number[] = [];
@@ -210,17 +228,19 @@ class FilterUtil {
     return duplicates;
   }
 
-  static calculateCountAndDuplicates(rules: Rule[], data: Data): {
-    counts?: number[],
-    duplicates?: number[]
-  } {
+  /**
+   * Calculates the amount of matched and duplicate matched features for the rules.
+   *
+   * @param {Rule[]} rules An array of GeoStyler rule objects.
+   * @param {Data} data A geostyler data object.
+   * @returns {CountResult} An object containing array with the amount of matched
+   * and duplicate matched features reachable through keys'counts' and 'duplicates'.
+   */
+  static calculateCountAndDuplicates(rules: Rule[], data: Data): CountResult {
     if (!rules || !data) {
       return {};
     }
-    const result: {
-      counts: number[],
-      duplicates: number[]
-    } = {
+    const result: CountResult = {
       counts: [],
       duplicates: []
     };
