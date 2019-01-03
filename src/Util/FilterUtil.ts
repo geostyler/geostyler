@@ -12,6 +12,11 @@ import {
 
 const _get = require('lodash/get');
 
+export type CountResult = {
+  counts?: number[],
+  duplicates?: number[]
+};
+
 /**
  * @class SymbolizerUtil
  */
@@ -165,6 +170,10 @@ class FilterUtil {
   /**
    * Returns those features that match a given filter.
    * If no feature matches, returns an empty array.
+   *
+   * @param {Filter} filter A geostyler filter object.
+   * @param {Data} data A geostyler data object.
+   * @return {Feature[]} An Array of geojson feature objects.
    */
   static getMatches = (filter: Filter, data: Data): any[] => {
     const matches: any[] = [];
@@ -177,44 +186,61 @@ class FilterUtil {
     return matches;
   }
 
-  static calculateDuplicates(matches: any[][]): number[] {
+  /**
+   * Calculates the number of features that are covered by more then one rule per
+   * rule.
+   *
+   * @param {object} matches An object containing the count of matches for every
+   *  filter. Seperate by scales.
+   * @returns {number[]} An array containing the number of duplicates for each
+   *  rule.
+   */
+  static calculateDuplicates(matches: any): number[] {
+    const scales = Object.keys(matches);
     const duplicates: number[] = [];
-    const ids: object[] = [];
 
-    matches.forEach((features) => {
-      const idMap = {};
-      features.forEach(feat => idMap[feat.id] = true);
-      ids.push(idMap);
-    });
+    scales.forEach((scale) => {
 
-    matches.forEach((features, index) => {
-      let counter = 0;
-      ids.forEach((idMap, idIndex) => {
-        if (index !== idIndex) {
-          features.forEach(feat => {
-            if (idMap[feat.id]) {
-              ++counter;
-            }
-          });
-        }
+      const ids: object[] = [];
+
+      matches[scale].forEach((features: any, index: number) => {
+        const idMap = {};
+        features.forEach((feat: any) => idMap[feat.id] = true);
+        ids[index] = idMap;
       });
-      duplicates.push(counter);
+
+      matches[scale].forEach((features: any, index: number) => {
+        let counter = 0;
+        ids.forEach((idMap, idIndex) => {
+          if (index !== idIndex) {
+            features.forEach((feat: any) => {
+              if (idMap[feat.id]) {
+                ++counter;
+              }
+            });
+          }
+        });
+        duplicates[index] = counter;
+      });
+
     });
 
     return duplicates;
   }
 
-  static calculateCountAndDuplicates(rules: Rule[], data: Data): {
-    counts?: number[],
-    duplicates?: number[]
-  } {
+  /**
+   * Calculates the amount of matched and duplicate matched features for the rules.
+   *
+   * @param {Rule[]} rules An array of GeoStyler rule objects.
+   * @param {Data} data A geostyler data object.
+   * @returns {CountResult} An object containing array with the amount of matched
+   * and duplicate matched features reachable through keys'counts' and 'duplicates'.
+   */
+  static calculateCountAndDuplicates(rules: Rule[], data: Data): CountResult {
     if (!rules || !data) {
       return {};
     }
-    const result: {
-      counts: number[],
-      duplicates: number[]
-    } = {
+    const result: CountResult = {
       counts: [],
       duplicates: []
     };
@@ -227,12 +253,19 @@ class FilterUtil {
       return feature;
     });
 
-    const matches: any[][] = [];
+    const matches: any = {};
     rules.forEach((rule, index) => {
+      const minScale = _get(rule, 'scaleDenominator.min') || '';
+      const maxScale = _get(rule, 'scaleDenominator.max') || '';
+      const scaleKey = `${minScale}-${maxScale}`;
       const currentMatches = rule.filter ? FilterUtil.getMatches(rule.filter, data) : data.exampleFeatures.features;
       result.counts.push(currentMatches.length);
-      matches[index] = currentMatches;
+      if (!matches[scaleKey]) {
+        matches[scaleKey] = [];
+      }
+      matches[scaleKey][index] = currentMatches;
     });
+
     result.duplicates = FilterUtil.calculateDuplicates(matches);
     return result;
   }
