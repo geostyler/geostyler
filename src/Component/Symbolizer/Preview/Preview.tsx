@@ -1,20 +1,16 @@
 import * as React from 'react';
 
-import OlMap from 'ol/map';
-import OlLayerBase from 'ol/layer/base';
-import OlControl from 'ol/control/control';
-import OlInteraction from 'ol/interaction/interaction';
-import OlLayerVector from 'ol/layer/vector';
-import OlSourceVector from 'ol/source/vector';
-import OlGeomPoint from 'ol/geom/point';
-import OlGeomLineString from 'ol/geom/linestring';
-import OlGeomPolygon from 'ol/geom/polygon';
-import OlFormatGeoJSON from 'ol/format/geojson';
-import OlFeature from 'ol/feature';
-import OlView from 'ol/view';
-import OlLayerTile from 'ol/layer/tile';
-import OlSourceOSM from 'ol/source/osm';
-import OlStyle from 'ol/style/style';
+import OlMap from 'ol/Map';
+import OlLayerVector from 'ol/layer/Vector';
+import OlSourceVector from 'ol/source/Vector';
+import OlGeomPoint from 'ol/geom/Point';
+import OlGeomLineString from 'ol/geom/LineString';
+import OlGeomPolygon from 'ol/geom/Polygon';
+import OlFormatGeoJSON from 'ol/format/GeoJSON';
+import OlFeature from 'ol/Feature';
+import OlView from 'ol/View';
+import OlLayerTile from 'ol/layer/Tile';
+import OlSourceOSM from 'ol/source/OSM';
 
 import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 
@@ -63,11 +59,11 @@ export interface PreviewProps extends Partial<PreviewDefaultProps> {
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   onAddSymbolizer?: () => void;
   onRemoveSymbolizer?: (symbolizer: Symbolizer, key: number) => void;
-  onMapDidMount?: (map: OlMap) => void;
-  map?: OlMap;
-  layers?: OlLayerBase[];
-  controls?: OlControl[];
-  interactions?: OlInteraction[];
+  onMapDidMount?: (map: any) => void;
+  map?: any;
+  layers?: any[];
+  controls?: any[];
+  interactions?: any[];
 }
 
 // state
@@ -84,10 +80,10 @@ interface PreviewState {
 export class Preview extends React.Component<PreviewProps, PreviewState> {
 
   /** reference to the underlying OpenLayers map */
-  map: OlMap;
+  map: any;
 
   /** refrence to the vector layer for the passed in features  */
-  dataLayer: OlLayerVector;
+  dataLayer: any;
 
   /** reference to the editButton */
   _editButton: any;
@@ -195,7 +191,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       showOsmBackground
     } = this.props;
 
-    let map: OlMap;
+    let map: any;
     if (!this.props.map) {
       // create a new OL map and bind it to this preview DIV
       map = new OlMap({
@@ -316,7 +312,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     };
     // parser style to OL style
     styleParser.writeStyle(style)
-      .then((olStyles: (OlStyle|OlStyle[]|ol.StyleFunction)) => {
+      .then((olStyles: any) => {
         // apply new OL style to vector layer
         this.dataLayer.setStyle(olStyles);
         return olStyles;

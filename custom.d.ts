@@ -1,0 +1,9 @@
+declare module 'ol/format/GeoJSON';
+declare module 'ol/layer/Tile';
+declare module 'ol/layer/Vector';
+declare module 'ol/source/OSM';
+declare module 'ol/source/Vector';
+declare module 'ol/Map';
+declare module 'ol/View';
+declare module 'ol/geom/LineString';
+declare module 'ol/geom/Polygon';
