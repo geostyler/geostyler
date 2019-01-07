@@ -81,7 +81,7 @@
     "autoprefixer": "9.4.4",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "23.6.0",
-    "babel-loader": "8.0.4",
+    "babel-loader": "8.0.5",
     "canvas-prebuilt": "1.6.11",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "copyfiles": "2.1.0",
