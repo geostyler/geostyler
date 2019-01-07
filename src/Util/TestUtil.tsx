@@ -280,15 +280,23 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.1',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '02',
               'RS_0': '020000000000',
               'GEN': 'Hamburg',
-              'pop': 1,
+              'pop': 1810000,
               'area': 755,
               'dense': 2397.3509933774835,
               'kuerzel': 'HH'
@@ -298,15 +306,23 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.2',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '03',
               'RS_0': '030000000000',
               'GEN': 'Niedersachsen',
-              'pop': 2,
+              'pop': 7946000,
               'area': 47593,
               'dense': 166.95732565713445,
               'kuerzel': 'NI'
@@ -316,15 +332,23 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.3',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '04',
               'RS_0': '040000000000',
               'GEN': 'Bremen',
-              'pop': 3,
+              'pop': 679000,
               'area': 420,
               'dense': 1616.6666666666667,
               'kuerzel': 'HB'
@@ -334,15 +358,23 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.4',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '05',
               'RS_0': '050000000000',
               'GEN': 'Nordrhein-Westfalen',
-              'pop': 4,
+              'pop': 17890000,
               'area': 34113,
               'dense': 524.4335004250579,
               'kuerzel': 'NW'
@@ -352,15 +384,23 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.5',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '06',
               'RS_0': '060000000000',
               'GEN': 'Hessen',
-              'pop': 5,
+              'pop': 6213000,
               'area': 21115,
               'dense': 294.2457968269003,
               'kuerzel': 'HE'
@@ -370,15 +410,23 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.6',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '07',
               'RS_0': '070000000000',
               'GEN': 'Rheinland-Pfalz',
-              'pop': 6,
+              'pop': 4066000,
               'area': 19854,
               'dense': 204.79500352573788,
               'kuerzel': 'RP'
@@ -388,15 +436,23 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.7',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '08',
               'RS_0': '080000000000',
               'GEN': 'Baden-Württemberg',
-              'pop': 7,
+              'pop': 10952000,
               'area': 35751,
               'dense': 306.34108136835334,
               'kuerzel': 'BW'
@@ -406,15 +462,23 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.8',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '09',
               'RS_0': '090000000000',
               'GEN': 'Bayern',
-              'pop': 8,
+              'pop': 12931000,
               'area': 70550,
               'dense': 183.2884479092842,
               'kuerzel': 'BY'
@@ -424,15 +488,23 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.9',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '10',
               'RS_0': '100000000000',
               'GEN': 'Saarland',
-              'pop': 9,
+              'pop': 997000,
               'area': 2569,
               'dense': 388.08875048657063,
               'kuerzel': 'SL'
@@ -442,18 +514,182 @@ export class TestUtil {
             'type': 'Feature',
             'id': 'bundeslaender.10',
             'geometry': {
-              'type': 'Point',
-              'coordinates': [0, 0]
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
             },
             'properties': {
               'ADE': 2,
               'RS': '11',
               'RS_0': '110000000000',
               'GEN': 'Berlin',
-              'pop': 10,
+              'pop': 3575000,
               'area': 892,
               'dense': 4007.847533632287,
               'kuerzel': 'BE'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.11',
+            'geometry': {
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '12',
+              'RS_0': '120000000000',
+              'GEN': 'Brandenburg',
+              'pop': 2495000,
+              'area': 29654,
+              'dense': 84.13704727861334,
+              'kuerzel': 'BB'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.12',
+            'geometry': {
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '13',
+              'RS_0': '130000000000',
+              'GEN': 'Mecklenburg-Vorpommern',
+              'pop': 1611000,
+              'area': 23214,
+              'dense': 69.39777720341174,
+              'kuerzel': 'MV'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.13',
+            'geometry': {
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '14',
+              'RS_0': '140000000000',
+              'GEN': 'Sachsen',
+              'pop': 4082000,
+              'area': 17449,
+              'dense': 233.9389076737922,
+              'kuerzel': 'SN'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.14',
+            'geometry': {
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '15',
+              'RS_0': '150000000000',
+              'GEN': 'Sachsen-Anhalt',
+              'pop': 2236000,
+              'area': 20452,
+              'dense': 109.32916096225308,
+              'kuerzel': 'SA'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.15',
+            'geometry': {
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '16',
+              'RS_0': '160000000000',
+              'GEN': 'Thüringen',
+              'pop': 2158000,
+              'area': 16202,
+              'dense': 133.19343290951736,
+              'kuerzel': 'TH'
+            }
+          },
+          {
+            'type': 'Feature',
+            'id': 'bundeslaender.16',
+            'geometry': {
+              'type': 'MultiPolygon',
+              'coordinates': [
+                [
+                    [[40, 40], [20, 45], [45, 30], [40, 40]]
+                ],
+                [
+                    [[20, 35], [10, 30], [10, 10], [30, 5], [45, 20], [20, 35]],
+                    [[30, 20], [20, 15], [20, 25], [30, 20]]
+                ]
+              ]
+            },
+            'properties': {
+              'ADE': 2,
+              'RS': '01',
+              'RS_0': '010000000000',
+              'GEN': 'Schleswig-Holstein',
+              'pop': 2882000,
+              'area': 15802,
+              'dense': 182.38197696494115,
+              'kuerzel': 'SH'
             }
           }
         ]

@@ -32,7 +32,7 @@ import './RuleTable.css';
 import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
-import { TableProps } from 'antd/lib/table';
+import { TableProps, ColumnProps } from 'antd/lib/table';
 import FilterUtil from '../../Util/FilterUtil';
 import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
@@ -55,6 +55,8 @@ interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
   rendererType: 'SLD' | 'OpenLayers';
   sldRendererProps?: SLDRendererAdditonalProps;
   oLRendererProps?: Partial<RendererProps>;
+  showAmountColumn: boolean;
+  showDuplicatesColumn: boolean;
 }
 
 // non default props
@@ -85,6 +87,10 @@ interface RuleTableState {
 
 export interface RuleRecord extends GsRule {
   key: number;
+  amount?: number;
+  duplicates?: number;
+  maxScale?: number;
+  minScale?: number;
 }
 
 export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
@@ -109,7 +115,9 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
 
   public static defaultProps: RuleTableDefaultProps = {
     locale: en_US.GsRuleTable,
-    rendererType: 'OpenLayers'
+    rendererType: 'OpenLayers',
+    showAmountColumn: true,
+    showDuplicatesColumn: true
   };
 
   static getDerivedStateFromProps(nextProps: RuleTableProps, prevState: RuleTableState) {
@@ -388,6 +396,59 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     });
   }
 
+  getColumns = () => {
+    const {
+      locale,
+      showAmountColumn,
+      showDuplicatesColumn
+    } = this.props;
+
+    const columns: ColumnProps<RuleRecord>[] = [{
+      title: (
+        <Tooltip title={locale.symbolizersColumnTitle}>
+          <Icon type="bg-colors" />
+        </Tooltip>),
+      dataIndex: 'symbolizers',
+      render: this.symbolizerRenderer
+    }, {
+      title: locale.nameColumnTitle,
+      dataIndex: 'name',
+      render: this.nameRenderer
+    }, {
+      title: locale.filterColumnTitle,
+      dataIndex: 'filter',
+      render: this.filterRenderer
+    }, {
+      title: locale.minScaleColumnTitle,
+      dataIndex: 'minScale',
+      render: this.minScaleRenderer
+    }, {
+      title: locale.maxScaleColumnTitle,
+      dataIndex: 'maxScale',
+      render: this.maxScaleRenderer
+    }];
+
+    if (showAmountColumn) {
+      columns.push({
+        title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
+        dataIndex: 'amount',
+        render: this.amountRenderer
+      });
+    }
+    if (showDuplicatesColumn) {
+      columns.push({
+        title: (
+          <Tooltip title={locale.duplicatesColumnTitle}>
+            <Icon type="block" />
+          </Tooltip>),
+        dataIndex: 'duplicates',
+        render: this.duplicatesRenderer
+      });
+    }
+
+    return columns;
+  }
+
   render() {
     if (this.state.hasError) {
       return <h1>An error occured in the RuleTable UI.</h1>;
@@ -398,6 +459,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       filterUiProps,
       data,
       iconLibraries,
+      showAmountColumn,
+      showDuplicatesColumn,
       ...restProps
     } = this.props;
     const {
@@ -412,42 +475,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       <div>
         <Table
           className="gs-rule-table"
-          columns={[{
-            title: (
-              <Tooltip title={locale.symbolizersColumnTitle}>
-                <Icon type="bg-colors" />
-              </Tooltip>),
-            dataIndex: 'symbolizers',
-            render: this.symbolizerRenderer
-          }, {
-            title: locale.nameColumnTitle,
-            dataIndex: 'name',
-            render: this.nameRenderer
-          }, {
-            title: locale.filterColumnTitle,
-            dataIndex: 'filter',
-            render: this.filterRenderer
-          }, {
-            title: locale.minScaleColumnTitle,
-            dataIndex: 'minScale',
-            render: this.minScaleRenderer
-          }, {
-            title: locale.maxScaleColumnTitle,
-            dataIndex: 'maxScale',
-            render: this.maxScaleRenderer
-          }, {
-            title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
-            dataIndex: 'amount',
-            render: this.amountRenderer
-          }, {
-            title: (
-              <Tooltip title={locale.duplicatesColumnTitle}>
-                <Icon type="block" />
-              </Tooltip>),
-            dataIndex: 'duplicates',
-            render: this.duplicatesRenderer
-          }
-        ]}
+          columns={this.getColumns()}
           dataSource={this.getRuleRecords()}
           pagination={false}
           {...restProps}

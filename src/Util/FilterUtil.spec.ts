@@ -79,10 +79,100 @@ describe('FilterUtil', () => {
 
       const result = FilterUtil.calculateCountAndDuplicates(rules, dummyData);
 
-      expect(result.counts[0]).toBeCloseTo(10);
-      expect(result.counts[1]).toBeCloseTo(1);
       expect(result.duplicates[0]).toBeCloseTo(1);
       expect(result.duplicates[1]).toBeCloseTo(1);
+    });
+    it('returns the right number of duplicates per scale', () => {
+      let dummyData = TestUtil.getComplexGsDummyData();
+
+      dummyData.exampleFeatures.features[0].properties.state = 'germany';
+      dummyData.exampleFeatures.features[0].properties.population = 150000;
+      dummyData.exampleFeatures.features[0].properties.name = 'NotSchalke';
+
+      const rules: Rule[] = [
+        {
+          'name': 'Mehr als 4',
+          'symbolizers': [
+            {
+              'kind': 'Mark',
+              'wellKnownName': 'Circle'
+            }
+          ],
+          'filter': [
+            '>',
+            'pop',
+            4000000
+          ],
+          'scaleDenominator': {
+            'max': 10000,
+            'min': 0
+          }
+        },
+        {
+          'name': 'Mehr als 8',
+          'symbolizers': [
+            {
+              'kind': 'Mark',
+              'wellKnownName': 'Circle',
+              'color': '#0E1058'
+            }
+          ],
+          'filter': [
+            '>',
+            'pop',
+            8000000
+          ],
+          'scaleDenominator': {
+            'max': 10000,
+            'min': 0
+          }
+        },
+        {
+          'name': 'Mehr als 4',
+          'symbolizers': [
+            {
+              'kind': 'Mark',
+              'wellKnownName': 'Circle',
+              'color': '#0E1058'
+            }
+          ],
+          'filter': [
+            '>',
+            'pop',
+            4000000
+          ],
+          'scaleDenominator': {
+            'min': 10000,
+            'max': 0
+          }
+        },
+        {
+          'name': 'Mehr als 8',
+          'symbolizers': [
+            {
+              'kind': 'Mark',
+              'wellKnownName': 'Circle',
+              'color': '#0E1058'
+            }
+          ],
+          'filter': [
+            '>',
+            'pop',
+            8000000
+          ],
+          'scaleDenominator': {
+            'min': 10000,
+            'max': null
+          }
+        }
+      ];
+
+      const result = FilterUtil.calculateCountAndDuplicates(rules, dummyData);
+
+      expect(result.duplicates[0]).toBe(3);
+      expect(result.duplicates[1]).toBe(3);
+      expect(result.duplicates[2]).toBe(3);
+      expect(result.duplicates[3]).toBe(3);
     });
   });
 
