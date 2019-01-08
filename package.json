@@ -115,9 +115,9 @@
     "whatwg-fetch": "3.0.0"
   },
   "peerDependencies": {
-    "antd": "~3.0",
-    "ol": "~5.0",
-    "react": "~16.0",
-    "react-dom": "~16.0"
+    "antd": "3.x",
+    "ol": "5.x",
+    "react": "16.x",
+    "react-dom": "16.x"
   }
 }
