@@ -47,6 +47,10 @@ export interface RuleTableLocale {
   maxScaleColumnTitle: string;
   amountColumnTitle: string;
   duplicatesColumnTitle: string;
+  // locale from antd
+  filterConfirm?: string;
+  filterReset?: string;
+  emptyText?: string;
 }
 
 // default props
