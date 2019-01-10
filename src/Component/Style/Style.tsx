@@ -73,6 +73,9 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   iconLibraries?: IconLibrary[];
   showAmountColumn?: boolean;
   showDuplicatesColumn?: boolean;
+  colorRamps?: {
+    [name: string]: string[]
+  };
 }
 
 // state
@@ -421,7 +424,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       data,
       iconLibraries,
       showAmountColumn,
-      showDuplicatesColumn
+      showDuplicatesColumn,
+      colorRamps
     } = this.props;
 
     const {
@@ -464,6 +468,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             internalDataDef={data}
             onClose={this.onRuleGeneratorWindowClose}
             onRulesChange={this.onRulesChange}
+            colorRamps={colorRamps}
           />
         }
         { compact
