@@ -41,20 +41,14 @@ class RuleGeneratorUtil {
 
   static getDistinctValues(data: Data, attributeName: string): any[] {
     let distinctValues: any[] = [];
-    const attributeType = _get(data, `schema.properties[${attributeName}].type`);
     const features = _get(data, 'exampleFeatures.features');
     if (features) {
-      if (attributeType === 'string') {
-        features.forEach((feature: any) => {
-          const value = _get(feature, `properties[${attributeName}]`);
-          if (value && !distinctValues.includes(value)) {
-            distinctValues.push(value);
-          }
-        });
-        return distinctValues;
-      }
-      // TODO Implement logic for others than string. Maybe we don't even want to
-      // allow this
+      features.forEach((feature: any) => {
+        const value = _get(feature, `properties[${attributeName}]`);
+        if (value && !distinctValues.includes(value)) {
+          distinctValues.push(value);
+        }
+      });
       return distinctValues;
     }
     return distinctValues;
