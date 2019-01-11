@@ -34,6 +34,9 @@ export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDef
   y?: number;
   onClose?: () => void;
   onRulesChange?: (rules: Rule[]) => void;
+  colorRamps?: {
+    [name: string]: string[]
+  };
 }
 
 /**
@@ -58,7 +61,8 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
       onClose,
       onRulesChange,
       locale,
-      internalDataDef
+      internalDataDef,
+      colorRamps
     } = this.props;
 
     return (
@@ -97,6 +101,7 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
           <RuleGenerator
             internalDataDef={internalDataDef}
             onRulesChange={onRulesChange}
+            colorRamps={colorRamps}
           />
         </Rnd>,
         document.body
