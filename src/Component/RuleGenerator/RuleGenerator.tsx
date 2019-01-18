@@ -336,15 +336,17 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
                 onChange={this.onColorRampChange}
               />
             </Form.Item>
-            <Form.Item
-              label={locale.colorSpace}
-            >
-              <ColorSpaceCombo
-                colorSpace={colorSpace}
-                colorSpaces={colorSpaces}
-                onChange={this.onColorSpaceChange}
-              />
-            </Form.Item>
+            {colorSpaces.length > 0 ?
+              <Form.Item
+                label={locale.colorSpace}
+              >
+                <ColorSpaceCombo
+                  colorSpace={colorSpace}
+                  colorSpaces={colorSpaces}
+                  onChange={this.onColorSpaceChange}
+                />
+              </Form.Item>
+              : null}
             <Form.Item
               label={locale.preview}
             >

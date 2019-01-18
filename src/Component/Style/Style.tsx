@@ -4,6 +4,8 @@ const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
 const _cloneDeep = require('lodash/cloneDeep');
 
+import { InterpolationMode } from 'chroma-js';
+
 import {
   Button,
   Menu,
@@ -76,6 +78,7 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   colorRamps?: {
     [name: string]: string[]
   };
+  colorSpaces?: (InterpolationMode)[];
 }
 
 // state
@@ -425,7 +428,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       iconLibraries,
       showAmountColumn,
       showDuplicatesColumn,
-      colorRamps
+      colorRamps,
+      colorSpaces
     } = this.props;
 
     const {
@@ -469,6 +473,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             onClose={this.onRuleGeneratorWindowClose}
             onRulesChange={this.onRulesChange}
             colorRamps={colorRamps}
+            colorSpaces={colorSpaces}
           />
         }
         { compact
