@@ -53,4 +53,18 @@ Code: https://github.com/terrestris/geostyler-demo
       [github](https://github.com/terrestris/geostyler-openlayers-parser) /
       [npm](https://www.npmjs.com/package/geostyler-openlayers-parser)
     )
+  - Mapbox Style (
+      [github](https://github.com/terrestris/geostyler-mapbox-parser) /
+      npm will follow once release
+    )
+  - QGIS Style [*.qml] (
+      [github](https://github.com/terrestris/geostyler-qgis-parser) /
+      npm will follow once release
+    )
     
+### More
+  - CQL Filter (
+      [github](https://github.com/terrestris/geostyler-cql-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-cql-parser)
+    )
+  
