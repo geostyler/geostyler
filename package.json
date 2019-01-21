@@ -52,7 +52,7 @@
     "@types/react-dom": "16.0.11",
     "blob": "0.0.5",
     "chroma-js": "2.0.2",
-    "codemirror": "5.42.2",
+    "codemirror": "5.43.0",
     "color": "3.1.0",
     "file-saver": "2.0.0",
     "geostyler-data": "0.5.3",
