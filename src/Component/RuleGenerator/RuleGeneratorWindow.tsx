@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { InterpolationMode } from 'chroma-js';
 
 import { Rnd } from 'react-rnd';
 
@@ -37,6 +38,7 @@ export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDef
   colorRamps?: {
     [name: string]: string[]
   };
+  colorSpaces?: (InterpolationMode)[];
 }
 
 /**
@@ -62,7 +64,8 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
       onRulesChange,
       locale,
       internalDataDef,
-      colorRamps
+      colorRamps,
+      colorSpaces
     } = this.props;
 
     return (
@@ -102,6 +105,7 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
             internalDataDef={internalDataDef}
             onRulesChange={onRulesChange}
             colorRamps={colorRamps}
+            colorSpaces={colorSpaces}
           />
         </Rnd>,
         document.body
