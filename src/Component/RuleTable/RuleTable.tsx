@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CqlParser } from 'geostyler-cql-parser';
 
 const _get = require('lodash/get');
 const _set = require('lodash/set');
@@ -100,6 +101,12 @@ export interface RuleRecord extends GsRule {
 export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
 
   static componentName: string = 'RuleTable';
+
+  /**
+   * The Parser to read and write CQL Filter
+   *
+   */
+  cqlParser = new CqlParser();
 
   constructor(props: RuleTableProps) {
     super(props);
@@ -240,7 +247,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const {
       locale
     } = this.props;
-    const cql = FilterUtil.writeAsCql(record.filter);
+    const cqlParser = this.cqlParser;
+
+    const cql = cqlParser.write(record.filter);
+
     let filterCell: React.ReactNode;
     const inputSearch = (
       <Input.Search
@@ -266,7 +276,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           this.onFilterEditClick(record.key, filterPosition);
         }}
       />);
-    if (cql.length > 0) {
+    if (cql && cql.length > 0) {
       filterCell = (
         <Popover
           content={cql}
