@@ -27,7 +27,7 @@ export interface ColorRampComboDefaultProps {
 }
 
 // non default props
-export interface ColorRampComboProps extends ColorRampComboDefaultProps {
+export interface ColorRampComboProps extends Partial<ColorRampComboDefaultProps> {
   onChange?: (colorRamp: string) => void;
   colorRamp?: string;
 }
