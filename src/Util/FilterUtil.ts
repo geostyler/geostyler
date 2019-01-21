@@ -94,10 +94,8 @@ class FilterUtil {
     }
     let matchesFilter: boolean = true;
     const operator: Operator = filter[0];
-    let isNestedFilter: boolean = false;
-    if (FilterUtil.nestingOperators.includes[operator]) {
-      isNestedFilter = true;
-    }
+    const isNestedFilter = FilterUtil.nestingOperators.includes[operator];
+
     if (isNestedFilter) {
       matchesFilter = FilterUtil.handleNestedFilter(filter, feature);
     } else {
