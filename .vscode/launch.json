@@ -5,17 +5,15 @@
       "name": "Debug Jest Tests",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/jest",
       "port": 9230,
-      "args": [
+      "runtimeArgs": [
+        "--inspect-brk=9230",
+        "${workspaceRoot}/node_modules/.bin/jest",
         "--runInBand",
-        "--no-cache",
-        "--watchAll"
+        "--watch"
       ],
-      "cwd": "${workspaceRoot}",
-      "protocol": "inspector",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "runtimeExecutable": null,
+      "console": "integratedTerminal"
     },
     {
       "type": "node",
