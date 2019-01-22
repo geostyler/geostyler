@@ -24,7 +24,7 @@ export interface ClassificationComboDefaultProps {
 }
 
 // non default props
-export interface ClassificationComboProps extends ClassificationComboDefaultProps {
+export interface ClassificationComboProps extends Partial<ClassificationComboDefaultProps> {
   onChange?: (classification: ClassificationMethod) => void;
   classification?: ClassificationMethod;
 }

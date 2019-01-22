@@ -20,7 +20,7 @@ export interface ColorSpaceComboDefaultProps {
 }
 
 // non default props
-export interface ColorSpaceComboProps extends ColorSpaceComboDefaultProps {
+export interface ColorSpaceComboProps extends Partial<ColorSpaceComboDefaultProps> {
   onChange?: (colorSpace: InterpolationMode) => void;
   colorSpace?: InterpolationMode;
 }
