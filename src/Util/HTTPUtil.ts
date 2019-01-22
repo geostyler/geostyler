@@ -1,4 +1,4 @@
-const URLSearchParams = require('@ungap/url-search-params');
+import URLSearchParams from '@ungap/url-search-params';
 
 type PostOptions = {
   url: string;

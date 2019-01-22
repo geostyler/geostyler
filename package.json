@@ -41,6 +41,7 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
+    "@ungap/url-search-params": "0.1.2",
     "@types/chroma-js": "1.4.1",
     "@types/codemirror": "0.0.71",
     "@types/color": "3.0.0",
@@ -65,8 +66,7 @@
     "moment": "2.23.0",
     "react-codemirror2": "5.1.0",
     "react-color": "2.17.0",
-    "react-rnd": "9.0.4",
-    "@ungap/url-search-params": "0.1.2"
+    "react-rnd": "9.0.4"
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
