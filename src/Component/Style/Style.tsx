@@ -449,10 +449,10 @@ export class Style extends React.Component<StyleProps, StyleState> {
     return (
       <div className="gs-style" >
         <div className="gs-style-name-classification-row">
+          {locale.nameFieldLabel}
           <NameField
             value={this.state.style.name}
             onChange={this.onNameChange}
-            label={locale.nameFieldLabel}
             placeholder={locale.nameFieldPlaceholder}
           />
           {

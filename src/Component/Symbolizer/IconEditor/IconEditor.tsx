@@ -117,26 +117,26 @@ export class IconEditor extends React.Component<IconEditorProps> {
 
     return (
       <div className="gs-icon-symbolizer-editor" >
+        {locale.imageLabel}
         <ImageField
           value={imageSrc}
-          label={locale.imageLabel}
           iconLibraries={iconLibraries}
           tooltipLabel={locale.iconTooltipLabel}
           onChange={this.onImageSrcChange}
         />
+        {locale.sizeLabel}
         <SizeField
           size={size}
-          label={locale.sizeLabel}
           onChange={this.onSizeChange}
         />
+        {locale.rotateLabel}
         <RotateField
           rotate={rotate}
-          label={locale.rotateLabel}
           onChange={this.onRotateChange}
         />
+        {locale.opacityLabel}
         <OpacityField
           opacity={opacity}
-          label={locale.opacityLabel}
           onChange={this.onOpacityChange}
         />
       </div>

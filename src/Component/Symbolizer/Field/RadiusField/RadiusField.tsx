@@ -4,13 +4,8 @@ import {
   InputNumber
 } from 'antd';
 
-// default props
-interface RadiusFieldDefaultProps {
-  label: string;
-}
-
 // non default props
-export interface RadiusFieldProps extends Partial<RadiusFieldDefaultProps> {
+export interface RadiusFieldProps {
   onChange?: (radius: number) => void;
   radius?: number;
 }
@@ -20,26 +15,19 @@ export interface RadiusFieldProps extends Partial<RadiusFieldDefaultProps> {
  */
 export class RadiusField extends React.PureComponent<RadiusFieldProps> {
 
-  public static defaultProps: RadiusFieldDefaultProps = {
-    label: 'Radius'
-  };
-
   render() {
     const {
       onChange,
-      radius,
-      label
+      radius
     } = this.props;
 
     return (
-      <div className="editor-field radius-field">
-        <span className="label">{`${label}:`}</span>
-        <InputNumber
-          min={0}
-          value={radius}
-          onChange={onChange}
-        />
-      </div>
+      <InputNumber
+        className="editor-field radius-field"
+        min={0}
+        value={radius}
+        onChange={onChange}
+      />
     );
   }
 }

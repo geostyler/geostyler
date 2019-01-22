@@ -13,7 +13,6 @@ import RotateField from '../Field/RotateField/RotateField';
 import en_US from '../../../locale/en_US';
 
 const _cloneDeep = require('lodash/cloneDeep');
-const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
 
 // i18n
@@ -148,39 +147,39 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
 
     return (
       <div>
+        {locale.radiusLabel}
         <RadiusField
-          label={_get(locale, 'radiusLabel')}
           radius={radius}
           onChange={this.onRadiusChange}
         />
+        {locale.fillColorLabel}
         <ColorField
           color={color}
-          label={_get(locale, 'fillColorLabel')}
           onChange={this.onColorChange}
         />
+        {locale.fillOpacityLabel}
         <OpacityField
           opacity={opacity}
-          label={_get(locale, 'fillOpacityLabel')}
           onChange={this.onOpacityChange}
         />
+        {locale.strokeColorLabel}
         <ColorField
           color={strokeColor}
-          label={_get(locale, 'strokeColorLabel')}
           onChange={this.onStrokeColorChange}
         />
+        {locale.strokeWidthLabel}
         <WidthField
           width={strokeWidth}
-          label={_get(locale, 'strokeWidthLabel')}
           onChange={this.onStrokeWidthChange}
         />
+        {locale.strokeOpacityLabel}
         <OpacityField
           opacity={strokeOpacity}
-          label={_get(locale, 'strokeOpacityLabel')}
           onChange={this.onStrokeOpacityChange}
         />
+        {locale.rotateLabel}
         <RotateField
           rotate={rotate}
-          label={_get(locale, 'rotateLabel')}
           onChange={this.onRotateChange}
         />
       </div>

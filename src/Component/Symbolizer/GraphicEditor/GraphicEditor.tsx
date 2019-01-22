@@ -107,8 +107,8 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
 
     return (
       <div>
+      {graphicTypeFieldLabel}
       <GraphicTypeField
-        label={graphicTypeFieldLabel}
         graphicType={graphicType}
         onChange={this.onGraphicTypeChange}
         {...graphicTypeFieldProps}

@@ -159,9 +159,9 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
           footer={null}
           onCancel={() => this.props.modalsClosed()}
         >
+          {locale.colorLabel}
           <ColorField
             color={color}
-            label={locale.colorLabel}
             onChange={this.props.updateMultiColors}
           />
         </Modal>
@@ -172,9 +172,9 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
           footer={null}
           onCancel={() => this.props.modalsClosed()}
         >
+          {locale.radiusLabel}
           <RadiusField
             radius={size}
-            label={locale.radiusLabel}
             onChange={this.props.updateMultiSizes}
           />
         </Modal>
@@ -185,9 +185,9 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
           footer={null}
           onCancel={() => this.props.modalsClosed()}
         >
+          {locale.opacityLabel}
           <OpacityField
             opacity={opacity}
-            label={locale.opacityLabel}
             onChange={this.props.updateMultiOpacities}
           />
         </Modal>
@@ -213,8 +213,8 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
               />
             ) : (
               <div>
+                {locale.imageFieldLabel}
                 <ImageField
-                  label={locale.imageFieldLabel}
                   value={symbol}
                   onChange={(val: string) => {
                     this.props.updateMultiSymbols(val, kind);

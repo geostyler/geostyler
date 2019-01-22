@@ -124,7 +124,6 @@ export default {
         chooseText: 'Wählen',
     },
     GsKindField: {
-        label: 'Art',
         symbolizerKinds: {
             Mark: 'Punktsymbol',
             Fill: 'Füllung',
@@ -140,7 +139,6 @@ export default {
         maxScaleDenominatorPlaceholderText: 'Max. Maßstabszahl eingeben (Optional)'
     },
     GsWellKnownNameField: {
-        label: 'Symbol',
         wellKnownNames: {
           Circle: 'Kreis',
           Square: 'Quadrat',

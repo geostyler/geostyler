@@ -11,7 +11,6 @@ import {
 
 // default props
 interface LineCapFieldDefaultProps {
-  label: string;
   capOptions: LineSymbolizer['cap'][];
 }
 
@@ -27,7 +26,6 @@ export interface LineCapFieldProps extends Partial<LineCapFieldDefaultProps> {
 export class LineCapField extends React.Component<LineCapFieldProps> {
 
   public static defaultProps: LineCapFieldDefaultProps = {
-    label: 'Line-Cap',
     capOptions: ['butt', 'round', 'square']
   };
 
@@ -47,20 +45,17 @@ export class LineCapField extends React.Component<LineCapFieldProps> {
   render() {
     const {
       cap,
-      label,
       onChange
     } = this.props;
 
     return (
-      <div className="editor-field line-cap">
-        <span className="label">{`${label}:`}</span>
-        <Select
-          value={cap}
-          onChange={onChange}
-        >
-          {this.getCapSelectOptions()}
-        </Select>
-      </div>
+      <Select
+        className="editor-field line-cap"
+        value={cap}
+        onChange={onChange}
+      >
+        {this.getCapSelectOptions()}
+      </Select>
     );
   }
 }

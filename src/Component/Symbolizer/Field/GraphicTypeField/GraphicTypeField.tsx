@@ -21,8 +21,6 @@ interface GraphicTypeFieldLocale {
 export interface GraphicTypeFieldDefaultProps {
   /** List of selectable GraphicTypes for Select */
   graphicTypes: GraphicType[];
-  /** Label rendered next to Select */
-  label: String;
   /** Language package */
   locale: GraphicTypeFieldLocale;
   /** If true GraphicTypeField can be cleared  */
@@ -44,7 +42,6 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps> {
   public static defaultProps: GraphicTypeFieldDefaultProps = {
     locale: en_US.GsGraphicTypeField,
     graphicTypes: ['Mark', 'Icon'],
-    label: 'Graphic',
     clearable: true
   };
 
@@ -75,7 +72,6 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps> {
 
   render() {
     const {
-      label,
       locale,
       graphicType,
       graphicTypes,
@@ -85,17 +81,15 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps> {
     } = this.props;
 
     return (
-      <div className="editor-field graphictype-field">
-        <span className="label">{`${label}:`}</span>
-        <Select
-          value={graphicType}
-          onChange={onChange}
-          allowClear={clearable}
-          {...passThroughProps}
-        >
-          {this.getTypeSelectOptions(locale)}
-        </Select>
-      </div>
+      <Select
+        className="editor-field graphictype-field"
+        value={graphicType}
+        onChange={onChange}
+        allowClear={clearable}
+        {...passThroughProps}
+      >
+        {this.getTypeSelectOptions(locale)}
+      </Select>
     );
   }
 }

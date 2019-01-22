@@ -225,49 +225,49 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
             onAttributeChange={this.onLabelChange}
           />
         </div>
+        {locale.colorLabel}
         <ColorField
           color={color}
-          label={locale.colorLabel}
           onChange={this.onColorChange}
         />
+        {locale.fontLabel}
         <FontPicker
           font={font}
-          label={locale.fontLabel}
           onChange={this.onFontChange}
         />
+        {locale.opacityLabel}
         <OpacityField
           opacity={opacity}
-          label={locale.opacityLabel}
           onChange={this.onOpacityChange}
         />
+        {locale.sizeLabel}
         <WidthField
           width={size}
-          label={locale.sizeLabel}
           onChange={this.onSizeChange}
         />
+        {locale.offsetXLabel}
         <OffsetField
           offset={offsetX}
-          label={locale.offsetXLabel}
           onChange={this.onOffsetXChange}
         />
+        {locale.offsetYLabel}
         <OffsetField
           offset={offsetY}
-          label={locale.offsetYLabel}
           onChange={this.onOffsetYChange}
         />
+        {locale.rotateLabel}
         <RotateField
           rotate={rotate}
-          label={locale.rotateLabel}
           onChange={this.onRotateChange}
         />
+        {locale.haloColorLabel}
         <ColorField
           color={haloColor}
-          label={locale.haloColorLabel}
           onChange={this.onHaloColorChange}
         />
+        {locale.haloWidthLabel}
         <WidthField
           width={haloWidth}
-          label={locale.haloWidthLabel}
           onChange={this.onHaloWidthChange}
         />
       </div>

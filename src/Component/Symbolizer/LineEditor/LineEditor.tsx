@@ -189,40 +189,40 @@ export class LineEditor extends React.Component<LineEditorProps> {
       <div className="gs-line-symbolizer-editor" >
         <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
           <Panel header="General" key="1">
+            {locale.colorLabel}
             <ColorField
               color={color}
-              label={locale.colorLabel}
               onChange={this.onColorChange}
             />
+            {locale.widthLabel}
             <WidthField
               width={width}
-              label={locale.widthLabel}
               onChange={this.onWidthChange}
             />
+            {locale.opacityLabel}
             <OpacityField
               opacity={opacity}
-              label={locale.opacityLabel}
               onChange={this.onOpacityChange}
             />
+            {locale.dashLabel}
             <LineDashField
               dashArray={dasharray}
-              label={locale.dashLabel}
               onChange={this.onDasharrayChange}
             />
+            {locale.dashOffsetLabel}
             <OffsetField
               offset={dashOffset}
-              label={locale.dashOffsetLabel}
               onChange={this.onDashOffsetChange}
               disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
             />
+            {locale.capLabel}
             <LineCapField
               cap={cap}
-              label={locale.capLabel}
               onChange={this.onCapChange}
-            />
+              />
+            {locale.joinLabel}
             <LineJoinField
               join={join}
-              label={locale.joinLabel}
               onChange={this.onJoinChange}
             />
           </Panel>

@@ -8,7 +8,6 @@ import './NameField.css';
 
 // default props
 export interface NameFieldDefaultProps {
-  label: string;
   placeholder: string;
 }
 // non default props
@@ -22,7 +21,6 @@ export interface NameFieldProps extends Partial<NameFieldDefaultProps> {
  */
 export class NameField extends React.PureComponent<NameFieldProps> {
   public static defaultProps: NameFieldDefaultProps = {
-    label: 'Name',
     placeholder: 'Enter Name'
   };
 
@@ -42,15 +40,12 @@ export class NameField extends React.PureComponent<NameFieldProps> {
   render() {
 
     return (
-      <div className="gs-namefield" >
-        {this.props.label}:
-        <Input
-          className="gs-namefield-input"
-          value={this.props.value}
-          onChange={this.onChange}
-          placeholder={this.props.placeholder}
-        />
-      </div>
+      <Input
+        className="gs-namefield"
+        value={this.props.value}
+        onChange={this.onChange}
+        placeholder={this.props.placeholder}
+      />
     );
   }
 }

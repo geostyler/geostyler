@@ -11,7 +11,6 @@ import {
 
 // default props
 interface LineJoinFieldDefaultProps {
-  label: string;
   joinOptions: LineSymbolizer['join'][];
 }
 
@@ -27,7 +26,6 @@ export interface LineJoinFieldProps extends Partial<LineJoinFieldDefaultProps> {
 export class LineJoinField extends React.Component<LineJoinFieldProps> {
 
   public static defaultProps: LineJoinFieldDefaultProps = {
-    label: 'Line-Join',
     joinOptions: ['bevel', 'round', 'miter']
   };
 
@@ -47,20 +45,17 @@ export class LineJoinField extends React.Component<LineJoinFieldProps> {
   render() {
     const {
       join,
-      label,
       onChange
     } = this.props;
 
     return (
-      <div className="editor-field line-join">
-        <span className="label">{`${label}:`}</span>
-        <Select
-          value={join}
-          onChange={onChange}
-        >
-          {this.getJoinSelectOptions()}
-        </Select>
-      </div>
+      <Select
+        className="editor-field line-join"
+        value={join}
+        onChange={onChange}
+      >
+        {this.getJoinSelectOptions()}
+      </Select>
     );
   }
 }

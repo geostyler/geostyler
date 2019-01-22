@@ -143,29 +143,29 @@ export class FillEditor extends React.Component<FillEditorProps> {
       <div className="gs-fill-symbolizer-editor" >
         <Collapse bordered={false} defaultActiveKey={['1']}>
           <Panel header="General" key="1">
+            {locale.fillColorLabel}
             <ColorField
               color={color}
-              label={locale.fillColorLabel}
               onChange={this.onFillColorChange}
             />
+            {locale.fillOpacityLabel}
             <OpacityField
               opacity={opacity}
-              label={locale.fillOpacityLabel}
               onChange={this.onFillOpacityChange}
             />
+            {locale.outlineColorLabel}
             <ColorField
               color={outlineColor}
-              label={locale.outlineColorLabel}
               onChange={this.onOutlineColorChange}
             />
+            {locale.outlineWidthLabel}
             <WidthField
               width={outlineWidth}
-              label={locale.outlineWidthLabel}
               onChange={this.onOutlineWidthChange}
             />
+            {locale.outlineDasharrayLabel}
             <LineDashField
               dashArray={outlineDasharray}
-              label={locale.outlineDasharrayLabel}
               onChange={this.onOutlineDasharrayChange}
             />
           </Panel>
