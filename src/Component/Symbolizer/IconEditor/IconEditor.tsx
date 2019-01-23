@@ -17,6 +17,7 @@ import SizeField from '../Field/SizeField/SizeField';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import { Form } from 'antd';
 
 // i18n
 export interface IconEditorLocale {
@@ -115,30 +116,52 @@ export class IconEditor extends React.Component<IconEditorProps> {
 
     const imageSrc = !_isEmpty(image) ? image : 'URL to Icon';
 
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+
     return (
       <div className="gs-icon-symbolizer-editor" >
-        {locale.imageLabel}
-        <ImageField
-          value={imageSrc}
-          iconLibraries={iconLibraries}
-          tooltipLabel={locale.iconTooltipLabel}
-          onChange={this.onImageSrcChange}
-        />
-        {locale.sizeLabel}
-        <SizeField
-          size={size}
-          onChange={this.onSizeChange}
-        />
-        {locale.rotateLabel}
-        <RotateField
-          rotate={rotate}
-          onChange={this.onRotateChange}
-        />
-        {locale.opacityLabel}
-        <OpacityField
-          opacity={opacity}
-          onChange={this.onOpacityChange}
-        />
+        <Form.Item
+          label={locale.imageLabel}
+          {...formItemLayout}
+        >
+          <ImageField
+            value={imageSrc}
+            iconLibraries={iconLibraries}
+            tooltipLabel={locale.iconTooltipLabel}
+            onChange={this.onImageSrcChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.sizeLabel}
+          {...formItemLayout}
+        >
+          <SizeField
+            size={size}
+            onChange={this.onSizeChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.rotateLabel}
+          {...formItemLayout}
+        >
+          <RotateField
+            rotate={rotate}
+            onChange={this.onRotateChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label=
+          {locale.opacityLabel}
+          {...formItemLayout}
+        >
+          <OpacityField
+            opacity={opacity}
+            onChange={this.onOpacityChange}
+          />
+        </Form.Item>
       </div>
     );
   }

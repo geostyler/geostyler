@@ -91,6 +91,9 @@ export default {
         graphicStrokeTypeLabel: 'Graphic Stroke Type',
         graphicFillTypeLabel: 'Graphic Fill Type'
     },
+    GsMarkEditor: {
+      wellKnownNameFieldLabel: 'Symbol'
+    },
     GsTextEditor: {
         templateFieldLabel: 'Textvorlage',
         opacityLabel: 'Deckkraft',
@@ -151,6 +154,9 @@ export default {
     GsGraphicTypeField: {
         Mark: 'Punktsymbol',
         Icon: 'Bilddatei'
+    },
+    GsSymbolizerEditor: {
+      kindFieldLabel: 'Art'
     },
     GsSymbolizerEditorWindow: {
       symbolizersEditor: 'Symbolisierungseditor'

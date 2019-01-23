@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { Collapse } from 'antd';
+import {
+  Collapse,
+  Form
+} from 'antd';
 
 import {
   Symbolizer,
@@ -139,35 +142,60 @@ export class FillEditor extends React.Component<FillEditorProps> {
       locale
     } = this.props;
 
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+
     return (
       <div className="gs-fill-symbolizer-editor" >
         <Collapse bordered={false} defaultActiveKey={['1']}>
           <Panel header="General" key="1">
-            {locale.fillColorLabel}
-            <ColorField
-              color={color}
-              onChange={this.onFillColorChange}
-            />
-            {locale.fillOpacityLabel}
-            <OpacityField
-              opacity={opacity}
-              onChange={this.onFillOpacityChange}
-            />
-            {locale.outlineColorLabel}
-            <ColorField
-              color={outlineColor}
-              onChange={this.onOutlineColorChange}
-            />
-            {locale.outlineWidthLabel}
-            <WidthField
-              width={outlineWidth}
-              onChange={this.onOutlineWidthChange}
-            />
-            {locale.outlineDasharrayLabel}
-            <LineDashField
-              dashArray={outlineDasharray}
-              onChange={this.onOutlineDasharrayChange}
-            />
+            <Form.Item
+              label={locale.fillColorLabel}
+              {...formItemLayout}
+            >
+              <ColorField
+                color={color}
+                onChange={this.onFillColorChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.fillOpacityLabel}
+              {...formItemLayout}
+            >
+              <OpacityField
+                opacity={opacity}
+                onChange={this.onFillOpacityChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.outlineColorLabel}
+              {...formItemLayout}
+            >
+              <ColorField
+                color={outlineColor}
+                onChange={this.onOutlineColorChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.outlineWidthLabel}
+              {...formItemLayout}
+            >
+              <WidthField
+                width={outlineWidth}
+                onChange={this.onOutlineWidthChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.outlineDasharrayLabel}
+              {...formItemLayout}
+            >
+              <LineDashField
+                dashArray={outlineDasharray}
+                onChange={this.onOutlineDasharrayChange}
+              />
+            </Form.Item>
           </Panel>
           <Panel header="Graphic Fill" key="2">
               <GraphicEditor

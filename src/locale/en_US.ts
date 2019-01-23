@@ -81,6 +81,9 @@ export default {
         opacityLabel: 'Opacity',
         iconTooltipLabel: 'Open Gallery'
     },
+    GsMarkEditor: {
+      wellKnownNameFieldLabel: 'Symbol'
+    },
     GsLineEditor: {
         colorLabel: 'Color',
         widthLabel: 'Width',
@@ -127,7 +130,6 @@ export default {
         chooseText: 'Pick',
     },
     GsKindField: {
-        label: 'Kind',
         symbolizerKinds: {
             Mark: 'Mark',
             Fill: 'Fill',
@@ -147,7 +149,6 @@ export default {
         maxScaleDenominatorPlaceholderText: 'Enter max. Scale (Optional)'
     },
     GsWellKnownNameField: {
-        label: 'Symbol',
         wellKnownNames: {
           Circle: 'Circle',
           Square: 'Square',
@@ -156,6 +157,9 @@ export default {
           Cross: 'Cross',
           X: 'X'
         }
+    },
+    GsSymbolizerEditor: {
+      kindFieldLabel: 'Kind'
     },
     GsSymbolizerEditorWindow: {
       symbolizersEditor: 'Symbolizer Editor'

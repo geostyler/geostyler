@@ -3,6 +3,7 @@
   border: 3px solid grey;
   border-radius: 3px;
   z-index: 10;
+  min-width: 400px;
 }
 
 .symbolizer-editor-window .header {

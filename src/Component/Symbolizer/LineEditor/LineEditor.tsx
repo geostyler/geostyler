@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import { Collapse } from 'antd';
+import {
+  Collapse,
+  Form
+} from 'antd';
 
 import {
   Symbolizer,
@@ -185,46 +188,79 @@ export class LineEditor extends React.Component<LineEditorProps> {
       locale
     } = this.props;
 
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+
     return (
       <div className="gs-line-symbolizer-editor" >
         <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
           <Panel header="General" key="1">
-            {locale.colorLabel}
-            <ColorField
-              color={color}
-              onChange={this.onColorChange}
-            />
-            {locale.widthLabel}
-            <WidthField
-              width={width}
-              onChange={this.onWidthChange}
-            />
-            {locale.opacityLabel}
-            <OpacityField
-              opacity={opacity}
-              onChange={this.onOpacityChange}
-            />
-            {locale.dashLabel}
-            <LineDashField
-              dashArray={dasharray}
-              onChange={this.onDasharrayChange}
-            />
-            {locale.dashOffsetLabel}
-            <OffsetField
-              offset={dashOffset}
-              onChange={this.onDashOffsetChange}
-              disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
-            />
-            {locale.capLabel}
-            <LineCapField
-              cap={cap}
-              onChange={this.onCapChange}
+            <Form.Item
+              label={locale.colorLabel}
+              {...formItemLayout}
+            >
+              <ColorField
+                color={color}
+                onChange={this.onColorChange}
               />
-            {locale.joinLabel}
-            <LineJoinField
-              join={join}
-              onChange={this.onJoinChange}
-            />
+            </Form.Item>
+            <Form.Item
+              label={locale.widthLabel}
+              {...formItemLayout}
+            >
+              <WidthField
+                width={width}
+                onChange={this.onWidthChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.opacityLabel}
+              {...formItemLayout}
+            >
+              <OpacityField
+                opacity={opacity}
+                onChange={this.onOpacityChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.dashLabel}
+              {...formItemLayout}
+            >
+              <LineDashField
+                dashArray={dasharray}
+                onChange={this.onDasharrayChange}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.dashOffsetLabel}
+              {...formItemLayout}
+            >
+              <OffsetField
+                offset={dashOffset}
+                onChange={this.onDashOffsetChange}
+                disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
+              />
+            </Form.Item>
+            <Form.Item
+              label={locale.capLabel}
+              {...formItemLayout}
+            >
+              <LineCapField
+                cap={cap}
+                onChange={this.onCapChange}
+                />
+            </Form.Item>
+            <Form.Item
+              label={locale.joinLabel}
+              {...formItemLayout}
+            >
+              <LineJoinField
+                join={join}
+                onChange={this.onJoinChange}
+              />
+            </Form.Item>
           </Panel>
           <Panel header="Graphic Stroke" key="2">
             <GraphicEditor

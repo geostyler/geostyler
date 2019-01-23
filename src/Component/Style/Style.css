@@ -1,14 +1,14 @@
-.gs-style-name-classification-row {
+.gs-style .gs-style-name-classification-row {
   display: flex;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.gs-namefield {
-  flex: 1;
-}
-
-.gs-rule-table .ant-table-footer {
+.gs-style .gs-rule-table .ant-table-footer {
   margin-top: 1px;
   padding: 0;
+}
+
+.gs-style .gs-style-rulegenerator {
+  margin-left: auto;
 }
