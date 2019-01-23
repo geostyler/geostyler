@@ -4,13 +4,8 @@ import {
   InputNumber
 } from 'antd';
 
-// default props
-interface RotateFieldDefaultProps {
-  label: string;
-}
-
 // non default props
-export interface RotateFieldProps extends Partial<RotateFieldDefaultProps> {
+export interface RotateFieldProps {
   onChange?: (radius: number) => void;
   rotate?: number;
 }
@@ -20,27 +15,20 @@ export interface RotateFieldProps extends Partial<RotateFieldDefaultProps> {
  */
 export class RotateField extends React.PureComponent<RotateFieldProps> {
 
-  public static defaultProps: RotateFieldDefaultProps = {
-    label: 'Rotate'
-  };
-
   render() {
     const {
       onChange,
-      rotate,
-      label
+      rotate
     } = this.props;
 
     return (
-      <div className="editor-field rotate-field">
-        <span className="label">{`${label}:`}</span>
-        <InputNumber
-          min={-360}
-          max={360}
-          value={rotate}
-          onChange={onChange}
-        />
-      </div>
+      <InputNumber
+        className="editor-field rotate-field"
+        min={-360}
+        max={360}
+        value={rotate}
+        onChange={onChange}
+      />
     );
   }
 }

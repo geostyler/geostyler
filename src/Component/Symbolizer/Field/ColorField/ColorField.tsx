@@ -25,7 +25,6 @@ export interface ColorFieldLocale {
 
 // default props
 interface ColorFieldDefaultProps {
-  label: string;
   locale: ColorFieldLocale;
 }
 
@@ -46,8 +45,7 @@ interface ColorFieldState {
 export class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
 
   public static defaultProps: ColorFieldDefaultProps = {
-    locale: en_US.GsColorField,
-    label: 'Color'
+    locale: en_US.GsColorField
   };
 
   constructor(props: ColorFieldProps) {
@@ -77,7 +75,6 @@ export class ColorField extends React.Component<ColorFieldProps, ColorFieldState
     } = this.state;
     const {
       color,
-      label,
       locale,
       onChange
     } = this.props;
@@ -95,7 +92,6 @@ export class ColorField extends React.Component<ColorFieldProps, ColorFieldState
 
     return (
       <div className="editor-field color-field">
-        <span className="label">{`${label}:`}</span>
         <div className="color-preview-wrapper">
           <Button
             className="color-preview"

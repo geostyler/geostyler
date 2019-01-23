@@ -14,7 +14,6 @@ const Option = Select.Option;
 
 // i18n
 export interface WellKnownNameFieldLocale {
-  label: string;
   wellKnownNames: {
     Circle: string;
     Square: string;
@@ -81,15 +80,13 @@ export class WellKnownNameField extends React.Component<WellKnownNameFieldProps>
     } = this.props;
 
     return (
-      <div className="editor-field wellknownname-field">
-        <span className="label">{`${_get(locale, 'label')}:`}</span>
-        <Select
-          value={wellKnownName}
-          onChange={onChange}
-        >
-          {this.getWKNSelectOptions(locale)}
-        </Select>
-      </div>
+      <Select
+        className="editor-field wellknownname-field"
+        value={wellKnownName}
+        onChange={onChange}
+      >
+        {this.getWKNSelectOptions(locale)}
+      </Select>
     );
   }
 }

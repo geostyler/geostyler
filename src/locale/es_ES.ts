@@ -92,6 +92,9 @@ export default {
         graphicStrokeTypeLabel: 'Tipo de gráfico de trazado',
         graphicFillTypeLabel: 'Tipo de gráfico de relleno'
     },
+    GsMarkEditor: {
+      wellKnownNameFieldLabel: 'Simbolo'
+    },
     GsTextEditor: {
         templateFieldLabel: 'Plantilla',
         opacityLabel: 'Texto-Transparencia',
@@ -127,7 +130,6 @@ export default {
         chooseText: 'Elegir',
     },
     GsKindField: {
-        label: 'Tipo',
         symbolizerKinds: {
             Mark: 'Marcador',
             Fill: 'Relleno',
@@ -147,7 +149,6 @@ export default {
         maxScaleDenominatorPlaceholderText: 'Ingrese escala max. (Opcionar)'
     },
     GsWellKnownNameField: {
-        label: 'Simbolo',
         wellKnownNames: {
           Circle: 'Círculo',
           Square: 'Cuadrado',
@@ -156,6 +157,9 @@ export default {
           Cross: 'Cruz',
           X: 'X'
         }
+    },
+    GsSymbolizerEditor: {
+      kindFieldLabel: 'Tipo'
     },
     GsSymbolizerEditorWindow: {
       symbolizersEditor: 'Editor de simbología'

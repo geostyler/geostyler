@@ -1,18 +1,3 @@
-.editor-field {
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-}
-
-.editor-field > .label {
-  margin-right: 10px;
-  width: 140px;
-  text-align: right;
-}
-
-.editor-field .ant-input-number,
-.editor-field .ant-select-selection,
-.editor-field .ant-input,
-.editor-field .color-preview {
+.gs-symbolizer-editor .editor-field {
   width: 200px;
 }

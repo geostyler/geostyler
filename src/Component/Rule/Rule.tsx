@@ -296,10 +296,10 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       <div className="gs-rule" >
         <div className="gs-rule-fields" >
           <div className="gs-rule-left-fields" >
+            {locale.nameFieldLabel}
             <RuleNameField
               value={rule.name}
               onChange={this.onNameChange}
-              label={locale.nameFieldLabel}
               placeholder={locale.nameFieldPlaceholder}
               {...this.props.ruleNameProps}
             />

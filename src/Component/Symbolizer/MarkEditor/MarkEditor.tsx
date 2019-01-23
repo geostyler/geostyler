@@ -8,11 +8,24 @@ import {
 
 import WellKnownNameField from '../Field/WellKnownNameField/WellKnownNameField';
 import WellKnownNameEditor from '../WellKnownNameEditor/WellKnownNameEditor';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
+import { Form } from 'antd';
 
 const _cloneDeep = require('lodash/cloneDeep');
 
+// i18n
+export interface MarkEditorLocale {
+  wellKnownNameFieldLabel: string;
+}
+
+// default props
+interface MarkEditorDefaultProps {
+  locale: MarkEditorLocale;
+}
+
 // non default props
-export interface MarkEditorProps {
+export interface MarkEditorProps extends Partial<MarkEditorDefaultProps> {
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
@@ -32,6 +45,12 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
       }
     };
   }
+
+  static componentName: string = 'MarkEditor';
+
+  public static defaultProps: MarkEditorDefaultProps = {
+    locale: en_US.GsMarkEditor
+  };
 
   static getDerivedStateFromProps(
       nextProps: MarkEditorProps,
@@ -54,18 +73,29 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
 
   render() {
     const {
+      locale,
       onSymbolizerChange
     } = this.props;
     const {
       symbolizer
     } = this.state;
 
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+
     return (
       <div className="gs-mark-symbolizer-editor" >
-        <WellKnownNameField
-          wellKnownName={symbolizer.wellKnownName}
-          onChange={this.onWellKnownNameChange}
-        />
+        <Form.Item
+          label={locale.wellKnownNameFieldLabel}
+          {...formItemLayout}
+        >
+          <WellKnownNameField
+            wellKnownName={symbolizer.wellKnownName}
+            onChange={this.onWellKnownNameChange}
+          />
+        </Form.Item>
         <WellKnownNameEditor
           symbolizer={symbolizer}
           onSymbolizerChange={onSymbolizerChange}
@@ -75,4 +105,4 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
   }
 }
 
-export default MarkEditor;
+export default localize(MarkEditor, MarkEditor.componentName);

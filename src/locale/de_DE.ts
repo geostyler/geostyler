@@ -91,6 +91,9 @@ export default {
         graphicStrokeTypeLabel: 'Graphic Stroke Type',
         graphicFillTypeLabel: 'Graphic Fill Type'
     },
+    GsMarkEditor: {
+      wellKnownNameFieldLabel: 'Symbol'
+    },
     GsTextEditor: {
         templateFieldLabel: 'Textvorlage',
         opacityLabel: 'Deckkraft',
@@ -124,7 +127,6 @@ export default {
         chooseText: 'Wählen',
     },
     GsKindField: {
-        label: 'Art',
         symbolizerKinds: {
             Mark: 'Punktsymbol',
             Fill: 'Füllung',
@@ -140,7 +142,6 @@ export default {
         maxScaleDenominatorPlaceholderText: 'Max. Maßstabszahl eingeben (Optional)'
     },
     GsWellKnownNameField: {
-        label: 'Symbol',
         wellKnownNames: {
           Circle: 'Kreis',
           Square: 'Quadrat',
@@ -153,6 +154,9 @@ export default {
     GsGraphicTypeField: {
         Mark: 'Punktsymbol',
         Icon: 'Bilddatei'
+    },
+    GsSymbolizerEditor: {
+      kindFieldLabel: 'Art'
     },
     GsSymbolizerEditorWindow: {
       symbolizersEditor: 'Symbolisierungseditor'

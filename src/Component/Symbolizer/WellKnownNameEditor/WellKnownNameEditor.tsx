@@ -11,9 +11,9 @@ import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
 import RotateField from '../Field/RotateField/RotateField';
 import en_US from '../../../locale/en_US';
+import { Form } from 'antd';
 
 const _cloneDeep = require('lodash/cloneDeep');
-const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
 
 // i18n
@@ -146,43 +146,76 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
       locale
     } = this.props;
 
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+
     return (
       <div>
-        <RadiusField
-          label={_get(locale, 'radiusLabel')}
-          radius={radius}
-          onChange={this.onRadiusChange}
-        />
-        <ColorField
-          color={color}
-          label={_get(locale, 'fillColorLabel')}
-          onChange={this.onColorChange}
-        />
-        <OpacityField
-          opacity={opacity}
-          label={_get(locale, 'fillOpacityLabel')}
-          onChange={this.onOpacityChange}
-        />
-        <ColorField
-          color={strokeColor}
-          label={_get(locale, 'strokeColorLabel')}
-          onChange={this.onStrokeColorChange}
-        />
-        <WidthField
-          width={strokeWidth}
-          label={_get(locale, 'strokeWidthLabel')}
-          onChange={this.onStrokeWidthChange}
-        />
-        <OpacityField
-          opacity={strokeOpacity}
-          label={_get(locale, 'strokeOpacityLabel')}
-          onChange={this.onStrokeOpacityChange}
-        />
-        <RotateField
-          rotate={rotate}
-          label={_get(locale, 'rotateLabel')}
-          onChange={this.onRotateChange}
-        />
+        <Form.Item
+          label={locale.radiusLabel}
+          {...formItemLayout}
+        >
+          <RadiusField
+            radius={radius}
+            onChange={this.onRadiusChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.fillColorLabel}
+          {...formItemLayout}
+        >
+          <ColorField
+            color={color}
+            onChange={this.onColorChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.fillOpacityLabel}
+          {...formItemLayout}
+        >
+          <OpacityField
+            opacity={opacity}
+            onChange={this.onOpacityChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.strokeColorLabel}
+          {...formItemLayout}
+        >
+          <ColorField
+            color={strokeColor}
+            onChange={this.onStrokeColorChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.strokeWidthLabel}
+          {...formItemLayout}
+        >
+          <WidthField
+            width={strokeWidth}
+            onChange={this.onStrokeWidthChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.strokeOpacityLabel}
+          {...formItemLayout}
+        >
+          <OpacityField
+            opacity={strokeOpacity}
+            onChange={this.onStrokeOpacityChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.rotateLabel}
+          {...formItemLayout}
+        >
+          <RotateField
+            rotate={rotate}
+            onChange={this.onRotateChange}
+          />
+        </Form.Item>
       </div>
     );
   }

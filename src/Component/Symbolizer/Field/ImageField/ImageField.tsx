@@ -13,7 +13,6 @@ import './ImageField.css';
 
 // default props
 interface ImageFieldDefaultProps {
-  label: string;
   tooltipLabel: string;
   placeholder: string;
 }
@@ -35,7 +34,6 @@ interface ImageFieldState {
 export class ImageField extends React.PureComponent<ImageFieldProps, ImageFieldState> {
 
   public static defaultProps: ImageFieldDefaultProps = {
-    label: 'Image',
     tooltipLabel: 'Open Gallery',
     placeholder: 'URL to image'
   };
@@ -74,7 +72,6 @@ export class ImageField extends React.PureComponent<ImageFieldProps, ImageFieldS
   render() {
     const {
       value,
-      label,
       placeholder,
       onChange,
       iconLibraries
@@ -86,7 +83,6 @@ export class ImageField extends React.PureComponent<ImageFieldProps, ImageFieldS
 
     return (
       <div className="editor-field gs-image-field">
-        <span className="label">{`${label}:`}</span>
         <Input
           className={iconLibraries ? 'gs-image-field-gallery-addon' : undefined}
           value={value}

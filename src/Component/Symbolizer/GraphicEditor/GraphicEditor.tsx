@@ -10,6 +10,7 @@ import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 import GraphicTypeField, { GraphicTypeFieldProps } from '../Field/GraphicTypeField/GraphicTypeField';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
+import { Form } from 'antd';
 
 const _get = require('lodash/get');
 
@@ -105,15 +106,24 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
       iconEditorProps
     } = this.props;
 
+    const formItemLayout = {
+      labelCol: { span: 10 },
+      wrapperCol: { span: 14 }
+    };
+
     return (
       <div>
-      <GraphicTypeField
-        label={graphicTypeFieldLabel}
-        graphicType={graphicType}
-        onChange={this.onGraphicTypeChange}
-        {...graphicTypeFieldProps}
-      />
-      {this.getGraphicFields(graphic, iconEditorProps)}
+        <Form.Item
+          label={graphicTypeFieldLabel}
+          {...formItemLayout}
+        >
+          <GraphicTypeField
+            graphicType={graphicType}
+            onChange={this.onGraphicTypeChange}
+            {...graphicTypeFieldProps}
+          />
+        </Form.Item>
+        {this.getGraphicFields(graphic, iconEditorProps)}
     </div>
     );
   }

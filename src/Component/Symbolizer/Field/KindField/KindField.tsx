@@ -14,7 +14,6 @@ const Option = Select.Option;
 
 // i18n
 export interface KindFieldLocale {
-  label: string;
   symbolizerKinds: {
     Mark: string;
     Fill: string;
@@ -75,15 +74,13 @@ export class KindField extends React.Component<KindFieldProps> {
     } = this.props;
 
     return (
-      <div className="editor-field kind-field">
-        <span className="label">{`${locale.label}:`}</span>
-        <Select
-          value={kind}
-          onChange={onChange}
-        >
-          {this.getKindSelectOptions(locale)}
-        </Select>
-      </div>
+      <Select
+        className="editor-field kind-field"
+        value={kind}
+        onChange={onChange}
+      >
+        {this.getKindSelectOptions(locale)}
+      </Select>
     );
   }
 }

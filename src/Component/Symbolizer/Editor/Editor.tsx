@@ -21,9 +21,18 @@ import KindField from '../Field/KindField/KindField';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
+import { Form } from 'antd';
+
+// i18n
+export interface EditorLocale {
+  kindFieldLabel: string;
+}
 
 // default props
 interface EditorDefaultProps {
+  locale: EditorLocale;
   unknownSymbolizerText?: string;
 }
 
@@ -51,7 +60,10 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     };
   }
 
+  static componentName: string = 'SymbolizerEditor';
+
   public static defaultProps: EditorDefaultProps = {
+    locale: en_US.GsSymbolizerEditor,
     unknownSymbolizerText: 'Unknown Symbolizer!'
   };
 
@@ -137,17 +149,31 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     if (this.state.hasError) {
       return <h1>An error occured in the Symbolizer Editor UI.</h1>;
     }
+    const {
+      locale
+    } = this.props;
+
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+
     const symbolizer = _cloneDeep(this.state.symbolizer);
     return (
       <div className="gs-symbolizer-editor" >
-        <KindField
-          kind={symbolizer.kind}
-          onChange={this.onKindFieldChange}
-        />
+        <Form.Item
+          label={locale.kindFieldLabel}
+          {...formItemLayout}
+        >
+          <KindField
+            kind={symbolizer.kind}
+            onChange={this.onKindFieldChange}
+          />
+        </Form.Item>
         {this.getUiFromSymbolizer(this.props.symbolizer)}
       </div>
     );
   }
 }
 
-export default Editor;
+export default localize(Editor, Editor.componentName);

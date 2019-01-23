@@ -9,7 +9,8 @@ import { InterpolationMode } from 'chroma-js';
 import {
   Button,
   Menu,
-  Icon
+  Icon,
+  Form
 } from 'antd';
 
 import {
@@ -446,15 +447,24 @@ export class Style extends React.Component<StyleProps, StyleState> {
       rules = style.rules;
     }
 
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+
     return (
       <div className="gs-style" >
         <div className="gs-style-name-classification-row">
-          <NameField
-            value={this.state.style.name}
-            onChange={this.onNameChange}
+          <Form.Item
             label={locale.nameFieldLabel}
-            placeholder={locale.nameFieldPlaceholder}
-          />
+            {...formItemLayout}
+          >
+            <NameField
+              value={this.state.style.name}
+              onChange={this.onNameChange}
+              placeholder={locale.nameFieldPlaceholder}
+            />
+          </Form.Item>
           {
             enableClassification ?
               <Button

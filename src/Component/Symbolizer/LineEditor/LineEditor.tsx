@@ -1,6 +1,9 @@
 import * as React from 'react';
 
-import { Collapse } from 'antd';
+import {
+  Collapse,
+  Form
+} from 'antd';
 
 import {
   Symbolizer,
@@ -185,46 +188,79 @@ export class LineEditor extends React.Component<LineEditorProps> {
       locale
     } = this.props;
 
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+
     return (
       <div className="gs-line-symbolizer-editor" >
         <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
           <Panel header="General" key="1">
-            <ColorField
-              color={color}
+            <Form.Item
               label={locale.colorLabel}
-              onChange={this.onColorChange}
-            />
-            <WidthField
-              width={width}
+              {...formItemLayout}
+            >
+              <ColorField
+                color={color}
+                onChange={this.onColorChange}
+              />
+            </Form.Item>
+            <Form.Item
               label={locale.widthLabel}
-              onChange={this.onWidthChange}
-            />
-            <OpacityField
-              opacity={opacity}
+              {...formItemLayout}
+            >
+              <WidthField
+                width={width}
+                onChange={this.onWidthChange}
+              />
+            </Form.Item>
+            <Form.Item
               label={locale.opacityLabel}
-              onChange={this.onOpacityChange}
-            />
-            <LineDashField
-              dashArray={dasharray}
+              {...formItemLayout}
+            >
+              <OpacityField
+                opacity={opacity}
+                onChange={this.onOpacityChange}
+              />
+            </Form.Item>
+            <Form.Item
               label={locale.dashLabel}
-              onChange={this.onDasharrayChange}
-            />
-            <OffsetField
-              offset={dashOffset}
+              {...formItemLayout}
+            >
+              <LineDashField
+                dashArray={dasharray}
+                onChange={this.onDasharrayChange}
+              />
+            </Form.Item>
+            <Form.Item
               label={locale.dashOffsetLabel}
-              onChange={this.onDashOffsetChange}
-              disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
-            />
-            <LineCapField
-              cap={cap}
+              {...formItemLayout}
+            >
+              <OffsetField
+                offset={dashOffset}
+                onChange={this.onDashOffsetChange}
+                disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
+              />
+            </Form.Item>
+            <Form.Item
               label={locale.capLabel}
-              onChange={this.onCapChange}
-            />
-            <LineJoinField
-              join={join}
+              {...formItemLayout}
+            >
+              <LineCapField
+                cap={cap}
+                onChange={this.onCapChange}
+                />
+            </Form.Item>
+            <Form.Item
               label={locale.joinLabel}
-              onChange={this.onJoinChange}
-            />
+              {...formItemLayout}
+            >
+              <LineJoinField
+                join={join}
+                onChange={this.onJoinChange}
+              />
+            </Form.Item>
           </Panel>
           <Panel header="Graphic Stroke" key="2">
             <GraphicEditor

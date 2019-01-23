@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { Mention } from 'antd';
+import {
+  Mention,
+  Form
+} from 'antd';
 const { toString, toContentState } = Mention;
 
 import {
@@ -209,10 +212,17 @@ export class TextEditor extends React.Component<TextEditorProps> {
     }
     const properties = internalDataDef && internalDataDef.schema ? Object.keys(internalDataDef.schema.properties) : [];
 
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+
     return (
       <div className="gs-text-symbolizer-editor" >
-         <div className="editor-field attribute-field">
-          <span className="label">{locale.templateFieldLabel}:</span>
+        <Form.Item
+          label={locale.templateFieldLabel}
+          {...formItemLayout}
+        >
           <Mention
             placeholder={locale.templateFieldLabel}
             defaultValue={toContentState(symbolizer.label)}
@@ -221,52 +231,88 @@ export class TextEditor extends React.Component<TextEditorProps> {
             prefix="{{"
             notFoundContent={locale.attributeNotFound}
           />
-        </div>
-        <ColorField
-          color={color}
+        </Form.Item>
+        <Form.Item
           label={locale.colorLabel}
-          onChange={this.onColorChange}
-        />
-        <FontPicker
-          font={font}
+          {...formItemLayout}
+        >
+          <ColorField
+            color={color}
+            onChange={this.onColorChange}
+          />
+        </Form.Item>
+        <Form.Item
           label={locale.fontLabel}
-          onChange={this.onFontChange}
-        />
-        <OpacityField
-          opacity={opacity}
+          {...formItemLayout}
+        >
+          <FontPicker
+            font={font}
+            onChange={this.onFontChange}
+          />
+        </Form.Item>
+        <Form.Item
           label={locale.opacityLabel}
-          onChange={this.onOpacityChange}
-        />
-        <WidthField
-          width={size}
+          {...formItemLayout}
+        >
+          <OpacityField
+            opacity={opacity}
+            onChange={this.onOpacityChange}
+            />
+        </Form.Item>
+        <Form.Item
           label={locale.sizeLabel}
-          onChange={this.onSizeChange}
-        />
-        <OffsetField
-          offset={offsetX}
+          {...formItemLayout}
+        >
+          <WidthField
+            width={size}
+            onChange={this.onSizeChange}
+          />
+        </Form.Item>
+        <Form.Item
           label={locale.offsetXLabel}
-          onChange={this.onOffsetXChange}
-        />
-        <OffsetField
-          offset={offsetY}
+          {...formItemLayout}
+        >
+          <OffsetField
+            offset={offsetX}
+            onChange={this.onOffsetXChange}
+          />
+        </Form.Item>
+        <Form.Item
           label={locale.offsetYLabel}
-          onChange={this.onOffsetYChange}
-        />
-        <RotateField
-          rotate={rotate}
+          {...formItemLayout}
+        >
+          <OffsetField
+            offset={offsetY}
+            onChange={this.onOffsetYChange}
+          />
+        </Form.Item>
+        <Form.Item
           label={locale.rotateLabel}
-          onChange={this.onRotateChange}
-        />
-        <ColorField
-          color={haloColor}
+          {...formItemLayout}
+        >
+          <RotateField
+            rotate={rotate}
+            onChange={this.onRotateChange}
+          />
+        </Form.Item>
+        <Form.Item
           label={locale.haloColorLabel}
-          onChange={this.onHaloColorChange}
-        />
-        <WidthField
-          width={haloWidth}
+          {...formItemLayout}
+        >
+          <ColorField
+            color={haloColor}
+            onChange={this.onHaloColorChange}
+            />
+        </Form.Item>
+        <Form.Item
           label={locale.haloWidthLabel}
-          onChange={this.onHaloWidthChange}
-        />
+          {...formItemLayout}
+        >
+          <WidthField
+            width={haloWidth}
+            onChange={this.onHaloWidthChange}
+          />
+        </Form.Item>
       </div>
     );
   }

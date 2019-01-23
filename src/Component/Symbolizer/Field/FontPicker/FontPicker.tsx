@@ -7,7 +7,6 @@ const Option = Select.Option;
 
 // default props
 interface FontPickerDefaultProps {
-  label: string;
   fontOptions: string[];
 }
 
@@ -23,7 +22,6 @@ export interface FontPickerProps extends Partial<FontPickerDefaultProps> {
 export class FontPicker extends React.Component<FontPickerProps> {
 
   public static defaultProps: FontPickerDefaultProps = {
-    label: 'Font',
     fontOptions: [
       'Arial', 'Verdana', 'Sans-serif',
       'Courier New', 'Lucida Console', 'Monospace',
@@ -35,7 +33,6 @@ export class FontPicker extends React.Component<FontPickerProps> {
     const {
       font,
       onChange,
-      label,
       fontOptions
     } = this.props;
 
@@ -47,16 +44,14 @@ export class FontPicker extends React.Component<FontPickerProps> {
     }
 
     return (
-      <div className="editor-field font-picker">
-        <span className="label">{`${label}:`}</span>
-        <Select
-          mode="tags"
-          value={font}
-          onChange={onChange}
-        >
-          {children}
-        </Select>
-      </div>
+      <Select
+        className="editor-field font-picker"
+        mode="tags"
+        value={font}
+        onChange={onChange}
+      >
+        {children}
+      </Select>
     );
   }
 }
