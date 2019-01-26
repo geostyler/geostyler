@@ -77,7 +77,7 @@
     "@types/jest": "23.3.12",
     "@types/node": "10.12.18",
     "@types/prop-types": "15.5.8",
-    "antd": "3.12.4",
+    "antd": "3.13.0",
     "autoprefixer": "9.4.6",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "23.6.0",
