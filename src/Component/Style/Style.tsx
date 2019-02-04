@@ -387,7 +387,6 @@ export class Style extends React.Component<StyleProps, StyleState> {
             {locale.removeRulesBtnText}
         </Menu.Item>
         <Menu.SubMenu
-          popupClassName="styler-multiedit-popup"
           title={<span><Icon type="menu-unfold" /><span>{locale.multiEditLabel}</span></span>}
           disabled={selectedRowKeys.length <= 1}
           >
