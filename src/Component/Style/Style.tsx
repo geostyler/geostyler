@@ -79,6 +79,7 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   colorRamps?: {
     [name: string]: string[]
   };
+  useBrewerColorRamps?: boolean;
   colorSpaces?: (InterpolationMode)[];
 }
 
@@ -429,7 +430,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
       showAmountColumn,
       showDuplicatesColumn,
       colorRamps,
-      colorSpaces
+      colorSpaces,
+      useBrewerColorRamps
     } = this.props;
 
     const {
@@ -482,6 +484,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             onClose={this.onRuleGeneratorWindowClose}
             onRulesChange={this.onRulesChange}
             colorRamps={colorRamps}
+            useBrewerColorRamps={useBrewerColorRamps}
             colorSpaces={colorSpaces}
           />
         }
