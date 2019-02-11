@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { InterpolationMode } from 'chroma-js';
+import { brewer, InterpolationMode } from 'chroma-js';
 
 import { Rnd } from 'react-rnd';
 
@@ -38,6 +38,7 @@ export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDef
   colorRamps?: {
     [name: string]: string[]
   };
+  useBrewerColorRamps?: boolean;
   colorSpaces?: (InterpolationMode)[];
 }
 
@@ -65,8 +66,14 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
       locale,
       internalDataDef,
       colorRamps,
-      colorSpaces
+      colorSpaces,
+      useBrewerColorRamps
     } = this.props;
+
+    let ramps = colorRamps;
+    if (colorRamps && useBrewerColorRamps) {
+      ramps = Object.assign(colorRamps, brewer);
+    }
 
     return (
       ReactDOM.createPortal(
@@ -104,7 +111,7 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
           <RuleGenerator
             internalDataDef={internalDataDef}
             onRulesChange={onRulesChange}
-            colorRamps={colorRamps}
+            colorRamps={ramps}
             colorSpaces={colorSpaces}
           />
         </Rnd>,

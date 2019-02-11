@@ -98,7 +98,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
     this.state = {
       symbolizerKind,
       wellKnownName: 'Circle',
-      colorRamp: 'GeoStyler',
+      colorRamp: props.colorRamps && props.colorRamps.GeoStyler ? 'GeoStyler' : undefined,
       colorSpace: 'hsl',
       numberOfRules: 2,
       hasError: false
