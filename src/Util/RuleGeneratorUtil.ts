@@ -1,4 +1,5 @@
-import * as Color from 'color';
+import * as CSS from 'csstype';
+const Color = require('color');
 import { Data } from 'geostyler-data';
 import {
   LevelOfMeasurement
@@ -159,7 +160,13 @@ class RuleGeneratorUtil {
     return rules;
   }
 
-  static generateBackgroundStyleFromColors = (colors: string[]) => {
+  /**
+   * Generates a style object (CSS) from an array of color strings.
+   *
+   * @param {string[]} colors An array of color strings.
+   * @return {Object} An style object (CSS).
+   */
+  static generateBackgroundStyleFromColors = (colors: string[]): CSS.Properties => {
     const gradients = colors.map((color: string) => `linear-gradient(${color}, ${color})`);
     const backgroundImage = gradients.join(',');
     const size = colors.map((color: string, index: number) => {
