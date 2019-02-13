@@ -37,6 +37,14 @@ describe('RuleGeneratorUtil', () => {
   describe('#generateBackgroundStyleFromColors', () => {
     it('is defined', () => {
       expect(RuleGeneratorUtil.generateBackgroundStyleFromColors).toBeDefined();
+      const colors = ['#FF00FF', '#00FF00'];
+      const got = RuleGeneratorUtil.generateBackgroundStyleFromColors(colors);
+      expect(got).toEqual({
+        backgroundImage: 'linear-gradient(#FF00FF, #FF00FF),linear-gradient(#00FF00, #00FF00)',
+        backgroundSize: '50% 100%,100% 100%',
+        backgroundRepeat: 'no-repeat',
+        color: '#FFFFFF'
+      });
     });
   });
 

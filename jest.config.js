@@ -5,7 +5,9 @@ module.exports = {
     "src/Util/**/*.{tsx,jsx}",
     "src/app/**/*.{tsx,jsx}"
   ],
-  "setupTestFrameworkScriptFile": "<rootDir>/jest/setup.js",
+  "setupFilesAfterEnv": [
+    "<rootDir>/jest/setup.js"
+  ],
   "testMatch": [
     "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
     "<rootDir>/src/**/?(*.)(spec|test).(j|t)s?(x)"
@@ -13,13 +15,13 @@ module.exports = {
   "testURL": "http://localhost",
   "transform": {
     "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
-    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.tsx?$": "<rootDir>/node_modules/babel-jest"
   },
   "moduleNameMapper": {
     '^.+\\.css$': '<rootDir>/jest/cssTransform.js'
   },
   "transformIgnorePatterns": [
-    "<rootDir>/node_modules/(?!(ol|antd))"  
+    "<rootDir>/node_modules/(?!(ol|antd))"
   ],
   "moduleFileExtensions": [
     "ts",
@@ -27,10 +29,5 @@ module.exports = {
     "js",
     "jsx",
     "json"
-  ],
-  "globals": {
-    "ts-jest": {
-      "tsConfig": "<rootDir>/tsconfig.prod.json"
-    }
-  }
+  ]
 };
