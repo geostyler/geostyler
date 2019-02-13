@@ -2,8 +2,7 @@ module.exports = {
   "collectCoverageFrom": [
     "src/Component/**/*.{tsx,jsx}",
     "src/DataProvider/**/*.{tsx,jsx}",
-    "src/Util/**/*.{tsx,jsx}",
-    "src/app/**/*.{tsx,jsx}"
+    "src/Util/**/*.{ts,js}"
   ],
   "setupFilesAfterEnv": [
     "<rootDir>/jest/setup.js"
