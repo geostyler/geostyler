@@ -6,10 +6,11 @@ const _isEqual = require('lodash/isEqual');
 
 import {
   Style as GsStyle,
-  StyleParserConstructable as GsStyleParserConstructable
+  StyleParserConstructable as GsStyleParserConstructable,
+  Style
 } from 'geostyler-style';
 
-import UploadButton from '../../UploadButton/UploadButton';
+import UploadButton, { CustomRequest } from '../../UploadButton/UploadButton';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
@@ -56,28 +57,44 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
     onStyleRead: (style: GsStyle) => {return; }
   };
 
-  parseStyle = (uploadObject: any) => {
+  parseStyle = async (uploadObject: CustomRequest): Promise<Style|undefined> => {
     const {
       activeParser
     } = this.state;
     if (!activeParser) {
-      return;
+      return undefined;
     }
     const parser = new activeParser();
     const file = uploadObject.file as File;
-    const reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = () => {
-      const fileContent = reader.result;
-      parser.readStyle(fileContent)
-      .then((style: GsStyle) => {
-        uploadObject.onSuccess(null, uploadObject.file);
-        this.props.onStyleRead(style);
-      })
-      .catch((e: any) => {
-        uploadObject.onError(e, 'Upload failed. Invalid Style.');
-      });
-    };
+    let fileContent;
+    try {
+      fileContent = await this.readFile(file);
+    } catch (error) {
+      uploadObject.onError(error);
+      return error;
+    }
+
+    try {
+      const style = await parser.readStyle(fileContent);
+      uploadObject.onSuccess(uploadObject.file);
+      this.props.onStyleRead(style);
+      return style;
+    } catch (error) {
+      uploadObject.onError(error);
+      return error;
+    }
+  }
+
+  readFile = async (file: File) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const fileContent = reader.result;
+        resolve(fileContent);
+      };
+      reader.onerror = reject;
+      reader.readAsText(file);
+    });
   }
 
   getParserOptions = () => {

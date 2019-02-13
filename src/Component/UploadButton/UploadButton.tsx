@@ -7,6 +7,18 @@ import {
 } from 'antd';
 import en_US from '../../locale/en_US';
 
+export interface CustomRequest {
+  onProgress: (event: { percent: number }) => void;
+  onError: (event: Error, body?: any) => void;
+  onSuccess: (body: any) => void;
+  data: any;
+  filename: string;
+  file: File;
+  withCredentials: boolean;
+  action: string;
+  headers: any;
+}
+
 interface UploadButtonLocale {
   upload: string;
 }
@@ -18,7 +30,7 @@ interface UploadButtonDefaultProps {
 
 // non default props
 export interface UploadButtonProps extends Partial<UploadButtonDefaultProps> {
-  onUpload?: (uploadObject: any) => void;
+  onUpload?: (uploadObject: CustomRequest) => void;
 }
 
 /**
