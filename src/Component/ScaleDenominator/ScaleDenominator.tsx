@@ -5,7 +5,6 @@ import MaxScaleDenominator from './MaxScaleDenominator';
 
 const _get = require('lodash/get');
 const _cloneDeep = require('lodash/cloneDeep');
-const _isEqual = require('lodash/isEqual');
 
 import {
   ScaleDenominator as GsScaleDenominator
