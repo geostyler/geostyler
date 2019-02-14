@@ -32,48 +32,25 @@ export interface ScaleDenominatorProps extends Partial<ScaleDenominatorDefaultPr
   onChange?: (scaleDenominator: GsScaleDenominator) => void;
 }
 
-// state
-interface ScaleDenominatorState {
-  scaleDenominator?: GsScaleDenominator;
-}
-
 /**
  * Combined UI for input fields for the minimum and maximum scale of a rule.
  */
-export class ScaleDenominator extends React.Component<ScaleDenominatorProps, ScaleDenominatorState> {
-  constructor(props: ScaleDenominatorProps) {
-    super(props);
-    this.state = {};
-  }
+export class ScaleDenominator extends React.Component<ScaleDenominatorProps> {
 
   public static defaultProps: ScaleDenominatorDefaultProps = {
     locale: en_US.GsScaleDenominator
   };
 
-  static getDerivedStateFromProps(
-      nextProps: ScaleDenominatorProps,
-      prevState: ScaleDenominatorState): Partial<ScaleDenominatorState> {
-    return {
-      scaleDenominator: nextProps.scaleDenominator
-    };
-  }
-
-  public shouldComponentUpdate(nextProps: ScaleDenominatorProps, nextState: ScaleDenominatorState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
   static componentName: string = 'ScaleDenominator';
 
   /**
-   * Reacts on changing min scale and pushes the current state to the 'onChange' function
+   * Reacts on changing min scale and pushes the updated scaleDenominator to the 'onChange' function
    */
   onMinScaleDenomChange = (minScaleDenominator: number) => {
     const {
       onChange
     } = this.props;
-    let scaleDenominator = _cloneDeep(this.state.scaleDenominator);
+    let scaleDenominator = _cloneDeep(this.props.scaleDenominator);
     if (!scaleDenominator) {
       scaleDenominator = {};
     }
@@ -81,17 +58,16 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
     if (onChange) {
       onChange(scaleDenominator);
     }
-    this.setState({scaleDenominator});
   }
 
   /**
-   * Reacts on changing max scale and pushes the current state to the 'onChange' function
+   * Reacts on changing max scale and pushes the updated scaleDenominator to the 'onChange' function
    */
   onMaxScaleDenomChange = (maxScaleDenominator: number) => {
     const {
       onChange
     } = this.props;
-    let scaleDenominator = _cloneDeep(this.state.scaleDenominator);
+    let scaleDenominator = _cloneDeep(this.props.scaleDenominator);
     if (!scaleDenominator) {
       scaleDenominator = {};
     }
@@ -99,7 +75,6 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
     if (onChange) {
       onChange(scaleDenominator);
     }
-    this.setState({scaleDenominator});
   }
 
   render() {
@@ -112,7 +87,7 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
         <Row gutter={16} >
           <Col span={12} className="gs-small-col">
             <MinScaleDenominator
-              value={_get(this.state, 'scaleDenominator.min')}
+              value={_get(this.props, 'scaleDenominator.min')}
               onChange={this.onMinScaleDenomChange}
               label={locale.minScaleDenominatorLabelText}
               placeholder={locale.minScaleDenominatorPlaceholderText}
@@ -120,7 +95,7 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps, Sca
           </Col>
           <Col span={12} className="gs-small-col">
             <MaxScaleDenominator
-              value={_get(this.state, 'scaleDenominator.max')}
+              value={_get(this.props, 'scaleDenominator.max')}
               onChange={this.onMaxScaleDenomChange}
               label={locale.maxScaleDenominatorLabelText}
               placeholder={locale.maxScaleDenominatorPlaceholderText}
