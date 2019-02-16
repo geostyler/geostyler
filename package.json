@@ -53,7 +53,7 @@
     "@types/react-dom": "16.8.1",
     "@ungap/url-search-params": "0.1.2",
     "blob": "0.0.5",
-    "chroma-js": "2.0.2",
+    "chroma-js": "2.0.3",
     "codemirror": "5.43.0",
     "color": "3.1.0",
     "csstype": "2.6.2",
