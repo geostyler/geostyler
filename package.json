@@ -69,7 +69,7 @@
     "moment": "2.24.0",
     "react-codemirror2": "5.1.0",
     "react-color": "2.17.0",
-    "react-rnd": "9.1.1"
+    "react-rnd": "9.1.2"
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
