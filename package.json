@@ -57,7 +57,7 @@
     "codemirror": "5.43.0",
     "color": "3.1.0",
     "csstype": "2.6.2",
-    "file-saver": "2.0.0",
+    "file-saver": "2.0.1",
     "geostyler-cql-parser": "0.1.1",
     "geostyler-data": "0.5.3",
     "geostyler-geojson-parser": "0.4.6",
