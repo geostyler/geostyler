@@ -24,7 +24,7 @@ describe('StyleLoader', () => {
       const got = await wrapper.instance().parseStyle();
       expect(got).toBeUndefined();
     });
-    it('calls readFile and onError with the expect arguments', async () => {
+    it('calls readFile and onError with the expected arguments', async () => {
       wrapper.setState({
         activeParser: SldStyleParser
       });
