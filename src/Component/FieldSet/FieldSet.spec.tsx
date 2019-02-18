@@ -16,4 +16,15 @@ describe('FieldSet', () => {
     expect(wrapper).not.toBeUndefined();
   });
 
+  describe('onCheckChange', () => {
+    it('calls passed function', () => {
+      const onCheckChangeDummy = jest.fn();
+      wrapper.setProps({
+        onCheckChange: onCheckChangeDummy
+      });
+      wrapper.instance().onCheckChange('Peter');
+      expect(onCheckChangeDummy).toHaveBeenCalledWith('Peter');
+    });
+  });
+
 });

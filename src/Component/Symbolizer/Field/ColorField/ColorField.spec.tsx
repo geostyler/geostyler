@@ -3,8 +3,12 @@ import TestUtil from '../../../../Util/TestUtil';
 
 describe('ColorField', () => {
   let wrapper: any;
+  let onChangeDummy: jest.Mock;
   beforeEach(() => {
-    const props: ColorFieldProps = {};
+    onChangeDummy = jest.fn();
+    const props: ColorFieldProps = {
+      onChange: onChangeDummy
+    };
     wrapper = TestUtil.shallowRenderComponent(ColorField, props);
   });
 
@@ -14,5 +18,20 @@ describe('ColorField', () => {
 
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
+  });
+
+  describe('onColorPreviewClick', () => {
+    it('toggles state of colorPickerVisible', () => {
+      const visible = wrapper.state('colorPickerVisible');
+      wrapper.instance().onColorPreviewClick();
+      expect(wrapper.state('colorPickerVisible')).toBe(!visible);
+    });
+  });
+
+  describe('onChangeComplete', () => {
+    it('calls a passed on Change method with a color hex', () => {
+      wrapper.instance().onChangeComplete({hex: 'Peter'});
+      expect(onChangeDummy).toHaveBeenCalledWith('Peter');
+    });
   });
 });

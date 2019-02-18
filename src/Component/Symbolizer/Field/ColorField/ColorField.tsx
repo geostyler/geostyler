@@ -69,6 +69,15 @@ export class ColorField extends React.Component<ColorFieldProps, ColorFieldState
     });
   }
 
+  onChangeComplete = (colorResult: ColorResult) => {
+    const {
+      onChange
+    } = this.props;
+    if (onChange) {
+      onChange(colorResult.hex);
+    }
+  }
+
   render() {
     const {
       colorPickerVisible = false
@@ -76,7 +85,6 @@ export class ColorField extends React.Component<ColorFieldProps, ColorFieldState
     const {
       color,
       locale,
-      onChange
     } = this.props;
     let textColor;
 
@@ -108,11 +116,7 @@ export class ColorField extends React.Component<ColorFieldProps, ColorFieldState
             <SketchPicker
               color={color}
               disableAlpha={true}
-              onChangeComplete={(colorResult: ColorResult) => {
-                if (onChange) {
-                  onChange(colorResult.hex);
-                }
-              }}
+              onChangeComplete={this.onChangeComplete}
             /> : null
           }
           </div>

@@ -40,4 +40,20 @@ describe('OffsetField', () => {
     });
   });
 
+  describe('onAddDash', () => {
+    it('calls a passed onChange function with the new dashArray', () => {
+      wrapper.instance().onAddDash();
+      expect(onChangeDummy).toHaveBeenCalledWith([...dashArray, 1]);
+    });
+  });
+
+  describe('onRemoveDash', () => {
+    it('calls a passed onChange function with the new dashArray', () => {
+      let newDashArray = [...dashArray];
+      newDashArray.splice(newDashArray.length - 1, 1);
+      wrapper.instance().onRemoveDash();
+      expect(onChangeDummy).toHaveBeenCalledWith(newDashArray);
+    });
+  });
+
 });

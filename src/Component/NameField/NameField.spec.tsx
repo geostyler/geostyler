@@ -22,4 +22,13 @@ describe('NameField', () => {
     expect(wrapper).not.toBeUndefined();
   });
 
+  it('calls the onChange prop function with the value', () => {
+    const value = 'Peter';
+    const event = {
+      target: {value}
+    };
+    wrapper.instance().onChange(event);
+    expect(onChangeDummy).toHaveBeenCalledWith(value);
+  });
+
 });
