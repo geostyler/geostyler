@@ -83,7 +83,7 @@
     "@types/jest-diff": "20.0.1",
     "@types/node": "11.9.4",
     "@types/prop-types": "15.5.9",
-    "antd": "3.13.3",
+    "antd": "3.13.4",
     "autoprefixer": "9.4.7",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "24.1.0",
