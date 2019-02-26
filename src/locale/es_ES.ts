@@ -96,6 +96,7 @@ export default {
       wellKnownNameFieldLabel: 'Simbolo'
     },
     GsTextEditor: {
+        fontLabel: 'Fuente',
         templateFieldLabel: 'Plantilla',
         opacityLabel: 'Texto-Transparencia',
         colorLabel: 'Texto-Color',
