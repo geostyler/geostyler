@@ -299,7 +299,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     });
   }
 
-  minScaleRenderer = (text: string, record: RuleRecord, index: number) => {
+  minScaleRenderer = (text: string, record: RuleRecord) => {
     const minScaleDenominator = _get(record, 'scaleDenominator.min');
     const value = minScaleDenominator ? parseFloat(minScaleDenominator) : undefined;
     return (
@@ -316,7 +316,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   }
 
-  maxScaleRenderer = (text: string, record: RuleRecord, index: number) => {
+  maxScaleRenderer = (text: string, record: RuleRecord) => {
     const maxScaleDenominator = _get(record, 'scaleDenominator.max');
     const value = maxScaleDenominator ? parseFloat(maxScaleDenominator) : undefined;
     return (

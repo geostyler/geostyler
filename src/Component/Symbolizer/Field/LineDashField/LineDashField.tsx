@@ -25,6 +25,32 @@ export class LineDashField extends React.Component<LineDashFieldProps> {
     dashArray: []
   };
 
+  onAddDash = () => {
+    const {
+      onChange,
+      dashArray
+    } = this.props;
+    // add a new dash (UI)
+    let newDashArray = [...dashArray];
+    newDashArray.push(1);
+    if (onChange) {
+      onChange(newDashArray);
+    }
+  }
+
+  onRemoveDash = () => {
+    const {
+      onChange,
+      dashArray
+    } = this.props;
+    // remove last dash (UI)
+    let newDashArray = [...dashArray];
+    newDashArray.splice(newDashArray.length - 1, 1);
+    if (onChange) {
+      onChange(newDashArray);
+    }
+  }
+
   render() {
     const {
       onChange,
@@ -53,26 +79,12 @@ export class LineDashField extends React.Component<LineDashFieldProps> {
         <Button
           className="gs-add-dash-button"
           icon="plus"
-          onClick={() => {
-            // add a new dash (UI)
-            let newDashArray = [...dashArray];
-            newDashArray.push(1);
-            if (onChange) {
-              onChange(newDashArray);
-            }
-          }}
+          onClick={this.onAddDash}
         />
         <Button
           className="gs-rm-dash-button"
           icon="minus"
-          onClick={() => {
-            // remove last dash (UI)
-            let newDashArray = [...dashArray];
-            newDashArray.splice(newDashArray.length - 1, 1);
-            if (onChange) {
-              onChange(newDashArray);
-            }
-          }}
+          onClick={this.onRemoveDash}
         />
       </div>
     );
