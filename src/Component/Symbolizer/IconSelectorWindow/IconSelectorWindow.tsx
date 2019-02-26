@@ -23,14 +23,14 @@ export interface IconSelectorWindowLocale {
 // default props
 export interface IconSelectorWindowDefaultProps {
   locale: IconSelectorWindowLocale;
-  x?: number;
-  y?: number;
-  width?: number|string;
-  height?: number|string;
 }
 
 // non default props
 export interface IconSelectorWindowProps extends Partial<IconSelectorWindowDefaultProps> {
+  x?: number;
+  y?: number;
+  width?: number|string;
+  height?: number|string;
   iconLibraries: IconLibrary[];
   selectedIconSrc?: string;
   onIconSelect?: (iconSrc: string) => void;

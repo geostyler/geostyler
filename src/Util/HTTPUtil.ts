@@ -1,6 +1,6 @@
 import URLSearchParams from '@ungap/url-search-params';
 
-type PostOptions = {
+export type PostOptions = {
   url: string;
   params: any;
   additionalHeaders?: any;
@@ -34,7 +34,7 @@ class HTTPUtil {
    *    {Boolean} asForm A flag to set the Content-Type header to
    *      'application/x-www-form-urlencoded'. Default is true.
    */
-  static post(optionsObject: PostOptions) {
+  static async post(optionsObject: PostOptions) {
     const {
       url,
       params = {},
