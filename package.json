@@ -79,7 +79,7 @@
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.3.3",
     "@types/enzyme": "3.1.17",
-    "@types/jest": "24.0.6",
+    "@types/jest": "24.0.7",
     "@types/jest-diff": "20.0.1",
     "@types/node": "11.9.5",
     "@types/prop-types": "15.5.9",
