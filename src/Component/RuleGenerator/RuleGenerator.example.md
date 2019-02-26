@@ -1,8 +1,7 @@
 This demonstrates the use of `RuleGenerator`.
 
 ```jsx
-const React = require('react');
-const { RuleGenerator } = require('../../index');
+import * as React from 'react';
 
 class RuleGeneratorExample extends React.Component {
 

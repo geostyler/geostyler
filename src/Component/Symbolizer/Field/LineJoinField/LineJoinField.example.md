@@ -1,9 +1,7 @@
 This demonstrates the use of `LineJoinField`.
 
 ```jsx
-const React = require('react');
-const { LineJoinField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class LineJoinFieldExample extends React.Component {
   constructor(props) {

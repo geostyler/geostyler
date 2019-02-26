@@ -1,3 +1,4 @@
+const path = require('path');
 const webpackConfig = require('./webpack.common.config');
 module.exports = {
   title: 'GeoStyler',
@@ -6,15 +7,15 @@ module.exports = {
     .withCustomConfig('./tsconfig.json')
     .parse,
   components: 'src/Component/**/*.tsx',
+  skipComponentsWithoutExample: true,
   webpackConfig: webpackConfig,
   getExampleFilename(componentPath) {
     return componentPath.replace(/\.tsx?$/, '.example.md')
   },
   ignore: [
-    '**/__tests__/**',
-    '**/*.test.{js,jsx,ts,tsx}',
     '**/*.spec.{js,jsx,ts,tsx}',
-    '**/*.d.ts'
+    '**/*.d.ts',
+    'src/index.ts'
   ],
   usageMode: 'expand',
   sections: [{
@@ -47,5 +48,11 @@ module.exports = {
       name: 'UploadButton',
       components: 'src/Component/UploadButton/**/*.tsx'
     }]
-  }]
+  }],
+  // moduleAliases: {
+  //   'antd': path.resolve(__dirname, 'node_modules/antd')
+  // },
+  require: [
+    path.join(__dirname, 'node_modules/antd/dist/antd.css')
+  ]
 };

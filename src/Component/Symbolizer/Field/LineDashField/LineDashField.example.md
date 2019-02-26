@@ -1,9 +1,7 @@
 This demonstrates the use of `LineDashField`.
 
 ```jsx
-const React = require('react');
-const { LineDashField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class LineDashFieldExample extends React.Component {
   constructor(props) {

@@ -1,9 +1,7 @@
 This demonstrates the use of `GraphicTypeField`.
 
 ```jsx
-const React = require('react');
-const { GraphicTypeField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class GraphicTypeFieldExample extends React.Component {
   constructor(props) {

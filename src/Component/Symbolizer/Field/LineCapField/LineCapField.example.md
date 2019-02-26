@@ -1,9 +1,7 @@
 This demonstrates the use of `LineCapField`.
 
 ```jsx
-const React = require('react');
-const { LineCapField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class LineCapFieldExample extends React.Component {
   constructor(props) {

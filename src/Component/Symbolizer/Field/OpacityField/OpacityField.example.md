@@ -1,9 +1,7 @@
 This demonstrates the use of `OpacityField`.
 
 ```jsx
-const React = require('react');
-const { OpacityField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class OpacityFieldExample extends React.Component {
   constructor(props) {

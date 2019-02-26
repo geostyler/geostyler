@@ -1,9 +1,7 @@
 This demonstrates the use of `ColorField`.
 
 ```jsx
-const React = require('react');
-const { ColorField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class ColorFieldExample extends React.Component {
   constructor(props) {

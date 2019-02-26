@@ -1,9 +1,7 @@
 This demonstrates the use of `OffsetField`.
 
 ```jsx
-const React = require('react');
-const { OffsetField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class OffsetFieldExample extends React.Component {
   constructor(props) {
