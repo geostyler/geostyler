@@ -48,7 +48,6 @@
     "@types/file-saver": "2.0.0",
     "@types/geojson": "7946.0.6",
     "@types/lodash": "4.14.120",
-    "@types/react": "16.8.5",
     "@types/react-color": "2.14.1",
     "@types/react-dom": "16.8.2",
     "@ungap/url-search-params": "0.1.2",
@@ -83,6 +82,7 @@
     "@types/jest-diff": "20.0.1",
     "@types/node": "11.9.5",
     "@types/prop-types": "15.5.9",
+    "@types/react": "16.8.5",
     "antd": "3.13.6",
     "autoprefixer": "9.4.9",
     "babel-core": "7.0.0-bridge.0",
@@ -122,6 +122,7 @@
     "whatwg-fetch": "3.0.0"
   },
   "peerDependencies": {
+    "@types/react": "16.8.5",
     "antd": "3.x",
     "ol": "5.x",
     "react": "16.x",
