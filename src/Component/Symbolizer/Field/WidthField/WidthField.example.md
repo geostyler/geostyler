@@ -1,9 +1,7 @@
 This demonstrates the use of `WidthField`.
 
 ```jsx
-const React = require('react');
-const { WidthField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class WidthFieldExample extends React.Component {
   constructor(props) {
@@ -34,7 +32,6 @@ class WidthFieldExample extends React.Component {
       />
     );
   }
-}
-
+};
 <WidthFieldExample />
 ```

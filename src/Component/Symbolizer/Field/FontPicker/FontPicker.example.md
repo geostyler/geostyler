@@ -1,9 +1,7 @@
 This demonstrates the use of `FontPicker`.
 
 ```jsx
-const React = require('react');
-const { FontPicker } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class FontPickerExample extends React.Component {
   constructor(props) {

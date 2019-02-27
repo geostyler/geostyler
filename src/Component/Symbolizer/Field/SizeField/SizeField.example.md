@@ -1,9 +1,7 @@
 This demonstrates the use of `SizeField`.
 
 ```jsx
-const React = require('react');
-const { SizeField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class SizeFieldExample extends React.Component {
   constructor(props) {
