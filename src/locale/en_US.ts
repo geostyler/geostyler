@@ -96,6 +96,7 @@ export default {
         graphicFillTypeLabel: 'Graphic Fill Type'
     },
     GsTextEditor: {
+        fontLabel: 'Font',
         templateFieldLabel: 'Template',
         opacityLabel: 'Text-Opacity',
         colorLabel: 'Text-Color',

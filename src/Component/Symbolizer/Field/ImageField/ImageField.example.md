@@ -1,9 +1,7 @@
 This demonstrates the use of `ImageField`.
 
 ```jsx
-const React = require('react');
-const { ImageField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class ImageFieldExample extends React.Component {
   constructor(props) {

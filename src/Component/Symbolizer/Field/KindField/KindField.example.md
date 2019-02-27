@@ -1,9 +1,7 @@
 This demonstrates the use of `KindField`.
 
 ```jsx
-const React = require('react');
-const { KindField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class KindFieldExample extends React.Component {
   constructor(props) {

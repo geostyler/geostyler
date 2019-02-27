@@ -1,9 +1,7 @@
 This demonstrates the use of `RotateField`.
 
 ```jsx
-const React = require('react');
-const { RotateField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class RotateFieldExample extends React.Component {
   constructor(props) {

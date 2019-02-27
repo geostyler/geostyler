@@ -1,9 +1,7 @@
 This demonstrates the use of `RadiusField`.
 
 ```jsx
-const React = require('react');
-const { RadiusField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class RadiusFieldExample extends React.Component {
   constructor(props) {

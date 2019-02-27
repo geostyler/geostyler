@@ -1,9 +1,7 @@
 This demonstrates the use of `WellKnownNameField`.
 
 ```jsx
-const React = require('react');
-const { WellKnownNameField } = require('../../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class WellKnownNameFieldExample extends React.Component {
   constructor(props) {

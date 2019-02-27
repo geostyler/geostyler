@@ -51,7 +51,7 @@ describe('FilterUtil', () => {
   });
 
   describe('calculateCountAndDuplicates', () => {
-    it('returns the right number of duplicates', () => {
+    it('returns the right number of duplicates, not considering scale constraints', () => {
       let dummyData = TestUtil.getComplexGsDummyData();
       let filter2 = TestUtil.getDummyGsFilter();
 
@@ -161,10 +161,10 @@ describe('FilterUtil', () => {
 
       const result = FilterUtil.calculateCountAndDuplicates(rules, dummyData);
 
-      expect(result.duplicates[0]).toBe(3);
-      expect(result.duplicates[1]).toBe(3);
-      expect(result.duplicates[2]).toBe(3);
-      expect(result.duplicates[3]).toBe(3);
+      expect(result.duplicates[0]).toBe(13);
+      expect(result.duplicates[1]).toBe(9);
+      expect(result.duplicates[2]).toBe(13);
+      expect(result.duplicates[3]).toBe(9);
     });
   });
 

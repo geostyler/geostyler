@@ -133,33 +133,28 @@ class FilterUtil {
    *  rule.
    */
   static calculateDuplicates(matches: any): number[] {
-    const scales = Object.keys(matches);
     const duplicates: number[] = [];
 
-    scales.forEach((scale) => {
+    const ids: object[] = [];
 
-      const ids: object[] = [];
+    matches.forEach((features: any, index: number) => {
+      const idMap = {};
+      features.forEach((feat: any) => idMap[feat.id] = true);
+      ids[index] = idMap;
+    });
 
-      matches[scale].forEach((features: any, index: number) => {
-        const idMap = {};
-        features.forEach((feat: any) => idMap[feat.id] = true);
-        ids[index] = idMap;
+    matches.forEach((features: any, index: number) => {
+      let counter = 0;
+      ids.forEach((idMap, idIndex) => {
+        if (index !== idIndex) {
+          features.forEach((feat: any) => {
+            if (idMap[feat.id]) {
+              ++counter;
+            }
+          });
+        }
       });
-
-      matches[scale].forEach((features: any, index: number) => {
-        let counter = 0;
-        ids.forEach((idMap, idIndex) => {
-          if (index !== idIndex) {
-            features.forEach((feat: any) => {
-              if (idMap[feat.id]) {
-                ++counter;
-              }
-            });
-          }
-        });
-        duplicates[index] = counter;
-      });
-
+      duplicates[index] = counter;
     });
 
     return duplicates;
@@ -190,17 +185,11 @@ class FilterUtil {
       return feature;
     });
 
-    const matches: any = {};
+    const matches: any = [];
     rules.forEach((rule, index) => {
-      const minScale = _get(rule, 'scaleDenominator.min') || '';
-      const maxScale = _get(rule, 'scaleDenominator.max') || '';
-      const scaleKey = `${minScale}-${maxScale}`;
       const currentMatches = rule.filter ? FilterUtil.getMatches(rule.filter, data) : data.exampleFeatures.features;
       result.counts.push(currentMatches.length);
-      if (!matches[scaleKey]) {
-        matches[scaleKey] = [];
-      }
-      matches[scaleKey][index] = currentMatches;
+      matches[index] = currentMatches;
     });
 
     result.duplicates = FilterUtil.calculateDuplicates(matches);
