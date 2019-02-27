@@ -49,9 +49,6 @@ module.exports = {
       components: 'src/Component/UploadButton/**/*.tsx'
     }]
   }],
-  // moduleAliases: {
-  //   'antd': path.resolve(__dirname, 'node_modules/antd')
-  // },
   require: [
     path.join(__dirname, 'node_modules/antd/dist/antd.css')
   ]
