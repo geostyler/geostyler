@@ -25,6 +25,7 @@ export interface SymbolizerEditorWindowLocale {
 // default props
 export interface SymbolizerEditorWindowDefaultProps {
   locale: SymbolizerEditorWindowLocale;
+  constrainWindow: string;
 }
 
 // non default props
@@ -44,7 +45,8 @@ export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWin
 export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWindowProps> {
 
   public static defaultProps: SymbolizerEditorWindowDefaultProps = {
-    locale: en_US.GsSymbolizerEditorWindow
+    locale: en_US.GsSymbolizerEditorWindow,
+    constrainWindow: 'body'
   };
 
   public shouldComponentUpdate(nextProps: SymbolizerEditorWindowProps): boolean {
@@ -62,13 +64,14 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
       onSymbolizersChange,
       locale,
       internalDataDef,
-      iconLibraries
+      iconLibraries,
+      constrainWindow
     } = this.props;
 
     return (
       ReactDOM.createPortal(
         <Rnd
-          bounds="body"
+          bounds={constrainWindow}
           className="symbolizer-editor-window"
           default={{
             x: x || window.innerWidth / 2,
