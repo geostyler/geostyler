@@ -68,6 +68,7 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
     return (
       ReactDOM.createPortal(
         <Rnd
+          bounds="body"
           className="symbolizer-editor-window"
           default={{
             x: x || window.innerWidth / 2,
