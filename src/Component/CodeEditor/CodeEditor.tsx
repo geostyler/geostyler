@@ -24,7 +24,8 @@ const Option = Select.Option;
 
 import {
   Style as GsStyle,
-  StyleParserConstructable as GsStyleParserConstructable
+  StyleParserConstructable as GsStyleParserConstructable,
+  StyleParser
 } from 'geostyler-style';
 
 const _isEqual = require('lodash/isEqual');
@@ -50,7 +51,7 @@ interface CodeEditorDefaultProps {
 // non default props
 export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
   style?: GsStyle;
-  parsers?: GsStyleParserConstructable[];
+  parsers?: (GsStyleParserConstructable|StyleParser)[];
   defaultParser?: GsStyleParserConstructable;
   onStyleChange?: (rule: GsStyle) => void;
 }
@@ -59,7 +60,7 @@ export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
 interface CodeEditorState {
   value: string;
   invalidMessage?: string;
-  activeParser?: GsStyleParserConstructable;
+  activeParser?: GsStyleParserConstructable | StyleParser;
   hasError: boolean;
 }
 
@@ -126,23 +127,19 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
   }
 
   getModeByParser = (): string => {
-    const {
-      activeParser
-    } = this.state;
-    if (activeParser && activeParser.title === 'SLD Style Parser') {
+    const activeParser: any = this.state.activeParser;
+    if (activeParser && (activeParser.title || activeParser.prototype.title) === 'SLD Style Parser') {
       return 'application/xml';
     }
     return 'application/json';
   }
 
   valueFromStyleInput = (style: GsStyle) => {
-    const {
-      activeParser
-    } = this.state;
+    const activeParser: any = this.state.activeParser;
     return new Promise((resolve, reject) => {
       if (activeParser) {
-        const StyleParser = activeParser;
-        const parserInstance = new StyleParser();
+        const StyleParserClass = activeParser;
+        const parserInstance = activeParser instanceof Function ? new StyleParserClass() : activeParser;
         resolve(parserInstance.writeStyle(style));
       } else {
         resolve(JSON.stringify(style, null, 2));
@@ -151,13 +148,11 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
   }
 
   styleFromValue = (value: string) => {
-    const {
-      activeParser
-    } = this.state;
+    const activeParser: any = this.state.activeParser;
     return new Promise((resolve, reject) => {
       if (activeParser) {
-        const StyleParser = activeParser;
-        const parserInstance = new StyleParser();
+        const StyleParserClass = activeParser;
+        const parserInstance = activeParser instanceof Function ? new StyleParserClass() : activeParser;
         resolve(parserInstance.readStyle(value));
       } else {
         resolve(JSON.parse(value));
@@ -200,7 +195,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       style
     } = this.props;
     if (parsers) {
-      const activeParser = parsers.find(parser => parser.title === selection);
+      const activeParser = parsers.find((parser: any) => (parser.title || parser.prototype.title) === selection);
       this.setState({activeParser}, () => {
         if (style) {
           this.updateValueFromStyle(style);
@@ -228,7 +223,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     ];
     if (this.props.parsers) {
       const additionalOptions = this.props.parsers.map((parser: any) => {
-        return <Option key={parser.title} value={parser.title}>{parser.title}</Option>;
+        const title = parser.title || parser.prototype.title;
+        return <Option key={title} value={title}>{title}</Option>;
       });
       return [...parserOptions, ...additionalOptions];
     }
@@ -236,8 +232,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
   }
 
   onDownloadButtonClick = () => {
+    const activeParser: any = this.state.activeParser;
     const {
-      activeParser,
       value
     } = this.state;
     const {
@@ -246,7 +242,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     if (style) {
       let fileName = style.name;
       let type = 'application/json;charset=utf-8';
-      if (activeParser && activeParser.title === 'SLD Style Parser') {
+      const title = activeParser && (activeParser.title || activeParser.prototype.title);
+      if (title === 'SLD Style Parser') {
         type = 'text/xml;charset=utf-8';
         fileName += '.sld';
       }
@@ -295,10 +292,10 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       showSaveButton,
       showCopyButton
     } = this.props;
+    const activeParser: any = this.state.activeParser;
     const {
       hasError,
-      value,
-      activeParser
+      value
     } = this.state;
     if (hasError) {
       return <h1>An error occured in the CodeEditor UI.</h1>;
@@ -310,7 +307,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
             className="gs-code-editor-format-select"
             style={{ width: 300 }}
             onSelect={this.onSelect}
-            value={activeParser ? activeParser.title : 'GeoStyler Style'}
+            value={activeParser ? (activeParser.title || activeParser.prototype.title) : 'GeoStyler Style'}
           >
             {this.getParserOptions()}
           </Select>
