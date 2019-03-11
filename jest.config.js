@@ -5,7 +5,8 @@ module.exports = {
     "src/Util/**/*.{ts,js}"
   ],
   "setupFilesAfterEnv": [
-    "<rootDir>/jest/setup.js"
+    "<rootDir>/jest/setup.js",
+    "jest-canvas-mock"
   ],
   "testMatch": [
     "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
