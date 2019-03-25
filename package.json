@@ -48,7 +48,7 @@
     "@types/file-saver": "2.0.0",
     "@types/geojson": "7946.0.7",
     "@types/lodash": "4.14.123",
-    "@types/react-color": "2.17.0",
+    "@types/react-color": "3.0.0",
     "@types/react-dom": "16.8.3",
     "@ungap/url-search-params": "0.1.2",
     "blob": "0.0.5",
