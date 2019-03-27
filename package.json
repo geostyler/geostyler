@@ -110,7 +110,7 @@
     "react": "16.8.5",
     "react-docgen-typescript": "1.12.3",
     "react-dom": "16.8.5",
-    "react-styleguidist": "9.0.4",
+    "react-styleguidist": "9.0.5",
     "rimraf": "2.6.3",
     "source-map-loader": "0.2.4",
     "style-loader": "0.23.1",
