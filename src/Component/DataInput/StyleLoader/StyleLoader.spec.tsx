@@ -1,12 +1,14 @@
 import { StyleLoader, StyleLoaderProps } from './StyleLoader';
 import SldStyleParser from 'geostyler-sld-parser';
+import { StyleParser } from 'geostyler-style';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('StyleLoader', () => {
   let wrapper: any;
+  const sldStyleParser: StyleParser = new SldStyleParser();
   beforeEach(() => {
     const props: StyleLoaderProps = {
-      parsers: [SldStyleParser]
+      parsers: [sldStyleParser]
     };
     wrapper = TestUtil.shallowRenderComponent(StyleLoader, props);
   });
@@ -26,7 +28,7 @@ describe('StyleLoader', () => {
     });
     it('calls readFile and onError with the expected arguments', async () => {
       wrapper.setState({
-        activeParser: SldStyleParser
+        activeParser: sldStyleParser
       });
       wrapper.instance().readFile = jest.fn();
       const onErrorMock = jest.fn();
@@ -58,7 +60,7 @@ describe('StyleLoader', () => {
       const parserTitle = 'SLD Style Parser';
       expect(wrapper.state('activeParser')).toBeUndefined();
       wrapper.instance().onSelect(parserTitle);
-      expect(wrapper.state('activeParser')).toBe(SldStyleParser);
+      expect(wrapper.state('activeParser')).toBe(sldStyleParser);
     });
   });
 });
