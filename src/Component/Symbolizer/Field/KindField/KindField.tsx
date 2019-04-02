@@ -20,6 +20,7 @@ export interface KindFieldLocale {
     Icon: string;
     Line: string;
     Text: string;
+    Raster: string;
   };
 }
 
@@ -43,7 +44,7 @@ export class KindField extends React.Component<KindFieldProps> {
   public static defaultProps: KindFieldDefaultProps = {
     locale: en_US.GsKindField,
     kind: 'Mark',
-    symbolizerKinds: ['Mark', 'Fill', 'Icon', 'Line', 'Text']
+    symbolizerKinds: ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster']
   };
 
   public shouldComponentUpdate(nextProps: KindFieldProps): boolean {

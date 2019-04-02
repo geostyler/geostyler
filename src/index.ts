@@ -2,16 +2,19 @@
   Copyright (c) 2018 terrestris GmbH & Co. KG
   Licensed under the BSD 2-Clause "Simplified" License, see
   https://github.com/terrestris/geostyler/blob/master/LICENSE
-*/
+  */
 import AttributeCombo from './Component/Filter/AttributeCombo/AttributeCombo';
 import BoolFilterField from './Component/Filter/BoolFilterField/BoolFilterField';
+import BrightnessField from './Component/Symbolizer/Field/BrightnessField/BrightnessField';
 import BulkEditModals from './Component/Symbolizer/BulkEditModals/BulkEditModals';
 import CodeEditor from './Component/CodeEditor/CodeEditor';
 import ColorField from './Component/Symbolizer/Field/ColorField/ColorField';
 import ComparisonFilter from './Component/Filter/ComparisonFilter/ComparisonFilter';
+import ContrastField from './Component/Symbolizer/Field/ContrastField/ContrastField';
 import DataLoader from './Component/DataInput/DataLoader/DataLoader';
 import DataProvider from './DataProvider/DataProvider';
 import Editor from './Component/Symbolizer/Editor/Editor';
+import FadeDurationField from './Component/Symbolizer/Field/FadeDurationField/FadeDurationField';
 import FieldSet from './Component/FieldSet/FieldSet';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import FilterEditorWindow from './Component/Filter/FilterEditorWindow/FilterEditorWindow';
@@ -39,10 +42,13 @@ import OperatorCombo from './Component/Filter/OperatorCombo/OperatorCombo';
 import Preview from './Component/Symbolizer/Preview/Preview';
 import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor';
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
+import RasterEditor from './Component/Symbolizer/RasterEditor/RasterEditor';
 import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
 import Renderer from './Component/Symbolizer/Renderer/Renderer';
+import ResamplingField from './Component/Symbolizer/Field/ResamplingField/ResamplingField';
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
 import Rule from './Component/Rule/Rule';
+import SaturationField from './Component/Symbolizer/Field/SaturationField/SaturationField';
 import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
 import SizeField from './Component/Symbolizer/Field/SizeField/SizeField';
 import SLDRenderer from './Component/Symbolizer/SLDRenderer/SLDRenderer';
@@ -74,13 +80,16 @@ const locale = {
 export {
   AttributeCombo,
   BoolFilterField,
+  BrightnessField,
   BulkEditModals,
   CodeEditor,
   ColorField,
   ComparisonFilter,
+  ContrastField,
   DataLoader,
   DataProvider,
   Editor,
+  FadeDurationField,
   FieldSet,
   FillEditor,
   FilterEditorWindow,
@@ -111,10 +120,13 @@ export {
   Preview,
   PropTextEditor,
   RadiusField,
+  RasterEditor,
   RemoveButton,
   Renderer,
+  ResamplingField,
   RotateField,
   Rule,
+  SaturationField,
   ScaleDenominator,
   SizeField,
   SLDRenderer,

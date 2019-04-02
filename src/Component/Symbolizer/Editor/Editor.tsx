@@ -24,6 +24,7 @@ import { IconLibrary } from '../IconSelector/IconSelector';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
+import RasterEditor from '../RasterEditor/RasterEditor';
 
 // i18n
 export interface EditorLocale {
@@ -133,6 +134,13 @@ export class Editor extends React.Component<EditorProps, EditorState> {
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
             internalDataDef={this.props.internalDataDef}
+          />
+        );
+      case 'Raster':
+        return (
+          <RasterEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={this.onSymbolizerChange}
           />
         );
       default:

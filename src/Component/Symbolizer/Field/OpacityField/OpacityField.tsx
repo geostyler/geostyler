@@ -3,9 +3,10 @@ import * as React from 'react';
 import {
   InputNumber
 } from 'antd';
+import { InputNumberProps } from 'antd/lib/input-number';
 
 // non default props
-export interface OpacityFieldProps {
+export interface OpacityFieldProps extends Partial<InputNumberProps> {
   onChange?: (opacity: number) => void;
   opacity?: number;
 }
@@ -18,7 +19,8 @@ export class OpacityField extends React.PureComponent<OpacityFieldProps> {
   render() {
     const {
       onChange,
-      opacity
+      opacity,
+      ...inputProps
     } = this.props;
 
     return (
@@ -29,6 +31,7 @@ export class OpacityField extends React.PureComponent<OpacityFieldProps> {
         step={0.01}
         value={opacity}
         onChange={onChange}
+        {...inputProps}
       />
     );
   }

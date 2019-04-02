@@ -102,7 +102,7 @@ export class ColorField extends React.Component<ColorFieldProps, ColorFieldState
       <div className="editor-field color-field">
         <div className="color-preview-wrapper">
           <Button
-            className="color-preview"
+            className="color-preview editor-field"
             style={{
               backgroundColor: color,
               color: textColor

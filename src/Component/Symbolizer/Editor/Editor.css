@@ -1,3 +1,7 @@
 .gs-symbolizer-editor .editor-field {
   width: 200px;
 }
+
+.gs-symbolizer-editor .ant-form-item {
+  margin: 0;
+}
