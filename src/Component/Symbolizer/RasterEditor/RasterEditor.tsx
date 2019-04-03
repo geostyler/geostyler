@@ -216,13 +216,13 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
               className="gs-raster-editor-view-toggle"
               {...toggleViewButtonLayout}
             >
-              <a onClick={() => {this.toggleView('colorMap');}}>{`${locale.colorMapLabel} >>`}</a>
+              <a onClick={() => {this.toggleView('colorMap'); }}>{`${locale.colorMapLabel} >>`}</a>
             </Form.Item>,
             <Form.Item
               className="gs-raster-editor-view-toggle"
               {...toggleViewButtonLayout}
             >
-              <a onClick={() => {this.toggleView('contrastEnhancement');}}>{`${locale.channelSelectionLabel} >>`}</a>
+              <a onClick={() => {this.toggleView('contrastEnhancement'); }}>{`${locale.channelSelectionLabel} >>`}</a>
             </Form.Item>
           ])
         }
@@ -237,7 +237,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
             <Form.Item
               {...toggleViewButtonLayout}
             >
-              <a onClick={() => {this.toggleView('symbolizer');}}>{`<< ${locale.symbolizerLabel}`}</a>
+              <a onClick={() => {this.toggleView('symbolizer'); }}>{`<< ${locale.symbolizerLabel}`}</a>
             </Form.Item>
           ])
         }
@@ -250,7 +250,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
             <Form.Item
               {...toggleViewButtonLayout}
             >
-              <a onClick={() => {this.toggleView('symbolizer');}}>{`<< ${locale.symbolizerLabel}`}</a>
+              <a onClick={() => {this.toggleView('symbolizer'); }}>{`<< ${locale.symbolizerLabel}`}</a>
             </Form.Item>
           ])
         }
