@@ -126,7 +126,23 @@ export default {
         saturationLabel: 'Sättigung',
         contrastLabel: 'Kontrast',
         fadeDurationLabel: 'Überblendzeit',
-        resamplingLabel: 'Resampling'
+        resamplingLabel: 'Resampling',
+        contrastEnhancementLabel: 'Kontrast ändern',
+        gammaValueLabel: 'Gamma',
+        colorMapLabel: 'Farbeinstellungen',
+        symbolizerLabel: 'Symbolisierung',
+        channelSelectionLabel: 'Bandauswahl'
+    },
+    GsRasterChannelEditor: {
+        channelSelectionLabel: 'Kanäle editieren',
+        redBandLabel: 'Rot',
+        greenBandLabel: 'Grün',
+        blueBandLabel: 'Blau',
+        grayBandLabel: 'Grau'
+    },
+    GsColorMapEditor: {
+      typeLabel: 'Art',
+      extendedLabel: 'Erweitert'
     },
     GsPreview: {
         openEditorText: 'Symbolisierung editieren',
@@ -163,9 +179,28 @@ export default {
           X: 'X'
         }
     },
+    GsColorMapEntryField: {
+      colorLabel: 'Farbe',
+      labelLabel: 'Legenden Beschriftung',
+      quantityLabel: 'Wert',
+      opacityLabel: 'Deckkraft'
+    },
+    GsChannelField: {
+      sourceChannelNameLabel: 'Band Name',
+      contrastEnhancementTypeLabel: 'Kontrast ändern',
+      gammaValueLabel: 'Gamma'
+    },
     GsGraphicTypeField: {
         Mark: 'Punktsymbol',
         Icon: 'Bilddatei'
+    },
+    GsRgbChannelField: {
+      redLabel: 'Rotes band',
+      greenLabel: 'Grünes band',
+      blueLabel: 'Blaues band'
+    },
+    GsGrayChannelField: {
+      grayLabel: 'Graues band'
     },
     GsSymbolizerEditor: {
       kindFieldLabel: 'Art'
