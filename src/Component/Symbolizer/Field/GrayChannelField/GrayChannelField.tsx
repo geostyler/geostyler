@@ -4,7 +4,6 @@ import {
   Form
 } from 'antd';
 
-import { Data } from 'geostyler-data';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 import SourceChannelNameSelectionField from '../SourceChannelNameField/SourceChannelNameField';
@@ -25,7 +24,7 @@ interface GrayChannelFieldDefaultProps {
 
 // non default props
 export interface GrayChannelFieldProps extends Partial<GrayChannelFieldDefaultProps> {
-  internalDataDef?: Data;
+  sourceChannelNames?: string[];
   onChange?: (channelSelection: ChannelSelection) => void;
   channelSelection?: ChannelSelection;
 }
@@ -64,7 +63,7 @@ export class GrayChannelSelectionField extends React.Component<GrayChannelFieldP
 
   render() {
     const {
-      internalDataDef,
+      sourceChannelNames,
       channelSelection,
       locale
     } = this.props;
@@ -81,7 +80,7 @@ export class GrayChannelSelectionField extends React.Component<GrayChannelFieldP
           {...formItemLayout}
         >
           <SourceChannelNameSelectionField
-            internalDataDef={internalDataDef}
+            sourceChannelNames={sourceChannelNames}
             onChange={this.onGrayChannelChange}
             sourceChannelName={_get(channelSelection, 'grayChannel.sourceChannelName')}
           />

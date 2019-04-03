@@ -4,7 +4,6 @@ import {
   Input,
   Select
 } from 'antd';
-import { Data } from 'geostyler-data';
 const Option = Select.Option;
 
 // default props
@@ -14,7 +13,7 @@ interface SourceChannelNameFieldDefaultProps {
 
 // non default props
 export interface SourceChannelNameFieldProps extends Partial<SourceChannelNameFieldDefaultProps> {
-  internalDataDef?: Data;
+  sourceChannelNames?: string[];
   onChange?: (sourceChannelName: string) => void;
   sourceChannelName?: string;
 }
@@ -29,18 +28,17 @@ export class SourceChannelNameSelectionField extends React.Component<SourceChann
   };
 
   getSourceChannelNameSelectOptions = () => {
-    // const {
-    //   internalDataDef
-    // } = this.props;
-    // TODO set bands to internalDataDef.XYZ.bands as soon as geostyler-data supports raster data
-    const bands: any[] = [];
-    return bands.map(band => {
+    const {
+      sourceChannelNames
+    } = this.props;
+
+    return sourceChannelNames.map(sourceChannelName => {
       return (
           <Option
-              key={band}
-              value={band}
+              key={sourceChannelName}
+              value={sourceChannelName}
           >
-          {band}
+          {sourceChannelName}
           </Option>
       );
     });
@@ -48,19 +46,16 @@ export class SourceChannelNameSelectionField extends React.Component<SourceChann
 
   render() {
     const {
-      // internalDataDef,
       sourceChannelName,
+      sourceChannelNames,
       onChange,
       placeholder
     } = this.props;
 
-    // TODO set bands to internalDataDef.XYZ.bands as soon as geostyler-data supports raster data
-    const bands: any[] = [];
-
     return (
       <div>
         {
-          bands && bands.length > 0 ?
+          sourceChannelNames && sourceChannelNames.length > 0 ?
           (
             <Select
               className="editor-field sourceChannelName-field"

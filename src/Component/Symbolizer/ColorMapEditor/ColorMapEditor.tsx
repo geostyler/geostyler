@@ -56,7 +56,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
       colorMap,
       onChange
     } = this.props;
-    debugger;
+
     let newColorMap: ColorMap;
     if (colorMap) {
       newColorMap = _cloneDeep(colorMap);
@@ -114,7 +114,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
 
   setValueForColorMapEntry = (idx: number, key: string, value: any) => {
     const cmEntries = _get(this.props, 'colorMap.colorMapEntries');
-    debugger;
+
     let newCmEntries: ColorMapEntry[];
     if (cmEntries) {
       newCmEntries = _cloneDeep(newCmEntries);
@@ -166,7 +166,6 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
       <ColorField
         color={record.color}
         onChange={(color: string) => {
-          debugger;
           this.setValueForColorMapEntry(record.key, 'color', color);
         }}
       />
@@ -231,7 +230,6 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
       colorMap,
       locale
     } = this.props;
-    debugger;
 
     // const formItemLayout = {
     //   labelCol: { span: 8 },

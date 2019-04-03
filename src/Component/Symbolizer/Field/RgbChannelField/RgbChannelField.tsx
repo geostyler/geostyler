@@ -4,7 +4,6 @@ import {
   Form
 } from 'antd';
 
-import { Data } from 'geostyler-data';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 import SourceChannelNameSelectionField from '../SourceChannelNameField/SourceChannelNameField';
@@ -27,7 +26,7 @@ interface RgbChannelFieldDefaultProps {
 
 // non default props
 export interface RgbChannelFieldProps extends Partial<RgbChannelFieldDefaultProps> {
-  internalDataDef?: Data;
+  sourceChannelNames?: string[];
   onChange?: (channelSelection: ChannelSelection) => void;
   channelSelection?: ChannelSelection;
 }
@@ -145,7 +144,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
 
   render() {
     const {
-      internalDataDef,
+      sourceChannelNames,
       channelSelection,
       locale
     } = this.props;
@@ -162,7 +161,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
           {...formItemLayout}
         >
           <SourceChannelNameSelectionField
-            internalDataDef={internalDataDef}
+            sourceChannelNames={sourceChannelNames}
             onChange={this.onRedChannelChange}
             sourceChannelName={_get(channelSelection, 'redChannel.sourceChannelName')}
           />
@@ -172,7 +171,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
           {...formItemLayout}
         >
           <SourceChannelNameSelectionField
-            internalDataDef={internalDataDef}
+            sourceChannelNames={sourceChannelNames}
             onChange={this.onGreenChannelChange}
             sourceChannelName={_get(channelSelection, 'greenChannel.sourceChannelName')}
           />
@@ -182,7 +181,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
           {...formItemLayout}
         >
           <SourceChannelNameSelectionField
-            internalDataDef={internalDataDef}
+            sourceChannelNames={sourceChannelNames}
             onChange={this.onBlueChannelChange}
             sourceChannelName={_get(channelSelection, 'blueChannel.sourceChannelName')}
           />
