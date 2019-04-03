@@ -38,6 +38,7 @@ import FilterUtil from '../../Util/FilterUtil';
 import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
+import DataUtil from '../../Util/DataUtil';
 
 // i18n
 export interface RuleTableLocale {
@@ -148,7 +149,9 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       if (filtersEqual && nextProps.data === prevState.data) {
         return {};
       }
-      countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(nextProps.rules, nextProps.data);
+      if (DataUtil.isVector(nextProps.data)) {
+        countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(nextProps.rules, nextProps.data);
+      }
     } catch (e) {
       // make sure to update state when checks/calculation fails
     }
@@ -345,7 +348,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       } catch (error) {
         amount = '-';
       }
-    } else if (data) {
+    } else if (data && DataUtil.isVector(data)) {
       amount = data.exampleFeatures.features.length;
     }
     return (
