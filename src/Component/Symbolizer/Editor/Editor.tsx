@@ -44,6 +44,9 @@ export interface EditorProps extends Partial<EditorDefaultProps> {
   iconEditorProps?: Partial<IconEditorProps>;
   onSymbolizerChange?: (symbolizer: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
+  colorRamps?: {
+    [name: string]: string[]
+  };
 }
 
 // state
@@ -94,7 +97,8 @@ export class Editor extends React.Component<EditorProps, EditorState> {
   getUiFromSymbolizer = (symbolizer: Symbolizer): React.ReactNode => {
     const {
       iconEditorProps,
-      iconLibraries
+      iconLibraries,
+      colorRamps
     } = this.props;
 
     switch (symbolizer.kind) {
@@ -141,6 +145,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           <RasterEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
+            colorRamps={colorRamps}
           />
         );
       default:

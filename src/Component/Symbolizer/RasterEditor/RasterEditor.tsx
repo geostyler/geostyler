@@ -51,6 +51,9 @@ export interface RasterEditorProps extends Partial<RasterEditorDefaultProps> {
   symbolizer: RasterSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   internalDataDef?: Data;
+  colorRamps?: {
+    [name: string]: string[]
+  };
 }
 
 type ShowDisplay = 'symbolizer' | 'colorMap' | 'contrastEnhancement';
@@ -151,7 +154,8 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
       locale,
       symbolizer,
       internalDataDef,
-      contrastEnhancementTypes
+      contrastEnhancementTypes,
+      colorRamps
     } = this.props;
 
     const {
@@ -178,9 +182,6 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     const toggleViewButtonLayout = {
       wrapperCol: {span: 24}
     };
-
-    // TODO add components for
-    // - colorMap
 
     return (
       <div className="gs-raster-symbolizer-editor" >
@@ -245,6 +246,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
           showDisplay !== 'colorMap' ? null : ([
             <ColorMapEditor
               colorMap={colorMap}
+              colorRamps={colorRamps}
               onChange={this.onColorMapChange}
             />,
             <Form.Item

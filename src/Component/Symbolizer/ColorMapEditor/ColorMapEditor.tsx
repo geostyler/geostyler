@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {
   Form,
-  Button,
   Table,
   Input,
-  Popover
+  Popover,
+  InputNumber
 } from 'antd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
@@ -12,10 +12,13 @@ import en_US from '../../../locale/en_US';
 import { ColorMap, ColorMapType, ColorMapEntry } from 'geostyler-style';
 import ExtendedField from '../Field/ExtendedField/ExtendedField';
 import ColorMapTypeField from '../Field/ColorMapTypeField/ColorMapTypeField';
-// import ColorMapEntryField from '../Field/ColorMapEntryField/ColorMapEntryField';
 import ColorField from '../Field/ColorField/ColorField';
 import OffsetField from '../Field/OffsetField/OffsetField';
 import OpacityField from '../Field/OpacityField/OpacityField';
+import RasterUtil from '../../../Util/RasterUtil';
+import ColorRampCombo from '../../RuleGenerator/ColorRampCombo/ColorRampCombo';
+import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
+import { brewer } from 'chroma-js';
 
 import './ColorMapEditor.css';
 
@@ -27,6 +30,13 @@ export interface ColorMapEditorLocale {
   typeLabel: string;
   extendedLabel: string;
   colorMapEntriesLabel: string;
+  titleLabel: string;
+  nrOfClassesLabel: string;
+  colorRampLabel: string;
+  colorLabel: string;
+  quantityLabel: string;
+  labelLabel: string;
+  opacityLabel: string;
 }
 
 export interface ColorMapEntryRecord extends ColorMapEntry {
@@ -35,6 +45,9 @@ export interface ColorMapEntryRecord extends ColorMapEntry {
 
 interface ColorMapEditorDefaultProps {
   locale: ColorMapEditorLocale;
+  colorRamps: {
+    [name: string]: string[]
+  };
 }
 
 // non default props
@@ -43,13 +56,30 @@ export interface ColorMapEditorProps extends Partial<ColorMapEditorDefaultProps>
   onChange?: (colorMap: ColorMap) => void;
 }
 
-export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
+export interface ColorMapEditorState {
+  colorRamp: string;
+}
+
+export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMapEditorState> {
 
   static componentName: string = 'ColorMapEditor';
 
   public static defaultProps: ColorMapEditorDefaultProps = {
-    locale: en_US.GsColorMapEditor
+    locale: en_US.GsColorMapEditor,
+    colorRamps: {
+      GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
+      GreenRed: ['#00FF00', '#FF0000'],
+      ...brewer
+    }
   };
+
+  constructor(props: ColorMapEditorProps) {
+    super(props);
+
+    this.state = {
+      colorRamp: Object.keys(props.colorRamps)[0]
+    };
+  }
 
   updateColorMap = (prop: string, value: any) => {
     const {
@@ -89,27 +119,48 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
     this.updateColorMap('colorMapEntries', newColorMapEntries);
   }
 
-  onAddColorMapEntry = () => {
-    const colorMapEntries = _get(this.props, 'colorMap.colorMapEntries');
-    const colorMapEntry: ColorMapEntry = {color: ''};
-    let newColorMapEntries: ColorMapEntry[];
-    if (colorMapEntries) {
-      newColorMapEntries = _cloneDeep(colorMapEntries);
-      newColorMapEntries.push(colorMapEntry);
+  onNrOfClassesChange = (value: number) => {
+    const {
+      colorRamp
+    } = this.state;
+
+    const cmEntries = _get(this.props, 'colorMap.colorMapEntries');
+    const newCmEntries: ColorMapEntry[] = cmEntries ? _cloneDeep(cmEntries) : [];
+
+    if (value > newCmEntries.length) {
+      while (newCmEntries.length < value) {
+        newCmEntries.push(RasterUtil.generateColorMapEntry());
+      }
     } else {
-      newColorMapEntries = [colorMapEntry];
+      while (newCmEntries.length > value) {
+        newCmEntries.pop();
+      }
     }
-    this.updateColorMap('colorMapEntries', newColorMapEntries);
+    this.applyColors(colorRamp, newCmEntries);
+    this.updateColorMap('colorMapEntries', newCmEntries);
   }
 
-  onRemoveColorMapEntry = (idx: number) => {
-    const colorMapEntries = _get(this.props, 'colorMap.colorMapEntries');
-    if (!colorMapEntries) {
-      return;
-    }
-    const newColorMapEntries = _cloneDeep(colorMapEntries);
-    newColorMapEntries.splice(idx, 1);
-    this.updateColorMap('colorMapEntries', newColorMapEntries);
+  onColorRampChange = (colorRamp: string) => {
+    const cmEntries = _get(this.props, 'colorMap.colorMapEntries');
+    const newCmEntries = this.applyColors(colorRamp, _cloneDeep(cmEntries));
+    this.updateColorMap('colorMapEntries', newCmEntries);
+
+    this.setState({
+      colorRamp
+    });
+  }
+
+  applyColors = (colorRamp: string, cmEntries: ColorMapEntry[] = []): ColorMapEntry[] => {
+    const {
+      colorRamps
+    } = this.props;
+    const ramp = colorRamps[colorRamp] ?
+      colorRamps[colorRamp] : colorRamps[Object.keys(colorRamps)[0]];
+    const colors = RuleGeneratorUtil.generateColors(ramp, cmEntries.length);
+    cmEntries.forEach((entry: ColorMapEntry, idx: number) => {
+      entry.color = colors[idx];
+    });
+    return cmEntries;
   }
 
   setValueForColorMapEntry = (idx: number, key: string, value: any) => {
@@ -117,7 +168,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
 
     let newCmEntries: ColorMapEntry[];
     if (cmEntries) {
-      newCmEntries = _cloneDeep(newCmEntries);
+      newCmEntries = _cloneDeep(cmEntries);
       newCmEntries[idx][key] = value;
     } else {
       newCmEntries = [{}] as ColorMapEntry[];
@@ -141,6 +192,10 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
   }
 
   labelRenderer = (text: string, record: ColorMapEntryRecord) => {
+    const {
+      locale
+    } = this.props;
+
     const input = (
       <Input
         className="gs-colormap-label-input"
@@ -153,8 +208,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
     return (
       <Popover
         content={record.label}
-        // TODO replace title string with locale
-        title="label"
+        title={locale.labelLabel}
       >
         {input}
       </Popover>
@@ -200,25 +254,24 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
   }
 
   getColumns = () => {
-    // const {
-    //   locale
-    // } = this.props;
+    const {
+      locale
+    } = this.props;
 
     const columns: any = [{
-      // TODO replace title string with locale vals
-      title: 'label',
-      dataIndex: 'label',
-      render: this.labelRenderer
-    }, {
-      title: 'color',
+      title: locale.colorLabel,
       dataIndex: 'color',
       render: this.colorRenderer
     }, {
-      title: 'quantity',
+      title: locale.quantityLabel,
       dataIndex: 'quantity',
       render: this.quantityRenderer
     }, {
-      title: 'opacity',
+      title: locale.labelLabel,
+      dataIndex: 'label',
+      render: this.labelRenderer
+    }, {
+      title: locale.opacityLabel,
       dataIndex: 'opacity',
       render: this.opacityRenderer
     }];
@@ -231,88 +284,78 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps> {
       locale
     } = this.props;
 
-    // const formItemLayout = {
-    //   labelCol: { span: 8 },
-    //   wrapperCol: { span: 16 }
-    // };
+    const {
+      colorRamp
+    } = this.state;
+
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
 
     let colorMapEntries: ColorMapEntry[] = _get(colorMap, 'colorMapEntries');
     if (!colorMapEntries) {
-      // colorMapEntries = [{color: undefined}];
       colorMapEntries = [];
     }
+    const nrOfClasses = colorMapEntries.length;
 
     return (
       <div className="gs-colormap-symbolizer-editor" >
         <div className="gs-colormap-header-row">
           <Form.Item
+            {...formItemLayout}
+          >
+            <span>{locale.titleLabel}</span>
+          </Form.Item>
+          <Form.Item
             label={locale.typeLabel}
+            {...formItemLayout}
           >
             <ColorMapTypeField
-              colorMapTye={_get(colorMap, 'type')}
+              colorMapType={_get(colorMap, 'type')}
               onChange={this.onTypeChange}
             />
           </Form.Item>
-          <ExtendedField
-            extended={_get(colorMap, 'extended')}
-            extendedLabel={locale.extendedLabel}
-            onChange={this.onExtendedChange}
-          />
+          <Form.Item
+            label={locale.nrOfClassesLabel}
+            {...formItemLayout}
+          >
+            <InputNumber
+              min={0}
+              max={255}
+              value={nrOfClasses}
+              onChange={this.onNrOfClassesChange}
+            />
+          </Form.Item>
+          <Form.Item
+            label={locale.colorRampLabel}
+            {...formItemLayout}
+          >
+            <ColorRampCombo
+              onChange={this.onColorRampChange}
+              colorRamp={colorRamp}
+            />
+          </Form.Item>
+          <Form.Item
+            label={locale.extendedLabel}
+            {...formItemLayout}
+          >
+            <ExtendedField
+              extended={_get(colorMap, 'extended')}
+              onChange={this.onExtendedChange}
+            />
+          </Form.Item>
         </div>
         <Table
           className="gs-colormap-table"
           columns={this.getColumns()}
           dataSource={this.getColorMapRecords()}
-          pagination={false}
+          pagination={{
+            position: 'bottom',
+            defaultPageSize: 5
+          }}
+          size="small"
         />
-            {/* <Form.Item
-              label={locale.typeLabel}
-              {...formItemLayout}
-            >
-              <ColorMapTypeField
-                colorMapTye={_get(colorMap, 'type')}
-                onChange={this.onTypeChange}
-              />
-            </Form.Item>
-            <Form.Item
-              {...formItemLayout}
-            >
-              <ExtendedField
-                extended={_get(colorMap, 'extended')}
-                extendedLabel={locale.extendedLabel}
-                onChange={this.onExtendedChange}
-              />
-            </Form.Item> */}
-            {/* {
-              colorMapEntries.map((entry: ColorMapEntry, index: number) => {
-                return (
-                  <Form.Item
-                  label={locale.colorMapEntriesLabel}
-                  {...formItemLayout}
-                  >
-                    <ColorMapEntryField
-                      key={index}
-                      colorMapEntry={entry}
-                      onChange={(cmEntry: ColorMapEntry) => {
-                        this.onColorMapEntryChange(cmEntry, index);
-                      }}
-                    />
-                    <Button
-                      className="gs-remove-colormapentry-button"
-                      icon="minus"
-                      onClick={() => {
-                        this.onRemoveColorMapEntry(index);
-                      }}
-                    />
-                  </Form.Item>
-                );
-              })
-            } */}
-            <Button
-              className="gs-add-colormapentry-button"
-              icon="plus"
-              onClick={this.onAddColorMapEntry}
-            />
       </div>
     );
   }

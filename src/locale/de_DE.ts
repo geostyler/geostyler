@@ -138,11 +138,20 @@ export default {
         redBandLabel: 'Rot',
         greenBandLabel: 'Grün',
         blueBandLabel: 'Blau',
-        grayBandLabel: 'Grau'
+        grayBandLabel: 'Grau',
+        channelSelectionGrayLabel: 'Grau',
+        channelSelectionRgbLabel: 'RGB'
     },
     GsColorMapEditor: {
       typeLabel: 'Art',
-      extendedLabel: 'Erweitert'
+      extendedLabel: 'Farbtiefe',
+      titleLabel: 'Farbeinstellungen',
+      nrOfClassesLabel: 'Anzahl Klassen',
+      colorRampLabel: 'Farbverlauf',
+      colorLabel: 'Farbe',
+      quantityLabel: 'Wert',
+      labelLabel: 'Beschriftung',
+      opacityLabel: 'Deckkraft'
     },
     GsPreview: {
         openEditorText: 'Symbolisierung editieren',
@@ -189,6 +198,11 @@ export default {
       sourceChannelNameLabel: 'Band Name',
       contrastEnhancementTypeLabel: 'Kontrast ändern',
       gammaValueLabel: 'Gamma'
+    },
+    GsColorMapTypeField: {
+      rampMapTypeLabel: 'Interpoliert',
+      intervalsMapTypeLabel: 'Intervalle',
+      valuesMapTypeLabel: 'Einzelwerte'
     },
     GsGraphicTypeField: {
         Mark: 'Punktsymbol',

@@ -141,12 +141,21 @@ export default {
         redBandLabel: 'Red',
         greenBandLabel: 'Green',
         blueBandLabel: 'Blue',
-        grayBandLabel: 'Gray'
+        grayBandLabel: 'Gray',
+        channelSelectionGrayLabel: 'Gray',
+        channelSelectionRgbLabel: 'RGB'
     },
     GsColorMapEditor: {
       typeLabel: 'Type',
-      extendedLabel: 'Extended',
-      colorMapEntriesLabel: 'Colormap'
+      extendedLabel: 'Color Depth',
+      colorMapEntriesLabel: 'Colormap',
+      titleLabel: 'Color Map',
+      nrOfClassesLabel: 'Nr. of classes',
+      colorRampLabel: 'Color Ramp',
+      colorLabel: 'Color',
+      quantityLabel: 'Quantity',
+      labelLabel: 'Label',
+      opacityLabel: 'Opacity'
     },
     GsPreview: {
         openEditorText: 'Edit Symbolizer',
@@ -205,6 +214,11 @@ export default {
       sourceChannelNameLabel: 'Channel Name',
       contrastEnhancementTypeLabel: 'Contrast Enhancement',
       gammaValueLabel: 'Gamma'
+    },
+    GsColorMapTypeField: {
+      rampMapTypeLabel: 'Interpolated',
+      intervalsMapTypeLabel: 'Intervals',
+      valuesMapTypeLabel: 'Values'
     },
     GsSymbolizerEditor: {
       kindFieldLabel: 'Kind'

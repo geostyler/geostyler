@@ -29,6 +29,8 @@ export interface RasterChannelEditorLocale {
   greenBandLabel: string;
   blueBandLabel: string;
   grayBandLabel: string;
+  channelSelectionGrayLabel: string;
+  channelSelectionRgbLabel: string;
 }
 
 // default props
@@ -188,11 +190,11 @@ export class RasterChannelEditor extends React.Component<RasterChannelEditorProp
             <Option
               key="rgb"
               value="rgb"
-            >rgb</Option>
+            >{locale.channelSelectionRgbLabel}</Option>
             <Option
               key="gray"
               value="gray"
-            >gray</Option>
+            >{locale.channelSelectionGrayLabel}</Option>
           </Select>
         </Form.Item>
         { !rgbOrGray ? null :

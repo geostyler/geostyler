@@ -75,6 +75,9 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   /** Properties that will be passed to the Comparison Filters */
   filterUiProps?: Partial<ComparisonFilterProps>;
   iconLibraries?: IconLibrary[];
+  colorRamps?: {
+    [name: string]: string[]
+  };
 }
 
 // state
@@ -478,6 +481,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       iconLibraries,
       showAmountColumn,
       showDuplicatesColumn,
+      colorRamps,
       ...restProps
     } = this.props;
     const {
@@ -511,6 +515,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
               symbolizers={rules[ruleEditIndex].symbolizers}
               onSymbolizersChange={this.onSymbolizersChange}
               iconLibraries={iconLibraries}
+              colorRamps={colorRamps}
             />
         }
         {

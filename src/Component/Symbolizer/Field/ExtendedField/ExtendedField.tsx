@@ -1,14 +1,13 @@
 import * as React from 'react';
 
 import {
-  Checkbox
+  Radio
 } from 'antd';
 
 // non default props
 export interface ExtendedFieldProps {
   onChange?: (extended: boolean) => void;
   extended?: boolean;
-  extendedLabel?: string;
 }
 
 /**
@@ -16,29 +15,31 @@ export interface ExtendedFieldProps {
  */
 export class ExtendedField extends React.PureComponent<ExtendedFieldProps> {
 
-  onCheckboxChange = (evt: any) => {
+  onExtendedChange = (evt: any) => {
     const {
       onChange
     } = this.props;
 
     if (onChange) {
-      onChange(evt.target.checked);
+      onChange(evt.target.value);
     }
   }
 
   render() {
     const {
-      extended,
-      extendedLabel
+      extended
     } = this.props;
 
     return (
-      <Checkbox
-        checked={extended}
-        onChange={this.onCheckboxChange}
+      <Radio.Group
+        defaultValue={extended == true ? extended : false}
+        buttonStyle="solid"
+        onChange={this.onExtendedChange}
+        size="small"
       >
-      {extendedLabel}
-      </Checkbox>
+        <Radio.Button value={false}>16-bit</Radio.Button>
+        <Radio.Button value={true}>32-bit</Radio.Button>
+      </Radio.Group>
     );
   }
 }
