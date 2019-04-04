@@ -174,7 +174,6 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
       sourceChannelNames = Object.keys(internalDataDef.rasterBandInfo);
     }
 
-    sourceChannelNames = ['Redband', 'Greenband', 'Blueband'];
     const formItemLayout = {
       labelCol: { span: 8 },
       wrapperCol: { span: 16 }
