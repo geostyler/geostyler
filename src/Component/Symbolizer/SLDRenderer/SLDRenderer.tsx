@@ -3,7 +3,7 @@ import SldStyleParser from 'geostyler-sld-parser';
 const _isEqual = require('lodash/isEqual');
 
 import './SLDRenderer.css';
-import { StyleParserConstructable, Style, Symbolizer } from 'geostyler-style';
+import { Style, Symbolizer } from 'geostyler-style';
 import HTTPUtil from '../../../Util/HTTPUtil';
 import loading from './LoadingIcon';
 
@@ -37,7 +37,7 @@ interface SLDRendererState {
  */
 export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererState> {
 
-  _styleParser: StyleParserConstructable;
+  _styleParser: SldStyleParser;
 
   _requestTimeout: any;
 
