@@ -4,7 +4,7 @@ import {
     Channel,
     ContrastEnhancement
 } from 'geostyler-style';
-import SourceChannelNameSelectionField from '../SourceChannelNameField/SourceChannelNameField';
+import SourceChannelNameField from '../SourceChannelNameField/SourceChannelNameField';
 import { Form } from 'antd';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
@@ -116,7 +116,7 @@ export class ChannelField extends React.Component<ChannelFieldProps> {
           label={locale.sourceChannelNameLabel}
           {...formItemLayout}
         >
-          <SourceChannelNameSelectionField
+          <SourceChannelNameField
             onChange={this.onSourceChannelNameChange}
             sourceChannelName={sourceChannelName}
             sourceChannelNames={sourceChannelNames}

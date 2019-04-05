@@ -110,7 +110,7 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
             symbolizers={symbolizers}
             onSymbolizersChange={onSymbolizersChange}
             iconLibraries={iconLibraries}
-            colorRamps={colorRamps}
+            editorProps={{colorRamps}}
           />
         </Rnd>,
         document.body

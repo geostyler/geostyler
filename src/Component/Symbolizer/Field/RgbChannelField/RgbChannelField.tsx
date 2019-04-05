@@ -6,7 +6,7 @@ import {
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
-import SourceChannelNameSelectionField from '../SourceChannelNameField/SourceChannelNameField';
+import SourceChannelNameField from '../SourceChannelNameField/SourceChannelNameField';
 import { ChannelSelection, RGBChannel } from 'geostyler-style';
 
 const _get = require('lodash/get');
@@ -61,19 +61,9 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
         sourceChannelName: red
       };
     }
-    // const {
-    //   redChannel
-    // } = channelSelection as RGBChannel;
-
-    // const newRedChannel: Channel = {
-    //   sourceChannelName: red,
-    //   ...redChannel
-    // };
-    // let rgb: ChannelSelection = {
-    //   redChannel: newRedChannel,
-    //   ...channelSelection
-    // };
-    onChange(rgb);
+    if (onChange) {
+      onChange(rgb);
+    }
   }
 
   onGreenChannelChange = (green: string) => {
@@ -94,19 +84,9 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
         sourceChannelName: green
       };
     }
-    // const {
-    //   greenChannel
-    // } = channelSelection as RGBChannel;
-
-    // const newGreenChannel: Channel = {
-    //   sourceChannelName: green,
-    //   ...greenChannel
-    // };
-    // let rgb: ChannelSelection = {
-    //   greenChannel: newGreenChannel,
-    //   ...channelSelection
-    // };
-    onChange(rgb);
+    if (onChange) {
+      onChange(rgb);
+    }
   }
 
   onBlueChannelChange = (blue: string) => {
@@ -127,19 +107,9 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
         sourceChannelName: blue
       };
     }
-    // const {
-    //   blueChannel
-    // } = channelSelection as RGBChannel;
-
-    // const newBlueChannel: Channel = {
-    //   sourceChannelName: blue,
-    //   ...blueChannel
-    // };
-    // let rgb: ChannelSelection = {
-    //   blueChannel: newBlueChannel,
-    //   ...channelSelection
-    // };
-    onChange(rgb);
+    if (onChange) {
+      onChange(rgb);
+    }
   }
 
   render() {
@@ -160,7 +130,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
           label={locale.redLabel}
           {...formItemLayout}
         >
-          <SourceChannelNameSelectionField
+          <SourceChannelNameField
             sourceChannelNames={sourceChannelNames}
             onChange={this.onRedChannelChange}
             sourceChannelName={_get(channelSelection, 'redChannel.sourceChannelName')}
@@ -170,7 +140,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
           label={locale.greenLabel}
           {...formItemLayout}
         >
-          <SourceChannelNameSelectionField
+          <SourceChannelNameField
             sourceChannelNames={sourceChannelNames}
             onChange={this.onGreenChannelChange}
             sourceChannelName={_get(channelSelection, 'greenChannel.sourceChannelName')}
@@ -180,7 +150,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
           label={locale.blueLabel}
           {...formItemLayout}
         >
-          <SourceChannelNameSelectionField
+          <SourceChannelNameField
             sourceChannelNames={sourceChannelNames}
             onChange={this.onBlueChannelChange}
             sourceChannelName={_get(channelSelection, 'blueChannel.sourceChannelName')}

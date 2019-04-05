@@ -152,8 +152,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       if (filtersEqual && nextProps.data === prevState.data) {
         return {};
       }
-      if (DataUtil.isVector(nextProps.data)) {
+      if (nextProps.data && DataUtil.isVector(nextProps.data)) {
         countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(nextProps.rules, nextProps.data);
+      } else {
+        countsAndDuplicates = {};
       }
     } catch (e) {
       // make sure to update state when checks/calculation fails

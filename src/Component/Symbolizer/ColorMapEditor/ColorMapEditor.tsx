@@ -107,18 +107,6 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     this.updateColorMap('type', type);
   }
 
-  onColorMapEntryChange = (colorMapEntry: ColorMapEntry, idx: number) => {
-    const colorMapEntries = _get(this.props, 'colorMap.colorMapEntries');
-    let newColorMapEntries: ColorMapEntry[];
-    if (colorMapEntries) {
-      newColorMapEntries = _cloneDeep(colorMapEntries);
-      newColorMapEntries[idx] = colorMapEntry;
-    } else {
-      newColorMapEntries = [colorMapEntry];
-    }
-    this.updateColorMap('colorMapEntries', newColorMapEntries);
-  }
-
   onNrOfClassesChange = (value: number) => {
     const {
       colorRamp
@@ -281,6 +269,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
   render() {
     const {
       colorMap,
+      colorRamps,
       locale
     } = this.props;
 
@@ -334,6 +323,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
             <ColorRampCombo
               onChange={this.onColorRampChange}
               colorRamp={colorRamp}
+              colorRamps={colorRamps}
             />
           </Form.Item>
           <Form.Item

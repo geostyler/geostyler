@@ -21,7 +21,7 @@ export interface SourceChannelNameFieldProps extends Partial<SourceChannelNameFi
 /**
  * SourceChannelNameField to select between different source channel options
  */
-export class SourceChannelNameSelectionField extends React.Component<SourceChannelNameFieldProps> {
+export class SourceChannelNameField extends React.Component<SourceChannelNameFieldProps> {
 
   public static defaultProps: SourceChannelNameFieldDefaultProps = {
     placeholder: 'Name of band'
@@ -83,4 +83,4 @@ export class SourceChannelNameSelectionField extends React.Component<SourceChann
   }
 }
 
-export default SourceChannelNameSelectionField;
+export default SourceChannelNameField;

@@ -1,7 +1,7 @@
 import DataProvider from './DataProvider';
 import GeoJsonDataParser from 'geostyler-geojson-parser';
 import { Data } from 'geostyler-data';
-import DataUtil from 'src/Util/DataUtil';
+import DataUtil from '../Util/DataUtil';
 
 describe('DataProvider', () => {
   it('is defined', () => {

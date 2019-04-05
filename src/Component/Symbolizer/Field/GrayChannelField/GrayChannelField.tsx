@@ -6,7 +6,7 @@ import {
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
-import SourceChannelNameSelectionField from '../SourceChannelNameField/SourceChannelNameField';
+import SourceChannelNameField from '../SourceChannelNameField/SourceChannelNameField';
 import { ChannelSelection, GrayChannel } from 'geostyler-style';
 
 const _get = require('lodash/get');
@@ -32,9 +32,9 @@ export interface GrayChannelFieldProps extends Partial<GrayChannelFieldDefaultPr
 /**
  * GrayChannelField to map a band to grayscale
  */
-export class GrayChannelSelectionField extends React.Component<GrayChannelFieldProps> {
+export class GrayChannelField extends React.Component<GrayChannelFieldProps> {
 
-  static componentName: string = 'GrayChannelSelectionField';
+  static componentName: string = 'GrayChannelField';
 
   public static defaultProps: GrayChannelFieldDefaultProps = {
     locale: en_US.GsGrayChannelField
@@ -58,7 +58,9 @@ export class GrayChannelSelectionField extends React.Component<GrayChannelFieldP
         }
       };
     }
-    onChange(newChannelSelection);
+    if (onChange) {
+      onChange(newChannelSelection);
+    }
   }
 
   render() {
@@ -79,7 +81,7 @@ export class GrayChannelSelectionField extends React.Component<GrayChannelFieldP
           label={locale.grayLabel}
           {...formItemLayout}
         >
-          <SourceChannelNameSelectionField
+          <SourceChannelNameField
             sourceChannelNames={sourceChannelNames}
             onChange={this.onGrayChannelChange}
             sourceChannelName={_get(channelSelection, 'grayChannel.sourceChannelName')}
@@ -90,4 +92,4 @@ export class GrayChannelSelectionField extends React.Component<GrayChannelFieldP
   }
 }
 
-export default localize(GrayChannelSelectionField, GrayChannelSelectionField.componentName);
+export default localize(GrayChannelField, GrayChannelField.componentName);
