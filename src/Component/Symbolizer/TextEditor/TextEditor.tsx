@@ -225,7 +225,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
         >
           <Mention
             placeholder={locale.templateFieldLabel}
-            defaultValue={toContentState(symbolizer.label)}
+            defaultValue={toContentState(symbolizer.label || '')}
             onChange={this.onLabelChange}
             suggestions={properties}
             prefix="{{"
