@@ -6,8 +6,8 @@ const _isEqual = require('lodash/isEqual');
 
 import {
   Style as GsStyle,
-  StyleParserConstructable as GsStyleParserConstructable,
-  Style
+  Style,
+  StyleParser
 } from 'geostyler-style';
 
 import UploadButton, { CustomRequest } from '../../UploadButton/UploadButton';
@@ -29,12 +29,12 @@ interface StyleLoaderDefaultProps {
 
 // non default props
 export interface StyleLoaderProps extends Partial<StyleLoaderDefaultProps> {
-  parsers: GsStyleParserConstructable[];
+  parsers: StyleParser[];
 }
 
 // state
 interface StyleLoaderState {
-  activeParser?: GsStyleParserConstructable;
+  activeParser?: StyleParser;
 }
 
 export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
@@ -64,7 +64,6 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
     if (!activeParser) {
       return undefined;
     }
-    const parser = new activeParser();
     const file = uploadObject.file as File;
     let fileContent;
     try {
@@ -75,7 +74,7 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
     }
 
     try {
-      const style = await parser.readStyle(fileContent);
+      const style = await activeParser.readStyle(fileContent);
       uploadObject.onSuccess(uploadObject.file);
       this.props.onStyleRead(style);
       return style;
