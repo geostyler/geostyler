@@ -2,12 +2,13 @@ import { CodeEditor, CodeEditorProps } from './CodeEditor';
 import TestUtil from '../../Util/TestUtil';
 
 import SldStyleParser from 'geostyler-sld-parser';
-import { StyleParserConstructable } from 'geostyler-style';
+import { StyleParser } from 'geostyler-style';
 
 describe('CodeEditor', () => {
   let wrapper: any;
   let dummyStyle = TestUtil.getMarkStyle();
   let onStyleChangeDummy: jest.Mock;
+  let sldParser = new SldStyleParser();
   const delay = 1337;
   beforeEach(() => {
     onStyleChangeDummy = jest.fn();
@@ -15,7 +16,7 @@ describe('CodeEditor', () => {
       style: dummyStyle,
       onStyleChange: onStyleChangeDummy,
       parsers: [
-        SldStyleParser
+        sldParser
       ],
       delay
     };
@@ -36,13 +37,13 @@ describe('CodeEditor', () => {
         style: dummyStyle,
         onStyleChange: onStyleChangeDummy,
         parsers: [
-          SldStyleParser
+          sldParser
         ],
-        defaultParser: SldStyleParser,
+        defaultParser: sldParser,
         delay
       };
       const defaultValueWrapper = TestUtil.shallowRenderComponent(CodeEditor, defaultParserProps);
-      const activeParser: StyleParserConstructable = defaultValueWrapper.state('activeParser');
+      const activeParser: StyleParser = defaultValueWrapper.state('activeParser');
       expect(activeParser.title).toEqual(SldStyleParser.title);
     });
   });
@@ -81,10 +82,9 @@ describe('CodeEditor', () => {
     });
     it('returns  the value as sld if active parsers is SLD Parser', async () => {
       wrapper.setState({
-        activeParser: SldStyleParser
+        activeParser: sldParser
       });
       await new Promise((resolve) => {
-        const sldParser = new SldStyleParser();
         sldParser.writeStyle(dummyStyle)
           .then(async (sld: string) => {
             const valueFromStyleInput = wrapper.instance().valueFromStyleInput;
@@ -104,7 +104,7 @@ describe('CodeEditor', () => {
     });
     it('returns "application/xml" if activeParser is "SLD Style Parser"', () => {
       wrapper.setState({
-        activeParser: SldStyleParser
+        activeParser: sldParser
       });
       const getModeByParser = wrapper.instance().getModeByParser;
       const value = getModeByParser();
@@ -120,10 +120,9 @@ describe('CodeEditor', () => {
     });
     it('returns geostyler-style if active parsers is SLD Parser and value is SLD string', async () => {
       wrapper.setState({
-        activeParser: SldStyleParser
+        activeParser: sldParser
       });
       await new Promise((resolve) => {
-        const sldParser = new SldStyleParser();
         sldParser.writeStyle(dummyStyle)
           .then(async (sld: string) => {
             const styleFromValue = wrapper.instance().styleFromValue;
@@ -170,8 +169,8 @@ describe('CodeEditor', () => {
   describe('onSelect', () => {
     it('sets select parser as active parser', () => {
       const onSelect = wrapper.instance().onSelect;
-      onSelect(SldStyleParser.title);
-      expect(wrapper.state().activeParser).toBe(SldStyleParser);
+      onSelect(sldParser.title);
+      expect(wrapper.state().activeParser).toEqual(sldParser);
     });
     it('calls "updateValueFromStyle"', () => {
       const updateValueFromStyleDummy = wrapper.instance().updateValueFromStyle = jest.fn();
