@@ -12,12 +12,7 @@ if [ $TRAVIS_PULL_REQUEST != "false" ]; then
   return 0;
 fi
 
-if [ $TRAVIS_BRANCH != "master" ]; then
-  # Only update when the target branch is master.
-  return 0;
-fi
-
-if ! [ -n "$TRAVIS_TAG" ]; then
+if [ -z "$TRAVIS_TAG" ]; then
   # Only update when a tag was pushed / a new release was published
   return 0;
 fi
