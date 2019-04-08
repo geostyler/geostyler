@@ -108,7 +108,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
         }]
       };
       this._styleParser.writeStyle(style)
-        .then((sld) => {
+        .then((sld: string) => {
           const params = {
             'SERVICE': 'WMS',
             'VERSION': '1.3.0',
