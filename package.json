@@ -62,7 +62,7 @@
     "file-saver": "2.0.1",
     "geostyler-cql-parser": "0.1.2",
     "geostyler-data": "0.5.3",
-    "geostyler-geojson-parser": "0.4.6",
+    "geostyler-geojson-parser": "1.0.0",
     "geostyler-openlayers-parser": "1.1.1",
     "geostyler-sld-parser": "1.0.0",
     "geostyler-style": "1.0.0",
