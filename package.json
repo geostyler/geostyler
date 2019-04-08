@@ -43,7 +43,7 @@
   "dependencies": {
     "@babel/polyfill": "7.4.3",
     "@types/chroma-js": "1.4.1",
-    "@types/codemirror": "0.0.72",
+    "@types/codemirror": "0.0.73",
     "@types/color": "3.0.0",
     "@types/file-saver": "2.0.0",
     "@types/geojson": "7946.0.7",
