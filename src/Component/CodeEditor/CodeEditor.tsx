@@ -295,6 +295,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     if (hasError) {
       return <h1>An error occured in the CodeEditor UI.</h1>;
     }
+
     return (
       <div className="gs-code-editor">
         <div className="gs-code-editor-toolbar" >

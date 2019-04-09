@@ -175,7 +175,7 @@ describe('CodeEditor', () => {
     it('calls "updateValueFromStyle"', () => {
       const updateValueFromStyleDummy = wrapper.instance().updateValueFromStyle = jest.fn();
       const onSelect = wrapper.instance().onSelect;
-      onSelect(sldStyleParser.title);
+      onSelect(sldParser.title);
       expect(updateValueFromStyleDummy).toBeCalledWith(dummyStyle);
     });
   });
