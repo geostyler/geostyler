@@ -1,5 +1,6 @@
 import DataProvider from './DataProvider';
 import GeoJsonDataParser from 'geostyler-geojson-parser';
+import { VectorData } from 'geostyler-data';
 
 describe('DataProvider', () => {
   it('is defined', () => {
@@ -49,7 +50,7 @@ describe('DataProvider', () => {
         };
 
       const internalDataPromise = dataProvider.importData(geojson, 'GeoJSON');
-      internalDataPromise.then((internalData) => {
+      internalDataPromise.then((internalData: VectorData) => {
 
         expect(internalData.exampleFeatures).toBe(geojson);
 
