@@ -23,8 +23,9 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import { Form } from 'antd';
 import RasterEditor from '../RasterEditor/RasterEditor';
+import DataUtil from '../../../Util/DataUtil';
+import { Form } from 'antd';
 
 // i18n
 export interface EditorLocale {
@@ -98,7 +99,8 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     const {
       iconEditorProps,
       iconLibraries,
-      colorRamps
+      colorRamps,
+      internalDataDef
     } = this.props;
 
     switch (symbolizer.kind) {
@@ -137,7 +139,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           <TextEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
-            internalDataDef={this.props.internalDataDef}
+            internalDataDef={internalDataDef && DataUtil.isVector(internalDataDef) ? internalDataDef : undefined}
           />
         );
       case 'Raster':
@@ -146,6 +148,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
             colorRamps={colorRamps}
+            internalDataDef={internalDataDef && DataUtil.isRaster(internalDataDef) ? internalDataDef : undefined}
           />
         );
       default:

@@ -91,7 +91,9 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     if (colorMap) {
       newColorMap = _cloneDeep(colorMap);
     } else {
-      newColorMap = {};
+      newColorMap = {
+        type: 'ramp'
+      };
     }
     newColorMap[prop] = value;
     if (onChange) {

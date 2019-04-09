@@ -188,6 +188,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
           showDisplay !== 'symbolizer' ? null : ([
             <Form.Item
               label={locale.opacityLabel}
+              key="opacity"
               {...formItemLayout}
             >
               <OpacityField
@@ -195,7 +196,9 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
                 onChange={this.onOpacityChange}
               />
             </Form.Item>,
-            <Form.Item label={locale.contrastEnhancementLabel}
+            <Form.Item
+              label={locale.contrastEnhancementLabel}
+              key="contrastEnhancement"
               {...formItemLayout}
             >
               <ContrastEnhancementField
@@ -205,6 +208,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
             </Form.Item>,
             <Form.Item
               label={locale.gammaValueLabel}
+              key="gammaValue"
               {...formItemLayout}
             >
               <GammaField
@@ -214,12 +218,14 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
             </Form.Item>,
             <Form.Item
               className="gs-raster-editor-view-toggle"
+              key="toggleColorMap"
               {...toggleViewButtonLayout}
             >
               <a onClick={() => {this.toggleView('colorMap'); }}>{`${locale.colorMapLabel} >>`}</a>
             </Form.Item>,
             <Form.Item
               className="gs-raster-editor-view-toggle"
+              key="toggleContrastEnhancement"
               {...toggleViewButtonLayout}
             >
               <a onClick={() => {this.toggleView('contrastEnhancement'); }}>{`${locale.channelSelectionLabel} >>`}</a>
@@ -233,8 +239,10 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
               sourceChannelNames={sourceChannelNames}
               onChange={this.onChannelEditorChange}
               contrastEnhancementTypes={contrastEnhancementTypes}
+              key="contrastEnhancement"
             />,
             <Form.Item
+              key="toggleSymbolizer"
               {...toggleViewButtonLayout}
             >
               <a onClick={() => {this.toggleView('symbolizer'); }}>{`<< ${locale.symbolizerLabel}`}</a>
@@ -247,8 +255,10 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
               colorMap={colorMap}
               colorRamps={colorRamps}
               onChange={this.onColorMapChange}
+              key="colorMapEditor"
             />,
             <Form.Item
+              key="toggleSymbolizer"
               {...toggleViewButtonLayout}
             >
               <a onClick={() => {this.toggleView('symbolizer'); }}>{`<< ${locale.symbolizerLabel}`}</a>
