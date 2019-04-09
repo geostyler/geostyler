@@ -5,7 +5,7 @@ import {
 } from 'geostyler-style';
 
 import {
-  Data
+  VectorData
 } from 'geostyler-data';
 
 const _get = require('lodash/get');
@@ -112,7 +112,7 @@ class FilterUtil {
    * @param {Data} data A geostyler data object.
    * @return {Feature[]} An Array of geojson feature objects.
    */
-  static getMatches = (filter: Filter, data: Data): any[] => {
+  static getMatches = (filter: Filter, data: VectorData): any[] => {
     const matches: any[] = [];
     data.exampleFeatures.features.forEach(feature => {
       const match = FilterUtil.featureMatchesFilter(filter, feature);
@@ -164,11 +164,11 @@ class FilterUtil {
    * Calculates the amount of matched and duplicate matched features for the rules.
    *
    * @param {Rule[]} rules An array of GeoStyler rule objects.
-   * @param {Data} data A geostyler data object.
+   * @param {VectorData} data A geostyler data object.
    * @returns {CountResult} An object containing array with the amount of matched
    * and duplicate matched features reachable through keys'counts' and 'duplicates'.
    */
-  static calculateCountAndDuplicates(rules: Rule[], data: Data): CountResult {
+  static calculateCountAndDuplicates(rules: Rule[], data: VectorData): CountResult {
     if (!rules || !data) {
       return {};
     }

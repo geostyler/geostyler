@@ -23,7 +23,7 @@ import {
 } from 'geostyler-style';
 
 import {
-  Data as GsData
+  VectorData
 } from 'geostyler-data';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
@@ -66,7 +66,7 @@ interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
 
 // non default props
 export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
-  data?: GsData;
+  data?: VectorData;
   rules: GsRule[];
   footer?: (currentPageData?: any) => React.ReactNode;
   onRulesChange?: (rules: GsRule[]) => void;
@@ -84,7 +84,7 @@ interface RuleTableState {
   filterEditorVisible: boolean;
   filterEditorPosition: DOMRect;
   hasError: boolean;
-  data: GsData;
+  data: VectorData;
   rules: GsRule[];
   counts: number[];
   duplicates: number[];

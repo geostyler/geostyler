@@ -28,7 +28,7 @@ import OlStyleParser from 'geostyler-openlayers-parser';
 const _get = require('lodash/get');
 const _isEqual = require('lodash/isEqual');
 
-import { Data } from 'geostyler-data';
+import { VectorData } from 'geostyler-data';
 import { IconEditorProps } from '../IconEditor/IconEditor';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
@@ -53,7 +53,7 @@ export interface PreviewDefaultProps {
 
 // non default props
 export interface PreviewProps extends Partial<PreviewDefaultProps> {
-  internalDataDef?: Data;
+  internalDataDef?: VectorData;
   symbolizers: Symbolizer[];
   iconEditorProps?: Partial<IconEditorProps>;
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;

@@ -22,7 +22,7 @@ import {
 } from 'geostyler-style';
 
 import {
-  Data as GsData
+  VectorData
 } from 'geostyler-data';
 
 import Rule, { RuleProps } from '../Rule/Rule';
@@ -64,7 +64,7 @@ interface StyleDefaultProps {
 
 // non default props
 export interface StyleProps extends Partial<StyleDefaultProps> {
-  data?: GsData;
+  data?: VectorData;
   onStyleChange?: (rule: GsStyle) => void;
   /** The data projection of example features */
   dataProjection?: string;

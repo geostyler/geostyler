@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 import { Style, Filter } from 'geostyler-style';
 import { LocaleProvider } from 'antd';
 import en_US from '../locale/en_US';
-import { Data } from 'geostyler-data';
+import { VectorData } from 'geostyler-data';
 import { IconLibrary } from '../Component/Symbolizer/IconSelector/IconSelector';
 
 /**
@@ -57,7 +57,7 @@ export class TestUtil {
   /**
    *
    */
-  static getDummyGsData = (): Data => {
+  static getDummyGsData = (): VectorData => {
     return {
       schema: {
         title: 'DummyData',
@@ -238,7 +238,7 @@ export class TestUtil {
     return twoRulesStyle;
   }
 
-  static getComplexGsDummyData = (): Data => {
+  static getComplexGsDummyData = (): VectorData => {
     return {
       'schema': {
         'type': 'object',

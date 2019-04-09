@@ -5,8 +5,8 @@ const Option = Select.Option;
 const _isEqual = require('lodash/isEqual');
 
 import {
-  Data as GsData,
-  DataParserConstructable as GsDataParserConstructable
+  VectorData,
+  DataParser
 } from 'geostyler-data';
 
 import UploadButton from '../../UploadButton/UploadButton';
@@ -37,18 +37,18 @@ export interface DataLoaderLocale {
 
 // default props
 interface DataLoaderDefaultProps {
-  onDataRead: (data: GsData) => void;
+  onDataRead: (data: VectorData) => void;
   locale: DataLoaderLocale;
 }
 
 // non default props
 export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
-  parsers: GsDataParserConstructable[];
+  parsers: DataParser[];
 }
 
 // state
 interface DataLoaderState {
-  activeParser?: GsDataParserConstructable;
+  activeParser?: DataParser;
   modalVisible?: boolean;
 }
 
@@ -71,7 +71,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
 
   public static defaultProps: DataLoaderDefaultProps = {
     locale: en_US.GsDataLoader,
-    onDataRead: (data: GsData) => {return; }
+    onDataRead: (data: VectorData) => {return; }
   };
 
   parseUploadData = (uploadObject: any) => {
@@ -81,7 +81,6 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     if (!activeParser) {
       return;
     }
-    const parser = new activeParser();
     const file = uploadObject.file as File;
     const reader = new FileReader();
     reader.readAsText(file);
@@ -89,8 +88,8 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
       const fileContent = reader.result.toString();
 
       // TODO Remove JSON.parse when type of readData is more precise
-      parser.readData(JSON.parse(fileContent))
-        .then((data: GsData) => {
+      activeParser.readData(JSON.parse(fileContent))
+        .then((data: VectorData) => {
           this.props.onDataRead(data);
           uploadObject.onSuccess(null, uploadObject.file);
         })
@@ -107,11 +106,10 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     if (!activeParser) {
       return;
     }
-    const parser = new activeParser();
     // The dataProjection of the Preview
     wfsReadParams.srsName = 'EPSG:4326';
-    parser.readData(wfsReadParams)
-      .then((data: GsData) => {
+    activeParser.readData(wfsReadParams)
+      .then((data: VectorData) => {
         this.props.onDataRead(data);
         this.setState({
           modalVisible: false
