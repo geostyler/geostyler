@@ -140,7 +140,8 @@ export default {
         blueBandLabel: 'Blau',
         grayBandLabel: 'Grau',
         channelSelectionGrayLabel: 'Grau',
-        channelSelectionRgbLabel: 'RGB'
+        channelSelectionRgbLabel: 'RGB',
+        titleLabel: 'Bandauswahl'
     },
     GsColorMapEditor: {
       typeLabel: 'Art',

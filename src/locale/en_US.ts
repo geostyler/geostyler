@@ -143,7 +143,8 @@ export default {
         blueBandLabel: 'Blue',
         grayBandLabel: 'Gray',
         channelSelectionGrayLabel: 'Gray',
-        channelSelectionRgbLabel: 'RGB'
+        channelSelectionRgbLabel: 'RGB',
+        titleLabel: 'Channel Selection'
     },
     GsColorMapEditor: {
       typeLabel: 'Type',
