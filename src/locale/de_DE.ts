@@ -118,6 +118,16 @@ export default {
         attributeComboPlaceholder: 'Feld wählen',
         rotateLabel: 'Drehung'
     },
+    GsRasterEditor: {
+        opacityLabel: 'Deckkraft',
+        hueRotateLabel: 'Farbtonrotation',
+        brightnessMinLabel: 'Min. Helligkeit',
+        brightnessMaxLabel: 'Max. Helligkeit',
+        saturationLabel: 'Sättigung',
+        contrastLabel: 'Kontrast',
+        fadeDurationLabel: 'Überblendzeit',
+        resamplingLabel: 'Resampling'
+    },
     GsPreview: {
         openEditorText: 'Symbolisierung editieren',
         closeEditorText: 'Editor schließen'
@@ -133,7 +143,8 @@ export default {
             Fill: 'Füllung',
             Icon: 'Bilddatei',
             Line: 'Linie',
-            Text: 'Text'
+            Text: 'Text',
+            Raster: 'Raster'
         }
     },
     GsScaleDenominator: {

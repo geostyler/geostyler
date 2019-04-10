@@ -5,7 +5,8 @@ import {
   SymbolizerKind,
   TextSymbolizer,
   LineSymbolizer,
-  FillSymbolizer
+  FillSymbolizer,
+  RasterSymbolizer
 } from 'geostyler-style';
 
 /**
@@ -41,6 +42,10 @@ class SymbolizerUtil {
     size: 12
   };
 
+  static rasterSymbolizer: RasterSymbolizer = {
+    kind: 'Raster'
+  };
+
   static defaultSymbolizer: Symbolizer = SymbolizerUtil.markSymbolizer;
 
   /**
@@ -73,6 +78,11 @@ class SymbolizerUtil {
       case 'Text':
         return {
           ...SymbolizerUtil.textSymbolizer,
+          ...values
+        };
+      case 'Raster':
+        return {
+          ...SymbolizerUtil.rasterSymbolizer,
           ...values
         };
       default:

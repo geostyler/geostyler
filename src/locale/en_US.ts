@@ -121,6 +121,16 @@ export default {
         haloColorLabel: 'Halo-Color',
         haloWidthLabel: 'Halo-Width'
     },
+    GsRasterEditor: {
+        opacityLabel: 'Opacity',
+        hueRotateLabel: 'Hue Rotation',
+        brightnessMinLabel: 'Min. Brightness',
+        brightnessMaxLabel: 'Max. Brightness',
+        saturationLabel: 'Saturation',
+        contrastLabel: 'Contrast',
+        fadeDurationLabel: 'Fade Duration',
+        resamplingLabel: 'Resampling'
+    },
     GsPreview: {
         openEditorText: 'Edit Symbolizer',
         closeEditorText: 'Close Editor'
@@ -136,7 +146,8 @@ export default {
             Fill: 'Fill',
             Icon: 'Icon',
             Line: 'Line',
-            Text: 'Text'
+            Text: 'Text',
+            Raster: 'Raster'
         }
     },
     GsGraphicTypeField: {
