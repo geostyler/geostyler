@@ -97,6 +97,9 @@ export class RasterChannelEditor extends React.Component<RasterChannelEditorProp
     return label;
   }
 
+  /**
+   * Checks if ChannelSelection is of type RGBChannel.
+   */
   isRgbChannel = (channels: ChannelSelection): channels is RGBChannel => {
     return (
       (channels as RGBChannel).redChannel !== undefined
@@ -105,10 +108,17 @@ export class RasterChannelEditor extends React.Component<RasterChannelEditorProp
     );
   }
 
+  /**
+   * Checks if ChannelSelection is of type GrayChannel.
+   */
   isGrayChannel = (channels: ChannelSelection): channels is GrayChannel => {
     return (channels as GrayChannel).grayChannel !== undefined;
   }
 
+  /**
+   * Updates ChannelField. Removes old props if channel type changes
+   * from GrayChannel to RGBChannel or vice versa.
+   */
   onChannelFieldChange = (name: string, channel: Channel) => {
     const {
       channelSelection,

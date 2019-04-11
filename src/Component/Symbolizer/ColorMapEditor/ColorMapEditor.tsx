@@ -109,6 +109,11 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     this.updateColorMap('type', type);
   }
 
+  /**
+   * Creates the number of default ColorMapEntries according to specified
+   * number of classes. Table will be updated accordingly.
+   *
+   */
   onNrOfClassesChange = (value: number) => {
     const {
       colorRamp
@@ -140,6 +145,12 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     });
   }
 
+  /**
+   * Applies the colors of the selected colorRamp to the colorMapEntries.
+   * Important: This method modifies the array of colorMapEntries 'cmEntries'.
+   *
+   * @return {ColorMapEntry[]} cmEntries, the modified array of colorMapEntries.
+   */
   applyColors = (colorRamp: string, cmEntries: ColorMapEntry[] = []): ColorMapEntry[] => {
     const {
       colorRamps
@@ -153,6 +164,10 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     return cmEntries;
   }
 
+  /**
+   * Updates property 'key' with 'value' of colorMapEntry at position 'index'.
+   * Creates a new colorMapEntry if it did not exist yet.
+   */
   setValueForColorMapEntry = (idx: number, key: string, value: any) => {
     const cmEntries = _get(this.props, 'colorMap.colorMapEntries');
 
@@ -181,6 +196,9 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     }
   }
 
+  /**
+   * Renderer method for the label column.
+   */
   labelRenderer = (text: string, record: ColorMapEntryRecord) => {
     const {
       locale
@@ -205,6 +223,9 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     );
   }
 
+  /**
+   * Renderer method for the color column.
+   */
   colorRenderer = (text: string, record: ColorMapEntryRecord) => {
     const input = (
       <ColorField
@@ -217,6 +238,9 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     return input;
   }
 
+  /**
+   * Renderer method for the quantity column.
+   */
   quantityRenderer = (text: string, record: ColorMapEntryRecord) => {
     const input = (
       <OffsetField
@@ -230,6 +254,9 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     return input;
   }
 
+  /**
+   * Renderer method for the opacity column.
+   */
   opacityRenderer = (text: string, record: ColorMapEntryRecord) => {
     const input = (
       <OpacityField
@@ -243,6 +270,9 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     return input;
   }
 
+  /**
+   * Creates the columns for the table.
+   */
   getColumns = () => {
     const {
       locale
@@ -284,6 +314,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
       wrapperCol: { span: 16 }
     };
 
+    // make sure colorMapEntries does exist
     let colorMapEntries: ColorMapEntry[] = _get(colorMap, 'colorMapEntries');
     if (!colorMapEntries) {
       colorMapEntries = [];

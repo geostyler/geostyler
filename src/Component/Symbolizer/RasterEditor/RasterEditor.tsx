@@ -143,6 +143,10 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     }
   }
 
+  /**
+   * Toggles the editor view. Switches from SymbolizerEditor to ChannelSelection
+   * or ColorMap and back.
+   */
   toggleView = (showDisplay: ShowDisplay) => {
     this.setState({
       showDisplay

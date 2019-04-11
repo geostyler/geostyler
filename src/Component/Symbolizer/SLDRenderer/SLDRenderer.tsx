@@ -113,6 +113,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
       // As soon as a symbolizer is of type raster symbolizer,
       // we will only create a legendGraphic for raster layers
       // as wms cannot return a mixed legendGraphic
+      // TODO
       if (symbolizers.some((symbolizer: Symbolizer) => symbolizer.kind === 'Raster')) {
         lyr = rasterLayer;
       } else {
