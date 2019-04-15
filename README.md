@@ -38,6 +38,10 @@ Code: https://github.com/terrestris/geostyler-demo
       [github](https://github.com/terrestris/geostyler-geojson-parser) /
       [npm](https://www.npmjs.com/package/geostyler-geojson-parser)
     )
+  - Shapefile (
+      [github](https://github.com/terrestris/geostyler-shapefile-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-shapefile-parser)
+    )
   - Web Feature Service (WFS) (
       [github](https://github.com/terrestris/geostyler-wfs-parser) /
       [npm](https://www.npmjs.com/package/geostyler-wfs-parser)
