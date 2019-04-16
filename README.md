@@ -38,6 +38,10 @@ Code: https://github.com/terrestris/geostyler-demo
       [github](https://github.com/terrestris/geostyler-geojson-parser) /
       [npm](https://www.npmjs.com/package/geostyler-geojson-parser)
     )
+  - Shapefile (
+      [github](https://github.com/terrestris/geostyler-shapefile-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-shapefile-parser)
+    )
   - Web Feature Service (WFS) (
       [github](https://github.com/terrestris/geostyler-wfs-parser) /
       [npm](https://www.npmjs.com/package/geostyler-wfs-parser)
@@ -55,16 +59,15 @@ Code: https://github.com/terrestris/geostyler-demo
     )
   - Mapbox Style (
       [github](https://github.com/terrestris/geostyler-mapbox-parser) /
-      npm will follow once release
+      [npm](https://www.npmjs.com/package/geostyler-mapbox-parser)
     )
   - QGIS Style [*.qml] (
       [github](https://github.com/terrestris/geostyler-qgis-parser) /
-      npm will follow once release
+      [npm](https://www.npmjs.com/package/geostyler-qgis-parser)
     )
-    
+
 ### More
   - CQL Filter (
       [github](https://github.com/terrestris/geostyler-cql-parser) /
       [npm](https://www.npmjs.com/package/geostyler-cql-parser)
     )
-  
