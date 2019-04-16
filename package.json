@@ -110,7 +110,7 @@
     "postcss-flexbugs-fixes": "4.1.0",
     "postcss-loader": "3.0.0",
     "react": "16.8.6",
-    "react-docgen-typescript": "1.12.3",
+    "react-docgen-typescript": "1.12.4",
     "react-dom": "16.8.6",
     "react-styleguidist": "9.0.8",
     "rimraf": "2.6.3",
