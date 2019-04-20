@@ -70,7 +70,7 @@
     "lodash": "4.17.11",
     "moment": "2.24.0",
     "react-codemirror2": "5.1.0",
-    "react-color": "2.17.0",
+    "react-color": "2.17.1",
     "react-rnd": "9.1.2"
   },
   "devDependencies": {
