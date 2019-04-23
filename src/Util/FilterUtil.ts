@@ -109,7 +109,7 @@ class FilterUtil {
    * If no feature matches, returns an empty array.
    *
    * @param {Filter} filter A geostyler filter object.
-   * @param {Data} data A geostyler data object.
+   * @param {VectorData} data A geostyler data object.
    * @return {Feature[]} An Array of geojson feature objects.
    */
   static getMatches = (filter: Filter, data: VectorData): any[] => {

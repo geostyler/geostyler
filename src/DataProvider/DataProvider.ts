@@ -1,5 +1,5 @@
 import ParserDesc from './ParserDesc';
-import { DataParser } from 'geostyler-data';
+import { DataParser, Data } from 'geostyler-data';
 
 /**
  * DataProvider acting as translator between input data and the internal data representation.
@@ -28,7 +28,7 @@ class DataProvider {
    * @param inputData
    * @param format
    */
-  importData(inputData: any, format: string) {
+  importData(inputData: any, format: string): Promise<Data> {
 
     let parserInstance: DataParser;
     parserInstance = this.getMatchingParser(format);

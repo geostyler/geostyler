@@ -129,7 +129,34 @@ export default {
         saturationLabel: 'Saturation',
         contrastLabel: 'Contrast',
         fadeDurationLabel: 'Fade Duration',
-        resamplingLabel: 'Resampling'
+        resamplingLabel: 'Resampling',
+        contrastEnhancementLabel: 'Contrast Enhancement',
+        gammaValueLabel: 'Gamma',
+        colorMapLabel: 'Color Map',
+        symbolizerLabel: 'Symbolizer',
+        channelSelectionLabel: 'Channel Selection'
+    },
+    GsRasterChannelEditor: {
+        channelSelectionLabel: 'Edit Channels',
+        redBandLabel: 'Red',
+        greenBandLabel: 'Green',
+        blueBandLabel: 'Blue',
+        grayBandLabel: 'Gray',
+        channelSelectionGrayLabel: 'Gray',
+        channelSelectionRgbLabel: 'RGB',
+        titleLabel: 'Channel Selection'
+    },
+    GsColorMapEditor: {
+      typeLabel: 'Type',
+      extendedLabel: 'Color Depth',
+      colorMapEntriesLabel: 'Colormap',
+      titleLabel: 'Color Map',
+      nrOfClassesLabel: 'Nr. of classes',
+      colorRampLabel: 'Color Ramp',
+      colorLabel: 'Color',
+      quantityLabel: 'Quantity',
+      labelLabel: 'Label',
+      opacityLabel: 'Opacity'
     },
     GsPreview: {
         openEditorText: 'Edit Symbolizer',
@@ -154,6 +181,14 @@ export default {
       Mark: 'Mark',
       Icon: 'Icon'
     },
+    GsRgbChannelField: {
+      redLabel: 'Red band',
+      greenLabel: 'Green band',
+      blueLabel: 'Blue band'
+    },
+    GsGrayChannelField: {
+      grayLabel: 'Gray band'
+    },
     GsScaleDenominator: {
         minScaleDenominatorLabelText: 'Min. Scale',
         maxScaleDenominatorLabelText: 'Max. Scale',
@@ -169,6 +204,22 @@ export default {
           Cross: 'Cross',
           X: 'X'
         }
+    },
+    GsColorMapEntryField: {
+      colorLabel: 'Color',
+      labelLabel: 'Legend Label',
+      quantityLabel: 'Quantity',
+      opacityLabel: 'Opacity'
+    },
+    GsChannelField: {
+      sourceChannelNameLabel: 'Channel Name',
+      contrastEnhancementTypeLabel: 'Contrast Enhancement',
+      gammaValueLabel: 'Gamma'
+    },
+    GsColorMapTypeField: {
+      rampMapTypeLabel: 'Interpolated',
+      intervalsMapTypeLabel: 'Intervals',
+      valuesMapTypeLabel: 'Values'
     },
     GsSymbolizerEditor: {
       kindFieldLabel: 'Kind'

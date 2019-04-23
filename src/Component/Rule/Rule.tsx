@@ -78,7 +78,12 @@ export interface RuleProps extends Partial<RuleDefaultProps> {
   filterUiProps?: Partial<ComparisonFilterProps>;
   /** Properties that will be passed to the RuleNameField */
   ruleNameProps?: Partial<NameFieldProps>;
+  /** Properties that will be passed to the IconSymbolizer */
   iconLibraries?: IconLibrary[];
+  /** Properties that will be passed to the RasterSymbolizer */
+  colorRamps?: {
+    [name: string]: string[]
+  };
 }
 
 // state
@@ -261,7 +266,8 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       oLRendererProps,
       sldRendererProps,
       locale,
-      iconLibraries
+      iconLibraries,
+      colorRamps
     } = this.props;
 
     const {
@@ -311,6 +317,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
                   symbolizers={rule.symbolizers}
                   onSymbolizersChange={this.onSymbolizersChange}
                   iconLibraries={iconLibraries}
+                  colorRamps={colorRamps}
                 />
             }
           </div>

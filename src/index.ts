@@ -2,25 +2,33 @@
   Copyright (c) 2018 terrestris GmbH & Co. KG
   Licensed under the BSD 2-Clause "Simplified" License, see
   https://github.com/terrestris/geostyler/blob/master/LICENSE
-*/
+  */
 import AttributeCombo from './Component/Filter/AttributeCombo/AttributeCombo';
 import BoolFilterField from './Component/Filter/BoolFilterField/BoolFilterField';
 import BrightnessField from './Component/Symbolizer/Field/BrightnessField/BrightnessField';
 import BulkEditModals from './Component/Symbolizer/BulkEditModals/BulkEditModals';
+import ChannelField from './Component/Symbolizer/Field/ChannelField/ChannelField';
+import ChannelSelectionField from './Component/Symbolizer/Field/ChannelSelectionField/ChannelSelectionField';
 import CodeEditor from './Component/CodeEditor/CodeEditor';
 import ColorField from './Component/Symbolizer/Field/ColorField/ColorField';
+import ColorMapEntryField from './Component/Symbolizer/Field/ColorMapEntryField/ColorMapEntryField';
+import ColorMapTypeField from './Component/Symbolizer/Field/ColorMapTypeField/ColorMapTypeField';
 import ComparisonFilter from './Component/Filter/ComparisonFilter/ComparisonFilter';
+import ContrastEnhancementField from './Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
 import ContrastField from './Component/Symbolizer/Field/ContrastField/ContrastField';
 import DataLoader from './Component/DataInput/DataLoader/DataLoader';
 import DataProvider from './DataProvider/DataProvider';
 import Editor from './Component/Symbolizer/Editor/Editor';
+import ExtendedField from './Component/Symbolizer/Field/ExtendedField/ExtendedField';
 import FadeDurationField from './Component/Symbolizer/Field/FadeDurationField/FadeDurationField';
 import FieldSet from './Component/FieldSet/FieldSet';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import FilterEditorWindow from './Component/Filter/FilterEditorWindow/FilterEditorWindow';
 import FontPicker from './Component/Symbolizer/Field/FontPicker/FontPicker';
+import GammaField from './Component/Symbolizer/Field/GammaField/GammaField';
 import GraphicEditor from './Component/Symbolizer/GraphicEditor/GraphicEditor';
 import GraphicTypeField from './Component/Symbolizer/Field/GraphicTypeField/GraphicTypeField';
+import GrayChannelField from './Component/Symbolizer/Field/GrayChannelField/GrayChannelField';
 import IconEditor from './Component/Symbolizer/IconEditor/IconEditor';
 import IconSelector from './Component/Symbolizer/IconSelector/IconSelector';
 import IconSelectorWindow from './Component/Symbolizer/IconSelectorWindow/IconSelectorWindow';
@@ -42,9 +50,11 @@ import OperatorCombo from './Component/Filter/OperatorCombo/OperatorCombo';
 import Preview from './Component/Symbolizer/Preview/Preview';
 import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor';
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
+import RasterChannelEditor from './Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
 import RasterEditor from './Component/Symbolizer/RasterEditor/RasterEditor';
 import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
 import Renderer from './Component/Symbolizer/Renderer/Renderer';
+import RgbChannelField from './Component/Symbolizer/Field/RgbChannelField/RgbChannelField';
 import ResamplingField from './Component/Symbolizer/Field/ResamplingField/ResamplingField';
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
 import Rule from './Component/Rule/Rule';
@@ -52,6 +62,7 @@ import SaturationField from './Component/Symbolizer/Field/SaturationField/Satura
 import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
 import SizeField from './Component/Symbolizer/Field/SizeField/SizeField';
 import SLDRenderer from './Component/Symbolizer/SLDRenderer/SLDRenderer';
+import SourceChannelNameField from './Component/Symbolizer/Field/SourceChannelNameField/SourceChannelNameField';
 import Style from './Component/Style/Style';
 import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
 import SymbolizerEditorWindow from './Component/Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
@@ -82,20 +93,28 @@ export {
   BoolFilterField,
   BrightnessField,
   BulkEditModals,
+  ChannelField,
+  ChannelSelectionField,
   CodeEditor,
   ColorField,
+  ColorMapEntryField,
+  ColorMapTypeField,
   ComparisonFilter,
+  ContrastEnhancementField,
   ContrastField,
   DataLoader,
   DataProvider,
   Editor,
+  ExtendedField,
   FadeDurationField,
   FieldSet,
   FillEditor,
   FilterEditorWindow,
   FontPicker,
+  GammaField,
   GraphicEditor,
   GraphicTypeField,
+  GrayChannelField,
   IconEditor,
   IconSelector,
   IconSelectorWindow,
@@ -120,9 +139,11 @@ export {
   Preview,
   PropTextEditor,
   RadiusField,
+  RasterChannelEditor,
   RasterEditor,
   RemoveButton,
   Renderer,
+  RgbChannelField,
   ResamplingField,
   RotateField,
   Rule,
@@ -130,6 +151,7 @@ export {
   ScaleDenominator,
   SizeField,
   SLDRenderer,
+  SourceChannelNameField,
   Style,
   StyleLoader,
   SymbolizerEditorWindow,

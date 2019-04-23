@@ -23,7 +23,7 @@ import {
 } from 'geostyler-style';
 
 import {
-  VectorData
+  Data
 } from 'geostyler-data';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
@@ -38,6 +38,7 @@ import FilterUtil from '../../Util/FilterUtil';
 import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
+import DataUtil from '../../Util/DataUtil';
 
 // i18n
 export interface RuleTableLocale {
@@ -66,7 +67,7 @@ interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
 
 // non default props
 export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
-  data?: VectorData;
+  data?: Data;
   rules: GsRule[];
   footer?: (currentPageData?: any) => React.ReactNode;
   onRulesChange?: (rules: GsRule[]) => void;
@@ -74,6 +75,9 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   /** Properties that will be passed to the Comparison Filters */
   filterUiProps?: Partial<ComparisonFilterProps>;
   iconLibraries?: IconLibrary[];
+  colorRamps?: {
+    [name: string]: string[]
+  };
 }
 
 // state
@@ -84,7 +88,7 @@ interface RuleTableState {
   filterEditorVisible: boolean;
   filterEditorPosition: DOMRect;
   hasError: boolean;
-  data: VectorData;
+  data: Data;
   rules: GsRule[];
   counts: number[];
   duplicates: number[];
@@ -148,7 +152,11 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       if (filtersEqual && nextProps.data === prevState.data) {
         return {};
       }
-      countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(nextProps.rules, nextProps.data);
+      if (nextProps.data && DataUtil.isVector(nextProps.data)) {
+        countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(nextProps.rules, nextProps.data);
+      } else {
+        countsAndDuplicates = {};
+      }
     } catch (e) {
       // make sure to update state when checks/calculation fails
     }
@@ -345,7 +353,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       } catch (error) {
         amount = '-';
       }
-    } else if (data) {
+    } else if (data && DataUtil.isVector(data)) {
       amount = data.exampleFeatures.features.length;
     }
     return (
@@ -475,6 +483,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       iconLibraries,
       showAmountColumn,
       showDuplicatesColumn,
+      colorRamps,
       ...restProps
     } = this.props;
     const {
@@ -508,6 +517,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
               symbolizers={rules[ruleEditIndex].symbolizers}
               onSymbolizersChange={this.onSymbolizersChange}
               iconLibraries={iconLibraries}
+              colorRamps={colorRamps}
             />
         }
         {
@@ -523,7 +533,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
               filter={rules[ruleEditIndex].filter}
               onFilterChange={this.onFilterChange}
               filterUiProps={filterUiProps}
-              internalDataDef={data}
+              internalDataDef={data && DataUtil.isVector(data) ? data : undefined}
             />
         }
       </div>

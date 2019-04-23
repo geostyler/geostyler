@@ -22,7 +22,7 @@ import {
 } from 'geostyler-style';
 
 import {
-  VectorData
+  Data
 } from 'geostyler-data';
 
 import Rule, { RuleProps } from '../Rule/Rule';
@@ -64,7 +64,7 @@ interface StyleDefaultProps {
 
 // non default props
 export interface StyleProps extends Partial<StyleDefaultProps> {
-  data?: VectorData;
+  data?: Data;
   onStyleChange?: (rule: GsStyle) => void;
   /** The data projection of example features */
   dataProjection?: string;
@@ -504,6 +504,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             iconLibraries={iconLibraries}
             showAmountColumn={showAmountColumn}
             showDuplicatesColumn={showDuplicatesColumn}
+            colorRamps={colorRamps}
           />
           : rules.map((rule, idx) => <Rule
             key={'rule_' + idx}
@@ -517,6 +518,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             rendererType={ruleRendererType}
             sldRendererProps={sldRendererProps}
             iconLibraries={iconLibraries}
+            colorRamps={colorRamps}
           />)
         }
         {

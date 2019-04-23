@@ -37,6 +37,9 @@ export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWin
   onClose?: () => void;
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   iconLibraries?: IconLibrary[];
+  colorRamps?: {
+    [name: string]: string[]
+  };
 }
 
 /**
@@ -65,7 +68,8 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
       locale,
       internalDataDef,
       iconLibraries,
-      constrainWindow
+      constrainWindow,
+      colorRamps
     } = this.props;
 
     return (
@@ -106,6 +110,7 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
             symbolizers={symbolizers}
             onSymbolizersChange={onSymbolizersChange}
             iconLibraries={iconLibraries}
+            editorProps={{colorRamps}}
           />
         </Rnd>,
         document.body

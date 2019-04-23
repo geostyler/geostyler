@@ -24,7 +24,7 @@ import './TextEditor.css';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import { Data } from 'geostyler-data';
+import { VectorData } from 'geostyler-data';
 
 // i18n
 export interface TextEditorLocale {
@@ -44,14 +44,13 @@ export interface TextEditorLocale {
 
 interface TextEditorDefaultProps {
   locale: TextEditorLocale;
-  internalDataDef?: Data;
 }
 
 // non default props
 export interface TextEditorProps extends Partial<TextEditorDefaultProps> {
   symbolizer: TextSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  internalDataDef?: Data;
+  internalDataDef?: VectorData;
 }
 
 /**

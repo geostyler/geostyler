@@ -64,6 +64,9 @@ export interface PreviewProps extends Partial<PreviewDefaultProps> {
   layers?: any[];
   controls?: any[];
   interactions?: any[];
+  colorRamps?: {
+    [name: string]: string[]
+  };
 }
 
 // state
@@ -326,6 +329,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       symbolizers,
       hideEditButton,
       onSymbolizersChange,
+      colorRamps
     } = this.props;
 
     const {
@@ -369,6 +373,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
               onClose={this.onEditButtonClicked}
               symbolizers={symbolizers}
               onSymbolizersChange={onSymbolizersChange}
+              colorRamps={colorRamps}
             /> : null
         }
         </div>

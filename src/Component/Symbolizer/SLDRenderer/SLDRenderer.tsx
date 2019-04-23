@@ -16,6 +16,7 @@ interface SLDRendererDefaultProps {
 export interface SLDRendererAdditonalProps extends Partial<SLDRendererDefaultProps> {
   wmsBaseUrl: string;
   layer: string;
+  rasterLayer: string;
   additionalHeaders?: any;
   wmsParams?: any;
 }
@@ -96,6 +97,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
       const {
         wmsBaseUrl,
         layer,
+        rasterLayer,
         width,
         height,
         wmsParams
@@ -107,6 +109,16 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
           symbolizers: symbolizers
         }]
       };
+      let lyr: string;
+      // As soon as a symbolizer is of type raster symbolizer,
+      // we will only create a legendGraphic for raster layers
+      // as wms cannot return a mixed legendGraphic
+      // TODO
+      if (symbolizers.some((symbolizer: Symbolizer) => symbolizer.kind === 'Raster')) {
+        lyr = rasterLayer;
+      } else {
+        lyr = layer;
+      }
       this._styleParser.writeStyle(style)
         .then((sld: string) => {
           const params = {
@@ -115,7 +127,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
             'REQUEST': 'GetLegendGraphic',
             'FORMAT': 'image/png',
             'TRANSPARENT': 'true',
-            'LAYER': layer,
+            'LAYER': lyr,
             'SLD_BODY': sld,
             'WIDTH': width,
             'HEIGHT': height,

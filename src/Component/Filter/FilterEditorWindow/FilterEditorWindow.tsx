@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { Rnd } from 'react-rnd';
-import { Data } from 'geostyler-data';
+import { VectorData } from 'geostyler-data';
 
 import './FilterEditorWindow.css';
 import { Button } from 'antd';
@@ -27,7 +27,7 @@ export interface FilterEditorWindowDefaultProps {
 // non default props
 export interface FilterEditorWindowProps extends Partial<FilterEditorWindowDefaultProps> {
   filter: Filter;
-  internalDataDef?: Data;
+  internalDataDef?: VectorData;
   x?: number;
   y?: number;
   onClose?: () => void;
