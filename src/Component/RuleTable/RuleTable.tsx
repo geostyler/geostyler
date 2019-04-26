@@ -203,6 +203,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
 
   symbolizerRenderer = (text: string, record: RuleRecord) => {
     const {
+      data,
       rendererType,
       sldRendererProps
     } = this.props;
@@ -223,6 +224,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           <Renderer
             symbolizers={record.symbolizers}
             onClick={onSymbolizerClick}
+            data={data}
           />
         )
     );
