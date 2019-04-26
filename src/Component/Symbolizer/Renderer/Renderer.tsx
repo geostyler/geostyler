@@ -1,9 +1,5 @@
 import * as React from 'react';
 
-const _isEqual = require('lodash/isEqual');
-const _get = require('lodash/get');
-const _uniqueId = require('lodash/uniqueId');
-
 import OlMap from 'ol/Map';
 import OlLayerVector from 'ol/layer/Vector';
 import OlSourceVector from 'ol/source/Vector';
@@ -21,9 +17,15 @@ import './Renderer.css';
 
 import 'ol/ol.css';
 import './Renderer.css';
+import { Data } from 'geostyler-data';
+
+const _isEqual = require('lodash/isEqual');
+const _get = require('lodash/get');
+const _uniqueId = require('lodash/uniqueId');
 
 // non default props
 export interface RendererProps {
+  data?: Data;
   symbolizers: Symbolizer[];
   symbolizerKind?: SymbolizerKind;
   onClick?: (symbolizers: Symbolizer[], event: any) => void;
@@ -80,10 +82,14 @@ export class Renderer extends React.Component<RendererProps> {
   }
 
   updateFeature() {
+    const data = this.props.data;
+    const exampleFeatureProps = _get(data, 'exampleFeatures.features[0].properties');
+
     this._layer.getSource().clear();
     const sampleFeature = new OlFeature({
       geometry: this.getSampleGeomFromSymbolizer(),
-      Name: 'Sample Feature'
+      Name: 'Sample Feature',
+      ...exampleFeatureProps
     });
     this._layer.getSource().addFeature(sampleFeature);
     // zoom to feature extent
