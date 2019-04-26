@@ -16,7 +16,7 @@ interface SLDRendererDefaultProps {
 export interface SLDRendererAdditonalProps extends Partial<SLDRendererDefaultProps> {
   wmsBaseUrl: string;
   layer: string;
-  rasterLayer: string;
+  rasterLayer?: string;
   additionalHeaders?: any;
   wmsParams?: any;
 }
@@ -115,7 +115,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
       // as wms cannot return a mixed legendGraphic
       // TODO
       if (symbolizers.some((symbolizer: Symbolizer) => symbolizer.kind === 'Raster')) {
-        lyr = rasterLayer;
+        lyr = rasterLayer || layer;
       } else {
         lyr = layer;
       }
