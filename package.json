@@ -41,7 +41,7 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
-    "@babel/polyfill": "7.4.3",
+    "@babel/polyfill": "7.4.4",
     "@types/chroma-js": "1.4.1",
     "@types/codemirror": "0.0.74",
     "@types/color": "3.0.0",
@@ -74,10 +74,10 @@
     "react-rnd": "9.1.2"
   },
   "devDependencies": {
-    "@babel/core": "7.4.3",
-    "@babel/plugin-proposal-class-properties": "7.4.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.4.3",
-    "@babel/preset-env": "7.4.3",
+    "@babel/core": "7.4.4",
+    "@babel/plugin-proposal-class-properties": "7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "7.4.4",
+    "@babel/preset-env": "7.4.4",
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.3.3",
     "@types/enzyme": "3.9.1",
