@@ -7,4 +7,6 @@ declare module 'ol/Map';
 declare module 'ol/View';
 declare module 'ol/geom/LineString';
 declare module 'ol/geom/Polygon';
+declare module 'ol/geom/Point';
+declare module 'ol/Feature';
 declare module '@ungap/url-search-params';
