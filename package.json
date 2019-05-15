@@ -63,7 +63,7 @@
     "geostyler-cql-parser": "0.1.3",
     "geostyler-data": "1.0.0",
     "geostyler-geojson-parser": "1.0.0",
-    "geostyler-openlayers-parser": "1.1.1",
+    "geostyler-openlayers-parser": "1.1.2",
     "geostyler-sld-parser": "1.2.0",
     "geostyler-style": "1.1.0",
     "geostyler-wfs-parser": "1.0.0",
