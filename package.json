@@ -80,7 +80,7 @@
     "@babel/preset-env": "7.4.4",
     "@babel/preset-react": "7.0.0",
     "@babel/preset-typescript": "7.3.3",
-    "@types/enzyme": "3.9.1",
+    "@types/enzyme": "3.9.2",
     "@types/jest": "24.0.13",
     "@types/jest-diff": "20.0.1",
     "@types/node": "11.13.9",
