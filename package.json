@@ -90,7 +90,7 @@
     "autoprefixer": "9.5.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "24.7.1",
-    "babel-loader": "8.0.5",
+    "babel-loader": "8.0.6",
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "copyfiles": "2.1.0",
     "coveralls": "3.0.3",
