@@ -147,6 +147,7 @@ export class Renderer extends React.Component<RendererProps> {
     const style = {
       name: 'WrapperStyle4Symbolizer',
       rules: [{
+        name: 'WrapperRule4Symbolizer',
         symbolizers: symbolizers
       }]
     };

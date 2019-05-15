@@ -12,7 +12,7 @@ import OlView from 'ol/View';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOSM from 'ol/source/OSM';
 
-import { Symbolizer, SymbolizerKind } from 'geostyler-style';
+import { Symbolizer, SymbolizerKind, Style } from 'geostyler-style';
 
 import './Preview.css';
 
@@ -307,9 +307,10 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
     // only accepts a Style object
-    const style = {
+    const style: Style = {
       name: 'WrapperStyle4Symbolizer',
       rules: [{
+        name: 'WrapperRule4Symbolizer',
         symbolizers: symbolizers
       }]
     };
