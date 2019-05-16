@@ -7,7 +7,7 @@ import { InputNumberProps } from 'antd/lib/input-number';
 
 // non default props
 export interface OpacityFieldProps extends Partial<InputNumberProps> {
-  onChange?: (opacity: number) => void;
+  onChange?: (opacity: number | undefined) => void;
   opacity?: number;
 }
 
