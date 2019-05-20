@@ -13,7 +13,8 @@ import NumberFilterField from '../NumberFilterField/NumberFilterField';
 
 import {
   ComparisonFilter as GsComparisonFilter,
-  ComparisonOperator
+  ComparisonOperator,
+  FunctionFilter as GsFunctionFilter
 } from 'geostyler-style';
 
 import './ComparisonFilter.css';
@@ -22,6 +23,7 @@ import BoolFilterField from '../BoolFilterField/BoolFilterField';
 import {
   Data as Data
 } from 'geostyler-data';
+import FunctionFilter from '../FunctionFilter/FunctionFilter';
 
 const _get = require('lodash/get');
 const _cloneDeep = require('lodash/cloneDeep');
@@ -125,8 +127,8 @@ type ValidationResult = {
 export class ComparisonFilter extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
 
   static getDerivedStateFromProps(
-      nextProps: ComparisonFilterProps,
-      prevState: ComparisonFilterState): Partial<ComparisonFilterState> {
+    nextProps: ComparisonFilterProps,
+    prevState: ComparisonFilterState): Partial<ComparisonFilterState> {
     return {
       filter: nextProps.filter
     };
@@ -140,9 +142,9 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
    * @param {string} selectedAttribute The currently seledted attribute field
    */
   static validateValue = (
-      newValue: string | number | boolean | null,
-      internalDataDef: Data,
-      selectedAttribute: string): ValidationResult => {
+    newValue: string | number | boolean | null,
+    internalDataDef: Data,
+    selectedAttribute: string): ValidationResult => {
 
     let isValid = true;
     let errorMsg = '';
@@ -222,41 +224,53 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     if (filter) {
       // build UI by passed in filter object
       const attrName = filter[1];
-
       const stateParts: any = {
-        attribute: attrName,
+        attribute: null,
         operator: filter[0],
         value: filter[2],
         filter: this.props.filter,
+        textFieldVisible: true,
+        valueValidationHelpString: valueValidationHelpString,
         validateStatus: {
-          attribute: attrName ? 'success' : 'error',
-          operator: filter[0] ? 'success' : 'error',
-          value: filter[2] ? 'success' : 'error'
-        },
-        valueValidationHelpString: valueValidationHelpString
+          attribute: 'success',
+          operator: 'success',
+          value: 'success'
+        }
       };
 
       this.state = stateParts;
 
-      // read out attribute type
-      if (internalDataDef) {
-        const attrDefs = internalDataDef.schema.properties;
-        const attribute = attrDefs[attrName];
-        if (attribute) {
-          const attrType = attrDefs[attrName].type;
-          stateParts.attributeType = attrType;
+      if (!Array.isArray(attrName)) {
 
-          stateParts.allowedOperators = this.operatorsMap[attrType];
+        stateParts.attribute = attrName,
+          stateParts.validateStatus = {
+            attribute: attrName ? 'success' : 'error',
+            operator: filter[0] ? 'success' : 'error',
+            value: filter[2] ? 'success' : 'error'
+          };
+
+        this.state = stateParts;
+
+        // read out attribute type
+        if (internalDataDef) {
+          const attrDefs = internalDataDef.schema.properties;
+          const attribute = attrDefs[attrName];
+          if (attribute) {
+            const attrType = attrDefs[attrName].type;
+            stateParts.attributeType = attrType;
+
+            stateParts.allowedOperators = this.operatorsMap[attrType];
+          }
         }
+
+        const valueFieldVis: {
+          textFieldVisible: boolean;
+          numberFieldVisible: boolean;
+          boolFieldVisible: boolean
+        } = this.getValueFieldVis(attrName);
+
+        this.state = Object.assign(stateParts, valueFieldVis);
       }
-
-      const valueFieldVis: {
-        textFieldVisible: boolean;
-        numberFieldVisible: boolean;
-        boolFieldVisible: boolean
-      } = this.getValueFieldVis(attrName);
-
-      this.state = Object.assign(stateParts, valueFieldVis);
 
     } else {
       this.state = {
@@ -350,7 +364,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       // read out attribute type
       const attrDefs = internalDataDef.schema.properties;
       const attrType = attrDefs[newAttrName].type;
-      this.setState({attribute: newAttrName});
+      this.setState({ attribute: newAttrName });
 
       // reset the filter value when the attribute type changed
       if (attrType !== this.state.attributeType) {
@@ -380,6 +394,23 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     });
   }
 
+  onFunctionFilterChange  = (newFunctionFilter: GsFunctionFilter) => {
+    const {
+      onFilterChange,
+    } = this.props;
+
+    let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
+    filter[1] = newFunctionFilter;
+
+    this.setState({
+      filter
+    }, () => {
+      if (onFilterChange) {
+        onFilterChange(filter);
+      }
+    });
+  }
+
   /**
    * Handler function, which is executed, when to underlying filter operator changes.
    *
@@ -391,7 +422,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     } = this.props;
     let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
     filter[0] = newOperator;
-    this.setState({filter});
+    this.setState({ filter });
 
     const isValid = this.props.validators.operator(newOperator);
     const validationStateNew: ValidationStatus = {
@@ -470,7 +501,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
 
     const validationRes = validators.value(filter[2], this.props.internalDataDef, this.state.attribute);
     const validateStatus: ValidationStatus = {
-      attribute: validators.attribute(filter[1]) ? 'success' : 'error',
+      attribute: !Array.isArray(filter[1]) && validators.attribute(filter[1]) ? 'success' : 'error',
       operator: validators.operator(filter[0]) ? 'success' : 'error',
       value: validationRes.isValid ? 'success' : 'error'
     };
@@ -481,9 +512,9 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       },
       () => {
         if (_isFunction(onValidationChanged)) {
-        onValidationChanged(validateStatus);
-      }
-    });
+          onValidationChanged(validateStatus);
+        }
+      });
   }
 
   render() {
@@ -514,7 +545,10 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       allowedOperators,
       filter,
       validateStatus,
-      valueValidationHelpString
+      valueValidationHelpString,
+      textFieldVisible,
+      numberFieldVisible,
+      boolFieldVisible
     } = this.state;
 
     let className = 'gs-comparison-filter-ui';
@@ -522,23 +556,32 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       className += ' micro';
     }
 
+    const attributeIsFunctionFilter = filter && Array.isArray(filter[1]);
+
     return (
       <div className={className}>
         <Form>
           <Row gutter={16} justify="center">
             <Col span={10} className="gs-small-col">
-              <AttributeCombo
-                value={filter ? filter[1] : undefined}
-                internalDataDef={internalDataDef}
-                onAttributeChange={this.onAttributeChange}
-                attributeNameFilter={attributeNameFilter}
-                attributeNameMappingFunction={attributeNameMappingFunction}
-                label={attributeLabel}
-                placeholder={attributePlaceholderString}
-                validateStatus={validateStatus.attribute}
-                help={attributeValidationHelpString}
-                hideAttributeType={hideAttributeType}
-              />
+              {
+                attributeIsFunctionFilter ?
+                  <FunctionFilter
+                    filter={filter[1] as GsFunctionFilter}
+                    onFilterChange={this.onFunctionFilterChange}
+                  /> :
+                  <AttributeCombo
+                    value={filter ? filter[1] as string : undefined}
+                    internalDataDef={internalDataDef}
+                    onAttributeChange={this.onAttributeChange}
+                    attributeNameFilter={attributeNameFilter}
+                    attributeNameMappingFunction={attributeNameMappingFunction}
+                    label={attributeLabel}
+                    placeholder={attributePlaceholderString}
+                    validateStatus={validateStatus.attribute}
+                    help={attributeValidationHelpString}
+                    hideAttributeType={hideAttributeType}
+                  />
+              }
             </Col>
             <Col span={4} className="gs-small-col">
               <OperatorCombo
@@ -556,7 +599,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
               />
             </Col>
             {
-              this.state.textFieldVisible ?
+              textFieldVisible ?
                 <Col span={10} className="gs-small-col">
                   <TextFilterField
                     value={filter ? filter[2] as string : undefined}
@@ -572,7 +615,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
                 null
             }
             {
-              this.state.numberFieldVisible ?
+              numberFieldVisible ?
                 <Col span={10} className="gs-small-col">
                   <NumberFilterField
                     value={filter ? filter[2] as number : undefined}
@@ -588,7 +631,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
                 null
             }
             {
-              this.state.boolFieldVisible ?
+              boolFieldVisible ?
                 <Col span={10} className="gs-small-col">
                   <BoolFilterField
                     value={filter ? filter[2] as boolean : undefined}

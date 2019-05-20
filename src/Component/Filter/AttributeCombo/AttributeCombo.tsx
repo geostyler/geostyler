@@ -62,8 +62,8 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
   }
 
   static getDerivedStateFromProps(
-     nextProps: AttributeComboProps,
-     prevState: AttributeComboState): Partial<AttributeComboState> {
+      nextProps: AttributeComboProps,
+      prevState: AttributeComboState): Partial<AttributeComboState> {
     return {
       value: nextProps.value
     };
@@ -73,10 +73,12 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
     const {
       internalDataDef,
       onAttributeChange,
+      help,
       label,
       placeholder,
       attributeNameFilter,
-      hideAttributeType
+      hideAttributeType,
+      validateStatus
     } = this.props;
 
     let options: Object[] = [];
@@ -106,7 +108,7 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
       });
     }
 
-    const helpTxt = this.props.validateStatus !== 'success' ? this.props.help : null;
+    const helpTxt = validateStatus !== 'success' ? help : null;
 
     return (
       <div className="gs-attr-combo">
