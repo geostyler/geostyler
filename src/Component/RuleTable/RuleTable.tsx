@@ -194,6 +194,12 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   onSymbolizerClick = (record: RuleRecord, symbolizerEditorPosition: DOMRect) => {
+    const {
+      rowSelection
+    } = this.props;
+    const onChange = rowSelection.onChange;
+    onChange([record.key], null);
+
     this.setState({
       ruleEditIndex: record.key,
       symbolizerEditorVisible: true,
@@ -424,6 +430,12 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   onSymbolizerEditorWindowClose = () => {
+    const {
+      rowSelection
+    } = this.props;
+    const onChange = rowSelection.onChange;
+    onChange([], null);
+
     this.setState({
       symbolizerEditorVisible: false
     });
