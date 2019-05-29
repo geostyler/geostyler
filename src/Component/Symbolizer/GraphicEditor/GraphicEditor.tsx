@@ -3,10 +3,12 @@ import {
   PointSymbolizer,
   GraphicType,
   MarkSymbolizer,
-  IconSymbolizer
+  IconSymbolizer,
+  FontIconSymbolizer
 } from 'geostyler-style';
 import MarkEditor from '../MarkEditor/MarkEditor';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
+import FontIconEditor, { FontIconEditorProps } from '../FontIconEditor/FontIconEditor';
 import GraphicTypeField, { GraphicTypeFieldProps } from '../Field/GraphicTypeField/GraphicTypeField';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
@@ -32,6 +34,8 @@ export interface GraphicEditorProps extends Partial<GraphicEditorDefaultProps> {
   /** Default IconEditorProps */
   iconEditorProps?: Partial<IconEditorProps>;
   iconLibraries?: IconLibrary[];
+  /** Default FontIconEditorProps */
+  fontIconEditorProps?: Partial<FontIconEditorProps>;
 }
 
 /** GraphicEditor to select between different graphic options */
@@ -48,7 +52,7 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
    * @param {any} iconEditorProps PassTroughProps for IconEditor
    * @return {React.ReactNode} MarkEditor or IconEditor or undefined
    */
-  getGraphicFields = (graphic: PointSymbolizer, iconEditorProps?: any): React.ReactNode => {
+  getGraphicFields = (graphic: PointSymbolizer, iconEditorProps?: any, fontIconEditorProps?: any): React.ReactNode => {
     const {
       onGraphicChange,
       iconLibraries
@@ -68,6 +72,15 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
           onSymbolizerChange={onGraphicChange}
           iconLibraries={iconLibraries}
           {...iconEditorProps}
+        />
+      );
+    } else if (_get(graphic, 'kind') === 'FontIcon') {
+      return (
+        <FontIconEditor
+          symbolizer={graphic}
+          onSymbolizerChange={onGraphicChange}
+          // iconLibraries={iconLibraries}
+          {...fontIconEditorProps}
         />
       );
     } else {
@@ -91,6 +104,8 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
         onGraphicChange(SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer);
       } else if (gType === 'Icon') {
         onGraphicChange(SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer);
+      } else if (gType === 'FontIcon') {
+        onGraphicChange(SymbolizerUtil.generateSymbolizer('FontIcon') as FontIconSymbolizer);
       } else {
         onGraphicChange(undefined);
       }
@@ -103,7 +118,8 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
       graphicType,
       graphicTypeFieldLabel,
       graphicTypeFieldProps,
-      iconEditorProps
+      iconEditorProps,
+      fontIconEditorProps
     } = this.props;
 
     const formItemLayout = {
@@ -123,7 +139,7 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
             {...graphicTypeFieldProps}
           />
         </Form.Item>
-        {this.getGraphicFields(graphic, iconEditorProps)}
+        {this.getGraphicFields(graphic, iconEditorProps, fontIconEditorProps)}
     </div>
     );
   }

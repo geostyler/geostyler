@@ -2,11 +2,12 @@ import * as React from 'react';
 
 import {
   Symbolizer,
-  IconSymbolizer
+  FontIconSymbolizer
 } from 'geostyler-style';
 
 import OpacityField from '../Field/OpacityField/OpacityField';
-import ImageField from '../Field/ImageField/ImageField';
+// import ImageField from '../Field/ImageField/ImageField';
+import FontPicker from '../Field/FontPicker/FontPicker';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 const _cloneDeep = require('lodash/cloneDeep');
@@ -18,9 +19,10 @@ import SizeField from '../Field/SizeField/SizeField';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
+import { Rnd } from 'react-rnd';
 
 // i18n
-export interface IconEditorLocale {
+export interface FontIconEditorLocale {
   imageLabel?: string;
   sizeLabel?: string;
   rotateLabel?: string;
@@ -29,39 +31,40 @@ export interface IconEditorLocale {
 }
 
 // default props
-export interface IconEditorDefaultProps {
-  locale: IconEditorLocale;
+export interface FontIconEditorDefaultProps {
+  locale: FontIconEditorLocale;
 }
 
 // non default props
-export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
-  symbolizer: IconSymbolizer;
+export interface FontIconEditorProps extends Partial<FontIconEditorDefaultProps> {
+  symbolizer: FontIconSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
 }
 
-export class IconEditor extends React.Component<IconEditorProps> {
+export class FontIconEditor extends React.Component<FontIconEditorProps> {
 
-  public static defaultProps: IconEditorDefaultProps = {
+  public static defaultProps: FontIconEditorDefaultProps = {
     locale: en_US.GsFontIconEditor
   };
 
-  public shouldComponentUpdate(nextProps: IconEditorProps): boolean {
+  public shouldComponentUpdate(nextProps: FontIconEditorProps): boolean {
     const diffProps = !_isEqual(this.props, nextProps);
     return diffProps;
   }
 
-  static componentName: string = 'IconEditor';
+  static componentName: string = 'FontIconEditor';
 
-  onImageSrcChange = (value: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.image = value;
-    if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
-    }
+  onFontIconChange = (value: any) => {
+    debugger;
+    // const {
+    //   onSymbolizerChange
+    // } = this.props;
+    // const symbolizer = _cloneDeep(this.props.symbolizer);
+    // symbolizer.image = value;
+    // if (onSymbolizerChange) {
+    //   onSymbolizerChange(symbolizer);
+    // }
   }
 
   onSizeChange = (value: number) => {
@@ -122,17 +125,18 @@ export class IconEditor extends React.Component<IconEditorProps> {
     };
 
     return (
-      <div className="gs-icon-symbolizer-editor" >
+      <div className="gs-fonticon-symbolizer-editor" >
         <Form.Item
           label={locale.imageLabel}
           {...formItemLayout}
         >
-          <ImageField
+          {/* <ImageField
             value={imageSrc}
             iconLibraries={iconLibraries}
             tooltipLabel={locale.iconTooltipLabel}
             onChange={this.onImageSrcChange}
-          />
+          /> */}
+          <FontPicker onChange={this.onFontIconChange} />
         </Form.Item>
         <Form.Item
           label={locale.sizeLabel}
@@ -162,9 +166,49 @@ export class IconEditor extends React.Component<IconEditorProps> {
             onChange={this.onOpacityChange}
           />
         </Form.Item>
+        <Rnd
+          // className="gs-icon-selector-window"
+          default={{
+            x: 0,///*x || */window.innerWidth / 2,
+            y: 0,///*y || */window.innerHeight / 2,
+            width: 300,///*width || */'50%',
+            height: 300///*height || */'50%'
+          }}
+          // enableResizing={{
+          //   bottom: false,
+          //   bottomLeft: false,
+          //   bottomRight: false,
+          //   left: false,
+          //   right: false,
+          //   top: false,
+          //   topLeft: false,
+          //   topRight: false
+          // }}
+          bounds="window"
+          // dragHandleClassName="gs-icon-selector-window-header"
+        >
+          <div className="header gs-icon-selector-window-header">
+            <span className="title">
+              {/*{locale.windowLabel}*/}peter
+            </span>
+            {/* <Button
+              icon="close"
+              size="small"
+              onClick={onClose}
+            /> */}
+          </div>
+          <div className="gs-icon-selector-window-body">
+            {/* <IconSelector
+              iconLibraries={iconLibraries}
+              onIconSelect={onIconSelect}
+              selectedIconSrc={selectedIconSrc}
+            /> */}
+          </div>
+          PETERPETERPETERPETERPETERPETERPETERPETERPETER
+        </Rnd>
       </div>
     );
   }
 }
 
-export default localize(IconEditor, IconEditor.componentName);
+export default localize(FontIconEditor, FontIconEditor.componentName);

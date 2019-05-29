@@ -81,6 +81,13 @@ export default {
         opacityLabel: 'Opacity',
         iconTooltipLabel: 'Open Gallery'
     },
+    GsFontIconEditor: {
+      imageLabel: 'Source',
+      sizeLabel: 'Size',
+      rotateLabel: 'Rotation',
+      opacityLabel: 'Opacity',
+      iconTooltipLabel: 'Open Gallery'
+    },
     GsMarkEditor: {
       wellKnownNameFieldLabel: 'Symbol'
     },
@@ -172,6 +179,7 @@ export default {
             Mark: 'Mark',
             Fill: 'Fill',
             Icon: 'Icon',
+            FontIcon: 'FontIcon',
             Line: 'Line',
             Text: 'Text',
             Raster: 'Raster'

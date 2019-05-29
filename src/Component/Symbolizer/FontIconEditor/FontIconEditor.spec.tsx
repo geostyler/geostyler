@@ -1,27 +1,27 @@
-import { IconEditor, IconEditorProps } from './IconEditor';
+import { FontIconEditor, FontIconEditorProps } from './FontIconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
-import { IconSymbolizer } from 'geostyler-style';
+import { FontIconSymbolizer } from 'geostyler-style';
 
 describe('IconEditor', () => {
 
   let wrapper: any;
-  let dummySymbolizer: IconSymbolizer = SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer;
+  let dummySymbolizer: FontIconSymbolizer = SymbolizerUtil.generateSymbolizer('FontIcon') as FontIconSymbolizer;
   let onSymbolizerChangeDummy: jest.Mock;
 
   beforeEach(() => {
     onSymbolizerChangeDummy = jest.fn();
-    const props: IconEditorProps = {
+    const props: FontIconEditorProps = {
       symbolizer: dummySymbolizer,
       locale: en_US.GsFontIconEditor,
       onSymbolizerChange: onSymbolizerChangeDummy
     };
-    wrapper = TestUtil.shallowRenderComponent(IconEditor, props);
+    wrapper = TestUtil.shallowRenderComponent(FontIconEditor, props);
   });
 
   it('is defined', () => {
-    expect(IconEditor).toBeDefined();
+    expect(FontIconEditor).toBeDefined();
   });
 
   it('renders correctly', () => {

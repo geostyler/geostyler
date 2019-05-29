@@ -19,6 +19,7 @@ const _cloneDeep = require('lodash/cloneDeep');
 
 import KindField from '../Field/KindField/KindField';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
+import FontIconEditor, { FontIconEditorProps } from '../FontIconEditor/FontIconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
@@ -43,6 +44,7 @@ export interface EditorProps extends Partial<EditorDefaultProps> {
   symbolizer: Symbolizer;
   internalDataDef?: Data;
   iconEditorProps?: Partial<IconEditorProps>;
+  fontIconEditorProps?: Partial<FontIconEditorProps>;
   onSymbolizerChange?: (symbolizer: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
   colorRamps?: {
@@ -98,6 +100,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
   getUiFromSymbolizer = (symbolizer: Symbolizer): React.ReactNode => {
     const {
       iconEditorProps,
+      fontIconEditorProps,
       iconLibraries,
       colorRamps,
       internalDataDef
@@ -118,6 +121,14 @@ export class Editor extends React.Component<EditorProps, EditorState> {
             onSymbolizerChange={this.onSymbolizerChange}
             iconLibraries={iconLibraries}
             {...iconEditorProps}
+          />
+        );
+      case 'FontIcon':
+        return (
+          <FontIconEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={this.onSymbolizerChange}
+            {...fontIconEditorProps}
           />
         );
       case 'Line':

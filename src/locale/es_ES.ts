@@ -81,6 +81,13 @@ export default {
         opacityLabel: 'Transparencia',
         iconTooltipLabel: 'Abrir galería'
     },
+    GsFontIconEditor: {
+      imageLabel: 'Fuente',
+      sizeLabel: 'Tamaño',
+      rotateLabel: 'Rotación',
+      opacityLabel: 'Transparencia',
+      iconTooltipLabel: 'Abrir galería'
+    },
     GsLineEditor: {
         colorLabel: 'Color',
         widthLabel: 'Ancho',

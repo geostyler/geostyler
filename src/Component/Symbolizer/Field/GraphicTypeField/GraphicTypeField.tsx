@@ -41,7 +41,7 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps> {
 
   public static defaultProps: GraphicTypeFieldDefaultProps = {
     locale: en_US.GsGraphicTypeField,
-    graphicTypes: ['Mark', 'Icon'],
+    graphicTypes: ['Mark', 'Icon', 'FontIcon'],
     clearable: true
   };
 

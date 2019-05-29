@@ -80,6 +80,13 @@ export default {
         opacityLabel: 'Deckkraft',
         iconTooltipLabel: 'Öffne Galerie'
     },
+    GsFontIconEditor: {
+      imageLabel: 'Quelle',
+      sizeLabel: 'Größe',
+      rotateLabel: 'Drehung',
+      opacityLabel: 'Deckkraft',
+      iconTooltipLabel: 'Öffne Galerie'
+    },
     GsLineEditor: {
         colorLabel: 'Farbe',
         widthLabel: 'Breite',

@@ -2,6 +2,7 @@ import {
   Symbolizer,
   MarkSymbolizer,
   IconSymbolizer,
+  FontIconSymbolizer,
   SymbolizerKind,
   TextSymbolizer,
   LineSymbolizer,
@@ -23,6 +24,10 @@ class SymbolizerUtil {
   static iconSymbolizer: IconSymbolizer = {
     kind: 'Icon',
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png'
+  };
+
+  static fontIconSymbolizer: FontIconSymbolizer = {
+    kind: 'FontIcon'
   };
 
   static fillSymbolizer: FillSymbolizer = {
@@ -63,6 +68,11 @@ class SymbolizerUtil {
       case 'Icon':
         return {
           ...SymbolizerUtil.iconSymbolizer,
+          ...values
+        };
+      case 'FontIcon':
+        return {
+          ...SymbolizerUtil.fontIconSymbolizer,
           ...values
         };
       case 'Fill':
