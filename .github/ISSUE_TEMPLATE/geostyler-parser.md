@@ -6,7 +6,7 @@ about: Use this template to open an Issue for one of the parsers.
 
 ## PARSER
 <!-- Please choose the parser this issue is related to -->
-## OPENLAYERS | SLD | MAPBOX | GEOJSON | WFS
+## OPENLAYERS | SLD | MAPBOX | QGIS | CQL | GEOJSON | WFS
 
 <!-- Please choose one of the categories -->
 ## FEATUREREQUEST | BUG | QUESTION
