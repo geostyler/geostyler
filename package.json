@@ -122,7 +122,7 @@
     "tslint": "5.16.0",
     "typescript": "3.4.5",
     "url-loader": "2.0.0",
-    "webpack": "4.33.0",
+    "webpack": "4.34.0",
     "webpack-cli": "3.3.4",
     "whatwg-fetch": "3.0.0"
   },
