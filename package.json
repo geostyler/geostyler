@@ -86,7 +86,7 @@
     "@types/node": "12.0.8",
     "@types/prop-types": "15.7.1",
     "@types/react": "16.8.17",
-    "antd": "3.19.5",
+    "antd": "3.19.6",
     "autoprefixer": "9.6.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "24.8.0",
