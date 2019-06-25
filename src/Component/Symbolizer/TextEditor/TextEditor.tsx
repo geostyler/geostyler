@@ -1,9 +1,12 @@
 import * as React from 'react';
 import {
-  Mention,
+  Mentions,
   Form
 } from 'antd';
-const { toString, toContentState } = Mention;
+
+const {
+  Option: MentionOption
+} = Mentions;
 
 import {
   Symbolizer,
@@ -71,12 +74,12 @@ export class TextEditor extends React.Component<TextEditorProps> {
 
   static componentName: string = 'TextEditor';
 
-  onLabelChange = (state: any) => {
+  onLabelChange = (value: any) => {
     const {
       onSymbolizerChange
     } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.label = toString(state);
+    symbolizer.label = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
@@ -222,14 +225,15 @@ export class TextEditor extends React.Component<TextEditorProps> {
           label={locale.templateFieldLabel}
           {...formItemLayout}
         >
-          <Mention
+          <Mentions
             placeholder={locale.templateFieldLabel}
-            defaultValue={toContentState(symbolizer.label || '')}
+            value={symbolizer.label || ''}
             onChange={this.onLabelChange}
-            suggestions={properties}
             prefix="{{"
             notFoundContent={locale.attributeNotFound}
-          />
+          >
+            {properties.map(p => <MentionOption key={p} value={p}>{p}</MentionOption>)}
+          </Mentions>
         </Form.Item>
         <Form.Item
           label={locale.colorLabel}

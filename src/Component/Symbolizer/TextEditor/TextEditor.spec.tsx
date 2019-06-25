@@ -31,11 +31,8 @@ describe('TextEditor', () => {
     it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
       const onLabelChange = wrapper.instance().onLabelChange;
       const newSymbolizer = {...dummySymbolizer};
-      newSymbolizer.label = '';
-      const fakeEvent = {
-        getBlockMap: (): String[] => []
-      };
-      onLabelChange(fakeEvent);
+      newSymbolizer.label = 'Peter {{age}} Pan';
+      onLabelChange('Peter {{age}} Pan');
       expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
     });
   });
