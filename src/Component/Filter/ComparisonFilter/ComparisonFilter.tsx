@@ -221,7 +221,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
 
     if (filter) {
       // build UI by passed in filter object
-      const attrName = filter[1];
+      const attrName = filter[1] as string;
 
       const stateParts: any = {
         attribute: attrName,
@@ -470,7 +470,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
 
     const validationRes = validators.value(filter[2], this.props.internalDataDef, this.state.attribute);
     const validateStatus: ValidationStatus = {
-      attribute: validators.attribute(filter[1]) ? 'success' : 'error',
+      attribute: validators.attribute(filter[1] as string) ? 'success' : 'error',
       operator: validators.operator(filter[0]) ? 'success' : 'error',
       value: validationRes.isValid ? 'success' : 'error'
     };
@@ -528,7 +528,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
           <Row gutter={16} justify="center">
             <Col span={10} className="gs-small-col">
               <AttributeCombo
-                value={filter ? filter[1] : undefined}
+                value={filter ? filter[1] as string : undefined}
                 internalDataDef={internalDataDef}
                 onAttributeChange={this.onAttributeChange}
                 attributeNameFilter={attributeNameFilter}
