@@ -480,6 +480,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
         {
           (!ruleGeneratorWindowVisible) ? null :
           <RuleGeneratorWindow
+            y={0}
             internalDataDef={data}
             onClose={this.onRuleGeneratorWindowClose}
             onRulesChange={this.onRulesChange}
