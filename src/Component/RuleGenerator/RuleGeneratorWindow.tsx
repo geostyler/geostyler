@@ -18,6 +18,7 @@ import en_US from '../../locale/en_US';
 import RuleGenerator from './RuleGenerator';
 
 const _isEqual = require('lodash/isEqual');
+const _isFinite = require('lodash/isFinite');
 // i18n
 export interface RuleGeneratorWindowLocale {
   ruleGenerator: string;
@@ -80,8 +81,8 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
         <Rnd
           className="rule-generator-window"
           default={{
-            x: x || window.innerWidth / 2,
-            y: y || window.innerHeight / 2,
+            x: _isFinite(x) ? x : window.innerWidth / 2,
+            y: _isFinite(y) ? y : window.innerHeight / 2,
             width: undefined,
             height: undefined
           }}
