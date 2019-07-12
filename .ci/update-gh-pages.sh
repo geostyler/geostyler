@@ -12,8 +12,13 @@ if [ $TRAVIS_PULL_REQUEST != "false" ]; then
   return 0;
 fi
 
-if [ -z "$TRAVIS_TAG" ]; then
-  # Only update when a tag was pushed / a new release was published
+if [ "$TRAVIS_BRANCH" != "master" ] && [ -z "$TRAVIS_TAG" ]; then
+  # Only update when the target branch is master or a when running for a tag.
+  return 0;
+fi
+
+if [ "$TRAVIS_NODE_VERSION" != "12" ]; then
+  # Only proceed if node is set to version 12.
   return 0;
 fi
 
@@ -48,9 +53,17 @@ SRC_DIR=$TRAVIS_BUILD_DIR/build/styleguide
 # Cleanup latest directory.
 rm -RF ./latest/*
 
+# Copy to latest
+if [ "$TRAVIS_BRANCH" = "master" ]; then
+  cp -r $SRC_DIR/styleguide/ docs/latest/
+fi
+
+# Copy to latest and tag
+if [ -n "$TRAVIS_TAG" ]; then
 mkdir -p v$VERSION
-cp -r $SRC_DIR/. v$VERSION/
-cp -r $SRC_DIR/. latest/
+  cp -r $SRC_DIR/. v$VERSION/
+  cp -r $SRC_DIR/. latest/
+fi
 
 git add --all
 git commit -m "$GH_PAGES_COMMIT_MSG"
