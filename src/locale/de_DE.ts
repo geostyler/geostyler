@@ -256,6 +256,10 @@ export default {
       ruleMoveUpTip: 'Verschiebe Regel eine Position nach oben',
       ruleMoveDownTip: 'Verschiebe Regel eine Position nach unten'
     },
+    GsReorderButtonGroup: {
+      ruleMoveUpTip: 'Move rule one position up',
+      ruleMoveDownTip: 'Move rule one position down'
+    },
     GsRuleGenerator: {
       attribute: 'Attribute',
       generateButtonText: 'Klassifizieren',

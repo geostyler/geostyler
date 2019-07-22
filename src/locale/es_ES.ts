@@ -198,6 +198,10 @@ export default {
       ruleMoveUpTip: 'Mueve la regla una posición arriba',
       ruleMoveDownTip: 'Mueve la regla una posición hacia abajo'
     },
+    GsReorderButtonGroup: {
+      ruleMoveUpTip: 'Move rule one position up',
+      ruleMoveDownTip: 'Move rule one position down'
+    },
     GsRuleGenerator: {
       attribute: 'Atributo',
       generateButtonText: 'Clasificar',

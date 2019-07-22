@@ -13,7 +13,6 @@ import {
   Icon,
   Popover,
   Tooltip,
-  Button
 } from 'antd';
 
 import {
@@ -40,6 +39,7 @@ import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRendere
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import DataUtil from '../../Util/DataUtil';
+import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 
 // i18n
 export interface RuleTableLocale {
@@ -385,51 +385,18 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   }
 
-  ruleOrderDownRenderer = (record: RuleRecord) => {
-    const disableOrderDown = record.key === this.props.rules.length - 1;
-    return this.ruleOrderRenderer(record.key, true, disableOrderDown);
-  }
-
-  ruleOrderUpRenderer = (record: RuleRecord) => {
-    const disableOrderUp = record.key === 0;
-    return this.ruleOrderRenderer(record.key, false, disableOrderUp);
-  }
-
-  ruleOrderRenderer = (ruleIndex: number, moveDown: boolean, disabled: boolean) => {
-    const {
-      locale,
-    } = this.props;
-    const icon = moveDown ? 'down' : 'up';
-    const tooltip = moveDown ? locale.ruleMoveDownTip : locale.ruleMoveUpTip;
-    return (
-      <Button
-        type="default"
-        shape="circle"
-        icon={icon}
-        size="small"
-        title={tooltip}
-        disabled={disabled}
-        onClick={() => {
-          this.onRuleOrderChange(ruleIndex, moveDown);
-        }}
-      />
-    );
-  }
-
-  onRuleOrderChange = (ruleIndex: number, moveDown: boolean) => {
+  ruleReorderRenderer = (record: RuleRecord) => {
     const {
       rules,
       onRulesChange
     } = this.props;
-
-    const nextRuleIndex = moveDown ? ruleIndex + 1 : ruleIndex - 1;
-    const rulesClone = _cloneDeep(rules);
-    // shift rule one position up / down in rules array
-    rulesClone.splice(nextRuleIndex, 0, rulesClone.splice(ruleIndex, 1)[0]);
-
-    if (onRulesChange) {
-      onRulesChange(rulesClone);
-    }
+    return (
+      <RuleReorderButtons
+        ruleIndex={record.key}
+        rules={rules}
+        onRulesMove={onRulesChange}
+      />
+    );
   }
 
   onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
@@ -479,11 +446,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
 
     const columns: ColumnProps<RuleRecord>[] = [{
       dataIndex: '',
-      render: this.ruleOrderUpRenderer
-    }, {
-      dataIndex: '',
-      render: this.ruleOrderDownRenderer
-    }, {
+      width: 70,
+      render: this.ruleReorderRenderer
+    },
+    {
       title: (
         <Tooltip title={locale.symbolizersColumnTitle}>
           <Icon type="bg-colors" />

@@ -4,6 +4,7 @@ import { Rule } from 'geostyler-style';
 import { Input, Popover, InputNumber, Button } from 'antd';
 import { mount } from 'enzyme';
 import { Data } from 'geostyler-data';
+import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 
 const _cloneDeep = require('lodash/cloneDeep');
 
@@ -231,8 +232,8 @@ describe('RuleTable', () => {
     });
   });
 
-  describe('ruleOrderDownRenderer', () => {
-    it('returns a Button', () => {
+  describe('ruleOrderRenderer', () => {
+    it('returns a ReorderButtonGroup', () => {
       const record: RuleRecord = {
         key: 0,
         name: 'name',
@@ -242,28 +243,10 @@ describe('RuleTable', () => {
           max: 24
         }
       };
-      const got = wrapper.instance().ruleOrderUpRenderer(record);
+      const got = wrapper.instance().ruleReorderRenderer(record);
       const mountRenderer = mount(got);
       const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(Button);
-    });
-  });
-
-  describe('ruleOrderUpRenderer', () => {
-    it('returns a Button', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: [],
-        scaleDenominator: {
-          min: 12,
-          max: 24
-        }
-      };
-      const got = wrapper.instance().ruleOrderUpRenderer(record);
-      const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(Button);
+      expect(instance).toBeInstanceOf(RuleReorderButtons);
     });
   });
 
@@ -315,52 +298,6 @@ describe('RuleTable', () => {
     it('sets filterEditorVisible to false ', () => {
       wrapper.instance().onFilterEditorWindowClose();
       expect(wrapper.state('filterEditorVisible')).toBe(false);
-    });
-  });
-
-  describe('onRuleOrderChange', () => {
-    it('reorders the rules downwards', () => {
-      const rules = [...dummyRules];
-      let reorderRules: Rule[];
-      const onRulesChange = (_reorderedRules) => {
-        reorderRules = _reorderedRules;
-      }
-      wrapper.setProps({
-        rules,
-        onRulesChange
-      });
-      // move first item downwards
-      wrapper.instance().onRuleOrderChange(0, true);
-      expect(reorderRules[0].name).toBe('rule1');
-    });
-
-    it('reorders the rules upwards', () => {
-      const rules = [...dummyRules];
-      let reorderRules: Rule[];
-      const onRulesChange = (_reorderedRules) => {
-        reorderRules = _reorderedRules;
-      }
-      wrapper.setProps({
-        rules,
-        onRulesChange
-      });
-      // move 2nd item upwards
-      wrapper.instance().onRuleOrderChange(1, false);
-      expect(reorderRules[0].name).toBe('rule1');
-    });
-
-    it('calls the onRulesChange with the reordered rules ', () => {
-      const rules = [...dummyRules];
-      // re-order rules
-      const rulesClone = _cloneDeep(rules);
-      rulesClone.splice(1, 0, rulesClone.splice(0, 1)[0]);
-      const onRulesChange = jest.fn();
-      wrapper.setProps({
-        rules,
-        onRulesChange
-      });
-      wrapper.instance().onRuleOrderChange(0, true);
-      expect(onRulesChange).toHaveBeenCalledWith(rulesClone);
     });
   });
 
