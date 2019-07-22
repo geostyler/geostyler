@@ -194,7 +194,9 @@ export default {
       minScaleColumnTitle: 'Escala Min.',
       maxScaleColumnTitle: 'Escala Max.',
       amountColumnTitle: 'Cantidad',
-      duplicatesColumnTitle: 'Duplicados'
+      duplicatesColumnTitle: 'Duplicados',
+      ruleMoveUpTip: 'Mueve la regla una posición arriba',
+      ruleMoveDownTip: 'Mueve la regla una posición hacia abajo'
     },
     GsRuleGenerator: {
       attribute: 'Atributo',

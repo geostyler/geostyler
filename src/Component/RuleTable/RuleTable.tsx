@@ -12,7 +12,8 @@ import {
   InputNumber,
   Icon,
   Popover,
-  Tooltip
+  Tooltip,
+  Button
 } from 'antd';
 
 import {
@@ -49,6 +50,8 @@ export interface RuleTableLocale {
   maxScaleColumnTitle: string;
   amountColumnTitle: string;
   duplicatesColumnTitle: string;
+  ruleMoveUpTip: string;
+  ruleMoveDownTip: string;
   // locale from antd
   filterConfirm?: string;
   filterReset?: string;
@@ -382,6 +385,53 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   }
 
+  ruleOrderDownRenderer = (record: RuleRecord) => {
+    const disableOrderDown = record.key === this.props.rules.length - 1;
+    return this.ruleOrderRenderer(record.key, true, disableOrderDown);
+  }
+
+  ruleOrderUpRenderer = (record: RuleRecord) => {
+    const disableOrderUp = record.key === 0;
+    return this.ruleOrderRenderer(record.key, false, disableOrderUp);
+  }
+
+  ruleOrderRenderer = (ruleIndex: number, moveDown: boolean, disabled: boolean) => {
+    const {
+      locale,
+    } = this.props;
+    const icon = moveDown ? 'down' : 'up';
+    const tooltip = moveDown ? locale.ruleMoveDownTip : locale.ruleMoveUpTip;
+    return (
+      <Button
+        type="default"
+        shape="circle"
+        icon={icon}
+        size="small"
+        title={tooltip}
+        disabled={disabled}
+        onClick={() => {
+          this.onRuleOrderChange(ruleIndex, moveDown);
+        }}
+      />
+    );
+  }
+
+  onRuleOrderChange = (ruleIndex: number, moveDown: boolean) => {
+    const {
+      rules,
+      onRulesChange
+    } = this.props;
+
+    const nextRuleIndex = moveDown ? ruleIndex + 1 : ruleIndex - 1;
+    const rulesClone = _cloneDeep(rules);
+    // shift rule one position up / down in rules array
+    rulesClone.splice(nextRuleIndex, 0, rulesClone.splice(ruleIndex, 1)[0]);
+
+    if (onRulesChange) {
+      onRulesChange(rulesClone);
+    }
+  }
+
   onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
     const {
       ruleEditIndex,
@@ -428,6 +478,12 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     } = this.props;
 
     const columns: ColumnProps<RuleRecord>[] = [{
+      dataIndex: '',
+      render: this.ruleOrderUpRenderer
+    }, {
+      dataIndex: '',
+      render: this.ruleOrderDownRenderer
+    }, {
       title: (
         <Tooltip title={locale.symbolizersColumnTitle}>
           <Icon type="bg-colors" />

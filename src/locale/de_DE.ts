@@ -252,7 +252,9 @@ export default {
       minScaleColumnTitle: 'Min. Maßstab',
       maxScaleColumnTitle: 'Max. Maßstab',
       amountColumnTitle: 'Anzahl',
-      duplicatesColumnTitle: 'Doppelte'
+      duplicatesColumnTitle: 'Doppelte',
+      ruleMoveUpTip: 'Verschiebe Regel eine Position nach oben',
+      ruleMoveDownTip: 'Verschiebe Regel eine Position nach unten'
     },
     GsRuleGenerator: {
       attribute: 'Attribute',
