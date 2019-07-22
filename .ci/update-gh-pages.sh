@@ -7,7 +7,7 @@ if [ "$TRAVIS" != "true" ]; then
   return 1;
 fi
 
-if [ $TRAVIS_PULL_REQUEST != "false" ]; then
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   # Dont build anything for PR requests, only for merges.
   return 0;
 fi
