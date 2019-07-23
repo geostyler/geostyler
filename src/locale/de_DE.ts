@@ -252,13 +252,11 @@ export default {
       minScaleColumnTitle: 'Min. Maßstab',
       maxScaleColumnTitle: 'Max. Maßstab',
       amountColumnTitle: 'Anzahl',
-      duplicatesColumnTitle: 'Doppelte',
+      duplicatesColumnTitle: 'Doppelte'
+    },
+    GsRuleReorderButtons: {
       ruleMoveUpTip: 'Verschiebe Regel eine Position nach oben',
       ruleMoveDownTip: 'Verschiebe Regel eine Position nach unten'
-    },
-    GsReorderButtonGroup: {
-      ruleMoveUpTip: 'Move rule one position up',
-      ruleMoveDownTip: 'Move rule one position down'
     },
     GsRuleGenerator: {
       attribute: 'Attribute',

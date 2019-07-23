@@ -36,7 +36,7 @@ export interface RuleReorderButtonsProps extends Partial<RuleReorderButtonsDefau
 export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps> {
 
   public static defaultProps: RuleReorderButtonsDefaultProps = {
-    locale: en_US.GsReorderButtonGroup
+    locale: en_US.GsRuleReorderButtons
   };
 
   onRuleOrderChange = (moveDown: boolean) => {

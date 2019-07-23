@@ -194,13 +194,11 @@ export default {
       minScaleColumnTitle: 'Escala Min.',
       maxScaleColumnTitle: 'Escala Max.',
       amountColumnTitle: 'Cantidad',
-      duplicatesColumnTitle: 'Duplicados',
+      duplicatesColumnTitle: 'Duplicados'
+    },
+    GsRuleReorderButtons: {
       ruleMoveUpTip: 'Mueve la regla una posición arriba',
       ruleMoveDownTip: 'Mueve la regla una posición hacia abajo'
-    },
-    GsReorderButtonGroup: {
-      ruleMoveUpTip: 'Move rule one position up',
-      ruleMoveDownTip: 'Move rule one position down'
     },
     GsRuleGenerator: {
       attribute: 'Atributo',

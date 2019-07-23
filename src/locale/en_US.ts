@@ -256,11 +256,9 @@ export default {
       minScaleColumnTitle: 'Min. Scale',
       maxScaleColumnTitle: 'Max. Scale',
       amountColumnTitle: 'Amount',
-      duplicatesColumnTitle: 'Duplicates',
-      ruleMoveUpTip: 'Move rule one position up',
-      ruleMoveDownTip: 'Move rule one position down'
+      duplicatesColumnTitle: 'Duplicates'
     },
-    GsReorderButtonGroup: {
+    GsRuleReorderButtons: {
       ruleMoveUpTip: 'Move rule one position up',
       ruleMoveDownTip: 'Move rule one position down'
     },

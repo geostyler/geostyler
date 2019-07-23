@@ -50,8 +50,6 @@ export interface RuleTableLocale {
   maxScaleColumnTitle: string;
   amountColumnTitle: string;
   duplicatesColumnTitle: string;
-  ruleMoveUpTip: string;
-  ruleMoveDownTip: string;
   // locale from antd
   filterConfirm?: string;
   filterReset?: string;
