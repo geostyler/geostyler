@@ -7,18 +7,21 @@ if [ "$TRAVIS" != "true" ]; then
   return 1;
 fi
 
-if [ $TRAVIS_PULL_REQUEST != "false" ]; then
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   # Dont build anything for PR requests, only for merges.
+  echo "Skip script since it processes a Pull Request, not a merge."
   return 0;
 fi
 
 if [ "$TRAVIS_BRANCH" != "master" ] && [ -z "$TRAVIS_TAG" ]; then
   # Only update when the target branch is master or a when running for a tag.
+  echo "Skip script since it is not running on master branch and not running for a tag."
   return 0;
 fi
 
 if [ "$TRAVIS_NODE_VERSION" != "12" ]; then
   # Only proceed if node is set to version 12.
+  echo "Skip script since it is not running on node version 12."
   return 0;
 fi
 
