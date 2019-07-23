@@ -258,6 +258,10 @@ export default {
       amountColumnTitle: 'Amount',
       duplicatesColumnTitle: 'Duplicates'
     },
+    GsRuleReorderButtons: {
+      ruleMoveUpTip: 'Move rule one position up',
+      ruleMoveDownTip: 'Move rule one position down'
+    },
     GsRuleGenerator: {
       attribute: 'Attribute',
       generateButtonText: 'Classify',

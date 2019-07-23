@@ -254,6 +254,10 @@ export default {
       amountColumnTitle: 'Anzahl',
       duplicatesColumnTitle: 'Doppelte'
     },
+    GsRuleReorderButtons: {
+      ruleMoveUpTip: 'Verschiebe Regel eine Position nach oben',
+      ruleMoveDownTip: 'Verschiebe Regel eine Position nach unten'
+    },
     GsRuleGenerator: {
       attribute: 'Attribute',
       generateButtonText: 'Klassifizieren',

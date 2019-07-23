@@ -12,7 +12,7 @@ import {
   InputNumber,
   Icon,
   Popover,
-  Tooltip
+  Tooltip,
 } from 'antd';
 
 import {
@@ -39,6 +39,7 @@ import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRendere
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import DataUtil from '../../Util/DataUtil';
+import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 
 // i18n
 export interface RuleTableLocale {
@@ -382,6 +383,20 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   }
 
+  ruleReorderRenderer = (record: RuleRecord) => {
+    const {
+      rules,
+      onRulesChange
+    } = this.props;
+    return (
+      <RuleReorderButtons
+        ruleIndex={record.key}
+        rules={rules}
+        onRulesMove={onRulesChange}
+      />
+    );
+  }
+
   onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
     const {
       ruleEditIndex,
@@ -428,6 +443,11 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     } = this.props;
 
     const columns: ColumnProps<RuleRecord>[] = [{
+      dataIndex: '',
+      width: 70,
+      render: this.ruleReorderRenderer
+    },
+    {
       title: (
         <Tooltip title={locale.symbolizersColumnTitle}>
           <Icon type="bg-colors" />
