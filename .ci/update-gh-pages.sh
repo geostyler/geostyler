@@ -54,11 +54,11 @@ cd $GH_PAGES_DIR
 SRC_DIR=$TRAVIS_BUILD_DIR/build/styleguide
 
 # Cleanup latest directory.
-rm -RF ./latest/*
+rm -Rf ./latest/*
 
 # Copy to latest
 if [ "$TRAVIS_BRANCH" = "master" ]; then
-  cp -r $SRC_DIR/styleguide/ docs/latest/
+  cp -r $SRC_DIR/. latest/
 fi
 
 # Copy to latest and tag
