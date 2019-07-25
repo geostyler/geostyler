@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button } from 'antd';
 
-import './RemoveButton.css';
+import './RemoveButton.less';
 
 // default props
 interface RemoveButtonDefaultProps {

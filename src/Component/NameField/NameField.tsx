@@ -4,7 +4,7 @@ import {
   // Form
 } from 'antd';
 
-import './NameField.css';
+import './NameField.less';
 
 // default props
 export interface NameFieldDefaultProps {

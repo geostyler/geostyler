@@ -18,7 +18,7 @@ module.exports = {
     "^.+\\.tsx?$": "<rootDir>/node_modules/babel-jest"
   },
   "moduleNameMapper": {
-    '^.+\\.css$': '<rootDir>/jest/cssTransform.js'
+    '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.js'
   },
   "transformIgnorePatterns": [
     "<rootDir>/node_modules/(?!(ol|antd))"

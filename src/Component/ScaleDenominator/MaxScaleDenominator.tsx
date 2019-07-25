@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { InputNumber, Form } from 'antd';
 
-import './MaxScaleDenominator.css';
+import './MaxScaleDenominator.less';
 
 // default props
 interface MaxScaleDenominatorDefaultProps {

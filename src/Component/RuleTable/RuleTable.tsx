@@ -29,7 +29,7 @@ import {
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
-import './RuleTable.css';
+import './RuleTable.less';
 import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';

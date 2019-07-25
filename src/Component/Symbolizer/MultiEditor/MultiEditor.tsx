@@ -4,7 +4,7 @@ import {
   Symbolizer
 } from 'geostyler-style';
 
-import './MultiEditor.css';
+import './MultiEditor.less';
 
 import 'ol/ol.css';
 import { Data } from 'geostyler-data';

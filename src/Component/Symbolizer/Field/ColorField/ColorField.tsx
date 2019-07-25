@@ -9,7 +9,7 @@ import {
   Button
 } from 'antd';
 
-import './ColorField.css';
+import './ColorField.less';
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';

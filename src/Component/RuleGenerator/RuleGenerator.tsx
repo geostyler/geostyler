@@ -5,7 +5,7 @@ import { Radio, Form, Button, InputNumber } from 'antd';
 import en_US from '../../locale/en_US';
 import AttributeCombo from '../Filter/AttributeCombo/AttributeCombo';
 
-import './RuleGenerator.css';
+import './RuleGenerator.less';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import RuleGeneratorUtil from '../../Util/RuleGeneratorUtil';
 import { KindField } from '../Symbolizer/Field/KindField/KindField';

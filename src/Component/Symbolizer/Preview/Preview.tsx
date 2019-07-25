@@ -14,14 +14,13 @@ import OlSourceOSM from 'ol/source/OSM';
 
 import { Symbolizer, SymbolizerKind, Style } from 'geostyler-style';
 
-import './Preview.css';
+import './Preview.less';
 
 import {
   Button
 } from 'antd';
 
 import 'ol/ol.css';
-import './Preview.css';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
 

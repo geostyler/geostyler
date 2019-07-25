@@ -20,7 +20,7 @@ import ColorRampCombo from '../../RuleGenerator/ColorRampCombo/ColorRampCombo';
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 import { brewer } from 'chroma-js';
 
-import './ColorMapEditor.css';
+import './ColorMapEditor.less';
 
 const _get = require('lodash/get');
 const _cloneDeep = require('lodash/cloneDeep');

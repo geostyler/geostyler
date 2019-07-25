@@ -4,7 +4,7 @@ import {
   InputNumber, Button
 } from 'antd';
 
-import './LineDashField.css';
+import './LineDashField.less';
 
 // default props
 interface LineDashFieldDefaultProps {

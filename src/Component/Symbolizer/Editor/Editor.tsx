@@ -10,7 +10,7 @@ import LineEditor from '../LineEditor/LineEditor';
 import FillEditor from '../FillEditor/FillEditor';
 import TextEditor from '../TextEditor/TextEditor';
 
-import './Editor.css';
+import './Editor.less';
 
 import 'ol/ol.css';
 import { Data } from 'geostyler-data';

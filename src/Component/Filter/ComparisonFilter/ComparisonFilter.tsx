@@ -16,7 +16,7 @@ import {
   ComparisonOperator
 } from 'geostyler-style';
 
-import './ComparisonFilter.css';
+import './ComparisonFilter.less';
 import BoolFilterField from '../BoolFilterField/BoolFilterField';
 
 import {

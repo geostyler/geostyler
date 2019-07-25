@@ -23,7 +23,7 @@ import KindField from '../Field/KindField/KindField';
 import ImageField from '../Field/ImageField/ImageField';
 import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
 
-import './BulkEditModals.css';
+import './BulkEditModals.less';
 
 // i18n
 export interface StyleLocale {

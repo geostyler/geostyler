@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './ColorRampCombo.css';
+import './ColorRampCombo.less';
 
 import { brewer } from 'chroma-js';
 

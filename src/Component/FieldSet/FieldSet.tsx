@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Checkbox } from 'antd';
 
-import './FieldSet.css';
+import './FieldSet.less';
 
 // default props
 interface FieldSetDefaultProps {
