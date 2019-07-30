@@ -5,6 +5,7 @@ import {
   Rule as GsRule,
 } from 'geostyler-style';
 
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 
 const ButtonGroup = Button.Group;
@@ -31,9 +32,11 @@ export interface RuleReorderButtonsProps extends Partial<RuleReorderButtonsDefau
 }
 
 /**
- * Button to remove a rule.
+ * Button group to re-order positions of rules.
  */
 export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps> {
+
+  static componentName: string = 'RuleReorderButtons';
 
   public static defaultProps: RuleReorderButtonsDefaultProps = {
     locale: en_US.GsRuleReorderButtons
@@ -84,4 +87,4 @@ export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps>
   }
 }
 
-export default RuleReorderButtons;
+export default localize(RuleReorderButtons, RuleReorderButtons.componentName);
