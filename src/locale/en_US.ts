@@ -23,6 +23,7 @@ export default {
     },
     GsStyle: {
         addRuleBtnText: 'Add Rule',
+        cloneRulesBtnText: 'Clone Rules',
         removeRulesBtnText: 'Remove Rules',
         nameFieldLabel: 'Name',
         nameFieldPlaceholder: 'Enter Name',

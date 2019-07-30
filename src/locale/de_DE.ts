@@ -32,6 +32,7 @@ export default {
     },
     GsStyle: {
         addRuleBtnText: 'Regel hinzufügen',
+        cloneRulesBtnText: 'Regeln duplizieren',
         removeRulesBtnText: 'Regeln entfernen',
         nameFieldLabel: 'Name',
         nameFieldPlaceholder: 'Name eingeben',

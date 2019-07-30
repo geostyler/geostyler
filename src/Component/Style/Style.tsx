@@ -43,6 +43,7 @@ import './Style.css';
 // i18n
 export interface StyleLocale {
   addRuleBtnText: string;
+  cloneRulesBtnText: string;
   removeRulesBtnText: string;
   nameFieldLabel?: string;
   nameFieldPlaceholder?: string;
@@ -190,6 +191,35 @@ export class Style extends React.Component<StyleProps, StyleState> {
     this.setState({style});
   }
 
+  cloneRules = () => {
+    const {
+      selectedRowKeys,
+      style
+    } = this.state;
+    const styleClone = _cloneDeep(style);
+
+    // create rules to clone
+    let newRules: GsRule[] = [];
+    styleClone.rules.forEach((rule: GsRule, index: number) => {
+      if (selectedRowKeys.includes(index)) {
+        let ruleClone = _cloneDeep(rule);
+        // TODO We need to ensure that rule names are unique
+        const randomId = Math.floor(Math.random() * 10000);
+        ruleClone.name = 'rule_' + randomId;
+        newRules.push(ruleClone);
+      }
+    });
+
+    // apply cloned rules to existing ones
+    styleClone.rules = [...styleClone.rules, ...newRules];
+    if (this.props.onStyleChange) {
+      this.props.onStyleChange(styleClone);
+    }
+    this.setState({
+      style: styleClone
+    });
+  }
+
   removeRules = () => {
     const {
       selectedRowKeys,
@@ -229,6 +259,9 @@ export class Style extends React.Component<StyleProps, StyleState> {
     switch (param.key) {
       case 'addRule':
         this.addRule();
+        break;
+      case 'cloneRules':
+        this.cloneRules();
         break;
       case 'removeRule':
         this.removeRules();
@@ -370,6 +403,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
     } = this.state;
 
     const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
+    const allowClone = selectedRowKeys.length  > 0;
 
     return (
       <Menu
@@ -380,6 +414,12 @@ export class Style extends React.Component<StyleProps, StyleState> {
         <Menu.Item key="addRule">
           <Icon type="plus" />
             {locale.addRuleBtnText}
+        </Menu.Item>
+        <Menu.Item key="cloneRules"
+          disabled={!allowClone}
+        >
+          <Icon type="copy" />
+            {locale.cloneRulesBtnText}
         </Menu.Item>
         <Menu.Item key="removeRule"
           disabled={!allowRemove}
