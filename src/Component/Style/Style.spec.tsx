@@ -53,6 +53,13 @@ describe('Style', () => {
     expect(wrapper.state().style.rules).toHaveLength(2);
   });
 
+  it('clones Rules', () => {
+    expect(wrapper.state().style.rules).toHaveLength(1);
+    wrapper.state().selectedRowKeys = [0];
+    wrapper.instance().cloneRules();
+    expect(wrapper.state().style.rules).toHaveLength(2);
+  });
+
   it('removes a Rule', () => {
     expect(wrapper.state().style.rules).toHaveLength(1);
     wrapper.instance().removeRule(lineStyle.rules[0]);
