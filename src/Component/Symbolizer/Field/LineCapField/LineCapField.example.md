@@ -2,6 +2,7 @@ This demonstrates the use of `LineCapField`.
 
 ```jsx
 import * as React from 'react';
+import LineCapField from './LineCapField';
 
 class LineCapFieldExample extends React.Component {
   constructor(props) {

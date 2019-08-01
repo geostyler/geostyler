@@ -2,6 +2,7 @@ This demonstrates the use of `GammaField`.
 
 ```jsx
 import * as React from 'react';
+import GammaField from './GammaField';
 
 class GammaFieldExample extends React.Component {
   constructor(props) {

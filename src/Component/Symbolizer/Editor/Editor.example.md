@@ -2,6 +2,7 @@ This demonstrates the use of `Editor`.
 
 ```jsx
 import * as React from 'react';
+import Editor from './Editor';
 
 class EditorExample extends React.Component {
   constructor(props) {

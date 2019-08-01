@@ -2,6 +2,7 @@ This demonstrates the use of `ImageField`.
 
 ```jsx
 import * as React from 'react';
+import ImageField from './ImageField';
 
 class ImageFieldExample extends React.Component {
   constructor(props) {
