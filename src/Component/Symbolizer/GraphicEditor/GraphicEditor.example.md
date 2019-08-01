@@ -1,9 +1,8 @@
 This demonstrates the use of `GraphicEditor`.
 
 ```jsx
-const React = require('react');
-const { GraphicEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import GraphicEditor from './GraphicEditor';
 
 class GraphicEditorExample extends React.Component {
   constructor(props) {

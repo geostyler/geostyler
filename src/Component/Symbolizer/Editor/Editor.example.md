@@ -1,9 +1,7 @@
 This demonstrates the use of `Editor`.
 
 ```jsx
-const React = require('react');
-const { Editor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
 
 class EditorExample extends React.Component {
   constructor(props) {

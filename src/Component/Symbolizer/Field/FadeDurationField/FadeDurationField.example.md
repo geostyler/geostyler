@@ -27,7 +27,6 @@ class FadeDurationFieldExample extends React.Component {
 
     return (
       <FadeDurationField
-        contrast={contrast}
         onChange={this.onChange}
       />
     );
