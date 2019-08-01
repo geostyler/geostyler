@@ -53,17 +53,18 @@ cd $GH_PAGES_DIR
 # The src directory containg the build artifacts.
 SRC_DIR=$TRAVIS_BUILD_DIR/build/styleguide
 
-# Cleanup latest directory.
-rm -Rf ./latest/*
-
 # Copy to latest
 if [ "$TRAVIS_BRANCH" = "master" ]; then
-  cp -r $SRC_DIR/. latest/
+  rm -Rf ./master/*
+  mkdir -p master
+  cp -r $SRC_DIR/. master/
 fi
 
 # Copy to latest and tag
 if [ -n "$TRAVIS_TAG" ]; then
-mkdir -p v$VERSION
+  rm -Rf ./latest/*
+  mkdir -p latest
+  mkdir -p v$VERSION
   cp -r $SRC_DIR/. v$VERSION/
   cp -r $SRC_DIR/. latest/
 fi
