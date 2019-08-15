@@ -119,7 +119,7 @@
     "react-docgen-typescript": "^1.12.5",
     "react-dom": "^16.8.6",
     "react-styleguidist": "^9.1.7",
-    "rimraf": "^2.6.3",
+    "rimraf": "^3.0.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.3.0",
