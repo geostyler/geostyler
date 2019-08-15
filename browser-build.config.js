@@ -38,6 +38,19 @@ module.exports = {
         ],
       },
       {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true
+            }
+          }
+        ]
+      },
+      {
         test: /\.(ts|tsx)$/,
         include: __dirname + '/src',
         use: [

@@ -13,7 +13,7 @@ import {
   saveAs
 } from 'file-saver';
 
-import './CodeEditor.css';
+import './CodeEditor.less';
 
 import {
   Button,

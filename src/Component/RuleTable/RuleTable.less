@@ -1,0 +1,50 @@
+.gs-rule-table {
+  padding: 10px;
+
+  .ant-table-body {
+    td {
+      padding: 0;
+      border-bottom: 0;
+    }
+
+    .ant-input,
+    .ant-input-number,
+    .gs-symbolizer-renderer {
+      border-radius: 0;
+    }
+
+    .ant-input-search {
+      .ant-input-search-button {
+        border-radius: 0;
+        display: none;
+      }
+      &:hover {
+        .ant-input-search-button {
+          display: inherit;
+        }
+      }
+    }
+
+    .gs-symbolizer-renderer {
+      height: 32px;
+      width: 48px;
+    }
+
+    .gs-symbolizer-sldrenderer,
+    .gs-symbolizer-sldrenderer img {
+      height: 32px;
+      width: 48px;
+    }
+
+    .scale-denominator {
+      width: 100%
+    }
+
+    .gs-rule-table-filter-cell>input,
+    .gs-rule-table-numeric-cell {
+      cursor: default;
+    }
+  }
+
+}
+

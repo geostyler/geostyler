@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { InputNumber, Form } from 'antd';
 
-import './MinScaleDenominator.css';
+import './MinScaleDenominator.less';
 
 // default props
 interface MinScaleDenominatorDefaultProps {

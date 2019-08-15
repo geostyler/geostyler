@@ -26,7 +26,7 @@ import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEqual = require('lodash/isEqual');
 
-import './Rule.css';
+import './Rule.less';
 import en_US from '../../locale/en_US';
 import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 

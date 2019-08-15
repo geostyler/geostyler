@@ -23,7 +23,7 @@ import RotateField from '../Field/RotateField/RotateField';
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEqual = require('lodash/isEqual');
 
-import './TextEditor.css';
+import './TextEditor.less';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';

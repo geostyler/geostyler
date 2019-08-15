@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './ColorsPreview.css';
+import './ColorsPreview.less';
 
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 

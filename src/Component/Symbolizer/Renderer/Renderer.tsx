@@ -13,10 +13,9 @@ import OlStyleParser from 'geostyler-openlayers-parser';
 
 import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 
-import './Renderer.css';
+import './Renderer.less';
 
 import 'ol/ol.css';
-import './Renderer.css';
 import { Data } from 'geostyler-data';
 
 const _isEqual = require('lodash/isEqual');

@@ -38,7 +38,7 @@ import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
 import { SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
-import './Style.css';
+import './Style.less';
 
 // i18n
 export interface StyleLocale {

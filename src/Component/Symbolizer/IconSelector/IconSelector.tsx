@@ -10,7 +10,7 @@ const Option = Select.Option;
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 
-import './IconSelector.css';
+import './IconSelector.less';
 
 const _isEqual = require('lodash/isEqual');
 

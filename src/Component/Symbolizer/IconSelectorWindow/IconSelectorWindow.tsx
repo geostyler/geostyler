@@ -11,7 +11,7 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 
 import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
-import './IconSelectorWindow.css';
+import './IconSelectorWindow.less';
 
 const _isEqual = require('lodash/isEqual');
 

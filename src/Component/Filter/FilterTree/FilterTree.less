@@ -1,0 +1,74 @@
+.gs-filter-tree {
+  text-align: left;
+
+  &.ant-tree {
+    .style-filter-node.and-filter,
+    .style-filter-node.or-filter,
+    .style-filter-node.not-filter {
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.05);
+      margin-bottom: 5px;
+    }
+
+    .ant-tree-node-content-wrapper,
+    .ant-tree-node-content-wrapper,
+    .ant-tree-node-content-wrapper {
+      width: calc(100% - 24px);
+    }
+
+    .style-filter-node {
+      &.comparison-filter {
+        .ant-tree-switcher {
+          display: none;
+        }
+
+        .ant-tree-node-content-wrapper {
+          border: 1px solid #40a9ff;
+          border-radius: 4px;
+        }
+
+        .ant-tree-node-content-wrapper:not(:hover) {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+      }
+
+      .ant-tree-node-content-wrapper {
+        height: inherit;
+      }
+    }
+
+    .node-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .filter-tools {
+        visibility: hidden;
+
+        .anticon {
+          color: black;
+        }
+
+        .anticon-minus {
+          font-size: 10px;
+        }
+      }
+
+      &:hover {
+        .filter-tools {
+          visibility: visible;
+        }
+      }
+
+      .filter-tools:hover {
+        visibility: visible;
+      }
+    }
+  }
+}
+
+
+
+
+
+

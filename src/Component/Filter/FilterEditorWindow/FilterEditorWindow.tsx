@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import { Rnd } from 'react-rnd';
 import { VectorData } from 'geostyler-data';
 
-import './FilterEditorWindow.css';
+import './FilterEditorWindow.less';
 import { Button } from 'antd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';

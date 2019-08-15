@@ -10,7 +10,7 @@ import {
 
 import { Data } from 'geostyler-data';
 
-import './RuleGeneratorWindow.css';
+import './RuleGeneratorWindow.less';
 import { Button } from 'antd';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';

@@ -10,7 +10,7 @@ import { IconLibrary } from '../IconSelector/IconSelector';
 
 import { Data } from 'geostyler-data';
 
-import './SymbolizerEditorWindow.css';
+import './SymbolizerEditorWindow.less';
 import { Button } from 'antd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';

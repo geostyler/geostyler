@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Input, Form } from 'antd';
 
-import './TitleField.css';
+import './TitleField.less';
 
 // default props
 interface TitleFieldDefaultProps {

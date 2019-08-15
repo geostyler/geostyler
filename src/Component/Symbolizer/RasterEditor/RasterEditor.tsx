@@ -18,7 +18,7 @@ import ContrastEnhancementField from '../Field/ContrastEnhancementField/Contrast
 import GammaField from '../Field/GammaField/GammaField';
 import DataUtil from '../../../Util/DataUtil';
 import ColorMapEditor from '../ColorMapEditor/ColorMapEditor';
-import './RasterEditor.css';
+import './RasterEditor.less';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _get = require('lodash/get');

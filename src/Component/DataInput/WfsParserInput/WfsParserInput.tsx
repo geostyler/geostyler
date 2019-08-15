@@ -25,7 +25,7 @@ import en_US from '../../../locale/en_US';
 
 const _get = require('lodash/get');
 
-import './WfsParserInput.css';
+import './WfsParserInput.less';
 
 export interface WfsParserInputLocale {
   requestButtonText: string;

@@ -16,7 +16,7 @@ import OffsetField from '../Field/OffsetField/OffsetField';
 import AttributeCombo from '../../Filter/AttributeCombo/AttributeCombo';
 import { Data } from 'geostyler-data';
 
-import './PropTextEditor.css';
+import './PropTextEditor.less';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import RotateField from '../Field/RotateField/RotateField';

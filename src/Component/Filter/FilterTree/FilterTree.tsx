@@ -21,7 +21,7 @@ import {
   ComparisonFilter as GsComparisonFilter
 } from 'geostyler-style';
 
-import './FilterTree.css';
+import './FilterTree.less';
 
 import {
   Data as Data

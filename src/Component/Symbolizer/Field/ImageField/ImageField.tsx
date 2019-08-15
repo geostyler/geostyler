@@ -9,7 +9,7 @@ import {
 import IconSelectorWindow from '../../IconSelectorWindow/IconSelectorWindow';
 import { IconLibrary } from '../../IconSelector/IconSelector';
 
-import './ImageField.css';
+import './ImageField.less';
 
 // default props
 interface ImageFieldDefaultProps {
