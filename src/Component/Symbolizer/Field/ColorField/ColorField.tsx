@@ -1,5 +1,6 @@
 import * as React from 'react';
-import * as Color from 'color';
+const Color = require('color');
+// import * as Color from 'color';
 import {
   SketchPicker,
   ColorResult
