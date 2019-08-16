@@ -435,8 +435,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const {
       rowSelection
     } = this.props;
-    const onChange = rowSelection.onChange;
-    onChange([], null);
+    if(typeof(rowSelection) != 'undefined' && rowSelection != null) {
+      const onChange = rowSelection.onChange;
+      onChange([], null);
+    }
 
     this.setState({
       symbolizerEditorVisible: false
