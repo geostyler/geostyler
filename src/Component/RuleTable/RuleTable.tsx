@@ -197,7 +197,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const {
       rowSelection
     } = this.props;
-    if(typeof(rowSelection) != 'undefined' && rowSelection != null) {
+    if (typeof(rowSelection) !== 'undefined' && rowSelection !== null) {
       const onChange = rowSelection.onChange;
       onChange([record.key], null);
     }
@@ -435,7 +435,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const {
       rowSelection
     } = this.props;
-    if(typeof(rowSelection) != 'undefined' && rowSelection != null) {
+    if (typeof(rowSelection) !== 'undefined' && rowSelection !== null) {
       const onChange = rowSelection.onChange;
       onChange([], null);
     }
