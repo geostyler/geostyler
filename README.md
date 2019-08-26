@@ -1,4 +1,4 @@
-![GeoStyler Logo](./Geo_Styler_Logo_300_RGB.jpg)
+![GeoStyler Logo](/docs/Geo_Styler_Logo_300_RGB.jpg)
 
 [![Build Status](https://travis-ci.org/terrestris/geostyler.svg?branch=master)](https://travis-ci.org/terrestris/geostyler)
 [![Greenkeeper badge](https://badges.greenkeeper.io/terrestris/geostyler.svg)](https://greenkeeper.io/)
@@ -87,7 +87,7 @@ With these two formats there come two interfaces.
 You can implement these interfaces to create a parser.
 Compare the list of existing parsers below.
 
-![Architecture](./ComponentView.png)
+![Architecture](/docs/ComponentView.png)
 
 <!-- Code: https://github.com/terrestris/geostyler-demo -->
 
