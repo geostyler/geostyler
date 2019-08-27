@@ -1,10 +1,9 @@
 This demonstrates the use of `SymbolizerEditorWindow`.
 
 ```jsx
-const React = require('react');
-const { Button } = require('antd');
-const { SymbolizerEditorWindow } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { Button } from 'antd';
+import SymbolizerEditorWindow from './SymbolizerEditorWindow';
 
 class SymbolizerEditorWindowExample extends React.Component {
   constructor(props) {

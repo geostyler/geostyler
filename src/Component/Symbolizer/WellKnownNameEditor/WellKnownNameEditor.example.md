@@ -1,9 +1,8 @@
 This demonstrates the use of `WellKnownNameEditor`.
 
 ```jsx
-const React = require('react');
-const { WellKnownNameEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import WellKnownNameEditor from './WellKnownNameEditor';
 
 class WellKnownNameEditorExample extends React.Component {
   constructor(props) {
