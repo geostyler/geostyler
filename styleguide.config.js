@@ -1,5 +1,6 @@
 const path = require('path');
 const webpackConfig = require('./webpack.common.config');
+
 module.exports = {
   title: 'GeoStyler',
   styleguideDir: './build/styleguide',
@@ -17,6 +18,9 @@ module.exports = {
     '**/*.d.ts',
     'src/index.ts'
   ],
+  moduleAliases: {
+    'geostyler': path.resolve(__dirname, 'src')
+  },
   usageMode: 'expand',
   sections: [{
     name: 'Introduction',

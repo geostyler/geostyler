@@ -2,6 +2,7 @@ This demonstrates the use of `WellKnownNameField`.
 
 ```jsx
 import * as React from 'react';
+import { WellKnownNameField } from 'geostyler';
 
 class WellKnownNameFieldExample extends React.Component {
   constructor(props) {

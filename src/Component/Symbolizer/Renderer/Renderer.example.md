@@ -1,9 +1,8 @@
 This demonstrates the use of `Renderer`.
 
 ```jsx
-const React = require('react');
-const { Renderer } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { Renderer } from 'geostyler';
 
 class RendererExample extends React.Component {
   constructor(props) {

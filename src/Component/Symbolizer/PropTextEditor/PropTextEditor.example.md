@@ -1,9 +1,9 @@
 This demonstrates the use of `PropTextEditor`.
 
 ```jsx
-const React = require('react');
-const { PropTextEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { PropTextEditor } from 'geostyler';
+
 const data = {
   schema: {
     title: 'DummyData',

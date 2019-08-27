@@ -1,9 +1,8 @@
 This demonstrates the use of `MarkEditor`.
 
 ```jsx
-const React = require('react');
-const { MarkEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { MarkEditor } from 'geostyler';
 
 class MarkEditorExample extends React.Component {
   constructor(props) {

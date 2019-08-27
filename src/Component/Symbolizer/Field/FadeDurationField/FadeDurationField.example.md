@@ -2,6 +2,7 @@ This demonstrates the use of `FadeDurationField`.
 
 ```jsx
 import * as React from 'react';
+import { FadeDurationField } from 'geostyler';
 
 class FadeDurationFieldExample extends React.Component {
   constructor(props) {
@@ -27,7 +28,6 @@ class FadeDurationFieldExample extends React.Component {
 
     return (
       <FadeDurationField
-        contrast={contrast}
         onChange={this.onChange}
       />
     );

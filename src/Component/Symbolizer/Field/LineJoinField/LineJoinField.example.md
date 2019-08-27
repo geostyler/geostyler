@@ -2,6 +2,7 @@ This demonstrates the use of `LineJoinField`.
 
 ```jsx
 import * as React from 'react';
+import { LineJoinField } from 'geostyler';
 
 class LineJoinFieldExample extends React.Component {
   constructor(props) {

@@ -1,9 +1,8 @@
 This demonstrates the use of `TextEditor`.
 
 ```jsx
-const React = require('react');
-const { TextEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { TextEditor } from 'geostyler';
 
 class TextEditorExample extends React.Component {
   constructor(props) {

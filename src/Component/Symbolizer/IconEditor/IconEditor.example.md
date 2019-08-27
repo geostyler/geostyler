@@ -1,9 +1,8 @@
 This demonstrates the use of `IconEditor`.
 
 ```jsx
-const React = require('react');
-const { IconEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { IconEditor } from 'geostyler';
 
 class IconEditorExample extends React.Component {
   constructor(props) {

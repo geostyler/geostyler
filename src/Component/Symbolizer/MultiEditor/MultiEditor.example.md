@@ -1,9 +1,8 @@
 This demonstrates the use of `MultiEditor`.
 
 ```jsx
-const React = require('react');
-const { MultiEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { MultiEditor } from 'geostyler';
 
 class MultiEditorExample extends React.Component {
   constructor(props) {

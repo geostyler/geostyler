@@ -2,6 +2,7 @@ This demonstrates the use of `GammaField`.
 
 ```jsx
 import * as React from 'react';
+import { GammaField } from 'geostyler';
 
 class GammaFieldExample extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class GammaFieldExample extends React.Component {
     } = this.state;
 
     return (
-      <BrightnessField
+      <GammaField
         gamma={gamma}
         onChange={this.onChange}
       />

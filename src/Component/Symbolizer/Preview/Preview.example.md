@@ -1,9 +1,8 @@
 This demonstrates the use of `Preview`.
 
 ```jsx
-const React = require('react');
-const { Preview } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { Preview } from 'geostyler';
 
 class PreviewExample extends React.Component {
   constructor(props) {

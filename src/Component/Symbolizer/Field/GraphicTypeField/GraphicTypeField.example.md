@@ -2,6 +2,7 @@ This demonstrates the use of `GraphicTypeField`.
 
 ```jsx
 import * as React from 'react';
+import { GraphicTypeField } from 'geostyler';
 
 class GraphicTypeFieldExample extends React.Component {
   constructor(props) {

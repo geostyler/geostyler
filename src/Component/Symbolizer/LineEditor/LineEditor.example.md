@@ -1,9 +1,8 @@
 This demonstrates the use of `LineEditor`.
 
 ```jsx
-const React = require('react');
-const { LineEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { LineEditor } from 'geostyler';
 
 class LineEditorExample extends React.Component {
   constructor(props) {

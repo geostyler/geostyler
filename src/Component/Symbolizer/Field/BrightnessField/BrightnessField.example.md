@@ -2,6 +2,7 @@ This demonstrates the use of `BrightnessField`.
 
 ```jsx
 import * as React from 'react';
+import { RuleGenerator } from 'geostyler';
 
 class BrightnessFieldExample extends React.Component {
   constructor(props) {

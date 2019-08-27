@@ -1,9 +1,8 @@
 This demonstrates the use of `RasterEditor`.
 
 ```jsx
-const React = require('react');
-const { RasterEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { RasterEditor } from 'geostyler';
 
 class RasterEditorExample extends React.Component {
   constructor(props) {

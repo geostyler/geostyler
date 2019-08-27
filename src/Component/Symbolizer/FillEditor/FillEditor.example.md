@@ -1,9 +1,8 @@
 This demonstrates the use of `FillEditor`.
 
 ```jsx
-const React = require('react');
-const { FillEditor } = require('../../../index');
-require('antd/dist/antd.css');
+import * as React from 'react';
+import { FillEditor } from 'geostyler';
 
 class FillEditorExample extends React.Component {
   constructor(props) {
