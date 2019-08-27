@@ -2,7 +2,7 @@ This demonstrates the use of `ResamplingField`.
 
 ```jsx
 import * as React from 'react';
-import ResamplingField from './ResamplingField';
+import { ResamplingField } from 'geostyler';
 
 class ResamplingFieldExample extends React.Component {
   constructor(props) {

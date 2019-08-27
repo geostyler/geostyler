@@ -2,7 +2,7 @@ This demonstrates the use of `TextEditor`.
 
 ```jsx
 import * as React from 'react';
-import TextEditor from './TextEditor';
+import { TextEditor } from 'geostyler';
 
 class TextEditorExample extends React.Component {
   constructor(props) {

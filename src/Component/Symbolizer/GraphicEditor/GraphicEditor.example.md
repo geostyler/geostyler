@@ -2,7 +2,7 @@ This demonstrates the use of `GraphicEditor`.
 
 ```jsx
 import * as React from 'react';
-import GraphicEditor from './GraphicEditor';
+import { GraphicEditor } from 'geostyler';
 
 class GraphicEditorExample extends React.Component {
   constructor(props) {

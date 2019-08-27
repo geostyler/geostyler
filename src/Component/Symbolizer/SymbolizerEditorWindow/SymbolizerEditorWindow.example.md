@@ -3,7 +3,7 @@ This demonstrates the use of `SymbolizerEditorWindow`.
 ```jsx
 import * as React from 'react';
 import { Button } from 'antd';
-import SymbolizerEditorWindow from './SymbolizerEditorWindow';
+import { SymbolizerEditorWindow } from 'geostyler';
 
 class SymbolizerEditorWindowExample extends React.Component {
   constructor(props) {

@@ -2,7 +2,7 @@ This demonstrates the use of `MultiEditor`.
 
 ```jsx
 import * as React from 'react';
-import MultiEditor from './MultiEditor';
+import { MultiEditor } from 'geostyler';
 
 class MultiEditorExample extends React.Component {
   constructor(props) {

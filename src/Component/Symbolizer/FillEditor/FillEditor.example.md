@@ -2,7 +2,7 @@ This demonstrates the use of `FillEditor`.
 
 ```jsx
 import * as React from 'react';
-import FillEditor from './FillEditor';
+import { FillEditor } from 'geostyler';
 
 class FillEditorExample extends React.Component {
   constructor(props) {

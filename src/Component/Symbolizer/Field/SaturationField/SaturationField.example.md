@@ -2,7 +2,7 @@ This demonstrates the use of `SaturationField`.
 
 ```jsx
 import * as React from 'react';
-import SaturationField from './SaturationField';
+import { SaturationField } from 'geostyler';
 
 class SaturationFieldExample extends React.Component {
   constructor(props) {

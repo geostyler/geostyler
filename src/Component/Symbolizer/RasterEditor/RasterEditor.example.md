@@ -2,7 +2,7 @@ This demonstrates the use of `RasterEditor`.
 
 ```jsx
 import * as React from 'react';
-import RasterEditor from './RasterEditor';
+import { RasterEditor } from 'geostyler';
 
 class RasterEditorExample extends React.Component {
   constructor(props) {

@@ -2,7 +2,7 @@ This demonstrates the use of `LineDashField`.
 
 ```jsx
 import * as React from 'react';
-import LineDashField from './LineDashField';
+import { LineDashField } from 'geostyler';
 
 class LineDashFieldExample extends React.Component {
   constructor(props) {

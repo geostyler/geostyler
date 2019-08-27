@@ -2,7 +2,7 @@ This demonstrates the use of `ColorField`.
 
 ```jsx
 import * as React from 'react';
-import ColorField from './ColorField';
+import { ColorField } from 'geostyler';
 
 class ColorFieldExample extends React.Component {
   constructor(props) {

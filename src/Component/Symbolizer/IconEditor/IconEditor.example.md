@@ -2,7 +2,7 @@ This demonstrates the use of `IconEditor`.
 
 ```jsx
 import * as React from 'react';
-import IconEditor from './IconEditor';
+import { IconEditor } from 'geostyler';
 
 class IconEditorExample extends React.Component {
   constructor(props) {

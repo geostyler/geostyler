@@ -2,7 +2,7 @@ This demonstrates the use of `Preview`.
 
 ```jsx
 import * as React from 'react';
-import Preview from './Preview';
+import { Preview } from 'geostyler';
 
 class PreviewExample extends React.Component {
   constructor(props) {

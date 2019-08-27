@@ -2,7 +2,7 @@ This demonstrates the use of `ContrastField`.
 
 ```jsx
 import * as React from 'react';
-import ContrastField from './ContrastField';
+import { ContrastField } from 'geostyler';
 
 class ContrastFieldExample extends React.Component {
   constructor(props) {

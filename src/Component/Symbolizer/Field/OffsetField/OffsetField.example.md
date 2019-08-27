@@ -2,7 +2,7 @@ This demonstrates the use of `OffsetField`.
 
 ```jsx
 import * as React from 'react';
-import OffsetField from './OffsetField';
+import { OffsetField } from 'geostyler';
 
 class OffsetFieldExample extends React.Component {
   constructor(props) {

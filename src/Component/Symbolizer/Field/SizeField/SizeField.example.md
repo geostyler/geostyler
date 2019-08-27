@@ -2,7 +2,7 @@ This demonstrates the use of `SizeField`.
 
 ```jsx
 import * as React from 'react';
-import SizeField from './SizeField';
+import { SizeField } from 'geostyler';
 
 class SizeFieldExample extends React.Component {
   constructor(props) {

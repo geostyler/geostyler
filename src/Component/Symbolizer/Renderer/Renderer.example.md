@@ -2,7 +2,7 @@ This demonstrates the use of `Renderer`.
 
 ```jsx
 import * as React from 'react';
-import Renderer from './Renderer';
+import { Renderer } from 'geostyler';
 
 class RendererExample extends React.Component {
   constructor(props) {

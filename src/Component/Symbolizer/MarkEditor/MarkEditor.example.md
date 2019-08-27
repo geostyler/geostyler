@@ -2,7 +2,7 @@ This demonstrates the use of `MarkEditor`.
 
 ```jsx
 import * as React from 'react';
-import MarkEditor from './MarkEditor';
+import { MarkEditor } from 'geostyler';
 
 class MarkEditorExample extends React.Component {
   constructor(props) {

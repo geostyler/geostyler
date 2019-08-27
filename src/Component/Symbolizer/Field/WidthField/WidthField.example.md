@@ -2,7 +2,7 @@ This demonstrates the use of `WidthField`.
 
 ```jsx
 import * as React from 'react';
-import WidthField from './WidthField';
+import { WidthField } from 'geostyler';
 
 class WidthFieldExample extends React.Component {
   constructor(props) {

@@ -2,7 +2,7 @@ This demonstrates the use of `WellKnownNameEditor`.
 
 ```jsx
 import * as React from 'react';
-import WellKnownNameEditor from './WellKnownNameEditor';
+import { WellKnownNameEditor } from 'geostyler';
 
 class WellKnownNameEditorExample extends React.Component {
   constructor(props) {
