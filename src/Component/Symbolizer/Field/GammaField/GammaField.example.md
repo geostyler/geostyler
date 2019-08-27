@@ -27,7 +27,7 @@ class GammaFieldExample extends React.Component {
     } = this.state;
 
     return (
-      <BrightnessField
+      <GammaField
         gamma={gamma}
         onChange={this.onChange}
       />
