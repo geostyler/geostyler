@@ -10,7 +10,7 @@ Package: [npm](https://www.npmjs.com/package/geostyler)
 Documentation:
 [master](https://terrestris.github.io/geostyler/master/index.html) /
 [latest](https://terrestris.github.io/geostyler/latest/index.html) /
-[4.3.0](https://terrestris.github.io/geostyler/4.3.0/index.html)
+[4.3.0](https://terrestris.github.io/geostyler/v4.3.0/index.html)
 
 Examples:
 [Demo application](https://terrestris.github.io/geostyler-demo/)
