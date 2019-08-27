@@ -1,27 +1,99 @@
 ![GeoStyler Logo](/docs/Geo_Styler_Logo_300_RGB.jpg)
 
-[github](https://github.com/terrestris/geostyler) /
-[npm](https://www.npmjs.com/package/geostyler)
-
-Generic styler for geodata.
-
 [![Build Status](https://travis-ci.org/terrestris/geostyler.svg?branch=master)](https://travis-ci.org/terrestris/geostyler)
 [![Greenkeeper badge](https://badges.greenkeeper.io/terrestris/geostyler.svg)](https://greenkeeper.io/)
 [![Coverage Status](https://coveralls.io/repos/github/terrestris/geostyler/badge.svg?branch=master)](https://coveralls.io/github/terrestris/geostyler?branch=master)
 
-## Documentation
+Code: [github](https://github.com/terrestris/geostyler)
+Package: [npm](https://www.npmjs.com/package/geostyler)
 
-GeoStyler Documentation: [Docs](https://terrestris.github.io/geostyler/)
+Documentation:
+[master](https://terrestris.github.io/geostyler/master/index.html) /
+[latest](https://terrestris.github.io/geostyler/latest/index.html) /
+[4.3.0](https://terrestris.github.io/geostyler/4.3.0/index.html)
 
-## Demo
+Examples:
+[Demo application](https://terrestris.github.io/geostyler-demo/)
 
-GeoStyler Demo: [Demo](https://terrestris.github.io/geostyler-demo/)
-Code: https://github.com/terrestris/geostyler-demo
+Developer Guide:
+[Developer Guide](#developer-guide)
 
+## <a name="what-is-this-all-about"></a>What is this all about?
 
-## Related projects
+The GeoStyler is a generic styler for geodata*.
 
-### TypeScript Declaration Files
+GeoStyler provides a set of UI Components for map styling. Just like a modular building block system all components can be stacked together to create a nice UI for your web applications. To simplify the setup, we also provide some high-level components (based on our building blocks) that already do the work for you. These include among many others `Symbolizer Editors`, `RuleTables` and a fully-fledged `StyleEditor including filters and scaleDenominators`.
+
+Furthermore, GeoStyler allows for the translation between multiple styling formats, i.e. SLD, OpenLayers, QGIS, Mapbox. Since we are following the concept of micro packages, these translators (we call them parsers) can be used as standalone libraries, without the need to include the UI components as a dependency. Just take a look at [StyleParser Implementations](#styleparser-implementations).
+
+\* *geodata as a single dataset (layer) not a complete map appearance.*
+
+**If you are missing any UI components, formats or even have a custom style format, feel free to open a PR. We are happy for any kind of contributions.**
+
+To see the GeoStyler in action have a look at the [demo application](https://terrestris.github.io/geostyler-demo/).
+It demonstrates the GeoStyler UI components as a standalone application.
+
+Every parser works as a standalone library, too. So you can easily translate between style formats.
+
+For example a small SLD to OpenLayers-Style parser (untested code :smile:):
+
+```js static
+import SLDParser from "geostyler-sld-parser";
+import OpenLayersParser from "geostyle-openlayers-parser";
+const sldParser = new SLDParser();
+const olParser = new OpenLayersParser();
+
+const sldToOL = async (sld) => {
+  const geostylerStyle = await sldParser.readStyle(someSld);
+  const olStyle = await olParser.writeStyle(geostylerStyle);
+  return olStyle;
+};
+
+export default sldToOl;
+```
+## <a name="installation"></a>Installation
+
+Run 
+
+```bash
+npm i geostyler
+```
+from within your project directory to add GeoStyler as a dependency. Please be aware of the peerDependencies that come along with GeoStyler.
+
+Components can be used as follows:
+```js static
+import {wanted-geostyler-compoment} from 'geostyler';
+
+//... your component code
+render() {
+  return (
+    <wanted-geostyler-component
+      foo=""
+      bar={}
+    />
+  );
+}
+```
+
+## <a name="geostyler-behind-the-scenes"></a>GeoStyler - Behind the Scenes
+
+Internally we are using our own style definition called `GeoStyler Style` (see [TypeScript Declaration Files](#typescript-declaration-files)), which takes the best from SLD and Mapbox. We are not trying to establish just another standard, but we need an exchange format that is flexible and highly compatible with current styling standards. **Understanding GeoStyler Style is only necessary for developers of the project, not for users!** Our style parsers all read and write from and to GeoStyler Style to keep the complexity low. As a positive side effect this lets you translate from any supported style to any other supported style. 
+
+Imagine your previous project was based on QGIS and now you want to setup your own web application. With GeoStyler you can still use your QGIS styles and either save all future formats in qml as well, or you simply translate all your old styles to another format e.g. OpenLayers styles or SLD. It's simple as that!
+
+To populate the UI with information from imported data we provide a set of data parsers (defined in [GeoStyler Data](#typescript-declaration-files)). Currently, we support GeoJSON, Shapefile and WFS.
+
+With these two formats there come two interfaces.
+You can implement these interfaces to create a parser.
+Compare the list of existing parsers below.
+
+![Architecture](/docs/ComponentView.png)
+
+<!-- Code: https://github.com/terrestris/geostyler-demo -->
+
+## <a name="related-projects"></a>Related projects
+
+### <a name="typescript-declaration-files"></a>TypeScript Declaration Files
 
   - GeoStyler Data (
       [github](https://github.com/terrestris/geostyler-data) /
@@ -32,7 +104,7 @@ Code: https://github.com/terrestris/geostyler-demo
       [npm](https://www.npmjs.com/package/geostyler-style)
     )
 
-### DataParser Implementations
+### <a name="dataparser-implementations"></a>DataParser Implementations
 
   - GeoJSON (
       [github](https://github.com/terrestris/geostyler-geojson-parser) /
@@ -47,7 +119,7 @@ Code: https://github.com/terrestris/geostyler-demo
       [npm](https://www.npmjs.com/package/geostyler-wfs-parser)
     )
 
-### StyleParser Implementations
+### <a name="styleparser-implementations"></a>StyleParser Implementations
 
   - SLD (
       [github](https://github.com/terrestris/geostyler-sld-parser) /
@@ -66,8 +138,66 @@ Code: https://github.com/terrestris/geostyler-demo
       [npm](https://www.npmjs.com/package/geostyler-qgis-parser)
     )
 
-### More
+### <a name="more"></a>More
   - CQL Filter (
       [github](https://github.com/terrestris/geostyler-cql-parser) /
       [npm](https://www.npmjs.com/package/geostyler-cql-parser)
     )
+
+## <a name="developer-guide"></a>Developer Guide
+
+### <a name="developing-geostyler-ui-components"></a>Developing GeoStyler UI Components
+
+The easiest way to develop UI components is to `npm link` your local repository to the GeoStyler Demo. If you include your component into one of our high-level components, you will be able to directly see the new components in your browser. To do so, follow these steps:
+
+```bash
+git clone https://github.com/terrestris/geostyler.git
+cd geostyler
+npm i
+npm link
+npm run build
+
+cd ..
+git clone https://github.com/terrestris/geostyler-demo.git
+cd geostyler-demo
+npm i
+npm link geostyler
+npm run start
+```
+The GeoStyler Demo will then be served on `localhost:3000`. When doing changes to GeoStyler you have to rebuild the project via one of the following commands:
+
+```bash
+npm run build
+npm run build:dist
+```
+Changes will automatically be updated in the browser. Please also provide tests and a minimal code example as \<ComponentName\>.example.md, if you add a new component, so the api documentation will always be up to date and other users can benefit from your work.
+
+### <a name="developing-geostyler-style-parsers"></a>Developing GeoStyler Style Parsers
+
+If you want to write your own style parser please take a look at the existing parsers for a consistent project setup. Developing them is a straighforward task, but don't forget: **style parsers have to implement the [GeoStyler Style interface](https://github.com/terrestris/geostyler-style).**
+
+If you want to work on an existing parser, do following steps to setup the project:
+
+```bash
+git clone <wanted-parser-repo>
+cd <wanted-parser>
+npm i
+```
+
+Parsers can be directly tested within their repositories, respectively. The best way to integrate your local changes into the UI/Demo is using `npm link`.
+Run
+
+```bash
+npm link
+```
+from within your style parser repo and
+
+```bash
+npm link <wanted-parser>
+```
+
+from within the GeoStyler Demo.
+
+### <a name="developing-geostyler-data-parsers"></a>Developing GeoStyler Data Parsers
+
+Developing GeoStyler data parsers follows the same pattern as described in [Developing GeoStyler Style Parser](#Developing-GeoStyler-Style-Parsers), but keep in mind that **data parsers have to implement the [GeoStyler Data interface](https://github.com/terrestris/geostyler-data).**
