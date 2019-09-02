@@ -75,6 +75,7 @@ import WellKnownNameField from './Component/Symbolizer/Field/WellKnownNameField/
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
 import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
 import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
+import RuleTable from './Component/RuleTable/RuleTable';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 
 import { LocaleProvider } from 'antd';
@@ -163,5 +164,6 @@ export {
   WellKnownNameField,
   RuleGeneratorWindow,
   RuleGenerator,
+  RuleTable,
   WidthField
 };

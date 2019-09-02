@@ -66,7 +66,7 @@ interface StyleDefaultProps {
 // non default props
 export interface StyleProps extends Partial<StyleDefaultProps> {
   data?: Data;
-  onStyleChange?: (rule: GsStyle) => void;
+  onStyleChange?: (style: GsStyle) => void;
   /** The data projection of example features */
   dataProjection?: string;
   filterUiProps?: Partial<ComparisonFilterProps>;
