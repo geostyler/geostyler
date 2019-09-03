@@ -23,15 +23,8 @@ export default {
     },
     GsStyle: {
         addRuleBtnText: 'Add Rule',
-        cloneRulesBtnText: 'Clone Rules',
-        removeRulesBtnText: 'Remove Rules',
         nameFieldLabel: 'Name',
         nameFieldPlaceholder: 'Enter Name',
-        colorLabel: 'Select color',
-        radiusLabel: 'Select radius',
-        opacityLabel: 'Select opacity',
-        symbolLabel: 'Select symbol',
-        multiEditLabel: 'Multi edit',
         ruleGeneratorWindowBtnText: 'Classification'
     },
     GsStyleLoader: {
@@ -258,6 +251,16 @@ export default {
       maxScaleColumnTitle: 'Max. Scale',
       amountColumnTitle: 'Amount',
       duplicatesColumnTitle: 'Duplicates'
+    },
+    GsRuleTableFooter: {
+      addRuleBtnText: 'Add Rule',
+      cloneRulesBtnText: 'Clone Rules',
+      removeRulesBtnText: 'Remove Rules',
+      colorLabel: 'Select color',
+      radiusLabel: 'Select radius',
+      opacityLabel: 'Select opacity',
+      symbolLabel: 'Select symbol',
+      multiEditLabel: 'Multi edit'
     },
     GsRuleReorderButtons: {
       ruleMoveUpTip: 'Move rule one position up',

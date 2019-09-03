@@ -23,15 +23,8 @@ export default {
     },
     GsStyle: {
         addRuleBtnText: 'Añadir regla',
-        cloneRulesBtnText: 'Duplicar reglas',
-        removeRulesBtnText: 'Eliminar reglas',
         nameFieldLabel: 'Nombre',
         nameFieldPlaceholder: 'Ingrese nombre',
-        colorLabel: 'Seleccionar color',
-        radiusLabel: 'Seleccionar radio',
-        opacityLabel: 'Seleccionar transparencia',
-        symbolLabel: 'Seleccionar simbolo',
-        multiEditLabel: 'Editor múltiple',
         ruleGeneratorWindowBtnText: 'Clasificación'
     },
     GsStyleLoader: {
@@ -196,6 +189,16 @@ export default {
       maxScaleColumnTitle: 'Escala Max.',
       amountColumnTitle: 'Cantidad',
       duplicatesColumnTitle: 'Duplicados'
+    },
+    GsRuleTableFooter: {
+      addRuleBtnText: 'Añadir regla',
+      cloneRulesBtnText: 'Duplicar reglas',
+      removeRulesBtnText: 'Eliminar reglas',
+      colorLabel: 'Seleccionar color',
+      radiusLabel: 'Seleccionar radio',
+      opacityLabel: 'Seleccionar transparencia',
+      symbolLabel: 'Seleccionar simbolo',
+      multiEditLabel: 'Editor múltiple'
     },
     GsRuleReorderButtons: {
       ruleMoveUpTip: 'Mueve la regla una posición arriba',

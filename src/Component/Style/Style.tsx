@@ -8,8 +8,6 @@ import { InterpolationMode } from 'chroma-js';
 
 import {
   Button,
-  Menu,
-  Icon,
   Form
 } from 'antd';
 
@@ -17,7 +15,6 @@ import {
   Style as GsStyle,
   Rule as GsRule,
   SymbolizerKind,
-  Symbolizer as GsSymbolizer,
   WellKnownName as GsWellKnownName
 } from 'geostyler-style';
 
@@ -39,20 +36,14 @@ import { SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 import './Style.less';
+import { RuleTableFooter } from '../RuleTable/RuleTableFooter/RuleTableFooter';
 
 // i18n
 export interface StyleLocale {
-  addRuleBtnText: string;
-  cloneRulesBtnText: string;
-  removeRulesBtnText: string;
   nameFieldLabel?: string;
   nameFieldPlaceholder?: string;
-  colorLabel: string;
-  radiusLabel: string;
-  opacityLabel: string;
-  symbolLabel: string;
-  multiEditLabel: string;
   ruleGeneratorWindowBtnText: string;
+  addRuleBtnText?: string;
 }
 
 // default props
@@ -342,113 +333,6 @@ export class Style extends React.Component<StyleProps, StyleState> {
     this.setState({ruleGeneratorWindowVisible: false});
   }
 
-  /**
-   * Checks if a specific menu item of multi-edit menu should be disabled.
-   *
-   * @param name Name of menu item
-   * @param rowKeys array of selected rowkeys
-   * @return boolean true if menu item should be disabled, otherwise false
-   */
-  disableMenu = (name: string, rowKeys: number[]): boolean => {
-    const {
-      style
-    } = this.state;
-    let isValid = true;
-    switch (name) {
-      case 'size':
-        rowKeys.forEach((key: number) => {
-          let symbolizers = style.rules[key].symbolizers;
-          symbolizers.forEach((symbolizer: GsSymbolizer) => {
-            let kind = symbolizer.kind;
-            if (kind === 'Fill' || kind === 'Text' || kind === 'Line') {
-              isValid = false;
-            }
-          });
-        });
-        return !isValid;
-      case 'symbol':
-        rowKeys.forEach((key: number) => {
-          let symbolizers = style.rules[key].symbolizers;
-          symbolizers.forEach((symbolizer: GsSymbolizer) => {
-            let kind = symbolizer.kind;
-            if (kind !== 'Mark' && kind !== 'Icon') {
-              isValid = false;
-            }
-          });
-        });
-        return !isValid;
-      case 'color':
-        rowKeys.forEach((key: number) => {
-          let symbolizers = style.rules[key].symbolizers;
-          symbolizers.forEach((symbolizer: GsSymbolizer) => {
-            let kind = symbolizer.kind;
-            if (kind === 'Icon') {
-              isValid = false;
-            }
-          });
-        });
-        return !isValid;
-      default:
-        return !isValid;
-    }
-  }
-  createFooter = () => {
-    const {
-      locale
-    } = this.props;
-
-    const {
-      style,
-      selectedRowKeys
-    } = this.state;
-
-    const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
-    const allowClone = selectedRowKeys.length  > 0;
-
-    return (
-      <Menu
-        mode="horizontal"
-        onClick={this.onTableMenuClick}
-        selectable={false}
-        >
-        <Menu.Item key="addRule">
-          <Icon type="plus" />
-            {locale.addRuleBtnText}
-        </Menu.Item>
-        <Menu.Item key="cloneRules"
-          disabled={!allowClone}
-        >
-          <Icon type="copy" />
-            {locale.cloneRulesBtnText}
-        </Menu.Item>
-        <Menu.Item key="removeRule"
-          disabled={!allowRemove}
-          >
-          <Icon type="minus" />
-            {locale.removeRulesBtnText}
-        </Menu.Item>
-        <Menu.SubMenu
-          title={<span><Icon type="menu-unfold" /><span>{locale.multiEditLabel}</span></span>}
-          disabled={selectedRowKeys.length <= 1}
-          >
-          <Menu.Item
-            key="color"
-            disabled={this.disableMenu('color', selectedRowKeys)}
-          >{locale.colorLabel}</Menu.Item>
-          <Menu.Item
-            key="size"
-            disabled={this.disableMenu('size', selectedRowKeys)}
-          >{locale.radiusLabel}</Menu.Item>
-          <Menu.Item key="opacity">{locale.opacityLabel}</Menu.Item>
-          <Menu.Item
-            key="symbol"
-            disabled={this.disableMenu('symbol', selectedRowKeys)}
-          >{locale.symbolLabel}</Menu.Item>
-        </Menu.SubMenu>
-      </Menu>
-    );
-  }
-
   render() {
     if (this.state.hasError) {
       return <h1>An error occured in the Style UI.</h1>;
@@ -541,7 +425,11 @@ export class Style extends React.Component<StyleProps, StyleState> {
             sldRendererProps={sldRendererProps}
             filterUiProps={filterUiProps}
             data={data}
-            footer={this.createFooter}
+            footer={() => (<RuleTableFooter
+              style={style}
+              selectedRowKeys={selectedRowKeys}
+              onTableMenuClick={this.onTableMenuClick}
+            />)}
             iconLibraries={iconLibraries}
             showAmountColumn={showAmountColumn}
             showDuplicatesColumn={showDuplicatesColumn}
