@@ -42,9 +42,22 @@ export interface LineEditorLocale {
   graphicFillTypeLabel?: string;
 }
 
+export interface FieldConfig {
+  color?: React.ReactNode | false;
+  width?: React.ReactNode | false;
+  opacity?: React.ReactNode | false;
+  dash?: React.ReactNode | false;
+  dashOffset?: React.ReactNode | false;
+  cap?: React.ReactNode | false;
+  join?: React.ReactNode | false;
+  graphicStrokeType?: React.ReactNode | false;
+  graphicFillType?: React.ReactNode | false;
+}
+
 export interface LineEditorDefaultProps {
   /** Language package */
   locale: LineEditorLocale;
+  fieldConfig?: FieldConfig;
 }
 
 // non default props
@@ -55,7 +68,11 @@ export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
-export class LineEditor extends React.Component<LineEditorProps> {
+interface LineEditorState {
+  fieldConfig?: FieldConfig;
+}
+
+export class LineEditor extends React.Component<LineEditorProps, LineEditorState> {
 
   public shouldComponentUpdate(nextProps: LineEditorProps): boolean {
     const diffProps = !_isEqual(this.props, nextProps);
@@ -63,8 +80,28 @@ export class LineEditor extends React.Component<LineEditorProps> {
   }
 
   public static defaultProps: LineEditorDefaultProps = {
-    locale: en_US.GsLineEditor
+    locale: en_US.GsLineEditor,
+    fieldConfig: {
+      color: <ColorField/>,
+      width: <WidthField/>,
+      opacity: <OpacityField/>,
+      dash: <LineDashField/>,
+      dashOffset: <OffsetField/>,
+      cap: <LineCapField/>,
+      join: <LineJoinField/>,
+      graphicStrokeType: false,
+      graphicFillType: false
+    }
   };
+
+  static getDerivedStateFromProps(props: LineEditorProps, state: LineEditorState) {
+    return {
+      fieldConfig: {
+        ...LineEditor.defaultProps.fieldConfig,
+        ...props.fieldConfig
+      }
+    };
+  }
 
   static componentName: string = 'LineEditor';
 
@@ -170,7 +207,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
   render() {
     const {
       symbolizer
-     } = this.props;
+    } = this.props;
 
     const {
       color,
@@ -193,6 +230,19 @@ export class LineEditor extends React.Component<LineEditorProps> {
       wrapperCol: { span: 16 }
     };
 
+    const {
+      fieldConfig: {
+        color: colorFieldConfig
+      }
+    } = this.state;
+    let colorField;
+    if (colorFieldConfig) {
+      colorField = React.cloneElement(
+        colorFieldConfig as React.ReactElement,
+        {color, onChange: this.onColorChange}
+      );
+    }
+
     return (
       <div className="gs-line-symbolizer-editor" >
         <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
@@ -201,10 +251,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
               label={locale.colorLabel}
               {...formItemLayout}
             >
-              <ColorField
-                color={color}
-                onChange={this.onColorChange}
-              />
+              {colorField}
             </Form.Item>
             <Form.Item
               label={locale.widthLabel}

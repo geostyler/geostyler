@@ -26,6 +26,7 @@ import en_US from '../../../locale/en_US';
 import RasterEditor from '../RasterEditor/RasterEditor';
 import DataUtil from '../../../Util/DataUtil';
 import { Form } from 'antd';
+// import { WidthField } from '../Field/WidthField/WidthField';
 
 // i18n
 export interface EditorLocale {
@@ -125,7 +126,13 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           <LineEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
-          />
+            fieldConfig={{
+              // color: <WidthField/>,
+              opacity: false
+            }}
+          >
+            {/* <CustomWidthField property="width"/> */}
+          </LineEditor>
         );
       case 'Fill':
         return (
