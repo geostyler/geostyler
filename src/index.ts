@@ -78,7 +78,7 @@ import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
 import RuleTable from './Component/RuleTable/RuleTable';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 
-import { LocaleProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 
 import de_DE from './locale/de_DE';
 import en_US from './locale/en_US';
@@ -126,7 +126,7 @@ export {
   LineEditor,
   LineJoinField,
   locale,
-  LocaleProvider,
+  ConfigProvider,
   localize,
   MarkEditor,
   MaxScaleDenominator,
