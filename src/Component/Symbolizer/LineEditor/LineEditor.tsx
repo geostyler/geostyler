@@ -223,8 +223,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
 
     return (
           <CompositionContext.Consumer>
-            {(composition: Compositions) => {
-              return (
+            {(composition: Compositions) => (
                 <div className="gs-line-symbolizer-editor" >
                   <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
                     <Panel header="General" key="1">
@@ -271,8 +270,8 @@ export class LineEditor extends React.Component<LineEditorProps> {
                       </Panel>
                     </Collapse>
                   </div>
-                );
-              }}
+                )
+              }
             </CompositionContext.Consumer>
           );
   }
