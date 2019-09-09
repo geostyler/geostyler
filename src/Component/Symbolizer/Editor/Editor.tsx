@@ -26,7 +26,6 @@ import en_US from '../../../locale/en_US';
 import RasterEditor from '../RasterEditor/RasterEditor';
 import DataUtil from '../../../Util/DataUtil';
 import { Form } from 'antd';
-import { EditorContext } from '../../EditorContext/EditorContext';
 
 // i18n
 export interface EditorLocale {
@@ -123,12 +122,10 @@ export class Editor extends React.Component<EditorProps, EditorState> {
         );
       case 'Line':
         return (
-          <EditorContext.Provider value="LineEditor">
-            <LineEditor
-              symbolizer={symbolizer}
-              onSymbolizerChange={this.onSymbolizerChange}
-            />
-          </EditorContext.Provider>
+          <LineEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={this.onSymbolizerChange}
+          />
         );
       case 'Fill':
         return (
