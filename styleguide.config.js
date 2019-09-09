@@ -6,7 +6,12 @@ module.exports = {
   styleguideDir: './build/styleguide',
   assetsDir: './docs',
   propsParser: require('react-docgen-typescript')
-    .withCustomConfig('./tsconfig.json')
+    .withCustomConfig('./tsconfig.json', {propFilter: (prop) => {
+      if (prop.parent) {
+        return !prop.parent.fileName.includes('node_modules');
+      }
+      return true;
+    }})
     .parse,
   components: 'src/Component/**/*.tsx',
   webpackConfig: webpackConfig,
