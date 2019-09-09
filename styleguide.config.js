@@ -22,9 +22,11 @@ module.exports = {
     'geostyler': path.resolve(__dirname, 'src')
   },
   usageMode: 'expand',
+  pagePerSection: true,
   sections: [{
     name: 'Introduction',
-    content: './docs/README.md'
+    content: './docs/README.md',
+    sectionDepth: 0
   }, {
     name: 'Components',
     sections: [{
@@ -66,7 +68,8 @@ module.exports = {
     }, {
       name: 'UploadButton',
       components: 'src/Component/UploadButton/**/*.tsx'
-    }]
+    }],
+    sectionDepth: 2
   }],
   require: [
     path.join(__dirname, 'node_modules/antd/dist/antd.css')
