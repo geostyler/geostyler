@@ -26,6 +26,8 @@ const _isEqual = require('lodash/isEqual');
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import { EditorContext } from '../../EditorContext/EditorContext';
 
 const Panel = Collapse.Panel;
 
@@ -167,6 +169,13 @@ export class LineEditor extends React.Component<LineEditorProps> {
     }
   }
 
+  injectProps = (comp: React.ReactNode, field: string): React.ReactNode => {
+    const {
+      color
+    } = this.props.symbolizer;
+    return (React.cloneElement(comp as React.ReactElement, {color: color, onChange: this.onColorChange}));
+  }
+
   render() {
     const {
       symbolizer
@@ -194,92 +203,110 @@ export class LineEditor extends React.Component<LineEditorProps> {
     };
 
     return (
-      <div className="gs-line-symbolizer-editor" >
-        <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
-          <Panel header="General" key="1">
-            <Form.Item
-              label={locale.colorLabel}
-              {...formItemLayout}
-            >
-              <ColorField
-                color={color}
-                onChange={this.onColorChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.widthLabel}
-              {...formItemLayout}
-            >
-              <WidthField
-                width={width}
-                onChange={this.onWidthChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.opacityLabel}
-              {...formItemLayout}
-            >
-              <OpacityField
-                opacity={opacity}
-                onChange={this.onOpacityChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.dashLabel}
-              {...formItemLayout}
-            >
-              <LineDashField
-                dashArray={dasharray}
-                onChange={this.onDasharrayChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.dashOffsetLabel}
-              {...formItemLayout}
-            >
-              <OffsetField
-                offset={dashOffset}
-                onChange={this.onDashOffsetChange}
-                disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.capLabel}
-              {...formItemLayout}
-            >
-              <LineCapField
-                cap={cap}
-                onChange={this.onCapChange}
-                />
-            </Form.Item>
-            <Form.Item
-              label={locale.joinLabel}
-              {...formItemLayout}
-            >
-              <LineJoinField
-                join={join}
-                onChange={this.onJoinChange}
-              />
-            </Form.Item>
-          </Panel>
-          <Panel header="Graphic Stroke" key="2">
-            <GraphicEditor
-              graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
-              graphic={graphicStroke}
-              graphicType={_get(graphicStroke, 'kind')}
-              onGraphicChange={this.onGraphicStrokeChange}
-            />
-          </Panel>
-          <Panel header="Graphic Fill" key="3">
-            <GraphicEditor
-              graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-              graphic={graphicFill}
-              graphicType={_get(graphicFill, 'kind')}
-              onGraphicChange={this.onGraphicFillChange}
-            />
-          </Panel>
-        </Collapse>
-      </div>
+      <EditorContext.Consumer>
+        {(editor: any) => {
+          return (
+          <CompositionContext.Consumer>
+            {(composition: Compositions) => {
+              return (
+                <div className="gs-line-symbolizer-editor" >
+                  <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
+                    <Panel header="General" key="1">
+                        <Form.Item
+                          label={locale.colorLabel}
+                          {...formItemLayout}
+                        >
+                          {
+                            composition[editor] == undefined || composition[editor].colorField == undefined ?
+                            (<ColorField
+                              color={color}
+                              onChange={this.onColorChange}
+                            />) : (
+                            composition[editor].colorField != false ?
+                            (this.injectProps(composition[editor].colorField, 'color'))
+                            : null)
+                          }
+                        </Form.Item>
+                        <Form.Item
+                          label={locale.widthLabel}
+                          {...formItemLayout}
+                        >
+                          <WidthField
+                            width={width}
+                            onChange={this.onWidthChange}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          label={locale.opacityLabel}
+                          {...formItemLayout}
+                        >
+                          <OpacityField
+                            opacity={opacity}
+                            onChange={this.onOpacityChange}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          label={locale.dashLabel}
+                          {...formItemLayout}
+                        >
+                          <LineDashField
+                            dashArray={dasharray}
+                            onChange={this.onDasharrayChange}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          label={locale.dashOffsetLabel}
+                          {...formItemLayout}
+                        >
+                          <OffsetField
+                            offset={dashOffset}
+                            onChange={this.onDashOffsetChange}
+                            disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          label={locale.capLabel}
+                          {...formItemLayout}
+                        >
+                          <LineCapField
+                            cap={cap}
+                            onChange={this.onCapChange}
+                            />
+                        </Form.Item>
+                        <Form.Item
+                          label={locale.joinLabel}
+                          {...formItemLayout}
+                        >
+                          <LineJoinField
+                            join={join}
+                            onChange={this.onJoinChange}
+                          />
+                        </Form.Item>
+                      </Panel>
+                      <Panel header="Graphic Stroke" key="2">
+                        <GraphicEditor
+                          graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
+                          graphic={graphicStroke}
+                          graphicType={_get(graphicStroke, 'kind')}
+                          onGraphicChange={this.onGraphicStrokeChange}
+                        />
+                      </Panel>
+                      <Panel header="Graphic Fill" key="3">
+                        <GraphicEditor
+                          graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+                          graphic={graphicFill}
+                          graphicType={_get(graphicFill, 'kind')}
+                          onGraphicChange={this.onGraphicFillChange}
+                        />
+                      </Panel>
+                    </Collapse>
+                  </div>
+                );
+              }}
+            </CompositionContext.Consumer>
+          );
+          }}
+        </EditorContext.Consumer>
     );
   }
 }

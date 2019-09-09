@@ -77,6 +77,8 @@ import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
 import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
 import RuleTable from './Component/RuleTable/RuleTable';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
+import { CompositionContext } from './Component/CompositionContext/CompositionContext';
+import { EditorContext } from './Component/EditorContext/EditorContext';
 
 import { ConfigProvider } from 'antd';
 
@@ -165,5 +167,7 @@ export {
   RuleGeneratorWindow,
   RuleGenerator,
   RuleTable,
-  WidthField
+  WidthField,
+  CompositionContext,
+  EditorContext
 };
