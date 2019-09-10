@@ -184,7 +184,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
     const value = _get(symbolizer, `[${field}]`);
     const component = CompositionUtil.handleComposition(composition, path, onChange, field, value, fallback);
 
-    if (component == null) {
+    if (component === null) {
       return null;
     }
 
