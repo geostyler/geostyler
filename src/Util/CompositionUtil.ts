@@ -9,7 +9,7 @@ class CompositionUtil {
     const globalPath = path.split('.')[path.split('.').length - 1];
     const globalComposition = _get(composition, globalPath);
 
-    if (compositionValue != undefined) {
+    if (compositionValue !== undefined) {
       if (compositionValue != false) {
         return CompositionUtil.injectProperties(compositionValue, onChange, field, value);
       } else {
