@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Compositions } from "../Component/CompositionContext/CompositionContext";
+import { Compositions } from '../Component/CompositionContext/CompositionContext';
 const _get = require('lodash/get');
 
 class CompositionUtil {
@@ -17,15 +17,15 @@ class CompositionUtil {
     const globalComposition = _get(composition, globalPath);
 
     if (compositionValue !== undefined) {
-      if (compositionValue != false) {
+      if (compositionValue !== false) {
         return CompositionUtil.injectProperties(compositionValue, onChange, field, value);
       } else {
         return null;
       }
     }
 
-    if (globalComposition != undefined) {
-      if (globalComposition != false) {
+    if (globalComposition !== undefined) {
+      if (globalComposition !== false) {
         return CompositionUtil.injectProperties(globalComposition, onChange, field, value);
       } else {
         return null;
@@ -35,7 +35,9 @@ class CompositionUtil {
     return CompositionUtil.injectProperties(defaultElement, onChange, field, value);
   }
 
-  static injectProperties(component: React.ReactElement, onChange: Function, field: string, value: any): React.ReactElement {
+  static injectProperties(
+    component: React.ReactElement, onChange: Function, field: string, value: any
+  ): React.ReactElement {
     return (React.cloneElement(component, {[field]: value, onChange: onChange}));
   }
 

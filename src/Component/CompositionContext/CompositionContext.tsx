@@ -11,7 +11,7 @@ export interface Compositions {
     JoinField?: React.ReactElement | false;
     GraphicStrokeField?: React.ReactElement | false;
     GraphicFillField?: React.ReactElement | false;
-  }
+  };
 }
 
 export const CompositionContext = React.createContext({});

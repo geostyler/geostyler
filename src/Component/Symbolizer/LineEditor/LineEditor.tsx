@@ -170,8 +170,8 @@ export class LineEditor extends React.Component<LineEditorProps> {
   }
 
   handleComposition = (
-    composition: Compositions, field:string, onChange: Function, defaultElement: React.ReactElement
-  ):React.ReactElement => {
+    composition: Compositions, field: string, onChange: Function, defaultElement: React.ReactElement
+  ): React.ReactElement => {
     const {
       locale,
       symbolizer
