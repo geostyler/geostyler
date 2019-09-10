@@ -169,7 +169,9 @@ export class LineEditor extends React.Component<LineEditorProps> {
     }
   }
 
-  handleComposition = (composition: Compositions, field:string, onChange: Function, fallback: React.ReactElement) => {
+  handleComposition = (
+    composition: Compositions, field:string, onChange: Function, defaultElement: React.ReactElement
+  ):React.ReactElement => {
     const {
       locale,
       symbolizer
@@ -182,7 +184,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
 
     const path = `LineEditor.${field}Field`;
     const value = _get(symbolizer, `[${field}]`);
-    const component = CompositionUtil.handleComposition(composition, path, onChange, field, value, fallback);
+    const component = CompositionUtil.handleComposition(composition, path, onChange, field, value, defaultElement);
 
     if (component === null) {
       return null;

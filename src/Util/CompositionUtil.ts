@@ -4,7 +4,14 @@ const _get = require('lodash/get');
 
 class CompositionUtil {
 
-  static handleComposition(composition: Compositions, path: string, onChange: Function, field: string, value: any, fallback: React.ReactElement): React.ReactElement {
+  static handleComposition(
+    composition: Compositions,
+    path: string,
+    onChange: Function,
+    field: string,
+    value: any,
+    defaultElement: React.ReactElement
+  ): React.ReactElement {
     const compositionValue = _get(composition, path);
     const globalPath = path.split('.')[path.split('.').length - 1];
     const globalComposition = _get(composition, globalPath);
@@ -25,7 +32,7 @@ class CompositionUtil {
       }
     }
 
-    return CompositionUtil.injectProperties(fallback, onChange, field, value);
+    return CompositionUtil.injectProperties(defaultElement, onChange, field, value);
   }
 
   static injectProperties(component: React.ReactElement, onChange: Function, field: string, value: any): React.ReactElement {
