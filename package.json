@@ -10,7 +10,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/terrestris/geostyler.git"
+    "url": "git+https://github.com/geostyler/geostyler.git"
   },
   "keywords": [
     "geo",
@@ -20,7 +20,7 @@
   "author": "",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/terrestris/geostyler/issues"
+    "url": "https://github.com/geostyler/geostyler/issues"
   },
   "browserslist": [
     ">1%",
@@ -28,7 +28,7 @@
     "Firefox ESR",
     "not ie < 9"
   ],
-  "homepage": "https://github.com/terrestris/geostyler",
+  "homepage": "https://github.com/geostyler/geostyler",
   "scripts": {
     "build": "npm run build:dist && npm run build:browser && npm run build:styleguide",
     "build:dist": "tsc -p ./ && copyfiles \"./src/**/*.less\" dist --up 1 && node transform-less.js",
@@ -39,7 +39,7 @@
     "pretest": "npm run lint:prod",
     "prebuild": "rimraf dist/** && rimraf build/**",
     "prepublishOnly": "npm run build",
-    "release": "np --no-yarn && git push https://github.com/terrestris/geostyler.git master --tags",
+    "release": "np --no-yarn && git push https://github.com/geostyler/geostyler.git master --tags",
     "styleguide": "styleguidist server",
     "start:dev": "webpack --mode=development --watch --config dev-build.config.js",
     "test": "jest --coverage",
