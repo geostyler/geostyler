@@ -31,7 +31,7 @@ ORIGINAL_AUTHOR_NAME=$(git show -s --format="%aN" $TRAVIS_COMMIT)
 ORIGINAL_AUTHOR_EMAIL=$(git show -s --format="%ae" $TRAVIS_COMMIT)
 
 GH_PAGES_BRANCH=gh-pages
-GH_PAGES_REPO_FROM_SLUG="github.com/terrestris/geostyler.git"
+GH_PAGES_REPO_FROM_SLUG="github.com/geostyler/geostyler.git"
 GH_PAGES_REPO="https://$GH_PAGES_REPO_FROM_SLUG"
 GH_PAGES_REPO_AUTHENTICATED="https://$GH_TOKEN@$GH_PAGES_REPO_FROM_SLUG"
 GH_PAGES_DIR=/tmp/geostyler-gh-pages
