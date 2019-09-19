@@ -4,6 +4,7 @@ about: Use this template to open an Issue related to documentation, tutorials, e
 
 ---
 
+## Docs
 <!-- Please choose one of the categories -->
 ## FEATUREREQUEST | BUG | QUESTION
 
