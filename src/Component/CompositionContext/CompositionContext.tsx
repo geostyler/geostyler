@@ -45,6 +45,9 @@ export interface Compositions {
     rasterChannelField?: React.ReactElement | false;
     colorMapField?: React.ReactElement | false;
   };
+  MarkEditor?: {
+    wellKnownNameField?: React.ReactElement | false;
+  };
 }
 
 export const CompositionContext = React.createContext({});
