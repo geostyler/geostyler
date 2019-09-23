@@ -38,6 +38,13 @@ export interface Compositions {
     haloColorField?: React.ReactElement | false;
     haloWidthField?: React.ReactElement | false;
   };
+  RasterEditor?: {
+    opacityField?: React.ReactElement | false;
+    contrastEnhancementField?: React.ReactElement | false;
+    gammaValueField?: React.ReactElement | false;
+    rasterChannelField?: React.ReactElement | false;
+    colorMapField?: React.ReactElement | false;
+  };
 }
 
 export const CompositionContext = React.createContext({});
