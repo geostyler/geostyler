@@ -33,7 +33,12 @@ describe('CompositionUtil', () => {
       expect(dummyComponent.props).not.toHaveProperty('onChange');
       expect(dummyComponent.props).not.toHaveProperty(dummyField);
 
-      const injected = CompositionUtil.injectProperties(dummyComponent, dummyOnChange, dummyField, dummyValue);
+      const injected = CompositionUtil.injectProperties({
+        component: dummyComponent,
+        onChange: dummyOnChange,
+        propName: dummyField,
+        propValue: dummyValue
+      });
 
       expect(injected.props).toHaveProperty('onChange');
       expect(injected.props).toHaveProperty(dummyField);
@@ -44,9 +49,14 @@ describe('CompositionUtil', () => {
   describe('handleComposition', () => {
     it('returns default element if no composition was defined', () => {
       dummyComposition = {};
-      const composition = CompositionUtil.handleComposition(
-        dummyComposition, dummyPath, dummyOnChange, dummyField, dummyValue, dummyDefaultElement
-      );
+      const composition = CompositionUtil.handleComposition({
+        composition: dummyComposition,
+        path: dummyPath,
+        onChange: dummyOnChange,
+        propName: dummyField,
+        propValue: dummyValue,
+        defaultElement: dummyDefaultElement
+      });
       
       expect(composition).toBeDefined();
       expect(composition.type).toEqual(dummyDefaultElement.type);
@@ -55,9 +65,14 @@ describe('CompositionUtil', () => {
     });
 
     it('prefers nested options over global options', () => {
-      const composition = CompositionUtil.handleComposition(
-        dummyComposition, dummyPath, dummyOnChange, dummyField, dummyValue, dummyDefaultElement
-      );
+      const composition = CompositionUtil.handleComposition({
+        composition: dummyComposition,
+        path: dummyPath,
+        onChange: dummyOnChange,
+        propName: dummyField,
+        propValue: dummyValue,
+        defaultElement: dummyDefaultElement
+      });
 
       expect(composition).toBeDefined();
       expect(composition.type).toEqual(dummyComponent.type);
@@ -67,9 +82,14 @@ describe('CompositionUtil', () => {
 
     it('uses the global option if not nested option is defined', () => {
       delete dummyComposition.dummyEditor.dummyField;
-      const composition = CompositionUtil.handleComposition(
-        dummyComposition, dummyPath, dummyOnChange, dummyField, dummyValue, dummyDefaultElement
-      );
+      const composition = CompositionUtil.handleComposition({
+        composition: dummyComposition,
+        path: dummyPath,
+        onChange: dummyOnChange,
+        propName: dummyField,
+        propValue: dummyValue,
+        defaultElement: dummyDefaultElement
+      });
 
       expect(composition).toBeDefined();
       expect(composition.type).toEqual(dummyGlobalComponent.type);
@@ -79,9 +99,14 @@ describe('CompositionUtil', () => {
 
     it('returns null if property is set to false', () => {
       dummyComposition.dummyEditor.dummyField = false;
-      const composition = CompositionUtil.handleComposition(
-        dummyComposition, dummyPath, dummyOnChange, dummyField, dummyValue, dummyDefaultElement
-      );
+      const composition = CompositionUtil.handleComposition({
+        composition: dummyComposition,
+        path: dummyPath,
+        onChange: dummyOnChange,
+        propName: dummyField,
+        propValue: dummyValue,
+        defaultElement: dummyDefaultElement
+      });
 
       expect(composition).toBeDefined();
       expect(composition).toBeFalsy();
