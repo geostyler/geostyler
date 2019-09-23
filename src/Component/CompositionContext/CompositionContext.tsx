@@ -48,6 +48,15 @@ export interface Compositions {
   MarkEditor?: {
     wellKnownNameField?: React.ReactElement | false;
   };
+  WellKnownNameEditor?: {
+    radiusField?: React.ReactElement | false;
+    fillColorField?: React.ReactElement | false;
+    fillOpacityField?: React.ReactElement | false;
+    strokeColorField?: React.ReactElement | false;
+    strokeWidthField?: React.ReactElement | false;
+    strokeOpacityField?: React.ReactElement | false;
+    rotateField?: React.ReactElement | false;
+  };
 }
 
 export const CompositionContext = React.createContext({});

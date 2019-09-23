@@ -250,7 +250,9 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
                   key="toggleContrastEnhancement"
                   {...toggleViewButtonLayout}
                 >
-                  <a onClick={() => {this.toggleView('contrastEnhancement'); }}>{`${locale.channelSelectionLabel} >>`}</a>
+                  <a onClick={() => {this.toggleView('contrastEnhancement'); }}>
+                    {`${locale.channelSelectionLabel} >>`}
+                  </a>
                 </Form.Item>
               ])
             }
