@@ -1,6 +1,15 @@
 import * as React from 'react';
 
 export interface Compositions {
+  Editor?: {
+    kindField?: React.ReactElement | false;
+    markEditor?: React.ReactElement | false;
+    iconEditor?: React.ReactElement | false;
+    lineEditor?: React.ReactElement | false;
+    fillEditor?: React.ReactElement | false;
+    textEditor?: React.ReactElement | false;
+    rasterEditor?: React.ReactElement | false;
+  };
   LineEditor?: {
     widthField?: React.ReactElement | false;
     colorField?: React.ReactElement | false;
