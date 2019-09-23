@@ -22,6 +22,8 @@ const _isEqual = require('lodash/isEqual');
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import LineDashField from '../Field/LineDashField/LineDashField';
+import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import CompositionUtil from '../../../Util/CompositionUtil';
 
 const Panel = Collapse.Panel;
 
@@ -124,6 +126,21 @@ export class FillEditor extends React.Component<FillEditorProps> {
     }
   }
 
+  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+    return element == null ? null : (
+      <Form.Item
+      label={locale}
+      {...formItemLayout}
+      >
+        {element}
+      </Form.Item>
+    );
+  }
+
   render() {
     const {
       symbolizer
@@ -142,71 +159,101 @@ export class FillEditor extends React.Component<FillEditorProps> {
       locale
     } = this.props;
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
     return (
-      <div className="gs-fill-symbolizer-editor" >
-        <Collapse bordered={false} defaultActiveKey={['1']}>
-          <Panel header="General" key="1">
-            <Form.Item
-              label={locale.fillColorLabel}
-              {...formItemLayout}
-            >
-              <ColorField
-                color={color}
-                onChange={this.onFillColorChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.fillOpacityLabel}
-              {...formItemLayout}
-            >
-              <OpacityField
-                opacity={opacity}
-                onChange={this.onFillOpacityChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.outlineColorLabel}
-              {...formItemLayout}
-            >
-              <ColorField
-                color={outlineColor}
-                onChange={this.onOutlineColorChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.outlineWidthLabel}
-              {...formItemLayout}
-            >
-              <WidthField
-                width={outlineWidth}
-                onChange={this.onOutlineWidthChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.outlineDasharrayLabel}
-              {...formItemLayout}
-            >
-              <LineDashField
-                dashArray={outlineDasharray}
-                onChange={this.onOutlineDasharrayChange}
-              />
-            </Form.Item>
-          </Panel>
-          <Panel header="Graphic Fill" key="2">
-              <GraphicEditor
-                graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-                graphic={graphicFill}
-                graphicType={_get(graphicFill, 'kind')}
-                onGraphicChange={this.onGraphicChange}
-              />
-          </Panel>
-        </Collapse>
-      </div>
+      <CompositionContext.Consumer>
+        {(composition: Compositions) => (
+          <div className="gs-fill-symbolizer-editor" >
+            <Collapse bordered={false} defaultActiveKey={['1']}>
+              <Panel header="General" key="1">
+                {
+                  this.wrapFormItem(
+                    locale.fillColorLabel,
+                    CompositionUtil.handleComposition({
+                      composition,
+                      path: 'FillEditor.fillColorField',
+                      onChange: this.onFillColorChange,
+                      propName: 'color',
+                      propValue: color,
+                      defaultElement: <ColorField />
+                    })
+                  )
+                }
+                {
+                  this.wrapFormItem(
+                    locale.fillOpacityLabel,
+                    CompositionUtil.handleComposition({
+                      composition,
+                      path: 'FillEditor.fillOpacityField',
+                      onChange: this.onFillOpacityChange,
+                      propName: 'opacity',
+                      propValue: opacity,
+                      defaultElement: <OpacityField />
+                    })
+                  )
+                }
+                {
+                  this.wrapFormItem(
+                    locale.outlineColorLabel,
+                    CompositionUtil.handleComposition({
+                      composition,
+                      path: 'FillEditor.outlineColorField',
+                      onChange: this.onOutlineColorChange,
+                      propName: 'color',
+                      propValue: outlineColor,
+                      defaultElement: <ColorField />
+                    })
+                  )
+                }
+                {
+                  this.wrapFormItem(
+                    locale.outlineWidthLabel,
+                    CompositionUtil.handleComposition({
+                      composition,
+                      path: 'FillEditor.outlineWidthField',
+                      onChange: this.onOutlineWidthChange,
+                      propName: 'width',
+                      propValue: outlineWidth,
+                      defaultElement: <WidthField />
+                    })
+                  )
+                }
+                {
+                  this.wrapFormItem(
+                    locale.outlineDasharrayLabel,
+                    CompositionUtil.handleComposition({
+                      composition,
+                      path: 'FillEditor.outlineDasharrayField',
+                      onChange: this.onOutlineDasharrayChange,
+                      propName: 'dashArray',
+                      propValue: outlineDasharray,
+                      defaultElement: <LineDashField />
+                    })
+                  )
+                }
+              </Panel>
+              <Panel header="Graphic Fill" key="2">
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'FillEditor.graphicEditorField',
+                    onChange: this.onGraphicChange,
+                    onChangeName: 'onGraphicChange',
+                    propName: 'graphic',
+                    propValue: graphicFill,
+                    defaultElement: (
+                      <GraphicEditor
+                        graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+                        graphic={graphicFill}
+                        graphicType={_get(graphicFill, 'kind')}
+                      />
+                    )
+                  })
+                }
+              </Panel>
+            </Collapse>
+          </div>
+        )}
+      </CompositionContext.Consumer>
     );
   }
 }

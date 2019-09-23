@@ -18,6 +18,14 @@ export interface Compositions {
     rotateField?: React.ReactElement | false;
     opacityField?: React.ReactElement | false;
   };
+  FillEditor?: {
+    fillColorField?: React.ReactElement | false;
+    fillOpacityField?: React.ReactElement | false;
+    outlineColorField?: React.ReactElement | false;
+    outlineWidthField?: React.ReactElement | false;
+    outlineDasharrayField?: React.ReactElement | false;
+    graphicEditorField?: React.ReactElement | false;
+  }
 }
 
 export const CompositionContext = React.createContext({});
