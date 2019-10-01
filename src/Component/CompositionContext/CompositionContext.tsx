@@ -1,5 +1,21 @@
 import * as React from 'react';
 
+/**
+ * Creates the CompositionContext used for customising
+ * specified components. Components can be replaced or
+ * disabled.
+ *
+ * Definition of the compositions object.
+ * This object can be used for a CompositionContext
+ * to describe which components should be replaced
+ * or disabled. For replacing a component, another
+ * React component needs to be set as value. By
+ * assigning "false", the component will be disabled.
+ *
+ * Important: Context overrides the onChange and value
+ * properties for a custom component. This may lead to
+ * sideeffects if these props are used elsewhere.
+ */
 export interface Compositions {
   Editor?: {
     kindField?: React.ReactElement | false;

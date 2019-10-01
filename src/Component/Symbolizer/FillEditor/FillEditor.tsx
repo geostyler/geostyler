@@ -126,6 +126,10 @@ export class FillEditor extends React.Component<FillEditorProps> {
     }
   }
 
+  /**
+   * Wraps a Form Item around a given element and adds its locale
+   * to the From Item label.
+   */
   wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
     const formItemLayout = {
       labelCol: { span: 8 },

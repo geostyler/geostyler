@@ -97,6 +97,11 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     }
   }
 
+  /**
+   * Get the appropriate Editor UI for a certain style.
+   *
+   * Also handles the customisation of sub-components via CompositionContext.
+   */
   getUiFromSymbolizer = (symbolizer: Symbolizer, composition: Compositions): React.ReactNode => {
     const {
       iconEditorProps,

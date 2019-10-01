@@ -20,8 +20,25 @@ interface CompositionUtilInjectOptions {
   onChangeName?: string;
 }
 
+/**
+ * Utility functions for the composition context.
+ *
+ * In order to allow replacement and disablement of certain components
+ * we use the CompositionContext. These functions contain the logic for
+ * handling which components should be replaced/disabled within a
+ * customisable component.
+ */
 class CompositionUtil {
 
+  /**
+   * Main function for handling compositions.
+   *
+   * Takes the composition context, the component to be checked, etc. and
+   * either replaces, disables or returns the original component. Will also
+   * inject the required functions and properties for the replaced components.
+   *
+   * @param options CompositionUtilOptions
+   */
   static handleComposition(options: CompositionUtilOptions): React.ReactElement {
     const {
       composition,
@@ -66,6 +83,11 @@ class CompositionUtil {
     return CompositionUtil.injectProperties(injectOptions);
   }
 
+  /**
+   * Injects the value and onChange properties to a given component.
+   *
+   * @param options CompositionUtilInjectOptions
+   */
   static injectProperties(options: CompositionUtilInjectOptions): React.ReactElement {
     const {
       component,
