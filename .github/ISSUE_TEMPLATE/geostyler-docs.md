@@ -1,10 +1,13 @@
 ---
 name: GeoStyler Docs
 about: Use this template to open an Issue related to documentation, tutorials, etc.
+labels: documentation
+assignees: jansule, KaiVolland
 
 ---
 
-## Docs
+# Docs
+
 <!-- Please choose one of the categories -->
 ## FEATUREREQUEST | BUG | QUESTION
 
