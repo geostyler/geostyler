@@ -19,6 +19,8 @@ import WidthField from '../Field/WidthField/WidthField';
 import FontPicker from '../Field/FontPicker/FontPicker';
 import OffsetField from '../Field/OffsetField/OffsetField';
 import RotateField from '../Field/RotateField/RotateField';
+import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import CompositionUtil from '../../../Util/CompositionUtil';
 
 const _cloneDeep = require('lodash/cloneDeep');
 const _isEqual = require('lodash/isEqual');
@@ -186,6 +188,25 @@ export class TextEditor extends React.Component<TextEditorProps> {
     }
   }
 
+  /**
+   * Wraps a Form Item around a given element and adds its locale
+   * to the From Item label.
+   */
+  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+    return element == null ? null : (
+      <Form.Item
+      label={locale}
+      {...formItemLayout}
+      >
+        {element}
+      </Form.Item>
+    );
+  }
+
   render() {
     const {
       locale,
@@ -206,117 +227,159 @@ export class TextEditor extends React.Component<TextEditorProps> {
     } = symbolizer;
 
     // split the current offset
-    let offsetX;
-    let offsetY;
+    let offsetX: number;
+    let offsetY: number;
     if (offset) {
       offsetX = offset[0];
       offsetY = offset[1];
     }
     const properties = internalDataDef && internalDataDef.schema ? Object.keys(internalDataDef.schema.properties) : [];
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
     return (
-      <div className="gs-text-symbolizer-editor" >
-        <Form.Item
-          label={locale.templateFieldLabel}
-          {...formItemLayout}
-        >
-          <Mentions
-            placeholder={locale.templateFieldLabel}
-            value={symbolizer.label || ''}
-            onChange={this.onLabelChange}
-            prefix="{{"
-            notFoundContent={locale.attributeNotFound}
-          >
-            {properties.map(p => <MentionOption key={p} value={p}>{p}</MentionOption>)}
-          </Mentions>
-        </Form.Item>
-        <Form.Item
-          label={locale.colorLabel}
-          {...formItemLayout}
-        >
-          <ColorField
-            color={color}
-            onChange={this.onColorChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.fontLabel}
-          {...formItemLayout}
-        >
-          <FontPicker
-            font={font}
-            onChange={this.onFontChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.opacityLabel}
-          {...formItemLayout}
-        >
-          <OpacityField
-            opacity={opacity}
-            onChange={this.onOpacityChange}
-            />
-        </Form.Item>
-        <Form.Item
-          label={locale.sizeLabel}
-          {...formItemLayout}
-        >
-          <WidthField
-            width={size}
-            onChange={this.onSizeChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.offsetXLabel}
-          {...formItemLayout}
-        >
-          <OffsetField
-            offset={offsetX}
-            onChange={this.onOffsetXChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.offsetYLabel}
-          {...formItemLayout}
-        >
-          <OffsetField
-            offset={offsetY}
-            onChange={this.onOffsetYChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.rotateLabel}
-          {...formItemLayout}
-        >
-          <RotateField
-            rotate={rotate}
-            onChange={this.onRotateChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.haloColorLabel}
-          {...formItemLayout}
-        >
-          <ColorField
-            color={haloColor}
-            onChange={this.onHaloColorChange}
-            />
-        </Form.Item>
-        <Form.Item
-          label={locale.haloWidthLabel}
-          {...formItemLayout}
-        >
-          <WidthField
-            width={haloWidth}
-            onChange={this.onHaloWidthChange}
-          />
-        </Form.Item>
-      </div>
+      <CompositionContext.Consumer>
+        {(composition: Compositions) => (
+          <div className="gs-text-symbolizer-editor" >
+            {
+              this.wrapFormItem(
+                locale.templateFieldLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.templateField',
+                  onChange: this.onLabelChange,
+                  propName: 'value',
+                  propValue: symbolizer.label || '',
+                  defaultElement: (
+                    <Mentions
+                      placeholder={locale.templateFieldLabel}
+                      prefix="{{"
+                      notFoundContent={locale.attributeNotFound}
+                    >
+                      {properties.map(p => <MentionOption key={p} value={p}>{p}</MentionOption>)}
+                    </Mentions>
+                  )
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.colorLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.colorField',
+                  onChange: this.onColorChange,
+                  propName: 'color',
+                  propValue: color,
+                  defaultElement: <ColorField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.fontLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.fontField',
+                  onChange: this.onFontChange,
+                  propName: 'font',
+                  propValue: font,
+                  defaultElement: <FontPicker />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.opacityLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.opacityField',
+                  onChange: this.onOpacityChange,
+                  propName: 'opacity',
+                  propValue: opacity,
+                  defaultElement: <OpacityField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.sizeLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.sizeField',
+                  onChange: this.onSizeChange,
+                  propName: 'width',
+                  propValue: size,
+                  defaultElement: <WidthField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.offsetXLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.offsetXField',
+                  onChange: this.onOffsetXChange,
+                  propName: 'offset',
+                  propValue: offsetX,
+                  defaultElement: <OffsetField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.offsetYLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.offsetYField',
+                  onChange: this.onOffsetYChange,
+                  propName: 'offset',
+                  propValue: offsetY,
+                  defaultElement: <OffsetField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.rotateLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.rotateField',
+                  onChange: this.onRotateChange,
+                  propName: 'rotate',
+                  propValue: rotate,
+                  defaultElement: <RotateField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.haloColorLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.haloColorField',
+                  onChange: this.onHaloColorChange,
+                  propName: 'color',
+                  propValue: haloColor,
+                  defaultElement: <ColorField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.haloWidthLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'TextEditor.haloWidthField',
+                  onChange: this.onHaloWidthChange,
+                  propName: 'width',
+                  propValue: haloWidth,
+                  defaultElement: <WidthField />
+                })
+              )
+            }
+          </div>
+        )}
+      </CompositionContext.Consumer>
     );
   }
 }

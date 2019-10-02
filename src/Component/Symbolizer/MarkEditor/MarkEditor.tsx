@@ -10,6 +10,8 @@ import WellKnownNameField from '../Field/WellKnownNameField/WellKnownNameField';
 import WellKnownNameEditor from '../WellKnownNameEditor/WellKnownNameEditor';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import CompositionUtil from '../../../Util/CompositionUtil';
 import { Form } from 'antd';
 
 const _cloneDeep = require('lodash/cloneDeep');
@@ -71,6 +73,25 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
     }
   }
 
+  /**
+   * Wraps a Form Item around a given element and adds its locale
+   * to the From Item label.
+   */
+  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+    return element == null ? null : (
+      <Form.Item
+      label={locale}
+      {...formItemLayout}
+      >
+        {element}
+      </Form.Item>
+    );
+  }
+
   render() {
     const {
       locale,
@@ -80,27 +101,30 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
       symbolizer
     } = this.state;
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
     return (
-      <div className="gs-mark-symbolizer-editor" >
-        <Form.Item
-          label={locale.wellKnownNameFieldLabel}
-          {...formItemLayout}
-        >
-          <WellKnownNameField
-            wellKnownName={symbolizer.wellKnownName}
-            onChange={this.onWellKnownNameChange}
-          />
-        </Form.Item>
-        <WellKnownNameEditor
-          symbolizer={symbolizer}
-          onSymbolizerChange={onSymbolizerChange}
-        />
-      </div>
+      <CompositionContext.Consumer>
+        {(composition: Compositions) => (
+          <div className="gs-mark-symbolizer-editor" >
+            {
+              this.wrapFormItem(
+                locale.wellKnownNameFieldLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'MarkEditor.wellKnownNameField',
+                  onChange: this.onWellKnownNameChange,
+                  propName: 'wellKnownName',
+                  propValue: symbolizer.wellKnownName,
+                  defaultElement: <WellKnownNameField />
+                })
+              )
+            }
+            <WellKnownNameEditor
+              symbolizer={symbolizer}
+              onSymbolizerChange={onSymbolizerChange}
+            />
+          </div>
+        )}
+      </CompositionContext.Consumer>
     );
   }
 }

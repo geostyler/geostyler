@@ -26,6 +26,8 @@ const _isEqual = require('lodash/isEqual');
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import CompositionUtil from '../../../Util/CompositionUtil';
 
 const Panel = Collapse.Panel;
 
@@ -167,6 +169,25 @@ export class LineEditor extends React.Component<LineEditorProps> {
     }
   }
 
+  /**
+   * Wraps a Form Item around a given element and adds its locale
+   * to the From Item label.
+   */
+  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+    return element == null ? null : (
+      <Form.Item
+      label={locale}
+      {...formItemLayout}
+      >
+        {element}
+      </Form.Item>
+    );
+  }
+
   render() {
     const {
       symbolizer
@@ -177,9 +198,9 @@ export class LineEditor extends React.Component<LineEditorProps> {
       width,
       opacity,
       dasharray,
+      dashOffset,
       cap,
       join,
-      dashOffset,
       graphicStroke,
       graphicFill
     } = symbolizer;
@@ -188,99 +209,151 @@ export class LineEditor extends React.Component<LineEditorProps> {
       locale
     } = this.props;
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
     return (
-      <div className="gs-line-symbolizer-editor" >
-        <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
-          <Panel header="General" key="1">
-            <Form.Item
-              label={locale.colorLabel}
-              {...formItemLayout}
-            >
-              <ColorField
-                color={color}
-                onChange={this.onColorChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.widthLabel}
-              {...formItemLayout}
-            >
-              <WidthField
-                width={width}
-                onChange={this.onWidthChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.opacityLabel}
-              {...formItemLayout}
-            >
-              <OpacityField
-                opacity={opacity}
-                onChange={this.onOpacityChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.dashLabel}
-              {...formItemLayout}
-            >
-              <LineDashField
-                dashArray={dasharray}
-                onChange={this.onDasharrayChange}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.dashOffsetLabel}
-              {...formItemLayout}
-            >
-              <OffsetField
-                offset={dashOffset}
-                onChange={this.onDashOffsetChange}
-                disabled={symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0}
-              />
-            </Form.Item>
-            <Form.Item
-              label={locale.capLabel}
-              {...formItemLayout}
-            >
-              <LineCapField
-                cap={cap}
-                onChange={this.onCapChange}
-                />
-            </Form.Item>
-            <Form.Item
-              label={locale.joinLabel}
-              {...formItemLayout}
-            >
-              <LineJoinField
-                join={join}
-                onChange={this.onJoinChange}
-              />
-            </Form.Item>
-          </Panel>
-          <Panel header="Graphic Stroke" key="2">
-            <GraphicEditor
-              graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
-              graphic={graphicStroke}
-              graphicType={_get(graphicStroke, 'kind')}
-              onGraphicChange={this.onGraphicStrokeChange}
-            />
-          </Panel>
-          <Panel header="Graphic Fill" key="3">
-            <GraphicEditor
-              graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-              graphic={graphicFill}
-              graphicType={_get(graphicFill, 'kind')}
-              onGraphicChange={this.onGraphicFillChange}
-            />
-          </Panel>
-        </Collapse>
-      </div>
-    );
+          <CompositionContext.Consumer>
+            {(composition: Compositions) => (
+                <div className="gs-line-symbolizer-editor" >
+                  <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
+                    <Panel header="General" key="1">
+                      {
+                        this.wrapFormItem(
+                          locale.colorLabel,
+                          CompositionUtil.handleComposition({
+                            composition,
+                            path: 'LineEditor.colorField',
+                            onChange: this.onColorChange,
+                            propName: 'color',
+                            propValue: color,
+                            defaultElement: <ColorField />
+                          })
+                        )
+                      }
+                      {
+                        this.wrapFormItem(
+                          locale.widthLabel,
+                          CompositionUtil.handleComposition({
+                            composition,
+                            path: 'LineEditor.widthField',
+                            onChange: this.onWidthChange,
+                            propName: 'width',
+                            propValue: width,
+                            defaultElement: <WidthField />
+                          })
+                        )
+                      }
+                      {
+                        this.wrapFormItem(
+                          locale.opacityLabel,
+                          CompositionUtil.handleComposition({
+                            composition,
+                            path: 'LineEditor.opacityField',
+                            onChange: this.onOpacityChange,
+                            propName: 'opacity',
+                            propValue: opacity,
+                            defaultElement: <OpacityField />
+                          })
+                        )
+                      }
+                      {
+                        this.wrapFormItem(
+                          locale.dashLabel,
+                          CompositionUtil.handleComposition({
+                            composition,
+                            path: 'LineEditor.lineDashField',
+                            onChange: this.onDasharrayChange,
+                            propName: 'dashArray',
+                            propValue: dasharray,
+                            defaultElement: <LineDashField />
+                          })
+                        )
+                      }
+                      {
+                        this.wrapFormItem(
+                          locale.dashOffsetLabel,
+                          CompositionUtil.handleComposition({
+                            composition,
+                            path: 'LineEditor.dashOffsetField',
+                            onChange: this.onDashOffsetChange,
+                            propName: 'offset',
+                            propValue: dashOffset,
+                            defaultElement: (
+                              <OffsetField
+                                disabled={
+                                  symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0
+                                }
+                              />)
+                          })
+                        )
+                      }
+                      {
+                        this.wrapFormItem(
+                          locale.capLabel,
+                          CompositionUtil.handleComposition({
+                            composition,
+                            path: 'LineEditor.capField',
+                            onChange: this.onCapChange,
+                            propName: 'cap',
+                            propValue: cap,
+                            defaultElement: <LineCapField />
+                          })
+                        )
+                      }
+                      {
+                        this.wrapFormItem(
+                          locale.joinLabel,
+                          CompositionUtil.handleComposition({
+                            composition,
+                            path: 'LineEditor.joinField',
+                            onChange: this.onJoinChange,
+                            propName: 'join',
+                            propValue: join,
+                            defaultElement: <LineJoinField />
+                          })
+                        )
+                      }
+                      </Panel>
+                      <Panel header="Graphic Stroke" key="2">
+                        {
+                          CompositionUtil.handleComposition({
+                            composition,
+                            path: 'LineEditor.graphicStrokeField',
+                            onChange: this.onGraphicStrokeChange,
+                            propName: 'graphic',
+                            propValue: graphicStroke,
+                            onChangeName: 'onGraphicChange',
+                            defaultElement: (
+                              <GraphicEditor
+                                graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
+                                graphic={graphicStroke}
+                                graphicType={_get(graphicStroke, 'kind')}
+                              />)
+                          })
+                        }
+                      </Panel>
+                      <Panel header="Graphic Fill" key="3">
+                        {
+                          CompositionUtil.handleComposition({
+                            composition,
+                            path: 'LineEditor.graphicFillField',
+                            onChange: this.onGraphicFillChange,
+                            propName: 'graphic',
+                            propValue: graphicFill,
+                            onChangeName: 'onGraphicChange',
+                            defaultElement: (
+                              <GraphicEditor
+                                graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+                                graphic={graphicFill}
+                                graphicType={_get(graphicFill, 'kind')}
+                              />)
+                          })
+                        }
+                      </Panel>
+                    </Collapse>
+                  </div>
+                )
+              }
+            </CompositionContext.Consumer>
+          );
   }
 }
 

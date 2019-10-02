@@ -10,6 +10,8 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
 import RotateField from '../Field/RotateField/RotateField';
+import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import CompositionUtil from '../../../Util/CompositionUtil';
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
 
@@ -127,6 +129,25 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     }
   }
 
+  /**
+   * Wraps a Form Item around a given element and adds its locale
+   * to the From Item label.
+   */
+  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+    return element == null ? null : (
+      <Form.Item
+      label={locale}
+      {...formItemLayout}
+      >
+        {element}
+      </Form.Item>
+    );
+  }
+
   render () {
     const {
       symbolizer
@@ -146,77 +167,104 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
       locale
     } = this.props;
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
     return (
-      <div>
-        <Form.Item
-          label={locale.radiusLabel}
-          {...formItemLayout}
-        >
-          <RadiusField
-            radius={radius}
-            onChange={this.onRadiusChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.fillColorLabel}
-          {...formItemLayout}
-        >
-          <ColorField
-            color={color}
-            onChange={this.onColorChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.fillOpacityLabel}
-          {...formItemLayout}
-        >
-          <OpacityField
-            opacity={opacity}
-            onChange={this.onOpacityChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.strokeColorLabel}
-          {...formItemLayout}
-        >
-          <ColorField
-            color={strokeColor}
-            onChange={this.onStrokeColorChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.strokeWidthLabel}
-          {...formItemLayout}
-        >
-          <WidthField
-            width={strokeWidth}
-            onChange={this.onStrokeWidthChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.strokeOpacityLabel}
-          {...formItemLayout}
-        >
-          <OpacityField
-            opacity={strokeOpacity}
-            onChange={this.onStrokeOpacityChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.rotateLabel}
-          {...formItemLayout}
-        >
-          <RotateField
-            rotate={rotate}
-            onChange={this.onRotateChange}
-          />
-        </Form.Item>
-      </div>
+      <CompositionContext.Consumer>
+        {(composition: Compositions) => (
+          <div>
+            {
+              this.wrapFormItem(
+                locale.radiusLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'WellKnownNameEditor.radiusField',
+                  onChange: this.onRadiusChange,
+                  propName: 'radius',
+                  propValue: radius,
+                  defaultElement: <RadiusField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.fillColorLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'WellKnownNameEditor.fillColorField',
+                  onChange: this.onColorChange,
+                  propName: 'color',
+                  propValue: color,
+                  defaultElement: <ColorField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.fillOpacityLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'WellKnownNameEditor.fillOpacityField',
+                  onChange: this.onOpacityChange,
+                  propName: 'opacity',
+                  propValue: opacity,
+                  defaultElement: <OpacityField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.strokeColorLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'WellKnownNameEditor.strokeColorField',
+                  onChange: this.onStrokeColorChange,
+                  propName: 'color',
+                  propValue: strokeColor,
+                  defaultElement: <ColorField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.strokeWidthLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'WellKnownNameEditor.strokeWidthField',
+                  onChange: this.onStrokeWidthChange,
+                  propName: 'width',
+                  propValue: strokeWidth,
+                  defaultElement: <WidthField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.strokeOpacityLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'WellKnownNameEditor.strokeOpacityField',
+                  onChange: this.onStrokeOpacityChange,
+                  propName: 'opacity',
+                  propValue: strokeOpacity,
+                  defaultElement: <OpacityField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.rotateLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'WellKnownNameEditor.rotateField',
+                  onChange: this.onRotateChange,
+                  propName: 'rotate',
+                  propValue: rotate,
+                  defaultElement: <RotateField />
+                })
+              )
+            }
+          </div>
+        )}
+      </CompositionContext.Consumer>
     );
   }
 }

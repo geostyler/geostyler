@@ -19,6 +19,9 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
 
+import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import CompositionUtil from '../../../Util/CompositionUtil';
+
 // i18n
 export interface IconEditorLocale {
   imageLabel?: string;
@@ -97,6 +100,25 @@ export class IconEditor extends React.Component<IconEditorProps> {
     }
   }
 
+  /**
+   * Wraps a Form Item around a given element and adds its locale
+   * to the From Item label.
+   */
+  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
+    const formItemLayout = {
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
+    };
+    return element == null ? null : (
+      <Form.Item
+      label={locale}
+      {...formItemLayout}
+      >
+        {element}
+      </Form.Item>
+    );
+  }
+
   render() {
     const {
       locale
@@ -116,53 +138,70 @@ export class IconEditor extends React.Component<IconEditorProps> {
 
     const imageSrc = !_isEmpty(image) ? image : 'URL to Icon';
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
     return (
-      <div className="gs-icon-symbolizer-editor" >
-        <Form.Item
-          label={locale.imageLabel}
-          {...formItemLayout}
-        >
-          <ImageField
-            value={imageSrc}
-            iconLibraries={iconLibraries}
-            tooltipLabel={locale.iconTooltipLabel}
-            onChange={this.onImageSrcChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.sizeLabel}
-          {...formItemLayout}
-        >
-          <SizeField
-            size={size}
-            onChange={this.onSizeChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.rotateLabel}
-          {...formItemLayout}
-        >
-          <RotateField
-            rotate={rotate}
-            onChange={this.onRotateChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label=
-          {locale.opacityLabel}
-          {...formItemLayout}
-        >
-          <OpacityField
-            opacity={opacity}
-            onChange={this.onOpacityChange}
-          />
-        </Form.Item>
-      </div>
+      <CompositionContext.Consumer>
+        {(composition: Compositions) => (
+          <div className="gs-icon-symbolizer-editor" >
+            {
+              this.wrapFormItem(
+                locale.imageLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'IconEditor.imageField',
+                  onChange: this.onImageSrcChange,
+                  propName: 'value',
+                  propValue: imageSrc,
+                  defaultElement: (
+                    <ImageField
+                      iconLibraries={iconLibraries}
+                      tooltipLabel={locale.iconTooltipLabel}
+                    />
+                  )
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.sizeLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'IconEditor.sizeField',
+                  onChange: this.onSizeChange,
+                  propName: 'size',
+                  propValue: size,
+                  defaultElement: <SizeField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.rotateLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'IconEditor.rotateField',
+                  onChange: this.onRotateChange,
+                  propName: 'rotate',
+                  propValue: rotate,
+                  defaultElement: <RotateField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.opacityLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'IconEditor.opacityField',
+                  onChange: this.onOpacityChange,
+                  propName: 'opacity',
+                  propValue: opacity,
+                  defaultElement: <OpacityField />
+                })
+              )
+            }
+          </div>
+        )}
+      </CompositionContext.Consumer>
     );
   }
 }
