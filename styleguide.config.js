@@ -75,6 +75,13 @@ module.exports = {
       components: 'src/Component/UploadButton/**/*.tsx'
     }],
     sectionDepth: 2
+  }, {
+    name: 'Context',
+    sections: [{
+      name: 'CompositionContext',
+      content: 'src/Component/CompositionContext/CompositionContext.example.md'
+    }],
+    sectionDepth: 1
   }],
   require: [
     path.join(__dirname, 'node_modules/antd/dist/antd.css')
