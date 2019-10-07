@@ -1,6 +1,6 @@
 `CompositionContext` lets you disable fields and editors and/or replace fields with custom components.
 
-In order to compose your own editors, one CompositionContext provider has to be wrapped around the editor(s) to customize. All configurations have to be set within the object passed to the value property of CompositionContext. The corresponding interface is defined in `src/Components/CompositionContext/CompositionContext.tsx`.
+In order to compose your own editors, a CompositionContext provider has to be wrapped around the editor(s) to customize. All configurations have to be set within the object passed to the value property of CompositionContext. The corresponding interface is defined in `src/Components/CompositionContext/CompositionContext.tsx`.
 
 #### Disable single field
 
