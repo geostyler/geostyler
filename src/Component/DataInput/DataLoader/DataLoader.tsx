@@ -37,12 +37,15 @@ export interface DataLoaderLocale {
 
 // default props
 interface DataLoaderDefaultProps {
+  /** The callback method that is triggered when the state changes */
   onDataRead: (data: VectorData) => void;
+  /** Locale object containing translated text snippets */
   locale: DataLoaderLocale;
 }
 
 // non default props
 export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
+  /** List of data parsers to use */
   parsers: DataParser[];
 }
 

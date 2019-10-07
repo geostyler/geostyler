@@ -19,6 +19,7 @@ export interface RuleReorderButtonsLocale {
 
 // default props
 interface RuleReorderButtonsDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: RuleReorderButtonsLocale;
 }
 // non default props

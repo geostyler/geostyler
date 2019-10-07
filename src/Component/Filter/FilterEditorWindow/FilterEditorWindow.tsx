@@ -21,16 +21,23 @@ export interface FilterEditorWindowLocale {
 
 // default props
 export interface FilterEditorWindowDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: FilterEditorWindowLocale;
 }
 
 // non default props
 export interface FilterEditorWindowProps extends Partial<FilterEditorWindowDefaultProps> {
+  /** The filter to edit */
   filter: Filter;
+  /** Layer metadata in the GeoStyler VectorData format */
   internalDataDef?: VectorData;
+  /** Pixel ordinate of the x-axis */
   x?: number;
+  /** Pixel ordinate of the y-axis */
   y?: number;
+  /** The callback method that is triggered when the filter window closes */
   onClose?: () => void;
+  /** The callback method that is triggered when the state changes */
   onFilterChange?: (filter: Filter) => void;
   /** Properties that will be passed to the comparison filters */
   filterUiProps?: Partial<ComparisonFilterProps>;

@@ -57,30 +57,47 @@ export interface StyleLocale {
 
 // default props
 interface StyleDefaultProps {
+  /** The geoStylerStyle object */
   style: GsStyle;
+  /** Locale object containing translated text snippets */
   locale: StyleLocale;
+  /** Use compact layout */
   compact: boolean;
+  /** Enable classification */
   enableClassification: boolean;
 }
 
 // non default props
 export interface StyleProps extends Partial<StyleDefaultProps> {
+  /** Reference to internal data object (holding schema and example features) */
   data?: Data;
+  /** The callback function that is triggered when the state changes */
   onStyleChange?: (style: GsStyle) => void;
   /** The data projection of example features */
   dataProjection?: string;
+  /** Properties of the filter components */
   filterUiProps?: Partial<ComparisonFilterProps>;
+  /** Properties of the rule name field */
   ruleNameProps?: Partial<NameFieldProps>;
+  /** Properties of the Rule component */
   ruleProps?: Partial<RuleProps>;
+  /** The renderer to use */
   ruleRendererType?: 'SLD' | 'OpenLayers';
+  /** Properties of the SLD renderer */
   sldRendererProps?: SLDRendererAdditonalProps;
+  /** List of supported icons ordered as library */
   iconLibraries?: IconLibrary[];
+  /** Display the number of features that match a rule */
   showAmountColumn?: boolean;
+  /** Display the number of features that match more than one rule */
   showDuplicatesColumn?: boolean;
+  /** Object containing the predefined color ramps */
   colorRamps?: {
     [name: string]: string[]
   };
+  /** Use Brewer color ramps */
   useBrewerColorRamps?: boolean;
+  /** List of supported color spaces */
   colorSpaces?: (InterpolationMode)[];
 }
 

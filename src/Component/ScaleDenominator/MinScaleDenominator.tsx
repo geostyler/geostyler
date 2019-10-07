@@ -5,12 +5,16 @@ import './MinScaleDenominator.less';
 
 // default props
 interface MinScaleDenominatorDefaultProps {
+  /** The label of the minScaleDenominator */
   label: string;
+  /** The placeholder text to display if no value is set */
   placeholder: string;
 }
 // non default props
 export interface MinScaleDenominatorProps extends Partial<MinScaleDenominatorDefaultProps> {
+  /** The minScaleDenominator value */
   value?: number;
+  /** The callback function that is triggered when the state changes */
   onChange?: (newMinScale: number) => void;
 }
 

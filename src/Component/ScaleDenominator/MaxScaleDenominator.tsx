@@ -5,12 +5,16 @@ import './MaxScaleDenominator.less';
 
 // default props
 interface MaxScaleDenominatorDefaultProps {
+  /** The label of the maxScaleDenominator */
   label: string;
+  /** The placeholder text to display if no value is set */
   placeholder: string;
 }
 // non default props
 export interface MaxScaleDenominatorProps extends Partial<MaxScaleDenominatorDefaultProps> {
+  /** The maxScaleDenominator value */
   value?: number;
+  /** The callback function that is triggered when the state changes */
   onChange?: (newMinScale: number) => void;
 }
 

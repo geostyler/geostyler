@@ -43,10 +43,13 @@ interface RuleGeneratorLocale {
 // default props
 interface RuleGeneratorDefaultProps {
   unknownSymbolizerText?: string;
+  /** Locale object containing translated text snippets */
   locale: RuleGeneratorLocale;
+  /** List of provided color ramps */
   colorRamps: {
     [name: string]: string[]
   };
+  /** List of color spaces to use */
   colorSpaces: (InterpolationMode)[];
 }
 

@@ -23,12 +23,15 @@ export interface StyleLoaderLocale {
 
 // default props
 interface StyleLoaderDefaultProps {
+  /** The callback method that is triggered when the state changes */
   onStyleRead: (style: GsStyle) => void;
+  /** Locale object containing translated text snippets */
   locale: StyleLoaderLocale;
 }
 
 // non default props
 export interface StyleLoaderProps extends Partial<StyleLoaderDefaultProps> {
+  /** List of data parsers to use */
   parsers: StyleParser[];
 }
 
