@@ -8,6 +8,7 @@ const _isEqual = require('lodash/isEqual');
 
 // non default props
 export interface ColorsPreviewProps {
+  /** List of colors to preview */
   colors: string[];
 }
 

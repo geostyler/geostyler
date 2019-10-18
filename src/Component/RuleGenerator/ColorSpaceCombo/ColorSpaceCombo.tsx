@@ -15,13 +15,17 @@ export interface ColorSpaceComboLocale {
 
 // default props
 export interface ColorSpaceComboDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: ColorSpaceComboLocale;
+  /** List of color supported color spaces */
   colorSpaces: (InterpolationMode)[];
 }
 
 // non default props
 export interface ColorSpaceComboProps extends Partial<ColorSpaceComboDefaultProps> {
+  /** The callback method that is triggered when the state changes */
   onChange?: (colorSpace: InterpolationMode) => void;
+  /** The selected color space */
   colorSpace?: InterpolationMode;
 }
 

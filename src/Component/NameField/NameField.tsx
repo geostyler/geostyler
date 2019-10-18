@@ -8,11 +8,14 @@ import './NameField.less';
 
 // default props
 export interface NameFieldDefaultProps {
+  /** The placeholder text of the input field if no value was specified */
   placeholder: string;
 }
 // non default props
 export interface NameFieldProps extends Partial<NameFieldDefaultProps> {
+  /** The value to display in input field */
   value: string | undefined;
+  /** The callback method that is triggered when the state changes */
   onChange?: (newValue: string) => void;
 }
 

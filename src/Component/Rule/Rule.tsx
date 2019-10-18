@@ -54,9 +54,13 @@ interface RuleDefaultProps {
   rule: GsRule;
   /** The data projection of example features */
   dataProjection: string;
+  /** The renderer to use */
   rendererType: 'SLD' | 'OpenLayers';
+  /** Properties of the SLD renderer */
   sldRendererProps?: SLDRendererAdditonalProps;
+  /** Properties of the OpenLayers renderer */
   oLRendererProps?: Partial<RendererProps>;
+  /** Locale object containing translated text snippets */
   locale: RuleLocale;
 }
 

@@ -20,7 +20,9 @@ export interface ColorRampComboLocale {
 
 // default props
 export interface ColorRampComboDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: ColorRampComboLocale;
+  /** Object containing predefined color ramps */
   colorRamps: {
     [name: string]: string[]
   };
@@ -28,7 +30,9 @@ export interface ColorRampComboDefaultProps {
 
 // non default props
 export interface ColorRampComboProps extends Partial<ColorRampComboDefaultProps> {
+  /** The callback method that is triggered when the state changes */
   onChange?: (colorRamp: string) => void;
+  /** The selected color ramp */
   colorRamp?: string;
 }
 

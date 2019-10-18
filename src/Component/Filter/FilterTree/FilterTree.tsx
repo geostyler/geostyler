@@ -46,7 +46,9 @@ interface FilterTreeLocale {
 
 // default props
 export interface FilterTreeDefaultProps {
+  /** The filter to edit */
   filter: GsFilter;
+  /** Locale object containing translated text snippets */
   locale: FilterTreeLocale;
 }
 // non default props

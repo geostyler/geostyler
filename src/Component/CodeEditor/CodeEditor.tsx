@@ -41,17 +41,25 @@ export interface CodeEditorLocale {
 }
 
 interface CodeEditorDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: CodeEditorLocale;
+  /** Delay in ms until onStyleChange will be called */
   delay: number;
+  /** Show save button */
   showSaveButton: boolean;
+  /** show copy button */
   showCopyButton: boolean;
 }
 
 // non default props
 export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
+  /** GeoStyler Style Object to display */
   style?: GsStyle;
+  /** List of StylerParsers to parse from/to */
   parsers?: StyleParser[];
+  /** Default parser */
   defaultParser?: StyleParser;
+  /** The callback method that is triggered when the state changes */
   onStyleChange?: (rule: GsStyle) => void;
 }
 

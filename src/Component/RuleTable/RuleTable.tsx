@@ -58,24 +58,37 @@ export interface RuleTableLocale {
 
 // default props
 interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
+  /** Locale object containing translated text snippets */
   locale: RuleTableLocale;
+  /** The renderer to use */
   rendererType: 'SLD' | 'OpenLayers';
+  /** Properties of the SLD renderer */
   sldRendererProps?: SLDRendererAdditonalProps;
+  /** Properties of the OpenLayers renderer */
   oLRendererProps?: Partial<RendererProps>;
+  /** Display the number of features that match a rule */
   showAmountColumn: boolean;
+  /** Display the number of features that match more than one rule */
   showDuplicatesColumn: boolean;
 }
 
 // non default props
 export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
+  /** Reference to internal data object (holding schema and example features) */
   data?: Data;
+  /** List of rules to display in rule table */
   rules: GsRule[];
+  /** The footer of the rule table */
   footer?: (currentPageData?: any) => React.ReactNode;
+  /** The callback function that is triggered when the rules change */
   onRulesChange?: (rules: GsRule[]) => void;
+  /** The callback function that is triggered when the selection changes */
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
   /** Properties that will be passed to the Comparison Filters */
   filterUiProps?: Partial<ComparisonFilterProps>;
+  /** List of supported icons ordered as library */
   iconLibraries?: IconLibrary[];
+  /** Object containing predefined color ramps */
   colorRamps?: {
     [name: string]: string[]
   };

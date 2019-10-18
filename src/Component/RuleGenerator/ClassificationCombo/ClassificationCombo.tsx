@@ -19,13 +19,17 @@ export interface ClassificationComboLocale {
 
 // default props
 export interface ClassificationComboDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: ClassificationComboLocale;
+  /** List of supported classification methods */
   classifications: ClassificationMethod[];
 }
 
 // non default props
 export interface ClassificationComboProps extends Partial<ClassificationComboDefaultProps> {
+  /** The callback method that is triggered when the state changes */
   onChange?: (classification: ClassificationMethod) => void;
+  /** The selected classification method */
   classification?: ClassificationMethod;
 }
 

@@ -40,11 +40,13 @@ export interface WfsParserInputLocale {
 
 // default props
 interface WfsParserInputDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: WfsParserInputLocale;
 }
 
 // non default props
 export interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps> {
+  /** The callback method that is triggered when the state changes */
   onClick: (wfsParams: WfsParams) => void;
 }
 

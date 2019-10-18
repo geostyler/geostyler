@@ -22,12 +22,15 @@ export interface ScaleDenominatorLocale {
 }
 
 interface ScaleDenominatorDefaultProps {
+  /** Locale object containing translated text snippets */
   locale?: ScaleDenominatorLocale;
 }
 
 // non default props
 export interface ScaleDenominatorProps extends Partial<ScaleDenominatorDefaultProps> {
+  /** The scaleDenominator */
   scaleDenominator?: GsScaleDenominator;
+  /** The callback method that is triggered when the state changes */
   onChange?: (scaleDenominator: GsScaleDenominator) => void;
 }
 
