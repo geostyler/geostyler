@@ -31,9 +31,9 @@ describe('DataLoader', () => {
 
   describe('parseUploadData', () => {
     it('returns undefined when no active parser is set', () => {
-      const parseUploadData = wrapper.instance().parseUploadData;
-      const got = parseUploadData();
-      expect(parseUploadData).not.toThrow();
+      const parseGeoJsonUploadData = wrapper.instance().parseGeoJsonUploadData;
+      const got = parseGeoJsonUploadData();
+      expect(parseGeoJsonUploadData).not.toThrow();
       expect(got).toBeUndefined();
     });
     // TODO
