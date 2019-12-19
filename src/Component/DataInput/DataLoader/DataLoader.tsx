@@ -9,7 +9,7 @@ import {
   DataParser
 } from 'geostyler-data';
 
-import UploadButton from '../../UploadButton/UploadButton';
+import UploadButton, { CustomRequest } from '../../UploadButton/UploadButton';
 import WfsParserInput from '../WfsParserInput/WfsParserInput';
 
 /**
@@ -77,7 +77,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     onDataRead: (data: VectorData) => {return; }
   };
 
-  parseGeoJsonUploadData = (uploadObject: any) => {
+  parseGeoJsonUploadData = (uploadObject: CustomRequest) => {
     const {
       activeParser
     } = this.state;
@@ -102,7 +102,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     };
   }
 
-  parseShapefileUploadData = (uploadObject: any) => {
+  parseShapefileUploadData = (uploadObject: CustomRequest) => {
     const {
       activeParser
     } = this.state;

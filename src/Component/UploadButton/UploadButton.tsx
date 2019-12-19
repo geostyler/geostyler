@@ -10,7 +10,7 @@ import en_US from '../../locale/en_US';
 export interface CustomRequest {
   onProgress: (event: { percent: number }) => void;
   onError: (event: Error, body?: any) => void;
-  onSuccess: (body: any) => void;
+  onSuccess: (body: any, file?: File) => void;
   data: any;
   filename: string;
   file: File;
