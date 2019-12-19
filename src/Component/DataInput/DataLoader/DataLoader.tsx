@@ -77,7 +77,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     onDataRead: (data: VectorData) => {return; }
   };
 
-  parseUploadData = (uploadObject: any) => {
+  parseGeoJsonUploadData = (uploadObject: any) => {
     const {
       activeParser
     } = this.state;
@@ -90,9 +90,31 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     reader.onload = () => {
       const fileContent = reader.result.toString();
 
-      // TODO Remove JSON.parse when type of readData is more precise
+      // TODO: Remove JSON.parse when type of readData is more precise
       activeParser.readData(JSON.parse(fileContent))
         .then((data: VectorData) => {
+          this.props.onDataRead(data);
+          uploadObject.onSuccess(null, uploadObject.file);
+        })
+        .catch((e) => {
+          uploadObject.onError(e, 'Upload failed. Invalid Data.');
+        });
+    };
+  }
+
+  parseShapefileUploadData = (uploadObject: any) => {
+    const {
+      activeParser
+    } = this.state;
+    if (!activeParser) {
+      return;
+    }
+    const file = uploadObject.file as File;
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+    reader.onload = () => {
+      activeParser.readData(reader.result)
+      .then((data: VectorData) => {
           this.props.onDataRead(data);
           uploadObject.onSuccess(null, uploadObject.file);
         })
@@ -147,10 +169,16 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
 
     if (activeParser) {
       switch (activeParser.title) {
-        case 'GeoJSON Style Parser':
+        case 'GeoJSON Data Parser':
           return (
             <UploadButton
-              onUpload={this.parseUploadData}
+              onUpload={this.parseGeoJsonUploadData}
+            />
+          );
+        case 'Shapefile Data Parser':
+          return (
+            <UploadButton
+              onUpload={this.parseShapefileUploadData}
             />
           );
         case 'WFS Data Parser':
@@ -170,7 +198,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
         default:
           return (
             <UploadButton
-              onUpload={this.parseUploadData}
+              onUpload={this.parseGeoJsonUploadData}
             />
           );
       }
