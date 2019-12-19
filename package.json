@@ -39,7 +39,7 @@
     "pretest": "npm run lint:prod",
     "prebuild": "rimraf dist/** && rimraf build/**",
     "prepublishOnly": "npm run build",
-    "release": "np --no-yarn && git push https://github.com/geostyler/geostyler.git master --tags",
+    "release": "np --no-yarn && git push https://github.com/geostyler/geostyler.git master",
     "styleguide": "styleguidist server",
     "start:dev": "webpack --mode=development --watch --config dev-build.config.js",
     "test": "jest --coverage",
