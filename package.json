@@ -47,7 +47,7 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4",
+    "@babel/polyfill": "^7.8.3",
     "@types/chroma-js": "^1.4.1",
     "@types/codemirror": "^0.0.82",
     "@types/color": "^3.0.0",
