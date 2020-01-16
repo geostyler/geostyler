@@ -48,6 +48,7 @@ import OffsetField from './Component/Symbolizer/Field/OffsetField/OffsetField';
 import OpacityField from './Component/Symbolizer/Field/OpacityField/OpacityField';
 import OperatorCombo from './Component/Filter/OperatorCombo/OperatorCombo';
 import Preview from './Component/Symbolizer/Preview/Preview';
+import PreviewMap from './Component/PreviewMap/PreviewMap';
 import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor';
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import RasterChannelEditor from './Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
@@ -139,6 +140,7 @@ export {
   OpacityField,
   OperatorCombo,
   Preview,
+  PreviewMap,
   PropTextEditor,
   RadiusField,
   RasterChannelEditor,
