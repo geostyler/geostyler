@@ -59,7 +59,7 @@
     "@types/react-color": "^3.0.1",
     "@types/react-dom": "^16.8.4",
     "@ungap/url-search-params": "^0.1.2",
-    "blob": "^0.0.5",
+    "blob": "^0.1.0",
     "canvas": "^2.5.0",
     "chroma-js": "^2.0.3",
     "codemirror": "^5.48.0",
