@@ -33,7 +33,7 @@ export type IconLibrary = {
 };
 
 interface IconSelectorState {
-  selectedIcon?: {libIndex: number; iconIndex: number; };
+  selectedIcon?: { libIndex: number; iconIndex: number; };
   selectedLibIndex: number;
 }
 
@@ -50,7 +50,7 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
     locale: en_US.GsIconSelector
   };
 
-  constructor (props: IconSelectorProps) {
+  constructor(props: IconSelectorProps) {
     super(props);
 
     let selection: any = {};
@@ -69,24 +69,24 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
     return diffProps || diffState;
   }
 
-  static getDerivedStateFromProps (props: IconSelectorProps, state: IconSelectorState)
+  static getDerivedStateFromProps(props: IconSelectorProps, state: IconSelectorState)
     : IconSelectorState {
-      if (props.selectedIconSrc) {
-        const selection =  IconSelector.getSelectedIconFromSrc(props.selectedIconSrc, props.iconLibraries);
-        return {
-          selectedIcon: selection,
-          selectedLibIndex: state.selectedLibIndex
-        };
-      } else {
-        return {
-          selectedLibIndex: state.selectedLibIndex
-        };
-      }
+    if (props.selectedIconSrc) {
+      const selection = IconSelector.getSelectedIconFromSrc(props.selectedIconSrc, props.iconLibraries);
+      return {
+        selectedIcon: selection,
+        selectedLibIndex: state.selectedLibIndex
+      };
+    } else {
+      return {
+        selectedLibIndex: state.selectedLibIndex
+      };
+    }
   }
 
   static componentName: string = 'IconSelector';
 
-  static getSelectedIconFromSrc (src: string, iconLibraries: IconLibrary[])
+  static getSelectedIconFromSrc(src: string, iconLibraries: IconLibrary[])
     : { libIndex: number; iconIndex: number; } {
     let libIndex: number;
     let iconIndex: number;
@@ -135,10 +135,10 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
       gridClassName += ' gs-icon-selector-grid-selected';
     }
     return (
-      // @ts-ignore
       <Card.Grid
         key={index.toString()}
         className={gridClassName}
+        // @ts-ignore
         onClick={() => {
           if (onIconSelect) {
             onIconSelect(icon.src);
@@ -151,7 +151,7 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
           src={icon.src}
           alt={icon.caption}
           shape="square"
-          />
+        />
         <Card.Meta
           className="gs-icon-selector-grid-description"
           description={icon.caption}
@@ -179,14 +179,14 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
             allowClear={false}
             defaultValue={selectedLibIndex}
             onChange={this.libChange}
-            >
+          >
             {
               iconLibraries.map((lib: IconLibrary, index: number) => {
                 return (
                   <Option value={index} key={index.toString()}>{lib.name}</Option>
-                  );
-                })
-              }
+                );
+              })
+            }
           </Select>
         </div>
         <Card className="gs-icon-selector-card">
