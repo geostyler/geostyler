@@ -74,7 +74,7 @@
     "geostyler-wfs-parser": "^1.0.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
-    "react-codemirror2": "^6.0.0",
+    "react-codemirror2": "^7.0.0",
     "react-color": "^2.18.0",
     "react-rnd": "^10.1.6"
   },
