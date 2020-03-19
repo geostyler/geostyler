@@ -201,3 +201,7 @@ from within the GeoStyler Demo.
 ### <a name="developing-geostyler-data-parsers"></a>Developing GeoStyler Data Parsers
 
 Developing GeoStyler data parsers follows the same pattern as described in [Developing GeoStyler Style Parser](#Developing-GeoStyler-Style-Parsers), but keep in mind that **data parsers have to implement the [GeoStyler Data interface](https://github.com/geostyler/geostyler-data).**
+
+## <a name="license"></a>License
+
+GeoStyler is released under the BSD 2-Clause license. Please see see the file `LICENSE` in the root of this repository.
