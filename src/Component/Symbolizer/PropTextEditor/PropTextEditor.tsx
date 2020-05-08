@@ -95,8 +95,8 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
   }
 
   formatLabel = (label: string): string => {
-    const prefix = '\{\{';
-    const suffix = '\}\}';
+    const prefix = '\\{\\{';
+    const suffix = '\\}\\}';
     const regExp = new RegExp(prefix + '.*' + suffix, 'g');
     return label.replace(regExp, (match: string) => match.slice(2, match.length - 2));
   }
