@@ -204,4 +204,6 @@ Developing GeoStyler data parsers follows the same pattern as described in [Deve
 
 ## <a name="license"></a>License
 
-GeoStyler is released under the BSD 2-Clause license. Please see see the file `LICENSE` in the root of this repository.
+GeoStyler is released under the BSD 2-Clause license. Please see the file
+[`LICENSE`](https://github.com/geostyler/geostyler/blob/master/LICENSE) in the
+root of this repository.
