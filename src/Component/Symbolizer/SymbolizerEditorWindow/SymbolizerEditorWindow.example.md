@@ -1,7 +1,7 @@
 <!--
  * Released under the BSD 2-Clause License
  *
- * Copyright (c) 2018-present, terrestris GmbH & Co. KG
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
