@@ -204,10 +204,10 @@ improperly contributing code to the source repository:
   This information can be in the file headers, but should also be added to the project licensing
   file if not exactly matching normal project licensing (LICENSE.txt).
 * Existing copyright headers and license text should never be stripped from a file. If a copyright
-  holder wishes to give up copyright they must do so in writing to the project steering committee
-  before copyright messages are removed. If license terms are changed it has to be by agreement
-  (written in email is ok) of the copyright holders.
+  holder wishes to give up copyright they must do so in writing to the project core team (@geostyler/core)
+  via reports@geostyler.org before copyright messages are removed. If license terms are changed it has to
+  be by agreement (written in email is ok) of the copyright holders.
 * When substantial contributions are added to a file (such as substantial patches) the
   author/contributor should be added to the list of copyright holders for the file.
 * If there is uncertainty about whether a change is proper to contribute to the code base, please
-  seek more information from the project steering committee.
+  seek more information from the project core team (@geostyler/core).
