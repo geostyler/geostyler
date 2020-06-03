@@ -6,9 +6,8 @@ and welcome anyone who is interested in doing so. Please also have a look at our
 ## Contributions other than code
 
 There is more than one way of contributing. If you have questions, topics to discuss or anything else
-that is related to the GeoStyler project, feel free to open an issue. If possible, please select an appropriate
-repository to open the issue. If your issue addresses a general topic of if you are unsure where to open it,
-this repository is the right one to choose.
+that is related to the GeoStyler project, feel free to open an issue - we have created some issue templates to help you with that. If your issue addresses a general topic or if you are unsure where to open it,
+this repository is the right one to choose. However, if your issue relates to something specific, please see if one of the other repositories [here](https://github.com/geostyler/) might be more appropriate.
 
 ## Reporting issues and suggesting features
 
