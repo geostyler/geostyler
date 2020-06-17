@@ -163,10 +163,10 @@ export default {
         gammaValueLabel: 'Gamma',
         colorMapLabel: '颜色映射',
         symbolizerLabel: '符号化',
-        channelSelectionLabel: '波段选择'
+        channelSelectionLabel: '通道选择'
     },
     GsRasterChannelEditor: {
-        channelSelectionLabel: '通道编辑',
+        channelSelectionLabel: '编辑通道',
         redBandLabel: '红',
         greenBandLabel: '绿',
         blueBandLabel: '蓝',
@@ -183,8 +183,8 @@ export default {
       nrOfClassesLabel: '分类数',
       colorRampLabel: '色带',
       colorLabel: '颜色',
-      quantityLabel: '数值',
-      labelLabel: '标签',
+      quantityLabel: '像素值',
+      labelLabel: '图例',
       opacityLabel: '不透明度'
     },
     GsPreview: {
