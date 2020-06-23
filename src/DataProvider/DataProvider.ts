@@ -44,7 +44,7 @@ class DataProvider {
     this._parsers = parsers;
 
     if (this._parsers.length === 0) {
-      new Console().error('The DataProvider was instanciated with an empty "parsers" configuration. ' +
+      throw new Error('The DataProvider was instanciated with an empty "parsers" configuration. ' +
         'The data import will not work - was this intentionally?');
     }
   }
