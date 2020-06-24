@@ -39,6 +39,7 @@ import ChannelField from './Component/Symbolizer/Field/ChannelField/ChannelField
 import ChannelSelectionField from './Component/Symbolizer/Field/ChannelSelectionField/ChannelSelectionField';
 import CodeEditor from './Component/CodeEditor/CodeEditor';
 import ColorField from './Component/Symbolizer/Field/ColorField/ColorField';
+import ColorMapEditor from './Component/Symbolizer/ColorMapEditor/ColorMapEditor';
 import ColorMapEntryField from './Component/Symbolizer/Field/ColorMapEntryField/ColorMapEntryField';
 import ColorMapTypeField from './Component/Symbolizer/Field/ColorMapTypeField/ColorMapTypeField';
 import ComparisonFilter from './Component/Filter/ComparisonFilter/ComparisonFilter';
@@ -128,6 +129,7 @@ export {
   ChannelSelectionField,
   CodeEditor,
   ColorField,
+  ColorMapEditor,
   ColorMapEntryField,
   ColorMapTypeField,
   ComparisonFilter,
