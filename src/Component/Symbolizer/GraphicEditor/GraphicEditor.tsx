@@ -135,8 +135,8 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
     } = this.props;
 
     const formItemLayout = {
-      labelCol: { span: 10 },
-      wrapperCol: { span: 14 }
+      labelCol: { span: 8 },
+      wrapperCol: { span: 16 }
     };
 
     return (
