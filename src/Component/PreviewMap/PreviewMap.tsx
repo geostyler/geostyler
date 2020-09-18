@@ -194,7 +194,7 @@ export class PreviewMap extends React.PureComponent<PreviewMapProps> {
     this.dataLayer.getSource().clear();
     if (data && data.exampleFeatures) {
       const format = new OlFormatGeoJSON({
-        defaultDataProjection: this.props.dataProjection,
+        dataProjection: this.props.dataProjection,
         featureProjection: this.map.getView().getProjection()
       });
       const olFeatures = format.readFeatures(data.exampleFeatures);
