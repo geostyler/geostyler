@@ -53,6 +53,7 @@ import FadeDurationField from './Component/Symbolizer/Field/FadeDurationField/Fa
 import FieldSet from './Component/FieldSet/FieldSet';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import FilterEditorWindow from './Component/Filter/FilterEditorWindow/FilterEditorWindow';
+import FilterTree from './Component/Filter/FilterTree/FilterTree';
 import FontPicker from './Component/Symbolizer/Field/FontPicker/FontPicker';
 import GammaField from './Component/Symbolizer/Field/GammaField/GammaField';
 import GraphicEditor from './Component/Symbolizer/GraphicEditor/GraphicEditor';
@@ -143,6 +144,7 @@ export {
   FieldSet,
   FillEditor,
   FilterEditorWindow,
+  FilterTree,
   FontPicker,
   GammaField,
   GraphicEditor,
