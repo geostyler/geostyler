@@ -16,6 +16,9 @@ Examples:
 Developer Guide:
 [Developer Guide](#developer-guide)
 
+Roadmap:
+[Roadmap 2021](https://github.com/geostyler/geostyler/wiki/Roadmap-2021)
+
 ## <a name="what-is-this-all-about"></a>What is this all about?
 
 The GeoStyler is a generic styler for geodata*.
@@ -72,6 +75,7 @@ render() {
   );
 }
 ```
+
 
 ## <a name="geostyler-behind-the-scenes"></a>GeoStyler - Behind the Scenes
 
