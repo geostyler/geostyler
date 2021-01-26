@@ -166,18 +166,6 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     } = this.props;
     const operator = filter[0];
 
-    let showRemoveButton = false;
-
-    const parentPosition = position.substring(0, position.length - 3);
-    const parentFilter = position === '' ? null : this.getFilterAtPosition(parentPosition);
-
-    if (parentFilter) {
-      const parentOperator = parentFilter[0];
-      if (parentOperator === '&&' || parentOperator === '||') {
-        showRemoveButton = true;
-      }
-    }
-
     const addFilterMenu = (
       <Menu onClick={({key}) => this.addFilter(position, key)}>
         <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
@@ -249,7 +237,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
                 <span className="filter-tools">
                   {changeButton}
                   {addButton}
-                  {showRemoveButton ? removeButton : undefined}
+                  {removeButton}
                 </span>
               </span>
             }
@@ -274,7 +262,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
                 <span className="filter-tools">
                   {changeButton}
                   {addButton}
-                  {showRemoveButton ? removeButton : undefined}
+                  {removeButton}
                 </span>
               </span>
             }
@@ -298,7 +286,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
                 <span className="filter-text">{locale.notFilterText}</span>
                 <span className="filter-tools">
                   {changeButton}
-                  {showRemoveButton ? removeButton : undefined}
+                  {removeButton}
                 </span>
               </span>
             }
@@ -325,7 +313,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
                 </span>
                 <span className="filter-tools">
                   {changeButton}
-                  {showRemoveButton ? removeButton : undefined}
+                  {removeButton}
                 </span>
               </span>
             }
@@ -437,10 +425,12 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     } = this.props;
 
     const parentPosition = position.substring(0, position.length - 3);
-    const parentFilter = this.getFilterAtPosition(parentPosition);
-    let newFilter;
+    const parentFilter: GsFilter = this.getFilterAtPosition(parentPosition);
+    let newFilter: GsFilter;
 
-    if (parentFilter.length <= 2) {
+    if (position === '') {
+      newFilter = undefined;
+    } else if (parentFilter.length <= 2) {
       newFilter = this.removeAtPosition(filter, parentPosition);
     } else {
       newFilter = this.removeAtPosition(filter, position);
