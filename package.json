@@ -37,7 +37,7 @@
     "lint": "tslint --project tsconfig.json --config tslint.json && tsc --noEmit --project tsconfig.json",
     "lint:prod": "tslint --project tsconfig.json --config tslint.prod.json && tsc --noEmit --project tsconfig.json",
     "pretest": "npm run lint:prod",
-    "prebuild": "rimraf dist/** && rimraf build/**",
+    "prebuild": "npm run test && rimraf dist/** && rimraf build/**",
     "prepublishOnly": "npm run build",
     "release": "np --no-yarn && git push https://github.com/geostyler/geostyler.git master",
     "styleguide": "styleguidist server",
