@@ -40,13 +40,9 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          'style-loader',
           'css-loader',
           {
-            loader: 'less-loader',
-            options: {
-              javascriptEnabled: true
-            }
+            loader: 'less-loader'
           }
         ]
       },
@@ -61,7 +57,7 @@ module.exports = {
             loader: require.resolve('ts-loader'),
             options: {
               // disable type checker - we will use it in fork plugin
-              transpileOnly: true,
+              transpileOnly: true
             },
           },
         ],
@@ -74,8 +70,11 @@ module.exports = {
     }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      watch: __dirname + '/src',
-      tsconfig: __dirname + '/tsconfig.prod.json'
+      typescript: true,
+      // eslint: {
+      //   enabled: true,
+      //   files: 'src'
+      // }
     }),
   ],
   // When importing a module whose path matches one of the following, just

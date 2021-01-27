@@ -32,13 +32,12 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
           'css-loader',
           {
-            loader: 'less-loader',
-            options: {
-              javascriptEnabled: true
-            }
+            loader: 'less-loader'
           }
         ]
       },
@@ -59,8 +58,11 @@ module.exports = {
     }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      watch: __dirname + '/src',
-      tsconfig: __dirname + '/tsconfig.json'
+      typescript: true,
+      // eslint: {
+      //   enabled: true,
+      //   files: 'src'
+      // }
     }),
   ],
   // When importing a module whose path matches one of the following, just

@@ -42,7 +42,7 @@ module.exports = {
     }})
     .parse,
   components: 'src/Component/**/*.tsx',
-  webpackConfig: webpackConfig,
+  // webpackConfig: webpackConfig,
   getExampleFilename(componentPath) {
     return componentPath.replace(/\.tsx?$/, '.example.md')
   },
