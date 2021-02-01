@@ -29,12 +29,10 @@
 import { RuleTable, RuleTableProps, RuleRecord } from './RuleTable';
 import TestUtil from '../../Util/TestUtil';
 import { Rule } from 'geostyler-style';
-import { Input, Popover, InputNumber, Button } from 'antd';
+import { Input, Popover, InputNumber } from 'antd';
 import { mount } from 'enzyme';
 import { Data } from 'geostyler-data';
 import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
-
-const _cloneDeep = require('lodash/cloneDeep');
 
 describe('RuleTable', () => {
   let wrapper: any;

@@ -41,8 +41,8 @@ describe('DataLoader', () => {
     dummyOnDataRead = jest.fn();
     const props: DataLoaderProps = {
       parsers: [
-        GeoJsonParser,
-        WfsParser
+        new GeoJsonParser(),
+        new WfsParser()
       ],
       onDataRead: dummyOnDataRead
     };
