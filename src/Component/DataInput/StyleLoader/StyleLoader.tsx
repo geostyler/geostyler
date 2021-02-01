@@ -29,6 +29,7 @@
 import * as React from 'react';
 
 import { Select } from 'antd';
+import { UploadRequestOption } from 'rc-upload/lib/interface';
 const Option = Select.Option;
 const _isEqual = require('lodash/isEqual');
 
@@ -38,7 +39,7 @@ import {
   StyleParser
 } from 'geostyler-style';
 
-import UploadButton, { CustomRequest } from '../../UploadButton/UploadButton';
+import UploadButton from '../../UploadButton/UploadButton';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
@@ -88,7 +89,7 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
     onStyleRead: (style: GsStyle) => {return; }
   };
 
-  parseStyle = async (uploadObject: CustomRequest): Promise<Style|undefined> => {
+  parseStyle = async (uploadObject: UploadRequestOption<any>): Promise<Style|undefined> => {
     const {
       activeParser
     } = this.state;
@@ -106,7 +107,7 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
 
     try {
       const style = await activeParser.readStyle(fileContent);
-      uploadObject.onSuccess(uploadObject.file);
+      // uploadObject.onSuccess(uploadObject.file);
       this.props.onStyleRead(style);
       return style;
     } catch (error) {
@@ -161,7 +162,7 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
         {
           activeParser ?
           <UploadButton
-            onUpload={this.parseStyle}
+            customRequest={this.parseStyle}
           /> : null
         }
       </div>

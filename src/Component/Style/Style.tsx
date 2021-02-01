@@ -37,7 +37,6 @@ import { InterpolationMode } from 'chroma-js';
 import {
   Button,
   Menu,
-  Icon,
   Form
 } from 'antd';
 
@@ -67,6 +66,7 @@ import { SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 import './Style.less';
+import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 // i18n
 export interface StyleLocale {
@@ -457,23 +457,23 @@ export class Style extends React.Component<StyleProps, StyleState> {
         selectable={false}
         >
         <Menu.Item key="addRule">
-          <Icon type="plus" />
+          <PlusOutlined />
             {locale.addRuleBtnText}
         </Menu.Item>
         <Menu.Item key="cloneRules"
           disabled={!allowClone}
         >
-          <Icon type="copy" />
+          <CopyOutlined />
             {locale.cloneRulesBtnText}
         </Menu.Item>
         <Menu.Item key="removeRule"
           disabled={!allowRemove}
           >
-          <Icon type="minus" />
+          <MinusOutlined />
             {locale.removeRulesBtnText}
         </Menu.Item>
         <Menu.SubMenu
-          title={<span><Icon type="menu-unfold" /><span>{locale.multiEditLabel}</span></span>}
+          title={<span><MenuUnfoldOutlined /><span>{locale.multiEditLabel}</span></span>}
           disabled={selectedRowKeys.length <= 1}
           >
           <Menu.Item

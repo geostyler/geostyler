@@ -67,7 +67,7 @@ export class FontPicker extends React.Component<FontPickerProps> {
     const children: JSX.Element[] = [];
     if (fontOptions) {
       fontOptions.forEach(fontOpt => {
-        children.push(<Option key={fontOpt}>{fontOpt}</Option>);
+        children.push(<Option value={fontOpt} key={fontOpt}>{fontOpt}</Option>);
       });
     }
 

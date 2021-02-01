@@ -38,7 +38,6 @@ import {
   Table,
   Input,
   InputNumber,
-  Icon,
   Popover,
   Tooltip,
 } from 'antd';
@@ -68,6 +67,7 @@ import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilt
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import DataUtil from '../../Util/DataUtil';
 import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
+import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
 
 // i18n
 export interface RuleTableLocale {
@@ -318,11 +318,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           //   // TODO Feedback
           // }
         }}
-        enterButton={(
-          <Icon
-            type="edit"
-          />
-        )}
+        enterButton={<EditOutlined />}
         onSearch={(value, event: any) => {
           const filterPosition = event.target.getBoundingClientRect();
           this.onFilterEditClick(record.key, filterPosition);
@@ -491,7 +487,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     {
       title: (
         <Tooltip title={locale.symbolizersColumnTitle}>
-          <Icon type="bg-colors" />
+          <BgColorsOutlined />
         </Tooltip>),
       dataIndex: 'symbolizers',
       render: this.symbolizerRenderer
@@ -524,7 +520,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       columns.push({
         title: (
           <Tooltip title={locale.duplicatesColumnTitle}>
-            <Icon type="block" />
+            <BlockOutlined />
           </Tooltip>),
         dataIndex: 'duplicates',
         render: this.duplicatesRenderer
