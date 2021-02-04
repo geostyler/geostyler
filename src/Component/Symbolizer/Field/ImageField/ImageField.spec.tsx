@@ -29,7 +29,8 @@
 import { ImageField, ImageFieldProps } from './ImageField';
 import TestUtil from '../../../../Util/TestUtil';
 import { mount } from 'enzyme';
-import { Tooltip, Icon } from 'antd';
+import { Tooltip } from 'antd';
+import { PictureOutlined } from '@ant-design/icons';
 
 describe('ImageField', () => {
   let wrapper: any;
@@ -52,10 +53,9 @@ describe('ImageField', () => {
     it('returns an InputNumber', () => {
       const got = wrapper.instance().getIconSelectorButton();
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(Tooltip);
+      expect(mountRenderer.type()).toBe(Tooltip);
       expect(mountRenderer.prop('title')).toBe(wrapper.instance().props.tooltipLabel);
-      expect(mountRenderer.find(Icon).length).toEqual(1);
+      expect(mountRenderer.find(PictureOutlined).length).toEqual(1);
     });
   });
 

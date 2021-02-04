@@ -131,8 +131,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().nameRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(Popover);
+      expect(mountRenderer.type()).toBe(Popover);
       expect(mountRenderer.find(Input).length).toEqual(1);
     });
   });
@@ -146,8 +145,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().filterRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const popover = mountRenderer.instance();
-      expect(popover).toBeInstanceOf(Input.Search);
+      expect(mountRenderer.type()).toBe(Input.Search);
     });
     it('returns an Input.Search with PopOver if filter is defined', () => {
       const record: RuleRecord = {
@@ -158,8 +156,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().filterRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(Popover);
+      expect(mountRenderer.type()).toBe(Popover);
       expect(mountRenderer.find(Input.Search).length).toEqual(1);
     });
   });
@@ -177,8 +174,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().minScaleRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(InputNumber);
+      expect(mountRenderer.type()).toBe(InputNumber);
     });
   });
 
@@ -195,8 +191,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().maxScaleRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(InputNumber);
+      expect(mountRenderer.type()).toBe(InputNumber);
     });
   });
 
