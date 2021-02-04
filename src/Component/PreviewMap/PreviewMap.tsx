@@ -58,7 +58,7 @@ export interface PreviewMapDefaultProps {
   projection: string;
   /** The projection of the data to visualize */
   dataProjection: string;
-  /** Wheter an OSM basemap should be shown */
+  /** Whether an OSM basemap should be shown */
   showOsmBackground: boolean;
   /** The height of the map */
   mapHeight: number;
