@@ -54,25 +54,36 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 // default props
 export interface PreviewMapDefaultProps {
+  /** The projection of the PreviewMap */
   projection: string;
+  /** The projection of the data to visualize */
   dataProjection: string;
+  /** Wheter an OSM basemap should be shown */
   showOsmBackground: boolean;
+  /** The height of the map */
   mapHeight: number;
 }
 
 // non default props
 export interface PreviewMapProps extends Partial<PreviewMapDefaultProps> {
+  /** The data to visualize */
   data?: Data;
+  /** The GeoStyler Style to preview */
   style: Style;
+  /** A custom map used for rendering */
   map?: any;
+  /** A list of layers to add to the map */
   layers?: any[];
+  /** A list of OpenLayers controls to add to the map */
   controls?: any[];
+  /** A list of OpenLayers interactions to add to the map */
   interactions?: any[];
+  /** Callback method that is triggered, when the map is mounted */
   onMapDidMount?: (map: any) => void;
 }
 
 /**
- * Symbolizer preview UI.
+ * Style preview UI.
  */
 export class PreviewMap extends React.PureComponent<PreviewMapProps> {
 

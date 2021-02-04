@@ -63,7 +63,7 @@ class PreviewMapExample extends React.Component {
 
     return (
       <PreviewMap
-        symbolizers={style}
+        style={style}
       />
     );
   }
