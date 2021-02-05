@@ -101,6 +101,9 @@ module.exports = {
     }, {
       name: 'UploadButton',
       components: 'src/Component/UploadButton/**/*.tsx'
+    }, {
+      name: 'PreviewMap',
+      components: 'src/Component/PreviewMap/**/*.tsx'
     }],
     sectionDepth: 2
   }, {
