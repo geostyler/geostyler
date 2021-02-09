@@ -107,7 +107,6 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
 
     try {
       const style = await activeParser.readStyle(fileContent);
-      // uploadObject.onSuccess(uploadObject.file);
       this.props.onStyleRead(style);
       return style;
     } catch (error) {

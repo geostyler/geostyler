@@ -124,7 +124,6 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
       activeParser.readData(JSON.parse(fileContent))
         .then((data: VectorData) => {
           this.props.onDataRead(data);
-          // uploadObject.onSuccess(null, uploadObject.file);
         })
         .catch((e) => {
           uploadObject.onError(e, 'Upload failed. Invalid Data.');
@@ -146,7 +145,6 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
       activeParser.readData(reader.result)
       .then((data: VectorData) => {
           this.props.onDataRead(data);
-          // uploadObject.onSuccess(null, uploadObject.file);
         })
         .catch((e) => {
           uploadObject.onError(e, 'Upload failed. Invalid Data.');

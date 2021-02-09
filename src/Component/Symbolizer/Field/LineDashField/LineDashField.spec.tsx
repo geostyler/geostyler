@@ -50,9 +50,7 @@ describe('OffsetField', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
     const buttons = wrapper.find('Button');
-    // const numberInputs = wrapper.find('InputNumber');
     expect(buttons.length).toBe(2);
-    // expect(numberInputs.length).toBe(dashArray.length);
   });
 
   describe('InputFields', () => {
