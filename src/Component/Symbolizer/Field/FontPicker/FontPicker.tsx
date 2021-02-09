@@ -31,7 +31,6 @@ import * as React from 'react';
 import {
   Select
 } from 'antd';
-const Option = Select.Option;
 
 // default props
 interface FontPickerDefaultProps {
@@ -64,10 +63,13 @@ export class FontPicker extends React.Component<FontPickerProps> {
       fontOptions
     } = this.props;
 
-    const children: JSX.Element[] = [];
+    let options: {label: string, value: string}[];
     if (fontOptions) {
-      fontOptions.forEach(fontOpt => {
-        children.push(<Option value={fontOpt} key={fontOpt}>{fontOpt}</Option>);
+      options = fontOptions.map((fontOpt: string) => {
+        return {
+          label: fontOpt,
+          value: fontOpt
+        };
       });
     }
 
@@ -77,9 +79,8 @@ export class FontPicker extends React.Component<FontPickerProps> {
         mode="tags"
         value={font}
         onChange={onChange}
-      >
-        {children}
-      </Select>
+        options={options}
+      />
     );
   }
 }
