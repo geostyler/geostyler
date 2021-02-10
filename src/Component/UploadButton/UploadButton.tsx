@@ -31,9 +31,10 @@ import * as React from 'react';
 import {
   Upload,
   Button,
-  Icon
+  UploadProps
 } from 'antd';
 import en_US from '../../locale/en_US';
+import { UploadOutlined } from '@ant-design/icons';
 
 export interface CustomRequest {
   onProgress: (event: { percent: number }) => void;
@@ -53,13 +54,11 @@ interface UploadButtonLocale {
 
 // default props
 interface UploadButtonDefaultProps {
-  locale: UploadButtonLocale;
+  locale?: UploadButtonLocale;
 }
 
 // non default props
-export interface UploadButtonProps extends Partial<UploadButtonDefaultProps> {
-  onUpload?: (uploadObject: CustomRequest) => void;
-}
+export type UploadButtonProps = UploadButtonDefaultProps & UploadProps<any>;
 
 /**
  * Button to upload / import geodata file.
@@ -72,18 +71,18 @@ export class UploadButton extends React.Component<UploadButtonProps> {
 
   render() {
     const {
-      onUpload,
-      locale
+      locale,
+      ...passThroughProps
     } = this.props;
 
     return (
       <Upload
         name="file"
         action="memory"
-        customRequest={onUpload}
+        {...passThroughProps}
       >
         <Button>
-          <Icon type="upload" /> {locale.upload}
+          <UploadOutlined /> {locale.upload}
         </Button>
       </Upload>
     );

@@ -30,7 +30,6 @@ import * as React from 'react';
 
 import {
   Input,
-  Icon,
   Tooltip
 } from 'antd';
 
@@ -38,6 +37,7 @@ import IconSelectorWindow from '../../IconSelectorWindow/IconSelectorWindow';
 import { IconLibrary } from '../../IconSelector/IconSelector';
 
 import './ImageField.less';
+import { PictureOutlined } from '@ant-design/icons';
 
 // default props
 interface ImageFieldDefaultProps {
@@ -80,7 +80,7 @@ export class ImageField extends React.PureComponent<ImageFieldProps, ImageFieldS
 
     return (
       <Tooltip title={tooltipLabel}>
-        <Icon className="gs-image-field-gallery-icon" type="picture" onClick={this.openWindow}/>
+        <PictureOutlined className="gs-image-field-gallery-icon" type="picture" onClick={this.openWindow}/>
       </Tooltip>
     );
   }

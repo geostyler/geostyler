@@ -67,8 +67,7 @@ describe('WellKnownNameField', () => {
       wellKnownName: 'Square'
     });
     expect(wrapper.instance().props.wellKnownName).toEqual('Square');
-    const select = wrapper.find('Select');
-    const selectValue = select.props().value;
+    const selectValue = wrapper.props().value;
     expect(selectValue).toEqual('Square');
   });
 });

@@ -30,12 +30,17 @@ import * as React from 'react';
 
 import {
   Tree,
-  Icon,
   Dropdown,
   Menu,
   Button,
   Tooltip
 } from 'antd';
+
+import {
+  FilterOutlined,
+  MinusOutlined,
+  PlusOutlined
+} from '@ant-design/icons';
 
 const _get = require('lodash/get');
 const _set = require('lodash/set');
@@ -167,7 +172,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     const operator = filter[0];
 
     const addFilterMenu = (
-      <Menu onClick={({key}) => this.addFilter(position, key)}>
+      <Menu onClick={({key}) => this.addFilter(position, key.toString())}>
         <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
         <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
         <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
@@ -176,7 +181,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     );
 
     const changeFilterMenu = (
-      <Menu onClick={({key}) => this.changeFilter(position, key)}>
+      <Menu onClick={({key}) => this.changeFilter(position, key.toString())}>
         <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
         <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
         <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
@@ -191,7 +196,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
           overlay={addFilterMenu}
         >
           <Button size="small">
-            <Icon type="plus"/>
+            <PlusOutlined />
           </Button>
         </Dropdown>
       </Tooltip>
@@ -203,9 +208,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
           size="small"
           onClick={() => this.removeFilter(position)}
         >
-          <Icon
-            type="minus"
-          />
+          <MinusOutlined />
         </Button>
       </Tooltip>
     );
@@ -217,7 +220,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
           overlay={changeFilterMenu}
         >
           <Button size="small">
-            <Icon type="filter"/>
+            <FilterOutlined />
           </Button>
         </Dropdown>
       </Tooltip>

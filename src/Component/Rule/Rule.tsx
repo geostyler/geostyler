@@ -379,8 +379,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
         </div>
         <Button
           className="gs-rule-remove-button"
-          style={{}}
-          type="danger"
+          danger={true}
           icon="close-circle-o"
           size="large"
           onClick={this.onRemoveButtonClick}

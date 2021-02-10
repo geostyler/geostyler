@@ -29,12 +29,10 @@
 import { RuleTable, RuleTableProps, RuleRecord } from './RuleTable';
 import TestUtil from '../../Util/TestUtil';
 import { Rule } from 'geostyler-style';
-import { Input, Popover, InputNumber, Button } from 'antd';
+import { Input, Popover, InputNumber } from 'antd';
 import { mount } from 'enzyme';
 import { Data } from 'geostyler-data';
 import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
-
-const _cloneDeep = require('lodash/cloneDeep');
 
 describe('RuleTable', () => {
   let wrapper: any;
@@ -133,8 +131,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().nameRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(Popover);
+      expect(mountRenderer.type()).toBe(Popover);
       expect(mountRenderer.find(Input).length).toEqual(1);
     });
   });
@@ -148,8 +145,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().filterRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const popover = mountRenderer.instance();
-      expect(popover).toBeInstanceOf(Input.Search);
+      expect(mountRenderer.type()).toBe(Input.Search);
     });
     it('returns an Input.Search with PopOver if filter is defined', () => {
       const record: RuleRecord = {
@@ -160,8 +156,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().filterRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(Popover);
+      expect(mountRenderer.type()).toBe(Popover);
       expect(mountRenderer.find(Input.Search).length).toEqual(1);
     });
   });
@@ -179,8 +174,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().minScaleRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(InputNumber);
+      expect(mountRenderer.type()).toBe(InputNumber);
     });
   });
 
@@ -197,8 +191,7 @@ describe('RuleTable', () => {
       };
       const got = wrapper.instance().maxScaleRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(InputNumber);
+      expect(mountRenderer.type()).toBe(InputNumber);
     });
   });
 

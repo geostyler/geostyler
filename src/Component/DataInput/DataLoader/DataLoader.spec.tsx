@@ -32,7 +32,6 @@ import WfsParser from 'geostyler-wfs-parser';
 import TestUtil from '../../../Util/TestUtil';
 import { shallow } from 'enzyme';
 import { UploadButton } from '../../../Component/UploadButton/UploadButton';
-import { Modal } from 'antd';
 
 describe('DataLoader', () => {
   let wrapper: any;
@@ -41,8 +40,8 @@ describe('DataLoader', () => {
     dummyOnDataRead = jest.fn();
     const props: DataLoaderProps = {
       parsers: [
-        GeoJsonParser,
-        WfsParser
+        new GeoJsonParser(),
+        new WfsParser()
       ],
       onDataRead: dummyOnDataRead
     };
@@ -122,7 +121,7 @@ describe('DataLoader', () => {
       const onSelect = wrapper.instance().onSelect;
       onSelect(GeoJsonParser.title);
       const activeParser = wrapper.state().activeParser;
-      expect(activeParser).toBe(GeoJsonParser);
+      expect(activeParser).toBeInstanceOf(GeoJsonParser);
 
     });
     it('sets modalVisible to true for WFS Data Parser', () => {
@@ -130,7 +129,7 @@ describe('DataLoader', () => {
       onSelect(WfsParser.title);
       const activeParser = wrapper.state().activeParser;
       const modalVisible = wrapper.state().modalVisible;
-      expect(activeParser).toBe(WfsParser);
+      expect(activeParser).toBeInstanceOf(WfsParser);
       expect(modalVisible).toBe(true);
     });
   });
@@ -164,8 +163,8 @@ describe('DataLoader', () => {
       });
       const getInputFromParser = wrapper.instance().getInputFromParser;
       const got = getInputFromParser();
-      const instance = shallow(got).instance();
-      expect(instance).toBeInstanceOf(Modal);
+      // Hack to bypass the 'invalid hook call' warning when calling got.type())
+      expect(got.type.prototype.constructor.name).toBe('Modal');
     });
     it('returns an UploadButton if activeParser is something else', () => {
       wrapper.setState({

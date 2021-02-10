@@ -58,8 +58,7 @@ export class RemoveButton extends React.Component<RemoveButtonProps> {
     return (
       <div className="gs-rule-removebutton" >
         <Button
-          style={{}}
-          type="danger"
+          danger={true}
           icon="close-circle-o"
           size="large"
           onClick={() => this.props.onClick(this.props.ruleIdx)}

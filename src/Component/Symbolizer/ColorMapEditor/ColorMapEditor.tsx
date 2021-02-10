@@ -402,8 +402,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
           columns={this.getColumns()}
           dataSource={this.getColorMapRecords()}
           pagination={{
-            position: 'bottom',
-            defaultPageSize: 5
+            position: ['bottomCenter']
           }}
           size="small"
         />

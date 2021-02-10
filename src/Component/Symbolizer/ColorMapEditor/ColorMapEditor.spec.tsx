@@ -133,8 +133,7 @@ describe('ColorMapEditor', () => {
       };
       const got = wrapper.instance().labelRenderer(undefined, record);
       const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(Popover);
+      expect(mountRenderer.type()).toBe(Popover);
       expect(mountRenderer.find(Input).length).toEqual(1);
     });
   });
