@@ -81,7 +81,7 @@ class SymbolizerUtil {
    * @param {SymbolizerKind} kind An optional SymbolizerKind
    * @param {object} values Optional values
    */
-  static generateSymbolizer(kind?: SymbolizerKind, values?: object): Symbolizer {
+  static generateSymbolizer(kind?: SymbolizerKind, values?: any): Symbolizer {
     switch (kind) {
       case 'Mark':
         return {
@@ -117,7 +117,7 @@ class SymbolizerUtil {
         return {
           ...SymbolizerUtil.defaultSymbolizer,
           ...values
-          };
+        };
     }
   }
 

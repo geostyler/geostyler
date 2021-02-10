@@ -69,7 +69,7 @@ export interface RuleGenerationParams {
 class RuleGeneratorUtil {
 
   static getDistinctValues(data: Data, attributeName: string): any[] {
-    let distinctValues: any[] = [];
+    const distinctValues: any[] = [];
     const features = _get(data, 'exampleFeatures.features');
     if (features) {
       features.forEach((feature: any) => {
@@ -143,8 +143,8 @@ class RuleGeneratorUtil {
       } else {
         const features = _get(data, 'exampleFeatures.features');
         const values = features ? features.map((feature: any) => {
-            return _get(feature, `properties[${attributeName}]`);
-          }) : [];
+          return _get(feature, `properties[${attributeName}]`);
+        }) : [];
         let ranges: number[][] = [];
 
         switch (classificationMethod) {
@@ -209,7 +209,7 @@ class RuleGeneratorUtil {
       backgroundRepeat: 'no-repeat',
       color: textColor
     };
-  }
+  };
 
   /**
    * Get Ranges for quantile spread statistic.
@@ -233,7 +233,7 @@ class RuleGeneratorUtil {
    * @param {number[]} bounds An array of class boundary values.
    */
   static boundsToRanges(bounds: number[]): number[][] {
-    let ranges = [];
+    const ranges = [];
     for (let i = 0; i < (bounds.length - 1); i++) {
       ranges[i] = [bounds[i], bounds[i + 1]];
     }

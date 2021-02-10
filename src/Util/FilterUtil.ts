@@ -39,8 +39,8 @@ import {
 const _get = require('lodash/get');
 
 export type CountResult = {
-  counts?: number[],
-  duplicates?: number[]
+  counts?: number[];
+  duplicates?: number[];
 };
 
 /**
@@ -76,9 +76,9 @@ class FilterUtil {
       case '!':
         return !FilterUtil.featureMatchesFilter(filter[1], feature);
       default:
-        throw new Error(`Cannot parse Filter. Unknown combination or negation operator.`);
+        throw new Error('Cannot parse Filter. Unknown combination or negation operator.');
     }
-  }
+  };
 
   /**
    * Handle simple filters, i.e. non-nested filters.
@@ -108,9 +108,9 @@ class FilterUtil {
       case '>=':
         return (parseFloat(featureValue) >= parseFloat(filterValue));
       default:
-        throw new Error(`Cannot parse Filter. Unknown comparison operator.`);
+        throw new Error('Cannot parse Filter. Unknown comparison operator.');
     }
-  }
+  };
 
   /**
    * Checks if a feature matches the specified filter.
@@ -130,7 +130,7 @@ class FilterUtil {
       matchesFilter = FilterUtil.handleSimpleFilter(filter, feature);
     }
     return matchesFilter;
-  }
+  };
 
   /**
    * Returns those features that match a given filter.
@@ -149,7 +149,7 @@ class FilterUtil {
       }
     });
     return matches;
-  }
+  };
 
   /**
    * Calculates the number of features that are covered by more then one rule per
@@ -163,7 +163,7 @@ class FilterUtil {
   static calculateDuplicates(matches: any): number[] {
     const duplicates: number[] = [];
 
-    const ids: object[] = [];
+    const ids: any[] = [];
 
     matches.forEach((features: any, index: number) => {
       const idMap = {};

@@ -71,7 +71,7 @@ class HTTPUtil {
       sameOriginCredentials = true,
       asForm = true
     } = optionsObject;
-    let headers = new Headers();
+    const headers = new Headers();
     if (asForm) {
       headers.set('Content-Type', 'application/x-www-form-urlencoded');
     }

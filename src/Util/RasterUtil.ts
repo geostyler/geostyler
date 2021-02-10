@@ -39,7 +39,7 @@ class RasterUtil {
     return {
       color: '#000'
     };
-  }
+  };
 }
 
 export default RasterUtil;
