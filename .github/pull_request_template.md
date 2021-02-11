@@ -18,7 +18,7 @@ Again: thank you for your contribution.
 
 Please give a short description of the changes you propose. Please use prose and try not to be too technical, if possible. Make sure to mention people that you think should know about the PR.
 
-## Releated issues or pull requests
+## Related issues or pull requests
 
 Please list issues or pull requests that the changes you propose are related to. It does not matter if they are still open and/or unmerged, any link is appreciated.
 
