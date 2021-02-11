@@ -29,6 +29,8 @@
 import * as React from 'react';
 import { Button } from 'antd';
 
+import { CloseCircleOutlined } from '@ant-design/icons';
+
 import './RemoveButton.less';
 
 // default props
@@ -59,7 +61,7 @@ export class RemoveButton extends React.Component<RemoveButtonProps> {
       <div className="gs-rule-removebutton" >
         <Button
           danger={true}
-          icon="close-circle-o"
+          icon={<CloseCircleOutlined />}
           size="large"
           onClick={() => this.props.onClick(this.props.ruleIdx)}
         > {this.props.text}

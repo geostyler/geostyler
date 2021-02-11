@@ -33,6 +33,8 @@ import {
   Button
 } from 'antd';
 
+import { CloseOutlined } from '@ant-design/icons';
+
 import { Rnd } from 'react-rnd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
@@ -119,7 +121,7 @@ export class IconSelectorWindow extends React.Component<IconSelectorWindowProps>
               {locale.windowLabel}
             </span>
             <Button
-              icon="close"
+              icon={<CloseOutlined />}
               size="small"
               onClick={onClose}
             />

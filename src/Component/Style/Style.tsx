@@ -611,7 +611,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
           compact ? null :
           <Button
             style={{'marginBottom': '20px', 'marginTop': '20px'}}
-            icon="plus"
+            icon={<PlusOutlined />}
             size="large"
             onClick={this.addRule}
           >

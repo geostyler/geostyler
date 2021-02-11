@@ -48,6 +48,8 @@ import {
   Button
 } from 'antd';
 
+import { EditOutlined } from '@ant-design/icons';
+
 import 'ol/ol.css';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
@@ -387,7 +389,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           <Button
             id={editorId}
             className="gs-edit-preview-button"
-            icon="edit"
+            icon={<EditOutlined />}
             onClick={this.onEditButtonClicked}
           >
             {editorVisible ? locale.closeEditorText : locale.openEditorText}

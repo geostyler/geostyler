@@ -32,6 +32,8 @@ import {
   InputNumber, Button
 } from 'antd';
 
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+
 import './LineDashField.less';
 
 // default props
@@ -106,12 +108,12 @@ export class LineDashField extends React.Component<LineDashFieldProps> {
         }
         <Button
           className="gs-add-dash-button"
-          icon="plus"
+          icon={<PlusOutlined />}
           onClick={this.onAddDash}
         />
         <Button
           className="gs-rm-dash-button"
-          icon="minus"
+          icon={<MinusOutlined />}
           onClick={this.onRemoveDash}
         />
       </div>

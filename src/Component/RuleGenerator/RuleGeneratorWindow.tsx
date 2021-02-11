@@ -41,6 +41,8 @@ import { Data } from 'geostyler-data';
 import './RuleGeneratorWindow.less';
 import { Button } from 'antd';
 
+import { CloseOutlined } from '@ant-design/icons';
+
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import RuleGenerator from './RuleGenerator';
@@ -132,7 +134,7 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
               {locale.ruleGenerator}
             </span>
             <Button
-              icon="close"
+              icon={<CloseOutlined />}
               size="small"
               onClick={onClose}
             />

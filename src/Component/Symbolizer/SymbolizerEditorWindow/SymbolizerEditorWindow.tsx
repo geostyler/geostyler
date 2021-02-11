@@ -41,6 +41,8 @@ import { Data } from 'geostyler-data';
 import './SymbolizerEditorWindow.less';
 import { Button } from 'antd';
 
+import { CloseOutlined } from '@ant-design/icons';
+
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 
@@ -128,7 +130,7 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
               {locale.symbolizersEditor}
             </span>
             <Button
-              icon="close"
+              icon={<CloseOutlined />}
               size="small"
               onClick={onClose}
             />
