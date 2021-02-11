@@ -6,5 +6,7 @@ dist
 coverage
 # don't lint browser build output
 browser
+# don't lint browser build output
+build
 
 .eslintrc.js
