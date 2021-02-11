@@ -4,5 +4,7 @@ node_modules
 dist
 # don't lint nyc coverage output
 coverage
+# don't lint browser build output
+browser
 
 .eslintrc.js
