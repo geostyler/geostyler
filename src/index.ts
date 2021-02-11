@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -25,12 +26,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-/*!
-  Copyright (c) 2018 terrestris GmbH & Co. KG
-  Licensed under the BSD 2-Clause "Simplified" License, see
-  https://github.com/geostyler/geostyler/blob/master/LICENSE
-  */
 import AttributeCombo from './Component/Filter/AttributeCombo/AttributeCombo';
 import BoolFilterField from './Component/Filter/BoolFilterField/BoolFilterField';
 import BrightnessField from './Component/Symbolizer/Field/BrightnessField/BrightnessField';

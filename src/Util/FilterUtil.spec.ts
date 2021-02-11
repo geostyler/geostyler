@@ -41,7 +41,7 @@ describe('FilterUtil', () => {
   describe('featureMatchesFilter', () => {
     it('returns true if a feature matches the filter', () => {
       const dummyData = TestUtil.getComplexGsDummyData();
-      let matchingFeature = dummyData.exampleFeatures.features[0];
+      const matchingFeature = dummyData.exampleFeatures.features[0];
       matchingFeature.properties.state = 'germany';
       matchingFeature.properties.population = 150000;
       matchingFeature.properties.name = 'NotSchalke';
@@ -51,7 +51,7 @@ describe('FilterUtil', () => {
 
     it('returns false if a feature does not match the filter', () => {
       const dummyData = TestUtil.getComplexGsDummyData();
-      let matchingFeature = dummyData.exampleFeatures.features[0];
+      const matchingFeature = dummyData.exampleFeatures.features[0];
       matchingFeature.properties.state = 'belgium';
       matchingFeature.properties.population = 150000;
       matchingFeature.properties.name = 'NotSchalke';
@@ -62,7 +62,7 @@ describe('FilterUtil', () => {
 
   describe('getMatches', () => {
     it('returns an array of all matched features', () => {
-      let dummyData = TestUtil.getComplexGsDummyData();
+      const dummyData = TestUtil.getComplexGsDummyData();
       dummyData.exampleFeatures.features[0].properties.state = 'germany';
       dummyData.exampleFeatures.features[0].properties.population = 150000;
       dummyData.exampleFeatures.features[0].properties.name = 'NotSchalke';
@@ -72,7 +72,7 @@ describe('FilterUtil', () => {
     });
 
     it('returns an empty array if no matches found', () => {
-      let dummyData = TestUtil.getComplexGsDummyData();
+      const dummyData = TestUtil.getComplexGsDummyData();
       const matches = FilterUtil.getMatches(filter, dummyData);
       expect(matches).toHaveLength(0);
     });
@@ -80,8 +80,8 @@ describe('FilterUtil', () => {
 
   describe('calculateCountAndDuplicates', () => {
     it('returns the right number of duplicates, not considering scale constraints', () => {
-      let dummyData = TestUtil.getComplexGsDummyData();
-      let filter2 = TestUtil.getDummyGsFilter();
+      const dummyData = TestUtil.getComplexGsDummyData();
+      const filter2 = TestUtil.getDummyGsFilter();
 
       dummyData.exampleFeatures.features[0].properties.state = 'germany';
       dummyData.exampleFeatures.features[0].properties.population = 150000;
@@ -103,7 +103,7 @@ describe('FilterUtil', () => {
       expect(result.duplicates[1]).toBeCloseTo(1);
     });
     it('returns the right number of duplicates per scale', () => {
-      let dummyData = TestUtil.getComplexGsDummyData();
+      const dummyData = TestUtil.getComplexGsDummyData();
 
       dummyData.exampleFeatures.features[0].properties.state = 'germany';
       dummyData.exampleFeatures.features[0].properties.population = 150000;

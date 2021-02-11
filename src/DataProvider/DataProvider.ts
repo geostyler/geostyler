@@ -57,13 +57,8 @@ class DataProvider {
    * @param format
    */
   importData(inputData: any, format: string): Promise<Data> {
-
-    let parserInstance: DataParser;
-    parserInstance = this.getMatchingParser(format);
-
-    const internalDataPromise = parserInstance.readData(inputData);
-
-    return internalDataPromise;
+    const parserInstance: DataParser = this.getMatchingParser(format);
+    return parserInstance.readData(inputData);
   }
 
   /**
@@ -88,7 +83,7 @@ class DataProvider {
     return this._parsers;
   }
 
-    /**
+  /**
      * Setter parsers
      * @param {ParserDesc[]} value
      */

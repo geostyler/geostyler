@@ -66,8 +66,7 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin({
       async: false,
       watch: __dirname + '/src',
-      tsconfig: __dirname + '/tsconfig.json',
-      tslint: __dirname + '/tslint.json',
+      tsconfig: __dirname + '/tsconfig.json'
     }),
   ],
   // When importing a module whose path matches one of the following, just

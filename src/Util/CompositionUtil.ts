@@ -36,13 +36,13 @@ export interface CompositionUtilOptions {
   propName: string;
   propValue: any;
   defaultElement: React.ReactElement;
-  onChange: Function;
+  onChange: (...args: unknown[]) => void;
   onChangeName?: string;
 }
 
 interface CompositionUtilInjectOptions {
   component: React.ReactElement;
-  onChange: Function;
+  onChange: (...args: unknown[]) => void;
   propName: string;
   propValue: any;
   onChangeName?: string;

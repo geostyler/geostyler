@@ -59,24 +59,24 @@ describe('DataProvider', () => {
 
       const geojson = {
         type: 'FeatureCollection',
-          features: [
-            {
-              id: 1,
-              type: 'Feature',
-              geometry: {
-                type: 'Point',
-                coordinates: [1, 1]
-              },
-              properties: {
-                propString: 'A feature with ID 1',
-                propNumber: 10,
-                propBoolean: true,
-                propArray: ['1111', 'Berga', 'foo'],
-                anotherPropNumber: 400.5
-              }
+        features: [
+          {
+            id: 1,
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [1, 1]
+            },
+            properties: {
+              propString: 'A feature with ID 1',
+              propNumber: 10,
+              propBoolean: true,
+              propArray: ['1111', 'Berga', 'foo'],
+              anotherPropNumber: 400.5
             }
-          ]
-        };
+          }
+        ]
+      };
 
       const internalDataPromise = dataProvider.importData(geojson, 'GeoJSON');
       internalDataPromise.then((internalData: Data) => {

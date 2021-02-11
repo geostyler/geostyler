@@ -35,8 +35,7 @@ describe('HTTPUtil', () => {
       expect(HTTPUtil.post).toBeDefined();
     });
     it('calls fetch with the expect params', async () => {
-      // @ts-ignore
-      fetch = jest.fn();
+      global.fetch = jest.fn();
       const headers = new Headers();
       headers.set('Content-Type', 'application/x-www-form-urlencoded');
       headers.set('superheader', 'header-abc');
