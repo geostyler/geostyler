@@ -35,6 +35,8 @@ import { VectorData } from 'geostyler-data';
 import './FilterEditorWindow.less';
 import { Button } from 'antd';
 
+import { CloseOutlined } from '@ant-design/icons';
+
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { Filter } from 'geostyler-style';
@@ -125,7 +127,7 @@ export class FilterEditorWindow extends React.Component<FilterEditorWindowProps>
               {locale.filterEditor}
             </span>
             <Button
-              icon="close"
+              icon={<CloseOutlined />}
               size="small"
               onClick={onClose}
             />

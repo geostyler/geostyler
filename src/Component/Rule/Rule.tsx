@@ -31,6 +31,9 @@ import * as React from 'react';
 import {
   Button
 } from 'antd';
+
+import { CloseCircleOutlined } from '@ant-design/icons';
+
 import {
   ComparisonFilter as GsComparisonFilter,
   Rule as GsRule,
@@ -380,7 +383,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
         <Button
           className="gs-rule-remove-button"
           danger={true}
-          icon="close-circle-o"
+          icon={<CloseCircleOutlined />}
           size="large"
           onClick={this.onRemoveButtonClick}
         >

@@ -35,6 +35,7 @@ import {
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import { UpOutlined, DownOutlined } from '@ant-design/icons';
 
 const ButtonGroup = Button.Group;
 const _cloneDeep = require('lodash/cloneDeep');
@@ -97,14 +98,16 @@ export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps>
 
     return (
       <ButtonGroup>
-        <Button icon="up"
+        <Button
+          icon={<UpOutlined />}
           disabled={ruleIndex === 0}
           title={locale.ruleMoveUpTip}
           onClick={() => {
             this.onRuleOrderChange(false);
           }}
         />
-        <Button icon="down"
+        <Button
+          icon={<DownOutlined />}
           disabled={ruleIndex === rules.length - 1}
           title={locale.ruleMoveDownTip}
           onClick={() => {
