@@ -104,7 +104,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
       onSymbolizerChange
     } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.opacity = value;
+    symbolizer.fillOpacity = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
@@ -180,7 +180,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
 
     const {
       color,
-      opacity,
+      fillOpacity,
       outlineColor,
       graphicFill,
       outlineWidth,
@@ -217,8 +217,8 @@ export class FillEditor extends React.Component<FillEditorProps> {
                       composition,
                       path: 'FillEditor.fillOpacityField',
                       onChange: this.onFillOpacityChange,
-                      propName: 'opacity',
-                      propValue: opacity,
+                      propName: 'fillOpacity',
+                      propValue: fillOpacity,
                       defaultElement: <OpacityField />
                     })
                   )

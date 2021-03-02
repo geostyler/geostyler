@@ -69,7 +69,7 @@ describe('FillEditor', () => {
     it('calls the onOpacityChange prop with correct symbolizer ', () => {
       const onFillOpacityChange = wrapper.instance().onFillOpacityChange;
       const newSymbolizer = {...dummySymbolizer};
-      newSymbolizer.opacity = 0.7;
+      newSymbolizer.fillOpacity = 0.7;
       onFillOpacityChange(0.7);
       expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
     });
