@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -91,7 +92,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     if (onSymbolizersChange) {
       onSymbolizersChange([...symbolizers, newSymbolizer]);
     }
-  }
+  };
 
   removeSymbolizer = (key: number) => {
     const {
@@ -103,7 +104,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     if (onSymbolizersChange) {
       onSymbolizersChange(symbolizersClone);
     }
-  }
+  };
 
   onSymbolizerChange = (symbolizer: Symbolizer, key: number) => {
     const {
@@ -115,7 +116,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     if (onSymbolizersChange) {
       onSymbolizersChange(symbolizersClone);
     }
-  }
+  };
 
   render() {
     const {
@@ -124,38 +125,39 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
       locale,
       internalDataDef,
       iconLibraries,
+      onSymbolizersChange,
       ...passThroughProps
     } = this.props;
 
     const tabs = symbolizers.map((symbolizer: Symbolizer, idx: number) => {
-        return (
-          <TabPane
-            className="gs-symbolizer-multi-editor-tab"
-            key={idx.toString()}
-            tab={idx}
-            closable={true}
-          >
-            <Editor
-              symbolizer={symbolizer}
-              onSymbolizerChange={(sym: Symbolizer) => {
-                this.onSymbolizerChange(sym, idx);
+      return (
+        <TabPane
+          className="gs-symbolizer-multi-editor-tab"
+          key={idx.toString()}
+          tab={idx}
+          closable={true}
+        >
+          <Editor
+            symbolizer={symbolizer}
+            onSymbolizerChange={(sym: Symbolizer) => {
+              this.onSymbolizerChange(sym, idx);
+            }}
+            internalDataDef={internalDataDef}
+            iconLibraries={iconLibraries}
+            {...editorProps}
+          />
+          {symbolizers.length === 1 ? null :
+            <Button
+              onClick={() => {
+                this.removeSymbolizer(idx);
               }}
-              internalDataDef={internalDataDef}
-              iconLibraries={iconLibraries}
-              {...editorProps}
-            />
-            {symbolizers.length === 1 ? null :
-              <Button
-                onClick={() => {
-                  this.removeSymbolizer(idx);
-                }}
-              >
-                {locale.remove}
-              </Button>
-            }
-          </TabPane>
-        );
-      });
+            >
+              {locale.remove}
+            </Button>
+          }
+        </TabPane>
+      );
+    });
 
     return (
       <Tabs
