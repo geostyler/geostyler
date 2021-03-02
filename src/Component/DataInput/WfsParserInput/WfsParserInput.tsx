@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -95,7 +96,7 @@ export class WfsParserInput extends React.Component<WfsParserInputProps, WfsPars
   constructor(props: any) {
     super(props);
     this.state = {
-      url: 'https://ows.terrestris.de/geoserver/terrestris/ows',
+      url: 'https://ows-demo.terrestris.de/geoserver/terrestris/ows',
       version: '1.1.0',
       typeName: 'terrestris:bundeslaender',
       maxFeatures: undefined,
@@ -127,7 +128,7 @@ export class WfsParserInput extends React.Component<WfsParserInputProps, WfsPars
         url: urlValidation
       }
     });
-  }
+  };
 
   onTypeNameChange = (event: any) => {
     const typeName = event.target.value;
@@ -146,7 +147,7 @@ export class WfsParserInput extends React.Component<WfsParserInputProps, WfsPars
       }
     });
     this.setState({typeName});
-  }
+  };
 
   onVersionChange = (version: string) => {
     let versionValidation = {};
@@ -164,24 +165,24 @@ export class WfsParserInput extends React.Component<WfsParserInputProps, WfsPars
       }
     });
     this.setState({version});
-  }
+  };
 
   onFeatureIDChange = (event: any) => {
     const featureID = event.target.value;
     this.setState({featureID});
-  }
+  };
 
   onPropertyNameChange = (propertyName: string[]) => {
     this.setState({propertyName});
-  }
+  };
 
   onMaxFeaturesChange = (maxFeatures: number) => {
     this.setState({maxFeatures});
-  }
+  };
 
   onClick = () => {
     this.props.onClick(this.state);
-  }
+  };
 
   render() {
     const {
