@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -118,7 +119,7 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   iconLibraries?: IconLibrary[];
   /** Object containing predefined color ramps */
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
 }
 
@@ -232,7 +233,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         ...rule
       };
     });
-  }
+  };
 
   onSymbolizerClick = (record: RuleRecord, symbolizerEditorPosition: DOMRect) => {
     this.setState({
@@ -241,7 +242,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       symbolizerEditorPosition,
       filterEditorVisible: false
     });
-  }
+  };
 
   symbolizerRenderer = (text: string, record: RuleRecord) => {
     const {
@@ -263,14 +264,14 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           {...sldRendererProps}
         />
       ) : (
-          <Renderer
-            symbolizers={record.symbolizers}
-            onClick={onSymbolizerClick}
-            data={data}
-          />
-        )
+        <Renderer
+          symbolizers={record.symbolizers}
+          onClick={onSymbolizerClick}
+          data={data}
+        />
+      )
     );
-  }
+  };
 
   nameRenderer = (text: string, record: RuleRecord) => {
     const {
@@ -293,7 +294,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         {input}
       </Popover>
     );
-  }
+  };
 
   filterRenderer = (text: string, record: RuleRecord) => {
     const {
@@ -308,7 +309,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       <Input.Search
         className="gs-rule-table-filter-cell"
         value={cql}
-        onChange={(event) => {
+        onChange={() => {
           // TODO The CQL representation is currently not editable
           // const value = event.target.value;
           // try {
@@ -336,7 +337,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       filterCell = inputSearch;
     }
     return filterCell;
-  }
+  };
 
   onFilterEditClick = (ruleEditIndex: number, filterEditorPosition: DOMRect) => {
     this.setState({
@@ -345,7 +346,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       symbolizerEditorVisible: false,
       filterEditorVisible: true
     });
-  }
+  };
 
   minScaleRenderer = (text: string, record: RuleRecord) => {
     const minScaleDenominator = _get(record, 'scaleDenominator.min');
@@ -362,7 +363,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         }}
       />
     );
-  }
+  };
 
   maxScaleRenderer = (text: string, record: RuleRecord) => {
     const maxScaleDenominator = _get(record, 'scaleDenominator.max');
@@ -379,7 +380,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         }}
       />
     );
-  }
+  };
 
   amountRenderer = (text: string, record: RuleRecord) => {
     const {
@@ -399,7 +400,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     return (
       <div className="ant-input gs-rule-table-numeric-cell">{amount}</div>
     );
-  }
+  };
 
   duplicatesRenderer = (text: string, record: RuleRecord) => {
     const {
@@ -418,7 +419,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     return (
       <div className="ant-input gs-rule-table-numeric-cell">{duplicates}</div>
     );
-  }
+  };
 
   ruleReorderRenderer = (record: RuleRecord) => {
     const {
@@ -432,21 +433,21 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         onRulesMove={onRulesChange}
       />
     );
-  }
+  };
 
   onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
     const {
       ruleEditIndex,
     } = this.state;
     this.setValueForRule(ruleEditIndex, 'symbolizers', symbolizers);
-  }
+  };
 
   onFilterChange = (filter: GsFilter) => {
     const {
       ruleEditIndex,
     } = this.state;
     this.setValueForRule(ruleEditIndex, 'filter', filter);
-  }
+  };
 
   setValueForRule = (ruleIndex: number, key: string, value: any) => {
     const {
@@ -458,19 +459,19 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     if (onRulesChange) {
       onRulesChange(rulesClone);
     }
-  }
+  };
 
   onSymbolizerEditorWindowClose = () => {
     this.setState({
       symbolizerEditorVisible: false
     });
-  }
+  };
 
   onFilterEditorWindowClose = () => {
     this.setState({
       filterEditorVisible: false
     });
-  }
+  };
 
   getColumns = () => {
     const {
@@ -528,7 +529,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     }
 
     return columns;
-  }
+  };
 
   render() {
     if (this.state.hasError) {
@@ -554,9 +555,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     } = this.state;
 
     return (
-      <div>
+      <div className="gs-rule-table">
         <Table
-          className="gs-rule-table"
           columns={this.getColumns()}
           dataSource={this.getRuleRecords()}
           pagination={false}
@@ -567,8 +567,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
             <SymbolizerEditorWindow
               x={
                 symbolizerEditorPosition
-                ? symbolizerEditorPosition.x + symbolizerEditorPosition.width
-                : undefined
+                  ? symbolizerEditorPosition.x + symbolizerEditorPosition.width
+                  : undefined
               }
               y={symbolizerEditorPosition ? symbolizerEditorPosition.y : undefined}
               onClose={this.onSymbolizerEditorWindowClose}
@@ -585,8 +585,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
               x={filterEditorPosition ? filterEditorPosition.x : undefined}
               y={
                 filterEditorPosition
-                ? filterEditorPosition.y + filterEditorPosition.height
-                : undefined
+                  ? filterEditorPosition.y + filterEditorPosition.height
+                  : undefined
               }
               onClose={this.onFilterEditorWindowClose}
               filter={rules[ruleEditIndex].filter}
