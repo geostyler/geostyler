@@ -217,7 +217,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
                       composition,
                       path: 'FillEditor.fillOpacityField',
                       onChange: this.onFillOpacityChange,
-                      propName: 'opacity',
+                      propName: 'fillOpacity',
                       propValue: fillOpacity,
                       defaultElement: <OpacityField />
                     })
