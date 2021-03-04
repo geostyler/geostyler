@@ -101,7 +101,8 @@ export interface RuleGeneratorProps extends Partial<RuleGeneratorDefaultProps> {
 }
 
 export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGeneratorState> {
-  private minNrClasses: number;
+
+  static componentName: string = 'RuleGenerator';
 
   public static defaultProps: RuleGeneratorDefaultProps = {
     locale: en_US.GsRuleGenerator,
@@ -113,7 +114,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
     }
   };
 
-  static componentName: string = 'RuleGenerator';
+  private minNrClasses: number;
 
   constructor(props: RuleGeneratorProps) {
     super(props);

@@ -69,16 +69,16 @@ export interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDef
 
 export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps> {
 
-  public shouldComponentUpdate(nextProps: WellKnownNameEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
+  static componentName: string = 'WellKnownNameEditor';
 
   public static defaultProps: WellKnownNameEditorDefaultProps = {
     locale: en_US.GsWellKnownNameEditor
   };
 
-  static componentName: string = 'WellKnownNameEditor';
+  public shouldComponentUpdate(nextProps: WellKnownNameEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   onRadiusChange = (value: number) => {
     const {

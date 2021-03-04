@@ -71,6 +71,13 @@ interface StyleLoaderState {
 
 export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
 
+  static componentName: string = 'StyleLoader';
+
+  public static defaultProps: StyleLoaderDefaultProps = {
+    locale: en_US.GsStyleLoader,
+    onStyleRead: (style: GsStyle) => {return; }
+  };
+
   constructor(props: StyleLoaderProps) {
     super(props);
     this.state = {};
@@ -81,13 +88,6 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
     const diffState = !_isEqual(this.state, nextState);
     return diffProps || diffState;
   }
-
-  static componentName: string = 'StyleLoader';
-
-  public static defaultProps: StyleLoaderDefaultProps = {
-    locale: en_US.GsStyleLoader,
-    onStyleRead: (style: GsStyle) => {return; }
-  };
 
   parseStyle = async (uploadObject: UploadRequestOption<any>): Promise<Style|undefined> => {
     const {

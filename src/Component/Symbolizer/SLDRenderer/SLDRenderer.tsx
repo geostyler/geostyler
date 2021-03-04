@@ -66,15 +66,15 @@ interface SLDRendererState {
  */
 export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererState> {
 
-  _styleParser: SldStyleParser;
-
-  _requestTimeout: any;
-
   public static defaultProps: SLDRendererDefaultProps = {
     requestDelay: 500,
     width: 150,
     height: 100
   };
+
+  _styleParser: SldStyleParser;
+
+  _requestTimeout: any;
 
   constructor(props: SLDRendererProps) {
     super(props);

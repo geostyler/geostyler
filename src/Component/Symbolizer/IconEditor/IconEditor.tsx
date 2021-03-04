@@ -73,6 +73,8 @@ export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
 
 export class IconEditor extends React.Component<IconEditorProps> {
 
+  static componentName: string = 'IconEditor';
+
   public static defaultProps: IconEditorDefaultProps = {
     locale: en_US.GsIconEditor
   };
@@ -81,8 +83,6 @@ export class IconEditor extends React.Component<IconEditorProps> {
     const diffProps = !_isEqual(this.props, nextProps);
     return diffProps;
   }
-
-  static componentName: string = 'IconEditor';
 
   onImageSrcChange = (value: string) => {
     const {

@@ -51,13 +51,13 @@ export interface FieldSetProps extends Partial<FieldSetDefaultProps> {
  */
 export class FieldSet extends React.Component<FieldSetProps> {
 
-  constructor(props: FieldSetProps) {
-    super(props);
-  }
-
   public static defaultProps: FieldSetDefaultProps = {
     checked: true
   };
+
+  constructor(props: FieldSetProps) {
+    super(props);
+  }
 
   /**
    * Toggles the state according to the checkbox check state.

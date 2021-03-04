@@ -35,7 +35,8 @@ import {
 import {
   Symbolizer,
   FillSymbolizer,
-  PointSymbolizer
+  PointSymbolizer,
+  GraphicType
 } from 'geostyler-style';
 
 import ColorField from '../Field/ColorField/ColorField';
@@ -276,7 +277,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
                       <GraphicEditor
                         graphicTypeFieldLabel={locale.graphicFillTypeLabel}
                         graphic={graphicFill}
-                        graphicType={_get(graphicFill, 'kind')}
+                        graphicType={_get(graphicFill, 'kind') as GraphicType}
                       />
                     )
                   })

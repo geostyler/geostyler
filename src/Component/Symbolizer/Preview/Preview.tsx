@@ -111,14 +111,7 @@ interface PreviewState {
  */
 export class Preview extends React.Component<PreviewProps, PreviewState> {
 
-  /** reference to the underlying OpenLayers map */
-  map: any;
-
-  /** refrence to the vector layer for the passed in features  */
-  dataLayer: any;
-
-  /** reference to the editButton */
-  _editButton: any;
+  static componentName: string = 'Preview';
 
   public static defaultProps: PreviewDefaultProps = {
     locale: en_US.GsPreview,
@@ -128,6 +121,16 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     showOsmBackground: true,
     mapHeight: 267
   };
+
+  /** reference to the underlying OpenLayers map */
+  map: any;
+
+  /** refrence to the vector layer for the passed in features  */
+  dataLayer: any;
+
+  /** reference to the editButton */
+  _editButton: any;
+
 
   constructor(props: PreviewProps) {
     super(props);
@@ -140,8 +143,6 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       editorId: `gs-edit-preview-button_${randomId}`
     };
   }
-
-  static componentName: string = 'Preview';
 
   static getDerivedStateFromProps(
     nextProps: PreviewProps,

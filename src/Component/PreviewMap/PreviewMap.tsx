@@ -87,6 +87,15 @@ export interface PreviewMapProps extends Partial<PreviewMapDefaultProps> {
  */
 export class PreviewMap extends React.PureComponent<PreviewMapProps> {
 
+  static componentName: string = 'PreviewMap';
+
+  public static defaultProps: PreviewMapDefaultProps = {
+    projection: 'EPSG:3857',
+    dataProjection: 'EPSG:4326',
+    showOsmBackground: true,
+    mapHeight: 267
+  };
+
   /** Openlayers Style Parser instance */
   _styleParser = new OlStyleParser();
 
@@ -98,15 +107,6 @@ export class PreviewMap extends React.PureComponent<PreviewMapProps> {
 
   /** id of the generated mapdiv */
   _mapTargetId: string = `map_${Math.floor((1 + Math.random()) * 0x10000)}`;
-
-  public static defaultProps: PreviewMapDefaultProps = {
-    projection: 'EPSG:3857',
-    dataProjection: 'EPSG:4326',
-    showOsmBackground: true,
-    mapHeight: 267
-  };
-
-  static componentName: string = 'PreviewMap';
 
   public componentDidUpdate() {
     const {

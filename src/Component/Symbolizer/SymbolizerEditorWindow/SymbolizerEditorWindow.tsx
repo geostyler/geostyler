@@ -77,6 +77,8 @@ export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWin
  */
 export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWindowProps> {
 
+  static componentName: string = 'SymbolizerEditorWindow';
+
   public static defaultProps: SymbolizerEditorWindowDefaultProps = {
     locale: en_US.GsSymbolizerEditorWindow,
     constrainWindow: 'body'
@@ -85,8 +87,6 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
   public shouldComponentUpdate(nextProps: SymbolizerEditorWindowProps): boolean {
     return !_isEqual(this.props, nextProps);
   }
-
-  static componentName: string = 'SymbolizerEditorWindow';
 
   render() {
     const {

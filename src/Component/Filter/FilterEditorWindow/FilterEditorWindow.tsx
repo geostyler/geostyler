@@ -78,6 +78,8 @@ export interface FilterEditorWindowProps extends Partial<FilterEditorWindowDefau
  */
 export class FilterEditorWindow extends React.Component<FilterEditorWindowProps> {
 
+    static componentName: string = 'FilterEditorWindow';
+
   public static defaultProps: FilterEditorWindowDefaultProps = {
     locale: en_US.GsFilterEditorWindow
   };
@@ -85,8 +87,6 @@ export class FilterEditorWindow extends React.Component<FilterEditorWindowProps>
   public shouldComponentUpdate(nextProps: FilterEditorWindowProps): boolean {
     return !_isEqual(this.props, nextProps);
   }
-
-  static componentName: string = 'FilterEditorWindow';
 
   render() {
     const {

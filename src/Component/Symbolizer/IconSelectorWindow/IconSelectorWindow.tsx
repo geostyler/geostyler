@@ -69,6 +69,8 @@ export interface IconSelectorWindowProps extends Partial<IconSelectorWindowDefau
 
 export class IconSelectorWindow extends React.Component<IconSelectorWindowProps> {
 
+  static componentName: string = 'IconSelectorWindow';
+
   public static defaultProps: IconSelectorWindowDefaultProps = {
     locale: en_US.GsIconSelectorWindow
   };
@@ -77,8 +79,6 @@ export class IconSelectorWindow extends React.Component<IconSelectorWindowProps>
     const diffProps = !_isEqual(this.props, nextProps);
     return diffProps;
   }
-
-  static componentName: string = 'IconSelectorWindow';
 
   render() {
     const {

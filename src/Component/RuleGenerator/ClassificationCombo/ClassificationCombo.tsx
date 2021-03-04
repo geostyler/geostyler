@@ -66,6 +66,8 @@ export interface ClassificationComboProps extends Partial<ClassificationComboDef
  */
 export class ClassificationCombo extends React.Component<ClassificationComboProps> {
 
+  static componentName: string = 'ClassificationCombo';
+
   public static defaultProps: ClassificationComboDefaultProps = {
     locale: en_US.GsClassificationCombo,
     classifications: ['equalInterval', 'quantile', 'logarithmic', 'kmeans']
@@ -74,8 +76,6 @@ export class ClassificationCombo extends React.Component<ClassificationComboProp
   public shouldComponentUpdate(nextProps: ClassificationComboProps): boolean {
     return !_isEqual(this.props, nextProps);
   }
-
-  static componentName: string = 'ClassificationCombo';
 
   getClassificationOptions = () => {
     const {

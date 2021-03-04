@@ -522,9 +522,11 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
         break;
       // on
       case 1:
-        dropTargetIsComparison
-          ? newSubFilter.splice(dropTargetSubIndex + 1, 0, insertFilter)
-          : newSubFilter.push(insertFilter);
+        if (dropTargetIsComparison) {
+          newSubFilter.splice(dropTargetSubIndex + 1, 0, insertFilter);
+        } else {
+          newSubFilter.push(insertFilter);
+        }
         break;
       // after
       case 2:

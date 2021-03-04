@@ -87,13 +87,6 @@ interface EditorState {
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      symbolizer: SymbolizerUtil.generateSymbolizer(),
-      hasError: false
-    };
-  }
 
   static componentName: string = 'SymbolizerEditor';
 
@@ -101,6 +94,14 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     locale: en_US.GsSymbolizerEditor,
     unknownSymbolizerText: 'Unknown Symbolizer!'
   };
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      symbolizer: SymbolizerUtil.generateSymbolizer(),
+      hasError: false
+    };
+  }
 
   static getDerivedStateFromProps(
     nextProps: EditorProps,

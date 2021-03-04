@@ -93,16 +93,16 @@ export interface TextEditorProps extends Partial<TextEditorDefaultProps> {
  */
 export class TextEditor extends React.Component<TextEditorProps> {
 
-  public shouldComponentUpdate(nextProps: TextEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
   public static defaultProps: TextEditorDefaultProps = {
     locale: en_US.GsTextEditor
   };
 
   static componentName: string = 'TextEditor';
+
+  public shouldComponentUpdate(nextProps: TextEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   onLabelChange = (value: any) => {
     const {

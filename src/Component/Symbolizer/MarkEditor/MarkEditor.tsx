@@ -66,6 +66,12 @@ interface MarkEditorState {
 
 export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState> {
 
+  static componentName: string = 'MarkEditor';
+
+  public static defaultProps: MarkEditorDefaultProps = {
+    locale: en_US.GsMarkEditor
+  };
+
   constructor(props: MarkEditorProps) {
     super(props);
     this.state = {
@@ -75,12 +81,6 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
       }
     };
   }
-
-  static componentName: string = 'MarkEditor';
-
-  public static defaultProps: MarkEditorDefaultProps = {
-    locale: en_US.GsMarkEditor
-  };
 
   static getDerivedStateFromProps(
     nextProps: MarkEditorProps,

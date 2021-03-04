@@ -73,6 +73,8 @@ interface ColorFieldState {
  */
 export class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
 
+  static componentName: string = 'ColorField';
+
   public static defaultProps: ColorFieldDefaultProps = {
     locale: en_US.GsColorField
   };
@@ -89,8 +91,6 @@ export class ColorField extends React.Component<ColorFieldProps, ColorFieldState
     const diffState = !_isEqual(this.state, nextState);
     return diffProps || diffState;
   }
-
-  static componentName: string = 'ColorField';
 
   onColorPreviewClick = () => {
     this.setState({

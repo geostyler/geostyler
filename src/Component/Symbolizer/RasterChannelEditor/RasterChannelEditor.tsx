@@ -87,6 +87,10 @@ export class RasterChannelEditor extends React.Component<RasterChannelEditorProp
 
   static componentName: string = 'RasterChannelEditor';
 
+  public static defaultProps: RasterChannelEditorDefaultProps = {
+    locale: en_US.GsRasterChannelEditor
+  };
+
   constructor(props: RasterChannelEditorProps) {
     super(props);
     const channelSelection = _get(props, 'channelSelection');
@@ -96,10 +100,6 @@ export class RasterChannelEditor extends React.Component<RasterChannelEditorProp
       selectedTab: !channelSelection ? 'red' : grayChannel ? 'gray' : 'red'
     };
   }
-
-  public static defaultProps: RasterChannelEditorDefaultProps = {
-    locale: en_US.GsRasterChannelEditor
-  };
 
   onSelectionChange = (rgbOrGray: 'rgb'|'gray') => {
     const {

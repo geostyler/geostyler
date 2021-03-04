@@ -87,6 +87,13 @@ interface DataLoaderState {
 
 export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState> {
 
+  static componentName: string = 'DataLoader';
+
+  public static defaultProps: DataLoaderDefaultProps = {
+    locale: en_US.GsDataLoader,
+    onDataRead: (data: VectorData) => {return; }
+  };
+
   constructor(props: DataLoaderProps) {
     super(props);
     this.state = {
@@ -99,13 +106,6 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     const diffState = !_isEqual(this.state, nextState);
     return diffProps || diffState;
   }
-
-  static componentName: string = 'DataLoader';
-
-  public static defaultProps: DataLoaderDefaultProps = {
-    locale: en_US.GsDataLoader,
-    onDataRead: (data: VectorData) => {return; }
-  };
 
   parseGeoJsonUploadData = (uploadObject: UploadRequestOption<any>) => {
     const {

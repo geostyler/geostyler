@@ -104,6 +104,13 @@ interface CodeEditorState {
  */
 export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
+  public static defaultProps: CodeEditorDefaultProps = {
+    locale: en_US.GsCodeEditor,
+    delay: 500,
+    showSaveButton: false,
+    showCopyButton: false
+  };
+
   static componentName: string = 'CodeEditor';
 
   private editTimeout: any;
@@ -116,13 +123,6 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       hasError: false
     };
   }
-
-  public static defaultProps: CodeEditorDefaultProps = {
-    locale: en_US.GsCodeEditor,
-    delay: 500,
-    showSaveButton: false,
-    showCopyButton: false
-  };
 
   componentDidMount() {
     this.setState({

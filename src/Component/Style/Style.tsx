@@ -142,6 +142,19 @@ interface StyleState {
 }
 
 export class Style extends React.Component<StyleProps, StyleState> {
+
+  static componentName: string = 'Style';
+
+  public static defaultProps: StyleDefaultProps = {
+    compact: false,
+    locale: en_US.GsStyle,
+    style: {
+      name: 'My Style',
+      rules: []
+    },
+    enableClassification: true
+  };
+
   constructor(props: StyleProps) {
     super(props);
     this.state = {
@@ -155,18 +168,6 @@ export class Style extends React.Component<StyleProps, StyleState> {
       hasError: false
     };
   }
-
-  static componentName: string = 'Style';
-
-  public static defaultProps: StyleDefaultProps = {
-    compact: false,
-    locale: en_US.GsStyle,
-    style: {
-      name: 'My Style',
-      rules: []
-    },
-    enableClassification: true
-  };
 
   public shouldComponentUpdate(nextProps: StyleProps, nextState: StyleState): boolean {
     const diffProps = !_isEqual(this.props, nextProps);

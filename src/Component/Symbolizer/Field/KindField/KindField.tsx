@@ -69,6 +69,8 @@ export interface KindFieldProps extends Partial<KindFieldDefaultProps> {
  */
 export class KindField extends React.Component<KindFieldProps> {
 
+  static componentName: string = 'KindField';
+
   public static defaultProps: KindFieldDefaultProps = {
     locale: en_US.GsKindField,
     kind: 'Mark',
@@ -79,8 +81,6 @@ export class KindField extends React.Component<KindFieldProps> {
     const diffProps = !_isEqual(this.props, nextProps);
     return diffProps;
   }
-
-  static componentName: string = 'KindField';
 
   getKindSelectOptions = (locale: KindFieldLocale) => {
     return this.props.symbolizerKinds!.map(kind => {

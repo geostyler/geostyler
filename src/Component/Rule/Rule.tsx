@@ -136,16 +136,6 @@ interface RuleState {
  * UI container representing a Rule
  */
 export class Rule extends React.Component<RuleProps, RuleState> {
-  constructor(props: RuleProps) {
-    super(props);
-    this.state = {
-      editorVisible: false,
-      rule: Rule.defaultProps.rule,
-      symbolizerEditorVisible: false,
-      storedFilter: ['=='],
-      storedScaleDenominator: {}
-    };
-  }
 
   static componentName: string = 'Rule';
 
@@ -161,6 +151,17 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     dataProjection: 'EPSG:4326',
     rendererType: 'OpenLayers'
   };
+
+  constructor(props: RuleProps) {
+    super(props);
+    this.state = {
+      editorVisible: false,
+      rule: Rule.defaultProps.rule,
+      symbolizerEditorVisible: false,
+      storedFilter: ['=='],
+      storedScaleDenominator: {}
+    };
+  }
 
   static getDerivedStateFromProps(
     nextProps: RuleProps): Partial<RuleState> {

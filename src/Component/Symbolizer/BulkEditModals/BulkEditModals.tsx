@@ -96,13 +96,6 @@ interface BulkEditModalsState {
 }
 
 export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEditModalsState> {
-  constructor(props: BulkEditModalsProps) {
-    super(props);
-
-    this.state = {
-      kind: 'Mark'
-    };
-  }
 
   static componentName: string = 'BulkEditModals';
 
@@ -119,6 +112,14 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     selectedRowKeys: [],
     modalsClosed: (): any => undefined
   };
+
+  constructor(props: BulkEditModalsProps) {
+    super(props);
+
+    this.state = {
+      kind: 'Mark'
+    };
+  }
 
   public shouldComponentUpdate(nextProps: BulkEditModalsProps, nextState: BulkEditModalsState): boolean {
     const diffProps = !_isEqual(this.props, nextProps);

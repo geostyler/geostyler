@@ -36,7 +36,8 @@ import {
 import {
   Symbolizer,
   LineSymbolizer,
-  PointSymbolizer
+  PointSymbolizer,
+  GraphicType
 } from 'geostyler-style';
 
 import ColorField from '../Field/ColorField/ColorField';
@@ -87,16 +88,16 @@ export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
 
 export class LineEditor extends React.Component<LineEditorProps> {
 
-  public shouldComponentUpdate(nextProps: LineEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
   public static defaultProps: LineEditorDefaultProps = {
     locale: en_US.GsLineEditor
   };
 
   static componentName: string = 'LineEditor';
+
+  public shouldComponentUpdate(nextProps: LineEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   onColorChange = (value: string) => {
     const {
@@ -353,7 +354,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
                       <GraphicEditor
                         graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
                         graphic={graphicStroke}
-                        graphicType={_get(graphicStroke, 'kind')}
+                        graphicType={_get(graphicStroke, 'kind') as GraphicType}
                       />)
                   })
                 }
@@ -371,7 +372,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
                       <GraphicEditor
                         graphicTypeFieldLabel={locale.graphicFillTypeLabel}
                         graphic={graphicFill}
-                        graphicType={_get(graphicFill, 'kind')}
+                        graphicType={_get(graphicFill, 'kind') as GraphicType}
                       />)
                   })
                 }
