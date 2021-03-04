@@ -6,8 +6,6 @@ module.exports = {
       {
         ignoreImports: true
       }
-    ],
-    "no-underscore-dangle": "off",
-
+    ]
   }
 };
