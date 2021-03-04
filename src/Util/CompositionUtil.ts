@@ -28,7 +28,7 @@
 
 import * as React from 'react';
 import { Compositions } from '../Component/CompositionContext/CompositionContext';
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 
 export interface CompositionUtilOptions {
   composition: Compositions;

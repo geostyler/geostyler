@@ -37,8 +37,8 @@ import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
 import WidthField from '../Field/WidthField/WidthField';
 
-const _cloneDeep = require('lodash/cloneDeep');
-const _isEqual = require('lodash/isEqual');
+import _cloneDeep from 'lodash/cloneDeep';
+import _isEqual from 'lodash/isEqual';
 import FontPicker from '../Field/FontPicker/FontPicker';
 import OffsetField from '../Field/OffsetField/OffsetField';
 import AttributeCombo from '../../Filter/AttributeCombo/AttributeCombo';

@@ -37,7 +37,7 @@ import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 import { RadioChangeEvent } from 'antd/lib/radio';
 
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 
 // i18n
 export interface ColorMapTypeFieldLocale {

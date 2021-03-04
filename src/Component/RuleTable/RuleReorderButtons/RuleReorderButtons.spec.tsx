@@ -33,7 +33,7 @@ import {
   Rule as GsRule,
 } from 'geostyler-style';
 
-const _cloneDeep = require('lodash/cloneDeep');
+import _cloneDeep from 'lodash/cloneDeep';
 
 describe('ReorderButtonGroup', () => {
 

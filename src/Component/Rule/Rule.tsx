@@ -54,8 +54,8 @@ import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
-const _cloneDeep = require('lodash/cloneDeep');
-const _isEqual = require('lodash/isEqual');
+import _cloneDeep from 'lodash/cloneDeep';
+import _isEqual from 'lodash/isEqual';
 
 import './Rule.less';
 import en_US from '../../locale/en_US';

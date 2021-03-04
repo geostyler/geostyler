@@ -36,7 +36,7 @@ import OpacityField from '../OpacityField/OpacityField';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 
 // i18n
 export interface ColorMapEntryFieldLocale {

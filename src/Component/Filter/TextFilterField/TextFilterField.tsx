@@ -31,7 +31,7 @@ import * as React from 'react';
 import { Input, Form, AutoComplete } from 'antd';
 import { Data } from 'geostyler-data';
 
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 import { Feature } from 'geojson';
 
 // default props

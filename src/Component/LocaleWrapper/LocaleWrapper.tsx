@@ -28,7 +28,7 @@
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 
 export interface LocaleProps {
     locale?: object;

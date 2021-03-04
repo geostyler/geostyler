@@ -43,7 +43,7 @@ import './Editor.less';
 import 'ol/ol.css';
 import { Data } from 'geostyler-data';
 
-const _cloneDeep = require('lodash/cloneDeep');
+import _cloneDeep from 'lodash/cloneDeep';
 
 import KindField from '../Field/KindField/KindField';
 import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';

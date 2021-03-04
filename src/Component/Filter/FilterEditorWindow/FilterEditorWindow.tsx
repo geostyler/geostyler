@@ -43,7 +43,7 @@ import { Filter } from 'geostyler-style';
 import FilterTree from '../FilterTree/FilterTree';
 import { ComparisonFilterProps } from '../ComparisonFilter/ComparisonFilter';
 
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 // i18n
 export interface FilterEditorWindowLocale {
   filterEditor: string;

@@ -29,7 +29,7 @@
 import { Style, StyleProps } from './Style';
 import TestUtil from '../../Util/TestUtil';
 import en_US from '../../locale/en_US';
-const _cloneDeep = require('lodash/cloneDeep');
+import _cloneDeep from 'lodash/cloneDeep';
 
 describe('Style', () => {
 

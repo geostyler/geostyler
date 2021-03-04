@@ -47,8 +47,8 @@ import {
 } from 'geostyler-style';
 import ChannelField from '../Field/ChannelField/ChannelField';
 
-const _get = require('lodash/get');
-const _cloneDeep = require('lodash/cloneDeep');
+import _get from 'lodash/get';
+import _cloneDeep from 'lodash/cloneDeep';
 
 // i18n
 export interface RasterChannelEditorLocale {

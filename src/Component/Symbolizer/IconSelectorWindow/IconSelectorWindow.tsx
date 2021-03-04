@@ -43,7 +43,7 @@ import en_US from '../../../locale/en_US';
 import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
 import './IconSelectorWindow.less';
 
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 
 // i18n
 export interface IconSelectorWindowLocale {

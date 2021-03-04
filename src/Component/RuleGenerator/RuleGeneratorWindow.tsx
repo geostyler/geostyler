@@ -47,8 +47,8 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import RuleGenerator from './RuleGenerator';
 
-const _isEqual = require('lodash/isEqual');
-const _isFinite = require('lodash/isFinite');
+import _isEqual from 'lodash/isEqual';
+import _isFinite from 'lodash/isFinite';
 // i18n
 export interface RuleGeneratorWindowLocale {
   ruleGenerator: string;

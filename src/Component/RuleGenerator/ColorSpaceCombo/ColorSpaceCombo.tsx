@@ -34,7 +34,7 @@ import en_US from '../../../locale/en_US';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import { InterpolationMode } from 'chroma-js';
 
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 
 // i18n
 export interface ColorSpaceComboLocale {

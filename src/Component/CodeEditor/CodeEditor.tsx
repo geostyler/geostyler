@@ -55,7 +55,7 @@ import {
   StyleParser
 } from 'geostyler-style';
 
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';

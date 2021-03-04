@@ -42,7 +42,7 @@ import { CompositionContext, Compositions } from '../../CompositionContext/Compo
 import CompositionUtil from '../../../Util/CompositionUtil';
 import { Form } from 'antd';
 
-const _cloneDeep = require('lodash/cloneDeep');
+import _cloneDeep from 'lodash/cloneDeep';
 
 // i18n
 export interface MarkEditorLocale {

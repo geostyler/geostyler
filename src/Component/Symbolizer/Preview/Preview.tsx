@@ -54,8 +54,8 @@ import 'ol/ol.css';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
 
-const _get = require('lodash/get');
-const _isEqual = require('lodash/isEqual');
+import _get from 'lodash/get';
+import _isEqual from 'lodash/isEqual';
 
 import { VectorData } from 'geostyler-data';
 import { IconEditorProps } from '../IconEditor/IconEditor';

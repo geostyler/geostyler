@@ -36,7 +36,7 @@ import {
   VectorData
 } from 'geostyler-data';
 
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 
 export type CountResult = {
   counts?: number[];

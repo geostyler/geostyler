@@ -37,8 +37,8 @@ import en_US from '../../../../locale/en_US';
 import SourceChannelNameField from '../SourceChannelNameField/SourceChannelNameField';
 import { ChannelSelection, RGBChannel } from 'geostyler-style';
 
-const _get = require('lodash/get');
-const _cloneDeep = require('lodash/cloneDeep');
+import _get from 'lodash/get';
+import _cloneDeep from 'lodash/cloneDeep';
 
 // i18n
 export interface RgbChannelFieldLocale {

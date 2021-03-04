@@ -37,9 +37,9 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 import ImageField from '../Field/ImageField/ImageField';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
-const _cloneDeep = require('lodash/cloneDeep');
-const _isEmpty = require('lodash/isEmpty');
-const _isEqual = require('lodash/isEqual');
+import _cloneDeep from 'lodash/cloneDeep';
+import _isEmpty from 'lodash/isEmpty';
+import _isEqual from 'lodash/isEqual';
 import RotateField from '../Field/RotateField/RotateField';
 import SizeField from '../Field/SizeField/SizeField';
 

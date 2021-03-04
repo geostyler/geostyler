@@ -28,7 +28,7 @@
 
 import * as React from 'react';
 import SldStyleParser from 'geostyler-sld-parser';
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 
 import './SLDRenderer.less';
 import { Style, Symbolizer } from 'geostyler-style';

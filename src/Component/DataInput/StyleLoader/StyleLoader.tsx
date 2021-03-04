@@ -31,7 +31,7 @@ import * as React from 'react';
 import { Select } from 'antd';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
 const Option = Select.Option;
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 
 import {
   Style as GsStyle,

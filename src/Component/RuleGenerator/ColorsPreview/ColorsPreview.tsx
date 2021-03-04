@@ -32,7 +32,7 @@ import './ColorsPreview.less';
 
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 
 // non default props
 export interface ColorsPreviewProps {
