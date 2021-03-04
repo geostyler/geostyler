@@ -46,7 +46,7 @@ describe('ColorMapTypeField', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-  
+
   describe('getColorMapTypeOptions', () => {
     it('returns the right amount of options', () => {
       const options = wrapper.instance().getColorMapTypeOptions();
@@ -64,7 +64,7 @@ describe('ColorMapTypeField', () => {
         target: {
           value: 'ramp'
         }
-      }
+      };
       wrapper.instance().onColorMapTypeChange(dummyEvent);
       expect(wrapper.instance().props.onChange).toHaveBeenCalled();
     });

@@ -76,7 +76,7 @@ export interface EditorProps extends Partial<EditorDefaultProps> {
   onSymbolizerChange?: (symbolizer: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
 }
 
@@ -87,13 +87,6 @@ interface EditorState {
 }
 
 export class Editor extends React.Component<EditorProps, EditorState> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      symbolizer: SymbolizerUtil.generateSymbolizer(),
-      hasError: false
-    };
-  }
 
   static componentName: string = 'SymbolizerEditor';
 
@@ -102,9 +95,17 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     unknownSymbolizerText: 'Unknown Symbolizer!'
   };
 
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      symbolizer: SymbolizerUtil.generateSymbolizer(),
+      hasError: false
+    };
+  }
+
   static getDerivedStateFromProps(
-      nextProps: EditorProps,
-      prevState: EditorState): Partial<EditorState> {
+    nextProps: EditorProps,
+    prevState: EditorState): Partial<EditorState> {
     return {
       symbolizer: nextProps.symbolizer
     };
@@ -123,7 +124,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   /**
    * Get the appropriate Editor UI for a certain style.
@@ -247,12 +248,12 @@ export class Editor extends React.Component<EditorProps, EditorState> {
       default:
         return this.props.unknownSymbolizerText;
     }
-  }
+  };
 
   onKindFieldChange = (kind: SymbolizerKind) => {
     const newSymbolizer = SymbolizerUtil.generateSymbolizer(kind);
     this.onSymbolizerChange(newSymbolizer);
-  }
+  };
 
   wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
     const formItemLayout = {
@@ -261,13 +262,13 @@ export class Editor extends React.Component<EditorProps, EditorState> {
     };
     return element == null ? null : (
       <Form.Item
-      label={locale}
-      {...formItemLayout}
+        label={locale}
+        {...formItemLayout}
       >
         {element}
       </Form.Item>
     );
-  }
+  };
 
   render() {
     if (this.state.hasError) {

@@ -66,7 +66,7 @@ export class NameField extends React.PureComponent<NameFieldProps> {
     if (onChange) {
       onChange(e.target.value);
     }
-  }
+  };
 
   render() {
 

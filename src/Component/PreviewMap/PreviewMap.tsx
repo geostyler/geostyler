@@ -87,6 +87,15 @@ export interface PreviewMapProps extends Partial<PreviewMapDefaultProps> {
  */
 export class PreviewMap extends React.PureComponent<PreviewMapProps> {
 
+  static componentName: string = 'PreviewMap';
+
+  public static defaultProps: PreviewMapDefaultProps = {
+    projection: 'EPSG:3857',
+    dataProjection: 'EPSG:4326',
+    showOsmBackground: true,
+    mapHeight: 267
+  };
+
   /** Openlayers Style Parser instance */
   _styleParser = new OlStyleParser();
 
@@ -98,15 +107,6 @@ export class PreviewMap extends React.PureComponent<PreviewMapProps> {
 
   /** id of the generated mapdiv */
   _mapTargetId: string = `map_${Math.floor((1 + Math.random()) * 0x10000)}`;
-
-  public static defaultProps: PreviewMapDefaultProps = {
-    projection: 'EPSG:3857',
-    dataProjection: 'EPSG:4326',
-    showOsmBackground: true,
-    mapHeight: 267
-  };
-
-  static componentName: string = 'PreviewMap';
 
   public componentDidUpdate() {
     const {
@@ -218,7 +218,7 @@ export class PreviewMap extends React.PureComponent<PreviewMapProps> {
       });
     }
     this.map.getView().fit(this.dataLayer.getSource().getExtent());
-  }
+  };
 
   getSampleGeomFromStyle = () => {
     const {
@@ -244,13 +244,13 @@ export class PreviewMap extends React.PureComponent<PreviewMapProps> {
             .transform('EPSG:4326', this.props.projection);
         case 'Fill':
           return (new OlGeomPolygon([[
-              [7.1031761169433585, 50.734268655851345],
-              [7.109270095825195, 50.734268655851345],
-              [7.109270095825195, 50.73824770380063],
-              [7.1031761169433585, 50.73824770380063],
-              [7.1031761169433585, 50.734268655851345]
-            ]]))
-              .transform('EPSG:4326', this.props.projection);
+            [7.1031761169433585, 50.734268655851345],
+            [7.109270095825195, 50.734268655851345],
+            [7.109270095825195, 50.73824770380063],
+            [7.1031761169433585, 50.73824770380063],
+            [7.1031761169433585, 50.734268655851345]
+          ]]))
+            .transform('EPSG:4326', this.props.projection);
         case 'Line':
           return (new OlGeomLineString([
             [7.062578201293945, 50.721786104206004],
@@ -267,7 +267,7 @@ export class PreviewMap extends React.PureComponent<PreviewMapProps> {
             .transform('EPSG:4326', this.props.projection);
       }
     });
-  }
+  };
 
   render() {
     const {

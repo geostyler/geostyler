@@ -62,6 +62,8 @@ export interface ColorSpaceComboProps extends Partial<ColorSpaceComboDefaultProp
  */
 export class ColorSpaceCombo extends React.Component<ColorSpaceComboProps> {
 
+  static componentName: string = 'ColorSpaceCombo';
+
   public static defaultProps: ColorSpaceComboDefaultProps = {
     locale: en_US.GsColorSpaceCombo,
     colorSpaces: ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb']
@@ -70,8 +72,6 @@ export class ColorSpaceCombo extends React.Component<ColorSpaceComboProps> {
   public shouldComponentUpdate(nextProps: ColorSpaceComboProps): boolean {
     return !_isEqual(this.props, nextProps);
   }
-
-  static componentName: string = 'ColorSpaceCombo';
 
   getColorSpaceOptions = () => {
     const {
@@ -89,7 +89,7 @@ export class ColorSpaceCombo extends React.Component<ColorSpaceComboProps> {
         </Select.Option>
       );
     });
-  }
+  };
 
   render() {
     const {

@@ -96,13 +96,6 @@ interface BulkEditModalsState {
 }
 
 export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEditModalsState> {
-  constructor(props: BulkEditModalsProps) {
-    super(props);
-
-    this.state = {
-      kind: 'Mark'
-    };
-  }
 
   static componentName: string = 'BulkEditModals';
 
@@ -120,6 +113,14 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     modalsClosed: (): any => undefined
   };
 
+  constructor(props: BulkEditModalsProps) {
+    super(props);
+
+    this.state = {
+      kind: 'Mark'
+    };
+  }
+
   public shouldComponentUpdate(nextProps: BulkEditModalsProps, nextState: BulkEditModalsState): boolean {
     const diffProps = !_isEqual(this.props, nextProps);
     const diffState = !_isEqual(this.state, nextState);
@@ -130,7 +131,7 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     this.setState({
       kind
     });
-  }
+  };
 
   render() {
     let rules: GsRule[] = [];
@@ -247,19 +248,19 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
                   onChange={(val: string) => {
                     this.props.updateMultiSymbols(val, kind);
                   }}
-                  />
-                  {
-                    !iconLibraries ? null : (
-                      <div className="gs-bulk-edit-modals-icon-selector">
-                        <IconSelector
-                          iconLibraries={iconLibraries}
-                          onIconSelect={(val: string) => {
-                            this.props.updateMultiSymbols(val, kind);
-                          }}
-                          selectedIconSrc={symbol}
-                        />
-                      </div>)
-                  }
+                />
+                {
+                  !iconLibraries ? null : (
+                    <div className="gs-bulk-edit-modals-icon-selector">
+                      <IconSelector
+                        iconLibraries={iconLibraries}
+                        onIconSelect={(val: string) => {
+                          this.props.updateMultiSymbols(val, kind);
+                        }}
+                        selectedIconSrc={symbol}
+                      />
+                    </div>)
+                }
               </div>
             )
           }

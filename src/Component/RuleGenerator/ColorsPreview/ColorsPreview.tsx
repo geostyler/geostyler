@@ -45,11 +45,11 @@ export interface ColorsPreviewProps {
  */
 export class ColorsPreview extends React.Component<ColorsPreviewProps> {
 
+  static componentName: string = 'ColorsPreview';
+
   public shouldComponentUpdate(nextProps: ColorsPreviewProps): boolean {
     return !_isEqual(this.props, nextProps);
   }
-
-  static componentName: string = 'ColorsPreview';
 
   render() {
     const {

@@ -68,7 +68,7 @@ export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWin
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   iconLibraries?: IconLibrary[];
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
 }
 
@@ -76,6 +76,8 @@ export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWin
  * Symbolizer editorwindow UI.
  */
 export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWindowProps> {
+
+  static componentName: string = 'SymbolizerEditorWindow';
 
   public static defaultProps: SymbolizerEditorWindowDefaultProps = {
     locale: en_US.GsSymbolizerEditorWindow,
@@ -85,8 +87,6 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
   public shouldComponentUpdate(nextProps: SymbolizerEditorWindowProps): boolean {
     return !_isEqual(this.props, nextProps);
   }
-
-  static componentName: string = 'SymbolizerEditorWindow';
 
   render() {
     const {

@@ -117,7 +117,7 @@ export interface RuleProps extends Partial<RuleDefaultProps> {
   iconLibraries?: IconLibrary[];
   /** Properties that will be passed to the RasterSymbolizer */
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
 }
 
@@ -136,16 +136,6 @@ interface RuleState {
  * UI container representing a Rule
  */
 export class Rule extends React.Component<RuleProps, RuleState> {
-  constructor(props: RuleProps) {
-    super(props);
-    this.state = {
-      editorVisible: false,
-      rule: Rule.defaultProps.rule,
-      symbolizerEditorVisible: false,
-      storedFilter: ['=='],
-      storedScaleDenominator: {}
-    };
-  }
 
   static componentName: string = 'Rule';
 
@@ -162,8 +152,19 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     rendererType: 'OpenLayers'
   };
 
+  constructor(props: RuleProps) {
+    super(props);
+    this.state = {
+      editorVisible: false,
+      rule: Rule.defaultProps.rule,
+      symbolizerEditorVisible: false,
+      storedFilter: ['=='],
+      storedScaleDenominator: {}
+    };
+  }
+
   static getDerivedStateFromProps(
-      nextProps: RuleProps): Partial<RuleState> {
+    nextProps: RuleProps): Partial<RuleState> {
     const rule = nextProps.rule || Rule.defaultProps.rule;
 
     return {
@@ -192,7 +193,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       this.props.onRuleChange(rule, this.state.rule);
     }
     this.setState({rule});
-  }
+  };
 
   /**
    * Handles changing rule name
@@ -204,7 +205,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       this.props.onRuleChange(rule, this.state.rule);
     }
     this.setState({rule});
-  }
+  };
 
   /**
    * Handles changing rule filter
@@ -216,7 +217,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       this.props.onRuleChange(rule, this.state.rule);
     }
     this.setState({rule});
-  }
+  };
 
   /**
    * Handles changing rule symbolizer
@@ -228,7 +229,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       this.props.onRuleChange(rule, this.state.rule);
     }
     this.setState({rule});
-  }
+  };
 
   onScaleCheckChange = (e: any) => {
     const checked = e.target.checked;
@@ -248,7 +249,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     }
 
     this.setState({rule, scaleFieldChecked: checked});
-  }
+  };
 
   onFilterCheckChange = (e: any) => {
     const checked = e.target.checked;
@@ -267,7 +268,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       this.props.onRuleChange(rule, this.state.rule);
     }
     this.setState({rule, filterFieldChecked: checked});
-  }
+  };
 
   onRendererClick = () => {
     const {
@@ -277,13 +278,13 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     this.setState({
       editorVisible: !editorVisible
     });
-  }
+  };
 
   onEditorWindowClose = () => {
     this.setState({
       editorVisible: false
     });
-  }
+  };
 
   onRemoveButtonClick = () => {
     const { onRemove } = this.props;
@@ -292,7 +293,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
     if (onRemove && rule) {
       onRemove(rule);
     }
-  }
+  };
 
   render() {
     const {

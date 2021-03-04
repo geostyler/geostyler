@@ -71,16 +71,16 @@ export interface MultiEditorProps extends Partial<MultiEditorDefaultProps> {
 
 export class MultiEditor extends React.Component<MultiEditorProps> {
 
-  public shouldComponentUpdate(nextProps: MultiEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
   static componentName: string = 'MultiEditor';
 
   public static defaultProps: MultiEditorDefaultProps = {
     locale: en_US.GsMultiEditor
   };
+
+  public shouldComponentUpdate(nextProps: MultiEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   addSymbolizer = () => {
     const {

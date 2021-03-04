@@ -84,13 +84,13 @@ export class Renderer extends React.Component<RendererProps> {
       source: new OlSourceVector()
     });
     this._map = new OlMap({
-        layers: [this._layer],
-        controls: [],
-        interactions: [],
-        target: this._mapId,
-        view: new OlView({
-          projection: 'EPSG:4326'
-        })
+      layers: [this._layer],
+      controls: [],
+      interactions: [],
+      target: this._mapId,
+      view: new OlView({
+        projection: 'EPSG:4326'
+      })
     });
 
     this.updateFeature();
@@ -139,12 +139,12 @@ export class Renderer extends React.Component<RendererProps> {
         return new OlGeomPoint([7.10066, 50.735851]);
       case 'Fill':
         return new OlGeomPolygon([[
-            [7.1031761169433585, 50.734268655851345],
-            [7.109270095825195, 50.734268655851345, ],
-            [7.109270095825195, 50.73824770380063],
-            [7.1031761169433585, 50.73824770380063],
-            [7.1031761169433585, 50.734268655851345, ]
-          ]]);
+          [7.1031761169433585, 50.734268655851345],
+          [7.109270095825195, 50.734268655851345, ],
+          [7.109270095825195, 50.73824770380063],
+          [7.1031761169433585, 50.73824770380063],
+          [7.1031761169433585, 50.734268655851345, ]
+        ]]);
       case 'Line':
         return new OlGeomLineString([
           [7.062578201293945, 50.721786104206004],
@@ -158,7 +158,7 @@ export class Renderer extends React.Component<RendererProps> {
       default:
         return new OlGeomPoint([7.10066, 50.735851]);
     }
-  }
+  };
 
   /**
    * Transforms the incoming symbolizers to an OpenLayers style object the
@@ -188,7 +188,7 @@ export class Renderer extends React.Component<RendererProps> {
       .catch(() => {
         return;
       });
-  }
+  };
 
   render() {
     const {

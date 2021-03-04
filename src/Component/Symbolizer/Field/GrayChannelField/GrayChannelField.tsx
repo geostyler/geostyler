@@ -89,7 +89,7 @@ export class GrayChannelField extends React.Component<GrayChannelFieldProps> {
     if (onChange) {
       onChange(newChannelSelection);
     }
-  }
+  };
 
   render() {
     const {

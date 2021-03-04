@@ -47,7 +47,7 @@ describe('ChannelField', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-  
+
   describe('updateChannel', () => {
     it('calls onChange', () => {
       const newColor = '#aabbcc';

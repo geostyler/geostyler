@@ -46,7 +46,7 @@ describe('SourceChannelNameField', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-  
+
   describe('getSourceChannelNameSelectOptions', () => {
     it('returns the right number of optiosn', () => {
       const sourceChannelNames = ['red', 'green'];

@@ -84,7 +84,7 @@ export class ColorMapTypeField extends React.Component<ColorMapTypeFieldProps> {
         >{_get(locale, `${mapType}MapTypeLabel`)}</Radio.Button>
       );
     });
-  }
+  };
 
   onColorMapTypeChange = (event: RadioChangeEvent) => {
     const {
@@ -95,7 +95,7 @@ export class ColorMapTypeField extends React.Component<ColorMapTypeFieldProps> {
     if (onChange) {
       onChange(mapType);
     }
-  }
+  };
 
   render() {
     const {

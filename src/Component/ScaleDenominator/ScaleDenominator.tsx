@@ -88,7 +88,7 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps> {
     if (onChange) {
       onChange(scaleDenominator);
     }
-  }
+  };
 
   /**
    * Reacts on changing max scale and pushes the updated scaleDenominator to the 'onChange' function
@@ -105,7 +105,7 @@ export class ScaleDenominator extends React.Component<ScaleDenominatorProps> {
     if (onChange) {
       onChange(scaleDenominator);
     }
-  }
+  };
 
   render() {
     const {

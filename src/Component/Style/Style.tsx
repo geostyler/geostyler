@@ -121,7 +121,7 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   showDuplicatesColumn?: boolean;
   /** Object containing the predefined color ramps */
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
   /** Use Brewer color ramps */
   useBrewerColorRamps?: boolean;
@@ -142,6 +142,19 @@ interface StyleState {
 }
 
 export class Style extends React.Component<StyleProps, StyleState> {
+
+  static componentName: string = 'Style';
+
+  public static defaultProps: StyleDefaultProps = {
+    compact: false,
+    locale: en_US.GsStyle,
+    style: {
+      name: 'My Style',
+      rules: []
+    },
+    enableClassification: true
+  };
+
   constructor(props: StyleProps) {
     super(props);
     this.state = {
@@ -155,18 +168,6 @@ export class Style extends React.Component<StyleProps, StyleState> {
       hasError: false
     };
   }
-
-  static componentName: string = 'Style';
-
-  public static defaultProps: StyleDefaultProps = {
-    compact: false,
-    locale: en_US.GsStyle,
-    style: {
-      name: 'My Style',
-      rules: []
-    },
-    enableClassification: true
-  };
 
   public shouldComponentUpdate(nextProps: StyleProps, nextState: StyleState): boolean {
     const diffProps = !_isEqual(this.props, nextProps);
@@ -195,7 +196,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       this.props.onStyleChange(style);
     }
     this.setState({style});
-  }
+  };
 
   onRuleChange = (rule: GsRule, ruleBefore: GsRule) => {
     const style = _cloneDeep(this.state.style);
@@ -209,7 +210,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       }
       this.setState({style});
     }
-  }
+  };
 
   onRulesChange = (rules: GsRule[]) => {
     const style = _cloneDeep(this.state.style);
@@ -218,7 +219,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       this.props.onStyleChange(style);
     }
     this.setState({style});
-  }
+  };
 
   addRule = () => {
     const style = _cloneDeep(this.state.style);
@@ -234,7 +235,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       this.props.onStyleChange(style);
     }
     this.setState({style});
-  }
+  };
 
   cloneRules = () => {
     const {
@@ -263,7 +264,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
     this.setState({
       style: styleClone
     });
-  }
+  };
 
   removeRules = () => {
     const {
@@ -282,7 +283,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       selectedRowKeys: [],
       style: styleClone
     });
-  }
+  };
 
   removeRule = (rule: GsRule) => {
     const style = _cloneDeep(this.state.style);
@@ -292,13 +293,13 @@ export class Style extends React.Component<StyleProps, StyleState> {
       this.props.onStyleChange(style);
     }
     this.setState({style});
-  }
+  };
 
   onRulesSelectionChange = (selectedRowKeys: number[]) => {
     this.setState({
       selectedRowKeys
     });
-  }
+  };
 
   onTableMenuClick = (param: any) => {
     switch (param.key) {
@@ -325,9 +326,9 @@ export class Style extends React.Component<StyleProps, StyleState> {
         break;
       default:
     }
-  }
+  };
 
-  updateAllSelected = (updates: {value: any; property: string; }[]) => {
+  updateAllSelected = (updates: {value: any; property: string }[]) => {
     const style = _cloneDeep(this.state.style);
     const selectedRules = style.rules.filter((rule: GsRule, index: number) => {
       return this.state.selectedRowKeys.includes(index);
@@ -351,19 +352,19 @@ export class Style extends React.Component<StyleProps, StyleState> {
       this.props.onStyleChange(style);
     }
     this.setState({style});
-  }
+  };
 
   updateMultiColors = (color: string) => {
     this.updateAllSelected([{value: color, property: 'color'}]);
-  }
+  };
 
   updateMultiSizes = (size: any) => {
     this.updateAllSelected([{value: size, property: 'radius'}]);
-  }
+  };
 
   updateMultiOpacities = (opacity: any) => {
     this.updateAllSelected([{value: opacity, property: 'opacity'}]);
-  }
+  };
 
   updateMultiSymbols = (symbol: (GsWellKnownName|string), kind: SymbolizerKind) => {
     if (kind === 'Mark') {
@@ -377,15 +378,15 @@ export class Style extends React.Component<StyleProps, StyleState> {
         {value: kind, property: 'kind'}
       ]);
     }
-  }
+  };
 
   showRuleGeneratorWindow = () => {
     this.setState({ruleGeneratorWindowVisible: true});
-  }
+  };
 
   onRuleGeneratorWindowClose = () => {
     this.setState({ruleGeneratorWindowVisible: false});
-  }
+  };
 
   /**
    * Checks if a specific menu item of multi-edit menu should be disabled.
@@ -436,7 +437,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       default:
         return !isValid;
     }
-  }
+  };
   createFooter = () => {
     const {
       locale
@@ -455,27 +456,27 @@ export class Style extends React.Component<StyleProps, StyleState> {
         mode="horizontal"
         onClick={this.onTableMenuClick}
         selectable={false}
-        >
+      >
         <Menu.Item key="addRule">
           <PlusOutlined />
-            {locale.addRuleBtnText}
+          {locale.addRuleBtnText}
         </Menu.Item>
         <Menu.Item key="cloneRules"
           disabled={!allowClone}
         >
           <CopyOutlined />
-            {locale.cloneRulesBtnText}
+          {locale.cloneRulesBtnText}
         </Menu.Item>
         <Menu.Item key="removeRule"
           disabled={!allowRemove}
-          >
+        >
           <MinusOutlined />
-            {locale.removeRulesBtnText}
+          {locale.removeRulesBtnText}
         </Menu.Item>
         <Menu.SubMenu
           title={<span><MenuUnfoldOutlined /><span>{locale.multiEditLabel}</span></span>}
           disabled={selectedRowKeys.length <= 1}
-          >
+        >
           <Menu.Item
             key="color"
             disabled={this.disableMenu('color', selectedRowKeys)}
@@ -492,7 +493,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
         </Menu.SubMenu>
       </Menu>
     );
-  }
+  };
 
   render() {
     if (this.state.hasError) {
@@ -564,15 +565,15 @@ export class Style extends React.Component<StyleProps, StyleState> {
         </div>
         {
           (!ruleGeneratorWindowVisible) ? null :
-          <RuleGeneratorWindow
-            y={0}
-            internalDataDef={data}
-            onClose={this.onRuleGeneratorWindowClose}
-            onRulesChange={this.onRulesChange}
-            colorRamps={colorRamps}
-            useBrewerColorRamps={useBrewerColorRamps}
-            colorSpaces={colorSpaces}
-          />
+            <RuleGeneratorWindow
+              y={0}
+              internalDataDef={data}
+              onClose={this.onRuleGeneratorWindowClose}
+              onRulesChange={this.onRulesChange}
+              colorRamps={colorRamps}
+              useBrewerColorRamps={useBrewerColorRamps}
+              colorSpaces={colorSpaces}
+            />
         }
         { compact
           ? <RuleTable
@@ -609,14 +610,14 @@ export class Style extends React.Component<StyleProps, StyleState> {
         }
         {
           compact ? null :
-          <Button
-            style={{'marginBottom': '20px', 'marginTop': '20px'}}
-            icon={<PlusOutlined />}
-            size="large"
-            onClick={this.addRule}
-          >
-          {locale.addRuleBtnText}
-        </Button>
+            <Button
+              style={{'marginBottom': '20px', 'marginTop': '20px'}}
+              icon={<PlusOutlined />}
+              size="large"
+              onClick={this.addRule}
+            >
+              {locale.addRuleBtnText}
+            </Button>
         }
         <BulkEditModals
           colorModalVisible={colorModalVisible}

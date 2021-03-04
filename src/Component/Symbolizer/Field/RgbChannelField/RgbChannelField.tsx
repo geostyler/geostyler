@@ -84,7 +84,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
         }
       } as RGBChannel;
     } else {
-      rgb = _cloneDeep(channelSelection);
+      rgb = _cloneDeep(channelSelection as RGBChannel);
       rgb.redChannel = {
         sourceChannelName: red
       };
@@ -92,7 +92,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
     if (onChange) {
       onChange(rgb);
     }
-  }
+  };
 
   onGreenChannelChange = (green: string) => {
     const {
@@ -107,7 +107,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
         }
       } as RGBChannel;
     } else {
-      rgb = _cloneDeep(channelSelection);
+      rgb = _cloneDeep(channelSelection as RGBChannel);
       rgb.greenChannel = {
         sourceChannelName: green
       };
@@ -115,7 +115,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
     if (onChange) {
       onChange(rgb);
     }
-  }
+  };
 
   onBlueChannelChange = (blue: string) => {
     const {
@@ -130,7 +130,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
         }
       } as RGBChannel;
     } else {
-      rgb = _cloneDeep(channelSelection);
+      rgb = _cloneDeep(channelSelection as RGBChannel);
       rgb.blueChannel = {
         sourceChannelName: blue
       };
@@ -138,7 +138,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
     if (onChange) {
       onChange(rgb);
     }
-  }
+  };
 
   render() {
     const {

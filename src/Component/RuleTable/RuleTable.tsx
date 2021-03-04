@@ -149,6 +149,13 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
 
   static componentName: string = 'RuleTable';
 
+  public static defaultProps: RuleTableDefaultProps = {
+    locale: en_US.GsRuleTable,
+    rendererType: 'OpenLayers',
+    showAmountColumn: true,
+    showDuplicatesColumn: true
+  };
+
   /**
    * The Parser to read and write CQL Filter
    *
@@ -170,13 +177,6 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       duplicates: undefined
     };
   }
-
-  public static defaultProps: RuleTableDefaultProps = {
-    locale: en_US.GsRuleTable,
-    rendererType: 'OpenLayers',
-    showAmountColumn: true,
-    showDuplicatesColumn: true
-  };
 
   static getDerivedStateFromProps(nextProps: RuleTableProps, prevState: RuleTableState) {
     let countsAndDuplicates;

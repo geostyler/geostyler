@@ -46,14 +46,14 @@ describe('ExtendedField', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-  
+
   describe('onExtendedChange', () => {
     it('calls onChange', () => {
       const dummyEvent = {
         target: {
           value: false
         }
-      }
+      };
       wrapper.instance().onExtendedChange(dummyEvent);
       expect(wrapper.instance().props.onChange).toHaveBeenCalled();
     });

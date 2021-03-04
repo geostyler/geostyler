@@ -94,7 +94,7 @@ export interface PreviewProps extends Partial<PreviewDefaultProps> {
   controls?: any[];
   interactions?: any[];
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
 }
 
@@ -111,14 +111,7 @@ interface PreviewState {
  */
 export class Preview extends React.Component<PreviewProps, PreviewState> {
 
-  /** reference to the underlying OpenLayers map */
-  map: any;
-
-  /** refrence to the vector layer for the passed in features  */
-  dataLayer: any;
-
-  /** reference to the editButton */
-  _editButton: any;
+  static componentName: string = 'Preview';
 
   public static defaultProps: PreviewDefaultProps = {
     locale: en_US.GsPreview,
@@ -128,6 +121,16 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     showOsmBackground: true,
     mapHeight: 267
   };
+
+  /** reference to the underlying OpenLayers map */
+  map: any;
+
+  /** refrence to the vector layer for the passed in features  */
+  dataLayer: any;
+
+  /** reference to the editButton */
+  _editButton: any;
+
 
   constructor(props: PreviewProps) {
     super(props);
@@ -141,11 +144,9 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     };
   }
 
-  static componentName: string = 'Preview';
-
   static getDerivedStateFromProps(
-      nextProps: PreviewProps,
-      prevState: PreviewState): Partial<PreviewState> {
+    nextProps: PreviewProps,
+    prevState: PreviewState): Partial<PreviewState> {
 
     return {
       symbolizers: nextProps.symbolizers
@@ -295,12 +296,12 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
         return new OlGeomPoint([7.10066, 50.735851]);
       case 'Fill':
         return new OlGeomPolygon([[
-            [7.1031761169433585, 50.734268655851345],
-            [7.109270095825195, 50.734268655851345, ],
-            [7.109270095825195, 50.73824770380063],
-            [7.1031761169433585, 50.73824770380063],
-            [7.1031761169433585, 50.734268655851345, ]
-          ]]);
+          [7.1031761169433585, 50.734268655851345],
+          [7.109270095825195, 50.734268655851345, ],
+          [7.109270095825195, 50.73824770380063],
+          [7.1031761169433585, 50.73824770380063],
+          [7.1031761169433585, 50.734268655851345, ]
+        ]]);
       case 'Line':
         return new OlGeomLineString([
           [7.062578201293945, 50.721786104206004],
@@ -314,7 +315,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       default:
         return new OlGeomPoint([7.10066, 50.735851]);
     }
-  }
+  };
 
   /**
    *
@@ -323,7 +324,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     this.setState({
       editorVisible: !this.state.editorVisible
     });
-  }
+  };
 
   /**
    * Transforms the incoming symbolizers to an OpenLayers style object the
@@ -350,7 +351,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
         this.dataLayer.setStyle(olStyles);
         return olStyles;
       });
-  }
+  };
 
   render() {
     const {
@@ -384,8 +385,8 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           className="map"
           style={{ height: mapHeight }}
         >
-        {
-          !hideEditButton &&
+          {
+            !hideEditButton &&
           <Button
             id={editorId}
             className="gs-edit-preview-button"
@@ -394,18 +395,18 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
           >
             {editorVisible ? locale.closeEditorText : locale.openEditorText}
           </Button>
-        }
-        {
-          editorVisible && !hideEditButton ?
-            <SymbolizerEditorWindow
-              x={windowX}
-              y={windowY}
-              onClose={this.onEditButtonClicked}
-              symbolizers={symbolizers}
-              onSymbolizersChange={onSymbolizersChange}
-              colorRamps={colorRamps}
-            /> : null
-        }
+          }
+          {
+            editorVisible && !hideEditButton ?
+              <SymbolizerEditorWindow
+                x={windowX}
+                y={windowY}
+                onClose={this.onEditButtonClicked}
+                symbolizers={symbolizers}
+                onSymbolizersChange={onSymbolizersChange}
+                colorRamps={colorRamps}
+              /> : null
+          }
         </div>
       </div>
     );

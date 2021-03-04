@@ -59,7 +59,7 @@ describe('PropTextEditor', () => {
     it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
       const onLabelChange = wrapper.instance().onLabelChange;
       const newSymbolizer = {...dummySymbolizer};
-      newSymbolizer.label = `{{Peter}}`;
+      newSymbolizer.label = '{{Peter}}';
       onLabelChange('Peter');
       expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
     });

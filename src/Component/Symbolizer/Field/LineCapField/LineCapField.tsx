@@ -34,7 +34,7 @@ import {
 const Option = Select.Option;
 
 import {
-    LineSymbolizer
+  LineSymbolizer
 } from 'geostyler-style';
 
 // default props
@@ -59,16 +59,16 @@ export class LineCapField extends React.Component<LineCapFieldProps> {
 
   getCapSelectOptions = () => {
     return this.props.capOptions.map(capOpt => {
-        return (
-            <Option
-                key={capOpt}
-                value={capOpt}
-            >
-            {capOpt}
-            </Option>
-        );
+      return (
+        <Option
+          key={capOpt}
+          value={capOpt}
+        >
+          {capOpt}
+        </Option>
+      );
     });
-  }
+  };
 
   render() {
     const {

@@ -66,6 +66,12 @@ interface MarkEditorState {
 
 export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState> {
 
+  static componentName: string = 'MarkEditor';
+
+  public static defaultProps: MarkEditorDefaultProps = {
+    locale: en_US.GsMarkEditor
+  };
+
   constructor(props: MarkEditorProps) {
     super(props);
     this.state = {
@@ -76,15 +82,9 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
     };
   }
 
-  static componentName: string = 'MarkEditor';
-
-  public static defaultProps: MarkEditorDefaultProps = {
-    locale: en_US.GsMarkEditor
-  };
-
   static getDerivedStateFromProps(
-      nextProps: MarkEditorProps,
-      prevState: MarkEditorState): Partial<MarkEditorState> {
+    nextProps: MarkEditorProps,
+    prevState: MarkEditorState): Partial<MarkEditorState> {
     return {
       symbolizer: nextProps.symbolizer
     };
@@ -99,7 +99,7 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   /**
    * Wraps a Form Item around a given element and adds its locale
@@ -112,13 +112,13 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
     };
     return element == null ? null : (
       <Form.Item
-      label={locale}
-      {...formItemLayout}
+        label={locale}
+        {...formItemLayout}
       >
         {element}
       </Form.Item>
     );
-  }
+  };
 
   render() {
     const {

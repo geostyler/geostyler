@@ -93,16 +93,16 @@ export interface TextEditorProps extends Partial<TextEditorDefaultProps> {
  */
 export class TextEditor extends React.Component<TextEditorProps> {
 
-  public shouldComponentUpdate(nextProps: TextEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
   public static defaultProps: TextEditorDefaultProps = {
     locale: en_US.GsTextEditor
   };
 
   static componentName: string = 'TextEditor';
+
+  public shouldComponentUpdate(nextProps: TextEditorProps): boolean {
+    const diffProps = !_isEqual(this.props, nextProps);
+    return diffProps;
+  }
 
   onLabelChange = (value: any) => {
     const {
@@ -113,7 +113,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onColorChange = (value: string) => {
     const {
@@ -124,7 +124,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onFontChange = (value: string[]) => {
     const {
@@ -135,7 +135,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOpacityChange = (value: number) => {
     const {
@@ -146,7 +146,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onSizeChange = (value: number) => {
     const {
@@ -157,7 +157,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOffsetXChange = (value: number) => {
     const {
@@ -169,7 +169,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOffsetYChange = (value: number) => {
     const {
@@ -181,7 +181,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onRotateChange = (value: number) => {
     const {
@@ -192,7 +192,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onHaloColorChange = (value: string) => {
     const {
@@ -203,7 +203,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onHaloWidthChange = (value: number) => {
     const {
@@ -214,7 +214,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   /**
    * Wraps a Form Item around a given element and adds its locale
@@ -227,13 +227,13 @@ export class TextEditor extends React.Component<TextEditorProps> {
     };
     return element == null ? null : (
       <Form.Item
-      label={locale}
-      {...formItemLayout}
+        label={locale}
+        {...formItemLayout}
       >
         {element}
       </Form.Item>
     );
-  }
+  };
 
   render() {
     const {

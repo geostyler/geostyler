@@ -51,7 +51,7 @@ export class ExtendedField extends React.PureComponent<ExtendedFieldProps> {
     if (onChange) {
       onChange(evt.target.value);
     }
-  }
+  };
 
   render() {
     const {

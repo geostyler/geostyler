@@ -82,8 +82,8 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
   }
 
   static getDerivedStateFromProps(
-      nextProps: TextFilterFieldProps,
-      prevState: TextFilterFieldState): Partial<TextFilterFieldState> {
+    nextProps: TextFilterFieldProps,
+    prevState: TextFilterFieldState): Partial<TextFilterFieldState> {
     return {
       value: nextProps.value
     };
@@ -101,7 +101,7 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
       onValueChange(e.target.value);
     }
     this.setState({value: e.target.value});
-  }
+  };
 
   onAutoCompleteChange = (value: string) => {
     const {
@@ -111,7 +111,7 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
       onValueChange(value);
     }
     this.setState({value: value});
-  }
+  };
 
   getSampleValuesFromFeatures = (): string[] => {
     const {
@@ -128,7 +128,7 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
       }
     });
     return sampleValues.sort();
-  }
+  };
 
   render() {
     const helpTxt = this.props.validateStatus !== 'success' ? this.props.help : null;
@@ -143,28 +143,28 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
           help={helpTxt}
           hasFeedback={true}
         >
-        {
-          sampleValues.length > 0 ?
-          <AutoComplete
-            value={this.state.value}
-            style={{ width: '100%' }}
-            onChange={this.onAutoCompleteChange}
-            placeholder={this.props.placeholder}
-            dataSource={sampleValues}
-            filterOption={(value: string , option: any) => {
-              return option.key.toLowerCase().includes(value.toLowerCase());
-            }}
-          />
-          :
-          <Input
-            draggable={true}
-            onDragStart={(e) => e.preventDefault()}
-            value={this.state.value}
-            style={{ width: '100%' }}
-            onChange={this.onInputChange}
-            placeholder={this.props.placeholder}
-          />
-        }
+          {
+            sampleValues.length > 0 ?
+              <AutoComplete
+                value={this.state.value}
+                style={{ width: '100%' }}
+                onChange={this.onAutoCompleteChange}
+                placeholder={this.props.placeholder}
+                dataSource={sampleValues}
+                filterOption={(value: string , option: any) => {
+                  return option.key.toLowerCase().includes(value.toLowerCase());
+                }}
+              />
+              :
+              <Input
+                draggable={true}
+                onDragStart={(e) => e.preventDefault()}
+                value={this.state.value}
+                style={{ width: '100%' }}
+                onChange={this.onInputChange}
+                placeholder={this.props.placeholder}
+              />
+          }
         </Form.Item>
       </div>
     );

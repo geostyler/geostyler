@@ -66,7 +66,7 @@ export class LineDashField extends React.Component<LineDashFieldProps> {
     if (onChange) {
       onChange(newDashArray);
     }
-  }
+  };
 
   onRemoveDash = () => {
     const {
@@ -79,7 +79,7 @@ export class LineDashField extends React.Component<LineDashFieldProps> {
     if (onChange) {
       onChange(newDashArray);
     }
-  }
+  };
 
   render() {
     const {

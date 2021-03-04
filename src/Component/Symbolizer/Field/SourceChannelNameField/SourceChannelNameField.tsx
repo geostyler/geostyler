@@ -62,15 +62,15 @@ export class SourceChannelNameField extends React.Component<SourceChannelNameFie
 
     return sourceChannelNames.map(sourceChannelName => {
       return (
-          <Option
-              key={sourceChannelName}
-              value={sourceChannelName}
-          >
+        <Option
+          key={sourceChannelName}
+          value={sourceChannelName}
+        >
           {sourceChannelName}
-          </Option>
+        </Option>
       );
     });
-  }
+  };
 
   render() {
     const {
@@ -84,27 +84,27 @@ export class SourceChannelNameField extends React.Component<SourceChannelNameFie
       <div>
         {
           sourceChannelNames && sourceChannelNames.length > 0 ?
-          (
-            <Select
-              className="editor-field sourceChannelName-field"
-              value={sourceChannelName}
-              onChange={onChange}
+            (
+              <Select
+                className="editor-field sourceChannelName-field"
+                value={sourceChannelName}
+                onChange={onChange}
               >
-              {this.getSourceChannelNameSelectOptions()}
-            </Select>
-          ) : (
-            <Input
-              className="editor-field sourceChannelName-field"
-              defaultValue={sourceChannelName}
-              value={sourceChannelName}
-              placeholder={placeholder}
-              onChange={(evt: any) => {
-                if (onChange) {
-                  onChange(evt.target.value);
-                }
-              }}
-            />
-          )
+                {this.getSourceChannelNameSelectOptions()}
+              </Select>
+            ) : (
+              <Input
+                className="editor-field sourceChannelName-field"
+                defaultValue={sourceChannelName}
+                value={sourceChannelName}
+                placeholder={placeholder}
+                onChange={(evt: any) => {
+                  if (onChange) {
+                    onChange(evt.target.value);
+                  }
+                }}
+              />
+            )
         }
       </div>
     );

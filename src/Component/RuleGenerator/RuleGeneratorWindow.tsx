@@ -67,7 +67,7 @@ export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDef
   onClose?: () => void;
   onRulesChange?: (rules: Rule[]) => void;
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
   useBrewerColorRamps?: boolean;
   colorSpaces?: (InterpolationMode)[];
@@ -78,6 +78,8 @@ export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDef
  */
 export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProps> {
 
+  static componentName: string = 'RuleGeneratorWindow';
+
   public static defaultProps: RuleGeneratorWindowDefaultProps = {
     locale: en_US.GsRuleGeneratorWindow
   };
@@ -85,8 +87,6 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
   public shouldComponentUpdate(nextProps: RuleGeneratorWindowProps): boolean {
     return !_isEqual(this.props, nextProps);
   }
-
-  static componentName: string = 'RuleGeneratorWindow';
 
   render() {
     const {

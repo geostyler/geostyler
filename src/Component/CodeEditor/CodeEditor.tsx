@@ -104,6 +104,13 @@ interface CodeEditorState {
  */
 export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
 
+  public static defaultProps: CodeEditorDefaultProps = {
+    locale: en_US.GsCodeEditor,
+    delay: 500,
+    showSaveButton: false,
+    showCopyButton: false
+  };
+
   static componentName: string = 'CodeEditor';
 
   private editTimeout: any;
@@ -116,13 +123,6 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       hasError: false
     };
   }
-
-  public static defaultProps: CodeEditorDefaultProps = {
-    locale: en_US.GsCodeEditor,
-    delay: 500,
-    showSaveButton: false,
-    showCopyButton: false
-  };
 
   componentDidMount() {
     this.setState({
@@ -159,7 +159,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
           value: parsedStyle
         });
       });
-  }
+  };
 
   getModeByParser = (): string => {
     const activeParser: any = this.state.activeParser;
@@ -167,7 +167,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       return 'application/xml';
     }
     return 'application/json';
-  }
+  };
 
   valueFromStyleInput = (style: GsStyle) => {
     const activeParser: any = this.state.activeParser;
@@ -178,7 +178,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
         resolve(JSON.stringify(style, null, 2));
       }
     });
-  }
+  };
 
   styleFromValue = (value: string) => {
     const activeParser: any = this.state.activeParser;
@@ -189,7 +189,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
         resolve(JSON.parse(value));
       }
     });
-  }
+  };
 
   /**
    *
@@ -218,7 +218,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
         invalidMessage: 'Error'
       });
     }
-  }
+  };
 
   onSelect = (selection: string) => {
     const {
@@ -233,7 +233,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
         }
       });
     }
-  }
+  };
 
   handleOnChange = (editor: any, data: any, value: string) => {
     const {
@@ -246,7 +246,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       },
       delay
     );
-  }
+  };
 
   getParserOptions = () => {
     let parserOptions = [
@@ -260,7 +260,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       return [...parserOptions, ...additionalOptions];
     }
     return parserOptions;
-  }
+  };
 
   onDownloadButtonClick = () => {
     const activeParser: any = this.state.activeParser;
@@ -281,14 +281,14 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       const blob = new Blob([value], {type});
       saveAs(blob, fileName);
     }
-  }
+  };
 
   onCopyButtonClick = () => {
     const {
       value
     } = this.state;
     this.copyToClipboard(value);
-  }
+  };
 
   /**
    * Copies the a value to the clipboard.
@@ -315,7 +315,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
       document.getSelection().removeAllRanges();
       document.getSelection().addRange(selected);
     }
-  }
+  };
 
   render() {
     const {
