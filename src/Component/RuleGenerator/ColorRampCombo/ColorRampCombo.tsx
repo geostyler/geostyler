@@ -52,7 +52,7 @@ export interface ColorRampComboDefaultProps {
   locale: ColorRampComboLocale;
   /** Object containing predefined color ramps */
   colorRamps: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
 }
 
@@ -103,7 +103,7 @@ export class ColorRampCombo extends React.Component<ColorRampComboProps> {
         </Select.Option>
       );
     });
-  }
+  };
 
   render() {
     const {

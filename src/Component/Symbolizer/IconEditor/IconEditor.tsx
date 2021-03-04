@@ -93,7 +93,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onSizeChange = (value: number) => {
     const {
@@ -104,7 +104,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onRotateChange = (value: number) => {
     const {
@@ -115,7 +115,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOpacityChange = (value: number) => {
     const {
@@ -126,7 +126,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   /**
    * Wraps a Form Item around a given element and adds its locale
@@ -139,13 +139,13 @@ export class IconEditor extends React.Component<IconEditorProps> {
     };
     return element == null ? null : (
       <Form.Item
-      label={locale}
-      {...formItemLayout}
+        label={locale}
+        {...formItemLayout}
       >
         {element}
       </Form.Item>
     );
-  }
+  };
 
   render() {
     const {

@@ -68,7 +68,7 @@ export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWin
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   iconLibraries?: IconLibrary[];
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
 }
 

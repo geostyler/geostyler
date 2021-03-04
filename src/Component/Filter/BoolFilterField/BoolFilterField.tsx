@@ -66,8 +66,8 @@ export class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolF
   }
 
   static getDerivedStateFromProps(
-      nextProps: BoolFilterFieldProps,
-      prevState: BoolFilterFieldState): Partial<BoolFilterFieldState> {
+    nextProps: BoolFilterFieldProps,
+    prevState: BoolFilterFieldState): Partial<BoolFilterFieldState> {
     return {
       value: nextProps.value
     };
@@ -87,7 +87,7 @@ export class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolF
     }
 
     this.setState({value: e.target.checked});
-  }
+  };
 
   render() {
 

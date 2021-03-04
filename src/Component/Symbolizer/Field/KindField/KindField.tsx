@@ -93,7 +93,7 @@ export class KindField extends React.Component<KindFieldProps> {
         </Option>
       );
     });
-  }
+  };
 
   render() {
     const {

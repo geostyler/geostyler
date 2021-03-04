@@ -75,7 +75,7 @@ interface RuleGeneratorDefaultProps {
   locale: RuleGeneratorLocale;
   /** List of provided color ramps */
   colorRamps: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
   /** List of color spaces to use */
   colorSpaces: (InterpolationMode)[];
@@ -159,29 +159,29 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
       levelOfMeasurement: attributeType === 'string' ? 'nominal' : 'cardinal',
       classificationMethod
     });
-  }
+  };
 
   onLevelOfMeasurementChange = (event: RadioChangeEvent) => {
     const levelOfMeasurement = event.target.value;
     this.setState({levelOfMeasurement});
-  }
+  };
 
   onClassificationChange = (classificationMethod: ClassificationMethod) => {
     this.setState({classificationMethod});
-  }
+  };
 
   onNumberChange = (numberOfRules: number) => {
     this.setState({
       numberOfRules
     });
-  }
+  };
 
   onColorRampChange = (colorRamp: string) => {
     this.setState({colorRamp});
-  }
+  };
   onColorSpaceChange = (colorSpace: InterpolationMode) => {
     this.setState({colorSpace});
-  }
+  };
 
   onSymbolizerKindChange = (symbolizerKind: SymbolizerKind) => {
     let {
@@ -198,13 +198,13 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
       symbolizerKind,
       wellKnownName
     });
-  }
+  };
 
   onWellKnownNameFieldChange = (wellKnownName: WellKnownName) => {
     this.setState({
       wellKnownName
     });
-  }
+  };
 
   onGenerateClick = () => {
     const {
@@ -223,15 +223,15 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
     } = this.state;
 
     const rules = RuleGeneratorUtil.generateRules({
-        attributeName,
-        classificationMethod,
-        colors: colorRamps[colorRamp],
-        data: internalDataDef,
-        levelOfMeasurement,
-        numberOfRules,
-        symbolizerKind,
-        wellKnownName
-      });
+      attributeName,
+      classificationMethod,
+      colors: colorRamps[colorRamp],
+      data: internalDataDef,
+      levelOfMeasurement,
+      numberOfRules,
+      symbolizerKind,
+      wellKnownName
+    });
 
     if (classificationMethod === 'kmeans') {
       this.setState({
@@ -242,7 +242,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
     if (onRulesChange) {
       onRulesChange(rules);
     }
-  }
+  };
 
   render() {
     if (this.state.hasError) {
@@ -302,14 +302,14 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
           </Form.Item>
           {
             levelOfMeasurement !== 'cardinal' ? null :
-            <Form.Item
-              label={locale.classification}
-            >
-              <ClassificationCombo
-                classification={classificationMethod}
-                onChange={this.onClassificationChange}
-              />
-            </Form.Item>
+              <Form.Item
+                label={locale.classification}
+              >
+                <ClassificationCombo
+                  classification={classificationMethod}
+                  onChange={this.onClassificationChange}
+                />
+              </Form.Item>
           }
           <Form.Item
             label={locale.numberOfRules}
@@ -323,8 +323,8 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
             help={classificationMethod === 'kmeans'
               ? locale.numberOfRulesViaKmeans
               : numberOfRules < this.minNrClasses
-              ? `${locale.colorRampMinClassesWarningPre} ${this.minNrClasses} ${locale.colorRampMinClassesWarningPost}`
-              : undefined
+                ? `${locale.colorRampMinClassesWarningPre} ${this.minNrClasses} ${locale.colorRampMinClassesWarningPost}`
+                : undefined
             }
           >
             <InputNumber

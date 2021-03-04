@@ -97,7 +97,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
   formatLabel = (label: string): string => {
     const regExp: RegExp = /\{\{(.*)\}\}/g;
     return label.replace(regExp, '$1');
-  }
+  };
 
   onLabelChange = (newAttrName: string) => {
     const {
@@ -110,7 +110,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onColorChange = (value: string) => {
     const {
@@ -121,7 +121,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onFontChange = (value: string[]) => {
     const {
@@ -132,7 +132,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOpacityChange = (value: number) => {
     const {
@@ -143,7 +143,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onSizeChange = (value: number) => {
     const {
@@ -154,7 +154,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOffsetXChange = (value: number) => {
     const {
@@ -166,7 +166,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOffsetYChange = (value: number) => {
     const {
@@ -178,7 +178,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onRotateChange = (value: number) => {
     const {
@@ -189,7 +189,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onHaloColorChange = (value: string) => {
     const {
@@ -200,7 +200,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onHaloWidthChange = (value: number) => {
     const {
@@ -211,7 +211,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   render() {
     const {
@@ -242,7 +242,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
 
     return (
       <div className="gs-text-symbolizer-prop-editor" >
-         <div className="editor-field attribute-field">
+        <div className="editor-field attribute-field">
           <span className="label">{locale.propFieldLabel}:</span>
           <AttributeCombo
             value={symbolizer.label ? this.formatLabel(symbolizer.label) : undefined}

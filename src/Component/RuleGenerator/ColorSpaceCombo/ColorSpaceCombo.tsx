@@ -89,7 +89,7 @@ export class ColorSpaceCombo extends React.Component<ColorSpaceComboProps> {
         </Select.Option>
       );
     });
-  }
+  };
 
   render() {
     const {

@@ -96,7 +96,7 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps> {
         </Option>
       );
     }));
-  }
+  };
 
   render() {
     const {

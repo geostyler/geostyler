@@ -128,7 +128,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     const diffProps = !_isEqual(this.props, nextProps);
     const diffState = !_isEqual(this.state, nextState);
     return diffProps || diffState;
-  }
+  };
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     this.setState({
@@ -156,7 +156,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     }
 
     this.props.onFilterChange(newFilter);
-  }
+  };
 
   /**
    * Creates a TreeNode for a given filter at the given position.
@@ -323,7 +323,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
           />
         );
     }
-  }
+  };
 
   /**
    * Handler for the add button.
@@ -365,7 +365,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     }
 
     onFilterChange(newFilter);
-  }
+  };
 
   /**
    * Changes a filter at a position to a given typ.
@@ -415,7 +415,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     }
 
     onFilterChange(newFilter);
-  }
+  };
 
   /**
    * Removes a filter at a given position.
@@ -440,7 +440,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     }
 
     onFilterChange(newFilter);
-  }
+  };
 
   /**
    * Transforms a position String like '[2][3]' to an positionArray like [2, 3].
@@ -452,14 +452,14 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
       .replace(/\[/g, '')
       .split(',')
       .map(i => parseInt(i, 10));
-  }
+  };
 
   /**
    * Transforms am positionArray like [2, 3] to a string like '[2][3]'.
    */
   positionArrayAsString = (positionArray: number[]) => {
     return `[${positionArray.toString().replace(/,/g, '][')}]`;
-  }
+  };
 
   /**
    * Returns the filter at a specific position.
@@ -473,7 +473,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     } else {
       return _get(filter, position);
     }
-  }
+  };
 
   /**
    * Removes a subfilter from a given filter at the given position.
@@ -490,7 +490,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     }
     parentFilter.splice(dragNodeIndex, 1);
     return newFilter;
-  }
+  };
 
   /**
    * Inserts a given subfilter to a given parentfilter by its position and its
@@ -534,7 +534,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
         break;
     }
     return newFilter;
-  }
+  };
 
   /**
    * Drop handler which is passed to the Tree.
@@ -596,7 +596,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     newFilter = this.removeAtPosition(newFilter, removePosition);
 
     this.props.onFilterChange(newFilter);
-  }
+  };
 
   /**
    * Expand handler which is passed to the Tree.
@@ -604,7 +604,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
    */
   onExpand = (expandedKeys: string[]) => {
     this.setState({expandedKeys});
-  }
+  };
 
   render() {
     if (this.state.hasError) {

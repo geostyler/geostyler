@@ -29,8 +29,8 @@
 import * as React from 'react';
 
 import {
-    Channel,
-    ContrastEnhancement
+  Channel,
+  ContrastEnhancement
 } from 'geostyler-style';
 import SourceChannelNameField from '../SourceChannelNameField/SourceChannelNameField';
 import { Form } from 'antd';
@@ -91,11 +91,11 @@ export class ChannelField extends React.Component<ChannelFieldProps> {
     if (onChange) {
       onChange(newChannel);
     }
-  }
+  };
 
   onSourceChannelNameChange = (name: string) => {
     this.updateChannel('sourceChannelName', name);
-  }
+  };
 
   onContrastEnhancementChange = (type: ContrastEnhancement['enhancementType']) => {
     const contrastEnhancement = _get(this.props, 'channel.contrastEnhancement');
@@ -107,7 +107,7 @@ export class ChannelField extends React.Component<ChannelFieldProps> {
     }
     newContrastEnhancement.enhancementType = type;
     this.updateChannel('contrastEnhancement', newContrastEnhancement);
-  }
+  };
 
   onGammaChange = (gamma: number) => {
     const contrastEnhancement = _get(this.props, 'channel.contrastEnhancement');
@@ -119,7 +119,7 @@ export class ChannelField extends React.Component<ChannelFieldProps> {
     }
     newContrastEnhancement.gammaValue = gamma;
     this.updateChannel('contrastEnhancement', newContrastEnhancement);
-  }
+  };
 
   render() {
     const {

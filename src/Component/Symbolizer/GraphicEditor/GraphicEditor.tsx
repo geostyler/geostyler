@@ -101,7 +101,7 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
     } else {
       return undefined;
     }
-  }
+  };
 
   /**
    * If GraphicType changed, call props.onGraphicChange with default PointSymbolizers.
@@ -123,7 +123,7 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
         onGraphicChange(undefined);
       }
     }
-  }
+  };
 
   render() {
     const {
@@ -152,7 +152,7 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
           />
         </Form.Item>
         {this.getGraphicFields(graphic, iconEditorProps)}
-    </div>
+      </div>
     );
   }
 }

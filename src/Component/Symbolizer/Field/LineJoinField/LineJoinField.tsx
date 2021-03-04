@@ -34,7 +34,7 @@ import {
 const Option = Select.Option;
 
 import {
-    LineSymbolizer
+  LineSymbolizer
 } from 'geostyler-style';
 
 // default props
@@ -59,16 +59,16 @@ export class LineJoinField extends React.Component<LineJoinFieldProps> {
 
   getJoinSelectOptions = () => {
     return this.props.joinOptions.map(joinOpt => {
-        return (
-            <Option
-                key={joinOpt}
-                value={joinOpt}
-            >
-            {joinOpt}
-            </Option>
-        );
+      return (
+        <Option
+          key={joinOpt}
+          value={joinOpt}
+        >
+          {joinOpt}
+        </Option>
+      );
     });
-  }
+  };
 
   render() {
     const {

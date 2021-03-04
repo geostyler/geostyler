@@ -75,9 +75,9 @@ export class WellKnownNameField extends React.Component<WellKnownNameFieldProps>
     locale: en_US.GsWellKnownNameField,
     wellKnownName: 'Circle',
     wellKnownNames: ['Circle', 'Square', 'Triangle', 'Star', 'Cross', 'X',
-                    'shape://backslash', 'shape://carrow', 'shape://dot',
-                    'shape://horline', 'shape://oarrow', 'shape://plus',
-                    'shape://slash', 'shape://times', 'shape://vertline']
+      'shape://backslash', 'shape://carrow', 'shape://dot',
+      'shape://horline', 'shape://oarrow', 'shape://plus',
+      'shape://slash', 'shape://times', 'shape://vertline']
   };
 
   public shouldComponentUpdate(nextProps: WellKnownNameFieldProps): boolean {
@@ -98,7 +98,7 @@ export class WellKnownNameField extends React.Component<WellKnownNameFieldProps>
         </Option>
       );
     });
-  }
+  };
 
   render() {
     const {

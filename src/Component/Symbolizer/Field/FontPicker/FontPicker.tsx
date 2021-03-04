@@ -63,7 +63,7 @@ export class FontPicker extends React.Component<FontPickerProps> {
       fontOptions
     } = this.props;
 
-    let options: {label: string, value: string}[];
+    let options: {label: string; value: string}[];
     if (fontOptions) {
       options = fontOptions.map((fontOpt: string) => {
         return {

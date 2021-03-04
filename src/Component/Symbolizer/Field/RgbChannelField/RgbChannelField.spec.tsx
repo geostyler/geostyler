@@ -46,7 +46,7 @@ describe('RgbChannelField', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-  
+
   describe('onRedChannelChange', () => {
     it('calls onChange', () => {
       const dummyChannelName = 'dummy band';

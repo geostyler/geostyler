@@ -79,23 +79,23 @@ export class ColorMapEntryField extends React.PureComponent<ColorMapEntryFieldPr
     if (onChange) {
       onChange(updated);
     }
-  }
+  };
 
   onColorChange = (color: string) => {
     this.updateColorMapEntry('color', color);
-  }
+  };
 
   onQuantityChange = (quantity: number) => {
     this.updateColorMapEntry('quantity', quantity);
-  }
+  };
 
   onLabelChange = (label: string) => {
-   this.updateColorMapEntry('label', label);
-  }
+    this.updateColorMapEntry('label', label);
+  };
 
   onOpacityChange = (opacity: number) => {
     this.updateColorMapEntry('opacity', opacity);
-  }
+  };
 
   render() {
     const {

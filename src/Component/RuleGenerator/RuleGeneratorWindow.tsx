@@ -67,7 +67,7 @@ export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDef
   onClose?: () => void;
   onRulesChange?: (rules: Rule[]) => void;
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
   useBrewerColorRamps?: boolean;
   colorSpaces?: (InterpolationMode)[];

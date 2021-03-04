@@ -85,7 +85,7 @@ describe('CompositionUtil', () => {
         propValue: dummyValue,
         defaultElement: dummyDefaultElement
       });
-      
+
       expect(composition).toBeDefined();
       expect(composition.type).toEqual(dummyDefaultElement.type);
       expect(composition.type).not.toEqual(dummyComponent.type);

@@ -92,7 +92,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
     if (onChange) {
       onChange(rgb);
     }
-  }
+  };
 
   onGreenChannelChange = (green: string) => {
     const {
@@ -115,7 +115,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
     if (onChange) {
       onChange(rgb);
     }
-  }
+  };
 
   onBlueChannelChange = (blue: string) => {
     const {
@@ -138,7 +138,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
     if (onChange) {
       onChange(rgb);
     }
-  }
+  };
 
   render() {
     const {

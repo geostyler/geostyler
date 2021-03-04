@@ -74,7 +74,7 @@ export interface ColorMapEntryRecord extends ColorMapEntry {
 interface ColorMapEditorDefaultProps {
   locale: ColorMapEditorLocale;
   colorRamps: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
 }
 
@@ -127,15 +127,15 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     if (onChange) {
       onChange(newColorMap);
     }
-  }
+  };
 
   onExtendedChange = (extended: boolean) => {
     this.updateColorMap('extended', extended);
-  }
+  };
 
   onTypeChange = (type: ColorMapType) => {
     this.updateColorMap('type', type);
-  }
+  };
 
   /**
    * Creates the number of default ColorMapEntries according to specified
@@ -161,7 +161,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     }
     this.applyColors(colorRamp, newCmEntries);
     this.updateColorMap('colorMapEntries', newCmEntries);
-  }
+  };
 
   onColorRampChange = (colorRamp: string) => {
     const cmEntries = _get(this.props, 'colorMap.colorMapEntries');
@@ -171,7 +171,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     this.setState({
       colorRamp
     });
-  }
+  };
 
   /**
    * Applies the colors of the selected colorRamp to the colorMapEntries.
@@ -190,7 +190,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
       entry.color = colors[idx];
     });
     return cmEntries;
-  }
+  };
 
   /**
    * Updates property 'key' with 'value' of colorMapEntry at position 'index'.
@@ -208,7 +208,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
       newCmEntries[0][key] = value;
     }
     this.updateColorMap('colorMapEntries', newCmEntries);
-  }
+  };
 
   getColorMapRecords = () => {
     let cmEntries = _get(this.props, 'colorMap.colorMapEntries');
@@ -222,7 +222,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
         };
       });
     }
-  }
+  };
 
   /**
    * Renderer method for the label column.
@@ -240,7 +240,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
           const target = event.target;
           this.setValueForColorMapEntry(record.key, 'label', target.value);
         }}
-    />);
+      />);
     return (
       <Popover
         content={record.label}
@@ -249,7 +249,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
         {input}
       </Popover>
     );
-  }
+  };
 
   /**
    * Renderer method for the color column.
@@ -264,7 +264,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
       />
     );
     return input;
-  }
+  };
 
   /**
    * Renderer method for the quantity column.
@@ -280,7 +280,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
       />
     );
     return input;
-  }
+  };
 
   /**
    * Renderer method for the opacity column.
@@ -296,7 +296,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
       />
     );
     return input;
-  }
+  };
 
   /**
    * Creates the columns for the table.
@@ -324,7 +324,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
       render: this.opacityRenderer
     }];
     return columns;
-  }
+  };
 
   render() {
     const {

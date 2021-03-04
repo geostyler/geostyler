@@ -93,7 +93,7 @@ export class ClassificationCombo extends React.Component<ClassificationComboProp
         </Select.Option>
       );
     });
-  }
+  };
 
   render() {
     const {

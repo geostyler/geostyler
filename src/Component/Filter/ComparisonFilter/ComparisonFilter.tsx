@@ -153,8 +153,8 @@ type ValidationResult = {
 export class ComparisonFilter extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
 
   static getDerivedStateFromProps(
-      nextProps: ComparisonFilterProps,
-      prevState: ComparisonFilterState): Partial<ComparisonFilterState> {
+    nextProps: ComparisonFilterProps,
+    prevState: ComparisonFilterState): Partial<ComparisonFilterState> {
     return {
       filter: nextProps.filter
     };
@@ -168,9 +168,9 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
    * @param {string} selectedAttribute The currently seledted attribute field
    */
   static validateValue = (
-      newValue: string | number | boolean | null,
-      internalDataDef: Data,
-      selectedAttribute: string): ValidationResult => {
+    newValue: string | number | boolean | null,
+    internalDataDef: Data,
+    selectedAttribute: string): ValidationResult => {
 
     let isValid = true;
     let errorMsg = '';
@@ -205,7 +205,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       isValid: isValid,
       errorMsg: errorMsg
     };
-  }
+  };
 
   public static defaultProps: ComparisonFilterDefaultProps = {
     filter: ['==', '', null],
@@ -281,7 +281,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       const valueFieldVis: {
         textFieldVisible: boolean;
         numberFieldVisible: boolean;
-        boolFieldVisible: boolean
+        boolFieldVisible: boolean;
       } = this.getValueFieldVis(attrName);
 
       this.state = Object.assign(stateParts, valueFieldVis);
@@ -354,7 +354,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     }
 
     return valueFieldVis;
-  }
+  };
 
   /**
    * Handler function, which is executed, when to underlying filter attribute changes.
@@ -406,7 +406,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
         onFilterChange(filter);
       }
     });
-  }
+  };
 
   /**
    * Handler function, which is executed, when to underlying filter operator changes.
@@ -439,7 +439,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       }
     );
 
-  }
+  };
 
   /**
    * Handler function, which is executed, when to underlying filter value changes.
@@ -473,7 +473,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
         }
       }
     );
-  }
+  };
 
   /**
    * Function that validates given filter in props
@@ -509,10 +509,10 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       },
       () => {
         if (_isFunction(onValidationChanged)) {
-        onValidationChanged(validateStatus);
-      }
-    });
-  }
+          onValidationChanged(validateStatus);
+        }
+      });
+  };
 
   render() {
     if (this.state.hasError) {

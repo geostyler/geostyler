@@ -134,10 +134,10 @@ export class FilterEditorWindow extends React.Component<FilterEditorWindowProps>
           </div>
           <div className="filter-editor-window-body">
             <FilterTree
-                internalDataDef={internalDataDef}
-                filter={filter}
-                onFilterChange={onFilterChange}
-                filterUiProps={filterUiProps}
+              internalDataDef={internalDataDef}
+              filter={filter}
+              onFilterChange={onFilterChange}
+              filterUiProps={filterUiProps}
             />
           </div>
         </Rnd>,

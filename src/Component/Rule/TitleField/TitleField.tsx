@@ -65,7 +65,7 @@ export class TitleField extends React.Component<TitleFieldProps> {
     if (onChange) {
       onChange(e.target.value);
     }
-  }
+  };
 
   render() {
 

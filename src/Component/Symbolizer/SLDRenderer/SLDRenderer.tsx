@@ -181,7 +181,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
             });
         });
     }, requestDelay);
-  }
+  };
 
   render() {
     const {

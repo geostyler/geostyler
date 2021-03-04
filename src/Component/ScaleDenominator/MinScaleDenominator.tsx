@@ -65,15 +65,15 @@ export class MinScaleDenominator extends React.PureComponent<MinScaleDenominator
     } = this.props;
 
     return (
-        <Form.Item className="gs-min-scaledenominator" label={label} colon={false} >
-          <InputNumber
-            className="gs-min-scaledenominator-input"
-            value={value}
-            min={0}
-            placeholder={placeholder}
-            onChange={onChange}
-          />
-        </Form.Item>
+      <Form.Item className="gs-min-scaledenominator" label={label} colon={false} >
+        <InputNumber
+          className="gs-min-scaledenominator-input"
+          value={value}
+          min={0}
+          placeholder={placeholder}
+          onChange={onChange}
+        />
+      </Form.Item>
     );
   }
 }

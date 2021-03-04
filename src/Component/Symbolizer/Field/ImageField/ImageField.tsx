@@ -83,19 +83,19 @@ export class ImageField extends React.PureComponent<ImageFieldProps, ImageFieldS
         <PictureOutlined className="gs-image-field-gallery-icon" type="picture" onClick={this.openWindow}/>
       </Tooltip>
     );
-  }
+  };
 
   openWindow = () => {
     this.setState({
       windowVisible: true
     });
-  }
+  };
 
   closeWindow = () => {
     this.setState({
       windowVisible: false
     });
-  }
+  };
 
   render() {
     const {
@@ -125,16 +125,16 @@ export class ImageField extends React.PureComponent<ImageFieldProps, ImageFieldS
         />
         {
           !windowVisible ? null :
-          <IconSelectorWindow
-            onClose={this.closeWindow}
-            iconLibraries={iconLibraries}
-            selectedIconSrc={value}
-            onIconSelect={(src: string) => {
-              if (onChange) {
-                onChange(src);
-              }
-            }}
-          />
+            <IconSelectorWindow
+              onClose={this.closeWindow}
+              iconLibraries={iconLibraries}
+              selectedIconSrc={value}
+              onIconSelect={(src: string) => {
+                if (onChange) {
+                  onChange(src);
+                }
+              }}
+            />
         }
       </div>
     );

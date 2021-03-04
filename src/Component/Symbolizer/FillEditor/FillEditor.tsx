@@ -97,7 +97,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onFillOpacityChange = (value: number) => {
     const {
@@ -108,7 +108,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOutlineColorChange = (value: string) => {
     const {
@@ -119,7 +119,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOutlineWidthChange = (value: number) => {
     const {
@@ -130,7 +130,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOutlineDasharrayChange = (value: number[]) => {
     const {
@@ -141,7 +141,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onGraphicChange = (gFill: PointSymbolizer) => {
     const {
@@ -152,7 +152,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   /**
    * Wraps a Form Item around a given element and adds its locale
@@ -165,13 +165,13 @@ export class FillEditor extends React.Component<FillEditorProps> {
     };
     return element == null ? null : (
       <Form.Item
-      label={locale}
-      {...formItemLayout}
+        label={locale}
+        {...formItemLayout}
       >
         {element}
       </Form.Item>
     );
-  }
+  };
 
   render() {
     const {

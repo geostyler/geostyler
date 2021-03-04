@@ -31,7 +31,7 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import {
   MarkSymbolizer,
   Symbolizer
- } from 'geostyler-style';
+} from 'geostyler-style';
 
 import ColorField from '../Field/ColorField/ColorField';
 import OpacityField from '../Field/OpacityField/OpacityField';
@@ -89,7 +89,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onColorChange = (value: string) => {
     const {
@@ -100,7 +100,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onOpacityChange = (value: number) => {
     const {
@@ -111,7 +111,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onStrokeColorChange = (value: string) => {
     const {
@@ -122,7 +122,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onStrokeWidthChange = (value: number) => {
     const {
@@ -133,7 +133,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onStrokeOpacityChange = (value: number) => {
     const {
@@ -144,7 +144,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onRotateChange = (value: number) => {
     const {
@@ -155,7 +155,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   /**
    * Wraps a Form Item around a given element and adds its locale
@@ -168,13 +168,13 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     };
     return element == null ? null : (
       <Form.Item
-      label={locale}
-      {...formItemLayout}
+        label={locale}
+        {...formItemLayout}
       >
         {element}
       </Form.Item>
     );
-  }
+  };
 
   render () {
     const {

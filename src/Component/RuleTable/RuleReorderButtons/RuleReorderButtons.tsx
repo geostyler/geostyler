@@ -87,7 +87,7 @@ export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps>
     if (onRulesMove) {
       onRulesMove(rulesClone);
     }
-  }
+  };
 
   render() {
     const {

@@ -129,7 +129,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
           uploadObject.onError(e, 'Upload failed. Invalid Data.');
         });
     };
-  }
+  };
 
   parseShapefileUploadData = (uploadObject: UploadRequestOption<any>) => {
     const {
@@ -143,14 +143,14 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
     reader.readAsArrayBuffer(file);
     reader.onload = () => {
       activeParser.readData(reader.result)
-      .then((data: VectorData) => {
+        .then((data: VectorData) => {
           this.props.onDataRead(data);
         })
         .catch((e) => {
           uploadObject.onError(e, 'Upload failed. Invalid Data.');
         });
     };
-  }
+  };
 
   parseWfsData = (wfsReadParams: ReadParams) => {
     const {
@@ -168,13 +168,13 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
           modalVisible: false
         });
       });
-  }
+  };
 
   getParserOptions = () => {
     return this.props.parsers.map((parser: any) => {
       return <Option key={parser.title} value={parser.title}>{parser.title}</Option>;
     });
-  }
+  };
 
   onSelect = (selection: string) => {
     const activeParser = this.props.parsers.find(parser => parser.title === selection);
@@ -184,11 +184,11 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
         modalVisible: activeParser.title === 'WFS Data Parser'
       });
     }
-  }
+  };
 
   closeModal = () => {
     this.setState({modalVisible: false});
-  }
+  };
 
   getInputFromParser = () => {
     const {
@@ -232,7 +232,7 @@ export class DataLoader extends React.Component<DataLoaderProps, DataLoaderState
       }
     }
     return null;
-  }
+  };
 
   render() {
     const {

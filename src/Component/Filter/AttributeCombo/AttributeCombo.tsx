@@ -90,8 +90,8 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
   }
 
   static getDerivedStateFromProps(
-     nextProps: AttributeComboProps,
-     prevState: AttributeComboState): Partial<AttributeComboState> {
+    nextProps: AttributeComboProps,
+    prevState: AttributeComboState): Partial<AttributeComboState> {
     return {
       value: nextProps.value
     };

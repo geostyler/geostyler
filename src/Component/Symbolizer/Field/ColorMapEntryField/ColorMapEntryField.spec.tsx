@@ -47,7 +47,7 @@ describe('ColorMapEntryField', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-  
+
   describe('updateColorMapEntry', () => {
     it('calls onChange', () => {
       const color = '#ff0000';

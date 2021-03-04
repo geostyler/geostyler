@@ -130,7 +130,7 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     this.setState({
       kind
     });
-  }
+  };
 
   render() {
     let rules: GsRule[] = [];
@@ -247,19 +247,19 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
                   onChange={(val: string) => {
                     this.props.updateMultiSymbols(val, kind);
                   }}
-                  />
-                  {
-                    !iconLibraries ? null : (
-                      <div className="gs-bulk-edit-modals-icon-selector">
-                        <IconSelector
-                          iconLibraries={iconLibraries}
-                          onIconSelect={(val: string) => {
-                            this.props.updateMultiSymbols(val, kind);
-                          }}
-                          selectedIconSrc={symbol}
-                        />
-                      </div>)
-                  }
+                />
+                {
+                  !iconLibraries ? null : (
+                    <div className="gs-bulk-edit-modals-icon-selector">
+                      <IconSelector
+                        iconLibraries={iconLibraries}
+                        onIconSelect={(val: string) => {
+                          this.props.updateMultiSymbols(val, kind);
+                        }}
+                        selectedIconSrc={symbol}
+                      />
+                    </div>)
+                }
               </div>
             )
           }

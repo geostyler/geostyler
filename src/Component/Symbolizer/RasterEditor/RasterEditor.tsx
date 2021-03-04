@@ -82,7 +82,7 @@ export interface RasterEditorProps extends Partial<RasterEditorDefaultProps> {
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   internalDataDef?: Data;
   colorRamps?: {
-    [name: string]: string[]
+    [name: string]: string[];
   };
 }
 
@@ -115,7 +115,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onChannelEditorChange = (value: ChannelSelection) => {
     const {
@@ -126,7 +126,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onContrastEnhancementChange = (value: ContrastEnhancement['enhancementType']) => {
     const {
@@ -143,7 +143,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onGammaValueChange = (value: ContrastEnhancement['gammaValue']) => {
     const {
@@ -160,7 +160,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   onColorMapChange = (value: ColorMap) => {
     const {
@@ -171,7 +171,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
-  }
+  };
 
   /**
    * Toggles the editor view. Switches from SymbolizerEditor to ChannelSelection
@@ -181,7 +181,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     this.setState({
       showDisplay
     });
-  }
+  };
 
   /**
    * Wraps a Form Item around a given element and adds its locale
@@ -194,13 +194,13 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     };
     return element == null ? null : (
       <Form.Item
-      label={locale}
-      {...formItemLayout}
+        label={locale}
+        {...formItemLayout}
       >
         {element}
       </Form.Item>
     );
-  }
+  };
 
   render() {
     const {

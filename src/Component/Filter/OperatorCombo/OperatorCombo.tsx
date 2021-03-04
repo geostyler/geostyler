@@ -92,8 +92,8 @@ export class OperatorCombo extends React.Component<OperatorComboProps, OperatorS
   }
 
   static getDerivedStateFromProps(
-      nextProps: OperatorComboProps,
-      prevState: OperatorState): Partial<OperatorState> {
+    nextProps: OperatorComboProps,
+    prevState: OperatorState): Partial<OperatorState> {
 
     let value: ComparisonOperator | undefined = nextProps.value;
 
@@ -127,7 +127,7 @@ export class OperatorCombo extends React.Component<OperatorComboProps, OperatorS
           value={operator}
           title={title}
         >
-        {this.props.operatorNameMappingFunction(operator)}
+          {this.props.operatorNameMappingFunction(operator)}
         </Option>
       );
     });

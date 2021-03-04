@@ -46,7 +46,7 @@ describe('ContrastEnhancementField', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-  
+
   describe('getContrastEnhancementSelectOptions', () => {
     it('returns the right amount of options', () => {
       const options = wrapper.instance().getContrastEnhancementSelectOptions();

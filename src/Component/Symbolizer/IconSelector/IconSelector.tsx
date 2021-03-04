@@ -61,7 +61,7 @@ export type IconLibrary = {
 };
 
 interface IconSelectorState {
-  selectedIcon?: { libIndex: number; iconIndex: number; };
+  selectedIcon?: { libIndex: number; iconIndex: number };
   selectedLibIndex: number;
 }
 
@@ -97,8 +97,7 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
     return diffProps || diffState;
   }
 
-  static getDerivedStateFromProps(props: IconSelectorProps, state: IconSelectorState)
-    : IconSelectorState {
+  static getDerivedStateFromProps(props: IconSelectorProps, state: IconSelectorState): IconSelectorState {
     if (props.selectedIconSrc) {
       const selection = IconSelector.getSelectedIconFromSrc(props.selectedIconSrc, props.iconLibraries);
       return {
@@ -114,8 +113,7 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
 
   static componentName: string = 'IconSelector';
 
-  static getSelectedIconFromSrc(src: string, iconLibraries: IconLibrary[])
-    : { libIndex: number; iconIndex: number; } {
+  static getSelectedIconFromSrc(src: string, iconLibraries: IconLibrary[]): { libIndex: number; iconIndex: number } {
     let libIndex: number;
     let iconIndex: number;
     let found: boolean = false;
@@ -146,7 +144,7 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
     this.setState({
       selectedLibIndex: value
     });
-  }
+  };
 
   getGallery = (icon: any, index: number): React.ReactNode => {
     const {
@@ -186,7 +184,7 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
         />
       </Card.Grid>
     );
-  }
+  };
 
   render() {
     const {

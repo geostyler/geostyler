@@ -78,8 +78,8 @@ export class NumberFilterField extends React.Component<NumberFilterFieldProps, N
   }
 
   static getDerivedStateFromProps(
-      nextProps: NumberFilterFieldProps,
-      prevState: NumberFilterFieldState): Partial<NumberFilterFieldState> {
+    nextProps: NumberFilterFieldProps,
+    prevState: NumberFilterFieldState): Partial<NumberFilterFieldState> {
     return {
       value: nextProps.value
     };
@@ -92,7 +92,7 @@ export class NumberFilterField extends React.Component<NumberFilterFieldProps, N
   onChange = (e: number) => {
     this.setState({value: e});
     this.props.onValueChange(e);
-  }
+  };
 
   render() {
     const {

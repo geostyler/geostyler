@@ -66,7 +66,7 @@ export class FieldSet extends React.Component<FieldSetProps> {
     if (this.props.onCheckChange) {
       this.props.onCheckChange(e);
     }
-  }
+  };
 
   render() {
 
@@ -78,23 +78,23 @@ export class FieldSet extends React.Component<FieldSetProps> {
 
     return (
 
-        <fieldset className="gs-fieldset">
-          <legend>
-            <Checkbox
-              checked={checked}
-              onChange={this.onCheckChange}
-            >
-              {title}
-            </Checkbox>
-          </legend>
-          {React.Children.map(children, (child, i) => {
-            // Ignore all childs if checkbox is unchecked
-            if (checked) {
-              return child;
-            }
-            return undefined;
-          })}
-        </fieldset>
+      <fieldset className="gs-fieldset">
+        <legend>
+          <Checkbox
+            checked={checked}
+            onChange={this.onCheckChange}
+          >
+            {title}
+          </Checkbox>
+        </legend>
+        {React.Children.map(children, (child, i) => {
+          // Ignore all childs if checkbox is unchecked
+          if (checked) {
+            return child;
+          }
+          return undefined;
+        })}
+      </fieldset>
 
     );
   }

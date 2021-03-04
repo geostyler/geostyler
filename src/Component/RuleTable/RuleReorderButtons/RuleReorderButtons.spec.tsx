@@ -66,7 +66,7 @@ describe('ReorderButtonGroup', () => {
       let reorderRules: GsRule[];
       const onRulesMove = (_reorderedRules) => {
         reorderRules = _reorderedRules;
-      }
+      };
       wrapper.setProps({
         ruleIndex,
         rules,
@@ -84,9 +84,9 @@ describe('ReorderButtonGroup', () => {
       let reorderRules: GsRule[];
       const onRulesMove = (_reorderedRules) => {
         reorderRules = _reorderedRules;
-      }
+      };
       wrapper.setProps({
-        ruleIndex, 
+        ruleIndex,
         rules,
         onRulesMove
       });

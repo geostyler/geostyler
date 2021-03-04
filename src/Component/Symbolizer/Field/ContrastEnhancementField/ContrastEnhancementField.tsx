@@ -59,16 +59,16 @@ export class ContrastEnhancementField extends React.Component<ContrastEnhancemen
 
   getContrastEnhancementSelectOptions = () => {
     return this.props.contrastEnhancementOptions.map(contrastEnhancementOpt => {
-        return (
-            <Option
-                key={contrastEnhancementOpt}
-                value={contrastEnhancementOpt}
-            >
-            {contrastEnhancementOpt}
-            </Option>
-        );
+      return (
+        <Option
+          key={contrastEnhancementOpt}
+          value={contrastEnhancementOpt}
+        >
+          {contrastEnhancementOpt}
+        </Option>
+      );
     });
-  }
+  };
 
   render() {
     const {

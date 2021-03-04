@@ -34,7 +34,7 @@ import {
 const Option = Select.Option;
 
 import {
-    RasterSymbolizer
+  RasterSymbolizer
 } from 'geostyler-style';
 
 // default props
@@ -59,16 +59,16 @@ export class ResamplingField extends React.Component<ResamplingFieldProps> {
 
   getResamplingSelectOptions = () => {
     return this.props.resamplingOptions.map(resamplingOpt => {
-        return (
-            <Option
-                key={resamplingOpt}
-                value={resamplingOpt}
-            >
-            {resamplingOpt}
-            </Option>
-        );
+      return (
+        <Option
+          key={resamplingOpt}
+          value={resamplingOpt}
+        >
+          {resamplingOpt}
+        </Option>
+      );
     });
-  }
+  };
 
   render() {
     const {
