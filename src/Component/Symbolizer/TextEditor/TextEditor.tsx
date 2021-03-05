@@ -50,8 +50,8 @@ import RotateField from '../Field/RotateField/RotateField';
 import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
 
-const _cloneDeep = require('lodash/cloneDeep');
-const _isEqual = require('lodash/isEqual');
+import _cloneDeep from 'lodash/cloneDeep';
+import _isEqual from 'lodash/isEqual';
 
 import './TextEditor.less';
 

@@ -42,10 +42,10 @@ import {
   PlusOutlined
 } from '@ant-design/icons';
 
-const _get = require('lodash/get');
-const _set = require('lodash/set');
-const _isEqual = require('lodash/isEqual');
-const _cloneDeep = require('lodash/cloneDeep');
+import _get from 'lodash/get';
+import _set from 'lodash/set';
+import _isEqual from 'lodash/isEqual';
+import _cloneDeep from 'lodash/cloneDeep';
 
 const TreeNode = Tree.TreeNode;
 

@@ -38,7 +38,7 @@ import en_US from '../../../locale/en_US';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 
 const ButtonGroup = Button.Group;
-const _cloneDeep = require('lodash/cloneDeep');
+import _cloneDeep from 'lodash/cloneDeep';
 
 // i18n
 export interface RuleReorderButtonsLocale {

@@ -50,8 +50,8 @@ import { CompositionContext, Compositions } from '../../CompositionContext/Compo
 import CompositionUtil from '../../../Util/CompositionUtil';
 import './RasterEditor.less';
 
-const _cloneDeep = require('lodash/cloneDeep');
-const _get = require('lodash/get');
+import _cloneDeep from 'lodash/cloneDeep';
+import _get from 'lodash/get';
 
 // i18n
 export interface RasterEditorLocale {

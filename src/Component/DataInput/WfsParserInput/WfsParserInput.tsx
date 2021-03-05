@@ -52,7 +52,7 @@ interface WfsParams {
 
 import en_US from '../../../locale/en_US';
 
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 
 import './WfsParserInput.less';
 

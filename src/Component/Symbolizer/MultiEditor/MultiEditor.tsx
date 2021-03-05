@@ -47,7 +47,7 @@ import en_US from '../../../locale/en_US';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 
 // i18n
 export interface MultiEditorLocale {

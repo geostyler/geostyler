@@ -28,9 +28,9 @@
 
 import * as React from 'react';
 
-const _get = require('lodash/get');
-const _isEqual = require('lodash/isEqual');
-const _cloneDeep = require('lodash/cloneDeep');
+import _get from 'lodash/get';
+import _isEqual from 'lodash/isEqual';
+import _cloneDeep from 'lodash/cloneDeep';
 
 import { InterpolationMode } from 'chroma-js';
 

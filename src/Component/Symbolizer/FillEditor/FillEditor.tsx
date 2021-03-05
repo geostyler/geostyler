@@ -44,9 +44,9 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import WidthField from '../Field/WidthField/WidthField';
 
-const _cloneDeep = require('lodash/cloneDeep');
-const _get = require('lodash/get');
-const _isEqual = require('lodash/isEqual');
+import _cloneDeep from 'lodash/cloneDeep';
+import _get from 'lodash/get';
+import _isEqual from 'lodash/isEqual';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';

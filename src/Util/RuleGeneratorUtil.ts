@@ -47,9 +47,7 @@ import {
 }  from 'chroma-js';
 import { ClassificationMethod } from 'src/Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
 
-// Unsure if we can rely on this file in future releases
-
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 
 export interface RuleGenerationParams {
   data: Data;

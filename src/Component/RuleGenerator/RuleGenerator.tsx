@@ -44,7 +44,7 @@ import { ColorRampCombo } from './ColorRampCombo/ColorRampCombo';
 import { ColorSpaceCombo } from './ColorSpaceCombo/ColorSpaceCombo';
 import ColorsPreview from './ColorsPreview/ColorsPreview';
 import { ClassificationMethod, ClassificationCombo } from './ClassificationCombo/ClassificationCombo';
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 

@@ -40,7 +40,7 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 import { Form } from 'antd';
 
-const _get = require('lodash/get');
+import _get from 'lodash/get';
 
 export interface GraphicEditorDefaultProps {
   /** Label being used on TypeField */

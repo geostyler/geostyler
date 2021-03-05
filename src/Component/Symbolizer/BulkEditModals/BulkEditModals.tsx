@@ -28,7 +28,7 @@
 
 import * as React from 'react';
 
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 
 import {
   Modal

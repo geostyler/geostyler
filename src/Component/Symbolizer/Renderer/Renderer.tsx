@@ -46,9 +46,9 @@ import './Renderer.less';
 import 'ol/ol.css';
 import { Data } from 'geostyler-data';
 
-const _isEqual = require('lodash/isEqual');
-const _get = require('lodash/get');
-const _uniqueId = require('lodash/uniqueId');
+import _isEqual from 'lodash/isEqual';
+import _get from 'lodash/get';
+import _uniqueId from 'lodash/uniqueId';
 
 // non default props
 export interface RendererProps {

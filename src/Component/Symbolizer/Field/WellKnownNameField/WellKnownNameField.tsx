@@ -36,8 +36,8 @@ import { WellKnownName } from 'geostyler-style';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
-const _get = require('lodash/get');
-const _isEqual = require('lodash/isEqual');
+import _get from 'lodash/get';
+import _isEqual from 'lodash/isEqual';
 const Option = Select.Option;
 
 // i18n

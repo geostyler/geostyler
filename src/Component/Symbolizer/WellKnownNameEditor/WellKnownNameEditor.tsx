@@ -43,8 +43,8 @@ import CompositionUtil from '../../../Util/CompositionUtil';
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
 
-const _cloneDeep = require('lodash/cloneDeep');
-const _isEqual = require('lodash/isEqual');
+import _cloneDeep from 'lodash/cloneDeep';
+import _isEqual from 'lodash/isEqual';
 
 // i18n
 interface WellKnownNameEditorLocale {

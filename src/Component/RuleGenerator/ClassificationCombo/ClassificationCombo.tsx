@@ -33,7 +33,7 @@ import { Select } from 'antd';
 import en_US from '../../../locale/en_US';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
-const _isEqual = require('lodash/isEqual');
+import _isEqual from 'lodash/isEqual';
 
 export type ClassificationMethod = 'equalInterval' | 'quantile' | 'logarithmic' | 'kmeans';
 

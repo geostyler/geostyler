@@ -50,8 +50,8 @@ import { brewer } from 'chroma-js';
 
 import './ColorMapEditor.less';
 
-const _get = require('lodash/get');
-const _cloneDeep = require('lodash/cloneDeep');
+import _get from 'lodash/get';
+import _cloneDeep from 'lodash/cloneDeep';
 
 // i18n
 export interface ColorMapEditorLocale {
