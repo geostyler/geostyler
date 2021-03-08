@@ -76,7 +76,8 @@ class SymbolizerUtil {
     kind: 'Text',
     label: 'Your Label',
     size: 12,
-    opacity: 1
+    opacity: 1,
+    haloColor: '#000000'
   };
 
   static rasterSymbolizer: RasterSymbolizer = {
