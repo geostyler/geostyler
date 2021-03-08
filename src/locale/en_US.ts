@@ -97,7 +97,9 @@ export default {
     rotateLabel: 'Rotation'
   },
   GsFillEditor: {
+    opacityLabel: 'Opacity',
     fillOpacityLabel: 'Fill-Opacity',
+    strokeOpacityLabel: 'Stroke-Opacity',
     fillColorLabel: 'Fill-Color',
     outlineColorLabel: 'Outline-Color',
     outlineWidthLabel: 'Outline-Width',

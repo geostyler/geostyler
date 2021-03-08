@@ -61,7 +61,8 @@ class SymbolizerUtil {
     kind: 'Fill',
     color: '#0E1058',
     opacity: 1,
-    fillOpacity: 1
+    fillOpacity: 1,
+    outlineOpacity: 1
   };
 
   static lineSymbolizer: LineSymbolizer = {

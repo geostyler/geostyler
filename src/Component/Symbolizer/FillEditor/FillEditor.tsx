@@ -64,6 +64,8 @@ export interface FillEditorLocale {
   outlineWidthLabel?: string;
   graphicFillTypeLabel?: string;
   outlineDasharrayLabel?: string;
+  opacityLabel?: string;
+  strokeOpacityLabel?: string;
 }
 
 interface FillEditorDefaultProps {
@@ -106,6 +108,29 @@ export class FillEditor extends React.Component<FillEditorProps> {
     } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.fillOpacity = value;
+    window.console.log('changed:', value);
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
+  };
+
+  onOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.opacity = value;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
+  };
+
+  onStrokeOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.outlineOpacity = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
@@ -185,7 +210,9 @@ export class FillEditor extends React.Component<FillEditorProps> {
       outlineColor,
       graphicFill,
       outlineWidth,
-      outlineDasharray
+      outlineDasharray,
+      opacity,
+      outlineOpacity
     } = symbolizer;
 
     const {
@@ -218,8 +245,34 @@ export class FillEditor extends React.Component<FillEditorProps> {
                       composition,
                       path: 'FillEditor.fillOpacityField',
                       onChange: this.onFillOpacityChange,
-                      propName: 'fillOpacity',
+                      propName: 'opacity',
                       propValue: fillOpacity,
+                      defaultElement: <OpacityField />
+                    })
+                  )
+                }
+                {
+                  this.wrapFormItem(
+                    locale.opacityLabel,
+                    CompositionUtil.handleComposition({
+                      composition,
+                      path: 'FillEditor.opacityField',
+                      onChange: this.onOpacityChange,
+                      propName: 'opacity',
+                      propValue: opacity,
+                      defaultElement: <OpacityField />
+                    })
+                  )
+                }
+                {
+                  this.wrapFormItem(
+                    locale.strokeOpacityLabel,
+                    CompositionUtil.handleComposition({
+                      composition,
+                      path: 'FillEditor.strokeOpacityField',
+                      onChange: this.onStrokeOpacityChange,
+                      propName: 'opacity',
+                      propValue: outlineOpacity,
                       defaultElement: <OpacityField />
                     })
                   )

@@ -96,7 +96,9 @@ export default {
     rotateLabel: 'Drehung'
   },
   GsFillEditor: {
+    opacityLabel: 'Deckkraft',
     fillOpacityLabel: 'Fülldeckkraft',
+    strokeOpacityLabel: 'Strichdeckkraft',
     fillColorLabel: 'Füllfarbe',
     outlineColorLabel: 'Randfarbe',
     outlineWidthLabel: 'Randbreite',
