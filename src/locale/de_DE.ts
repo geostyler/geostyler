@@ -98,7 +98,7 @@ export default {
   GsFillEditor: {
     opacityLabel: 'Deckkraft',
     fillOpacityLabel: 'Fülldeckkraft',
-    strokeOpacityLabel: 'Strichdeckkraft',
+    outlineOpacityLabel: 'Strichdeckkraft',
     fillColorLabel: 'Füllfarbe',
     outlineColorLabel: 'Randfarbe',
     outlineWidthLabel: 'Randbreite',

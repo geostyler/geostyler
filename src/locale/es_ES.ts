@@ -98,7 +98,7 @@ export default {
   },
   GsFillEditor: {
     fillOpacityLabel: 'Relleno-Transparencia',
-    strokeOpacityLabel: 'Trazo-Transparencia',
+    outlineOpacityLabel: 'Trazo-Transparencia',
     opacityLabel: 'Transparencia',
     fillColorLabel: 'Relleno-Color',
     outlineColorLabel: 'Contorno-Color',

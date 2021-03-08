@@ -65,7 +65,7 @@ export interface FillEditorLocale {
   graphicFillTypeLabel?: string;
   outlineDasharrayLabel?: string;
   opacityLabel?: string;
-  strokeOpacityLabel?: string;
+  outlineOpacityLabel?: string;
 }
 
 interface FillEditorDefaultProps {
@@ -125,7 +125,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
     }
   };
 
-  onStrokeOpacityChange = (value: number) => {
+  onOutlineOpacityChange = (value: number) => {
     const {
       onSymbolizerChange
     } = this.props;
@@ -266,11 +266,11 @@ export class FillEditor extends React.Component<FillEditorProps> {
                 }
                 {
                   this.wrapFormItem(
-                    locale.strokeOpacityLabel,
+                    locale.outlineOpacityLabel,
                     CompositionUtil.handleComposition({
                       composition,
-                      path: 'FillEditor.strokeOpacityField',
-                      onChange: this.onStrokeOpacityChange,
+                      path: 'FillEditor.outlineOpacityField',
+                      onChange: this.onOutlineOpacityChange,
                       propName: 'opacity',
                       propValue: outlineOpacity,
                       defaultElement: <OpacityField />

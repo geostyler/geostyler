@@ -99,7 +99,7 @@ export default {
   GsFillEditor: {
     opacityLabel: 'Opacity',
     fillOpacityLabel: 'Fill-Opacity',
-    strokeOpacityLabel: 'Stroke-Opacity',
+    outlineOpacityLabel: 'Stroke-Opacity',
     fillColorLabel: 'Fill-Color',
     outlineColorLabel: 'Outline-Color',
     outlineWidthLabel: 'Outline-Width',
