@@ -45,29 +45,37 @@ class SymbolizerUtil {
   static markSymbolizer: MarkSymbolizer = {
     kind: 'Mark',
     wellKnownName: 'Circle',
-    color: '#0E1058'
+    color: '#0E1058',
+    opacity: 1,
+    fillOpacity: 1,
+    strokeOpacity: 1
   };
 
   static iconSymbolizer: IconSymbolizer = {
     kind: 'Icon',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png'
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
+    opacity: 1
   };
 
   static fillSymbolizer: FillSymbolizer = {
     kind: 'Fill',
-    color: '#0E1058'
+    color: '#0E1058',
+    opacity: 1,
+    fillOpacity: 1
   };
 
   static lineSymbolizer: LineSymbolizer = {
     kind: 'Line',
     color: '#0E1058',
-    width: 3
+    width: 3,
+    opacity: 1
   };
 
   static textSymbolizer: TextSymbolizer = {
     kind: 'Text',
     label: 'Your Label',
-    size: 12
+    size: 12,
+    opacity: 1
   };
 
   static rasterSymbolizer: RasterSymbolizer = {
