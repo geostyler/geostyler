@@ -108,7 +108,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
     } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.fillOpacity = value;
-    window.console.log('changed:', value);
+
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
