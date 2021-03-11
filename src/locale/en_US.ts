@@ -85,7 +85,11 @@ export default {
     downloadButtonLabel: 'Save as File',
     copyButtonLabel: 'Copy to Clipboard',
     formatSelectLabel: 'Format',
-    styleCopied: 'Style copied to clipboard!'
+    styleCopied: 'Style copied to clipboard!',
+    symbolizerUnitsLabel: 'Symbolizer units',
+    symbolizerUnitsPixel: 'pixel',
+    symbolizerUnitsMeter: 'meter',
+    symbolizerUnitsFoot: 'foot'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radius',

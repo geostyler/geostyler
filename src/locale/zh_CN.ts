@@ -85,7 +85,11 @@ export default {
     downloadButtonLabel: '另存为文件',
     copyButtonLabel: '拷贝到剪贴板',
     formatSelectLabel: '格式',
-    styleCopied: '样式已拷贝到剪贴板！'
+    styleCopied: '样式已拷贝到剪贴板！',
+    symbolizerUnitsLabel: '符號單位',
+    symbolizerUnitsPixel: '像素點',
+    symbolizerUnitsMeter: '儀表',
+    symbolizerUnitsFoot: '富斯'
   },
   GsWellKnownNameEditor: {
     radiusLabel: '半径',

@@ -85,7 +85,11 @@ export default {
     downloadButtonLabel: 'Guardar archivo',
     copyButtonLabel: 'Copiar al portapapeles',
     formatSelectLabel: 'Formato',
-    styleCopied: 'Estilo copiado al portapapales!'
+    styleCopied: 'Estilo copiado al portapapales!',
+    symbolizerUnitsLabel: 'Unidades simbolizadoras',
+    symbolizerUnitsPixel: 'Pixel',
+    symbolizerUnitsMeter: 'Metro',
+    symbolizerUnitsFoot: 'Escándalo'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radio',

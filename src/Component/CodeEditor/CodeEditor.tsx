@@ -59,6 +59,7 @@ import _isEqual from 'lodash/isEqual';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
+import SldStyleParser from 'geostyler-sld-parser';
 
 // i18n
 export interface CodeEditorLocale {
@@ -66,6 +67,10 @@ export interface CodeEditorLocale {
   formatSelectLabel: string;
   copyButtonLabel: string;
   styleCopied: string;
+  symbolizerUnitsLabel: string;
+  symbolizerUnitsPixel: string;
+  symbolizerUnitsMeter: string;
+  symbolizerUnitsFoot: string;
 }
 
 interface CodeEditorDefaultProps {
@@ -96,6 +101,7 @@ interface CodeEditorState {
   value: string;
   invalidMessage?: string;
   activeParser?: StyleParser;
+  symbolizerUnit: string;
   hasError: boolean;
 }
 
@@ -120,7 +126,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     this.editTimeout =  null;
     this.state = {
       value: '',
-      hasError: false
+      hasError: false,
+      symbolizerUnit: 'pixel'
     };
   }
 
@@ -163,7 +170,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
 
   getModeByParser = (): string => {
     const activeParser: any = this.state.activeParser;
-    if (activeParser && activeParser.title === 'SLD Style Parser') {
+    if (activeParser && activeParser.sldVersion) {
       return 'application/xml';
     }
     return 'application/json';
@@ -232,6 +239,23 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
           this.updateValueFromStyle(style);
         }
       });
+    }
+  };
+
+  onUnitSelect = (selection: string) => {
+    const {
+      style
+    } = this.props;
+    const {
+      activeParser,
+    } = this.state;
+    const parser = activeParser as SldStyleParser;
+    parser.symbolizerUnits = selection;
+    this.setState({
+      symbolizerUnit: selection
+    });
+    if (style) {
+      this.updateValueFromStyle(style);
     }
   };
 
@@ -326,7 +350,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     const activeParser: any = this.state.activeParser;
     const {
       hasError,
-      value
+      value,
+      symbolizerUnit
     } = this.state;
     if (hasError) {
       return <h1>An error occured in the CodeEditor UI.</h1>;
@@ -343,6 +368,25 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
           >
             {this.getParserOptions()}
           </Select>
+          {activeParser &&
+          activeParser.sldVersion &&
+          activeParser.sldVersion !== '1.0.0' &&
+            <>
+              <span className="symbolizer-units-label">
+                {locale.symbolizerUnitsLabel}:
+              </span>
+              <Select
+                className="gs-code-editor-format-select"
+                style={{ width: 100 }}
+                onSelect={this.onUnitSelect}
+                value={symbolizerUnit}
+              >
+                <Option value="pixel">{locale.symbolizerUnitsPixel}</Option>
+                <Option value="meter">{locale.symbolizerUnitsMeter}</Option>
+                <Option value="foot">{locale.symbolizerUnitsFoot}</Option>
+              </Select>
+            </>
+          }
         </div>
         <CodeMirror
           className="gs-code-editor-codemirror"

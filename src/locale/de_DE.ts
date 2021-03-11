@@ -84,7 +84,11 @@ export default {
     downloadButtonLabel: 'Als Datei speichern',
     copyButtonLabel: 'In Zwischenablage kopieren',
     formatSelectLabel: 'Format',
-    styleCopied: 'Style in Zwischenablage kopiert!'
+    styleCopied: 'Style in Zwischenablage kopiert!',
+    symbolizerUnitsLabel: 'Symbolizer Einheiten',
+    symbolizerUnitsPixel: 'Pixel',
+    symbolizerUnitsMeter: 'Meter',
+    symbolizerUnitsFoot: 'Fuß'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radius',
