@@ -105,7 +105,7 @@ import RuleTable from './Component/RuleTable/RuleTable';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 import { CompositionContext } from './Component/CompositionContext/CompositionContext';
 import { DefaultValueContext } from './Component/DefaultValueContext/DefaultValueContext';
-import withDefaultValues from './hoc/withDefaultsContext';
+import withDefaultsContext from './hoc/withDefaultsContext';
 
 import { ConfigProvider } from 'antd';
 
@@ -200,5 +200,5 @@ export {
   WidthField,
   CompositionContext,
   DefaultValueContext,
-  withDefaultValues
+  withDefaultsContext
 };
