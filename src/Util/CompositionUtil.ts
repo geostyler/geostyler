@@ -35,6 +35,7 @@ export interface CompositionUtilOptions {
   path: string;
   propName: string;
   propValue: any;
+  defaultValue?: any;
   defaultElement: React.ReactElement;
   onChange: (...args: unknown[]) => void;
   onChangeName?: string;
@@ -45,6 +46,7 @@ interface CompositionUtilInjectOptions {
   onChange: (...args: unknown[]) => void;
   propName: string;
   propValue: any;
+  defaultValue?: any;
   onChangeName?: string;
 }
 
@@ -73,6 +75,7 @@ class CompositionUtil {
       path,
       propName,
       propValue,
+      defaultValue,
       defaultElement,
       onChange,
       onChangeName
@@ -86,6 +89,7 @@ class CompositionUtil {
       onChange,
       propName,
       propValue,
+      defaultValue,
       onChangeName
     } as CompositionUtilInjectOptions;
 
@@ -122,13 +126,14 @@ class CompositionUtil {
       onChange,
       propName,
       propValue,
+      defaultValue,
       onChangeName,
     } = options;
 
     if (onChangeName !== undefined && onChangeName !== '') {
-      return (React.cloneElement(component, {[propName]: propValue, [onChangeName]: onChange}));
+      return (React.cloneElement(component, {[propName]: propValue, [onChangeName]: onChange, defaultValue}));
     }
-    return (React.cloneElement(component, {[propName]: propValue, onChange: onChange}));
+    return (React.cloneElement(component, {[propName]: propValue, onChange: onChange, defaultValue}));
   }
 
 }

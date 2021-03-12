@@ -53,6 +53,8 @@ import en_US from '../../../locale/en_US';
 import LineDashField from '../Field/LineDashField/LineDashField';
 import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
+import withDefaultsContext from '../../../hoc/withDefaultsContext';
+import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
 
 const Panel = Collapse.Panel;
 
@@ -64,6 +66,8 @@ export interface FillEditorLocale {
   outlineWidthLabel?: string;
   graphicFillTypeLabel?: string;
   outlineDasharrayLabel?: string;
+  opacityLabel?: string;
+  outlineOpacityLabel?: string;
 }
 
 interface FillEditorDefaultProps {
@@ -74,6 +78,7 @@ interface FillEditorDefaultProps {
 export interface FillEditorProps extends Partial<FillEditorDefaultProps> {
   symbolizer: FillSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  defaultValues: DefaultValues;
 }
 
 export class FillEditor extends React.Component<FillEditorProps> {
@@ -106,6 +111,29 @@ export class FillEditor extends React.Component<FillEditorProps> {
     } = this.props;
     const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
     symbolizer.fillOpacity = value;
+
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
+  };
+
+  onOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.opacity = value;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizer);
+    }
+  };
+
+  onOutlineOpacityChange = (value: number) => {
+    const {
+      onSymbolizerChange
+    } = this.props;
+    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
+    symbolizer.outlineOpacity = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
@@ -176,7 +204,9 @@ export class FillEditor extends React.Component<FillEditorProps> {
 
   render() {
     const {
-      symbolizer
+      symbolizer,
+      locale,
+      defaultValues
     } = this.props;
 
     const {
@@ -185,12 +215,10 @@ export class FillEditor extends React.Component<FillEditorProps> {
       outlineColor,
       graphicFill,
       outlineWidth,
-      outlineDasharray
+      outlineDasharray,
+      opacity,
+      outlineOpacity
     } = symbolizer;
-
-    const {
-      locale
-    } = this.props;
 
     return (
       <CompositionContext.Consumer>
@@ -207,6 +235,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
                       onChange: this.onFillColorChange,
                       propName: 'color',
                       propValue: color,
+                      defaultValue: defaultValues?.FillEditor?.defaultFillColor,
                       defaultElement: <ColorField />
                     })
                   )
@@ -218,8 +247,37 @@ export class FillEditor extends React.Component<FillEditorProps> {
                       composition,
                       path: 'FillEditor.fillOpacityField',
                       onChange: this.onFillOpacityChange,
-                      propName: 'fillOpacity',
+                      propName: 'opacity',
                       propValue: fillOpacity,
+                      defaultValue: defaultValues?.FillEditor?.defaultFillOpacity,
+                      defaultElement: <OpacityField />
+                    })
+                  )
+                }
+                {
+                  this.wrapFormItem(
+                    locale.opacityLabel,
+                    CompositionUtil.handleComposition({
+                      composition,
+                      path: 'FillEditor.opacityField',
+                      onChange: this.onOpacityChange,
+                      propName: 'opacity',
+                      propValue: opacity,
+                      defaultValue: defaultValues?.FillEditor?.defaultOpacity,
+                      defaultElement: <OpacityField />
+                    })
+                  )
+                }
+                {
+                  this.wrapFormItem(
+                    locale.outlineOpacityLabel,
+                    CompositionUtil.handleComposition({
+                      composition,
+                      path: 'FillEditor.outlineOpacityField',
+                      onChange: this.onOutlineOpacityChange,
+                      propName: 'opacity',
+                      propValue: outlineOpacity,
+                      defaultValue: defaultValues?.FillEditor?.defaultOutlineOpacity,
                       defaultElement: <OpacityField />
                     })
                   )
@@ -233,6 +291,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
                       onChange: this.onOutlineColorChange,
                       propName: 'color',
                       propValue: outlineColor,
+                      defaultValue: defaultValues?.FillEditor?.defaultOutlineColor,
                       defaultElement: <ColorField />
                     })
                   )
@@ -246,6 +305,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
                       onChange: this.onOutlineWidthChange,
                       propName: 'width',
                       propValue: outlineWidth,
+                      defaultValue: defaultValues?.FillEditor?.defaultOutlineWidth,
                       defaultElement: <WidthField />
                     })
                   )
@@ -291,4 +351,4 @@ export class FillEditor extends React.Component<FillEditorProps> {
   }
 }
 
-export default localize(FillEditor, FillEditor.componentName);
+export default withDefaultsContext(localize(FillEditor, FillEditor.componentName));

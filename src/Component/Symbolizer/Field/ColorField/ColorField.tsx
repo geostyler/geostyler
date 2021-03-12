@@ -61,6 +61,7 @@ interface ColorFieldDefaultProps {
 export interface ColorFieldProps extends Partial<ColorFieldDefaultProps> {
   onChange?: (color: string) => void;
   color?: string;
+  defaultValue?: string;
 }
 
 // state
@@ -114,14 +115,15 @@ export class ColorField extends React.Component<ColorFieldProps, ColorFieldState
     const {
       color,
       locale,
+      defaultValue
     } = this.props;
     let textColor;
 
-    if (!color) {
+    if (!color && !defaultValue) {
       textColor = '#000000';
     } else {
       try {
-        textColor = Color(color).negate().grayscale().string();
+        textColor = Color(color || defaultValue).negate().grayscale().string();
       } catch (error) {
         textColor = '#000000';
       }
@@ -133,7 +135,7 @@ export class ColorField extends React.Component<ColorFieldProps, ColorFieldState
           <Button
             className="color-preview editor-field"
             style={{
-              backgroundColor: color,
+              backgroundColor: color || defaultValue,
               color: textColor
             }}
             onClick={this.onColorPreviewClick}

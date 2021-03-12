@@ -49,6 +49,8 @@ import { Form } from 'antd';
 
 import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
+import withDefaultsContext from '../../../hoc/withDefaultsContext';
+import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
 
 // i18n
 export interface IconEditorLocale {
@@ -69,6 +71,7 @@ export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
   symbolizer: IconSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
+  defaultValues: DefaultValues;
 }
 
 export class IconEditor extends React.Component<IconEditorProps> {
@@ -149,10 +152,8 @@ export class IconEditor extends React.Component<IconEditorProps> {
 
   render() {
     const {
-      locale
-    } = this.props;
-
-    const {
+      locale,
+      defaultValues,
       symbolizer,
       iconLibraries
     } = this.props;
@@ -179,6 +180,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
                   onChange: this.onImageSrcChange,
                   propName: 'value',
                   propValue: imageSrc,
+                  defaultValue: defaultValues?.IconEditor?.defaultImage,
                   defaultElement: (
                     <ImageField
                       iconLibraries={iconLibraries}
@@ -197,6 +199,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
                   onChange: this.onSizeChange,
                   propName: 'size',
                   propValue: size,
+                  defaultValue: defaultValues?.IconEditor?.defaultSize,
                   defaultElement: <SizeField />
                 })
               )
@@ -210,6 +213,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
                   onChange: this.onRotateChange,
                   propName: 'rotate',
                   propValue: rotate,
+                  defaultValue: defaultValues?.IconEditor?.defaultRotate,
                   defaultElement: <RotateField />
                 })
               )
@@ -223,6 +227,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
                   onChange: this.onOpacityChange,
                   propName: 'opacity',
                   propValue: opacity,
+                  defaultValue: defaultValues?.IconEditor?.defaultOpacity,
                   defaultElement: <OpacityField />
                 })
               )
@@ -234,4 +239,4 @@ export class IconEditor extends React.Component<IconEditorProps> {
   }
 }
 
-export default localize(IconEditor, IconEditor.componentName);
+export default withDefaultsContext(localize(IconEditor, IconEditor.componentName));

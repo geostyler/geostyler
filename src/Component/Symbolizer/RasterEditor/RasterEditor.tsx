@@ -48,6 +48,9 @@ import DataUtil from '../../../Util/DataUtil';
 import ColorMapEditor from '../ColorMapEditor/ColorMapEditor';
 import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
+import withDefaultsContext from '../../../hoc/withDefaultsContext';
+import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
+
 import './RasterEditor.less';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -84,6 +87,7 @@ export interface RasterEditorProps extends Partial<RasterEditorDefaultProps> {
   colorRamps?: {
     [name: string]: string[];
   };
+  defaultValues: DefaultValues;
 }
 
 type ShowDisplay = 'symbolizer' | 'colorMap' | 'contrastEnhancement';
@@ -208,7 +212,8 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
       symbolizer,
       internalDataDef,
       contrastEnhancementTypes,
-      colorRamps
+      colorRamps,
+      defaultValues
     } = this.props;
 
     const {
@@ -245,6 +250,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
                     onChange: this.onOpacityChange,
                     propName: 'opacity',
                     propValue: opacity,
+                    defaultValue: defaultValues?.RasterEditor?.defaultOpacity,
                     defaultElement: <OpacityField />
                   })
                 ),
@@ -267,6 +273,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
                     onChange: this.onGammaValueChange,
                     propName: 'gamma',
                     propValue: _get(contrastEnhancement, 'gammaValue'),
+                    defaultValue: defaultValues?.RasterEditor?.defaultGammaValue,
                     defaultElement: <GammaField />
                   })
                 ),
@@ -275,14 +282,14 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
                   key="toggleColorMap"
                   {...toggleViewButtonLayout}
                 >
-                  <a onClick={() => {this.toggleView('colorMap'); }}>{`${locale.colorMapLabel} >>`}</a>
+                  <a onClick={() => this.toggleView('colorMap')}>{`${locale.colorMapLabel} >>`}</a>
                 </Form.Item>,
                 <Form.Item
                   className="gs-raster-editor-view-toggle"
                   key="toggleContrastEnhancement"
                   {...toggleViewButtonLayout}
                 >
-                  <a onClick={() => {this.toggleView('contrastEnhancement'); }}>
+                  <a onClick={() => this.toggleView('contrastEnhancement')}>
                     {`${locale.channelSelectionLabel} >>`}
                   </a>
                 </Form.Item>
@@ -307,7 +314,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
                   key="toggleSymbolizer"
                   {...toggleViewButtonLayout}
                 >
-                  <a onClick={() => {this.toggleView('symbolizer'); }}>{`<< ${locale.symbolizerLabel}`}</a>
+                  <a onClick={() => this.toggleView('symbolizer')}>{`<< ${locale.symbolizerLabel}`}</a>
                 </Form.Item>
               ])
             }
@@ -329,7 +336,7 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
                   key="toggleSymbolizer"
                   {...toggleViewButtonLayout}
                 >
-                  <a onClick={() => {this.toggleView('symbolizer'); }}>{`<< ${locale.symbolizerLabel}`}</a>
+                  <a onClick={() => this.toggleView('symbolizer')}>{`<< ${locale.symbolizerLabel}`}</a>
                 </Form.Item>
               ])
             }
@@ -340,4 +347,4 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
   }
 }
 
-export default localize(RasterEditor, RasterEditor.componentName);
+export default withDefaultsContext(localize(RasterEditor, RasterEditor.componentName));

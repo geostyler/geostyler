@@ -98,6 +98,8 @@ export default {
   },
   GsFillEditor: {
     fillOpacityLabel: '填充-不透明度',
+    outlineOpacityLabel: '描边-不透明度',
+    opacityLabel: '不透明度',
     fillColorLabel: '填充-颜色',
     outlineColorLabel: '轮廓-颜色',
     outlineWidthLabel: '轮廓-宽度',

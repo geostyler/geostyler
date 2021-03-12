@@ -40,6 +40,8 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
+import withDefaultsContext from '../../../hoc/withDefaultsContext';
+import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -58,6 +60,7 @@ interface MarkEditorDefaultProps {
 export interface MarkEditorProps extends Partial<MarkEditorDefaultProps> {
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  defaultValues: DefaultValues;
 }
 
 interface MarkEditorState {
@@ -83,8 +86,7 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
   }
 
   static getDerivedStateFromProps(
-    nextProps: MarkEditorProps,
-    prevState: MarkEditorState): Partial<MarkEditorState> {
+    nextProps: MarkEditorProps): Partial<MarkEditorState> {
     return {
       symbolizer: nextProps.symbolizer
     };
@@ -123,7 +125,8 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
   render() {
     const {
       locale,
-      onSymbolizerChange
+      onSymbolizerChange,
+      defaultValues
     } = this.props;
     const {
       symbolizer
@@ -142,6 +145,7 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
                   onChange: this.onWellKnownNameChange,
                   propName: 'wellKnownName',
                   propValue: symbolizer.wellKnownName,
+                  defaultValue: defaultValues?.MarkEditor?.defaultWellKnownName,
                   defaultElement: <WellKnownNameField />
                 })
               )
@@ -157,4 +161,4 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
   }
 }
 
-export default localize(MarkEditor, MarkEditor.componentName);
+export default withDefaultsContext(localize(MarkEditor, MarkEditor.componentName));
