@@ -330,5 +330,11 @@ export default {
   GsIconSelector: {
     librarySelectLabel: 'Wähle Bibliothek'
   },
+  GsSLDUnitsSelect: {
+    symbolizerUnitsLabel: 'Symbolizer Einheiten',
+    symbolizerUnitsPixel: 'Pixel',
+    symbolizerUnitsMeter: 'Meter',
+    symbolizerUnitsFoot: 'Fuß'
+  },
   ...de_DE
 };

@@ -335,5 +335,11 @@ export default {
   GsIconSelector: {
     librarySelectLabel: '选择图标库'
   },
+  GsSLDUnitsSelect: {
+    symbolizerUnitsLabel: '符號單位',
+    symbolizerUnitsPixel: '像素點',
+    symbolizerUnitsMeter: '儀表',
+    symbolizerUnitsFoot: '富斯'
+  },
   ...zh_CN
 };

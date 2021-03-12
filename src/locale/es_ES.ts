@@ -272,5 +272,11 @@ export default {
   GsIconSelector: {
     librarySelectLabel: 'Seleccionar biblioteca'
   },
+  GsSLDUnitsSelect: {
+    symbolizerUnitsLabel: 'Unidades simbolizadoras',
+    symbolizerUnitsPixel: 'Pixel',
+    symbolizerUnitsMeter: 'Metro',
+    symbolizerUnitsFoot: 'Escándalo'
+  },
   ...es_ES
 };

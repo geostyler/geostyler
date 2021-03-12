@@ -59,6 +59,8 @@ import _isEqual from 'lodash/isEqual';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
+import SldStyleParser from 'geostyler-sld-parser';
+import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 
 // i18n
 export interface CodeEditorLocale {
@@ -163,7 +165,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
 
   getModeByParser = (): string => {
     const activeParser: any = this.state.activeParser;
-    if (activeParser && activeParser.title === 'SLD Style Parser') {
+    if (activeParser && activeParser.sldVersion) {
       return 'application/xml';
     }
     return 'application/json';
@@ -232,6 +234,20 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
           this.updateValueFromStyle(style);
         }
       });
+    }
+  };
+
+  onUnitSelect = (selection: string) => {
+    const {
+      style
+    } = this.props;
+    const {
+      activeParser,
+    } = this.state;
+    const parser = activeParser as SldStyleParser;
+    parser.symbolizerUnits = selection;
+    if (style) {
+      this.updateValueFromStyle(style);
     }
   };
 
@@ -343,6 +359,13 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
           >
             {this.getParserOptions()}
           </Select>
+          {activeParser &&
+          activeParser.sldVersion &&
+          activeParser.sldVersion !== '1.0.0' &&
+            <SLDUnitsSelect
+              changeHandler={this.onUnitSelect}
+            />
+          }
         </div>
         <CodeMirror
           className="gs-code-editor-codemirror"
