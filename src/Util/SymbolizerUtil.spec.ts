@@ -36,35 +36,25 @@ describe('SymbolizerUtil', () => {
       const markSymbolizer: MarkSymbolizer = {
         kind: 'Mark',
         wellKnownName: 'Circle',
-        color: '#0E1058',
-        opacity: 1,
-        fillOpacity: 1,
-        strokeOpacity: 1
+        color: '#0E1058'
       };
       const iconSymbolizer: IconSymbolizer = {
         kind: 'Icon',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
-        opacity: 1
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png'
       };
       const fillSymbolizer: FillSymbolizer = {
         kind: 'Fill',
-        color: '#0E1058',
-        opacity: 1,
-        fillOpacity: 1,
-        outlineOpacity: 1
+        color: '#0E1058'
       };
       const lineSymbolizer: LineSymbolizer = {
         kind: 'Line',
         color: '#0E1058',
-        width: 3,
-        opacity: 1
+        width: 3
       };
       const textSymbolizer: TextSymbolizer = {
         kind: 'Text',
         label: 'Your Label',
-        size: 12,
-        opacity: 1,
-        haloColor: '#000000'
+        size: 12
       };
 
       const noKind = SymbolizerUtil.generateSymbolizer();

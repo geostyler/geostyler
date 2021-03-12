@@ -76,16 +76,9 @@ class DefaultValueExample extends React.Component {
       customRotation
     } = this.state;
 
-    const composition = {
+    const defaults = {
       IconEditor: {
-        rotateField: customRotation ? (
-          <InputNumber
-            className="editor-field rotate-field"
-            min={-90}
-            max={90}
-            value={symbolizer.rotate}
-          />
-        ) : undefined
+        defaultOpacity: 1
       }
     };
 
@@ -99,7 +92,7 @@ class DefaultValueExample extends React.Component {
           unCheckedChildren="false"
         />
         <hr/>
-        <DefaultValueContext.Provider value={composition}>
+        <DefaultValueContext.Provider value={defaults}>
           <IconEditor
             symbolizer={symbolizer}
             onSymbolizerChange={this.onSymbolizerChange}
