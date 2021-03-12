@@ -40,6 +40,9 @@ import WidthField from '../Field/WidthField/WidthField';
 import RotateField from '../Field/RotateField/RotateField';
 import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
+import withDefaultsContext from '../../../hoc/withDefaultsContext';
+import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
+
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
 
@@ -65,6 +68,7 @@ interface WellKnownNameEditorDefaultProps {
 export interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDefaultProps> {
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  defaultValues: DefaultValues;
 }
 
 export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps> {
@@ -176,9 +180,11 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     );
   };
 
-  render () {
+  render() {
     const {
-      symbolizer
+      symbolizer,
+      defaultValues,
+      locale
     } = this.props;
 
     const {
@@ -190,10 +196,6 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
       strokeWidth,
       strokeOpacity
     } = symbolizer;
-
-    const {
-      locale
-    } = this.props;
 
     return (
       <CompositionContext.Consumer>
@@ -208,6 +210,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
                   onChange: this.onRadiusChange,
                   propName: 'radius',
                   propValue: radius,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultRadius,
                   defaultElement: <RadiusField />
                 })
               )
@@ -221,6 +224,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
                   onChange: this.onColorChange,
                   propName: 'color',
                   propValue: color,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultFillColor,
                   defaultElement: <ColorField />
                 })
               )
@@ -234,6 +238,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
                   onChange: this.onOpacityChange,
                   propName: 'opacity',
                   propValue: opacity,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultFillOpacity,
                   defaultElement: <OpacityField />
                 })
               )
@@ -247,6 +252,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
                   onChange: this.onStrokeColorChange,
                   propName: 'color',
                   propValue: strokeColor,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeColor,
                   defaultElement: <ColorField />
                 })
               )
@@ -260,6 +266,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
                   onChange: this.onStrokeWidthChange,
                   propName: 'width',
                   propValue: strokeWidth,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeWidth,
                   defaultElement: <WidthField />
                 })
               )
@@ -273,6 +280,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
                   onChange: this.onStrokeOpacityChange,
                   propName: 'opacity',
                   propValue: strokeOpacity,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeOpacity,
                   defaultElement: <OpacityField />
                 })
               )
@@ -286,6 +294,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
                   onChange: this.onRotateChange,
                   propName: 'rotate',
                   propValue: rotate,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultRotate,
                   defaultElement: <RotateField />
                 })
               )
@@ -297,4 +306,4 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
   }
 }
 
-export default localize(WellKnownNameEditor, WellKnownNameEditor.componentName);
+export default withDefaultsContext(localize(WellKnownNameEditor, WellKnownNameEditor.componentName));

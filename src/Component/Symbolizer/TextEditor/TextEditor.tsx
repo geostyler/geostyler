@@ -49,6 +49,8 @@ import OffsetField from '../Field/OffsetField/OffsetField';
 import RotateField from '../Field/RotateField/RotateField';
 import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
+import withDefaultsContext from '../../../hoc/withDefaultsContext';
+import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
@@ -84,6 +86,7 @@ export interface TextEditorProps extends Partial<TextEditorDefaultProps> {
   symbolizer: TextSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   internalDataDef?: VectorData;
+  defaultValues: DefaultValues;
 }
 
 /**
@@ -238,7 +241,8 @@ export class TextEditor extends React.Component<TextEditorProps> {
   render() {
     const {
       locale,
-      internalDataDef
+      internalDataDef,
+      defaultValues
     } = this.props;
 
     const symbolizer = _cloneDeep(this.props.symbolizer);
@@ -276,6 +280,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onLabelChange,
                   propName: 'value',
                   propValue: symbolizer.label || '',
+                  defaultValue: defaultValues?.TextEditor?.defaultTemplate,
                   defaultElement: (
                     <Mentions
                       placeholder={locale.templateFieldLabel}
@@ -297,6 +302,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onColorChange,
                   propName: 'color',
                   propValue: color,
+                  defaultValue: defaultValues?.TextEditor?.defaultColor,
                   defaultElement: <ColorField />
                 })
               )
@@ -310,6 +316,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onFontChange,
                   propName: 'font',
                   propValue: font,
+                  defaultValue: defaultValues?.TextEditor?.defaultFont,
                   defaultElement: <FontPicker />
                 })
               )
@@ -323,6 +330,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onOpacityChange,
                   propName: 'opacity',
                   propValue: opacity,
+                  defaultValue: defaultValues?.TextEditor?.defaultOpacity,
                   defaultElement: <OpacityField />
                 })
               )
@@ -336,6 +344,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onSizeChange,
                   propName: 'width',
                   propValue: size,
+                  defaultValue: defaultValues?.TextEditor?.defaultSize,
                   defaultElement: <WidthField />
                 })
               )
@@ -349,6 +358,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onOffsetXChange,
                   propName: 'offset',
                   propValue: offsetX,
+                  defaultValue: defaultValues?.TextEditor?.defaultOffsetX,
                   defaultElement: <OffsetField />
                 })
               )
@@ -362,6 +372,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onOffsetYChange,
                   propName: 'offset',
                   propValue: offsetY,
+                  defaultValue: defaultValues?.TextEditor?.defaultOffsetY,
                   defaultElement: <OffsetField />
                 })
               )
@@ -375,6 +386,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onRotateChange,
                   propName: 'rotate',
                   propValue: rotate,
+                  defaultValue: defaultValues?.TextEditor?.defaultRotate,
                   defaultElement: <RotateField />
                 })
               )
@@ -388,6 +400,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onHaloColorChange,
                   propName: 'color',
                   propValue: haloColor,
+                  defaultValue: defaultValues?.TextEditor?.defaultHaloColor,
                   defaultElement: <ColorField />
                 })
               )
@@ -401,6 +414,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onHaloWidthChange,
                   propName: 'width',
                   propValue: haloWidth,
+                  defaultValue: defaultValues?.TextEditor?.defaultHaloWidth,
                   defaultElement: <WidthField />
                 })
               )
@@ -412,4 +426,4 @@ export class TextEditor extends React.Component<TextEditorProps> {
   }
 }
 
-export default localize(TextEditor, TextEditor.componentName);
+export default withDefaultsContext(localize(TextEditor, TextEditor.componentName));

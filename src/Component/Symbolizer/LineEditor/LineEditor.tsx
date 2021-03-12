@@ -57,6 +57,8 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
+import withDefaultsContext from '../../../hoc/withDefaultsContext';
+import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
 
 const Panel = Collapse.Panel;
 
@@ -84,6 +86,7 @@ export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
   symbolizer: LineSymbolizer;
   /** Callback when symbolizer changes */
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  defaultValues: DefaultValues;
 }
 
 export class LineEditor extends React.Component<LineEditorProps> {
@@ -219,7 +222,8 @@ export class LineEditor extends React.Component<LineEditorProps> {
 
   render() {
     const {
-      symbolizer
+      symbolizer,
+      defaultValues
     } = this.props;
 
     const {
@@ -242,7 +246,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
       <CompositionContext.Consumer>
         {(composition: Compositions) => (
           <div className="gs-line-symbolizer-editor" >
-            <Collapse bordered={false} defaultActiveKey={['1']} onChange={(key: string) => (null)}>
+            <Collapse bordered={false} defaultActiveKey={['1']} onChange={() => (null)}>
               <Panel header="General" key="1">
                 {
                   this.wrapFormItem(
@@ -253,6 +257,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
                       onChange: this.onColorChange,
                       propName: 'color',
                       propValue: color,
+                      defaultValue: defaultValues?.LineEditor?.defaultColor,
                       defaultElement: <ColorField />
                     })
                   )
@@ -266,6 +271,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
                       onChange: this.onWidthChange,
                       propName: 'width',
                       propValue: width,
+                      defaultValue: defaultValues?.LineEditor?.defaultWidth,
                       defaultElement: <WidthField />
                     })
                   )
@@ -279,6 +285,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
                       onChange: this.onOpacityChange,
                       propName: 'opacity',
                       propValue: opacity,
+                      defaultValue: defaultValues?.LineEditor?.defaultOpacity,
                       defaultElement: <OpacityField />
                     })
                   )
@@ -305,6 +312,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
                       onChange: this.onDashOffsetChange,
                       propName: 'offset',
                       propValue: dashOffset,
+                      defaultValue: defaultValues?.LineEditor?.defaultDashOffset,
                       defaultElement: (
                         <OffsetField
                           disabled={
@@ -323,6 +331,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
                       onChange: this.onCapChange,
                       propName: 'cap',
                       propValue: cap,
+                      defaultValue: defaultValues?.LineEditor?.defaultCap,
                       defaultElement: <LineCapField />
                     })
                   )
@@ -336,6 +345,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
                       onChange: this.onJoinChange,
                       propName: 'join',
                       propValue: join,
+                      defaultValue: defaultValues?.LineEditor?.defaultJoin,
                       defaultElement: <LineJoinField />
                     })
                   )
@@ -378,12 +388,12 @@ export class LineEditor extends React.Component<LineEditorProps> {
                 }
               </Panel>
             </Collapse>
-          </div>
-        )
+          </div>)
         }
       </CompositionContext.Consumer>
     );
   }
+
 }
 
-export default localize(LineEditor, LineEditor.componentName);
+export default withDefaultsContext(localize(LineEditor, LineEditor.componentName));
