@@ -246,7 +246,7 @@ export class LineEditor extends React.Component<LineEditorProps> {
       <CompositionContext.Consumer>
         {(composition: Compositions) => (
           <div className="gs-line-symbolizer-editor" >
-            <Collapse bordered={false} defaultActiveKey={['1']} onChange={() => (null)}>
+            <Collapse bordered={false} defaultActiveKey={['1']}>
               <Panel header="General" key="1">
                 {
                   this.wrapFormItem(
