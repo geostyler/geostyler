@@ -80,40 +80,31 @@ describe('SymbolizerEditor', () => {
       const symbolizer = SymbolizerUtil.generateSymbolizer('Mark');
       const func = wrapper.instance().getUiFromSymbolizer;
       const returnValue = func(symbolizer);
-      const got = shallow(returnValue).instance();
-      expect(got).toBeInstanceOf(MarkEditor);
+      expect(returnValue.props.symbolizer.kind).toEqual('Mark');
     });
     it('returns an IconEditor for Symbolizer with kind Icon', () => {
       const symbolizer = SymbolizerUtil.generateSymbolizer('Icon');
       const func = wrapper.instance().getUiFromSymbolizer;
       const returnValue = func(symbolizer);
-      const localeWrapper = shallow(returnValue);
-      const got = shallow(localeWrapper.get(0)).instance();
-      expect(got).toBeInstanceOf(IconEditor);
+      expect(returnValue.props.symbolizer.kind).toEqual('Icon');
     });
     it('returns a LineEditor for Symbolizer with kind Line', () => {
       const symbolizer = SymbolizerUtil.generateSymbolizer('Line');
       const func = wrapper.instance().getUiFromSymbolizer;
       const returnValue = func(symbolizer);
-      const localeWrapper = shallow(returnValue);
-      const got = shallow(localeWrapper.get(0)).instance();
-      expect(got).toBeInstanceOf(LineEditor);
+      expect(returnValue.props.symbolizer.kind).toEqual('Line');
     });
     it('returns a FillEditor for Symbolizer with kind Fill', () => {
       const symbolizer = SymbolizerUtil.generateSymbolizer('Fill');
       const func = wrapper.instance().getUiFromSymbolizer;
       const returnValue = func(symbolizer);
-      const localeWrapper = shallow(returnValue);
-      const got = shallow(localeWrapper.get(0)).instance();
-      expect(got).toBeInstanceOf(FillEditor);
+      expect(returnValue.props.symbolizer.kind).toEqual('Fill');
     });
     it('returns a TextEditor for Symbolizer with kind Text', () => {
       const symbolizer = SymbolizerUtil.generateSymbolizer('Text');
       const func = wrapper.instance().getUiFromSymbolizer;
       const returnValue = func(symbolizer);
-      const localeWrapper = shallow(returnValue);
-      const got = shallow(localeWrapper.get(0)).instance();
-      expect(got).toBeInstanceOf(TextEditor);
+      expect(returnValue.props.symbolizer.kind).toEqual('Text');
     });
     it('returns the unknownSymbolizerText prop as default', () => {
       const func = wrapper.instance().getUiFromSymbolizer;
