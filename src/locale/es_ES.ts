@@ -85,11 +85,7 @@ export default {
     downloadButtonLabel: 'Guardar archivo',
     copyButtonLabel: 'Copiar al portapapeles',
     formatSelectLabel: 'Formato',
-    styleCopied: 'Estilo copiado al portapapales!',
-    symbolizerUnitsLabel: 'Unidades simbolizadoras',
-    symbolizerUnitsPixel: 'Pixel',
-    symbolizerUnitsMeter: 'Metro',
-    symbolizerUnitsFoot: 'Escándalo'
+    styleCopied: 'Estilo copiado al portapapales!'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radio',
@@ -273,6 +269,12 @@ export default {
   },
   GsIconSelector: {
     librarySelectLabel: 'Seleccionar biblioteca'
+  },
+  GsSLDUnitsSelect: {
+    symbolizerUnitsLabel: 'Unidades simbolizadoras',
+    symbolizerUnitsPixel: 'Pixel',
+    symbolizerUnitsMeter: 'Metro',
+    symbolizerUnitsFoot: 'Escándalo'
   },
   ...es_ES
 };

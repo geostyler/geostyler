@@ -60,6 +60,7 @@ import _isEqual from 'lodash/isEqual';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import SldStyleParser from 'geostyler-sld-parser';
+import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 
 // i18n
 export interface CodeEditorLocale {
@@ -67,10 +68,6 @@ export interface CodeEditorLocale {
   formatSelectLabel: string;
   copyButtonLabel: string;
   styleCopied: string;
-  symbolizerUnitsLabel: string;
-  symbolizerUnitsPixel: string;
-  symbolizerUnitsMeter: string;
-  symbolizerUnitsFoot: string;
 }
 
 interface CodeEditorDefaultProps {
@@ -101,7 +98,6 @@ interface CodeEditorState {
   value: string;
   invalidMessage?: string;
   activeParser?: StyleParser;
-  symbolizerUnit: string;
   hasError: boolean;
 }
 
@@ -126,8 +122,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     this.editTimeout =  null;
     this.state = {
       value: '',
-      hasError: false,
-      symbolizerUnit: 'pixel'
+      hasError: false
     };
   }
 
@@ -251,9 +246,6 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     } = this.state;
     const parser = activeParser as SldStyleParser;
     parser.symbolizerUnits = selection;
-    this.setState({
-      symbolizerUnit: selection
-    });
     if (style) {
       this.updateValueFromStyle(style);
     }
@@ -350,8 +342,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     const activeParser: any = this.state.activeParser;
     const {
       hasError,
-      value,
-      symbolizerUnit
+      value
     } = this.state;
     if (hasError) {
       return <h1>An error occured in the CodeEditor UI.</h1>;
@@ -371,21 +362,9 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
           {activeParser &&
           activeParser.sldVersion &&
           activeParser.sldVersion !== '1.0.0' &&
-            <>
-              <span className="symbolizer-units-label">
-                {locale.symbolizerUnitsLabel}:
-              </span>
-              <Select
-                className="gs-code-editor-format-select"
-                style={{ width: 100 }}
-                onSelect={this.onUnitSelect}
-                value={symbolizerUnit}
-              >
-                <Option value="pixel">{locale.symbolizerUnitsPixel}</Option>
-                <Option value="meter">{locale.symbolizerUnitsMeter}</Option>
-                <Option value="foot">{locale.symbolizerUnitsFoot}</Option>
-              </Select>
-            </>
+            <SLDUnitsSelect
+              changeHandler={this.onUnitSelect}
+            />
           }
         </div>
         <CodeMirror

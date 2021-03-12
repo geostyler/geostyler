@@ -26,40 +26,23 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-.gs-code-editor{
-  height: 100%;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+import SLDUnitsSelect, { SLDUnitsSelectProps } from './SLDUnitsSelect';
+import TestUtil from '../../../Util/TestUtil';
 
-  .gs-code-editor-codemirror {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-  }
+describe('SLDUnitsSelect', () => {
 
-  .CodeMirror {
-    flex: 1;
-  }
+  let wrapper: any;
 
-  .gs-code-editor-errormessage {
-    color: red;
-    background-color: lightgray;
-  }
+  beforeEach(() => {
+    const props: SLDUnitsSelectProps = {};
+    wrapper = TestUtil.shallowRenderComponent(SLDUnitsSelect, props);
+  });
 
-  .gs-code-editor-toolbar,
-  .gs-code-editor-bottombar {
-    width: 100%;
-    padding: 5px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  it('is defined', () => {
+    expect(SLDUnitsSelect).toBeDefined();
+  });
 
-  .gs-code-editor-download-button,
-  .gs-code-editor-copy-button {
-    margin: 0 5px;
-  }
-}
+  it('renders correctly', () => {
+    expect(wrapper).not.toBeUndefined();
+  });
+});

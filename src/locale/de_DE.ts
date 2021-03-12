@@ -84,11 +84,7 @@ export default {
     downloadButtonLabel: 'Als Datei speichern',
     copyButtonLabel: 'In Zwischenablage kopieren',
     formatSelectLabel: 'Format',
-    styleCopied: 'Style in Zwischenablage kopiert!',
-    symbolizerUnitsLabel: 'Symbolizer Einheiten',
-    symbolizerUnitsPixel: 'Pixel',
-    symbolizerUnitsMeter: 'Meter',
-    symbolizerUnitsFoot: 'Fuß'
+    styleCopied: 'Style in Zwischenablage kopiert!'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radius',
@@ -331,6 +327,12 @@ export default {
   },
   GsIconSelector: {
     librarySelectLabel: 'Wähle Bibliothek'
+  },
+  GsSLDUnitsSelect: {
+    symbolizerUnitsLabel: 'Symbolizer Einheiten',
+    symbolizerUnitsPixel: 'Pixel',
+    symbolizerUnitsMeter: 'Meter',
+    symbolizerUnitsFoot: 'Fuß'
   },
   ...de_DE
 };
