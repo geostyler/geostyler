@@ -108,7 +108,7 @@ export class SLDUnitsSelect extends React.Component<SLDUnitsSelectProps, SLDUnit
           value={symbolizerUnit}
         >
           <Option value="pixel">{locale.symbolizerUnitsPixel}</Option>
-          <Option value="meter">{locale.symbolizerUnitsMeter}</Option>
+          <Option value="metre">{locale.symbolizerUnitsMeter}</Option>
           <Option value="foot">{locale.symbolizerUnitsFoot}</Option>
         </Select>
       </>
