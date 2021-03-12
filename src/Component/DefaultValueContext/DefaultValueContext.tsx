@@ -57,7 +57,7 @@ export interface DefaultValues {
     defaultOutlineOpacity?: number;
   };
   TextEditor?: {
-    defaultTemplate?: string;
+    defaultLabel?: string;
     defaultColor?: string;
     defaultFont?: string;
     defaultOpacity?: number;
@@ -77,8 +77,8 @@ export interface DefaultValues {
   };
   WellKnownNameEditor?: {
     defaultRadius?: string;
-    defaultFillColor?: string;
-    defaultFillOpacity?: number;
+    defaultColor?: string;
+    defaultOpacity?: number;
     defaultStrokeColor?: string;
     defaultStrokeWidth?: number;
     defaultStrokeOpacity?: number;

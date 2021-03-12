@@ -224,7 +224,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
                   onChange: this.onColorChange,
                   propName: 'color',
                   propValue: color,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultFillColor,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultColor,
                   defaultElement: <ColorField />
                 })
               )
@@ -238,7 +238,7 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
                   onChange: this.onOpacityChange,
                   propName: 'opacity',
                   propValue: opacity,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultFillOpacity,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultOpacity,
                   defaultElement: <OpacityField />
                 })
               )

@@ -280,7 +280,7 @@ export class TextEditor extends React.Component<TextEditorProps> {
                   onChange: this.onLabelChange,
                   propName: 'value',
                   propValue: symbolizer.label || '',
-                  defaultValue: defaultValues?.TextEditor?.defaultTemplate,
+                  defaultValue: defaultValues?.TextEditor?.defaultLabel,
                   defaultElement: (
                     <Mentions
                       placeholder={locale.templateFieldLabel}
