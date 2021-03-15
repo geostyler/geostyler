@@ -174,6 +174,32 @@ npm run build:dist
 ```
 Changes will automatically be updated in the browser. Please also provide tests and a minimal code example as \<ComponentName\>.example.md, if you add a new component, so the api documentation will always be up to date and other users can benefit from your work.
 
+### Troubleshooting
+`Invalid hook call` error:
+If the demo does not start but shows the above error it means that `geostyler-demo` and `geostyler` are using different react sources. To fixes this issue you need to add `react` to `resolve.alias` the `webpack.config.js` of create-react-app:
+In the project geostyler-demo in the file node_modules/react-scripts/config/webpack.config.js (~ line 320):
+```javavscript
+[...]
+    resolve: {
+    [...]
+      alias: {
+        // Support React Native Web
+        // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
+        'react-native': 'react-native-web',
+        // Fixes npm link
+        'react': path.join(__dirname, '../../', 'react'),
+        // Allows for better profiling with ReactDevTools
+        ...(isEnvProductionProfile && {
+          'react-dom$': 'react-dom/profiling',
+          'scheduler/tracing': 'scheduler/tracing-profiling',
+        }),
+        ...(modules.webpackAliases || {}),
+      },
+    [...]
+    },
+[...]
+```
+
 ### <a name="developing-geostyler-style-parsers"></a>Developing GeoStyler Style Parsers
 
 If you want to write your own style parser please take a look at the existing parsers for a consistent project setup. Developing them is a straighforward task, but don't forget: **style parsers have to implement the [GeoStyler Style interface](https://github.com/geostyler/geostyler-style).**
@@ -199,7 +225,6 @@ npm link <wanted-parser>
 ```
 
 from within the GeoStyler Demo.
-
 ### <a name="developing-geostyler-data-parsers"></a>Developing GeoStyler Data Parsers
 
 Developing GeoStyler data parsers follows the same pattern as described in [Developing GeoStyler Style Parser](#Developing-GeoStyler-Style-Parsers), but keep in mind that **data parsers have to implement the [GeoStyler Data interface](https://github.com/geostyler/geostyler-data).**
