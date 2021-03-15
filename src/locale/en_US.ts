@@ -91,6 +91,7 @@ export default {
     radiusLabel: 'Radius',
     fillOpacityLabel: 'Fill-Opacity',
     fillColorLabel: 'Fill-Color',
+    opacityLabel: 'Opacity',
     strokeColorLabel: 'Stroke-Color',
     strokeWidthLabel: 'Stroke-Width',
     strokeOpacityLabel: 'Stroke-Opacity',

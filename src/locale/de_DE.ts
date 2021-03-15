@@ -90,6 +90,7 @@ export default {
     radiusLabel: 'Radius',
     fillOpacityLabel: 'Fülldeckkraft',
     fillColorLabel: 'Füllfarbe',
+    opacityLabel: 'Deckkraft',
     strokeColorLabel: 'Strichfarbe',
     strokeWidthLabel: 'Strichstärke',
     strokeOpacityLabel: 'Strichdeckkraft',

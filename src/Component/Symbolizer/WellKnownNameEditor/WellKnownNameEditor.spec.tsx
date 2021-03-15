@@ -85,6 +85,16 @@ describe('WellKnownNameEditor', () => {
     });
   });
 
+  describe('onFillOpacityChange', () => {
+    it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
+      const onFillOpacityChange = wrapper.instance().onFillOpacityChange;
+      const newSymbolizer = {...dummySymbolizer};
+      newSymbolizer.fillOpacity = 0.76;
+      onFillOpacityChange(0.76);
+      expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+    });
+  });
+
   describe('onStrokeColorChange', () => {
     it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
       const onStrokeColorChange = wrapper.instance().onStrokeColorChange;
