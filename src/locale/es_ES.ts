@@ -91,6 +91,7 @@ export default {
     radiusLabel: 'Radio',
     fillOpacityLabel: 'Relleno-Transparencia',
     fillColorLabel: 'Fondo-Color',
+    opacityLabel: 'Transparencia',
     strokeColorLabel: 'Trazo-Color',
     strokeWidthLabel: 'Trazo-Ancho',
     strokeOpacityLabel: 'Trazo-Transparencia',

@@ -79,6 +79,7 @@ export interface DefaultValues {
     defaultRadius?: string;
     defaultColor?: string;
     defaultOpacity?: number;
+    defaultFillOpacity?: number;
     defaultStrokeColor?: string;
     defaultStrokeWidth?: number;
     defaultStrokeOpacity?: number;

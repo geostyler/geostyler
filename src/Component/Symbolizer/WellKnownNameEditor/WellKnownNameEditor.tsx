@@ -54,6 +54,7 @@ interface WellKnownNameEditorLocale {
   radiusLabel?: string;
   fillOpacityLabel?: string;
   fillColorLabel?: string;
+  opacityLabel?: string;
   strokeColorLabel?: string;
   strokeWidthLabel?: string;
   strokeOpacityLabel?: string;
@@ -114,6 +115,19 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     symbolizer.opacity = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
+    }
+  };
+
+  onFillOpacityChange = (fillOpacity: number) => {
+    const {
+      onSymbolizerChange,
+      symbolizer
+    } = this.props;
+    if (onSymbolizerChange) {
+      onSymbolizerChange({
+        ...symbolizer,
+        fillOpacity
+      });
     }
   };
 
@@ -188,13 +202,14 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     } = this.props;
 
     const {
-      radius,
       color,
+      fillOpacity,
       opacity,
+      radius,
       rotate,
       strokeColor,
-      strokeWidth,
-      strokeOpacity
+      strokeOpacity,
+      strokeWidth
     } = symbolizer;
 
     return (
@@ -231,14 +246,28 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
             }
             {
               this.wrapFormItem(
-                locale.fillOpacityLabel,
+                locale.opacityLabel,
                 CompositionUtil.handleComposition({
                   composition,
-                  path: 'WellKnownNameEditor.fillOpacityField',
+                  path: 'WellKnownNameEditor.opacityField',
                   onChange: this.onOpacityChange,
                   propName: 'opacity',
                   propValue: opacity,
                   defaultValue: defaultValues?.WellKnownNameEditor?.defaultOpacity,
+                  defaultElement: <OpacityField />
+                })
+              )
+            }
+            {
+              this.wrapFormItem(
+                locale.fillOpacityLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'WellKnownNameEditor.fillOpacityField',
+                  onChange: this.onFillOpacityChange,
+                  propName: 'opacity',
+                  propValue: fillOpacity,
+                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultFillOpacity,
                   defaultElement: <OpacityField />
                 })
               )

@@ -91,6 +91,7 @@ export default {
     radiusLabel: '半径',
     fillOpacityLabel: '填充-不透明度',
     fillColorLabel: '填充-颜色',
+    opacityLabel: '不透明度',
     strokeColorLabel: '描边-颜色',
     strokeWidthLabel: '描边-宽度',
     strokeOpacityLabel: '描边-不透明度',
