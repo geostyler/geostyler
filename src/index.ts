@@ -102,6 +102,7 @@ import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
 import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
 import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
 import RuleTable from './Component/RuleTable/RuleTable';
+import LegacyCodeEditor from './Component/Legacy/CodeEditor/CodeEditor';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 import { CompositionContext } from './Component/CompositionContext/CompositionContext';
 import { DefaultValueContext } from './Component/DefaultValueContext/DefaultValueContext';
@@ -152,6 +153,7 @@ export {
   IconSelectorWindow,
   ImageField,
   KindField,
+  LegacyCodeEditor,
   LineCapField,
   LineDashField,
   LineEditor,
