@@ -27,7 +27,7 @@
  */
 
 import { CodeEditor, CodeEditorProps } from './CodeEditor';
-import TestUtil from '../../Util/TestUtil';
+import TestUtil from '../../../Util/TestUtil';
 
 import SldStyleParser from 'geostyler-sld-parser';
 import { StyleParser } from 'geostyler-style';
@@ -118,7 +118,7 @@ describe('CodeEditor', () => {
             const valueFromStyleInput = wrapper.instance().valueFromStyleInput;
             const value = await valueFromStyleInput(dummyStyle);
             expect(value).toEqual(sld);
-            resolve();
+            resolve(true);
           });
       });
     });
@@ -156,7 +156,7 @@ describe('CodeEditor', () => {
             const styleFromValue = wrapper.instance().styleFromValue;
             const value = await styleFromValue(sld);
             expect(value).toEqual(dummyStyle);
-            resolve();
+            resolve(true);
           });
       });
     });
@@ -231,15 +231,5 @@ describe('CodeEditor', () => {
       });
     });
   });
-
-  // TODO
-  // describe('onDownloadButtonClick', () => {
-  //   it('calls saveAs', () => {
-  //     const spy = jest.spyOn(fileSaver, 'saveAs');
-  //     const onDownloadButtonClick = wrapper.instance().onDownloadButtonClick;
-  //     onDownloadButtonClick();
-  //     expect(spy).toBeCalled();
-  //   });
-  // });
 
 });
