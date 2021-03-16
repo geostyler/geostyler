@@ -6,7 +6,7 @@
     "outDir": "dist",
     "module": "commonjs",
     "target": "es5",
-    "lib": ["es7", "dom"],
+    "lib": ["es2020", "dom"],
     "sourceMap": true,
     "allowJs": false,
     "jsx": "react",
