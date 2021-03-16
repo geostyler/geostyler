@@ -57,6 +57,7 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import SldStyleParser from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
+import { usePrevious } from '../../hook/UsePrevious';
 
 // i18n
 export interface CodeEditorLocale {
@@ -95,7 +96,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   defaultParser,
   delay = 500,
   locale = en_US.GsCodeEditor,
-  onStyleChange,
+  onStyleChange = () => undefined,
   parsers = [],
   showCopyButton = false,
   showSaveButton = false,
@@ -109,6 +110,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const [value, setValue] = useState<string>('');
   const [invalidMessage, setInvalidMessage] = useState<string>('');
   const [hasError, setHasError] = useState<boolean>(false);
+  const previousStyle = usePrevious(style);
   const monaco = useMonaco();
 
   useEffect(() => {
@@ -128,7 +130,12 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     setHasError(false);
     (new Promise(async () => {
       if (activeParser) {
-        activeParser.writeStyle(s).then((v) => setValue(v));
+        try {
+          const parsedStyle = await activeParser.writeStyle(s);
+          setValue(parsedStyle);
+        } catch (error) {
+          setHasError(true);
+        }
       } else {
         setValue(JSON.stringify(s, null, 2));
       }
@@ -136,8 +143,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   }, [activeParser]);
 
   useEffect(() => {
-    updateValueFromStyle(style);
-  }, [activeParser, style, updateValueFromStyle]);
+    if (!_isEqual(previousStyle, style)) {
+      updateValueFromStyle(style);
+    }
+  }, [activeParser, style, updateValueFromStyle, previousStyle]);
 
   useEffect(() => {
     setIsSldParser(activeParser?.title.includes('SLD'));
@@ -147,30 +156,14 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     return (<h1>An error occured in the CodeEditor UI.</h1>);
   }
 
-  const styleFromValue = async (v: string) => {
-    return new Promise((resolve) => {
-      if (activeParser) {
-        resolve(activeParser.readStyle(v));
-      } else {
-        resolve(JSON.parse(v));
-      }
-    });
-  };
-
-  const onChange = (v: string) => {
+  const onChange = async (v: string) => {
     setValue(v);
     setInvalidMessage(undefined);
     try {
-      styleFromValue(v)
-        .then((s: GsStyle) => {
-          if (onStyleChange) {
-            onStyleChange(s);
-          }
-        }).catch(err => {
-          setInvalidMessage(err.message);
-        });
+      const parsedStyle = activeParser ? await activeParser.readStyle(v) : JSON.parse(v);
+      onStyleChange(parsedStyle);
     } catch (err) {
-      setInvalidMessage('Error');
+      setInvalidMessage(err.message);
     }
   };
 
