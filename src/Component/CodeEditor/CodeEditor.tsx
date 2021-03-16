@@ -126,7 +126,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const updateValueFromStyle = useCallback((s: GsStyle) => {
     setHasError(false);
-    (new Promise(async (resolve) => {
+    (new Promise(async () => {
       if (activeParser) {
         activeParser.writeStyle(s).then((v) => setValue(v));
       } else {
@@ -148,7 +148,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   }
 
   const styleFromValue = async (v: string) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (activeParser) {
         resolve(activeParser.readStyle(v));
       } else {
@@ -260,8 +260,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         >
           {parserOptions}
         </Select>
-        {parserHasUnitSelect &&
-          <SLDUnitsSelect changeHandler={onUnitSelect}/>
+        {
+          parserHasUnitSelect &&
+            <SLDUnitsSelect changeHandler={onUnitSelect}/>
         }
       </div>
       <Editor
