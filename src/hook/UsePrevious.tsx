@@ -25,34 +25,29 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+import { useEffect, useRef } from 'react';
 
-.gs-code-editor{
-  height: 100%;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  .gs-code-editor-errormessage {
-    color: red;
-    background-color: lightgray;
-  }
-
-  .gs-code-editor-toolbar,
-  .gs-code-editor-bottombar {
-    width: 100%;
-    padding: 5px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .gs-code-editor-format-select {
-      width: 300px;
-    }
-  }
-
-  .gs-code-editor-download-button,
-  .gs-code-editor-copy-button {
-    margin: 0 5px;
-  }
-}
+/**
+ * Hook to store a state value for comparison in a useEffect hook.
+ * e.G.
+ *    ```
+ *    const [value, setValue] = useState();
+ *    const previousValue = usePrevious(value);
+ *
+ *    useEffect(() => {
+ *      if(value.a !== previousValue.a) {
+ *        // do something
+ *      }
+ *    }, []);
+ *    ```
+ *
+ * @param value The variable value that should be stored.
+ * @returns The previously stored variable value.
+ */
+export const usePrevious = <T extends unknown>(value: T): T | undefined => {
+  const ref = useRef<T>();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+};

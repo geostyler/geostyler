@@ -26,15 +26,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
-// Favourite Editor should be Monaco Editor but its React Wrapper is currently
-// not very stable
-import {
-  UnControlled as CodeMirror
-} from 'react-codemirror2';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/xml/xml';
-import 'codemirror/mode/javascript/javascript';
+import  React, { useCallback, useEffect, useState } from 'react';
+
+import Editor, { useMonaco } from '@monaco-editor/react';
 
 import 'blob';
 import {
@@ -55,12 +49,15 @@ import {
   StyleParser
 } from 'geostyler-style';
 
+import schema from 'geostyler-style/schema.json';
+
 import _isEqual from 'lodash/isEqual';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import SldStyleParser from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
+import { usePrevious } from '../../hook/UsePrevious';
 
 // i18n
 export interface CodeEditorLocale {
@@ -70,19 +67,16 @@ export interface CodeEditorLocale {
   styleCopied: string;
 }
 
-interface CodeEditorDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: CodeEditorLocale;
-  /** Delay in ms until onStyleChange will be called */
-  delay: number;
-  /** Show save button */
-  showSaveButton: boolean;
-  /** show copy button */
-  showCopyButton: boolean;
-}
-
 // non default props
-export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
+export interface CodeEditorProps {
+  /** Locale object containing translated text snippets */
+  locale?: CodeEditorLocale;
+  /** Delay in ms until onStyleChange will be called */
+  delay?: number;
+  /** Show save button */
+  showSaveButton?: boolean;
+  /** show copy button */
+  showCopyButton?: boolean;
   /** GeoStyler Style Object to display */
   style?: GsStyle;
   /** List of StylerParsers to parse from/to */
@@ -93,204 +87,124 @@ export interface CodeEditorProps extends Partial<CodeEditorDefaultProps> {
   onStyleChange?: (rule: GsStyle) => void;
 }
 
-// state
-interface CodeEditorState {
-  value: string;
-  invalidMessage?: string;
-  activeParser?: StyleParser;
-  hasError: boolean;
-}
+const MODELPATH = 'geostyler.json';  // associate with our model
+const SCHEMAURI = schema.$id;
 
-/**
- * The CodeEditor.
- */
-export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
+export const COMPONENTNAME = 'CodeEditor';
 
-  public static defaultProps: CodeEditorDefaultProps = {
-    locale: en_US.GsCodeEditor,
-    delay: 500,
-    showSaveButton: false,
-    showCopyButton: false
-  };
+export const CodeEditor: React.FC<CodeEditorProps> = ({
+  defaultParser,
+  delay = 500,
+  locale = en_US.GsCodeEditor,
+  onStyleChange = () => undefined,
+  parsers = [],
+  showCopyButton = false,
+  showSaveButton = false,
+  style
+}) => {
 
-  static componentName: string = 'CodeEditor';
+  let editTimeout: number;
 
-  private editTimeout: any;
+  const [activeParser, setActiveParser] = useState<StyleParser>(defaultParser);
+  const [isSldParser, setIsSldParser] = useState<boolean>(false);
+  const [value, setValue] = useState<string>('');
+  const [invalidMessage, setInvalidMessage] = useState<string>('');
+  const [hasError, setHasError] = useState<boolean>(false);
+  const previousStyle = usePrevious(style);
+  const previouseParser = usePrevious(activeParser);
+  const monaco = useMonaco();
 
-  constructor(props: CodeEditorProps) {
-    super(props);
-    this.editTimeout =  null;
-    this.state = {
-      value: '',
-      hasError: false
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      activeParser: this.props.defaultParser
-    }, () => {
-      if (this.props.style) {
-        this.updateValueFromStyle(this.props.style);
-      }
-    });
-  }
-
-  public shouldComponentUpdate(nextProps: CodeEditorProps, nextState: CodeEditorState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
-  componentDidUpdate(prevProps: CodeEditorProps, prevState: CodeEditorState) {
-    if (this.props.style && !_isEqual(this.props.style, prevProps.style)) {
-      this.updateValueFromStyle(this.props.style);
-    }
-  }
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    this.setState({
-      hasError: true
-    });
-  }
-
-  updateValueFromStyle = (style: GsStyle) => {
-    this.valueFromStyleInput(style)
-      .then((parsedStyle: string) => {
-        this.setState({
-          value: parsedStyle
-        });
-      });
-  };
-
-  getModeByParser = (): string => {
-    const activeParser: any = this.state.activeParser;
-    if (activeParser && activeParser.sldVersion) {
-      return 'application/xml';
-    }
-    return 'application/json';
-  };
-
-  valueFromStyleInput = (style: GsStyle) => {
-    const activeParser: any = this.state.activeParser;
-    return new Promise((resolve, reject) => {
-      if (activeParser) {
-        resolve(activeParser.writeStyle(style));
-      } else {
-        resolve(JSON.stringify(style, null, 2));
-      }
-    });
-  };
-
-  styleFromValue = (value: string) => {
-    const activeParser: any = this.state.activeParser;
-    return new Promise((resolve, reject) => {
-      if (activeParser) {
-        resolve(activeParser.readStyle(value));
-      } else {
-        resolve(JSON.parse(value));
-      }
-    });
-  };
-
-  /**
-   *
-   */
-  onChange = (editor: any, data: any, value: string) => {
-    this.setState({
-      value,
-      invalidMessage: undefined
-    });
-    const {
-      onStyleChange
-    } = this.props;
-    try {
-      this.styleFromValue(value)
-        .then((style: GsStyle) => {
-          if (onStyleChange) {
-            onStyleChange(style);
-          }
-        }).catch(err => {
-          this.setState({
-            invalidMessage: err.message
-          });
-        });
-    } catch (err) {
-      this.setState({
-        invalidMessage: 'Error'
+  useEffect(() => {
+    if (monaco) {
+      monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+        validate: true,
+        schemas: [{
+          uri: SCHEMAURI,
+          fileMatch: [MODELPATH],
+          schema
+        }]
       });
     }
-  };
+  }, [monaco]);
 
-  onSelect = (selection: string) => {
-    const {
-      parsers,
-      style
-    } = this.props;
-    if (parsers) {
-      const activeParser = parsers.find((parser: any) => parser.title === selection);
-      this.setState({activeParser}, () => {
-        if (style) {
-          this.updateValueFromStyle(style);
+  const updateValueFromStyle = useCallback((s: GsStyle) => {
+    setHasError(false);
+    (new Promise(async () => {
+      if (activeParser) {
+        try {
+          const parsedStyle = await activeParser.writeStyle(s);
+          setValue(parsedStyle);
+        } catch (error) {
+          setHasError(true);
         }
-      });
+      } else {
+        setValue(JSON.stringify(s, null, 2));
+      }
+    })).catch(() => setHasError(true));
+  }, [activeParser]);
+
+  useEffect(() => {
+    if (!_isEqual(previousStyle, style) || !_isEqual(previouseParser, activeParser) ) {
+      updateValueFromStyle(style);
+    }
+  }, [activeParser, style, updateValueFromStyle, previousStyle, previouseParser]);
+
+  useEffect(() => {
+    setIsSldParser(activeParser?.title.includes('SLD'));
+  }, [activeParser]);
+
+  if (hasError) {
+    return (<h1>An error occured in the CodeEditor UI.</h1>);
+  }
+
+  const onChange = async (v: string) => {
+    setValue(v);
+    setInvalidMessage(undefined);
+    try {
+      const parsedStyle = activeParser ? await activeParser.readStyle(v) : JSON.parse(v);
+      onStyleChange(parsedStyle);
+    } catch (err) {
+      setInvalidMessage(err.message);
     }
   };
 
-  onUnitSelect = (selection: string) => {
-    const {
-      style
-    } = this.props;
-    const {
-      activeParser,
-    } = this.state;
-    const parser = activeParser as SldStyleParser;
-    parser.symbolizerUnits = selection;
-    if (style) {
-      this.updateValueFromStyle(style);
+  const onParserSelect = (selection: string) => {
+    const parser = parsers.find((p: any) => p.title === selection);
+    setActiveParser(parser);
+  };
+
+  const onUnitSelect = (selection: string) => {
+    if (activeParser) {
+      const parser = activeParser as SldStyleParser;
+      parser.symbolizerUnits = selection;
+      updateValueFromStyle(style);
     }
   };
 
-  handleOnChange = (editor: any, data: any, value: string) => {
-    const {
-      delay
-    } = this.props;
-    clearTimeout(this.editTimeout);
-    this.editTimeout = setTimeout(
+  const handleOnChange = (v?: string) => {
+    clearTimeout(editTimeout);
+    editTimeout = window.setTimeout(
       () => {
-        this.onChange(editor, data, value);
+        onChange(v);
       },
       delay
     );
   };
 
-  getParserOptions = () => {
-    let parserOptions = [
-      <Option key="GeoStyler Style" value="GeoStyler Style" >Geostyler Style</Option>
-    ];
-    if (this.props.parsers) {
-      const additionalOptions = this.props.parsers.map((parser: any) => {
-        const title = parser.title;
-        return <Option key={title} value={title}>{title}</Option>;
-      });
-      return [...parserOptions, ...additionalOptions];
-    }
-    return parserOptions;
-  };
+  let parserOptions = [
+    <Option key="GeoStyler Style" value="GeoStyler Style" >Geostyler Style</Option>
+  ];
+  const additionalOptions = parsers.map((parser: any) => {
+    const title = parser.title;
+    return <Option key={title} value={title}>{title}</Option>;
+  });
+  parserOptions = [...parserOptions, ...additionalOptions];
 
-  onDownloadButtonClick = () => {
-    const activeParser: any = this.state.activeParser;
-    const {
-      value
-    } = this.state;
-    const {
-      style
-    } = this.props;
+  const onDownloadButtonClick = () => {
     if (style) {
       let fileName = style.name;
       let type = 'application/json;charset=utf-8';
-      const title = activeParser && activeParser.title;
-      if (title === 'SLD Style Parser') {
+      if (isSldParser) {
         type = 'text/xml;charset=utf-8';
         fileName += '.sld';
       }
@@ -299,11 +213,8 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     }
   };
 
-  onCopyButtonClick = () => {
-    const {
-      value
-    } = this.state;
-    this.copyToClipboard(value);
+  const onCopyButtonClick = () => {
+    copyToClipboard(value);
   };
 
   /**
@@ -312,10 +223,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
    *
    * @param {string} str The string to copy to the clipboard.
    */
-  copyToClipboard = (str: string) => {
-    const {
-      locale
-    } = this.props;
+  const copyToClipboard = (str: string) => {
     const el = document.createElement('textarea');
     el.value = str;
     el.setAttribute('readonly', '');
@@ -333,81 +241,57 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     }
   };
 
-  render() {
-    const {
-      locale,
-      showSaveButton,
-      showCopyButton
-    } = this.props;
-    const activeParser: any = this.state.activeParser;
-    const {
-      hasError,
-      value
-    } = this.state;
-    if (hasError) {
-      return <h1>An error occured in the CodeEditor UI.</h1>;
-    }
+  const parserHasUnitSelect = isSldParser && activeParser && (activeParser as SldStyleParser).sldVersion !== '1.0.0';
 
-    return (
-      <div className="gs-code-editor">
-        <div className="gs-code-editor-toolbar" >
-          {locale.formatSelectLabel}: <Select
-            className="gs-code-editor-format-select"
-            style={{ width: 300 }}
-            onSelect={this.onSelect}
-            value={activeParser ? activeParser.title : 'GeoStyler Style'}
-          >
-            {this.getParserOptions()}
-          </Select>
-          {activeParser &&
-          activeParser.sldVersion &&
-          activeParser.sldVersion !== '1.0.0' &&
-            <SLDUnitsSelect
-              changeHandler={this.onUnitSelect}
-            />
-          }
-        </div>
-        <CodeMirror
-          className="gs-code-editor-codemirror"
-          value={value}
-          autoCursor={false}
-          options={{
-            gutters: ['CodeMirror-lint-markers'],
-            lint: true,
-            mode: this.getModeByParser(),
-            lineNumbers: true,
-            lineWrapping: true
-          }}
-          onChange={this.handleOnChange}
-        />
-        <div className="gs-code-editor-errormessage">
-          {this.state.invalidMessage}
-        </div>
-        <div className="gs-code-editor-bottombar">
-          {
-            !showCopyButton ? null :
-              <Button
-                className="gs-code-editor-copy-button"
-                type="primary"
-                onClick={this.onCopyButtonClick}
-              >
-                {locale.copyButtonLabel}
-              </Button>
-          }
-          {
-            !showSaveButton ? null :
-              <Button
-                className="gs-code-editor-download-button"
-                type="primary"
-                onClick={this.onDownloadButtonClick}
-              >
-                {locale.downloadButtonLabel}
-              </Button>
-          }
-        </div>
+  return (
+    <div className="gs-code-editor">
+      <div className="gs-code-editor-toolbar" >
+        {locale.formatSelectLabel}: <Select
+          className="gs-code-editor-format-select"
+          onSelect={onParserSelect}
+          value={activeParser ? activeParser.title : 'GeoStyler Style'}
+        >
+          {parserOptions}
+        </Select>
+        {
+          parserHasUnitSelect &&
+            <SLDUnitsSelect changeHandler={onUnitSelect}/>
+        }
       </div>
-    );
-  }
-}
+      <Editor
+        className="gs-code-editor-monaco"
+        value={value}
+        path={isSldParser ? undefined : MODELPATH}
+        language={isSldParser ? 'xml' : 'json'}
+        onChange={handleOnChange}
+      />
+      <div className="gs-code-editor-errormessage">
+        {invalidMessage}
+      </div>
+      <div className="gs-code-editor-bottombar">
+        {
+          showCopyButton &&
+            <Button
+              className="gs-code-editor-copy-button"
+              type="primary"
+              onClick={onCopyButtonClick}
+            >
+              {locale.copyButtonLabel}
+            </Button>
+        }
+        {
+          showSaveButton &&
+            <Button
+              className="gs-code-editor-download-button"
+              type="primary"
+              onClick={onDownloadButtonClick}
+            >
+              {locale.downloadButtonLabel}
+            </Button>
+        }
+      </div>
+    </div>
+  );
+};
 
-export default localize(CodeEditor, CodeEditor.componentName);
+export default localize(CodeEditor, COMPONENTNAME);
