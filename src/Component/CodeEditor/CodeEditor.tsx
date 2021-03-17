@@ -87,8 +87,8 @@ export interface CodeEditorProps {
   onStyleChange?: (rule: GsStyle) => void;
 }
 
-const MODELPATH = 'geostlyer.json';  // associate with our model
-const SCHEMAURI = 'http://geostyler/geostyler-style.json'; // id of the schema
+const MODELPATH = 'geostyler.json';  // associate with our model
+const SCHEMAURI = schema.$id;
 
 export const COMPONENTNAME = 'CodeEditor';
 
@@ -103,7 +103,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   style
 }) => {
 
-  let editTimeout: any;
+  let editTimeout: number;
 
   const [activeParser, setActiveParser] = useState<StyleParser>(defaultParser);
   const [isSldParser, setIsSldParser] = useState<boolean>(false);
@@ -111,6 +111,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const [invalidMessage, setInvalidMessage] = useState<string>('');
   const [hasError, setHasError] = useState<boolean>(false);
   const previousStyle = usePrevious(style);
+  const previouseParser = usePrevious(activeParser);
   const monaco = useMonaco();
 
   useEffect(() => {
@@ -143,10 +144,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   }, [activeParser]);
 
   useEffect(() => {
-    if (!_isEqual(previousStyle, style)) {
+    if (!_isEqual(previousStyle, style) || !_isEqual(previouseParser, activeParser) ) {
       updateValueFromStyle(style);
     }
-  }, [activeParser, style, updateValueFromStyle, previousStyle]);
+  }, [activeParser, style, updateValueFromStyle, previousStyle, previouseParser]);
 
   useEffect(() => {
     setIsSldParser(activeParser?.title.includes('SLD'));
@@ -182,7 +183,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const handleOnChange = (v?: string) => {
     clearTimeout(editTimeout);
-    editTimeout = setTimeout(
+    editTimeout = window.setTimeout(
       () => {
         onChange(v);
       },
@@ -247,7 +248,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       <div className="gs-code-editor-toolbar" >
         {locale.formatSelectLabel}: <Select
           className="gs-code-editor-format-select"
-          style={{ width: 300 }}
           onSelect={onParserSelect}
           value={activeParser ? activeParser.title : 'GeoStyler Style'}
         >
@@ -270,7 +270,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       </div>
       <div className="gs-code-editor-bottombar">
         {
-          !showCopyButton ? null :
+          showCopyButton &&
             <Button
               className="gs-code-editor-copy-button"
               type="primary"
@@ -280,7 +280,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
             </Button>
         }
         {
-          !showSaveButton ? null :
+          showSaveButton &&
             <Button
               className="gs-code-editor-download-button"
               type="primary"
