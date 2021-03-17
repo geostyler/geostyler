@@ -294,7 +294,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
               </span>
             }
           >
-            {this.getNodeByFilter(filter[1], `${position}[1]`)}
+            {this.getNodeByFilter(filter[1] as GsFilter, `${position}[1]`)}
           </TreeNode>
         );
       default:
@@ -479,7 +479,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
    * Removes a subfilter from a given filter at the given position.
    */
   removeAtPosition = (filter: GsFilter, position: string): GsFilter => {
-    let newFilter = [...filter];
+    let newFilter = [...filter] as GsFilter;
     const dragNodeSubPosition = position.substr(position.length - 3);
     const dragNodeIndex = parseInt(dragNodeSubPosition.slice(1, 2), 10);
     const parentPosition = position.substring(0, position.length - 3);
@@ -501,7 +501,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     insertFilter: GsFilter,
     position: string,
     dropPosition: number
-  ) => {
+  ): GsFilter => {
     const dropTargetParentPosition = position.substring(0, position.length - 3);
     const dropTargetSubPosition = position.substr(position.length - 3);
     const dropTargetSubIndex = dropTargetParentPosition === ''
@@ -535,7 +535,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
       default:
         break;
     }
-    return newFilter;
+    return newFilter as GsFilter;
   };
 
   /**
@@ -552,7 +552,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
       node
     } = dropObject;
 
-    let newFilter = [...rootFilter];
+    let newFilter = [...rootFilter] as GsFilter;
 
     const dragNodePosition = dragNode.props.eventKey;
     const draggedFilter = _get(rootFilter, dragNodePosition);
