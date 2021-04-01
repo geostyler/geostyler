@@ -51,7 +51,9 @@ const TreeNode = Tree.TreeNode;
 
 import {
   Filter as GsFilter,
-  ComparisonFilter as GsComparisonFilter
+  ComparisonFilter as GsComparisonFilter,
+  NegationFilter as GsNegationFilter,
+  CombinationFilter as GsCombinationFilter
 } from 'geostyler-style';
 
 import './FilterTree.less';
@@ -63,6 +65,12 @@ import {
 import ComparisonFilter, { ComparisonFilterProps } from '../ComparisonFilter/ComparisonFilter';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import {
+  isCombinationFilter,
+  isComparisonFilter,
+  isFunctionFilter,
+  isNegationFilter
+} from 'geostyler-style/typeguards';
 
 interface FilterTreeLocale {
   andDrpdwnLabel: string;
@@ -169,7 +177,6 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
       locale,
       filterUiProps
     } = this.props;
-    const operator = filter[0];
 
     const addFilterMenu = (
       <Menu onClick={({key}) => this.addFilter(position, key.toString())}>
@@ -226,102 +233,98 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
       </Tooltip>
     );
 
-    const combinedFilters = filter.slice(1);
-    switch (operator) {
-      case '&&':
-        return (
-          <TreeNode
-            className="style-filter-node and-filter"
-            key={position}
-            isLeaf={false}
-            title={
-              <span className="node-title">
-                <span className="filter-text">{locale.andFilterText}</span>
-                <span className="filter-tools">
-                  {changeButton}
-                  {addButton}
-                  {removeButton}
-                </span>
+    if (isCombinationFilter(filter)) {
+      const combinedFilters = filter.slice(1);
+      return (
+        <TreeNode
+          className="style-filter-node and-filter"
+          key={position}
+          isLeaf={false}
+          title={
+            <span className="node-title">
+              <span className="filter-text">{locale.andFilterText}</span>
+              <span className="filter-tools">
+                {changeButton}
+                {addButton}
+                {removeButton}
               </span>
-            }
-          >
-            {
-              combinedFilters.map((subFilter, index) => {
-                const pos = `${position}[${index + 1}]`;
-                return this.getNodeByFilter(subFilter, pos);
-              })
-            }
-          </TreeNode>
-        );
-      case '||':
-        return (
-          <TreeNode
-            className="style-filter-node or-filter"
-            key={position}
-            isLeaf={false}
-            title={
-              <span className="node-title">
-                <span className="filter-text">{locale.orFilterText}</span>
-                <span className="filter-tools">
-                  {changeButton}
-                  {addButton}
-                  {removeButton}
-                </span>
+            </span>
+          }
+        >
+          {
+            combinedFilters.map((subFilter: GsFilter, index: number) => {
+              const pos = `${position}[${index + 1}]`;
+              return this.getNodeByFilter(subFilter, pos);
+            })
+          }
+        </TreeNode>
+      );
+    } else if (isNegationFilter(filter)) {
+      return (
+        <TreeNode
+          className="style-filter-node not-filter"
+          key={position}
+          isLeaf={false}
+          title={
+            <span className="node-title">
+              <span className="filter-text">{locale.notFilterText}</span>
+              <span className="filter-tools">
+                {changeButton}
+                {removeButton}
               </span>
-            }
-          >
-            {
-              combinedFilters.map((subFilter, index) => {
-                const pos = `${position}[${index + 1}]`;
-                return this.getNodeByFilter(subFilter, pos);
-              })
-            }
-          </TreeNode>
-        );
-      case '!':
-        return (
-          <TreeNode
-            className="style-filter-node not-filter"
-            key={position}
-            isLeaf={false}
-            title={
-              <span className="node-title">
-                <span className="filter-text">{locale.notFilterText}</span>
-                <span className="filter-tools">
-                  {changeButton}
-                  {removeButton}
-                </span>
+            </span>
+          }
+        >
+          {this.getNodeByFilter(filter[1], `${position}[1]`)}
+        </TreeNode>
+      );
+    } else if (isComparisonFilter(filter)) {
+      return (
+        <TreeNode
+          className="style-filter-node comparison-filter"
+          key={position}
+          isLeaf={true}
+          title={
+            <span className="node-title">
+              <span>
+                <ComparisonFilter
+                  microUI={true}
+                  internalDataDef={internalDataDef}
+                  filter={filter}
+                  onFilterChange={f => this.onComparisonFilterChange(f, position)}
+                  {...filterUiProps}
+                />
               </span>
-            }
-          >
-            {this.getNodeByFilter(filter[1] as GsFilter, `${position}[1]`)}
-          </TreeNode>
-        );
-      default:
-        return (
-          <TreeNode
-            className="style-filter-node comparison-filter"
-            key={position}
-            isLeaf={true}
-            title={
-              <span className="node-title">
-                <span>
-                  <ComparisonFilter
-                    microUI={true}
-                    internalDataDef={internalDataDef}
-                    filter={filter as GsComparisonFilter}
-                    onFilterChange={f => this.onComparisonFilterChange(f, position)}
-                    {...filterUiProps}
-                  />
-                </span>
-                <span className="filter-tools">
-                  {changeButton}
-                  {removeButton}
-                </span>
+              <span className="filter-tools">
+                {changeButton}
+                {removeButton}
               </span>
-            }
-          />
-        );
+            </span>
+          }
+        />
+      );
+    } else if (isFunctionFilter(filter)) {
+      <TreeNode
+        className="style-filter-node function-filter"
+        key={position}
+        isLeaf={true}
+        title={
+          <span className="node-title">
+            Function filter not supported yet.
+          </span>
+        }
+      />;
+    } else {
+      <TreeNode
+        className="style-filter-node unknown-filter"
+        key={position}
+        isLeaf={true}
+        title={
+          <span className="node-title">
+            Unknown filter supplied.
+          </span>
+        }
+      />;
     }
   };
 
@@ -337,29 +340,29 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     } = this.props;
 
     let addedFilter: GsFilter ;
-    // const newFilter: GsFilter = [...filter];
-    const newFilter: GsFilter = _cloneDeep(filter);
+    let newFilter: GsFilter = _cloneDeep(filter);
 
     switch (type) {
       case 'and':
-        addedFilter = ['&&', ['==', '', ''], ['==', '', '']];
+        addedFilter = ['&&', ['==', '', ''], ['==', '', '']] as GsCombinationFilter;
         break;
       case 'or':
-        addedFilter = ['||', ['==', '', ''], ['==', '', '']];
+        addedFilter = ['||', ['==', '', ''], ['==', '', '']] as GsCombinationFilter;
         break;
       case 'not':
-        addedFilter = ['!', ['==', '', '']];
+        addedFilter = ['!', ['==', '', '']] as GsNegationFilter;
         break;
       case 'comparison':
       default:
-        addedFilter = ['==', '', ''];
+        addedFilter = ['==', '', ''] as GsComparisonFilter;
         break;
     }
 
     if (position === '') {
+      newFilter = newFilter as GsCombinationFilter;
       newFilter.push(addedFilter);
     } else {
-      const previousFilter = _get(newFilter, position);
+      const previousFilter: GsCombinationFilter = _get(newFilter, position);
       previousFilter.push(addedFilter);
       _set(newFilter, position, previousFilter);
     }
@@ -555,9 +558,11 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     let newFilter = [...rootFilter] as GsFilter;
 
     const dragNodePosition = dragNode.props.eventKey;
-    const draggedFilter = _get(rootFilter, dragNodePosition);
+    const draggedFilter: GsFilter = _get(rootFilter, dragNodePosition) as GsFilter;
     const dragParentPosition = dragNodePosition.substring(0, dragNodePosition.length - 3);
-    const dragParentFilter = dragParentPosition === '' ? rootFilter : _get(rootFilter, dragParentPosition);
+    const dragParentFilter: GsFilter = dragParentPosition === ''
+      ? rootFilter
+      : _get(rootFilter, dragParentPosition) as GsFilter;
     const dragPositionArray = this.positionStringAsArray(dragNodePosition);
     const dragSubPosition = dragPositionArray[dragPositionArray.length - 1];
 
