@@ -324,6 +324,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
             help={classificationMethod === 'kmeans'
               ? locale.numberOfRulesViaKmeans
               : numberOfRules < this.minNrClasses
+                // eslint-disable-next-line max-len
                 ? `${locale.colorRampMinClassesWarningPre} ${this.minNrClasses} ${locale.colorRampMinClassesWarningPost}`
                 : undefined
             }

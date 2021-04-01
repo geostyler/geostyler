@@ -49,7 +49,7 @@ module.exports = {
     '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.js'
   },
   "transformIgnorePatterns": [
-    "<rootDir>/node_modules/(?!(ol|antd))"
+    "<rootDir>/node_modules/(?!(ol|antd|geostyler-style))"
   ],
   "moduleFileExtensions": [
     "ts",

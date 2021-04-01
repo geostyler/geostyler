@@ -52,7 +52,10 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)$/,
-        include: __dirname + '/src',
+        include: [
+          __dirname + '/src',
+          __dirname + '/node_modules/geostyler-style'
+        ],
         use: [
           {
             loader: require.resolve('ts-loader'),
