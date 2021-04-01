@@ -28,15 +28,20 @@
 
 import {
   Filter,
-  Operator,
-  Rule
+  ComparisonFilter,
+  Rule,
+  CombinationFilter,
+  NegationFilter
 } from 'geostyler-style';
+
+import { isCombinationFilter, isComparisonFilter, isNegationFilter } from 'geostyler-style/typeguards';
 
 import {
   VectorData
 } from 'geostyler-data';
 
 import _get from 'lodash/get';
+import _isString from 'lodash/isString';
 
 export type CountResult = {
   counts?: number[];
@@ -44,7 +49,7 @@ export type CountResult = {
 };
 
 /**
- * @class SymbolizerUtil
+ * @class FilterUtil
  */
 class FilterUtil {
 
@@ -53,7 +58,7 @@ class FilterUtil {
   /**
    * Handle nested filters.
    */
-  static handleNestedFilter = (filter: Filter, feature: any): boolean => {
+  static handleNestedFilter = (filter: CombinationFilter | NegationFilter, feature: any): boolean => {
     switch (filter[0]) {
       case '&&':
         let intermediate = true;
@@ -83,13 +88,14 @@ class FilterUtil {
   /**
    * Handle simple filters, i.e. non-nested filters.
    */
-  static handleSimpleFilter = (filter: Filter, feature: any): boolean => {
-    const featureValue: any = _get(feature, 'properties[' + filter[1] + ']');
-    const filterValue = filter[2];
+  static handleSimpleFilter = (filter: ComparisonFilter, feature: any): boolean => {
+    const featureValue = _get(feature, 'properties[' + filter[1] + ']');
+    let filterValue = filter[2];
     switch (filter[0]) {
       case '==':
         return (('' + featureValue) === ('' + filterValue));
       case '*=':
+        filterValue = filterValue as string;
         if (featureValue && filterValue.length > featureValue.length) {
           return false;
         } else if (featureValue) {
@@ -100,13 +106,13 @@ class FilterUtil {
       case '!=':
         return (('' + featureValue) !== ('' + filterValue));
       case '<':
-        return (parseFloat(featureValue) < parseFloat(filterValue));
+        return (parseFloat(featureValue) < Number(filterValue));
       case '<=':
-        return (parseFloat(featureValue) <= parseFloat(filterValue));
+        return (parseFloat(featureValue) <= Number(filterValue));
       case '>':
-        return (parseFloat(featureValue) > parseFloat(filterValue));
+        return (parseFloat(featureValue) > Number(filterValue));
       case '>=':
-        return (parseFloat(featureValue) >= parseFloat(filterValue));
+        return (parseFloat(featureValue) >= Number(filterValue));
       default:
         throw new Error('Cannot parse Filter. Unknown comparison operator.');
     }
@@ -121,13 +127,10 @@ class FilterUtil {
       return true;
     }
     let matchesFilter: boolean = true;
-    const operator: Operator = filter[0];
-    const isNestedFilter = FilterUtil.nestingOperators.includes(operator);
-
-    if (isNestedFilter) {
-      matchesFilter = FilterUtil.handleNestedFilter(filter, feature);
-    } else {
+    if (isComparisonFilter(filter)) {
       matchesFilter = FilterUtil.handleSimpleFilter(filter, feature);
+    } else if (isCombinationFilter(filter) || isNegationFilter(filter)) {
+      matchesFilter = FilterUtil.handleNestedFilter(filter, feature);
     }
     return matchesFilter;
   };

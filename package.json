@@ -70,7 +70,7 @@
     "geostyler-data": "^1.0.0",
     "geostyler-geojson-parser": "^1.0.1",
     "geostyler-openlayers-parser": "^2.2.0",
-    "geostyler-sld-parser": "^2.2.1",
+    "geostyler-sld-parser": "^2.2.2",
     "geostyler-style": "^3.1.1",
     "geostyler-wfs-parser": "^1.0.1",
     "lodash": "^4.17.20",
