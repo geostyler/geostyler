@@ -59,6 +59,8 @@ export interface TextFilterFieldProps extends Partial<TextFilterFieldDefaultProp
 // state
 interface TextFilterFieldState {
   value: string | undefined;
+  inputSelectionStart: number;
+  inputSelectionEnd: number;
 }
 
 /**
@@ -73,11 +75,15 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
     validateStatus: 'success',
     help: 'Please enter a text.'
   };
+  private inputRef: React.RefObject<Input>;
 
   constructor(props: TextFilterFieldProps) {
     super(props);
+    this.inputRef = React.createRef();
     this.state = {
-      value: this.props.value
+      value: this.props.value,
+      inputSelectionStart: 0,
+      inputSelectionEnd: 0
     };
   }
 
@@ -87,6 +93,19 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
     return {
       value: nextProps.value
     };
+  }
+
+  componentDidUpdate() {
+    // ensure we preserve the cursor position for the input field
+    const {
+      inputSelectionStart,
+      inputSelectionEnd,
+    } = this.state;
+
+    if (this.inputRef && this.inputRef.current) {
+      this.inputRef.current.input.selectionStart = inputSelectionStart;
+      this.inputRef.current.input.selectionEnd = inputSelectionEnd;
+    }
   }
 
   /**
@@ -157,11 +176,23 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
               />
               :
               <Input
+                ref={this.inputRef}
                 draggable={true}
                 onDragStart={(e) => e.preventDefault()}
                 value={this.state.value}
                 style={{ width: '100%' }}
-                onChange={this.onInputChange}
+                onChange={(event) => {
+                  this.onInputChange(event);
+
+                  // save the cursor position to restore it in
+                  // componentDidUpdate, otherwise it jumps to the end while typing
+                  const cursorStart = event.target.selectionStart;
+                  const cursorEnd = event.target.selectionEnd;
+                  this.setState({
+                    inputSelectionStart: cursorStart,
+                    inputSelectionEnd: cursorEnd
+                  });
+                }}
                 placeholder={this.props.placeholder}
               />
           }
