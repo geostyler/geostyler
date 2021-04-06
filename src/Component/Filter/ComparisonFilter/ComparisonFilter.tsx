@@ -369,8 +369,9 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
       validators
     } = this.props;
 
-    let filter: GsComparisonFilter = this.state.filter;
+    let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
     filter[1] = newAttrName;
+    this.setState({filter});
 
     const valueFieldVis = this.getValueFieldVis(newAttrName);
     this.setState(valueFieldVis);
@@ -400,7 +401,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     };
 
     this.setState({
-      filter,
+      attribute: newAttrName,
       validateStatus: validationStateNew
     }, () => {
       if (onFilterChange) {
@@ -451,8 +452,10 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     const {
       onFilterChange
     } = this.props;
-    let filter: GsComparisonFilter = this.state.filter;
+    // let filter: GsComparisonFilter = this.state.filter;
+    let filter: GsComparisonFilter = _cloneDeep(this.state.filter);
     filter[2] = newValue;
+    this.setState({filter});
 
     // validate value fields
     let validationRes = this.props.validators.value(newValue, this.props.internalDataDef, this.state.attribute);
@@ -465,7 +468,7 @@ export class ComparisonFilter extends React.Component<ComparisonFilterProps, Com
     this.setState(
       {
         validateStatus: validationStateNew,
-        filter,
+        value: newValue,
         valueValidationHelpString: validationRes.errorMsg
       },
       () => {

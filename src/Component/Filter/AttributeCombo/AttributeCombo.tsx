@@ -64,13 +64,14 @@ export interface AttributeComboProps extends Partial<AttributeComboDefaultProps>
 
 interface AttributeComboState {
   value: string | undefined;
+  inputSelectionStart: number;
+  inputSelectionEnd: number;
 }
 
 /**
  * Combobox offering the attributes to be filtered on.
  */
 export class AttributeCombo extends React.Component<AttributeComboProps, AttributeComboState> {
-
   public static defaultProps: AttributeComboDefaultProps = {
     label: 'Attribute',
     placeholder: 'Select Attribute',
@@ -81,11 +82,15 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
     validateStatus: 'success',
     help: 'Please select an attribute.'
   };
+  private inputRef: React.RefObject<Input>;
 
   constructor(props: AttributeComboProps) {
     super(props);
+    this.inputRef = React.createRef();
     this.state = {
-      value: this.props.value
+      value: this.props.value,
+      inputSelectionStart: 0,
+      inputSelectionEnd: 0
     };
   }
 
@@ -95,6 +100,19 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
     return {
       value: nextProps.value
     };
+  }
+
+  componentDidUpdate() {
+    // ensure we preserve the cursor position for the input field
+    const {
+      inputSelectionStart,
+      inputSelectionEnd,
+    } = this.state;
+
+    if (this.inputRef && this.inputRef.current && this.inputRef.current.input) {
+      this.inputRef.current.input.selectionStart = inputSelectionStart;
+      this.inputRef.current.input.selectionEnd = inputSelectionEnd;
+    }
   }
 
   render() {
@@ -156,6 +174,7 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
               </Select>
               :
               <Input
+                ref={this.inputRef}
                 draggable={true}
                 onDragStart={(e) => e.preventDefault()}
                 value={this.state.value}
@@ -163,6 +182,15 @@ export class AttributeCombo extends React.Component<AttributeComboProps, Attribu
                 style={{ width: '100%' }}
                 onChange={(event) => {
                   onAttributeChange(event.target.value);
+
+                  // save the cursor position to restore it in
+                  // componentDidUpdate, otherwise it jumps to the end while typing
+                  const cursorStart = event.target.selectionStart;
+                  const cursorEnd = event.target.selectionEnd;
+                  this.setState({
+                    inputSelectionStart: cursorStart,
+                    inputSelectionEnd: cursorEnd
+                  });
                 }}
               />
           }
