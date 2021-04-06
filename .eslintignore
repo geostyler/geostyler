@@ -10,3 +10,4 @@ browser
 build
 
 .eslintrc.js
+*.config.js

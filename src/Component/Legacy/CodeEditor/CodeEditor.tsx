@@ -244,7 +244,7 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     const {
       activeParser,
     } = this.state;
-    const parser = activeParser as SldStyleParser;
+    const parser = activeParser as unknown as SldStyleParser;
     parser.symbolizerUnits = selection;
     if (style) {
       this.updateValueFromStyle(style);

@@ -158,7 +158,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       editorVisible: false,
       rule: Rule.defaultProps.rule,
       symbolizerEditorVisible: false,
-      storedFilter: ['=='],
+      storedFilter: ['==', '', ''],
       storedScaleDenominator: {}
     };
   }
