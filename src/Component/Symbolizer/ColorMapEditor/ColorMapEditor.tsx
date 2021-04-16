@@ -371,6 +371,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
             {...formItemLayout}
           >
             <InputNumber
+              className="number-of-classes-field"
               min={0}
               max={255}
               value={nrOfClasses}

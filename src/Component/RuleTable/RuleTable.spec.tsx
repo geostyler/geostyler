@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -26,16 +27,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { RuleTable, RuleTableProps, RuleRecord } from './RuleTable';
+import React from 'react';
+import { render, RenderResult } from '@testing-library/react';
+import { RuleTable } from './RuleTable';
 import TestUtil from '../../Util/TestUtil';
 import { Rule } from 'geostyler-style';
-import { Input, Popover, InputNumber } from 'antd';
-import { mount } from 'enzyme';
 import { Data } from 'geostyler-data';
-import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 
 describe('RuleTable', () => {
-  let wrapper: any;
   let dummyRules: Rule[];
   const data: Data = {
     schema: {
@@ -68,257 +67,152 @@ describe('RuleTable', () => {
     }
   };
 
+  let ruleTable: RenderResult;
   beforeEach(() => {
     dummyRules = TestUtil.getTwoRulesStyle().rules;
-    dummyRules[1].filter = TestUtil.getDummyGsFilter();
-    const props: RuleTableProps = {
-      rules: dummyRules
-    };
-    wrapper = TestUtil.shallowRenderComponent(RuleTable, props);
+    ruleTable = render(
+      <RuleTable
+        rules={dummyRules}
+        data={data}
+      />
+    );
   });
 
   it('is defined', () => {
     expect(RuleTable).toBeDefined();
   });
 
-  it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+  test('… renders', async () => {
+    expect(ruleTable.container).toBeInTheDocument();
   });
 
-  describe('getRuleRecords', () => {
-    it('returns a RuleRecord for every Rule', () => {
-      const getRuleRecords = wrapper.instance().getRuleRecords;
-      const got = getRuleRecords();
-      expect(got.length).toEqual(dummyRules.length);
-      expect(got[0]).toEqual({...dummyRules[0], key: 0});
-      expect(got[1]).toEqual({...dummyRules[1], key: 1});
+  describe('SymbolizerRenderer', () => {
+    it('… renders a symbolizer for every rule', async () => {
+      const symbolizerRenderer = await ruleTable.container.querySelectorAll('.gs-symbolizer-renderer');
+      expect(symbolizerRenderer).toHaveLength(2);
     });
   });
 
-  describe('onSymbolizerClick', () => {
-    it('sets the state correctly', () => {
-      const onSymbolizerClick = wrapper.instance().onSymbolizerClick;
-      const dummyRect: DOMRect = {
-        x: 12,
-        y: 24,
-        width: 36,
-        height: 48,
-        bottom: 60,
-        top: 72,
-        left: 84,
-        right: 96,
-        toJSON: jest.fn()
-      };
-      onSymbolizerClick(wrapper.instance().getRuleRecords()[1], dummyRect);
-      const state = wrapper.state();
-      const newValues = {
-        ruleEditIndex: 1,
-        symbolizerEditorVisible: true,
-        symbolizerEditorPosition: dummyRect,
-        filterEditorVisible: false
-      };
-      const got = {...state, ...newValues};
-      expect(state).toEqual(got);
-    });
-  });
-
-  describe('nameRenderer', () => {
-    it('returns an Input with PopOver', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: []
-      };
-      const got = wrapper.instance().nameRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      expect(mountRenderer.type()).toBe(Popover);
-      expect(mountRenderer.find(Input).length).toEqual(1);
-    });
-  });
-
-  describe('filterRenderer', () => {
-    it('returns an Input.Search if filter is undefined', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: []
-      };
-      const got = wrapper.instance().filterRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      expect(mountRenderer.type()).toBe(Input.Search);
-    });
-    it('returns an Input.Search with PopOver if filter is defined', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: [],
-        filter: ['==', 'as', 'cd']
-      };
-      const got = wrapper.instance().filterRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      expect(mountRenderer.type()).toBe(Popover);
-      expect(mountRenderer.find(Input.Search).length).toEqual(1);
-    });
-  });
-
-  describe('minScaleRenderer', () => {
-    it('returns an InputNumber', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: [],
-        scaleDenominator: {
-          min: 12,
-          max: 24
-        }
-      };
-      const got = wrapper.instance().minScaleRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      expect(mountRenderer.type()).toBe(InputNumber);
-    });
-  });
-
-  describe('maxScaleRenderer', () => {
-    it('returns an InputNumber', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: [],
-        scaleDenominator: {
-          min: 12,
-          max: 24
-        }
-      };
-      const got = wrapper.instance().maxScaleRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      expect(mountRenderer.type()).toBe(InputNumber);
-    });
-  });
-
-  describe('amountRenderer', () => {
-    it('returns div with the count of features in the FeatureCollection', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: [],
-        scaleDenominator: {
-          min: 12,
-          max: 24
-        }
-      };
-      wrapper.setProps({data});
-      const got = wrapper.instance().amountRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(HTMLDivElement);
-      expect(mountRenderer.prop('children')).toBe(2);
-    });
-    it('returns div with the state.counts[record.key] when filter and data present', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: [],
-        scaleDenominator: {
-          min: 12,
-          max: 24
-        },
-        filter: ['==', 'name', 'Peter']
-      };
-      wrapper.setProps({data});
-      const got = wrapper.instance().amountRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(HTMLDivElement);
-      expect(mountRenderer.prop('children')).toBe(wrapper.state().counts[0]);
-    });
-  });
-
-  describe('duplicatesRenderer', () => {
-    it('returns div with the state.duplicates[record.key] when data and rules are present', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: [],
-        scaleDenominator: {
-          min: 12,
-          max: 24
-        }
-      };
-      wrapper.setProps({data});
-      const got = wrapper.instance().duplicatesRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(HTMLDivElement);
-      expect(mountRenderer.prop('children')).toBe(wrapper.state().duplicates[0]);
-    });
-  });
-
-  describe('ruleOrderRenderer', () => {
-    it('returns a ReorderButtonGroup', () => {
-      const record: RuleRecord = {
-        key: 0,
-        name: 'name',
-        symbolizers: [],
-        scaleDenominator: {
-          min: 12,
-          max: 24
-        }
-      };
-      const got = wrapper.instance().ruleReorderRenderer(record);
-      const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(RuleReorderButtons);
-    });
-  });
-
-  describe('onSymbolizersChange', () => {
-    it('calls the onSymbolizersChange prop function with the value', () => {
-      const symbolizers = ['a'];
-      wrapper.setState({
-        ruleEditIndex: 1337
+  describe('NameRenderer', () => {
+    it('… renders the name for every rule', async () => {
+      const nameRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=name-renderer]');
+      nameRenderers.forEach((nameRenderer, index) => {
+        expect(nameRenderers[index].value).toBe(dummyRules[index].name);
       });
-      const mock = wrapper.instance().setValueForRule = jest.fn();
-      wrapper.instance().onSymbolizersChange(symbolizers);
-      expect(mock).toHaveBeenCalledWith(1337, 'symbolizers', symbolizers);
     });
   });
 
-  describe('onFilterChange', () => {
-    it('calls the onFilterChange prop function with the value', () => {
-      const filter = ['a'];
-      wrapper.setState({
-        ruleEditIndex: 1337
+  describe('FilterRenderer', () => {
+    it('… renders the filter for every rule', async () => {
+      const rulesWithFilter = TestUtil.getTwoRulesStyle().rules;
+      rulesWithFilter[0].filter = ['==', 'name', 'Peter'];
+      rulesWithFilter[1].filter = TestUtil.getDummyGsFilter();
+      ruleTable.rerender(<RuleTable
+        rules={rulesWithFilter}
+        data={data}
+      />);
+      const filterRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=filter-renderer]');
+      expect(filterRenderers[0].value).toBe('name = \'Peter\'');
+      expect(filterRenderers[1].value).toBe('state = \'germany\' AND (population >= 100000 OR population < 200000) AND NOT ( name = \'Schalke\' )');
+    });
+  });
+
+  describe('MinScaleRenderer', () => {
+    it('… renders the minScale for every rule', async () => {
+      const rulesWithMinScale = TestUtil.getTwoRulesStyle().rules;
+      rulesWithMinScale[0].scaleDenominator = {
+        min: 12,
+        max: 24
+      };
+      ruleTable.rerender(<RuleTable
+        rules={rulesWithMinScale}
+        data={data}
+      />);
+      const minScaleRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=min-scale-renderer]');
+      minScaleRenderers.forEach((nameRenderer, index) => {
+        const expected = rulesWithMinScale[index].scaleDenominator?.min
+          ? `1:${rulesWithMinScale[index].scaleDenominator.min}`
+          : '';
+        expect(minScaleRenderers[index].value).toEqual(expected);
       });
-      const mock = wrapper.instance().setValueForRule = jest.fn();
-      wrapper.instance().onFilterChange(filter);
-      expect(mock).toHaveBeenCalledWith(1337, 'filter', filter);
     });
   });
 
-  describe('setValueForRule', () => {
-    it('calls onRulesChange with the newRules', () => {
-      const onRulesChange = jest.fn();
-      wrapper.setProps({
-        onRulesChange
+  describe('MaxScaleRenderer', () => {
+    it('… renders the maxScale for every rule', async () => {
+      const rulesWithMaxScale = TestUtil.getTwoRulesStyle().rules;
+      rulesWithMaxScale[0].scaleDenominator = {
+        min: 12,
+        max: 24
+      };
+      ruleTable.rerender(<RuleTable
+        rules={rulesWithMaxScale}
+        data={data}
+      />);
+      const maxScaleRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=max-scale-renderer]');
+      maxScaleRenderers.forEach((nameRenderer, index) => {
+        const expected = rulesWithMaxScale[index].scaleDenominator?.max
+          ? `1:${rulesWithMaxScale[index].scaleDenominator.max}`
+          : '';
+        expect(maxScaleRenderers[index].value).toEqual(expected);
       });
-      const newRules = [...dummyRules];
-      newRules[1].filter =  ['==', 'name', 'Peter'];
-      wrapper.instance().setValueForRule(1, 'filter', ['==', 'name', 'Peter']);
-      expect(onRulesChange).toHaveBeenCalledWith(newRules);
     });
   });
 
-  describe('onSymbolizerEditorWindowClose', () => {
-    it('sets symbolizerEditorVisible to false ', () => {
-      wrapper.instance().onSymbolizerEditorWindowClose();
-      expect(wrapper.state('symbolizerEditorVisible')).toBe(false);
+  describe('AmountRenderer', () => {
+    it('… returns the count of features in the FeatureCollection', async () => {
+      const amountRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('.amount-renderer');
+      expect(amountRenderers.length).toBe(2);
+      expect(amountRenderers[0].innerHTML).toBe('2');
+      expect(amountRenderers[1].innerHTML).toBe('2');
+    });
+    it('… returns the count of the matching features when filter and data present', async () => {
+      const rulesWithFilter = TestUtil.getTwoRulesStyle().rules;
+      rulesWithFilter[0].filter = ['==', 'name', 'Peter'];
+      rulesWithFilter[1].filter = TestUtil.getDummyGsFilter();
+      ruleTable.rerender(<RuleTable
+        rules={rulesWithFilter}
+        data={data}
+      />);
+      const amountRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('.amount-renderer');
+      expect(amountRenderers).toHaveLength(2);
+      expect(amountRenderers[0].innerHTML).toBe('1');
+      expect(amountRenderers[1].innerHTML).toBe('0');
     });
   });
 
-  describe('onFilterEditorWindowClose', () => {
-    it('sets filterEditorVisible to false ', () => {
-      wrapper.instance().onFilterEditorWindowClose();
-      expect(wrapper.state('filterEditorVisible')).toBe(false);
+  describe('DuplicatesRenderer', () => {
+    it('… returns duplicates when data and rules are present', async () => {
+      const rulesWithFilter = TestUtil.getTwoRulesStyle().rules;
+      rulesWithFilter[0].filter = ['==', 'name', 'Peter'];
+      rulesWithFilter[1].filter = ['!=', 'name', 'Hilde'];
+      ruleTable.rerender(<RuleTable
+        rules={rulesWithFilter}
+        data={data}
+      />);
+      const duplicatesRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('.duplicates-renderer');
+      expect(duplicatesRenderers).toHaveLength(2);
+      expect(duplicatesRenderers[0].innerHTML).toBe('1');
+      expect(duplicatesRenderers[1].innerHTML).toBe('1');
+    });
+  });
+
+  describe('RuleOrderRenderer', () => {
+    it('… renders', async() => {
+      const upButtons = await ruleTable.getAllByTitle('Move rule one position up');
+      const downButtons = await ruleTable.getAllByTitle('Move rule one position down');
+      expect(upButtons).toHaveLength(2);
+      expect(downButtons).toHaveLength(2);
+    });
+    it('… disables up button for first row', async() => {
+      const upButtons = await ruleTable.getAllByTitle('Move rule one position up');
+      expect(upButtons).toHaveLength(2);
+      expect(upButtons[0]).toHaveAttribute('disabled');
+    });
+    it('… disables down button for last row', async() => {
+      const downButtons = await ruleTable.getAllByTitle('Move rule one position down');
+      expect(downButtons).toHaveLength(2);
+      expect(downButtons[downButtons.length - 1]).toHaveAttribute('disabled');
     });
   });
 

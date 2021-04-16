@@ -26,50 +26,24 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { ImageField, ImageFieldProps } from './ImageField';
-import TestUtil from '../../../../Util/TestUtil';
-import { mount } from 'enzyme';
-import { Tooltip } from 'antd';
-import { PictureOutlined } from '@ant-design/icons';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { ImageField } from './ImageField';
 
 describe('ImageField', () => {
-  let wrapper: any;
+  let imageField;
   beforeEach(() => {
-    const props: ImageFieldProps = {
-      tooltipLabel: 'Peter'
-    };
-    wrapper = TestUtil.shallowRenderComponent(ImageField, props);
+    imageField = render(
+      <ImageField />
+    );
   });
 
-  it('is defined', () => {
+  it('… is defined', () => {
     expect(ImageField).toBeDefined();
   });
 
-  it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+  test('… renders', async () => {
+    expect(imageField.container).toBeInTheDocument();
   });
 
-  describe('getIconSelectorButton', () => {
-    it('returns an InputNumber', () => {
-      const got = wrapper.instance().getIconSelectorButton();
-      const mountRenderer = mount(got);
-      expect(mountRenderer.type()).toBe(Tooltip);
-      expect(mountRenderer.prop('title')).toBe(wrapper.instance().props.tooltipLabel);
-      expect(mountRenderer.find(PictureOutlined).length).toEqual(1);
-    });
-  });
-
-  describe('openWindow', () => {
-    it('sets windowVisible to true', () => {
-      wrapper.instance().openWindow();
-      expect(wrapper.state('windowVisible')).toBe(true);
-    });
-  });
-
-  describe('closeWindow', () => {
-    it('sets windowVisible to false', () => {
-      wrapper.instance().closeWindow();
-      expect(wrapper.state('windowVisible')).toBe(false);
-    });
-  });
 });

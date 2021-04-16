@@ -60,6 +60,7 @@ export class ExtendedField extends React.PureComponent<ExtendedFieldProps> {
 
     return (
       <Radio.Group
+        className="extend-field"
         defaultValue={extended === true ? extended : false}
         buttonStyle="solid"
         onChange={this.onExtendedChange}

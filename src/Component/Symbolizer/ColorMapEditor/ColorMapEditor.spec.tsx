@@ -25,30 +25,49 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+import React from 'react';
+import { fireEvent, render, RenderResult } from '@testing-library/react';
 
-import { ColorMapEditor, ColorMapEditorProps, ColorMapEntryRecord } from './ColorMapEditor';
-import TestUtil from '../../../Util/TestUtil';
-import { ColorMap, ColorMapEntry } from 'geostyler-style';
-import { Input, Popover } from 'antd';
-import { mount } from 'enzyme';
+import { ColorMapEditor } from './ColorMapEditor';
+import { ColorMap } from 'geostyler-style';
 import RasterUtil from '../../../Util/RasterUtil';
-import OpacityField from '../Field/OpacityField/OpacityField';
-import OffsetField from '../Field/OffsetField/OffsetField';
+
+jest.mock('antd', () => {
+  const antd = jest.requireActual('antd');
+
+  const Select = ({ children, onChange }) => {
+    return <select onChange={e => onChange(e.target.value)}>{children}</select>;
+  };
+
+  Select.Option = ({ children, ...otherProps }) => {
+    return <option {...otherProps}>{children}</option>;
+  };
+
+  return {
+    ...antd,
+    Select,
+  };
+});
 
 describe('ColorMapEditor', () => {
-  let wrapper: any;
   let dummyColorMap: ColorMap;
-
+  let colorMapEditor: RenderResult;
+  let onChangeMock = jest.fn();
   beforeEach(() => {
     dummyColorMap = {
       colorMapEntries: [RasterUtil.generateColorMapEntry()],
       type: 'ramp'
     };
-    const props: ColorMapEditorProps = {
-      colorMap: dummyColorMap,
-      onChange: jest.fn()
-    };
-    wrapper = TestUtil.shallowRenderComponent(ColorMapEditor, props);
+    colorMapEditor = render(
+      <ColorMapEditor
+        colorMap={dummyColorMap}
+        onChange={onChangeMock}
+      />
+    );
+  });
+
+  afterEach(() => {
+    onChangeMock.mockReset();
   });
 
   it('is defined', () => {
@@ -56,111 +75,178 @@ describe('ColorMapEditor', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(colorMapEditor.container).toBeInTheDocument();
   });
 
-  describe('updateColorMap', () => {
-    it('calls onChange with an updated colorMap', () => {
-      const newColorMapEntry: ColorMapEntry = {color: '#ff0000'};
-      const newColorMapEntries = [newColorMapEntry, ...dummyColorMap.colorMapEntries];
-      wrapper.instance().updateColorMap('colorMapEntry', newColorMapEntries);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+  describe('ExtendField', () => {
+    it('… renders', () => {
+      const extendField = colorMapEditor.container.querySelector('.extend-field');
+      const extendFieldLabel = colorMapEditor.getByText('Color Depth');
+      expect(extendField).toBeInTheDocument();
+      expect(extendFieldLabel).toBeInTheDocument();
+    });
+    it('… triggers onChange as expected', () => {
+      const optionOne = colorMapEditor.getByLabelText('16-bit');
+      const optionTwo = colorMapEditor.getByLabelText('32-bit');
+      expect(optionOne).toBeInTheDocument();
+      expect(optionTwo).toBeInTheDocument();
+      fireEvent.click(optionTwo);
+      expect(onChangeMock).toHaveBeenCalledWith({
+        ...dummyColorMap,
+        extended: true
+      });
+      fireEvent.click(optionOne);
+      expect(onChangeMock).toHaveBeenCalledWith({
+        ...dummyColorMap,
+        extended: false
+      });
     });
   });
 
-  describe('onExtendedChange', () => {
-    it('calls updateColorMap', () => {
-      const mock = wrapper.instance().updateColorMap = jest.fn();
-      wrapper.instance().onExtendedChange(true);
-      expect(mock).toHaveBeenCalled();
+  describe('TypeField', () => {
+    it('… renders', () => {
+      const typeField = colorMapEditor.container.querySelector('.color-map-type-field');
+      const typeFieldLabel = colorMapEditor.getByText('Type');
+      expect(typeField).toBeInTheDocument();
+      expect(typeFieldLabel).toBeInTheDocument();
     });
-  });
-
-  describe('onTypeChange', () => {
-    it('calls updateColorMap', () => {
-      const mock = wrapper.instance().updateColorMap = jest.fn();
-      wrapper.instance().onTypeChange('intervals');
-      expect(mock).toHaveBeenCalled();
+    it('… triggers onChange as expected', () => {
+      const optionOne = colorMapEditor.getByLabelText('Interpolated');
+      const optionTwo = colorMapEditor.getByLabelText('Intervals');
+      const optionThree = colorMapEditor.getByLabelText('Values');
+      expect(optionOne).toBeInTheDocument();
+      expect(optionTwo).toBeInTheDocument();
+      expect(optionThree).toBeInTheDocument();
+      fireEvent.click(optionThree);
+      expect(onChangeMock).toHaveBeenCalledWith({
+        ...dummyColorMap,
+        type: 'values'
+      });
+      fireEvent.click(optionTwo);
+      expect(onChangeMock).toHaveBeenCalledWith({
+        ...dummyColorMap,
+        type: 'intervals'
+      });
+      fireEvent.click(optionOne);
+      expect(onChangeMock).toHaveBeenCalledWith({
+        ...dummyColorMap,
+        type: 'ramp'
+      });
     });
   });
 
   describe('onNrOfClassesChange', () => {
-    it('calls updateColorMap', () => {
-      const mock = wrapper.instance().updateColorMap = jest.fn();
-      wrapper.instance().onNrOfClassesChange(5);
-      expect(mock).toHaveBeenCalled();
+    it('… renders', () => {
+      const numberOfClassesField = colorMapEditor.container.querySelector('.number-of-classes-field');
+      const numberOfClassesFieldLabel = colorMapEditor.getByText('Nr. of classes');
+      expect(numberOfClassesField).toBeInTheDocument();
+      expect(numberOfClassesFieldLabel).toBeInTheDocument();
+    });
+    it('… triggers onChange as expected', () => {
+      const numberOfClassesField = colorMapEditor.container.querySelector('.number-of-classes-field input');
+      fireEvent.change(numberOfClassesField, { target: { value: '2' } });
+      expect(onChangeMock).toHaveBeenCalledWith({
+        ...dummyColorMap,
+        colorMapEntries: [
+          {
+            color: '#e7000e'
+          },
+          {
+            color: '#611e82'
+          }
+        ]
+      });
+    });
+
+  });
+
+  describe('ColorRampCombo', () => {
+    it('… renders', () => {
+      const colorRampCombo = colorMapEditor.getByRole('combobox');
+      const colorRampComboLabel = colorMapEditor.getByText('Color Ramp');
+      expect(colorRampCombo).toBeInTheDocument();
+      expect(colorRampComboLabel).toBeInTheDocument();
+    });
+    it('… triggers onChange as expected', () => {
+      const colorRampCombo = colorMapEditor.getByRole('combobox');
+      fireEvent.change(colorRampCombo, { target: { value: 'geostyler' } });
+      expect(onChangeMock).toHaveBeenCalledWith({
+        ...dummyColorMap,
+        colorMapEntries: [
+          {
+            color: '#42ca00'
+          }
+        ]
+      });
     });
   });
 
-  describe('onColorRampChange', () => {
-    it('calls updateColorMap', () => {
-      const mock = wrapper.instance().updateColorMap = jest.fn();
-      wrapper.instance().onColorRampChange('GeoStyler');
-      expect(mock).toHaveBeenCalled();
+  describe('Color', () => {
+    describe('ColorRenderer', () => {
+      it('… renders', () => {
+        const colorField = colorMapEditor.container.querySelector('.color-field');
+        expect(colorField).toBeInTheDocument();
+      });
     });
+    describe('QuantityRenderer', () => {
+      it('… renders', () => {
+        const quantityField = colorMapEditor.container.querySelector('.gs-colormap-quantity-input');
+        expect(quantityField).toBeInTheDocument();
+      });
+
+      it('… triggers onChange as expected', () => {
+        const quantityField = colorMapEditor.container.querySelector('.gs-colormap-quantity-input input');
+        fireEvent.change(quantityField, { target: { value: '2' } });
+        expect(onChangeMock).toHaveBeenCalledWith({
+          ...dummyColorMap,
+          colorMapEntries: [
+            {
+              color: '#000',
+              quantity: 2
+            }
+          ]
+        });
+      });
+    });
+    describe('LabelRenderer', () => {
+      it('… renders', () => {
+        const labelField = colorMapEditor.container.querySelector('.gs-colormap-label-input');
+        expect(labelField).toBeInTheDocument();
+      });
+      it('… triggers onChange as expected', () => {
+        const labelField = colorMapEditor.container.querySelector('.gs-colormap-label-input');
+        fireEvent.change(labelField, { target: { value: 'Peter' } });
+        expect(onChangeMock).toHaveBeenCalledWith({
+          ...dummyColorMap,
+          colorMapEntries: [
+            {
+              color: '#000',
+              label: 'Peter'
+            }
+          ]
+        });
+      });
+    });
+    describe('OpacityRenderer', () => {
+      it('… renders', () => {
+        const opacityField = colorMapEditor.container.querySelector('.gs-colormap-opacity-input');
+        expect(opacityField).toBeInTheDocument();
+      });
+      it('… triggers onChange as expected', () => {
+        const labelField = colorMapEditor.container.querySelector('.gs-colormap-opacity-input input');
+        fireEvent.change(labelField, { target: { value: '0.5' } });
+        expect(onChangeMock).toHaveBeenCalledWith({
+          ...dummyColorMap,
+          colorMapEntries: [
+            {
+              color: '#000',
+              opacity: 0.5
+            }
+          ]
+        });
+      });
+    });
+
   });
 
-  describe('applyColors', () => {
-    it('applies colors to existing colorMapEntries', () => {
-      const cmEntries = [RasterUtil.generateColorMapEntry()];
-      const colorRamp = 'GreenRed';
-      wrapper.instance().applyColors(colorRamp, cmEntries);
-      expect(cmEntries).not.toEqual(dummyColorMap.colorMapEntries);
-    });
-  });
-
-  describe('setValuesForColorMapEntry', () => {
-    it('calls updateColorMap', () => {
-      const mock = wrapper.instance().updateColorMap = jest.fn();
-      const opacity = 0.5;
-      wrapper.instance().setValueForColorMapEntry(0, 'opacity', opacity);
-      expect(mock).toHaveBeenCalled();
-    });
-  });
-
-  describe('getColorMapRecords', () => {
-    it('returns all colorMapRecords', () => {
-      const records = wrapper.instance().getColorMapRecords();
-      expect(records).toHaveLength(1);
-    });
-  });
-
-  describe('labelRenderer', () => {
-    it('returns an Input with PopOver', () => {
-      const record: ColorMapEntryRecord = {
-        key: 0,
-        color: '#ff0000'
-      };
-      const got = wrapper.instance().labelRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      expect(mountRenderer.type()).toBe(Popover);
-      expect(mountRenderer.find(Input).length).toEqual(1);
-    });
-  });
-
-  describe('quantityRenderer', () => {
-    it('returns an Input with OffsetField', () => {
-      const record: ColorMapEntryRecord = {
-        key: 0,
-        color: '#ff0000'
-      };
-      const got = wrapper.instance().quantityRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(OffsetField);
-    });
-  });
-
-  describe('opacityRenderer', () => {
-    it('returns an Input with OpacityField', () => {
-      const record: ColorMapEntryRecord = {
-        key: 0,
-        color: '#ff0000'
-      };
-      const got = wrapper.instance().opacityRenderer(undefined, record);
-      const mountRenderer = mount(got);
-      const instance = mountRenderer.instance();
-      expect(instance).toBeInstanceOf(OpacityField);
-    });
-  });
 });

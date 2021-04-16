@@ -25,25 +25,25 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-import { ChannelSelectionField, ChannelSelectionFieldProps } from './ChannelSelectionField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { ChannelSelectionField } from './ChannelSelectionField';
 
 describe('ChannelSelectionField', () => {
 
-  let wrapper: any;
+  let channelSelectionField;
   beforeEach(() => {
-    const props: ChannelSelectionFieldProps = {
-      onChange: jest.fn()
-    };
-    wrapper = TestUtil.mountComponent(ChannelSelectionField, props);
+    channelSelectionField = render(
+      <ChannelSelectionField />
+    );
   });
 
-  it('is defined', () => {
+  it('… is defined', () => {
     expect(ChannelSelectionField).toBeDefined();
   });
 
-  it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+  test('… renders', async () => {
+    expect(channelSelectionField.container).toBeInTheDocument();
   });
+
 });
