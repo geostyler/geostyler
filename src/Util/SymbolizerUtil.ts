@@ -44,7 +44,7 @@ class SymbolizerUtil {
 
   static markSymbolizer: MarkSymbolizer = {
     kind: 'Mark',
-    wellKnownName: 'Circle',
+    wellKnownName: 'circle',
     color: '#0E1058'
   };
 

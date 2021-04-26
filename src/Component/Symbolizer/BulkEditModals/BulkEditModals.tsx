@@ -138,7 +138,7 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     let color = '#000000';
     let size = 5;
     let opacity = 1;
-    let symbol: WellKnownName = 'Circle';
+    let symbol: WellKnownName = 'circle';
 
     const {
       locale,
