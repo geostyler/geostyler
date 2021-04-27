@@ -145,7 +145,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       name: 'My Style',
       symbolizers: [{
         kind: 'Mark',
-        wellKnownName: 'Circle'
+        wellKnownName: 'circle'
       }]
     },
     dataProjection: 'EPSG:4326',

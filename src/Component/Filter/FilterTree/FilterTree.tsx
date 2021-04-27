@@ -70,7 +70,7 @@ import {
   isComparisonFilter,
   isFunctionFilter,
   isNegationFilter
-} from 'geostyler-style/typeguards';
+} from 'geostyler-style/dist/typeguards';
 
 interface FilterTreeLocale {
   andDrpdwnLabel: string;

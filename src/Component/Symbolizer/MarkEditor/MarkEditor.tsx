@@ -80,7 +80,7 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
     this.state = {
       symbolizer: {
         kind: 'Mark',
-        wellKnownName: 'Circle'
+        wellKnownName: 'circle'
       }
     };
   }

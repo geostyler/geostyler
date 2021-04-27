@@ -165,7 +165,7 @@ export class TestUtil {
         name: '',
         symbolizers: [{
           kind: 'Mark',
-          wellKnownName: 'Square'
+          wellKnownName: 'square'
         }]
       }]
     };
@@ -252,13 +252,13 @@ export class TestUtil {
         name: 'rule0',
         symbolizers: [{
           kind: 'Mark',
-          wellKnownName: 'Circle'
+          wellKnownName: 'circle'
         }]
       }, {
         name: 'rule1',
         symbolizers: [{
           kind: 'Mark',
-          wellKnownName: 'Cross'
+          wellKnownName: 'cross'
         }]
       }]
     };

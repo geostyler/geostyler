@@ -34,7 +34,11 @@ import {
   NegationFilter
 } from 'geostyler-style';
 
-import { isCombinationFilter, isComparisonFilter, isNegationFilter } from 'geostyler-style/typeguards';
+import {
+  isCombinationFilter,
+  isComparisonFilter,
+  isNegationFilter
+} from 'geostyler-style/dist/typeguards';
 
 import {
   VectorData

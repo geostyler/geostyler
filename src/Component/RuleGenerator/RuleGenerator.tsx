@@ -129,7 +129,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
 
     this.state = {
       symbolizerKind,
-      wellKnownName: 'Circle',
+      wellKnownName: 'circle',
       colorRamp: props.colorRamps && props.colorRamps.GeoStyler ? 'GeoStyler' : undefined,
       colorSpace: 'hsl',
       numberOfRules: 2,
@@ -190,7 +190,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
     } = this.state;
 
     if (symbolizerKind === 'Mark' && !wellKnownName) {
-      wellKnownName = 'Circle';
+      wellKnownName = 'circle';
     } else {
       wellKnownName = undefined;
     }
