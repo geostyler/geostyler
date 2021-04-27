@@ -109,11 +109,11 @@ describe('RuleGenerator', () => {
 
     wrapper.instance().onSymbolizerKindChange('Mark');
     expect(wrapper.state('symbolizerKind')).toEqual('Mark');
-    expect(wrapper.state('wellKnownName')).toEqual('Circle');
+    expect(wrapper.state('wellKnownName')).toEqual('circle');
   });
 
   it('handles onWellKnownNameFieldChange correctly', () => {
-    expect(wrapper.state('wellKnownName')).toEqual('Circle');
+    expect(wrapper.state('wellKnownName')).toEqual('circle');
     wrapper.instance().onWellKnownNameFieldChange('Square');
     expect(wrapper.state('wellKnownName')).toEqual('Square');
   });

@@ -35,7 +35,7 @@ describe('SymbolizerUtil', () => {
     it('generates symbolizer as expected', () => {
       const markSymbolizer: MarkSymbolizer = {
         kind: 'Mark',
-        wellKnownName: 'Circle',
+        wellKnownName: 'circle',
         color: '#0E1058'
       };
       const iconSymbolizer: IconSymbolizer = {
