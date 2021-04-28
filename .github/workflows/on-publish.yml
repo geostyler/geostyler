@@ -32,7 +32,7 @@ jobs:
       run: npm install
 
     - name: Build styleguide 🏗️
-      run: npm run build:styleguide
+      run: npm run build-styleguide
 
     - name: Get geostyler version
       run: |

@@ -63,7 +63,7 @@ jobs:
       run: npm install
 
     - name: Build styleguide 🏗️
-      run: npm run build:styleguide
+      run: npm run build-styleguide
 
     - name: Deploy (to docs/master) 🚀
       uses: JamesIves/github-pages-deploy-action@3.7.1
