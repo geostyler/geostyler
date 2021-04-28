@@ -31,11 +31,17 @@ jobs:
     - name: Install dependencies ⏬
       run: npm install
 
+    - name: Lint code 💄
+      run: npm run lint
+
+    - name: Test code ✅
+      run: npm run test-ci
+
     - name: Build artifacts 🏗️
       run: npm run build
 
     - name: Publish to coveralls ⭐
       # coverage/lcov.info was generated in the previous npm run build step
-      uses: coverallsapp/github-action@master 
+      uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
