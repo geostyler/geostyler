@@ -123,7 +123,7 @@ export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWind
             topLeft: false,
             topRight: false
           }}
-          dragHandleClassName="symbolizer-editor-window-header"
+          dragHandleClassName="title"
         >
           <div className="header symbolizer-editor-window-header">
             <span className="title">

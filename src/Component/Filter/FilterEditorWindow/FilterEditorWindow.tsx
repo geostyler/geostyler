@@ -120,7 +120,7 @@ export class FilterEditorWindow extends React.Component<FilterEditorWindowProps>
             topLeft: false,
             topRight: false
           }}
-          dragHandleClassName="filter-editor-window-header"
+          dragHandleClassName="title"
         >
           <div className="header filter-editor-window-header">
             <span className="title">
