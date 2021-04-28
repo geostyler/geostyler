@@ -114,7 +114,7 @@ export class IconSelectorWindow extends React.Component<IconSelectorWindowProps>
             topRight: false
           }}
           bounds="window"
-          dragHandleClassName="gs-icon-selector-window-header"
+          dragHandleClassName="title"
         >
           <div className="header gs-icon-selector-window-header">
             <span className="title">

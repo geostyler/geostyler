@@ -127,7 +127,7 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
             topRight: false
           }}
           bounds="window"
-          dragHandleClassName="rule-generator-window-header"
+          dragHandleClassName="title"
         >
           <div className="header rule-generator-window-header">
             <span className="title">
