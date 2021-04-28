@@ -244,6 +244,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     });
   };
 
+  // TODO: Refactor to stand alone component
   symbolizerRenderer = (text: string, record: RuleRecord) => {
     const {
       data,
@@ -273,29 +274,30 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   };
 
+  // TODO: Refactor to stand alone component
   nameRenderer = (text: string, record: RuleRecord) => {
     const {
       locale
     } = this.props;
 
-    const input = (
-      <Input
-        value={record.name}
-        onChange={(event) => {
-          const target = event.target;
-          this.setValueForRule(record.key, 'name', target.value);
-        }}
-      />);
     return (
       <Popover
         content={record.name}
         title={locale.nameColumnTitle}
       >
-        {input}
+        <Input
+          value={record.name}
+          name="name-renderer"
+          onChange={(event) => {
+            const target = event.target;
+            this.setValueForRule(record.key, 'name', target.value);
+          }}
+        />
       </Popover>
     );
   };
 
+  // TODO: Refactor to stand alone component
   filterRenderer = (text: string, record: RuleRecord) => {
     const {
       locale
@@ -308,6 +310,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const inputSearch = (
       <Input.Search
         className="gs-rule-table-filter-cell"
+        name="filter-renderer"
         value={cql}
         onChange={() => {
           // TODO The CQL representation is currently not editable
@@ -348,12 +351,14 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     });
   };
 
+  // TODO: Refactor to stand alone component
   minScaleRenderer = (text: string, record: RuleRecord) => {
     const minScaleDenominator = _get(record, 'scaleDenominator.min');
     const value = minScaleDenominator ? parseFloat(minScaleDenominator) : undefined;
     return (
       <InputNumber
         className="scale-denominator min-scale-denominator"
+        name="min-scale-renderer"
         value={value}
         min={0}
         formatter={val => val ? `1:${val}` : ''}
@@ -365,12 +370,14 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   };
 
+  // TODO: Refactor to stand alone component
   maxScaleRenderer = (text: string, record: RuleRecord) => {
     const maxScaleDenominator = _get(record, 'scaleDenominator.max');
     const value = maxScaleDenominator ? parseFloat(maxScaleDenominator) : undefined;
     return (
       <InputNumber
         className="scale-denominator max-scale-denominator"
+        name="max-scale-renderer"
         value={value}
         min={0}
         formatter={val => val ? `1:${val}` : ''}
@@ -382,6 +389,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   };
 
+  // TODO: Refactor to stand alone component
   amountRenderer = (text: string, record: RuleRecord) => {
     const {
       data
@@ -398,10 +406,13 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       amount = data.exampleFeatures.features.length;
     }
     return (
-      <div className="ant-input gs-rule-table-numeric-cell">{amount}</div>
+      <div className="ant-input gs-rule-table-numeric-cell amount-renderer">
+        {amount}
+      </div>
     );
   };
 
+  // TODO: Refactor to stand alone component
   duplicatesRenderer = (text: string, record: RuleRecord) => {
     const {
       data,
@@ -417,7 +428,9 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       }
     }
     return (
-      <div className="ant-input gs-rule-table-numeric-cell">{duplicates}</div>
+      <div className="ant-input gs-rule-table-numeric-cell duplicates-renderer">
+        {duplicates}
+      </div>
     );
   };
 

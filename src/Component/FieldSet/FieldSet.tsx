@@ -55,19 +55,6 @@ export class FieldSet extends React.Component<FieldSetProps> {
     checked: true
   };
 
-  constructor(props: FieldSetProps) {
-    super(props);
-  }
-
-  /**
-   * Toggles the state according to the checkbox check state.
-   */
-  onCheckChange = (e: any) => {
-    if (this.props.onCheckChange) {
-      this.props.onCheckChange(e);
-    }
-  };
-
   render() {
 
     const {
@@ -77,12 +64,11 @@ export class FieldSet extends React.Component<FieldSetProps> {
     } = this.props;
 
     return (
-
       <fieldset className="gs-fieldset">
         <legend>
           <Checkbox
             checked={checked}
-            onChange={this.onCheckChange}
+            onChange={this.props.onCheckChange}
           >
             {title}
           </Checkbox>
@@ -95,7 +81,6 @@ export class FieldSet extends React.Component<FieldSetProps> {
           return undefined;
         })}
       </fieldset>
-
     );
   }
 }

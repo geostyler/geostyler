@@ -99,6 +99,8 @@ export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps>
     return (
       <ButtonGroup>
         <Button
+          role="button"
+          name="move-rule-up"
           icon={<UpOutlined />}
           disabled={ruleIndex === 0}
           title={locale.ruleMoveUpTip}
@@ -107,6 +109,8 @@ export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps>
           }}
         />
         <Button
+          role="button"
+          name="move-rule-down"
           icon={<DownOutlined />}
           disabled={ruleIndex === rules.length - 1}
           title={locale.ruleMoveDownTip}

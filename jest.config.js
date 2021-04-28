@@ -33,6 +33,10 @@ module.exports = {
     "src/Util/**/*.{ts,js}"
   ],
   "setupFilesAfterEnv": [
+    // Runs special logic, such as cleaning up components
+    // when using React Testing Library and adds special
+    // extended assertions to Jest
+    "@testing-library/jest-dom/extend-expect",
     "<rootDir>/jest/setup.js",
     "jest-canvas-mock"
   ],

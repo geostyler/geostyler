@@ -25,33 +25,34 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-import { FieldSet, FieldSetProps } from './FieldSet';
-import TestUtil from '../../Util/TestUtil';
+import React from 'react';
+import { fireEvent, render } from '@testing-library/react';
+import { FieldSet } from './FieldSet';
 
 describe('FieldSet', () => {
-  let wrapper: any;
+  let fieldSet;
+  const onCheckChangeDummy = jest.fn();
   beforeEach(() => {
-    const props: FieldSetProps = {};
-    wrapper = TestUtil.mountComponent(FieldSet, props);
+    fieldSet = render(
+      <FieldSet
+        onCheckChange={onCheckChangeDummy}
+      />
+    );
   });
 
-  it('is defined', () => {
+  it('… is defined', () => {
     expect(FieldSet).toBeDefined();
   });
 
-  it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+  test('… renders', async () => {
+    expect(fieldSet.container).toBeInTheDocument();
   });
 
   describe('onCheckChange', () => {
     it('calls passed function', () => {
-      const onCheckChangeDummy = jest.fn();
-      wrapper.setProps({
-        onCheckChange: onCheckChangeDummy
-      });
-      wrapper.instance().onCheckChange('Peter');
-      expect(onCheckChangeDummy).toHaveBeenCalledWith('Peter');
+      const checkbox = fieldSet.getByRole('checkbox');
+      fireEvent.click(checkbox);
+      expect(onCheckChangeDummy).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -106,6 +106,7 @@ export class ColorMapTypeField extends React.Component<ColorMapTypeFieldProps> {
     const mapType = colorMapType ? colorMapType : colorMapTypeOptions[0];
     return (
       <Radio.Group
+        className="color-map-type-field"
         defaultValue={mapType}
         buttonStyle="solid"
         onChange={this.onColorMapTypeChange}
