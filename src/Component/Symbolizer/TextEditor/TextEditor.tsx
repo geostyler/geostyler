@@ -134,7 +134,11 @@ export class TextEditor extends React.Component<TextEditorProps> {
       onSymbolizerChange
     } = this.props;
     const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.font = value.length > 0 ? value : undefined;
+    if (value.length) {
+      symbolizer.font = value;
+    } else {
+      delete symbolizer.font;
+    }
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizer);
     }
