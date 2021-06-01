@@ -143,7 +143,7 @@
     "rimraf": "^3.0.2",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.2.1",
-    "terser-webpack-plugin": "^2.3.7",
+    "terser-webpack-plugin": "^4.2.3",
     "ts-loader": "^8.1.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
     "typescript": "^4.2.4",
