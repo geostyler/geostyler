@@ -97,54 +97,41 @@ Compare the list of existing parsers below.
 
 ### <a name="typescript-declaration-files"></a>TypeScript Declaration Files
 
-  - GeoStyler Data (
-      [github](https://github.com/geostyler/geostyler-data) /
-      [npm](https://www.npmjs.com/package/geostyler-data)
-    )
-  - GeoStyler Style (
-      [github](https://github.com/geostyler/geostyler-style) /
-      [npm](https://www.npmjs.com/package/geostyler-style)
-    )
+  - GeoStyler Data ([github](https://github.com/geostyler/geostyler-data) /
+      [npm](https://www.npmjs.com/package/geostyler-data))
+  - GeoStyler Style ([github](https://github.com/geostyler/geostyler-style) /
+      [npm](https://www.npmjs.com/package/geostyler-style))
 
 ### <a name="dataparser-implementations"></a>DataParser Implementations
 
-  - GeoJSON (
-      [github](https://github.com/geostyler/geostyler-geojson-parser) /
-      [npm](https://www.npmjs.com/package/geostyler-geojson-parser)
-    )
-  - Shapefile (
-      [github](https://github.com/geostyler/geostyler-shapefile-parser) /
-      [npm](https://www.npmjs.com/package/geostyler-shapefile-parser)
-    )
-  - Web Feature Service (WFS) (
-      [github](https://github.com/geostyler/geostyler-wfs-parser) /
-      [npm](https://www.npmjs.com/package/geostyler-wfs-parser)
-    )
+  - GeoJSON ([github](https://github.com/geostyler/geostyler-geojson-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-geojson-parser))
+  - Shapefile ([github](https://github.com/geostyler/geostyler-shapefile-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-shapefile-parser))
+  - Web Feature Service (WFS) ([github](https://github.com/geostyler/geostyler-wfs-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-wfs-parser))
 
 ### <a name="styleparser-implementations"></a>StyleParser Implementations
 
-  - SLD (
-      [github](https://github.com/geostyler/geostyler-sld-parser) /
-      [npm](https://www.npmjs.com/package/geostyler-sld-parser)
-    )
-  - OpenLayers Style (
-      [github](https://github.com/geostyler/geostyler-openlayers-parser) /
-      [npm](https://www.npmjs.com/package/geostyler-openlayers-parser)
-    )
-  - Mapbox Style (
-      [github](https://github.com/geostyler/geostyler-mapbox-parser) /
-      [npm](https://www.npmjs.com/package/geostyler-mapbox-parser)
-    )
-  - QGIS Style [*.qml] (
-      [github](https://github.com/geostyler/geostyler-qgis-parser) /
-      [npm](https://www.npmjs.com/package/geostyler-qgis-parser)
-    )
+  - SLD ([github](https://github.com/geostyler/geostyler-sld-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-sld-parser))
+  - OpenLayers Style ([github](https://github.com/geostyler/geostyler-openlayers-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-openlayers-parser))
+  - Mapbox Style ([github](https://github.com/geostyler/geostyler-mapbox-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-mapbox-parser))
+  - MapServer Mapfiles ([github](https://github.com/geostyler/geostyler-mapfile-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-mapfile-parser))
+  - QGIS Style [*.qml] ([github](https://github.com/geostyler/geostyler-qgis-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-qgis-parser))
 
 ### <a name="more"></a>More
-  - CQL Filter (
-      [github](https://github.com/geostyler/geostyler-cql-parser) /
-      [npm](https://www.npmjs.com/package/geostyler-cql-parser)
-    )
+  - CQL Filter ([github](https://github.com/geostyler/geostyler-cql-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-cql-parser))
+  - Legend ([github](https://github.com/geostyler/geostyler-legend) /
+      [npm](https://www.npmjs.com/package/geostyler-legend))
+  - CLI (Command Line Interface) ([github](https://github.com/geostyler/geostyler-cli) /
+      [npm](https://www.npmjs.com/package/geostyler-cli))
+
 
 ## <a name="developer-guide"></a>Developer Guide
 
