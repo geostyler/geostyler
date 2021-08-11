@@ -37,11 +37,11 @@ describe('Renderer', () => {
   let dummyOnSymbolizerChange: jest.Mock;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
-    wellKnownName: 'Circle',
+    wellKnownName: 'circle',
     color: '#FF0000'
   }, {
     kind: 'Mark',
-    wellKnownName: 'Circle',
+    wellKnownName: 'circle',
     color: '#FF00FF'
   }];
 

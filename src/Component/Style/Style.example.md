@@ -50,7 +50,7 @@ class StyleExample extends React.Component {
             "symbolizers": [
               {
                 "kind": "Mark",
-                "wellKnownName": "Circle"
+                "wellKnownName": "circle"
               }
             ]
           }

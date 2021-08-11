@@ -55,7 +55,7 @@ describe('WellKnownNameField', () => {
   it('can handle wellKnownNames property', () => {
     expect.assertions(2);
     wrapper.setProps({
-      wellKnownNames: ['Circle', 'Square']
+      wellKnownNames: ['circle', 'square']
     });
     expect(wrapper.instance().props.wellKnownNames).toHaveLength(2);
     expect(wrapper.instance().getWKNSelectOptions()).toHaveLength(2);
@@ -64,10 +64,10 @@ describe('WellKnownNameField', () => {
   it('can handle wellKnownName property', () => {
     expect.assertions(2);
     wrapper.setProps({
-      wellKnownName: 'Square'
+      wellKnownName: 'square'
     });
-    expect(wrapper.instance().props.wellKnownName).toEqual('Square');
+    expect(wrapper.instance().props.wellKnownName).toEqual('square');
     const selectValue = wrapper.props().value;
-    expect(selectValue).toEqual('Square');
+    expect(selectValue).toEqual('square');
   });
 });

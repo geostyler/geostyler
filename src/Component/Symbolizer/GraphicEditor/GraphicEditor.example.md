@@ -41,7 +41,7 @@ class GraphicEditorExample extends React.Component {
     this.state = {
       graphic: {
         kind: 'Mark',
-        wellKnownName: 'Circle'
+        wellKnownName: 'circle'
       },
       graphicType: 'Mark'
     };

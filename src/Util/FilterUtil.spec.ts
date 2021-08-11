@@ -115,7 +115,7 @@ describe('FilterUtil', () => {
           'symbolizers': [
             {
               'kind': 'Mark',
-              'wellKnownName': 'Circle'
+              'wellKnownName': 'circle'
             }
           ],
           'filter': [
@@ -133,7 +133,7 @@ describe('FilterUtil', () => {
           'symbolizers': [
             {
               'kind': 'Mark',
-              'wellKnownName': 'Circle',
+              'wellKnownName': 'circle',
               'color': '#0E1058'
             }
           ],
@@ -152,7 +152,7 @@ describe('FilterUtil', () => {
           'symbolizers': [
             {
               'kind': 'Mark',
-              'wellKnownName': 'Circle',
+              'wellKnownName': 'circle',
               'color': '#0E1058'
             }
           ],
@@ -171,7 +171,7 @@ describe('FilterUtil', () => {
           'symbolizers': [
             {
               'kind': 'Mark',
-              'wellKnownName': 'Circle',
+              'wellKnownName': 'circle',
               'color': '#0E1058'
             }
           ],
