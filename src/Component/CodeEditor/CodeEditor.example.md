@@ -28,49 +28,53 @@
  *
 -->
 
-This demonstrates the use of `GraphicEditor`.
+This demonstrates the usage of the `CodeEditor` component.
 
 ```jsx
 import * as React from 'react';
-import { GraphicEditor } from 'geostyler';
+import { CodeEditor } from 'geostyler';
+import SldStyleParser from 'geostyler-sld-parser';
 
-class GraphicEditorExample extends React.Component {
+class CodeEditorExample extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      graphic: {
-        kind: 'Mark',
-        wellKnownName: 'circle'
-      },
-      graphicType: 'Mark'
-    };
-
-    this.onGraphicChange = this.onGraphicChange.bind(this);
-  }
-
-  onGraphicChange(graphic) {
-    this.setState({
-      graphic: graphic,
-      graphicType: graphic.kind
-    });
+      sldParser: new SldStyleParser({sldVersion: '1.1.0'}),
+      style: {
+        "name": "Demo Style",
+        "rules": [
+          {
+            "name": "Rule 1",
+            "symbolizers": [
+              {
+                "kind": "Mark",
+                "wellKnownName": "circle"
+              }
+            ]
+          }
+        ]
+      }
+    }
   }
 
   render() {
     const {
-      graphic,
-      graphicType
+      style,
+      sldParser
     } = this.state;
 
     return (
-      <GraphicEditor
-        graphic={graphic}
-        graphicType={graphicType}
-        onGraphicChange={this.onGraphicChange}
-      />
+      <div style={{height: '300px'}}>
+        <CodeEditor
+          style={style}
+          parsers={[sldParser]}
+          defaultParser={sldParser}
+        />
+      </div>
     );
   }
 }
 
-<GraphicEditorExample />
+<CodeEditorExample />
 ```

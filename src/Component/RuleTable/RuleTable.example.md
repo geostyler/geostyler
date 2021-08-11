@@ -47,7 +47,7 @@ class RuleTableExample extends React.Component {
             "symbolizers": [
               {
                 "kind": "Mark",
-                "wellKnownName": "Circle"
+                "wellKnownName": "circle"
               }
             ]
           }

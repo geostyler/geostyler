@@ -39,7 +39,7 @@ class WellKnownNameFieldExample extends React.Component {
     super(props);
 
     this.state = {
-      wellKnownName: 'Circle'
+      wellKnownName: 'circle'
     };
 
     this.onChange = this.onChange.bind(this);
