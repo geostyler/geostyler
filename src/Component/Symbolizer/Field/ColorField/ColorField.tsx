@@ -27,23 +27,22 @@
  */
 
 import * as React from 'react';
-const Color = require('color');
-// import * as Color from 'color';
-import {
-  SketchPicker,
-  ColorResult
-} from 'react-color';
 
 import {
   Button
 } from 'antd';
+import { SwapOutlined } from '@ant-design/icons';
 
 import './ColorField.less';
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../../locale/en_US';
+// import en_US from '../../../../locale/en_US';
 
 import _isEqual from 'lodash/isEqual';
+import { useState } from 'react';
+import { isExpression, Expression } from 'geostyler-style';
+import BaseColorField from './BaseColorField/BaseColorField';
+import ExpressionField from '../ExpressionField/ExpressionField';
 
 // i18n
 export interface ColorFieldLocale {
@@ -59,101 +58,108 @@ interface ColorFieldDefaultProps {
 
 // non default props
 export interface ColorFieldProps extends Partial<ColorFieldDefaultProps> {
-  onChange?: (color: string) => void;
-  color?: string;
-  defaultValue?: string;
+  onChange?: (color: string|Expression) => void;
+  color?: string | Expression;
+  defaultValue?: string | Expression;
 }
 
-// state
-interface ColorFieldState {
-  colorPickerVisible: boolean;
-}
+export const COMPONENTNAME = 'ColorField';
 
-/**
- * ColorField
- */
-export class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
+export const ColorField: React.FC<ColorFieldProps> = ({
+  onChange = () => undefined,
+  color,
+  defaultValue
+}) => {
 
-  static componentName: string = 'ColorField';
-
-  public static defaultProps: ColorFieldDefaultProps = {
-    locale: en_US.GsColorField
-  };
-
-  constructor(props: ColorFieldProps) {
-    super(props);
-    this.state = {
-      colorPickerVisible: false
-    };
-  }
-
-  public shouldComponentUpdate(nextProps: ColorFieldProps, nextState: ColorFieldState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
-  onColorPreviewClick = () => {
-    this.setState({
-      colorPickerVisible: !this.state.colorPickerVisible
-    });
-  };
-
-  onChangeComplete = (colorResult: ColorResult) => {
-    const {
-      onChange
-    } = this.props;
-    if (onChange) {
-      onChange(colorResult.hex);
-    }
-  };
-
-  render() {
-    const {
-      colorPickerVisible = false
-    } = this.state;
-    const {
-      color,
-      locale,
-      defaultValue
-    } = this.props;
-    let textColor;
-
-    if (!color && !defaultValue) {
-      textColor = '#000000';
+  const expressionFromDefaultValue = () => {
+    if (color) {
+      if (isExpression(color)) {
+        return color;
+      }
+      if (defaultValue && isExpression(defaultValue)) {
+        return defaultValue;
+      }
     } else {
-      try {
-        textColor = Color(color || defaultValue).negate().grayscale().string();
-      } catch (error) {
-        textColor = '#000000';
+      if (defaultValue && isExpression(defaultValue)) {
+        return defaultValue;
       }
     }
+    return undefined;
+  };
 
-    return (
-      <div className="editor-field color-field">
-        <div className="color-preview-wrapper">
-          <Button
-            className="color-preview editor-field"
-            style={{
-              backgroundColor: color || defaultValue,
-              color: textColor
-            }}
-            onClick={this.onColorPreviewClick}
-          >
-            {colorPickerVisible ? locale.closeText : color ? locale.editText : locale.chooseText}
-          </Button>
-          {
-            colorPickerVisible ?
-              <SketchPicker
-                color={color}
-                disableAlpha={true}
-                onChangeComplete={this.onChangeComplete}
-              /> : null
-          }
-        </div>
-      </div>
-    );
-  }
-}
+  const stringFromDefaultValue = () => {
+    if (color) {
+      if (!isExpression(color)) {
+        return color;
+      }
+      if (defaultValue && !isExpression(defaultValue)) {
+        return defaultValue;
+      }
+    } else {
+      if (defaultValue && !isExpression(defaultValue)) {
+        return defaultValue;
+      }
+    }
+    return undefined;
+  };
 
-export default localize(ColorField, ColorField.componentName);
+  const [showExpression, setShowExpression] = useState<boolean>(
+    expressionFromDefaultValue() && isExpression(expressionFromDefaultValue()));
+  const [colorString, setColorString] = useState<string>(stringFromDefaultValue());
+  const [colorExpression, setColorExpression] = useState<Expression>(expressionFromDefaultValue());
+
+  const onExpressionChange = (newColor: Expression) => {
+    setColorExpression(newColor);
+    if (onChange) {
+      onChange(newColor);
+    }
+  };
+
+  const onStringChange = (newColor: string) => {
+    setColorString(newColor);
+    if (onChange) {
+      onChange(newColor);
+    }
+  };
+
+  const toggleShowExpression = () => {
+    const newShowExpression = !showExpression;
+    setShowExpression(newShowExpression);
+    if (newShowExpression) {
+      if (!colorExpression && colorString) {
+        const colorExpr: Expression = {type: 'literal', value: colorString};
+        setColorExpression(colorExpr);
+        onExpressionChange(colorExpr);
+      } else {
+        onExpressionChange(colorExpression);
+      }
+    } else {
+      onStringChange(colorString);
+    }
+  };
+
+  return (
+    <div>
+      {
+        showExpression ?
+          <ExpressionField
+            expression={colorExpression}
+            onChange={onExpressionChange}
+          />
+          :
+          <BaseColorField
+            color={colorString}
+            onChange={onStringChange}
+          />
+      }
+      <Button
+        type='primary'
+        size='small'
+        icon={<SwapOutlined/>}
+        onClick={toggleShowExpression}
+      />
+    </div>
+  );
+};
+
+export default localize(ColorField, COMPONENTNAME);

@@ -1,7 +1,6 @@
-<!--
- * Released under the BSD 2-Clause License
+/* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,44 +24,39 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *
--->
+ */
 
-This demonstrates the use of `Preview`.
+import { ExpressionField, ExpressionFieldProps } from './ExpressionField';
+import TestUtil from '../../../../Util/TestUtil';
+import { Expression } from 'geostyler-style';
 
-```jsx
-import * as React from 'react';
-import { Preview } from 'geostyler';
-
-class PreviewExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      symbolizers: [{
-        kind: 'Mark',
-        wellKnownName: 'circle',
-        color: '#ff0000',
-        strokeColor: '000000',
-        strokeWidth: 3,
-        radius: 10
-      }]
+describe('ExpressionField', () => {
+  let wrapper: any;
+  let onChangeDummy: jest.Mock;
+  beforeEach(() => {
+    onChangeDummy = jest.fn();
+    const props: ExpressionFieldProps = {
+      onChange: onChangeDummy
     };
-  }
+    wrapper = TestUtil.shallowRenderComponent(ExpressionField, props);
+  });
 
-  render() {
-    const {
-      symbolizers
-    } = this.state;
+  it('is defined', () => {
+    expect(ExpressionField).toBeDefined();
+  });
 
-    return (
-      <Preview
-        symbolizers={symbolizers}
-        hideEditButton={true}
-      />
-    );
-  }
-}
+  it('renders correctly', () => {
+    expect(wrapper).not.toBeUndefined();
+  });
 
-<PreviewExample />
-```
+  // TODO
+  // describe('onExpressionChange', () => {
+  //   it('calls onChange if expression is valid json', () => {
+  //     const expression: Expression = {type: 'literal', value: 'foo'};
+  //     wrapper.find('Input').find('input').simulate('onchange', expression);
+  //     // input.value = JSON.stringify(expression);
+  //     expect(onChangeDummy).toHaveBeenCalled();
+  //     expect(onChangeDummy).toHaveBeenCalledWith(expression);
+  //   });
+  // });
+});

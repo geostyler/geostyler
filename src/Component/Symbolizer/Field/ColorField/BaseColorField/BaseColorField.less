@@ -1,5 +1,4 @@
-<!--
- * Released under the BSD 2-Clause License
+/* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -25,44 +24,13 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *
--->
+ */
 
-This demonstrates the use of `Preview`.
-
-```jsx
-import * as React from 'react';
-import { Preview } from 'geostyler';
-
-class PreviewExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      symbolizers: [{
-        kind: 'Mark',
-        wellKnownName: 'circle',
-        color: '#ff0000',
-        strokeColor: '000000',
-        strokeWidth: 3,
-        radius: 10
-      }]
-    };
-  }
-
-  render() {
-    const {
-      symbolizers
-    } = this.state;
-
-    return (
-      <Preview
-        symbolizers={symbolizers}
-        hideEditButton={true}
-      />
-    );
-  }
+.sketch-picker {
+  position: fixed;
+  z-index: 200;
 }
 
-<PreviewExample />
-```
+.color-preview {
+  width: 90px;
+}

@@ -47,19 +47,4 @@ describe('ColorField', () => {
   it('renders correctly', () => {
     expect(wrapper).not.toBeUndefined();
   });
-
-  describe('onColorPreviewClick', () => {
-    it('toggles state of colorPickerVisible', () => {
-      const visible = wrapper.state('colorPickerVisible');
-      wrapper.instance().onColorPreviewClick();
-      expect(wrapper.state('colorPickerVisible')).toBe(!visible);
-    });
-  });
-
-  describe('onChangeComplete', () => {
-    it('calls a passed on Change method with a color hex', () => {
-      wrapper.instance().onChangeComplete({hex: 'Peter'});
-      expect(onChangeDummy).toHaveBeenCalledWith('Peter');
-    });
-  });
 });

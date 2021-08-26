@@ -195,7 +195,7 @@ export default {
     openEditorText: '符号编辑',
     closeEditorText: '关闭编辑器'
   },
-  GsColorField: {
+  GsBaseColorField: {
     closeText: '关闭',
     editText: '更改',
     chooseText: '选取',

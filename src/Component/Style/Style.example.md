@@ -105,3 +105,142 @@ class StyleExample extends React.Component {
 
 <StyleExample />
 ```
+
+```jsx
+import * as React from 'react';
+import { Style, PreviewMap } from 'geostyler';
+
+import { Switch } from 'antd';
+
+class StyleExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      compactLayout: false,
+      style: {
+        "name": "Demo Style",
+        "rules": [
+          {
+            "name": "Rule 1",
+            "symbolizers": [
+              {
+                "kind": "Mark",
+                "wellKnownName": "circle",
+                "color": {
+                  "type": "literal",
+                  "value": "#ffff00"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    this.onStyleChange = this.onStyleChange.bind(this);
+  }
+
+  onStyleChange(style) {
+    this.setState({
+      style: style
+    });
+  }
+
+  render() {
+    const {
+      style,
+      compactLayout
+    } = this.state;
+
+    return (
+      <div>
+        <Style
+          style={style}
+          onStyleChange={this.onStyleChange}
+          compact={true}
+        />
+        <PreviewMap
+          style={style}
+        />
+      </div>
+    );
+  }
+
+}
+
+<StyleExample />
+```
+
+Style with a connected preview window and data.
+
+```jsx
+import * as React from 'react';
+import { Style, PreviewMap } from 'geostyler';
+
+import { Switch } from 'antd';
+
+class StyleExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      compactLayout: false,
+      style: {
+        "name": "Demo Style",
+        "rules": [
+          {
+            "name": "Rule 1",
+            "symbolizers": [
+              {
+                "kind": "Mark",
+                "wellKnownName": "circle",
+                "color": {
+                  "type": "functioncall",
+                  "name": "Categorize",
+                  "args": [
+                    {"type": "literal", "value": "3"}, {"type": "literal", "value": "#0000ff"},
+                    {"type": "literal", "value": "1"}, {"type": "literal", "value": "#ffff00"},
+                    {"type": "literal", "value": "10"}, {"type": "literal", "value": "#ff0000"}
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    this.onStyleChange = this.onStyleChange.bind(this);
+  }
+
+  onStyleChange(style) {
+    this.setState({
+      style: style
+    });
+  }
+
+  render() {
+    const {
+      style,
+      compactLayout
+    } = this.state;
+
+    return (
+      <div>
+        <Style
+          style={style}
+          onStyleChange={this.onStyleChange}
+          compact={true}
+        />
+        <PreviewMap
+          style={style}
+        />
+      </div>
+    );
+  }
+
+}
+
+<StyleExample />
+```

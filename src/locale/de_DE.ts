@@ -191,7 +191,7 @@ export default {
     openEditorText: 'Symbolisierung editieren',
     closeEditorText: 'Editor schließen'
   },
-  GsColorField: {
+  GsBaseColorField: {
     closeText: 'Schließen',
     editText: 'Ändern',
     chooseText: 'Wählen',

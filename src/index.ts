@@ -99,6 +99,7 @@ import UploadButton from './Component/UploadButton/UploadButton';
 import WellKnownNameEditor from './Component/Symbolizer/WellKnownNameEditor/WellKnownNameEditor';
 import WellKnownNameField from './Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
+import ExpressionField from './Component/Symbolizer/Field/ExpressionField/ExpressionField';
 import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
 import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
 import RuleTable from './Component/RuleTable/RuleTable';
@@ -202,6 +203,7 @@ export {
   RuleGenerator,
   RuleTable,
   WidthField,
+  ExpressionField,
   CompositionContext,
   DefaultValueContext,
   withDefaultsContext

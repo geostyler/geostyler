@@ -1,5 +1,4 @@
-<!--
- * Released under the BSD 2-Clause License
+/* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -25,44 +24,42 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *
--->
+ */
 
-This demonstrates the use of `Preview`.
+import { BaseColorField, BaseColorFieldProps } from './BaseColorField';
+import TestUtil from '../../../../../Util/TestUtil';
 
-```jsx
-import * as React from 'react';
-import { Preview } from 'geostyler';
-
-class PreviewExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      symbolizers: [{
-        kind: 'Mark',
-        wellKnownName: 'circle',
-        color: '#ff0000',
-        strokeColor: '000000',
-        strokeWidth: 3,
-        radius: 10
-      }]
+describe('BaseColorField', () => {
+  let wrapper: any;
+  let onChangeDummy: jest.Mock;
+  beforeEach(() => {
+    onChangeDummy = jest.fn();
+    const props: BaseColorFieldProps = {
+      onChange: onChangeDummy
     };
-  }
+    wrapper = TestUtil.shallowRenderComponent(BaseColorField, props);
+  });
 
-  render() {
-    const {
-      symbolizers
-    } = this.state;
+  it('is defined', () => {
+    expect(BaseColorField).toBeDefined();
+  });
 
-    return (
-      <Preview
-        symbolizers={symbolizers}
-        hideEditButton={true}
-      />
-    );
-  }
-}
+  it('renders correctly', () => {
+    expect(wrapper).not.toBeUndefined();
+  });
 
-<PreviewExample />
-```
+  describe('onColorPreviewClick', () => {
+    it('toggles state of colorPickerVisible', () => {
+      const visible = wrapper.state('colorPickerVisible');
+      wrapper.instance().onColorPreviewClick();
+      expect(wrapper.state('colorPickerVisible')).toBe(!visible);
+    });
+  });
+
+  describe('onChangeComplete', () => {
+    it('calls a passed on Change method with a color hex', () => {
+      wrapper.instance().onChangeComplete({hex: 'Peter'});
+      expect(onChangeDummy).toHaveBeenCalledWith('Peter');
+    });
+  });
+});

@@ -29,8 +29,11 @@
 import * as React from 'react';
 
 import {
+  // isExpression,
   Symbolizer,
-  TextSymbolizer
+  TextSymbolizer,
+  Expression,
+  // isLiteralValue
 } from 'geostyler-style';
 
 import ColorField from '../Field/ColorField/ColorField';
@@ -49,6 +52,7 @@ import './PropTextEditor.less';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import RotateField from '../Field/RotateField/RotateField';
 import en_US from '../../../locale/en_US';
+// import ExpressionToggle from '../../ExpressionToggle/ExpressionToggle';
 
 // i18n
 export interface PropTextEditorLocale {
@@ -112,7 +116,7 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
     }
   };
 
-  onColorChange = (value: string) => {
+  onColorChange = (value: string|Expression) => {
     const {
       onSymbolizerChange
     } = this.props;
@@ -252,10 +256,48 @@ export class PropTextEditor extends React.Component<PropTextEditorProps> {
           />
         </div>
         {locale.colorLabel}
+        {/* <ExpressionToggle
+          expression={color}
+          onExpressionChange={this.onColorChange}
+          // showExpression={color && isExpression(color)}
+          // onShowExpressionToggle={(showExpression: boolean) => {
+          //   if (showExpression) {
+          //     this.onColorChange(colorExpression);
+          //   } else {
+          //     this.onColorChange(color);
+          //   }
+          //   debugger;
+          //   if (showExpression) {
+          //     if (!color || !isExpression(color)) {
+          //       this.onColorChange({type: 'literal', value: color as string});
+          //     }
+          //   } else {
+          //     if (isLiteralValue(color)) {
+          //       this.onColorChange(color.value);
+          //     } else if (isExpression(color)) {
+          //       this.onColorChange('');
+          //     }
+          //   }
+          // }}
+        > */}
         <ColorField
-          color={color}
+          color={color as string}
           onChange={this.onColorChange}
         />
+        {/* </ExpressionToggle> */}
+        {/* {
+          color && isExpression(color) ?
+            <ExpressionField
+              expression={color}
+              onChange={this.onColorChange}
+            />
+            :
+            <ColorField
+              color={color as string}
+              onChange={this.onColorChange}
+            />
+
+        } */}
         {locale.fontLabel}
         <FontPicker
           font={font}

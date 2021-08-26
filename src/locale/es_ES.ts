@@ -158,7 +158,7 @@ export default {
     openEditorText: 'Editor de simbología',
     closeEditorText: 'Cerrar editor'
   },
-  GsColorField: {
+  GsBaseColorField: {
     closeText: 'Cerrar',
     editText: 'Cambiar',
     chooseText: 'Elegir',

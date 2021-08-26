@@ -1,7 +1,6 @@
-<!--
- * Released under the BSD 2-Clause License
+/* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,44 +24,56 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *
--->
+ */
 
-This demonstrates the use of `Preview`.
-
-```jsx
 import * as React from 'react';
-import { Preview } from 'geostyler';
 
-class PreviewExample extends React.Component {
-  constructor(props) {
-    super(props);
+import {
+  Input
+} from 'antd';
 
-    this.state = {
-      symbolizers: [{
-        kind: 'Mark',
-        wellKnownName: 'circle',
-        color: '#ff0000',
-        strokeColor: '000000',
-        strokeWidth: 3,
-        radius: 10
-      }]
-    };
-  }
+import { Expression } from 'geostyler-style';
+import { useState } from 'react';
 
-  render() {
-    const {
-      symbolizers
-    } = this.state;
-
-    return (
-      <Preview
-        symbolizers={symbolizers}
-        hideEditButton={true}
-      />
-    );
-  }
+export interface ExpressionFieldState {
+  expression: string;
 }
 
-<PreviewExample />
-```
+// non default props
+export interface ExpressionFieldProps {
+  /** Callback when content of field changes. */
+  onChange?: (expression: Expression) => void;
+  /** The expression to display in this field. */
+  expression?: Expression;
+}
+
+export const ExpressionField: React.FC<ExpressionFieldProps> = ({
+  onChange = () => undefined,
+  expression
+}) => {
+
+  const [expressionString, setExpressionString] = useState(JSON.stringify(expression));
+
+  const onExpressionChange = (event: any) => {
+    const newExpressionString = event.target.value;
+    setExpressionString(newExpressionString);
+    try {
+      const newExpression = JSON.parse(newExpressionString);
+      if (onChange) {
+        onChange(newExpression);
+      }
+    } catch (error) {
+      return;
+    }
+  };
+
+  return (
+    <Input
+      className="editor-field expression-field"
+      value={expressionString}
+      onChange={onExpressionChange}
+    />
+  );
+};
+
+export default ExpressionField;
