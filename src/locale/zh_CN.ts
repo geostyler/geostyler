@@ -313,7 +313,8 @@ export default {
     classificationPlaceholder: '选择……',
     equalInterval: '相等间隔',
     preview: '颜色预览',
-    numberOfRulesViaKmeans: '……被 k-Means 分类影响。'
+    numberOfRulesViaKmeans: '……被 k-Means 分类影响。',
+    allDistinctValues: '使用所有不同的值'
   },
   GsColorRampCombo: {
     colorRampPlaceholder: '选择……'

@@ -250,7 +250,8 @@ export default {
     classification: 'Método de clasificación',
     classificationPlaceholder: 'Seleccionar…',
     preview: 'Avance de color',
-    numberOfRulesViaKmeans: '…afectados por la clasificación k-Means.'
+    numberOfRulesViaKmeans: '…afectados por la clasificación k-Means.',
+    allDistinctValues: 'Utilizar todos los valores distintos'
   },
   GsColorRampCombo: {
     colorRampPlaceholder: 'Seleccionar…'

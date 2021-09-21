@@ -313,7 +313,8 @@ export default {
     classificationPlaceholder: 'Select…',
     equalInterval: 'Equal Interval',
     preview: 'Color Preview',
-    numberOfRulesViaKmeans: '…affected by k-Means classification.'
+    numberOfRulesViaKmeans: '…affected by k-Means classification.',
+    allDistinctValues: 'Use all distinct values'
   },
   GsColorRampCombo: {
     colorRampPlaceholder: 'Select…'
