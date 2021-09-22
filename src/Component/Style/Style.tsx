@@ -60,7 +60,7 @@ import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilt
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import RuleTable from '../RuleTable/RuleTable';
+import RuleTable, { RuleTableProps } from '../RuleTable/RuleTable';
 import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
 import { SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
@@ -109,6 +109,8 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   ruleNameProps?: Partial<NameFieldProps>;
   /** Properties of the Rule component */
   ruleProps?: Partial<RuleProps>;
+  /** Properties of the RuleTable component */
+  ruleTableProps?: Partial<RuleTableProps>;
   /** The renderer to use */
   ruleRendererType?: 'SLD' | 'OpenLayers';
   /** Properties of the SLD renderer */
@@ -508,6 +510,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       filterUiProps,
       ruleNameProps,
       ruleRendererType,
+      ruleTableProps,
       sldRendererProps,
       enableClassification,
       locale,
@@ -592,6 +595,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
             showAmountColumn={showAmountColumn}
             showDuplicatesColumn={showDuplicatesColumn}
             colorRamps={colorRamps}
+            {...ruleTableProps}
           />
           : rules.map((rule, idx) => <Rule
             key={'rule_' + idx}
