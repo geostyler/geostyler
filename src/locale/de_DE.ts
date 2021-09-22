@@ -308,7 +308,8 @@ export default {
     classification: 'Klassifizierungs Methode',
     classificationPlaceholder: 'Auswählen…',
     preview: 'Farb Vorschau',
-    numberOfRulesViaKmeans: '…betroffen durch k-Means Klassifizierung.'
+    numberOfRulesViaKmeans: '…betroffen durch k-Means Klassifizierung.',
+    allDistinctValues: 'Alle eindeutigen Werte verwenden'
   },
   GsColorRampCombo: {
     colorRampPlaceholder: 'Auswählen…'

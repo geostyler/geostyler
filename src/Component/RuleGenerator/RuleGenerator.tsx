@@ -29,7 +29,7 @@
 import * as React from 'react';
 import { Rule, SymbolizerKind, WellKnownName } from 'geostyler-style';
 import { Data } from 'geostyler-data';
-import { Radio, Form, Button, InputNumber } from 'antd';
+import { Radio, Form, Button, InputNumber, Tooltip } from 'antd';
 import en_US from '../../locale/en_US';
 import AttributeCombo from '../Filter/AttributeCombo/AttributeCombo';
 
@@ -45,6 +45,7 @@ import { ColorSpaceCombo } from './ColorSpaceCombo/ColorSpaceCombo';
 import ColorsPreview from './ColorsPreview/ColorsPreview';
 import { ClassificationMethod, ClassificationCombo } from './ClassificationCombo/ClassificationCombo';
 import _get from 'lodash/get';
+import { PlusSquareOutlined } from '@ant-design/icons';
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 
@@ -66,6 +67,7 @@ interface RuleGeneratorLocale {
   colorSpace: string;
   preview: string;
   numberOfRulesViaKmeans: string;
+  allDistinctValues: string;
 }
 
 // default props
@@ -85,6 +87,7 @@ interface RuleGeneratorState {
   attributeName?: string;
   attributeType?: string;
   numberOfRules?: number;
+  distinctValues?: string[];
   levelOfMeasurement?: LevelOfMeasurement;
   colorRamp?: string;
   symbolizerKind?: SymbolizerKind;
@@ -133,6 +136,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
       colorRamp: props.colorRamps && props.colorRamps.GeoStyler ? 'GeoStyler' : undefined,
       colorSpace: 'hsl',
       numberOfRules: 2,
+      distinctValues: [],
       hasError: false
     };
   }
@@ -154,8 +158,11 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
     if (attributeType === 'string' && classificationMethod === 'kmeans') {
       classificationMethod = undefined;
     }
+
+    const distinctValues = RuleGeneratorUtil.getDistinctValues(internalDataDef, attributeName) || [];
     this.setState({
       attributeName,
+      distinctValues,
       attributeType,
       levelOfMeasurement: attributeType === 'string' ? 'nominal' : 'cardinal',
       classificationMethod
@@ -174,6 +181,12 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
   onNumberChange = (numberOfRules: number) => {
     this.setState({
       numberOfRules
+    });
+  };
+
+  onAllDistinctClicked = () => {
+    this.setState({
+      numberOfRules: this.state.distinctValues.length
     });
   };
 
@@ -266,7 +279,8 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
       levelOfMeasurement,
       numberOfRules,
       symbolizerKind,
-      wellKnownName
+      wellKnownName,
+      distinctValues
     } = this.state;
 
     const previewColors = RuleGeneratorUtil.generateColors(colorRamps[colorRamp], numberOfRules, colorSpace);
@@ -329,12 +343,24 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
                 : undefined
             }
           >
-            <InputNumber
-              min={this.minNrClasses}
-              max={100}
-              value={numberOfRules}
-              onChange={this.onNumberChange}
-            />
+            <div>
+              <InputNumber
+                min={this.minNrClasses}
+                max={100}
+                value={numberOfRules}
+                onChange={this.onNumberChange}
+              />
+              {
+                levelOfMeasurement === 'nominal' && distinctValues.length > 0 &&
+                <Tooltip title={locale.allDistinctValues}>
+                  <Button
+                    className="all-distinct-values-button"
+                    icon={<PlusSquareOutlined />}
+                    onClick={this.onAllDistinctClicked}
+                  />
+                </Tooltip>
+              }
+            </div>
           </Form.Item>
           <fieldset>
             <legend>{locale.symbolizer}</legend>
