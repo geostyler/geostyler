@@ -46,43 +46,35 @@ export interface FontPickerProps extends Partial<FontPickerDefaultProps> {
 /**
  * FontPicker to select font types / families
  */
-export class FontPicker extends React.Component<FontPickerProps> {
+export const FontPicker: React.FC<FontPickerProps> = ({
+  onChange,
+  font,
+  fontOptions = [
+    'Arial', 'Verdana', 'Sans-serif',
+    'Courier New', 'Lucida Console', 'Monospace',
+    'Times New Roman', 'Georgia', 'Serif'
+  ]
+}) => {
 
-  public static defaultProps: FontPickerDefaultProps = {
-    fontOptions: [
-      'Arial', 'Verdana', 'Sans-serif',
-      'Courier New', 'Lucida Console', 'Monospace',
-      'Times New Roman', 'Georgia', 'Serif'
-    ]
-  };
-
-  render() {
-    const {
-      font,
-      onChange,
-      fontOptions
-    } = this.props;
-
-    let options: {label: string; value: string}[];
-    if (fontOptions) {
-      options = fontOptions.map((fontOpt: string) => {
-        return {
-          label: fontOpt,
-          value: fontOpt
-        };
-      });
-    }
-
-    return (
-      <Select
-        className="editor-field font-picker"
-        mode="tags"
-        value={font}
-        onChange={onChange}
-        options={options}
-      />
-    );
+  let options: {label: string; value: string}[];
+  if (fontOptions) {
+    options = fontOptions.map((fontOpt: string) => {
+      return {
+        label: fontOpt,
+        value: fontOpt
+      };
+    });
   }
-}
+
+  return (
+    <Select
+      className="editor-field font-picker"
+      mode="tags"
+      value={font}
+      onChange={onChange}
+      options={options}
+    />
+  );
+};
 
 export default FontPicker;
