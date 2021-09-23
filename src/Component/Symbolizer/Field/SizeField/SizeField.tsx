@@ -41,23 +41,19 @@ export interface SizeFieldProps {
 /**
  * SizeField
  */
-export class SizeField extends React.PureComponent<SizeFieldProps> {
+export const SizeField: React.FC<SizeFieldProps> = ({
+  onChange,
+  size
+}) => {
 
-  render() {
-    const {
-      onChange,
-      size
-    } = this.props;
-
-    return (
-      <InputNumber
-        className="editor-field size-field"
-        step={0.1}
-        value={size}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <InputNumber
+      className="editor-field size-field"
+      step={0.1}
+      value={size}
+      onChange={onChange}
+    />
+  );
+};
 
 export default SizeField;

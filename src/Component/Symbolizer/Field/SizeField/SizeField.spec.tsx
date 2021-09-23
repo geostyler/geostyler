@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { SizeField, SizeFieldProps } from './SizeField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { SizeField } from './SizeField';
 
 describe('SizeField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: SizeFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(SizeField, props);
-  });
 
   it('is defined', () => {
     expect(SizeField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<SizeField />);
+    expect(field.container).toBeDefined();
   });
 
 });
