@@ -51,14 +51,14 @@ export interface LineCapFieldProps extends Partial<LineCapFieldDefaultProps> {
 /**
  * LineCapField to select between different line-cap options
  */
-export class LineCapField extends React.Component<LineCapFieldProps> {
+export const LineCapField: React.FC<LineCapFieldProps> = ({
+  onChange,
+  cap,
+  capOptions = ['butt', 'round', 'square']
+}) => {
 
-  public static defaultProps: LineCapFieldDefaultProps = {
-    capOptions: ['butt', 'round', 'square']
-  };
-
-  getCapSelectOptions = () => {
-    return this.props.capOptions.map(capOpt => {
+  const getCapSelectOptions = () => {
+    return capOptions.map(capOpt => {
       return (
         <Option
           key={capOpt}
@@ -70,22 +70,15 @@ export class LineCapField extends React.Component<LineCapFieldProps> {
     });
   };
 
-  render() {
-    const {
-      cap,
-      onChange
-    } = this.props;
-
-    return (
-      <Select
-        className="editor-field line-cap"
-        value={cap}
-        onChange={onChange}
-      >
-        {this.getCapSelectOptions()}
-      </Select>
-    );
-  }
-}
+  return (
+    <Select
+      className="editor-field line-cap"
+      value={cap}
+      onChange={onChange}
+    >
+      {getCapSelectOptions()}
+    </Select>
+  );
+};
 
 export default LineCapField;
