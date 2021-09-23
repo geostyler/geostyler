@@ -26,35 +26,38 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { ContrastEnhancementField, ContrastEnhancementFieldProps } from './ContrastEnhancementField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render, act, fireEvent } from '@testing-library/react';
+import { ContrastEnhancementField } from './ContrastEnhancementField';
 
 describe('ContrastEnhancementField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: ContrastEnhancementFieldProps = {
-      onChange: jest.fn()
-    };
-    wrapper = TestUtil.shallowRenderComponent(ContrastEnhancementField, props);
-  });
 
   it('is defined', () => {
     expect(ContrastEnhancementField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<ContrastEnhancementField />);
+    expect(field.container).toBeInTheDocument();
   });
 
   describe('getContrastEnhancementSelectOptions', () => {
-    it('returns the right amount of options', () => {
-      const options = wrapper.instance().getContrastEnhancementSelectOptions();
-      expect(options).toHaveLength(2);
-      const dummySelectOptions = ['normalize'];
-      wrapper.setProps({contrastEnhancementOptions: dummySelectOptions});
-      const newOptions = wrapper.instance().getContrastEnhancementSelectOptions();
-      expect(newOptions).toHaveLength(1);
+    it('returns the right amount of default options', async () => {
+      const field = render(<ContrastEnhancementField />);
+      const input = await field.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
+      });
+      expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);
+    });
+
+    it('returns the right amount of passed options', async () => {
+      const field = render(<ContrastEnhancementField contrastEnhancementOptions={['normalize']}/>);
+      const input = await field.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
+      });
+      expect(document.body.querySelectorAll('.ant-select-item').length).toBe(1);
     });
   });
 });
