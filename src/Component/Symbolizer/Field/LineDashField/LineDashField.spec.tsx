@@ -26,59 +26,59 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { LineDashField, LineDashFieldProps } from './LineDashField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { LineDashField } from './LineDashField';
 
 describe('OffsetField', () => {
 
-  let wrapper: any;
-  let onChangeDummy: jest.Mock;
   const dashArray = [20, 10, 1, 10];
-  beforeEach(() => {
-    onChangeDummy = jest.fn();
-    const props: LineDashFieldProps = {
-      dashArray,
-      onChange: onChangeDummy
-    };
-    wrapper = TestUtil.shallowRenderComponent(LineDashField, props);
-  });
 
   it('is defined', () => {
     expect(LineDashField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
-    const buttons = wrapper.find('Button');
-    expect(buttons.length).toBe(2);
+    const field = render(<LineDashField />);
+    expect(field.container).toBeInTheDocument();
   });
 
   describe('InputFields', () => {
-    it('change handlers call the onChange prop method correctly', () => {
-      const numberInputs = wrapper.find('InputNumber');
-      numberInputs.forEach((numberInput: any, index: number) => {
-        const inputOnChangeDummy = numberInput.props().onChange;
-        inputOnChangeDummy(12);
+    it('change handlers call the onChange prop method correctly', async () => {
+      const onChangeMock = jest.fn();
+      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
+      const inputs = await field.findAllByRole('spinbutton');
+
+      // const numberInputs = wrapper.find('InputNumber');
+      inputs.forEach((numberInput: any, index: number) => {
+        fireEvent.change(numberInput, { target: { value: 12 }});
         const newDashArray = [...dashArray];
         newDashArray[index] = 12;
-        expect(onChangeDummy).toBeCalledWith(newDashArray);
+        expect(onChangeMock).toBeCalledWith(newDashArray);
       });
     });
   });
 
   describe('onAddDash', () => {
-    it('calls a passed onChange function with the new dashArray', () => {
-      wrapper.instance().onAddDash();
-      expect(onChangeDummy).toHaveBeenCalledWith([...dashArray, 1]);
+    it('calls a passed onChange function with the new dashArray', async () => {
+      const onChangeMock = jest.fn();
+      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock}/>);
+      const addButton = field.container.querySelector('button.gs-add-dash-button');
+      fireEvent.click(addButton);
+      let newDashArray = [...dashArray, 1];
+      expect(onChangeMock).toHaveBeenCalledWith(newDashArray);
     });
   });
 
   describe('onRemoveDash', () => {
-    it('calls a passed onChange function with the new dashArray', () => {
+    it('calls a passed onChange function with the new dashArray', async () => {
+      const onChangeMock = jest.fn();
+      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock}/>);
+      const removeButton = field.container.querySelector('button.gs-rm-dash-button');
+      fireEvent.click(removeButton);
       let newDashArray = [...dashArray];
       newDashArray.splice(newDashArray.length - 1, 1);
-      wrapper.instance().onRemoveDash();
-      expect(onChangeDummy).toHaveBeenCalledWith(newDashArray);
+      expect(onChangeMock).toHaveBeenCalledWith(newDashArray);
     });
   });
 

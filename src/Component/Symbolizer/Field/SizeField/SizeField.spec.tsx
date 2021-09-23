@@ -38,7 +38,7 @@ describe('SizeField', () => {
 
   it('renders correctly', () => {
     const field = render(<SizeField />);
-    expect(field.container).toBeDefined();
+    expect(field.container).toBeInTheDocument();
   });
 
 });

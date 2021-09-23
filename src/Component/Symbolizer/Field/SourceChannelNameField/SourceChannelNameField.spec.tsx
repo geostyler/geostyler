@@ -50,7 +50,6 @@ describe('SourceChannelNameField', () => {
         fireEvent.mouseDown(input);
       });
       expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);
-
     });
   });
 });
