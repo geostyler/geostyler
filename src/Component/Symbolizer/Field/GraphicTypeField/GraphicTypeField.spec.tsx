@@ -26,33 +26,40 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { GraphicTypeField, GraphicTypeFieldProps } from './GraphicTypeField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render, act, fireEvent } from '@testing-library/react';
+import { GraphicTypeField } from './GraphicTypeField';
 
 describe('GraphicTypeField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: GraphicTypeFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(GraphicTypeField, props);
-  });
 
   it('is defined', () => {
     expect(GraphicTypeField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<GraphicTypeField />);
+    expect(field.container).toBeInTheDocument();
   });
 
-  it('gets the right default type select options', () => {
-    expect(wrapper.instance().getTypeSelectOptions()).toHaveLength(2);
+  it('can handle wellKnownNames property', async () => {
   });
 
-  it('gets the right non-default type select options', () => {
-    wrapper.setProps({
-      graphicTypes: ['Mark']
+  it('gets the right default type select options', async () => {
+    const field = render(<GraphicTypeField />);
+    const input = await field.findByRole('combobox');
+    await act(async () => {
+      fireEvent.mouseDown(input);
     });
-    expect(wrapper.instance().getTypeSelectOptions()).toHaveLength(1);
+    expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);
   });
+
+  it('gets the right default type select options', async () => {
+    const field = render(<GraphicTypeField graphicTypes={['Mark']} />);
+    const input = await field.findByRole('combobox');
+    await act(async () => {
+      fireEvent.mouseDown(input);
+    });
+    expect(document.body.querySelectorAll('.ant-select-item').length).toBe(1);
+  });
+
 });
