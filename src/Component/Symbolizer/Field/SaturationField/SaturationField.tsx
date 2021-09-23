@@ -41,25 +41,21 @@ export interface SaturationFieldProps {
 /**
  * SaturationField
  */
-export class SaturationField extends React.PureComponent<SaturationFieldProps> {
+export const SaturationField: React.FC<SaturationFieldProps> = ({
+  onChange,
+  saturation
+}) => {
 
-  render() {
-    const {
-      onChange,
-      saturation
-    } = this.props;
-
-    return (
-      <InputNumber
-        className="editor-field saturation-field"
-        min={-1}
-        max={1}
-        step={0.1}
-        value={saturation}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <InputNumber
+      className="editor-field saturation-field"
+      min={-1}
+      max={1}
+      step={0.1}
+      value={saturation}
+      onChange={onChange}
+    />
+  );
+};
 
 export default SaturationField;
