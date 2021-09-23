@@ -41,24 +41,20 @@ export interface GammaFieldProps {
 /**
  * Gamma Field
  */
-export class GammaField extends React.PureComponent<GammaFieldProps> {
+export const GammaField: React.FC<GammaFieldProps> = ({
+  onChange,
+  gamma
+}) => {
 
-  render() {
-    const {
-      onChange,
-      gamma
-    } = this.props;
-
-    return (
-      <InputNumber
-        className="editor-field gamma-field"
-        min={0}
-        step={0.1}
-        value={gamma}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <InputNumber
+      className="editor-field gamma-field"
+      min={0}
+      step={0.1}
+      value={gamma}
+      onChange={onChange}
+    />
+  );
+};
 
 export default GammaField;
