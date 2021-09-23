@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { FadeDurationField, FadeDurationFieldProps } from './FadeDurationField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { FadeDurationField } from './FadeDurationField';
 
 describe('FadeDurationField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: FadeDurationFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(FadeDurationField, props);
-  });
 
   it('is defined', () => {
     expect(FadeDurationField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<FadeDurationField />);
+    expect(field.container).toBeInTheDocument();
   });
 
 });
