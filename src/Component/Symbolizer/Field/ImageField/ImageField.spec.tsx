@@ -31,19 +31,14 @@ import { render } from '@testing-library/react';
 import { ImageField } from './ImageField';
 
 describe('ImageField', () => {
-  let imageField;
-  beforeEach(() => {
-    imageField = render(
-      <ImageField />
-    );
-  });
 
-  it('… is defined', () => {
+  it('is defined', () => {
     expect(ImageField).toBeDefined();
   });
 
-  test('… renders', async () => {
-    expect(imageField.container).toBeInTheDocument();
+  it('renders correctly', () => {
+    const field = render(<ImageField />);
+    expect(field.container).toBeInTheDocument();
   });
 
 });
