@@ -26,21 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { KindField, KindFieldProps } from './KindField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { KindField } from './KindField';
 
 describe('KindField', () => {
-  let wrapper: any;
-  beforeEach(() => {
-    const props: KindFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(KindField, props);
-  });
 
   it('is defined', () => {
     expect(KindField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<KindField />);
+    expect(field.container).toBeInTheDocument();
   });
+
 });

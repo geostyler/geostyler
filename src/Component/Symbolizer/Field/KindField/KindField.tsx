@@ -67,51 +67,33 @@ export interface KindFieldProps extends Partial<KindFieldDefaultProps> {
 /**
  * KindField
  */
-export class KindField extends React.Component<KindFieldProps> {
+export const KindField: React.FC<KindFieldProps> = ({
+  onChange,
+  locale =  en_US.GsKindField,
+  kind = 'Mark',
+  symbolizerKinds = ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster']
+}) => {
 
-  static componentName: string = 'KindField';
-
-  public static defaultProps: KindFieldDefaultProps = {
-    locale: en_US.GsKindField,
-    kind: 'Mark',
-    symbolizerKinds: ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster']
-  };
-
-  public shouldComponentUpdate(nextProps: KindFieldProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
-  getKindSelectOptions = (locale: KindFieldLocale) => {
-    return this.props.symbolizerKinds!.map(kind => {
-      return (
-        <Option
-          key={kind}
-          value={kind}
-        >
-          {locale.symbolizerKinds[kind]}
-        </Option>
-      );
-    });
-  };
-
-  render() {
-    const {
-      kind,
-      onChange,
-      locale
-    } = this.props;
-
-    return (
-      <Select
-        className="editor-field kind-field"
-        value={kind}
-        onChange={onChange}
+  const getKindSelectOptions = (l: KindFieldLocale) => {
+    return symbolizerKinds.map(symbolizerKind =>
+      <Option
+        key={symbolizerKind}
+        value={symbolizerKind}
       >
-        {this.getKindSelectOptions(locale)}
-      </Select>
+        {l.symbolizerKinds[symbolizerKind]}
+      </Option>
     );
-  }
-}
+  };
 
-export default localize(KindField, KindField.componentName);
+  return (
+    <Select
+      className="editor-field kind-field"
+      value={kind}
+      onChange={onChange}
+    >
+      {getKindSelectOptions(locale)}
+    </Select>
+  );
+};
+
+export default localize(KindField, 'KindField');
