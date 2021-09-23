@@ -27,7 +27,7 @@
  */
 
 import React from 'react';
-import { render, act, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { ColorMapTypeField } from './ColorMapTypeField';
 import en_US from '../../../../locale/en_US';
 
