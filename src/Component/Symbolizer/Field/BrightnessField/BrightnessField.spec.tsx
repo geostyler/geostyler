@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { BrightnessField, BrightnessFieldProps } from './BrightnessField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { BrightnessField } from './BrightnessField';
 
 describe('BrightnessField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: BrightnessFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(BrightnessField, props);
-  });
 
   it('is defined', () => {
     expect(BrightnessField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<BrightnessField />);
+    expect(field.container).toBeInTheDocument();
   });
 
 });

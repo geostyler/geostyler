@@ -41,25 +41,21 @@ export interface BrightnessFieldProps {
 /**
  * Brightness Field
  */
-export class BrightnessField extends React.PureComponent<BrightnessFieldProps> {
+export const BrightnessField: React.FC<BrightnessFieldProps> = ({
+  onChange,
+  brightness
+}) => {
 
-  render() {
-    const {
-      onChange,
-      brightness
-    } = this.props;
-
-    return (
-      <InputNumber
-        className="editor-field brightness-field"
-        min={0}
-        max={1}
-        step={0.1}
-        value={brightness}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <InputNumber
+      className="editor-field brightness-field"
+      min={0}
+      max={1}
+      step={0.1}
+      value={brightness}
+      onChange={onChange}
+    />
+  );
+};
 
 export default BrightnessField;
