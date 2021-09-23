@@ -65,21 +65,15 @@ export interface ChannelFieldProps extends Partial<ChannelFieldDefaultProps> {
 /**
  * ChannelField to select different Channel options
  */
-export class ChannelField extends React.Component<ChannelFieldProps> {
+export const ChannelField: React.FC<ChannelFieldProps> = ({
+  onChange,
+  locale =  en_US.GsChannelField,
+  sourceChannelNames,
+  contrastEnhancementTypes = ['histogram', 'normalize'],
+  channel
+}) => {
 
-  static componentName: string = 'ChannelField';
-
-  public static defaultProps: ChannelFieldDefaultProps = {
-    locale: en_US.GsChannelField,
-    contrastEnhancementTypes: ['histogram', 'normalize']
-  };
-
-  updateChannel = (key: string, value: any) => {
-    const {
-      onChange,
-      channel
-    } = this.props;
-
+  const updateChannel = (key: string, value: any) => {
     let newChannel: Channel;
     if (channel) {
       newChannel = _cloneDeep(channel);
@@ -93,12 +87,12 @@ export class ChannelField extends React.Component<ChannelFieldProps> {
     }
   };
 
-  onSourceChannelNameChange = (name: string) => {
-    this.updateChannel('sourceChannelName', name);
+  const onSourceChannelNameChange = (name: string) => {
+    updateChannel('sourceChannelName', name);
   };
 
-  onContrastEnhancementChange = (type: ContrastEnhancement['enhancementType']) => {
-    const contrastEnhancement = _get(this.props, 'channel.contrastEnhancement');
+  const onContrastEnhancementChange = (type: ContrastEnhancement['enhancementType']) => {
+    const contrastEnhancement = channel?.contrastEnhancement;
     let newContrastEnhancement: ContrastEnhancement;
     if (contrastEnhancement) {
       newContrastEnhancement = _cloneDeep(contrastEnhancement);
@@ -106,72 +100,63 @@ export class ChannelField extends React.Component<ChannelFieldProps> {
       newContrastEnhancement = {};
     }
     newContrastEnhancement.enhancementType = type;
-    this.updateChannel('contrastEnhancement', newContrastEnhancement);
+    updateChannel('contrastEnhancement', newContrastEnhancement);
   };
 
-  onGammaChange = (gamma: number) => {
-    const contrastEnhancement = _get(this.props, 'channel.contrastEnhancement');
+  const onGammaChange = (gammaValue: number) => {
+    const contrastEnhancement = channel?.contrastEnhancement;
     let newContrastEnhancement: ContrastEnhancement;
     if (contrastEnhancement) {
       newContrastEnhancement = _cloneDeep(contrastEnhancement);
     } else {
       newContrastEnhancement = {};
     }
-    newContrastEnhancement.gammaValue = gamma;
-    this.updateChannel('contrastEnhancement', newContrastEnhancement);
+    newContrastEnhancement.gammaValue = gammaValue;
+    updateChannel('contrastEnhancement', newContrastEnhancement);
   };
 
-  render() {
-    const {
-      sourceChannelNames,
-      channel,
-      contrastEnhancementTypes,
-      locale
-    } = this.props;
+  const sourceChannelName = _get(channel, 'sourceChannelName');
+  const contrastEnhancementType = _get(channel, 'contrastEnhancement.enhancementType');
+  const gamma = _get(channel, 'contrastEnhancement.gammaValue');
 
-    const sourceChannelName = _get(channel, 'sourceChannelName');
-    const contrastEnhancementType = _get(channel, 'contrastEnhancement.enhancementType');
-    const gamma = _get(channel, 'contrastEnhancement.gammaValue');
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
+  return (
+    <div>
+      <Form.Item
+        label={locale.sourceChannelNameLabel}
+        {...formItemLayout}
+      >
+        <SourceChannelNameField
+          onChange={onSourceChannelNameChange}
+          sourceChannelName={sourceChannelName}
+          sourceChannelNames={sourceChannelNames}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.contrastEnhancementTypeLabel}
+        {...formItemLayout}
+      >
+        <ContrastEnhancementField
+          contrastEnhancement={contrastEnhancementType}
+          contrastEnhancementOptions={contrastEnhancementTypes}
+          onChange={onContrastEnhancementChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.gammaValueLabel}
+        {...formItemLayout}
+      >
+        <GammaField
+          gamma={gamma}
+          onChange={onGammaChange}
+        />
+      </Form.Item>
+    </div>
+  );
+};
 
-    return (
-      <div>
-        <Form.Item
-          label={locale.sourceChannelNameLabel}
-          {...formItemLayout}
-        >
-          <SourceChannelNameField
-            onChange={this.onSourceChannelNameChange}
-            sourceChannelName={sourceChannelName}
-            sourceChannelNames={sourceChannelNames}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.contrastEnhancementTypeLabel}
-          {...formItemLayout}
-        >
-          <ContrastEnhancementField
-            contrastEnhancement={contrastEnhancementType}
-            contrastEnhancementOptions={contrastEnhancementTypes}
-            onChange={this.onContrastEnhancementChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.gammaValueLabel}
-          {...formItemLayout}
-        >
-          <GammaField
-            gamma={gamma}
-            onChange={this.onGammaChange}
-          />
-        </Form.Item>
-      </div>
-    );
-  }
-}
-
-export default localize(ChannelField, ChannelField.componentName);
+export default localize(ChannelField, 'ChannelField');
