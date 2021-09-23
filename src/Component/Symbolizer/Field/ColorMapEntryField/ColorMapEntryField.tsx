@@ -60,20 +60,14 @@ export interface ColorMapEntryFieldProps extends Partial<ColorMapEntryFieldDefau
 /**
  * ColorMapEntry Field
  */
-export class ColorMapEntryField extends React.PureComponent<ColorMapEntryFieldProps> {
+export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
+  labelPlaceholder = 'Color Map Label',
+  locale = en_US.GsColorMapEntryField,
+  onChange,
+  colorMapEntry
+}) => {
 
-  static componentName = 'ColorMapEntryField';
-
-  public static defaultProps: ColorMapEntryFieldDefaultProps = {
-    labelPlaceholder: 'Color Map Label',
-    locale: en_US.GsColorMapEntryField
-  };
-
-  updateColorMapEntry = (prop: string, value: any) => {
-    const {
-      colorMapEntry,
-      onChange
-    } = this.props;
+  const updateColorMapEntry = (prop: string, value: any) => {
     let updated: ColorMapEntry = {...colorMapEntry};
     updated[prop] = value;
     if (onChange) {
@@ -81,80 +75,72 @@ export class ColorMapEntryField extends React.PureComponent<ColorMapEntryFieldPr
     }
   };
 
-  onColorChange = (color: string) => {
-    this.updateColorMapEntry('color', color);
+  const onColorChange = (color: string) => {
+    updateColorMapEntry('color', color);
   };
 
-  onQuantityChange = (quantity: number) => {
-    this.updateColorMapEntry('quantity', quantity);
+  const onQuantityChange = (quantity: number) => {
+    updateColorMapEntry('quantity', quantity);
   };
 
-  onLabelChange = (label: string) => {
-    this.updateColorMapEntry('label', label);
+  const onLabelChange = (label: string) => {
+    updateColorMapEntry('label', label);
   };
 
-  onOpacityChange = (opacity: number) => {
-    this.updateColorMapEntry('opacity', opacity);
+  const onOpacityChange = (opacity: number) => {
+    updateColorMapEntry('opacity', opacity);
   };
 
-  render() {
-    const {
-      colorMapEntry,
-      labelPlaceholder,
-      locale
-    } = this.props;
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
+  return (
+    <div>
+      <Form.Item
+        label={locale.colorLabel}
+        {...formItemLayout}
+      >
+        <ColorField
+          color={_get(colorMapEntry, 'color')}
+          onChange={onColorChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.quantityLabel}
+        {...formItemLayout}
+      >
+        <OffsetField
+          offset={_get(colorMapEntry, 'quantity')}
+          onChange={onQuantityChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.labelLabel}
+        {...formItemLayout}
+      >
+        <Input
+          className="editor-field colormapentry-label-field"
+          defaultValue={_get(colorMapEntry, 'label')}
+          value={_get(colorMapEntry, 'label')}
+          placeholder={labelPlaceholder}
+          onChange={(evt: any) => {
+            onLabelChange(evt.target.value);
+          }}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.opacityLabel}
+        {...formItemLayout}
+      >
+        <OpacityField
+          opacity={_get(colorMapEntry, 'opacity')}
+          onChange={onOpacityChange}
+        />
+      </Form.Item>
+    </div>
+  );
+};
 
-    return (
-      <div>
-        <Form.Item
-          label={locale.colorLabel}
-          {...formItemLayout}
-        >
-          <ColorField
-            color={_get(colorMapEntry, 'color')}
-            onChange={this.onColorChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.quantityLabel}
-          {...formItemLayout}
-        >
-          <OffsetField
-            offset={_get(colorMapEntry, 'quantity')}
-            onChange={this.onQuantityChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.labelLabel}
-          {...formItemLayout}
-        >
-          <Input
-            className="editor-field colormapentry-label-field"
-            defaultValue={_get(colorMapEntry, 'label')}
-            value={_get(colorMapEntry, 'label')}
-            placeholder={labelPlaceholder}
-            onChange={(evt: any) => {
-              this.onLabelChange(evt.target.value);
-            }}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.opacityLabel}
-          {...formItemLayout}
-        >
-          <OpacityField
-            opacity={_get(colorMapEntry, 'opacity')}
-            onChange={this.onOpacityChange}
-          />
-        </Form.Item>
-      </div>
-    );
-  }
-}
-
-export default localize(ColorMapEntryField, ColorMapEntryField.componentName);
+export default localize(ColorMapEntryField, 'ColorMapEntryField');

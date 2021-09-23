@@ -26,65 +26,51 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { ColorMapEntryField, ColorMapEntryFieldProps } from './ColorMapEntryField';
-import TestUtil from '../../../../Util/TestUtil';
-import { ColorMapEntry } from 'geostyler-style';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { ColorMapEntryField } from './ColorMapEntryField';
 
 describe('ColorMapEntryField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: ColorMapEntryFieldProps = {
-      onChange: jest.fn()
-    };
-    wrapper = TestUtil.shallowRenderComponent(ColorMapEntryField, props);
-  });
 
   it('is defined', () => {
     expect(ColorMapEntryField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
-  });
-
-  describe('updateColorMapEntry', () => {
-    it('calls onChange', () => {
-      const color = '#ff0000';
-      wrapper.instance().updateColorMapEntry('color', color);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
-    });
-  });
-
-  describe('onColorChange', () => {
-    it('calls onChange', () => {
-      const color = '#ff0000';
-      wrapper.instance().onColorChange(color);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
-    });
+    const field = render(<ColorMapEntryField />);
+    expect(field.container).toBeInTheDocument();
   });
 
   describe('onQuantityChange', () => {
-    it('calls onChange', () => {
-      const quantity = 200;
-      wrapper.instance().onQuantityChange(quantity);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+    it('calls onChange', async () => {
+      const onChangeMock = jest.fn();
+      render(<ColorMapEntryField onChange={onChangeMock} />);
+      // TODO: find a better selector
+      const input = document.querySelectorAll('input')[0];
+      fireEvent.change(input, { target: { value: 200 }});
+      expect(onChangeMock).toHaveBeenCalledWith({ quantity: 200});
     });
   });
 
   describe('onLabelChange', () => {
-    it('calls onChange', () => {
-      const label = 'dummy label';
-      wrapper.instance().onLabelChange(label);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+    it('calls onChange', async () => {
+      const onChangeMock = jest.fn();
+      render(<ColorMapEntryField onChange={onChangeMock} />);
+      // TODO: find a better selector
+      const input = document.querySelectorAll('input')[1];
+      fireEvent.change(input, { target: { value: 'Peter' }});
+      expect(onChangeMock).toHaveBeenCalledWith({ label: 'Peter'});
     });
   });
 
   describe('onOpacityChange', () => {
-    it('calls onChange', () => {
-      const opacity = 0.5;
-      wrapper.instance().onOpacityChange(opacity);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+    it('calls onChange', async () => {
+      const onChangeMock = jest.fn();
+      render(<ColorMapEntryField onChange={onChangeMock} />);
+      // TODO: find a better selector
+      const input = document.querySelectorAll('input')[2];
+      fireEvent.change(input, { target: { value: 0.5 }});
+      expect(onChangeMock).toHaveBeenCalledWith({ opacity: 0.5 });
     });
   });
 });
