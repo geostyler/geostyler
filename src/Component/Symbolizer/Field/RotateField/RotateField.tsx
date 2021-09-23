@@ -41,24 +41,20 @@ export interface RotateFieldProps {
 /**
  * RotateField
  */
-export class RotateField extends React.PureComponent<RotateFieldProps> {
+export const RotateField: React.FC<RotateFieldProps> = ({
+  onChange,
+  rotate
+}) => {
 
-  render() {
-    const {
-      onChange,
-      rotate
-    } = this.props;
-
-    return (
-      <InputNumber
-        className="editor-field rotate-field"
-        min={-360}
-        max={360}
-        value={rotate}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <InputNumber
+      className="editor-field rotate-field"
+      min={-360}
+      max={360}
+      value={rotate}
+      onChange={onChange}
+    />
+  );
+};
 
 export default RotateField;
