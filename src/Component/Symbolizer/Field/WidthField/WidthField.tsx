@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import * as React from 'react';
 import { InputNumber } from 'antd';
 
 export interface WidthFieldProps {

@@ -27,9 +27,9 @@
  */
 
 import React from 'react';
-import { WellKnownNameField } from './WellKnownNameField';
+import {render, fireEvent, act} from '@testing-library/react';
 
-import {render, fireEvent, screen, waitFor, act} from '@testing-library/react';
+import { WellKnownNameField } from './WellKnownNameField';
 
 describe('WellKnownNameField', () => {
 
@@ -38,7 +38,8 @@ describe('WellKnownNameField', () => {
   });
 
   it('renders correctly', () => {
-    render(<WellKnownNameField />);
+    const field = render(<WellKnownNameField />);
+    expect(field.container).toBeDefined();
   });
 
   it('can handle wellKnownNames property', async () => {
