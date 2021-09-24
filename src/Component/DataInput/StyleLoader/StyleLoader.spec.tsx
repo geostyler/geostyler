@@ -26,19 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { StyleLoader, StyleLoaderProps } from './StyleLoader';
+import React from 'react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import SldStyleParser from 'geostyler-sld-parser';
+import { StyleLoader } from './StyleLoader';
 import { StyleParser } from 'geostyler-style';
-import TestUtil from '../../../Util/TestUtil';
 
 describe('StyleLoader', () => {
-  let wrapper: any;
-  const sldStyleParser: StyleParser = new SldStyleParser();
+  let sldStyleParser: StyleParser;
   beforeEach(() => {
-    const props: StyleLoaderProps = {
-      parsers: [sldStyleParser]
-    };
-    wrapper = TestUtil.shallowRenderComponent(StyleLoader, props);
+    sldStyleParser = new SldStyleParser();
   });
 
   it('is defined', () => {
@@ -46,49 +43,36 @@ describe('StyleLoader', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<StyleLoader parsers={[sldStyleParser]} />);
+    expect(field.container).toBeInTheDocument();
   });
 
-  describe('parseStyle', () => {
-    it('returns undefined if no active parser is set', async () => {
-      const got = await wrapper.instance().parseStyle();
-      expect(got).toBeUndefined();
-    });
-    it('calls readFile and onError with the expected arguments', async () => {
-      wrapper.setState({
-        activeParser: sldStyleParser
+  describe('getParserOptions', () => {
+    it('returns a Select.Option for every passed parser', async () => {
+      const loader = render(<StyleLoader parsers={[sldStyleParser]}/>);
+      const input = await loader.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
       });
-      wrapper.instance().readFile = jest.fn();
-      const onErrorMock = jest.fn();
-      const onSuccessMock = jest.fn();
-      const got = await wrapper.instance().parseStyle({
-        file: 'peter',
-        onError: onErrorMock,
-        onSuccess: onSuccessMock
+      expect(document.body.querySelectorAll('.ant-select-item').length).toBe(1);
+    });
+  });
+
+  describe('getInputFromParser', () => {
+    it('is invisible if no active Parser is set', async () => {
+      render(<StyleLoader parsers={[sldStyleParser]} />);
+      expect(document.querySelector('.ant-upload')).not.toBeInTheDocument();
+    });
+    it('returns an UploadButton if activeParser is "GeoJSON Style Parser"', async () => {
+      const loader = render(<StyleLoader parsers={[sldStyleParser]} />);
+      expect(document.querySelector('.ant-upload')).not.toBeInTheDocument();
+      const input = await loader.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
       });
-      expect(wrapper.instance().readFile).toHaveBeenCalledWith('peter');
-      expect(onErrorMock).toHaveBeenCalled();
-      expect(onSuccessMock).not.toHaveBeenCalled();
-      jest.restoreAllMocks();
+      fireEvent.click(await screen.findByTitle(sldStyleParser.title));
+      expect(document.querySelector('.ant-upload')).toBeInTheDocument();
     });
   });
 
-  describe('readFile', () => {
-    it('resolves with the filecontent', async () => {
-      const fakeFile = new File(['abc123'], 'peter.sld');
-      await expect(wrapper.instance().readFile(fakeFile)).resolves.toBe('abc123');
-    });
-    it('rejects on error', async () => {
-      await expect(wrapper.instance().readFile()).rejects.toThrowError();
-    });
-  });
-
-  describe('onSelect', () => {
-    it('sets the parser as active', () => {
-      const parserTitle = 'SLD Style Parser';
-      expect(wrapper.state('activeParser')).toBeUndefined();
-      wrapper.instance().onSelect(parserTitle);
-      expect(wrapper.state('activeParser')).toBe(sldStyleParser);
-    });
-  });
 });
