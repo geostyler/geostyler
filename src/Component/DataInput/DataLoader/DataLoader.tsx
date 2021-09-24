@@ -52,8 +52,6 @@ export interface ReadParams {
   featureID?: string;
   propertyName?: string[];
   maxFeatures?: number;
-  fetchParams?: Object;
-  srsName: string;
 }
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
@@ -128,8 +126,10 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
       return;
     }
     // The dataProjection of the Preview
-    wfsReadParams.srsName = 'EPSG:4326';
-    activeParser.readData(wfsReadParams)
+    activeParser.readData({
+      ...wfsReadParams,
+      srsName: 'EPSG:4326'
+    })
       .then((data: VectorData) => {
         onDataRead(data);
         setModalVisible(false);
