@@ -46,10 +46,10 @@ import ContrastEnhancementField from '../Field/ContrastEnhancementField/Contrast
 import GammaField from '../Field/GammaField/GammaField';
 import DataUtil from '../../../Util/DataUtil';
 import ColorMapEditor from '../ColorMapEditor/ColorMapEditor';
-import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
+import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 
 import './RasterEditor.less';
 

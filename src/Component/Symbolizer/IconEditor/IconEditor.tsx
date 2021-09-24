@@ -47,10 +47,10 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
 
-import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
+import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 
 // i18n
 export interface IconEditorLocale {

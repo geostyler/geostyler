@@ -38,10 +38,10 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
 import RotateField from '../Field/RotateField/RotateField';
-import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
+import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
