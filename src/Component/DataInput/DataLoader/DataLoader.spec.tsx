@@ -26,26 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { DataLoader, DataLoaderProps } from './DataLoader';
+import React from 'react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+import { DataLoader } from './DataLoader';
 import GeoJsonParser from 'geostyler-geojson-parser';
 import WfsParser from 'geostyler-wfs-parser';
-import TestUtil from '../../../Util/TestUtil';
-import { shallow } from 'enzyme';
-import { UploadButton } from '../../../Component/UploadButton/UploadButton';
 
 describe('DataLoader', () => {
-  let wrapper: any;
-  let dummyOnDataRead: jest.Mock;
+  let wfsParser: WfsParser;
+  let geojsonParser: GeoJsonParser;
+
   beforeEach(() => {
-    dummyOnDataRead = jest.fn();
-    const props: DataLoaderProps = {
-      parsers: [
-        new GeoJsonParser(),
-        new WfsParser()
-      ],
-      onDataRead: dummyOnDataRead
-    };
-    wrapper = TestUtil.shallowRenderComponent(DataLoader, props);
+    wfsParser = new WfsParser();
+    geojsonParser = new GeoJsonParser();
   });
 
   it('is defined', () => {
@@ -53,127 +46,44 @@ describe('DataLoader', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
-  });
-
-  describe('parseUploadData', () => {
-    it('returns undefined when no active parser is set', () => {
-      const parseGeoJsonUploadData = wrapper.instance().parseGeoJsonUploadData;
-      const got = parseGeoJsonUploadData();
-      expect(parseGeoJsonUploadData).not.toThrow();
-      expect(got).toBeUndefined();
-    });
-    // TODO
-    // it('calls the passed onDataRead method with the read data', () => {
-    //   expect.assertions(1);
-    //   const file = new File(['{type:FeatureCollection,features:[{type:Feature,' +
-    //     'properties:{name:Peter},geometry:{type:Point,coordinates:[43.59375,56.' +
-    //     '9449741808516]}}]}'], 'test.geojson', {
-    //       type: 'text/plain',
-    //     });
-    //   const fileObject = { file };
-    //   wrapper.setState({
-    //     activeParser: GeoJsonParser
-    //   });
-    //   const parseUploadData = wrapper.instance().parseUploadData;
-    //   parseUploadData(fileObject);
-    //   expect(dummyOnDataRead).toBeCalled();
-    // });
-  });
-
-  describe('parseWfsData', () => {
-    it('returns undefined when no active parser is set', () => {
-      const parseWfsData = wrapper.instance().parseWfsData;
-      const got = parseWfsData();
-      expect(parseWfsData).not.toThrow();
-      expect(got).toBeUndefined();
-    });
-    // TODO
-    // it('calls the passed onDataRead method with the read data', () => {
-    //   expect.assertions(1);
-    //   const wfsParams = {
-    //     url: 'https://ows.terrestris.de/geoserver/terrestris/ows',
-    //     version: '1.1.0',
-    //     typeName: 'terrestris:bundeslaender',
-    //     maxFeatures: 10
-    //   };
-    //   wrapper.setState({
-    //     activeParser: WfsParser
-    //   });
-    //   const parseUploadData = wrapper.instance().parseUploadData;
-    //   parseUploadData(wfsParams);
-    //   expect(dummyOnDataRead).toBeCalled();
-    // });
+    const loader = render(<DataLoader parsers={[wfsParser]}/>);
+    expect(loader.container).toBeInTheDocument();
   });
 
   describe('getParserOptions', () => {
-    it('returns a Select.Option for every passed parser', () => {
-      const getParserOptions = wrapper.instance().getParserOptions;
-      const gots = getParserOptions();
-      gots.forEach((got: any, index: number) => {
-        expect(got.type.name).toBe('Option');
+    it('returns a Select.Option for every passed parser', async () => {
+      const loader = render(<DataLoader parsers={[wfsParser, geojsonParser]}/>);
+      const input = await loader.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
       });
-    });
-  });
-
-  describe('onSelect', () => {
-    it('sets the select parser as active parser', () => {
-      const onSelect = wrapper.instance().onSelect;
-      onSelect(GeoJsonParser.title);
-      const activeParser = wrapper.state().activeParser;
-      expect(activeParser).toBeInstanceOf(GeoJsonParser);
-
-    });
-    it('sets modalVisible to true for WFS Data Parser', () => {
-      const onSelect = wrapper.instance().onSelect;
-      onSelect(WfsParser.title);
-      const activeParser = wrapper.state().activeParser;
-      const modalVisible = wrapper.state().modalVisible;
-      expect(activeParser).toBeInstanceOf(WfsParser);
-      expect(modalVisible).toBe(true);
-    });
-  });
-
-  describe('closeModal', () => {
-    it('sets modalVisible to false', () => {
-      wrapper.instance().closeModal();
-      const modalVisible = wrapper.state().modalVisible;
-      expect(modalVisible).toBe(false);
+      expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);
     });
   });
 
   describe('getInputFromParser', () => {
-    it('returns null if no activeParser is set', () => {
-      const getInputFromParser = wrapper.instance().getInputFromParser;
-      const got = getInputFromParser();
-      expect(got).toBeNull();
+    it('is invisible if no active Parser is set', async () => {
+      render(<DataLoader parsers={[geojsonParser]}/>);
+      expect(document.querySelector('.ant-upload')).not.toBeInTheDocument();
+      expect(document.querySelector('.wfs-parser-input')).not.toBeInTheDocument();
     });
-    it('returns an UploadButton if activeParser is "GeoJSON Style Parser"', () => {
-      wrapper.setState({
-        activeParser: GeoJsonParser
+    it('returns an UploadButton if activeParser is "GeoJSON Style Parser"', async () => {
+      const loader = render(<DataLoader parsers={[geojsonParser]}/>);
+      const input = await loader.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
       });
-      const getInputFromParser = wrapper.instance().getInputFromParser;
-      const got = getInputFromParser();
-      const instance = shallow(got).instance();
-      expect(instance).toBeInstanceOf(UploadButton);
+      fireEvent.click(await screen.findByTitle(geojsonParser.title));
+      expect(document.querySelector('.ant-upload')).toBeInTheDocument();
     });
-    it('returns a Modal if activeParser is "WFS Data Parser"', () => {
-      wrapper.setState({
-        activeParser: WfsParser
+    it('returns a Modal if activeParser is "WFS Data Parser"', async () => {
+      const loader = render(<DataLoader parsers={[wfsParser]}/>);
+      const input = await loader.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
       });
-      const getInputFromParser = wrapper.instance().getInputFromParser;
-      const got = getInputFromParser();
-      // Hack to bypass the 'invalid hook call' warning when calling got.type())
-      expect(got.type.prototype.constructor.name).toBe('Modal');
-    });
-    it('returns an UploadButton if activeParser is something else', () => {
-      wrapper.setState({
-        activeParser: 'PetersParser'
-      });
-      const getInputFromParser = wrapper.instance().getInputFromParser;
-      const got = getInputFromParser();
-      const instance = shallow(got).instance();
-      expect(instance).toBeInstanceOf(UploadButton);
+      fireEvent.click(await screen.findByTitle(wfsParser.title));
+      expect(document.querySelector('.wfs-parser-input')).toBeInTheDocument();
     });
   });
 });

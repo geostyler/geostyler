@@ -104,8 +104,8 @@ import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
 import RuleTable from './Component/RuleTable/RuleTable';
 import LegacyCodeEditor from './Component/Legacy/CodeEditor/CodeEditor';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
-import { CompositionContext } from './Component/CompositionContext/CompositionContext';
-import { DefaultValueContext } from './Component/DefaultValueContext/DefaultValueContext';
+import { CompositionContext } from './context/CompositionContext/CompositionContext';
+import { DefaultValueContext } from './context/DefaultValueContext/DefaultValueContext';
 import withDefaultsContext from './hoc/withDefaultsContext';
 
 import { ConfigProvider } from 'antd';

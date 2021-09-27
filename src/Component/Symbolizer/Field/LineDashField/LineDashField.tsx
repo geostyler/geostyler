@@ -49,17 +49,12 @@ export interface LineDashFieldProps extends Partial<LineDashFieldDefaultProps> {
 /**
  * LineDashField to edit dashes for LineSymbolizers
  */
-export class LineDashField extends React.Component<LineDashFieldProps> {
+export const LineDashField: React.FC<LineDashFieldProps> = ({
+  onChange,
+  dashArray = []
+}) => {
 
-  public static defaultProps: LineDashFieldDefaultProps = {
-    dashArray: []
-  };
-
-  onAddDash = () => {
-    const {
-      onChange,
-      dashArray
-    } = this.props;
+  const onAddDash = () => {
     // add a new dash (UI)
     let newDashArray = [...dashArray];
     newDashArray.push(1);
@@ -68,11 +63,7 @@ export class LineDashField extends React.Component<LineDashFieldProps> {
     }
   };
 
-  onRemoveDash = () => {
-    const {
-      onChange,
-      dashArray
-    } = this.props;
+  const onRemoveDash = () => {
     // remove last dash (UI)
     let newDashArray = [...dashArray];
     newDashArray.splice(newDashArray.length - 1, 1);
@@ -81,44 +72,37 @@ export class LineDashField extends React.Component<LineDashFieldProps> {
     }
   };
 
-  render() {
-    const {
-      onChange,
-      dashArray
-    } = this.props;
-
-    return (
-      <div className="editor-field linedash-field">
-        {
-          dashArray.map((dash, idx) => <InputNumber
-            key={idx}
-            value={dash}
-            min={1}
-            step={1}
-            style={{ width: 55 }}
-            onChange={(value: number) => {
-              // replace current dash value
-              let newDashArray = [...dashArray];
-              newDashArray[idx] = value;
-              if (onChange) {
-                onChange(newDashArray);
-              }
-            }}
-          />)
-        }
-        <Button
-          className="gs-add-dash-button"
-          icon={<PlusOutlined />}
-          onClick={this.onAddDash}
-        />
-        <Button
-          className="gs-rm-dash-button"
-          icon={<MinusOutlined />}
-          onClick={this.onRemoveDash}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="editor-field linedash-field">
+      {
+        dashArray.map((dash, idx) => <InputNumber
+          key={idx}
+          value={dash}
+          min={1}
+          step={1}
+          style={{ width: 55 }}
+          onChange={(value: number) => {
+            // replace current dash value
+            let newDashArray = [...dashArray];
+            newDashArray[idx] = value;
+            if (onChange) {
+              onChange(newDashArray);
+            }
+          }}
+        />)
+      }
+      <Button
+        className="gs-add-dash-button"
+        icon={<PlusOutlined />}
+        onClick={onAddDash}
+      />
+      <Button
+        className="gs-rm-dash-button"
+        icon={<MinusOutlined />}
+        onClick={onRemoveDash}
+      />
+    </div>
+  );
+};
 
 export default LineDashField;

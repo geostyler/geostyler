@@ -26,23 +26,20 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { WidthField, WidthFieldProps } from './WidthField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+
+import { WidthField } from './WidthField';
 
 describe('WidthField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: WidthFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(WidthField, props);
-  });
 
   it('is defined', () => {
     expect(WidthField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<WidthField />);
+    expect(field.container).toBeDefined();
   });
 
 });

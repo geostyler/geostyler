@@ -110,7 +110,7 @@ module.exports = {
     name: 'Context',
     sections: [{
       name: 'CompositionContext',
-      content: 'src/Component/CompositionContext/CompositionContext.example.md'
+      content: 'src/context/CompositionContext/CompositionContext.example.md'
     }],
     sectionDepth: 1
   }],

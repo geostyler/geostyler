@@ -25,24 +25,19 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
+import { render } from '@testing-library/react';
 import { SaturationField, SaturationFieldProps } from './SaturationField';
-import TestUtil from '../../../../Util/TestUtil';
 
 describe('SaturationField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: SaturationFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(SaturationField, props);
-  });
 
   it('is defined', () => {
     expect(SaturationField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<SaturationField />);
+    expect(field.container).toBeDefined();
   });
 
 });

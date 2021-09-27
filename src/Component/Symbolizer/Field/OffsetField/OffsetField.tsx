@@ -39,25 +39,21 @@ export interface OffsetFieldProps extends Partial<InputNumberProps> {
 /**
  * OffsetField for map labels
  */
-export class OffsetField extends React.PureComponent<OffsetFieldProps> {
+export const OffsetField: React.FC<OffsetFieldProps> = ({
+  offset,
+  onChange,
+  ...inputProps
+}) => {
 
-  render() {
-    const {
-      offset,
-      onChange,
-      ...inputProps
-    } = this.props;
-
-    return (
-      <InputNumber
-        className="editor-field offset-field"
-        value={offset}
-        step={1}
-        onChange={onChange}
-        {...inputProps}
-      />
-    );
-  }
-}
+  return (
+    <InputNumber
+      className="editor-field offset-field"
+      value={offset}
+      step={1}
+      onChange={onChange}
+      {...inputProps}
+    />
+  );
+};
 
 export default OffsetField;

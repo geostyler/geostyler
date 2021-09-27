@@ -47,10 +47,10 @@ import WidthField from '../Field/WidthField/WidthField';
 import FontPicker from '../Field/FontPicker/FontPicker';
 import OffsetField from '../Field/OffsetField/OffsetField';
 import RotateField from '../Field/RotateField/RotateField';
-import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
+import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';

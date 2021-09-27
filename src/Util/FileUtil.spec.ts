@@ -24,32 +24,21 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 
-import React from 'react';
-import {act, render, fireEvent } from '@testing-library/react';
+import FileUtil from './FileUtil';
 
-import { SourceChannelNameField } from './SourceChannelNameField';
+describe('FileUtil', () => {
 
-describe('SourceChannelNameField', () => {
-
-  it('is defined', () => {
-    expect(SourceChannelNameField).toBeDefined();
-  });
-
-  it('renders correctly', () => {
-    const field = render(<SourceChannelNameField />);
-    expect(field.container).toBeDefined();
-  });
-
-  describe('getSourceChannelNameSelectOptions', () => {
-    it('returns the right number of optiosn', async () => {
-      const field = render(<SourceChannelNameField sourceChannelNames={['red', 'green']}/>);
-      const input = await field.findByRole('combobox');
-      await act(async () => {
-        fireEvent.mouseDown(input);
-      });
-      expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);
+  describe('readFile', () => {
+    it('resolves with the filecontent', async () => {
+      const fakeFile = new File(['abc123'], 'peter.sld');
+      await expect(FileUtil.readFile(fakeFile)).resolves.toBe('abc123');
+    });
+    it('rejects on error', async () => {
+      let aFile: File;
+      await expect(FileUtil.readFile(aFile)).rejects.toThrowError();
     });
   });
+
 });

@@ -38,10 +38,10 @@ import WellKnownNameField from '../Field/WellKnownNameField/WellKnownNameField';
 import WellKnownNameEditor from '../WellKnownNameEditor/WellKnownNameEditor';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import { CompositionContext, Compositions } from '../../CompositionContext/CompositionContext';
+import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../DefaultValueContext/DefaultValueContext';
+import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';

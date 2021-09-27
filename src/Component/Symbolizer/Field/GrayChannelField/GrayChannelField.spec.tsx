@@ -26,32 +26,29 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { GrayChannelField, GrayChannelFieldProps } from './GrayChannelField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { GrayChannelField } from './GrayChannelField';
 
 describe('GrayChannelField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: GrayChannelFieldProps = {
-      onChange: jest.fn()
-    };
-    wrapper = TestUtil.shallowRenderComponent(GrayChannelField, props);
-  });
 
   it('is defined', () => {
     expect(GrayChannelField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<GrayChannelField />);
+    expect(field.container).toBeInTheDocument();
   });
-
   describe('onGrayChannelChange', () => {
-    it('calls onChange', () => {
+    it('calls onChange', async () => {
+
       const dummyChannelName = 'dummy band';
-      wrapper.instance().onGrayChannelChange(dummyChannelName);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+      const onChangeMock = jest.fn();
+      const field = render(<GrayChannelField onChange={onChangeMock} />);
+      const inputs = await field.findAllByPlaceholderText('Name of band');
+      await Promise.all(inputs.map(input => fireEvent.change(input, { target: { value: dummyChannelName }})));
     });
   });
+
 });

@@ -60,20 +60,14 @@ export interface GrayChannelFieldProps extends Partial<GrayChannelFieldDefaultPr
 /**
  * GrayChannelField to map a band to grayscale
  */
-export class GrayChannelField extends React.Component<GrayChannelFieldProps> {
+export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
+  onChange,
+  channelSelection,
+  sourceChannelNames,
+  locale = en_US.GsGrayChannelField
+}) => {
 
-  static componentName: string = 'GrayChannelField';
-
-  public static defaultProps: GrayChannelFieldDefaultProps = {
-    locale: en_US.GsGrayChannelField
-  };
-
-  onGrayChannelChange = (value: string) => {
-    const {
-      channelSelection,
-      onChange
-    } = this.props;
-
+  const onGrayChannelChange = (value: string) => {
     const gray = value;
     let newChannelSelection: GrayChannel;
     if (channelSelection && channelSelection.hasOwnProperty('grayChannel')) {
@@ -91,33 +85,25 @@ export class GrayChannelField extends React.Component<GrayChannelFieldProps> {
     }
   };
 
-  render() {
-    const {
-      sourceChannelNames,
-      channelSelection,
-      locale
-    } = this.props;
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
+  return (
+    <div>
+      <Form.Item
+        label={locale.grayLabel}
+        {...formItemLayout}
+      >
+        <SourceChannelNameField
+          sourceChannelNames={sourceChannelNames}
+          onChange={onGrayChannelChange}
+          sourceChannelName={_get(channelSelection, 'grayChannel.sourceChannelName')}
+        />
+      </Form.Item>
+    </div>
+  );
+};
 
-    return (
-      <div>
-        <Form.Item
-          label={locale.grayLabel}
-          {...formItemLayout}
-        >
-          <SourceChannelNameField
-            sourceChannelNames={sourceChannelNames}
-            onChange={this.onGrayChannelChange}
-            sourceChannelName={_get(channelSelection, 'grayChannel.sourceChannelName')}
-          />
-        </Form.Item>
-      </div>
-    );
-  }
-}
-
-export default localize(GrayChannelField, GrayChannelField.componentName);
+export default localize(GrayChannelField, 'GrayChannelField');

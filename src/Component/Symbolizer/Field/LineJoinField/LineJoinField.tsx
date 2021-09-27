@@ -51,14 +51,14 @@ export interface LineJoinFieldProps extends Partial<LineJoinFieldDefaultProps> {
 /**
  * LineJoinField to select between different line-join options
  */
-export class LineJoinField extends React.Component<LineJoinFieldProps> {
+export const LineJoinField: React.FC<LineJoinFieldProps> = ({
+  join,
+  joinOptions = ['bevel', 'round', 'miter'],
+  onChange
+}) => {
 
-  public static defaultProps: LineJoinFieldDefaultProps = {
-    joinOptions: ['bevel', 'round', 'miter']
-  };
-
-  getJoinSelectOptions = () => {
-    return this.props.joinOptions.map(joinOpt => {
+  const getJoinSelectOptions = () => {
+    return joinOptions.map(joinOpt => {
       return (
         <Option
           key={joinOpt}
@@ -70,22 +70,15 @@ export class LineJoinField extends React.Component<LineJoinFieldProps> {
     });
   };
 
-  render() {
-    const {
-      join,
-      onChange
-    } = this.props;
-
-    return (
-      <Select
-        className="editor-field line-join"
-        value={join}
-        onChange={onChange}
-      >
-        {this.getJoinSelectOptions()}
-      </Select>
-    );
-  }
-}
+  return (
+    <Select
+      className="editor-field line-join"
+      value={join}
+      onChange={onChange}
+    >
+      {getJoinSelectOptions()}
+    </Select>
+  );
+};
 
 export default LineJoinField;

@@ -26,48 +26,29 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { WellKnownNameField, WellKnownNameFieldProps } from './WellKnownNameField';
-import TestUtil from '../../../../Util/TestUtil';
-import en_US from '../../../../locale/en_US';
+import React from 'react';
+import {render, fireEvent, act} from '@testing-library/react';
+
+import { WellKnownNameField } from './WellKnownNameField';
 
 describe('WellKnownNameField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: WellKnownNameFieldProps = {
-      locale: en_US.GsWellKnownNameField
-    };
-    wrapper = TestUtil.shallowRenderComponent(WellKnownNameField, props);
-  });
 
   it('is defined', () => {
     expect(WellKnownNameField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<WellKnownNameField />);
+    expect(field.container).toBeDefined();
   });
 
-  it('creates 6 default options', () => {
-    expect(wrapper.instance().getWKNSelectOptions()).toHaveLength(15);
-  });
-
-  it('can handle wellKnownNames property', () => {
-    expect.assertions(2);
-    wrapper.setProps({
-      wellKnownNames: ['circle', 'square']
+  it('can handle wellKnownNames property', async () => {
+    const field = render(<WellKnownNameField wellKnownNames={['circle', 'square']}/>);
+    const input = await field.findByRole('combobox');
+    await act(async () => {
+      fireEvent.mouseDown(input);
     });
-    expect(wrapper.instance().props.wellKnownNames).toHaveLength(2);
-    expect(wrapper.instance().getWKNSelectOptions()).toHaveLength(2);
+    expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);
   });
 
-  it('can handle wellKnownName property', () => {
-    expect.assertions(2);
-    wrapper.setProps({
-      wellKnownName: 'square'
-    });
-    expect(wrapper.instance().props.wellKnownName).toEqual('square');
-    const selectValue = wrapper.props().value;
-    expect(selectValue).toEqual('square');
-  });
 });

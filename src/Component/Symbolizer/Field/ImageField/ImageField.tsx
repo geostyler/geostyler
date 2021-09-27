@@ -52,93 +52,64 @@ export interface ImageFieldProps extends Partial<ImageFieldDefaultProps> {
   iconLibraries?: IconLibrary[];
 }
 
-interface ImageFieldState {
-  windowVisible: boolean;
-}
-
 /**
  * ImageField
  */
-export class ImageField extends React.PureComponent<ImageFieldProps, ImageFieldState> {
+export const ImageField: React.FC<ImageFieldProps> = ({
+  onChange,
+  value,
+  iconLibraries,
+  tooltipLabel = 'Open Gallery',
+  placeholder = 'URL to image'
+}) => {
 
-  public static defaultProps: ImageFieldDefaultProps = {
-    tooltipLabel: 'Open Gallery',
-    placeholder: 'URL to image'
-  };
+  const [windowVisible, setWindowVisible] = React.useState<boolean>(false);
 
-  constructor(props: ImageFieldProps) {
-    super(props);
-    this.state = {
-      windowVisible: false
-    };
-  }
-
-  getIconSelectorButton = () => {
-    const {
-      tooltipLabel
-    } = this.props;
-
+  const getIconSelectorButton = () => {
     return (
       <Tooltip title={tooltipLabel}>
-        <PictureOutlined className="gs-image-field-gallery-icon" type="picture" onClick={this.openWindow}/>
+        <PictureOutlined className="gs-image-field-gallery-icon" type="picture" onClick={openWindow}/>
       </Tooltip>
     );
   };
 
-  openWindow = () => {
-    this.setState({
-      windowVisible: true
-    });
+  const openWindow = () => {
+    setWindowVisible(true);
   };
 
-  closeWindow = () => {
-    this.setState({
-      windowVisible: false
-    });
+  const closeWindow = () => {
+    setWindowVisible(true);
   };
 
-  render() {
-    const {
-      value,
-      placeholder,
-      onChange,
-      iconLibraries
-    } = this.props;
-
-    const {
-      windowVisible
-    } = this.state;
-
-    return (
-      <div className="editor-field gs-image-field">
-        <Input
-          className={iconLibraries ? 'gs-image-field-gallery-addon' : undefined}
-          value={value}
-          placeholder={placeholder}
-          defaultValue={value}
-          addonAfter={iconLibraries ? this.getIconSelectorButton() : undefined}
-          onChange={(evt: any) => {
-            if (onChange) {
-              onChange(evt.target.value);
-            }
-          }}
-        />
-        {
-          !windowVisible ? null :
-            <IconSelectorWindow
-              onClose={this.closeWindow}
-              iconLibraries={iconLibraries}
-              selectedIconSrc={value}
-              onIconSelect={(src: string) => {
-                if (onChange) {
-                  onChange(src);
-                }
-              }}
-            />
-        }
-      </div>
-    );
-  }
-}
+  return (
+    <div className="editor-field gs-image-field">
+      <Input
+        className={iconLibraries ? 'gs-image-field-gallery-addon' : undefined}
+        value={value}
+        placeholder={placeholder}
+        defaultValue={value}
+        addonAfter={iconLibraries ? getIconSelectorButton() : undefined}
+        onChange={(evt: any) => {
+          if (onChange) {
+            onChange(evt.target.value);
+          }
+        }}
+      />
+      {
+        !windowVisible ? null :
+          <IconSelectorWindow
+            onClose={closeWindow}
+            iconLibraries={iconLibraries}
+            selectedIconSrc={value}
+            onIconSelect={(src: string) => {
+              if (onChange) {
+                onChange(src);
+              }
+            }}
+          />
+      }
+    </div>
+  );
+};
 
 export default ImageField;

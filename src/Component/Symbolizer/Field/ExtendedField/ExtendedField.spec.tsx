@@ -26,36 +26,31 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { ExtendedField, ExtendedFieldProps } from './ExtendedField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { ExtendedField } from './ExtendedField';
 
 describe('ExtendedField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: ExtendedFieldProps = {
-      onChange: jest.fn()
-    };
-    wrapper = TestUtil.shallowRenderComponent(ExtendedField, props);
-  });
 
   it('is defined', () => {
     expect(ExtendedField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<ExtendedField />);
+    expect(field.container).toBeInTheDocument();
   });
 
   describe('onExtendedChange', () => {
-    it('calls onChange', () => {
-      const dummyEvent = {
-        target: {
-          value: false
-        }
-      };
-      wrapper.instance().onExtendedChange(dummyEvent);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+    it('calls onChange', async () => {
+      const onChangeMock = jest.fn();
+      const field = render(<ExtendedField onChange={onChangeMock} />);
+      const input16 = await field.findByLabelText('16-bit');
+      const input32 = await field.findByLabelText('32-bit');
+      fireEvent.click(input32);
+      expect(onChangeMock).toHaveBeenCalledWith(true);
+      fireEvent.click(input16);
+      expect(onChangeMock).toHaveBeenCalledWith(false);
     });
   });
 });

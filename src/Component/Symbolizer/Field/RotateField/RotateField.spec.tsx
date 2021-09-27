@@ -26,23 +26,20 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { RotateField, RotateFieldProps } from './RotateField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+
+import { RotateField } from './RotateField';
 
 describe('RotateField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: RotateFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(RotateField, props);
-  });
 
   it('is defined', () => {
     expect(RotateField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<RotateField />);
+    expect(field.container).toBeDefined();
   });
 
 });

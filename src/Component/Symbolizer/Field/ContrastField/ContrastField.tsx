@@ -41,25 +41,21 @@ export interface ContrastFieldProps {
 /**
  * ContrastField
  */
-export class ContrastField extends React.PureComponent<ContrastFieldProps> {
+export const ContrastField: React.FC<ContrastFieldProps> = ({
+  onChange,
+  contrast
+}) => {
 
-  render() {
-    const {
-      onChange,
-      contrast
-    } = this.props;
-
-    return (
-      <InputNumber
-        className="editor-field contrast-field"
-        min={-1}
-        max={1}
-        step={0.1}
-        value={contrast}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <InputNumber
+      className="editor-field contrast-field"
+      min={-1}
+      max={1}
+      step={0.1}
+      value={contrast}
+      onChange={onChange}
+    />
+  );
+};
 
 export default ContrastField;

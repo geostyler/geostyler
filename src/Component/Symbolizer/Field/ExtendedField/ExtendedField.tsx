@@ -41,36 +41,29 @@ export interface ExtendedFieldProps {
 /**
  * Extended Field
  */
-export class ExtendedField extends React.PureComponent<ExtendedFieldProps> {
+export const ExtendedField: React.FC<ExtendedFieldProps> = ({
+  onChange,
+  extended
+}) => {
 
-  onExtendedChange = (evt: any) => {
-    const {
-      onChange
-    } = this.props;
-
+  const onExtendedChange = (evt: any) => {
     if (onChange) {
       onChange(evt.target.value);
     }
   };
 
-  render() {
-    const {
-      extended
-    } = this.props;
-
-    return (
-      <Radio.Group
-        className="extend-field"
-        defaultValue={extended === true ? extended : false}
-        buttonStyle="solid"
-        onChange={this.onExtendedChange}
-        size="small"
-      >
-        <Radio.Button value={false}>16-bit</Radio.Button>
-        <Radio.Button value={true}>32-bit</Radio.Button>
-      </Radio.Group>
-    );
-  }
-}
+  return (
+    <Radio.Group
+      className="extend-field"
+      defaultValue={extended === true ? extended : false}
+      buttonStyle="solid"
+      onChange={onExtendedChange}
+      size="small"
+    >
+      <Radio.Button value={false}>16-bit</Radio.Button>
+      <Radio.Button value={true}>32-bit</Radio.Button>
+    </Radio.Group>
+  );
+};
 
 export default ExtendedField;

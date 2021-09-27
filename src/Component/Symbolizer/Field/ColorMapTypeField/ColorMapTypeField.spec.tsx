@@ -26,47 +26,48 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { ColorMapTypeField, ColorMapTypeFieldProps } from './ColorMapTypeField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { ColorMapTypeField } from './ColorMapTypeField';
+import en_US from '../../../../locale/en_US';
 
 describe('ColorMapTypeField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: ColorMapTypeFieldProps = {
-      onChange: jest.fn()
-    };
-    wrapper = TestUtil.shallowRenderComponent(ColorMapTypeField, props);
-  });
 
   it('is defined', () => {
     expect(ColorMapTypeField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<ColorMapTypeField />);
+    expect(field.container).toBeInTheDocument();
   });
 
-  describe('getColorMapTypeOptions', () => {
-    it('returns the right amount of options', () => {
-      const options = wrapper.instance().getColorMapTypeOptions();
-      expect(options).toHaveLength(3);
-      const dummyTypeOptions = ['ramp'];
-      wrapper.setProps({colorMapTypeOptions: dummyTypeOptions});
-      const newOptions = wrapper.instance().getColorMapTypeOptions();
-      expect(newOptions).toHaveLength(1);
+  describe('getContrastEnhancementSelectOptions', () => {
+    it('returns the right amount of default options', async () => {
+      render(<ColorMapTypeField />);
+      expect(document.body.querySelectorAll('.ant-radio-button-wrapper').length).toBe(3);
+    });
+
+    it('returns the right amount of passed options', async () => {
+      render(<ColorMapTypeField colorMapTypeOptions={['ramp', 'intervals']}/>);
+      expect(document.body.querySelectorAll('.ant-radio-button-wrapper').length).toBe(2);
     });
   });
 
   describe('onColorMapTypeChange', () => {
-    it('calls onChange', () => {
-      const dummyEvent = {
-        target: {
-          value: 'ramp'
-        }
-      };
-      wrapper.instance().onColorMapTypeChange(dummyEvent);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+    it('calls onChange', async () => {
+      const onChangeMock = jest.fn();
+      const field = render(<ColorMapTypeField onChange={onChangeMock} />);
+      const rampInput = await field.findByLabelText(en_US.GsColorMapTypeField.rampMapTypeLabel);
+      const intervalsInput = await field.findByLabelText(en_US.GsColorMapTypeField.intervalsMapTypeLabel);
+      const valuesInput = await field.findByLabelText(en_US.GsColorMapTypeField.valuesMapTypeLabel);
+      fireEvent.click(intervalsInput);
+      expect(onChangeMock).toHaveBeenCalledWith('intervals');
+      fireEvent.click(valuesInput);
+      expect(onChangeMock).toHaveBeenCalledWith('values');
+      fireEvent.click(rampInput);
+      expect(onChangeMock).toHaveBeenCalledWith('ramp');
     });
   });
+
 });

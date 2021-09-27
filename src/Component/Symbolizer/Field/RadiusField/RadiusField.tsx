@@ -41,23 +41,20 @@ export interface RadiusFieldProps {
 /**
  * RadiusField
  */
-export class RadiusField extends React.PureComponent<RadiusFieldProps> {
+export const RadiusField: React.FC<RadiusFieldProps> = ({
+  onChange,
+  radius
+}) => {
 
-  render() {
-    const {
-      onChange,
-      radius
-    } = this.props;
 
-    return (
-      <InputNumber
-        className="editor-field radius-field"
-        min={0}
-        value={radius}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <InputNumber
+      className="editor-field radius-field"
+      min={0}
+      value={radius}
+      onChange={onChange}
+    />
+  );
+};
 
 export default RadiusField;

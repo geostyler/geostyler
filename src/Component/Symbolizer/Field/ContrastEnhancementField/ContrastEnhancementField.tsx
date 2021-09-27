@@ -51,14 +51,14 @@ export interface ContrastEnhancementFieldProps extends Partial<ContrastEnhanceme
 /**
  * ContrastEnhancementField to select between different contrast enhancement options
  */
-export class ContrastEnhancementField extends React.Component<ContrastEnhancementFieldProps> {
+export const ContrastEnhancementField: React.FC<ContrastEnhancementFieldProps> = ({
+  onChange,
+  contrastEnhancementOptions = ['normalize', 'histogram'],
+  contrastEnhancement
+}) => {
 
-  public static defaultProps: ContrastEnhancementFieldDefaultProps = {
-    contrastEnhancementOptions: ['normalize', 'histogram']
-  };
-
-  getContrastEnhancementSelectOptions = () => {
-    return this.props.contrastEnhancementOptions.map(contrastEnhancementOpt => {
+  const getContrastEnhancementSelectOptions = () => {
+    return contrastEnhancementOptions.map(contrastEnhancementOpt => {
       return (
         <Option
           key={contrastEnhancementOpt}
@@ -70,23 +70,16 @@ export class ContrastEnhancementField extends React.Component<ContrastEnhancemen
     });
   };
 
-  render() {
-    const {
-      contrastEnhancement,
-      onChange
-    } = this.props;
-
-    return (
-      <Select
-        className="editor-field contrastEnhancement-field"
-        allowClear={true}
-        value={contrastEnhancement}
-        onChange={onChange}
-      >
-        {this.getContrastEnhancementSelectOptions()}
-      </Select>
-    );
-  }
-}
+  return (
+    <Select
+      className="editor-field contrastEnhancement-field"
+      allowClear={true}
+      value={contrastEnhancement}
+      onChange={onChange}
+    >
+      {getContrastEnhancementSelectOptions()}
+    </Select>
+  );
+};
 
 export default ContrastEnhancementField;

@@ -63,30 +63,24 @@ export interface GraphicTypeFieldProps extends Partial<GraphicTypeFieldDefaultPr
 }
 
 /** GraphicTypeField to select between different GraphicTypes */
-export class GraphicTypeField extends React.Component <GraphicTypeFieldProps> {
-
-  static componentName: string = 'GraphicTypeField';
-
-  public static defaultProps: GraphicTypeFieldDefaultProps = {
-    locale: en_US.GsGraphicTypeField,
-    graphicTypes: ['Mark', 'Icon'],
-    clearable: true
-  };
-
-  public shouldComponentUpdate(nextProps: GraphicTypeFieldProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
+export const GraphicTypeField: React.FC<GraphicTypeFieldProps> = ({
+  onChange,
+  graphicType,
+  locale = en_US.GsGraphicTypeField,
+  graphicTypes = ['Mark', 'Icon'],
+  clearable = true,
+  ...passThroughProps
+}) => {
 
   /**
    * Iterates over props.graphicTypes and returns an Option according to GraphicType
    *
-   * @param {GraphicTypeFieldLocale} locale Language package used for the displayed text of an Option
+   * @param {GraphicTypeFieldLocale} l Language package used for the displayed text of an Option
    * @return {React.ReactNode[]} List of Options
    */
-  getTypeSelectOptions = (locale: GraphicTypeFieldLocale): React.ReactNode[] => {
-    return (this.props.graphicTypes.map((type: GraphicType) => {
-      const loc = _get(locale, type) || type;
+  const getTypeSelectOptions = (l: GraphicTypeFieldLocale): React.ReactNode[] => {
+    return (graphicTypes.map((type: GraphicType) => {
+      const loc = _get(l, type) || type;
       return (
         <Option
           key={type}
@@ -98,28 +92,17 @@ export class GraphicTypeField extends React.Component <GraphicTypeFieldProps> {
     }));
   };
 
-  render() {
-    const {
-      locale,
-      graphicType,
-      graphicTypes,
-      onChange,
-      clearable,
-      ...passThroughProps
-    } = this.props;
+  return (
+    <Select
+      className="editor-field graphictype-field"
+      value={graphicType}
+      onChange={onChange}
+      allowClear={clearable}
+      {...passThroughProps}
+    >
+      {getTypeSelectOptions(locale)}
+    </Select>
+  );
+};
 
-    return (
-      <Select
-        className="editor-field graphictype-field"
-        value={graphicType}
-        onChange={onChange}
-        allowClear={clearable}
-        {...passThroughProps}
-      >
-        {this.getTypeSelectOptions(locale)}
-      </Select>
-    );
-  }
-}
-
-export default localize(GraphicTypeField, GraphicTypeField.componentName);
+export default localize(GraphicTypeField, 'GraphicTypeField');

@@ -62,20 +62,14 @@ export interface RgbChannelFieldProps extends Partial<RgbChannelFieldDefaultProp
 /**
  * RgbChannelField to map different bands to rgb
  */
-export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
+export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
+  sourceChannelNames,
+  onChange,
+  channelSelection,
+  locale = en_US.GsRgbChannelField
+}) => {
 
-  static componentName: string = 'RgbChannelField';
-
-  public static defaultProps: RgbChannelFieldDefaultProps = {
-    locale: en_US.GsRgbChannelField
-  };
-
-  onRedChannelChange = (red: string) => {
-    const {
-      channelSelection,
-      onChange
-    } = this.props;
-
+  const onRedChannelChange = (red: string) => {
     let rgb: RGBChannel;
     if (!channelSelection || (channelSelection && channelSelection.hasOwnProperty('grayChannel'))) {
       rgb = {
@@ -94,11 +88,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
     }
   };
 
-  onGreenChannelChange = (green: string) => {
-    const {
-      channelSelection,
-      onChange
-    } = this.props;
+  const onGreenChannelChange = (green: string) => {
     let rgb: RGBChannel;
     if (!channelSelection || (channelSelection && channelSelection.hasOwnProperty('grayChannel'))) {
       rgb = {
@@ -117,11 +107,7 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
     }
   };
 
-  onBlueChannelChange = (blue: string) => {
-    const {
-      channelSelection,
-      onChange
-    } = this.props;
+  const onBlueChannelChange = (blue: string) => {
     let rgb: RGBChannel;
     if (!channelSelection || (channelSelection && channelSelection.hasOwnProperty('grayChannel'))) {
       rgb = {
@@ -140,53 +126,45 @@ export class RgbChannelField extends React.Component<RgbChannelFieldProps> {
     }
   };
 
-  render() {
-    const {
-      sourceChannelNames,
-      channelSelection,
-      locale
-    } = this.props;
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
+  return (
+    <div>
+      <Form.Item
+        label={locale.redLabel}
+        {...formItemLayout}
+      >
+        <SourceChannelNameField
+          sourceChannelNames={sourceChannelNames}
+          onChange={onRedChannelChange}
+          sourceChannelName={_get(channelSelection, 'redChannel.sourceChannelName')}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.greenLabel}
+        {...formItemLayout}
+      >
+        <SourceChannelNameField
+          sourceChannelNames={sourceChannelNames}
+          onChange={onGreenChannelChange}
+          sourceChannelName={_get(channelSelection, 'greenChannel.sourceChannelName')}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.blueLabel}
+        {...formItemLayout}
+      >
+        <SourceChannelNameField
+          sourceChannelNames={sourceChannelNames}
+          onChange={onBlueChannelChange}
+          sourceChannelName={_get(channelSelection, 'blueChannel.sourceChannelName')}
+        />
+      </Form.Item>
+    </div>
+  );
+};
 
-    return (
-      <div>
-        <Form.Item
-          label={locale.redLabel}
-          {...formItemLayout}
-        >
-          <SourceChannelNameField
-            sourceChannelNames={sourceChannelNames}
-            onChange={this.onRedChannelChange}
-            sourceChannelName={_get(channelSelection, 'redChannel.sourceChannelName')}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.greenLabel}
-          {...formItemLayout}
-        >
-          <SourceChannelNameField
-            sourceChannelNames={sourceChannelNames}
-            onChange={this.onGreenChannelChange}
-            sourceChannelName={_get(channelSelection, 'greenChannel.sourceChannelName')}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.blueLabel}
-          {...formItemLayout}
-        >
-          <SourceChannelNameField
-            sourceChannelNames={sourceChannelNames}
-            onChange={this.onBlueChannelChange}
-            sourceChannelName={_get(channelSelection, 'blueChannel.sourceChannelName')}
-          />
-        </Form.Item>
-      </div>
-    );
-  }
-}
-
-export default localize(RgbChannelField, RgbChannelField.componentName);
+export default localize(RgbChannelField, 'RgbChannelField');

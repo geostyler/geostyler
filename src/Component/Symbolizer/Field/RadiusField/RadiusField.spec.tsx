@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { RadiusField, RadiusFieldProps } from './RadiusField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { RadiusField } from './RadiusField';
 
 describe('RadiusField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: RadiusFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(RadiusField, props);
-  });
 
   it('is defined', () => {
     expect(RadiusField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<RadiusField />);
+    expect(field.container).toBeDefined();
   });
 
 });

@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { OffsetField, OffsetFieldProps } from './OffsetField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { OffsetField } from './OffsetField';
 
 describe('OffsetField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: OffsetFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(OffsetField, props);
-  });
 
   it('is defined', () => {
     expect(OffsetField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<OffsetField />);
+    expect(field.container).toBeDefined();
   });
 
 });

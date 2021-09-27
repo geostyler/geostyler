@@ -43,6 +43,7 @@ import UploadButton from '../../UploadButton/UploadButton';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
+import FileUtil from '../../../Util/FileUtil';
 
 // i18n
 export interface StyleLoaderLocale {
@@ -64,42 +65,23 @@ export interface StyleLoaderProps extends Partial<StyleLoaderDefaultProps> {
   parsers: StyleParser[];
 }
 
-// state
-interface StyleLoaderState {
-  activeParser?: StyleParser;
-}
 
-export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderState> {
+export const StyleLoader: React.FC<StyleLoaderProps> = ({
+  parsers,
+  locale = en_US.GsStyleLoader,
+  onStyleRead = (style: GsStyle) => {return; }
+}) => {
 
-  static componentName: string = 'StyleLoader';
+  const [activeParser, setActiveParser] = React.useState<StyleParser>();
 
-  public static defaultProps: StyleLoaderDefaultProps = {
-    locale: en_US.GsStyleLoader,
-    onStyleRead: (style: GsStyle) => {return; }
-  };
-
-  constructor(props: StyleLoaderProps) {
-    super(props);
-    this.state = {};
-  }
-
-  public shouldComponentUpdate(nextProps: StyleLoaderProps, nextState: StyleLoaderState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
-  parseStyle = async (uploadObject: UploadRequestOption<any>): Promise<Style|undefined> => {
-    const {
-      activeParser
-    } = this.state;
+  const parseStyle = async (uploadObject: UploadRequestOption<any>): Promise<Style|undefined> => {
     if (!activeParser) {
       return undefined;
     }
     const file = uploadObject.file as File;
     let fileContent;
     try {
-      fileContent = await this.readFile(file);
+      fileContent = await FileUtil.readFile(file);
     } catch (error) {
       uploadObject.onError(error);
       return error;
@@ -107,7 +89,7 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
 
     try {
       const style = await activeParser.readStyle(fileContent);
-      this.props.onStyleRead(style);
+      onStyleRead(style);
       return style;
     } catch (error) {
       uploadObject.onError(error);
@@ -115,58 +97,34 @@ export class StyleLoader extends React.Component<StyleLoaderProps, StyleLoaderSt
     }
   };
 
-  readFile = async (file: File) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const fileContent = reader.result;
-        resolve(fileContent);
-      };
-      reader.onerror = reject;
-      reader.readAsText(file);
-    });
-  };
+  const parserOptions = parsers.map((parser: any) =>
+    <Option key={parser.title} value={parser.title}>{parser.title}</Option>
+  );
 
-  getParserOptions = () => {
-    return this.props.parsers.map((parser: any) => {
-      return <Option key={parser.title} value={parser.title}>{parser.title}</Option>;
-    });
-  };
-
-  onSelect = (selection: string) => {
-    const activeParser = this.props.parsers.find(parser => parser.title === selection);
-    if (activeParser) {
-      this.setState({activeParser});
+  const onSelect = (selection: string) => {
+    const newActiveParser = parsers.find(parser => parser.title === selection);
+    if (newActiveParser) {
+      setActiveParser(newActiveParser);
     }
   };
 
-  render() {
-    const {
-      activeParser
-    } = this.state;
+  return (
+    <div className={activeParser ? 'gs-dataloader-right' : ''}>
+      {locale.label}
+      <Select
+        style={{ width: 300 }}
+        onSelect={onSelect}
+      >
+        {parserOptions}
+      </Select>
+      {
+        activeParser ?
+          <UploadButton
+            customRequest={parseStyle}
+          /> : null
+      }
+    </div>
+  );
+};
 
-    const {
-      locale
-    } = this.props;
-
-    return (
-      <div className={activeParser ? 'gs-dataloader-right' : ''}>
-        {locale.label}
-        <Select
-          style={{ width: 300 }}
-          onSelect={this.onSelect}
-        >
-          {this.getParserOptions()}
-        </Select>
-        {
-          activeParser ?
-            <UploadButton
-              customRequest={this.parseStyle}
-            /> : null
-        }
-      </div>
-    );
-  }
-}
-
-export default localize(StyleLoader, StyleLoader.componentName);
+export default localize(StyleLoader, 'StyleLoader');

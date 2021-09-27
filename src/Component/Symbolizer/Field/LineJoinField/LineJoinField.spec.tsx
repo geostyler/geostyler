@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { LineJoinField, LineJoinFieldProps } from './LineJoinField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { LineJoinField } from './LineJoinField';
 
 describe('LineJoinField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: LineJoinFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(LineJoinField, props);
-  });
 
   it('is defined', () => {
     expect(LineJoinField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<LineJoinField />);
+    expect(field.container).toBeDefined();
   });
 
 });

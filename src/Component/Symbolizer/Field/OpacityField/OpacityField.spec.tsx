@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { OpacityField, OpacityFieldProps } from './OpacityField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { OpacityField } from './OpacityField';
 
 describe('OpacityField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: OpacityFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(OpacityField, props);
-  });
 
   it('is defined', () => {
     expect(OpacityField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<OpacityField />);
+    expect(field.container).toBeDefined();
   });
 
 });

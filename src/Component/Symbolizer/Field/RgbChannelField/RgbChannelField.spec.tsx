@@ -26,48 +26,31 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { RgbChannelField, RgbChannelFieldProps } from './RgbChannelField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+
+import { RgbChannelField } from './RgbChannelField';
 
 describe('RgbChannelField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: RgbChannelFieldProps = {
-      onChange: jest.fn()
-    };
-    wrapper = TestUtil.shallowRenderComponent(RgbChannelField, props);
-  });
 
   it('is defined', () => {
     expect(RgbChannelField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<RgbChannelField />);
+    expect(field.container).toBeInTheDocument();
   });
 
   describe('onRedChannelChange', () => {
-    it('calls onChange', () => {
+    it('every SourceChannelNameField change calls passed onChange', async () => {
       const dummyChannelName = 'dummy band';
-      wrapper.instance().onRedChannelChange(dummyChannelName);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+      const onChangeMock = jest.fn();
+      const field = render(<RgbChannelField onChange={onChangeMock} />);
+      const inputs = await field.findAllByPlaceholderText('Name of band');
+      await Promise.all(inputs.map(input => fireEvent.change(input, { target: { value: dummyChannelName }})));
+      expect(onChangeMock).toHaveBeenCalledTimes(3);
     });
   });
 
-  describe('onGreenChannelChange', () => {
-    it('calls onChange', () => {
-      const dummyChannelName = 'dummy band';
-      wrapper.instance().onGreenChannelChange(dummyChannelName);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
-    });
-  });
-
-  describe('onBlueChannelChange', () => {
-    it('calls onChange', () => {
-      const dummyChannelName = 'dummy band';
-      wrapper.instance().onBlueChannelChange(dummyChannelName);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
-    });
-  });
 });

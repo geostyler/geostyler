@@ -41,24 +41,20 @@ export interface FadeDurationFieldProps {
 /**
  * FadeDurationField
  */
-export class FadeDurationField extends React.PureComponent<FadeDurationFieldProps> {
+export const FadeDurationField: React.FC<FadeDurationFieldProps> = ({
+  onChange,
+  fadeDuration
+}) => {
 
-  render() {
-    const {
-      onChange,
-      fadeDuration
-    } = this.props;
-
-    return (
-      <InputNumber
-        className="editor-field fadeDuration-field"
-        min={0}
-        step={10}
-        value={fadeDuration}
-        onChange={onChange}
-      />
-    );
-  }
-}
+  return (
+    <InputNumber
+      className="editor-field fadeDuration-field"
+      min={0}
+      step={10}
+      value={fadeDuration}
+      onChange={onChange}
+    />
+  );
+};
 
 export default FadeDurationField;

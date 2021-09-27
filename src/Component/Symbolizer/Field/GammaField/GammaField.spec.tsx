@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { GammaField, GammaFieldProps } from './GammaField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { GammaField } from './GammaField';
 
 describe('GammaField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: GammaFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(GammaField, props);
-  });
 
   it('is defined', () => {
     expect(GammaField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<GammaField />);
+    expect(field.container).toBeInTheDocument();
   });
 
 });

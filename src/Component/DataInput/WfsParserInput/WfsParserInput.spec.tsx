@@ -26,140 +26,80 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { WfsParserInput, WfsParserInputProps } from './WfsParserInput';
-import TestUtil from '../../../Util/TestUtil';
+import React from 'react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+import { WfsParams, WfsParserInput } from './WfsParserInput';
+import en_US from '../../../locale/en_US';
+
+const locale = en_US.GsWfsParserInput;
 
 describe('WfsParserInput', () => {
-  let wrapper: any;
-  let dummyOnClick: jest.Mock;
-  beforeEach(() => {
-    dummyOnClick = jest.fn();
-    const props: WfsParserInputProps = {
-      onClick: dummyOnClick
-    };
-    wrapper = TestUtil.shallowRenderComponent(WfsParserInput, props);
-  });
 
   it('is defined', () => {
     expect(WfsParserInput).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const onClickMock = jest.fn();
+    const field = render(<WfsParserInput onClick={onClickMock} />);
+    expect(field.container).toBeInTheDocument();
   });
 
   describe('onUrlChange', () => {
-    it('sets the url in the state', () => {
-      const fakeEvent = {
-        target: {
-          value: 'www.terrestris.de'
-        }
-      };
-      const onUrlChange = wrapper.instance().onUrlChange;
-      onUrlChange(fakeEvent);
-      expect(wrapper.state().url).toEqual('www.terrestris.de');
-    });
-    it('sets an error in the state if url is to short', () => {
-      const fakeEvent = {
-        target: {
-          value: ''
-        }
-      };
-      const onUrlChange = wrapper.instance().onUrlChange;
-      onUrlChange(fakeEvent);
-      expect(wrapper.state().url).toEqual('');
-      expect(wrapper.state().validation.url).toEqual({
-        status: 'error',
-        message: 'Url is required'
-      });
+    it('shows and error when url is to short', async () => {
+      const onClickMock = jest.fn();
+      const field = render(<WfsParserInput onClick={onClickMock} />);
+      const input = await field.container.querySelector('input.wfs-url-input');
+      fireEvent.change(input, { target: { value: '' }});
+      expect(await field.findByRole('alert')).toBeInTheDocument();
+      expect(await field.findByText('Url is required')).toBeInTheDocument();
     });
   });
 
   describe('onTypeNameChange', () => {
-    it('sets the typeName in the state', () => {
-      const typeName = 'my:typeName';
-      const fakeEvent = {
-        target: {
-          value: typeName
-        }
-      };
-      const onTypeNameChange = wrapper.instance().onTypeNameChange;
-      onTypeNameChange(fakeEvent);
-      expect(wrapper.state().typeName).toEqual(typeName);
-    });
-    it('sets an error in the state typeName url is to short', () => {
-      const fakeEvent = {
-        target: {
-          value: ''
-        }
-      };
-      const onTypeNameChange = wrapper.instance().onTypeNameChange;
-      onTypeNameChange(fakeEvent);
-      expect(wrapper.state().typeName).toEqual('');
-      expect(wrapper.state().validation.typeName).toEqual({
-        status: 'error',
-        message: 'TypeName is required'
-      });
-    });
-  });
-
-  describe('onVersionChange', () => {
-    it('sets the typeName in the state', () => {
-      const version = '2.1.0';
-      const onVersionChange = wrapper.instance().onVersionChange;
-      onVersionChange(version);
-      expect(wrapper.state().version).toEqual(version);
-    });
-    it('sets an error in the state typeName url is to short', () => {
-      const onVersionChange = wrapper.instance().onVersionChange;
-      onVersionChange('');
-      expect(wrapper.state().version).toEqual('');
-      expect(wrapper.state().validation.version).toEqual({
-        status: 'error',
-        message: 'Version is required'
-      });
-    });
-  });
-
-  describe('onFeatureIDChange', () => {
-    it('sets the featureID in the state', () => {
-      const featureID = '12';
-      const fakeEvent = {
-        target: {
-          value: featureID
-        }
-      };
-      const onFeatureIDChange = wrapper.instance().onFeatureIDChange;
-      onFeatureIDChange(fakeEvent);
-      expect(wrapper.state().featureID).toEqual(featureID);
-    });
-  });
-
-  describe('onPropertyNameChange', () => {
-    it('sets the featureID in the state', () => {
-      const propertyName = ['name', 'age'];
-      const onPropertyNameChange = wrapper.instance().onPropertyNameChange;
-      onPropertyNameChange(propertyName);
-      expect(wrapper.state().propertyName).toEqual(propertyName);
-    });
-  });
-
-  describe('onMaxFeaturesChange', () => {
-    it('sets the featureID in the state', () => {
-      const maxFeatures = 1337;
-      const onMaxFeaturesChange = wrapper.instance().onMaxFeaturesChange;
-      onMaxFeaturesChange(maxFeatures);
-      expect(wrapper.state().maxFeatures).toEqual(maxFeatures);
+    it('shows and error when typeName is to short', async () => {
+      const onClickMock = jest.fn();
+      const field = render(<WfsParserInput onClick={onClickMock} />);
+      const input = await field.container.querySelector('input.wfs-typename-input');
+      fireEvent.change(input, { target: { value: '' }});
+      expect(await field.findByRole('alert')).toBeInTheDocument();
+      expect(await field.findByText('TypeName is required')).toBeInTheDocument();
     });
   });
 
   describe('onClick', () => {
-    it('calls the passed method with the current state', () => {
-      const currentState = wrapper.state();
-      const onClick = wrapper.instance().onClick;
-      onClick();
-      expect(dummyOnClick).toBeCalledWith(currentState);
+    it('calls the passed method with the entered values', async () => {
+      const mockParams: WfsParams = {
+        url: 'my mock url',
+        typeName: 'my mock typeName',
+        version: '1.1.3',
+        featureID: 'mock feature id',
+        maxFeatures: 999
+      };
+      const onClickMock = jest.fn();
+      const field = render(<WfsParserInput onClick={onClickMock} />);
+
+      // url
+      const urlInput = field.container.querySelector('input.wfs-url-input');
+      fireEvent.change(urlInput, { target: { value: mockParams.url }});
+      // typename
+      const typeNameInput = field.container.querySelector('input.wfs-typename-input');
+      fireEvent.change(typeNameInput, { target: { value: mockParams.typeName }});
+      // feature id
+      const featureIdInput = field.container.querySelector('input.wfs-featureid-input');
+      fireEvent.change(featureIdInput, { target: { value: mockParams.featureID }});
+      // version
+      const input = await field.findAllByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input[0]);
+      });
+      fireEvent.click(await screen.findByTitle(mockParams.version));
+      // maxfeatures
+      const maxFeatures = await field.findByRole('spinbutton');
+      fireEvent.change(maxFeatures, { target: { value: 999 }});
+
+      fireEvent.click(await field.findByText(locale.requestButtonText));
+      expect(onClickMock).toHaveBeenCalledWith(mockParams);
     });
   });
-
 });

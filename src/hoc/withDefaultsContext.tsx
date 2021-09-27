@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DefaultValueContext, DefaultValues } from '../Component/DefaultValueContext/DefaultValueContext';
+import { DefaultValueContext, DefaultValues } from '../context/DefaultValueContext/DefaultValueContext';
 
 const withDefaultsContext = (Component: any) => {
   return (props: any) => {

@@ -64,96 +64,64 @@ export interface ColorFieldProps extends Partial<ColorFieldDefaultProps> {
   defaultValue?: string;
 }
 
-// state
-interface ColorFieldState {
-  colorPickerVisible: boolean;
-}
-
 /**
  * ColorField
  */
-export class ColorField extends React.Component<ColorFieldProps, ColorFieldState> {
+export const ColorField: React.FC<ColorFieldProps> = ({
+  onChange,
+  locale = en_US.GsColorField,
+  color,
+  defaultValue
+}) => {
 
-  static componentName: string = 'ColorField';
+  const [colorPickerVisible, setColorPickerVisible] = React.useState<boolean>(false);
 
-  public static defaultProps: ColorFieldDefaultProps = {
-    locale: en_US.GsColorField
+  const onColorPreviewClick = () => {
+    setColorPickerVisible(!colorPickerVisible);
   };
 
-  constructor(props: ColorFieldProps) {
-    super(props);
-    this.state = {
-      colorPickerVisible: false
-    };
-  }
-
-  public shouldComponentUpdate(nextProps: ColorFieldProps, nextState: ColorFieldState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
-  onColorPreviewClick = () => {
-    this.setState({
-      colorPickerVisible: !this.state.colorPickerVisible
-    });
-  };
-
-  onChangeComplete = (colorResult: ColorResult) => {
-    const {
-      onChange
-    } = this.props;
+  const onChangeComplete = (colorResult: ColorResult) => {
     if (onChange) {
       onChange(colorResult.hex);
     }
   };
 
-  render() {
-    const {
-      colorPickerVisible = false
-    } = this.state;
-    const {
-      color,
-      locale,
-      defaultValue
-    } = this.props;
-    let textColor;
+  let textColor;
 
-    if (!color && !defaultValue) {
+  if (!color && !defaultValue) {
+    textColor = '#000000';
+  } else {
+    try {
+      textColor = Color(color || defaultValue).negate().grayscale().string();
+    } catch (error) {
       textColor = '#000000';
-    } else {
-      try {
-        textColor = Color(color || defaultValue).negate().grayscale().string();
-      } catch (error) {
-        textColor = '#000000';
-      }
     }
-
-    return (
-      <div className="editor-field color-field">
-        <div className="color-preview-wrapper">
-          <Button
-            className="color-preview editor-field"
-            style={{
-              backgroundColor: color || defaultValue,
-              color: textColor
-            }}
-            onClick={this.onColorPreviewClick}
-          >
-            {colorPickerVisible ? locale.closeText : color ? locale.editText : locale.chooseText}
-          </Button>
-          {
-            colorPickerVisible ?
-              <SketchPicker
-                color={color}
-                disableAlpha={true}
-                onChangeComplete={this.onChangeComplete}
-              /> : null
-          }
-        </div>
-      </div>
-    );
   }
-}
 
-export default localize(ColorField, ColorField.componentName);
+  return (
+    <div className="editor-field color-field">
+      <div className="color-preview-wrapper">
+        <Button
+          className="color-preview editor-field"
+          style={{
+            backgroundColor: color || defaultValue,
+            color: textColor
+          }}
+          onClick={onColorPreviewClick}
+        >
+          {colorPickerVisible ? locale.closeText : color ? locale.editText : locale.chooseText}
+        </Button>
+        {
+          colorPickerVisible ?
+            <SketchPicker
+              color={color}
+              disableAlpha={true}
+              onChangeComplete={onChangeComplete}
+            /> : null
+        }
+      </div>
+    </div>
+  );
+};
+
+export default localize(ColorField, 'ColorField');

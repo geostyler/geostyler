@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { ContrastField, ContrastFieldProps } from './ContrastField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { ContrastField } from './ContrastField';
 
 describe('ContrastField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: ContrastFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(ContrastField, props);
-  });
 
   it('is defined', () => {
     expect(ContrastField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<ContrastField />);
+    expect(field.container).toBeInTheDocument();
   });
 
 });

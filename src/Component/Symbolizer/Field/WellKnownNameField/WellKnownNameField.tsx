@@ -67,26 +67,18 @@ export interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefau
 /**
  * WellKnownNameField
  */
-export class WellKnownNameField extends React.Component<WellKnownNameFieldProps> {
+export const WellKnownNameField: React.FC<WellKnownNameFieldProps> = ({
+  onChange,
+  locale =  en_US.GsWellKnownNameField,
+  wellKnownName = 'circle',
+  wellKnownNames = ['circle', 'square', 'triangle', 'star', 'cross', 'x',
+    'shape://backslash', 'shape://carrow', 'shape://dot',
+    'shape://horline', 'shape://oarrow', 'shape://plus',
+    'shape://slash', 'shape://times', 'shape://vertline']
+}) => {
 
-  static componentName: string = 'WellKnownNameField';
-
-  public static defaultProps: WellKnownNameFieldDefaultProps = {
-    locale: en_US.GsWellKnownNameField,
-    wellKnownName: 'circle',
-    wellKnownNames: ['circle', 'square', 'triangle', 'star', 'cross', 'x',
-      'shape://backslash', 'shape://carrow', 'shape://dot',
-      'shape://horline', 'shape://oarrow', 'shape://plus',
-      'shape://slash', 'shape://times', 'shape://vertline']
-  };
-
-  public shouldComponentUpdate(nextProps: WellKnownNameFieldProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
-  getWKNSelectOptions = (locale: WellKnownNameFieldLocale) => {
-    return this.props.wellKnownNames!.map(name => {
+  const getWKNSelectOptions = () => {
+    return wellKnownNames.map(name => {
       // if locales are not available, set Option text to name value
       const loc = _get(locale, 'wellKnownNames[' + name + ']') || name;
       return (
@@ -100,23 +92,15 @@ export class WellKnownNameField extends React.Component<WellKnownNameFieldProps>
     });
   };
 
-  render() {
-    const {
-      wellKnownName,
-      onChange,
-      locale
-    } = this.props;
+  return (
+    <Select
+      className="editor-field wellknownname-field"
+      value={wellKnownName}
+      onChange={onChange}
+    >
+      {getWKNSelectOptions()}
+    </Select>
+  );
+};
 
-    return (
-      <Select
-        className="editor-field wellknownname-field"
-        value={wellKnownName}
-        onChange={onChange}
-      >
-        {this.getWKNSelectOptions(locale)}
-      </Select>
-    );
-  }
-}
-
-export default localize(WellKnownNameField, WellKnownNameField.componentName);
+export default localize(WellKnownNameField, 'WellKnownNameField');

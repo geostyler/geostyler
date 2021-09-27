@@ -26,57 +26,57 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { ChannelField, ChannelFieldProps } from './ChannelField';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { act, render, fireEvent } from '@testing-library/react';
+import { ChannelField } from './ChannelField';
 import { ContrastEnhancement } from 'geostyler-style';
 
 describe('ChannelField', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: ChannelFieldProps = {
-      onChange: jest.fn()
-    };
-    wrapper = TestUtil.shallowRenderComponent(ChannelField , props);
-  });
 
   it('is defined', () => {
     expect(ChannelField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
-  });
-
-  describe('updateChannel', () => {
-    it('calls onChange', () => {
-      const newColor = '#aabbcc';
-      wrapper.instance().updateChannel('color', newColor);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
-    });
+    const field = render(<ChannelField />);
+    expect(field.container).toBeInTheDocument();
   });
 
   describe('onSourceChannelNameChange', () => {
-    it('calls onChange', () => {
+    it('calls onChange', async () => {
       const dummySourceChannelName = 'dummyChannel';
-      wrapper.instance().onSourceChannelNameChange(dummySourceChannelName);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+      const onChangeMock = jest.fn();
+      const field = render(<ChannelField onChange={onChangeMock}/>);
+      const input = await field.findByPlaceholderText('Name of band');
+      fireEvent.change(input, { target: { value: dummySourceChannelName }});
+      expect(onChangeMock).toHaveBeenCalledWith({ sourceChannelName: 'dummyChannel' });
     });
   });
 
   describe('onContrastEnhancementChange', () => {
-    it('calls onChange', () => {
+    it('calls onChange', async () => {
       const dummyCeType: ContrastEnhancement['enhancementType'] = 'histogram';
-      wrapper.instance().onContrastEnhancementChange(dummyCeType);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+      const onChangeMock = jest.fn();
+      const field = render(<ChannelField onChange={onChangeMock}/>);
+      const input = await field.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
+      });
+      const options = document.body.querySelectorAll('.ant-select-item');
+      expect(options.length).toBe(2);
+      fireEvent.click(options[0]);
+      expect(onChangeMock).toHaveBeenCalledWith({ contrastEnhancement: { enhancementType: dummyCeType }});
     });
   });
 
   describe('onGammaChange', () => {
-    it('calls onChange', () => {
+    it('calls onChange', async () => {
       const dummyGamma: number = 0.5;
-      wrapper.instance().onGammaChange(dummyGamma);
-      expect(wrapper.instance().props.onChange).toHaveBeenCalled();
+      const onChangeMock = jest.fn();
+      const field = render(<ChannelField onChange={onChangeMock}/>);
+      const input = await field.findByRole('spinbutton');
+      fireEvent.change(input, { target: { value: dummyGamma }});
+      expect(onChangeMock).toHaveBeenCalledWith({ contrastEnhancement: { gammaValue: 0.5 } });
     });
   });
 });

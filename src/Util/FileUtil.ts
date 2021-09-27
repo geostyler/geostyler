@@ -26,30 +26,25 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
-import {act, render, fireEvent } from '@testing-library/react';
+/**
+ * @class FileUtil
+ */
+class FileUtil {
 
-import { SourceChannelNameField } from './SourceChannelNameField';
-
-describe('SourceChannelNameField', () => {
-
-  it('is defined', () => {
-    expect(SourceChannelNameField).toBeDefined();
-  });
-
-  it('renders correctly', () => {
-    const field = render(<SourceChannelNameField />);
-    expect(field.container).toBeDefined();
-  });
-
-  describe('getSourceChannelNameSelectOptions', () => {
-    it('returns the right number of optiosn', async () => {
-      const field = render(<SourceChannelNameField sourceChannelNames={['red', 'green']}/>);
-      const input = await field.findByRole('combobox');
-      await act(async () => {
-        fireEvent.mouseDown(input);
-      });
-      expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);
+  /**
+   * Reads a file and returns its content as string.
+   */
+  static readFile = async (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const fileContent = reader.result;
+        resolve(fileContent as string);
+      };
+      reader.onerror = reject;
+      reader.readAsText(file);
     });
-  });
-});
+  };
+}
+
+export default FileUtil;

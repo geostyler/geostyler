@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { FontPicker, FontPickerProps } from './FontPicker';
-import TestUtil from '../../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { FontPicker } from './FontPicker';
 
 describe('FontPicker', () => {
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: FontPickerProps = {};
-    wrapper = TestUtil.shallowRenderComponent(FontPicker, props);
-  });
 
   it('is defined', () => {
     expect(FontPicker).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<FontPicker />);
+    expect(field.container).toBeInTheDocument();
   });
 
 });

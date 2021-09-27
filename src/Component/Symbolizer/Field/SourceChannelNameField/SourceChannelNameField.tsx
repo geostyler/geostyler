@@ -49,66 +49,54 @@ export interface SourceChannelNameFieldProps extends Partial<SourceChannelNameFi
 /**
  * SourceChannelNameField to select between different source channel options
  */
-export class SourceChannelNameField extends React.Component<SourceChannelNameFieldProps> {
+export const SourceChannelNameField: React.FC<SourceChannelNameFieldProps> = ({
+  sourceChannelNames,
+  onChange,
+  sourceChannelName,
+  placeholder = 'Name of band'
+}) => {
 
-  public static defaultProps: SourceChannelNameFieldDefaultProps = {
-    placeholder: 'Name of band'
-  };
-
-  getSourceChannelNameSelectOptions = () => {
-    const {
-      sourceChannelNames
-    } = this.props;
-
-    return sourceChannelNames.map(sourceChannelName => {
+  const getSourceChannelNameSelectOptions = () => {
+    return sourceChannelNames.map(name => {
       return (
         <Option
-          key={sourceChannelName}
-          value={sourceChannelName}
+          key={name}
+          value={name}
         >
-          {sourceChannelName}
+          {name}
         </Option>
       );
     });
   };
 
-  render() {
-    const {
-      sourceChannelName,
-      sourceChannelNames,
-      onChange,
-      placeholder
-    } = this.props;
-
-    return (
-      <div>
-        {
-          sourceChannelNames && sourceChannelNames.length > 0 ?
-            (
-              <Select
-                className="editor-field sourceChannelName-field"
-                value={sourceChannelName}
-                onChange={onChange}
-              >
-                {this.getSourceChannelNameSelectOptions()}
-              </Select>
-            ) : (
-              <Input
-                className="editor-field sourceChannelName-field"
-                defaultValue={sourceChannelName}
-                value={sourceChannelName}
-                placeholder={placeholder}
-                onChange={(evt: any) => {
-                  if (onChange) {
-                    onChange(evt.target.value);
-                  }
-                }}
-              />
-            )
-        }
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {
+        sourceChannelNames && sourceChannelNames.length > 0 ?
+          (
+            <Select
+              className="editor-field sourceChannelName-field"
+              value={sourceChannelName}
+              onChange={onChange}
+            >
+              {getSourceChannelNameSelectOptions()}
+            </Select>
+          ) : (
+            <Input
+              className="editor-field sourceChannelName-field"
+              defaultValue={sourceChannelName}
+              value={sourceChannelName}
+              placeholder={placeholder}
+              onChange={(evt: any) => {
+                if (onChange) {
+                  onChange(evt.target.value);
+                }
+              }}
+            />
+          )
+      }
+    </div>
+  );
+};
 
 export default SourceChannelNameField;
