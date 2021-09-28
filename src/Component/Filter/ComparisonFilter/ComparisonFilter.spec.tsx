@@ -26,136 +26,106 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { ComparisonFilter, ComparisonFilterProps } from './ComparisonFilter';
-import TestUtil from '../../../Util/TestUtil';
+import React from 'react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+import { ComparisonFilter } from './ComparisonFilter';
+import { ComparisonFilter as GsComparisionFilter} from 'geostyler-style';
 
 describe('ComparisonFilter', () => {
-
-  const dummyFilterFn = jest.fn();
-  const onValidationChanged = jest.fn();
-  const onFilterChange = jest.fn();
-  const attrValidator = jest.fn();
-  const operatorValidator = jest.fn();
-  // TODO check why jest.fn() / mockReturnValue does not work here
-  // use native function and counter as fallback
-  let valueValidatorCalled = 0;
-  const valueValidator = () => {
-    valueValidatorCalled++;
-    return {
-      isValid: false,
-      errorMsg: 'Please enter valid input'
-    };
-  };
-
-  let wrapper: any;
-
-  beforeEach(() => {
-    const dummyData = TestUtil.getDummyGsData();
-    const props: ComparisonFilterProps = {
-      internalDataDef: dummyData,
-      onFilterChange,
-      attributeNameFilter: dummyFilterFn,
-      onValidationChanged,
-      validators: {
-        attribute: attrValidator,
-        operator: operatorValidator,
-        value: valueValidator
-      }
-    };
-    wrapper = TestUtil.shallowRenderComponent(ComparisonFilter, props);
-  });
-
-  afterEach(() => {
-    dummyFilterFn.mockReset();
-    onValidationChanged.mockReset();
-    onFilterChange.mockReset();
-    attrValidator.mockReset();
-    operatorValidator.mockReset();
-    valueValidatorCalled = 0;
-  });
 
   it('is defined', () => {
     expect(ComparisonFilter).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<ComparisonFilter />);
+    expect(field.container).toBeInTheDocument();
   });
 
   describe('#onAttributeChange', () => {
-    it('is defined', () => {
-      expect(wrapper.instance().onAttributeChange).toBeDefined();
-    });
-
     it('calls onFilterChange', () => {
-      const attribute: string = 'foo';
-      wrapper.instance().onAttributeChange(attribute);
-      expect(onFilterChange.mock.calls).toHaveLength(1);
+      const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
+      const onFilterChangeDummy = jest.fn();
+      const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
+      const attribute = 'bar';
+      const input = field.container.querySelector('.gs-attribute-combo input');
+      fireEvent.change(input, { target: { value: attribute}});
+      expect(onFilterChangeDummy).toHaveBeenCalledWith(['==', attribute, 'Peter']);
     });
   });
 
   describe('#onOperatorChange', () => {
-    it('is defined', () => {
-      expect(wrapper.instance().onOperatorChange).toBeDefined();
-    });
-
-    it('calls onFilterChange is available', () => {
-      const operator: string = '==';
-      wrapper.instance().onOperatorChange(operator);
-      expect(onFilterChange.mock.calls).toHaveLength(1);
+    it('calls onFilterChange is available', async () => {
+      const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
+      const onFilterChangeDummy = jest.fn();
+      const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
+      const operator = '!=';
+      const input = field.container.querySelector('.gs-operator-combo input');
+      // const input = await field.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
+      });
+      const option = await screen.findByTitle(operator);
+      fireEvent.click(option);
+      expect(onFilterChangeDummy).toHaveBeenCalledWith([operator, 'foo', 'Peter']);
     });
   });
 
   describe('#onValueChange', () => {
-    it('is defined', () => {
-      expect(wrapper.instance().onValueChange).toBeDefined();
-    });
-
-    it('calls onFilterChange is available', () => {
-      const value: string = 'Peter';
-      wrapper.instance().onValueChange(value);
-      expect(onFilterChange.mock.calls).toHaveLength(1);
+    it('calls onFilterChange is available', async () => {
+      const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
+      const onFilterChangeDummy = jest.fn();
+      const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
+      const value = 'Hilde';
+      const input = field.container.querySelector('.gs-text-filter-field input');
+      fireEvent.change(input, { target: { value: value}});
+      expect(onFilterChangeDummy).toHaveBeenCalledWith(['==', 'foo', value]);
     });
   });
 
   describe('#validateFilter', () => {
-    it('is defined', () => {
-      expect(wrapper.instance().validateFilter).toBeDefined();
-    });
-
-    it('updates state by erroneous validation status if filter is empty', () => {
-      wrapper.setProps({
-        filter: undefined
-      });
-      wrapper.instance().validateFilter();
-
-      const promise = new Promise(resolve => {
-        setTimeout(resolve, 500);
-      });
-      expect.assertions(1);
-
-      return promise.then(() => {
-        const expectedResult = {
-          attribute: 'error',
-          operator: 'error',
-          value: 'error'
-        };
-
-        const stateAfter = wrapper.state();
-        expect(stateAfter.validateStatus).toEqual(expectedResult);
-      });
+    it('shows an error if attribute is invalid', async () => {
+      const filter: GsComparisionFilter = ['==', , 'Peter'];
+      render(<ComparisonFilter filter={filter} />);
+      const errorWarnings = await screen.findAllByRole('alert');
+      expect(errorWarnings).toHaveLength(1);
+      expect(errorWarnings[0]).toBeInTheDocument();
+      expect(errorWarnings[0].innerHTML).toBe('Please select an attribute.');
     });
 
     it('calls validator functions if passed as props', () => {
-      wrapper.instance().validateFilter();
-      expect(attrValidator.mock.calls).toHaveLength(1);
-      expect(operatorValidator.mock.calls).toHaveLength(1);
-      expect(valueValidatorCalled).toBe(1);
+      const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
+      const attributeValidatorDummy = jest.fn();
+      const operatorValidatorDummy = jest.fn();
+      const valueValidatorDummy = jest.fn();
+      valueValidatorDummy.mockReturnValue({
+        isValid: false,
+        errorMsg: 'MOCK MESSAGE'
+      });
+      const validators = {
+        attribute: attributeValidatorDummy,
+        operator: operatorValidatorDummy,
+        value: valueValidatorDummy
+      };
+
+      // initial
+      const field = render(<ComparisonFilter filter={filter} validators={validators} />);
+      expect(valueValidatorDummy).toHaveBeenCalledWith('Peter', undefined, 'foo');
+      expect(attributeValidatorDummy).toHaveBeenCalledWith('foo');
+      expect(operatorValidatorDummy).toHaveBeenCalledWith('==');
+
+      // value
+      field.rerender(<ComparisonFilter filter={['==', 'foo', 'Hilde']} validators={validators} />);
+      expect(valueValidatorDummy).toHaveBeenCalledWith('Hilde', undefined, 'foo');
+
+      // attribute
+      field.rerender(<ComparisonFilter filter={['==', 'bar', 'Hilde']} validators={validators} />);
+      expect(attributeValidatorDummy).toHaveBeenCalledWith('bar');
+
+      // operator
+      field.rerender(<ComparisonFilter filter={['!=', 'bar', 'Hilde']} validators={validators} />);
+      expect(operatorValidatorDummy).toHaveBeenCalledWith('!=');
     });
 
-    it('calls onValidationChanged is available', () => {
-      wrapper.instance().validateFilter();
-      expect(onValidationChanged.mock.calls).toHaveLength(1);
-    });
   });
 });
