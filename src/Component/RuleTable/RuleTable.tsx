@@ -62,7 +62,7 @@ import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { TableProps, ColumnProps } from 'antd/lib/table';
-import FilterUtil from '../../Util/FilterUtil';
+import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
@@ -179,7 +179,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   }
 
   static getDerivedStateFromProps(nextProps: RuleTableProps, prevState: RuleTableState) {
-    let countsAndDuplicates;
+    let countsAndDuplicates: CountResult = {};
     try {
       let filtersEqual = true;
       nextProps.rules.forEach((rule, index) => {
@@ -206,8 +206,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     return {
       data: nextProps.data,
       rules: nextProps.rules,
-      counts: countsAndDuplicates.counts,
-      duplicates: countsAndDuplicates.duplicates
+      counts: countsAndDuplicates?.counts,
+      duplicates: countsAndDuplicates?.duplicates
     };
   }
 
@@ -398,7 +398,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     const filter: GsFilter|undefined = record.filter;
     if (data && filter) {
       try {
-        amount = this.state.counts[record.key];
+        amount = this.state?.counts[record.key] || 0;
       } catch (error) {
         amount = '-';
       }
