@@ -38,8 +38,6 @@ interface AttributeComboDefaultProps {
   label: string;
   /** The default text to place into the empty field */
   placeholder: string;
-  /** Initial value set to the field */
-  value: string | undefined;
   /** Set true to hide the attribute's type in the select options */
   hideAttributeType: boolean;
   /**
@@ -59,145 +57,107 @@ export interface AttributeComboProps extends Partial<AttributeComboDefaultProps>
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: Data;
   /** Callback function for onChange */
-  onAttributeChange: ((newAttrName: string) => void);
-}
-
-interface AttributeComboState {
-  value: string | undefined;
-  inputSelectionStart: number;
-  inputSelectionEnd: number;
+  onAttributeChange?: ((newAttrName: string) => void);
+  /** Value set to the field */
+  value?: string | undefined;
 }
 
 /**
  * Combobox offering the attributes to be filtered on.
  */
-export class AttributeCombo extends React.Component<AttributeComboProps, AttributeComboState> {
-  public static defaultProps: AttributeComboDefaultProps = {
-    label: 'Attribute',
-    placeholder: 'Select Attribute',
-    value: undefined,
-    hideAttributeType: false,
-    attributeNameFilter: () => true,
-    attributeNameMappingFunction: n => n,
-    validateStatus: 'success',
-    help: 'Please select an attribute.'
-  };
-  private inputRef: React.RefObject<Input>;
+export const AttributeCombo: React.FC<AttributeComboProps> = ({
+  label = 'Attribute',
+  placeholder = 'Select Attribute',
+  value,
+  hideAttributeType = false,
+  attributeNameFilter = () => true,
+  attributeNameMappingFunction =n => n,
+  validateStatus = 'success',
+  help = 'Please select an attribute.',
+  internalDataDef,
+  onAttributeChange
+}) => {
 
-  constructor(props: AttributeComboProps) {
-    super(props);
-    this.inputRef = React.createRef();
-    this.state = {
-      value: this.props.value,
-      inputSelectionStart: 0,
-      inputSelectionEnd: 0
-    };
+  const [inputSelectionStart, setInputSelectionStart] = React.useState<number>();
+  const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>();
+  const inputRef = React.useRef(null);
+
+  if (inputRef && inputRef.current && inputRef.current.input) {
+    inputRef.current.input.selectionStart = inputSelectionStart;
+    inputRef.current.input.selectionEnd = inputSelectionEnd;
   }
 
-  static getDerivedStateFromProps(
-    nextProps: AttributeComboProps,
-    prevState: AttributeComboState): Partial<AttributeComboState> {
-    return {
-      value: nextProps.value
-    };
-  }
+  let options: Object[] = [];
 
-  componentDidUpdate() {
-    // ensure we preserve the cursor position for the input field
-    const {
-      inputSelectionStart,
-      inputSelectionEnd,
-    } = this.state;
+  if (internalDataDef) {
+    const attrDefs = internalDataDef.schema.properties;
 
-    if (this.inputRef && this.inputRef.current && this.inputRef.current.input) {
-      this.inputRef.current.input.selectionStart = inputSelectionStart;
-      this.inputRef.current.input.selectionEnd = inputSelectionEnd;
-    }
-  }
-
-  render() {
-    const {
-      internalDataDef,
-      onAttributeChange,
-      label,
-      placeholder,
-      attributeNameFilter,
-      hideAttributeType
-    } = this.props;
-
-    let options: Object[] = [];
-
-    if (internalDataDef) {
-      const attrDefs = internalDataDef.schema.properties;
-
-      // create sth like ['foo', 'bar', 'kalle'];
-      const attrNames = [];
-      for (var key in attrDefs) {
-        if (attrDefs.hasOwnProperty(key)) {
-          attrNames.push(key);
-        }
+    // create sth like ['foo', 'bar', 'kalle'];
+    const attrNames = [];
+    for (var key in attrDefs) {
+      if (attrDefs.hasOwnProperty(key)) {
+        attrNames.push(key);
       }
-
-      // create an option per attribute
-      options = attrNames.filter(attributeNameFilter!).map(attrName => {
-        const attrNameMapped = this.props.attributeNameMappingFunction(attrName);
-        return (
-          <Option
-            key={attrName}
-            value={attrName}
-          >
-            {hideAttributeType ? attrNameMapped : `${attrNameMapped} (${attrDefs[attrName].type})`}
-          </Option>
-        );
-      });
     }
 
-    const helpTxt = this.props.validateStatus !== 'success' ? this.props.help : null;
-
-    return (
-      <div className="gs-attr-combo">
-        <Form.Item
-          label={label}
-          colon={false}
-          validateStatus={this.props.validateStatus}
-          help={helpTxt}
+    // create an option per attribute
+    options = attrNames.filter(attributeNameFilter!).map(attrName => {
+      const attrNameMapped = attributeNameMappingFunction(attrName);
+      return (
+        <Option
+          key={attrName}
+          value={attrName}
         >
-          {
-            internalDataDef ?
-              <Select
-                value={this.state.value}
-                style={{ width: '100%' }}
-                onChange={onAttributeChange}
-                placeholder={placeholder}
-              >
-                {options}
-              </Select>
-              :
-              <Input
-                ref={this.inputRef}
-                draggable={true}
-                onDragStart={(e) => e.preventDefault()}
-                value={this.state.value}
-                placeholder={placeholder}
-                style={{ width: '100%' }}
-                onChange={(event) => {
-                  onAttributeChange(event.target.value);
-
-                  // save the cursor position to restore it in
-                  // componentDidUpdate, otherwise it jumps to the end while typing
-                  const cursorStart = event.target.selectionStart;
-                  const cursorEnd = event.target.selectionEnd;
-                  this.setState({
-                    inputSelectionStart: cursorStart,
-                    inputSelectionEnd: cursorEnd
-                  });
-                }}
-              />
-          }
-        </Form.Item>
-      </div>
-    );
+          {hideAttributeType ? attrNameMapped : `${attrNameMapped} (${attrDefs[attrName].type})`}
+        </Option>
+      );
+    });
   }
-}
+
+  const helpTxt = validateStatus !== 'success' ? help : null;
+
+  return (
+    <div className="gs-attr-combo">
+      <Form.Item
+        label={label}
+        colon={false}
+        validateStatus={validateStatus}
+        help={helpTxt}
+      >
+        {
+          internalDataDef ?
+            <Select
+              value={value}
+              style={{ width: '100%' }}
+              onChange={onAttributeChange}
+              placeholder={placeholder}
+            >
+              {options}
+            </Select>
+            :
+            <Input
+              ref={inputRef}
+              draggable={true}
+              onDragStart={(e) => e.preventDefault()}
+              value={value}
+              placeholder={placeholder}
+              style={{ width: '100%' }}
+              onChange={(event) => {
+                if (onAttributeChange) {
+                  onAttributeChange(event.target.value);
+                }
+                // save the cursor position to restore it in
+                // componentDidUpdate, otherwise it jumps to the end while typing
+                const cursorStart = event.target.selectionStart;
+                const cursorEnd = event.target.selectionEnd;
+                setInputSelectionStart(cursorStart);
+                setInputSelectionEnd(cursorEnd);
+              }}
+            />
+        }
+      </Form.Item>
+    </div>
+  );
+};
 
 export default AttributeCombo;
