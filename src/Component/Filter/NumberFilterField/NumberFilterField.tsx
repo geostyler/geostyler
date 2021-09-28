@@ -105,7 +105,7 @@ export class NumberFilterField extends React.Component<NumberFilterFieldProps, N
 
     return (
       <div
-        className="gs-text-filter-fld"
+        className="gs-number-filter-field"
         draggable={true}
         onDragStart={(e) => e.preventDefault()}
       >

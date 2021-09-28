@@ -64,7 +64,7 @@ export const BoolFilterField: React.FC<BoolFilterFieldProps> = ({
   };
 
   return (
-    <div className="gs-text-filter-fld">
+    <div className="gs-bool-filter-field">
       <Form.Item label={label} colon={false} >
         <Checkbox
           checked={value === true}

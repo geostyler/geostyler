@@ -154,7 +154,7 @@ export class TextFilterField extends React.Component<TextFilterFieldProps, TextF
     const sampleValues: string[] = this.getSampleValuesFromFeatures();
 
     return (
-      <div className="gs-text-filter-fld">
+      <div className="gs-text-filter-field">
         <Form.Item
           label={this.props.label}
           colon={false}

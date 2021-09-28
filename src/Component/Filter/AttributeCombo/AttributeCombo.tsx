@@ -117,7 +117,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
   const helpTxt = validateStatus !== 'success' ? help : null;
 
   return (
-    <div className="gs-attr-combo">
+    <div className="gs-attribute-combo">
       <Form.Item
         label={label}
         colon={false}
