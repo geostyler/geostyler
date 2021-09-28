@@ -49,40 +49,32 @@ export interface FieldSetProps extends Partial<FieldSetDefaultProps> {
  * A container for grouping sets of fields similar to a HTML fieldset element.
  * A title and a checkbox will be rendered on the top border of the component.
  */
-export class FieldSet extends React.Component<FieldSetProps> {
+export const FieldSet: React.FC<FieldSetProps> = ({
+  checked = true,
+  title,
+  onCheckChange,
+  children
+}) => {
 
-  public static defaultProps: FieldSetDefaultProps = {
-    checked: true
-  };
-
-  render() {
-
-    const {
-      children,
-      checked,
-      title
-    } = this.props;
-
-    return (
-      <fieldset className="gs-fieldset">
-        <legend>
-          <Checkbox
-            checked={checked}
-            onChange={this.props.onCheckChange}
-          >
-            {title}
-          </Checkbox>
-        </legend>
-        {React.Children.map(children, (child, i) => {
-          // Ignore all childs if checkbox is unchecked
-          if (checked) {
-            return child;
-          }
-          return undefined;
-        })}
-      </fieldset>
-    );
-  }
-}
+  return (
+    <fieldset className="gs-fieldset">
+      <legend>
+        <Checkbox
+          checked={checked}
+          onChange={onCheckChange}
+        >
+          {title}
+        </Checkbox>
+      </legend>
+      {React.Children.map(children, (child, i) => {
+        // Ignore all childs if checkbox is unchecked
+        if (checked) {
+          return child;
+        }
+        return undefined;
+      })}
+    </fieldset>
+  );
+};
 
 export default FieldSet;
