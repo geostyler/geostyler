@@ -26,46 +26,29 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { NumberFilterField, NumberFilterFieldProps } from './NumberFilterField';
-import TestUtil from '../../../Util/TestUtil';
+import React from 'react';
+import { fireEvent, render } from '@testing-library/react';
+import { NumberFilterField } from './NumberFilterField';
 
 describe('NumberFilterField', () => {
-
-  let wrapper: any;
-  const dummyFn = jest.fn();
-  beforeEach(() => {
-    const dummyData = TestUtil.getDummyGsData();
-    const props: NumberFilterFieldProps = {
-      internalDataDef: dummyData,
-      onValueChange: dummyFn,
-      selectedAttribute: 'foo',
-      validateStatus: 'success'
-    };
-    wrapper = TestUtil.shallowRenderComponent(NumberFilterField, props);
-  });
-
-  afterEach(() => {
-    dummyFn.mockReset();
-  });
 
   it('is defined', () => {
     expect(NumberFilterField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<NumberFilterField />);
+    expect(field.container).toBeInTheDocument();
   });
 
   describe('#onChange', () => {
-    it('is defined', () => {
-      expect(wrapper.instance().onChange).toBeDefined();
-    });
-
-    it('calls onValueChange of props', () => {
+    it('calls onValueChange of props', async () => {
+      const onChangeDummy = jest.fn();
       const value = 1909.09;
-      wrapper.instance().onChange(value);
-      expect(dummyFn.mock.calls).toHaveLength(1);
+      const field = render(<NumberFilterField onValueChange={onChangeDummy} />);
+      const input = await field.findByRole('spinbutton');
+      fireEvent.change(input, { target: { value }});
+      expect(onChangeDummy).toHaveBeenCalledWith(value);
     });
   });
-
 });

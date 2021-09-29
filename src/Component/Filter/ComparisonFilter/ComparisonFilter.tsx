@@ -318,8 +318,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
               <Col span={10} className="gs-small-col">
                 <NumberFilterField
                   value={filter ? filter[2] as number : undefined}
-                  internalDataDef={internalDataDef}
-                  selectedAttribute={attribute}
                   onValueChange={onValueChange}
                   label={valueLabel}
                   placeholder={valuePlaceholder}
