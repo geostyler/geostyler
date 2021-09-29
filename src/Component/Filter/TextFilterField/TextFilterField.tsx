@@ -75,13 +75,15 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
 }) => {
 
   const inputRef = React.useRef<Input>();
-  const [inputSelectionStart, setinputSelectionStart] = React.useState<number>(0);
+  const [inputSelectionStart, setInputSelectionStart] = React.useState<number>(0);
   const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>(0);
 
-  if (inputRef && inputRef.current && inputRef.current.input) {
-    inputRef.current.input.selectionStart = inputSelectionStart;
-    inputRef.current.input.selectionEnd = inputSelectionEnd;
-  }
+  React.useLayoutEffect(() => {
+    if (inputRef && inputRef.current && inputRef.current.input) {
+      inputRef.current.input.selectionStart = inputSelectionStart;
+      inputRef.current.input.selectionEnd = inputSelectionEnd;
+    }
+  }, [inputSelectionStart, inputSelectionEnd, value]);
 
   /**
    * Extracts the text value of the event object of 'onChange'
@@ -148,7 +150,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
                 // componentDidUpdate, otherwise it jumps to the end while typing
                 const cursorStart = event.target.selectionStart;
                 const cursorEnd = event.target.selectionEnd;
-                setinputSelectionStart(cursorStart);
+                setInputSelectionStart(cursorStart);
                 setInputSelectionEnd(cursorEnd);
               }}
               placeholder={placeholder}

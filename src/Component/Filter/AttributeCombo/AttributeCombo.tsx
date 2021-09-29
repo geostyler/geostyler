@@ -84,10 +84,12 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
   const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>();
   const inputRef = React.useRef(null);
 
-  if (inputRef && inputRef.current && inputRef.current.input) {
-    inputRef.current.input.selectionStart = inputSelectionStart;
-    inputRef.current.input.selectionEnd = inputSelectionEnd;
-  }
+  React.useLayoutEffect(() => {
+    if (inputRef && inputRef.current && inputRef.current.input) {
+      inputRef.current.input.selectionStart = inputSelectionStart;
+      inputRef.current.input.selectionEnd = inputSelectionEnd;
+    }
+  }, [inputSelectionStart, inputSelectionEnd, value]);
 
   let options: Object[] = [];
 
