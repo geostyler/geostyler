@@ -26,22 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { TextFilterField, TextFilterFieldProps } from './TextFilterField';
+import React from 'react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
+import { TextFilterField } from './TextFilterField';
 import TestUtil from '../../../Util/TestUtil';
 
 describe('TextFilterField', () => {
 
-  let wrapper: any;
-  let onValueChangeDummy: jest.Mock;
+  let dummyData: any;
   beforeEach(() => {
-    const dummyData = TestUtil.getDummyGsData();
-    onValueChangeDummy = jest.fn();
-    const props: TextFilterFieldProps = {
-      internalDataDef: dummyData,
-      onValueChange: onValueChangeDummy,
-      validateStatus: 'success'
-    };
-    wrapper = TestUtil.shallowRenderComponent(TextFilterField, props);
+    dummyData = TestUtil.getDummyGsData();
   });
 
   it('is defined', () => {
@@ -49,29 +43,55 @@ describe('TextFilterField', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<TextFilterField />);
+    expect(field.container).toBeInTheDocument();
   });
 
-  describe('#onInputChange', () => {
-    it('is defined', () => {
-      expect(wrapper.instance().onInputChange).toBeDefined();
+  describe('TextInput', () => {
+    it('renders as Input if no data is passed', () => {
+      const field = render(<TextFilterField />);
+      const autocomplete = field.queryByRole('combobox');
+      const textInput = document.querySelector('.ant-input');
+      expect(autocomplete).not.toBeInTheDocument();
+      expect(textInput).toBeInTheDocument();
     });
 
     it('calls onValueChange of props', () => {
-      const evtMock = {
-        target: {
-          value: 'Test'
-        }
-      };
-      wrapper.instance().onInputChange(evtMock);
-      expect(onValueChangeDummy.mock.calls).toHaveLength(1);
+      const value = 'Test';
+      const onChangeMock = jest.fn();
+      render(<TextFilterField onValueChange={onChangeMock} />);
+      const textInput = document.querySelector('.ant-input');
+      fireEvent.change(textInput, { target: { value }});
+      expect(onChangeMock).toHaveBeenCalledWith(value);
     });
+
   });
 
-  describe('#onAutoCompleteChange', () => {
-    it('is defined', () => {
-      expect(wrapper.instance().onAutoCompleteChange).toBeDefined();
+  describe('AutoComplete', () => {
+
+    it('renders as Autocomplete if data is passed and attribute is selected', () => {
+      const field = render(<TextFilterField selectedAttribute="bar" internalDataDef={dummyData}/>);
+      const autocomplete = field.queryByRole('combobox');
+      const textInput = document.querySelector('.ant-input');
+      expect(autocomplete).toBeInTheDocument();
+      expect(textInput).not.toBeInTheDocument();
     });
+
+    it('calls onValueChange of props', async () => {
+      const onChangeMock = jest.fn();
+      const field = render(<TextFilterField
+        onValueChange={onChangeMock}
+        selectedAttribute="bar"
+        internalDataDef={dummyData}
+      />);
+      const input = await field.findByRole('combobox');
+      await act(async () => {
+        fireEvent.mouseDown(input);
+      });
+      fireEvent.click(await screen.findByTitle('bar'));
+      expect(onChangeMock).toHaveBeenCalledWith('bar');
+    });
+
   });
 
 });

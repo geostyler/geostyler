@@ -50,156 +50,109 @@ interface TextFilterFieldDefaultProps {
 // non default props
 export interface TextFilterFieldProps extends Partial<TextFilterFieldDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
-  internalDataDef: Data;
+  internalDataDef?: Data;
   /** Callback function for onChange */
   onValueChange?: (newValue: string) => void;
   /** The selected attribute name */
   selectedAttribute?: string;
 }
-// state
-interface TextFilterFieldState {
-  value: string | undefined;
-  inputSelectionStart: number;
-  inputSelectionEnd: number;
-}
 
 /**
  * Input field for a textual filter value.
  */
-export class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFieldState> {
+// export class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFieldState> {
+export const TextFilterField: React.FC<TextFilterFieldProps> = ({
+  label = 'Value',
+  placeholder = 'Enter Text Value',
+  value,
+  validateStatus = 'success',
+  help = 'Please enter a text.',
+  internalDataDef,
+  onValueChange,
+  selectedAttribute
+}) => {
 
-  public static defaultProps: TextFilterFieldDefaultProps = {
-    label: 'Value',
-    placeholder: 'Enter Text Value',
-    value: undefined,
-    validateStatus: 'success',
-    help: 'Please enter a text.'
-  };
-  private inputRef: React.RefObject<Input>;
+  const inputRef = React.useRef<Input>();
+  const [inputSelectionStart, setinputSelectionStart] = React.useState<number>(0);
+  const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>(0);
 
-  constructor(props: TextFilterFieldProps) {
-    super(props);
-    this.inputRef = React.createRef();
-    this.state = {
-      value: this.props.value,
-      inputSelectionStart: 0,
-      inputSelectionEnd: 0
-    };
-  }
-
-  static getDerivedStateFromProps(
-    nextProps: TextFilterFieldProps,
-    prevState: TextFilterFieldState): Partial<TextFilterFieldState> {
-    return {
-      value: nextProps.value
-    };
-  }
-
-  componentDidUpdate() {
-    // ensure we preserve the cursor position for the input field
-    const {
-      inputSelectionStart,
-      inputSelectionEnd,
-    } = this.state;
-
-    if (this.inputRef && this.inputRef.current) {
-      this.inputRef.current.input.selectionStart = inputSelectionStart;
-      this.inputRef.current.input.selectionEnd = inputSelectionEnd;
-    }
+  if (inputRef && inputRef.current && inputRef.current.input) {
+    inputRef.current.input.selectionStart = inputSelectionStart;
+    inputRef.current.input.selectionEnd = inputSelectionEnd;
   }
 
   /**
    * Extracts the text value of the event object of 'onChange'
    * and passes it to the passed in 'onValueChange' handler.
    */
-  onInputChange = (e: any) => {
-    const {
-      onValueChange
-    } = this.props;
+  const onInputChange = (e: any) => {
     if (onValueChange) {
       onValueChange(e.target.value);
     }
-    this.setState({value: e.target.value});
   };
 
-  onAutoCompleteChange = (value: string) => {
-    const {
-      onValueChange
-    } = this.props;
+  const onAutoCompleteChange = (text: string) => {
     if (onValueChange) {
-      onValueChange(value);
+      onValueChange(text);
     }
-    this.setState({value: value});
   };
 
-  getSampleValuesFromFeatures = (): string[] => {
-    const {
-      selectedAttribute,
-      internalDataDef
-    } = this.props;
-    let sampleValues: string[] = [];
-    const features = _get(internalDataDef, 'exampleFeatures.features') || [];
+  const helpTxt = validateStatus !== 'success' ? help : null;
 
+  let sampleValues: string[] = [];
+  if (internalDataDef && 'exampleFeatures' in internalDataDef) {
+    const features = internalDataDef?.exampleFeatures?.features;
     features.forEach((feature: Feature) => {
-      const value = _get(feature, `properties[${selectedAttribute}]`);
-      if (value && sampleValues.indexOf(value) === -1) {
-        sampleValues.push(value);
+      const sampleValue = _get(feature, `properties[${selectedAttribute}]`);
+      if (sampleValue && sampleValues.indexOf(sampleValue) === -1) {
+        sampleValues.push(sampleValue);
       }
     });
-    return sampleValues.sort();
-  };
-
-  render() {
-    const helpTxt = this.props.validateStatus !== 'success' ? this.props.help : null;
-    const sampleValues: string[] = this.getSampleValuesFromFeatures();
-
-    return (
-      <div className="gs-text-filter-field">
-        <Form.Item
-          label={this.props.label}
-          colon={false}
-          validateStatus={this.props.validateStatus}
-          help={helpTxt}
-          hasFeedback={true}
-        >
-          {
-            sampleValues.length > 0 ?
-              <AutoComplete
-                value={this.state.value}
-                style={{ width: '100%' }}
-                onChange={this.onAutoCompleteChange}
-                placeholder={this.props.placeholder}
-                dataSource={sampleValues}
-                filterOption={(value: string , option: any) => {
-                  return option.key.toLowerCase().includes(value.toLowerCase());
-                }}
-              />
-              :
-              <Input
-                ref={this.inputRef}
-                draggable={true}
-                onDragStart={(e) => e.preventDefault()}
-                value={this.state.value}
-                style={{ width: '100%' }}
-                onChange={(event) => {
-                  this.onInputChange(event);
-
-                  // save the cursor position to restore it in
-                  // componentDidUpdate, otherwise it jumps to the end while typing
-                  const cursorStart = event.target.selectionStart;
-                  const cursorEnd = event.target.selectionEnd;
-                  this.setState({
-                    inputSelectionStart: cursorStart,
-                    inputSelectionEnd: cursorEnd
-                  });
-                }}
-                placeholder={this.props.placeholder}
-              />
-          }
-        </Form.Item>
-      </div>
-    );
   }
-}
+
+  return (
+    <div className="gs-text-filter-field">
+      <Form.Item
+        label={label}
+        colon={false}
+        validateStatus={validateStatus}
+        help={helpTxt}
+        hasFeedback={true}
+      >
+        {
+          sampleValues.length > 0 ?
+            <AutoComplete
+              value={value}
+              style={{ width: '100%' }}
+              onChange={onAutoCompleteChange}
+              placeholder={placeholder}
+              dataSource={sampleValues}
+              filterOption={(val: string , option: any) => {
+                return option.key.toLowerCase().includes(val.toLowerCase());
+              }}
+            />
+            :
+            <Input
+              ref={inputRef}
+              draggable={true}
+              onDragStart={(e) => e.preventDefault()}
+              value={value}
+              style={{ width: '100%' }}
+              onChange={(event) => {
+                onInputChange(event);
+                // save the cursor position to restore it in
+                // componentDidUpdate, otherwise it jumps to the end while typing
+                const cursorStart = event.target.selectionStart;
+                const cursorEnd = event.target.selectionEnd;
+                setinputSelectionStart(cursorStart);
+                setInputSelectionEnd(cursorEnd);
+              }}
+              placeholder={placeholder}
+            />
+        }
+      </Form.Item>
+    </div>
+  );
+};
 
 export default TextFilterField;
