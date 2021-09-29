@@ -89,8 +89,7 @@ describe('FilterUtil', () => {
 
       const rules: Rule[] = [{
         name: 'rule1',
-        symbolizers: [],
-        filter: []
+        symbolizers: []
       }, {
         name: 'rule2',
         symbolizers: [],
@@ -193,6 +192,201 @@ describe('FilterUtil', () => {
       expect(result.duplicates[1]).toBe(9);
       expect(result.duplicates[2]).toBe(13);
       expect(result.duplicates[3]).toBe(9);
+    });
+  });
+
+  describe('positionArrayAsString', () => {
+    it('transforms positionArrays to strings as expected', () => {
+      const array1 = [1, 3, 6, 2];
+      const array2 = [3, 3, 5];
+      const array3 = [4, 7];
+      const string1 = '[1][3][6][2]';
+      const string2 = '[3][3][5]';
+      const string3 = '[4][7]';
+      expect(FilterUtil.positionArrayAsString(array1)).toEqual(string1);
+      expect(FilterUtil.positionArrayAsString(array2)).toEqual(string2);
+      expect(FilterUtil.positionArrayAsString(array3)).toEqual(string3);
+    });
+  });
+
+  describe('positionStringAsArray', () => {
+    it('transforms positionStrings to arrays as expected', () => {
+      const array1 = [1, 3, 6, 2];
+      const array2 = [3, 3, 5];
+      const array3 = [4, 7];
+      const string1 = '[1][3][6][2]';
+      const string2 = '[3][3][5]';
+      const string3 = '[4][7]';
+      expect(FilterUtil.positionStringAsArray(string1)).toEqual(array1);
+      expect(FilterUtil.positionStringAsArray(string2)).toEqual(array2);
+      expect(FilterUtil.positionStringAsArray(string3)).toEqual(array3);
+    });
+  });
+
+  describe('getFilterAtPosition', () => {
+    it('returns the expected filter', () => {
+      expect(FilterUtil.getFilterAtPosition(filter, '')).toEqual(filter);
+      expect(FilterUtil.getFilterAtPosition(filter, '[1]')).toEqual(filter[1]);
+      expect(FilterUtil.getFilterAtPosition(filter, '[1][1]')).toEqual(filter[1][1]);
+      expect(FilterUtil.getFilterAtPosition(filter, '[1][2]')).toEqual(filter[1][2]);
+      expect(FilterUtil.getFilterAtPosition(filter, '[2][1]')).toEqual(filter[2][1]);
+    });
+  });
+
+  describe('removeFilter', () => {
+    it('removes a filter at a given position', () => {
+      const got1: Filter = [
+        '&&',
+        [
+          '||',
+          ['>=', 'population', 100000],
+          ['<', 'population', 200000]
+        ],
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ]
+      ];
+      const newFilter1 = FilterUtil.removeFilter(filter, '[1]');
+      expect(newFilter1).toEqual(got1);
+    });
+  });
+
+  describe('changeFilter', () => {
+    it('changes a Filter at a given position', () => {
+      const got1: Filter = [
+        '||',
+        ['==', 'state', 'germany'],
+        [
+          '||',
+          ['>=', 'population', 100000],
+          ['<', 'population', 200000]
+        ],
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ]
+      ];
+      const newFilter1 = FilterUtil.changeFilter(filter, '', 'or');
+      expect(newFilter1).toEqual(got1);
+
+      const got2: Filter = [
+        '&&',
+        ['==', 'state', 'germany'],
+        ['!', ['==', '', '']],
+        ['!', ['==', 'name', 'Schalke']]
+      ];
+      const newFilter2 = FilterUtil.changeFilter(filter, '[2]', 'not');
+      expect(newFilter2).toEqual(got2);
+
+      const got3: Filter = [
+        '&&',
+        ['==', 'state', 'germany'],
+        ['==', '', ''],
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ]
+      ];
+      const newFilter3 = FilterUtil.changeFilter(filter, '[2]', 'comparison');
+      expect(newFilter3).toEqual(got3);
+    });
+  });
+
+  describe('addFilter', () => {
+    it('adds a filter of a given type at the given position.', () => {
+      const got1: Filter = [
+        '&&',
+        ['==', 'state', 'germany'],
+        [
+          '||',
+          ['>=', 'population', 100000],
+          ['<', 'population', 200000]
+        ],
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ],
+        ['&&', ['==', '', ''], ['==', '', '']]
+      ];
+      const newFilter1 = FilterUtil.addFilter(filter, '', 'and');
+      expect(newFilter1).toEqual(got1);
+
+      const got2: Filter = [
+        '&&',
+        ['==', 'state', 'germany'],
+        [
+          '||',
+          ['>=', 'population', 100000],
+          ['<', 'population', 200000],
+          ['==', '', '']
+        ],
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ]
+      ];
+      const newFilter2 = FilterUtil.addFilter(filter, '[2]', 'comparison');
+      expect(newFilter2).toEqual(got2);
+    });
+  });
+
+  describe('removeAtPosition', () => {
+    it('removes a filter at the expected position', () => {
+      const got = [
+        '&&',
+        ['==', 'state', 'germany'],
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ]
+      ];
+      const newFilter = FilterUtil.removeAtPosition(filter, '[2]');
+      expect(newFilter).toEqual(got);
+
+      const got2 = [
+        '&&',
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ]
+      ];
+      const newFilter2 = FilterUtil.removeAtPosition(newFilter, '[1]');
+      expect(newFilter2).toEqual(got2);
+    });
+  });
+
+  describe('insertAtPosition', () => {
+    it('insterts a filter at the expected position', () => {
+      const baseFilter: Filter = [
+        '&&',
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ]
+      ];
+      const got = [
+        '&&',
+        ['==', 'state', 'germany'],
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ]
+      ];
+      const newFilter = FilterUtil.insertAtPosition(baseFilter, ['==', 'state', 'germany'], '[1]', 0);
+      expect(newFilter).toEqual(got);
+
+      const newFilter2 = FilterUtil.insertAtPosition(
+        newFilter,
+        [
+          '||',
+          ['>=', 'population', 100000],
+          ['<', 'population', 200000]
+        ],
+        '[1]',
+        2
+      );
+      expect(newFilter2).toEqual(filter);
     });
   });
 

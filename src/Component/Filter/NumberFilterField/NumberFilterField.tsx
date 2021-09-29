@@ -28,7 +28,6 @@
 
 import * as React from 'react';
 import { InputNumber, Form } from 'antd';
-import { Data } from 'geostyler-data';
 
 // default props
 interface NumberFilterFieldDefaultProps {
@@ -45,90 +44,50 @@ interface NumberFilterFieldDefaultProps {
 }
 // non default props
 export interface NumberFilterFieldProps extends Partial<NumberFilterFieldDefaultProps> {
-  /** Reference to internal data object (holding schema and example features) */
-  internalDataDef: Data;
   /** Callback for onChange */
-  onValueChange: ((newValue: number) => void);
-  /** The selected attribute name */
-  selectedAttribute: string;
-}
-// state
-interface NumberFilterFieldState {
-  value: number | undefined;
+  onValueChange?: ((newValue: number) => void);
 }
 
 /**
  * Input field for a numeric filter value.
  */
-export class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFilterFieldState> {
+// export class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFilterFieldState> {
+export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
+  label = 'Value',
+  placeholder = 'Enter Numeric Value',
+  value,
+  validateStatus = 'success',
+  help = 'Please enter a number.',
+  onValueChange
+}) => {
 
-  public static defaultProps: NumberFilterFieldDefaultProps = {
-    label: 'Value',
-    placeholder: 'Enter Numeric Value',
-    value: undefined,
-    validateStatus: 'success',
-    help: 'Please enter a number.'
-  };
+  const helpTxt = validateStatus !== 'success' ? help : null;
 
-  constructor(props: NumberFilterFieldProps) {
-    super(props);
-    this.state = {
-      value: this.props.value
-    };
-  }
-
-  static getDerivedStateFromProps(
-    nextProps: NumberFilterFieldProps,
-    prevState: NumberFilterFieldState): Partial<NumberFilterFieldState> {
-    return {
-      value: nextProps.value
-    };
-  }
-
-  /**
-   * Stores the new value to the state object and
-   * passes it to the passed in 'onValueChange' handler.
-   */
-  onChange = (e: number) => {
-    this.setState({value: e});
-    this.props.onValueChange(e);
-  };
-
-  render() {
-    const {
-      validateStatus,
-      help,
-      placeholder
-    } = this.props;
-
-    const helpTxt = validateStatus !== 'success' ? help : null;
-
-    return (
-      <div
-        className="gs-text-filter-fld"
-        draggable={true}
-        onDragStart={(e) => e.preventDefault()}
+  return (
+    <div
+      className="gs-number-filter-field"
+      draggable={true}
+      onDragStart={(e) => e.preventDefault()}
+    >
+      <Form.Item
+        label={label}
+        colon={false}
+        validateStatus={validateStatus}
+        help={helpTxt}
+        hasFeedback={true}
       >
-        <Form.Item
-          label={this.props.label}
-          colon={false}
-          validateStatus={this.props.validateStatus}
-          help={helpTxt}
-          hasFeedback={true}
-        >
-          <InputNumber
-            defaultValue={this.state.value}
-            value={this.state.value}
-            style={{
-              width: '100%'
-            }}
-            onChange={this.onChange}
-            placeholder={placeholder}
-          />
-        </Form.Item>
-      </div>
-    );
-  }
-}
+        <InputNumber
+          defaultValue={value}
+          value={value}
+          style={{
+            width: '100%'
+          }}
+          onChange={onValueChange}
+          placeholder={placeholder}
+        />
+      </Form.Item>
+    </div>
+  );
+};
 
 export default NumberFilterField;

@@ -26,29 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { OperatorCombo, OperatorComboProps } from './OperatorCombo';
-import TestUtil from '../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { OperatorCombo } from './OperatorCombo';
 
 describe('OperatorCombo', () => {
-
-  let wrapper: any;
-  let dummyOnOperatorChange: jest.Mock;
-  beforeEach(() => {
-    dummyOnOperatorChange = jest.fn();
-    const dummyData = TestUtil.getDummyGsData();
-    const props: OperatorComboProps = {
-      internalDataDef: dummyData,
-      onOperatorChange: dummyOnOperatorChange
-    };
-    wrapper = TestUtil.shallowRenderComponent(OperatorCombo, props);
-  });
 
   it('is defined', () => {
     expect(OperatorCombo).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<OperatorCombo />);
+    expect(field.container).toBeInTheDocument();
   });
 
 });

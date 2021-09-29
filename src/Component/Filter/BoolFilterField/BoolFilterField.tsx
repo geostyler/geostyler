@@ -43,69 +43,36 @@ export interface BoolFilterFieldProps extends Partial<BoolFilterFieldDefaultProp
   /** Callback function for onChange */
   onValueChange?: ((newValue: boolean) => void);
 }
-// state
-interface BoolFilterFieldState {
-  value: boolean;
-}
 
 /**
  * Checkbox field for a boolean filter value.
  */
-export class BoolFilterField extends React.Component<BoolFilterFieldProps, BoolFilterFieldState> {
-
-  public static defaultProps: BoolFilterFieldDefaultProps = {
-    label: 'Value',
-    value: false
-  };
-
-  constructor(props: BoolFilterFieldProps) {
-    super(props);
-    this.state = {
-      value: this.props.value ? true : false
-    };
-  }
-
-  static getDerivedStateFromProps(
-    nextProps: BoolFilterFieldProps,
-    prevState: BoolFilterFieldState): Partial<BoolFilterFieldState> {
-    return {
-      value: nextProps.value
-    };
-  }
+export const BoolFilterField: React.FC<BoolFilterFieldProps> = ({
+  label = 'Value',
+  value = false,
+  onValueChange
+}) => {
 
   /**
    * Extracts the boolean value out of the CheckboxChangeEvent of 'onChange'
    * and passes it to the passed in 'onValueChange' handler.
    */
-  onChange = (e: CheckboxChangeEvent) => {
-    const {
-      onValueChange
-    } = this.props;
-
+  const onChange = (e: CheckboxChangeEvent) => {
     if (onValueChange) {
       onValueChange(e.target.checked);
     }
-
-    this.setState({value: e.target.checked});
   };
 
-  render() {
-
-    return (
-      <div className="gs-text-filter-fld">
-
-        <Form.Item label={this.props.label} colon={false} >
-
-          <Checkbox
-            checked={this.state.value === true}
-            onChange={this.onChange}
-          />
-
-        </Form.Item>
-
-      </div>
-    );
-  }
-}
+  return (
+    <div className="gs-bool-filter-field">
+      <Form.Item label={label} colon={false} >
+        <Checkbox
+          checked={value === true}
+          onChange={onChange}
+        />
+      </Form.Item>
+    </div>
+  );
+};
 
 export default BoolFilterField;

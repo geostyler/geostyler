@@ -26,23 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { FilterEditorWindow, FilterEditorWindowProps } from './FilterEditorWindow';
-import TestUtil from '../../../Util/TestUtil';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { FilterEditorWindow } from './FilterEditorWindow';
 
 describe('FilterEditorWindow', () => {
-  let wrapper: any;
-  beforeEach(() => {
-    const props: FilterEditorWindowProps = {
-      filter: TestUtil.getDummyGsFilter()
-    };
-    wrapper = TestUtil.shallowRenderComponent(FilterEditorWindow, props);
-  });
 
   it('is defined', () => {
     expect(FilterEditorWindow).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<FilterEditorWindow />);
+    expect(field.container).toBeInTheDocument();
   });
+
 });
