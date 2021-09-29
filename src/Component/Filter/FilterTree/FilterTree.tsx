@@ -200,7 +200,7 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
 
     if (isCombinationFilter(filter)) {
       const text = filter[0] === '&&' ? locale.andFilterText : locale.orFilterText;
-      extraClassName = `${text}-filter`;
+      extraClassName = `${filter[0] === '&&' ? 'and' : 'or'}-filter`;
       title = (
         <span className="node-title">
           <span className="filter-text">{text}</span>
