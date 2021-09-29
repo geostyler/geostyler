@@ -58,7 +58,7 @@ export interface FilterEditorWindowDefaultProps {
 // non default props
 export interface FilterEditorWindowProps extends Partial<FilterEditorWindowDefaultProps> {
   /** The filter to edit */
-  filter: Filter;
+  filter?: Filter;
   /** Layer metadata in the GeoStyler VectorData format */
   internalDataDef?: VectorData;
   /** Pixel ordinate of the x-axis */
@@ -76,75 +76,61 @@ export interface FilterEditorWindowProps extends Partial<FilterEditorWindowDefau
 /**
  * Filter Editor Window UI.
  */
-export class FilterEditorWindow extends React.Component<FilterEditorWindowProps> {
+export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
+  x,
+  y,
+  internalDataDef,
+  onClose,
+  filter,
+  onFilterChange,
+  filterUiProps,
+  locale = en_US.GsFilterEditorWindow
+}) => {
 
-    static componentName: string = 'FilterEditorWindow';
+  return (
+    ReactDOM.createPortal(
+      <Rnd
+        className="filter-editor-window"
+        default={{
+          x: x || window.innerWidth / 2,
+          y: y || window.innerHeight / 2,
+          width: undefined,
+          height: undefined
+        }}
+        enableResizing={{
+          bottom: false,
+          bottomLeft: false,
+          bottomRight: false,
+          left: false,
+          right: false,
+          top: false,
+          topLeft: false,
+          topRight: false
+        }}
+        dragHandleClassName="title"
+      >
+        <div className="header filter-editor-window-header">
+          <span className="title">
+            {locale.filterEditor}
+          </span>
+          <Button
+            icon={<CloseOutlined />}
+            size="small"
+            onClick={onClose}
+          />
+        </div>
+        <div className="filter-editor-window-body">
+          <FilterTree
+            internalDataDef={internalDataDef}
+            filter={filter}
+            onFilterChange={onFilterChange}
+            filterUiProps={filterUiProps}
+          />
+        </div>
+      </Rnd>,
+      document.body
+    )
+  );
+};
 
-  public static defaultProps: FilterEditorWindowDefaultProps = {
-    locale: en_US.GsFilterEditorWindow
-  };
-
-  public shouldComponentUpdate(nextProps: FilterEditorWindowProps): boolean {
-    return !_isEqual(this.props, nextProps);
-  }
-
-  render() {
-    const {
-      x,
-      y,
-      internalDataDef,
-      onClose,
-      filter,
-      onFilterChange,
-      filterUiProps,
-      locale
-    } = this.props;
-
-    return (
-      ReactDOM.createPortal(
-        <Rnd
-          className="filter-editor-window"
-          default={{
-            x: x || window.innerWidth / 2,
-            y: y || window.innerHeight / 2,
-            width: undefined,
-            height: undefined
-          }}
-          enableResizing={{
-            bottom: false,
-            bottomLeft: false,
-            bottomRight: false,
-            left: false,
-            right: false,
-            top: false,
-            topLeft: false,
-            topRight: false
-          }}
-          dragHandleClassName="title"
-        >
-          <div className="header filter-editor-window-header">
-            <span className="title">
-              {locale.filterEditor}
-            </span>
-            <Button
-              icon={<CloseOutlined />}
-              size="small"
-              onClick={onClose}
-            />
-          </div>
-          <div className="filter-editor-window-body">
-            <FilterTree
-              internalDataDef={internalDataDef}
-              filter={filter}
-              onFilterChange={onFilterChange}
-              filterUiProps={filterUiProps}
-            />
-          </div>
-        </Rnd>,
-        document.body
-      )
-    );
-  }
-}
-
-export default localize(FilterEditorWindow, FilterEditorWindow.componentName);
+export default localize(FilterEditorWindow, 'FilterEditorWindow');
