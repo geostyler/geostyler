@@ -285,7 +285,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
           <Col span={4} className="gs-small-col">
             <OperatorCombo
               value={filter ? filter[0] : undefined}
-              internalDataDef={internalDataDef}
               onOperatorChange={onOperatorChange}
               operators={allowedOperators}
               operatorNameMappingFunction={operatorNameMappingFunction}
