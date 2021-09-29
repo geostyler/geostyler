@@ -46,6 +46,7 @@ interface NumberFilterFieldDefaultProps {
 export interface NumberFilterFieldProps extends Partial<NumberFilterFieldDefaultProps> {
   /** Callback for onChange */
   onValueChange?: ((newValue: number) => void);
+  size?: 'large' | 'middle' | 'small';
 }
 
 /**
@@ -58,7 +59,8 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
   value,
   validateStatus = 'success',
   help = 'Please enter a number.',
-  onValueChange
+  onValueChange,
+  size
 }) => {
 
   const helpTxt = validateStatus !== 'success' ? help : null;
@@ -77,6 +79,7 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
         hasFeedback={true}
       >
         <InputNumber
+          size={size}
           defaultValue={value}
           value={value}
           style={{

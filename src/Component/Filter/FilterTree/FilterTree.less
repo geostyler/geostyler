@@ -34,14 +34,11 @@
     .style-filter-node.or-filter,
     .style-filter-node.not-filter {
       border-radius: 4px;
-      background-color: rgba(0, 0, 0, 0.05);
       margin-bottom: 5px;
-    }
 
-    .ant-tree-node-content-wrapper,
-    .ant-tree-node-content-wrapper,
-    .ant-tree-node-content-wrapper {
-      width: calc(100% - 24px);
+      .ant-tree-node-content-wrapper {
+        background-color: rgba(0, 0, 0, 0.05)
+      }
     }
 
     .style-filter-node {
@@ -67,29 +64,11 @@
 
     .node-title {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
 
-      .filter-tools {
-        visibility: hidden;
-
-        .anticon {
-          color: black;
-        }
-
-        .anticon-minus {
-          font-size: 12px;
-        }
-      }
-
-      &:hover {
-        .filter-tools {
-          visibility: visible;
-        }
-      }
-
-      .filter-tools:hover {
-        visibility: visible;
+      .filter-menu-button {
+        margin-left: 5px;
       }
     }
   }

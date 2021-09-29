@@ -55,6 +55,7 @@ export interface TextFilterFieldProps extends Partial<TextFilterFieldDefaultProp
   onValueChange?: (newValue: string) => void;
   /** The selected attribute name */
   selectedAttribute?: string;
+  size?: 'large' | 'middle' | 'small';
 }
 
 /**
@@ -69,17 +70,20 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
   help = 'Please enter a text.',
   internalDataDef,
   onValueChange,
-  selectedAttribute
+  selectedAttribute,
+  size
 }) => {
 
   const inputRef = React.useRef<Input>();
-  const [inputSelectionStart, setinputSelectionStart] = React.useState<number>(0);
+  const [inputSelectionStart, setInputSelectionStart] = React.useState<number>(0);
   const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>(0);
 
-  if (inputRef && inputRef.current && inputRef.current.input) {
-    inputRef.current.input.selectionStart = inputSelectionStart;
-    inputRef.current.input.selectionEnd = inputSelectionEnd;
-  }
+  React.useLayoutEffect(() => {
+    if (inputRef && inputRef.current && inputRef.current.input) {
+      inputRef.current.input.selectionStart = inputSelectionStart;
+      inputRef.current.input.selectionEnd = inputSelectionEnd;
+    }
+  }, [inputSelectionStart, inputSelectionEnd, value]);
 
   /**
    * Extracts the text value of the event object of 'onChange'
@@ -122,6 +126,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
         {
           sampleValues.length > 0 ?
             <AutoComplete
+              size={size}
               value={value}
               style={{ width: '100%' }}
               onChange={onAutoCompleteChange}
@@ -133,6 +138,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
             />
             :
             <Input
+              size={size}
               ref={inputRef}
               draggable={true}
               onDragStart={(e) => e.preventDefault()}
@@ -144,7 +150,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
                 // componentDidUpdate, otherwise it jumps to the end while typing
                 const cursorStart = event.target.selectionStart;
                 const cursorEnd = event.target.selectionEnd;
-                setinputSelectionStart(cursorStart);
+                setInputSelectionStart(cursorStart);
                 setInputSelectionEnd(cursorEnd);
               }}
               placeholder={placeholder}

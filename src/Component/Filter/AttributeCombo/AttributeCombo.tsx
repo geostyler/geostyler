@@ -60,6 +60,7 @@ export interface AttributeComboProps extends Partial<AttributeComboDefaultProps>
   onAttributeChange?: ((newAttrName: string) => void);
   /** Value set to the field */
   value?: string | undefined;
+  size?: 'large' | 'middle' | 'small';
 }
 
 /**
@@ -75,17 +76,20 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
   validateStatus = 'success',
   help = 'Please select an attribute.',
   internalDataDef,
-  onAttributeChange
+  onAttributeChange,
+  size
 }) => {
 
   const [inputSelectionStart, setInputSelectionStart] = React.useState<number>();
   const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>();
   const inputRef = React.useRef(null);
 
-  if (inputRef && inputRef.current && inputRef.current.input) {
-    inputRef.current.input.selectionStart = inputSelectionStart;
-    inputRef.current.input.selectionEnd = inputSelectionEnd;
-  }
+  React.useLayoutEffect(() => {
+    if (inputRef && inputRef.current && inputRef.current.input) {
+      inputRef.current.input.selectionStart = inputSelectionStart;
+      inputRef.current.input.selectionEnd = inputSelectionEnd;
+    }
+  }, [inputSelectionStart, inputSelectionEnd, value]);
 
   let options: Object[] = [];
 
@@ -131,6 +135,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
               style={{ width: '100%' }}
               onChange={onAttributeChange}
               placeholder={placeholder}
+              size={size}
             >
               {options}
             </Select>
@@ -142,6 +147,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
               value={value}
               placeholder={placeholder}
               style={{ width: '100%' }}
+              size={size}
               onChange={(event) => {
                 if (onAttributeChange) {
                   onAttributeChange(event.target.value);
