@@ -57,7 +57,8 @@ export interface OperatorComboProps extends Partial<OperatorComboDefaultProps> {
   /** Callback function for onChange */
   onOperatorChange?: ((newOperator: ComparisonOperator) => void);
   /** Initial value set to the field */
-  value: ComparisonOperator | undefined;
+  value?: ComparisonOperator | undefined;
+  size?: 'large' | 'middle' | 'small';
 }
 
 /**
@@ -73,7 +74,8 @@ export const OperatorCombo: React.FC<OperatorComboProps> = ({
   operatorTitleMappingFunction = t => t,
   validateStatus = 'error',
   help = 'Please select an operator.',
-  onOperatorChange
+  onOperatorChange,
+  size
 }) => {
 
   // create an option per attribute
@@ -108,6 +110,7 @@ export const OperatorCombo: React.FC<OperatorComboProps> = ({
         help={helpText}
       >
         <Select
+          size={size}
           value={value}
           style={{ width: '100%' }}
           onChange={onOperatorChange}

@@ -32,11 +32,11 @@ import {
   Tree,
   Dropdown,
   Menu,
-  Button,
-  Tooltip
+  Button
 } from 'antd';
 
 import {
+  EllipsisOutlined,
   FilterOutlined,
   MinusOutlined,
   PlusOutlined
@@ -142,155 +142,126 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
    *
    * @return Tree.TreeNode
    */
+  // TODO: This should be a single component
   const getNodeByFilter = (filter: Filter, position: string = ''): any => {
-    const addFilterMenu = (
-      <Menu onClick={({key}) => onAddFilterClicked(position, key.toString())}>
-        <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
-        <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
-        <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
-        <Menu.Item key="comparison">{locale.comparisonDrpdwnLabel}</Menu.Item>
-      </Menu>
-    );
+    const onMenuClick = (e: any) => {
+      const keyPath: string[] = e.keyPath;
+      const reversedKeyPath = keyPath.reverse();
+      switch (reversedKeyPath[0]) {
+        case 'add':
+          onAddFilterClicked(position, reversedKeyPath[1].toString());
+          break;
+        case 'change':
+          onChangeFilterClicked(position, reversedKeyPath[1].toString());
+          break;
+        case 'remove':
+          removeFilter(position);
+          break;
+        default:
+          break;
+      }
+    };
 
-    const changeFilterMenu = (
-      <Menu onClick={({key}) => onChangeFilterClicked(position, key.toString())}>
-        <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
-        <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
-        <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
-        <Menu.Item key="comparison">{locale.comparisonDrpdwnLabel}</Menu.Item>
-      </Menu>
-    );
-
-    const addButton = (
-      <Tooltip title={locale.addFilterLabel} placement="top">
-        <Dropdown
-          trigger={['click']}
-          overlay={addFilterMenu}
-        >
-          <Button size="small">
-            <PlusOutlined />
-          </Button>
-        </Dropdown>
-      </Tooltip>
-    );
-
-    const removeButton = (
-      <Tooltip title={locale.removeFilterLabel} placement="right">
+    const menu = (
+      <Dropdown overlay={
+        <Menu onClick={onMenuClick}>
+          {
+            isCombinationFilter(filter) &&
+            <Menu.SubMenu key="add" title="Add filter" icon={<PlusOutlined />}>
+              <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
+              <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
+              <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
+              <Menu.Item key="comparison">{locale.comparisonDrpdwnLabel}</Menu.Item>
+            </Menu.SubMenu>
+          }
+          <Menu.SubMenu key="change" title="Change filter" icon={<FilterOutlined />}>
+            <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
+            <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
+            <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
+            <Menu.Item key="comparison">{locale.comparisonDrpdwnLabel}</Menu.Item>
+          </Menu.SubMenu>
+          <Menu.Item key="remove" icon={<MinusOutlined />}>
+            Remove Filter
+          </Menu.Item>
+        </Menu>
+      }>
         <Button
+          className="filter-menu-button"
           size="small"
-          onClick={() => removeFilter(position)}
-        >
-          <MinusOutlined />
-        </Button>
-      </Tooltip>
+          icon={<EllipsisOutlined />}
+        />
+      </Dropdown>
     );
 
-    const changeButton = (
-      <Tooltip title={locale.changeFilterLabel} placement="left">
-        <Dropdown
-          trigger={['click']}
-          overlay={changeFilterMenu}
-        >
-          <Button size="small">
-            <FilterOutlined />
-          </Button>
-        </Dropdown>
-      </Tooltip>
-    );
+    let extraClassName = '';
+    let title;
+    const isLeaf = !(isCombinationFilter(filter) || isNegationFilter(filter));
+    let children = null;
 
     if (isCombinationFilter(filter)) {
-      const combinedFilters = filter.slice(1);
-      return (
-        <TreeNode
-          className="style-filter-node and-filter"
-          key={position}
-          isLeaf={false}
-          title={
-            <span className="node-title">
-              <span className="filter-text">{locale.andFilterText}</span>
-              <span className="filter-tools">
-                {changeButton}
-                {addButton}
-                {removeButton}
-              </span>
-            </span>
-          }
-        >
-          {
-            combinedFilters.map((subFilter: Filter, index: number) => {
-              const pos = `${position}[${index + 1}]`;
-              return getNodeByFilter(subFilter, pos);
-            })
-          }
-        </TreeNode>
+      const text = filter[0] === '&&' ? locale.andFilterText : locale.orFilterText;
+      extraClassName = `${text}-filter`;
+      title = (
+        <span className="node-title">
+          <span className="filter-text">{text}</span>
+          {menu}
+        </span>
       );
+      children = filter.slice(1).map((subFilter: Filter, index: number) => {
+        const pos = `${position}[${index + 1}]`;
+        return getNodeByFilter(subFilter, pos);
+      });
     } else if (isNegationFilter(filter)) {
-      return (
-        <TreeNode
-          className="style-filter-node not-filter"
-          key={position}
-          isLeaf={false}
-          title={
-            <span className="node-title">
-              <span className="filter-text">{locale.notFilterText}</span>
-              <span className="filter-tools">
-                {changeButton}
-                {removeButton}
-              </span>
-            </span>
-          }
-        >
-          {getNodeByFilter(filter[1], `${position}[1]`)}
-        </TreeNode>
+      extraClassName = 'not-filter';
+      title = (
+        <span className="node-title">
+          <span className="filter-text">{locale.notFilterText}</span>
+          {menu}
+        </span>
       );
+      children = getNodeByFilter(filter[1], `${position}[1]`);
     } else if (isComparisonFilter(filter)) {
-      return (
-        <TreeNode
-          className="style-filter-node comparison-filter"
-          key={position}
-          isLeaf={true}
-          title={
-            <span className="node-title">
-              <span>
-                <ComparisonFilter
-                  microUI={true}
-                  internalDataDef={internalDataDef}
-                  filter={filter}
-                  onFilterChange={f => onComparisonFilterChange(f, position)}
-                  {...filterUiProps}
-                />
-              </span>
-              <span className="filter-tools">
-                {changeButton}
-                {removeButton}
-              </span>
-            </span>
-          }
-        />
+      extraClassName = 'comparison-filter';
+      title = (
+        <span className="node-title">
+          <ComparisonFilter
+            microUI={true}
+            internalDataDef={internalDataDef}
+            filter={filter}
+            onFilterChange={f => onComparisonFilterChange(f, position)}
+            {...filterUiProps}
+          />
+          {menu}
+        </span>
       );
     } else if (isFunctionFilter(filter)) {
-      <TreeNode
-        className="style-filter-node function-filter"
-        key={position}
-        isLeaf={true}
-        title={
-          <span className="node-title">
-            Function filter not supported yet.
-          </span>
-        }
-      />;
+      extraClassName = 'function-filter';
+      title = (
+        <span className="node-title">
+          Function filter not supported yet.
+          {menu}
+        </span>
+      );
     } else {
-      <TreeNode
-        className="style-filter-node unknown-filter"
-        key={position}
-        isLeaf={true}
-        title={
-          <span className="node-title">
-            Unknown filter supplied.
-          </span>
-        }
-      />;
+      extraClassName = 'unknown-filter';
+      title = (
+        <span className="node-title">
+          Unknown filter supplied.
+          {menu}
+        </span>
+      );
     }
+
+    return (
+      <TreeNode
+        className={`style-filter-node ${extraClassName}`}
+        key={position}
+        isLeaf={isLeaf}
+        title={title}
+      >
+        {children}
+      </TreeNode>
+    );
   };
 
   /**

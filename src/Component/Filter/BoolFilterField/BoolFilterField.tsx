@@ -42,6 +42,7 @@ interface BoolFilterFieldDefaultProps {
 export interface BoolFilterFieldProps extends Partial<BoolFilterFieldDefaultProps> {
   /** Callback function for onChange */
   onValueChange?: ((newValue: boolean) => void);
+  size?: 'large' | 'middle' | 'small';
 }
 
 /**
@@ -50,7 +51,8 @@ export interface BoolFilterFieldProps extends Partial<BoolFilterFieldDefaultProp
 export const BoolFilterField: React.FC<BoolFilterFieldProps> = ({
   label = 'Value',
   value = false,
-  onValueChange
+  onValueChange,
+  size
 }) => {
 
   /**
@@ -63,8 +65,14 @@ export const BoolFilterField: React.FC<BoolFilterFieldProps> = ({
     }
   };
 
+  let className = 'gs-bool-filter-field';
+  if (size === 'small') {
+    // TODO: make use of this for the checkbox
+    className += ' ant-input-sm';
+  }
+
   return (
-    <div className="gs-bool-filter-field">
+    <div className={className}>
       <Form.Item label={label} colon={false} >
         <Checkbox
           checked={value === true}

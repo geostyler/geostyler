@@ -270,6 +270,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
         <Row gutter={16} justify="center">
           <Col span={10} className="gs-small-col">
             <AttributeCombo
+              size={microUI ? 'small' : undefined}
               value={filter ? filter[1] as string : undefined}
               internalDataDef={internalDataDef}
               onAttributeChange={onAttributeChange}
@@ -284,6 +285,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
           </Col>
           <Col span={4} className="gs-small-col">
             <OperatorCombo
+              size={microUI ? 'small' : undefined}
               value={filter ? filter[0] : undefined}
               onOperatorChange={onOperatorChange}
               operators={allowedOperators}
@@ -300,6 +302,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
             textFieldVisible ?
               <Col span={10} className="gs-small-col">
                 <TextFilterField
+                  size={microUI ? 'small' : undefined}
                   value={filter ? filter[2] as string : undefined}
                   internalDataDef={internalDataDef}
                   selectedAttribute={attribute}
@@ -316,6 +319,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
             numberFieldVisible ?
               <Col span={10} className="gs-small-col">
                 <NumberFilterField
+                  size={microUI ? 'small' : undefined}
                   value={filter ? filter[2] as number : undefined}
                   onValueChange={onValueChange}
                   label={valueLabel}
@@ -330,6 +334,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
             boolFieldVisible ?
               <Col span={10} className="gs-small-col">
                 <BoolFilterField
+                  size={microUI ? 'small' : undefined}
                   value={filter ? filter[2] as boolean : undefined}
                   onValueChange={onValueChange}
                   label={valueLabel}

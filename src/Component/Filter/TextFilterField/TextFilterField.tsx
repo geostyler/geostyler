@@ -55,6 +55,7 @@ export interface TextFilterFieldProps extends Partial<TextFilterFieldDefaultProp
   onValueChange?: (newValue: string) => void;
   /** The selected attribute name */
   selectedAttribute?: string;
+  size?: 'large' | 'middle' | 'small';
 }
 
 /**
@@ -69,7 +70,8 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
   help = 'Please enter a text.',
   internalDataDef,
   onValueChange,
-  selectedAttribute
+  selectedAttribute,
+  size
 }) => {
 
   const inputRef = React.useRef<Input>();
@@ -122,6 +124,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
         {
           sampleValues.length > 0 ?
             <AutoComplete
+              size={size}
               value={value}
               style={{ width: '100%' }}
               onChange={onAutoCompleteChange}
@@ -133,6 +136,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
             />
             :
             <Input
+              size={size}
               ref={inputRef}
               draggable={true}
               onDragStart={(e) => e.preventDefault()}
