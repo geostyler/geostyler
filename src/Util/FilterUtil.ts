@@ -45,6 +45,8 @@ import {
 } from 'geostyler-data';
 
 import _get from 'lodash/get';
+import _set from 'lodash/set';
+import _cloneDeep from 'lodash/cloneDeep';
 import _isString from 'lodash/isString';
 
 export type CountResult = {
@@ -230,6 +232,202 @@ class FilterUtil {
     result.duplicates = FilterUtil.calculateDuplicates(matches);
     return result;
   }
+
+  /**
+   * Transforms a position String like '[2][3]' to an positionArray like [2, 3].
+   */
+  static positionStringAsArray(positionString: string) {
+    return positionString
+      .replace(/\]\[/g, ',')
+      .replace(/\]/g, '')
+      .replace(/\[/g, '')
+      .split(',')
+      .map(i => parseInt(i, 10));
+  };
+
+  /**
+   * Transforms am positionArray like [2, 3] to a string like '[2][3]'.
+   */
+  static positionArrayAsString(positionArray: number[] | string[]) {
+    return `[${positionArray.toString().replace(/,/g, '][')}]`;
+  };
+
+  /**
+   * Returns the filter at a specific position.
+   */
+  static getFilterAtPosition(rootFilter: Filter, position: string) {
+    if (position === '') {
+      return rootFilter;
+    } else {
+      return _get(rootFilter, position);
+    }
+  };
+
+  /**
+   * Removes a subfilter from a given filter at the given position.
+   */
+  static removeAtPosition(filter: Filter, position: string): Filter {
+    let newFilter = [...filter] as Filter;
+    const dragNodeSubPosition = position.substr(position.length - 3);
+    const dragNodeIndex = parseInt(dragNodeSubPosition.slice(1, 2), 10);
+    const parentPosition = position.substring(0, position.length - 3);
+
+    let parentFilter = newFilter;
+    if (parentPosition !== '') {
+      parentFilter = _get(newFilter, parentPosition);
+    }
+    parentFilter.splice(dragNodeIndex, 1);
+    return newFilter;
+  };
+
+  /**
+     * Inserts a given subfilter to a given parentfilter by its position and its
+     * dropPosition.
+     */
+  static insertAtPosition(
+    baseFilter: Filter,
+    insertFilter: Filter,
+    position: string,
+    dropPosition: number
+  ): Filter {
+    const dropTargetParentPosition = position.substring(0, position.length - 3);
+    const dropTargetSubPosition = position.substr(position.length - 3);
+    const dropTargetSubIndex = dropTargetParentPosition === ''
+      ? 1
+      : parseInt(dropTargetSubPosition.slice(1, 2), 10);
+    const dropTargetIsComparison = !['&', '||', '!'].includes(insertFilter[0]);
+    let newFilter: Filter = [...baseFilter];
+
+    const newSubFilter = dropTargetParentPosition === ''
+      ? newFilter
+      : _get(newFilter, dropTargetParentPosition);
+
+    // Add to new position
+    switch (dropPosition) {
+      // before
+      case 0:
+        newSubFilter.splice(dropTargetSubIndex, 0, insertFilter);
+        break;
+        // on
+      case 1:
+        if (dropTargetIsComparison) {
+          newSubFilter.splice(dropTargetSubIndex + 1, 0, insertFilter);
+        } else {
+          newSubFilter.push(insertFilter);
+        }
+        break;
+        // after
+      case 2:
+        newSubFilter.splice(dropTargetSubIndex + 1, 0, insertFilter);
+        break;
+      default:
+        break;
+    }
+    return newFilter;
+  };
+
+  /**
+   * Handler for the add button.
+   * Adds a filter of a given type at the given position.
+   *
+   */
+  static addFilter(rootFilter: Filter, position: string, type: string) {
+
+    let addedFilter: Filter ;
+    let newFilter: Filter = _cloneDeep(rootFilter);
+
+    switch (type) {
+      case 'and':
+        addedFilter = ['&&', ['==', '', ''], ['==', '', '']] as CombinationFilter;
+        break;
+      case 'or':
+        addedFilter = ['||', ['==', '', ''], ['==', '', '']] as CombinationFilter;
+        break;
+      case 'not':
+        addedFilter = ['!', ['==', '', '']] as NegationFilter;
+        break;
+      case 'comparison':
+      default:
+        addedFilter = ['==', '', ''] as ComparisonFilter;
+        break;
+    }
+
+    if (position === '') {
+      newFilter = newFilter as CombinationFilter;
+      newFilter.push(addedFilter);
+    } else {
+      const previousFilter: CombinationFilter = _get(newFilter, position);
+      previousFilter.push(addedFilter);
+      _set(newFilter, position, previousFilter);
+    }
+
+    return newFilter;
+  };
+
+  /**
+   * Changes a filter at a position to a given typ.
+   *
+   */
+  static changeFilter(rootFilter: Filter, position: string, type: string) {
+
+    let addedFilter: Filter ;
+    const newFilter: Filter = _cloneDeep(rootFilter);
+    const previousFilter = position === '' ? newFilter : _get(newFilter, position);
+
+    switch (type) {
+      case 'and':
+        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
+          addedFilter = previousFilter;
+          addedFilter[0] = '&&';
+        } else {
+          addedFilter = ['&&', ['==', '', ''], ['==', '', '']];
+        }
+        break;
+      case 'or':
+        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
+          addedFilter = previousFilter;
+          addedFilter[0] = '||';
+        } else {
+          addedFilter = ['||', ['==', '', ''], ['==', '', '']];
+        }
+        break;
+      case 'not':
+        addedFilter = ['!', ['==', '', '']];
+        break;
+      case 'comparison':
+      default:
+        addedFilter = ['==', '', ''];
+        break;
+    }
+
+    if (position === '') {
+      return addedFilter;
+    } else {
+      _set(newFilter, position, addedFilter);
+      return newFilter;
+    }
+
+  };
+
+  /**
+   * Removes a filter at a given position.
+   *
+   */
+  static removeFilter = (rootFilter: Filter, position: string) => {
+    const parentPosition = position.substring(0, position.length - 3);
+    const parentFilter: Filter = FilterUtil.getFilterAtPosition(rootFilter, parentPosition);
+    let newFilter: Filter;
+
+    if (position === '') {
+      newFilter = undefined;
+    } else if (parentFilter.length <= 2) {
+      newFilter = FilterUtil.removeAtPosition(rootFilter, parentPosition);
+    } else {
+      newFilter = FilterUtil.removeAtPosition(rootFilter, position);
+    }
+
+    return newFilter;
+  };
 
 }
 

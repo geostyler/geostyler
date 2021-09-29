@@ -50,10 +50,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 const TreeNode = Tree.TreeNode;
 
 import {
-  Filter as GsFilter,
-  ComparisonFilter as GsComparisonFilter,
-  NegationFilter as GsNegationFilter,
-  CombinationFilter as GsCombinationFilter
+  Filter,
 } from 'geostyler-style';
 
 import './FilterTree.less';
@@ -71,6 +68,7 @@ import {
   isFunctionFilter,
   isNegationFilter
 } from 'geostyler-style/dist/typeguards';
+import FilterUtil from '../../../Util/FilterUtil';
 
 interface FilterTreeLocale {
   andDrpdwnLabel: string;
@@ -88,24 +86,18 @@ interface FilterTreeLocale {
 // default props
 export interface FilterTreeDefaultProps {
   /** The filter to edit */
-  filter: GsFilter;
+  filter: Filter;
   /** Locale object containing translated text snippets */
   locale: FilterTreeLocale;
 }
 // non default props
 export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
-  internalDataDef: Data;
+  internalDataDef?: Data;
   /** Callback function for onFilterChange */
-  onFilterChange?: ((compFilter: GsFilter) => void);
+  onFilterChange?: ((compFilter: Filter) => void);
   /** Properties that will be passed to the Comparison Filters */
   filterUiProps?: Partial<ComparisonFilterProps>;
-}
-
-// state
-interface FilterTreeState {
-  expandedKeys: string[];
-  hasError: boolean;
 }
 
 /**
@@ -115,45 +107,24 @@ interface FilterTreeState {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
+// export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
+export const FilterTree: React.FC<FilterTreeProps> = ({
+  filter: rootFilter = ['==', '', null],
+  internalDataDef,
+  locale = en_US.GsFilterTree,
+  onFilterChange,
+  filterUiProps
+}) => {
 
-  public static defaultProps: FilterTreeDefaultProps = {
-    filter: ['==', '', null],
-    locale: en_US.GsFilterTree
-  };
-
-  static componentName = 'FilterTree';
-
-  constructor(props: FilterTreeProps) {
-    super(props);
-    this.state = {
-      expandedKeys: [],
-      hasError: false
-    };
-  }
-
-  public shouldComponentUpdate = (nextProps: FilterTreeProps, nextState: FilterTreeState): boolean => {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  };
-
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    this.setState({
-      hasError: true
-    });
-  }
+  const [expandedKeys, setExpandedKeys] = React.useState<string[]>();
 
   /**
    * Changehandler for ComparsionFilters.
    *
    */
-  onComparisonFilterChange = (filter: GsFilter, position: string) => {
-    const {
-      filter: rootFilter
-    } = this.props;
+  const onComparisonFilterChange = (filter: Filter, position: string) => {
     if (_isEqual(filter, rootFilter)) {
-      this.props.onFilterChange(filter);
+      onFilterChange(filter);
     }
 
     let newFilter = _cloneDeep(rootFilter);
@@ -163,7 +134,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
       _set(newFilter, position, filter);
     }
 
-    this.props.onFilterChange(newFilter);
+    onFilterChange(newFilter);
   };
 
   /**
@@ -171,15 +142,9 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
    *
    * @return Tree.TreeNode
    */
-  getNodeByFilter = (filter: GsFilter, position: string = ''): any => {
-    const {
-      internalDataDef,
-      locale,
-      filterUiProps
-    } = this.props;
-
+  const getNodeByFilter = (filter: Filter, position: string = ''): any => {
     const addFilterMenu = (
-      <Menu onClick={({key}) => this.addFilter(position, key.toString())}>
+      <Menu onClick={({key}) => onAddFilterClicked(position, key.toString())}>
         <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
         <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
         <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
@@ -188,7 +153,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
     );
 
     const changeFilterMenu = (
-      <Menu onClick={({key}) => this.changeFilter(position, key.toString())}>
+      <Menu onClick={({key}) => onChangeFilterClicked(position, key.toString())}>
         <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
         <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
         <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
@@ -213,7 +178,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
       <Tooltip title={locale.removeFilterLabel} placement="right">
         <Button
           size="small"
-          onClick={() => this.removeFilter(position)}
+          onClick={() => removeFilter(position)}
         >
           <MinusOutlined />
         </Button>
@@ -252,9 +217,9 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
           }
         >
           {
-            combinedFilters.map((subFilter: GsFilter, index: number) => {
+            combinedFilters.map((subFilter: Filter, index: number) => {
               const pos = `${position}[${index + 1}]`;
-              return this.getNodeByFilter(subFilter, pos);
+              return getNodeByFilter(subFilter, pos);
             })
           }
         </TreeNode>
@@ -275,7 +240,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
             </span>
           }
         >
-          {this.getNodeByFilter(filter[1], `${position}[1]`)}
+          {getNodeByFilter(filter[1], `${position}[1]`)}
         </TreeNode>
       );
     } else if (isComparisonFilter(filter)) {
@@ -291,7 +256,7 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
                   microUI={true}
                   internalDataDef={internalDataDef}
                   filter={filter}
-                  onFilterChange={f => this.onComparisonFilterChange(f, position)}
+                  onFilterChange={f => onComparisonFilterChange(f, position)}
                   {...filterUiProps}
                 />
               </span>
@@ -333,40 +298,8 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
    * Adds a filter of a given type at the given position.
    *
    */
-  addFilter = (position: string, type: string) => {
-    const {
-      filter,
-      onFilterChange
-    } = this.props;
-
-    let addedFilter: GsFilter ;
-    let newFilter: GsFilter = _cloneDeep(filter);
-
-    switch (type) {
-      case 'and':
-        addedFilter = ['&&', ['==', '', ''], ['==', '', '']] as GsCombinationFilter;
-        break;
-      case 'or':
-        addedFilter = ['||', ['==', '', ''], ['==', '', '']] as GsCombinationFilter;
-        break;
-      case 'not':
-        addedFilter = ['!', ['==', '', '']] as GsNegationFilter;
-        break;
-      case 'comparison':
-      default:
-        addedFilter = ['==', '', ''] as GsComparisonFilter;
-        break;
-    }
-
-    if (position === '') {
-      newFilter = newFilter as GsCombinationFilter;
-      newFilter.push(addedFilter);
-    } else {
-      const previousFilter: GsCombinationFilter = _get(newFilter, position);
-      previousFilter.push(addedFilter);
-      _set(newFilter, position, previousFilter);
-    }
-
+  const onAddFilterClicked = (position: string, type: string) => {
+    const newFilter = FilterUtil.addFilter(rootFilter, position, type);
     onFilterChange(newFilter);
   };
 
@@ -374,49 +307,8 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
    * Changes a filter at a position to a given typ.
    *
    */
-  changeFilter = (position: string, type: string) => {
-    const {
-      filter,
-      onFilterChange
-    } = this.props;
-
-    let addedFilter: GsFilter ;
-    const newFilter: GsFilter = _cloneDeep(filter);
-    const previousFilter = position === '' ? newFilter : _get(newFilter, position);
-
-    switch (type) {
-      case 'and':
-        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
-          addedFilter = previousFilter;
-          addedFilter[0] = '&&';
-        } else {
-          addedFilter = ['&&', ['==', '', ''], ['==', '', '']];
-        }
-        break;
-      case 'or':
-        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
-          addedFilter = previousFilter;
-          addedFilter[0] = '||';
-        } else {
-          addedFilter = ['||', ['==', '', ''], ['==', '', '']];
-        }
-        break;
-      case 'not':
-        addedFilter = ['!', ['==', '', '']];
-        break;
-      case 'comparison':
-      default:
-        addedFilter = ['==', '', ''];
-        break;
-    }
-
-    if (position === '') {
-      onFilterChange(addedFilter);
-      return;
-    } else {
-      _set(newFilter, position, addedFilter);
-    }
-
+  const onChangeFilterClicked = (position: string, type: string) => {
+    const newFilter = FilterUtil.changeFilter(rootFilter, position, type);
     onFilterChange(newFilter);
   };
 
@@ -424,151 +316,36 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
    * Removes a filter at a given position.
    *
    */
-  removeFilter = (position: string) => {
-    const {
-      filter,
-      onFilterChange
-    } = this.props;
-
-    const parentPosition = position.substring(0, position.length - 3);
-    const parentFilter: GsFilter = this.getFilterAtPosition(parentPosition);
-    let newFilter: GsFilter;
-
-    if (position === '') {
-      newFilter = undefined;
-    } else if (parentFilter.length <= 2) {
-      newFilter = this.removeAtPosition(filter, parentPosition);
-    } else {
-      newFilter = this.removeAtPosition(filter, position);
-    }
-
+  const removeFilter = (position: string) => {
+    const newFilter = FilterUtil.removeFilter(rootFilter, position);
     onFilterChange(newFilter);
-  };
-
-  /**
-   * Transforms a position String like '[2][3]' to an positionArray like [2, 3].
-   */
-  positionStringAsArray = (positionString: string) => {
-    return positionString
-      .replace(/\]\[/g, ',')
-      .replace(/\]/g, '')
-      .replace(/\[/g, '')
-      .split(',')
-      .map(i => parseInt(i, 10));
-  };
-
-  /**
-   * Transforms am positionArray like [2, 3] to a string like '[2][3]'.
-   */
-  positionArrayAsString = (positionArray: number[]) => {
-    return `[${positionArray.toString().replace(/,/g, '][')}]`;
-  };
-
-  /**
-   * Returns the filter at a specific position.
-   */
-  getFilterAtPosition = (position: string) => {
-    const {
-      filter
-    } = this.props;
-    if (position === '') {
-      return filter;
-    } else {
-      return _get(filter, position);
-    }
-  };
-
-  /**
-   * Removes a subfilter from a given filter at the given position.
-   */
-  removeAtPosition = (filter: GsFilter, position: string): GsFilter => {
-    let newFilter = [...filter] as GsFilter;
-    const dragNodeSubPosition = position.substr(position.length - 3);
-    const dragNodeIndex = parseInt(dragNodeSubPosition.slice(1, 2), 10);
-    const parentPosition = position.substring(0, position.length - 3);
-
-    let parentFilter = newFilter;
-    if (parentPosition !== '') {
-      parentFilter = _get(newFilter, parentPosition);
-    }
-    parentFilter.splice(dragNodeIndex, 1);
-    return newFilter;
-  };
-
-  /**
-   * Inserts a given subfilter to a given parentfilter by its position and its
-   * dropPosition.
-   */
-  insertAtPosition = (
-    rootFilter: GsFilter,
-    insertFilter: GsFilter,
-    position: string,
-    dropPosition: number
-  ): GsFilter => {
-    const dropTargetParentPosition = position.substring(0, position.length - 3);
-    const dropTargetSubPosition = position.substr(position.length - 3);
-    const dropTargetSubIndex = dropTargetParentPosition === ''
-      ? 1
-      : parseInt(dropTargetSubPosition.slice(1, 2), 10);
-    const dropTargetIsComparison = !['&', '||', '!'].includes(insertFilter[0]);
-    let newFilter = [...rootFilter];
-
-    const newSubFilter = dropTargetParentPosition === ''
-      ? newFilter
-      : _get(newFilter, dropTargetParentPosition);
-
-    // Add to new position
-    switch (dropPosition) {
-      // before
-      case 0:
-        newSubFilter.splice(dropTargetSubIndex, 0, insertFilter);
-        break;
-      // on
-      case 1:
-        if (dropTargetIsComparison) {
-          newSubFilter.splice(dropTargetSubIndex + 1, 0, insertFilter);
-        } else {
-          newSubFilter.push(insertFilter);
-        }
-        break;
-      // after
-      case 2:
-        newSubFilter.splice(dropTargetSubIndex + 1, 0, insertFilter);
-        break;
-      default:
-        break;
-    }
-    return newFilter as GsFilter;
   };
 
   /**
    * Drop handler which is passed to the Tree.
    * Removes filter from the dragged position and adds it to the dropped position.
    */
-  onDrop = (dropObject: any) => {
-    const {
-      filter: rootFilter
-    } = this.props;
+  const onDrop = (dropObject: any) => {
     const {
       dragNode,
       dropPosition,
       node
     } = dropObject;
 
-    let newFilter = [...rootFilter] as GsFilter;
+    let newFilter = [...rootFilter] as Filter;
 
     const dragNodePosition = dragNode.props.eventKey;
-    const draggedFilter: GsFilter = _get(rootFilter, dragNodePosition) as GsFilter;
+    const draggedFilter: Filter = _get(rootFilter, dragNodePosition) as Filter;
     const dragParentPosition = dragNodePosition.substring(0, dragNodePosition.length - 3);
-    const dragParentFilter: GsFilter = dragParentPosition === ''
+    const dragParentFilter: Filter = dragParentPosition === ''
       ? rootFilter
-      : _get(rootFilter, dragParentPosition) as GsFilter;
-    const dragPositionArray = this.positionStringAsArray(dragNodePosition);
+      : _get(rootFilter, dragParentPosition) as Filter;
+    const dragPositionArray = FilterUtil.positionStringAsArray(dragNodePosition);
     const dragSubPosition = dragPositionArray[dragPositionArray.length - 1];
 
     const dropTargetPosition = node.props.eventKey === '0-0' ? '' : node.props.eventKey;
     const dropParentPosition = dropTargetPosition.substring(0, dropTargetPosition.length - 3);
-    const dropPositionArray = this.positionStringAsArray(dropTargetPosition);
+    const dropPositionArray = FilterUtil.positionStringAsArray(dropTargetPosition);
     const dropSubPosition = dropPositionArray[dropPositionArray.length - 1];
 
     const sameParent = dragParentPosition === dropParentPosition;
@@ -592,49 +369,38 @@ export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState
       }
     } else {
       if (draggedLastRemaingChild) {
-        removePositionArray = this.positionStringAsArray(dragParentPosition);
+        removePositionArray = FilterUtil.positionStringAsArray(dragParentPosition);
       }
     }
 
-    const removePosition = this.positionArrayAsString(removePositionArray);
+    const removePosition = FilterUtil.positionArrayAsString(removePositionArray);
     // Insert into new position
-    newFilter = this.insertAtPosition(newFilter, draggedFilter, dropTargetPosition, dropPosition);
+    newFilter = FilterUtil.insertAtPosition(newFilter, draggedFilter, dropTargetPosition, dropPosition);
     // Remove from old position
-    newFilter = this.removeAtPosition(newFilter, removePosition);
+    newFilter = FilterUtil.removeAtPosition(newFilter, removePosition);
 
-    this.props.onFilterChange(newFilter);
+    onFilterChange(newFilter);
   };
 
   /**
    * Expand handler which is passed to the Tree.
    * Sets the expandedKeys to the state and so back to the tree.
    */
-  onExpand = (expandedKeys: string[]) => {
-    this.setState({expandedKeys});
+  const onExpand = (newExpandedKeys: string[]) => {
+    setExpandedKeys(newExpandedKeys);
   };
 
-  render() {
-    if (this.state.hasError) {
-      return <h1>An error occured in the FilterTree UI.</h1>;
-    }
-    const {
-      filter
-    } = this.props;
-    const {
-      expandedKeys
-    } = this.state;
-    return (
-      <Tree
-        className="gs-filter-tree"
-        draggable={true}
-        expandedKeys={expandedKeys}
-        onExpand={this.onExpand}
-        onDrop={this.onDrop}
-      >
-        {this.getNodeByFilter(filter)}
-      </Tree>
-    );
-  }
-}
+  return (
+    <Tree
+      className="gs-filter-tree"
+      draggable={true}
+      expandedKeys={expandedKeys}
+      onExpand={onExpand}
+      onDrop={onDrop}
+    >
+      {getNodeByFilter(rootFilter)}
+    </Tree>
+  );
+};
 
-export default localize(FilterTree, FilterTree.componentName);
+export default localize(FilterTree, 'FilterTree');
