@@ -191,7 +191,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
     this.dataLayer.getSource().clear();
 
     const format = new OlFormatGeoJSON({
-      defaultDataProjection: this.props.dataProjection,
+      dataProjection: this.props.dataProjection,
       featureProjection: this.map.getView().getProjection()
     });
     // add data features to style according to symbolizer and zoom to them (when existing)
