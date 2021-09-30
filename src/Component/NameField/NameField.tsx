@@ -42,7 +42,7 @@ export interface NameFieldDefaultProps {
 // non default props
 export interface NameFieldProps extends Partial<NameFieldDefaultProps> {
   /** The value to display in input field */
-  value: string | undefined;
+  value?: string | undefined;
   /** The callback method that is triggered when the state changes */
   onChange?: (newValue: string) => void;
 }
@@ -50,35 +50,30 @@ export interface NameFieldProps extends Partial<NameFieldDefaultProps> {
 /**
  * Input field for a name.
  */
-export class NameField extends React.PureComponent<NameFieldProps> {
-  public static defaultProps: NameFieldDefaultProps = {
-    placeholder: 'Enter Name'
-  };
+export const NameField: React.FC<NameFieldProps> = ({
+  value,
+  placeholder = 'Enter Name',
+  onChange: onChangeProp
+}) => {
 
   /**
    * Extracts the text value of the ChangeEvent
    * and passes it to the passed in 'onChange' handler.
    */
-  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      onChange
-    } = this.props;
-    if (onChange) {
-      onChange(e.target.value);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChangeProp) {
+      onChangeProp(e.target.value);
     }
   };
 
-  render() {
-
-    return (
-      <Input
-        className="gs-namefield"
-        value={this.props.value}
-        onChange={this.onChange}
-        placeholder={this.props.placeholder}
-      />
-    );
-  }
-}
+  return (
+    <Input
+      className="gs-namefield"
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+    />
+  );
+};
 
 export default NameField;

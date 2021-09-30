@@ -26,37 +26,28 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { NameField, NameFieldProps } from './NameField';
-import TestUtil from '../../Util/TestUtil';
+import React from 'react';
+import { fireEvent, render } from '@testing-library/react';
+import NameField from './NameField';
 
 describe('NameField', () => {
-
-  let wrapper: any;
-  let onChangeDummy: jest.Mock;
-  beforeEach(() => {
-    onChangeDummy = jest.fn();
-    const props: NameFieldProps = {
-      value: 'foo',
-      onChange: onChangeDummy
-    };
-    wrapper = TestUtil.shallowRenderComponent(NameField, props);
-  });
 
   it('is defined', () => {
     expect(NameField).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<NameField />);
+    expect(field.container).toBeInTheDocument();
   });
 
-  it('calls the onChange prop function with the value', () => {
-    const value = 'Peter';
-    const event = {
-      target: {value}
-    };
-    wrapper.instance().onChange(event);
-    expect(onChangeDummy).toHaveBeenCalledWith(value);
+  it('calls onValueChange of props', () => {
+    const value = 'Test';
+    const onChangeMock = jest.fn();
+    render(<NameField onChange={onChangeMock} />);
+    const textInput = document.querySelector('.gs-namefield.ant-input');
+    fireEvent.change(textInput, { target: { value }});
+    expect(onChangeMock).toHaveBeenCalledWith(value);
   });
 
 });
