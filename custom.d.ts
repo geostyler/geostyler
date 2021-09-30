@@ -25,16 +25,4 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-declare module 'ol/format/GeoJSON';
-declare module 'ol/layer/Tile';
-declare module 'ol/layer/Vector';
-declare module 'ol/source/OSM';
-declare module 'ol/source/Vector';
-declare module 'ol/Map';
-declare module 'ol/View';
-declare module 'ol/geom/LineString';
-declare module 'ol/geom/Polygon';
-declare module 'ol/geom/Point';
-declare module 'ol/Feature';
 declare module '@ungap/url-search-params';
