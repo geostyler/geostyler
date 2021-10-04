@@ -65,6 +65,8 @@ export default {
     removeRulesBtnText: 'Regeln entfernen',
     nameFieldLabel: 'Name',
     nameFieldPlaceholder: 'Name eingeben',
+    titleFieldLabel: 'Titel',
+    titleFieldPlaceholder: 'Titel eingeben',
     colorLabel: 'Farbe wählen',
     radiusLabel: 'Radius wählen',
     opacityLabel: 'Deckkraft wählen',
