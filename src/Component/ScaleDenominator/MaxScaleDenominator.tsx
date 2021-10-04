@@ -61,11 +61,17 @@ export class MaxScaleDenominator extends React.PureComponent<MaxScaleDenominator
       placeholder,
       label,
       value,
-      onChange
+      onChange,
+      ...passThroughProps
     } = this.props;
 
     return (
-      <Form.Item className="gs-max-scaledenominator" label={label} colon={false} >
+      <Form.Item
+        className="gs-max-scaledenominator"
+        label={label}
+        colon={false}
+        {...passThroughProps}
+      >
         <InputNumber
           className="gs-max-scaledenominator-input"
           value={value}
