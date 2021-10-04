@@ -28,8 +28,7 @@
 
 import * as React from 'react';
 import {
-  Input,
-  // Form
+  Input
 } from 'antd';
 
 import './NameField.less';
