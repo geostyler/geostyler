@@ -46,6 +46,7 @@ import Editor from './Component/Symbolizer/Editor/Editor';
 import ExtendedField from './Component/Symbolizer/Field/ExtendedField/ExtendedField';
 import FadeDurationField from './Component/Symbolizer/Field/FadeDurationField/FadeDurationField';
 import FieldSet from './Component/FieldSet/FieldSet';
+import FieldContainer from './Component/FieldContainer/FieldContainer';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import FilterEditorWindow from './Component/Filter/FilterEditorWindow/FilterEditorWindow';
 import FilterTree from './Component/Filter/FilterTree/FilterTree';
@@ -84,17 +85,18 @@ import RgbChannelField from './Component/Symbolizer/Field/RgbChannelField/RgbCha
 import ResamplingField from './Component/Symbolizer/Field/ResamplingField/ResamplingField';
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
 import Rule from './Component/Rule/Rule';
+import RuleFieldContainer from './Component/RuleFieldContainer/RuleFieldContainer';
 import SaturationField from './Component/Symbolizer/Field/SaturationField/SaturationField';
 import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
 import SizeField from './Component/Symbolizer/Field/SizeField/SizeField';
 import SLDRenderer from './Component/Symbolizer/SLDRenderer/SLDRenderer';
 import SourceChannelNameField from './Component/Symbolizer/Field/SourceChannelNameField/SourceChannelNameField';
 import Style from './Component/Style/Style';
+import StyleFieldContainer from './Component/StyleFieldContainer/StyleFieldContainer';
 import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
 import SymbolizerEditorWindow from './Component/Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
 import TextFilterField from './Component/Filter/TextFilterField/TextFilterField';
-import TitleField from './Component/Rule/TitleField/TitleField';
 import UploadButton from './Component/UploadButton/UploadButton';
 import WellKnownNameEditor from './Component/Symbolizer/WellKnownNameEditor/WellKnownNameEditor';
 import WellKnownNameField from './Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
@@ -141,6 +143,7 @@ export {
   Editor,
   ExtendedField,
   FadeDurationField,
+  FieldContainer,
   FieldSet,
   FillEditor,
   FilterEditorWindow,
@@ -184,17 +187,18 @@ export {
   ResamplingField,
   RotateField,
   Rule,
+  RuleFieldContainer,
   SaturationField,
   ScaleDenominator,
   SizeField,
   SLDRenderer,
   SourceChannelNameField,
   Style,
+  StyleFieldContainer,
   StyleLoader,
   SymbolizerEditorWindow,
   TextEditor,
   TextFilterField,
-  TitleField,
   UploadButton,
   WellKnownNameEditor,
   WellKnownNameField,
