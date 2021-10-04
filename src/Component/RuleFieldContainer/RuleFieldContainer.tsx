@@ -62,13 +62,13 @@ interface RuleFieldContainerDefaultProps {
 
 // non default props
 export interface RuleFieldContainerProps extends Partial<RuleFieldContainerDefaultProps> {
-  onNameChange: (name: string) => void;
-  onMinScaleChange: (scale: number) => void;
-  onMaxScaleChange: (scale: number) => void;
-  name: string;
-  minScale: number;
-  maxScale: number;
-  symbolizers: GsSymbolizer[];
+  onNameChange?: (name: string) => void;
+  onMinScaleChange?: (scale: number) => void;
+  onMaxScaleChange?: (scale: number) => void;
+  name?: string;
+  minScale?: number;
+  maxScale?: number;
+  symbolizers?: GsSymbolizer[];
 }
 
 export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
