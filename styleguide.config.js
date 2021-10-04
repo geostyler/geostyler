@@ -38,12 +38,14 @@ module.exports = {
   },
   assetsDir: './docs',
   propsParser: require('react-docgen-typescript')
-    .withCustomConfig('./tsconfig.json', {propFilter: (prop) => {
-      if (prop.parent) {
-        return !prop.parent.fileName.includes('node_modules');
+    .withCustomConfig('./tsconfig.json', {
+      propFilter: (prop) => {
+        if (prop.parent) {
+          return !prop.parent.fileName.includes('node_modules');
+        }
+        return true;
       }
-      return true;
-    }})
+    })
     .parse,
   components: 'src/Component/**/*.tsx',
   getExampleFilename(componentPath) {
@@ -113,6 +115,15 @@ module.exports = {
     }, {
       name: 'PreviewMap',
       components: 'src/Component/PreviewMap/**/*.tsx'
+    }, {
+      name: 'FieldContainer',
+      components: 'src/Component/FieldContainer/**/*.tsx'
+    }, {
+      name: 'StyleFieldContainer',
+      components: 'src/Component/StyleFieldContainer/**/*.tsx'
+    }, {
+      name: 'RuleFieldContainer',
+      components: 'src/Component/RuleFieldContainer/**/*.tsx'
     }],
     sectionDepth: 2
   }, {
