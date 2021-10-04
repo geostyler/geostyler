@@ -96,11 +96,17 @@ module.exports = {
       name: 'Style',
       components: 'src/Component/Style/**/*.tsx'
     }, {
+      name: 'CardStyle',
+      components: 'src/Component/CardStyle/**/*.tsx'
+    }, {
       name: 'Symbolizer',
       components: 'src/Component/Symbolizer/**/*.tsx'
     }, {
       name: 'UploadButton',
       components: 'src/Component/UploadButton/**/*.tsx'
+    }, {
+      name: 'Breadcrumb',
+      components: 'src/Component/Breadcrumb/**/*.tsx'
     }, {
       name: 'PreviewMap',
       components: 'src/Component/PreviewMap/**/*.tsx'
