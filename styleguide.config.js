@@ -117,6 +117,15 @@ module.exports = {
     }, {
       name: 'PreviewMap',
       components: 'src/Component/PreviewMap/**/*.tsx'
+    }, {
+      name: 'FieldContainer',
+      components: 'src/Component/FieldContainer/**/*.tsx'
+    }, {
+      name: 'StyleFieldContainer',
+      components: 'src/Component/StyleFieldContainer/**/*.tsx'
+    }, {
+      name: 'RuleFieldContainer',
+      components: 'src/Component/RuleFieldContainer/**/*.tsx'
     }],
     sectionDepth: 2
   }, {
