@@ -54,10 +54,10 @@ interface StyleFieldContainerDefaultProps {
 
 // non default props
 export interface StyleFieldContainerProps extends Partial<StyleFieldContainerDefaultProps> {
-  onNameChange: (name: string) => void;
-  onTitleChange: (name: string) => void;
-  title: string;
-  name: string;
+  onNameChange?: (name: string) => void;
+  onTitleChange?: (name: string) => void;
+  title?: string;
+  name?: string;
 }
 
 export const StyleFieldContainer: React.FC<StyleFieldContainerProps> = ({
