@@ -87,13 +87,16 @@ export const StyleLoader: React.FC<StyleLoaderProps> = ({
       return error;
     }
 
-    try {
-      const style = await activeParser.readStyle(fileContent);
-      onStyleRead(style);
+    const {
+      output: style,
+      errors
+    } = await activeParser.readStyle(fileContent);
+    onStyleRead(style);
+    if (errors?.length > 0) {
+      errors.forEach(uploadObject.onError);
+      return undefined;
+    } else {
       return style;
-    } catch (error) {
-      uploadObject.onError(error);
-      return error;
     }
   };
 

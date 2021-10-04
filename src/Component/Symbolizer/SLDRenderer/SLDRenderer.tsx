@@ -121,7 +121,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
       clearTimeout(this._requestTimeout);
     }
 
-    this._requestTimeout = setTimeout(() => {
+    this._requestTimeout = setTimeout(async () => {
       const {
         wmsBaseUrl,
         layer,
@@ -147,39 +147,42 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
       } else {
         lyr = layer;
       }
-      this._styleParser.writeStyle(style)
-        .then((sld: string) => {
-          const params = {
-            'SERVICE': 'WMS',
-            'VERSION': '1.3.0',
-            'REQUEST': 'GetLegendGraphic',
-            'FORMAT': 'image/png',
-            'TRANSPARENT': 'true',
-            'LAYER': lyr,
-            'SLD_BODY': sld,
-            'WIDTH': width,
-            'HEIGHT': height,
-            ...wmsParams
-          };
-          HTTPUtil.post({
-            url: wmsBaseUrl,
-            params: params,
-            additionalHeaders: additionalHeaders
-          })
-            .then((response: any) => {
-              if (response && response.ok) {
-                response.blob().then((blob: Blob) => {
-                  const legendDataUrl = window.URL.createObjectURL(blob);
-                  this.setState({legendDataUrl});
-                });
-              }
-            })
-            .catch((error: any) => {
-              this.setState({
-                alt: error
-              });
-            });
+      const {
+        output: sld,
+        errors = []
+      } = await this._styleParser.writeStyle(style);
+      const params = {
+        'SERVICE': 'WMS',
+        'VERSION': '1.3.0',
+        'REQUEST': 'GetLegendGraphic',
+        'FORMAT': 'image/png',
+        'TRANSPARENT': 'true',
+        'LAYER': lyr,
+        'SLD_BODY': sld,
+        'WIDTH': width,
+        'HEIGHT': height,
+        ...wmsParams
+      };
+      try {
+        const response = await HTTPUtil.post({
+          url: wmsBaseUrl,
+          params: params,
+          additionalHeaders: additionalHeaders
         });
+        if (response && response.ok) {
+          response.blob().then((blob: Blob) => {
+            const legendDataUrl = window.URL.createObjectURL(blob);
+            this.setState({legendDataUrl});
+          });
+        }
+      } catch (error) {
+        errors.push(error);
+      }
+      if (errors.length > 0) {
+        this.setState({
+          alt: errors[0]?.message
+        });
+      }
     }, requestDelay);
   };
 

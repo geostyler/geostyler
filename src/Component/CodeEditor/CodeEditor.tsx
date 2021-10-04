@@ -131,12 +131,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     setHasError(false);
     (new Promise(async () => {
       if (activeParser) {
-        try {
-          const parsedStyle = await activeParser.writeStyle(s);
-          setValue(parsedStyle);
-        } catch (error) {
+        const {
+          output: parsedStyle,
+          errors
+        } = await activeParser.writeStyle(s);
+        if (errors?.length > 0) {
           setHasError(true);
+        } else {
+          setValue(parsedStyle);
         }
+
       } else {
         setValue(JSON.stringify(s, null, 2));
       }
