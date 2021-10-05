@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,55 +25,30 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
+This demonstrates the use of `StyleFieldContainer`.
+
+```jsx
 import * as React from 'react';
-import {
-  Input
-} from 'antd';
+import { StyleFieldContainer } from 'geostyler';
 
-import './NameField.less';
+class StyleFieldContainerExample extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-// default props
-export interface NameFieldDefaultProps {
-  /** The placeholder text of the input field if no value was specified */
-  placeholder: string;
+  render() {
+
+    return (
+      <div>
+        <StyleFieldContainer/>
+      </div>
+    );
+  }
+
 }
-// non default props
-export interface NameFieldProps extends Partial<NameFieldDefaultProps> {
-  /** The value to display in input field */
-  value?: string | undefined;
-  /** The callback method that is triggered when the state changes */
-  onChange?: (newValue: string) => void;
-}
 
-/**
- * Input field for a name.
- */
-export const NameField: React.FC<NameFieldProps> = ({
-  value,
-  placeholder = 'Enter Name',
-  onChange: onChangeProp
-}) => {
-
-  /**
-   * Extracts the text value of the ChangeEvent
-   * and passes it to the passed in 'onChange' handler.
-   */
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (onChangeProp) {
-      onChangeProp(e.target.value);
-    }
-  };
-
-  return (
-    <Input
-      className="gs-namefield"
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-    />
-  );
-};
-
-export default NameField;
+<StyleFieldContainerExample />
+```

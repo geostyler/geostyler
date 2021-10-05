@@ -56,6 +56,8 @@ export default {
     removeRulesBtnText: 'Remove Rules',
     nameFieldLabel: 'Name',
     nameFieldPlaceholder: 'Enter Name',
+    titleFieldLabel: 'Title',
+    titleFieldPlaceholder: 'Enter Title',
     colorLabel: 'Select color',
     radiusLabel: 'Select radius',
     opacityLabel: 'Select opacity',

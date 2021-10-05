@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,8 +25,31 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-.gs-rule-titlefield-input {
-  width: 100%;
+This demonstrates the use of `FieldContainer`.
+
+```jsx
+import * as React from 'react';
+import { FieldContainer } from 'geostyler';
+
+class FieldContainerExample extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+
+    return (
+      <FieldContainer>
+        <div>child 1</div>
+        <div>child 2</div>
+      </FieldContainer>
+    );
+  }
+
 }
+
+<FieldContainerExample />
+```

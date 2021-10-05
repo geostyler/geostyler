@@ -26,53 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
-import {
-  Input
-} from 'antd';
+import React from 'react';
+import { render } from '@testing-library/react';
+import StyleFieldContainer from './StyleFieldContainer';
 
-import './NameField.less';
+describe('StyleFieldContainer', () => {
 
-// default props
-export interface NameFieldDefaultProps {
-  /** The placeholder text of the input field if no value was specified */
-  placeholder: string;
-}
-// non default props
-export interface NameFieldProps extends Partial<NameFieldDefaultProps> {
-  /** The value to display in input field */
-  value?: string | undefined;
-  /** The callback method that is triggered when the state changes */
-  onChange?: (newValue: string) => void;
-}
+  it('is defined', () => {
+    expect(StyleFieldContainer).toBeDefined();
+  });
 
-/**
- * Input field for a name.
- */
-export const NameField: React.FC<NameFieldProps> = ({
-  value,
-  placeholder = 'Enter Name',
-  onChange: onChangeProp
-}) => {
+  it('renders correctly', () => {
+    const field = render(<StyleFieldContainer />);
+    expect(field.container).toBeInTheDocument();
+  });
 
-  /**
-   * Extracts the text value of the ChangeEvent
-   * and passes it to the passed in 'onChange' handler.
-   */
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (onChangeProp) {
-      onChangeProp(e.target.value);
-    }
-  };
-
-  return (
-    <Input
-      className="gs-namefield"
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-    />
-  );
-};
-
-export default NameField;
+});
