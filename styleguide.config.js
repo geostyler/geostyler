@@ -109,6 +109,9 @@ module.exports = {
       name: 'Selectable',
       components: 'src/Component/Selectable/*.tsx'
     }, {
+      name: 'Removable',
+      components: 'src/Component/Removable/*.tsx'
+    }, {
       name: 'Symbolizer',
       components: 'src/Component/Symbolizer/**/*.tsx'
     }, {

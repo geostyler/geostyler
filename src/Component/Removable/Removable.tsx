@@ -26,62 +26,46 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { ReactNode, useState } from 'react';
-import './Selectable.less';
-import SelectableItem from './SelectableItem/SelectableItem';
+import React, { ReactNode } from 'react';
+import './Removable.less';
+import RemovableItem from './RemovableItem/RemovableItem';
 
 // default props
-export interface SelectableDefaultProps {
-  /** The change event that is triggered, when the selection changes. */
-  onSelectionChange: (selectedIdxs: number[]) => void;
+export interface RemovableDefaultProps {
+  /** The change event that is triggered, when a remove button was clicked. */
+  onRemoveClick: (selectedIdx: number) => void;
 }
 
 // non default props
-export interface SelectableProps extends Partial<SelectableDefaultProps> {
+export interface RemovableProps extends Partial<RemovableDefaultProps> {
 }
 
-export const Selectable: React.FC<SelectableProps> = ({
-  onSelectionChange,
+export const Removable: React.FC<RemovableProps> = ({
+  onRemoveClick,
   children
 }) => {
 
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
-
   const onItemClick = (clickedItemIdx: number) => {
-    const existingIdx = selectedItems.indexOf(clickedItemIdx);
-    let newSelectedItems;
-    if (existingIdx > -1) {
-      newSelectedItems = [...selectedItems];
-      newSelectedItems.splice(existingIdx, 1);
-    } else {
-      newSelectedItems = [...selectedItems, clickedItemIdx];
+    if (onRemoveClick) {
+      onRemoveClick(clickedItemIdx);
     }
-    setSelectedItems(newSelectedItems);
-    if (onSelectionChange) {
-      onSelectionChange(newSelectedItems);
-    }
-  };
-
-  const isSelected = (idx: number) => {
-    return selectedItems.includes(idx);
   };
 
   return (
     <div
-      className='gs-selectable'
+      className='gs-removable'
     >
       {
         React.Children.map(children, (child: ReactNode, idx: number) => {
           return (
-            <SelectableItem
+            <RemovableItem
               key={idx}
               onItemClick={() => {
                 onItemClick(idx);
               }}
-              selected={isSelected(idx)}
             >
               {child}
-            </SelectableItem>
+            </RemovableItem>
           );
         })
       }
@@ -89,4 +73,4 @@ export const Selectable: React.FC<SelectableProps> = ({
   );
 };
 
-export default Selectable;
+export default Removable;
