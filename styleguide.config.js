@@ -104,6 +104,9 @@ module.exports = {
       name: 'CardStyle',
       components: 'src/Component/CardStyle/**/*.tsx'
     }, {
+      name: 'Selectable',
+      components: 'src/Component/Selectable/*.tsx'
+    }, {
       name: 'Symbolizer',
       components: 'src/Component/Symbolizer/**/*.tsx'
     }, {
