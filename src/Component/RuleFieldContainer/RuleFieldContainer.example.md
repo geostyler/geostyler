@@ -32,7 +32,7 @@ This demonstrates the use of `RuleFieldContainer`.
 
 ```jsx
 import * as React from 'react';
-import { RuleFieldContainer } from 'geostyler/Component/RuleFieldContainer/RuleFieldContainer';
+import { RuleFieldContainer } from 'geostyler';
 
 class RuleFieldContainerExample extends React.Component {
   constructor(props) {
@@ -41,11 +41,7 @@ class RuleFieldContainerExample extends React.Component {
 
   render() {
 
-    return (
-      <div>
-        <RuleFieldContainer/>
-      </div>
-    );
+    return <RuleFieldContainer/>;
   }
 
 }
