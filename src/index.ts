@@ -80,6 +80,8 @@ import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import RasterChannelEditor from './Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
 import RasterEditor from './Component/Symbolizer/RasterEditor/RasterEditor';
+import Removable from './Component/Removable/Removable';
+import RemovableItem from './Component/Removable/RemovableItem/RemovableItem';
 import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
 import Renderer from './Component/Symbolizer/Renderer/Renderer';
 import RgbChannelField from './Component/Symbolizer/Field/RgbChannelField/RgbChannelField';
@@ -185,6 +187,8 @@ export {
   RasterChannelEditor,
   RasterEditor,
   RemoveButton,
+  Removable,
+  RemovableItem,
   Renderer,
   RgbChannelField,
   ResamplingField,
