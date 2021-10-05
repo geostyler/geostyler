@@ -48,16 +48,10 @@ export const SelectableItem: React.FC<SelectableItemProps> = ({
   children
 }) => {
 
-  const onClick = () => {
-    if (onItemClick) {
-      onItemClick();
-    }
-  };
-
   return (
     <div
       className={`gs-selectable-item ${selected ? 'selected' : '' }`}
-      onClick={onClick}
+      onClick={onItemClick}
     >
       {selected && <CheckCircleOutlined />}
       {children}
