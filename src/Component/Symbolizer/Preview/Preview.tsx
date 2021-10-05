@@ -131,7 +131,6 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   /** reference to the editButton */
   _editButton: any;
 
-
   constructor(props: PreviewProps) {
     super(props);
 
@@ -332,7 +331,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
    *
    * @param {Symbolizer[]} symbolizers The symbolizers holding the style to apply
    */
-  applySymbolizersToMapFeatures = (symbolizers: Symbolizer[]) => {
+  applySymbolizersToMapFeatures = async (symbolizers: Symbolizer[]) => {
     const styleParser = new OlStyleParser();
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
@@ -345,12 +344,13 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       }]
     };
     // parser style to OL style
-    styleParser.writeStyle(style)
-      .then((olStyles: any) => {
-        // apply new OL style to vector layer
-        this.dataLayer.setStyle(olStyles);
-        return olStyles;
-      });
+    const { output: olStyle, errors = [] } = await styleParser.writeStyle(style);
+    if (errors.length < 1) {
+      // apply new OL style to vector layer
+      this.dataLayer.setStyle(olStyle);
+      return olStyle;
+    }
+    return undefined;
   };
 
   render() {

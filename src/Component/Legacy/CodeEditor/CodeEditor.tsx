@@ -171,26 +171,32 @@ export class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState
     return 'application/json';
   };
 
-  valueFromStyleInput = (style: GsStyle) => {
-    const activeParser: any = this.state.activeParser;
-    return new Promise((resolve, reject) => {
-      if (activeParser) {
-        resolve(activeParser.writeStyle(style));
+  valueFromStyleInput = async (style: GsStyle) => {
+    const activeParser: StyleParser = this.state.activeParser;
+    if (activeParser) {
+      const { output, errors } = await activeParser.writeStyle(style);
+      if (errors?.length > 0) {
+        return 'Error while writing the style: ' + errors.map(e => e.message).join(',');
       } else {
-        resolve(JSON.stringify(style, null, 2));
+        return output;
       }
-    });
+    } else {
+      return JSON.stringify(style, null, 2);
+    }
   };
 
-  styleFromValue = (value: string) => {
-    const activeParser: any = this.state.activeParser;
-    return new Promise((resolve, reject) => {
-      if (activeParser) {
-        resolve(activeParser.readStyle(value));
+  styleFromValue = async (value: string) => {
+    const activeParser = this.state.activeParser;
+    if (activeParser) {
+      const { output, errors } = await activeParser.readStyle(value);
+      if (errors?.length > 0) {
+        return 'Error while writing the style: ' + errors.map(e => e.message).join(',');
       } else {
-        resolve(JSON.parse(value));
+        return output;
       }
-    });
+    } else {
+      return JSON.parse(value);
+    }
   };
 
   /**

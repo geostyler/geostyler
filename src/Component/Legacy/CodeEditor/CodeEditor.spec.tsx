@@ -112,15 +112,10 @@ describe('CodeEditor', () => {
       wrapper.setState({
         activeParser: sldParser
       });
-      await new Promise((resolve) => {
-        sldParser.writeStyle(dummyStyle)
-          .then(async (sld: string) => {
-            const valueFromStyleInput = wrapper.instance().valueFromStyleInput;
-            const value = await valueFromStyleInput(dummyStyle);
-            expect(value).toEqual(sld);
-            resolve(true);
-          });
-      });
+      const { output: sld } =  await sldParser.writeStyle(dummyStyle);
+      const valueFromStyleInput = wrapper.instance().valueFromStyleInput;
+      const value = await valueFromStyleInput(dummyStyle);
+      expect(value).toEqual(sld);
     });
   });
 
@@ -150,15 +145,10 @@ describe('CodeEditor', () => {
       wrapper.setState({
         activeParser: sldParser
       });
-      await new Promise((resolve) => {
-        sldParser.writeStyle(dummyStyle)
-          .then(async (sld: string) => {
-            const styleFromValue = wrapper.instance().styleFromValue;
-            const value = await styleFromValue(sld);
-            expect(value).toEqual(dummyStyle);
-            resolve(true);
-          });
-      });
+      const { output: sld } = await sldParser.writeStyle(dummyStyle);
+      const styleFromValue = wrapper.instance().styleFromValue;
+      const value = await styleFromValue(sld);
+      expect(value).toEqual(dummyStyle);
     });
   });
 

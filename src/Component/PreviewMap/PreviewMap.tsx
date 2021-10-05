@@ -114,7 +114,7 @@ export class PreviewMap extends React.PureComponent<PreviewMapProps> {
     } = this.props;
 
     this._styleParser.writeStyle(style)
-      .then((olStyles: any) => {
+      .then(({ output: olStyles}) => {
         this.dataLayer.setStyle(olStyles);
       });
     this.setFeatures();
@@ -186,7 +186,7 @@ export class PreviewMap extends React.PureComponent<PreviewMapProps> {
     this.dataLayer = vectorLayer;
 
     this._styleParser.writeStyle(style)
-      .then((olStyles: any) => {
+      .then(({ output: olStyles }) => {
         this.dataLayer.setStyle(olStyles);
       });
 
