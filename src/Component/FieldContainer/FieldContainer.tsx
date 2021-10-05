@@ -36,7 +36,7 @@ interface FieldContainerDefaultProps {
 
 // non default props
 export interface FieldContainerProps extends Partial<FieldContainerDefaultProps> {
-  children?: React.ReactElement[];
+  children?: React.ReactElement | React.ReactElement[];
   className?: string;
 }
 

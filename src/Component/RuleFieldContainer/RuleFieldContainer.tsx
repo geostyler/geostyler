@@ -87,41 +87,36 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
     wrapperCol: { span: 20 }
   };
 
-  const children: React.ReactElement[] = ([
-    <div>
-      <Form.Item
-        label={locale.nameFieldLabel}
-        {...formItemLayout}
-      >
-        <NameField
-          value={name}
-          onChange={onNameChange}
-          placeholder={locale.nameFieldPlaceholder}
-        />
-      </Form.Item>
-      <MinScaleDenominator
-        label={locale.minScaleDenominatorLabelText}
-        value={minScale}
-        onChange={onMinScaleChange}
-        {...formItemLayout}
-      />
-      <MaxScaleDenominator
-        label={locale.maxScaleDenominatorLabelText}
-        value={maxScale}
-        onChange={onMaxScaleChange}
-        {...formItemLayout}
-      />
-    </div>,
-    <Divider type="vertical" />,
-    <Renderer
-      symbolizers={symbolizers} />
-  ]);
-
   return (
-    <FieldContainer
-      className="gs-rule-field-container"
-      children={children}
-    />
+    <FieldContainer className="gs-rule-field-container">
+      <div>
+        <Form.Item
+          label={locale.nameFieldLabel}
+          {...formItemLayout}
+        >
+          <NameField
+            value={name}
+            onChange={onNameChange}
+            placeholder={locale.nameFieldPlaceholder}
+          />
+        </Form.Item>
+        <MinScaleDenominator
+          label={locale.minScaleDenominatorLabelText}
+          value={minScale}
+          onChange={onMinScaleChange}
+          {...formItemLayout}
+        />
+        <MaxScaleDenominator
+          label={locale.maxScaleDenominatorLabelText}
+          value={maxScale}
+          onChange={onMaxScaleChange}
+          {...formItemLayout}
+        />
+      </div>
+      <Divider type="vertical" />
+      <Renderer
+        symbolizers={symbolizers} />
+    </FieldContainer >
   );
 
 };
