@@ -30,8 +30,6 @@ import * as React from 'react';
 
 import './FieldContainer.less';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-
 // default props
 interface FieldContainerDefaultProps {
 }
@@ -55,4 +53,4 @@ export const FieldContainer: React.FC<FieldContainerProps> = ({
 
 };
 
-export default localize(FieldContainer, 'FieldContainer');
+export default FieldContainer;
