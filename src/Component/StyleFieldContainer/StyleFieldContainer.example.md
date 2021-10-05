@@ -32,7 +32,7 @@ This demonstrates the use of `StyleFieldContainer`.
 
 ```jsx
 import * as React from 'react';
-import { StyleFieldContainer } from 'geostyler/Component/StyleFieldContainer/StyleFieldContainer';
+import { StyleFieldContainer } from 'geostyler';
 
 class StyleFieldContainerExample extends React.Component {
   constructor(props) {
