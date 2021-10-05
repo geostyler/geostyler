@@ -1,10 +1,6 @@
-.gs-selectable-item {
+.gs-removable-item {
 
   position: relative;
-
-  &.selected >:last-child {
-    background-color: #eee;
-  }
 
   >.anticon {
     position: absolute;
@@ -13,6 +9,10 @@
     padding: 10px;
     z-index: 99;
     font-size: x-large;
+
+    &:hover {
+      color: #1890ff;
+    }
   }
 
 }

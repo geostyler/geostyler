@@ -26,67 +26,39 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { ReactNode, useState } from 'react';
-import './Selectable.less';
-import SelectableItem from './SelectableItem/SelectableItem';
+import { CloseCircleOutlined } from '@ant-design/icons';
+import React from 'react';
+import './RemovableItem.less';
 
 // default props
-export interface SelectableDefaultProps {
-  /** The change event that is triggered, when the selection changes. */
-  onSelectionChange: (selectedIdxs: number[]) => void;
+export interface RemovableItemDefaultProps {
+  /** The callback that is being called, when the item was clicked. */
+  onItemClick: () => void;
 }
 
 // non default props
-export interface SelectableProps extends Partial<SelectableDefaultProps> {
+export interface RemovableItemProps extends Partial<RemovableItemDefaultProps> {
 }
 
-export const Selectable: React.FC<SelectableProps> = ({
-  onSelectionChange,
+export const RemovableItem: React.FC<RemovableItemProps> = ({
+  onItemClick,
   children
 }) => {
 
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
-
-  const onItemClick = (clickedItemIdx: number) => {
-    const existingIdx = selectedItems.indexOf(clickedItemIdx);
-    let newSelectedItems;
-    if (existingIdx > -1) {
-      newSelectedItems = [...selectedItems];
-      newSelectedItems.splice(existingIdx, 1);
-    } else {
-      newSelectedItems = [...selectedItems, clickedItemIdx];
+  const onClick = () => {
+    if (onItemClick) {
+      onItemClick();
     }
-    setSelectedItems(newSelectedItems);
-    if (onSelectionChange) {
-      onSelectionChange(newSelectedItems);
-    }
-  };
-
-  const isSelected = (idx: number) => {
-    return selectedItems.includes(idx);
   };
 
   return (
-    <div
-      className='gs-selectable'
-    >
-      {
-        React.Children.map(children, (child: ReactNode, idx: number) => {
-          return (
-            <SelectableItem
-              key={idx}
-              onItemClick={() => {
-                onItemClick(idx);
-              }}
-              selected={isSelected(idx)}
-            >
-              {child}
-            </SelectableItem>
-          );
-        })
-      }
+    <div className='gs-removable-item'>
+      <CloseCircleOutlined
+        onClick={onClick}
+      />
+      {children}
     </div>
   );
 };
 
-export default Selectable;
+export default RemovableItem;
