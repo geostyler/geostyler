@@ -60,6 +60,7 @@ import IconSelector from './Component/Symbolizer/IconSelector/IconSelector';
 import IconSelectorWindow from './Component/Symbolizer/IconSelectorWindow/IconSelectorWindow';
 import ImageField from './Component/Symbolizer/Field/ImageField/ImageField';
 import KindField from './Component/Symbolizer/Field/KindField/KindField';
+import LegacyCodeEditor from './Component/Legacy/CodeEditor/CodeEditor';
 import LineCapField from './Component/Symbolizer/Field/LineCapField/LineCapField';
 import LineDashField from './Component/Symbolizer/Field/LineDashField/LineDashField';
 import LineEditor from './Component/Symbolizer/LineEditor/LineEditor';
@@ -86,8 +87,13 @@ import ResamplingField from './Component/Symbolizer/Field/ResamplingField/Resamp
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
 import Rule from './Component/Rule/Rule';
 import RuleFieldContainer from './Component/RuleFieldContainer/RuleFieldContainer';
+import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
+import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
+import RuleTable from './Component/RuleTable/RuleTable';
 import SaturationField from './Component/Symbolizer/Field/SaturationField/SaturationField';
 import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
+import Selectable from './Component/Selectable/Selectable';
+import SelectableItem from './Component/Selectable/SelectableItem/SelectableItem';
 import SizeField from './Component/Symbolizer/Field/SizeField/SizeField';
 import SLDRenderer from './Component/Symbolizer/SLDRenderer/SLDRenderer';
 import SourceChannelNameField from './Component/Symbolizer/Field/SourceChannelNameField/SourceChannelNameField';
@@ -101,14 +107,10 @@ import UploadButton from './Component/UploadButton/UploadButton';
 import WellKnownNameEditor from './Component/Symbolizer/WellKnownNameEditor/WellKnownNameEditor';
 import WellKnownNameField from './Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
-import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
-import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
-import RuleTable from './Component/RuleTable/RuleTable';
-import LegacyCodeEditor from './Component/Legacy/CodeEditor/CodeEditor';
+import withDefaultsContext from './hoc/withDefaultsContext';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 import { CompositionContext } from './context/CompositionContext/CompositionContext';
 import { DefaultValueContext } from './context/DefaultValueContext/DefaultValueContext';
-import withDefaultsContext from './hoc/withDefaultsContext';
 
 import { ConfigProvider } from 'antd';
 
@@ -136,10 +138,13 @@ export {
   ColorMapEntryField,
   ColorMapTypeField,
   ComparisonFilter,
+  CompositionContext,
+  ConfigProvider,
   ContrastEnhancementField,
   ContrastField,
   DataLoader,
   DataProvider,
+  DefaultValueContext,
   Editor,
   ExtendedField,
   FadeDurationField,
@@ -164,7 +169,6 @@ export {
   LineEditor,
   LineJoinField,
   locale,
-  ConfigProvider,
   localize,
   MarkEditor,
   MaxScaleDenominator,
@@ -188,8 +192,13 @@ export {
   RotateField,
   Rule,
   RuleFieldContainer,
+  RuleGenerator,
+  RuleGeneratorWindow,
+  RuleTable,
   SaturationField,
   ScaleDenominator,
+  Selectable,
+  SelectableItem,
   SizeField,
   SLDRenderer,
   SourceChannelNameField,
@@ -202,11 +211,6 @@ export {
   UploadButton,
   WellKnownNameEditor,
   WellKnownNameField,
-  RuleGeneratorWindow,
-  RuleGenerator,
-  RuleTable,
   WidthField,
-  CompositionContext,
-  DefaultValueContext,
   withDefaultsContext
 };
