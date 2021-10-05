@@ -166,7 +166,7 @@ export class Renderer extends React.Component<RendererProps> {
    *
    * @param {Symbolizer[]} symbolizers The symbolizers holding the style to apply
    */
-  applySymbolizers = (symbolizers: Symbolizer[]) => {
+  applySymbolizers = async (symbolizers: Symbolizer[]) => {
     const styleParser = new OlStyleParser();
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
@@ -179,15 +179,14 @@ export class Renderer extends React.Component<RendererProps> {
       }]
     };
     // parser style to OL style
-    styleParser.writeStyle(style)
-      .then((olStyles: any) => {
-        // apply new OL style to vector layer
-        this._layer.setStyle(olStyles);
-        return olStyles;
-      })
-      .catch(() => {
-        return;
-      });
+    const { output: olStyles, errors = [] } = await styleParser.writeStyle(style);
+    if (errors.length > 0) {
+      return undefined;
+    } else {
+      // apply new OL style to vector layer
+      this._layer.setStyle(olStyles);
+      return olStyles;
+    }
   };
 
   render() {
