@@ -32,7 +32,7 @@ This demonstrates the use of `FieldContainer`.
 
 ```jsx
 import * as React from 'react';
-import { FieldContainer } from 'geostyler/Component/FieldContainer/FieldContainer';
+import { FieldContainer } from 'geostyler';
 
 class FieldContainerExample extends React.Component {
   constructor(props) {
@@ -41,16 +41,12 @@ class FieldContainerExample extends React.Component {
 
   render() {
 
-    const children = ([
+    const children = [
       <div>child 1</div>,
       <div>child 2</div>
-    ])
+    ]
 
-    return (
-      <div>
-        <FieldContainer children={children} />
-      </div>
-    );
+    return <FieldContainer children={children} />;
   }
 
 }
