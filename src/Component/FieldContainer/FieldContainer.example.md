@@ -41,12 +41,12 @@ class FieldContainerExample extends React.Component {
 
   render() {
 
-    const children = [
-      <div>child 1</div>,
-      <div>child 2</div>
-    ]
-
-    return <FieldContainer children={children} />;
+    return (
+      <FieldContainer>
+        <div>child 1</div>
+        <div>child 2</div>
+      </FieldContainer>
+    );
   }
 
 }

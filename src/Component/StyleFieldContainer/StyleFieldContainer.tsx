@@ -73,34 +73,29 @@ export const StyleFieldContainer: React.FC<StyleFieldContainerProps> = ({
     wrapperCol: { span: 20 }
   };
 
-  const children: React.ReactElement[] = ([
-    <Form.Item
-      label={locale.nameFieldLabel}
-      {...formItemLayout}
-    >
-      <NameField
-        value={name}
-        onChange={onNameChange}
-        placeholder={locale.nameFieldPlaceholder}
-      />
-    </Form.Item>,
-    <Form.Item
-      label={locale.titleFieldLabel}
-      {...formItemLayout}
-    >
-      <NameField
-        value={title}
-        onChange={onTitleChange}
-        placeholder={locale.titleFieldPlaceholder}
-      />
-    </Form.Item>
-  ]);
-
   return (
-    <FieldContainer
-      className="gs-style-field-container"
-      children={children}
-    />
+    <FieldContainer className="gs-style-field-container">
+      <Form.Item
+        label={locale.nameFieldLabel}
+        {...formItemLayout}
+      >
+        <NameField
+          value={name}
+          onChange={onNameChange}
+          placeholder={locale.nameFieldPlaceholder}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.titleFieldLabel}
+        {...formItemLayout}
+      >
+        <NameField
+          value={title}
+          onChange={onTitleChange}
+          placeholder={locale.titleFieldPlaceholder}
+        />
+      </Form.Item>
+    </FieldContainer>
   );
 
 };
