@@ -165,7 +165,17 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     setValue(v);
     setInvalidMessage(undefined);
     try {
-      const parsedStyle = activeParser ? await activeParser.readStyle(v) : JSON.parse(v);
+      let parsedStyle;
+      if (activeParser) {
+        const { output, errors = [] } = await activeParser.readStyle(v);
+        if (errors.length > 0) {
+          setInvalidMessage(errors.map(e => e.message).join(', '));
+        } else {
+          parsedStyle = output;
+        }
+      } else {
+        parsedStyle = JSON.parse(v);
+      }
       onStyleChange(parsedStyle);
     } catch (err) {
       setInvalidMessage(err.message);
