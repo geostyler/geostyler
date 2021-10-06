@@ -1,0 +1,42 @@
+.gs-rule-card {
+
+  >.ant-card-body {
+    display: flex;
+  }
+
+  .ant-divider {
+    height: auto;
+    margin: 0 20px;
+  }
+
+  .gs-symbolizer-renderer {
+    width: 100px;
+    height: 100px;
+  }
+
+  .gs-rule-card-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+
+    .gs-rule-card-content-icon-row>span:not(:first-child) {
+      padding-left: 10px;
+    }
+
+    .gs-rule-card-icon {
+      font-size: medium;
+      padding-right: 3px;
+    }
+
+    .gs-rule-card-cql {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      .gs-rule-card-icon {
+        padding-right: 10px;
+      }
+    }
+  }
+}
