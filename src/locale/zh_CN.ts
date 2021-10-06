@@ -291,6 +291,16 @@ export default {
     amountColumnTitle: '数量',
     duplicatesColumnTitle: '副本'
   },
+  GsRules: {
+    rulesTitle: 'TODO',
+    multiEdit: 'TODO',
+    addRule: 'TODO',
+    classification: 'TODO',
+    remove: 'TODO',
+    clone: 'TODO',
+    edit: 'TODO',
+    defaultRuleTitle: 'TODO'
+  },
   GsRuleReorderButtons: {
     ruleMoveUpTip: '向上移动',
     ruleMoveDownTip: '向下移动'

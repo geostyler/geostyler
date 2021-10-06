@@ -150,14 +150,9 @@ class FilterUtil {
    * @return {Feature[]} An Array of geojson feature objects.
    */
   static getMatches = (filter: Filter, data: VectorData): any[] => {
-    const matches: any[] = [];
-    data.exampleFeatures.features.forEach(feature => {
-      const match = FilterUtil.featureMatchesFilter(filter, feature);
-      if (match) {
-        matches.push(feature);
-      }
-    });
-    return matches;
+    return data.exampleFeatures.features.filter((feature => {
+      return FilterUtil.featureMatchesFilter(filter, feature);
+    }));
   };
 
   /**

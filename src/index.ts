@@ -88,9 +88,11 @@ import RgbChannelField from './Component/Symbolizer/Field/RgbChannelField/RgbCha
 import ResamplingField from './Component/Symbolizer/Field/ResamplingField/ResamplingField';
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
 import Rule from './Component/Rule/Rule';
+import RuleCard from './Component/RuleCard/RuleCard';
 import RuleFieldContainer from './Component/RuleFieldContainer/RuleFieldContainer';
 import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
 import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
+import Rules from './Component/Rules/Rules';
 import RuleTable from './Component/RuleTable/RuleTable';
 import SaturationField from './Component/Symbolizer/Field/SaturationField/SaturationField';
 import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
@@ -195,9 +197,11 @@ export {
   ResamplingField,
   RotateField,
   Rule,
+  RuleCard,
   RuleFieldContainer,
   RuleGenerator,
   RuleGeneratorWindow,
+  Rules,
   RuleTable,
   SaturationField,
   ScaleDenominator,
