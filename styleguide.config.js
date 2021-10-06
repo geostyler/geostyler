@@ -86,6 +86,12 @@ module.exports = {
       name: 'Rule',
       components: 'src/Component/Rule/**/*.tsx'
     }, {
+      name: 'RuleCard',
+      components: 'src/Component/RuleCard/**/*.tsx'
+    }, {
+      name: 'Rules',
+      components: 'src/Component/Rules/**/*.tsx'
+    }, {
       name: 'RuleGenerator',
       components: 'src/Component/RuleGenerator/**/*.tsx'
     }, {

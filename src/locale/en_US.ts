@@ -293,6 +293,16 @@ export default {
     amountColumnTitle: 'Amount',
     duplicatesColumnTitle: 'Duplicates'
   },
+  GsRules: {
+    rulesTitle: 'Rules',
+    multiEdit: 'Select',
+    addRule: 'Add',
+    classification: 'Classification',
+    remove: 'Remove',
+    clone: 'Clone',
+    edit: 'Edit',
+    defaultRuleTitle: 'Untitled'
+  },
   GsRuleReorderButtons: {
     ruleMoveUpTip: 'Move rule one position up',
     ruleMoveDownTip: 'Move rule one position down'
