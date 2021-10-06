@@ -32,7 +32,7 @@ This demonstrates the usage of the `Rules` component.
 
 ```jsx
 import * as React from 'react';
-import Rules from 'geostyler';
+import { Rules } from 'geostyler';
 
 class RulesExample extends React.Component {
   constructor(props) {
@@ -43,15 +43,15 @@ class RulesExample extends React.Component {
         symbolizers: [{
           kind: 'Mark',
           wellKnownName: 'Circle'
-        }],
+        }]
       }, {
         name: 'myRule 2',
         symbolizers: [{
           kind: 'Mark',
           wellKnownName: 'Circle'
-        }],
+        }]
       }]
-    }
+    };
   }
 
   render() {
@@ -81,7 +81,7 @@ class RulesExample extends React.Component {
 
 ```jsx
 import * as React from 'react';
-import Rules from 'geostyler/Component/Rules/Rules';
+import { Rules } from 'geostyler';
 
 class RulesExample extends React.Component {
   constructor(props) {
@@ -164,3 +164,4 @@ class RulesExample extends React.Component {
 
 <RulesExample />
 ```
+
