@@ -104,6 +104,7 @@ import SourceChannelNameField from './Component/Symbolizer/Field/SourceChannelNa
 import Style from './Component/Style/Style';
 import StyleFieldContainer from './Component/StyleFieldContainer/StyleFieldContainer';
 import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
+import StyleOverview from './Component/StyleOverview/StyleOverview';
 import SymbolizerEditorWindow from './Component/Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
 import TextFilterField from './Component/Filter/TextFilterField/TextFilterField';
@@ -212,6 +213,7 @@ export {
   Style,
   StyleFieldContainer,
   StyleLoader,
+  StyleOverview,
   SymbolizerEditorWindow,
   TextEditor,
   TextFilterField,

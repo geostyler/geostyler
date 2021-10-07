@@ -60,6 +60,15 @@ export default {
     multiEditLabel: '同时编辑',
     ruleGeneratorWindowBtnText: '分类'
   },
+  GsCardStyle: {
+    styleTitle: 'TODO',
+    classificationTitle: '分类',
+    multiEditTitle: '同时编辑',
+    symbolizerTitle: 'TODO'
+  },
+  GsStyleOverview: {
+    styleTitle: 'TODO'
+  },
   GsStyleLoader: {
     label: '加载样式: ',
     uploadButtonLabel: '上传样式'

@@ -58,13 +58,16 @@ class CardStyleExample extends React.Component {
 
   render() {
     const {
-      style,
-      compactLayout
+      style
     } = this.state;
 
     return (
       <div>
         <CardStyle
+          style={style}
+          onStyleChange={(style) => {
+            this.setState({style});
+          }}
         />
       </div>
     );

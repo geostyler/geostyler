@@ -129,6 +129,7 @@ export const Rules: React.FC<RulesProps> = ({
   const [selectedRules, setSelectedRules] = useState<number[]>([]);
   const toggleMultiEdit = () => {
     setMultiEditActive(!multiEditActive);
+    setSelectedRules([]);
   };
 
   const addRule = () => {
@@ -164,13 +165,14 @@ export const Rules: React.FC<RulesProps> = ({
 
       onRulesChange(rulesClone);
     }
-    setMultiEditActive(false);
   };
 
   const editSelectedRules = () => {
     if (onEditSelectionClick) {
       onEditSelectionClick(selectedRules);
     }
+    setSelectedRules([]);
+    setMultiEditActive(false);
   };
 
   const classificationClick = () => {
@@ -180,7 +182,7 @@ export const Rules: React.FC<RulesProps> = ({
   };
 
   const onSelectionChange = (selectedIdxs: number[]) => {
-    setSelectedRules(selectedIdxs);
+    setSelectedRules([...selectedIdxs]);
   };
 
   const editRule = (ruleId: number) => {
@@ -274,6 +276,7 @@ export const Rules: React.FC<RulesProps> = ({
         {
           multiEditActive ? (
             <Selectable
+              selection={selectedRules}
               onSelectionChange={onSelectionChange}
             >
               { rulesCards }

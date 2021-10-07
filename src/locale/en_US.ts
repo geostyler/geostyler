@@ -62,6 +62,15 @@ export default {
     multiEditLabel: 'Multi edit',
     ruleGeneratorWindowBtnText: 'Classification'
   },
+  GsCardStyle: {
+    styleTitle: 'Style',
+    classificationTitle: 'Classification',
+    multiEditTitle: 'Multi edit',
+    symbolizerTitle: 'Symbolizer'
+  },
+  GsStyleOverview: {
+    styleTitle: 'Style'
+  },
   GsStyleLoader: {
     label: 'Load Style: ',
     uploadButtonLabel: 'Upload Style'

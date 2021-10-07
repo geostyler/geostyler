@@ -26,50 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
-import { Breadcrumb as AntdBreadcrumb } from 'antd';
-import './Breadcrumb.less';
+import React from 'react';
+import { render } from '@testing-library/react';
+import { StyleOverview } from './StyleOverview';
 
-// default props
-export interface BreadcrumbDefaultProps {
-}
+describe('SelectableItem', () => {
 
-export interface Crumb {
-  title: string;
-  view: string;
-  indices: number[];
-};
+  it('is defined', () => {
+    expect(StyleOverview).toBeDefined();
+  });
 
-// non default props
-export interface BreadcrumbProps extends Partial<BreadcrumbDefaultProps> {
-  /** The crumbs to display */
-  crumbs: Crumb[];
-  /** The callback method that is triggered when a crumb was clicked */
-  onClick?: (crumbView: string, indices: number[]) => void;
-}
+  it('renders correctly', () => {
+    const styleOverview = render(<StyleOverview style={{name: 'foo', rules: []}} />);
+    expect(styleOverview.container).toBeInTheDocument();
+  });
 
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({
-  crumbs,
-  onClick
-}) => {
-  return (
-    <AntdBreadcrumb className="gs-breadcrumb">
-      {
-        crumbs.map((crumb: Crumb, idx: number) => {
-          return (
-            <AntdBreadcrumb.Item
-              key={idx}
-              onClick={() => {
-                onClick(crumb.view, crumb.indices);
-              }}
-            >
-              <span>{crumb.title}</span>
-            </AntdBreadcrumb.Item>
-          );
-        })
-      }
-    </AntdBreadcrumb>
-  );
-};
-
-export default Breadcrumb;
+});
