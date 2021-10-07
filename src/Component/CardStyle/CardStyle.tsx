@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
@@ -48,32 +48,26 @@ import {
   // WellKnownName as GsWellKnownName
 } from 'geostyler-style';
 
-// import {
-//   Data
-// } from 'geostyler-data';
+import {
+  Data
+} from 'geostyler-data';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-// import en_US from '../../locale/en_US';
+import en_US from '../../locale/en_US';
 // import SymbolizerUtil from '../../Util/SymbolizerUtil';
 // import { SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 // import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 import './CardStyle.less';
 import Breadcrumb, { Crumb } from '../Breadcrumb/Breadcrumb';
+import StyleOverview from '../StyleOverview/StyleOverview';
 
 // i18n
 export interface CardStyleLocale {
-  addRuleBtnText: string;
-  cloneRulesBtnText: string;
-  removeRulesBtnText: string;
-  nameFieldLabel?: string;
-  nameFieldPlaceholder?: string;
-  colorLabel: string;
-  radiusLabel: string;
-  opacityLabel: string;
-  symbolLabel: string;
-  multiEditLabel: string;
-  ruleGeneratorWindowBtnText: string;
+  styleTitle: string;
+  classificationTitle: string;
+  multiEditTitle: string;
+  symbolizerTitle: string;
 }
 
 // default props
@@ -89,9 +83,9 @@ interface CardStyleDefaultProps {
 // non default props
 export interface CardStyleProps extends Partial<CardStyleDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
-  // data?: Data;
-  // /** The callback function that is triggered when the state changes */
-  // onStyleChange?: (style: GsStyle) => void;
+  data?: Data;
+  /** The callback function that is triggered when the state changes */
+  onStyleChange?: (style: GsStyle) => void;
   // /** The data projection of example features */
   // dataProjection?: string;
   // /** Properties of the filter components */
@@ -122,29 +116,24 @@ export interface CardStyleProps extends Partial<CardStyleDefaultProps> {
   // colorSpaces?: (InterpolationMode)[];
 }
 
-// state
-// interface StyleState {
-//   style: GsStyle;
-//   selectedRowKeys: number[];
-//   colorModalVisible: boolean;
-//   sizeModalVisible: boolean;
-//   opacityModalVisible: boolean;
-//   symbolModalVisible: boolean;
-//   ruleGeneratorWindowVisible: boolean;
-//   hasError: boolean;
-// }
+export interface CardView {
+  view: string;
+  props: any[];
+  path: Crumb[];
+}
 
-// const defaultStyle: GsStyle = {
-//   name: 'My Style',
-//   rules: []
-// };
+const STYLEVIEW = 'style';
+const RULEVIEW = 'rule';
+const CLASSIFICATIONVIEW = 'classification';
+const MULTIEDITVIEW = 'multiedit';
+const SYMBOLIZERVIEW = 'symbolizer';
 
 export const CardStyle: React.FC<CardStyleProps> = ({
-  // locale = en_US.GsStyle,
+  locale = en_US.GsCardStyle,
   // enableClassification = true,
-  // style = defaultStyle,
-  // data,
-  // onStyleChange,
+  style,
+  data,
+  onStyleChange,
   // dataProjection,
   // filterUiProps,
   // ruleNameProps,
@@ -159,52 +148,105 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   // colorSpaces
 }) => {
 
-  const defaultCrumb: Crumb = {title: 'Style', view: 'style'};
-  const [currentView, setCurrentView] = useState<string>(defaultCrumb.view);
-  const [crumbs, setCrumbs] = useState<Crumb[]>([defaultCrumb]);
+  // TODO add type that contains crumb and view args. minor REFACTORING.
+  // const defaultCrumb: Crumb = {title: 'Style', view: 'style'};
+  const defaultCrumb: Crumb = {view: STYLEVIEW, title: locale.styleTitle, indices: []};
+  const defaultView: CardView = {
+    view: STYLEVIEW,
+    props: [],
+    path: [defaultCrumb]
+  };
+  const [currentView, setCurrentView] = useState<CardView>(defaultView);
+  // const [crumbs, setCrumbs] = useState<Crumb[]>([defaultCrumb]);
 
-  useEffect(() => {
-    const styleCrumb: Crumb = {title: 'Style', view: 'style'};
-    const ruleCrumb: Crumb = {title: 'Rule', view: 'rule'};
+  // useEffect(() => {
+  //   // TODO add i18n
+  //   // TODO add variables where needed (e.g. ruleName)
+  //   const styleView: CardView = {view: STYLEVIEW, props: [], path: [locale.styleTitle]};
+  //   const ruleCrumb: Crumb = {title: 'Rule', view: RULEVIEW};
+  //   const ruleView: CardView = {view: RULEVIEW, props: };
+  //   const classificationCrumb: Crumb = {title: 'Classification', view: CLASSIFICATIONVIEW};
+  //   const multiEditCrumb: Crumb = {title: 'MultiEdit', view: MULTIEDITVIEW};
 
-    switch (currentView) {
-      case 'style':
-        setCrumbs([styleCrumb]);
-        break;
-      case 'rule':
-        setCrumbs([styleCrumb, ruleCrumb]);
-        break;
+  //   switch (currentView) {
+  //     case STYLEVIEW:
+  //       setCrumbs([styleView]);
+  //       break;
+  //     case RULEVIEW:
+  //       setCrumbs([styleView, ruleCrumb]);
+  //       break;
+  //     case CLASSIFICATIONVIEW:
+  //       setCrumbs([styleView, classificationCrumb]);
+  //       break;
+  //     case MULTIEDITVIEW:
+  //       setCrumbs([styleView, multiEditCrumb]);
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }, [currentView]);
+
+  const getPathForView = (viewName: string, indices: number[]): Crumb[] => {
+    switch (viewName) {
+      case STYLEVIEW:
+        return [{view: STYLEVIEW, title: locale.styleTitle, indices: []}];
+      case RULEVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [...indices]}
+        ];
+      case CLASSIFICATIONVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: CLASSIFICATIONVIEW, title: locale.classificationTitle, indices: []}
+        ];
+      case MULTIEDITVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: MULTIEDITVIEW, title: locale.multiEditTitle, indices: []}
+        ];
+      case SYMBOLIZERVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: RULEVIEW, title: locale.symbolizerTitle, indices: [...indices]}
+        ];
       default:
-        break;
+        return [];
     }
-  }, [currentView]);
 
-  const changeView = (view: string) => {
+  };
+
+  const changeView = (viewName: string, indices: number[]) => {
+    let view: CardView = {view: viewName, props: indices, path: []};
+    view.path = getPathForView(viewName, indices);
     setCurrentView(view);
   };
 
   return (
     <div>
       <Breadcrumb
-        crumbs={crumbs}
-        onClick={(crumbView: string) => {
-          changeView(crumbView);
-        }}
+        crumbs={currentView.path}
+        onClick={changeView}
       />
       {
-        currentView === 'style' && (
-          <div>Style<button onClick={
-            () => {
-              changeView('rule');
-            }
-          }>click</button></div>
+        currentView.view === STYLEVIEW && (
+          <StyleOverview
+            style={style}
+            data={data}
+            onStyleChange={onStyleChange}
+            onChangeView={changeView}
+          />
         )
       }
       {
-        currentView === 'rule' && (
-          <div>Rule<button onClick={
+        currentView.view === RULEVIEW && (
+          <div>
+            {
+              JSON.stringify(style.rules[currentView.path[currentView.path.length - 1].indices[0]])
+            }
+            <button onClick={
             () => {
-              changeView('style');
+              // changeView(SYMBOLIZERVIEW, [0]);
             }
           }>click</button></div>
         )

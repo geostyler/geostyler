@@ -37,19 +37,47 @@ import { Selectable } from 'geostyler';
 class SelectableExample extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  render() {
+    return (
+      <div style={{height: '300px'}}>
+        <Selectable>
+          <div>hello world</div>
+          <div>hello world 2</div>
+          <div>hello world 3</div>
+        </Selectable>
+      </div>
+    );
+  }
+}
+
+<SelectableExample />
+```
+
+Controlled component.
+
+```jsx
+import * as React from 'react';
+import { Selectable } from 'geostyler';
+
+class SelectableExample extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      selected: true
+      selection: [0, 2]
     }
   }
 
   render() {
     const {
-      selected
+      selection
     } = this.state;
 
     return (
       <div style={{height: '300px'}}>
         <Selectable
+          selection={selection}
         >
           <div>hello world</div>
           <div>hello world 2</div>

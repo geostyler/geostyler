@@ -109,6 +109,9 @@ module.exports = {
       name: 'Style',
       components: 'src/Component/Style/**/*.tsx'
     }, {
+      name: 'StyleOverview',
+      components: 'src/Component/StyleOverview/**/*.tsx'
+    }, {
       name: 'CardStyle',
       components: 'src/Component/CardStyle/**/*.tsx'
     }, {

@@ -32,20 +32,23 @@ import SelectableItem from './SelectableItem/SelectableItem';
 
 // default props
 export interface SelectableDefaultProps {
-  /** The change event that is triggered, when the selection changes. */
-  onSelectionChange: (selectedIdxs: number[]) => void;
 }
 
 // non default props
 export interface SelectableProps extends Partial<SelectableDefaultProps> {
+  /** The ids of the selected items. */
+  selection?: number[];
+  /** The change event that is triggered, when the selection changes. */
+  onSelectionChange?: (selectedIdxs: number[]) => void;
 }
 
 export const Selectable: React.FC<SelectableProps> = ({
+  selection,
   onSelectionChange,
   children
 }) => {
 
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [selectedItems, setSelectedItems] = useState<number[]>(selection || []);
 
   const onItemClick = (clickedItemIdx: number) => {
     const existingIdx = selectedItems.indexOf(clickedItemIdx);
