@@ -58,7 +58,17 @@ export default {
     opacityLabel: 'Seleccionar transparencia',
     symbolLabel: 'Seleccionar simbolo',
     multiEditLabel: 'Editor múltiple',
-    ruleGeneratorWindowBtnText: 'Clasificación'
+    ruleGeneratorWindowBtnText: 'Clasificación',
+    styleTitle: 'Estilo'
+  },
+  GsCardStyle: {
+    styleTitle: 'Estilo',
+    classificationTitle: 'Clasificación',
+    multiEditTitle: 'Editor múltiple',
+    symbolizerTitle: 'Simbolización'
+  },
+  GsStyleOverview: {
+    styleTitle: 'Estilo'
   },
   GsStyleLoader: {
     label: 'Leer estilo: ',

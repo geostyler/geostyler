@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,52 +25,56 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
+This demonstrates the usage of the `StyleOverview` component.
+
+```jsx
 import * as React from 'react';
-import { Breadcrumb as AntdBreadcrumb } from 'antd';
-import './Breadcrumb.less';
+import { StyleOverview } from 'geostyler';
 
-// default props
-export interface BreadcrumbDefaultProps {
-}
-
-export interface Crumb {
-  title: string;
-  view: string;
-  indices: number[];
-};
-
-// non default props
-export interface BreadcrumbProps extends Partial<BreadcrumbDefaultProps> {
-  /** The crumbs to display */
-  crumbs: Crumb[];
-  /** The callback method that is triggered when a crumb was clicked */
-  onClick?: (crumbView: string, indices: number[]) => void;
-}
-
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({
-  crumbs,
-  onClick
-}) => {
-  return (
-    <AntdBreadcrumb className="gs-breadcrumb">
-      {
-        crumbs.map((crumb: Crumb, idx: number) => {
-          return (
-            <AntdBreadcrumb.Item
-              key={idx}
-              onClick={() => {
-                onClick(crumb.view, crumb.indices);
-              }}
-            >
-              <span>{crumb.title}</span>
-            </AntdBreadcrumb.Item>
-          );
-        })
+class StyleOverviewExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      style: {
+        name: 'my style',
+        rules: [{
+          name: 'myRule',
+          symbolizers: [{
+            kind: 'Mark',
+            wellKnownName: 'Circle'
+          }]
+        }, {
+          name: 'myRule 2',
+          symbolizers: [{
+            kind: 'Mark',
+            wellKnownName: 'Circle'
+          }]
+        }]
       }
-    </AntdBreadcrumb>
-  );
-};
+    };
 
-export default Breadcrumb;
+  }
+
+  render() {
+    const {
+      style
+    } = this.state;
+
+    return (
+      <div>
+        <StyleOverview
+          style={style}
+          onStyleChange={() => {
+            this.setState({style});
+          }}
+        />
+      </div>
+    );
+  }
+}
+
+<StyleOverviewExample />
+```
