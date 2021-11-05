@@ -73,12 +73,15 @@ export default {
   },
   GsCardStyle: {
     styleTitle: 'Stil',
-    classificationTitle: 'Klassizierung',
+    classificationTitle: 'Klassifizierung',
     multiEditTitle: 'Selektion editieren',
     symbolizerTitle: 'Symbolisierung'
   },
   GsStyleOverview: {
     styleTitle: 'Stil'
+  },
+  GsRuleOverview: {
+    ruleTitle: 'Regel'
   },
   GsStyleLoader: {
     label: 'Stil laden: ',
