@@ -42,6 +42,7 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
 import _cloneDeep from 'lodash/cloneDeep';
+import { Divider } from 'antd';
 
 // i18n
 export interface StyleOverviewLocale {
@@ -115,6 +116,7 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
   return (
     <div className='gs-style-overview'>
       <h2>{locale.styleTitle}</h2>
+      <Divider />
       <StyleFieldContainer
         name={stateStyle.name}
         onNameChange={onNameChange}
