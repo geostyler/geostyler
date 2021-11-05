@@ -72,7 +72,7 @@ export default {
   GsRuleOverview: {
     ruleTitle: 'TODO'
   },
-  GsSymbolizerOverview: {
+  GsSymbolizerCard: {
   },
   GsStyleLoader: {
     label: '加载样式: ',

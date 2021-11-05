@@ -83,7 +83,7 @@ export default {
   GsRuleOverview: {
     ruleTitle: 'Regel'
   },
-  GsSymbolizerOverview: {
+  GsSymbolizerCard: {
   },
   GsStyleLoader: {
     label: 'Stil laden: ',

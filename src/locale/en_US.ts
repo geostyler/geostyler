@@ -74,7 +74,7 @@ export default {
   GsRuleOverview: {
     ruleTitle: 'Rule'
   },
-  GsSymbolizerOverview: {
+  GsSymbolizerCard: {
   },
   GsStyleLoader: {
     label: 'Load Style: ',
