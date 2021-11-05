@@ -33,7 +33,7 @@ import {
   Symbolizer as GsSymbolizer
 } from 'geostyler-style';
 
-import './SymbolizerOverview.less';
+import './SymbolizerCard.less';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 import { Renderer } from 'src';
