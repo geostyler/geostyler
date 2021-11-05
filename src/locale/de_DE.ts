@@ -83,6 +83,8 @@ export default {
   GsRuleOverview: {
     ruleTitle: 'Regel'
   },
+  GsSymbolizerOverview: {
+  },
   GsStyleLoader: {
     label: 'Stil laden: ',
     uploadButtonLabel: 'Stil hochladen'

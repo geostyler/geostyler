@@ -70,6 +70,11 @@ export default {
   GsStyleOverview: {
     styleTitle: 'Estilo'
   },
+  GsRuleOverview: {
+    ruleTitle: 'Regla'
+  },
+  GsSymbolizerOverview: {
+  },
   GsStyleLoader: {
     label: 'Leer estilo: ',
     uploadButtonLabel: 'Cargar estilo'

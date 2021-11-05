@@ -74,6 +74,8 @@ export default {
   GsRuleOverview: {
     ruleTitle: 'Rule'
   },
+  GsSymbolizerOverview: {
+  },
   GsStyleLoader: {
     label: 'Load Style: ',
     uploadButtonLabel: 'Upload Style'

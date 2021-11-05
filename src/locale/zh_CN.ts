@@ -69,6 +69,11 @@ export default {
   GsStyleOverview: {
     styleTitle: 'TODO'
   },
+  GsRuleOverview: {
+    ruleTitle: 'TODO'
+  },
+  GsSymbolizerOverview: {
+  },
   GsStyleLoader: {
     label: '加载样式: ',
     uploadButtonLabel: '上传样式'
