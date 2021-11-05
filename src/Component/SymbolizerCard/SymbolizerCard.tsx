@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -27,18 +28,58 @@
  */
 
 import React from 'react';
-import { render } from '@testing-library/react';
-import { SymbolizerOverview } from './SymbolizerOverview';
 
-describe('SymbolizerOverview', () => {
+import {
+  Symbolizer as GsSymbolizer
+} from 'geostyler-style';
 
-  it('is defined', () => {
-    expect(SymbolizerOverview).toBeDefined();
-  });
+import './SymbolizerOverview.less';
+import { localize } from '../LocaleWrapper/LocaleWrapper';
+import en_US from '../../locale/en_US';
+import { Renderer } from 'src';
+import { Card } from 'antd';
 
-  it('renders correctly', () => {
-    const symbolizerOverview = render(<SymbolizerOverview symbolizer={{kind: 'Mark', wellKnownName: 'circle'}} />);
-    expect(symbolizerOverview.container).toBeInTheDocument();
-  });
+// i18n
+export interface SymbolizerCardLocale {
+}
 
-});
+// default props
+interface SymbolizerCardDefaultProps {
+  locale: SymbolizerCardLocale;
+}
+
+// non default props
+export interface SymbolizerCardProps extends Partial<SymbolizerCardDefaultProps> {
+  /** A GeoStyler-Style object. */
+  symbolizer: GsSymbolizer;
+  /** The callback when the symbolizer was clicked. */
+  onSymbolizerClick?: (symbolizer: GsSymbolizer) => void;
+}
+
+export const SymbolizerCard: React.FC<SymbolizerCardProps> = ({
+  symbolizer,
+  onSymbolizerClick,
+  locale = en_US.GsSymbolizerCard,
+}) => {
+
+  const onCardClick = () => {
+    if (onSymbolizerClick) {
+      onSymbolizerClick(symbolizer);
+    }
+  };
+
+  return (
+    <Card
+      className='gs-symbolizer-card'
+      hoverable={true}
+      onClick={onCardClick}
+    >
+      {/* TODO use generic renderer component instead of this one */}
+      <Renderer
+        symbolizers={[symbolizer]}
+      />
+    </Card>
+  );
+};
+
+export default localize(SymbolizerCard, 'SymbolizerCard');
