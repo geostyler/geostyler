@@ -30,7 +30,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { StyleOverview } from './StyleOverview';
 
-describe('SelectableItem', () => {
+describe('StyleOverview', () => {
 
   it('is defined', () => {
     expect(StyleOverview).toBeDefined();
