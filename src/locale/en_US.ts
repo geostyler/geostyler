@@ -71,6 +71,9 @@ export default {
   GsStyleOverview: {
     styleTitle: 'Style'
   },
+  GsRuleOverview: {
+    ruleTitle: 'Rule'
+  },
   GsStyleLoader: {
     label: 'Load Style: ',
     uploadButtonLabel: 'Upload Style'

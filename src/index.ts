@@ -92,6 +92,7 @@ import RuleCard from './Component/RuleCard/RuleCard';
 import RuleFieldContainer from './Component/RuleFieldContainer/RuleFieldContainer';
 import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
 import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
+import RuleOverview from './Component/RuleOverview/RuleOverview';
 import Rules from './Component/Rules/Rules';
 import RuleTable from './Component/RuleTable/RuleTable';
 import SaturationField from './Component/Symbolizer/Field/SaturationField/SaturationField';
@@ -201,6 +202,7 @@ export {
   RuleFieldContainer,
   RuleGenerator,
   RuleGeneratorWindow,
+  RuleOverview,
   Rules,
   RuleTable,
   SaturationField,

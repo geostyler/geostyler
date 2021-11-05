@@ -113,6 +113,9 @@ module.exports = {
       name: 'CardStyle',
       components: 'src/Component/CardStyle/**/*.tsx'
     }, {
+      name: 'RuleOverview',
+      components: 'src/Component/RuleOverview/**/*.tsx'
+    }, {
       name: 'Selectable',
       components: 'src/Component/Selectable/*.tsx'
     }, {
