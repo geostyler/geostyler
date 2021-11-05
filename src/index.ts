@@ -107,6 +107,7 @@ import StyleFieldContainer from './Component/StyleFieldContainer/StyleFieldConta
 import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
 import StyleOverview from './Component/StyleOverview/StyleOverview';
 import SymbolizerEditorWindow from './Component/Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
+import SymbolizerOverview from './Component/SymbolizerOverview/SymbolizerOverview';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
 import TextFilterField from './Component/Filter/TextFilterField/TextFilterField';
 import UploadButton from './Component/UploadButton/UploadButton';
@@ -219,6 +220,7 @@ export {
   StyleLoader,
   StyleOverview,
   SymbolizerEditorWindow,
+  SymbolizerOverview,
   TextEditor,
   TextFilterField,
   UploadButton,
