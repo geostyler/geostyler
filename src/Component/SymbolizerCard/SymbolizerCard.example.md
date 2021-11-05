@@ -28,13 +28,13 @@
  *
 -->
 
-This demonstrates the usage of the `SymbolizerOverview` component.
+This demonstrates the usage of the `SymbolizerCard` component.
 
 ```jsx
 import * as React from 'react';
-import { SymbolizerOverview } from 'geostyler';
+import { SymbolizerCard } from 'geostyler';
 
-class SymbolizerOverviewExample extends React.Component {
+class SymbolizerCardExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,7 +52,7 @@ class SymbolizerOverviewExample extends React.Component {
 
     return (
       <div>
-        <SymbolizerOverview
+        <SymbolizerCard
           symbolizer={symbolizer}
         />
       </div>
@@ -60,5 +60,5 @@ class SymbolizerOverviewExample extends React.Component {
   }
 }
 
-<SymbolizerOverviewExample />
+<SymbolizerCardExample />
 ```

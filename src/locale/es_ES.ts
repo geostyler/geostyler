@@ -73,7 +73,7 @@ export default {
   GsRuleOverview: {
     ruleTitle: 'Regla'
   },
-  GsSymbolizerOverview: {
+  GsSymbolizerCard: {
   },
   GsStyleLoader: {
     label: 'Leer estilo: ',

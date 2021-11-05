@@ -106,8 +106,8 @@ import Style from './Component/Style/Style';
 import StyleFieldContainer from './Component/StyleFieldContainer/StyleFieldContainer';
 import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
 import StyleOverview from './Component/StyleOverview/StyleOverview';
+import SymbolizerCard from './Component/SymbolizerCard/SymbolizerCard';
 import SymbolizerEditorWindow from './Component/Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
-import SymbolizerOverview from './Component/SymbolizerOverview/SymbolizerOverview';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
 import TextFilterField from './Component/Filter/TextFilterField/TextFilterField';
 import UploadButton from './Component/UploadButton/UploadButton';
@@ -217,8 +217,8 @@ export {
   StyleFieldContainer,
   StyleLoader,
   StyleOverview,
+  SymbolizerCard,
   SymbolizerEditorWindow,
-  SymbolizerOverview,
   TextEditor,
   TextFilterField,
   UploadButton,

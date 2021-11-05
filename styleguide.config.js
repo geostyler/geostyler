@@ -116,6 +116,9 @@ module.exports = {
       name: 'RuleOverview',
       components: 'src/Component/RuleOverview/**/*.tsx'
     }, {
+      name: 'SymbolizerCard',
+      components: 'src/Component/SymbolizerCard/**/*.tsx'
+    }, {
       name: 'Selectable',
       components: 'src/Component/Selectable/*.tsx'
     }, {
