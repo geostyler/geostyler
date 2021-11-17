@@ -8,6 +8,7 @@
     "target": "es5",
     "lib": ["es2020", "dom"],
     "sourceMap": true,
+    "inlineSources": true,
     "allowJs": false,
     "jsx": "react",
     "moduleResolution": "node",
