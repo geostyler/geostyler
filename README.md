@@ -41,7 +41,7 @@ For example a small SLD to OpenLayers-Style parser (untested code :smile:):
 ```js static
 import SLDParser from "geostyler-sld-parser";
 import OpenLayersParser from "geostyle-openlayers-parser";
-const sldParser = new SLDParser();
+const sldParser = new SldStyleParser();
 const olParser = new OpenLayersParser();
 
 const sldToOL = async (sld) => {
@@ -54,7 +54,7 @@ export default sldToOl;
 ```
 ## <a name="installation"></a>Installation
 
-Run
+Run using node v14
 
 ```bash
 npm i geostyler
