@@ -58,11 +58,9 @@ module.exports = {
     }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      typescript: true,
-      // eslint: {
-      //   enabled: true,
-      //   files: 'src'
-      // }
+      typescript: {
+        build: true
+      }
     }),
   ],
   // When importing a module whose path matches one of the following, just
