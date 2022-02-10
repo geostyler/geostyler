@@ -28,7 +28,7 @@
 
 const fs = require('fs');
 const readdirp = require('readdirp');
-const childProcess = require("child_process");
+const childProcess = require('child_process');
 
 const replace = require('replace-in-file');
 

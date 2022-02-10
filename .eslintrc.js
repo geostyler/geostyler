@@ -6,6 +6,7 @@ module.exports = {
       {
         ignoreImports: true
       }
-    ]
+    ],
+    '@typescript-eslint/member-ordering': 0
   }
 };
