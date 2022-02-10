@@ -27,7 +27,6 @@
  */
 
 const path = require('path');
-const webpackConfig = require('./webpack.common.config');
 
 module.exports = {
   title: 'GeoStyler',
@@ -42,7 +41,6 @@ module.exports = {
     }})
     .parse,
   components: 'src/Component/**/*.tsx',
-  // webpackConfig: webpackConfig,
   getExampleFilename(componentPath) {
     return componentPath.replace(/\.tsx?$/, '.example.md')
   },

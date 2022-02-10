@@ -1,6 +1,6 @@
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin")
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 require("@babel/polyfill");
 
@@ -23,7 +23,7 @@ module.exports = {
   optimization: {
     minimizer: [
       new TerserPlugin(),
-      new OptimizeCSSAssetsPlugin({})
+      new CssMinimizerPlugin()
     ]
   },
   module: {
@@ -70,11 +70,9 @@ module.exports = {
     }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
-      typescript: true,
-      // eslint: {
-      //   enabled: true,
-      //   files: 'src'
-      // }
+      typescript: {
+        build: true
+      }
     }),
   ],
   // When importing a module whose path matches one of the following, just
