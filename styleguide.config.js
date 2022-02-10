@@ -27,11 +27,15 @@
  */
 
 const path = require('path');
-const webpackConfig = require('./webpack.common.config');
+const webpackConfig = require('./webpack.dev.config');
 
 module.exports = {
   title: 'GeoStyler',
   styleguideDir: './build/styleguide',
+  webpackConfig: {
+    ...webpackConfig,
+    mode: 'production'
+  },
   assetsDir: './docs',
   propsParser: require('react-docgen-typescript')
     .withCustomConfig('./tsconfig.json', {propFilter: (prop) => {
@@ -42,7 +46,6 @@ module.exports = {
     }})
     .parse,
   components: 'src/Component/**/*.tsx',
-  webpackConfig: webpackConfig,
   getExampleFilename(componentPath) {
     return componentPath.replace(/\.tsx?$/, '.example.md')
   },

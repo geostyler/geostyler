@@ -269,7 +269,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         </Select>
         {
           parserHasUnitSelect &&
-            <SLDUnitsSelect changeHandler={onUnitSelect}/>
+            <SLDUnitsSelect changeHandler={onUnitSelect} />
         }
       </div>
       <Editor

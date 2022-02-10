@@ -44,7 +44,7 @@ describe('SourceChannelNameField', () => {
 
   describe('getSourceChannelNameSelectOptions', () => {
     it('returns the right number of optiosn', async () => {
-      const field = render(<SourceChannelNameField sourceChannelNames={['red', 'green']}/>);
+      const field = render(<SourceChannelNameField sourceChannelNames={['red', 'green']} />);
       const input = await field.findByRole('combobox');
       await act(async () => {
         fireEvent.mouseDown(input);

@@ -46,13 +46,13 @@ describe('DataLoader', () => {
   });
 
   it('renders correctly', () => {
-    const loader = render(<DataLoader parsers={[wfsParser]}/>);
+    const loader = render(<DataLoader parsers={[wfsParser]} />);
     expect(loader.container).toBeInTheDocument();
   });
 
   describe('getParserOptions', () => {
     it('returns a Select.Option for every passed parser', async () => {
-      const loader = render(<DataLoader parsers={[wfsParser, geojsonParser]}/>);
+      const loader = render(<DataLoader parsers={[wfsParser, geojsonParser]} />);
       const input = await loader.findByRole('combobox');
       await act(async () => {
         fireEvent.mouseDown(input);
@@ -63,12 +63,12 @@ describe('DataLoader', () => {
 
   describe('getInputFromParser', () => {
     it('is invisible if no active Parser is set', async () => {
-      render(<DataLoader parsers={[geojsonParser]}/>);
+      render(<DataLoader parsers={[geojsonParser]} />);
       expect(document.querySelector('.ant-upload')).not.toBeInTheDocument();
       expect(document.querySelector('.wfs-parser-input')).not.toBeInTheDocument();
     });
     it('returns an UploadButton if activeParser is "GeoJSON Style Parser"', async () => {
-      const loader = render(<DataLoader parsers={[geojsonParser]}/>);
+      const loader = render(<DataLoader parsers={[geojsonParser]} />);
       const input = await loader.findByRole('combobox');
       await act(async () => {
         fireEvent.mouseDown(input);
@@ -77,7 +77,7 @@ describe('DataLoader', () => {
       expect(document.querySelector('.ant-upload')).toBeInTheDocument();
     });
     it('returns a Modal if activeParser is "WFS Data Parser"', async () => {
-      const loader = render(<DataLoader parsers={[wfsParser]}/>);
+      const loader = render(<DataLoader parsers={[wfsParser]} />);
       const input = await loader.findByRole('combobox');
       await act(async () => {
         fireEvent.mouseDown(input);

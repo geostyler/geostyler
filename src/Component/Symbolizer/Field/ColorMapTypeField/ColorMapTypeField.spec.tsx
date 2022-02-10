@@ -49,7 +49,7 @@ describe('ColorMapTypeField', () => {
     });
 
     it('returns the right amount of passed options', async () => {
-      render(<ColorMapTypeField colorMapTypeOptions={['ramp', 'intervals']}/>);
+      render(<ColorMapTypeField colorMapTypeOptions={['ramp', 'intervals']} />);
       expect(document.body.querySelectorAll('.ant-radio-button-wrapper').length).toBe(2);
     });
   });

@@ -40,8 +40,8 @@ describe('CompositionUtil', () => {
   let dummyComposition;
 
   beforeEach(() => {
-    dummyComponent = (<div/>);
-    dummyGlobalComponent = (<br/>);
+    dummyComponent = (<div />);
+    dummyGlobalComponent = (<br />);
     dummyField = 'dummy';
     dummyOnChange = () => {};
     dummyValue = 1;
@@ -52,7 +52,7 @@ describe('CompositionUtil', () => {
         dummyField: dummyComponent
       }
     };
-    dummyDefaultElement = (<p/>);
+    dummyDefaultElement = (<p />);
   });
 
 

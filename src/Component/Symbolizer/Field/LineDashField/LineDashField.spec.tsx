@@ -62,7 +62,7 @@ describe('OffsetField', () => {
   describe('onAddDash', () => {
     it('calls a passed onChange function with the new dashArray', async () => {
       const onChangeMock = jest.fn();
-      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock}/>);
+      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
       const addButton = field.container.querySelector('button.gs-add-dash-button');
       fireEvent.click(addButton);
       let newDashArray = [...dashArray, 1];
@@ -73,7 +73,7 @@ describe('OffsetField', () => {
   describe('onRemoveDash', () => {
     it('calls a passed onChange function with the new dashArray', async () => {
       const onChangeMock = jest.fn();
-      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock}/>);
+      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
       const removeButton = field.container.querySelector('button.gs-rm-dash-button');
       fireEvent.click(removeButton);
       let newDashArray = [...dashArray];
