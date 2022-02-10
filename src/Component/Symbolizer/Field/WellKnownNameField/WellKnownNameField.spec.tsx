@@ -43,7 +43,7 @@ describe('WellKnownNameField', () => {
   });
 
   it('can handle wellKnownNames property', async () => {
-    const field = render(<WellKnownNameField wellKnownNames={['circle', 'square']}/>);
+    const field = render(<WellKnownNameField wellKnownNames={['circle', 'square']} />);
     const input = await field.findByRole('combobox');
     await act(async () => {
       fireEvent.mouseDown(input);

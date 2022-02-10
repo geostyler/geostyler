@@ -68,7 +68,7 @@ export const ImageField: React.FC<ImageFieldProps> = ({
   const getIconSelectorButton = () => {
     return (
       <Tooltip title={tooltipLabel}>
-        <PictureOutlined className="gs-image-field-gallery-icon" type="picture" onClick={openWindow}/>
+        <PictureOutlined className="gs-image-field-gallery-icon" type="picture" onClick={openWindow} />
       </Tooltip>
     );
   };

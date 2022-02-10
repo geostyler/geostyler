@@ -49,7 +49,7 @@ describe('StyleLoader', () => {
 
   describe('getParserOptions', () => {
     it('returns a Select.Option for every passed parser', async () => {
-      const loader = render(<StyleLoader parsers={[sldStyleParser]}/>);
+      const loader = render(<StyleLoader parsers={[sldStyleParser]} />);
       const input = await loader.findByRole('combobox');
       await act(async () => {
         fireEvent.mouseDown(input);

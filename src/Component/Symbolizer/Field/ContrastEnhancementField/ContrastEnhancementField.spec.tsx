@@ -52,7 +52,7 @@ describe('ContrastEnhancementField', () => {
     });
 
     it('returns the right amount of passed options', async () => {
-      const field = render(<ContrastEnhancementField contrastEnhancementOptions={['normalize']}/>);
+      const field = render(<ContrastEnhancementField contrastEnhancementOptions={['normalize']} />);
       const input = await field.findByRole('combobox');
       await act(async () => {
         fireEvent.mouseDown(input);

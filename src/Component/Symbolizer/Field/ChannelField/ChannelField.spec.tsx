@@ -46,7 +46,7 @@ describe('ChannelField', () => {
     it('calls onChange', async () => {
       const dummySourceChannelName = 'dummyChannel';
       const onChangeMock = jest.fn();
-      const field = render(<ChannelField onChange={onChangeMock}/>);
+      const field = render(<ChannelField onChange={onChangeMock} />);
       const input = await field.findByPlaceholderText('Name of band');
       fireEvent.change(input, { target: { value: dummySourceChannelName }});
       expect(onChangeMock).toHaveBeenCalledWith({ sourceChannelName: 'dummyChannel' });
@@ -57,7 +57,7 @@ describe('ChannelField', () => {
     it('calls onChange', async () => {
       const dummyCeType: ContrastEnhancement['enhancementType'] = 'histogram';
       const onChangeMock = jest.fn();
-      const field = render(<ChannelField onChange={onChangeMock}/>);
+      const field = render(<ChannelField onChange={onChangeMock} />);
       const input = await field.findByRole('combobox');
       await act(async () => {
         fireEvent.mouseDown(input);
@@ -73,7 +73,7 @@ describe('ChannelField', () => {
     it('calls onChange', async () => {
       const dummyGamma: number = 0.5;
       const onChangeMock = jest.fn();
-      const field = render(<ChannelField onChange={onChangeMock}/>);
+      const field = render(<ChannelField onChange={onChangeMock} />);
       const input = await field.findByRole('spinbutton');
       fireEvent.change(input, { target: { value: dummyGamma }});
       expect(onChangeMock).toHaveBeenCalledWith({ contrastEnhancement: { gammaValue: 0.5 } });

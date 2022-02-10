@@ -104,7 +104,7 @@ export class SLDUnitsSelect extends React.Component<SLDUnitsSelectProps, SLDUnit
         <Select
           className="gs-code-editor-format-select"
           style={{ width: 100 }}
-          onSelect={(selection) => this.unitsChanged(selection)}
+          onSelect={this.unitsChanged}
           value={symbolizerUnit}
         >
           <Option value="pixel">{locale.symbolizerUnitsPixel}</Option>
