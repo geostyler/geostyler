@@ -25,9 +25,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-import 'isomorphic-fetch';
-
 import '@babel/polyfill';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';

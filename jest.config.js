@@ -27,6 +27,7 @@
  */
 
 module.exports = {
+  "testEnvironment": "jsdom",
   "collectCoverageFrom": [
     "src/Component/**/*.{tsx,jsx}",
     "src/DataProvider/**/*.{ts,tsx,jsx}",
@@ -37,8 +38,7 @@ module.exports = {
     // when using React Testing Library and adds special
     // extended assertions to Jest
     "@testing-library/jest-dom/extend-expect",
-    "<rootDir>/jest/setup.js",
-    "jest-canvas-mock"
+    "<rootDir>/jest/setup.js"
   ],
   "testMatch": [
     "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
