@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
-    "@monaco-editor/react": "^4.0.11",
+    "@monaco-editor/react": "^4.3.1",
     "@types/chroma-js": "^2.1.3",
     "@types/color": "^3.0.3",
     "@types/file-saver": "^2.0.1",
@@ -75,7 +75,7 @@
     "geostyler-wfs-parser": "^1.0.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "monaco-editor": "^0.23.0",
+    "monaco-editor": "^0.32.1",
     "react-color": "^2.19.3",
     "react-rnd": "^10.2.4",
     "typescript-json-schema": "^0.50.0"
