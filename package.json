@@ -64,7 +64,7 @@
     "blob": "^0.1.0",
     "chroma-js": "^2.1.0",
     "color": "^4.2.1",
-    "csstype": "^2.6.13",
+    "csstype": "^3.0.10",
     "file-saver": "^2.0.5",
     "geostyler-cql-parser": "^1.0.0",
     "geostyler-data": "^1.0.0",
