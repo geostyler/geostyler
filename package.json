@@ -62,7 +62,7 @@
     "@types/react-dom": "^17.0.3",
     "@ungap/url-search-params": "^0.2.2",
     "blob": "^0.1.0",
-    "chroma-js": "^2.1.0",
+    "chroma-js": "^2.4.2",
     "color": "^4.2.1",
     "csstype": "^3.0.10",
     "file-saver": "^2.0.5",
