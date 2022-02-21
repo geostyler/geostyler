@@ -134,7 +134,9 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
       _set(newFilter, position, filter);
     }
 
-    onFilterChange(newFilter);
+    if (onFilterChange) {
+      onFilterChange(newFilter);
+    }
   };
 
   /**

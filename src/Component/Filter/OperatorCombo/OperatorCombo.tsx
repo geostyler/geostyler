@@ -42,7 +42,7 @@ interface OperatorComboDefaultProps {
   /** The default text to place into the empty field */
   placeholder: string;
   /** List of operators to show in this combo */
-  operators: string[];
+  operators: ComparisonOperator[];
   /** Mapping function for operator names in this combo */
   operatorNameMappingFunction: (originalOperatorName: string) => string;
   /** Mapping function for operator title in this combo */
@@ -69,7 +69,7 @@ export const OperatorCombo: React.FC<OperatorComboProps> = ({
   showTitles = true,
   placeholder = 'Select Operator',
   value,
-  operators = ['==', '*=', '!=', '<', '<=', '>', '>='],
+  operators = ['==', '*=', '!=', '<', '<=', '>', '>=', '<=x<='],
   operatorNameMappingFunction = n => n,
   operatorTitleMappingFunction = t => t,
   validateStatus = 'error',
@@ -112,7 +112,6 @@ export const OperatorCombo: React.FC<OperatorComboProps> = ({
         <Select
           size={size}
           value={value}
-          style={{ width: '100%' }}
           onChange={onOperatorChange}
           placeholder={placeholder}
         >
