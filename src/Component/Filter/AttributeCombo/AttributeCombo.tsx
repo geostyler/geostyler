@@ -132,7 +132,6 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
           internalDataDef ?
             <Select
               value={value}
-              style={{ width: '100%' }}
               onChange={onAttributeChange}
               placeholder={placeholder}
               size={size}
@@ -146,7 +145,6 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
               onDragStart={(e) => e.preventDefault()}
               value={value}
               placeholder={placeholder}
-              style={{ width: '100%' }}
               size={size}
               onChange={(event) => {
                 if (onAttributeChange) {

@@ -34,6 +34,8 @@ import { Data } from 'geostyler-data';
 import _get from 'lodash/get';
 import { Feature } from 'geojson';
 
+import './TextFilterField.less';
+
 // default props
 interface TextFilterFieldDefaultProps {
   /** Label for this field */
@@ -128,7 +130,6 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
             <AutoComplete
               size={size}
               value={value}
-              style={{ width: '100%' }}
               onChange={onAutoCompleteChange}
               placeholder={placeholder}
               dataSource={sampleValues}
@@ -143,7 +144,6 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
               draggable={true}
               onDragStart={(e) => e.preventDefault()}
               value={value}
-              style={{ width: '100%' }}
               onChange={(event) => {
                 onInputChange(event);
                 // save the cursor position to restore it in

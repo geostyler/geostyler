@@ -82,9 +82,6 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
           size={size}
           defaultValue={value}
           value={value}
-          style={{
-            width: '100%'
-          }}
           onChange={onValueChange}
           placeholder={placeholder}
         />
