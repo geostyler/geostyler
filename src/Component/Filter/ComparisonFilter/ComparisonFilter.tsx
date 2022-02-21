@@ -29,12 +29,6 @@
 
 import * as React from 'react';
 
-import {
-  Row,
-  Col,
-  Form
-} from 'antd';
-
 import AttributeCombo from '../AttributeCombo/AttributeCombo';
 import OperatorCombo from '../OperatorCombo/OperatorCombo';
 import TextFilterField from '../TextFilterField/TextFilterField';
@@ -164,7 +158,7 @@ export const ComparisonFilterDefaultValidator = (
 
 const operatorsMap = {
   'string': ['==', '*=', '!='],
-  'number': ['==', '!=', '<', '<=', '>', '>='],
+  'number': ['==', '!=', '<', '<=', '>', '>=', '<=x<='],
   'boolean': ['==', '!=']
 };
 
@@ -223,6 +217,12 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
   const onOperatorChange = (newOperator: ComparisonOperator) => {
     let newFilter = _cloneDeep(filter);
     newFilter[0] = newOperator;
+    if (newOperator !== '<=x<=' && newFilter.length > 3) {
+      newFilter.splice(3, 1);
+    }
+    if (newOperator === '<=x<=' && !newFilter[3]) {
+      newFilter[3] = 0;
+    }
     if (onFilterChange) {
       onFilterChange(newFilter);
     }
@@ -233,13 +233,105 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
    *
    * Stores the appropriate filter value as member.
    */
-  const onValueChange = (newValue: string | number | boolean) => {
+  const onValueChange = (newValue: string | number | boolean, filterIndex = 2) => {
     let newFilter = _cloneDeep(filter);
-    newFilter[2] = newValue;
+    newFilter[filterIndex] = newValue;
     if (onFilterChange) {
       onFilterChange(newFilter);
     }
   };
+
+  function getAttributeCombo(filterIndex = 1) {
+    const size = microUI ? 'small' : undefined;
+    let val: string;
+    if (filter) {
+      val = filter[filterIndex] as string;
+    }
+    return <AttributeCombo
+      size={size}
+      value={val}
+      internalDataDef={internalDataDef}
+      onAttributeChange={onAttributeChange}
+      attributeNameFilter={attributeNameFilter}
+      attributeNameMappingFunction={attributeNameMappingFunction}
+      label={attributeLabel}
+      placeholder={attributePlaceholderString}
+      validateStatus={validateStatus.attribute}
+      help={attributeValidationHelpString}
+      hideAttributeType={hideAttributeType}
+    />;
+  };
+
+  function getNumberField(filterIndex = 2) {
+    const size = microUI ? 'small' : undefined;
+    let val: number;
+    if (filter) {
+      val = filter[filterIndex] as number;
+    }
+    return <NumberFilterField
+      size={size}
+      value={val}
+      onValueChange={onValueChange}
+      label={valueLabel}
+      placeholder={valuePlaceholder}
+      validateStatus={validateStatus.value}
+      help={valueValidationHelpString}
+    />;
+  }
+
+  function getTextField(filterIndex = 2) {
+    const size = microUI ? 'small' : undefined;
+    let val: string;
+    if (filter) {
+      val = filter[filterIndex] as string;
+    }
+    return <TextFilterField
+      size={size}
+      value={val}
+      internalDataDef={internalDataDef}
+      selectedAttribute={attribute}
+      onValueChange={onValueChange}
+      label={valueLabel}
+      placeholder={valuePlaceholder}
+      validateStatus={validateStatus.value}
+      help={valueValidationHelpString}
+    />;
+  }
+
+  function getOperatorCombo(filterIndex = 0) {
+    const size = microUI ? 'small' : undefined;
+    let val: ComparisonOperator;
+    if (filter) {
+      val = filter[filterIndex] as ComparisonOperator;
+    }
+    return <OperatorCombo
+      size={size}
+      value={val}
+      onOperatorChange={onOperatorChange}
+      operators={allowedOperators}
+      operatorNameMappingFunction={operatorNameMappingFunction}
+      placeholder={operatorPlaceholderString}
+      label={operatorLabel}
+      validateStatus={validateStatus.operator}
+      help={operatorValidationHelpString}
+      operatorTitleMappingFunction={operatorTitleMappingFunction}
+      showTitles={showOperatorTitles}
+    />;
+  }
+
+  function getBooleanField(filterIndex = 2) {
+    const size = microUI ? 'small' : undefined;
+    let val: boolean;
+    if (filter) {
+      val = filter[filterIndex] as boolean;
+    }
+    return <BoolFilterField
+      size={size}
+      value={val}
+      onValueChange={onValueChange}
+      label={valueLabel}
+    />;
+  }
 
   let className = 'gs-comparison-filter-ui';
   if (microUI) {
@@ -260,90 +352,55 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
   };
   const valueValidationHelpString = valueValidation.errorMsg;
   const allowedOperators = attributeType ? operatorsMap[attributeType] : undefined;
-  const textFieldVisible = attributeType !== 'number' && attributeType !== 'boolean';
-  const numberFieldVisible = attributeType === 'number';
-  const boolFieldVisible = attributeType === 'boolean';
+  const isNumberBetweenComparison = operator === '<=x<=';
+  const isNumberComparison = attributeType === 'number';
+  const isBooleanComparison = attributeType === 'boolean';
+  const isTextComparison = !isNumberBetweenComparison && !isNumberComparison && !isBooleanComparison;
+
+  if (isNumberBetweenComparison) {
+    return (
+      <div className={className}>
+        {getAttributeCombo()}
+        {getNumberField(2)}
+        {getOperatorCombo()}
+        {getNumberField(3)}
+      </div>
+    );
+  }
+
+  if (isNumberComparison) {
+    return (
+      <div className={className}>
+        {getAttributeCombo()}
+        {getOperatorCombo()}
+        {getNumberField()}
+      </div>
+    );
+  }
+
+  if (isBooleanComparison) {
+    return (
+      <div className={className}>
+        {getAttributeCombo()}
+        {getOperatorCombo()}
+        {getBooleanField()}
+      </div>
+    );
+  }
+
+  if (isTextComparison) {
+    return (
+      <div className={className}>
+        {getAttributeCombo()}
+        {getOperatorCombo()}
+        {getTextField()}
+      </div>
+    );
+  }
 
   return (
     <div className={className}>
-      <Form>
-        <Row gutter={16} justify="center">
-          <Col span={10} className="gs-small-col">
-            <AttributeCombo
-              size={microUI ? 'small' : undefined}
-              value={filter ? filter[1] as string : undefined}
-              internalDataDef={internalDataDef}
-              onAttributeChange={onAttributeChange}
-              attributeNameFilter={attributeNameFilter}
-              attributeNameMappingFunction={attributeNameMappingFunction}
-              label={attributeLabel}
-              placeholder={attributePlaceholderString}
-              validateStatus={validateStatus.attribute}
-              help={attributeValidationHelpString}
-              hideAttributeType={hideAttributeType}
-            />
-          </Col>
-          <Col span={4} className="gs-small-col">
-            <OperatorCombo
-              size={microUI ? 'small' : undefined}
-              value={filter ? filter[0] : undefined}
-              onOperatorChange={onOperatorChange}
-              operators={allowedOperators}
-              operatorNameMappingFunction={operatorNameMappingFunction}
-              placeholder={operatorPlaceholderString}
-              label={operatorLabel}
-              validateStatus={validateStatus.operator}
-              help={operatorValidationHelpString}
-              operatorTitleMappingFunction={operatorTitleMappingFunction}
-              showTitles={showOperatorTitles}
-            />
-          </Col>
-          {
-            textFieldVisible ?
-              <Col span={10} className="gs-small-col">
-                <TextFilterField
-                  size={microUI ? 'small' : undefined}
-                  value={filter ? filter[2] as string : undefined}
-                  internalDataDef={internalDataDef}
-                  selectedAttribute={attribute}
-                  onValueChange={onValueChange}
-                  label={valueLabel}
-                  placeholder={valuePlaceholder}
-                  validateStatus={validateStatus.value}
-                  help={valueValidationHelpString}
-                />
-              </Col> :
-              null
-          }
-          {
-            numberFieldVisible ?
-              <Col span={10} className="gs-small-col">
-                <NumberFilterField
-                  size={microUI ? 'small' : undefined}
-                  value={filter ? filter[2] as number : undefined}
-                  onValueChange={onValueChange}
-                  label={valueLabel}
-                  placeholder={valuePlaceholder}
-                  validateStatus={validateStatus.value}
-                  help={valueValidationHelpString}
-                />
-              </Col> :
-              null
-          }
-          {
-            boolFieldVisible ?
-              <Col span={10} className="gs-small-col">
-                <BoolFilterField
-                  size={microUI ? 'small' : undefined}
-                  value={filter ? filter[2] as boolean : undefined}
-                  onValueChange={onValueChange}
-                  label={valueLabel}
-                />
-              </Col> :
-              null
-          }
-        </Row>
-      </Form>
+      Could not create ComparisonFilter.
     </div>
   );
 };
