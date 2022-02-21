@@ -78,7 +78,7 @@
     "monaco-editor": "^0.32.1",
     "react-color": "^2.19.3",
     "react-rnd": "^10.2.4",
-    "typescript-json-schema": "^0.50.0"
+    "typescript-json-schema": "^0.53.0"
   },
   "devDependencies": {
     "@ant-design/icons": "^4.7.0",
