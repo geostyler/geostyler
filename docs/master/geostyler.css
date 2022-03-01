@@ -1,6 +1,6 @@
 /*!
  * 
- * antd v4.18.8
+ * antd v4.18.9
  * 
  * Copyright 2015-present, Alipay, Inc.
  * All rights reserved.
@@ -5220,7 +5220,6 @@ html {
   font-weight: normal;
   font-size: 14px;
   line-height: 22px;
-  white-space: nowrap;
   cursor: pointer;
   transition: all 0.3s;
 }
