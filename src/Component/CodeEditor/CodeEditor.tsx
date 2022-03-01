@@ -136,7 +136,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           errors
         } = await activeParser.writeStyle(s);
         if (errors?.length > 0) {
-          setHasError(true);
+          setInvalidMessage(errors.map(e => e.message).join(', '));
         } else {
           setValue(parsedStyle);
         }
