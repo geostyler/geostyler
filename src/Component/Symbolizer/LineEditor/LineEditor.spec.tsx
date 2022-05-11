@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -43,7 +44,8 @@ describe('LineEditor', () => {
     const props: LineEditorProps = {
       symbolizer: dummySymbolizer,
       locale: en_US.GsLineEditor,
-      onSymbolizerChange: onSymbolizerChangeDummy
+      onSymbolizerChange: onSymbolizerChangeDummy,
+      defaultValues: undefined
     };
     wrapper = TestUtil.shallowRenderComponent(LineEditor, props);
   });

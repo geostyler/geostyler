@@ -52,8 +52,6 @@ export interface WfsParams {
 
 import en_US from '../../../locale/en_US';
 
-import _get from 'lodash/get';
-
 import './WfsParserInput.less';
 
 export interface WfsParserInputLocale {

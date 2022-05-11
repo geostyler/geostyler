@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -41,22 +42,22 @@ describe('GraphicTypeField', () => {
     expect(field.container).toBeInTheDocument();
   });
 
-  it('can handle wellKnownNames property', async () => {
+  it('can handle wellKnownNames property', async() => {
   });
 
-  it('gets the right default type select options', async () => {
+  it('gets the right default type select options', async() => {
     const field = render(<GraphicTypeField />);
     const input = await field.findByRole('combobox');
-    await act(async () => {
+    await act(async() => {
       fireEvent.mouseDown(input);
     });
     expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);
   });
 
-  it('gets the right default type select options', async () => {
+  it('gets the right default type select options', async() => {
     const field = render(<GraphicTypeField graphicTypes={['Mark']} />);
     const input = await field.findByRole('combobox');
-    await act(async () => {
+    await act(async() => {
       fireEvent.mouseDown(input);
     });
     expect(document.body.querySelectorAll('.ant-select-item').length).toBe(1);

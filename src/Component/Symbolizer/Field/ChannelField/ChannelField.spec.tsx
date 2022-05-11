@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -43,7 +44,7 @@ describe('ChannelField', () => {
   });
 
   describe('onSourceChannelNameChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const dummySourceChannelName = 'dummyChannel';
       const onChangeMock = jest.fn();
       const field = render(<ChannelField onChange={onChangeMock} />);
@@ -54,12 +55,12 @@ describe('ChannelField', () => {
   });
 
   describe('onContrastEnhancementChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const dummyCeType: ContrastEnhancement['enhancementType'] = 'histogram';
       const onChangeMock = jest.fn();
       const field = render(<ChannelField onChange={onChangeMock} />);
       const input = await field.findByRole('combobox');
-      await act(async () => {
+      await act(async() => {
         fireEvent.mouseDown(input);
       });
       const options = document.body.querySelectorAll('.ant-select-item');
@@ -70,7 +71,7 @@ describe('ChannelField', () => {
   });
 
   describe('onGammaChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const dummyGamma: number = 0.5;
       const onChangeMock = jest.fn();
       const field = render(<ChannelField onChange={onChangeMock} />);

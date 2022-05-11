@@ -48,10 +48,20 @@ import {
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-import _isEqual from 'lodash/isEqual';
 import _isEmpty from 'lodash/isEmpty';
-import _isFunction from 'lodash/isFunction';
 import _isString from 'lodash/isString';
+
+type ValidationResult = {
+  isValid: boolean;
+  errorMsg: string;
+};
+
+interface Validators {
+  attribute: (attrName: string) => boolean;
+  operator: (operator: string) => boolean;
+  value: (value: string | number | boolean | null, internalDataDef?: Data, selectedAttribute?: string)
+    => ValidationResult;
+}
 
 // default props
 export interface ComparisonFilterProps {
@@ -103,18 +113,6 @@ interface ValidationStatus {
   operator: 'success' | 'warning' | 'error' | 'validating';
   value: 'success' | 'warning' | 'error' | 'validating';
 }
-
-interface Validators {
-  attribute: (attrName: string) => boolean;
-  operator: (operator: string) => boolean;
-  value: (value: string | number | boolean | null, internalDataDef?: Data, selectedAttribute?: string)
-    => ValidationResult;
-}
-
-type ValidationResult = {
-  isValid: boolean;
-  errorMsg: string;
-};
 
 export const ComparisonFilterDefaultValidator = (
   newValue: string | number | boolean | null,
@@ -241,6 +239,26 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
     }
   };
 
+  // TODO: implement strategy to handel FunctionFilter
+  const attribute = _isString(filter[1]) ? filter[1] : undefined;
+  const attributeType = attribute ? internalDataDef?.schema?.properties[attribute]?.type : undefined;
+  const operator = filter[0];
+  const value = filter[2];
+  const valueValidation = validators.value(value, internalDataDef, attribute);
+  const valueValidationHelpString = valueValidation.errorMsg;
+  const allowedOperators = attributeType ? operatorsMap[attributeType] : undefined;
+  const isNumberBetweenComparison = operator === '<=x<=';
+  const isNumberComparison = attributeType === 'number';
+  const isBooleanComparison = attributeType === 'boolean';
+  const isTextComparison = !isNumberBetweenComparison && !isNumberComparison && !isBooleanComparison;
+  const hasFilter = filter && Array.isArray(filter);
+
+  const validateStatus: ValidationStatus = {
+    attribute: hasFilter && validators.attribute(attribute) ? 'success' : 'error',
+    operator: hasFilter && validators.operator(operator) ? 'success' : 'error',
+    value: hasFilter && valueValidation.isValid ? 'success' : 'error'
+  };
+
   function getAttributeCombo(filterIndex = 1) {
     const size = microUI ? 'small' : undefined;
     let val: string;
@@ -260,7 +278,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
       help={attributeValidationHelpString}
       hideAttributeType={hideAttributeType}
     />;
-  };
+  }
 
   function getNumberField(filterIndex = 2) {
     const size = microUI ? 'small' : undefined;
@@ -337,25 +355,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
   if (microUI) {
     className += ' micro';
   }
-
-  // TODO: implement strategy to handel FunctionFilter
-  const attribute = _isString(filter[1]) ? filter[1] : undefined;
-  const attributeType = attribute ? internalDataDef?.schema?.properties[attribute]?.type : undefined;
-  const operator = filter[0];
-  const value = filter[2];
-  const hasFilter = filter && Array.isArray(filter);
-  const valueValidation = validators.value(value, internalDataDef, attribute);
-  const validateStatus: ValidationStatus = {
-    attribute: hasFilter && validators.attribute(attribute) ? 'success' : 'error',
-    operator: hasFilter && validators.operator(operator) ? 'success' : 'error',
-    value: hasFilter && valueValidation.isValid ? 'success' : 'error'
-  };
-  const valueValidationHelpString = valueValidation.errorMsg;
-  const allowedOperators = attributeType ? operatorsMap[attributeType] : undefined;
-  const isNumberBetweenComparison = operator === '<=x<=';
-  const isNumberComparison = attributeType === 'number';
-  const isBooleanComparison = attributeType === 'boolean';
-  const isTextComparison = !isNumberBetweenComparison && !isNumberComparison && !isBooleanComparison;
 
   if (isNumberBetweenComparison) {
     return (

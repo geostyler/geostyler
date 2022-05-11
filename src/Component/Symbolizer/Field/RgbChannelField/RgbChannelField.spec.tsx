@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -43,7 +44,7 @@ describe('RgbChannelField', () => {
   });
 
   describe('onRedChannelChange', () => {
-    it('every SourceChannelNameField change calls passed onChange', async () => {
+    it('every SourceChannelNameField change calls passed onChange', async() => {
       const dummyChannelName = 'dummy band';
       const onChangeMock = jest.fn();
       const field = render(<RgbChannelField onChange={onChangeMock} />);

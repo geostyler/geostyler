@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -42,7 +43,7 @@ describe('ExtendedField', () => {
   });
 
   describe('onExtendedChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       const field = render(<ExtendedField onChange={onChangeMock} />);
       const input16 = await field.findByLabelText('16-bit');

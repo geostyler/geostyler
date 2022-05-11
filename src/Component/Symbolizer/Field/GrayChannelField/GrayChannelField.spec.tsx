@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -41,7 +42,7 @@ describe('GrayChannelField', () => {
     expect(field.container).toBeInTheDocument();
   });
   describe('onGrayChannelChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
 
       const dummyChannelName = 'dummy band';
       const onChangeMock = jest.fn();

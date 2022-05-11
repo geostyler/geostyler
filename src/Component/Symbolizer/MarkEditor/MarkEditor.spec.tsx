@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -36,7 +37,8 @@ describe('MarkEditor', () => {
   beforeEach(() => {
     markstyle = TestUtil.getMarkStyle();
     const props: MarkEditorProps = {
-      symbolizer: markstyle.rules[0].symbolizers[0]
+      symbolizer: markstyle.rules[0].symbolizers[0],
+      defaultValues: undefined
     };
     wrapper = TestUtil.shallowRenderComponent(MarkEditor, props);
   });

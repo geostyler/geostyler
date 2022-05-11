@@ -118,7 +118,7 @@ export class TestUtil {
     };
   };
 
-  static getDummyGsIconLibraries  = (): IconLibrary[] => {
+  static getDummyGsIconLibraries = (): IconLibrary[] => {
     return ([
       {
         name: 'lib 1',
@@ -142,7 +142,7 @@ export class TestUtil {
     ]);
   };
 
-  static getDummyGsFilter = (): Filter  => {
+  static getDummyGsFilter = (): Filter => {
     return [
       '&&',
       ['==', 'state', 'germany'],

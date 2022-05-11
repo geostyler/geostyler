@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -43,10 +44,10 @@ describe('SourceChannelNameField', () => {
   });
 
   describe('getSourceChannelNameSelectOptions', () => {
-    it('returns the right number of optiosn', async () => {
+    it('returns the right number of optiosn', async() => {
       const field = render(<SourceChannelNameField sourceChannelNames={['red', 'green']} />);
       const input = await field.findByRole('combobox');
-      await act(async () => {
+      await act(async() => {
         fireEvent.mouseDown(input);
       });
       expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);

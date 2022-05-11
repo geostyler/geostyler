@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -43,19 +44,19 @@ describe('ColorMapTypeField', () => {
   });
 
   describe('getContrastEnhancementSelectOptions', () => {
-    it('returns the right amount of default options', async () => {
+    it('returns the right amount of default options', async() => {
       render(<ColorMapTypeField />);
       expect(document.body.querySelectorAll('.ant-radio-button-wrapper').length).toBe(3);
     });
 
-    it('returns the right amount of passed options', async () => {
+    it('returns the right amount of passed options', async() => {
       render(<ColorMapTypeField colorMapTypeOptions={['ramp', 'intervals']} />);
       expect(document.body.querySelectorAll('.ant-radio-button-wrapper').length).toBe(2);
     });
   });
 
   describe('onColorMapTypeChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       const field = render(<ColorMapTypeField onChange={onChangeMock} />);
       const rampInput = await field.findByLabelText(en_US.GsColorMapTypeField.rampMapTypeLabel);

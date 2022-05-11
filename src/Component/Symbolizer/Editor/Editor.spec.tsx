@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -29,17 +30,12 @@
 import { Editor, EditorProps } from './Editor';
 import TestUtil from '../../../Util/TestUtil';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import MarkEditor from '../MarkEditor/MarkEditor';
-import { shallow } from 'enzyme';
-import { IconEditor } from '../IconEditor/IconEditor';
-import { LineEditor } from '../LineEditor/LineEditor';
-import { FillEditor } from '../FillEditor/FillEditor';
-import { TextEditor } from '../TextEditor/TextEditor';
 
 describe('SymbolizerEditor', () => {
 
   let wrapper: any;
   let dummySymbolizer = TestUtil.getPolygonStyle().rules[0].symbolizers[0];
+  dummySymbolizer.kind = 'Fill';
   beforeEach(() => {
     const props: EditorProps = {
       symbolizer: dummySymbolizer
@@ -57,14 +53,14 @@ describe('SymbolizerEditor', () => {
 
   describe('onSymbolizerChange', () => {
     it('doesn\'t fail if no method is passed as prop', () => {
-      const newSymbolizer = {...dummySymbolizer};
+      const newSymbolizer: any = {...dummySymbolizer};
       newSymbolizer.color = '#00AA00';
       const func = wrapper.instance().onSymbolizerChange;
       func(newSymbolizer);
       expect(func).not.toThrow();
     });
     it('calls the change handler passed via props', () => {
-      const newSymbolizer = {...dummySymbolizer};
+      const newSymbolizer: any = {...dummySymbolizer};
       const onSymbolizerChangeDummy = jest.fn();
       newSymbolizer.color = '#00AA00';
       wrapper.setProps({

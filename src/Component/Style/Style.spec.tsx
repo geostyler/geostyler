@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -64,7 +65,7 @@ describe('Style', () => {
   it('onRuleChange updates the right rule', () => {
     const twoRules = TestUtil.getTwoRulesStyle();
     wrapper.setState({style: twoRules});
-    let newRule = _cloneDeep(twoRules.rules[1]);
+    let newRule: any = _cloneDeep(twoRules.rules[1]);
     newRule.symbolizers[0].color = '#000';
 
     wrapper.instance().onRuleChange(newRule, twoRules.rules[1]);

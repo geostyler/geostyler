@@ -121,7 +121,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
       clearTimeout(this._requestTimeout);
     }
 
-    this._requestTimeout = setTimeout(async () => {
+    this._requestTimeout = setTimeout(async() => {
       const {
         wmsBaseUrl,
         layer,

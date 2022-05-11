@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -31,11 +32,11 @@ import FileUtil from './FileUtil';
 describe('FileUtil', () => {
 
   describe('readFile', () => {
-    it('resolves with the filecontent', async () => {
+    it('resolves with the filecontent', async() => {
       const fakeFile = new File(['abc123'], 'peter.sld');
       await expect(FileUtil.readFile(fakeFile)).resolves.toBe('abc123');
     });
-    it('rejects on error', async () => {
+    it('rejects on error', async() => {
       let aFile: File;
       await expect(FileUtil.readFile(aFile)).rejects.toThrowError();
     });

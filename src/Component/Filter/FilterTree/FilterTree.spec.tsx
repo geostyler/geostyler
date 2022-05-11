@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -29,20 +30,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { FilterTree } from './FilterTree';
-import TestUtil from '../../../Util/TestUtil';
-import { Filter as GsFilter } from 'geostyler-style';
 
 describe('FilterTree', () => {
-
-  let dummyData;
-  let dummyFilter: GsFilter;
-  let onFilterChangeDummy: any;
-
-  beforeEach(() => {
-    dummyData = TestUtil.getDummyGsData();
-    dummyFilter = TestUtil.getDummyGsFilter();
-    onFilterChangeDummy = jest.fn();
-  });
 
   it('is defined', () => {
     expect(FilterTree).toBeDefined();

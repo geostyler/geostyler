@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -27,19 +28,10 @@
  */
 
 import {
-  IconSelectorWindow,
-  IconSelectorWindowProps
+  IconSelectorWindow
 } from './IconSelectorWindow';
-import TestUtil from '../../../Util/TestUtil';
 
 describe('IconSelector', () => {
-
-  let wrapper: any;
-
-  beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(IconSelectorWindow);
-  });
-
   it('is defined', () => {
     expect(IconSelectorWindow).toBeDefined();
   });

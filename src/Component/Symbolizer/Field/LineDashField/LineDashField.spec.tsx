@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -44,7 +45,7 @@ describe('OffsetField', () => {
   });
 
   describe('InputFields', () => {
-    it('change handlers call the onChange prop method correctly', async () => {
+    it('change handlers call the onChange prop method correctly', async() => {
       const onChangeMock = jest.fn();
       const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
       const inputs = await field.findAllByRole('spinbutton');
@@ -60,7 +61,7 @@ describe('OffsetField', () => {
   });
 
   describe('onAddDash', () => {
-    it('calls a passed onChange function with the new dashArray', async () => {
+    it('calls a passed onChange function with the new dashArray', async() => {
       const onChangeMock = jest.fn();
       const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
       const addButton = field.container.querySelector('button.gs-add-dash-button');
@@ -71,7 +72,7 @@ describe('OffsetField', () => {
   });
 
   describe('onRemoveDash', () => {
-    it('calls a passed onChange function with the new dashArray', async () => {
+    it('calls a passed onChange function with the new dashArray', async() => {
       const onChangeMock = jest.fn();
       const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
       const removeButton = field.container.querySelector('button.gs-rm-dash-button');

@@ -67,7 +67,7 @@ export interface ChannelFieldProps extends Partial<ChannelFieldDefaultProps> {
  */
 export const ChannelField: React.FC<ChannelFieldProps> = ({
   onChange,
-  locale =  en_US.GsChannelField,
+  locale = en_US.GsChannelField,
   sourceChannelNames,
   contrastEnhancementTypes = ['histogram', 'normalize'],
   channel

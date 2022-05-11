@@ -63,7 +63,7 @@ export interface ColorMapTypeFieldProps extends Partial<ColorMapTypeFieldDefault
  */
 export const ColorMapTypeField: React.FC<ColorMapTypeFieldProps> = ({
   colorMapTypeOptions = ['ramp', 'intervals', 'values'],
-  locale =  en_US.GsColorMapTypeField,
+  locale = en_US.GsColorMapTypeField,
   onChange,
   colorMapType
 }) => {

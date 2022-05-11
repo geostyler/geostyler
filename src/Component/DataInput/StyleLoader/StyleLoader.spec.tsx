@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -48,10 +49,10 @@ describe('StyleLoader', () => {
   });
 
   describe('getParserOptions', () => {
-    it('returns a Select.Option for every passed parser', async () => {
+    it('returns a Select.Option for every passed parser', async() => {
       const loader = render(<StyleLoader parsers={[sldStyleParser]} />);
       const input = await loader.findByRole('combobox');
-      await act(async () => {
+      await act(async() => {
         fireEvent.mouseDown(input);
       });
       expect(document.body.querySelectorAll('.ant-select-item').length).toBe(1);
@@ -59,15 +60,15 @@ describe('StyleLoader', () => {
   });
 
   describe('getInputFromParser', () => {
-    it('is invisible if no active Parser is set', async () => {
+    it('is invisible if no active Parser is set', async() => {
       render(<StyleLoader parsers={[sldStyleParser]} />);
       expect(document.querySelector('.ant-upload')).not.toBeInTheDocument();
     });
-    it('returns an UploadButton if activeParser is "GeoJSON Style Parser"', async () => {
+    it('returns an UploadButton if activeParser is "GeoJSON Style Parser"', async() => {
       const loader = render(<StyleLoader parsers={[sldStyleParser]} />);
       expect(document.querySelector('.ant-upload')).not.toBeInTheDocument();
       const input = await loader.findByRole('combobox');
-      await act(async () => {
+      await act(async() => {
         fireEvent.mouseDown(input);
       });
       fireEvent.click(await screen.findByTitle(sldStyleParser.title));

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -42,7 +43,7 @@ describe('ColorMapEntryField', () => {
   });
 
   describe('onQuantityChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
@@ -53,7 +54,7 @@ describe('ColorMapEntryField', () => {
   });
 
   describe('onLabelChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
@@ -64,7 +65,7 @@ describe('ColorMapEntryField', () => {
   });
 
   describe('onOpacityChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector

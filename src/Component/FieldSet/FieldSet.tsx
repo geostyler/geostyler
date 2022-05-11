@@ -66,7 +66,7 @@ export const FieldSet: React.FC<FieldSetProps> = ({
           {title}
         </Checkbox>
       </legend>
-      {React.Children.map(children, (child, i) => {
+      {React.Children.map(children, child => {
         // Ignore all childs if checkbox is unchecked
         if (checked) {
           return child;

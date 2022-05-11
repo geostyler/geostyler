@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -42,7 +43,7 @@ describe('ColorField', () => {
   });
 
   describe('onColorPreviewClick', () => {
-    it('toggles state of colorPickerVisible', async () => {
+    it('toggles state of colorPickerVisible', async() => {
       const field = render(<ColorField />);
       const button = field.container.querySelector('button.color-preview');
       fireEvent.click(button);

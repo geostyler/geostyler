@@ -144,8 +144,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   }
 
   static getDerivedStateFromProps(
-    nextProps: PreviewProps,
-    prevState: PreviewState): Partial<PreviewState> {
+    nextProps: PreviewProps): Partial<PreviewState> {
 
     return {
       symbolizers: nextProps.symbolizers
@@ -331,7 +330,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
    *
    * @param {Symbolizer[]} symbolizers The symbolizers holding the style to apply
    */
-  applySymbolizersToMapFeatures = async (symbolizers: Symbolizer[]) => {
+  applySymbolizersToMapFeatures = async(symbolizers: Symbolizer[]) => {
     const styleParser = new OlStyleParser();
 
     // we have to wrap the symbolizer in a Style object since the writeStyle

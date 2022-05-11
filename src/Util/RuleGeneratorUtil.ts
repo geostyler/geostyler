@@ -44,10 +44,11 @@ import {
   scale as chromaScale,
   limits as chromaLimits,
   InterpolationMode
-}  from 'chroma-js';
+} from 'chroma-js';
 import { ClassificationMethod } from 'src/Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
 
 import _get from 'lodash/get';
+import { GeoJsonGeometryTypes } from 'geojson';
 
 export interface RuleGenerationParams {
   data: Data;
@@ -82,7 +83,7 @@ class RuleGeneratorUtil {
   }
 
   static guessSymbolizerFromData(data: Data): SymbolizerKind {
-    const firstFeatureGeometryType: GeoJSON.GeoJsonGeometryTypes
+    const firstFeatureGeometryType: GeoJsonGeometryTypes
       = _get(data, 'exampleFeatures.features[0].geometry.type');
 
     switch (firstFeatureGeometryType) {
@@ -169,7 +170,7 @@ class RuleGeneratorUtil {
           const filter: Filter = [
             '&&',
             ['>=', attributeName, range[0]],
-            [isLast ? '<=' : '<', attributeName,  range[1]],
+            [isLast ? '<=' : '<', attributeName, range[1]],
           ];
           const symbolizer: Symbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind, {
             color: colors[index],
