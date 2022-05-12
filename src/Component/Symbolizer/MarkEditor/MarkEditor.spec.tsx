@@ -36,7 +36,8 @@ describe('MarkEditor', () => {
   beforeEach(() => {
     markstyle = TestUtil.getMarkStyle();
     const props: MarkEditorProps = {
-      symbolizer: markstyle.rules[0].symbolizers[0]
+      symbolizer: markstyle.rules[0].symbolizers[0],
+      defaultValues: undefined
     };
     wrapper = TestUtil.shallowRenderComponent(MarkEditor, props);
   });

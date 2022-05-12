@@ -31,7 +31,6 @@ import * as React from 'react';
 import { Select } from 'antd';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
 const Option = Select.Option;
-import _isEqual from 'lodash/isEqual';
 
 import {
   Style as GsStyle,
@@ -69,12 +68,14 @@ export interface StyleLoaderProps extends Partial<StyleLoaderDefaultProps> {
 export const StyleLoader: React.FC<StyleLoaderProps> = ({
   parsers,
   locale = en_US.GsStyleLoader,
-  onStyleRead = (style: GsStyle) => {return; }
+  onStyleRead = () => {
+    return;
+  }
 }) => {
 
   const [activeParser, setActiveParser] = React.useState<StyleParser>();
 
-  const parseStyle = async (uploadObject: UploadRequestOption<any>): Promise<Style|undefined> => {
+  const parseStyle = async(uploadObject: UploadRequestOption<any>): Promise<Style|undefined> => {
     if (!activeParser) {
       return undefined;
     }

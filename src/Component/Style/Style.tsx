@@ -177,7 +177,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
     return diffProps || diffState;
   }
 
-  componentDidUpdate(prevProps: any, prevState: any) {
+  componentDidUpdate(prevProps: any) {
     if (this.props.style && !_isEqual(this.props.style, prevProps.style)) {
       this.setState({
         style: this.props.style
@@ -185,7 +185,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
     }
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  componentDidCatch() {
     this.setState({
       hasError: true
     });
@@ -451,7 +451,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
     } = this.state;
 
     const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
-    const allowClone = selectedRowKeys.length  > 0;
+    const allowClone = selectedRowKeys.length > 0;
 
     return (
       <Menu

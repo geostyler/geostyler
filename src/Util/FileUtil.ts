@@ -34,7 +34,7 @@ class FileUtil {
   /**
    * Reads a file and returns its content as string.
    */
-  static readFile = async (file: File): Promise<string> => {
+  static readFile = async(file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {

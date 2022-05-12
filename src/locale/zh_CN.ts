@@ -26,9 +26,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-'use strict';
-
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 export default {
   GsApp: {

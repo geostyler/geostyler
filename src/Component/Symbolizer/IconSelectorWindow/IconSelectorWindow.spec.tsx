@@ -27,19 +27,10 @@
  */
 
 import {
-  IconSelectorWindow,
-  IconSelectorWindowProps
+  IconSelectorWindow
 } from './IconSelectorWindow';
-import TestUtil from '../../../Util/TestUtil';
 
 describe('IconSelector', () => {
-
-  let wrapper: any;
-
-  beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(IconSelectorWindow);
-  });
-
   it('is defined', () => {
     expect(IconSelectorWindow).toBeDefined();
   });

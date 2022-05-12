@@ -171,7 +171,6 @@ export class RasterChannelEditor extends React.Component<RasterChannelEditorProp
 
   onTabChange = (key: 'red' | 'green' | 'blue' | 'gray') => {
     const {
-      selectedTab,
       ...restState
     } = this.state;
     this.setState({

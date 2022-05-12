@@ -42,19 +42,19 @@ describe('ContrastEnhancementField', () => {
   });
 
   describe('getContrastEnhancementSelectOptions', () => {
-    it('returns the right amount of default options', async () => {
+    it('returns the right amount of default options', async() => {
       const field = render(<ContrastEnhancementField />);
       const input = await field.findByRole('combobox');
-      await act(async () => {
+      await act(async() => {
         fireEvent.mouseDown(input);
       });
       expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);
     });
 
-    it('returns the right amount of passed options', async () => {
+    it('returns the right amount of passed options', async() => {
       const field = render(<ContrastEnhancementField contrastEnhancementOptions={['normalize']} />);
       const input = await field.findByRole('combobox');
-      await act(async () => {
+      await act(async() => {
         fireEvent.mouseDown(input);
       });
       expect(document.body.querySelectorAll('.ant-select-item').length).toBe(1);

@@ -42,7 +42,7 @@ describe('ChannelSelectionField', () => {
     expect(ChannelSelectionField).toBeDefined();
   });
 
-  test('… renders', async () => {
+  test('… renders', async() => {
     expect(channelSelectionField.container).toBeInTheDocument();
   });
 

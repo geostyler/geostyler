@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import  React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Editor, { useMonaco } from '@monaco-editor/react';
 
@@ -87,7 +87,7 @@ export interface CodeEditorProps {
   onStyleChange?: (rule: GsStyle) => void;
 }
 
-const MODELPATH = 'geostyler.json';  // associate with our model
+const MODELPATH = 'geostyler.json'; // associate with our model
 const SCHEMAURI = schema.$id;
 
 export const COMPONENTNAME = 'CodeEditor';
@@ -129,7 +129,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const updateValueFromStyle = useCallback((s: GsStyle) => {
     setHasError(false);
-    (new Promise(async () => {
+    (new Promise(async() => {
       if (activeParser) {
         const {
           output: parsedStyle,
@@ -161,7 +161,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     return (<h1>An error occured in the CodeEditor UI.</h1>);
   }
 
-  const onChange = async (v: string) => {
+  const onChange = async(v: string) => {
     setValue(v);
     setInvalidMessage(undefined);
     try {
@@ -227,10 +227,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   };
 
-  const onCopyButtonClick = () => {
-    copyToClipboard(value);
-  };
-
   /**
    * Copies the a value to the clipboard.
    * Credits: https://hackernoon.com/copying-text-to-clipboard-with-javascript-df4d4988697f
@@ -253,6 +249,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       document.getSelection().removeAllRanges();
       document.getSelection().addRange(selected);
     }
+  };
+
+  const onCopyButtonClick = () => {
+    copyToClipboard(value);
   };
 
   const parserHasUnitSelect = isSldParser && activeParser && (activeParser as SldStyleParser).sldVersion !== '1.0.0';

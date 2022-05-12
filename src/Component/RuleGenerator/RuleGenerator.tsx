@@ -141,7 +141,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
     };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  componentDidCatch() {
     this.setState({
       hasError: true
     });

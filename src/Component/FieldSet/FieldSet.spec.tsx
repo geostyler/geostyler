@@ -44,7 +44,7 @@ describe('FieldSet', () => {
     expect(FieldSet).toBeDefined();
   });
 
-  test('… renders', async () => {
+  test('… renders', async() => {
     expect(fieldSet.container).toBeInTheDocument();
   });
 

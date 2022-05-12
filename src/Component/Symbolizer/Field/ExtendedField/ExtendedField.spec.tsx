@@ -42,7 +42,7 @@ describe('ExtendedField', () => {
   });
 
   describe('onExtendedChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       const field = render(<ExtendedField onChange={onChangeMock} />);
       const input16 = await field.findByLabelText('16-bit');

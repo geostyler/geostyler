@@ -43,7 +43,7 @@ describe('RgbChannelField', () => {
   });
 
   describe('onRedChannelChange', () => {
-    it('every SourceChannelNameField change calls passed onChange', async () => {
+    it('every SourceChannelNameField change calls passed onChange', async() => {
       const dummyChannelName = 'dummy band';
       const onChangeMock = jest.fn();
       const field = render(<RgbChannelField onChange={onChangeMock} />);

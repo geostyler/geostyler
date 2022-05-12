@@ -85,6 +85,14 @@ export interface RuleTableLocale {
   emptyText?: string;
 }
 
+export interface RuleRecord extends GsRule {
+  key: number;
+  amount?: number;
+  duplicates?: number;
+  maxScale?: number;
+  minScale?: number;
+}
+
 // default props
 interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
   /** Locale object containing translated text snippets */
@@ -135,14 +143,6 @@ interface RuleTableState {
   rules: GsRule[];
   counts: number[];
   duplicates: number[];
-}
-
-export interface RuleRecord extends GsRule {
-  key: number;
-  amount?: number;
-  duplicates?: number;
-  maxScale?: number;
-  minScale?: number;
 }
 
 export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
@@ -217,7 +217,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     return diffProps || diffState;
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  componentDidCatch() {
     this.setState({
       hasError: true
     });
@@ -549,13 +549,10 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
       return <h1>An error occured in the RuleTable UI.</h1>;
     }
     const {
-      locale,
       rules,
       filterUiProps,
       data,
       iconLibraries,
-      showAmountColumn,
-      showDuplicatesColumn,
       colorRamps,
       ...restProps
     } = this.props;

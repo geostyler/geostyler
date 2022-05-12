@@ -166,7 +166,7 @@ export class Renderer extends React.Component<RendererProps> {
    *
    * @param {Symbolizer[]} symbolizers The symbolizers holding the style to apply
    */
-  applySymbolizers = async (symbolizers: Symbolizer[]) => {
+  applySymbolizers = async(symbolizers: Symbolizer[]) => {
     const styleParser = new OlStyleParser();
 
     // we have to wrap the symbolizer in a Style object since the writeStyle

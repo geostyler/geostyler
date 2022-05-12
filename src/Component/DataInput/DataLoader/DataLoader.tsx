@@ -32,7 +32,6 @@ import { Select, Modal } from 'antd';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
 
 const Option = Select.Option;
-import _isEqual from 'lodash/isEqual';
 
 import {
   VectorData,
@@ -80,7 +79,9 @@ export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
 export const DataLoader: React.FC<DataLoaderProps> = ({
   parsers,
   locale = en_US.GsDataLoader,
-  onDataRead = (data: VectorData) => {return; }
+  onDataRead = () => {
+    return;
+  }
 }) => {
 
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);

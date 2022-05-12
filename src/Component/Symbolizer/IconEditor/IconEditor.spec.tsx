@@ -43,7 +43,8 @@ describe('IconEditor', () => {
     const props: IconEditorProps = {
       symbolizer: dummySymbolizer,
       locale: en_US.GsIconEditor,
-      onSymbolizerChange: onSymbolizerChangeDummy
+      onSymbolizerChange: onSymbolizerChangeDummy,
+      defaultValues: undefined
     };
     wrapper = TestUtil.shallowRenderComponent(IconEditor, props);
   });

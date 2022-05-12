@@ -104,14 +104,13 @@ export class Editor extends React.Component<EditorProps, EditorState> {
   }
 
   static getDerivedStateFromProps(
-    nextProps: EditorProps,
-    prevState: EditorState): Partial<EditorState> {
+    nextProps: EditorProps): Partial<EditorState> {
     return {
       symbolizer: nextProps.symbolizer
     };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  componentDidCatch() {
     this.setState({
       hasError: true
     });

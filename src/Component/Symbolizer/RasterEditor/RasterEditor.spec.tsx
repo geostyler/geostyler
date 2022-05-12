@@ -43,7 +43,8 @@ describe('RasterEditor', () => {
     const props: RasterEditorProps = {
       symbolizer: dummySymbolizer,
       locale: en_US.GsRasterEditor,
-      onSymbolizerChange: onSymbolizerChangeDummy
+      onSymbolizerChange: onSymbolizerChangeDummy,
+      defaultValues: undefined
     };
     wrapper = TestUtil.shallowRenderComponent(RasterEditor, props);
   });

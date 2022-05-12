@@ -37,7 +37,6 @@ import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
 import _get from 'lodash/get';
-import _isEqual from 'lodash/isEqual';
 const Option = Select.Option;
 
 // i18n
@@ -69,7 +68,7 @@ export interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefau
  */
 export const WellKnownNameField: React.FC<WellKnownNameFieldProps> = ({
   onChange,
-  locale =  en_US.GsWellKnownNameField,
+  locale = en_US.GsWellKnownNameField,
   wellKnownName = 'circle',
   wellKnownNames = ['circle', 'square', 'triangle', 'star', 'cross', 'x',
     'shape://backslash', 'shape://carrow', 'shape://dot',

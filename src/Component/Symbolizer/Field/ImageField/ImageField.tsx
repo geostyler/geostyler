@@ -65,16 +65,16 @@ export const ImageField: React.FC<ImageFieldProps> = ({
 
   const [windowVisible, setWindowVisible] = React.useState<boolean>(false);
 
+  const openWindow = () => {
+    setWindowVisible(true);
+  };
+
   const getIconSelectorButton = () => {
     return (
       <Tooltip title={tooltipLabel}>
         <PictureOutlined className="gs-image-field-gallery-icon" type="picture" onClick={openWindow} />
       </Tooltip>
     );
-  };
-
-  const openWindow = () => {
-    setWindowVisible(true);
   };
 
   const closeWindow = () => {

@@ -42,7 +42,8 @@ describe('TextEditor', () => {
     const props: TextEditorProps = {
       symbolizer: dummySymbolizer as TextSymbolizer,
       locale: en_US.GsTextEditor,
-      onSymbolizerChange: onSymbolizerChangeDummy
+      onSymbolizerChange: onSymbolizerChangeDummy,
+      defaultValues: undefined
     };
     wrapper = TestUtil.shallowRenderComponent(TextEditor, props);
   });

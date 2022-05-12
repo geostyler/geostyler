@@ -27,7 +27,7 @@
  */
 import React from 'react';
 import { render } from '@testing-library/react';
-import { SaturationField, SaturationFieldProps } from './SaturationField';
+import { SaturationField } from './SaturationField';
 
 describe('SaturationField', () => {
 

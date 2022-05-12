@@ -125,7 +125,6 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
       locale,
       internalDataDef,
       iconLibraries,
-      onSymbolizersChange,
       ...passThroughProps
     } = this.props;
 

@@ -36,8 +36,6 @@ import { SymbolizerKind } from 'geostyler-style';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
-import _isEqual from 'lodash/isEqual';
-
 const Option = Select.Option;
 
 // i18n
@@ -69,7 +67,7 @@ export interface KindFieldProps extends Partial<KindFieldDefaultProps> {
  */
 export const KindField: React.FC<KindFieldProps> = ({
   onChange,
-  locale =  en_US.GsKindField,
+  locale = en_US.GsKindField,
   kind = 'Mark',
   symbolizerKinds = ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster']
 }) => {

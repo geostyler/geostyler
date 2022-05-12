@@ -41,7 +41,7 @@ describe('GrayChannelField', () => {
     expect(field.container).toBeInTheDocument();
   });
   describe('onGrayChannelChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
 
       const dummyChannelName = 'dummy band';
       const onChangeMock = jest.fn();

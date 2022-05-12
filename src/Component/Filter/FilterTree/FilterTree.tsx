@@ -140,6 +140,34 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
   };
 
   /**
+   * Handler for the add button.
+   * Adds a filter of a given type at the given position.
+   *
+   */
+  const onAddFilterClicked = (position: string, type: string) => {
+    const newFilter = FilterUtil.addFilter(rootFilter, position, type);
+    onFilterChange(newFilter);
+  };
+
+  /**
+   * Changes a filter at a position to a given typ.
+   *
+   */
+  const onChangeFilterClicked = (position: string, type: string) => {
+    const newFilter = FilterUtil.changeFilter(rootFilter, position, type);
+    onFilterChange(newFilter);
+  };
+
+  /**
+   * Removes a filter at a given position.
+   *
+   */
+  const removeFilter = (position: string) => {
+    const newFilter = FilterUtil.removeFilter(rootFilter, position);
+    onFilterChange(newFilter);
+  };
+
+  /**
    * Creates a TreeNode for a given filter at the given position.
    *
    * @return Tree.TreeNode
@@ -264,34 +292,6 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
         {children}
       </TreeNode>
     );
-  };
-
-  /**
-   * Handler for the add button.
-   * Adds a filter of a given type at the given position.
-   *
-   */
-  const onAddFilterClicked = (position: string, type: string) => {
-    const newFilter = FilterUtil.addFilter(rootFilter, position, type);
-    onFilterChange(newFilter);
-  };
-
-  /**
-   * Changes a filter at a position to a given typ.
-   *
-   */
-  const onChangeFilterClicked = (position: string, type: string) => {
-    const newFilter = FilterUtil.changeFilter(rootFilter, position, type);
-    onFilterChange(newFilter);
-  };
-
-  /**
-   * Removes a filter at a given position.
-   *
-   */
-  const removeFilter = (position: string) => {
-    const newFilter = FilterUtil.removeFilter(rootFilter, position);
-    onFilterChange(newFilter);
   };
 
   /**

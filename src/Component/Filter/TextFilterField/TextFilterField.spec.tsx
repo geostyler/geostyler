@@ -77,7 +77,7 @@ describe('TextFilterField', () => {
       expect(textInput).not.toBeInTheDocument();
     });
 
-    it('calls onValueChange of props', async () => {
+    it('calls onValueChange of props', async() => {
       const onChangeMock = jest.fn();
       const field = render(<TextFilterField
         onValueChange={onChangeMock}
@@ -85,7 +85,7 @@ describe('TextFilterField', () => {
         internalDataDef={dummyData}
       />);
       const input = await field.findByRole('combobox');
-      await act(async () => {
+      await act(async() => {
         fireEvent.mouseDown(input);
       });
       fireEvent.click(await screen.findByTitle('bar'));

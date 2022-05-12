@@ -46,7 +46,7 @@ describe('WfsParserInput', () => {
   });
 
   describe('onUrlChange', () => {
-    it('shows and error when url is to short', async () => {
+    it('shows and error when url is to short', async() => {
       const onClickMock = jest.fn();
       const field = render(<WfsParserInput onClick={onClickMock} />);
       const input = await field.container.querySelector('input.wfs-url-input');
@@ -57,7 +57,7 @@ describe('WfsParserInput', () => {
   });
 
   describe('onTypeNameChange', () => {
-    it('shows and error when typeName is to short', async () => {
+    it('shows and error when typeName is to short', async() => {
       const onClickMock = jest.fn();
       const field = render(<WfsParserInput onClick={onClickMock} />);
       const input = await field.container.querySelector('input.wfs-typename-input');
@@ -68,7 +68,7 @@ describe('WfsParserInput', () => {
   });
 
   describe('onClick', () => {
-    it('calls the passed method with the entered values', async () => {
+    it('calls the passed method with the entered values', async() => {
       const mockParams: WfsParams = {
         url: 'my mock url',
         typeName: 'my mock typeName',
@@ -90,7 +90,7 @@ describe('WfsParserInput', () => {
       fireEvent.change(featureIdInput, { target: { value: mockParams.featureID }});
       // version
       const input = await field.findAllByRole('combobox');
-      await act(async () => {
+      await act(async() => {
         fireEvent.mouseDown(input[0]);
       });
       fireEvent.click(await screen.findByTitle(mockParams.version));

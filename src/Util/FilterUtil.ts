@@ -47,7 +47,6 @@ import {
 import _get from 'lodash/get';
 import _set from 'lodash/set';
 import _cloneDeep from 'lodash/cloneDeep';
-import _isString from 'lodash/isString';
 
 export type CountResult = {
   counts?: number[];
@@ -243,14 +242,14 @@ class FilterUtil {
       .replace(/\[/g, '')
       .split(',')
       .map(i => parseInt(i, 10));
-  };
+  }
 
   /**
    * Transforms am positionArray like [2, 3] to a string like '[2][3]'.
    */
   static positionArrayAsString(positionArray: number[] | string[]) {
     return `[${positionArray.toString().replace(/,/g, '][')}]`;
-  };
+  }
 
   /**
    * Returns the filter at a specific position.
@@ -261,7 +260,7 @@ class FilterUtil {
     } else {
       return _get(rootFilter, position);
     }
-  };
+  }
 
   /**
    * Removes a subfilter from a given filter at the given position.
@@ -278,7 +277,7 @@ class FilterUtil {
     }
     parentFilter.splice(dragNodeIndex, 1);
     return newFilter;
-  };
+  }
 
   /**
      * Inserts a given subfilter to a given parentfilter by its position and its
@@ -324,7 +323,7 @@ class FilterUtil {
         break;
     }
     return newFilter;
-  };
+  }
 
   /**
    * Handler for the add button.
@@ -362,7 +361,7 @@ class FilterUtil {
     }
 
     return newFilter;
-  };
+  }
 
   /**
    * Changes a filter at a position to a given typ.
@@ -407,7 +406,7 @@ class FilterUtil {
       return newFilter;
     }
 
-  };
+  }
 
   /**
    * Removes a filter at a given position.

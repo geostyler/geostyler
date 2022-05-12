@@ -42,7 +42,7 @@ describe('ColorMapEntryField', () => {
   });
 
   describe('onQuantityChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
@@ -53,7 +53,7 @@ describe('ColorMapEntryField', () => {
   });
 
   describe('onLabelChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
@@ -64,7 +64,7 @@ describe('ColorMapEntryField', () => {
   });
 
   describe('onOpacityChange', () => {
-    it('calls onChange', async () => {
+    it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector

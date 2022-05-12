@@ -42,7 +42,8 @@ describe('FillEditor', () => {
     const props: FillEditorProps = {
       symbolizer: dummySymbolizer,
       locale: en_US.GsFillEditor,
-      onSymbolizerChange: onSymbolizerChangeDummy
+      onSymbolizerChange: onSymbolizerChangeDummy,
+      defaultValues: undefined
     };
     wrapper = TestUtil.shallowRenderComponent(FillEditor, props);
   });

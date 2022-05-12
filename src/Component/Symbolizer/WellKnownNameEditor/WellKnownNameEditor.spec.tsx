@@ -42,7 +42,8 @@ describe('WellKnownNameEditor', () => {
     const props: WellKnownNameEditorProps = {
       symbolizer: dummySymbolizer,
       locale: en_US.GsWellKnownNameEditor,
-      onSymbolizerChange: onSymbolizerChangeDummy
+      onSymbolizerChange: onSymbolizerChangeDummy,
+      defaultValues: undefined
     };
     wrapper = TestUtil.shallowRenderComponent(WellKnownNameEditor, props);
   });

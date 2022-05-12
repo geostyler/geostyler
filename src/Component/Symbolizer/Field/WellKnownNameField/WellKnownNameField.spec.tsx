@@ -42,10 +42,10 @@ describe('WellKnownNameField', () => {
     expect(field.container).toBeDefined();
   });
 
-  it('can handle wellKnownNames property', async () => {
+  it('can handle wellKnownNames property', async() => {
     const field = render(<WellKnownNameField wellKnownNames={['circle', 'square']} />);
     const input = await field.findByRole('combobox');
-    await act(async () => {
+    await act(async() => {
       fireEvent.mouseDown(input);
     });
     expect(document.body.querySelectorAll('.ant-select-item').length).toBe(2);

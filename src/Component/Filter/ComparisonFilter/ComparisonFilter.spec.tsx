@@ -55,14 +55,14 @@ describe('ComparisonFilter', () => {
   });
 
   describe('#onOperatorChange', () => {
-    it('calls onFilterChange is available', async () => {
+    it('calls onFilterChange is available', async() => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
       const onFilterChangeDummy = jest.fn();
       const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
       const operator = '!=';
       const input = field.container.querySelector('.gs-operator-combo input');
       // const input = await field.findByRole('combobox');
-      await act(async () => {
+      await act(async() => {
         fireEvent.mouseDown(input);
       });
       const option = await screen.findByTitle(operator);
@@ -72,7 +72,7 @@ describe('ComparisonFilter', () => {
   });
 
   describe('#onValueChange', () => {
-    it('calls onFilterChange is available', async () => {
+    it('calls onFilterChange is available', async() => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
       const onFilterChangeDummy = jest.fn();
       const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
@@ -84,8 +84,8 @@ describe('ComparisonFilter', () => {
   });
 
   describe('#validateFilter', () => {
-    it('shows an error if attribute is invalid', async () => {
-      const filter: GsComparisionFilter = ['==', , 'Peter'];
+    it('shows an error if attribute is invalid', async() => {
+      const filter: GsComparisionFilter = ['==', '', 'Peter'];
       render(<ComparisonFilter filter={filter} />);
       const errorWarnings = await screen.findAllByRole('alert');
       expect(errorWarnings).toHaveLength(1);

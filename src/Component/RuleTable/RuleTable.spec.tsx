@@ -82,19 +82,19 @@ describe('RuleTable', () => {
     expect(RuleTable).toBeDefined();
   });
 
-  test('… renders', async () => {
+  test('… renders', async() => {
     expect(ruleTable.container).toBeInTheDocument();
   });
 
   describe('SymbolizerRenderer', () => {
-    it('… renders a symbolizer for every rule', async () => {
+    it('… renders a symbolizer for every rule', async() => {
       const symbolizerRenderer = await ruleTable.container.querySelectorAll('.gs-symbolizer-renderer');
       expect(symbolizerRenderer).toHaveLength(2);
     });
   });
 
   describe('NameRenderer', () => {
-    it('… renders the name for every rule', async () => {
+    it('… renders the name for every rule', async() => {
       const nameRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=name-renderer]');
       nameRenderers.forEach((nameRenderer, index) => {
         expect(nameRenderers[index].value).toBe(dummyRules[index].name);
@@ -103,7 +103,7 @@ describe('RuleTable', () => {
   });
 
   describe('FilterRenderer', () => {
-    it('… renders the filter for every rule', async () => {
+    it('… renders the filter for every rule', async() => {
       const rulesWithFilter = TestUtil.getTwoRulesStyle().rules;
       rulesWithFilter[0].filter = ['==', 'name', 'Peter'];
       rulesWithFilter[1].filter = TestUtil.getDummyGsFilter();
@@ -118,7 +118,7 @@ describe('RuleTable', () => {
   });
 
   describe('MinScaleRenderer', () => {
-    it('… renders the minScale for every rule', async () => {
+    it('… renders the minScale for every rule', async() => {
       const rulesWithMinScale = TestUtil.getTwoRulesStyle().rules;
       rulesWithMinScale[0].scaleDenominator = {
         min: 12,
@@ -139,7 +139,7 @@ describe('RuleTable', () => {
   });
 
   describe('MaxScaleRenderer', () => {
-    it('… renders the maxScale for every rule', async () => {
+    it('… renders the maxScale for every rule', async() => {
       const rulesWithMaxScale = TestUtil.getTwoRulesStyle().rules;
       rulesWithMaxScale[0].scaleDenominator = {
         min: 12,
@@ -160,13 +160,13 @@ describe('RuleTable', () => {
   });
 
   describe('AmountRenderer', () => {
-    it('… returns the count of features in the FeatureCollection', async () => {
+    it('… returns the count of features in the FeatureCollection', async() => {
       const amountRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('.amount-renderer');
       expect(amountRenderers.length).toBe(2);
       expect(amountRenderers[0].innerHTML).toBe('2');
       expect(amountRenderers[1].innerHTML).toBe('2');
     });
-    it('… returns the count of the matching features when filter and data present', async () => {
+    it('… returns the count of the matching features when filter and data present', async() => {
       const rulesWithFilter = TestUtil.getTwoRulesStyle().rules;
       rulesWithFilter[0].filter = ['==', 'name', 'Peter'];
       rulesWithFilter[1].filter = TestUtil.getDummyGsFilter();
@@ -182,7 +182,7 @@ describe('RuleTable', () => {
   });
 
   describe('DuplicatesRenderer', () => {
-    it('… returns duplicates when data and rules are present', async () => {
+    it('… returns duplicates when data and rules are present', async() => {
       const rulesWithFilter = TestUtil.getTwoRulesStyle().rules;
       rulesWithFilter[0].filter = ['==', 'name', 'Peter'];
       rulesWithFilter[1].filter = ['!=', 'name', 'Hilde'];

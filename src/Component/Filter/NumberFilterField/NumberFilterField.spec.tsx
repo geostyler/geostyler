@@ -42,7 +42,7 @@ describe('NumberFilterField', () => {
   });
 
   describe('#onChange', () => {
-    it('calls onValueChange of props', async () => {
+    it('calls onValueChange of props', async() => {
       const onChangeDummy = jest.fn();
       const value = 1909.09;
       const field = render(<NumberFilterField onValueChange={onChangeDummy} />);

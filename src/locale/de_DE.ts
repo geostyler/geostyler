@@ -26,9 +26,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-'use strict';
-
 import de_DE from 'antd/lib/locale-provider/de_DE';
 export default {
   GsApp: {

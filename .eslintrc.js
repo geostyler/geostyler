@@ -8,5 +8,16 @@ module.exports = {
       }
     ],
     '@typescript-eslint/member-ordering': 0
-  }
+  },
+  overrides: [
+    {
+      files: [
+        "**/*.spec.ts",
+        "**/*.spec.tsx"
+      ],
+      env: {
+        "jest": true
+      }
+    }
+  ]
 };
