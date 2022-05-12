@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /* eslint-disable max-len */
 /* Released under the BSD 2-Clause License
  *
