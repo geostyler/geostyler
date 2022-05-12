@@ -239,7 +239,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
     }
   };
 
-  // TODO: implement strategy to handel FunctionFilter
+  // TODO: implement strategy to handle FunctionFilter
   const attribute = _isString(filter[1]) ? filter[1] : undefined;
   const attributeType = attribute ? internalDataDef?.schema?.properties[attribute]?.type : undefined;
   const operator = filter[0];
