@@ -286,42 +286,28 @@ class FilterUtil {
   static insertAtPosition(
     baseFilter: Filter,
     insertFilter: Filter,
-    position: string,
-    dropPosition: number
+    position: string
   ): Filter {
     const dropTargetParentPosition = position.substring(0, position.length - 3);
-    const dropTargetSubPosition = position.substr(position.length - 3);
-    const dropTargetSubIndex = dropTargetParentPosition === ''
-      ? 1
-      : parseInt(dropTargetSubPosition.slice(1, 2), 10);
-    const dropTargetIsComparison = !['&', '||', '!'].includes(insertFilter[0]);
+    const dropTargetSubPosition = position.substring(position.length - 3);
+    const dropTargetSubIndex = parseInt(dropTargetSubPosition.slice(1, 2), 10);
+    const dropTargetIsComparison = !['&&', '||', '!'].includes(insertFilter[0]);
     let newFilter: Filter = [...baseFilter];
 
     const newSubFilter = dropTargetParentPosition === ''
       ? newFilter
       : _get(newFilter, dropTargetParentPosition);
 
-    // Add to new position
-    switch (dropPosition) {
-      // before
-      case 0:
+    if (dropTargetIsComparison) {
+      if (newFilter.length - 1 === dropTargetSubIndex) {
+        newSubFilter.push(insertFilter);
+      } else {
         newSubFilter.splice(dropTargetSubIndex, 0, insertFilter);
-        break;
-        // on
-      case 1:
-        if (dropTargetIsComparison) {
-          newSubFilter.splice(dropTargetSubIndex + 1, 0, insertFilter);
-        } else {
-          newSubFilter.push(insertFilter);
-        }
-        break;
-        // after
-      case 2:
-        newSubFilter.splice(dropTargetSubIndex + 1, 0, insertFilter);
-        break;
-      default:
-        break;
+      }
+    } else {
+      newSubFilter.push(insertFilter);
     }
+
     return newFilter;
   }
 

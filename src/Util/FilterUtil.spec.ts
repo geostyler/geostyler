@@ -360,31 +360,35 @@ describe('FilterUtil', () => {
     it('insterts a filter at the expected position', () => {
       const baseFilter: Filter = [
         '&&',
-        [
-          '!',
-          ['==', 'name', 'Schalke']
-        ]
+        ['==', 'state', 'germany']
       ];
       const got = [
         '&&',
         ['==', 'state', 'germany'],
         [
-          '!',
-          ['==', 'name', 'Schalke']
+          '||',
+          ['>=', 'population', 100000],
+          ['<', 'population', 200000]
         ]
       ];
-      const newFilter = FilterUtil.insertAtPosition(baseFilter, ['==', 'state', 'germany'], '[1]', 0);
-      expect(newFilter).toEqual(got);
-
-      const newFilter2 = FilterUtil.insertAtPosition(
-        newFilter,
+      const newFilter = FilterUtil.insertAtPosition(
+        baseFilter,
         [
           '||',
           ['>=', 'population', 100000],
           ['<', 'population', 200000]
         ],
-        '[1]',
-        2
+        '[1]'
+      );
+      expect(newFilter).toEqual(got);
+
+      const newFilter2 = FilterUtil.insertAtPosition(
+        newFilter,
+        [
+          '!',
+          ['==', 'name', 'Schalke']
+        ],
+        '[1]'
       );
       expect(newFilter2).toEqual(filter);
     });
