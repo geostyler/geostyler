@@ -301,7 +301,6 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
   const onDrop = (dropObject: any) => {
     const {
       dragNode,
-      dropPosition,
       node
     } = dropObject;
 
@@ -348,7 +347,7 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
 
     const removePosition = FilterUtil.positionArrayAsString(removePositionArray);
     // Insert into new position
-    newFilter = FilterUtil.insertAtPosition(newFilter, draggedFilter, dropTargetPosition, dropPosition);
+    newFilter = FilterUtil.insertAtPosition(newFilter, draggedFilter, dropTargetPosition);
     // Remove from old position
     newFilter = FilterUtil.removeAtPosition(newFilter, removePosition);
 
