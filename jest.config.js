@@ -27,35 +27,37 @@
  */
 
 module.exports = {
-  "testEnvironment": "jsdom",
-  "collectCoverageFrom": [
+  testEnvironment: "jsdom",
+  testEnvironmentOptions : {
+    url: "http://localhost",
+  },
+  collectCoverageFrom: [
     "src/Component/**/*.{tsx,jsx}",
     "src/DataProvider/**/*.{ts,tsx,jsx}",
     "src/Util/**/*.{ts,js}"
   ],
-  "setupFilesAfterEnv": [
+  setupFilesAfterEnv: [
     // Runs special logic, such as cleaning up components
     // when using React Testing Library and adds special
     // extended assertions to Jest
     "@testing-library/jest-dom/extend-expect",
     "<rootDir>/jest/setup.js"
   ],
-  "testMatch": [
+  testMatch: [
     "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
     "<rootDir>/src/**/?(*.)(spec|test).(j|t)s?(x)"
   ],
-  "testURL": "http://localhost",
-  "transform": {
+  transform: {
     "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
     "^.+\\.tsx?$": "<rootDir>/node_modules/babel-jest"
   },
-  "moduleNameMapper": {
+  moduleNameMapper: {
     '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.js'
   },
-  "transformIgnorePatterns": [
+  transformIgnorePatterns: [
     "<rootDir>/node_modules/(?!(ol|antd|geostyler-style))"
   ],
-  "moduleFileExtensions": [
+  moduleFileExtensions: [
     "ts",
     "tsx",
     "js",
