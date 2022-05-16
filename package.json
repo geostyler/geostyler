@@ -93,7 +93,7 @@
     "@testing-library/dom": "^8.11.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/user-event": "^14.2.0",
     "@types/enzyme": "^3.10.11",
     "@types/jest": "^27.5.1",
     "@types/jest-diff": "^24.3.0",
