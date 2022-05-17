@@ -49,7 +49,11 @@ describe('WfsParserInput', () => {
     it('shows and error when url is to short', async() => {
       const onClickMock = jest.fn();
       const field = render(<WfsParserInput onClick={onClickMock} />);
-      const input = await field.container.querySelector('input.wfs-url-input');
+      // const input = field.container.querySelector('input.wfs-url-input');
+      // https://github.com/ant-design/ant-design/issues/35600
+      // Due to a bug in antd the class is set on the wrong element.
+      // Has to be undone once this bug is fixed.
+      const input = field.container.querySelector('span.wfs-url-input > input');
       fireEvent.change(input, { target: { value: '' }});
       expect(await field.findByRole('alert')).toBeInTheDocument();
       expect(await field.findByText('Url is required')).toBeInTheDocument();
@@ -60,7 +64,11 @@ describe('WfsParserInput', () => {
     it('shows and error when typeName is to short', async() => {
       const onClickMock = jest.fn();
       const field = render(<WfsParserInput onClick={onClickMock} />);
-      const input = await field.container.querySelector('input.wfs-typename-input');
+      // const input = field.container.querySelector('input.wfs-typename-input');
+      // https://github.com/ant-design/ant-design/issues/35600
+      // Due to a bug in antd the class is set on the wrong element.
+      // Has to be undone once this bug is fixed.
+      const input = field.container.querySelector('span.wfs-typename-input > input');
       fireEvent.change(input, { target: { value: '' }});
       expect(await field.findByRole('alert')).toBeInTheDocument();
       expect(await field.findByText('TypeName is required')).toBeInTheDocument();
@@ -80,13 +88,25 @@ describe('WfsParserInput', () => {
       const field = render(<WfsParserInput onClick={onClickMock} />);
 
       // url
-      const urlInput = field.container.querySelector('input.wfs-url-input');
+      // const urlInput = field.container.querySelector('input.wfs-url-input');
+      // https://github.com/ant-design/ant-design/issues/35600
+      // Due to a bug in antd the class is set on the wrong element.
+      // Has to be undone once this bug is fixed.
+      const urlInput = field.container.querySelector('span.wfs-url-input > input');
       fireEvent.change(urlInput, { target: { value: mockParams.url }});
       // typename
-      const typeNameInput = field.container.querySelector('input.wfs-typename-input');
+      // const typeNameInput = field.container.querySelector('input.wfs-typename-input');
+      // https://github.com/ant-design/ant-design/issues/35600
+      // Due to a bug in antd the class is set on the wrong element.
+      // Has to be undone once this bug is fixed.
+      const typeNameInput = field.container.querySelector('span.wfs-typename-input > input');
       fireEvent.change(typeNameInput, { target: { value: mockParams.typeName }});
       // feature id
-      const featureIdInput = field.container.querySelector('input.wfs-featureid-input');
+      // const featureIdInput = field.container.querySelector('input.wfs-featureid-input');
+      // https://github.com/ant-design/ant-design/issues/35600
+      // Due to a bug in antd the class is set on the wrong element.
+      // Has to be undone once this bug is fixed.
+      const featureIdInput = field.container.querySelector('span.wfs-featureid-input > input');
       fireEvent.change(featureIdInput, { target: { value: mockParams.featureID }});
       // version
       const input = await field.findAllByRole('combobox');
