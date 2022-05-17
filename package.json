@@ -75,7 +75,7 @@
     "geostyler-wfs-parser": "^1.0.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "monaco-editor": "^0.32.1",
+    "monaco-editor": "^0.33.0",
     "react-color": "^2.19.3",
     "react-rnd": "^10.2.4",
     "typescript-json-schema": "^0.53.0"
