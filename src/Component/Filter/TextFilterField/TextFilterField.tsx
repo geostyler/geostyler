@@ -28,7 +28,7 @@
 
 import * as React from 'react';
 
-import { Input, Form, AutoComplete } from 'antd';
+import { Input, Form, AutoComplete, InputRef } from 'antd';
 import { Data } from 'geostyler-data';
 
 import _get from 'lodash/get';
@@ -76,7 +76,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
   size
 }) => {
 
-  const inputRef = React.useRef<Input>();
+  const inputRef = React.useRef<InputRef>();
   const [inputSelectionStart, setInputSelectionStart] = React.useState<number>(0);
   const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>(0);
 
