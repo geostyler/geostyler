@@ -67,6 +67,7 @@ import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 import './Style.less';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { ItemType } from 'antd/lib/menu/hooks/useItems';
 
 // i18n
 export interface StyleLocale {
@@ -440,6 +441,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
         return !isValid;
     }
   };
+
   createFooter = () => {
     const {
       locale
@@ -453,47 +455,46 @@ export class Style extends React.Component<StyleProps, StyleState> {
     const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
     const allowClone = selectedRowKeys.length > 0;
 
+    const items: ItemType[] = [{
+      key: 'addRule',
+      label: locale.addRuleBtnText,
+      icon: <PlusOutlined />
+    }, {
+      key: 'cloneRules',
+      label: locale.addRuleBtnText,
+      disabled: !allowClone,
+      icon: <CopyOutlined />
+    }, {
+      key: 'removeRule',
+      label: locale.removeRulesBtnText,
+      disabled: !allowRemove,
+      icon: <MinusOutlined />
+    }, {
+      key: 'multi-edit',
+      label: <span><MenuUnfoldOutlined /><span>{locale.multiEditLabel}</span></span>,
+      disabled: selectedRowKeys.length <= 1,
+      children:[{
+        key: 'color',
+        label: locale.colorLabel,
+        disabled: this.disableMenu('color', selectedRowKeys)
+      }, {
+        key: 'size',
+        label: locale.radiusLabel,
+        disabled: this.disableMenu('size', selectedRowKeys)
+      }, {
+        key: 'symbol',
+        label: locale.symbolLabel,
+        disabled: this.disableMenu('symbol', selectedRowKeys)
+      }]
+    }];
+
     return (
       <Menu
         mode="horizontal"
         onClick={this.onTableMenuClick}
         selectable={false}
-      >
-        <Menu.Item key="addRule">
-          <PlusOutlined />
-          {locale.addRuleBtnText}
-        </Menu.Item>
-        <Menu.Item key="cloneRules"
-          disabled={!allowClone}
-        >
-          <CopyOutlined />
-          {locale.cloneRulesBtnText}
-        </Menu.Item>
-        <Menu.Item key="removeRule"
-          disabled={!allowRemove}
-        >
-          <MinusOutlined />
-          {locale.removeRulesBtnText}
-        </Menu.Item>
-        <Menu.SubMenu
-          title={<span><MenuUnfoldOutlined /><span>{locale.multiEditLabel}</span></span>}
-          disabled={selectedRowKeys.length <= 1}
-        >
-          <Menu.Item
-            key="color"
-            disabled={this.disableMenu('color', selectedRowKeys)}
-          >{locale.colorLabel}</Menu.Item>
-          <Menu.Item
-            key="size"
-            disabled={this.disableMenu('size', selectedRowKeys)}
-          >{locale.radiusLabel}</Menu.Item>
-          <Menu.Item key="opacity">{locale.opacityLabel}</Menu.Item>
-          <Menu.Item
-            key="symbol"
-            disabled={this.disableMenu('symbol', selectedRowKeys)}
-          >{locale.symbolLabel}</Menu.Item>
-        </Menu.SubMenu>
-      </Menu>
+        items={items}
+      />
     );
   };
 

@@ -69,6 +69,7 @@ import {
   isNegationFilter
 } from 'geostyler-style/dist/typeguards';
 import FilterUtil from '../../../Util/FilterUtil';
+import { ItemType } from 'antd/lib/menu/hooks/useItems';
 
 interface FilterTreeLocale {
   andDrpdwnLabel: string;
@@ -192,28 +193,53 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
       }
     };
 
+    const items: ItemType[] = [];
+    if (isCombinationFilter(filter)) {
+      items.push({
+        label: 'Add filter',
+        key: 'add',
+        icon: <PlusOutlined />,
+        children: [{
+          label: locale.andDrpdwnLabel,
+          key: 'and'
+        }, {
+          label: locale.orDrpdwnLabel,
+          key: 'or'
+        }, {
+          label: locale.notDrpdwnLabel,
+          key: 'not'
+        },{
+          label: locale.comparisonDrpdwnLabel,
+          key: 'comparison'
+        }],
+      });
+    }
+    items.push({
+      label: 'Change filter',
+      key: 'change',
+      icon: <FilterOutlined />,
+      children: [{
+        label: locale.andDrpdwnLabel,
+        key: 'and'
+      }, {
+        label: locale.orDrpdwnLabel,
+        key: 'or'
+      }, {
+        label: locale.notDrpdwnLabel,
+        key: 'not'
+      },{
+        label: locale.comparisonDrpdwnLabel,
+        key: 'comparison'
+      }],
+    });
+    items.push({
+      key: 'remove',
+      icon: <MinusOutlined />
+    });
+
     const menu = (
       <Dropdown overlay={
-        <Menu onClick={onMenuClick}>
-          {
-            isCombinationFilter(filter) &&
-            <Menu.SubMenu key="add" title="Add filter" icon={<PlusOutlined />}>
-              <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
-              <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
-              <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
-              <Menu.Item key="comparison">{locale.comparisonDrpdwnLabel}</Menu.Item>
-            </Menu.SubMenu>
-          }
-          <Menu.SubMenu key="change" title="Change filter" icon={<FilterOutlined />}>
-            <Menu.Item key="and">{locale.andDrpdwnLabel}</Menu.Item>
-            <Menu.Item key="or">{locale.orDrpdwnLabel}</Menu.Item>
-            <Menu.Item key="not">{locale.notDrpdwnLabel}</Menu.Item>
-            <Menu.Item key="comparison">{locale.comparisonDrpdwnLabel}</Menu.Item>
-          </Menu.SubMenu>
-          <Menu.Item key="remove" icon={<MinusOutlined />}>
-            Remove Filter
-          </Menu.Item>
-        </Menu>
+        <Menu onClick={onMenuClick} items={items} />
       }>
         <Button
           className="filter-menu-button"
