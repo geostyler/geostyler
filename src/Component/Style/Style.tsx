@@ -466,7 +466,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       icon: <CopyOutlined />
     }, {
       key: 'removeRule',
-      label: locale.addRuleBtnText,
+      label: locale.removeRulesBtnText,
       disabled: !allowRemove,
       icon: <MinusOutlined />
     }, {
