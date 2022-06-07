@@ -97,7 +97,7 @@ export const RuleCard: React.FC<RuleCardProps> = ({
         data={data}
         {...rendererProps}
       />
-      <Divider type='vertical'/>
+      <Divider type='vertical' />
       <div className='gs-rule-card-content'>
         <h2>{rule.name}</h2>
         <span>1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}</span>
