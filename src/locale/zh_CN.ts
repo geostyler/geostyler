@@ -40,6 +40,13 @@ export default {
     imageFieldLabel: '来源',
     imageFieldTooltipLabel: '打开图库'
   },
+  GsBulkEditor: {
+    colorLabel: '选择颜色',
+    radiusLabel: '选择半径',
+    opacityLabel: '选择不透明度',
+    symbolLabel: '选择符号',
+    imageFieldLabel: '来源'
+  },
   GsRule: {
     removeRuleBtnText: '移除规则',
     scaleFieldTitle: '使用比例尺',
@@ -64,7 +71,9 @@ export default {
     styleTitle: 'TODO',
     classificationTitle: '分类',
     multiEditTitle: '同时编辑',
-    symbolizerTitle: 'TODO'
+    symbolizerTitle: 'TODO',
+    filterTitle: 'TODO',
+    iconLibrariesTitle: 'TODO'
   },
   GsStyleOverview: {
     styleTitle: 'TODO'
@@ -73,6 +82,12 @@ export default {
     ruleTitle: 'TODO'
   },
   GsSymbolizerCard: {
+  },
+  GsSymbolizers: {
+    symbolizersTitle: 'TODO',
+    addSymbolizer: 'TODO',
+    showAll: 'TODO',
+    hide: 'TODO'
   },
   GsStyleLoader: {
     label: '加载样式: ',
@@ -276,6 +291,9 @@ export default {
   },
   GsSymbolizerEditorWindow: {
     symbolizersEditor: '符号编辑器'
+  },
+  GsFilterOverview: {
+    filterTitle: 'TODO'
   },
   GsFilterEditorWindow: {
     filterEditor: '过滤器编辑器'
