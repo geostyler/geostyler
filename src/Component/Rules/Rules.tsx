@@ -54,7 +54,7 @@ import { Button, Switch, Divider } from 'antd';
 import _cloneDeep from 'lodash/cloneDeep';
 import Selectable from '../Selectable/Selectable';
 import Removable from '../Removable/Removable';
-import { RuleCard } from '../RuleCard/RuleCard';
+import { RuleCard, RuleCardProps } from '../RuleCard/RuleCard';
 
 // i18n
 export interface RulesLocale {
@@ -72,8 +72,6 @@ export interface RulesLocale {
 interface RulesDefaultProps {
   /** Locale object containing translated text snippets */
   locale: RulesLocale;
-  /** The renderer to use */
-  rendererType: 'SLD' | 'OpenLayers';
   /** Properties of the SLD renderer */
   sldRendererProps: SLDRendererAdditonalProps;
   /** Properties of the OpenLayers renderer */
@@ -82,6 +80,8 @@ interface RulesDefaultProps {
   showAmount: boolean;
   /** Display the number of features that match more than one rule */
   showDuplicates: boolean;
+  /** Enable classification */
+  enableClassification: boolean;
 }
 
 // non default props
@@ -106,13 +106,13 @@ export interface RulesProps extends Partial<RulesDefaultProps> {
   colorRamps?: {
     [name: string]: string[];
   };
+  /** The passthrough props for the RuleCard component. */
+  ruleCardProps?: Partial<RuleCardProps>;
 }
 
 export const Rules: React.FC<RulesProps> = ({
   locale = en_US.GsRules,
-  rendererType = 'OpenLayers',
-  sldRendererProps,
-  oLRendererProps,
+  ruleCardProps,
   showAmount = true,
   showDuplicates = true,
   data,
@@ -124,6 +124,7 @@ export const Rules: React.FC<RulesProps> = ({
   filterUiProps,
   iconLibraries = [],
   colorRamps,
+  enableClassification = true
 }) => {
   const [multiEditActive, setMultiEditActive] = useState<boolean>(false);
   const [selectedRules, setSelectedRules] = useState<number[]>([]);
@@ -220,24 +221,32 @@ export const Rules: React.FC<RulesProps> = ({
             editRule(idx);
           }
         }}
+        {...ruleCardProps}
       />
     );
   });
 
-  const defaultActions: ReactNode[] = [
-    <Button
-      onClick={addRule}
-      key={0}
-    >
-      {locale.addRule}
-    </Button>,
-    <Button
-      onClick={classificationClick}
-      key={1}
-    >
-      {locale.classification}
-    </Button>
-  ];
+  const getDefaultActions = (): ReactNode[] => {
+    const actions = [
+      <Button
+        onClick={addRule}
+        key={0}
+      >
+        {locale.addRule}
+      </Button>
+    ];
+    if (enableClassification) {
+      actions.push(
+        <Button
+          onClick={classificationClick}
+          key={1}
+        >
+          {locale.classification}
+        </Button>
+      );
+    }
+    return actions;
+  };
 
   const multiEditActions: ReactNode[] = [
     <Button
@@ -293,7 +302,7 @@ export const Rules: React.FC<RulesProps> = ({
       <Divider />
       <div className='gs-rules-actions'>
         {
-          multiEditActive ? multiEditActions : defaultActions
+          multiEditActive ? multiEditActions : getDefaultActions()
         }
       </div>
     </div>
