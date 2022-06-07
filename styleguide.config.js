@@ -70,6 +70,9 @@ module.exports = {
   }, {
     name: 'Components',
     sections: [{
+      name: 'BulkdEditor',
+      components: 'src/Component/BulkEditor/**/*.tsx'
+    }, {
       name: 'CodeEditor',
       components: 'src/Component/CodeEditor/**/*.tsx'
     }, {
@@ -81,6 +84,9 @@ module.exports = {
     }, {
       name: 'Filter',
       components: 'src/Component/Filter/**/*.tsx'
+    }, {
+      name: 'FilterOverview',
+      components: 'src/Component/FilterOverview/**/*.tsx'
     }, {
       name: 'LocaleWrapper',
       components: 'src/Component/LocaleWrapper/**/*.tsx'
@@ -121,6 +127,9 @@ module.exports = {
       name: 'SymbolizerCard',
       components: 'src/Component/SymbolizerCard/**/*.tsx'
     }, {
+      name: 'Symbolizers',
+      components: 'src/Component/Symbolizers/**/*.tsx'
+    }, {
       name: 'Selectable',
       components: 'src/Component/Selectable/*.tsx'
     }, {
@@ -135,6 +144,9 @@ module.exports = {
     }, {
       name: 'Breadcrumb',
       components: 'src/Component/Breadcrumb/**/*.tsx'
+    }, {
+      name: 'Renderer',
+      components: 'src/Component/Renderer/**/*.tsx'
     }, {
       name: 'PreviewMap',
       components: 'src/Component/PreviewMap/**/*.tsx'
