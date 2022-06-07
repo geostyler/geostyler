@@ -25,7 +25,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
 import React from 'react';
 import { act, render, fireEvent } from '@testing-library/react';
 import { TextEditor, TextEditorProps } from './TextEditor';

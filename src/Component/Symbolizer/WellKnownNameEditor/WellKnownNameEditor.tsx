@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import * as React from 'react';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import {
   MarkSymbolizer,

@@ -52,7 +52,6 @@ export interface NumberFilterFieldProps extends Partial<NumberFilterFieldDefault
 /**
  * Input field for a numeric filter value.
  */
-// export class NumberFilterField extends React.Component<NumberFilterFieldProps, NumberFilterFieldState> {
 export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
   label = 'Value',
   placeholder = 'Enter Numeric Value',
