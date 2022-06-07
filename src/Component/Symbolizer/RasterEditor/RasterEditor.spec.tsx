@@ -25,45 +25,44 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
 import { RasterEditor, RasterEditorProps } from './RasterEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { RasterSymbolizer } from 'geostyler-style';
+import { act, render, fireEvent } from '@testing-library/react';
 
 describe('RasterEditor', () => {
 
-  let wrapper: any;
   let dummySymbolizer: RasterSymbolizer = SymbolizerUtil.generateSymbolizer('Raster') as RasterSymbolizer;
-  let onSymbolizerChangeDummy: jest.Mock;
-
-  beforeEach(() => {
-    onSymbolizerChangeDummy = jest.fn();
-    const props: RasterEditorProps = {
-      symbolizer: dummySymbolizer,
-      locale: en_US.GsRasterEditor,
-      onSymbolizerChange: onSymbolizerChangeDummy,
-      defaultValues: undefined
-    };
-    wrapper = TestUtil.shallowRenderComponent(RasterEditor, props);
-  });
+  const props: RasterEditorProps = {
+    symbolizer: dummySymbolizer,
+    locale: en_US.GsRasterEditor,
+    onSymbolizerChange: jest.fn(),
+    defaultValues: undefined
+  };
 
   it('is defined', () => {
     expect(RasterEditor).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const rasterEditor = render(<RasterEditor {...props} />);
+    expect(rasterEditor.container).toBeInTheDocument();
   });
 
   describe('onOpacityChange', () => {
-    it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
-      const onOpacityChange = wrapper.instance().onOpacityChange;
+    it('calls the onSymbolizerChange prop with correct symbolizer ', async () => {
+      const wellKnownNameEditor = render(<RasterEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.opacity = 0.5;
-      onOpacityChange(0.5);
-      expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+      const input = wellKnownNameEditor.container.querySelectorAll('.opacity-field input')[0];
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 0.5 }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
     });
   });
 });

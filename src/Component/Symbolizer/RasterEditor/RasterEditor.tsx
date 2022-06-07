@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import {
   Symbolizer,
@@ -94,111 +94,84 @@ type ShowDisplay = 'symbolizer' | 'colorMap' | 'contrastEnhancement';
 export interface RasterEditorState {
   showDisplay: ShowDisplay;
 }
+const COMPONENTNAME = 'RasterEditor';
 
-export class RasterEditor extends React.Component<RasterEditorProps, RasterEditorState> {
+export const RasterEditor: React.FC<RasterEditorProps> = ({
+  locale = en_US.GsRasterEditor,
+  contrastEnhancementTypes,
+  symbolizer,
+  onSymbolizerChange,
+  internalDataDef,
+  colorRamps,
+  defaultValues
+}) => {
 
-  static componentName: string = 'RasterEditor';
+  const [showDisplay, setShowDisplay] = useState('symbolizer');
 
-  public static defaultProps: RasterEditorDefaultProps = {
-    locale: en_US.GsRasterEditor
-  };
-
-  constructor(props: RasterEditorProps) {
-    super(props);
-    this.state = {
-      showDisplay: 'symbolizer'
-    };
-  }
-
-  onOpacityChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.opacity = value;
+  const onOpacityChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onChannelEditorChange = (value: ChannelSelection) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.channelSelection = value;
+  const onChannelEditorChange = (value: ChannelSelection) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.channelSelection = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onContrastEnhancementChange = (value: ContrastEnhancement['enhancementType']) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    if (symbolizer.contrastEnhancement) {
-      symbolizer.contrastEnhancement.enhancementType = value;
+  const onContrastEnhancementChange = (value: ContrastEnhancement['enhancementType']) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    if (symbolizerClone.contrastEnhancement) {
+      symbolizerClone.contrastEnhancement.enhancementType = value;
     } else {
-      symbolizer.contrastEnhancement = {
+      symbolizerClone.contrastEnhancement = {
         enhancementType: value
       };
     }
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onGammaValueChange = (value: ContrastEnhancement['gammaValue']) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    if (symbolizer.contrastEnhancement) {
-      symbolizer.contrastEnhancement.gammaValue = value;
+  const onGammaValueChange = (value: ContrastEnhancement['gammaValue']) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    if (symbolizerClone.contrastEnhancement) {
+      symbolizerClone.contrastEnhancement.gammaValue = value;
     } else {
-      symbolizer.contrastEnhancement = {
+      symbolizerClone.contrastEnhancement = {
         gammaValue: value
       };
     }
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onColorMapChange = (value: ColorMap) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.colorMap = value;
+  const onColorMapChange = (value: ColorMap) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.colorMap = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
-  };
-
-  /**
-   * Toggles the editor view. Switches from SymbolizerEditor to ChannelSelection
-   * or ColorMap and back.
-   */
-  toggleView = (showDisplay: ShowDisplay) => {
-    this.setState({
-      showDisplay
-    });
   };
 
   /**
    * Wraps a Form Item around a given element and adds its locale
    * to the From Item label.
    */
-  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
+  const wrapFormItem = (label: string, element: React.ReactElement): React.ReactElement => {
     const formItemLayout = {
       labelCol: { span: 8 },
       wrapperCol: { span: 16 }
     };
     return element == null ? null : (
       <Form.Item
-        label={locale}
+        label={label}
         {...formItemLayout}
       >
         {element}
@@ -206,145 +179,130 @@ export class RasterEditor extends React.Component<RasterEditorProps, RasterEdito
     );
   };
 
-  render() {
-    const {
-      locale,
-      symbolizer,
-      internalDataDef,
-      contrastEnhancementTypes,
-      colorRamps,
-      defaultValues
-    } = this.props;
+  const {
+    opacity,
+    contrastEnhancement,
+    colorMap,
+    channelSelection
+  } = symbolizer;
 
-    const {
-      opacity,
-      contrastEnhancement,
-      colorMap,
-      channelSelection
-    } = symbolizer;
-
-    const {
-      showDisplay
-    } = this.state;
-
-    let sourceChannelNames: string[];
-    if (internalDataDef && DataUtil.isRaster(internalDataDef)) {
-      sourceChannelNames = Object.keys(internalDataDef.rasterBandInfo);
-    }
-
-    const toggleViewButtonLayout = {
-      wrapperCol: {span: 24}
-    };
-
-    return (
-      <CompositionContext.Consumer>
-        {(composition: Compositions) => (
-          <div className="gs-raster-symbolizer-editor" >
-            {
-              showDisplay !== 'symbolizer' ? null : ([
-                this.wrapFormItem(
-                  locale.opacityLabel,
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'RasterEditor.opacityField',
-                    onChange: this.onOpacityChange,
-                    propName: 'opacity',
-                    propValue: opacity,
-                    defaultValue: defaultValues?.RasterEditor?.defaultOpacity,
-                    defaultElement: <OpacityField />
-                  })
-                ),
-                this.wrapFormItem(
-                  locale.contrastEnhancementLabel,
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'RasterEditor.contrastEnhancementField',
-                    onChange: this.onContrastEnhancementChange,
-                    propName: 'contrastEnhancement',
-                    propValue: _get(contrastEnhancement, 'enhancementType'),
-                    defaultElement: <ContrastEnhancementField />
-                  })
-                ),
-                this.wrapFormItem(
-                  locale.gammaValueLabel,
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'RasterEditor.gammaValueField',
-                    onChange: this.onGammaValueChange,
-                    propName: 'gamma',
-                    propValue: _get(contrastEnhancement, 'gammaValue'),
-                    defaultValue: defaultValues?.RasterEditor?.defaultGammaValue,
-                    defaultElement: <GammaField />
-                  })
-                ),
-                <Form.Item
-                  className="gs-raster-editor-view-toggle"
-                  key="toggleColorMap"
-                  {...toggleViewButtonLayout}
-                >
-                  <a onClick={() => this.toggleView('colorMap')}>{`${locale.colorMapLabel} >>`}</a>
-                </Form.Item>,
-                <Form.Item
-                  className="gs-raster-editor-view-toggle"
-                  key="toggleContrastEnhancement"
-                  {...toggleViewButtonLayout}
-                >
-                  <a onClick={() => this.toggleView('contrastEnhancement')}>
-                    {`${locale.channelSelectionLabel} >>`}
-                  </a>
-                </Form.Item>
-              ])
-            }
-            {
-              showDisplay !== 'contrastEnhancement' ? null : ([
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'RasterEditor.rasterChannelField',
-                  onChange: this.onChannelEditorChange,
-                  propName: 'channelSelection',
-                  propValue: channelSelection,
-                  defaultElement: (
-                    <RasterChannelEditor
-                      sourceChannelNames={sourceChannelNames}
-                      contrastEnhancementTypes={contrastEnhancementTypes}
-                    />
-                  )
-                }),
-                <Form.Item
-                  key="toggleSymbolizer"
-                  {...toggleViewButtonLayout}
-                >
-                  <a onClick={() => this.toggleView('symbolizer')}>{`<< ${locale.symbolizerLabel}`}</a>
-                </Form.Item>
-              ])
-            }
-            {
-              showDisplay !== 'colorMap' ? null : ([
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'RasterEditor.colorMapField',
-                  onChange: this.onColorMapChange,
-                  propName: 'colorMap',
-                  propValue: colorMap,
-                  defaultElement: (
-                    <ColorMapEditor
-                      colorRamps={colorRamps}
-                    />
-                  )
-                }),
-                <Form.Item
-                  key="toggleSymbolizer"
-                  {...toggleViewButtonLayout}
-                >
-                  <a onClick={() => this.toggleView('symbolizer')}>{`<< ${locale.symbolizerLabel}`}</a>
-                </Form.Item>
-              ])
-            }
-          </div>
-        )}
-      </CompositionContext.Consumer>
-    );
+  let sourceChannelNames: string[];
+  if (internalDataDef && DataUtil.isRaster(internalDataDef)) {
+    sourceChannelNames = Object.keys(internalDataDef.rasterBandInfo);
   }
-}
 
-export default withDefaultsContext(localize(RasterEditor, RasterEditor.componentName));
+  const toggleViewButtonLayout = {
+    wrapperCol: {span: 24}
+  };
+
+  return (
+    <CompositionContext.Consumer>
+      {(composition: Compositions) => (
+        <div className="gs-raster-symbolizer-editor" >
+          {
+            showDisplay !== 'symbolizer' ? null : ([
+              wrapFormItem(
+                locale.opacityLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'RasterEditor.opacityField',
+                  onChange: onOpacityChange,
+                  propName: 'opacity',
+                  propValue: opacity,
+                  defaultValue: defaultValues?.RasterEditor?.defaultOpacity,
+                  defaultElement: <OpacityField />
+                })
+              ),
+              wrapFormItem(
+                locale.contrastEnhancementLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'RasterEditor.contrastEnhancementField',
+                  onChange: onContrastEnhancementChange,
+                  propName: 'contrastEnhancement',
+                  propValue: _get(contrastEnhancement, 'enhancementType'),
+                  defaultElement: <ContrastEnhancementField />
+                })
+              ),
+              wrapFormItem(
+                locale.gammaValueLabel,
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'RasterEditor.gammaValueField',
+                  onChange: onGammaValueChange,
+                  propName: 'gamma',
+                  propValue: _get(contrastEnhancement, 'gammaValue'),
+                  defaultValue: defaultValues?.RasterEditor?.defaultGammaValue,
+                  defaultElement: <GammaField />
+                })
+              ),
+              <Form.Item
+                className="gs-raster-editor-view-toggle"
+                key="toggleColorMap"
+                {...toggleViewButtonLayout}
+              >
+                <a onClick={() => setShowDisplay('colorMap')}>{`${locale.colorMapLabel} >>`}</a>
+              </Form.Item>,
+              <Form.Item
+                className="gs-raster-editor-view-toggle"
+                key="toggleContrastEnhancement"
+                {...toggleViewButtonLayout}
+              >
+                <a onClick={() => setShowDisplay('contrastEnhancement')}>
+                  {`${locale.channelSelectionLabel} >>`}
+                </a>
+              </Form.Item>
+            ])
+          }
+          {
+            showDisplay !== 'contrastEnhancement' ? null : ([
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'RasterEditor.rasterChannelField',
+                onChange: onChannelEditorChange,
+                propName: 'channelSelection',
+                propValue: channelSelection,
+                defaultElement: (
+                  <RasterChannelEditor
+                    sourceChannelNames={sourceChannelNames}
+                    contrastEnhancementTypes={contrastEnhancementTypes}
+                  />
+                )
+              }),
+              <Form.Item
+                key="toggleSymbolizer"
+                {...toggleViewButtonLayout}
+              >
+                <a onClick={() => setShowDisplay('symbolizer')}>{`<< ${locale.symbolizerLabel}`}</a>
+              </Form.Item>
+            ])
+          }
+          {
+            showDisplay !== 'colorMap' ? null : ([
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'RasterEditor.colorMapField',
+                onChange: onColorMapChange,
+                propName: 'colorMap',
+                propValue: colorMap,
+                defaultElement: (
+                  <ColorMapEditor
+                    colorRamps={colorRamps}
+                  />
+                )
+              }),
+              <Form.Item
+                key="toggleSymbolizer"
+                {...toggleViewButtonLayout}
+              >
+                <a onClick={() => setShowDisplay('symbolizer')}>{`<< ${locale.symbolizerLabel}`}</a>
+              </Form.Item>
+            ])
+          }
+        </div>
+      )}
+    </CompositionContext.Consumer>
+  );
+};
+
+export default withDefaultsContext(localize(RasterEditor, COMPONENTNAME));
