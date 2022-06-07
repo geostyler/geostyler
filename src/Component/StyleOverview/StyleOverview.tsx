@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,12 +37,13 @@ import {
 import './StyleOverview.less';
 import { Data } from 'geostyler-data';
 import { StyleFieldContainer } from '../StyleFieldContainer/StyleFieldContainer';
-import { Rules } from '../Rules/Rules';
+import { Rules, RulesProps } from '../Rules/Rules';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import { Divider } from 'antd';
+import CardViewUtil from '../../Util/CardViewUtil';
 
 // i18n
 export interface StyleOverviewLocale {
@@ -51,7 +52,12 @@ export interface StyleOverviewLocale {
 
 // default props
 interface StyleOverviewDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: StyleOverviewLocale;
+  /** The callback when the style changed. */
+  onStyleChange?: (style: GsStyle) => void;
+  /** The callback when a view change (request) was triggered. */
+  onChangeView?: (view: string, indices: number[]) => void;
 }
 
 // non default props
@@ -60,18 +66,20 @@ export interface StyleOverviewProps extends Partial<StyleOverviewDefaultProps> {
   data?: Data;
   /** A GeoStyler-Style object. */
   style: GsStyle;
-  /** The callback when the style changed. */
-  onStyleChange?: (style: GsStyle) => void;
-  /** The callback when a view change (request) was triggered. */
-  onChangeView?: (view: string, indices: number[]) => void;
+  /** Enable classification */
+  enableClassification?: boolean;
+  /** The passthrough props for the Rules component. */
+  rulesProps?: Partial<RulesProps>;
 }
 
 export const StyleOverview: React.FC<StyleOverviewProps> = ({
   style,
   data,
-  onStyleChange,
-  onChangeView,
+  onStyleChange = () => {},
+  onChangeView = () => {},
   locale = en_US.GsStyleOverview,
+  enableClassification,
+  rulesProps
 }) => {
 
   const [stateStyle, setStateStyle] = useState<GsStyle>(style);
@@ -80,38 +88,27 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
     let newStyle = _cloneDeep(stateStyle);
     newStyle.name = name;
     setStateStyle(newStyle);
-    if (onStyleChange) {
-      onStyleChange(newStyle);
-    }
+    onStyleChange(newStyle);
   };
 
   const onRulesChange = (rules: GsRule[]) => {
     let newStyle = _cloneDeep(stateStyle);
     newStyle.rules = rules;
     setStateStyle(newStyle);
-    if (onStyleChange) {
-      onStyleChange(newStyle);
-    }
+    onStyleChange(newStyle);
   };
 
   const onEditRule = (ruleId: number) => {
-    if (onChangeView) {
-      onChangeView('rule', [ruleId]);
-    }
+    onChangeView(CardViewUtil.RULEVIEW, [ruleId]);
   };
 
   const onClassificationClick = () => {
-    if (onChangeView) {
-      onChangeView('classification', []);
-    }
+    onChangeView(CardViewUtil.CLASSIFICATIONVIEW, []);
   };
 
   const onEditSelectionClick = (ruleIds: number[]) => {
-    if (onChangeView) {
-      onChangeView('multiedit', ruleIds);
-    }
+    onChangeView(CardViewUtil.MULTIEDITVIEW, ruleIds);
   };
-
 
   return (
     <div className='gs-style-overview'>
@@ -128,6 +125,8 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
         onEditRuleClick={onEditRule}
         onClassificationClick={onClassificationClick}
         onEditSelectionClick={onEditSelectionClick}
+        enableClassification={enableClassification}
+        {...rulesProps}
       />
     </div>
   );
