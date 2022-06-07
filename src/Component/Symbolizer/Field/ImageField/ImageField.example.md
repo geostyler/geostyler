@@ -67,3 +67,149 @@ class ImageFieldExample extends React.Component {
 
 <ImageFieldExample />
 ```
+
+`ImageField` with iconLibraries.
+
+```jsx
+import * as React from 'react';
+import { ImageField } from 'geostyler';
+
+class ImageFieldExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: ''
+    };
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(value) {
+    this.setState({
+      value: value
+    });
+  }
+
+  render() {
+    const {
+      value
+    } = this.state;
+
+    const iconLibraries = [{
+      name: 'foo',
+      icons: [{
+        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
+        caption: 'Parking'
+      }, {
+        src: 'https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg',
+        caption: 'GeoStyler Logo'
+      }]
+    }, {
+      name: 'bar',
+      icons: [{
+        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
+        caption: 'Highway'
+      }]
+    }]
+
+    return (
+      <ImageField
+        value={value}
+        placeholder="URL to image"
+        onChange={this.onChange}
+        iconLibraries={iconLibraries}
+      />
+    );
+  }
+}
+
+<ImageFieldExample />
+```
+
+`ImageField` with custom implementation of iconLibraries view.
+
+```jsx
+import * as React from 'react';
+import { ImageField } from 'geostyler';
+
+class ImageFieldExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: '',
+      customViewOpened: false
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.openCustomView = this.openCustomView.bind(this);
+    this.closeCustomView = this.closeCustomView.bind(this);
+  }
+
+  onChange(value) {
+    this.setState({
+      value: value
+    });
+  }
+
+  openCustomView() {
+    this.setState({
+      customViewOpened: true
+    });
+  }
+
+  closeCustomView() {
+    this.setState({
+      customViewOpened: false
+    });
+  }
+
+  render() {
+    const {
+      value,
+      customViewOpened
+    } = this.state;
+
+    const iconLibraries = [{
+      name: 'foo',
+      icons: [{
+        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
+        caption: 'Parking'
+      }, {
+        src: 'https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg',
+        caption: 'GeoStyler Logo'
+      }]
+    }, {
+      name: 'bar',
+      icons: [{
+        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
+        caption: 'Highway'
+      }]
+    }];
+
+    return (
+      <>
+        <ImageField
+          value={value}
+          placeholder="URL to image"
+          onChange={this.onChange}
+          iconLibraries={iconLibraries}
+          windowless={true}
+          onIconLibrariesClick={this.openCustomView}
+        />
+        {
+          customViewOpened && (
+            <div style={{'border': 'solid lightgrey'}}>
+              Implement your custom iconLibraries view here, or anywhere you like.
+              <button onClick={this.closeCustomView}>
+                Close
+              </button>
+            </div>
+          )
+        }
+      </>
+    );
+  }
+}
+
+<ImageFieldExample />
+```

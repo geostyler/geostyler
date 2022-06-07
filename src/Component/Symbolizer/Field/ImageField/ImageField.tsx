@@ -41,14 +41,26 @@ import { PictureOutlined } from '@ant-design/icons';
 
 // default props
 interface ImageFieldDefaultProps {
+  /** The tooltip label for the iconLibraries button. */
   tooltipLabel: string;
+  /** The placeholder text when no value was provided yet. */
   placeholder: string;
+  /** True, if the iconLibrary should not be opened in a window. False otherwise. */
+  windowless: boolean;
+  /**
+   * The callback when the iconLibraries button was clicked.
+   * This will only be called, when 'windowless' is true.
+   */
+  onIconLibrariesClick: () => void;
 }
 
 // non default props
 export interface ImageFieldProps extends Partial<ImageFieldDefaultProps> {
+  /** The value of the image field. */
   value?: string;
+  /** The callback that is triggered when the value changes. */
   onChange?: (image: string) => void;
+  /** Predefined list of icons to select from. */
   iconLibraries?: IconLibrary[];
 }
 
@@ -60,14 +72,12 @@ export const ImageField: React.FC<ImageFieldProps> = ({
   value,
   iconLibraries,
   tooltipLabel = 'Open Gallery',
-  placeholder = 'URL to image'
+  placeholder = 'URL to image',
+  windowless = false,
+  onIconLibrariesClick = () => {}
 }) => {
 
   const [windowVisible, setWindowVisible] = React.useState<boolean>(false);
-
-  const openWindow = () => {
-    setWindowVisible(true);
-  };
 
   const getIconSelectorButton = () => {
     return (
@@ -77,8 +87,16 @@ export const ImageField: React.FC<ImageFieldProps> = ({
     );
   };
 
+  const openWindow = () => {
+    if (windowless) {
+      onIconLibrariesClick();
+    } else {
+      setWindowVisible(true);
+    }
+  };
+
   const closeWindow = () => {
-    setWindowVisible(true);
+    setWindowVisible(false);
   };
 
   return (
