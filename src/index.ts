@@ -63,7 +63,6 @@ import IconSelector from './Component/Symbolizer/IconSelector/IconSelector';
 import IconSelectorWindow from './Component/Symbolizer/IconSelectorWindow/IconSelectorWindow';
 import ImageField from './Component/Symbolizer/Field/ImageField/ImageField';
 import KindField from './Component/Symbolizer/Field/KindField/KindField';
-import LegacyCodeEditor from './Component/Legacy/CodeEditor/CodeEditor';
 import LineCapField from './Component/Symbolizer/Field/LineCapField/LineCapField';
 import LineDashField from './Component/Symbolizer/Field/LineDashField/LineDashField';
 import LineEditor from './Component/Symbolizer/LineEditor/LineEditor';
