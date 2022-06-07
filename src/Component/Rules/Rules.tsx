@@ -37,10 +37,7 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
 import './Rules.less';
-import
-  // Renderer,
-  { RendererProps }
-  from '../Symbolizer/Renderer/Renderer';
+import { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import {
   // SLDRenderer,
