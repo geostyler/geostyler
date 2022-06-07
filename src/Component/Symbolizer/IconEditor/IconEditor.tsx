@@ -34,7 +34,7 @@ import {
 } from 'geostyler-style';
 
 import OpacityField from '../Field/OpacityField/OpacityField';
-import ImageField from '../Field/ImageField/ImageField';
+import ImageField, { ImageFieldProps } from '../Field/ImageField/ImageField';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -72,6 +72,13 @@ export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
   defaultValues: DefaultValues;
+  /**
+   * The props for the image field. Properties 'iconLibraries' and
+   * 'tooltipLabel' should not be used here currently, as they will
+   * be overwritten by the same named props that were directly
+   * set on IconEditor. This is done to keep backwards compability.
+   */
+  imageFieldProps?: Partial<ImageFieldProps>;
 }
 
 export class IconEditor extends React.Component<IconEditorProps> {
@@ -155,7 +162,8 @@ export class IconEditor extends React.Component<IconEditorProps> {
       locale,
       defaultValues,
       symbolizer,
-      iconLibraries
+      iconLibraries,
+      imageFieldProps
     } = this.props;
 
     const {
@@ -183,6 +191,10 @@ export class IconEditor extends React.Component<IconEditorProps> {
                   defaultValue: defaultValues?.IconEditor?.defaultImage,
                   defaultElement: (
                     <ImageField
+                      // To keep backwards compatibility,
+                      // we overwrite imageFieldProps with the props
+                      // that were explicitly set as props on IconEditor.
+                      {...imageFieldProps}
                       iconLibraries={iconLibraries}
                       tooltipLabel={locale.iconTooltipLabel}
                     />
