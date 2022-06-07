@@ -1,6 +1,6 @@
 ![GeoStyler Logo](/docs/Geo_Styler_Logo_300_RGB.jpg)
 
-[![Build Status](https://travis-ci.org/geostyler/geostyler.svg?branch=master)](https://travis-ci.org/geostyler/geostyler) [![Coverage Status](https://coveralls.io/repos/github/geostyler/geostyler/badge.svg?branch=master)](https://coveralls.io/github/geostyler/geostyler?branch=master) [![License](https://img.shields.io/github/license/geostyler/geostyler)](https://github.com/geostyler/geostyler/blob/master/LICENSE)
+[![Test, Coverage & Docs (master)](https://github.com/geostyler/geostyler/actions/workflows/on-push-master.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-push-master.yml) [![Create & publish versioned documentation](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml) [![Coverage Status](https://coveralls.io/repos/github/geostyler/geostyler/badge.svg?branch=master)](https://coveralls.io/github/geostyler/geostyler?branch=master) [![License](https://img.shields.io/github/license/geostyler/geostyler)](https://github.com/geostyler/geostyler/blob/master/LICENSE)
 
 Code: [github](https://github.com/geostyler/geostyler)
 Package: [npm](https://www.npmjs.com/package/geostyler)
