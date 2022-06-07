@@ -28,8 +28,10 @@
  */
 import AttributeCombo from './Component/Filter/AttributeCombo/AttributeCombo';
 import BoolFilterField from './Component/Filter/BoolFilterField/BoolFilterField';
+import Breadcrumb from './Component/Breadcrumb/Breadcrumb';
 import BrightnessField from './Component/Symbolizer/Field/BrightnessField/BrightnessField';
 import BulkEditModals from './Component/Symbolizer/BulkEditModals/BulkEditModals';
+import BulkEditor from './Component/BulkEditor/BulkEditor';
 import ChannelField from './Component/Symbolizer/Field/ChannelField/ChannelField';
 import ChannelSelectionField from './Component/Symbolizer/Field/ChannelSelectionField/ChannelSelectionField';
 import CodeEditor from './Component/CodeEditor/CodeEditor';
@@ -49,6 +51,7 @@ import FieldSet from './Component/FieldSet/FieldSet';
 import FieldContainer from './Component/FieldContainer/FieldContainer';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import FilterEditorWindow from './Component/Filter/FilterEditorWindow/FilterEditorWindow';
+import FilterOverview from './Component/FilterOverview/FilterOverview';
 import FilterTree from './Component/Filter/FilterTree/FilterTree';
 import FontPicker from './Component/Symbolizer/Field/FontPicker/FontPicker';
 import GammaField from './Component/Symbolizer/Field/GammaField/GammaField';
@@ -83,7 +86,9 @@ import RasterEditor from './Component/Symbolizer/RasterEditor/RasterEditor';
 import Removable from './Component/Removable/Removable';
 import RemovableItem from './Component/Removable/RemovableItem/RemovableItem';
 import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
-import Renderer from './Component/Symbolizer/Renderer/Renderer';
+// TODO This should be renamed to OlRenderer. Files should then be moved to.
+import LegacyRenderer from './Component/Symbolizer/Renderer/Renderer';
+import Renderer from './Component/Renderer/Renderer';
 import RgbChannelField from './Component/Symbolizer/Field/RgbChannelField/RgbChannelField';
 import ResamplingField from './Component/Symbolizer/Field/ResamplingField/ResamplingField';
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
@@ -108,6 +113,7 @@ import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
 import StyleOverview from './Component/StyleOverview/StyleOverview';
 import SymbolizerCard from './Component/SymbolizerCard/SymbolizerCard';
 import SymbolizerEditorWindow from './Component/Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
+import Symbolizers from './Component/Symbolizers/Symbolizers';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
 import TextFilterField from './Component/Filter/TextFilterField/TextFilterField';
 import UploadButton from './Component/UploadButton/UploadButton';
@@ -137,8 +143,10 @@ const locale = {
 export {
   AttributeCombo,
   BoolFilterField,
+  Breadcrumb,
   BrightnessField,
   BulkEditModals,
+  BulkEditor,
   ChannelField,
   ChannelSelectionField,
   CodeEditor,
@@ -161,6 +169,7 @@ export {
   FieldSet,
   FillEditor,
   FilterEditorWindow,
+  FilterOverview,
   FilterTree,
   FontPicker,
   GammaField,
@@ -196,6 +205,7 @@ export {
   RemoveButton,
   Removable,
   RemovableItem,
+  LegacyRenderer,
   Renderer,
   RgbChannelField,
   ResamplingField,
@@ -221,6 +231,7 @@ export {
   StyleOverview,
   SymbolizerCard,
   SymbolizerEditorWindow,
+  Symbolizers,
   TextEditor,
   TextFilterField,
   UploadButton,
