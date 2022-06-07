@@ -29,7 +29,7 @@
 const fs = require('fs');
 const readdirp = require('readdirp');
 const childProcess = require('child_process');
-
+const path = require('path');
 const replace = require('replace-in-file');
 
 // Transform less
@@ -37,7 +37,7 @@ const replace = require('replace-in-file');
   const files = await readdirp.promise('dist', { fileFilter: '*.less' });
   files.forEach(file => {
     const out = file.fullPath.replace('.less', '.css');
-    const less = childProcess.fork('./node_modules/.bin/lessc', [file.fullPath, out]);
+    const less = childProcess.exec(`${path.join('node_modules', '.bin', 'lessc')} ${file.fullPath} ${out}`);
     less.on('exit', function (code) {
       fs.unlink(file.fullPath, (err) => {
         if (err) throw err;
