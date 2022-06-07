@@ -28,7 +28,7 @@
 
 import { Select } from 'antd';
 const Option = Select.Option;
-import React from 'react';
+import React, { useState } from 'react';
 import en_US from '../../../locale/en_US';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import './SLDUnitsSelect.less';
@@ -51,69 +51,42 @@ export interface SLDUnitsSelectProps extends Partial<SLDUnitsSelectDefaultProps>
   changeHandler?: (selection: string) => void;
 }
 
-// state
-interface SLDUnitsSelectState {
-  symbolizerUnit: string;
-}
+const COMPONENTNAME = 'SLDUnitsSelect';
 
 /**
  * SLDUnitsSelect
  */
-export class SLDUnitsSelect extends React.Component<SLDUnitsSelectProps, SLDUnitsSelectState> {
+export const SLDUnitsSelect: React.FC<SLDUnitsSelectProps> = ({
+  locale = en_US.GsSLDUnitsSelect,
+  changeHandler
+}) => {
 
-  static componentName: string = 'SLDUnitsSelect';
+  const [symbolizerUnit, setSymbolizerUnit] = useState<string>();
 
-  public static defaultProps: SLDUnitsSelectDefaultProps = {
-    locale: en_US.GsSLDUnitsSelect
-  };
-
-  constructor(props: SLDUnitsSelectDefaultProps) {
-    super(props);
-    this.state = {
-      symbolizerUnit: 'pixel'
-    };
-  }
-
-  unitsChanged(selection: string) {
-    const {
-      changeHandler
-    } = this.props;
-
-    this.setState({
-      symbolizerUnit: selection
-    });
+  const unitsChanged = (selection: string) => {
+    setSymbolizerUnit(selection);
 
     if (changeHandler) {
       changeHandler(selection);
     }
-  }
+  };
+  return (
+    <>
+      <span className="symbolizer-units-label">
+        {locale.symbolizerUnitsLabel}:
+      </span>
+      <Select
+        className="gs-code-editor-format-select"
+        style={{ width: 100 }}
+        onSelect={unitsChanged}
+        value={symbolizerUnit}
+      >
+        <Option value="pixel">{locale.symbolizerUnitsPixel}</Option>
+        <Option value="metre">{locale.symbolizerUnitsMeter}</Option>
+        <Option value="foot">{locale.symbolizerUnitsFoot}</Option>
+      </Select>
+    </>
+  );
+};
 
-  render() {
-    const {
-      locale
-    } = this.props;
-    const {
-      symbolizerUnit
-    } = this.state;
-
-    return (
-      <>
-        <span className="symbolizer-units-label">
-          {locale.symbolizerUnitsLabel}:
-        </span>
-        <Select
-          className="gs-code-editor-format-select"
-          style={{ width: 100 }}
-          onSelect={this.unitsChanged}
-          value={symbolizerUnit}
-        >
-          <Option value="pixel">{locale.symbolizerUnitsPixel}</Option>
-          <Option value="metre">{locale.symbolizerUnitsMeter}</Option>
-          <Option value="foot">{locale.symbolizerUnitsFoot}</Option>
-        </Select>
-      </>
-    );
-  }
-}
-
-export default localize(SLDUnitsSelect, SLDUnitsSelect.componentName);
+export default localize(SLDUnitsSelect, COMPONENTNAME);
