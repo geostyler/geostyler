@@ -27,48 +27,66 @@
  */
 
 import * as React from 'react';
-import { Breadcrumb as AntdBreadcrumb } from 'antd';
+import { Breadcrumb as AntdBreadcrumb, Button } from 'antd';
 import './Breadcrumb.less';
-
-// default props
-export interface BreadcrumbDefaultProps {
-}
+import { LeftOutlined } from '@ant-design/icons';
 
 export interface Crumb {
   title: string;
   view: string;
   indices: number[];
-};
+}
+
+// default props
+export interface BreadcrumbDefaultProps {
+  /** The callback method that is triggered when a crumb was clicked */
+  onClick: (crumbView: string, indices: number[]) => void;
+}
 
 // non default props
 export interface BreadcrumbProps extends Partial<BreadcrumbDefaultProps> {
   /** The crumbs to display */
   crumbs: Crumb[];
-  /** The callback method that is triggered when a crumb was clicked */
-  onClick?: (crumbView: string, indices: number[]) => void;
 }
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   crumbs,
-  onClick
+  onClick = () => {}
 }) => {
+
+  const onPrevClick = () => {
+    const prevCrumb = crumbs[crumbs.length - 2];
+    onClick(prevCrumb.view, prevCrumb.indices);
+  };
+
   return (
-    <AntdBreadcrumb className="gs-breadcrumb">
+    <div className='gs-breadcrumb'>
       {
-        crumbs.map((crumb: Crumb, idx: number) => {
-          return (
-            <AntdBreadcrumb.Item
-              key={idx}
-              onClick={() => {
-                onClick(crumb.view, crumb.indices);
-              }}
-            >
-              <span>{crumb.title}</span>
-            </AntdBreadcrumb.Item>
-          );
-        })
+        crumbs.length > 1 && (
+          <Button
+            type='text'
+            icon={<LeftOutlined />}
+            onClick={onPrevClick}
+          />
+        )
       }
-    </AntdBreadcrumb>
+      <AntdBreadcrumb className="gs-breadcrumb-crumbs">
+        {
+          crumbs.map((crumb: Crumb, idx: number) => {
+            return (
+              <AntdBreadcrumb.Item
+                key={idx}
+                onClick={() => {
+                  onClick(crumb.view, crumb.indices);
+                }}
+              >
+                <span>{crumb.title}</span>
+              </AntdBreadcrumb.Item>
+            );
+          })
+        }
+      </AntdBreadcrumb>
+    </div>
   );
 };
 

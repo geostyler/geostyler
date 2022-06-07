@@ -31,36 +31,34 @@
 This demonstrates the usage of the `Breadcrumb` component.
 
 ```jsx
-import * as React from 'react';
-import Breadcrumb from 'geostyler/Component/Breadcrumb/Breadcrumb';
+import React, { useState } from 'react';
+import { Breadcrumb } from 'geostyler';
 
-class BreadcrumbExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      crumbs: ['Style', 'Rule']
-    }
-  }
+function BreadcrumbExample () {
+  const ruleCrumbs = [
+    {title: 'Style', view: 'STYLEVIEW', indices: []},
+    {title: 'Rule', view: 'RULEVIEW', indices: []}
+  ];
 
-  render() {
-    const {
-      crumbs
-    } = this.state;
+  const styleCrumbs = [
+    {title: 'Style', view: 'STYLEVIEW', indices: []}
+  ];
 
-    return (
-      <div style={{height: '300px'}}>
-        <Breadcrumb
-          crumbs={crumbs}
-          onClick={(crumb) => {
-            if (crumb === 'Style') {
-              this.setState({crumbs: ['Style']})
-            }
-          }}
-        />
-      </div>
-    );
-  }
-}
+  const [crumbs, setCrumbs] = useState(ruleCrumbs);
+
+  return (
+    <div style={{height: '300px'}}>
+      <Breadcrumb
+        crumbs={crumbs}
+        onClick={(view, indices) => {
+          if (view === 'STYLEVIEW') {
+            setCrumbs(styleCrumbs);
+          }
+        }}
+      />
+    </div>
+  );
+};
 
 <BreadcrumbExample />
 ```
