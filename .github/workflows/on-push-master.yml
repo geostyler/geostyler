@@ -1,4 +1,4 @@
-name: Run coveralls
+name: Test, Coverage & Docs (master)
 
 on:
   push:
