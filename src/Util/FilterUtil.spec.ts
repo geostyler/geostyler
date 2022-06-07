@@ -394,4 +394,47 @@ describe('FilterUtil', () => {
     });
   });
 
+  describe('filterToTree', () => {
+    it('creates a tree from a comparison filter', () => {
+      const baseFilter: Filter = ['==', 'foo', 'bar'];
+      const got = [{
+        title: 'foo == bar',
+      }];
+      const tree = FilterUtil.filterToTree(baseFilter);
+      expect(tree[0].title).toEqual(got[0].title);
+    });
+
+    it('creates a tree from a combination filter', () => {
+      const baseFilter: Filter = ['&&', ['==', 'foo', 'bar'], ['==', 'foo', 'bar']];
+      const got = [{
+        title: '&&',
+        children: [{
+          title: 'foo == bar',
+        }, {
+          title: 'foo == bar',
+        }]
+      }];
+      const tree = FilterUtil.filterToTree(baseFilter);
+      expect(tree[0].title).toEqual(got[0].title);
+      expect(tree[0].children.length).toEqual(got[0].children.length);
+      expect(tree[0].children[0].title).toEqual(got[0].children[0].title);
+      expect(tree[0].children[1].title).toEqual(got[0].children[1].title);
+    });
+
+    it('creates a tree from a negation filter', () => {
+      const baseFilter: Filter = ['!', ['==', 'foo', 'bar']];
+      const got = [{
+        title: '!',
+        children: [{
+          title: 'foo == bar',
+        }]
+      }];
+      const tree = FilterUtil.filterToTree(baseFilter);
+      expect(tree[0].title).toEqual(got[0].title);
+      expect(tree[0].children.length).toEqual(got[0].children.length);
+      expect(tree[0].children[0].title).toEqual(got[0].children[0].title);
+    });
+
+  });
+
 });
