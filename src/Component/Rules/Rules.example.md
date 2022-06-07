@@ -165,3 +165,46 @@ class RulesExample extends React.Component {
 <RulesExample />
 ```
 
+`Rules` component with disabled classification.
+
+```jsx
+import * as React from 'react';
+import { Rules } from 'geostyler';
+
+class RulesExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rules: [{
+        name: 'myRule',
+        symbolizers: [{
+          kind: 'Mark',
+          wellKnownName: 'Circle'
+        }]
+      }]
+    };
+  }
+
+  render() {
+    const {
+      rules
+    } = this.state;
+
+    return (
+      <div>
+        <Rules
+          rules={rules}
+          onRulesChange={(newRules) => {
+            this.setState({
+              rules: newRules
+            });
+          }}
+          enableClassification={false}
+        />
+      </div>
+    );
+  }
+}
+
+<RulesExample />
+```
