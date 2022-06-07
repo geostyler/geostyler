@@ -39,10 +39,7 @@ import FieldContainer from '../FieldContainer/FieldContainer';
 import NameField from '../NameField/NameField';
 import MinScaleDenominator from '../ScaleDenominator/MinScaleDenominator';
 import MaxScaleDenominator from '../ScaleDenominator/MaxScaleDenominator';
-import Renderer from '../Symbolizer/Renderer/Renderer';
-import {
-  Symbolizer as GsSymbolizer
-} from 'geostyler-style';
+import Renderer, { RendererProps } from '../Renderer/Renderer';
 
 // i18n
 export interface RuleFieldContainerLocale {
@@ -58,28 +55,35 @@ export interface RuleFieldContainerLocale {
 interface RuleFieldContainerDefaultProps {
   /** Locale object containing translated text snippets */
   locale: RuleFieldContainerLocale;
+  /** The callback method when the name changes */
+  onNameChange: (name: string) => void;
+  /** The callback method when the minScale changes */
+  onMinScaleChange: (scale: number) => void;
+  /** The callback method when the maxScale changes */
+  onMaxScaleChange: (scale: number) => void;
 }
 
 // non default props
 export interface RuleFieldContainerProps extends Partial<RuleFieldContainerDefaultProps> {
-  onNameChange?: (name: string) => void;
-  onMinScaleChange?: (scale: number) => void;
-  onMaxScaleChange?: (scale: number) => void;
+  /** The name of the rule */
   name?: string;
+  /** The minScale of the rule */
   minScale?: number;
+  /** The maxScale of the rule */
   maxScale?: number;
-  symbolizers?: GsSymbolizer[];
+  /** The passthrough props for the Renderer component. */
+  rendererProps?: RendererProps;
 }
 
 export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
   name,
   minScale,
   maxScale,
-  symbolizers,
   locale = { ...en_US.GsRule, ...en_US.GsScaleDenominator },
-  onNameChange,
-  onMinScaleChange,
-  onMaxScaleChange
+  onNameChange = () => {},
+  onMinScaleChange = () => {},
+  onMaxScaleChange = () => {},
+  rendererProps
 }) => {
 
   const formItemLayout = {
@@ -115,7 +119,8 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
       </div>
       <Divider type="vertical" />
       <Renderer
-        symbolizers={symbolizers} />
+        {...rendererProps}
+      />
     </FieldContainer >
   );
 
