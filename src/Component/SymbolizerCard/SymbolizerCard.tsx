@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,11 +32,12 @@ import React from 'react';
 import {
   Symbolizer as GsSymbolizer
 } from 'geostyler-style';
+import { Data } from 'geostyler-data';
 
 import './SymbolizerCard.less';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
-import { Renderer } from 'src';
+import { Renderer } from '../Symbolizer/Renderer/Renderer';
 import { Card } from 'antd';
 
 // i18n
@@ -45,27 +46,29 @@ export interface SymbolizerCardLocale {
 
 // default props
 interface SymbolizerCardDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: SymbolizerCardLocale;
+  /** The callback when the symbolizer was clicked. */
+  onSymbolizerClick?: (symbolizer: GsSymbolizer) => void;
 }
 
 // non default props
 export interface SymbolizerCardProps extends Partial<SymbolizerCardDefaultProps> {
   /** A GeoStyler-Style object. */
   symbolizer: GsSymbolizer;
-  /** The callback when the symbolizer was clicked. */
-  onSymbolizerClick?: (symbolizer: GsSymbolizer) => void;
+  /** Reference to internal data object (holding schema and example features) */
+  data?: Data;
 }
 
 export const SymbolizerCard: React.FC<SymbolizerCardProps> = ({
   symbolizer,
-  onSymbolizerClick,
+  onSymbolizerClick = () => {},
   locale = en_US.GsSymbolizerCard,
+  data
 }) => {
 
   const onCardClick = () => {
-    if (onSymbolizerClick) {
-      onSymbolizerClick(symbolizer);
-    }
+    onSymbolizerClick(symbolizer);
   };
 
   return (
@@ -76,6 +79,7 @@ export const SymbolizerCard: React.FC<SymbolizerCardProps> = ({
     >
       {/* TODO use generic renderer component instead of this one */}
       <Renderer
+        data={data}
         symbolizers={[symbolizer]}
       />
     </Card>
