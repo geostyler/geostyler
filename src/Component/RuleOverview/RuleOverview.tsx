@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,16 +29,22 @@
 
 import React, { useState } from 'react';
 
+import _merge from 'lodash/merge';
+
 import {
-  Rule as GsRule
+  Rule as GsRule,
+  Symbolizer as GsSymbolizer
 } from 'geostyler-style';
 
 import './RuleOverview.less';
 import { Data } from 'geostyler-data';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
-import { RuleFieldContainer } from '../RuleFieldContainer/RuleFieldContainer';
+import { RuleFieldContainer, RuleFieldContainerProps } from '../RuleFieldContainer/RuleFieldContainer';
 import { Divider } from 'antd';
+import { Symbolizers, SymbolizersProps } from '../Symbolizers/Symbolizers';
+import CardViewUtil from '../../Util/CardViewUtil';
+import { FilterOverview } from '../FilterOverview/FilterOverview';
 
 // i18n
 export interface RuleOverviewLocale {
@@ -47,7 +53,12 @@ export interface RuleOverviewLocale {
 
 // default props
 interface RuleOverviewDefaultProps {
+  /** Locale object containing translated text snippets */
   locale: RuleOverviewLocale;
+  /** The callback when the style changed. */
+  onRuleChange: (rule: GsRule) => void;
+  /** The callback when a view change (request) was triggered. */
+  onChangeView: (view: string, indices: number[]) => void;
 }
 
 // non default props
@@ -56,34 +67,28 @@ export interface RuleOverviewProps extends Partial<RuleOverviewDefaultProps> {
   data?: Data;
   /** A GeoStyler-Style object. */
   rule: GsRule;
-  /** The callback when the style changed. */
-  onRuleChange?: (rule: GsRule) => void;
-  /** The callback when a view change (request) was triggered. */
-  onChangeView?: (view: string, indices: number[]) => void;
+  /** The passthrough props for the RuleFieldContainer component. */
+  ruleFieldContainerProps?: Partial<RuleFieldContainerProps>;
+  /** The passthrough props for the Symbolizers component. */
+  symbolizersProps?: Partial<SymbolizersProps>;
 }
 
 export const RuleOverview: React.FC<RuleOverviewProps> = ({
   rule,
   data,
-  onRuleChange,
-  onChangeView,
+  onRuleChange = () => {},
+  onChangeView = () => {},
+  ruleFieldContainerProps,
+  symbolizersProps,
   locale = en_US.GsRuleOverview,
 }) => {
 
   const [stateRule, setStateRule] = useState<GsRule>(rule);
 
-  // const onEditSelectionClick = (ruleIds: number[]) => {
-  //   if (onChangeView) {
-  //     onChangeView('multiedit', ruleIds);
-  //   }
-  // };
-
   const onNameChange = (name: string) => {
     const newRule: GsRule = {...stateRule, name};
     setStateRule(newRule);
-    if (onRuleChange) {
-      onRuleChange(newRule);
-    }
+    onRuleChange(newRule);
   };
 
   const onMinScaleChange = (minScale: number) => {
@@ -93,9 +98,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
     }
     newRule.scaleDenominator.min = minScale;
     setStateRule(newRule);
-    if (onRuleChange) {
-      onRuleChange(newRule);
-    }
+    onRuleChange(newRule);
   };
 
   const onMaxScaleChange = (maxScale: number) => {
@@ -105,10 +108,34 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
     }
     newRule.scaleDenominator.max = maxScale;
     setStateRule(newRule);
-    if (onRuleChange) {
-      onRuleChange(newRule);
+    onRuleChange(newRule);
+  };
+
+  const onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
+    let newRule: GsRule = {...stateRule, symbolizers};
+    setStateRule(newRule);
+    onRuleChange(newRule);
+  };
+
+  const onEditSymbolizerClick = (symbolizerId: number) => {
+    onChangeView(CardViewUtil.SYMBOLIZERVIEW, [symbolizerId]);
+  };
+
+  const onEditFilterClick = () => {
+    onChangeView(CardViewUtil.FILTEREDITVIEW, []);
+  };
+
+  const ruleFieldContainerPropsOverwrites = {
+    rendererProps: {
+      symbolizers: rule.symbolizers,
+      data: data
     }
   };
+  const mergedRuleFieldContainerProps = _merge(ruleFieldContainerProps, ruleFieldContainerPropsOverwrites);
+
+  const symbolizersPropsOverwrites = {
+  };
+  const mergedSymbolizersProps = _merge(symbolizersProps, symbolizersPropsOverwrites);
 
   return (
     <div className='gs-rule-overview'>
@@ -118,13 +145,21 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
         name={rule.name}
         minScale={rule.scaleDenominator?.min}
         maxScale={rule.scaleDenominator?.max}
-        symbolizers={rule.symbolizers}
         onNameChange={onNameChange}
         onMinScaleChange={onMinScaleChange}
         onMaxScaleChange={onMaxScaleChange}
+        {...mergedRuleFieldContainerProps}
       />
-      {/* <Symbolizers> */}
-      {/* <Filters> */}
+      <Symbolizers
+        symbolizers={rule.symbolizers}
+        onEditSymbolizerClick={onEditSymbolizerClick}
+        onSymbolizersChange={onSymbolizersChange}
+        {...mergedSymbolizersProps}
+      />
+      <FilterOverview
+        filter={rule.filter}
+        onEditFilterClick={onEditFilterClick}
+      />
     </div>
   );
 };

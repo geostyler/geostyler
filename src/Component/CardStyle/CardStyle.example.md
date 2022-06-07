@@ -77,3 +77,72 @@ class CardStyleExample extends React.Component {
 
 <CardStyleExample />
 ```
+
+`CardStyle` with iconLibraries.
+
+```jsx
+import * as React from 'react';
+import { CardStyle } from 'geostyler/Component/CardStyle/CardStyle';
+
+class CardStyleExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      style: {
+        "name": "Demo Style",
+        "rules": [
+          {
+            "name": "IconLibraries Example",
+            "symbolizers": [
+              {
+                "kind": "Icon",
+                "image": "https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg",
+                "size": 0.2
+              }
+            ]
+          }
+        ]
+      }
+    };
+  }
+
+  render() {
+    const {
+      style
+    } = this.state;
+
+    const iconLibraries = [{
+      name: 'foo',
+      icons: [{
+        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
+        caption: 'Parking'
+      }, {
+        src: 'https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg',
+        caption: 'GeoStyler Logo'
+      }]
+    }, {
+      name: 'bar',
+      icons: [{
+        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
+        caption: 'Highway'
+      }]
+    }];
+
+    return (
+      <div>
+        <CardStyle
+          style={style}
+          onStyleChange={(style) => {
+            this.setState({style});
+          }}
+          iconLibraries={iconLibraries}
+        />
+      </div>
+    );
+  }
+
+}
+
+<CardStyleExample />
+```
