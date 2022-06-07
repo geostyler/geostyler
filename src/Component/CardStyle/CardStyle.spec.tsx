@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,15 +30,15 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { CardStyle } from './CardStyle';
 
-describe('SelectableItem', () => {
+describe('CardStyle', () => {
 
   it('is defined', () => {
     expect(CardStyle).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const styleOverview = render(<CardStyle />);
-    expect(styleOverview.container).toBeInTheDocument();
+    const cardStyle = render(<CardStyle />);
+    expect(cardStyle.container).toBeInTheDocument();
   });
 
 });

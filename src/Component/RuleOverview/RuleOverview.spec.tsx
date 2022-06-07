@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,7 +30,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { RuleOverview } from './RuleOverview';
 
-describe('SelectableItem', () => {
+describe('RuleOverview', () => {
 
   it('is defined', () => {
     expect(RuleOverview).toBeDefined();
