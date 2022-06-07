@@ -1,7 +1,7 @@
 <!--
  * Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,7 +46,52 @@ class RuleOverviewExample extends React.Component {
         }]
       }
     };
+  }
 
+  render() {
+    const {
+      rule
+    } = this.state;
+
+    return (
+      <div>
+        <RuleOverview
+          rule={rule}
+          onRuleChange={(newRule) => {
+            this.setState({rule: newRule});
+          }}
+        />
+      </div>
+    );
+  }
+}
+
+<RuleOverviewExample />
+```
+
+Rule with filter.
+
+```jsx
+import * as React from 'react';
+import { RuleOverview } from 'geostyler';
+
+class RuleOverviewExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rule: {
+        name: 'myRule',
+        symbolizers: [{
+          kind: 'Mark',
+          wellKnownName: 'Circle'
+        }],
+        filter: [
+          '&&',
+          ['==', 'foo', 'bar'],
+          ['!=', 'faz', 'baz']
+        ]
+      }
+    };
   }
 
   render() {
