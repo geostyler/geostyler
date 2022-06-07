@@ -49,33 +49,24 @@ export interface MaxScaleDenominatorProps extends Partial<MaxScaleDenominatorDef
 /**
  * Input field for the maximum scale of a rule.
  */
-export class MaxScaleDenominator extends React.PureComponent<MaxScaleDenominatorProps> {
+export const MaxScaleDenominator: React.FC<MaxScaleDenominatorProps> = ({
+  label = 'Max. Scale',
+  placeholder = 'Enter max. Scale (Optional)',
+  value,
+  onChange
+}) => {
 
-  public static defaultProps: MaxScaleDenominatorDefaultProps = {
-    label: 'Max. Scale',
-    placeholder: 'Enter max. Scale (Optional)'
-  };
-
-  render() {
-    const {
-      placeholder,
-      label,
-      value,
-      onChange
-    } = this.props;
-
-    return (
-      <Form.Item className="gs-max-scaledenominator" label={label} colon={false} >
-        <InputNumber
-          className="gs-max-scaledenominator-input"
-          value={value}
-          min={0}
-          placeholder={placeholder}
-          onChange={onChange}
-        />
-      </Form.Item>
-    );
-  }
-}
+  return (
+    <Form.Item className="gs-max-scaledenominator" label={label} colon={false} >
+      <InputNumber
+        className="gs-max-scaledenominator-input"
+        value={value}
+        min={0}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
+    </Form.Item>
+  );
+};
 
 export default MaxScaleDenominator;
