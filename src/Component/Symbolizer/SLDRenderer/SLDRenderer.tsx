@@ -25,8 +25,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-import * as React from 'react';
+import React, { useCallback, useEffect, useRef, useState }  from 'react';
 import SldStyleParser from 'geostyler-sld-parser';
 import _isEqual from 'lodash/isEqual';
 
@@ -55,86 +54,47 @@ export interface SLDRendererProps extends Partial<SLDRendererAdditonalProps> {
   symbolizers: Symbolizer[];
 }
 
-// state
-interface SLDRendererState {
-  alt: string;
-  legendDataUrl: string;
-}
+const styleParser = new SldStyleParser();
 
 /**
  * Symbolizer Renderer UI.
  */
-export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererState> {
+export const SLDRenderer: React.FC<SLDRendererProps> = ({
+  requestDelay = 500,
+  width = 150,
+  height = 100,
+  wmsBaseUrl,
+  layer,
+  rasterLayer,
+  additionalHeaders,
+  wmsParams,
+  onClick,
+  symbolizers
+}) => {
 
-  public static defaultProps: SLDRendererDefaultProps = {
-    requestDelay: 500,
-    width: 150,
-    height: 100
-  };
-
-  _styleParser: SldStyleParser;
-
-  _requestTimeout: any;
-
-  constructor(props: SLDRendererProps) {
-    super(props);
-    this.state = {
-      alt: 'No Image set',
-      legendDataUrl: ''
-    };
-    this._styleParser = new SldStyleParser();
-  }
-
-  public componentDidMount() {
-    const {
-      symbolizers
-    } = this.props;
-    this.setLegendGraphicUrlForRule(symbolizers);
-  }
-
-  componentDidUpdate(prevProps: SLDRendererProps) {
-    const {
-      symbolizers
-    } = this.props;
-
-    if (!_isEqual(symbolizers, prevProps.symbolizers)) {
-      this.setLegendGraphicUrlForRule(symbolizers);
-    }
-  }
+  const [alt, setAlt] = useState<string>();
+  const [legendDataUrl, setLegendDataUrl] = useState<string>();
+  const requestTimeout = useRef<any>();
 
   /**
    * The function that sets the legends graphic for the symbolizers
    *
-   * @param {Symbolizer[]} symbolizers The passed symbolizer
+   * @param {Symbolizer[]} newSymbolizers The passed symbolizer
    */
-  setLegendGraphicUrlForRule = (symbolizers: Symbolizer[]) => {
-    const {
-      requestDelay,
-      additionalHeaders
-    } = this.props;
+  const setLegendGraphicUrlForRule = useCallback((newSymbolizers: Symbolizer[]) => {
 
-    this.setState({
-      legendDataUrl: loading
-    });
+    setLegendDataUrl(loading);
 
-    if (this._requestTimeout) {
-      clearTimeout(this._requestTimeout);
+    if (requestTimeout) {
+      clearTimeout(requestTimeout.current);
     }
 
-    this._requestTimeout = setTimeout(async() => {
-      const {
-        wmsBaseUrl,
-        layer,
-        rasterLayer,
-        width,
-        height,
-        wmsParams
-      } = this.props;
+    requestTimeout.current = setTimeout(async() => {
       const style: Style = {
         name: 'sld-renderer-style',
         rules: [{
           name: '',
-          symbolizers: symbolizers
+          symbolizers: newSymbolizers
         }]
       };
       let lyr: string;
@@ -142,7 +102,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
       // we will only create a legendGraphic for raster layers
       // as wms cannot return a mixed legendGraphic
       // TODO
-      if (symbolizers.some((symbolizer: Symbolizer) => symbolizer.kind === 'Raster')) {
+      if (newSymbolizers.some((symbolizer: Symbolizer) => symbolizer.kind === 'Raster')) {
         lyr = rasterLayer || layer;
       } else {
         lyr = layer;
@@ -150,7 +110,7 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
       const {
         output: sld,
         errors = []
-      } = await this._styleParser.writeStyle(style);
+      } = await styleParser.writeStyle(style);
       const params = {
         'SERVICE': 'WMS',
         'VERSION': '1.3.0',
@@ -171,51 +131,49 @@ export class SLDRenderer extends React.Component<SLDRendererProps, SLDRendererSt
         });
         if (response && response.ok) {
           response.blob().then((blob: Blob) => {
-            const legendDataUrl = window.URL.createObjectURL(blob);
-            this.setState({legendDataUrl});
+            setLegendDataUrl(window.URL.createObjectURL(blob));
           });
         }
       } catch (error) {
         errors.push(error);
       }
       if (errors.length > 0) {
-        this.setState({
-          alt: errors[0]?.message
-        });
+        setAlt(errors[0]?.message);
       }
     }, requestDelay);
-  };
+  }, [
+    additionalHeaders,
+    height,
+    layer,
+    rasterLayer,
+    requestDelay,
+    width,
+    wmsBaseUrl,
+    wmsParams
+  ]);
 
-  render() {
-    const {
-      onClick,
-      symbolizers,
-      height,
-      width
-    } = this.props;
-    const {
-      alt,
-      legendDataUrl
-    } = this.state;
-    return (
-      <div
-        onClick={(event) => {
-          if (onClick) {
-            onClick(symbolizers, event);
-          }
-        }}
-        className="gs-symbolizer-sldrenderer"
-      >
-        <img
-          width={width}
-          height={height}
-          src={legendDataUrl}
-          alt={alt}
-        />
-      </div>
-    );
-  }
+  useEffect(() => {
+    setLegendGraphicUrlForRule(symbolizers);
+  }, [symbolizers, setLegendGraphicUrlForRule]);
 
-}
+  return (
+    <div
+      onClick={(event) => {
+        if (onClick) {
+          onClick(symbolizers, event);
+        }
+      }}
+      className="gs-symbolizer-sldrenderer"
+    >
+      <img
+        width={width}
+        height={height}
+        src={legendDataUrl}
+        alt={alt}
+      />
+    </div>
+  );
+
+};
 
 export default SLDRenderer;
