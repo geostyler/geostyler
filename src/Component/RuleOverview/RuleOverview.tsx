@@ -29,8 +29,6 @@
 
 import React, { useState } from 'react';
 
-import _merge from 'lodash/merge';
-
 import {
   Rule as GsRule,
   Symbolizer as GsSymbolizer
@@ -131,11 +129,11 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
       data: data
     }
   };
-  const mergedRuleFieldContainerProps = _merge(ruleFieldContainerProps, ruleFieldContainerPropsOverwrites);
+  const mergedRuleFieldContainerProps = {...ruleFieldContainerProps, ...ruleFieldContainerPropsOverwrites};
 
   const symbolizersPropsOverwrites = {
   };
-  const mergedSymbolizersProps = _merge(symbolizersProps, symbolizersPropsOverwrites);
+  const mergedSymbolizersProps = {...symbolizersProps, ...symbolizersPropsOverwrites};
 
   return (
     <div className='gs-rule-overview'>
