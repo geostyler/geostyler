@@ -64,6 +64,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
       {
         crumbs.length > 1 && (
           <Button
+            className='gs-breadcrumb-prev-button'
             type='text'
             icon={<LeftOutlined />}
             onClick={onPrevClick}
