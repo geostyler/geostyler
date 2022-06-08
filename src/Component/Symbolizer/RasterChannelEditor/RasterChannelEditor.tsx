@@ -41,9 +41,9 @@ import en_US from '../../../locale/en_US';
 import {
   ChannelSelection,
   Channel,
-  RGBChannel,
-  GrayChannel,
-  ContrastEnhancement
+  ContrastEnhancement,
+  isGrayChannel,
+  isRgbChannel
 } from 'geostyler-style';
 import ChannelField from '../Field/ChannelField/ChannelField';
 
@@ -87,26 +87,6 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
   channelSelection,
   contrastEnhancementTypes
 }) => {
-
-  /**
-   * Checks if ChannelSelection is of type RGBChannel.
-   */
-  // TODO: move to geostyler-style
-  const isRgbChannel = (channels: ChannelSelection): channels is RGBChannel => {
-    return (
-      (channels as RGBChannel).redChannel !== undefined
-      || (channels as RGBChannel).greenChannel !== undefined
-      || (channels as RGBChannel).blueChannel !== undefined
-    );
-  };
-
-  /**
-   * Checks if ChannelSelection is of type GrayChannel.
-   */
-  // TODO: move to geostyler-style
-  const isGrayChannel = (channels: ChannelSelection): channels is GrayChannel => {
-    return (channels as GrayChannel).grayChannel !== undefined;
-  };
 
   const defaultRgbOrGray = !channelSelection ? 'rgb' : isGrayChannel(channelSelection) ? 'gray' : 'rgb';
   const [rgbOrGray, setRgbOrGray] = useState(defaultRgbOrGray);
