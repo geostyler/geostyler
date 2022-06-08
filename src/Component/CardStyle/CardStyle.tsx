@@ -190,10 +190,29 @@ export const CardStyle: React.FC<CardStyleProps> = ({
     setCurrentView(view);
   };
 
+  /**
+   * Update the title for all path elements with view RULEVIEW.
+   *
+   * @param ruleName The new name of the rule that should be used as title.
+   * @param path The path list to search for RULEVIEWs.
+   * @returns The path list with updated titles.
+   */
+  const updateRuleNameForPath = (ruleName: string, path: Crumb[]): Crumb[] => {
+    return path.map(pathItem => {
+      if (pathItem.view === RULEVIEW) {
+        pathItem.title = ruleName;
+      }
+      return pathItem;
+    });
+  };
+
   const onRuleChange = (newRule: GsRule) => {
     let styleClone = _cloneDeep(style);
     const ruleIdx = currentView.path[currentView.path.length - 1].indices[0];
     styleClone.rules[ruleIdx] = newRule;
+    const pathClone = _cloneDeep(currentView.path);
+    const newCurrentViewPath = updateRuleNameForPath(newRule.name, pathClone);
+    setCurrentView({...currentView, path: newCurrentViewPath});
     if (onStyleChange) {
       onStyleChange(styleClone);
     }
