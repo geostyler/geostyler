@@ -223,27 +223,26 @@ export const Rules: React.FC<RulesProps> = ({
     );
   });
 
-  const getDefaultActions = (): ReactNode[] => {
-    const actions = [
+  let defaultActions = [
+    <Button
+      onClick={addRule}
+      key={0}
+    >
+      {locale.addRule}
+    </Button>
+  ];
+
+  if (enableClassification) {
+    defaultActions = [
+      ...defaultActions,
       <Button
-        onClick={addRule}
-        key={0}
+        onClick={classificationClick}
+        key={1}
       >
-        {locale.addRule}
+        {locale.classification}
       </Button>
     ];
-    if (enableClassification) {
-      actions.push(
-        <Button
-          onClick={classificationClick}
-          key={1}
-        >
-          {locale.classification}
-        </Button>
-      );
-    }
-    return actions;
-  };
+  }
 
   const multiEditActions: ReactNode[] = [
     <Button
@@ -299,7 +298,7 @@ export const Rules: React.FC<RulesProps> = ({
       <Divider />
       <div className='gs-rules-actions'>
         {
-          multiEditActive ? multiEditActions : getDefaultActions()
+          multiEditActive ? multiEditActions : defaultActions
         }
       </div>
     </div>

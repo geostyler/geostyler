@@ -62,26 +62,30 @@ export const Renderer: React.FC<RendererProps> = ({
   symbolizers
 }) => {
 
+  let renderer = (<div></div>);
+
+  if (rendererType === 'OpenLayers') {
+    renderer = (
+      <OlRenderer
+        symbolizers={symbolizers}
+        onClick={onSymbolizerClick}
+        data={data}
+      />
+    );
+  }
+  else if (rendererType === 'SLD') {
+    renderer = (
+      <SLDRenderer
+        symbolizers={symbolizers}
+        onClick={onSymbolizerClick}
+        {...sldRendererProps}
+      />
+    );
+  }
+
   return (
     <div className='gs-renderer'>
-      {
-        rendererType === 'OpenLayers' && (
-          <OlRenderer
-            symbolizers={symbolizers}
-            onClick={onSymbolizerClick}
-            data={data}
-          />
-        )
-      }
-      {
-        rendererType === 'SLD' && (
-          <SLDRenderer
-            symbolizers={symbolizers}
-            onClick={onSymbolizerClick}
-            {...sldRendererProps}
-          />
-        )
-      }
+      { renderer }
     </div>
   );
 };
