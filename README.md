@@ -161,7 +161,7 @@ The GeoStyler Demo will then be served on `localhost:3000`. When doing changes t
 
 ```bash
 npm run build
-npm run build:dist
+npm run build-dist
 ```
 Changes will automatically be updated in the browser. Please also provide tests and a minimal code example as \<ComponentName\>.example.md, if you add a new component, so the api documentation will always be up to date and other users can benefit from your work.
 
@@ -169,7 +169,7 @@ Changes will automatically be updated in the browser. Please also provide tests 
 `Invalid hook call` error:
 If the demo does not start but shows the above error it means that `geostyler-demo` and `geostyler` are using different react sources. To fixes this issue you need to add `react` to `resolve.alias` the `webpack.config.js` of create-react-app:
 In the project geostyler-demo in the file node_modules/react-scripts/config/webpack.config.js (~ line 320):
-```javavscript
+```javascript
 [...]
     resolve: {
     [...]
@@ -190,6 +190,11 @@ In the project geostyler-demo in the file node_modules/react-scripts/config/webp
     },
 [...]
 ```
+If there is an issue with a UI component, you may need to do the same for the `antd` module and add the alias:
+```javascript
+'antd': path.join(__dirname, '../../', 'antd'),
+```
+
 
 ### <a name="developing-geostyler-style-parsers"></a>Developing GeoStyler Style Parsers
 
