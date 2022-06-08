@@ -164,11 +164,11 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
             }
             {
               kind === 'Icon' && (
+                // TODO add iconLibraries config and viewhandling
                 <ImageField
                   value={image}
                   onChange={onImageChange}
                   placeholder={locale.imageFieldLabel}
-                  // iconLibraries={}
                 />
               )
             }

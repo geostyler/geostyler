@@ -27,10 +27,15 @@
  */
 
 import React from 'react';
-import { render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { BulkEditor } from './BulkEditor';
 
 describe('BulkEditor', () => {
+
+  let onStylePropChangeDummy: jest.Mock;
+  beforeEach(() => {
+    onStylePropChangeDummy = jest.fn();
+  });
 
   it('is defined', () => {
     expect(BulkEditor).toBeDefined();
@@ -39,6 +44,36 @@ describe('BulkEditor', () => {
   it('renders correctly', () => {
     const bulkEditor = render(<BulkEditor />);
     expect(bulkEditor.container).toBeInTheDocument();
+  });
+
+  describe('onStylePropChange', () => {
+
+    it('calls a passed onStylePropChange function', async () => {
+      const bulkEditor = render(<BulkEditor onStylePropChange={onStylePropChangeDummy} />);
+      const input = bulkEditor.container.querySelector('input.ant-input-number-input');
+      await act(async () => {
+        fireEvent.change(input, {
+          target: {
+            value: 12
+          }
+        });
+      });
+      expect(onStylePropChangeDummy).toHaveBeenCalled();
+    });
+
+    it('calls a passed onStylePropChange function with the field name and new value as argument', async () => {
+      const bulkEditor = render(<BulkEditor onStylePropChange={onStylePropChangeDummy} />);
+      const input = bulkEditor.container.querySelector('input.ant-input-number-input');
+      const inputValue = 12;
+      await act(async () => {
+        fireEvent.change(input, {
+          target: {
+            value: inputValue
+          }
+        });
+      });
+      expect(onStylePropChangeDummy).toHaveBeenCalledWith('radius', inputValue);
+    });
   });
 
 });
