@@ -1,4 +1,4 @@
-name: Update gh-pages
+name: Create & publish versioned documentation
 
 on:
   release:
