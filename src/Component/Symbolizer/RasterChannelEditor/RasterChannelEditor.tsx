@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import {
   Form,
@@ -41,9 +41,9 @@ import en_US from '../../../locale/en_US';
 import {
   ChannelSelection,
   Channel,
-  RGBChannel,
-  GrayChannel,
-  ContrastEnhancement
+  ContrastEnhancement,
+  isGrayChannel,
+  isRgbChannel
 } from 'geostyler-style';
 import ChannelField from '../Field/ChannelField/ChannelField';
 
@@ -75,88 +75,43 @@ export interface RasterChannelEditorProps extends Partial<RasterChannelEditorDef
   contrastEnhancementTypes?: ContrastEnhancement['enhancementType'][];
 }
 
-interface RasterChannelEditorState {
-  rgbOrGray: 'rgb' | 'gray' | undefined;
-  selectedTab: 'red' | 'green' | 'blue' | 'gray';
-}
+const COMPONENTNAME = 'RasterChannelEditor';
 
 /**
  * RasterChannelEditor to map bands to rgb or grayscale
  */
-export class RasterChannelEditor extends React.Component<RasterChannelEditorProps, RasterChannelEditorState> {
+export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
+  locale = en_US.GsRasterChannelEditor,
+  sourceChannelNames,
+  onChange,
+  channelSelection,
+  contrastEnhancementTypes
+}) => {
 
-  static componentName: string = 'RasterChannelEditor';
+  const defaultRgbOrGray = !channelSelection ? 'rgb' : isGrayChannel(channelSelection) ? 'gray' : 'rgb';
+  const [rgbOrGray, setRgbOrGray] = useState(defaultRgbOrGray);
+  const defaultSelectedTab = !channelSelection ? 'red' : isGrayChannel(channelSelection) ? 'gray' : 'red';
+  const [selectedTab, setSelectedTab] = useState(defaultSelectedTab);
 
-  public static defaultProps: RasterChannelEditorDefaultProps = {
-    locale: en_US.GsRasterChannelEditor
+  const onSelectionChange = (selection: 'rgb'|'gray') => {
+    setRgbOrGray(selection);
   };
 
-  constructor(props: RasterChannelEditorProps) {
-    super(props);
-    const channelSelection = _get(props, 'channelSelection');
-    const grayChannel = _get(props, 'channelSelection.grayChannel');
-    this.state = {
-      rgbOrGray: !channelSelection ? 'rgb' : grayChannel ? 'gray' : 'rgb',
-      selectedTab: !channelSelection ? 'red' : grayChannel ? 'gray' : 'red'
-    };
-  }
-
-  onSelectionChange = (rgbOrGray: 'rgb'|'gray') => {
-    const {
-      onChange
-    } = this.props;
-
-    this.setState({
-      rgbOrGray
-    }, () => {
-      // reset channelSelection
-      if (!rgbOrGray) {
-        onChange(undefined);
-      }
-    });
-  };
-
-  getTabLabel = (band: 'red' | 'green' | 'blue' | 'gray'): string => {
-    const {
-      locale
-    } = this.props;
-
+  const getTabLabel = (band: 'red' | 'green' | 'blue' | 'gray'): string => {
     let label = _get(locale, `${band}BandLabel`) ? _get(locale, `${band}BandLabel`) : band;
     return label;
-  };
-
-  /**
-   * Checks if ChannelSelection is of type RGBChannel.
-   */
-  isRgbChannel = (channels: ChannelSelection): channels is RGBChannel => {
-    return (
-      (channels as RGBChannel).redChannel !== undefined
-      || (channels as RGBChannel).greenChannel !== undefined
-      || (channels as RGBChannel).blueChannel !== undefined
-    );
-  };
-
-  /**
-   * Checks if ChannelSelection is of type GrayChannel.
-   */
-  isGrayChannel = (channels: ChannelSelection): channels is GrayChannel => {
-    return (channels as GrayChannel).grayChannel !== undefined;
   };
 
   /**
    * Updates ChannelField. Removes old props if channel type changes
    * from GrayChannel to RGBChannel or vice versa.
    */
-  onChannelFieldChange = (name: string, channel: Channel) => {
-    const {
-      channelSelection,
-      onChange
-    } = this.props;
+  const onChannelFieldChange = (name: string, channel: Channel) => {
     let newChannelSelection: ChannelSelection;
 
     if (!channelSelection
-      || (this.isGrayChannel(channelSelection) && name !== 'gray')
-      || (this.isRgbChannel(channelSelection) && name === 'gray')) {
+      || (isGrayChannel(channelSelection) && name !== 'gray')
+      || (isRgbChannel(channelSelection) && name === 'gray')) {
       newChannelSelection = {} as ChannelSelection;
       newChannelSelection[`${name}Channel`] = channel;
     } else {
@@ -169,131 +124,112 @@ export class RasterChannelEditor extends React.Component<RasterChannelEditorProp
     }
   };
 
-  onTabChange = (key: 'red' | 'green' | 'blue' | 'gray') => {
-    const {
-      ...restState
-    } = this.state;
-    this.setState({
-      selectedTab: key,
-      ...restState
-    });
+  const onTabChange = (key: 'red' | 'green' | 'blue' | 'gray') => {
+    setSelectedTab(key);
   };
 
-  render() {
-    const {
-      sourceChannelNames,
-      channelSelection,
-      contrastEnhancementTypes,
-      locale
-    } = this.props;
-
-    const {
-      rgbOrGray
-    } = this.state;
-
-    let redChannel: Channel;
-    if (channelSelection && this.isRgbChannel(channelSelection) && channelSelection.redChannel) {
-      redChannel = channelSelection.redChannel;
-    }
-    let greenChannel: Channel;
-    if (channelSelection && this.isRgbChannel(channelSelection) && channelSelection.greenChannel) {
-      greenChannel = channelSelection.greenChannel;
-    }
-    let blueChannel: Channel;
-    if (channelSelection && this.isRgbChannel(channelSelection) && channelSelection.blueChannel) {
-      blueChannel = channelSelection.blueChannel;
-    }
-    let grayChannel: Channel;
-    if (channelSelection && this.isGrayChannel(channelSelection) && channelSelection.grayChannel) {
-      grayChannel = channelSelection.grayChannel;
-    }
-
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
-    return (
-      <div>
-        <Form.Item
-          {...formItemLayout}
-        >
-          <span>{locale.titleLabel}</span>
-        </Form.Item>
-        <Form.Item
-          label={locale.channelSelectionLabel}
-          {...formItemLayout}
-        >
-          <Select
-            className="editor-field rgb-or-gray-field"
-            allowClear={true}
-            value={rgbOrGray}
-            onChange={this.onSelectionChange}
-          >
-            <Option
-              key="rgb"
-              value="rgb"
-            >{locale.channelSelectionRgbLabel}</Option>
-            <Option
-              key="gray"
-              value="gray"
-            >{locale.channelSelectionGrayLabel}</Option>
-          </Select>
-        </Form.Item>
-        { !rgbOrGray ? null :
-          (
-            <Tabs onChange={this.onTabChange} type="card">
-              {
-                rgbOrGray === 'rgb' ? ([
-                  <TabPane tab={this.getTabLabel('red')} key="red">
-                    <ChannelField
-                      channel={redChannel}
-                      contrastEnhancementTypes={contrastEnhancementTypes}
-                      onChange={(channel: Channel) => {
-                        this.onChannelFieldChange('red', channel);
-                      }}
-                      sourceChannelNames={sourceChannelNames}
-                    />
-                  </TabPane>,
-                  <TabPane tab={this.getTabLabel('green')} key="green">
-                    <ChannelField
-                      channel={greenChannel}
-                      contrastEnhancementTypes={contrastEnhancementTypes}
-                      onChange={(channel: Channel) => {
-                        this.onChannelFieldChange('green', channel);
-                      }}
-                      sourceChannelNames={sourceChannelNames}
-                    />
-                  </TabPane>,
-                  <TabPane tab={this.getTabLabel('blue')} key="blue">
-                    <ChannelField
-                      channel={blueChannel}
-                      contrastEnhancementTypes={contrastEnhancementTypes}
-                      onChange={(channel: Channel) => {
-                        this.onChannelFieldChange('blue', channel);
-                      }}
-                      sourceChannelNames={sourceChannelNames}
-                    />
-                  </TabPane>]
-                ) : (
-                  <TabPane tab={this.getTabLabel('gray')} key="gray">
-                    <ChannelField
-                      channel={grayChannel}
-                      contrastEnhancementTypes={contrastEnhancementTypes}
-                      onChange={(channel: Channel) => {
-                        this.onChannelFieldChange('gray', channel);
-                      }}
-                      sourceChannelNames={sourceChannelNames}
-                    />
-                  </TabPane>
-                )
-              }
-            </Tabs>
-          )
-        }
-      </div>
-    );
+  let redChannel: Channel;
+  if (channelSelection && isRgbChannel(channelSelection) && channelSelection.redChannel) {
+    redChannel = channelSelection.redChannel;
   }
-}
+  let greenChannel: Channel;
+  if (channelSelection && isRgbChannel(channelSelection) && channelSelection.greenChannel) {
+    greenChannel = channelSelection.greenChannel;
+  }
+  let blueChannel: Channel;
+  if (channelSelection && isRgbChannel(channelSelection) && channelSelection.blueChannel) {
+    blueChannel = channelSelection.blueChannel;
+  }
+  let grayChannel: Channel;
+  if (channelSelection && isGrayChannel(channelSelection) && channelSelection.grayChannel) {
+    grayChannel = channelSelection.grayChannel;
+  }
 
-export default localize(RasterChannelEditor, RasterChannelEditor.componentName);
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
+
+  return (
+    <div>
+      <Form.Item
+        {...formItemLayout}
+      >
+        <span>{locale.titleLabel}</span>
+      </Form.Item>
+      <Form.Item
+        label={locale.channelSelectionLabel}
+        {...formItemLayout}
+      >
+        <Select
+          className="editor-field rgb-or-gray-field"
+          allowClear={true}
+          value={rgbOrGray}
+          onChange={onSelectionChange}
+        >
+          <Option
+            key="rgb"
+            value="rgb"
+          >{locale.channelSelectionRgbLabel}</Option>
+          <Option
+            key="gray"
+            value="gray"
+          >{locale.channelSelectionGrayLabel}</Option>
+        </Select>
+      </Form.Item>
+      { !rgbOrGray ? null :
+        (
+          <Tabs onChange={onTabChange} type="card" activeKey={selectedTab}>
+            {
+              rgbOrGray === 'rgb' ? ([
+                <TabPane tab={getTabLabel('red')} key="red">
+                  <ChannelField
+                    channel={redChannel}
+                    contrastEnhancementTypes={contrastEnhancementTypes}
+                    onChange={(channel: Channel) => {
+                      onChannelFieldChange('red', channel);
+                    }}
+                    sourceChannelNames={sourceChannelNames}
+                  />
+                </TabPane>,
+                <TabPane tab={getTabLabel('green')} key="green">
+                  <ChannelField
+                    channel={greenChannel}
+                    contrastEnhancementTypes={contrastEnhancementTypes}
+                    onChange={(channel: Channel) => {
+                      onChannelFieldChange('green', channel);
+                    }}
+                    sourceChannelNames={sourceChannelNames}
+                  />
+                </TabPane>,
+                <TabPane tab={getTabLabel('blue')} key="blue">
+                  <ChannelField
+                    channel={blueChannel}
+                    contrastEnhancementTypes={contrastEnhancementTypes}
+                    onChange={(channel: Channel) => {
+                      onChannelFieldChange('blue', channel);
+                    }}
+                    sourceChannelNames={sourceChannelNames}
+                  />
+                </TabPane>]
+              ) : (
+                <TabPane tab={getTabLabel('gray')} key="gray">
+                  <ChannelField
+                    channel={grayChannel}
+                    contrastEnhancementTypes={contrastEnhancementTypes}
+                    onChange={(channel: Channel) => {
+                      onChannelFieldChange('gray', channel);
+                    }}
+                    sourceChannelNames={sourceChannelNames}
+                  />
+                </TabPane>
+              )
+            }
+          </Tabs>
+        )
+      }
+    </div>
+  );
+};
+
+export default localize(RasterChannelEditor, COMPONENTNAME);

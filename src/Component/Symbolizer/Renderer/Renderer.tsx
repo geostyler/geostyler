@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import OlMap from 'ol/Map';
 import OlLayerVector from 'ol/layer/Vector';
@@ -61,76 +61,19 @@ export interface RendererProps {
 /**
  * Symbolizer Renderer UI.
  */
-export class Renderer extends React.Component<RendererProps> {
+export const Renderer: React.FC<RendererProps> = ({
+  data,
+  onClick,
+  symbolizerKind,
+  symbolizers
+}) => {
 
   /** reference to the underlying OpenLayers map */
-  _map: any;
+  const map = useRef<OlMap>();
+  const layer = useRef<OlLayerVector<any>>();
+  const [ mapId ] = useState(_uniqueId('map_'));
 
-  _layer: any;
-
-  _mapId: string;
-
-  constructor(props: RendererProps) {
-    super(props);
-    this._mapId = _uniqueId('map_');
-  }
-
-  public componentDidMount() {
-    const {
-      symbolizers
-    } = this.props;
-
-    this._layer = new OlLayerVector({
-      source: new OlSourceVector()
-    });
-    this._map = new OlMap({
-      layers: [this._layer],
-      controls: [],
-      interactions: [],
-      target: this._mapId,
-      view: new OlView({
-        projection: 'EPSG:4326'
-      })
-    });
-
-    this.updateFeature();
-    this.applySymbolizers(symbolizers);
-  }
-
-  componentDidUpdate(prevProps: RendererProps) {
-    const {
-      symbolizers
-    } = this.props;
-
-    if (!_isEqual(symbolizers, prevProps.symbolizers)) {
-      this.updateFeature();
-      this.applySymbolizers(symbolizers);
-    }
-  }
-
-  updateFeature() {
-    const data = this.props.data;
-    const exampleFeatureProps = _get(data, 'exampleFeatures.features[0].properties');
-
-    this._layer.getSource().clear();
-    const sampleFeature = new OlFeature({
-      geometry: this.getSampleGeomFromSymbolizer(),
-      Name: 'Sample Feature',
-      ...exampleFeatureProps
-    });
-    this._layer.getSource().addFeature(sampleFeature);
-    // zoom to feature extent
-    const extent = this._layer.getSource().getExtent();
-    this._map.getView().fit(extent, {
-      maxZoom: 20
-    });
-  }
-
-  getSampleGeomFromSymbolizer = () => {
-    const {
-      symbolizerKind,
-      symbolizers
-    } = this.props;
+  const getSampleGeomFromSymbolizer = useCallback(() => {
     const kind: SymbolizerKind = symbolizerKind || _get(symbolizers, '[0].kind');
     switch (kind) {
       case 'Mark':
@@ -158,15 +101,51 @@ export class Renderer extends React.Component<RendererProps> {
       default:
         return new OlGeomPoint([7.10066, 50.735851]);
     }
-  };
+  }, [symbolizerKind, symbolizers]);
+
+  const updateFeature = useCallback(() => {
+    const exampleFeatureProps = _get(data, 'exampleFeatures.features[0].properties');
+
+    layer.current.getSource().clear();
+    const sampleFeature = new OlFeature({
+      geometry: getSampleGeomFromSymbolizer(),
+      Name: 'Sample Feature',
+      ...exampleFeatureProps
+    });
+    layer.current.getSource().addFeature(sampleFeature);
+    // zoom to feature extent
+    const extent = layer.current.getSource().getExtent();
+    map.current.getView().fit(extent, {
+      maxZoom: 20
+    });
+  }, [data, getSampleGeomFromSymbolizer]);
+
+  useEffect(() => {
+    layer.current = new OlLayerVector({
+      source: new OlSourceVector()
+    });
+    map.current = new OlMap({
+      layers: [layer.current],
+      controls: [],
+      interactions: [],
+      target: mapId,
+      view: new OlView({
+        projection: 'EPSG:4326'
+      })
+    });
+
+    updateFeature();
+    applySymbolizers(symbolizers);
+
+  }, [mapId, symbolizers, updateFeature]);
 
   /**
    * Transforms the incoming symbolizers to an OpenLayers style object the
    * GeoStyler parser and applies it to the vector features on the map.
    *
-   * @param {Symbolizer[]} symbolizers The symbolizers holding the style to apply
+   * @param {Symbolizer[]} newSymbolizers The symbolizers holding the style to apply
    */
-  applySymbolizers = async(symbolizers: Symbolizer[]) => {
+  const applySymbolizers = async(newSymbolizers: Symbolizer[]) => {
     const styleParser = new OlStyleParser();
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
@@ -175,7 +154,7 @@ export class Renderer extends React.Component<RendererProps> {
       name: 'WrapperStyle4Symbolizer',
       rules: [{
         name: 'WrapperRule4Symbolizer',
-        symbolizers: symbolizers
+        symbolizers: newSymbolizers
       }]
     };
     // parser style to OL style
@@ -184,28 +163,22 @@ export class Renderer extends React.Component<RendererProps> {
       return undefined;
     } else {
       // apply new OL style to vector layer
-      this._layer.setStyle(olStyles);
+      layer.current.setStyle(olStyles);
       return olStyles;
     }
   };
 
-  render() {
-    const {
-      onClick,
-      symbolizers
-    } = this.props;
-    return (
-      <div
-        onClick={(event) => {
-          if (onClick) {
-            onClick(symbolizers, event);
-          }
-        }}
-        className="gs-symbolizer-renderer"
-        id={this._mapId}
-      />
-    );
-  }
+  return (
+    <div
+      onClick={(event) => {
+        if (onClick) {
+          onClick(symbolizers, event);
+        }
+      }}
+      className="gs-symbolizer-renderer"
+      id={mapId}
+    />
+  );
 
 }
 

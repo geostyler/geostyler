@@ -142,6 +142,7 @@ export default {
   GsPropTextEditor: {
     propFieldLabel: 'Field',
     opacityLabel: 'Text-Opacity',
+    fontLabel: 'Font',
     colorLabel: 'Text-Color',
     sizeLabel: 'Text-Size',
     offsetXLabel: 'Offset X',

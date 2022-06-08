@@ -72,81 +72,68 @@ export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWin
   };
 }
 
+const COMPONENTNAME = 'SymbolizerEditorWindow';
+
 /**
  * Symbolizer editorwindow UI.
  */
-export class SymbolizerEditorWindow extends React.Component<SymbolizerEditorWindowProps> {
+export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
+  locale = en_US.GsSymbolizerEditorWindow,
+  constrainWindow = 'body',
+  symbolizers,
+  internalDataDef,
+  x,
+  y,
+  onClose,
+  onSymbolizersChange,
+  iconLibraries,
+  colorRamps
+}) => {
 
-  static componentName: string = 'SymbolizerEditorWindow';
-
-  public static defaultProps: SymbolizerEditorWindowDefaultProps = {
-    locale: en_US.GsSymbolizerEditorWindow,
-    constrainWindow: 'body'
-  };
-
-  public shouldComponentUpdate(nextProps: SymbolizerEditorWindowProps): boolean {
-    return !_isEqual(this.props, nextProps);
-  }
-
-  render() {
-    const {
-      x,
-      y,
-      onClose,
-      symbolizers,
-      onSymbolizersChange,
-      locale,
-      internalDataDef,
-      iconLibraries,
-      constrainWindow,
-      colorRamps
-    } = this.props;
-
-    return (
-      ReactDOM.createPortal(
-        <Rnd
-          bounds={constrainWindow}
-          className="symbolizer-editor-window"
-          default={{
-            x: x || window.innerWidth / 2,
-            y: y || window.innerHeight / 2,
-            width: undefined,
-            height: undefined
-          }}
-          enableResizing={{
-            bottom: false,
-            bottomLeft: false,
-            bottomRight: false,
-            left: false,
-            right: false,
-            top: false,
-            topLeft: false,
-            topRight: false
-          }}
-          dragHandleClassName="title"
-        >
-          <div className="header symbolizer-editor-window-header">
-            <span className="title">
-              {locale.symbolizersEditor}
-            </span>
-            <Button
-              icon={<CloseOutlined />}
-              size="small"
-              onClick={onClose}
-            />
-          </div>
-          <MultiEditor
-            internalDataDef={internalDataDef}
-            symbolizers={symbolizers}
-            onSymbolizersChange={onSymbolizersChange}
-            iconLibraries={iconLibraries}
-            editorProps={{colorRamps}}
+  return (
+    ReactDOM.createPortal(
+      <Rnd
+        bounds={constrainWindow}
+        className="symbolizer-editor-window"
+        default={{
+          x: x || window.innerWidth / 2,
+          y: y || window.innerHeight / 2,
+          width: undefined,
+          height: undefined
+        }}
+        enableResizing={{
+          bottom: false,
+          bottomLeft: false,
+          bottomRight: false,
+          left: false,
+          right: false,
+          top: false,
+          topLeft: false,
+          topRight: false
+        }}
+        dragHandleClassName="title"
+      >
+        <div className="header symbolizer-editor-window-header">
+          <span className="title">
+            {locale.symbolizersEditor}
+          </span>
+          <Button
+            icon={<CloseOutlined />}
+            size="small"
+            onClick={onClose}
           />
-        </Rnd>,
-        document.body
-      )
-    );
-  }
-}
+        </div>
+        <MultiEditor
+          internalDataDef={internalDataDef}
+          symbolizers={symbolizers}
+          onSymbolizersChange={onSymbolizersChange}
+          iconLibraries={iconLibraries}
+          editorProps={{colorRamps}}
+        />
+      </Rnd>,
+      document.body
+    )
+  );
+};
 
-export default localize(SymbolizerEditorWindow, SymbolizerEditorWindow.componentName);
+export default localize(SymbolizerEditorWindow, COMPONENTNAME);

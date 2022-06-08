@@ -108,7 +108,6 @@ export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-// export class FilterTree extends React.Component<FilterTreeProps, FilterTreeState> {
 export const FilterTree: React.FC<FilterTreeProps> = ({
   filter: rootFilter = ['==', '', null],
   internalDataDef,

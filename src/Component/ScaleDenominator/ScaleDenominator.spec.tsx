@@ -25,20 +25,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-import { ScaleDenominator, ScaleDenominatorProps } from './ScaleDenominator';
-import TestUtil from '../../Util/TestUtil';
+import React from 'react';
+import { act, render, fireEvent } from '@testing-library/react';
+import { ScaleDenominator } from './ScaleDenominator';
 
 describe('ScaleDenominator', () => {
 
-  let wrapper: any;
   let onChangeDummy: jest.Mock;
   beforeEach(() => {
     onChangeDummy = jest.fn();
-    const props: ScaleDenominatorProps = {
-      onChange: onChangeDummy
-    };
-    wrapper = TestUtil.shallowRenderComponent(ScaleDenominator, props);
   });
 
   it('is defined', () => {
@@ -46,24 +41,39 @@ describe('ScaleDenominator', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const scaleDenominator = render(<ScaleDenominator />);
+    expect(scaleDenominator.container).toBeInTheDocument();
   });
 
   describe('onMinScaleDenomChange', () => {
-    it('calls a passed onChange function (no scaleDenominator prop)', () => {
-      wrapper.instance().onMinScaleDenomChange(1337);
+    it('calls a passed onChange function (no scaleDenominator prop)', async () => {
+      const scaleDenominator = render(<ScaleDenominator onChange={onChangeDummy} />);
+      const input = await scaleDenominator.findByPlaceholderText('Enter min. Scale (Optional)');
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 1337 }
+        });
+      });
       expect(onChangeDummy).toHaveBeenCalledWith({
         min: 1337
       });
     });
-    it('calls a passed onChange function (scaleDenominator prop)', () => {
-      wrapper.setProps({
-        scaleDenominator: {
-          min: 0,
-          max: 7355608
-        }
+    it('calls a passed onChange function (scaleDenominator prop)', async () => {
+      const scaleDenominator = render(
+        <ScaleDenominator
+          onChange={onChangeDummy}
+          scaleDenominator={{
+            min: 0,
+            max: 7355608
+          }}
+        />
+      );
+      const input = await scaleDenominator.findByPlaceholderText('Enter min. Scale (Optional)');
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 1337 }
+        });
       });
-      wrapper.instance().onMinScaleDenomChange(1337);
       expect(onChangeDummy).toHaveBeenCalledWith({
         min: 1337,
         max: 7355608
@@ -72,20 +82,34 @@ describe('ScaleDenominator', () => {
   });
 
   describe('onMaxScaleDenomChange', () => {
-    it('calls a passed onChange function (no scaleDenominator prop)', () => {
-      wrapper.instance().onMaxScaleDenomChange(1234);
+    it('calls a passed onChange function (no scaleDenominator prop)', async () => {
+      const scaleDenominator = render(<ScaleDenominator onChange={onChangeDummy} />);
+      const input = await scaleDenominator.findByPlaceholderText('Enter max. Scale (Optional)');
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 1234 }
+        });
+      });
       expect(onChangeDummy).toHaveBeenCalledWith({
         max: 1234
       });
     });
-    it('calls a passed onChange function (scaleDenominator prop)', () => {
-      wrapper.setProps({
-        scaleDenominator: {
-          min: 0,
-          max: 7355608
-        }
+    it('calls a passed onChange function (scaleDenominator prop)', async () => {
+      const scaleDenominator = render(
+        <ScaleDenominator
+          onChange={onChangeDummy}
+          scaleDenominator={{
+            min: 0,
+            max: 7355608
+          }}
+        />
+      );
+      const input = await scaleDenominator.findByPlaceholderText('Enter max. Scale (Optional)');
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 1337 }
+        });
       });
-      wrapper.instance().onMaxScaleDenomChange(1337);
       expect(onChangeDummy).toHaveBeenCalledWith({
         min: 0,
         max: 1337

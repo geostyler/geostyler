@@ -63,7 +63,6 @@ export interface TextFilterFieldProps extends Partial<TextFilterFieldDefaultProp
 /**
  * Input field for a textual filter value.
  */
-// export class TextFilterField extends React.Component<TextFilterFieldProps, TextFilterFieldState> {
 export const TextFilterField: React.FC<TextFilterFieldProps> = ({
   label = 'Value',
   placeholder = 'Enter Text Value',

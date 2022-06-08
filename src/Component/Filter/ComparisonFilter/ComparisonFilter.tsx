@@ -167,7 +167,6 @@ const operatorsMap = {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-// export class ComparisonFilter extends React.Component<ComparisonFilterProps, ComparisonFilterState> {
 export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
   attributeLabel,
   attributeNameFilter = () => true,

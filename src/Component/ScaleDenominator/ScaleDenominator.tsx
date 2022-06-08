@@ -62,79 +62,67 @@ export interface ScaleDenominatorProps extends Partial<ScaleDenominatorDefaultPr
   onChange?: (scaleDenominator: GsScaleDenominator) => void;
 }
 
+export const COMPONENTNAME = 'ScaleDenominator';
+
 /**
  * Combined UI for input fields for the minimum and maximum scale of a rule.
  */
-export class ScaleDenominator extends React.Component<ScaleDenominatorProps> {
-
-  public static defaultProps: ScaleDenominatorDefaultProps = {
-    locale: en_US.GsScaleDenominator
-  };
-
-  static componentName: string = 'ScaleDenominator';
+export const ScaleDenominator: React.FC<ScaleDenominatorProps> = ({
+  locale = en_US.GsScaleDenominator,
+  scaleDenominator,
+  onChange
+}) => {
 
   /**
    * Reacts on changing min scale and pushes the updated scaleDenominator to the 'onChange' function
    */
-  onMinScaleDenomChange = (minScaleDenominator: number) => {
-    const {
-      onChange
-    } = this.props;
-    let scaleDenominator = _cloneDeep(this.props.scaleDenominator);
-    if (!scaleDenominator) {
-      scaleDenominator = {};
+  const onMinScaleDenomChange = (minScaleDenominator: number) => {
+    let scaleDenominatorClone = _cloneDeep(scaleDenominator);
+    if (!scaleDenominatorClone) {
+      scaleDenominatorClone = {};
     }
-    scaleDenominator.min = minScaleDenominator;
+    scaleDenominatorClone.min = minScaleDenominator;
     if (onChange) {
-      onChange(scaleDenominator);
+      onChange(scaleDenominatorClone);
     }
   };
 
   /**
    * Reacts on changing max scale and pushes the updated scaleDenominator to the 'onChange' function
    */
-  onMaxScaleDenomChange = (maxScaleDenominator: number) => {
-    const {
-      onChange
-    } = this.props;
-    let scaleDenominator = _cloneDeep(this.props.scaleDenominator);
-    if (!scaleDenominator) {
-      scaleDenominator = {};
+  const onMaxScaleDenomChange = (maxScaleDenominator: number) => {
+    let scaleDenominatorClone = _cloneDeep(scaleDenominator);
+    if (!scaleDenominatorClone) {
+      scaleDenominatorClone = {};
     }
-    scaleDenominator.max = maxScaleDenominator;
+    scaleDenominatorClone.max = maxScaleDenominator;
     if (onChange) {
-      onChange(scaleDenominator);
+      onChange(scaleDenominatorClone);
     }
   };
 
-  render() {
-    const {
-      locale
-    } = this.props;
+  return (
+    <div className="gs-scaledenominator">
+      <Row gutter={16} >
+        <Col span={12} className="gs-small-col">
+          <MinScaleDenominator
+            value={scaleDenominator?.min}
+            onChange={onMinScaleDenomChange}
+            label={locale.minScaleDenominatorLabelText}
+            placeholder={locale.minScaleDenominatorPlaceholderText}
+          />
+        </Col>
+        <Col span={12} className="gs-small-col">
+          <MaxScaleDenominator
+            value={scaleDenominator?.max}
+            onChange={onMaxScaleDenomChange}
+            label={locale.maxScaleDenominatorLabelText}
+            placeholder={locale.maxScaleDenominatorPlaceholderText}
+          />
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
-    return (
-      <div className="gs-scaledenominator">
-        <Row gutter={16} >
-          <Col span={12} className="gs-small-col">
-            <MinScaleDenominator
-              value={_get(this.props, 'scaleDenominator.min')}
-              onChange={this.onMinScaleDenomChange}
-              label={locale.minScaleDenominatorLabelText}
-              placeholder={locale.minScaleDenominatorPlaceholderText}
-            />
-          </Col>
-          <Col span={12} className="gs-small-col">
-            <MaxScaleDenominator
-              value={_get(this.props, 'scaleDenominator.max')}
-              onChange={this.onMaxScaleDenomChange}
-              label={locale.maxScaleDenominatorLabelText}
-              placeholder={locale.maxScaleDenominatorPlaceholderText}
-            />
-          </Col>
-        </Row>
-      </div>
-    );
-  }
-}
-
-export default localize(ScaleDenominator, ScaleDenominator.componentName);
+export default localize(ScaleDenominator, COMPONENTNAME);

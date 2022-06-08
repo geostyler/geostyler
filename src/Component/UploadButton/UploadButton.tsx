@@ -63,30 +63,23 @@ export type UploadButtonProps = UploadButtonDefaultProps & UploadProps<any>;
 /**
  * Button to upload / import geodata file.
  */
-export class UploadButton extends React.Component<UploadButtonProps> {
+export const UploadButton: React.FC<UploadButtonProps> = ({
+  locale = en_US.GsUploadButton,
+  ...passThroughProps
+}) => {
 
-  public static defaultProps: UploadButtonDefaultProps = {
-    locale: en_US.GsUploadButton
-  };
+  return (
+    <Upload
+      name="file"
+      action="memory"
+      {...passThroughProps}
+    >
+      <Button>
+        <UploadOutlined /> {locale.upload}
+      </Button>
+    </Upload>
+  );
 
-  render() {
-    const {
-      locale,
-      ...passThroughProps
-    } = this.props;
-
-    return (
-      <Upload
-        name="file"
-        action="memory"
-        {...passThroughProps}
-      >
-        <Button>
-          <UploadOutlined /> {locale.upload}
-        </Button>
-      </Upload>
-    );
-  }
-}
+};
 
 export default UploadButton;

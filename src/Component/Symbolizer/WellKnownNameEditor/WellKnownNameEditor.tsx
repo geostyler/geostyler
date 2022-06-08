@@ -72,106 +72,77 @@ export interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDef
   defaultValues: DefaultValues;
 }
 
-export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProps> {
+const COMPONENTNAME = 'WellKnownNameEditor';
 
-  static componentName: string = 'WellKnownNameEditor';
+export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
+  locale =  en_US.GsWellKnownNameEditor,
+  symbolizer,
+  onSymbolizerChange,
+  defaultValues
+}) => {
 
-  public static defaultProps: WellKnownNameEditorDefaultProps = {
-    locale: en_US.GsWellKnownNameEditor
-  };
-
-  public shouldComponentUpdate(nextProps: WellKnownNameEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
-  onRadiusChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.radius = value;
+  const onRadiusChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.radius = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onColorChange = (value: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.color = value;
+  const onColorChange = (value: string) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.color = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOpacityChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.opacity = value;
+  const onOpacityChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onFillOpacityChange = (fillOpacity: number) => {
-    const {
-      onSymbolizerChange,
-      symbolizer
-    } = this.props;
+  const onFillOpacityChange = (newFillOpacity: number) => {
     if (onSymbolizerChange) {
       onSymbolizerChange({
         ...symbolizer,
-        fillOpacity
+        fillOpacity: newFillOpacity
       });
     }
   };
 
-  onStrokeColorChange = (value: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.strokeColor = value;
+  const onStrokeColorChange = (value: string) => {
+    const cloneSymbolizer = _cloneDeep(symbolizer);
+    cloneSymbolizer.strokeColor = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(cloneSymbolizer);
     }
   };
 
-  onStrokeWidthChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.strokeWidth = value;
+  const onStrokeWidthChange = (value: number) => {
+    const cloneSymbolizer = _cloneDeep(symbolizer);
+    cloneSymbolizer.strokeWidth = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(cloneSymbolizer);
     }
   };
 
-  onStrokeOpacityChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.strokeOpacity = value;
+  const onStrokeOpacityChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.strokeOpacity = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onRotateChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.rotate = value;
+  const onRotateChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.rotate = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
@@ -179,14 +150,14 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
    * Wraps a Form Item around a given element and adds its locale
    * to the From Item label.
    */
-  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
+  const wrapFormItem = (label: string, element: React.ReactElement): React.ReactElement => {
     const formItemLayout = {
       labelCol: { span: 8 },
       wrapperCol: { span: 16 }
     };
     return element == null ? null : (
       <Form.Item
-        label={locale}
+        label={label}
         {...formItemLayout}
       >
         {element}
@@ -194,145 +165,137 @@ export class WellKnownNameEditor extends React.Component<WellKnownNameEditorProp
     );
   };
 
-  render() {
-    const {
-      symbolizer,
-      defaultValues,
-      locale
-    } = this.props;
+  const {
+    color,
+    fillOpacity,
+    opacity,
+    radius,
+    rotate,
+    strokeColor,
+    strokeOpacity,
+    strokeWidth
+  } = symbolizer;
 
-    const {
-      color,
-      fillOpacity,
-      opacity,
-      radius,
-      rotate,
-      strokeColor,
-      strokeOpacity,
-      strokeWidth
-    } = symbolizer;
+  return (
+    <CompositionContext.Consumer>
+      {(composition: Compositions) => (
+        <div>
+          {
+            wrapFormItem(
+              locale.radiusLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'WellKnownNameEditor.radiusField',
+                onChange: onRadiusChange,
+                propName: 'radius',
+                propValue: radius,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultRadius,
+                defaultElement: <RadiusField />
+              })
+            )
+          }
+          {
+            wrapFormItem(
+              locale.fillColorLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'WellKnownNameEditor.fillColorField',
+                onChange: onColorChange,
+                propName: 'color',
+                propValue: color,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultColor,
+                defaultElement: <ColorField />
+              })
+            )
+          }
+          {
+            wrapFormItem(
+              locale.opacityLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'WellKnownNameEditor.opacityField',
+                onChange: onOpacityChange,
+                propName: 'opacity',
+                propValue: opacity,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultOpacity,
+                defaultElement: <OpacityField />
+              })
+            )
+          }
+          {
+            wrapFormItem(
+              locale.fillOpacityLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'WellKnownNameEditor.fillOpacityField',
+                onChange: onFillOpacityChange,
+                propName: 'opacity',
+                propValue: fillOpacity,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultFillOpacity,
+                defaultElement: <OpacityField />
+              })
+            )
+          }
+          {
+            wrapFormItem(
+              locale.strokeColorLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'WellKnownNameEditor.strokeColorField',
+                onChange: onStrokeColorChange,
+                propName: 'color',
+                propValue: strokeColor,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeColor,
+                defaultElement: <ColorField />
+              })
+            )
+          }
+          {
+            wrapFormItem(
+              locale.strokeWidthLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'WellKnownNameEditor.strokeWidthField',
+                onChange: onStrokeWidthChange,
+                propName: 'width',
+                propValue: strokeWidth,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeWidth,
+                defaultElement: <WidthField />
+              })
+            )
+          }
+          {
+            wrapFormItem(
+              locale.strokeOpacityLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'WellKnownNameEditor.strokeOpacityField',
+                onChange: onStrokeOpacityChange,
+                propName: 'opacity',
+                propValue: strokeOpacity,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeOpacity,
+                defaultElement: <OpacityField />
+              })
+            )
+          }
+          {
+            wrapFormItem(
+              locale.rotateLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'WellKnownNameEditor.rotateField',
+                onChange: onRotateChange,
+                propName: 'rotate',
+                propValue: rotate,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultRotate,
+                defaultElement: <RotateField />
+              })
+            )
+          }
+        </div>
+      )}
+    </CompositionContext.Consumer>
+  );
+};
 
-    return (
-      <CompositionContext.Consumer>
-        {(composition: Compositions) => (
-          <div>
-            {
-              this.wrapFormItem(
-                locale.radiusLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'WellKnownNameEditor.radiusField',
-                  onChange: this.onRadiusChange,
-                  propName: 'radius',
-                  propValue: radius,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultRadius,
-                  defaultElement: <RadiusField />
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.fillColorLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'WellKnownNameEditor.fillColorField',
-                  onChange: this.onColorChange,
-                  propName: 'color',
-                  propValue: color,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultColor,
-                  defaultElement: <ColorField />
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.opacityLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'WellKnownNameEditor.opacityField',
-                  onChange: this.onOpacityChange,
-                  propName: 'opacity',
-                  propValue: opacity,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultOpacity,
-                  defaultElement: <OpacityField />
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.fillOpacityLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'WellKnownNameEditor.fillOpacityField',
-                  onChange: this.onFillOpacityChange,
-                  propName: 'opacity',
-                  propValue: fillOpacity,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultFillOpacity,
-                  defaultElement: <OpacityField />
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.strokeColorLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'WellKnownNameEditor.strokeColorField',
-                  onChange: this.onStrokeColorChange,
-                  propName: 'color',
-                  propValue: strokeColor,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeColor,
-                  defaultElement: <ColorField />
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.strokeWidthLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'WellKnownNameEditor.strokeWidthField',
-                  onChange: this.onStrokeWidthChange,
-                  propName: 'width',
-                  propValue: strokeWidth,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeWidth,
-                  defaultElement: <WidthField />
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.strokeOpacityLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'WellKnownNameEditor.strokeOpacityField',
-                  onChange: this.onStrokeOpacityChange,
-                  propName: 'opacity',
-                  propValue: strokeOpacity,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeOpacity,
-                  defaultElement: <OpacityField />
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.rotateLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'WellKnownNameEditor.rotateField',
-                  onChange: this.onRotateChange,
-                  propName: 'rotate',
-                  propValue: rotate,
-                  defaultValue: defaultValues?.WellKnownNameEditor?.defaultRotate,
-                  defaultElement: <RotateField />
-                })
-              )
-            }
-          </div>
-        )}
-      </CompositionContext.Consumer>
-    );
-  }
-}
-
-export default withDefaultsContext(localize(WellKnownNameEditor, WellKnownNameEditor.componentName));
+export default withDefaultsContext(localize(WellKnownNameEditor, COMPONENTNAME));

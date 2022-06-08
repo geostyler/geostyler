@@ -46,7 +46,6 @@ export const RadiusField: React.FC<RadiusFieldProps> = ({
   radius
 }) => {
 
-
   return (
     <InputNumber
       className="editor-field radius-field"

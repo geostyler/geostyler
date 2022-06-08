@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,35 +25,46 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-import { SLDRenderer, SLDRendererProps } from './SLDRenderer';
-import TestUtil from '../../../Util/TestUtil';
-import { Symbolizer } from 'geostyler-style';
+This demonstrates the use of `SLDRenderer`.
 
-describe('SLDRenderer', () => {
+```jsx
+import * as React from 'react';
+import { SLDRenderer } from 'geostyler';
 
-  let wrapper: any;
-  const dummySymbolizers: Symbolizer[] = [{
-    kind: 'Mark',
-    wellKnownName: 'circle',
-    color: '#FF0000'
-  }];
+class SLDRendererExample extends React.Component {
+  constructor(props) {
+    super(props);
 
-  beforeEach(() => {
-    const props: SLDRendererProps = {
-      wmsBaseUrl: 'https://ows.terrestris.de/geoserver/wms',
-      layer: 'osm:osm-fuel',
-      symbolizers: dummySymbolizers
+    this.state = {
+      symbolizers: [{
+        kind: 'Mark',
+        wellKnownName: 'Circle',
+        color: '#ff0000',
+        strokeColor: '000000',
+        strokeWidth: 3,
+        radius: 10
+      }]
     };
-    wrapper = TestUtil.shallowRenderComponent(SLDRenderer, props);
-  });
+  }
 
-  it('is defined', () => {
-    expect(SLDRenderer).toBeDefined();
-  });
+  render() {
+    const {
+      symbolizers
+    } = this.state;
 
-  it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
-  });
-});
+    return (
+      <SLDRenderer
+        symbolizers={symbolizers}
+        hideEditButton={true}
+        wmsBaseUrl='https://ows-demo.terrestris.de/geoserver/ows?'
+        layer='terrestris:bundeslaender'
+      />
+    );
+  }
+}
+
+<SLDRendererExample />
+```

@@ -49,33 +49,24 @@ export interface MinScaleDenominatorProps extends Partial<MinScaleDenominatorDef
 /**
  * Input field for the minimum scale of a rule.
  */
-export class MinScaleDenominator extends React.PureComponent<MinScaleDenominatorProps> {
+export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
+  label = 'Min. Scale',
+  placeholder = 'Enter min. Scale (Optional)',
+  value,
+  onChange
+}) => {
 
-  public static defaultProps: MinScaleDenominatorDefaultProps = {
-    label: 'Min. Scale',
-    placeholder: 'Enter min. Scale (Optional)'
-  };
-
-  render() {
-    const {
-      placeholder,
-      label,
-      value,
-      onChange
-    } = this.props;
-
-    return (
-      <Form.Item className="gs-min-scaledenominator" label={label} colon={false} >
-        <InputNumber
-          className="gs-min-scaledenominator-input"
-          value={value}
-          min={0}
-          placeholder={placeholder}
-          onChange={onChange}
-        />
-      </Form.Item>
-    );
-  }
-}
+  return (
+    <Form.Item className="gs-min-scaledenominator" label={label} colon={false} >
+      <InputNumber
+        className="gs-min-scaledenominator-input"
+        value={value}
+        min={0}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
+    </Form.Item>
+  );
+};
 
 export default MinScaleDenominator;
