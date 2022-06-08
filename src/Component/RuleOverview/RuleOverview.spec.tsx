@@ -28,17 +28,17 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+import { RuleOverview } from './RuleOverview';
 
-describe('Breadcrumb', () => {
+describe('RuleOverview', () => {
 
   it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
+    expect(RuleOverview).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
+    const ruleOverview = render(<RuleOverview rule={{name: 'foo', symbolizers: []}} />);
+    expect(ruleOverview.container).toBeInTheDocument();
   });
 
 });

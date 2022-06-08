@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,21 +25,51 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+This demonstrates the usage of the `Renderer` component with 'OpenLayers' renderer.
 
-describe('Breadcrumb', () => {
+```jsx
+import React, { useState } from 'react';
+import { Renderer } from 'geostyler';
 
-  it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
-  });
+function RendererExample () {
 
-  it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
-  });
+  const symbolizers = [{
+    kind: 'Fill'
+  }];
 
-});
+  return (
+    <Renderer
+      rendererType='OpenLayers'
+      symbolizers={symbolizers}
+    >
+  );
+}
+
+<RendererExample />
+```
+
+This demonstrates the usage of the `Renderer` component with 'SLD' renderer.
+
+```jsx
+import React, { useState } from 'react';
+import { Renderer } from 'geostyler';
+
+function RendererExample () {
+
+  const symbolizers = [{
+    kind: 'Fill'
+  }];
+
+  return (
+    <Renderer
+      rendererType='SLD'
+      symbolizers={symbolizers}
+    >
+  );
+}
+
+<RendererExample />
+```

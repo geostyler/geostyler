@@ -28,17 +28,17 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+import { SymbolizerCard } from './SymbolizerCard';
 
-describe('Breadcrumb', () => {
+describe('SymbolizerCard', () => {
 
   it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
+    expect(SymbolizerCard).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
+    const symbolizerCard = render(<SymbolizerCard symbolizer={{kind: 'Mark', wellKnownName: 'circle'}} />);
+    expect(symbolizerCard.container).toBeInTheDocument();
   });
 
 });

@@ -26,19 +26,62 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+.gs-symbolizers {
 
-describe('Breadcrumb', () => {
+  .gs-symbolizers-content {
+    display: flex;
 
-  it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
-  });
+    >*{
+      margin: 5px;
+    }
+  }
 
-  it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
-  });
+  .gs-add-button {
+    font-size: xxx-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-});
+    color: lightgrey;
+    border-radius: 4px;
+    border: 1px solid lightgrey
+  }
+
+  .gs-symbolizer-card {
+    margin: 5px;
+  }
+
+  .gs-symbolizers-grid {
+
+    .gs-removable {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+
+      >:last-child>span {
+        display: none;
+      }
+    }
+  }
+
+  .gs-symbolizers-list {
+
+    display: flex;
+    overflow: hidden;
+
+    .gs-removable {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+
+  }
+
+  .gs-symbolizers-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+}

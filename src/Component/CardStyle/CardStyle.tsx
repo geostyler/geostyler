@@ -26,54 +26,48 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
-
-// import { InterpolationMode } from 'chroma-js';
-
-// import {
-//   Button,
-//   Menu,
-//   Form,
-// } from 'antd';
+import _merge from 'lodash/merge';
 
 import {
   Style as GsStyle,
-  // Rule as GsRule,
-  // SymbolizerKind,
-  // Symbolizer as GsSymbolizer,
-  // WellKnownName as GsWellKnownName
+  Rule as GsRule,
+  Symbolizer as GsSymbolizer,
+  Filter as GsFilter,
+  isIconSymbolizer
 } from 'geostyler-style';
 
-// import {
-//   Data
-// } from 'geostyler-data';
+import {
+  Data
+} from 'geostyler-data';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-// import en_US from '../../locale/en_US';
-// import SymbolizerUtil from '../../Util/SymbolizerUtil';
-// import { SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
-// import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
+import en_US from '../../locale/en_US';
 
 import './CardStyle.less';
 import Breadcrumb, { Crumb } from '../Breadcrumb/Breadcrumb';
+import StyleOverview, { StyleOverviewProps } from '../StyleOverview/StyleOverview';
+import RuleOverview, { RuleOverviewProps } from '../RuleOverview/RuleOverview';
+import CardViewUtil from '../../Util/CardViewUtil';
+import { Editor, EditorProps } from '../Symbolizer/Editor/Editor';
+import FilterTree from '../Filter/FilterTree/FilterTree';
+import RuleGenerator, { RuleGeneratorProps } from '../RuleGenerator/RuleGenerator';
+import { BulkEditor } from '../BulkEditor/BulkEditor';
+import IconSelector, { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
+import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 // i18n
 export interface CardStyleLocale {
-  addRuleBtnText: string;
-  cloneRulesBtnText: string;
-  removeRulesBtnText: string;
-  nameFieldLabel?: string;
-  nameFieldPlaceholder?: string;
-  colorLabel: string;
-  radiusLabel: string;
-  opacityLabel: string;
-  symbolLabel: string;
-  multiEditLabel: string;
-  ruleGeneratorWindowBtnText: string;
+  styleTitle: string;
+  classificationTitle: string;
+  multiEditTitle: string;
+  symbolizerTitle: string;
+  filterTitle: string;
+  iconLibrariesTitle: string;
 }
 
 // default props
@@ -82,131 +76,318 @@ interface CardStyleDefaultProps {
   style: GsStyle;
   /** Locale object containing translated text snippets */
   locale: CardStyleLocale;
-  /** Enable classification */
-  enableClassification: boolean;
 }
 
 // non default props
 export interface CardStyleProps extends Partial<CardStyleDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
-  // data?: Data;
-  // /** The callback function that is triggered when the state changes */
-  // onStyleChange?: (style: GsStyle) => void;
-  // /** The data projection of example features */
-  // dataProjection?: string;
-  // /** Properties of the filter components */
-  // filterUiProps?: Partial<ComparisonFilterProps>;
-  // /** Properties of the rule name field */
-  // ruleNameProps?: Partial<NameFieldProps>;
-  // /** Properties of the Rule component */
-  // ruleProps?: Partial<RuleProps>;
-  // /** Properties of the RuleTable component */
-  // ruleTableProps?: Partial<RuleTableProps>;
-  // /** The renderer to use */
-  // ruleRendererType?: 'SLD' | 'OpenLayers';
-  // /** Properties of the SLD renderer */
-  // sldRendererProps?: SLDRendererAdditonalProps;
+  data?: Data;
+  /** The callback function that is triggered when the state changes */
+  onStyleChange?: (style: GsStyle) => void;
+  /** Properties of the filter components */
+  filterUiProps?: Partial<ComparisonFilterProps>;
+  /** The renderer to use for previews. */
+  rendererType?: 'SLD' | 'OpenLayers';
+  /** The passthrough props for the StyleOverview component. */
+  styleOverviewProps?: Partial<StyleOverviewProps>;
+  /** The passthrough props for the RuleOverview component. */
+  ruleOverviewProps?: Partial<RuleOverviewProps>;
+  /** The passthrough props for the RuleGenerator component. */
+  ruleGeneratorProps?: Partial<RuleGeneratorProps>;
+  /** The passthrough props for the Editor component. */
+  editorProps?: Partial<EditorProps>;
   // /** List of supported icons ordered as library */
-  // iconLibraries?: IconLibrary[];
-  // /** Display the number of features that match a rule */
-  // showAmount?: boolean;
-  // /** Display the number of features that match more than one rule */
-  // showDuplicates?: boolean;
-  // /** Object containing the predefined color ramps */
-  // colorRamps?: {
-  //   [name: string]: string[];
-  // };
-  // /** Use Brewer color ramps */
-  // useBrewerColorRamps?: boolean;
-  // /** List of supported color spaces */
-  // colorSpaces?: (InterpolationMode)[];
+  iconLibraries?: IconLibrary[];
+  /** Enable classification */
+  enableClassification?: boolean;
 }
 
-// state
-// interface StyleState {
-//   style: GsStyle;
-//   selectedRowKeys: number[];
-//   colorModalVisible: boolean;
-//   sizeModalVisible: boolean;
-//   opacityModalVisible: boolean;
-//   symbolModalVisible: boolean;
-//   ruleGeneratorWindowVisible: boolean;
-//   hasError: boolean;
-// }
+export interface CardView {
+  view: string;
+  props: any[];
+  path: Crumb[];
+}
 
-// const defaultStyle: GsStyle = {
-//   name: 'My Style',
-//   rules: []
-// };
+const STYLEVIEW = CardViewUtil.STYLEVIEW;
+const RULEVIEW = CardViewUtil.RULEVIEW;
+const CLASSIFICATIONVIEW = CardViewUtil.CLASSIFICATIONVIEW;
+const MULTIEDITVIEW = CardViewUtil.MULTIEDITVIEW;
+const SYMBOLIZERVIEW = CardViewUtil.SYMBOLIZERVIEW;
+const FILTEREDITVIEW = CardViewUtil.FILTEREDITVIEW;
+const ICONLIBRARIESVIEW = CardViewUtil.ICONLIBRARIESVIEW;
 
 export const CardStyle: React.FC<CardStyleProps> = ({
-  // locale = en_US.GsStyle,
+  locale = en_US.GsCardStyle,
   // enableClassification = true,
-  // style = defaultStyle,
-  // data,
-  // onStyleChange,
-  // dataProjection,
-  // filterUiProps,
-  // ruleNameProps,
-  // ruleProps,
-  // ruleRendererType,
-  // sldRendererProps,
-  // iconLibraries,
-  // showAmount,
-  // showDuplicates,
-  // colorRamps,
-  // useBrewerColorRamps,
-  // colorSpaces
+  style = { name: 'My Style', rules: [] },
+  data,
+  onStyleChange,
+  filterUiProps,
+  rendererType,
+  iconLibraries,
+  enableClassification,
+  styleOverviewProps,
+  ruleOverviewProps,
+  editorProps,
+  ruleGeneratorProps
 }) => {
 
-  const defaultCrumb: Crumb = {title: 'Style', view: 'style'};
-  const [currentView, setCurrentView] = useState<string>(defaultCrumb.view);
-  const [crumbs, setCrumbs] = useState<Crumb[]>([defaultCrumb]);
+  const defaultCrumb: Crumb = {view: STYLEVIEW, title: locale.styleTitle, indices: []};
+  const defaultView: CardView = {
+    view: STYLEVIEW,
+    props: [],
+    path: [defaultCrumb]
+  };
+  const [currentView, setCurrentView] = useState<CardView>(defaultView);
 
-  useEffect(() => {
-    const styleCrumb: Crumb = {title: 'Style', view: 'style'};
-    const ruleCrumb: Crumb = {title: 'Rule', view: 'rule'};
-
-    switch (currentView) {
-      case 'style':
-        setCrumbs([styleCrumb]);
-        break;
-      case 'rule':
-        setCrumbs([styleCrumb, ruleCrumb]);
-        break;
+  const getPathForView = (viewName: string, indices: number[]): Crumb[] => {
+    switch (viewName) {
+      case STYLEVIEW:
+        return [{view: STYLEVIEW, title: locale.styleTitle, indices: []}];
+      case RULEVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [...indices]}
+        ];
+      case CLASSIFICATIONVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: CLASSIFICATIONVIEW, title: locale.classificationTitle, indices: []}
+        ];
+      case MULTIEDITVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: MULTIEDITVIEW, title: locale.multiEditTitle, indices: [...indices]}
+        ];
+      case SYMBOLIZERVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [indices[0]]},
+          {view: SYMBOLIZERVIEW, title: locale.symbolizerTitle, indices: [...indices]}
+        ];
+      case FILTEREDITVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [indices[0]]},
+          {view: FILTEREDITVIEW, title: locale.filterTitle, indices: [...indices]},
+        ];
+      case ICONLIBRARIESVIEW:
+        return [
+          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
+          {view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [indices[0]]},
+          {view: SYMBOLIZERVIEW, title: locale.symbolizerTitle, indices: [...indices]},
+          {view: SYMBOLIZERVIEW, title: locale.iconLibrariesTitle, indices: [...indices]}
+        ];
       default:
-        break;
+        return [];
     }
-  }, [currentView]);
 
-  const changeView = (view: string) => {
+  };
+
+  const changeView = (viewName: string, indices: number[]) => {
+    let view: CardView = {view: viewName, props: indices, path: []};
+    view.path = getPathForView(viewName, indices);
     setCurrentView(view);
   };
+
+  const onRuleChange = (newRule: GsRule) => {
+    let styleClone = _cloneDeep(style);
+    const ruleIdx = currentView.path[currentView.path.length - 1].indices[0];
+    styleClone.rules[ruleIdx] = newRule;
+    if (onStyleChange) {
+      onStyleChange(styleClone);
+    }
+  };
+
+  const onRulesChange = (rules: GsRule[]) => {
+    let styleClone = _cloneDeep(style);
+    styleClone.rules = rules;
+    if (onStyleChange) {
+      onStyleChange(styleClone);
+      changeView(STYLEVIEW, currentView.path[0].indices);
+    }
+  };
+
+  const onSymbolizerChange = (symbolizer: GsSymbolizer) => {
+    let styleClone = _cloneDeep(style);
+    const ruleIdx = currentView.path[currentView.path.length - 1].indices[0];
+    const symbolizerIdx = currentView.path[currentView.path.length - 1].indices[1];
+    styleClone.rules[ruleIdx].symbolizers[symbolizerIdx] = symbolizer;
+    if (onStyleChange) {
+      onStyleChange(styleClone);
+    }
+  };
+
+  const onFilterChange = (filter: GsFilter) => {
+    let styleClone = _cloneDeep(style);
+    const ruleIdx = currentView.path[currentView.path.length - 1].indices[0];
+    styleClone.rules[ruleIdx].filter = filter;
+    if (onStyleChange) {
+      onStyleChange(styleClone);
+    }
+  };
+
+  const onBulkEditorChange = (prop: string, val: any) => {
+    const styleClone = _cloneDeep(style);
+    const selectedRuleIds = currentView.path[currentView.path.length - 1].indices;
+    styleClone.rules
+      .filter((rule: GsRule, idx: number) => {
+        return selectedRuleIds.includes(idx);
+      })
+      .forEach((rule: GsRule) => {
+        rule.symbolizers.forEach((sym: any) => {
+          sym[prop] = val;
+          if (prop === 'image' && sym.wellKnownName) {
+            delete sym.wellKnownName;
+            sym.kind = 'Icon';
+          }
+          if (prop === 'wellKnownName' && sym.image) {
+            delete sym.image;
+          }
+        });
+      });
+
+    if (onStyleChange) {
+      onStyleChange(styleClone);
+    }
+  };
+
+  const onIconSelect = (iconSrc: string) => {
+    const styleClone = _cloneDeep(style);
+    const ruleIdx = currentView.path[currentView.path.length - 1].indices[0];
+    const symbolizerIdx = currentView.path[currentView.path.length - 1].indices[1];
+    const symbolizer = styleClone.rules[ruleIdx].symbolizers[symbolizerIdx];
+    if (isIconSymbolizer(symbolizer)) {
+      symbolizer.image = iconSrc;
+    }
+
+    if (onStyleChange) {
+      onStyleChange(styleClone);
+    }
+  };
+
+  /**
+   * Get the image url for the currently selected symbolizer.
+   */
+  const getSelectedIconSrc = (): string => {
+    const symbolizer = style
+      .rules[currentView.path[currentView.path.length - 1].indices[0]]
+      .symbolizers[currentView.path[currentView.path.length - 1].indices[1]];
+
+    if (isIconSymbolizer(symbolizer)) {
+      return symbolizer.image;
+    }
+    return '';
+  };
+
+  const onRuleChangeView = (viewName: string, indices: number[]) => {
+    const newIndices = [currentView.path[currentView.path.length - 1].indices[0], ...indices];
+    changeView(viewName, newIndices);
+  };
+
+  const onIconEditorChangeView = () => {
+    const newIndices = [...currentView.path[currentView.path.length - 1].indices];
+    changeView(ICONLIBRARIESVIEW, newIndices);
+  };
+
+  const styleOverviewPropsOverwrites = {
+    rulesProps: {
+      ruleCardProps: {
+        rendererProps: {
+          rendererType: rendererType
+        }
+      }
+    }
+  };
+  const mergedStyleOverviewProps = {...styleOverviewProps, ...styleOverviewPropsOverwrites};
 
   return (
     <div>
       <Breadcrumb
-        crumbs={crumbs}
-        onClick={(crumbView: string) => {
-          changeView(crumbView);
-        }}
+        crumbs={currentView.path}
+        onClick={changeView}
       />
       {
-        currentView === 'style' && (
-          <div>Style<button onClick={
-            () => {
-              changeView('rule');
-            }
-          }>click</button></div>
+        currentView.view === STYLEVIEW && (
+          <StyleOverview
+            style={style}
+            data={data}
+            onStyleChange={onStyleChange}
+            onChangeView={changeView}
+            enableClassification={enableClassification}
+            {...mergedStyleOverviewProps}
+          />
         )
       }
       {
-        currentView === 'rule' && (
-          <div>Rule<button onClick={
-            () => {
-              changeView('style');
+        currentView.view === RULEVIEW && (
+          <RuleOverview
+            rule={style.rules[currentView.path[currentView.path.length - 1].indices[0]]}
+            data={data}
+            onRuleChange={onRuleChange}
+            onChangeView={onRuleChangeView}
+            {...ruleOverviewProps}
+          />
+        )
+      }
+      {
+        currentView.view === SYMBOLIZERVIEW && (
+          <Editor
+            symbolizer={
+              style
+                .rules[currentView.path[currentView.path.length - 1].indices[0]]
+                .symbolizers[currentView.path[currentView.path.length - 1].indices[1]]
             }
-          }>click</button></div>
+            onSymbolizerChange={onSymbolizerChange}
+            iconEditorProps={{
+              imageFieldProps: {
+                windowless: true,
+                onIconLibrariesClick: onIconEditorChangeView
+              }
+            }}
+            internalDataDef={data}
+            iconLibraries={iconLibraries}
+            {...editorProps}
+          />
+        )
+      }
+      {
+        currentView.view === FILTEREDITVIEW && (
+          <FilterTree
+            filter={
+              style
+                .rules[currentView.path[currentView.path.length - 1].indices[0]]
+                .filter
+            }
+            onFilterChange={onFilterChange}
+            internalDataDef={data}
+            filterUiProps={filterUiProps}
+          />
+        )
+      }
+      {
+        currentView.view === CLASSIFICATIONVIEW && (
+          <RuleGenerator
+            internalDataDef={data}
+            onRulesChange={onRulesChange}
+            {...ruleGeneratorProps}
+          />
+        )
+      }
+      {
+        currentView.view === MULTIEDITVIEW && (
+          <BulkEditor
+            onStylePropChange={onBulkEditorChange}
+          />
+        )
+      }
+      {
+        currentView.view === ICONLIBRARIESVIEW && (
+          <IconSelector
+            iconLibraries={iconLibraries}
+            onIconSelect={onIconSelect}
+            selectedIconSrc={getSelectedIconSrc()}
+          />
         )
       }
     </div>

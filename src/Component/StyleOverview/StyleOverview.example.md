@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,21 +25,56 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+This demonstrates the usage of the `StyleOverview` component.
 
-describe('Breadcrumb', () => {
+```jsx
+import * as React from 'react';
+import { StyleOverview } from 'geostyler';
 
-  it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
-  });
+class StyleOverviewExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      style: {
+        name: 'my style',
+        rules: [{
+          name: 'myRule',
+          symbolizers: [{
+            kind: 'Mark',
+            wellKnownName: 'Circle'
+          }]
+        }, {
+          name: 'myRule 2',
+          symbolizers: [{
+            kind: 'Mark',
+            wellKnownName: 'Circle'
+          }]
+        }]
+      }
+    };
 
-  it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
-  });
+  }
 
-});
+  render() {
+    const {
+      style
+    } = this.state;
+
+    return (
+      <div>
+        <StyleOverview
+          style={style}
+          onStyleChange={() => {
+            this.setState({style});
+          }}
+        />
+      </div>
+    );
+  }
+}
+
+<StyleOverviewExample />
+```

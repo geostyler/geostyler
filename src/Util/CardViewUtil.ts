@@ -26,19 +26,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+/**
+ * @class CardViewUtil
+ */
+class CardViewUtil {
+  static STYLEVIEW = 'STYLEVIEW';
+  static RULEVIEW = 'RULEVIEW';
+  static CLASSIFICATIONVIEW = 'CLASSIFICATIONVIEW';
+  static MULTIEDITVIEW = 'MULTIEDITVIEW';
+  static SYMBOLIZERVIEW = 'SYMBOLIZERVIEW';
+  static FILTEREDITVIEW = 'FILTEREDITVIEW';
+  static ICONLIBRARIESVIEW = 'ICONLIBRARIESVIEW';
+}
 
-describe('Breadcrumb', () => {
-
-  it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
-  });
-
-  it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
-  });
-
-});
+export default CardViewUtil;

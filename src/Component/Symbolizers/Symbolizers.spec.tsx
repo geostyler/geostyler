@@ -28,17 +28,17 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+import { Symbolizers } from './Symbolizers';
 
-describe('Breadcrumb', () => {
+describe('Symbolizers', () => {
 
   it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
+    expect(Symbolizers).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
+    const symbolizers = render(<Symbolizers symbolizers={[{kind: 'Mark', wellKnownName: 'circle'}]} />);
+    expect(symbolizers.container).toBeInTheDocument();
   });
 
 });

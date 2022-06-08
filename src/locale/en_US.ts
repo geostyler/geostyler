@@ -40,6 +40,13 @@ export default {
     imageFieldLabel: 'Source',
     imageFieldTooltipLabel: 'Open Gallery'
   },
+  GsBulkEditor: {
+    colorLabel: 'Select color',
+    radiusLabel: 'Select radius',
+    opacityLabel: 'Select opacity',
+    symbolLabel: 'Select symbol',
+    imageFieldLabel: 'Source'
+  },
   GsRule: {
     removeRuleBtnText: 'Remove Rule',
     scaleFieldTitle: 'Use scale',
@@ -61,6 +68,28 @@ export default {
     symbolLabel: 'Select symbol',
     multiEditLabel: 'Multi edit',
     ruleGeneratorWindowBtnText: 'Classification'
+  },
+  GsCardStyle: {
+    styleTitle: 'Style',
+    classificationTitle: 'Classification',
+    multiEditTitle: 'Multi edit',
+    symbolizerTitle: 'Symbolizer',
+    filterTitle: 'Filters',
+    iconLibrariesTitle: 'Gallery'
+  },
+  GsStyleOverview: {
+    styleTitle: 'Style'
+  },
+  GsRuleOverview: {
+    ruleTitle: 'Rule'
+  },
+  GsSymbolizerCard: {
+  },
+  GsSymbolizers: {
+    symbolizersTitle: 'Symbolizers',
+    addSymbolizer: 'Add symbolizer',
+    showAll: 'Show all',
+    hide: 'Hide'
   },
   GsStyleLoader: {
     label: 'Load Style: ',
@@ -258,6 +287,9 @@ export default {
   },
   GsSymbolizerEditorWindow: {
     symbolizersEditor: 'Symbolizer Editor'
+  },
+  GsFilterOverview: {
+    filterTitle: 'Filters'
   },
   GsFilterEditorWindow: {
     filterEditor: 'Filter Editor'

@@ -28,17 +28,17 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+import { StyleOverview } from './StyleOverview';
 
-describe('Breadcrumb', () => {
+describe('StyleOverview', () => {
 
   it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
+    expect(StyleOverview).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
+    const styleOverview = render(<StyleOverview style={{name: 'foo', rules: []}} />);
+    expect(styleOverview.container).toBeInTheDocument();
   });
 
 });

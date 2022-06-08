@@ -28,17 +28,17 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+import { BulkEditor } from './BulkEditor';
 
-describe('Breadcrumb', () => {
+describe('BulkEditor', () => {
 
   it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
+    expect(BulkEditor).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
+    const bulkEditor = render(<BulkEditor />);
+    expect(bulkEditor.container).toBeInTheDocument();
   });
 
 });

@@ -28,17 +28,17 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+import { Renderer } from './Renderer';
 
-describe('Breadcrumb', () => {
+describe('Renderer', () => {
 
   it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
+    expect(Renderer).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
+    const renderer = render(<Renderer symbolizers={[{kind: 'Fill'}]} />);
+    expect(renderer.container).toBeInTheDocument();
   });
 
 });

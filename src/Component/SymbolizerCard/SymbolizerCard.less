@@ -26,19 +26,21 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+.gs-symbolizer-card {
 
-describe('Breadcrumb', () => {
+  height: 100px;
+  width: 100px;
 
-  it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
-  });
+  .ant-card-body {
+    padding: 0;
+  }
 
-  it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
-  });
+  &.ant-card-bordered {
+    border: none;
+  }
 
-});
+  .gs-symbolizer-renderer {
+    height: 100px;
+    width: 100px;
+  }
+}

@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,21 +25,28 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+This demonstrates the usage of the `BulkEditor` component.
 
-describe('Breadcrumb', () => {
+```jsx
+import * as React from 'react';
+import { BulkEditor } from 'geostyler';
 
-  it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
-  });
+class BulkEditorExample extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-  it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
-  });
+  render() {
+    return (
+      <div>
+        <BulkEditor />
+      </div>
+    );
+  }
+}
 
-});
+<BulkEditorExample />
+```

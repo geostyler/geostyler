@@ -28,17 +28,17 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+import { FilterOverview } from './FilterOverview';
 
-describe('Breadcrumb', () => {
+describe('FilterOverview', () => {
 
   it('is defined', () => {
-    expect(Breadcrumb).toBeDefined();
+    expect(FilterOverview).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const field = render(<Breadcrumb crumbs={[]} />);
-    expect(field.container).toBeInTheDocument();
+    const filterOverview = render(<FilterOverview />);
+    expect(filterOverview.container).toBeInTheDocument();
   });
 
 });
