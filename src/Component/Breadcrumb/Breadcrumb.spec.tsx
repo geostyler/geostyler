@@ -27,10 +27,16 @@
  */
 
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, act, fireEvent } from '@testing-library/react';
 import { Breadcrumb } from './Breadcrumb';
+import {} from 'react-dom/test-utils';
 
 describe('Breadcrumb', () => {
+
+  let onClickDummy: jest.Mock;
+  beforeEach(() => {
+    onClickDummy = jest.fn();
+  });
 
   it('is defined', () => {
     expect(Breadcrumb).toBeDefined();
@@ -39,6 +45,66 @@ describe('Breadcrumb', () => {
   it('renders correctly', () => {
     const field = render(<Breadcrumb crumbs={[]} />);
     expect(field.container).toBeInTheDocument();
+  });
+
+  describe('onClick', () => {
+
+    it('calls a passed onClick function', async () => {
+      const crumbsTitle = 'bar';
+      const crumbs = [{view: 'foo', title: crumbsTitle, indices: []}];
+      const breadcrumb = render(<Breadcrumb crumbs={crumbs} onClick={onClickDummy} />);
+      const breadcrumbItem = await breadcrumb.findByText(crumbsTitle);
+      await act(async () => {
+        fireEvent.click(breadcrumbItem);
+      });
+      expect(onClickDummy).toHaveBeenCalled();
+    });
+
+    it('calls a passed onClick function with the clicked view and its indices', async () => {
+      const view = 'foo';
+      const title = 'bar';
+      const indices = [0];
+
+      const crumbs = [{view, title, indices}];
+      const breadcrumb = render(<Breadcrumb crumbs={crumbs} onClick={onClickDummy} />);
+      const breadcrumbItem = await breadcrumb.findByText(title);
+      await act(async () => {
+        fireEvent.click(breadcrumbItem);
+      });
+      expect(onClickDummy).toHaveBeenCalledWith(view, indices);
+    });
+
+  });
+
+  describe('onPrevClick', () => {
+
+    it('calls a passed onClick function', async () => {
+      const view = 'foo';
+      const title = 'bar';
+      const indices = [0];
+
+      const crumbs = [{view, title, indices}, {view, title, indices}];
+      const breadcrumb = render(<Breadcrumb crumbs={crumbs} onClick={onClickDummy} />);
+      const prevButton = breadcrumb.container.querySelector('.gs-breadcrumb-prev-button');
+      await act(async () => {
+        fireEvent.click(prevButton);
+      });
+      expect(onClickDummy).toHaveBeenCalled();
+    });
+
+    it('calls a passed onClick function with the opts of the next to last crumb', async () => {
+      const view = 'foo';
+      const title = 'bar';
+      const indices = [0];
+
+      const crumbs = [{view, title, indices}, {view: 'foz', title: 'baz', indices: [1]}];
+      const breadcrumb = render(<Breadcrumb crumbs={crumbs} onClick={onClickDummy} />);
+      const prevButton = breadcrumb.container.querySelector('.gs-breadcrumb-prev-button');
+      await act(async () => {
+        fireEvent.click(prevButton);
+      });
+      expect(onClickDummy).toHaveBeenCalledWith(view, indices);
+    });
   });
 
 });
