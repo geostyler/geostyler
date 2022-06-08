@@ -76,229 +76,187 @@ export interface PropTextEditorProps extends Partial<PropTextEditorDefaultProps>
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
+const COMPONENTNAME = 'PropTextEditor';
+
 /**
  * The PropTextEditor class. Allows to edit text styles solely based on a
  * feature property. The entered word will be understood as the property name
  * of a feature. No static text is allowed.
  */
-export class PropTextEditor extends React.Component<PropTextEditorProps> {
+export const PropTextEditor: React.FC<PropTextEditorProps> = ({
+  locale = en_US.GsPropTextEditor,
+  symbolizer,
+  internalDataDef,
+  onSymbolizerChange
+}) => {
 
-  public static defaultProps: PropTextEditorDefaultProps = {
-    locale: en_US.GsPropTextEditor
-  };
-
-  static componentName: string = 'PropTextEditor';
-
-  public shouldComponentUpdate(nextProps: PropTextEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
-  formatLabel = (label: string): string => {
+  const formatLabel = (label: string): string => {
     const regExp: RegExp = /\{\{(.*)\}\}/g;
     return label.replace(regExp, '$1');
   };
 
-  onLabelChange = (newAttrName: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
+  const onLabelChange = (newAttrName: string) => {
     // add the removed curly braces to newAttrName
     // so it will be recognized as a placeholder for a featureProp
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.label = `{{${newAttrName}}}`;
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.label = `{{${newAttrName}}}`;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onColorChange = (value: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.color = value;
+  const onColorChange = (value: string) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.color = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onFontChange = (value: string[]) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.font = value.length > 0 ? value : undefined;
+  const onFontChange = (value: string[]) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.font = value.length > 0 ? value : undefined;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOpacityChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.opacity = value;
+  const onOpacityChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onSizeChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.size = value;
+  const onSizeChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.size = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOffsetXChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    let newOffset: [number, number] = [value, (symbolizer.offset ? symbolizer.offset[1] : 0)];
-    symbolizer.offset = newOffset;
+  const onOffsetXChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)];
+    symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOffsetYChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    let newOffset: [number, number] = [(symbolizer.offset ? symbolizer.offset[0] : 0), value];
-    symbolizer.offset = newOffset;
+  const onOffsetYChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0), value];
+    symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onRotateChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.rotate = value;
+  const onRotateChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.rotate = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onHaloColorChange = (value: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.haloColor = value;
+  const onHaloColorChange = (value: string) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.haloColor = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onHaloWidthChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.haloWidth = value;
+  const onHaloWidthChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.haloWidth = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
+  const clondeSymbolizer = _cloneDeep(symbolizer);
 
-  render() {
-    const {
-      internalDataDef,
-      locale
-    } = this.props;
+  const {
+    opacity,
+    color,
+    font,
+    offset,
+    size,
+    rotate,
+    haloColor,
+    haloWidth
+  } = clondeSymbolizer;
 
-    const symbolizer = _cloneDeep(this.props.symbolizer);
+  // split the current offset
+  let offsetX;
+  let offsetY;
+  if (offset) {
+    offsetX = offset[0];
+    offsetY = offset[1];
+  }
 
-    const {
-      opacity,
-      color,
-      font,
-      offset,
-      size,
-      rotate,
-      haloColor,
-      haloWidth
-    } = symbolizer;
-
-    // split the current offset
-    let offsetX;
-    let offsetY;
-    if (offset) {
-      offsetX = offset[0];
-      offsetY = offset[1];
-    }
-
-    return (
-      <div className="gs-text-symbolizer-prop-editor" >
-        <div className="editor-field attribute-field">
-          <span className="label">{locale.propFieldLabel}:</span>
-          <AttributeCombo
-            value={symbolizer.label ? this.formatLabel(symbolizer.label) : undefined}
-            placeholder={locale.attributeComboPlaceholder}
-            internalDataDef={internalDataDef}
-            onAttributeChange={this.onLabelChange}
-          />
-        </div>
-        {locale.colorLabel}
-        <ColorField
-          color={color}
-          onChange={this.onColorChange}
-        />
-        {locale.fontLabel}
-        <FontPicker
-          font={font}
-          onChange={this.onFontChange}
-        />
-        {locale.opacityLabel}
-        <OpacityField
-          opacity={opacity}
-          onChange={this.onOpacityChange}
-        />
-        {locale.sizeLabel}
-        <WidthField
-          width={size}
-          onChange={this.onSizeChange}
-        />
-        {locale.offsetXLabel}
-        <OffsetField
-          offset={offsetX}
-          onChange={this.onOffsetXChange}
-        />
-        {locale.offsetYLabel}
-        <OffsetField
-          offset={offsetY}
-          onChange={this.onOffsetYChange}
-        />
-        {locale.rotateLabel}
-        <RotateField
-          rotate={rotate}
-          onChange={this.onRotateChange}
-        />
-        {locale.haloColorLabel}
-        <ColorField
-          color={haloColor}
-          onChange={this.onHaloColorChange}
-        />
-        {locale.haloWidthLabel}
-        <WidthField
-          width={haloWidth}
-          onChange={this.onHaloWidthChange}
+  return (
+    <div className="gs-text-symbolizer-prop-editor" >
+      <div className="editor-field attribute-field">
+        <span className="label">{locale.propFieldLabel}:</span>
+        <AttributeCombo
+          value={symbolizer.label ? formatLabel(symbolizer.label) : undefined}
+          placeholder={locale.attributeComboPlaceholder}
+          internalDataDef={internalDataDef}
+          onAttributeChange={onLabelChange}
         />
       </div>
-    );
-  }
-}
+      {locale.colorLabel}
+      <ColorField
+        color={color}
+        onChange={onColorChange}
+      />
+      {locale.fontLabel}
+      <FontPicker
+        font={font}
+        onChange={onFontChange}
+      />
+      {locale.opacityLabel}
+      <OpacityField
+        opacity={opacity}
+        onChange={onOpacityChange}
+      />
+      {locale.sizeLabel}
+      <WidthField
+        width={size}
+        onChange={onSizeChange}
+      />
+      {locale.offsetXLabel}
+      <OffsetField
+        offset={offsetX}
+        onChange={onOffsetXChange}
+      />
+      {locale.offsetYLabel}
+      <OffsetField
+        offset={offsetY}
+        onChange={onOffsetYChange}
+      />
+      {locale.rotateLabel}
+      <RotateField
+        rotate={rotate}
+        onChange={onRotateChange}
+      />
+      {locale.haloColorLabel}
+      <ColorField
+        color={haloColor}
+        onChange={onHaloColorChange}
+      />
+      {locale.haloWidthLabel}
+      <WidthField
+        width={haloWidth}
+        onChange={onHaloWidthChange}
+      />
+    </div>
+  );
+};
 
-export default localize(PropTextEditor, PropTextEditor.componentName);
+export default localize(PropTextEditor, COMPONENTNAME);
