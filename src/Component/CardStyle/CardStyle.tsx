@@ -299,7 +299,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
       }
     }
   };
-  const mergedStyleOverviewProps = _merge(styleOverviewProps, styleOverviewPropsOverwrites);
+  const mergedStyleOverviewProps = {...styleOverviewProps, ...styleOverviewPropsOverwrites};
 
   return (
     <div>
