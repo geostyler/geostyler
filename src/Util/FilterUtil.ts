@@ -164,7 +164,7 @@ class FilterUtil {
    * rule.
    *
    * @param {object} matches An object containing the count of matches for every
-   *  filter. Seperate by scales.
+   *  filter. Separated by scales.
    * @returns {number[]} An array containing the number of duplicates for each
    *  rule.
    */

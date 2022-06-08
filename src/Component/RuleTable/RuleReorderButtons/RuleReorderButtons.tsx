@@ -53,7 +53,7 @@ interface RuleReorderButtonsDefaultProps {
 }
 // non default props
 export interface RuleReorderButtonsProps extends Partial<RuleReorderButtonsDefaultProps> {
-  /** Index of the correspondig Rule object */
+  /** Index of the corresponding Rule object */
   ruleIndex: number;
   /** Callback for click = move a rule position */
   onRulesMove?: (rules: GsRule[]) => void;

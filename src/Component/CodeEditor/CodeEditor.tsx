@@ -158,7 +158,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   }, [activeParser]);
 
   if (hasError) {
-    return (<h1>An error occured in the CodeEditor UI.</h1>);
+    return (<h1>An error occurred in the CodeEditor UI.</h1>);
   }
 
   const onChange = async(v: string) => {

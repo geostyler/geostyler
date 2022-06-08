@@ -49,7 +49,7 @@ class HTTPUtil {
    * A method that performs a fetch request with some predefined configs.
    *
    * @param {Object} Options The options object to configure the post request.
-   *  It can contain theses keys:
+   *  It can contain these keys:
    *    {String} url The url we want to send the post to.
    *    {Object} params The post params we want to send.
    *      Default is {}.
@@ -57,8 +57,8 @@ class HTTPUtil {
    *      Default is {}.
    *    {Object} additionalFetchOptions An object containing additional options
    *      for the fetch API. Compare https://mdn.io/fetch Default is {}.
-   *    {Boolean} sameOriginCredentials A flag to wether set the credentials
-   *      option to 'same-origin' or let it undefined. Default is true.
+   *    {Boolean} sameOriginCredentials A flag to control whether the credentials
+   *      option to 'same-origin' will be set or left undefined. Default is true.
    *    {Boolean} asForm A flag to set the Content-Type header to
    *      'application/x-www-form-urlencoded'. Default is true.
    */

@@ -500,7 +500,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
   render() {
     if (this.state.hasError) {
-      return <h1>An error occured in the Style UI.</h1>;
+      return <h1>An error occurred in the Style UI.</h1>;
     }
 
     let rules: GsRule[] = [];

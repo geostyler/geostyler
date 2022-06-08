@@ -271,7 +271,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
 
   render() {
     if (this.state.hasError) {
-      return <h1>An error occured in the Symbolizer Editor UI.</h1>;
+      return <h1>An error occurred in the Symbolizer Editor UI.</h1>;
     }
     const {
       locale
