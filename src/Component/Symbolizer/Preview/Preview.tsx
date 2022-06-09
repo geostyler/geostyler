@@ -126,7 +126,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   /** reference to the underlying OpenLayers map */
   map: any;
 
-  /** refrence to the vector layer for the passed in features  */
+  /** reference to the vector layer for the passed features  */
   dataLayer: any;
 
   /** reference to the editButton */

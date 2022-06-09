@@ -81,7 +81,7 @@ export interface RuleLocale {
 
 // default props
 interface RuleDefaultProps {
-  /** Optional Rule object holding inital values for the component */
+  /** Optional Rule object holding initial values for the component */
   rule: GsRule;
   /** The data projection of example features */
   dataProjection: string;

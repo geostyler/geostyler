@@ -102,7 +102,7 @@ export class PreviewMap extends React.PureComponent<PreviewMapProps> {
   /** reference to the underlying OpenLayers map */
   map: any;
 
-  /** refrence to the vector layer for the passed in features  */
+  /** reference to the vector layer for the passed features  */
   dataLayer: any;
 
   /** id of the generated mapdiv */

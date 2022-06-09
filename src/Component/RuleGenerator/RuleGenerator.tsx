@@ -260,7 +260,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
 
   render() {
     if (this.state.hasError) {
-      return <h1>An error occured in the RuleGenerator UI.</h1>;
+      return <h1>An error occurred in the RuleGenerator UI.</h1>;
     }
 
     const {

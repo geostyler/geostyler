@@ -40,7 +40,7 @@ interface RemoveButtonDefaultProps {
 }
 // non default props
 export interface RemoveButtonProps extends Partial<RemoveButtonDefaultProps> {
-  /** Index of the correspondig Rule object */
+  /** Index of the corresponding Rule object */
   ruleIdx: number;
   /** Callback for onClick */
   onClick: ((ruleIdx: number) => void);

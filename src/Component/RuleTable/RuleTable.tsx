@@ -546,7 +546,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
 
   render() {
     if (this.state.hasError) {
-      return <h1>An error occured in the RuleTable UI.</h1>;
+      return <h1>An error occurred in the RuleTable UI.</h1>;
     }
     const {
       rules,
