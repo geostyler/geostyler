@@ -45,8 +45,10 @@ import {
 const Option = Select.Option;
 
 import {
+  ReadStyleResult,
   Style as GsStyle,
-  StyleParser
+  StyleParser,
+  WriteStyleResult
 } from 'geostyler-style';
 
 import schema from 'geostyler-style/schema.json';
@@ -58,6 +60,7 @@ import en_US from '../../locale/en_US';
 import SldStyleParser from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 import { usePrevious } from '../../hook/UsePrevious';
+import ParserFeedback from '../ParserFeedback/ParserFeedback';
 
 // i18n
 export interface CodeEditorLocale {
@@ -108,11 +111,18 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const [activeParser, setActiveParser] = useState<StyleParser>(defaultParser);
   const [isSldParser, setIsSldParser] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
-  const [invalidMessage, setInvalidMessage] = useState<string>('');
+  const [writeStyleResult, setWriteStyleResult] = useState<WriteStyleResult>();
+  const [readStyleResult, setReadStyleResult] = useState<ReadStyleResult>();
   const [hasError, setHasError] = useState<boolean>(false);
   const previousStyle = usePrevious(style);
   const previouseParser = usePrevious(activeParser);
   const monaco = useMonaco();
+
+  useEffect(() => {
+    if (writeStyleResult?.output) {
+      setValue(writeStyleResult.output);
+    }
+  }, [writeStyleResult]);
 
   useEffect(() => {
     if (monaco) {
@@ -131,16 +141,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     setHasError(false);
     (new Promise(async() => {
       if (activeParser) {
-        const {
-          output: parsedStyle,
-          errors
-        } = await activeParser.writeStyle(s);
-        if (errors?.length > 0) {
-          setInvalidMessage(errors.map(e => e.message).join(', '));
-        } else {
-          setValue(parsedStyle);
-        }
-
+        setWriteStyleResult(await activeParser.writeStyle(s));
       } else {
         setValue(JSON.stringify(s, null, 2));
       }
@@ -163,22 +164,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const onChange = async(v: string) => {
     setValue(v);
-    setInvalidMessage(undefined);
     try {
       let parsedStyle;
       if (activeParser) {
-        const { output, errors = [] } = await activeParser.readStyle(v);
-        if (errors.length > 0) {
-          setInvalidMessage(errors.map(e => e.message).join(', '));
-        } else {
-          parsedStyle = output;
-        }
+        setReadStyleResult(await activeParser.readStyle(v));
       } else {
         parsedStyle = JSON.parse(v);
       }
       onStyleChange(parsedStyle);
     } catch (err) {
-      setInvalidMessage(err.message);
+      // TODO:
     }
   };
 
@@ -280,7 +275,24 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         onChange={handleOnChange}
       />
       <div className="gs-code-editor-errormessage">
-        {invalidMessage}
+        {
+          (writeStyleResult?.errors ||
+          writeStyleResult?.warnings ||
+          writeStyleResult?.unsupportedProperties) &&
+          <div className='write-feedback'>
+            Write:
+            <ParserFeedback feedback={writeStyleResult} />
+          </div>
+        }
+        {
+          (readStyleResult?.errors ||
+          readStyleResult?.warnings ||
+          readStyleResult?.unsupportedProperties) &&
+          <div className='read-feedback'>
+            Read:
+            <ParserFeedback feedback={readStyleResult} />
+          </div>
+        }
       </div>
       <div className="gs-code-editor-bottombar">
         {
