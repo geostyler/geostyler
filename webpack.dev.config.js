@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const path = require('path');
 require('@babel/polyfill');
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
   ],
   output: {
     filename: "geostyler.js",
-    path: __dirname + "/browser",
+    path: path.join(__dirname, "browser"),
     library: "GeoStyler"
   },
   mode: 'development',
@@ -46,7 +47,7 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)$/,
-        include: __dirname + '/src',
+        include: path.join(__dirname, 'src'),
         use: [
           {
             loader: require.resolve('ts-loader'),
