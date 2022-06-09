@@ -5,21 +5,21 @@ require('@babel/polyfill');
 
 module.exports = {
   entry: [
-    "@babel/polyfill",
-    "whatwg-fetch",
-    "./src/index.ts"
+    '@babel/polyfill',
+    'whatwg-fetch',
+    './src/index.ts'
   ],
   output: {
-    filename: "geostyler.js",
-    path: path.join(__dirname, "browser"),
-    library: "GeoStyler"
+    filename: 'geostyler.js',
+    path: path.join(__dirname, 'browser'),
+    library: 'GeoStyler'
   },
   mode: 'development',
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: [".ts", ".tsx", ".js", ".json"],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     fallback: {
-      "buffer": false
+      'buffer': false
     }
   },
   module: {
@@ -30,7 +30,7 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
           },
-          "css-loader"
+          'css-loader'
         ],
       },
       {
@@ -58,7 +58,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "geostyler.css"
+      filename: 'geostyler.css'
     }),
     new ForkTsCheckerWebpackPlugin({
       async: false,
@@ -72,7 +72,7 @@ module.exports = {
   // This is important because it allows us to avoid bundling all of our
   // dependencies, which allows browsers to cache those libraries between builds.
   externals: {
-    "react": "React",
-    "react-dom": "ReactDOM"
+    'react': 'React',
+    'react-dom': 'ReactDOM'
   }
 };
