@@ -54,6 +54,7 @@ export const RemovableItem: React.FC<RemovableItemProps> = ({
   return (
     <div className='gs-removable-item'>
       <CloseCircleOutlined
+        className="gs-removable-item-icon"
         onClick={onClick}
       />
       {children}
