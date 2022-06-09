@@ -225,6 +225,7 @@ export const Rules: React.FC<RulesProps> = ({
 
   let defaultActions = [
     <Button
+      className="gs-add-rule-button"
       onClick={addRule}
       key={0}
     >
@@ -236,6 +237,7 @@ export const Rules: React.FC<RulesProps> = ({
     defaultActions = [
       ...defaultActions,
       <Button
+        className="gs-classification-button"
         onClick={classificationClick}
         key={1}
       >
@@ -246,18 +248,21 @@ export const Rules: React.FC<RulesProps> = ({
 
   const multiEditActions: ReactNode[] = [
     <Button
+      className="gs-remove-rules-button"
       onClick={removeSelectedRules}
       key={0}
     >
       {locale.remove}
     </Button>,
     <Button
+      className="gs-clone-rules-button"
       onClick={cloneSelectedRules}
       key={1}
     >
       {locale.clone}
     </Button>,
     <Button
+      className="gs-edit-rules-button"
       onClick={editSelectedRules}
       key={2}
     >
@@ -270,6 +275,7 @@ export const Rules: React.FC<RulesProps> = ({
       <div className='gs-rules-header'>
         <h2>{locale.rulesTitle}</h2>
         <Switch
+          className="gs-multi-select-toggle"
           onChange={toggleMultiEdit}
           checked={multiEditActive}
           checkedChildren={locale.multiEdit}
