@@ -4,7 +4,7 @@ Thank you for considering giving code and/or documentation back to this project,
 
 ## Some guidelines for the proposed change
 
-Please review the [guidelines for contributing](https://github.com/geostyler/geostyler/blob/master/CONTRIBUTING.md) and the [code of conduct](https://github.com/geostyler/geostyler/blob/master/CODE_OF_CONDUCT.md) of this repository. This makes it easy for you to give back and for us to accept your changes.
+Please review the [guidelines for contributing](https://github.com/geostyler/geostyler/blob/main/CONTRIBUTING.md) and the [code of conduct](https://github.com/geostyler/geostyler/blob/main/CODE_OF_CONDUCT.md) of this repository. This makes it easy for you to give back and for us to accept your changes.
 
 Please use the template below the line for the pull request description, and make sure to tick off the boxes in the checklists. In your final pull request everything above the next horizontal line can be removed to not distract reviewers or other readers.
 
@@ -46,8 +46,8 @@ Please check the type of change your PR introduces:
 
 ## Checklist
 
-- [ ] I understand and agree that the changes in this PR will be licensed under the [BSD 2-Clause License](https://github.com/geostyler/geostyler/blob/master/)
-- [ ] I have followed the [guidelines for contributing](https://github.com/geostyler/geostyler/blob/master/CONTRIBUTING.md)
-- [ ] The proposed change fits to the content of the [code of conduct](https://github.com/geostyler/geostyler/blob/master/CODE_OF_CONDUCT.md)
+- [ ] I understand and agree that the changes in this PR will be licensed under the [BSD 2-Clause License](https://github.com/geostyler/geostyler/blob/main/)
+- [ ] I have followed the [guidelines for contributing](https://github.com/geostyler/geostyler/blob/main/CONTRIBUTING.md)
+- [ ] The proposed change fits to the content of the [code of conduct](https://github.com/geostyler/geostyler/blob/main/CODE_OF_CONDUCT.md)
 - [ ] I have added or updated tests and documentation, and the test suite passes (run `npm test` locally)
 - [ ] I'm lost; why do I have to check so many boxes? Please help!

@@ -1,9 +1,9 @@
-name: Test, Coverage & Docs (master)
+name: Test, Coverage & Docs (main)
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   test:
@@ -65,10 +65,10 @@ jobs:
     - name: Build styleguide 🏗️
       run: npm run build-styleguide
 
-    - name: Deploy (to master) 🚀
+    - name: Deploy (to main) 🚀
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
         FOLDER: build/styleguide
-        TARGET_FOLDER: master
+        TARGET_FOLDER: main

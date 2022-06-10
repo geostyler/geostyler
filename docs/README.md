@@ -1,14 +1,14 @@
 ![GeoStyler Logo](./Geo_Styler_Logo_300_RGB.jpg)
 
-[![Build Status](https://travis-ci.org/geostyler/geostyler.svg?branch=master)](https://travis-ci.org/geostyler/geostyler)
+[![Build Status](https://travis-ci.org/geostyler/geostyler.svg?branch=main)](https://travis-ci.org/geostyler/geostyler)
 [![Greenkeeper badge](https://badges.greenkeeper.io/geostyler/geostyler.svg)](https://greenkeeper.io/)
-[![Coverage Status](https://coveralls.io/repos/github/geostyler/geostyler/badge.svg?branch=master)](https://coveralls.io/github/geostyler/geostyler?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/geostyler/geostyler/badge.svg?branch=main)](https://coveralls.io/github/geostyler/geostyler?branch=main)
 
 Code: [github](https://github.com/geostyler/geostyler)
 Package: [npm](https://www.npmjs.com/package/geostyler)
 
 Documentation:
-[master](https://geostyler.github.io/geostyler/master/index.html) /
+[main](https://geostyler.github.io/geostyler/main/index.html) /
 [latest](https://geostyler.github.io/geostyler/latest/index.html) /
 [4.3.0](https://geostyler.github.io/geostyler/v4.3.0/index.html)
 

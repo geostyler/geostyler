@@ -18,7 +18,7 @@ on GitHub.
 ## Changing code and documentation
 
 This guide covers contributing to the main version of GeoStyler source
-code which is the master branch.
+code which is the main branch.
 It assumes that you have some very basic knowledge of Git and GitHub,
 but if you don't just go through some tutorial online.
 
@@ -66,10 +66,10 @@ It is important that "origin" points to your fork.
 
 ### Update before creating a branch
 
-* Make sure your are using master branch:
+* Make sure your are using main branch:
 
 ```
-git checkout master
+git checkout main
 ```
 
 * Download updates from all branches from all remotes:
@@ -78,10 +78,10 @@ git checkout master
 git fetch upstream
 ```
 
-* Update your local master branch to match master in the main repository:
+* Update your local main branch to match main in the main repository:
 
 ```
-git rebase upstream/master
+git rebase upstream/main
 ```
 
 ### Update if you have local branches
@@ -96,7 +96,7 @@ git stash
 * Now you can rebase:
 
 ```
-git rebase upstream/master
+git rebase upstream/main
 ```
 
 * Apply your local changes on top:
@@ -113,7 +113,7 @@ git stash pop
 
 ### Creating a branch
 
-Now you have updated your local master branch, you can create a branch
+Now you have updated your local main branch, you can create a branch
 based on it.
 
 * Create a branch and switch to it:
@@ -168,7 +168,7 @@ the maintainers will decide if it is more appropriate to:
 
 * merge your branch,
 * squash all commit into one commit, or
-* rebase (i.e., replay) all commits on top of the master branch.
+* rebase (i.e., replay) all commits on top of the main branch.
 
 
 ### Legalese
