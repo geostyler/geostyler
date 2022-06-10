@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,8 +39,6 @@ import Renderer, { RendererProps } from '../Renderer/Renderer';
 import FilterUtil from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';
-// import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-// import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import { Divider, Card, Typography } from 'antd';
 import { BlockOutlined, FilterFilled, MinusOutlined } from '@ant-design/icons';
 const { Text } = Typography;

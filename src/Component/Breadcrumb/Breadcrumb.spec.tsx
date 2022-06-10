@@ -29,7 +29,6 @@
 import React from 'react';
 import { render, act, fireEvent } from '@testing-library/react';
 import { Breadcrumb } from './Breadcrumb';
-import {} from 'react-dom/test-utils';
 
 describe('Breadcrumb', () => {
 

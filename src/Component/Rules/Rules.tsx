@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,6 @@ import './Rules.less';
 import { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import {
-  // SLDRenderer,
   SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';

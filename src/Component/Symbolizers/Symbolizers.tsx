@@ -69,8 +69,6 @@ interface SymbolizersDefaultProps {
 export interface SymbolizersProps extends Partial<SymbolizersDefaultProps> {
   /** List of symbolizers to display */
   symbolizers: GsSymbolizer[];
-  /** The callback function that is triggered when the add symbolizer button was clicked. */
-  // onAddSymbolizersClick?: () => void;
   /** The passthrough props for the SymbolizerCard component. */
   symbolizerCardProps?: Partial<SymbolizerCardProps>;
 }
