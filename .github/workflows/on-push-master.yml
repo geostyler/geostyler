@@ -65,10 +65,10 @@ jobs:
     - name: Build styleguide 🏗️
       run: npm run build-styleguide
 
-    - name: Deploy (to docs/master) 🚀
+    - name: Deploy (to master) 🚀
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
         FOLDER: build/styleguide
-        TARGET_FOLDER: docs/master
+        TARGET_FOLDER: master
