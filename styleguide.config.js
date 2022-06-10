@@ -28,23 +28,27 @@
 
 const path = require('path');
 const webpackConfig = require('./webpack.dev.config');
+const rdt = require('react-docgen-typescript');
 
 module.exports = {
   title: 'GeoStyler',
   styleguideDir: './build/styleguide',
   webpackConfig: {
     ...webpackConfig,
-    mode: 'production'
+    mode: process.env.NODE_ENV
   },
+  minimize: process.env.NODE_ENV === 'production',
   assetsDir: './docs',
-  propsParser: require('react-docgen-typescript')
-    .withCustomConfig('./tsconfig.json', {propFilter: (prop) => {
-      if (prop.parent) {
-        return !prop.parent.fileName.includes('node_modules');
-      }
-      return true;
-    }})
-    .parse,
+  propsParser: process.env.NODE_ENV === 'production' ?
+    rdt
+      .withCustomConfig('./tsconfig.json', {propFilter: (prop) => {
+        if (prop.parent) {
+          return !prop.parent.fileName.includes('node_modules');
+        }
+        return true;
+      }})
+      .parse :
+    undefined,
   components: 'src/Component/**/*.tsx',
   getExampleFilename(componentPath) {
     return componentPath.replace(/\.tsx?$/, '.example.md')
