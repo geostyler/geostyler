@@ -82,7 +82,9 @@ export default {
     downloadButtonLabel: 'Guardar archivo',
     copyButtonLabel: 'Copiar al portapapeles',
     formatSelectLabel: 'Formato',
-    styleCopied: 'Estilo copiado al portapapales!'
+    styleCopied: 'Estilo copiado al portapapales!',
+    writeFeedback: 'Retroalimentación al escribir con',
+    readFeedback: 'Retroalimentación mientras se lee con'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radio',

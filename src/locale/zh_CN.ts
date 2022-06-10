@@ -82,7 +82,9 @@ export default {
     downloadButtonLabel: '另存为文件',
     copyButtonLabel: '拷贝到剪贴板',
     formatSelectLabel: '格式',
-    styleCopied: '样式已拷贝到剪贴板！'
+    styleCopied: '样式已拷贝到剪贴板！',
+    writeFeedback: '写时的反馈',
+    readFeedback: '阅读时的反馈'
   },
   GsWellKnownNameEditor: {
     radiusLabel: '半径',

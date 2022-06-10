@@ -82,7 +82,9 @@ export default {
     downloadButtonLabel: 'Save as File',
     copyButtonLabel: 'Copy to Clipboard',
     formatSelectLabel: 'Format',
-    styleCopied: 'Style copied to clipboard!'
+    styleCopied: 'Style copied to clipboard!',
+    writeFeedback: 'Feedback while writing with',
+    readFeedback: 'Feedback while reading with',
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radius',

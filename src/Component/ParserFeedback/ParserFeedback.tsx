@@ -26,12 +26,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
 import { Alert } from 'antd';
 import { ReadStyleResult, WriteStyleResult } from 'geostyler-style';
-import React, { useState } from 'react';
-
-import './ParserFeedback.less';
+import React from 'react';
 
 export interface ParserFeedbackProps {
   feedback: ReadStyleResult | WriteStyleResult;
@@ -44,9 +41,7 @@ export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
   feedback
 }) => {
 
-  const [showAlerts, setShowAlerts] = useState<boolean>(false);
-
-  if (!feedback) {
+  if (!feedback || Object.keys(feedback).length < 1) {
     return null;
   }
 
@@ -119,22 +114,12 @@ export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
     />
   ));
 
-  const toggleAlerts = () => {
-    setShowAlerts(!showAlerts);
-  };
-
-  const hasAlerts = errorAlerts?.length > 0;
-  const hasWarnings = warningAlerts?.length > 0 || unsupportedPropertiesAlerts?.length > 0;
-  const alertExtraClass = showAlerts ? 'alert-visible' : 'alert-hidden';
-
   return (
     <div className="gs-parser-feedback">
-      { hasAlerts && <WarningTwoTone twoToneColor="#ff4d4f" onClick={toggleAlerts} /> }
-      { hasWarnings && <ExclamationCircleTwoTone twoToneColor="#faad14" onClick={toggleAlerts} /> }
-      <div className={'error-alerts ' + alertExtraClass}>
+      <div className={'error-alerts'}>
         {errorAlerts}
       </div>
-      <div className={'warning-alerts ' + alertExtraClass}>
+      <div className={'warning-alerts'}>
         {warningAlerts}
         {unsupportedPropertiesAlerts}
       </div>

@@ -61,6 +61,7 @@ import SldStyleParser from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 import { usePrevious } from '../../hook/UsePrevious';
 import ParserFeedback from '../ParserFeedback/ParserFeedback';
+import { ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
 
 // i18n
 export interface CodeEditorLocale {
@@ -68,6 +69,8 @@ export interface CodeEditorLocale {
   formatSelectLabel: string;
   copyButtonLabel: string;
   styleCopied: string;
+  writeFeedback: string;
+  readFeedback: string;
 }
 
 // non default props
@@ -113,6 +116,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const [value, setValue] = useState<string>('');
   const [writeStyleResult, setWriteStyleResult] = useState<WriteStyleResult>();
   const [readStyleResult, setReadStyleResult] = useState<ReadStyleResult>();
+  const [showFeedback, setShowFeedback] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
   const previousStyle = usePrevious(style);
   const previouseParser = usePrevious(activeParser);
@@ -139,6 +143,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const updateValueFromStyle = useCallback((s: GsStyle) => {
     setHasError(false);
+    setWriteStyleResult(undefined);
     (new Promise(async() => {
       if (activeParser) {
         setWriteStyleResult(await activeParser.writeStyle(s));
@@ -164,6 +169,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const onChange = async(v: string) => {
     setValue(v);
+    setReadStyleResult(undefined);
     try {
       let parsedStyle;
       if (activeParser) {
@@ -250,7 +256,22 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     copyToClipboard(value);
   };
 
+  const toggleFeedback = () => {
+    setShowFeedback(!showFeedback);
+  };
+
   const parserHasUnitSelect = isSldParser && activeParser && (activeParser as SldStyleParser).sldVersion !== '1.0.0';
+
+  const writeStyleHasFeedback = writeStyleResult?.errors ||
+    writeStyleResult?.warnings ||
+    writeStyleResult?.unsupportedProperties;
+  const readStyleHasFeedback = readStyleResult?.errors ||
+    readStyleResult?.warnings ||
+    readStyleResult?.unsupportedProperties;
+  const hasAlerts = writeStyleResult?.errors || readStyleResult?.errors;
+  const hasWarnings = readStyleHasFeedback || writeStyleHasFeedback && (!hasAlerts);
+
+  const alertExtraClass = showFeedback ? 'feedback-visible' : 'feedback-hidden';
 
   return (
     <div className="gs-code-editor">
@@ -274,29 +295,30 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         language={isSldParser ? 'xml' : 'json'}
         onChange={handleOnChange}
       />
-      <div className="gs-code-editor-errormessage">
+      <div className={`gs-code-editor-feedback ${alertExtraClass}`}>
         {
-          (writeStyleResult?.errors ||
-          writeStyleResult?.warnings ||
-          writeStyleResult?.unsupportedProperties) &&
+          (writeStyleHasFeedback) &&
           <div className='write-feedback'>
-            Write:
+            <span>{`${locale.writeFeedback} ${activeParser?.title}`}</span>
             <ParserFeedback feedback={writeStyleResult} />
           </div>
         }
         {
-          (readStyleResult?.errors ||
-          readStyleResult?.warnings ||
-          readStyleResult?.unsupportedProperties) &&
-          <div className='read-feedback'>
-            Read:
-            <ParserFeedback feedback={readStyleResult} />
-          </div>
+          (readStyleHasFeedback) &&
+            <div className='read-feedback'>
+              <span>{`${locale.readFeedback} ${activeParser?.title}`}</span>
+              <ParserFeedback feedback={readStyleResult} />
+            </div>
         }
       </div>
       <div className="gs-code-editor-bottombar">
-        {
-          showCopyButton &&
+        <div className='left-items'>
+          { hasAlerts && <WarningTwoTone twoToneColor="#ff4d4f" onClick={toggleFeedback} /> }
+          { hasWarnings && <ExclamationCircleTwoTone twoToneColor="#faad14" onClick={toggleFeedback} /> }
+        </div>
+        <div className='center-items'>
+          {
+            showCopyButton &&
             <Button
               className="gs-code-editor-copy-button"
               type="primary"
@@ -304,9 +326,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
             >
               {locale.copyButtonLabel}
             </Button>
-        }
-        {
-          showSaveButton &&
+          }
+          {
+            showSaveButton &&
             <Button
               className="gs-code-editor-download-button"
               type="primary"
@@ -314,7 +336,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
             >
               {locale.downloadButtonLabel}
             </Button>
-        }
+          }
+        </div>
+        <div className='right-items'>
+        </div>
       </div>
     </div>
   );
