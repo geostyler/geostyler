@@ -150,7 +150,11 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       } else {
         setValue(JSON.stringify(s, null, 2));
       }
-    })).catch(() => setHasError(true));
+    })).catch((err) => {
+      setWriteStyleResult({
+        errors: [err.message]
+      });
+    });
   }, [activeParser]);
 
   useEffect(() => {
@@ -179,7 +183,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       }
       onStyleChange(parsedStyle);
     } catch (err) {
-      // TODO:
+      setReadStyleResult({
+        errors: [err.message]
+      });
     }
   };
 
