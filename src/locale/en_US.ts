@@ -87,8 +87,8 @@ export default {
     readFeedback: 'Feedback while reading with',
   },
   GsParserFeedback: {
-    notSupported: 'is not supported',
-    partiallySupported: 'is only partially supported'
+    notSupported: 'is not supported by used parser',
+    partiallySupported: 'is only partially supported by used parser'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radius',

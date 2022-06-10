@@ -87,8 +87,8 @@ export default {
     readFeedback: 'Retroalimentación mientras se lee con'
   },
   GsParserFeedback: {
-    notSupported: 'no es compatible',
-    partiallySupported: 'sólo se admite parcialmente'
+    notSupported: 'no es compatible con el analizador sintáctico utilizado',
+    partiallySupported: 'sólo es parcialmente soportado por el parser utilizado'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radio',

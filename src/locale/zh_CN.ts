@@ -87,8 +87,8 @@ export default {
     readFeedback: '阅读时的反馈'
   },
   GsParserFeedback: {
-    notSupported: '不支持',
-    partiallySupported: '仅部分支持'
+    notSupported: '所用的分析器不支持',
+    partiallySupported: '仅被使用的解析器部分支持'
   },
   GsWellKnownNameEditor: {
     radiusLabel: '半径',

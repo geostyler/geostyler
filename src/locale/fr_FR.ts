@@ -87,8 +87,8 @@ export default {
     readFeedback : 'Réactions lors de la lecture avec'
   },
   GsParserFeedback: {
-    notSupported : 'n\'est pas pris en charge',
-    partiallySupported : 'n\'est que partiellement supporté'
+    notSupported : 'n\'est pas supporté par l\'analyseur utilisé',
+    partiallySupported : 'n\'est que partiellement supporté par l\'analyseur utilisé'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Rayon',
