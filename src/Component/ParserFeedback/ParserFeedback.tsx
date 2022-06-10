@@ -29,8 +29,16 @@
 import { Alert } from 'antd';
 import { ReadStyleResult, WriteStyleResult } from 'geostyler-style';
 import React from 'react';
+import en_US from '../../locale/en_US';
+
+// i18n
+export interface ParserFeedbackLocale {
+  notSupported: string;
+  partiallySupported: string;
+}
 
 export interface ParserFeedbackProps {
+  locale?: ParserFeedbackLocale;
   feedback: ReadStyleResult | WriteStyleResult;
 }
 
@@ -38,6 +46,7 @@ export interface ParserFeedbackProps {
  * Checkbox field for a boolean filter value.
  */
 export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
+  locale  = en_US.GsParserFeedback,
   feedback
 }) => {
 
@@ -75,15 +84,15 @@ export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
     let text;
     if (typeof value === 'string' || value instanceof String) {
       if (value === 'none') {
-        text = 'is not supported.';
+        text = locale.notSupported;
       } else if (value === 'partial') {
-        text = 'is only partialy supported.';
+        text = locale.partiallySupported;
       }
     } else if (value.support) {
       if (value.support === 'none') {
-        text = `is not supported. ${value.info}`;
+        text = `${locale.notSupported}: ${value.info}`;
       } else if (value.support === 'partial') {
-        text = `is only partialy supported. ${value.info}`;
+        text = `${locale.partiallySupported}: ${value.info}`;
       }
     }
     return text;

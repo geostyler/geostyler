@@ -86,6 +86,10 @@ export default {
     writeFeedback: 'Retroalimentación al escribir con',
     readFeedback: 'Retroalimentación mientras se lee con'
   },
+  GsParserFeedback: {
+    notSupported: 'no es compatible',
+    partiallySupported: 'sólo se admite parcialmente'
+  },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radio',
     fillOpacityLabel: 'Relleno-Transparencia',

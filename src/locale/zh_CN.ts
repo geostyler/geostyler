@@ -86,6 +86,10 @@ export default {
     writeFeedback: '写时的反馈',
     readFeedback: '阅读时的反馈'
   },
+  GsParserFeedback: {
+    notSupported: '不支持',
+    partiallySupported: '仅部分支持'
+  },
   GsWellKnownNameEditor: {
     radiusLabel: '半径',
     fillOpacityLabel: '填充-不透明度',

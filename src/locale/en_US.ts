@@ -86,6 +86,10 @@ export default {
     writeFeedback: 'Feedback while writing with',
     readFeedback: 'Feedback while reading with',
   },
+  GsParserFeedback: {
+    notSupported: 'is not supported',
+    partiallySupported: 'is only partially supported'
+  },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radius',
     fillOpacityLabel: 'Fill-Opacity',
