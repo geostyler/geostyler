@@ -1,12 +1,12 @@
 ![GeoStyler Logo](/docs/Geo_Styler_Logo_300_RGB.jpg)
 
-[![Test, Coverage & Docs (master)](https://github.com/geostyler/geostyler/actions/workflows/on-push-master.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-push-master.yml) [![Create & publish versioned documentation](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml) [![Coverage Status](https://coveralls.io/repos/github/geostyler/geostyler/badge.svg?branch=master)](https://coveralls.io/github/geostyler/geostyler?branch=master) [![License](https://img.shields.io/github/license/geostyler/geostyler)](https://github.com/geostyler/geostyler/blob/master/LICENSE)
+[![Test, Coverage & Docs (main)](https://github.com/geostyler/geostyler/actions/workflows/on-push-main.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-push-main.yml) [![Create & publish versioned documentation](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml) [![Coverage Status](https://coveralls.io/repos/github/geostyler/geostyler/badge.svg?branch=main)](https://coveralls.io/github/geostyler/geostyler?branch=main) [![License](https://img.shields.io/github/license/geostyler/geostyler)](https://github.com/geostyler/geostyler/blob/main/LICENSE)
 
 Code: [github](https://github.com/geostyler/geostyler)
 Package: [npm](https://www.npmjs.com/package/geostyler)
 
 Documentation:
-[master](https://geostyler.github.io/geostyler/master/index.html) /
+[main](https://geostyler.github.io/geostyler/main/index.html) /
 [latest](https://geostyler.github.io/geostyler/latest/index.html) /
 [4.3.0](https://geostyler.github.io/geostyler/v4.3.0/index.html)
 
@@ -228,5 +228,5 @@ Developing GeoStyler data parsers follows the same pattern as described in [Deve
 ## <a name="license"></a>License
 
 GeoStyler is released under the BSD 2-Clause license. Please see the file
-[`LICENSE`](https://github.com/geostyler/geostyler/blob/master/LICENSE) in the
+[`LICENSE`](https://github.com/geostyler/geostyler/blob/main/LICENSE) in the
 root of this repository.
