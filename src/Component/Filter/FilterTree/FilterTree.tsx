@@ -61,7 +61,6 @@ import {
 
 import ComparisonFilter, { ComparisonFilterProps } from '../ComparisonFilter/ComparisonFilter';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
 import {
   isCombinationFilter,
   isComparisonFilter,
@@ -70,26 +69,15 @@ import {
 } from 'geostyler-style/dist/typeguards';
 import FilterUtil from '../../../Util/FilterUtil';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-
-interface FilterTreeLocale {
-  andDrpdwnLabel: string;
-  orDrpdwnLabel: string;
-  notDrpdwnLabel: string;
-  comparisonDrpdwnLabel: string;
-  addFilterLabel: string;
-  changeFilterLabel: string;
-  removeFilterLabel: string;
-  andFilterText: string;
-  orFilterText: string;
-  notFilterText: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
+import en_US from '../../../locale/en_US';
 
 // default props
 export interface FilterTreeDefaultProps {
   /** The filter to edit */
   filter: Filter;
   /** Locale object containing translated text snippets */
-  locale: FilterTreeLocale;
+  locale: GeoStylerLocale['FilterTree'];
 }
 // non default props
 export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
@@ -111,7 +99,7 @@ export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
 export const FilterTree: React.FC<FilterTreeProps> = ({
   filter: rootFilter = ['==', '', null],
   internalDataDef,
-  locale = en_US.GsFilterTree,
+  locale = en_US.FilterTree,
   onFilterChange,
   filterUiProps
 }) => {

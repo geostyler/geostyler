@@ -37,22 +37,18 @@ import {
 import './RuleOverview.less';
 import { Data } from 'geostyler-data';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
 import { RuleFieldContainer, RuleFieldContainerProps } from '../RuleFieldContainer/RuleFieldContainer';
 import { Divider } from 'antd';
 import { Symbolizers, SymbolizersProps } from '../Symbolizers/Symbolizers';
 import CardViewUtil from '../../Util/CardViewUtil';
 import { FilterOverview } from '../FilterOverview/FilterOverview';
-
-// i18n
-export interface RuleOverviewLocale {
-  ruleTitle: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
+import en_US from '../../locale/en_US';
 
 // default props
 interface RuleOverviewDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: RuleOverviewLocale;
+  locale: GeoStylerLocale['RuleOverview'];
   /** The callback when the style changed. */
   onRuleChange: (rule: GsRule) => void;
   /** The callback when a view change (request) was triggered. */
@@ -78,7 +74,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
   onChangeView = () => {},
   ruleFieldContainerProps,
   symbolizersProps,
-  locale = en_US.GsRuleOverview,
+  locale = en_US.RuleOverview,
 }) => {
 
   const [stateRule, setStateRule] = useState<GsRule>(rule);

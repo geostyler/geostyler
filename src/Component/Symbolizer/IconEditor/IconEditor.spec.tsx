@@ -42,7 +42,7 @@ describe('IconEditor', () => {
     onSymbolizerChangeDummy = jest.fn();
     const props: IconEditorProps = {
       symbolizer: dummySymbolizer,
-      locale: en_US.GsIconEditor,
+      locale: en_US.IconEditor,
       onSymbolizerChange: onSymbolizerChangeDummy,
       defaultValues: undefined
     };

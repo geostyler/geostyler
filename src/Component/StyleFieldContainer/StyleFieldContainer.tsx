@@ -37,19 +37,12 @@ import en_US from '../../locale/en_US';
 
 import FieldContainer from '../FieldContainer/FieldContainer';
 import NameField from '../NameField/NameField';
-
-// i18n
-export interface StyleFieldContainerLocale {
-  nameFieldLabel?: string;
-  nameFieldPlaceholder?: string;
-  titleFieldLabel?: string;
-  titleFieldPlaceholder?: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
 
 // default props
 interface StyleFieldContainerDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: StyleFieldContainerLocale;
+  locale: GeoStylerLocale['StyleFieldContainer'];
 }
 
 // non default props
@@ -63,7 +56,7 @@ export interface StyleFieldContainerProps extends Partial<StyleFieldContainerDef
 export const StyleFieldContainer: React.FC<StyleFieldContainerProps> = ({
   name,
   title,
-  locale = en_US.GsStyle,
+  locale = en_US.Style,
   onNameChange,
   onTitleChange,
 }) => {

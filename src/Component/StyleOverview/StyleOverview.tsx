@@ -39,21 +39,17 @@ import { Data } from 'geostyler-data';
 import { StyleFieldContainer } from '../StyleFieldContainer/StyleFieldContainer';
 import { Rules, RulesProps } from '../Rules/Rules';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import { Divider } from 'antd';
 import CardViewUtil from '../../Util/CardViewUtil';
-
-// i18n
-export interface StyleOverviewLocale {
-  styleTitle: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
+import en_US from '../../locale/en_US';
 
 // default props
 interface StyleOverviewDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: StyleOverviewLocale;
+  locale: GeoStylerLocale['StyleOverview'];
   /** The callback when the style changed. */
   onStyleChange?: (style: GsStyle) => void;
   /** The callback when a view change (request) was triggered. */
@@ -77,7 +73,7 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
   data,
   onStyleChange = () => {},
   onChangeView = () => {},
-  locale = en_US.GsStyleOverview,
+  locale = en_US.StyleOverview,
   enableClassification,
   rulesProps
 }) => {

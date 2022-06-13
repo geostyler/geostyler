@@ -48,21 +48,10 @@ import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
-
-// i18n
-interface WellKnownNameEditorLocale {
-  radiusLabel?: string;
-  fillOpacityLabel?: string;
-  fillColorLabel?: string;
-  opacityLabel?: string;
-  strokeColorLabel?: string;
-  strokeWidthLabel?: string;
-  strokeOpacityLabel?: string;
-  rotateLabel?: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 interface WellKnownNameEditorDefaultProps {
-  locale: WellKnownNameEditorLocale;
+  locale: GeoStylerLocale['WellKnownNameEditor'];
 }
 
 // non default props
@@ -75,7 +64,7 @@ export interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDef
 const COMPONENTNAME = 'WellKnownNameEditor';
 
 export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
-  locale =  en_US.GsWellKnownNameEditor,
+  locale =  en_US.WellKnownNameEditor,
   symbolizer,
   onSymbolizerChange,
   defaultValues

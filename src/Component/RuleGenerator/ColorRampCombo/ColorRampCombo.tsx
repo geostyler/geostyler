@@ -34,22 +34,19 @@ import { brewer } from 'chroma-js';
 
 import { Select } from 'antd';
 
-import en_US from '../../../locale/en_US';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 
 import _isEqual from 'lodash/isEqual';
+import { GeoStylerLocale } from '../../../locale/locale';
+import en_US from '../../../locale/en_US';
 
-// i18n
-export interface ColorRampComboLocale {
-  colorRampPlaceholder: string;
-}
 
 // default props
 export interface ColorRampComboDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: ColorRampComboLocale;
+  locale: GeoStylerLocale['ColorRampCombo'];
   /** Object containing predefined color ramps */
   colorRamps: {
     [name: string]: string[];
@@ -72,7 +69,7 @@ export class ColorRampCombo extends React.Component<ColorRampComboProps> {
   static componentName: string = 'ColorRampCombo';
 
   public static defaultProps: ColorRampComboDefaultProps = {
-    locale: en_US.GsColorRampCombo,
+    locale: en_US.ColorRampCombo,
     colorRamps: {
       GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
       GreenRed: ['#00FF00', '#FF0000'],

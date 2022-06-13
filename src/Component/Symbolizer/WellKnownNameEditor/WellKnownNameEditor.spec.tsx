@@ -37,7 +37,7 @@ describe('WellKnownNameEditor', () => {
   let dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
   const props: WellKnownNameEditorProps = {
     symbolizer: dummySymbolizer,
-    locale: en_US.GsWellKnownNameEditor,
+    locale: en_US.WellKnownNameEditor,
     onSymbolizerChange: jest.fn(),
     defaultValues: undefined
   };

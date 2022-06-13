@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -26,13 +26,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import es_ES from 'antd/lib/locale-provider/es_ES';
-export default {
-  GsApp: {
-    graphicalEditor: 'Editor gráfico',
-    codeEditor: 'Editor de código'
-  },
-  GsBulkEditModals: {
+import antd_es_ES from 'antd/lib/locale-provider/es_ES';
+import { GeoStylerLocale } from './locale';
+
+const es_ES: GeoStylerLocale = {
+  BulkEditModals: {
     colorLabel: 'Seleccionar color',
     radiusLabel: 'Seleccionar radio',
     opacityLabel: 'Seleccionar transparencia',
@@ -40,21 +38,21 @@ export default {
     imageFieldLabel: 'Fuente',
     imageFieldTooltipLabel: 'Abrir galería'
   },
-  GsBulkEditor: {
+  BulkEditor: {
     colorLabel: 'Seleccionar color',
     radiusLabel: 'Seleccionar radio',
     opacityLabel: 'Seleccionar transparencia',
     symbolLabel: 'Seleccionar simbolo',
     imageFieldLabel: 'Fuente'
   },
-  GsRule: {
+  Rule: {
     removeRuleBtnText: 'Eliminar regla',
     scaleFieldTitle: 'Usar escala',
     filterFieldTitle: 'Usar filtro',
     nameFieldLabel: 'Nombre',
     nameFieldPlaceholder: 'Ingrese nombre'
   },
-  GsStyle: {
+  Style: {
     addRuleBtnText: 'Añadir regla',
     cloneRulesBtnText: 'Duplicar reglas',
     removeRulesBtnText: 'Eliminar reglas',
@@ -68,7 +66,7 @@ export default {
     ruleGeneratorWindowBtnText: 'Clasificación',
     styleTitle: 'Estilo'
   },
-  GsCardStyle: {
+  CardStyle: {
     styleTitle: 'Estilo',
     classificationTitle: 'Clasificación',
     multiEditTitle: 'Editor múltiple',
@@ -76,29 +74,29 @@ export default {
     filterTitle: 'Filtros',
     iconLibrariesTitle: 'Galería'
   },
-  GsStyleOverview: {
+  StyleOverview: {
     styleTitle: 'Estilo'
   },
-  GsRuleOverview: {
+  RuleOverview: {
     ruleTitle: 'Regla'
   },
-  GsSymbolizerCard: {
+  SymbolizerCard: {
   },
-  GsSymbolizers: {
+  Symbolizers: {
     symbolizersTitle: 'TODO',
     addSymbolizer: 'TODO',
     showAll: 'TODO',
     hide: 'TODO'
   },
-  GsStyleLoader: {
+  StyleLoader: {
     label: 'Leer estilo: ',
     uploadButtonLabel: 'Cargar estilo'
   },
-  GsDataLoader: {
+  DataLoader: {
     label: 'Leer datos: ',
     uploadButtonLabel: 'Cargar datos'
   },
-  GsWfsParserInput: {
+  WfsParserInput: {
     requestButtonText: 'Obtener datos',
     urlLabel: 'Url',
     versionLabel: 'Versión',
@@ -108,7 +106,7 @@ export default {
     maxFeaturesLabel: 'MaxFeatures',
     fetchParamsLabel: 'fetchParams'
   },
-  GsCodeEditor: {
+  CodeEditor: {
     downloadButtonLabel: 'Guardar archivo',
     copyButtonLabel: 'Copiar al portapapeles',
     formatSelectLabel: 'Formato',
@@ -116,11 +114,11 @@ export default {
     writeFeedback: 'Retroalimentación al escribir con',
     readFeedback: 'Retroalimentación mientras se lee con'
   },
-  GsParserFeedback: {
+  ParserFeedback: {
     notSupported: 'no es compatible con el analizador sintáctico utilizado',
     partiallySupported: 'sólo es parcialmente soportado por el parser utilizado'
   },
-  GsWellKnownNameEditor: {
+  WellKnownNameEditor: {
     radiusLabel: 'Radio',
     fillOpacityLabel: 'Relleno-Transparencia',
     fillColorLabel: 'Fondo-Color',
@@ -130,7 +128,7 @@ export default {
     strokeOpacityLabel: 'Trazo-Transparencia',
     rotateLabel: 'Rotación'
   },
-  GsFillEditor: {
+  FillEditor: {
     fillOpacityLabel: 'Relleno-Transparencia',
     outlineOpacityLabel: 'Trazo-Transparencia',
     opacityLabel: 'Transparencia',
@@ -140,14 +138,14 @@ export default {
     outlineDasharrayLabel: 'Outline-Dasharray',
     graphicFillTypeLabel: 'Tipo gráfico de relleno'
   },
-  GsIconEditor: {
+  IconEditor: {
     imageLabel: 'Fuente',
     sizeLabel: 'Tamaño',
     rotateLabel: 'Rotación',
     opacityLabel: 'Transparencia',
     iconTooltipLabel: 'Abrir galería'
   },
-  GsLineEditor: {
+  LineEditor: {
     colorLabel: 'Color',
     widthLabel: 'Ancho',
     opacityLabel: 'Transparencia',
@@ -158,10 +156,10 @@ export default {
     graphicStrokeTypeLabel: 'Tipo de gráfico de trazado',
     graphicFillTypeLabel: 'Tipo de gráfico de relleno'
   },
-  GsMarkEditor: {
+  MarkEditor: {
     wellKnownNameFieldLabel: 'Simbolo'
   },
-  GsTextEditor: {
+  TextEditor: {
     fontLabel: 'Fuente',
     templateFieldLabel: 'Plantilla',
     opacityLabel: 'Texto-Transparencia',
@@ -175,7 +173,7 @@ export default {
     haloWidthLabel: 'Halo-Ancho',
     attributeNotFound: 'Campo no encontrado'
   },
-  GsPropTextEditor: {
+  PropTextEditor: {
     propFieldLabel: 'Campo',
     opacityLabel: 'Texto-Transparencia',
     colorLabel: 'Texto-Color',
@@ -187,16 +185,16 @@ export default {
     haloColorLabel: 'Halo-Color',
     haloWidthLabel: 'Halo-Width'
   },
-  GsPreview: {
+  Preview: {
     openEditorText: 'Editor de simbología',
     closeEditorText: 'Cerrar editor'
   },
-  GsColorField: {
+  ColorField: {
     closeText: 'Cerrar',
     editText: 'Cambiar',
     chooseText: 'Elegir',
   },
-  GsKindField: {
+  KindField: {
     symbolizerKinds: {
       Mark: 'Marcador',
       Fill: 'Relleno',
@@ -205,17 +203,17 @@ export default {
       Text: 'Texto'
     }
   },
-  GsGraphicTypeField: {
+  GraphicTypeField: {
     Mark: 'Marcador',
     Icon: 'Icono'
   },
-  GsScaleDenominator: {
+  ScaleDenominator: {
     minScaleDenominatorLabelText: 'Escala Min.',
     maxScaleDenominatorLabelText: 'Escala Max.',
     minScaleDenominatorPlaceholderText: 'Ingrese escala min. (Opcional)',
     maxScaleDenominatorPlaceholderText: 'Ingrese escala max. (Opcionar)'
   },
-  GsWellKnownNameField: {
+  WellKnownNameField: {
     wellKnownNames: {
       Circle: 'Círculo',
       Square: 'Cuadrado',
@@ -225,26 +223,26 @@ export default {
       X: 'X'
     }
   },
-  GsSymbolizerEditor: {
+  SymbolizerEditor: {
     kindFieldLabel: 'Tipo'
   },
-  GsSymbolizerEditorWindow: {
+  SymbolizerEditorWindow: {
     symbolizersEditor: 'Editor de simbología'
   },
-  GsFilterOverview: {
+  FilterOverview: {
     filterTitle: 'Filtros'
   },
-  GsFilterEditorWindow: {
+  FilterEditorWindow: {
     filterEditor: 'Editor de filtro'
   },
-  GsMultiEditor: {
+  MultiEditor: {
     add: 'Añadir',
     remove: 'Eliminar'
   },
-  GsUploadButton: {
+  UploadButton: {
     upload: 'Cargar'
   },
-  GsFilterTree: {
+  FilterTree: {
     andDrpdwnLabel: 'AND-Filtro',
     orDrpdwnLabel: 'OR-Filtro',
     notDrpdwnLabel: 'NOT-Filtro',
@@ -256,7 +254,7 @@ export default {
     orFilterText: 'OR',
     notFilterText: 'NOT'
   },
-  GsRuleTable: {
+  RuleTable: {
     symbolizersColumnTitle: 'Simbolizador',
     nameColumnTitle: 'Nombre',
     filterColumnTitle: 'Filtro',
@@ -265,7 +263,7 @@ export default {
     amountColumnTitle: 'Cantidad',
     duplicatesColumnTitle: 'Duplicados'
   },
-  GsRules: {
+  Rules: {
     rulesTitle: 'Reglas',
     multiEdit: 'Seleccionar',
     addRule: 'Añadir',
@@ -275,11 +273,11 @@ export default {
     edit: 'Cambiar',
     defaultRuleTitle: 'Sin título'
   },
-  GsRuleReorderButtons: {
+  RuleReorderButtons: {
     ruleMoveUpTip: 'Mueve la regla una posición arriba',
     ruleMoveDownTip: 'Mueve la regla una posición hacia abajo'
   },
-  GsRuleGenerator: {
+  RuleGenerator: {
     attribute: 'Atributo',
     generateButtonText: 'Clasificar',
     levelOfMeasurement: 'Nivel de medida',
@@ -299,32 +297,34 @@ export default {
     numberOfRulesViaKmeans: '…afectados por la clasificación k-Means.',
     allDistinctValues: 'Utilizar todos los valores distintos'
   },
-  GsColorRampCombo: {
+  ColorRampCombo: {
     colorRampPlaceholder: 'Seleccionar…'
   },
-  GsColorSpaceCombo: {
+  ColorSpaceCombo: {
     colorSpacePlaceholder: 'Seleccionar…'
   },
-  GsClassificationCombo: {
+  ClassificationCombo: {
     equalInterval: 'Equal Interval',
     quantile: 'Quantile ',
     logarithmic: 'Logarithmic',
     kmeans: 'k-Means'
   },
-  GsRuleGeneratorWindow: {
+  RuleGeneratorWindow: {
     ruleGenerator: 'Clasificación'
   },
-  GsIconSelectorWindow: {
+  IconSelectorWindow: {
     windowLabel: 'Seleccionar icono'
   },
-  GsIconSelector: {
+  IconSelector: {
     librarySelectLabel: 'Seleccionar biblioteca'
   },
-  GsSLDUnitsSelect: {
+  SLDUnitsSelect: {
     symbolizerUnitsLabel: 'Unidades simbolizadoras',
     symbolizerUnitsPixel: 'Pixel',
     symbolizerUnitsMeter: 'Metro',
     symbolizerUnitsFoot: 'Escándalo'
   },
-  ...es_ES
+  ...antd_es_ES
 };
+
+export default es_ES;

@@ -54,20 +54,16 @@ export interface ReadParams {
 }
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import { GeoStylerLocale } from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 
-// i18n
-export interface DataLoaderLocale {
-  label: string;
-  uploadButtonLabel: string;
-}
 
 // default props
 interface DataLoaderDefaultProps {
   /** The callback method that is triggered when the state changes */
   onDataRead: (data: VectorData) => void;
   /** Locale object containing translated text snippets */
-  locale: DataLoaderLocale;
+  locale: GeoStylerLocale['DataLoader'];
 }
 
 // non default props
@@ -78,7 +74,7 @@ export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
 
 export const DataLoader: React.FC<DataLoaderProps> = ({
   parsers,
-  locale = en_US.GsDataLoader,
+  locale = en_US.DataLoader,
   onDataRead = () => {
     return;
   }

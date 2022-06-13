@@ -36,18 +36,15 @@ import { Data } from 'geostyler-data';
 
 import './SymbolizerCard.less';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
 import { Renderer } from '../Symbolizer/Renderer/Renderer';
 import { Card } from 'antd';
-
-// i18n
-export interface SymbolizerCardLocale {
-}
+import { GeoStylerLocale } from '../../locale/locale';
+import en_US from '../../locale/en_US';
 
 // default props
 interface SymbolizerCardDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: SymbolizerCardLocale;
+  locale: GeoStylerLocale['SymbolizerCard'];
   /** The callback when the symbolizer was clicked. */
   onSymbolizerClick?: (symbolizer: GsSymbolizer) => void;
 }
@@ -63,7 +60,7 @@ export interface SymbolizerCardProps extends Partial<SymbolizerCardDefaultProps>
 export const SymbolizerCard: React.FC<SymbolizerCardProps> = ({
   symbolizer,
   onSymbolizerClick = () => {},
-  locale = en_US.GsSymbolizerCard,
+  locale = en_US.SymbolizerCard,
   data
 }) => {
 

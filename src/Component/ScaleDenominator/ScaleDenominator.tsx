@@ -40,18 +40,11 @@ import {
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
-
-// i18n
-export interface ScaleDenominatorLocale {
-  minScaleDenominatorLabelText?: string;
-  maxScaleDenominatorLabelText?: string;
-  minScaleDenominatorPlaceholderText?: string;
-  maxScaleDenominatorPlaceholderText?: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
 
 interface ScaleDenominatorDefaultProps {
   /** Locale object containing translated text snippets */
-  locale?: ScaleDenominatorLocale;
+  locale?: GeoStylerLocale['ScaleDenominator'];
 }
 
 // non default props
@@ -68,7 +61,7 @@ export const COMPONENTNAME = 'ScaleDenominator';
  * Combined UI for input fields for the minimum and maximum scale of a rule.
  */
 export const ScaleDenominator: React.FC<ScaleDenominatorProps> = ({
-  locale = en_US.GsScaleDenominator,
+  locale = en_US.ScaleDenominator,
   scaleDenominator,
   onChange
 }) => {

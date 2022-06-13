@@ -43,10 +43,6 @@ import { Divider, Card, Typography } from 'antd';
 import { BlockOutlined, FilterFilled, MinusOutlined } from '@ant-design/icons';
 const { Text } = Typography;
 
-// i18n
-export interface RuleCardLocale {
-}
-
 // default props
 interface RuleCardDefaultProps {
 }

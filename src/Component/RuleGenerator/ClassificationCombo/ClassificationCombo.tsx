@@ -30,25 +30,18 @@ import * as React from 'react';
 
 import { Select } from 'antd';
 
-import en_US from '../../../locale/en_US';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 
 import _isEqual from 'lodash/isEqual';
+import { GeoStylerLocale } from '../../../locale/locale';
+import en_US from '../../../locale/en_US';
 
 export type ClassificationMethod = 'equalInterval' | 'quantile' | 'logarithmic' | 'kmeans';
-
-// i18n
-export interface ClassificationComboLocale {
-  equalInterval: string;
-  quantile: string;
-  logarithmic: string;
-  kmeans: string;
-}
 
 // default props
 export interface ClassificationComboDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: ClassificationComboLocale;
+  locale: GeoStylerLocale['ClassificationCombo'];
   /** List of supported classification methods */
   classifications: ClassificationMethod[];
 }
@@ -69,7 +62,7 @@ export class ClassificationCombo extends React.Component<ClassificationComboProp
   static componentName: string = 'ClassificationCombo';
 
   public static defaultProps: ClassificationComboDefaultProps = {
-    locale: en_US.GsClassificationCombo,
+    locale: en_US.ClassificationCombo,
     classifications: ['equalInterval', 'quantile', 'logarithmic', 'kmeans']
   };
 

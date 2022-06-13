@@ -35,19 +35,15 @@ import {
 
 import './FilterOverview.less';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
 import { Button, Divider, Tree } from 'antd';
 import FilterUtil from '../../Util/FilterUtil';
 import { PlusOutlined } from '@ant-design/icons';
-
-// i18n
-export interface FilterOverviewLocale {
-  filterTitle: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
+import en_US from '../../locale/en_US';
 
 // default props
 interface FilterOverviewDefaultProps {
-  locale: FilterOverviewLocale;
+  locale: GeoStylerLocale['FilterOverview'];
   /** The callback when the editing of the filter was triggered. */
   onEditFilterClick?: () => void;
 }
@@ -61,7 +57,7 @@ export interface FilterOverviewProps extends Partial<FilterOverviewDefaultProps>
 export const FilterOverview: React.FC<FilterOverviewProps> = ({
   filter,
   onEditFilterClick = () => {},
-  locale = en_US.GsFilterOverview,
+  locale = en_US.FilterOverview,
 }) => {
 
   let treeData = [];

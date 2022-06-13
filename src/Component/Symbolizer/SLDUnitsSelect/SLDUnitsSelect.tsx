@@ -30,20 +30,13 @@ import { Select } from 'antd';
 const Option = Select.Option;
 import React, { useState } from 'react';
 import en_US from '../../../locale/en_US';
+import { GeoStylerLocale } from '../../../locale/locale';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import './SLDUnitsSelect.less';
 
-// i18n
-export interface SLDUnitsSelectLocale {
-  symbolizerUnitsLabel?: string;
-  symbolizerUnitsPixel?: string;
-  symbolizerUnitsMeter?: string;
-  symbolizerUnitsFoot?: string;
-}
-
 // props
 interface SLDUnitsSelectDefaultProps {
-  locale?: SLDUnitsSelectLocale;
+  locale?: GeoStylerLocale['SLDUnitsSelect'];
 }
 
 // non default props
@@ -57,7 +50,7 @@ const COMPONENTNAME = 'SLDUnitsSelect';
  * SLDUnitsSelect
  */
 export const SLDUnitsSelect: React.FC<SLDUnitsSelectProps> = ({
-  locale = en_US.GsSLDUnitsSelect,
+  locale = en_US.SLDUnitsSelect,
   changeHandler
 }) => {
 

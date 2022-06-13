@@ -45,15 +45,11 @@ import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValue
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
-
-// i18n
-export interface MarkEditorLocale {
-  wellKnownNameFieldLabel: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 interface MarkEditorDefaultProps {
-  locale: MarkEditorLocale;
+  locale: GeoStylerLocale['MarkEditor'];
 }
 
 // non default props
@@ -72,7 +68,7 @@ export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState
   static componentName: string = 'MarkEditor';
 
   public static defaultProps: MarkEditorDefaultProps = {
-    locale: en_US.GsMarkEditor
+    locale: en_US.MarkEditor
   };
 
   constructor(props: MarkEditorProps) {

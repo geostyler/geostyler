@@ -34,7 +34,6 @@ import {
 } from 'geostyler-style';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
 
 import './Rules.less';
 import { RendererProps } from '../Symbolizer/Renderer/Renderer';
@@ -51,23 +50,13 @@ import _cloneDeep from 'lodash/cloneDeep';
 import Selectable from '../Selectable/Selectable';
 import Removable from '../Removable/Removable';
 import { RuleCard, RuleCardProps } from '../RuleCard/RuleCard';
-
-// i18n
-export interface RulesLocale {
-  rulesTitle: string;
-  multiEdit: string;
-  addRule: string;
-  classification: string;
-  remove: string;
-  clone: string;
-  edit: string;
-  defaultRuleTitle: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
+import en_US from '../../locale/en_US';
 
 // default props
 interface RulesDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: RulesLocale;
+  locale: GeoStylerLocale['Rules'];
   /** Properties of the SLD renderer */
   sldRendererProps: SLDRendererAdditonalProps;
   /** Properties of the OpenLayers renderer */
@@ -107,7 +96,7 @@ export interface RulesProps extends Partial<RulesDefaultProps> {
 }
 
 export const Rules: React.FC<RulesProps> = ({
-  locale = en_US.GsRules,
+  locale = en_US.Rules,
   ruleCardProps,
   showAmount = true,
   showDuplicates = true,

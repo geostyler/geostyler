@@ -44,15 +44,11 @@ import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
 import './IconSelectorWindow.less';
 
 import _isEqual from 'lodash/isEqual';
-
-// i18n
-export interface IconSelectorWindowLocale {
-  windowLabel?: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 export interface IconSelectorWindowDefaultProps {
-  locale: IconSelectorWindowLocale;
+  locale: GeoStylerLocale['IconSelectorWindow'];
 }
 
 // non default props
@@ -72,7 +68,7 @@ export class IconSelectorWindow extends React.Component<IconSelectorWindowProps>
   static componentName: string = 'IconSelectorWindow';
 
   public static defaultProps: IconSelectorWindowDefaultProps = {
-    locale: en_US.GsIconSelectorWindow
+    locale: en_US.IconSelectorWindow
   };
 
   public shouldComponentUpdate(nextProps: IconSelectorWindowProps): boolean {

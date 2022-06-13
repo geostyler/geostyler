@@ -37,7 +37,7 @@ describe('RasterEditor', () => {
   let dummySymbolizer: RasterSymbolizer = SymbolizerUtil.generateSymbolizer('Raster') as RasterSymbolizer;
   const props: RasterEditorProps = {
     symbolizer: dummySymbolizer,
-    locale: en_US.GsRasterEditor,
+    locale: en_US.RasterEditor,
     onSymbolizerChange: jest.fn(),
     defaultValues: undefined
   };

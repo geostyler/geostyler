@@ -48,16 +48,12 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 import _isEqual from 'lodash/isEqual';
+import { GeoStylerLocale } from '../../../locale/locale';
 
-// i18n
-export interface MultiEditorLocale {
-  add: string;
-  remove: string;
-}
 
 // default props
 interface MultiEditorDefaultProps {
-  locale: MultiEditorLocale;
+  locale: GeoStylerLocale['MultiEditor'];
 }
 
 // non default props
@@ -74,7 +70,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
   static componentName: string = 'MultiEditor';
 
   public static defaultProps: MultiEditorDefaultProps = {
-    locale: en_US.GsMultiEditor
+    locale: en_US.MultiEditor
   };
 
   public shouldComponentUpdate(nextProps: MultiEditorProps): boolean {

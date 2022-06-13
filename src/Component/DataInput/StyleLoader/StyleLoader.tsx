@@ -43,19 +43,14 @@ import UploadButton from '../../UploadButton/UploadButton';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import FileUtil from '../../../Util/FileUtil';
-
-// i18n
-export interface StyleLoaderLocale {
-  label: string;
-  uploadButtonLabel: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 interface StyleLoaderDefaultProps {
   /** The callback method that is triggered when the state changes */
   onStyleRead: (style: GsStyle) => void;
   /** Locale object containing translated text snippets */
-  locale: StyleLoaderLocale;
+  locale: GeoStylerLocale['StyleLoader'];
 }
 
 // non default props
@@ -67,7 +62,7 @@ export interface StyleLoaderProps extends Partial<StyleLoaderDefaultProps> {
 
 export const StyleLoader: React.FC<StyleLoaderProps> = ({
   parsers,
-  locale = en_US.GsStyleLoader,
+  locale = en_US.StyleLoader,
   onStyleRead = () => {
     return;
   }

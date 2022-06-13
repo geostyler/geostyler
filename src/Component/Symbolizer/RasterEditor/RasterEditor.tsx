@@ -55,27 +55,11 @@ import './RasterEditor.less';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
-
-// i18n
-export interface RasterEditorLocale {
-  opacityLabel?: string;
-  hueRotateLabel?: string;
-  brightnessMinLabel?: string;
-  brightnessMaxLabel?: string;
-  saturationLabel?: string;
-  contrastLabel?: string;
-  fadeDurationLabel?: string;
-  resamplingLabel?: string;
-  contrastEnhancementLabel?: string;
-  gammaValueLabel?: string;
-  colorMapLabel?: string;
-  symbolizerLabel?: string;
-  channelSelectionLabel?: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 interface RasterEditorDefaultProps {
-  locale: RasterEditorLocale;
+  locale: GeoStylerLocale['RasterEditor'];
 }
 
 // non default props
@@ -97,7 +81,7 @@ export interface RasterEditorState {
 const COMPONENTNAME = 'RasterEditor';
 
 export const RasterEditor: React.FC<RasterEditorProps> = ({
-  locale = en_US.GsRasterEditor,
+  locale = en_US.RasterEditor,
   contrastEnhancementTypes,
   symbolizer,
   onSymbolizerChange,

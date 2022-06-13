@@ -30,11 +30,12 @@ import * as React from 'react';
 
 import { Select } from 'antd';
 
-import en_US from '../../../locale/en_US';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import { InterpolationMode } from 'chroma-js';
 
 import _isEqual from 'lodash/isEqual';
+import { GeoStylerLocale } from '../../../locale/locale';
+import en_US from '../../../locale/en_US';
 
 // i18n
 export interface ColorSpaceComboLocale {
@@ -44,7 +45,7 @@ export interface ColorSpaceComboLocale {
 // default props
 export interface ColorSpaceComboDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: ColorSpaceComboLocale;
+  locale: GeoStylerLocale['ColorSpaceCombo'];
   /** List of color supported color spaces */
   colorSpaces: (InterpolationMode)[];
 }
@@ -65,7 +66,7 @@ export class ColorSpaceCombo extends React.Component<ColorSpaceComboProps> {
   static componentName: string = 'ColorSpaceCombo';
 
   public static defaultProps: ColorSpaceComboDefaultProps = {
-    locale: en_US.GsColorSpaceCombo,
+    locale: en_US.ColorSpaceCombo,
     colorSpaces: ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb']
   };
 

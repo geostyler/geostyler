@@ -58,7 +58,6 @@ import BulkEditModals from '../Symbolizer/BulkEditModals/BulkEditModals';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import RuleTable, { RuleTableProps } from '../RuleTable/RuleTable';
 import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
@@ -68,6 +67,8 @@ import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import './Style.less';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
+import { GeoStylerLocale } from '../../locale/locale';
+import en_US from '../../locale/en_US';
 
 // i18n
 export interface StyleLocale {
@@ -89,7 +90,7 @@ interface StyleDefaultProps {
   /** The geoStylerStyle object */
   style: GsStyle;
   /** Locale object containing translated text snippets */
-  locale: StyleLocale;
+  locale: GeoStylerLocale['Style'];
   /** Use compact layout */
   compact: boolean;
   /** Enable classification */
@@ -150,7 +151,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
 
   public static defaultProps: StyleDefaultProps = {
     compact: false,
-    locale: en_US.GsStyle,
+    locale: en_US.Style,
     style: {
       name: 'My Style',
       rules: []

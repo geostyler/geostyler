@@ -44,19 +44,16 @@ import { Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
 import RuleGenerator from './RuleGenerator';
 
 import _isEqual from 'lodash/isEqual';
 import _isFinite from 'lodash/isFinite';
-// i18n
-export interface RuleGeneratorWindowLocale {
-  ruleGenerator: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
+import en_US from '../../locale/en_US';
 
 // default props
 export interface RuleGeneratorWindowDefaultProps {
-  locale: RuleGeneratorWindowLocale;
+  locale: GeoStylerLocale['RuleGeneratorWindow'];
 }
 
 // non default props
@@ -81,7 +78,7 @@ export class RuleGeneratorWindow extends React.Component<RuleGeneratorWindowProp
   static componentName: string = 'RuleGeneratorWindow';
 
   public static defaultProps: RuleGeneratorWindowDefaultProps = {
-    locale: en_US.GsRuleGeneratorWindow
+    locale: en_US.RuleGeneratorWindow
   };
 
   public shouldComponentUpdate(nextProps: RuleGeneratorWindowProps): boolean {

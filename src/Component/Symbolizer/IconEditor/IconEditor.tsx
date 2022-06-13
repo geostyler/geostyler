@@ -51,19 +51,11 @@ import { CompositionContext, Compositions } from '../../../context/CompositionCo
 import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
-
-// i18n
-export interface IconEditorLocale {
-  imageLabel?: string;
-  sizeLabel?: string;
-  rotateLabel?: string;
-  opacityLabel?: string;
-  iconTooltipLabel?: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 export interface IconEditorDefaultProps {
-  locale: IconEditorLocale;
+  locale: GeoStylerLocale['IconEditor'];
 }
 
 // non default props
@@ -86,7 +78,7 @@ export class IconEditor extends React.Component<IconEditorProps> {
   static componentName: string = 'IconEditor';
 
   public static defaultProps: IconEditorDefaultProps = {
-    locale: en_US.GsIconEditor
+    locale: en_US.IconEditor
   };
 
   public shouldComponentUpdate(nextProps: IconEditorProps): boolean {

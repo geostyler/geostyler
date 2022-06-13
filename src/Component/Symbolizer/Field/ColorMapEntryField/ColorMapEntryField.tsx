@@ -37,18 +37,11 @@ import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
 import _get from 'lodash/get';
-
-// i18n
-export interface ColorMapEntryFieldLocale {
-  colorLabel?: string;
-  quantityLabel?: string;
-  labelLabel?: string;
-  opacityLabel?: string;
-}
+import { GeoStylerLocale } from '../../../../locale/locale';
 
 interface ColorMapEntryFieldDefaultProps {
   labelPlaceholder: string;
-  locale: ColorMapEntryFieldLocale;
+  locale: GeoStylerLocale['ColorMapEntryField'];
 }
 
 // non default props
@@ -62,7 +55,7 @@ export interface ColorMapEntryFieldProps extends Partial<ColorMapEntryFieldDefau
  */
 export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
   labelPlaceholder = 'Color Map Label',
-  locale = en_US.GsColorMapEntryField,
+  locale = en_US.ColorMapEntryField,
   onChange,
   colorMapEntry
 }) => {

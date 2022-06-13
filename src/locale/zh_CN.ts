@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -26,13 +26,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import zh_CN from 'antd/lib/locale-provider/zh_CN';
-export default {
-  GsApp: {
-    graphicalEditor: '编辑器',
-    codeEditor: '代码编辑器'
-  },
-  GsBulkEditModals: {
+import antd_zh_CN from 'antd/lib/locale-provider/zh_CN';
+import { GeoStylerLocale } from './locale';
+
+const zh_CN: GeoStylerLocale = {
+  BulkEditModals: {
     colorLabel: '选择颜色',
     radiusLabel: '选择半径',
     opacityLabel: '选择不透明度',
@@ -40,21 +38,21 @@ export default {
     imageFieldLabel: '来源',
     imageFieldTooltipLabel: '打开图库'
   },
-  GsBulkEditor: {
+  BulkEditor: {
     colorLabel: '选择颜色',
     radiusLabel: '选择半径',
     opacityLabel: '选择不透明度',
     symbolLabel: '选择符号',
     imageFieldLabel: '来源'
   },
-  GsRule: {
+  Rule: {
     removeRuleBtnText: '移除规则',
     scaleFieldTitle: '使用比例尺',
     filterFieldTitle: '使用过滤器',
     nameFieldLabel: '名称',
     nameFieldPlaceholder: '输入名称'
   },
-  GsStyle: {
+  Style: {
     addRuleBtnText: '添加规则',
     cloneRulesBtnText: '克隆规则',
     removeRulesBtnText: '移除规则',
@@ -67,7 +65,7 @@ export default {
     multiEditLabel: '同时编辑',
     ruleGeneratorWindowBtnText: '分类'
   },
-  GsCardStyle: {
+  CardStyle: {
     styleTitle: 'TODO',
     classificationTitle: '分类',
     multiEditTitle: '同时编辑',
@@ -75,29 +73,29 @@ export default {
     filterTitle: 'TODO',
     iconLibrariesTitle: 'TODO'
   },
-  GsStyleOverview: {
+  StyleOverview: {
     styleTitle: 'TODO'
   },
-  GsRuleOverview: {
+  RuleOverview: {
     ruleTitle: 'TODO'
   },
-  GsSymbolizerCard: {
+  SymbolizerCard: {
   },
-  GsSymbolizers: {
+  Symbolizers: {
     symbolizersTitle: 'TODO',
     addSymbolizer: 'TODO',
     showAll: 'TODO',
     hide: 'TODO'
   },
-  GsStyleLoader: {
+  StyleLoader: {
     label: '加载样式: ',
     uploadButtonLabel: '上传样式'
   },
-  GsDataLoader: {
+  DataLoader: {
     label: '加载数据: ',
     uploadButtonLabel: '上传数据'
   },
-  GsWfsParserInput: {
+  WfsParserInput: {
     requestButtonText: '请求数据',
     urlLabel: 'Url',
     versionLabel: 'Version',
@@ -107,7 +105,7 @@ export default {
     maxFeaturesLabel: 'MaxFeatures',
     fetchParamsLabel: 'fetchParams'
   },
-  GsCodeEditor: {
+  CodeEditor: {
     downloadButtonLabel: '另存为文件',
     copyButtonLabel: '拷贝到剪贴板',
     formatSelectLabel: '格式',
@@ -115,11 +113,11 @@ export default {
     writeFeedback: '写时的反馈',
     readFeedback: '阅读时的反馈'
   },
-  GsParserFeedback: {
+  ParserFeedback: {
     notSupported: '所用的分析器不支持',
     partiallySupported: '仅被使用的解析器部分支持'
   },
-  GsWellKnownNameEditor: {
+  WellKnownNameEditor: {
     radiusLabel: '半径',
     fillOpacityLabel: '填充-不透明度',
     fillColorLabel: '填充-颜色',
@@ -129,7 +127,7 @@ export default {
     strokeOpacityLabel: '描边-不透明度',
     rotateLabel: '旋转'
   },
-  GsFillEditor: {
+  FillEditor: {
     fillOpacityLabel: '填充-不透明度',
     outlineOpacityLabel: '描边-不透明度',
     opacityLabel: '不透明度',
@@ -139,17 +137,17 @@ export default {
     outlineDasharrayLabel: '轮廓-点划样式',
     graphicFillTypeLabel: '填充样式'
   },
-  GsIconEditor: {
+  IconEditor: {
     imageLabel: '来源',
     sizeLabel: '尺寸',
     rotateLabel: '旋转',
     opacityLabel: '不透明度',
     iconTooltipLabel: '打开图库'
   },
-  GsMarkEditor: {
+  MarkEditor: {
     wellKnownNameFieldLabel: '符号'
   },
-  GsLineEditor: {
+  LineEditor: {
     colorLabel: '颜色',
     widthLabel: '宽度',
     opacityLabel: '不透明度',
@@ -160,7 +158,7 @@ export default {
     graphicStrokeTypeLabel: '画笔类型',
     graphicFillTypeLabel: '填充类型'
   },
-  GsTextEditor: {
+  TextEditor: {
     fontLabel: '字体',
     templateFieldLabel: '模板',
     opacityLabel: '不透明度',
@@ -174,7 +172,7 @@ export default {
     haloWidthLabel: '光晕宽度',
     attributeNotFound: '字段未找到'
   },
-  GsPropTextEditor: {
+  PropTextEditor: {
     propFieldLabel: '字段',
     opacityLabel: '不透明度',
     colorLabel: '颜色',
@@ -186,7 +184,7 @@ export default {
     haloColorLabel: '光晕颜色',
     haloWidthLabel: '光晕宽度'
   },
-  GsRasterEditor: {
+  RasterEditor: {
     opacityLabel: '不透明度',
     hueRotateLabel: '色调旋转',
     brightnessMinLabel: '最小亮度',
@@ -201,7 +199,7 @@ export default {
     symbolizerLabel: '符号化',
     channelSelectionLabel: '通道选择'
   },
-  GsRasterChannelEditor: {
+  RasterChannelEditor: {
     channelSelectionLabel: '编辑通道',
     redBandLabel: '红',
     greenBandLabel: '绿',
@@ -211,7 +209,7 @@ export default {
     channelSelectionRgbLabel: 'RGB',
     titleLabel: '通道选择'
   },
-  GsColorMapEditor: {
+  ColorMapEditor: {
     typeLabel: '类型',
     extendedLabel: '颜色深度',
     colorMapEntriesLabel: '颜色映射',
@@ -223,16 +221,16 @@ export default {
     labelLabel: '图例',
     opacityLabel: '不透明度'
   },
-  GsPreview: {
+  Preview: {
     openEditorText: '符号编辑',
     closeEditorText: '关闭编辑器'
   },
-  GsColorField: {
+  ColorField: {
     closeText: '关闭',
     editText: '更改',
     chooseText: '选取',
   },
-  GsKindField: {
+  KindField: {
     symbolizerKinds: {
       Mark: '点',
       Fill: '面',
@@ -242,25 +240,25 @@ export default {
       Raster: '栅格'
     }
   },
-  GsGraphicTypeField: {
+  GraphicTypeField: {
     Mark: '点',
     Icon: '图标'
   },
-  GsRgbChannelField: {
+  RgbChannelField: {
     redLabel: '红色波段',
     greenLabel: '绿色波段',
     blueLabel: '蓝色波段'
   },
-  GsGrayChannelField: {
+  GrayChannelField: {
     grayLabel: '灰色波段'
   },
-  GsScaleDenominator: {
+  ScaleDenominator: {
     minScaleDenominatorLabelText: '最小比例尺',
     maxScaleDenominatorLabelText: '最大比例尺',
     minScaleDenominatorPlaceholderText: '输入最小比例尺（可选）',
     maxScaleDenominatorPlaceholderText: '输入最大比例尺（可选）'
   },
-  GsWellKnownNameField: {
+  WellKnownNameField: {
     wellKnownNames: {
       Circle: '圆形',
       Square: '方块',
@@ -270,42 +268,42 @@ export default {
       X: '叉'
     }
   },
-  GsColorMapEntryField: {
+  ColorMapEntryField: {
     colorLabel: '颜色',
     labelLabel: '图例',
     quantityLabel: '数值',
     opacityLabel: '不透明度'
   },
-  GsChannelField: {
+  ChannelField: {
     sourceChannelNameLabel: '通道名',
     contrastEnhancementTypeLabel: '对比增强',
     gammaValueLabel: 'Gamma'
   },
-  GsColorMapTypeField: {
+  ColorMapTypeField: {
     rampMapTypeLabel: '渐变',
     intervalsMapTypeLabel: '分级',
     valuesMapTypeLabel: '唯一值'
   },
-  GsSymbolizerEditor: {
+  SymbolizerEditor: {
     kindFieldLabel: '类型'
   },
-  GsSymbolizerEditorWindow: {
+  SymbolizerEditorWindow: {
     symbolizersEditor: '符号编辑器'
   },
-  GsFilterOverview: {
+  FilterOverview: {
     filterTitle: 'TODO'
   },
-  GsFilterEditorWindow: {
+  FilterEditorWindow: {
     filterEditor: '过滤器编辑器'
   },
-  GsMultiEditor: {
+  MultiEditor: {
     add: '添加',
     remove: '移除'
   },
-  GsUploadButton: {
+  UploadButton: {
     upload: '上传'
   },
-  GsFilterTree: {
+  FilterTree: {
     andDrpdwnLabel: 'AND',
     orDrpdwnLabel: 'OR',
     notDrpdwnLabel: 'NOT',
@@ -317,7 +315,7 @@ export default {
     orFilterText: 'OR',
     notFilterText: 'NOT'
   },
-  GsRuleTable: {
+  RuleTable: {
     symbolizersColumnTitle: '符号',
     nameColumnTitle: '名称',
     filterColumnTitle: '过滤器',
@@ -326,7 +324,7 @@ export default {
     amountColumnTitle: '数量',
     duplicatesColumnTitle: '副本'
   },
-  GsRules: {
+  Rules: {
     rulesTitle: 'TODO',
     multiEdit: 'TODO',
     addRule: 'TODO',
@@ -336,11 +334,11 @@ export default {
     edit: 'TODO',
     defaultRuleTitle: 'TODO'
   },
-  GsRuleReorderButtons: {
+  RuleReorderButtons: {
     ruleMoveUpTip: '向上移动',
     ruleMoveDownTip: '向下移动'
   },
-  GsRuleGenerator: {
+  RuleGenerator: {
     attribute: '属性',
     generateButtonText: '分类',
     levelOfMeasurement: '计量尺度',
@@ -361,32 +359,34 @@ export default {
     numberOfRulesViaKmeans: '……被 k-Means 分类影响。',
     allDistinctValues: '使用所有不同的值'
   },
-  GsColorRampCombo: {
+  ColorRampCombo: {
     colorRampPlaceholder: '选择……'
   },
-  GsColorSpaceCombo: {
+  ColorSpaceCombo: {
     colorSpacePlaceholder: '选择……'
   },
-  GsClassificationCombo: {
+  ClassificationCombo: {
     equalInterval: '等值间隔',
     quantile: '分位数',
     logarithmic: '对数',
     kmeans: 'k-Means'
   },
-  GsRuleGeneratorWindow: {
+  RuleGeneratorWindow: {
     ruleGenerator: '分类'
   },
-  GsIconSelectorWindow: {
+  IconSelectorWindow: {
     windowLabel: '选择图标'
   },
-  GsIconSelector: {
+  IconSelector: {
     librarySelectLabel: '选择图标库'
   },
-  GsSLDUnitsSelect: {
+  SLDUnitsSelect: {
     symbolizerUnitsLabel: '符號單位',
     symbolizerUnitsPixel: '像素點',
     symbolizerUnitsMeter: '儀表',
     symbolizerUnitsFoot: '富斯'
   },
-  ...zh_CN
+  ...antd_zh_CN
 };
+
+export default zh_CN;

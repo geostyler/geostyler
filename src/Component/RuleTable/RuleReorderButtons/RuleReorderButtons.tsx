@@ -34,22 +34,17 @@ import {
 } from 'geostyler-style';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 
 const ButtonGroup = Button.Group;
 import _cloneDeep from 'lodash/cloneDeep';
-
-// i18n
-export interface RuleReorderButtonsLocale {
-  ruleMoveUpTip: string;
-  ruleMoveDownTip: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
+import en_US from '../../../locale/en_US';
 
 // default props
 interface RuleReorderButtonsDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: RuleReorderButtonsLocale;
+  locale: GeoStylerLocale['RuleReorderButtons'];
 }
 // non default props
 export interface RuleReorderButtonsProps extends Partial<RuleReorderButtonsDefaultProps> {
@@ -69,7 +64,7 @@ export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps>
   static componentName: string = 'RuleReorderButtons';
 
   public static defaultProps: RuleReorderButtonsDefaultProps = {
-    locale: en_US.GsRuleReorderButtons
+    locale: en_US.RuleReorderButtons
   };
 
   onRuleOrderChange = (moveDown: boolean) => {

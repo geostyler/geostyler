@@ -59,25 +59,13 @@ import { CompositionContext, Compositions } from '../../../context/CompositionCo
 import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
+import { GeoStylerLocale } from '../../../locale/locale';
 
 const Panel = Collapse.Panel;
 
-// i18n
-export interface LineEditorLocale {
-  colorLabel?: string;
-  widthLabel?: string;
-  opacityLabel?: string;
-  dashLabel?: string;
-  dashOffsetLabel?: string;
-  capLabel?: string;
-  joinLabel?: string;
-  graphicStrokeTypeLabel?: string;
-  graphicFillTypeLabel?: string;
-}
-
 export interface LineEditorDefaultProps {
   /** Language package */
-  locale: LineEditorLocale;
+  locale: GeoStylerLocale['LineEditor'];
 }
 
 // non default props
@@ -92,7 +80,7 @@ export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
 export class LineEditor extends React.Component<LineEditorProps> {
 
   public static defaultProps: LineEditorDefaultProps = {
-    locale: en_US.GsLineEditor
+    locale: en_US.LineEditor
   };
 
   static componentName: string = 'LineEditor';

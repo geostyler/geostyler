@@ -39,7 +39,7 @@ describe('PropTextEditor', () => {
   let dummyData = TestUtil.getDummyGsData();
   const props: PropTextEditorProps = {
     symbolizer: dummySymbolizer,
-    locale: en_US.GsPropTextEditor,
+    locale: en_US.PropTextEditor,
     internalDataDef: dummyData,
     onSymbolizerChange: jest.fn()
   };

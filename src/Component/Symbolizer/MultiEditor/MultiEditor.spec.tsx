@@ -48,7 +48,7 @@ describe('Renderer', () => {
   beforeEach(() => {
     dummyOnSymbolizerChange = jest.fn();
     const props: MultiEditorProps = {
-      locale: en_US.GsMultiEditor,
+      locale: en_US.MultiEditor,
       onSymbolizersChange: dummyOnSymbolizerChange,
       symbolizers: dummySymbolizers
     };

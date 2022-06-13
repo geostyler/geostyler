@@ -50,25 +50,14 @@ export interface WfsParams {
   maxFeatures?: number;
 }
 
-import en_US from '../../../locale/en_US';
-
 import './WfsParserInput.less';
-
-export interface WfsParserInputLocale {
-  requestButtonText: string;
-  urlLabel: string;
-  versionLabel: string;
-  typeNameLabel: string;
-  featureIDLabel: string;
-  propertyNameLabel: string;
-  maxFeaturesLabel: string;
-  fetchParamsLabel: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
+import en_US from '../../../locale/en_US';
 
 // default props
 interface WfsParserInputDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: WfsParserInputLocale;
+  locale: GeoStylerLocale['WfsParserInput'];
 }
 
 // non default props
@@ -81,7 +70,7 @@ export interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps>
  * WfsParserInput
  */
 export const WfsParserInput: React.FC<WfsParserInputProps> = ({
-  locale = en_US.GsWfsParserInput,
+  locale = en_US.WfsParserInput,
   onClick: onClickProp
 }) => {
 

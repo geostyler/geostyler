@@ -58,26 +58,10 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
 
 import './Rule.less';
-import en_US from '../../locale/en_US';
 import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import { GeoStylerLocale } from '../../locale/locale';
+import en_US from '../../locale/en_US';
 
-// i18n
-export interface RuleLocale {
-    removeRuleBtnText: string;
-    scaleFieldTitle: string;
-    filterFieldTitle: string;
-    nameFieldLabel?: string;
-    nameFieldPlaceholder?: string;
-    attributeLabel?: string;
-    attributePlaceholderString?: string;
-    attributeValidationHelpString?: string;
-    operatorLabel?: string;
-    operatorPlaceholderString?: string;
-    operatorValidationHelpString?: string;
-    valueLabel?: string;
-    valuePlaceholder?: string;
-    valueValidationHelpString?: string;
-}
 
 // default props
 interface RuleDefaultProps {
@@ -92,7 +76,7 @@ interface RuleDefaultProps {
   /** Properties of the OpenLayers renderer */
   oLRendererProps?: Partial<RendererProps>;
   /** Locale object containing translated text snippets */
-  locale: RuleLocale;
+  locale: GeoStylerLocale['Rule'];
 }
 
 // non default props
@@ -141,7 +125,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   static componentName: string = 'Rule';
 
   public static defaultProps: RuleDefaultProps = {
-    locale: en_US.GsRule,
+    locale: en_US.Rule,
     rule: {
       name: 'My Style',
       symbolizers: [{

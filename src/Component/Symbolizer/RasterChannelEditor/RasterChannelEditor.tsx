@@ -49,22 +49,11 @@ import ChannelField from '../Field/ChannelField/ChannelField';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-
-// i18n
-export interface RasterChannelEditorLocale {
-  channelSelectionLabel: string;
-  redBandLabel: string;
-  greenBandLabel: string;
-  blueBandLabel: string;
-  grayBandLabel: string;
-  channelSelectionGrayLabel: string;
-  channelSelectionRgbLabel: string;
-  titleLabel: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 interface RasterChannelEditorDefaultProps {
-  locale: RasterChannelEditorLocale;
+  locale: GeoStylerLocale['RasterChannelEditor'];
 }
 
 // non default props
@@ -81,7 +70,7 @@ const COMPONENTNAME = 'RasterChannelEditor';
  * RasterChannelEditor to map bands to rgb or grayscale
  */
 export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
-  locale = en_US.GsRasterChannelEditor,
+  locale = en_US.RasterChannelEditor,
   sourceChannelNames,
   onChange,
   channelSelection,

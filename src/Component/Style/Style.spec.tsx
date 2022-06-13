@@ -37,7 +37,7 @@ describe('Style', () => {
   let lineStyle = TestUtil.getLineStyle();
   beforeEach(() => {
     const props: StyleProps = {
-      locale: en_US.GsStyle,
+      locale: en_US.Style,
       style: lineStyle
     };
     wrapper = TestUtil.shallowRenderComponent(Style, props);

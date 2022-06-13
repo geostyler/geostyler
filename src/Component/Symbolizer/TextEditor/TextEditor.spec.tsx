@@ -37,7 +37,7 @@ describe('TextEditor', () => {
   let dummySymbolizer: TextSymbolizer = SymbolizerUtil.generateSymbolizer('Text') as TextSymbolizer;
   const props: TextEditorProps = {
     symbolizer: dummySymbolizer as TextSymbolizer,
-    locale: en_US.GsTextEditor,
+    locale: en_US.TextEditor,
     onSymbolizerChange: jest.fn(),
     defaultValues: undefined
   };

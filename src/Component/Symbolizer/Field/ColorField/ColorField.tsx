@@ -42,17 +42,12 @@ import './ColorField.less';
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
+import { GeoStylerLocale } from '../../../../locale/locale';
 
-// i18n
-export interface ColorFieldLocale {
-  closeText: string;
-  editText: string;
-  chooseText: string;
-}
 
 // default props
 interface ColorFieldDefaultProps {
-  locale: ColorFieldLocale;
+  locale: GeoStylerLocale['ColorField'];
 }
 
 // non default props
@@ -67,7 +62,7 @@ export interface ColorFieldProps extends Partial<ColorFieldDefaultProps> {
  */
 export const ColorField: React.FC<ColorFieldProps> = ({
   onChange,
-  locale = en_US.GsColorField,
+  locale = en_US.ColorField,
   color,
   defaultValue
 }) => {

@@ -41,7 +41,7 @@ describe('FillEditor', () => {
     onSymbolizerChangeDummy = jest.fn();
     const props: FillEditorProps = {
       symbolizer: dummySymbolizer,
-      locale: en_US.GsFillEditor,
+      locale: en_US.FillEditor,
       onSymbolizerChange: onSymbolizerChangeDummy,
       defaultValues: undefined
     };

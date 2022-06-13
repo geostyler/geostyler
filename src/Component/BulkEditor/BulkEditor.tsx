@@ -41,20 +41,13 @@ import { KindField } from '../Symbolizer/Field/KindField/KindField';
 import { SymbolizerKind, WellKnownName } from 'geostyler-style';
 import WellKnownNameField from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import ImageField from '../Symbolizer/Field/ImageField/ImageField';
+import { GeoStylerLocale } from '../../locale/locale';
 
-// i18n
-export interface BulkEditorLocale {
-  colorLabel: string;
-  radiusLabel: string;
-  opacityLabel: string;
-  symbolLabel: string;
-  imageFieldLabel: string;
-}
 
 // default props
 interface BulkEditorDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: BulkEditorLocale;
+  locale: GeoStylerLocale['BulkEditor'];
   /** The callback that is triggered, when a style property changed. */
   onStylePropChange: (prop: string, val: any) => void;
 }
@@ -64,7 +57,7 @@ export interface BulkEditorProps extends Partial<BulkEditorDefaultProps> {
 }
 
 export const BulkEditor: React.FC<BulkEditorProps> = ({
-  locale = en_US.GsBulkEditor,
+  locale = en_US.BulkEditor,
   onStylePropChange = () => {}
 }) => {
 
