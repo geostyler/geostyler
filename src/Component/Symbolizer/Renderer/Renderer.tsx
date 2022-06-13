@@ -133,11 +133,15 @@ export const Renderer: React.FC<RendererProps> = ({
         projection: 'EPSG:4326'
       })
     });
+  }, [mapId]);
 
+  useEffect(() => {
     updateFeature();
-    applySymbolizers(symbolizers);
+  }, [updateFeature]);
 
-  }, [mapId, symbolizers, updateFeature]);
+  useEffect(() => {
+    applySymbolizers(symbolizers);
+  }, [symbolizers]);
 
   /**
    * Transforms the incoming symbolizers to an OpenLayers style object the
