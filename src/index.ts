@@ -28,8 +28,10 @@
  */
 import AttributeCombo from './Component/Filter/AttributeCombo/AttributeCombo';
 import BoolFilterField from './Component/Filter/BoolFilterField/BoolFilterField';
+import Breadcrumb from './Component/Breadcrumb/Breadcrumb';
 import BrightnessField from './Component/Symbolizer/Field/BrightnessField/BrightnessField';
 import BulkEditModals from './Component/Symbolizer/BulkEditModals/BulkEditModals';
+import BulkEditor from './Component/BulkEditor/BulkEditor';
 import ChannelField from './Component/Symbolizer/Field/ChannelField/ChannelField';
 import ChannelSelectionField from './Component/Symbolizer/Field/ChannelSelectionField/ChannelSelectionField';
 import CodeEditor from './Component/CodeEditor/CodeEditor';
@@ -46,8 +48,10 @@ import Editor from './Component/Symbolizer/Editor/Editor';
 import ExtendedField from './Component/Symbolizer/Field/ExtendedField/ExtendedField';
 import FadeDurationField from './Component/Symbolizer/Field/FadeDurationField/FadeDurationField';
 import FieldSet from './Component/FieldSet/FieldSet';
+import FieldContainer from './Component/FieldContainer/FieldContainer';
 import FillEditor from './Component/Symbolizer/FillEditor/FillEditor';
 import FilterEditorWindow from './Component/Filter/FilterEditorWindow/FilterEditorWindow';
+import FilterOverview from './Component/FilterOverview/FilterOverview';
 import FilterTree from './Component/Filter/FilterTree/FilterTree';
 import FontPicker from './Component/Symbolizer/Field/FontPicker/FontPicker';
 import GammaField from './Component/Symbolizer/Field/GammaField/GammaField';
@@ -78,34 +82,47 @@ import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import RasterChannelEditor from './Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
 import RasterEditor from './Component/Symbolizer/RasterEditor/RasterEditor';
+import Removable from './Component/Removable/Removable';
+import RemovableItem from './Component/Removable/RemovableItem/RemovableItem';
 import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
-import Renderer from './Component/Symbolizer/Renderer/Renderer';
+// TODO This should be renamed to OlRenderer. Files should then be moved to.
+import LegacyRenderer from './Component/Symbolizer/Renderer/Renderer';
+import Renderer from './Component/Renderer/Renderer';
 import RgbChannelField from './Component/Symbolizer/Field/RgbChannelField/RgbChannelField';
 import ResamplingField from './Component/Symbolizer/Field/ResamplingField/ResamplingField';
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
 import Rule from './Component/Rule/Rule';
+import RuleCard from './Component/RuleCard/RuleCard';
+import RuleFieldContainer from './Component/RuleFieldContainer/RuleFieldContainer';
+import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
+import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
+import RuleOverview from './Component/RuleOverview/RuleOverview';
+import Rules from './Component/Rules/Rules';
+import RuleTable from './Component/RuleTable/RuleTable';
 import SaturationField from './Component/Symbolizer/Field/SaturationField/SaturationField';
 import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
+import Selectable from './Component/Selectable/Selectable';
+import SelectableItem from './Component/Selectable/SelectableItem/SelectableItem';
 import SizeField from './Component/Symbolizer/Field/SizeField/SizeField';
 import SLDRenderer from './Component/Symbolizer/SLDRenderer/SLDRenderer';
 import SourceChannelNameField from './Component/Symbolizer/Field/SourceChannelNameField/SourceChannelNameField';
 import Style from './Component/Style/Style';
+import StyleFieldContainer from './Component/StyleFieldContainer/StyleFieldContainer';
 import StyleLoader from './Component/DataInput/StyleLoader/StyleLoader';
+import StyleOverview from './Component/StyleOverview/StyleOverview';
+import SymbolizerCard from './Component/SymbolizerCard/SymbolizerCard';
 import SymbolizerEditorWindow from './Component/Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
+import Symbolizers from './Component/Symbolizers/Symbolizers';
 import TextEditor from './Component/Symbolizer/TextEditor/TextEditor';
 import TextFilterField from './Component/Filter/TextFilterField/TextFilterField';
-import TitleField from './Component/Rule/TitleField/TitleField';
 import UploadButton from './Component/UploadButton/UploadButton';
 import WellKnownNameEditor from './Component/Symbolizer/WellKnownNameEditor/WellKnownNameEditor';
 import WellKnownNameField from './Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
-import RuleGeneratorWindow from './Component/RuleGenerator/RuleGeneratorWindow';
-import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
-import RuleTable from './Component/RuleTable/RuleTable';
+import withDefaultsContext from './hoc/withDefaultsContext';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 import { CompositionContext } from './context/CompositionContext/CompositionContext';
 import { DefaultValueContext } from './context/DefaultValueContext/DefaultValueContext';
-import withDefaultsContext from './hoc/withDefaultsContext';
 
 import { ConfigProvider } from 'antd';
 
@@ -125,8 +142,10 @@ const locale = {
 export {
   AttributeCombo,
   BoolFilterField,
+  Breadcrumb,
   BrightnessField,
   BulkEditModals,
+  BulkEditor,
   ChannelField,
   ChannelSelectionField,
   CodeEditor,
@@ -135,16 +154,21 @@ export {
   ColorMapEntryField,
   ColorMapTypeField,
   ComparisonFilter,
+  CompositionContext,
+  ConfigProvider,
   ContrastEnhancementField,
   ContrastField,
   DataLoader,
   DataProvider,
+  DefaultValueContext,
   Editor,
   ExtendedField,
   FadeDurationField,
+  FieldContainer,
   FieldSet,
   FillEditor,
   FilterEditorWindow,
+  FilterOverview,
   FilterTree,
   FontPicker,
   GammaField,
@@ -161,7 +185,6 @@ export {
   LineEditor,
   LineJoinField,
   locale,
-  ConfigProvider,
   localize,
   MarkEditor,
   MaxScaleDenominator,
@@ -179,30 +202,40 @@ export {
   RasterChannelEditor,
   RasterEditor,
   RemoveButton,
+  Removable,
+  RemovableItem,
+  LegacyRenderer,
   Renderer,
   RgbChannelField,
   ResamplingField,
   RotateField,
   Rule,
+  RuleCard,
+  RuleFieldContainer,
+  RuleGenerator,
+  RuleGeneratorWindow,
+  RuleOverview,
+  Rules,
+  RuleTable,
   SaturationField,
   ScaleDenominator,
+  Selectable,
+  SelectableItem,
   SizeField,
   SLDRenderer,
   SourceChannelNameField,
   Style,
+  StyleFieldContainer,
   StyleLoader,
+  StyleOverview,
+  SymbolizerCard,
   SymbolizerEditorWindow,
+  Symbolizers,
   TextEditor,
   TextFilterField,
-  TitleField,
   UploadButton,
   WellKnownNameEditor,
   WellKnownNameField,
-  RuleGeneratorWindow,
-  RuleGenerator,
-  RuleTable,
   WidthField,
-  CompositionContext,
-  DefaultValueContext,
   withDefaultsContext
 };

@@ -27,65 +27,30 @@
  */
 
 import * as React from 'react';
-import { Input, Form } from 'antd';
 
-import './TitleField.less';
+import './FieldContainer.less';
 
 // default props
-interface TitleFieldDefaultProps {
-  /** Label for this field */
-  label: string;
-  /** The default text to place into the empty field */
-  placeholder: string;
+interface FieldContainerDefaultProps {
 }
+
 // non default props
-export interface TitleFieldProps extends Partial<TitleFieldDefaultProps> {
-  /** Callback for onChange */
-  onChange?: (newValue: string) => void;
+export interface FieldContainerProps extends Partial<FieldContainerDefaultProps> {
+  children?: React.ReactElement | React.ReactElement[];
+  className?: string;
 }
 
-/**
- * Input field for the rule title.
- * @deprecated
- */
-export class TitleField extends React.Component<TitleFieldProps> {
+export const FieldContainer: React.FC<FieldContainerProps> = ({
+  children,
+  className
+}) => {
 
-  public static defaultProps: TitleFieldDefaultProps = {
-    label: 'Title',
-    placeholder: 'Enter Rule Description (Title)'
-  };
+  return (
+    <div className={`gs-field-container ${className}`}>
+      {children}
+    </div>
+  );
 
-  /**
-   * Extracts the text value of the ChangeEvent
-   * and passes it to the passed in 'onChange' handler.
-   */
-  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      onChange
-    } = this.props;
-    if (onChange) {
-      onChange(e.target.value);
-    }
-  };
+};
 
-  render() {
-
-    return (
-      <div className="gs-rule-titlefield" >
-
-        <Form.Item label={this.props.label} colon={false} >
-
-          <Input
-            className="gs-rule-titlefield-input"
-            onChange={this.onChange}
-            placeholder={this.props.placeholder}
-          />
-
-        </Form.Item>
-
-      </div>
-    );
-  }
-}
-
-export default TitleField;
+export default FieldContainer;

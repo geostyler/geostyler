@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-.gs-rule-titlefield-input {
-  width: 100%;
-}
+import React from 'react';
+import { render } from '@testing-library/react';
+import { RuleOverview } from './RuleOverview';
+
+describe('RuleOverview', () => {
+
+  it('is defined', () => {
+    expect(RuleOverview).toBeDefined();
+  });
+
+  it('renders correctly', () => {
+    const ruleOverview = render(<RuleOverview rule={{name: 'foo', symbolizers: []}} />);
+    expect(ruleOverview.container).toBeInTheDocument();
+  });
+
+});

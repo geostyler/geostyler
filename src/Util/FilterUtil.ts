@@ -37,7 +37,11 @@ import {
 import {
   isCombinationFilter,
   isComparisonFilter,
-  isNegationFilter
+  isNegationFilter,
+  isComparisonOperator,
+  isCombinationOperator,
+  isNegationOperator,
+  isFilter
 } from 'geostyler-style/dist/typeguards';
 
 import {
@@ -47,6 +51,7 @@ import {
 import _get from 'lodash/get';
 import _set from 'lodash/set';
 import _cloneDeep from 'lodash/cloneDeep';
+import _uniqueId from 'lodash/uniqueId';
 
 export type CountResult = {
   counts?: number[];
@@ -149,14 +154,9 @@ class FilterUtil {
    * @return {Feature[]} An Array of geojson feature objects.
    */
   static getMatches = (filter: Filter, data: VectorData): any[] => {
-    const matches: any[] = [];
-    data.exampleFeatures.features.forEach(feature => {
-      const match = FilterUtil.featureMatchesFilter(filter, feature);
-      if (match) {
-        matches.push(feature);
-      }
-    });
-    return matches;
+    return data.exampleFeatures.features.filter((feature => {
+      return FilterUtil.featureMatchesFilter(filter, feature);
+    }));
   };
 
   /**
@@ -412,6 +412,45 @@ class FilterUtil {
     }
 
     return newFilter;
+  };
+
+  /**
+   * Helper method for FilterUtil.filterToTree().
+   */
+  static filterToTreeHelper = (filter: Filter) => {
+    let tree: any = {
+      key: _uniqueId()
+    };
+
+    let filterClone = _cloneDeep(filter);
+    const operator = filterClone.shift();
+    if (isComparisonOperator(operator)) {
+      tree.title = `${filterClone[0]} ${operator} ${filterClone[1]}`;
+    } else if (isCombinationOperator(operator)) {
+      tree.title = operator;
+      tree.children = filterClone.map((f: any) => {
+        if (isFilter(f)) {
+          return FilterUtil.filterToTreeHelper(f);
+        }
+      });
+    } else if (isNegationOperator(operator)) {
+      tree.title = operator;
+      tree.children = filterClone.map((f: any) => {
+        if (isFilter(f)) {
+          return FilterUtil.filterToTreeHelper(f);
+        }
+      });
+    }
+    // TODO str_matchesFilter is missing but also not yet supported in UI
+    return tree;
+
+  };
+
+  /**
+   * Maps a GeoStyler filter to an antd treeData object.
+   */
+  static filterToTree = (filter: Filter) => {
+    return [FilterUtil.filterToTreeHelper(filter)];
   };
 
 }

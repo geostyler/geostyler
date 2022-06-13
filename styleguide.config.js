@@ -70,6 +70,9 @@ module.exports = {
   }, {
     name: 'Components',
     sections: [{
+      name: 'BulkdEditor',
+      components: 'src/Component/BulkEditor/**/*.tsx'
+    }, {
       name: 'CodeEditor',
       components: 'src/Component/CodeEditor/**/*.tsx'
     }, {
@@ -82,6 +85,9 @@ module.exports = {
       name: 'Filter',
       components: 'src/Component/Filter/**/*.tsx'
     }, {
+      name: 'FilterOverview',
+      components: 'src/Component/FilterOverview/**/*.tsx'
+    }, {
       name: 'LocaleWrapper',
       components: 'src/Component/LocaleWrapper/**/*.tsx'
     }, {
@@ -90,6 +96,12 @@ module.exports = {
     }, {
       name: 'Rule',
       components: 'src/Component/Rule/**/*.tsx'
+    }, {
+      name: 'RuleCard',
+      components: 'src/Component/RuleCard/**/*.tsx'
+    }, {
+      name: 'Rules',
+      components: 'src/Component/Rules/**/*.tsx'
     }, {
       name: 'RuleGenerator',
       components: 'src/Component/RuleGenerator/**/*.tsx'
@@ -103,14 +115,50 @@ module.exports = {
       name: 'Style',
       components: 'src/Component/Style/**/*.tsx'
     }, {
+      name: 'StyleOverview',
+      components: 'src/Component/StyleOverview/**/*.tsx'
+    }, {
+      name: 'CardStyle',
+      components: 'src/Component/CardStyle/**/*.tsx'
+    }, {
+      name: 'RuleOverview',
+      components: 'src/Component/RuleOverview/**/*.tsx'
+    }, {
+      name: 'SymbolizerCard',
+      components: 'src/Component/SymbolizerCard/**/*.tsx'
+    }, {
+      name: 'Symbolizers',
+      components: 'src/Component/Symbolizers/**/*.tsx'
+    }, {
+      name: 'Selectable',
+      components: 'src/Component/Selectable/*.tsx'
+    }, {
+      name: 'Removable',
+      components: 'src/Component/Removable/*.tsx'
+    }, {
       name: 'Symbolizer',
       components: 'src/Component/Symbolizer/**/*.tsx'
     }, {
       name: 'UploadButton',
       components: 'src/Component/UploadButton/**/*.tsx'
     }, {
+      name: 'Breadcrumb',
+      components: 'src/Component/Breadcrumb/**/*.tsx'
+    }, {
+      name: 'Renderer',
+      components: 'src/Component/Renderer/**/*.tsx'
+    }, {
       name: 'PreviewMap',
       components: 'src/Component/PreviewMap/**/*.tsx'
+    }, {
+      name: 'FieldContainer',
+      components: 'src/Component/FieldContainer/**/*.tsx'
+    }, {
+      name: 'StyleFieldContainer',
+      components: 'src/Component/StyleFieldContainer/**/*.tsx'
+    }, {
+      name: 'RuleFieldContainer',
+      components: 'src/Component/RuleFieldContainer/**/*.tsx'
     }],
     sectionDepth: 2
   }, {

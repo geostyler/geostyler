@@ -40,6 +40,13 @@ export default {
     imageFieldLabel: 'Quelle',
     imageFieldTooltipLabel: 'Öffne Galerie'
   },
+  GsBulkEditor: {
+    colorLabel: 'Farbe wählen',
+    radiusLabel: 'Radius festlegen',
+    opacityLabel: 'Deckkraft festlegen',
+    symbolLabel: 'Symbol wählen',
+    imageFieldLabel: 'Quelle'
+  },
   GsRule: {
     removeRuleBtnText: 'Regel entfernen',
     scaleFieldTitle: 'Maßstab verwenden',
@@ -62,12 +69,36 @@ export default {
     removeRulesBtnText: 'Regeln entfernen',
     nameFieldLabel: 'Name',
     nameFieldPlaceholder: 'Name eingeben',
+    titleFieldLabel: 'Titel',
+    titleFieldPlaceholder: 'Titel eingeben',
     colorLabel: 'Farbe wählen',
     radiusLabel: 'Radius wählen',
     opacityLabel: 'Deckkraft wählen',
     symbolLabel: 'Symbol wählen',
     multiEditLabel: 'Selektion editieren',
     ruleGeneratorWindowBtnText: 'Klassifizierung'
+  },
+  GsCardStyle: {
+    styleTitle: 'Stil',
+    classificationTitle: 'Klassifizierung',
+    multiEditTitle: 'Selektion editieren',
+    symbolizerTitle: 'Symbolisierung',
+    filterTitle: 'Filter',
+    iconLibrariesTitle: 'Galerie'
+  },
+  GsStyleOverview: {
+    styleTitle: 'Stil'
+  },
+  GsRuleOverview: {
+    ruleTitle: 'Regel'
+  },
+  GsSymbolizerCard: {
+  },
+  GsSymbolizers: {
+    symbolizersTitle: 'Symbolisierung',
+    addSymbolizer: 'Symbolisierung hinzufügen',
+    showAll: 'Alle anzeigen',
+    hide: 'Verbergen'
   },
   GsStyleLoader: {
     label: 'Stil laden: ',
@@ -259,6 +290,9 @@ export default {
   GsSymbolizerEditorWindow: {
     symbolizersEditor: 'Symbolisierungseditor'
   },
+  GsFilterOverview: {
+    filterTitle: 'Filter'
+  },
   GsFilterEditorWindow: {
     filterEditor: 'Filtereditor'
   },
@@ -289,6 +323,16 @@ export default {
     maxScaleColumnTitle: 'Max. Maßstab',
     amountColumnTitle: 'Anzahl',
     duplicatesColumnTitle: 'Doppelte'
+  },
+  GsRules: {
+    rulesTitle: 'Regeln',
+    multiEdit: 'Auswählen',
+    addRule: 'Hinzufügen',
+    classification: 'Klassifizierung',
+    remove: 'Entfernen',
+    clone: 'Duplizieren',
+    edit: 'Bearbeiten',
+    defaultRuleTitle: 'Unbenannt'
   },
   GsRuleReorderButtons: {
     ruleMoveUpTip: 'Verschiebe Regel eine Position nach oben',
