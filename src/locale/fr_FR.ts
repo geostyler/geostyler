@@ -82,7 +82,13 @@ export default {
     downloadButtonLabel: 'Sauvegarder',
     copyButtonLabel: 'Copier dans le presse-papier',
     formatSelectLabel: 'Format',
-    styleCopied: 'Style copié dans le presse-papier !'
+    styleCopied: 'Style copié dans le presse-papier!',
+    writeFeedback : 'Réactions en écrivant avec',
+    readFeedback : 'Réactions lors de la lecture avec'
+  },
+  GsParserFeedback: {
+    notSupported : 'n\'est pas supporté par l\'analyseur utilisé',
+    partiallySupported : 'n\'est que partiellement supporté par l\'analyseur utilisé'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Rayon',

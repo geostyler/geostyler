@@ -82,7 +82,13 @@ export default {
     downloadButtonLabel: 'Guardar archivo',
     copyButtonLabel: 'Copiar al portapapeles',
     formatSelectLabel: 'Formato',
-    styleCopied: 'Estilo copiado al portapapales!'
+    styleCopied: 'Estilo copiado al portapapales!',
+    writeFeedback: 'Retroalimentación al escribir con',
+    readFeedback: 'Retroalimentación mientras se lee con'
+  },
+  GsParserFeedback: {
+    notSupported: 'no es compatible con el analizador sintáctico utilizado',
+    partiallySupported: 'sólo es parcialmente soportado por el parser utilizado'
   },
   GsWellKnownNameEditor: {
     radiusLabel: 'Radio',
