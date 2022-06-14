@@ -97,14 +97,6 @@ export interface GeoStylerLocale extends Locale {
     maxFeaturesLabel: string;
     fetchParamsLabel: string;
   };
-  CodeEditor: {
-    downloadButtonLabel: string;
-    copyButtonLabel: string;
-    formatSelectLabel: string;
-    styleCopied: string;
-    writeFeedback: string;
-    readFeedback: string;
-  };
   ParserFeedback: {
     notSupported: string;
     partiallySupported: string;
@@ -383,9 +375,6 @@ export interface GeoStylerLocale extends Locale {
     symbolizerUnitsMeter: string;
     symbolizerUnitsFoot: string;
   };
-  StyleOverview: {
-    styleTitle: string;
-  };
   StyleFieldContainer: {
     nameFieldLabel: string;
     nameFieldPlaceholder: string;
@@ -394,8 +383,5 @@ export interface GeoStylerLocale extends Locale {
   };
   Editor: {
     kindFieldLabel: string;
-  };
-  SymbolizerEditorWindow: {
-    symbolizersEditor: string;
   };
 };
