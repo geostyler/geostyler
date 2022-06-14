@@ -31,17 +31,17 @@ import { GeoStylerLocale } from './locale';
 
 const zh_CN: GeoStylerLocale = {
   StyleFieldContainer: {
-    nameFieldLabel: 'zh_CN:Name',
-    nameFieldPlaceholder: 'zh_CN:Enter name',
-    titleFieldLabel: 'zh_CN:Title',
-    titleFieldPlaceholder: 'zh_CN:Enter title'
+    nameFieldLabel: 'TODO(zh_CN):Name',
+    nameFieldPlaceholder: 'TODO(zh_CN):Enter name',
+    titleFieldLabel: 'TODO(zh_CN):Title',
+    titleFieldPlaceholder: 'TODO(zh_CN):Enter title'
   },
   Editor: {
-    kindFieldLabel: 'zh_CN:Kind'
+    kindFieldLabel: 'TODO(zh_CN):Kind'
   },
   RuleFieldContainer: {
-    nameFieldLabel: 'zh_CN:Name',
-    nameFieldPlaceholder: 'zh_CN:Enter name'
+    nameFieldLabel: 'TODO(zh_CN):Name',
+    nameFieldPlaceholder: 'TODO(zh_CN):Enter name'
   },
   BulkEditModals: {
     colorLabel: '选择颜色',
@@ -64,15 +64,15 @@ const zh_CN: GeoStylerLocale = {
     filterFieldTitle: '使用过滤器',
     nameFieldLabel: '名称',
     nameFieldPlaceholder: '输入名称',
-    attributeLabel: 'zh_CN:Attribute',
-    attributePlaceholderString: 'zh_CN:Choose attribute',
-    attributeValidationHelpString: 'zh_CN:Please choose an attribute',
-    operatorLabel: 'zh_CN:Operator',
-    operatorPlaceholderString: 'zh_CN:Choose operator',
-    operatorValidationHelpString: 'zh_CN:Please choose an operator',
-    valueLabel: 'zh_CN:Value',
-    valuePlaceholder: 'zh_CN:Enter value',
-    valueValidationHelpString: 'zh_CN:Please enter a value'
+    attributeLabel: 'TODO(zh_CN):Attribute',
+    attributePlaceholderString: 'TODO(zh_CN):Choose attribute',
+    attributeValidationHelpString: 'TODO(zh_CN):Please choose an attribute',
+    operatorLabel: 'TODO(zh_CN):Operator',
+    operatorPlaceholderString: 'TODO(zh_CN):Choose operator',
+    operatorValidationHelpString: 'TODO(zh_CN):Please choose an operator',
+    valueLabel: 'TODO(zh_CN):Value',
+    valuePlaceholder: 'TODO(zh_CN):Enter value',
+    valueValidationHelpString: 'TODO(zh_CN):Please enter a value'
   },
   Style: {
     addRuleBtnText: '添加规则',
@@ -80,8 +80,8 @@ const zh_CN: GeoStylerLocale = {
     removeRulesBtnText: '移除规则',
     nameFieldLabel: '名称',
     nameFieldPlaceholder: '输入名称',
-    titleFieldLabel: 'zh_CN:Title',
-    titleFieldPlaceholder: 'zh_CN:Enter Title',
+    titleFieldLabel: 'TODO(zh_CN):Title',
+    titleFieldPlaceholder: 'TODO(zh_CN):Enter Title',
     colorLabel: '选择颜色',
     radiusLabel: '选择半径',
     opacityLabel: '选择不透明度',
@@ -90,24 +90,24 @@ const zh_CN: GeoStylerLocale = {
     ruleGeneratorWindowBtnText: '分类'
   },
   CardStyle: {
-    styleTitle: 'zh_CN:Style',
-    classificationTitle: 'zh_CN:Classification',
-    multiEditTitle: 'zh_CN:Multi edit',
-    symbolizerTitle: 'zh_CN:Symbolizer',
-    filterTitle: 'zh_CN:Filters',
-    iconLibrariesTitle: 'zh_CN:Gallery'
+    styleTitle: 'TODO(zh_CN):Style',
+    classificationTitle: 'TODO(zh_CN):Classification',
+    multiEditTitle: 'TODO(zh_CN):Multi edit',
+    symbolizerTitle: 'TODO(zh_CN):Symbolizer',
+    filterTitle: 'TODO(zh_CN):Filters',
+    iconLibrariesTitle: 'TODO(zh_CN):Gallery'
   },
   StyleOverview: {
-    styleTitle: 'zh_CN:Style'
+    styleTitle: 'TODO(zh_CN):Style'
   },
   RuleOverview: {
-    ruleTitle: 'zh_CN:Rule'
+    ruleTitle: 'TODO(zh_CN):Rule'
   },
   Symbolizers: {
-    symbolizersTitle: 'zh_CN:Symbolizers',
-    addSymbolizer: 'zh_CN:Add symbolizer',
-    showAll: 'zh_CN:Show all',
-    hide: 'zh_CN:Hide'
+    symbolizersTitle: 'TODO(zh_CN):Symbolizers',
+    addSymbolizer: 'TODO(zh_CN):Add symbolizer',
+    showAll: 'TODO(zh_CN):Show all',
+    hide: 'TODO(zh_CN):Hide'
   },
   StyleLoader: {
     label: '加载样式: ',
@@ -197,7 +197,7 @@ const zh_CN: GeoStylerLocale = {
   PropTextEditor: {
     propFieldLabel: '字段',
     opacityLabel: '不透明度',
-    fontLabel: 'zh_CN:Font',
+    fontLabel: 'TODO(zh_CN):Font',
     colorLabel: '颜色',
     sizeLabel: '大小',
     offsetXLabel: 'X 偏移',
@@ -314,7 +314,7 @@ const zh_CN: GeoStylerLocale = {
     symbolizersEditor: '符号编辑器'
   },
   FilterOverview: {
-    filterTitle: 'zh_CN:Filters'
+    filterTitle: 'TODO(zh_CN):Filters'
   },
   FilterEditorWindow: {
     filterEditor: '过滤器编辑器'
@@ -348,14 +348,14 @@ const zh_CN: GeoStylerLocale = {
     duplicatesColumnTitle: '副本'
   },
   Rules: {
-    rulesTitle: 'zh_CN:Rules',
-    multiEdit: 'zh_CN:Select',
-    addRule: 'zh_CN:Add',
-    classification: 'zh_CN:Classification',
-    remove: 'zh_CN:Remove',
-    clone: 'zh_CN:Clone',
-    edit: 'zh_CN:Edit',
-    defaultRuleTitle: 'zh_CN:Untitled'
+    rulesTitle: 'TODO(zh_CN):Rules',
+    multiEdit: 'TODO(zh_CN):Select',
+    addRule: 'TODO(zh_CN):Add',
+    classification: 'TODO(zh_CN):Classification',
+    remove: 'TODO(zh_CN):Remove',
+    clone: 'TODO(zh_CN):Clone',
+    edit: 'TODO(zh_CN):Edit',
+    defaultRuleTitle: 'TODO(zh_CN):Untitled'
   },
   RuleReorderButtons: {
     ruleMoveUpTip: '向上移动',

@@ -31,24 +31,24 @@ import { GeoStylerLocale } from './locale';
 
 const fr_FR: GeoStylerLocale = {
   StyleFieldContainer: {
-    nameFieldLabel: 'fr_FR:Name',
-    nameFieldPlaceholder: 'fr_FR:Enter name',
-    titleFieldLabel: 'fr_FR:Title',
-    titleFieldPlaceholder: 'fr_FR:Enter title'
+    nameFieldLabel: 'TODO(fr_FR):Name',
+    nameFieldPlaceholder: 'TODO(fr_FR):Enter name',
+    titleFieldLabel: 'TODO(fr_FR):Title',
+    titleFieldPlaceholder: 'TODO(fr_FR):Enter title'
   },
   Editor: {
-    kindFieldLabel: 'fr_FR:Kind'
+    kindFieldLabel: 'TODO(fr_FR):Kind'
   },
   RuleFieldContainer: {
-    nameFieldLabel: 'fr_FR:Name',
-    nameFieldPlaceholder: 'fr_FR:Enter name'
+    nameFieldLabel: 'TODO(fr_FR):Name',
+    nameFieldPlaceholder: 'TODO(fr_FR):Enter name'
   },
   BulkEditor: {
-    colorLabel: 'fr_FR:Select color',
-    radiusLabel: 'fr_FR:Select radius',
-    opacityLabel: 'fr_FR:Select opacity',
-    symbolLabel: 'fr_FR:Select symbol',
-    imageFieldLabel: 'fr_FR:Source'
+    colorLabel: 'TODO(fr_FR):Select color',
+    radiusLabel: 'TODO(fr_FR):Select radius',
+    opacityLabel: 'TODO(fr_FR):Select opacity',
+    symbolLabel: 'TODO(fr_FR):Select symbol',
+    imageFieldLabel: 'TODO(fr_FR):Source'
   },
   BulkEditModals: {
     colorLabel: 'Sélectionner une couleur',
@@ -64,15 +64,15 @@ const fr_FR: GeoStylerLocale = {
     filterFieldTitle: 'Utiliser le filtrage',
     nameFieldLabel: 'Nom',
     nameFieldPlaceholder: 'Donner un nom',
-    attributeLabel: 'fr_FR:Attribute',
-    attributePlaceholderString: 'fr_FR:Choose attribute',
-    attributeValidationHelpString: 'fr_FR:Please choose an attribute',
-    operatorLabel: 'fr_FR:Operator',
-    operatorPlaceholderString: 'fr_FR:Choose operator',
-    operatorValidationHelpString: 'fr_FR:Please choose an operator',
-    valueLabel: 'fr_FR:Value',
-    valuePlaceholder: 'fr_FR:Enter value',
-    valueValidationHelpString: 'fr_FR:Please enter a value'
+    attributeLabel: 'TODO(fr_FR):Attribute',
+    attributePlaceholderString: 'TODO(fr_FR):Choose attribute',
+    attributeValidationHelpString: 'TODO(fr_FR):Please choose an attribute',
+    operatorLabel: 'TODO(fr_FR):Operator',
+    operatorPlaceholderString: 'TODO(fr_FR):Choose operator',
+    operatorValidationHelpString: 'TODO(fr_FR):Please choose an operator',
+    valueLabel: 'TODO(fr_FR):Value',
+    valuePlaceholder: 'TODO(fr_FR):Enter value',
+    valueValidationHelpString: 'TODO(fr_FR):Please enter a value'
   },
   Style: {
     addRuleBtnText: 'Ajouter une règle',
@@ -80,8 +80,8 @@ const fr_FR: GeoStylerLocale = {
     removeRulesBtnText: 'Supprimer les règles',
     nameFieldLabel: 'Nom',
     nameFieldPlaceholder: 'Donner un nom',
-    titleFieldLabel: 'fr_FR:Title',
-    titleFieldPlaceholder: 'fr_FR:Enter Title',
+    titleFieldLabel: 'TODO(fr_FR):Title',
+    titleFieldPlaceholder: 'TODO(fr_FR):Enter Title',
     colorLabel: 'Sélectionner une couleur',
     radiusLabel: 'Sélectionner un rayon',
     opacityLabel: 'Sélectionner une opacité',
@@ -90,24 +90,24 @@ const fr_FR: GeoStylerLocale = {
     ruleGeneratorWindowBtnText: 'Classification'
   },
   CardStyle: {
-    styleTitle: 'fr_FR:Style',
-    classificationTitle: 'fr_FR:Classification',
-    multiEditTitle: 'fr_FR:Multi edit',
-    symbolizerTitle: 'fr_FR:Symbolizer',
-    filterTitle: 'fr_FR:Filters',
-    iconLibrariesTitle: 'fr_FR:Gallery'
+    styleTitle: 'TODO(fr_FR):Style',
+    classificationTitle: 'TODO(fr_FR):Classification',
+    multiEditTitle: 'TODO(fr_FR):Multi edit',
+    symbolizerTitle: 'TODO(fr_FR):Symbolizer',
+    filterTitle: 'TODO(fr_FR):Filters',
+    iconLibrariesTitle: 'TODO(fr_FR):Gallery'
   },
   StyleOverview: {
-    styleTitle: 'fr_FR:Style'
+    styleTitle: 'TODO(fr_FR):Style'
   },
   RuleOverview: {
-    ruleTitle: 'fr_FR:Rule'
+    ruleTitle: 'TODO(fr_FR):Rule'
   },
   Symbolizers: {
-    symbolizersTitle: 'fr_FR:Symbolizers',
-    addSymbolizer: 'fr_FR:Add symbolizer',
-    showAll: 'fr_FR:Show all',
-    hide: 'fr_FR:Hide'
+    symbolizersTitle: 'TODO(fr_FR):Symbolizers',
+    addSymbolizer: 'TODO(fr_FR):Add symbolizer',
+    showAll: 'TODO(fr_FR):Show all',
+    hide: 'TODO(fr_FR):Hide'
   },
   StyleLoader: {
     label: 'Charger un style : ',
@@ -197,7 +197,7 @@ const fr_FR: GeoStylerLocale = {
   PropTextEditor: {
     propFieldLabel: 'Champ',
     opacityLabel: 'Opacité du texte',
-    fontLabel: 'fr_FR:Font',
+    fontLabel: 'TODO(fr_FR):Font',
     colorLabel: 'Couleur du texte',
     sizeLabel: 'Taille du texte',
     offsetXLabel: 'Décalage horizontal',
@@ -348,14 +348,14 @@ const fr_FR: GeoStylerLocale = {
     duplicatesColumnTitle: 'Doublons'
   },
   Rules: {
-    rulesTitle: 'fr_FR:Rules',
-    multiEdit: 'fr_FR:Select',
-    addRule: 'fr_FR:Add',
-    classification: 'fr_FR:Classification',
-    remove: 'fr_FR:Remove',
-    clone: 'fr_FR:Clone',
-    edit: 'fr_FR:Edit',
-    defaultRuleTitle: 'fr_FR:Untitled'
+    rulesTitle: 'TODO(fr_FR):Rules',
+    multiEdit: 'TODO(fr_FR):Select',
+    addRule: 'TODO(fr_FR):Add',
+    classification: 'TODO(fr_FR):Classification',
+    remove: 'TODO(fr_FR):Remove',
+    clone: 'TODO(fr_FR):Clone',
+    edit: 'TODO(fr_FR):Edit',
+    defaultRuleTitle: 'TODO(fr_FR):Untitled'
   },
   RuleReorderButtons: {
     ruleMoveUpTip: 'Déplacer la règle vers le haut',

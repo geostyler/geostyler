@@ -31,78 +31,78 @@ import { GeoStylerLocale } from './locale';
 
 const es_ES: GeoStylerLocale = {
   RgbChannelField: {
-    redLabel: 'es_ES:Red band',
-    greenLabel: 'es_ES:Green band',
-    blueLabel: 'es_ES:Blue band'
+    redLabel: 'TODO(es_ES):Red band',
+    greenLabel: 'TODO(es_ES):Green band',
+    blueLabel: 'TODO(es_ES):Blue band'
   },
   GrayChannelField: {
-    grayLabel: 'es_ES:Gray band'
+    grayLabel: 'TODO(es_ES):Gray band'
   },
   ColorMapEntryField: {
-    colorLabel: 'es_ES:Color',
-    labelLabel: 'es_ES:Legend Label',
-    quantityLabel: 'es_ES:Quantity',
-    opacityLabel: 'es_ES:Opacity'
+    colorLabel: 'TODO(es_ES):Color',
+    labelLabel: 'TODO(es_ES):Legend Label',
+    quantityLabel: 'TODO(es_ES):Quantity',
+    opacityLabel: 'TODO(es_ES):Opacity'
   },
   ChannelField: {
-    sourceChannelNameLabel: 'es_ES:Channel Name',
-    contrastEnhancementTypeLabel: 'es_ES:Contrast Enhancement',
-    gammaValueLabel: 'es_ES:Gamma'
+    sourceChannelNameLabel: 'TODO(es_ES):Channel Name',
+    contrastEnhancementTypeLabel: 'TODO(es_ES):Contrast Enhancement',
+    gammaValueLabel: 'TODO(es_ES):Gamma'
   },
   ColorMapTypeField: {
-    rampMapTypeLabel: 'es_ES:Interpolated',
-    intervalsMapTypeLabel: 'es_ES:Intervals',
-    valuesMapTypeLabel: 'es_ES:Values'
+    rampMapTypeLabel: 'TODO(es_ES):Interpolated',
+    intervalsMapTypeLabel: 'TODO(es_ES):Intervals',
+    valuesMapTypeLabel: 'TODO(es_ES):Values'
   },
   RasterEditor: {
-    opacityLabel: 'es_ES:Opacity',
-    hueRotateLabel: 'es_ES:Hue Rotation',
-    brightnessMinLabel: 'es_ES:Min. Brightness',
-    brightnessMaxLabel: 'es_ES:Max. Brightness',
-    saturationLabel: 'es_ES:Saturation',
-    contrastLabel: 'es_ES:Contrast',
-    fadeDurationLabel: 'es_ES:Fade Duration',
-    resamplingLabel: 'es_ES:Resampling',
-    contrastEnhancementLabel: 'es_ES:Contrast Enhancement',
-    gammaValueLabel: 'es_ES:Gamma',
-    colorMapLabel: 'es_ES:Color Map',
-    symbolizerLabel: 'es_ES:Symbolizer',
-    channelSelectionLabel: 'es_ES:Channel Selection'
+    opacityLabel: 'TODO(es_ES):Opacity',
+    hueRotateLabel: 'TODO(es_ES):Hue Rotation',
+    brightnessMinLabel: 'TODO(es_ES):Min. Brightness',
+    brightnessMaxLabel: 'TODO(es_ES):Max. Brightness',
+    saturationLabel: 'TODO(es_ES):Saturation',
+    contrastLabel: 'TODO(es_ES):Contrast',
+    fadeDurationLabel: 'TODO(es_ES):Fade Duration',
+    resamplingLabel: 'TODO(es_ES):Resampling',
+    contrastEnhancementLabel: 'TODO(es_ES):Contrast Enhancement',
+    gammaValueLabel: 'TODO(es_ES):Gamma',
+    colorMapLabel: 'TODO(es_ES):Color Map',
+    symbolizerLabel: 'TODO(es_ES):Symbolizer',
+    channelSelectionLabel: 'TODO(es_ES):Channel Selection'
   },
   RasterChannelEditor: {
-    channelSelectionLabel: 'es_ES:Edit Channels',
-    redBandLabel: 'es_ES:Red',
-    greenBandLabel: 'es_ES:Green',
-    blueBandLabel: 'es_ES:Blue',
-    grayBandLabel: 'es_ES:Gray',
-    channelSelectionGrayLabel: 'es_ES:Gray',
-    channelSelectionRgbLabel: 'es_ES:RGB',
-    titleLabel: 'es_ES:Channel Selection'
+    channelSelectionLabel: 'TODO(es_ES):Edit Channels',
+    redBandLabel: 'TODO(es_ES):Red',
+    greenBandLabel: 'TODO(es_ES):Green',
+    blueBandLabel: 'TODO(es_ES):Blue',
+    grayBandLabel: 'TODO(es_ES):Gray',
+    channelSelectionGrayLabel: 'TODO(es_ES):Gray',
+    channelSelectionRgbLabel: 'TODO(es_ES):RGB',
+    titleLabel: 'TODO(es_ES):Channel Selection'
   },
   ColorMapEditor: {
-    typeLabel: 'es_ES:Type',
-    extendedLabel: 'es_ES:Color Depth',
-    colorMapEntriesLabel: 'es_ES:Colormap',
-    titleLabel: 'es_ES:Color Map',
-    nrOfClassesLabel: 'es_ES:Nr. of classes',
-    colorRampLabel: 'es_ES:Color Ramp',
-    colorLabel: 'es_ES:Color',
-    quantityLabel: 'es_ES:Quantity',
-    labelLabel: 'es_ES:Label',
-    opacityLabel: 'es_ES:Opacity'
+    typeLabel: 'TODO(es_ES):Type',
+    extendedLabel: 'TODO(es_ES):Color Depth',
+    colorMapEntriesLabel: 'TODO(es_ES):Colormap',
+    titleLabel: 'TODO(es_ES):Color Map',
+    nrOfClassesLabel: 'TODO(es_ES):Nr. of classes',
+    colorRampLabel: 'TODO(es_ES):Color Ramp',
+    colorLabel: 'TODO(es_ES):Color',
+    quantityLabel: 'TODO(es_ES):Quantity',
+    labelLabel: 'TODO(es_ES):Label',
+    opacityLabel: 'TODO(es_ES):Opacity'
   },
   StyleFieldContainer: {
-    nameFieldLabel: 'es_ES:Name',
-    nameFieldPlaceholder: 'es_ES:Enter name',
-    titleFieldLabel: 'es_ES:Title',
-    titleFieldPlaceholder: 'es_ES:Enter title'
+    nameFieldLabel: 'TODO(es_ES):Name',
+    nameFieldPlaceholder: 'TODO(es_ES):Enter name',
+    titleFieldLabel: 'TODO(es_ES):Title',
+    titleFieldPlaceholder: 'TODO(es_ES):Enter title'
   },
   Editor: {
-    kindFieldLabel: 'es_ES:Kind'
+    kindFieldLabel: 'TODO(es_ES):Kind'
   },
   RuleFieldContainer: {
-    nameFieldLabel: 'es_ES:Name',
-    nameFieldPlaceholder: 'es_ES:Enter name'
+    nameFieldLabel: 'TODO(es_ES):Name',
+    nameFieldPlaceholder: 'TODO(es_ES):Enter name'
   },
   BulkEditModals: {
     colorLabel: 'Seleccionar color',
@@ -125,15 +125,15 @@ const es_ES: GeoStylerLocale = {
     filterFieldTitle: 'Usar filtro',
     nameFieldLabel: 'Nombre',
     nameFieldPlaceholder: 'Ingrese nombre',
-    attributeLabel: 'es_ES:Attribute',
-    attributePlaceholderString: 'es_ES:Choose attribute',
-    attributeValidationHelpString: 'es_ES:Please choose an attribute',
-    operatorLabel: 'es_ES:Operator',
-    operatorPlaceholderString: 'es_ES:Choose operator',
-    operatorValidationHelpString: 'es_ES:Please choose an operator',
-    valueLabel: 'es_ES:Value',
-    valuePlaceholder: 'es_ES:Enter value',
-    valueValidationHelpString: 'es_ES:Please enter a value'
+    attributeLabel: 'TODO(es_ES):Attribute',
+    attributePlaceholderString: 'TODO(es_ES):Choose attribute',
+    attributeValidationHelpString: 'TODO(es_ES):Please choose an attribute',
+    operatorLabel: 'TODO(es_ES):Operator',
+    operatorPlaceholderString: 'TODO(es_ES):Choose operator',
+    operatorValidationHelpString: 'TODO(es_ES):Please choose an operator',
+    valueLabel: 'TODO(es_ES):Value',
+    valuePlaceholder: 'TODO(es_ES):Enter value',
+    valueValidationHelpString: 'TODO(es_ES):Please enter a value'
   },
   Style: {
     addRuleBtnText: 'Añadir regla',
@@ -147,8 +147,8 @@ const es_ES: GeoStylerLocale = {
     symbolLabel: 'Seleccionar simbolo',
     multiEditLabel: 'Editor múltiple',
     ruleGeneratorWindowBtnText: 'Clasificación',
-    titleFieldLabel: 'es_ES:Title',
-    titleFieldPlaceholder: 'es_ES:Enter Title'
+    titleFieldLabel: 'TODO(es_ES):Title',
+    titleFieldPlaceholder: 'TODO(es_ES):Enter Title'
   },
   CardStyle: {
     styleTitle: 'Estilo',
@@ -165,10 +165,10 @@ const es_ES: GeoStylerLocale = {
     ruleTitle: 'Regla'
   },
   Symbolizers: {
-    symbolizersTitle: 'es_ES:Symbolizers',
-    addSymbolizer: 'es_ES:Add symbolizer',
-    showAll: 'es_ES:Show all',
-    hide: 'es_ES:Hide'
+    symbolizersTitle: 'TODO(es_ES):Symbolizers',
+    addSymbolizer: 'TODO(es_ES):Add symbolizer',
+    showAll: 'TODO(es_ES):Show all',
+    hide: 'TODO(es_ES):Hide'
   },
   StyleLoader: {
     label: 'Leer estilo: ',
@@ -258,7 +258,7 @@ const es_ES: GeoStylerLocale = {
   PropTextEditor: {
     propFieldLabel: 'Campo',
     opacityLabel: 'Texto-Transparencia',
-    fontLabel: 'es_ES:Font',
+    fontLabel: 'TODO(es_ES):Font',
     colorLabel: 'Texto-Color',
     sizeLabel: 'Texto-Tamaño',
     offsetXLabel: 'Desplazamiento X',
@@ -284,7 +284,7 @@ const es_ES: GeoStylerLocale = {
       Icon: 'Icono',
       Line: 'Línea',
       Text: 'Texto',
-      Raster: 'es_ES:Raster'
+      Raster: 'TODO(es_ES):Raster'
     }
   },
   GraphicTypeField: {
@@ -380,7 +380,7 @@ const es_ES: GeoStylerLocale = {
     preview: 'Avance de color',
     numberOfRulesViaKmeans: '…afectados por la clasificación k-Means.',
     allDistinctValues: 'Utilizar todos los valores distintos',
-    equalInterval: 'es_ES:Equal Interval',
+    equalInterval: 'TODO(es_ES):Equal Interval',
   },
   ColorRampCombo: {
     colorRampPlaceholder: 'Seleccionar…'
