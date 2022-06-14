@@ -62,7 +62,7 @@ export const KindField: React.FC<KindFieldProps> = ({
   symbolizerKinds = ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster']
 }) => {
 
-  const getKindSelectOptions = (l: KindFieldLocale) => {
+  const getKindSelectOptions = (l: GeoStylerLocale['KindField']) => {
     return symbolizerKinds.map(symbolizerKind =>
       <Option
         key={symbolizerKind}
