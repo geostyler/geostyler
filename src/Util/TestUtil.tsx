@@ -78,7 +78,12 @@ export class TestUtil {
    * @param {Object} options The options to be set.
    */
   static shallowRenderComponentWithLocale = (Component: any, props?: any, options?: any) => {
-    const wrapper = shallow(<ConfigProvider locale={en_US}><Component {...props} /></ConfigProvider>, options);
+    const wrapper = shallow(
+      <ConfigProvider locale={en_US}>
+        <Component {...props} />
+      </ConfigProvider>,
+      options
+    );
     return wrapper;
   };
 

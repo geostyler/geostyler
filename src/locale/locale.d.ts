@@ -1,4 +1,6 @@
-export interface GeoStylerLocale {
+import { Locale } from 'antd/lib/locale-provider';
+
+export interface GeoStylerLocale extends Locale {
   CodeEditor: {
     downloadButtonLabel: string;
     formatSelectLabel: string;
@@ -396,4 +398,4 @@ export interface GeoStylerLocale {
   SymbolizerEditorWindow: {
     symbolizersEditor: string;
   };
-}
+};
