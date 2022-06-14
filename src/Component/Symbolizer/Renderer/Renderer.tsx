@@ -184,6 +184,6 @@ export const Renderer: React.FC<RendererProps> = ({
     />
   );
 
-}
+};
 
 export default Renderer;
