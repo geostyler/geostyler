@@ -52,27 +52,14 @@ import './ColorMapEditor.less';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-
-// i18n
-export interface ColorMapEditorLocale {
-  typeLabel: string;
-  extendedLabel: string;
-  colorMapEntriesLabel: string;
-  titleLabel: string;
-  nrOfClassesLabel: string;
-  colorRampLabel: string;
-  colorLabel: string;
-  quantityLabel: string;
-  labelLabel: string;
-  opacityLabel: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 export interface ColorMapEntryRecord extends ColorMapEntry {
   key: number;
 }
 
 interface ColorMapEditorDefaultProps {
-  locale: ColorMapEditorLocale;
+  locale: GeoStylerLocale['ColorMapEditor'];
   colorRamps: {
     [name: string]: string[];
   };
@@ -93,7 +80,7 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
   static componentName: string = 'ColorMapEditor';
 
   public static defaultProps: ColorMapEditorDefaultProps = {
-    locale: en_US.GsColorMapEditor,
+    locale: en_US.ColorMapEditor,
     colorRamps: {
       GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
       GreenRed: ['#00FF00', '#FF0000'],

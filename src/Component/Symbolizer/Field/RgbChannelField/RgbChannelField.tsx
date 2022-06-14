@@ -39,17 +39,11 @@ import { ChannelSelection, RGBChannel } from 'geostyler-style';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-
-// i18n
-export interface RgbChannelFieldLocale {
-  redLabel: string;
-  greenLabel: string;
-  blueLabel: string;
-}
+import { GeoStylerLocale } from '../../../../locale/locale';
 
 // default props
 interface RgbChannelFieldDefaultProps {
-  locale: RgbChannelFieldLocale;
+  locale: GeoStylerLocale['RgbChannelField'];
 }
 
 // non default props
@@ -66,7 +60,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
   sourceChannelNames,
   onChange,
   channelSelection,
-  locale = en_US.GsRgbChannelField
+  locale = en_US.RgbChannelField
 }) => {
 
   const onRedChannelChange = (red: string) => {

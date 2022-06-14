@@ -31,7 +31,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { WfsParams, WfsParserInput } from './WfsParserInput';
 import en_US from '../../../locale/en_US';
 
-const locale = en_US.GsWfsParserInput;
+const locale = en_US.WfsParserInput;
 
 describe('WfsParserInput', () => {
 

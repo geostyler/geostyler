@@ -47,7 +47,7 @@ export const localize = <P extends {}>(Component: React.ComponentType<P & Locale
         <ConfigContext.Consumer>
           {(context) => {
             const { locale } = context;
-            const gsLocale = _get(locale, 'Gs' + componentName);
+            const gsLocale = _get(locale, componentName);
             return (
               <Component
                 locale={gsLocale}

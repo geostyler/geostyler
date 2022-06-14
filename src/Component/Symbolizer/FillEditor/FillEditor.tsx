@@ -55,23 +55,12 @@ import { CompositionContext, Compositions } from '../../../context/CompositionCo
 import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
+import { GeoStylerLocale } from '../../../locale/locale';
 
 const Panel = Collapse.Panel;
 
-// i18n
-export interface FillEditorLocale {
-  fillOpacityLabel?: string;
-  fillColorLabel?: string;
-  outlineColorLabel?: string;
-  outlineWidthLabel?: string;
-  graphicFillTypeLabel?: string;
-  outlineDasharrayLabel?: string;
-  opacityLabel?: string;
-  outlineOpacityLabel?: string;
-}
-
 interface FillEditorDefaultProps {
-  locale: FillEditorLocale;
+  locale: GeoStylerLocale['FillEditor'];
 }
 
 // non default props
@@ -86,7 +75,7 @@ export class FillEditor extends React.Component<FillEditorProps> {
   static componentName: string = 'FillEditor';
 
   public static defaultProps: FillEditorDefaultProps = {
-    locale: en_US.GsFillEditor
+    locale: en_US.FillEditor
   };
 
   public shouldComponentUpdate(nextProps: FillEditorProps): boolean {

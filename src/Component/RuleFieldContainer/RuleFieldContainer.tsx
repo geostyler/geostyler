@@ -33,28 +33,19 @@ import './RuleFieldContainer.less';
 import { Form, Divider } from 'antd';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
 
 import FieldContainer from '../FieldContainer/FieldContainer';
 import NameField from '../NameField/NameField';
 import MinScaleDenominator from '../ScaleDenominator/MinScaleDenominator';
 import MaxScaleDenominator from '../ScaleDenominator/MaxScaleDenominator';
 import Renderer, { RendererProps } from '../Renderer/Renderer';
-
-// i18n
-export interface RuleFieldContainerLocale {
-  nameFieldLabel?: string;
-  nameFieldPlaceholder?: string;
-  minScaleDenominatorLabelText?: string;
-  maxScaleDenominatorLabelText?: string;
-  minScaleDenominatorPlaceholderText?: string;
-  maxScaleDenominatorPlaceholderText?: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
+import en_US from '../../locale/en_US';
 
 // default props
 interface RuleFieldContainerDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: RuleFieldContainerLocale;
+  locale: GeoStylerLocale['RuleFieldContainer'] & GeoStylerLocale['ScaleDenominator'];
   /** The callback method when the name changes */
   onNameChange: (name: string) => void;
   /** The callback method when the minScale changes */
@@ -79,7 +70,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
   name,
   minScale,
   maxScale,
-  locale = { ...en_US.GsRule, ...en_US.GsScaleDenominator },
+  locale = { ...en_US.Rule, ...en_US.ScaleDenominator },
   onNameChange = () => {},
   onMinScaleChange = () => {},
   onMaxScaleChange = () => {},

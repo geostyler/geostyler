@@ -50,7 +50,7 @@ describe('Rule', () => {
       internalDataDef: dummyData,
       onRuleChange: onRuleChangeDummmy,
       onRemove: onRemoveDummmy,
-      locale: en_US.GsRule,
+      locale: en_US.Rule,
       rule: dummyRule
     };
     wrapper = TestUtil.shallowRenderComponent(Rule, props);

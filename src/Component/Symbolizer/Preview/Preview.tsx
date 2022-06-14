@@ -63,12 +63,7 @@ import { IconEditorProps } from '../IconEditor/IconEditor';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import SymbolizerEditorWindow from '../SymbolizerEditorWindow/SymbolizerEditorWindow';
 import en_US from '../../../locale/en_US';
-
-// i18n
-export interface PreviewLocale {
-  openEditorText: string;
-  closeEditorText: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 export interface PreviewDefaultProps {
@@ -77,7 +72,7 @@ export interface PreviewDefaultProps {
   dataProjection: string;
   showOsmBackground: boolean;
   mapHeight: number;
-  locale: PreviewLocale;
+  locale: GeoStylerLocale['Preview'];
 }
 
 // non default props
@@ -115,7 +110,7 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
   static componentName: string = 'Preview';
 
   public static defaultProps: PreviewDefaultProps = {
-    locale: en_US.GsPreview,
+    locale: en_US.Preview,
     hideEditButton: false,
     projection: 'EPSG:3857',
     dataProjection: 'EPSG:4326',

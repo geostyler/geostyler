@@ -52,16 +52,7 @@ import ImageField from '../Field/ImageField/ImageField';
 import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
 
 import './BulkEditModals.less';
-
-// i18n
-export interface StyleLocale {
-  colorLabel: string;
-  radiusLabel: string;
-  opacityLabel: string;
-  symbolLabel: string;
-  imageFieldLabel: string;
-  imageFieldTooltipLabel: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 interface BulkEditModalsDefaultProps {
@@ -70,7 +61,7 @@ interface BulkEditModalsDefaultProps {
   opacityModalVisible: boolean;
   symbolModalVisible: boolean;
   style: GsStyle;
-  locale: StyleLocale;
+  locale: GeoStylerLocale['BulkEditModals'];
   selectedRowKeys: number[];
   modalsClosed: Function;
 }
@@ -108,7 +99,7 @@ export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEdi
     sizeModalVisible: false,
     opacityModalVisible: false,
     symbolModalVisible: false,
-    locale: en_US.GsBulkEditModals,
+    locale: en_US.BulkEditModals,
     selectedRowKeys: [],
     modalsClosed: (): any => undefined
   };

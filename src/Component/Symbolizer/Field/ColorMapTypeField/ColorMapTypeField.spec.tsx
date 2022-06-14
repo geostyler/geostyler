@@ -58,9 +58,9 @@ describe('ColorMapTypeField', () => {
     it('calls onChange', async() => {
       const onChangeMock = jest.fn();
       const field = render(<ColorMapTypeField onChange={onChangeMock} />);
-      const rampInput = await field.findByLabelText(en_US.GsColorMapTypeField.rampMapTypeLabel);
-      const intervalsInput = await field.findByLabelText(en_US.GsColorMapTypeField.intervalsMapTypeLabel);
-      const valuesInput = await field.findByLabelText(en_US.GsColorMapTypeField.valuesMapTypeLabel);
+      const rampInput = await field.findByLabelText(en_US.ColorMapTypeField.rampMapTypeLabel);
+      const intervalsInput = await field.findByLabelText(en_US.ColorMapTypeField.intervalsMapTypeLabel);
+      const valuesInput = await field.findByLabelText(en_US.ColorMapTypeField.valuesMapTypeLabel);
       fireEvent.click(intervalsInput);
       expect(onChangeMock).toHaveBeenCalledWith('intervals');
       fireEvent.click(valuesInput);

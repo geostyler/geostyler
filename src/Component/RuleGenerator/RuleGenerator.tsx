@@ -46,35 +46,15 @@ import ColorsPreview from './ColorsPreview/ColorsPreview';
 import { ClassificationMethod, ClassificationCombo } from './ClassificationCombo/ClassificationCombo';
 import _get from 'lodash/get';
 import { PlusSquareOutlined } from '@ant-design/icons';
+import { GeoStylerLocale } from '../../locale/locale';
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
-
-interface RuleGeneratorLocale {
-  attribute: string;
-  generateButtonText: string;
-  levelOfMeasurement: string;
-  nominal: string;
-  ordinal: string;
-  cardinal: string;
-  numberOfRules: string;
-  colorRamp: string;
-  colorRampPlaceholder: string;
-  colorRampMinClassesWarningPre: string;
-  colorRampMinClassesWarningPost: string;
-  symbolizer: string;
-  classification: string;
-  classificationPlaceholder: string;
-  colorSpace: string;
-  preview: string;
-  numberOfRulesViaKmeans: string;
-  allDistinctValues: string;
-}
 
 // default props
 interface RuleGeneratorDefaultProps {
   unknownSymbolizerText?: string;
   /** Locale object containing translated text snippets */
-  locale: RuleGeneratorLocale;
+  locale: GeoStylerLocale['RuleGenerator'];
   /** List of provided color ramps */
   colorRamps: {
     [name: string]: string[];
@@ -108,7 +88,7 @@ export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGener
   static componentName: string = 'RuleGenerator';
 
   public static defaultProps: RuleGeneratorDefaultProps = {
-    locale: en_US.GsRuleGenerator,
+    locale: en_US.RuleGenerator,
     colorSpaces: ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'], // rgba, cmyk and gl crash
     colorRamps: {
       GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],

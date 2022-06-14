@@ -46,19 +46,12 @@ import Removable from '../Removable/Removable';
 import { SymbolizerCard, SymbolizerCardProps } from '../SymbolizerCard/SymbolizerCard';
 import { PlusOutlined } from '@ant-design/icons';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-
-// i18n
-export interface SymbolizersLocale {
-  symbolizersTitle: string;
-  addSymbolizer: string;
-  showAll: string;
-  hide: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
 
 // default props
 interface SymbolizersDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: SymbolizersLocale;
+  locale: GeoStylerLocale['Symbolizers'];
   /** The callback function that is triggered when the symbolizers change. */
   onSymbolizersChange: (symbolizers: GsSymbolizer[]) => void;
   /** The callback function that is triggered when a symbolizer was clicked. */
@@ -74,7 +67,7 @@ export interface SymbolizersProps extends Partial<SymbolizersDefaultProps> {
 }
 
 export const Symbolizers: React.FC<SymbolizersProps> = ({
-  locale = en_US.GsSymbolizers,
+  locale = en_US.Symbolizers,
   symbolizers,
   onSymbolizersChange = () => {},
   onEditSymbolizerClick = () => {},

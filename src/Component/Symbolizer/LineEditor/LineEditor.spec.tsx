@@ -42,7 +42,7 @@ describe('LineEditor', () => {
     onSymbolizerChangeDummy = jest.fn();
     const props: LineEditorProps = {
       symbolizer: dummySymbolizer,
-      locale: en_US.GsLineEditor,
+      locale: en_US.LineEditor,
       onSymbolizerChange: onSymbolizerChangeDummy,
       defaultValues: undefined
     };

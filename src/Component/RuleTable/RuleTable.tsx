@@ -69,6 +69,7 @@ import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import DataUtil from '../../Util/DataUtil';
 import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
+import { GeoStylerLocale } from '../../locale/locale';
 
 // i18n
 export interface RuleTableLocale {
@@ -96,7 +97,7 @@ export interface RuleRecord extends GsRule {
 // default props
 interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
   /** Locale object containing translated text snippets */
-  locale: RuleTableLocale;
+  locale: GeoStylerLocale['RuleTable'];
   /** The renderer to use */
   rendererType: 'SLD' | 'OpenLayers';
   /** Properties of the SLD renderer */
@@ -150,7 +151,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   static componentName: string = 'RuleTable';
 
   public static defaultProps: RuleTableDefaultProps = {
-    locale: en_US.GsRuleTable,
+    locale: en_US.RuleTable,
     rendererType: 'OpenLayers',
     showAmountColumn: true,
     showDuplicatesColumn: true

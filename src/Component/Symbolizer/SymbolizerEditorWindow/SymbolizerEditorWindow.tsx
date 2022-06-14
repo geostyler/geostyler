@@ -47,14 +47,11 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 
 import _isEqual from 'lodash/isEqual';
-// i18n
-export interface SymbolizerEditorWindowLocale {
-  symbolizersEditor: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 export interface SymbolizerEditorWindowDefaultProps {
-  locale: SymbolizerEditorWindowLocale;
+  locale: GeoStylerLocale['SymbolizerEditorWindow'];
   constrainWindow: string;
 }
 
@@ -78,7 +75,7 @@ const COMPONENTNAME = 'SymbolizerEditorWindow';
  * Symbolizer editorwindow UI.
  */
 export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
-  locale = en_US.GsSymbolizerEditorWindow,
+  locale = en_US.SymbolizerEditorWindow,
   constrainWindow = 'body',
   symbolizers,
   internalDataDef,

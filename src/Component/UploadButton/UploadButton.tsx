@@ -35,6 +35,7 @@ import {
 } from 'antd';
 import en_US from '../../locale/en_US';
 import { UploadOutlined } from '@ant-design/icons';
+import { GeoStylerLocale } from '../../locale/locale';
 
 export interface CustomRequest {
   onProgress: (event: { percent: number }) => void;
@@ -48,13 +49,9 @@ export interface CustomRequest {
   headers: any;
 }
 
-interface UploadButtonLocale {
-  upload: string;
-}
-
 // default props
 interface UploadButtonDefaultProps {
-  locale?: UploadButtonLocale;
+  locale?: GeoStylerLocale['UploadButton'];
 }
 
 // non default props
@@ -64,7 +61,7 @@ export type UploadButtonProps = UploadButtonDefaultProps & UploadProps<any>;
  * Button to upload / import geodata file.
  */
 export const UploadButton: React.FC<UploadButtonProps> = ({
-  locale = en_US.GsUploadButton,
+  locale = en_US.UploadButton,
   ...passThroughProps
 }) => {
 

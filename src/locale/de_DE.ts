@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -26,13 +26,32 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import de_DE from 'antd/lib/locale-provider/de_DE';
-export default {
-  GsApp: {
-    graphicalEditor: 'Graphischer Editor',
-    codeEditor: 'Code Editor'
+import antd_de_DE from 'antd/lib/locale-provider/de_DE';
+import { GeoStylerLocale } from './locale';
+
+const de_DE: GeoStylerLocale = {
+  StyleFieldContainer: {
+    nameFieldLabel: 'Name',
+    nameFieldPlaceholder: 'Name eingeben',
+    titleFieldLabel: 'Titel',
+    titleFieldPlaceholder: 'Titel eingeben'
   },
-  GsBulkEditModals: {
+  Editor: {
+    kindFieldLabel: 'Kind'
+  },
+  RuleFieldContainer: {
+    nameFieldLabel: 'Name',
+    nameFieldPlaceholder: 'Name eingeben'
+  },
+  CodeEditor: {
+    downloadButtonLabel: 'Als Datei speichern',
+    copyButtonLabel: 'In Zwischenablage kopieren',
+    formatSelectLabel: 'Format',
+    styleCopied: 'Style in Zwischenablage kopiert!',
+    writeFeedback: 'Feedback während des Schreibens mit dem',
+    readFeedback: 'Feedback während des Lesens mit dem',
+  },
+  BulkEditModals: {
     colorLabel: 'Farbe wählen',
     radiusLabel: 'Radius festlegen',
     opacityLabel: 'Deckkraft festlegen',
@@ -40,14 +59,14 @@ export default {
     imageFieldLabel: 'Quelle',
     imageFieldTooltipLabel: 'Öffne Galerie'
   },
-  GsBulkEditor: {
+  BulkEditor: {
     colorLabel: 'Farbe wählen',
     radiusLabel: 'Radius festlegen',
     opacityLabel: 'Deckkraft festlegen',
     symbolLabel: 'Symbol wählen',
     imageFieldLabel: 'Quelle'
   },
-  GsRule: {
+  Rule: {
     removeRuleBtnText: 'Regel entfernen',
     scaleFieldTitle: 'Maßstab verwenden',
     filterFieldTitle: 'Filter verwenden',
@@ -63,7 +82,7 @@ export default {
     valuePlaceholder: 'Wert eingeben',
     valueValidationHelpString: 'Bitte gib einen Wert ein.'
   },
-  GsStyle: {
+  Style: {
     addRuleBtnText: 'Regel hinzufügen',
     cloneRulesBtnText: 'Regeln duplizieren',
     removeRulesBtnText: 'Regeln entfernen',
@@ -78,7 +97,7 @@ export default {
     multiEditLabel: 'Selektion editieren',
     ruleGeneratorWindowBtnText: 'Klassifizierung'
   },
-  GsCardStyle: {
+  CardStyle: {
     styleTitle: 'Stil',
     classificationTitle: 'Klassifizierung',
     multiEditTitle: 'Selektion editieren',
@@ -86,41 +105,41 @@ export default {
     filterTitle: 'Filter',
     iconLibrariesTitle: 'Galerie'
   },
-  GsStyleOverview: {
+  StyleOverview: {
     styleTitle: 'Stil'
   },
-  GsRuleOverview: {
+  RuleOverview: {
     ruleTitle: 'Regel'
   },
-  GsSymbolizerCard: {
-  },
-  GsSymbolizers: {
+  Symbolizers: {
     symbolizersTitle: 'Symbolisierung',
     addSymbolizer: 'Symbolisierung hinzufügen',
     showAll: 'Alle anzeigen',
     hide: 'Verbergen'
   },
-  GsStyleLoader: {
+  StyleLoader: {
     label: 'Stil laden: ',
     uploadButtonLabel: 'Stil hochladen'
   },
-  GsDataLoader: {
+  DataLoader: {
     label: 'Daten laden: ',
     uploadButtonLabel: 'Daten hochladen'
   },
-  GsCodeEditor: {
-    downloadButtonLabel: 'Als Datei speichern',
-    copyButtonLabel: 'In Zwischenablage kopieren',
-    formatSelectLabel: 'Format',
-    styleCopied: 'Style in Zwischenablage kopiert!',
-    writeFeedback: 'Feedback während des Schreibens mit dem',
-    readFeedback: 'Feedback während des Lesens mit dem',
+  WfsParserInput: {
+    requestButtonText: 'Daten anfordern',
+    urlLabel: 'Url',
+    versionLabel: 'Version',
+    typeNameLabel: 'FeatureTypeName',
+    featureIDLabel: 'FeatureID',
+    propertyNameLabel: 'PropertyName',
+    maxFeaturesLabel: 'MaxFeatures',
+    fetchParamsLabel: 'fetchParams'
   },
-  GsParserFeedback: {
+  ParserFeedback: {
     notSupported: 'wird vom verwendeten Parser nicht unterstützt',
     partiallySupported: 'wird vom verwendeten Parser nur teilweise unterstützt'
   },
-  GsWellKnownNameEditor: {
+  WellKnownNameEditor: {
     radiusLabel: 'Radius',
     fillOpacityLabel: 'Fülldeckkraft',
     fillColorLabel: 'Füllfarbe',
@@ -130,7 +149,7 @@ export default {
     strokeOpacityLabel: 'Strichdeckkraft',
     rotateLabel: 'Drehung'
   },
-  GsFillEditor: {
+  FillEditor: {
     opacityLabel: 'Deckkraft',
     fillOpacityLabel: 'Fülldeckkraft',
     outlineOpacityLabel: 'Strichdeckkraft',
@@ -140,14 +159,14 @@ export default {
     outlineDasharrayLabel: 'Rand-Strichmuster',
     graphicFillTypeLabel: 'Graphic Fill Type'
   },
-  GsIconEditor: {
+  IconEditor: {
     imageLabel: 'Quelle',
     sizeLabel: 'Größe',
     rotateLabel: 'Drehung',
     opacityLabel: 'Deckkraft',
     iconTooltipLabel: 'Öffne Galerie'
   },
-  GsLineEditor: {
+  LineEditor: {
     colorLabel: 'Farbe',
     widthLabel: 'Breite',
     opacityLabel: 'Deckkraft',
@@ -158,10 +177,10 @@ export default {
     graphicStrokeTypeLabel: 'Graphic Stroke Type',
     graphicFillTypeLabel: 'Graphic Fill Type'
   },
-  GsMarkEditor: {
+  MarkEditor: {
     wellKnownNameFieldLabel: 'Symbol'
   },
-  GsTextEditor: {
+  TextEditor: {
     fontLabel: 'Schriftart',
     templateFieldLabel: 'Textvorlage',
     opacityLabel: 'Deckkraft',
@@ -175,7 +194,7 @@ export default {
     haloWidthLabel: 'Halobreite',
     attributeNotFound: 'Attribut nicht vorhanden'
   },
-  GsPropTextEditor: {
+  PropTextEditor: {
     propFieldLabel: 'Feld',
     opacityLabel: 'Deckkraft',
     colorLabel: 'Textfarbe',
@@ -183,9 +202,12 @@ export default {
     offsetXLabel: 'Versatz X',
     offsetYLabel: 'Versatz Y',
     attributeComboPlaceholder: 'Feld wählen',
-    rotateLabel: 'Drehung'
+    rotateLabel: 'Drehung',
+    fontLabel: 'Schriftart',
+    haloColorLabel: 'Halo-Farbe',
+    haloWidthLabel: 'Halo-Breite'
   },
-  GsRasterEditor: {
+  RasterEditor: {
     opacityLabel: 'Deckkraft',
     hueRotateLabel: 'Farbtonrotation',
     brightnessMinLabel: 'Min. Helligkeit',
@@ -200,7 +222,7 @@ export default {
     symbolizerLabel: 'Symbolisierung',
     channelSelectionLabel: 'Bandauswahl'
   },
-  GsRasterChannelEditor: {
+  RasterChannelEditor: {
     channelSelectionLabel: 'Kanäle editieren',
     redBandLabel: 'Rot',
     greenBandLabel: 'Grün',
@@ -210,27 +232,28 @@ export default {
     channelSelectionRgbLabel: 'RGB',
     titleLabel: 'Bandauswahl'
   },
-  GsColorMapEditor: {
+  ColorMapEditor: {
     typeLabel: 'Art',
     extendedLabel: 'Farbtiefe',
     titleLabel: 'Farbeinstellungen',
     nrOfClassesLabel: 'Anzahl Klassen',
     colorRampLabel: 'Farbverlauf',
+    colorMapEntriesLabel: 'ColorMap Einträge',
     colorLabel: 'Farbe',
     quantityLabel: 'Wert',
     labelLabel: 'Beschriftung',
     opacityLabel: 'Deckkraft'
   },
-  GsPreview: {
+  Preview: {
     openEditorText: 'Symbolisierung editieren',
     closeEditorText: 'Editor schließen'
   },
-  GsColorField: {
+  ColorField: {
     closeText: 'Schließen',
     editText: 'Ändern',
     chooseText: 'Wählen',
   },
-  GsKindField: {
+  KindField: {
     symbolizerKinds: {
       Mark: 'Punktsymbol',
       Fill: 'Füllung',
@@ -240,13 +263,13 @@ export default {
       Raster: 'Raster'
     }
   },
-  GsScaleDenominator: {
+  ScaleDenominator: {
     minScaleDenominatorLabelText: 'Min. Maßstabszahl',
     maxScaleDenominatorLabelText: 'Max. Maßstabszahl',
     minScaleDenominatorPlaceholderText: 'Min. Maßstabszahl eingeben (Optional)',
     maxScaleDenominatorPlaceholderText: 'Max. Maßstabszahl eingeben (Optional)'
   },
-  GsWellKnownNameField: {
+  WellKnownNameField: {
     wellKnownNames: {
       Circle: 'Kreis',
       Square: 'Quadrat',
@@ -256,54 +279,54 @@ export default {
       X: 'X'
     }
   },
-  GsColorMapEntryField: {
+  ColorMapEntryField: {
     colorLabel: 'Farbe',
     labelLabel: 'Legenden Beschriftung',
     quantityLabel: 'Wert',
     opacityLabel: 'Deckkraft'
   },
-  GsChannelField: {
+  ChannelField: {
     sourceChannelNameLabel: 'Band Name',
     contrastEnhancementTypeLabel: 'Kontrast ändern',
     gammaValueLabel: 'Gamma'
   },
-  GsColorMapTypeField: {
+  ColorMapTypeField: {
     rampMapTypeLabel: 'Interpoliert',
     intervalsMapTypeLabel: 'Intervalle',
     valuesMapTypeLabel: 'Einzelwerte'
   },
-  GsGraphicTypeField: {
+  GraphicTypeField: {
     Mark: 'Punktsymbol',
     Icon: 'Bilddatei'
   },
-  GsRgbChannelField: {
+  RgbChannelField: {
     redLabel: 'Rotes band',
     greenLabel: 'Grünes band',
     blueLabel: 'Blaues band'
   },
-  GsGrayChannelField: {
+  GrayChannelField: {
     grayLabel: 'Graues band'
   },
-  GsSymbolizerEditor: {
+  SymbolizerEditor: {
     kindFieldLabel: 'Art'
   },
-  GsSymbolizerEditorWindow: {
+  SymbolizerEditorWindow: {
     symbolizersEditor: 'Symbolisierungseditor'
   },
-  GsFilterOverview: {
+  FilterOverview: {
     filterTitle: 'Filter'
   },
-  GsFilterEditorWindow: {
+  FilterEditorWindow: {
     filterEditor: 'Filtereditor'
   },
-  GsMultiEditor: {
+  MultiEditor: {
     add: 'Hinzufügen',
     remove: 'Entfernen'
   },
-  GsUploadButton: {
+  UploadButton: {
     upload: 'Upload'
   },
-  GsFilterTree: {
+  FilterTree: {
     andDrpdwnLabel: 'UND-Filter',
     orDrpdwnLabel: 'ODER-Filter',
     notDrpdwnLabel: 'NICHT-Filter',
@@ -315,7 +338,7 @@ export default {
     orFilterText: 'ODER',
     notFilterText: 'NICHT'
   },
-  GsRuleTable: {
+  RuleTable: {
     symbolizersColumnTitle: 'Symbolisierung',
     nameColumnTitle: 'Name',
     filterColumnTitle: 'Filter',
@@ -324,7 +347,7 @@ export default {
     amountColumnTitle: 'Anzahl',
     duplicatesColumnTitle: 'Doppelte'
   },
-  GsRules: {
+  Rules: {
     rulesTitle: 'Regeln',
     multiEdit: 'Auswählen',
     addRule: 'Hinzufügen',
@@ -334,11 +357,11 @@ export default {
     edit: 'Bearbeiten',
     defaultRuleTitle: 'Unbenannt'
   },
-  GsRuleReorderButtons: {
+  RuleReorderButtons: {
     ruleMoveUpTip: 'Verschiebe Regel eine Position nach oben',
     ruleMoveDownTip: 'Verschiebe Regel eine Position nach unten'
   },
-  GsRuleGenerator: {
+  RuleGenerator: {
     attribute: 'Attribute',
     generateButtonText: 'Klassifizieren',
     levelOfMeasurement: 'Skalenniveau',
@@ -355,35 +378,38 @@ export default {
     classification: 'Klassifizierungs Methode',
     classificationPlaceholder: 'Auswählen…',
     preview: 'Farb Vorschau',
+    equalInterval: 'Equal-Interval',
     numberOfRulesViaKmeans: '…betroffen durch k-Means Klassifizierung.',
     allDistinctValues: 'Alle eindeutigen Werte verwenden'
   },
-  GsColorRampCombo: {
+  ColorRampCombo: {
     colorRampPlaceholder: 'Auswählen…'
   },
-  GsColorSpaceCombo: {
+  ColorSpaceCombo: {
     colorSpacePlaceholder: 'Auswählen…'
   },
-  GsClassificationCombo: {
+  ClassificationCombo: {
     equalInterval: 'Equal Interval',
     quantile: 'Quantile ',
     logarithmic: 'Logarithmic',
     kmeans: 'k-Means'
   },
-  GsRuleGeneratorWindow: {
+  RuleGeneratorWindow: {
     ruleGenerator: 'Klassifizierung'
   },
-  GsIconSelectorWindow: {
+  IconSelectorWindow: {
     windowLabel: 'Wähle Icon'
   },
-  GsIconSelector: {
+  IconSelector: {
     librarySelectLabel: 'Wähle Bibliothek'
   },
-  GsSLDUnitsSelect: {
+  SLDUnitsSelect: {
     symbolizerUnitsLabel: 'Symbolizer Einheiten',
     symbolizerUnitsPixel: 'Pixel',
     symbolizerUnitsMeter: 'Meter',
     symbolizerUnitsFoot: 'Fuß'
   },
-  ...de_DE
+  ...antd_de_DE
 };
+
+export default de_DE;

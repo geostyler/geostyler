@@ -41,17 +41,11 @@ import GammaField from '../GammaField/GammaField';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-
-// i18n
-export interface ChannelFieldLocale {
-  sourceChannelNameLabel: string;
-  contrastEnhancementTypeLabel: string;
-  gammaValueLabel: string;
-}
+import { GeoStylerLocale } from '../../../../locale/locale';
 
 // default props
 interface ChannelFieldDefaultProps {
-  locale: ChannelFieldLocale;
+  locale: GeoStylerLocale['ChannelField'];
   contrastEnhancementTypes: ContrastEnhancement['enhancementType'][];
 }
 
@@ -67,7 +61,7 @@ export interface ChannelFieldProps extends Partial<ChannelFieldDefaultProps> {
  */
 export const ChannelField: React.FC<ChannelFieldProps> = ({
   onChange,
-  locale = en_US.GsChannelField,
+  locale = en_US.ChannelField,
   sourceChannelNames,
   contrastEnhancementTypes = ['histogram', 'normalize'],
   channel

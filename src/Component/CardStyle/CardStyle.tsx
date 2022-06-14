@@ -59,23 +59,14 @@ import RuleGenerator, { RuleGeneratorProps } from '../RuleGenerator/RuleGenerato
 import { BulkEditor } from '../BulkEditor/BulkEditor';
 import IconSelector, { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-
-// i18n
-export interface CardStyleLocale {
-  styleTitle: string;
-  classificationTitle: string;
-  multiEditTitle: string;
-  symbolizerTitle: string;
-  filterTitle: string;
-  iconLibrariesTitle: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
 
 // default props
 interface CardStyleDefaultProps {
   /** The geoStylerStyle object */
   style: GsStyle;
   /** Locale object containing translated text snippets */
-  locale: CardStyleLocale;
+  locale: GeoStylerLocale['CardStyle'];
 }
 
 // non default props
@@ -117,7 +108,7 @@ const FILTEREDITVIEW = CardViewUtil.FILTEREDITVIEW;
 const ICONLIBRARIESVIEW = CardViewUtil.ICONLIBRARIESVIEW;
 
 export const CardStyle: React.FC<CardStyleProps> = ({
-  locale = en_US.GsCardStyle,
+  locale = en_US.CardStyle,
   // enableClassification = true,
   style = { name: 'My Style', rules: [] },
   data,

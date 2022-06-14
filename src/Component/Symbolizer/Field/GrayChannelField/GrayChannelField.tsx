@@ -39,15 +39,11 @@ import { ChannelSelection, GrayChannel } from 'geostyler-style';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-
-// i18n
-export interface GrayChannelFieldLocale {
-  grayLabel: string;
-}
+import { GeoStylerLocale } from '../../../../locale/locale';
 
 // default props
 interface GrayChannelFieldDefaultProps {
-  locale: GrayChannelFieldLocale;
+  locale: GeoStylerLocale['GrayChannelField'];
 }
 
 // non default props
@@ -64,7 +60,7 @@ export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
   onChange,
   channelSelection,
   sourceChannelNames,
-  locale = en_US.GsGrayChannelField
+  locale = en_US.GrayChannelField
 }) => {
 
   const onGrayChannelChange = (value: string) => {

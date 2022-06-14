@@ -60,25 +60,10 @@ import './TextEditor.less';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { VectorData } from 'geostyler-data';
-
-// i18n
-export interface TextEditorLocale {
-  templateFieldLabel: string;
-  opacityLabel?: string;
-  colorLabel?: string;
-  sizeLabel?: string;
-  offsetXLabel?: string;
-  offsetYLabel?: string;
-  fontLabel?: string;
-  rotateLabel?: string;
-  haloColorLabel?: string;
-  haloWidthLabel?: string;
-  attributeComboPlaceholder?: string;
-  attributeNotFound?: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 interface TextEditorDefaultProps {
-  locale: TextEditorLocale;
+  locale: GeoStylerLocale['TextEditor'];
 }
 
 // non default props
@@ -97,7 +82,7 @@ const COMPONENTNAME = 'TextEditor';
  * feature properties and text without curly braces as static text.
  */
 export const TextEditor: React.FC<TextEditorProps> = ({
-  locale = en_US.GsTextEditor,
+  locale = en_US.TextEditor,
   symbolizer,
   onSymbolizerChange,
   internalDataDef,

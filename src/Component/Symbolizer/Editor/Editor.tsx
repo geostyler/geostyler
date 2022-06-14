@@ -56,15 +56,11 @@ import DataUtil from '../../../Util/DataUtil';
 import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
 import { Form } from 'antd';
-
-// i18n
-export interface EditorLocale {
-  kindFieldLabel: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 interface EditorDefaultProps {
-  locale: EditorLocale;
+  locale: GeoStylerLocale['Editor'];
   unknownSymbolizerText?: string;
 }
 
@@ -91,7 +87,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
   static componentName: string = 'SymbolizerEditor';
 
   public static defaultProps: EditorDefaultProps = {
-    locale: en_US.GsSymbolizerEditor,
+    locale: en_US.SymbolizerEditor,
     unknownSymbolizerText: 'Unknown Symbolizer!'
   };
 

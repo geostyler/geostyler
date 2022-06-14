@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/naming-convention */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -26,13 +26,85 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import es_ES from 'antd/lib/locale-provider/es_ES';
-export default {
-  GsApp: {
-    graphicalEditor: 'Editor gráfico',
-    codeEditor: 'Editor de código'
+import antd_es_ES from 'antd/lib/locale-provider/es_ES';
+import { GeoStylerLocale } from './locale';
+
+const es_ES: GeoStylerLocale = {
+  RgbChannelField: {
+    redLabel: 'TODO(es_ES):Red band',
+    greenLabel: 'TODO(es_ES):Green band',
+    blueLabel: 'TODO(es_ES):Blue band'
   },
-  GsBulkEditModals: {
+  GrayChannelField: {
+    grayLabel: 'TODO(es_ES):Gray band'
+  },
+  ColorMapEntryField: {
+    colorLabel: 'TODO(es_ES):Color',
+    labelLabel: 'TODO(es_ES):Legend Label',
+    quantityLabel: 'TODO(es_ES):Quantity',
+    opacityLabel: 'TODO(es_ES):Opacity'
+  },
+  ChannelField: {
+    sourceChannelNameLabel: 'TODO(es_ES):Channel Name',
+    contrastEnhancementTypeLabel: 'TODO(es_ES):Contrast Enhancement',
+    gammaValueLabel: 'TODO(es_ES):Gamma'
+  },
+  ColorMapTypeField: {
+    rampMapTypeLabel: 'TODO(es_ES):Interpolated',
+    intervalsMapTypeLabel: 'TODO(es_ES):Intervals',
+    valuesMapTypeLabel: 'TODO(es_ES):Values'
+  },
+  RasterEditor: {
+    opacityLabel: 'TODO(es_ES):Opacity',
+    hueRotateLabel: 'TODO(es_ES):Hue Rotation',
+    brightnessMinLabel: 'TODO(es_ES):Min. Brightness',
+    brightnessMaxLabel: 'TODO(es_ES):Max. Brightness',
+    saturationLabel: 'TODO(es_ES):Saturation',
+    contrastLabel: 'TODO(es_ES):Contrast',
+    fadeDurationLabel: 'TODO(es_ES):Fade Duration',
+    resamplingLabel: 'TODO(es_ES):Resampling',
+    contrastEnhancementLabel: 'TODO(es_ES):Contrast Enhancement',
+    gammaValueLabel: 'TODO(es_ES):Gamma',
+    colorMapLabel: 'TODO(es_ES):Color Map',
+    symbolizerLabel: 'TODO(es_ES):Symbolizer',
+    channelSelectionLabel: 'TODO(es_ES):Channel Selection'
+  },
+  RasterChannelEditor: {
+    channelSelectionLabel: 'TODO(es_ES):Edit Channels',
+    redBandLabel: 'TODO(es_ES):Red',
+    greenBandLabel: 'TODO(es_ES):Green',
+    blueBandLabel: 'TODO(es_ES):Blue',
+    grayBandLabel: 'TODO(es_ES):Gray',
+    channelSelectionGrayLabel: 'TODO(es_ES):Gray',
+    channelSelectionRgbLabel: 'TODO(es_ES):RGB',
+    titleLabel: 'TODO(es_ES):Channel Selection'
+  },
+  ColorMapEditor: {
+    typeLabel: 'TODO(es_ES):Type',
+    extendedLabel: 'TODO(es_ES):Color Depth',
+    colorMapEntriesLabel: 'TODO(es_ES):Colormap',
+    titleLabel: 'TODO(es_ES):Color Map',
+    nrOfClassesLabel: 'TODO(es_ES):Nr. of classes',
+    colorRampLabel: 'TODO(es_ES):Color Ramp',
+    colorLabel: 'TODO(es_ES):Color',
+    quantityLabel: 'TODO(es_ES):Quantity',
+    labelLabel: 'TODO(es_ES):Label',
+    opacityLabel: 'TODO(es_ES):Opacity'
+  },
+  StyleFieldContainer: {
+    nameFieldLabel: 'TODO(es_ES):Name',
+    nameFieldPlaceholder: 'TODO(es_ES):Enter name',
+    titleFieldLabel: 'TODO(es_ES):Title',
+    titleFieldPlaceholder: 'TODO(es_ES):Enter title'
+  },
+  Editor: {
+    kindFieldLabel: 'TODO(es_ES):Kind'
+  },
+  RuleFieldContainer: {
+    nameFieldLabel: 'TODO(es_ES):Name',
+    nameFieldPlaceholder: 'TODO(es_ES):Enter name'
+  },
+  BulkEditModals: {
     colorLabel: 'Seleccionar color',
     radiusLabel: 'Seleccionar radio',
     opacityLabel: 'Seleccionar transparencia',
@@ -40,21 +112,30 @@ export default {
     imageFieldLabel: 'Fuente',
     imageFieldTooltipLabel: 'Abrir galería'
   },
-  GsBulkEditor: {
+  BulkEditor: {
     colorLabel: 'Seleccionar color',
     radiusLabel: 'Seleccionar radio',
     opacityLabel: 'Seleccionar transparencia',
     symbolLabel: 'Seleccionar simbolo',
     imageFieldLabel: 'Fuente'
   },
-  GsRule: {
+  Rule: {
     removeRuleBtnText: 'Eliminar regla',
     scaleFieldTitle: 'Usar escala',
     filterFieldTitle: 'Usar filtro',
     nameFieldLabel: 'Nombre',
-    nameFieldPlaceholder: 'Ingrese nombre'
+    nameFieldPlaceholder: 'Ingrese nombre',
+    attributeLabel: 'TODO(es_ES):Attribute',
+    attributePlaceholderString: 'TODO(es_ES):Choose attribute',
+    attributeValidationHelpString: 'TODO(es_ES):Please choose an attribute',
+    operatorLabel: 'TODO(es_ES):Operator',
+    operatorPlaceholderString: 'TODO(es_ES):Choose operator',
+    operatorValidationHelpString: 'TODO(es_ES):Please choose an operator',
+    valueLabel: 'TODO(es_ES):Value',
+    valuePlaceholder: 'TODO(es_ES):Enter value',
+    valueValidationHelpString: 'TODO(es_ES):Please enter a value'
   },
-  GsStyle: {
+  Style: {
     addRuleBtnText: 'Añadir regla',
     cloneRulesBtnText: 'Duplicar reglas',
     removeRulesBtnText: 'Eliminar reglas',
@@ -66,9 +147,10 @@ export default {
     symbolLabel: 'Seleccionar simbolo',
     multiEditLabel: 'Editor múltiple',
     ruleGeneratorWindowBtnText: 'Clasificación',
-    styleTitle: 'Estilo'
+    titleFieldLabel: 'TODO(es_ES):Title',
+    titleFieldPlaceholder: 'TODO(es_ES):Enter Title'
   },
-  GsCardStyle: {
+  CardStyle: {
     styleTitle: 'Estilo',
     classificationTitle: 'Clasificación',
     multiEditTitle: 'Editor múltiple',
@@ -76,29 +158,27 @@ export default {
     filterTitle: 'Filtros',
     iconLibrariesTitle: 'Galería'
   },
-  GsStyleOverview: {
+  StyleOverview: {
     styleTitle: 'Estilo'
   },
-  GsRuleOverview: {
+  RuleOverview: {
     ruleTitle: 'Regla'
   },
-  GsSymbolizerCard: {
+  Symbolizers: {
+    symbolizersTitle: 'TODO(es_ES):Symbolizers',
+    addSymbolizer: 'TODO(es_ES):Add symbolizer',
+    showAll: 'TODO(es_ES):Show all',
+    hide: 'TODO(es_ES):Hide'
   },
-  GsSymbolizers: {
-    symbolizersTitle: 'TODO',
-    addSymbolizer: 'TODO',
-    showAll: 'TODO',
-    hide: 'TODO'
-  },
-  GsStyleLoader: {
+  StyleLoader: {
     label: 'Leer estilo: ',
     uploadButtonLabel: 'Cargar estilo'
   },
-  GsDataLoader: {
+  DataLoader: {
     label: 'Leer datos: ',
     uploadButtonLabel: 'Cargar datos'
   },
-  GsWfsParserInput: {
+  WfsParserInput: {
     requestButtonText: 'Obtener datos',
     urlLabel: 'Url',
     versionLabel: 'Versión',
@@ -108,7 +188,7 @@ export default {
     maxFeaturesLabel: 'MaxFeatures',
     fetchParamsLabel: 'fetchParams'
   },
-  GsCodeEditor: {
+  CodeEditor: {
     downloadButtonLabel: 'Guardar archivo',
     copyButtonLabel: 'Copiar al portapapeles',
     formatSelectLabel: 'Formato',
@@ -116,11 +196,11 @@ export default {
     writeFeedback: 'Retroalimentación al escribir con',
     readFeedback: 'Retroalimentación mientras se lee con'
   },
-  GsParserFeedback: {
+  ParserFeedback: {
     notSupported: 'no es compatible con el analizador sintáctico utilizado',
     partiallySupported: 'sólo es parcialmente soportado por el parser utilizado'
   },
-  GsWellKnownNameEditor: {
+  WellKnownNameEditor: {
     radiusLabel: 'Radio',
     fillOpacityLabel: 'Relleno-Transparencia',
     fillColorLabel: 'Fondo-Color',
@@ -130,7 +210,7 @@ export default {
     strokeOpacityLabel: 'Trazo-Transparencia',
     rotateLabel: 'Rotación'
   },
-  GsFillEditor: {
+  FillEditor: {
     fillOpacityLabel: 'Relleno-Transparencia',
     outlineOpacityLabel: 'Trazo-Transparencia',
     opacityLabel: 'Transparencia',
@@ -140,14 +220,14 @@ export default {
     outlineDasharrayLabel: 'Outline-Dasharray',
     graphicFillTypeLabel: 'Tipo gráfico de relleno'
   },
-  GsIconEditor: {
+  IconEditor: {
     imageLabel: 'Fuente',
     sizeLabel: 'Tamaño',
     rotateLabel: 'Rotación',
     opacityLabel: 'Transparencia',
     iconTooltipLabel: 'Abrir galería'
   },
-  GsLineEditor: {
+  LineEditor: {
     colorLabel: 'Color',
     widthLabel: 'Ancho',
     opacityLabel: 'Transparencia',
@@ -158,10 +238,10 @@ export default {
     graphicStrokeTypeLabel: 'Tipo de gráfico de trazado',
     graphicFillTypeLabel: 'Tipo de gráfico de relleno'
   },
-  GsMarkEditor: {
+  MarkEditor: {
     wellKnownNameFieldLabel: 'Simbolo'
   },
-  GsTextEditor: {
+  TextEditor: {
     fontLabel: 'Fuente',
     templateFieldLabel: 'Plantilla',
     opacityLabel: 'Texto-Transparencia',
@@ -175,9 +255,10 @@ export default {
     haloWidthLabel: 'Halo-Ancho',
     attributeNotFound: 'Campo no encontrado'
   },
-  GsPropTextEditor: {
+  PropTextEditor: {
     propFieldLabel: 'Campo',
     opacityLabel: 'Texto-Transparencia',
+    fontLabel: 'TODO(es_ES):Font',
     colorLabel: 'Texto-Color',
     sizeLabel: 'Texto-Tamaño',
     offsetXLabel: 'Desplazamiento X',
@@ -187,35 +268,36 @@ export default {
     haloColorLabel: 'Halo-Color',
     haloWidthLabel: 'Halo-Width'
   },
-  GsPreview: {
+  Preview: {
     openEditorText: 'Editor de simbología',
     closeEditorText: 'Cerrar editor'
   },
-  GsColorField: {
+  ColorField: {
     closeText: 'Cerrar',
     editText: 'Cambiar',
     chooseText: 'Elegir',
   },
-  GsKindField: {
+  KindField: {
     symbolizerKinds: {
       Mark: 'Marcador',
       Fill: 'Relleno',
       Icon: 'Icono',
       Line: 'Línea',
-      Text: 'Texto'
+      Text: 'Texto',
+      Raster: 'TODO(es_ES):Raster'
     }
   },
-  GsGraphicTypeField: {
+  GraphicTypeField: {
     Mark: 'Marcador',
     Icon: 'Icono'
   },
-  GsScaleDenominator: {
+  ScaleDenominator: {
     minScaleDenominatorLabelText: 'Escala Min.',
     maxScaleDenominatorLabelText: 'Escala Max.',
     minScaleDenominatorPlaceholderText: 'Ingrese escala min. (Opcional)',
     maxScaleDenominatorPlaceholderText: 'Ingrese escala max. (Opcionar)'
   },
-  GsWellKnownNameField: {
+  WellKnownNameField: {
     wellKnownNames: {
       Circle: 'Círculo',
       Square: 'Cuadrado',
@@ -225,26 +307,26 @@ export default {
       X: 'X'
     }
   },
-  GsSymbolizerEditor: {
+  SymbolizerEditor: {
     kindFieldLabel: 'Tipo'
   },
-  GsSymbolizerEditorWindow: {
+  SymbolizerEditorWindow: {
     symbolizersEditor: 'Editor de simbología'
   },
-  GsFilterOverview: {
+  FilterOverview: {
     filterTitle: 'Filtros'
   },
-  GsFilterEditorWindow: {
+  FilterEditorWindow: {
     filterEditor: 'Editor de filtro'
   },
-  GsMultiEditor: {
+  MultiEditor: {
     add: 'Añadir',
     remove: 'Eliminar'
   },
-  GsUploadButton: {
+  UploadButton: {
     upload: 'Cargar'
   },
-  GsFilterTree: {
+  FilterTree: {
     andDrpdwnLabel: 'AND-Filtro',
     orDrpdwnLabel: 'OR-Filtro',
     notDrpdwnLabel: 'NOT-Filtro',
@@ -256,7 +338,7 @@ export default {
     orFilterText: 'OR',
     notFilterText: 'NOT'
   },
-  GsRuleTable: {
+  RuleTable: {
     symbolizersColumnTitle: 'Simbolizador',
     nameColumnTitle: 'Nombre',
     filterColumnTitle: 'Filtro',
@@ -265,7 +347,7 @@ export default {
     amountColumnTitle: 'Cantidad',
     duplicatesColumnTitle: 'Duplicados'
   },
-  GsRules: {
+  Rules: {
     rulesTitle: 'Reglas',
     multiEdit: 'Seleccionar',
     addRule: 'Añadir',
@@ -275,11 +357,11 @@ export default {
     edit: 'Cambiar',
     defaultRuleTitle: 'Sin título'
   },
-  GsRuleReorderButtons: {
+  RuleReorderButtons: {
     ruleMoveUpTip: 'Mueve la regla una posición arriba',
     ruleMoveDownTip: 'Mueve la regla una posición hacia abajo'
   },
-  GsRuleGenerator: {
+  RuleGenerator: {
     attribute: 'Atributo',
     generateButtonText: 'Clasificar',
     levelOfMeasurement: 'Nivel de medida',
@@ -297,34 +379,37 @@ export default {
     classificationPlaceholder: 'Seleccionar…',
     preview: 'Avance de color',
     numberOfRulesViaKmeans: '…afectados por la clasificación k-Means.',
-    allDistinctValues: 'Utilizar todos los valores distintos'
+    allDistinctValues: 'Utilizar todos los valores distintos',
+    equalInterval: 'TODO(es_ES):Equal Interval',
   },
-  GsColorRampCombo: {
+  ColorRampCombo: {
     colorRampPlaceholder: 'Seleccionar…'
   },
-  GsColorSpaceCombo: {
+  ColorSpaceCombo: {
     colorSpacePlaceholder: 'Seleccionar…'
   },
-  GsClassificationCombo: {
+  ClassificationCombo: {
     equalInterval: 'Equal Interval',
     quantile: 'Quantile ',
     logarithmic: 'Logarithmic',
     kmeans: 'k-Means'
   },
-  GsRuleGeneratorWindow: {
+  RuleGeneratorWindow: {
     ruleGenerator: 'Clasificación'
   },
-  GsIconSelectorWindow: {
+  IconSelectorWindow: {
     windowLabel: 'Seleccionar icono'
   },
-  GsIconSelector: {
+  IconSelector: {
     librarySelectLabel: 'Seleccionar biblioteca'
   },
-  GsSLDUnitsSelect: {
+  SLDUnitsSelect: {
     symbolizerUnitsLabel: 'Unidades simbolizadoras',
     symbolizerUnitsPixel: 'Pixel',
     symbolizerUnitsMeter: 'Metro',
     symbolizerUnitsFoot: 'Escándalo'
   },
-  ...es_ES
+  ...antd_es_ES
 };
+
+export default es_ES;

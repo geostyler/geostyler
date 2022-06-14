@@ -62,21 +62,12 @@ import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 import { usePrevious } from '../../hook/UsePrevious';
 import ParserFeedback from '../ParserFeedback/ParserFeedback';
 import { ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
-
-// i18n
-export interface CodeEditorLocale {
-  downloadButtonLabel: string;
-  formatSelectLabel: string;
-  copyButtonLabel: string;
-  styleCopied: string;
-  writeFeedback: string;
-  readFeedback: string;
-}
+import { GeoStylerLocale } from '../../locale/locale';
 
 // non default props
 export interface CodeEditorProps {
   /** Locale object containing translated text snippets */
-  locale?: CodeEditorLocale;
+  locale?: GeoStylerLocale['CodeEditor'];
   /** Delay in ms until onStyleChange will be called */
   delay?: number;
   /** Show save button */
@@ -101,7 +92,7 @@ export const COMPONENTNAME = 'CodeEditor';
 export const CodeEditor: React.FC<CodeEditorProps> = ({
   defaultParser,
   delay = 500,
-  locale = en_US.GsCodeEditor,
+  locale = en_US.CodeEditor,
   onStyleChange = () => undefined,
   parsers = [],
   showCopyButton = false,

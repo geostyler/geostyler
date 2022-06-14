@@ -37,25 +37,14 @@ import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
 import _get from 'lodash/get';
+import { GeoStylerLocale } from '../../../../locale/locale';
 const Option = Select.Option;
-
-// i18n
-export interface WellKnownNameFieldLocale {
-  wellKnownNames: {
-    Circle: string;
-    Square: string;
-    Triangle: string;
-    Star: string;
-    Cross: string;
-    X: string;
-  };
-}
 
 // default props
 interface WellKnownNameFieldDefaultProps {
   wellKnownName: WellKnownName;
   wellKnownNames: WellKnownName[];
-  locale: WellKnownNameFieldLocale;
+  locale: GeoStylerLocale['WellKnownNameField'];
 }
 
 // non default props
@@ -68,7 +57,7 @@ export interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefau
  */
 export const WellKnownNameField: React.FC<WellKnownNameFieldProps> = ({
   onChange,
-  locale = en_US.GsWellKnownNameField,
+  locale = en_US.WellKnownNameField,
   wellKnownName = 'circle',
   wellKnownNames = ['circle', 'square', 'triangle', 'star', 'cross', 'x',
     'shape://backslash', 'shape://carrow', 'shape://dot',

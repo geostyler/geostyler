@@ -38,20 +38,16 @@ import { Button } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
 import { Filter } from 'geostyler-style';
 import FilterTree from '../FilterTree/FilterTree';
 import { ComparisonFilterProps } from '../ComparisonFilter/ComparisonFilter';
-
-// i18n
-export interface FilterEditorWindowLocale {
-  filterEditor: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
+import en_US from '../../../locale/en_US';
 
 // default props
 export interface FilterEditorWindowDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: FilterEditorWindowLocale;
+  locale: GeoStylerLocale['FilterEditorWindow'];
 }
 
 // non default props
@@ -83,7 +79,7 @@ export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
   filter,
   onFilterChange,
   filterUiProps,
-  locale = en_US.GsFilterEditorWindow
+  locale = en_US.FilterEditorWindow
 }) => {
 
   return (

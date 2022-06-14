@@ -38,6 +38,7 @@ import en_US from '../../../../locale/en_US';
 import { RadioChangeEvent } from 'antd/lib/radio';
 
 import _get from 'lodash/get';
+import { GeoStylerLocale } from '../../../../locale/locale';
 
 // i18n
 export interface ColorMapTypeFieldLocale {
@@ -49,7 +50,7 @@ export interface ColorMapTypeFieldLocale {
 // default props
 interface ColorMapTypeFieldDefaultProps {
   colorMapTypeOptions: ColorMapType[];
-  locale: ColorMapTypeFieldLocale;
+  locale: GeoStylerLocale['ColorMapTypeField'];
 }
 
 // non default props
@@ -63,7 +64,7 @@ export interface ColorMapTypeFieldProps extends Partial<ColorMapTypeFieldDefault
  */
 export const ColorMapTypeField: React.FC<ColorMapTypeFieldProps> = ({
   colorMapTypeOptions = ['ramp', 'intervals', 'values'],
-  locale = en_US.GsColorMapTypeField,
+  locale = en_US.ColorMapTypeField,
   onChange,
   colorMapType
 }) => {

@@ -35,6 +35,7 @@ import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
 import _get from 'lodash/get';
+import { GeoStylerLocale } from '../../../../locale/locale';
 
 const Option = Select.Option;
 
@@ -49,7 +50,7 @@ export interface GraphicTypeFieldDefaultProps {
   /** List of selectable GraphicTypes for Select */
   graphicTypes: GraphicType[];
   /** Language package */
-  locale: GraphicTypeFieldLocale;
+  locale: GeoStylerLocale['GraphicTypeField'];
   /** If true GraphicTypeField can be cleared  */
   clearable: boolean;
 }
@@ -65,7 +66,7 @@ export interface GraphicTypeFieldProps extends Partial<GraphicTypeFieldDefaultPr
 export const GraphicTypeField: React.FC<GraphicTypeFieldProps> = ({
   onChange,
   graphicType,
-  locale = en_US.GsGraphicTypeField,
+  locale = en_US.GraphicTypeField,
   graphicTypes = ['Mark', 'Icon'],
   clearable = true,
   ...passThroughProps

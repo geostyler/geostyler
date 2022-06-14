@@ -123,6 +123,7 @@ import withDefaultsContext from './hoc/withDefaultsContext';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 import { CompositionContext } from './context/CompositionContext/CompositionContext';
 import { DefaultValueContext } from './context/DefaultValueContext/DefaultValueContext';
+import { GeoStylerLocale } from './locale/locale';
 
 import { ConfigProvider } from 'antd';
 
@@ -237,5 +238,6 @@ export {
   WellKnownNameEditor,
   WellKnownNameField,
   WidthField,
-  withDefaultsContext
+  withDefaultsContext,
+  GeoStylerLocale
 };

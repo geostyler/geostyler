@@ -41,15 +41,11 @@ import en_US from '../../../locale/en_US';
 import './IconSelector.less';
 
 import _isEqual from 'lodash/isEqual';
-
-// i18n
-export interface IconSelectorLocale {
-  librarySelectLabel?: string;
-}
+import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 export interface IconSelectorDefaultProps {
-  locale: IconSelectorLocale;
+  locale: GeoStylerLocale['IconSelector'];
 }
 
 export type IconLibrary = {
@@ -77,7 +73,7 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
   static componentName: string = 'IconSelector';
 
   public static defaultProps: IconSelectorDefaultProps = {
-    locale: en_US.GsIconSelector
+    locale: en_US.IconSelector
   };
 
   constructor(props: IconSelectorProps) {
