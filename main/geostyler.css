@@ -1,6 +1,6 @@
 /*!
  * 
- * antd v4.21.0
+ * antd v4.21.1
  * 
  * Copyright 2015-present, Alipay, Inc.
  * All rights reserved.
@@ -7417,6 +7417,40 @@ a.ant-btn-icon-only > .anticon {
 a.ant-btn {
   padding-top: 0.01px !important;
   line-height: 30px;
+}
+a.ant-btn-disabled {
+  cursor: not-allowed;
+}
+a.ant-btn-disabled > * {
+  pointer-events: none;
+}
+a.ant-btn-disabled,
+a.ant-btn-disabled:hover,
+a.ant-btn-disabled:focus,
+a.ant-btn-disabled:active {
+  color: rgba(0, 0, 0, 0.25);
+  border-color: transparent;
+  background: transparent;
+  text-shadow: none;
+  box-shadow: none;
+}
+a.ant-btn-disabled > a:only-child,
+a.ant-btn-disabled:hover > a:only-child,
+a.ant-btn-disabled:focus > a:only-child,
+a.ant-btn-disabled:active > a:only-child {
+  color: currentcolor;
+}
+a.ant-btn-disabled > a:only-child::after,
+a.ant-btn-disabled:hover > a:only-child::after,
+a.ant-btn-disabled:focus > a:only-child::after,
+a.ant-btn-disabled:active > a:only-child::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: transparent;
+  content: '';
 }
 a.ant-btn-lg {
   line-height: 38px;
@@ -27206,8 +27240,8 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .ant-upload-list .ant-upload-animate-inline-leave {
   -webkit-animation-duration: 0.3s;
           animation-duration: 0.3s;
-  -webkit-animation-fill-mode: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-          animation-fill-mode: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  -webkit-animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+          animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 .ant-upload-list .ant-upload-animate-inline-appear,
 .ant-upload-list .ant-upload-animate-inline-enter {
