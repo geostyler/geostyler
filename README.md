@@ -19,10 +19,6 @@ Developer Guide:
 Roadmap:
 [Roadmap 2021](https://github.com/geostyler/geostyler/wiki/Roadmap-2021)
 
-## :rocket: GeoStyler Code Sprint 2022
-
-We are happy to announce our first public GeoStyler Code Sprint from **07.-10.06.2022**. Be part of it! More infos on https://geostyler.org/.
-
 ## <a name="what-is-this-all-about"></a>What is this all about?
 
 The GeoStyler is a generic styler for geodata*.
