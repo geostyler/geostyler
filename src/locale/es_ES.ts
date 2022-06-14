@@ -30,6 +30,80 @@ import antd_es_ES from 'antd/lib/locale-provider/es_ES';
 import { GeoStylerLocale } from './locale';
 
 const es_ES: GeoStylerLocale = {
+  RgbChannelField: {
+    redLabel: 'es_ES:Red band',
+    greenLabel: 'es_ES:Green band',
+    blueLabel: 'es_ES:Blue band'
+  },
+  GrayChannelField: {
+    grayLabel: 'es_ES:Gray band'
+  },
+  ColorMapEntryField: {
+    colorLabel: 'es_ES:Color',
+    labelLabel: 'es_ES:Legend Label',
+    quantityLabel: 'es_ES:Quantity',
+    opacityLabel: 'es_ES:Opacity'
+  },
+  ChannelField: {
+    sourceChannelNameLabel: 'es_ES:Channel Name',
+    contrastEnhancementTypeLabel: 'es_ES:Contrast Enhancement',
+    gammaValueLabel: 'es_ES:Gamma'
+  },
+  ColorMapTypeField: {
+    rampMapTypeLabel: 'es_ES:Interpolated',
+    intervalsMapTypeLabel: 'es_ES:Intervals',
+    valuesMapTypeLabel: 'es_ES:Values'
+  },
+  RasterEditor: {
+    opacityLabel: 'es_ES:Opacity',
+    hueRotateLabel: 'es_ES:Hue Rotation',
+    brightnessMinLabel: 'es_ES:Min. Brightness',
+    brightnessMaxLabel: 'es_ES:Max. Brightness',
+    saturationLabel: 'es_ES:Saturation',
+    contrastLabel: 'es_ES:Contrast',
+    fadeDurationLabel: 'es_ES:Fade Duration',
+    resamplingLabel: 'es_ES:Resampling',
+    contrastEnhancementLabel: 'es_ES:Contrast Enhancement',
+    gammaValueLabel: 'es_ES:Gamma',
+    colorMapLabel: 'es_ES:Color Map',
+    symbolizerLabel: 'es_ES:Symbolizer',
+    channelSelectionLabel: 'es_ES:Channel Selection'
+  },
+  RasterChannelEditor: {
+    channelSelectionLabel: 'es_ES:Edit Channels',
+    redBandLabel: 'es_ES:Red',
+    greenBandLabel: 'es_ES:Green',
+    blueBandLabel: 'es_ES:Blue',
+    grayBandLabel: 'es_ES:Gray',
+    channelSelectionGrayLabel: 'es_ES:Gray',
+    channelSelectionRgbLabel: 'es_ES:RGB',
+    titleLabel: 'es_ES:Channel Selection'
+  },
+  ColorMapEditor: {
+    typeLabel: 'es_ES:Type',
+    extendedLabel: 'es_ES:Color Depth',
+    colorMapEntriesLabel: 'es_ES:Colormap',
+    titleLabel: 'es_ES:Color Map',
+    nrOfClassesLabel: 'es_ES:Nr. of classes',
+    colorRampLabel: 'es_ES:Color Ramp',
+    colorLabel: 'es_ES:Color',
+    quantityLabel: 'es_ES:Quantity',
+    labelLabel: 'es_ES:Label',
+    opacityLabel: 'es_ES:Opacity'
+  },
+  StyleFieldContainer: {
+    nameFieldLabel: 'es_ES:Name',
+    nameFieldPlaceholder: 'es_ES:Enter name',
+    titleFieldLabel: 'es_ES:Title',
+    titleFieldPlaceholder: 'es_ES:Enter title'
+  },
+  Editor: {
+    kindFieldLabel: 'es_ES:Kind'
+  },
+  RuleFieldContainer: {
+    nameFieldLabel: 'es_ES:Name',
+    nameFieldPlaceholder: 'es_ES:Enter name'
+  },
   BulkEditModals: {
     colorLabel: 'Seleccionar color',
     radiusLabel: 'Seleccionar radio',
@@ -50,7 +124,16 @@ const es_ES: GeoStylerLocale = {
     scaleFieldTitle: 'Usar escala',
     filterFieldTitle: 'Usar filtro',
     nameFieldLabel: 'Nombre',
-    nameFieldPlaceholder: 'Ingrese nombre'
+    nameFieldPlaceholder: 'Ingrese nombre',
+    attributeLabel: 'es_ES:Attribute',
+    attributePlaceholderString: 'es_ES:Choose attribute',
+    attributeValidationHelpString: 'es_ES:Please choose an attribute',
+    operatorLabel: 'es_ES:Operator',
+    operatorPlaceholderString: 'es_ES:Choose operator',
+    operatorValidationHelpString: 'es_ES:Please choose an operator',
+    valueLabel: 'es_ES:Value',
+    valuePlaceholder: 'es_ES:Enter value',
+    valueValidationHelpString: 'es_ES:Please enter a value'
   },
   Style: {
     addRuleBtnText: 'Añadir regla',
@@ -64,7 +147,8 @@ const es_ES: GeoStylerLocale = {
     symbolLabel: 'Seleccionar simbolo',
     multiEditLabel: 'Editor múltiple',
     ruleGeneratorWindowBtnText: 'Clasificación',
-    styleTitle: 'Estilo'
+    titleFieldLabel: 'es_ES:Title',
+    titleFieldPlaceholder: 'es_ES:Enter Title'
   },
   CardStyle: {
     styleTitle: 'Estilo',
@@ -80,13 +164,11 @@ const es_ES: GeoStylerLocale = {
   RuleOverview: {
     ruleTitle: 'Regla'
   },
-  SymbolizerCard: {
-  },
   Symbolizers: {
-    symbolizersTitle: 'TODO',
-    addSymbolizer: 'TODO',
-    showAll: 'TODO',
-    hide: 'TODO'
+    symbolizersTitle: 'es_ES:Symbolizers',
+    addSymbolizer: 'es_ES:Add symbolizer',
+    showAll: 'es_ES:Show all',
+    hide: 'es_ES:Hide'
   },
   StyleLoader: {
     label: 'Leer estilo: ',
@@ -176,6 +258,7 @@ const es_ES: GeoStylerLocale = {
   PropTextEditor: {
     propFieldLabel: 'Campo',
     opacityLabel: 'Texto-Transparencia',
+    fontLabel: 'es_ES:Font',
     colorLabel: 'Texto-Color',
     sizeLabel: 'Texto-Tamaño',
     offsetXLabel: 'Desplazamiento X',
@@ -200,7 +283,8 @@ const es_ES: GeoStylerLocale = {
       Fill: 'Relleno',
       Icon: 'Icono',
       Line: 'Línea',
-      Text: 'Texto'
+      Text: 'Texto',
+      Raster: 'es_ES:Raster'
     }
   },
   GraphicTypeField: {
@@ -295,7 +379,8 @@ const es_ES: GeoStylerLocale = {
     classificationPlaceholder: 'Seleccionar…',
     preview: 'Avance de color',
     numberOfRulesViaKmeans: '…afectados por la clasificación k-Means.',
-    allDistinctValues: 'Utilizar todos los valores distintos'
+    allDistinctValues: 'Utilizar todos los valores distintos',
+    equalInterval: 'es_ES:Equal Interval',
   },
   ColorRampCombo: {
     colorRampPlaceholder: 'Seleccionar…'

@@ -30,6 +30,19 @@ import antd_de_DE from 'antd/lib/locale-provider/de_DE';
 import { GeoStylerLocale } from './locale';
 
 const de_DE: GeoStylerLocale = {
+  StyleFieldContainer: {
+    nameFieldLabel: 'Name',
+    nameFieldPlaceholder: 'Name eingeben',
+    titleFieldLabel: 'Titel',
+    titleFieldPlaceholder: 'Titel eingeben'
+  },
+  Editor: {
+    kindFieldLabel: 'Kind'
+  },
+  RuleFieldContainer: {
+    nameFieldLabel: 'Name',
+    nameFieldPlaceholder: 'Name eingeben'
+  },
   CodeEditor: {
     downloadButtonLabel: 'Als Datei speichern',
     copyButtonLabel: 'In Zwischenablage kopieren',
@@ -97,8 +110,6 @@ const de_DE: GeoStylerLocale = {
   },
   RuleOverview: {
     ruleTitle: 'Regel'
-  },
-  SymbolizerCard: {
   },
   Symbolizers: {
     symbolizersTitle: 'Symbolisierung',

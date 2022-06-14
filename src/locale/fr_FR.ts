@@ -30,6 +30,26 @@ import antd_fr_FR from 'antd/lib/locale-provider/fr_FR';
 import { GeoStylerLocale } from './locale';
 
 const fr_FR: GeoStylerLocale = {
+  StyleFieldContainer: {
+    nameFieldLabel: 'fr_FR:Name',
+    nameFieldPlaceholder: 'fr_FR:Enter name',
+    titleFieldLabel: 'fr_FR:Title',
+    titleFieldPlaceholder: 'fr_FR:Enter title'
+  },
+  Editor: {
+    kindFieldLabel: 'fr_FR:Kind'
+  },
+  RuleFieldContainer: {
+    nameFieldLabel: 'fr_FR:Name',
+    nameFieldPlaceholder: 'fr_FR:Enter name'
+  },
+  BulkEditor: {
+    colorLabel: 'fr_FR:Select color',
+    radiusLabel: 'fr_FR:Select radius',
+    opacityLabel: 'fr_FR:Select opacity',
+    symbolLabel: 'fr_FR:Select symbol',
+    imageFieldLabel: 'fr_FR:Source'
+  },
   BulkEditModals: {
     colorLabel: 'Sélectionner une couleur',
     radiusLabel: 'Sélectionner un rayon',
@@ -43,7 +63,16 @@ const fr_FR: GeoStylerLocale = {
     scaleFieldTitle: 'Utiliser l\'échelle',
     filterFieldTitle: 'Utiliser le filtrage',
     nameFieldLabel: 'Nom',
-    nameFieldPlaceholder: 'Donner un nom'
+    nameFieldPlaceholder: 'Donner un nom',
+    attributeLabel: 'fr_FR:Attribute',
+    attributePlaceholderString: 'fr_FR:Choose attribute',
+    attributeValidationHelpString: 'fr_FR:Please choose an attribute',
+    operatorLabel: 'fr_FR:Operator',
+    operatorPlaceholderString: 'fr_FR:Choose operator',
+    operatorValidationHelpString: 'fr_FR:Please choose an operator',
+    valueLabel: 'fr_FR:Value',
+    valuePlaceholder: 'fr_FR:Enter value',
+    valueValidationHelpString: 'fr_FR:Please enter a value'
   },
   Style: {
     addRuleBtnText: 'Ajouter une règle',
@@ -51,12 +80,34 @@ const fr_FR: GeoStylerLocale = {
     removeRulesBtnText: 'Supprimer les règles',
     nameFieldLabel: 'Nom',
     nameFieldPlaceholder: 'Donner un nom',
+    titleFieldLabel: 'fr_FR:Title',
+    titleFieldPlaceholder: 'fr_FR:Enter Title',
     colorLabel: 'Sélectionner une couleur',
     radiusLabel: 'Sélectionner un rayon',
     opacityLabel: 'Sélectionner une opacité',
     symbolLabel: 'Sélectionner un symbole',
     multiEditLabel: 'Édition multiple',
     ruleGeneratorWindowBtnText: 'Classification'
+  },
+  CardStyle: {
+    styleTitle: 'fr_FR:Style',
+    classificationTitle: 'fr_FR:Classification',
+    multiEditTitle: 'fr_FR:Multi edit',
+    symbolizerTitle: 'fr_FR:Symbolizer',
+    filterTitle: 'fr_FR:Filters',
+    iconLibrariesTitle: 'fr_FR:Gallery'
+  },
+  StyleOverview: {
+    styleTitle: 'fr_FR:Style'
+  },
+  RuleOverview: {
+    ruleTitle: 'fr_FR:Rule'
+  },
+  Symbolizers: {
+    symbolizersTitle: 'fr_FR:Symbolizers',
+    addSymbolizer: 'fr_FR:Add symbolizer',
+    showAll: 'fr_FR:Show all',
+    hide: 'fr_FR:Hide'
   },
   StyleLoader: {
     label: 'Charger un style : ',
@@ -146,6 +197,7 @@ const fr_FR: GeoStylerLocale = {
   PropTextEditor: {
     propFieldLabel: 'Champ',
     opacityLabel: 'Opacité du texte',
+    fontLabel: 'fr_FR:Font',
     colorLabel: 'Couleur du texte',
     sizeLabel: 'Taille du texte',
     offsetXLabel: 'Décalage horizontal',
@@ -261,6 +313,9 @@ const fr_FR: GeoStylerLocale = {
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Éditeur de symbolisation'
   },
+  FilterOverview: {
+    filterTitle: 'Filters'
+  },
   FilterEditorWindow: {
     filterEditor: 'Éditeur de filtre'
   },
@@ -291,6 +346,16 @@ const fr_FR: GeoStylerLocale = {
     maxScaleColumnTitle: 'Échelle maximum',
     amountColumnTitle: 'Nombre d\'objets concernés',
     duplicatesColumnTitle: 'Doublons'
+  },
+  Rules: {
+    rulesTitle: 'fr_FR:Rules',
+    multiEdit: 'fr_FR:Select',
+    addRule: 'fr_FR:Add',
+    classification: 'fr_FR:Classification',
+    remove: 'fr_FR:Remove',
+    clone: 'fr_FR:Clone',
+    edit: 'fr_FR:Edit',
+    defaultRuleTitle: 'fr_FR:Untitled'
   },
   RuleReorderButtons: {
     ruleMoveUpTip: 'Déplacer la règle vers le haut',
@@ -347,4 +412,4 @@ const fr_FR: GeoStylerLocale = {
   ...antd_fr_FR
 };
 
-export const fr_FR;
+export default fr_FR;

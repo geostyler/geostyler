@@ -29,6 +29,19 @@
 import antd_en_US from 'antd/lib/locale-provider/en_US';
 import { GeoStylerLocale } from './locale';
 const en_US: GeoStylerLocale = {
+  StyleFieldContainer: {
+    nameFieldLabel: 'Name',
+    nameFieldPlaceholder: 'Enter name',
+    titleFieldLabel: 'Title',
+    titleFieldPlaceholder: 'Enter title'
+  },
+  Editor: {
+    kindFieldLabel: 'Kind'
+  },
+  RuleFieldContainer: {
+    nameFieldLabel: 'Name',
+    nameFieldPlaceholder: 'Enter name'
+  },
   BulkEditModals: {
     colorLabel: 'Select color',
     radiusLabel: 'Select radius',
@@ -88,8 +101,6 @@ const en_US: GeoStylerLocale = {
   },
   RuleOverview: {
     ruleTitle: 'Rule'
-  },
-  SymbolizerCard: {
   },
   Symbolizers: {
     symbolizersTitle: 'Symbolizers',
