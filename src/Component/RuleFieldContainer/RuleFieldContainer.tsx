@@ -45,7 +45,7 @@ import en_US from '../../locale/en_US';
 // default props
 interface RuleFieldContainerDefaultProps {
   /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['RuleFieldContainer'];
+  locale: GeoStylerLocale['RuleFieldContainer'] & GeoStylerLocale['ScaleDenominator'];
   /** The callback method when the name changes */
   onNameChange: (name: string) => void;
   /** The callback method when the minScale changes */

@@ -41,10 +41,6 @@ export interface GeoStylerLocale {
   RuleFieldContainer: {
     nameFieldLabel?: string;
     nameFieldPlaceholder?: string;
-    minScaleDenominatorLabelText?: string;
-    maxScaleDenominatorLabelText?: string;
-    minScaleDenominatorPlaceholderText?: string;
-    maxScaleDenominatorPlaceholderText?: string;
   };
   Style: {
     addRuleBtnText: string;
@@ -74,8 +70,6 @@ export interface GeoStylerLocale {
   };
   RuleOverview: {
     ruleTitle: string;
-  };
-  SymbolizerCard: {
   };
   Symbolizers: {
     symbolizersTitle: string;
