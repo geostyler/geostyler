@@ -51,42 +51,33 @@ export interface ResamplingFieldProps extends Partial<ResamplingFieldDefaultProp
 /**
  * ResamplingField to select between different resampling options
  */
-export class ResamplingField extends React.Component<ResamplingFieldProps> {
+export const ResamplingField: React.FC<ResamplingFieldProps> = ({
+  resamplingOptions =['linear', 'nearest'],
+  onChange,
+  resampling
+}) => {
 
-  public static defaultProps: ResamplingFieldDefaultProps = {
-    resamplingOptions: ['linear', 'nearest']
-  };
-
-  getResamplingSelectOptions = () => {
-    return this.props.resamplingOptions.map(resamplingOpt => {
-      return (
-        <Option
-          key={resamplingOpt}
-          value={resamplingOpt}
-        >
-          {resamplingOpt}
-        </Option>
-      );
-    });
-  };
-
-  render() {
-    const {
-      resampling,
-      onChange
-    } = this.props;
-
+  const resamplingSelectOptions = resamplingOptions.map(resamplingOpt => {
     return (
-      <Select
-        className="editor-field resampling-field"
-        allowClear={true}
-        value={resampling}
-        onChange={onChange}
+      <Option
+        key={resamplingOpt}
+        value={resamplingOpt}
       >
-        {this.getResamplingSelectOptions()}
-      </Select>
+        {resamplingOpt}
+      </Option>
     );
-  }
-}
+  });
+
+  return (
+    <Select
+      className="editor-field resampling-field"
+      allowClear={true}
+      value={resampling}
+      onChange={onChange}
+    >
+      {resamplingSelectOptions}
+    </Select>
+  );
+};
 
 export default ResamplingField;
