@@ -26,40 +26,29 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import OlMap from 'ol/Map';
 import OlLayerVector from 'ol/layer/Vector';
 import OlSourceVector from 'ol/source/Vector';
 import OlFormatGeoJSON from 'ol/format/GeoJSON';
-import OlGeomPoint from 'ol/geom/Point';
-import OlGeomLineString from 'ol/geom/LineString';
-import OlGeomPolygon from 'ol/geom/Polygon';
-import OlView from 'ol/View';
+import { ProjectionLike } from 'ol/proj';
 import OlFeature from 'ol/Feature';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOSM from 'ol/source/OSM';
 
 import { Style } from 'geostyler-style';
+import { Data, VectorData } from 'geostyler-data';
+import OlStyleParser from 'geostyler-openlayers-parser';
+
+import GeometryUtil from '../../Util/GeometryUtil';
 
 import './PreviewMap.less';
 
-import 'ol/ol.css';
-
-import OlStyleParser from 'geostyler-openlayers-parser';
-
-import { Data, VectorData } from 'geostyler-data';
-
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-
 // default props
 export interface PreviewMapDefaultProps {
-  /** The projection of the PreviewMap */
-  projection: string;
   /** The projection of the data to visualize */
-  dataProjection: string;
-  /** Whether an OSM basemap should be shown */
-  showOsmBackground: boolean;
+  dataProjection: ProjectionLike;
   /** The height of the map */
   mapHeight: number;
 }
@@ -71,219 +60,144 @@ export interface PreviewMapProps extends Partial<PreviewMapDefaultProps> {
   /** The GeoStyler Style to preview */
   style: Style;
   /** A custom map used for rendering */
-  map?: any;
+  map?: OlMap;
   /** A list of layers to add to the map */
-  layers?: any[];
-  /** A list of OpenLayers controls to add to the map */
-  controls?: any[];
-  /** A list of OpenLayers interactions to add to the map */
-  interactions?: any[];
-  /** Callback method that is triggered, when the map is mounted */
-  onMapDidMount?: (map: any) => void;
+  onMapDidMount?: (map: OlMap) => void;
 }
 
 /**
  * Style preview UI.
  */
-export class PreviewMap extends React.PureComponent<PreviewMapProps> {
+export const PreviewMap: React.FC<PreviewMapProps> = ({
+  dataProjection = 'EPSG:4326',
+  mapHeight = 267,
+  data,
+  style,
+  map: mapProp,
+  onMapDidMount
+}) => {
 
-  static componentName: string = 'PreviewMap';
+  const ref = useRef();
 
-  public static defaultProps: PreviewMapDefaultProps = {
-    projection: 'EPSG:3857',
-    dataProjection: 'EPSG:4326',
-    showOsmBackground: true,
-    mapHeight: 267
-  };
-
-  /** Openlayers Style Parser instance */
-  _styleParser = new OlStyleParser();
-
-  /** reference to the underlying OpenLayers map */
-  map: any;
-
-  /** reference to the vector layer for the passed features  */
-  dataLayer: any;
-
-  /** id of the generated mapdiv */
-  _mapTargetId: string = `map_${Math.floor((1 + Math.random()) * 0x10000)}`;
-
-  public componentDidUpdate() {
-    const {
-      style
-    } = this.props;
-
-    this._styleParser.writeStyle(style)
-      .then(({ output: olStyles}) => {
-        this.dataLayer.setStyle(olStyles);
-      });
-    this.setFeatures();
-  }
-
-  public componentDidMount() {
-    const {
-      controls,
-      interactions,
-      layers,
-      onMapDidMount,
-      showOsmBackground,
-      style,
-      projection
-    } = this.props;
-
-    let map: any;
-    if (!this.props.map) {
-      // create a new OL map and bind it to this preview DIV
-      map = new OlMap({
-        layers: [],
-        controls: [],
-        interactions: [],
-        target: this._mapTargetId,
-        view: new OlView({
-          projection: projection
+  /** the underlying OpenLayers map */
+  const [map, setMap] = useState<OlMap>(
+    mapProp ||
+    new OlMap({
+      controls: [],
+      layers: [
+        new OlLayerTile({
+          source: new OlSourceOSM()
         })
-      });
-    } else {
-      // use passed in OL map and bind it to this preview DIV
-      map = this.props.map;
-      map.setTarget(this._mapTargetId);
-    }
+      ]
+    })
+  );
 
-    // show an OSM background layer if configured and no map was passed in
-    if (!this.props.map && showOsmBackground) {
-      const osmLayer = new OlLayerTile({
-        source: new OlSourceOSM()
-      });
-      map.addLayer(osmLayer);
-    }
+  /** the vector layer for the passed features */
+  const [dataLayer] = useState<OlLayerVector<any>>(new OlLayerVector({
+    source: new OlSourceVector()
+  }));
 
-    // add configured OL control to map, when no map was passed in
-    if (!this.props.map && controls) {
-      this.props.controls.forEach((ctrl) => {
-        map.addControl(ctrl);
-      });
-    }
+  /**
+   * Fits the preview extend to the data when the dataLayer changes.
+   */
+  const zoomToData = useCallback(() => {
+    map.getView().fit(
+      dataLayer.getSource().getExtent(),
+      {
+        maxZoom: 10
+      }
+    );
+  }, [dataLayer, map]);
 
-    // add configured OL interaction to map, when no map was passed in
-    if (!this.props.map && interactions) {
-      this.props.interactions.forEach((iac) => {
-        map.addInteraction(iac);
-      });
-    }
-
-    // add configured additional layers
-    if (layers) {
-      layers.forEach((layer) => {
-        map.addLayer(layer);
-      });
-    }
-
-    const vectorLayer = new OlLayerVector({
-      source: new OlSourceVector()
-    });
-
-    map.addLayer(vectorLayer);
-    this.dataLayer = vectorLayer;
-
-    this._styleParser.writeStyle(style)
-      .then(({ output: olStyles }) => {
-        this.dataLayer.setStyle(olStyles);
-      });
-
-    this.map = map;
-
-    if (onMapDidMount) {
-      onMapDidMount(map);
-    }
-
-    this.setFeatures();
-  }
-
-  setFeatures = () => {
-    const data = this.props.data as VectorData;
-
-    this.dataLayer.getSource().clear();
-    if (data && data.exampleFeatures) {
+  /**
+   * Add the containing exampleFeatures if the passed data changes.
+   */
+  useEffect(() => {
+    if (dataLayer && (data as VectorData)?.exampleFeatures && map) {
+      dataLayer.getSource().clear();
       const format = new OlFormatGeoJSON({
-        dataProjection: this.props.dataProjection,
-        featureProjection: this.map.getView().getProjection()
+        dataProjection: dataProjection,
+        featureProjection: map.getView().getProjection()
       });
-      const olFeatures = format.readFeatures(data.exampleFeatures);
-      this.dataLayer.getSource().addFeatures(olFeatures);
-    } else {
-      const geoms = this.getSampleGeomFromStyle();
+      const olFeatures = format.readFeatures((data as VectorData).exampleFeatures);
+      dataLayer.getSource().addFeatures(olFeatures);
+    }
+  }, [data, dataProjection, dataLayer, map]);
+
+  /**
+   * Update the layerStyle if the passed style changes.
+   */
+  useEffect(() => {
+    const styleParser = new OlStyleParser();
+    styleParser.writeStyle(style)
+      .then(({ output: olStyles}) => {
+        dataLayer.setStyle(olStyles);
+      });
+  }, [style, dataLayer]);
+
+  /**
+   * If no data is provided create sample geometries based on the passed style.
+   */
+  useEffect(() => {
+    if (!data && dataLayer && map && style) {
+      const geoms = GeometryUtil.getSampleGeomFromStyle(style, map.getView().getProjection());
       geoms.forEach((geometry: any) => {
         const feature = new OlFeature({geometry});
-        this.dataLayer.getSource().addFeature(feature);
+        dataLayer.getSource().addFeature(feature);
       });
+      zoomToData();
     }
-    this.map.getView().fit(this.dataLayer.getSource().getExtent());
-  };
+  }, [dataLayer, map, style, data, zoomToData]);
 
-  getSampleGeomFromStyle = () => {
-    const {
-      style
-    } = this.props;
+  // Set the map if a mapProp is passed
+  useEffect(() => {
+    if (mapProp) {
+      // use passed in OL map and bind it to this preview DIV
+      setMap(mapProp);
+    }
+  }, [mapProp]);
 
-    const kinds: string[] = [];
+  /**
+   * Set the target of the map if the ref is defined.
+   */
+  useEffect(() => {
+    if (ref) {
+      map.setTarget(ref.current);
+      map.updateSize();
+      zoomToData();
+    }
+  }, [map, onMapDidMount, zoomToData]);
 
-    style.rules.forEach(rule => {
-      rule.symbolizers.forEach(symbolizer => {
-        if (!kinds.includes(symbolizer.kind)) {
-          kinds.push(symbolizer.kind);
-        }
-      });
-    });
+  /**
+   * Add the dataLayer to the map.
+   */
+  useEffect(() => {
+    if (!map.getAllLayers().some(layer => layer === dataLayer)) {
+      map.addLayer(dataLayer);
+    }
+  }, [map, dataLayer]);
 
-    return kinds.map(kind => {
-      switch (kind) {
-        case 'Mark':
-        case 'Icon':
-        case 'Text':
-          return (new OlGeomPoint([7.10066, 50.735851]))
-            .transform('EPSG:4326', this.props.projection);
-        case 'Fill':
-          return (new OlGeomPolygon([[
-            [7.1031761169433585, 50.734268655851345],
-            [7.109270095825195, 50.734268655851345],
-            [7.109270095825195, 50.73824770380063],
-            [7.1031761169433585, 50.73824770380063],
-            [7.1031761169433585, 50.734268655851345]
-          ]]))
-            .transform('EPSG:4326', this.props.projection);
-        case 'Line':
-          return (new OlGeomLineString([
-            [7.062578201293945, 50.721786104206004],
-            [7.077512741088867, 50.729610159968296],
-            [7.082319259643555, 50.732435192351126],
-            [7.097940444946289, 50.73748722929948],
-            [7.106866836547852, 50.73775882875318],
-            [7.117509841918945, 50.73889952925885],
-            [7.129182815551758, 50.7504679214779]
-          ]))
-            .transform('EPSG:4326', this.props.projection);
-        default:
-          return (new OlGeomPoint([7.10066, 50.735851]))
-            .transform('EPSG:4326', this.props.projection);
+  /**
+   * Call the `onMapDidMount` callback if defined.
+   */
+  useEffect(() => {
+    if (ref) {
+      if (onMapDidMount) {
+        onMapDidMount(map);
       }
-    });
-  };
+    }
+  }, [map, onMapDidMount]);
 
-  render() {
-    const {
-      mapHeight,
-    } = this.props;
+  return (
+    <div
+      ref={ref}
+      className="gs-symbolizer-previewmap map"
+      id={`map_${Math.floor((1 + Math.random()) * 0x10000)}`}
+      style={{
+        height: mapHeight
+      }}
+    />
+  );
+};
 
-    return (
-      <div
-        className="gs-symbolizer-previewmap map"
-        id={this._mapTargetId}
-        style={{
-          height: mapHeight
-        }}
-      />
-    );
-  }
-}
-
-export default localize(PreviewMap, PreviewMap.componentName);
+export default PreviewMap;

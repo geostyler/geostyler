@@ -25,27 +25,21 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-import { PreviewMap, PreviewMapProps } from './PreviewMap';
+import React from 'react';
+import { PreviewMap } from './PreviewMap';
 import TestUtil from '../../Util/TestUtil';
+import { render } from '@testing-library/react';
 
 describe('PreviewMap', () => {
 
-  let wrapper: any;
   const dummyStyle = TestUtil.getLineStyle();
-
-  beforeEach(() => {
-    const props: PreviewMapProps = {
-      style: dummyStyle
-    };
-    wrapper = TestUtil.shallowRenderComponent(PreviewMap, props);
-  });
 
   it('is defined', () => {
     expect(PreviewMap).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const field = render(<PreviewMap style={dummyStyle} />);
+    expect(field.container).toBeInTheDocument();
   });
 });
