@@ -45,8 +45,8 @@ const sldParser = new SLDParser();
 const olParser = new OpenLayersParser();
 
 const sldToOL = async (sld) => {
-  const geostylerStyle = await sldParser.readStyle(someSld);
-  const olStyle = await olParser.writeStyle(geostylerStyle);
+  const { output: geostylerStyle } = await sldParser.readStyle(someSld);
+  const { output: olStyle } = await olParser.writeStyle(geostylerStyle);
   return olStyle;
 };
 
