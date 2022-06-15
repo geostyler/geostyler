@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import OlMap from 'ol/Map';
 import OlLayerVector from 'ol/layer/Vector';
@@ -77,42 +77,58 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
   onMapDidMount
 }) => {
 
-  const ref = useRef();
+  const containerRef = useRef();
+
+  /** the vector layer for the passed features */
+  const dataLayerRef = useRef<OlLayerVector<any>>(new OlLayerVector({
+    source: new OlSourceVector()
+  }));
 
   /** the underlying OpenLayers map */
-  const [map, setMap] = useState<OlMap>(
+  const mapRef = useRef<OlMap>(
     mapProp ||
     new OlMap({
       controls: [],
       layers: [
         new OlLayerTile({
           source: new OlSourceOSM()
-        })
+        }),
+        dataLayerRef.current
       ]
     })
   );
 
-  /** the vector layer for the passed features */
-  const [dataLayer] = useState<OlLayerVector<any>>(new OlLayerVector({
-    source: new OlSourceVector()
-  }));
-
   /**
    * Fits the preview extend to the data when the dataLayer changes.
    */
-  const zoomToData = useCallback(() => {
+  const zoomToData = () => {
+    const map = mapRef.current;
+    const dataLayer = dataLayerRef.current;
     map.getView().fit(
       dataLayer.getSource().getExtent(),
       {
         maxZoom: 10
       }
     );
-  }, [dataLayer, map]);
+  };
+
+  /**
+   * Add the dataLayer to the map.
+   */
+  const addDataLayer = () => {
+    const map = mapRef.current;
+    const dataLayer = dataLayerRef.current;
+    if (!map.getAllLayers().some(layer => layer === dataLayer)) {
+      map.addLayer(dataLayer);
+    }
+  };
 
   /**
    * Add the containing exampleFeatures if the passed data changes.
    */
   useEffect(() => {
+    const map = mapRef.current;
+    const dataLayer = dataLayerRef.current;
     if (dataLayer && (data as VectorData)?.exampleFeatures && map) {
       dataLayer.getSource().clear();
       const format = new OlFormatGeoJSON({
@@ -122,23 +138,26 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
       const olFeatures = format.readFeatures((data as VectorData).exampleFeatures);
       dataLayer.getSource().addFeatures(olFeatures);
     }
-  }, [data, dataProjection, dataLayer, map]);
+  }, [data, dataProjection]);
 
   /**
    * Update the layerStyle if the passed style changes.
    */
   useEffect(() => {
+    const dataLayer = dataLayerRef.current;
     const styleParser = new OlStyleParser();
     styleParser.writeStyle(style)
       .then(({ output: olStyles}) => {
         dataLayer.setStyle(olStyles);
       });
-  }, [style, dataLayer]);
+  }, [style]);
 
   /**
    * If no data is provided create sample geometries based on the passed style.
    */
   useEffect(() => {
+    const map = mapRef.current;
+    const dataLayer = dataLayerRef.current;
     if (!data && dataLayer && map && style) {
       const geoms = GeometryUtil.getSampleGeomFromStyle(style, map.getView().getProjection());
       geoms.forEach((geometry: any) => {
@@ -147,13 +166,13 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
       });
       zoomToData();
     }
-  }, [dataLayer, map, style, data, zoomToData]);
+  }, [style, data]);
 
   // Set the map if a mapProp is passed
   useEffect(() => {
     if (mapProp) {
       // use passed in OL map and bind it to this preview DIV
-      setMap(mapProp);
+      mapRef.current = mapProp;
     }
   }, [mapProp]);
 
@@ -161,36 +180,29 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
    * Set the target of the map if the ref is defined.
    */
   useEffect(() => {
-    if (ref) {
-      map.setTarget(ref.current);
+    const map = mapRef.current;
+    if (containerRef) {
+      map.setTarget(containerRef.current);
       map.updateSize();
+      addDataLayer();
       zoomToData();
     }
-  }, [map, onMapDidMount, zoomToData]);
-
-  /**
-   * Add the dataLayer to the map.
-   */
-  useEffect(() => {
-    if (!map.getAllLayers().some(layer => layer === dataLayer)) {
-      map.addLayer(dataLayer);
-    }
-  }, [map, dataLayer]);
+  }, []);
 
   /**
    * Call the `onMapDidMount` callback if defined.
    */
   useEffect(() => {
-    if (ref) {
+    if (containerRef) {
       if (onMapDidMount) {
-        onMapDidMount(map);
+        onMapDidMount(mapRef.current);
       }
     }
-  }, [map, onMapDidMount]);
+  }, [onMapDidMount]);
 
   return (
     <div
-      ref={ref}
+      ref={containerRef}
       className="gs-symbolizer-previewmap map"
       id={`map_${Math.floor((1 + Math.random()) * 0x10000)}`}
       style={{
