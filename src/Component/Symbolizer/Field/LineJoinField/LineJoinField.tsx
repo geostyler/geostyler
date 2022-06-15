@@ -72,7 +72,7 @@ export const LineJoinField: React.FC<LineJoinFieldProps> = ({
 
   return (
     <Select
-      className="editor-field line-join"
+      className="editor-field line-join-field"
       value={join}
       onChange={onChange}
     >

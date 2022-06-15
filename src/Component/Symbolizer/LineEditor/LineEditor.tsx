@@ -74,314 +74,271 @@ export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
   symbolizer: LineSymbolizer;
   /** Callback when symbolizer changes */
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  defaultValues: DefaultValues;
+  defaultValues?: DefaultValues;
 }
+const COMPONENTNAME = 'LineEditor';
 
-export class LineEditor extends React.Component<LineEditorProps> {
+export const LineEditor: React.FC<LineEditorProps> = ({
+  locale = en_US.LineEditor,
+  symbolizer,
+  onSymbolizerChange,
+  defaultValues
+}) => {
 
-  public static defaultProps: LineEditorDefaultProps = {
-    locale: en_US.LineEditor
-  };
-
-  static componentName: string = 'LineEditor';
-
-  public shouldComponentUpdate(nextProps: LineEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
-  onColorChange = (value: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.color = value;
+  const onColorChange = (value: LineSymbolizer['color']) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.color = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(sybolizerClone);
     }
   };
 
-  onWidthChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.width = value;
+  const onWidthChange = (value: LineSymbolizer['width']) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.width = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(sybolizerClone);
     }
   };
 
-  onOpacityChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.opacity = value;
+  const onOpacityChange = (value: LineSymbolizer['opacity']) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.opacity = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(sybolizerClone);
     }
   };
 
-  onDasharrayChange = (value: number[]) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.dasharray = value;
+  const onDasharrayChange = (value: LineSymbolizer['dasharray']) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.dasharray = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(sybolizerClone);
     }
   };
 
-  onDashOffsetChange = (value: LineSymbolizer['dashOffset']) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.dashOffset = value;
+  const onDashOffsetChange = (value: LineSymbolizer['dashOffset']) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.dashOffset = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(sybolizerClone);
     }
   };
 
-  onCapChange = (value: LineSymbolizer['cap']) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.cap = value;
+  const onCapChange = (value: LineSymbolizer['cap']) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.cap = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(sybolizerClone);
     }
   };
 
-  onJoinChange = (value: LineSymbolizer['join']) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.join = value;
+  const onJoinChange = (value: LineSymbolizer['join']) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.join = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(sybolizerClone);
     }
   };
 
-  onGraphicStrokeChange = (gStroke: PointSymbolizer) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.graphicStroke = gStroke;
+  const onGraphicStrokeChange = (gStroke: PointSymbolizer) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.graphicStroke = gStroke;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(sybolizerClone);
     }
   };
 
-  onGraphicFillChange = (gFill: PointSymbolizer) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.graphicFill = gFill;
+  const onGraphicFillChange = (gFill: PointSymbolizer) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.graphicFill = gFill;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(sybolizerClone);
     }
   };
 
-  /**
-   * Wraps a Form Item around a given element and adds its locale
-   * to the From Item label.
-   */
-  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-    return element == null ? null : (
-      <Form.Item
-        label={locale}
-        {...formItemLayout}
-      >
-        {element}
-      </Form.Item>
-    );
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
   };
 
-  render() {
-    const {
-      symbolizer,
-      defaultValues
-    } = this.props;
+  const {
+    color,
+    width,
+    opacity,
+    dasharray,
+    dashOffset,
+    cap,
+    join,
+    graphicStroke,
+    graphicFill
+  } = _cloneDeep(symbolizer);
 
-    const {
-      color,
-      width,
-      opacity,
-      dasharray,
-      dashOffset,
-      cap,
-      join,
-      graphicStroke,
-      graphicFill
-    } = symbolizer;
-
-    const {
-      locale
-    } = this.props;
-
-    return (
-      <CompositionContext.Consumer>
-        {(composition: Compositions) => (
-          <div className="gs-line-symbolizer-editor" >
-            <Collapse bordered={false} defaultActiveKey={['1']}>
-              <Panel header="General" key="1">
-                {
-                  this.wrapFormItem(
-                    locale.colorLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'LineEditor.colorField',
-                      onChange: this.onColorChange,
-                      propName: 'color',
-                      propValue: color,
-                      defaultValue: defaultValues?.LineEditor?.defaultColor,
-                      defaultElement: <ColorField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.widthLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'LineEditor.widthField',
-                      onChange: this.onWidthChange,
-                      propName: 'width',
-                      propValue: width,
-                      defaultValue: defaultValues?.LineEditor?.defaultWidth,
-                      defaultElement: <WidthField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.opacityLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'LineEditor.opacityField',
-                      onChange: this.onOpacityChange,
-                      propName: 'opacity',
-                      propValue: opacity,
-                      defaultValue: defaultValues?.LineEditor?.defaultOpacity,
-                      defaultElement: <OpacityField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.dashLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'LineEditor.lineDashField',
-                      onChange: this.onDasharrayChange,
-                      propName: 'dashArray',
-                      propValue: dasharray,
-                      defaultElement: <LineDashField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.dashOffsetLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'LineEditor.dashOffsetField',
-                      onChange: this.onDashOffsetChange,
-                      propName: 'offset',
-                      propValue: dashOffset,
-                      defaultValue: defaultValues?.LineEditor?.defaultDashOffset,
-                      defaultElement: (
-                        <OffsetField
-                          disabled={
-                            symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0
-                          }
-                        />)
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.capLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'LineEditor.capField',
-                      onChange: this.onCapChange,
-                      propName: 'cap',
-                      propValue: cap,
-                      defaultValue: defaultValues?.LineEditor?.defaultCap,
-                      defaultElement: <LineCapField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.joinLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'LineEditor.joinField',
-                      onChange: this.onJoinChange,
-                      propName: 'join',
-                      propValue: join,
-                      defaultValue: defaultValues?.LineEditor?.defaultJoin,
-                      defaultElement: <LineJoinField />
-                    })
-                  )
-                }
-              </Panel>
-              <Panel header="Graphic Stroke" key="2">
+  return (
+    <CompositionContext.Consumer>
+      {(composition: Compositions) => (
+        <div className="gs-line-symbolizer-editor" >
+          <Collapse bordered={false} defaultActiveKey={['1']}>
+            <Panel header="General" key="1">
+              <Form.Item
+                label={locale.colorLabel}
+                {...formItemLayout}
+              >
                 {
                   CompositionUtil.handleComposition({
                     composition,
-                    path: 'LineEditor.graphicStrokeField',
-                    onChange: this.onGraphicStrokeChange,
-                    propName: 'graphic',
-                    propValue: graphicStroke,
-                    onChangeName: 'onGraphicChange',
-                    defaultElement: (
-                      <GraphicEditor
-                        graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
-                        graphic={graphicStroke}
-                        graphicType={_get(graphicStroke, 'kind') as GraphicType}
-                      />)
+                    path: 'LineEditor.colorField',
+                    onChange: onColorChange,
+                    propName: 'color',
+                    propValue: color,
+                    defaultValue: defaultValues?.LineEditor?.defaultColor,
+                    defaultElement: <ColorField />
                   })
                 }
-              </Panel>
-              <Panel header="Graphic Fill" key="3">
+              </Form.Item>
+              <Form.Item
+                label={locale.widthLabel}
+                {...formItemLayout}
+              >
                 {
                   CompositionUtil.handleComposition({
                     composition,
-                    path: 'LineEditor.graphicFillField',
-                    onChange: this.onGraphicFillChange,
-                    propName: 'graphic',
-                    propValue: graphicFill,
-                    onChangeName: 'onGraphicChange',
+                    path: 'LineEditor.widthField',
+                    onChange: onWidthChange,
+                    propName: 'width',
+                    propValue: width,
+                    defaultValue: defaultValues?.LineEditor?.defaultWidth,
+                    defaultElement: <WidthField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.opacityLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'LineEditor.opacityField',
+                    onChange: onOpacityChange,
+                    propName: 'opacity',
+                    propValue: opacity,
+                    defaultValue: defaultValues?.LineEditor?.defaultOpacity,
+                    defaultElement: <OpacityField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.dashLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'LineEditor.lineDashField',
+                    onChange: onDasharrayChange,
+                    propName: 'dashArray',
+                    propValue: dasharray,
+                    defaultElement: <LineDashField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.dashOffsetLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'LineEditor.dashOffsetField',
+                    onChange: onDashOffsetChange,
+                    propName: 'offset',
+                    propValue: dashOffset,
+                    defaultValue: defaultValues?.LineEditor?.defaultDashOffset,
                     defaultElement: (
-                      <GraphicEditor
-                        graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-                        graphic={graphicFill}
-                        graphicType={_get(graphicFill, 'kind') as GraphicType}
+                      <OffsetField
+                        disabled={
+                          symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0
+                        }
                       />)
                   })
                 }
-              </Panel>
-            </Collapse>
-          </div>)
-        }
-      </CompositionContext.Consumer>
-    );
-  }
+              </Form.Item>
+              <Form.Item
+                label={locale.capLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'LineEditor.capField',
+                    onChange: onCapChange,
+                    propName: 'cap',
+                    propValue: cap,
+                    defaultValue: defaultValues?.LineEditor?.defaultCap,
+                    defaultElement: <LineCapField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.joinLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'LineEditor.joinField',
+                    onChange: onJoinChange,
+                    propName: 'join',
+                    propValue: join,
+                    defaultValue: defaultValues?.LineEditor?.defaultJoin,
+                    defaultElement: <LineJoinField />
+                  })
+                }
+              </Form.Item>
+            </Panel>
+            <Panel header="Graphic Stroke" key="2">
+              {
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'LineEditor.graphicStrokeField',
+                  onChange: onGraphicStrokeChange,
+                  propName: 'graphic',
+                  propValue: graphicStroke,
+                  onChangeName: 'onGraphicChange',
+                  defaultElement: (
+                    <GraphicEditor
+                      graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
+                      graphic={graphicStroke}
+                      graphicType={_get(graphicStroke, 'kind') as GraphicType}
+                    />)
+                })
+              }
+            </Panel>
+            <Panel header="Graphic Fill" key="3">
+              {
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'LineEditor.graphicFillField',
+                  onChange: onGraphicFillChange,
+                  propName: 'graphic',
+                  propValue: graphicFill,
+                  onChangeName: 'onGraphicChange',
+                  defaultElement: (
+                    <GraphicEditor
+                      graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+                      graphic={graphicFill}
+                      graphicType={_get(graphicFill, 'kind') as GraphicType}
+                    />)
+                })
+              }
+            </Panel>
+          </Collapse>
+        </div>)
+      }
+    </CompositionContext.Consumer>
+  );
 
-}
+};
 
-export default withDefaultsContext(localize(LineEditor, LineEditor.componentName));
+export default withDefaultsContext(localize(LineEditor, COMPONENTNAME));
