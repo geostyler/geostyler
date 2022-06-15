@@ -57,60 +57,42 @@ export interface ColorSpaceComboProps extends Partial<ColorSpaceComboDefaultProp
   /** The selected color space */
   colorSpace?: InterpolationMode;
 }
+const COMPONENTNAME = 'ColorSpaceCombo';
 
 /**
  * Symbolizer editorwindow UI.
  */
-export class ColorSpaceCombo extends React.Component<ColorSpaceComboProps> {
+export const ColorSpaceCombo: React.FC<ColorSpaceComboProps> = ({
+  locale = en_US.ColorSpaceCombo,
+  colorSpaces = ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'],
+  onChange,
+  colorSpace
+}) => {
 
-  static componentName: string = 'ColorSpaceCombo';
-
-  public static defaultProps: ColorSpaceComboDefaultProps = {
-    locale: en_US.ColorSpaceCombo,
-    colorSpaces: ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb']
-  };
-
-  public shouldComponentUpdate(nextProps: ColorSpaceComboProps): boolean {
-    return !_isEqual(this.props, nextProps);
-  }
-
-  getColorSpaceOptions = () => {
-    const {
-      colorSpaces
-    } = this.props;
-
-    return colorSpaces.map((colorSpace: InterpolationMode) => {
-      return (
-        <Select.Option
-          className="color-space-option"
-          key={colorSpace}
-          value={colorSpace}
-        >
-          {colorSpace.toUpperCase()}
-        </Select.Option>
-      );
-    });
-  };
-
-  render() {
-    const {
-      colorSpace,
-      onChange,
-      locale
-    } = this.props;
-
+  const colorSpaceOptions = colorSpaces.map((cSpace: InterpolationMode) => {
     return (
-      <Select
-        className="color-space-select"
-        placeholder={locale.colorSpacePlaceholder}
-        optionFilterProp="children"
-        value={colorSpace}
-        onChange={onChange}
+      <Select.Option
+        className="color-space-option"
+        key={cSpace}
+        value={cSpace}
       >
-        {this.getColorSpaceOptions()}
-      </Select>
+        {cSpace.toUpperCase()}
+      </Select.Option>
     );
-  }
-}
+  });
 
-export default localize(ColorSpaceCombo, ColorSpaceCombo.componentName);
+
+  return (
+    <Select
+      className="color-space-select"
+      placeholder={locale.colorSpacePlaceholder}
+      optionFilterProp="children"
+      value={colorSpace}
+      onChange={onChange}
+    >
+      {colorSpaceOptions}
+    </Select>
+  );
+};
+
+export default localize(ColorSpaceCombo, COMPONENTNAME);
