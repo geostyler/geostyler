@@ -8,7 +8,7 @@ Package: [npm](https://www.npmjs.com/package/geostyler)
 Documentation:
 [main](https://geostyler.github.io/geostyler/main/index.html) /
 [latest](https://geostyler.github.io/geostyler/latest/index.html) /
-[4.3.0](https://geostyler.github.io/geostyler/v4.3.0/index.html)
+[8.1.1](https://geostyler.github.io/geostyler/v8.1.1/index.html)
 
 Examples:
 [Demo application](https://geostyler.github.io/geostyler-demo/)
