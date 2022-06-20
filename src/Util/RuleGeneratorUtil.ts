@@ -102,7 +102,11 @@ class RuleGeneratorUtil {
   }
 
   static generateColors(colors: string[], numberOfRules: number, colorSpace: InterpolationMode = 'hsl'): string[] {
-    return chromaScale(colors).mode(colorSpace).colors(numberOfRules);
+    try {
+      return chromaScale(colors).mode(colorSpace).colors(numberOfRules);
+    } catch (error) {
+      return undefined;
+    }
   }
 
   static generateRules(params: RuleGenerationParams): Rule[] {
