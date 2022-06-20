@@ -28984,6 +28984,11 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .gs-rule-field-container .gs-renderer .gs-symbolizer-renderer {
   height: 100%;
+  cursor: default;
+}
+.gs-rule-field-container .gs-renderer .gs-symbolizer-sldrenderer {
+  height: 100%;
+  cursor: default;
 }
 
 /* Released under the BSD 2-Clause License
@@ -29357,4 +29362,14 @@ div.ant-typography-edit-content.ant-typography-rtl {
 
 
 
+.gs-card-style > .gs-renderer .gs-symbolizer-renderer {
+  width: 50px;
+  height: 50px;
+  cursor: default;
+}
+.gs-card-style > .gs-renderer .gs-symbolizer-sldrenderer {
+  width: 50px;
+  height: 50px;
+  cursor: default;
+}
 
