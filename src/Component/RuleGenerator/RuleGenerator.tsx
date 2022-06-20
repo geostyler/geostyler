@@ -68,7 +68,6 @@ export interface RuleGeneratorProps extends Partial<RuleGeneratorDefaultProps> {
 }
 const COMPONENTNAME = 'RuleGenerator';
 
-// export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGeneratorState> {
 export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
   locale = en_US.RuleGenerator,
   internalDataDef,

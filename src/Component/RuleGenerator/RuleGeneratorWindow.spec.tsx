@@ -25,31 +25,29 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
 import {
   RuleGeneratorWindow,
   RuleGeneratorWindowProps
 } from './RuleGeneratorWindow';
 import TestUtil from '../../Util/TestUtil';
 import { Data } from 'geostyler-data';
+import { render } from '@testing-library/react';
 
 describe('RuleGeneratorWindow', () => {
 
-  let wrapper: any;
   const dummyData: Data = TestUtil.getDummyGsData();
-
-  beforeEach(() => {
-    const props: RuleGeneratorWindowProps = {
-      internalDataDef: dummyData
-    };
-    wrapper = TestUtil.shallowRenderComponent(RuleGeneratorWindow, props);
-  });
+  const props: RuleGeneratorWindowProps = {
+    internalDataDef: dummyData
+  };
 
   it('is defined', () => {
     expect(RuleGeneratorWindow).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const ruleGeneratorWindow = render(<RuleGeneratorWindow {...props} />);
+    expect(ruleGeneratorWindow.container).toBeInTheDocument();
   });
+
 });

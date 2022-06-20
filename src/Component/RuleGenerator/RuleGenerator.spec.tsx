@@ -47,8 +47,8 @@ describe('RuleGenerator', () => {
 
 
   it('renders correctly', () => {
-    const wellKnownNameEditor = render(<RuleGenerator {...props} />);
-    expect(wellKnownNameEditor.container).toBeInTheDocument();
+    const ruleGenerator = render(<RuleGenerator {...props} />);
+    expect(ruleGenerator.container).toBeInTheDocument();
   });
 
 });
