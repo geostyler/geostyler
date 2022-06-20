@@ -97,7 +97,7 @@
     "@types/enzyme": "^3.10.11",
     "@types/jest": "^28.1.0",
     "@types/jest-diff": "^24.3.0",
-    "@types/node": "^16.11.26",
+    "@types/node": "^18.0.0",
     "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/eslint-plugin-tslint": "^5.12.0",
