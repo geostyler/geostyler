@@ -60,6 +60,7 @@ import { BulkEditor } from '../BulkEditor/BulkEditor';
 import IconSelector, { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { GeoStylerLocale } from '../../locale/locale';
+import Renderer from '../Renderer/Renderer';
 
 // default props
 interface CardStyleDefaultProps {
@@ -312,7 +313,9 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   const mergedStyleOverviewProps = {...styleOverviewProps, ...styleOverviewPropsOverwrites};
 
   return (
-    <div>
+    <div
+      className='gs-card-style'
+    >
       <Breadcrumb
         crumbs={currentView.path}
         onClick={changeView}
@@ -342,23 +345,35 @@ export const CardStyle: React.FC<CardStyleProps> = ({
       }
       {
         currentView.view === SYMBOLIZERVIEW && (
-          <Editor
-            symbolizer={
-              style
-                .rules[currentView.path[currentView.path.length - 1].indices[0]]
-                .symbolizers[currentView.path[currentView.path.length - 1].indices[1]]
-            }
-            onSymbolizerChange={onSymbolizerChange}
-            iconEditorProps={{
-              imageFieldProps: {
-                windowless: true,
-                onIconLibrariesClick: onIconEditorChangeView
+          <>
+            <Renderer
+              symbolizers={[
+                style
+                  .rules[currentView.path[currentView.path.length - 1].indices[0]]
+                  .symbolizers[currentView.path[currentView.path.length - 1].indices[1]]
+              ]}
+              data={data}
+              rendererType={rendererType}
+              // TODO add sldRendererProps
+            />
+            <Editor
+              symbolizer={
+                style
+                  .rules[currentView.path[currentView.path.length - 1].indices[0]]
+                  .symbolizers[currentView.path[currentView.path.length - 1].indices[1]]
               }
-            }}
-            internalDataDef={data}
-            iconLibraries={iconLibraries}
-            {...editorProps}
-          />
+              onSymbolizerChange={onSymbolizerChange}
+              iconEditorProps={{
+                imageFieldProps: {
+                  windowless: true,
+                  onIconLibrariesClick: onIconEditorChangeView
+                }
+              }}
+              internalDataDef={data}
+              iconLibraries={iconLibraries}
+              {...editorProps}
+            />
+          </>
         )
       }
       {
