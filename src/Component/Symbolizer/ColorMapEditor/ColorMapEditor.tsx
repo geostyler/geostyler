@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   Form,
   Table,
@@ -50,7 +50,6 @@ import { brewer } from 'chroma-js';
 
 import './ColorMapEditor.less';
 
-import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import { GeoStylerLocale } from '../../../locale/locale';
 
@@ -71,37 +70,22 @@ export interface ColorMapEditorProps extends Partial<ColorMapEditorDefaultProps>
   onChange?: (colorMap: ColorMap) => void;
 }
 
-export interface ColorMapEditorState {
-  colorRamp: string;
-}
+const COMPONENTNAME = 'ColorMapEditor';
 
-export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMapEditorState> {
+export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
+  locale = en_US.ColorMapEditor,
+  colorRamps = {
+    GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
+    GreenRed: ['#00FF00', '#FF0000'],
+    ...brewer
+  },
+  colorMap,
+  onChange
+}) => {
 
-  static componentName: string = 'ColorMapEditor';
+  const [colorRamp, setColorRamp] = useState<string>(Object.keys(colorRamps)[0]);
 
-  public static defaultProps: ColorMapEditorDefaultProps = {
-    locale: en_US.ColorMapEditor,
-    colorRamps: {
-      GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
-      GreenRed: ['#00FF00', '#FF0000'],
-      ...brewer
-    }
-  };
-
-  constructor(props: ColorMapEditorProps) {
-    super(props);
-
-    this.state = {
-      colorRamp: Object.keys(props.colorRamps)[0]
-    };
-  }
-
-  updateColorMap = (prop: string, value: any) => {
-    const {
-      colorMap,
-      onChange
-    } = this.props;
-
+  const updateColorMap = (prop: string, value: any) => {
     let newColorMap: ColorMap;
     if (colorMap) {
       newColorMap = _cloneDeep(colorMap);
@@ -116,12 +100,12 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
     }
   };
 
-  onExtendedChange = (extended: boolean) => {
-    this.updateColorMap('extended', extended);
+  const onExtendedChange = (extended: boolean) => {
+    updateColorMap('extended', extended);
   };
 
-  onTypeChange = (type: ColorMapType) => {
-    this.updateColorMap('type', type);
+  const onTypeChange = (type: ColorMapType) => {
+    updateColorMap('type', type);
   };
 
   /**
@@ -129,12 +113,8 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
    * number of classes. Table will be updated accordingly.
    *
    */
-  onNrOfClassesChange = (value: number) => {
-    const {
-      colorRamp
-    } = this.state;
-
-    const cmEntries = _get(this.props, 'colorMap.colorMapEntries');
+  const onNrOfClassesChange = (value: number) => {
+    const cmEntries = colorMap?.colorMapEntries;
     const newCmEntries: ColorMapEntry[] = cmEntries ? _cloneDeep(cmEntries) : [];
 
     if (value > newCmEntries.length) {
@@ -146,18 +126,15 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
         newCmEntries.pop();
       }
     }
-    this.applyColors(colorRamp, newCmEntries);
-    this.updateColorMap('colorMapEntries', newCmEntries);
+    applyColors(colorRamp, newCmEntries);
+    updateColorMap('colorMapEntries', newCmEntries);
   };
 
-  onColorRampChange = (colorRamp: string) => {
-    const cmEntries = _get(this.props, 'colorMap.colorMapEntries');
-    const newCmEntries = this.applyColors(colorRamp, _cloneDeep(cmEntries));
-    this.updateColorMap('colorMapEntries', newCmEntries);
-
-    this.setState({
-      colorRamp
-    });
+  const onColorRampChange = (newColorRamp: string) => {
+    const cmEntries = colorMap?.colorMapEntries;
+    const newCmEntries = applyColors(newColorRamp, _cloneDeep(cmEntries));
+    updateColorMap('colorMapEntries', newCmEntries);
+    setColorRamp(newColorRamp);
   };
 
   /**
@@ -166,12 +143,9 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
    *
    * @return {ColorMapEntry[]} cmEntries, the modified array of colorMapEntries.
    */
-  applyColors = (colorRamp: string, cmEntries: ColorMapEntry[] = []): ColorMapEntry[] => {
-    const {
-      colorRamps
-    } = this.props;
-    const ramp = colorRamps[colorRamp] ?
-      colorRamps[colorRamp] : colorRamps[Object.keys(colorRamps)[0]];
+  const applyColors = (newColorRamp: string, cmEntries: ColorMapEntry[] = []): ColorMapEntry[] => {
+    const ramp = colorRamps[newColorRamp] ?
+      colorRamps[newColorRamp] : colorRamps[Object.keys(colorRamps)[0]];
     const colors = RuleGeneratorUtil.generateColors(ramp, cmEntries.length);
     cmEntries.forEach((entry: ColorMapEntry, idx: number) => {
       entry.color = colors[idx];
@@ -183,9 +157,8 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
    * Updates property 'key' with 'value' of colorMapEntry at position 'index'.
    * Creates a new colorMapEntry if it did not exist yet.
    */
-  setValueForColorMapEntry = (idx: number, key: string, value: any) => {
-    const cmEntries = _get(this.props, 'colorMap.colorMapEntries');
-
+  const setValueForColorMapEntry = (idx: number, key: string, value: any) => {
+    const cmEntries = colorMap?.colorMapEntries;
     let newCmEntries: ColorMapEntry[];
     if (cmEntries) {
       newCmEntries = _cloneDeep(cmEntries);
@@ -194,38 +167,27 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
       newCmEntries = [{}] as ColorMapEntry[];
       newCmEntries[0][key] = value;
     }
-    this.updateColorMap('colorMapEntries', newCmEntries);
+    updateColorMap('colorMapEntries', newCmEntries);
   };
 
-  getColorMapRecords = () => {
-    let cmEntries = _get(this.props, 'colorMap.colorMapEntries');
-    if (!cmEntries) {
-      return [];
-    } else {
-      return cmEntries.map((entry: ColorMapEntry, index: number): ColorMapEntryRecord => {
-        return {
-          key: index,
-          ...entry
-        };
-      });
-    }
-  };
+  const colorMapRecords = colorMap?.colorMapEntries?.map((entry: ColorMapEntry, index: number): ColorMapEntryRecord => {
+    return {
+      key: index,
+      ...entry
+    };
+  });
 
   /**
    * Renderer method for the label column.
    */
-  labelRenderer = (text: string, record: ColorMapEntryRecord) => {
-    const {
-      locale
-    } = this.props;
-
+  const labelRenderer = (text: string, record: ColorMapEntryRecord) => {
     const input = (
       <Input
         className="gs-colormap-label-input"
         value={record.label}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           const target = event.target;
-          this.setValueForColorMapEntry(record.key, 'label', target.value);
+          setValueForColorMapEntry(record.key, 'label', target.value);
         }}
       />);
     return (
@@ -241,12 +203,12 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
   /**
    * Renderer method for the color column.
    */
-  colorRenderer = (text: string, record: ColorMapEntryRecord) => {
+  const colorRenderer = (text: string, record: ColorMapEntryRecord) => {
     const input = (
       <ColorField
         color={record.color}
         onChange={(color: string) => {
-          this.setValueForColorMapEntry(record.key, 'color', color);
+          setValueForColorMapEntry(record.key, 'color', color);
         }}
       />
     );
@@ -256,13 +218,13 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
   /**
    * Renderer method for the quantity column.
    */
-  quantityRenderer = (text: string, record: ColorMapEntryRecord) => {
+  const quantityRenderer = (text: string, record: ColorMapEntryRecord) => {
     const input = (
       <OffsetField
         className="gs-colormap-quantity-input"
         offset={record.quantity}
         onChange={(value: number) => {
-          this.setValueForColorMapEntry(record.key, 'quantity', value);
+          setValueForColorMapEntry(record.key, 'quantity', value);
         }}
       />
     );
@@ -272,131 +234,109 @@ export class ColorMapEditor extends React.Component<ColorMapEditorProps, ColorMa
   /**
    * Renderer method for the opacity column.
    */
-  opacityRenderer = (text: string, record: ColorMapEntryRecord) => {
+  const opacityRenderer = (text: string, record: ColorMapEntryRecord) => {
     const input = (
       <OpacityField
         className="gs-colormap-opacity-input"
         opacity={record.opacity}
         onChange={(opacity: number) => {
-          this.setValueForColorMapEntry(record.key, 'opacity', opacity);
+          setValueForColorMapEntry(record.key, 'opacity', opacity);
         }}
       />
     );
     return input;
   };
 
-  /**
-   * Creates the columns for the table.
-   */
-  getColumns = () => {
-    const {
-      locale
-    } = this.props;
+  const columns: any = [{
+    title: locale.colorLabel,
+    dataIndex: 'color',
+    render: colorRenderer
+  }, {
+    title: locale.quantityLabel,
+    dataIndex: 'quantity',
+    render: quantityRenderer
+  }, {
+    title: locale.labelLabel,
+    dataIndex: 'label',
+    render: labelRenderer
+  }, {
+    title: locale.opacityLabel,
+    dataIndex: 'opacity',
+    render: opacityRenderer
+  }];
 
-    const columns: any = [{
-      title: locale.colorLabel,
-      dataIndex: 'color',
-      render: this.colorRenderer
-    }, {
-      title: locale.quantityLabel,
-      dataIndex: 'quantity',
-      render: this.quantityRenderer
-    }, {
-      title: locale.labelLabel,
-      dataIndex: 'label',
-      render: this.labelRenderer
-    }, {
-      title: locale.opacityLabel,
-      dataIndex: 'opacity',
-      render: this.opacityRenderer
-    }];
-    return columns;
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
   };
 
-  render() {
-    const {
-      colorMap,
-      colorRamps,
-      locale
-    } = this.props;
-
-    const {
-      colorRamp
-    } = this.state;
-
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
-    // make sure colorMapEntries does exist
-    let colorMapEntries: ColorMapEntry[] = _get(colorMap, 'colorMapEntries');
-    if (!colorMapEntries) {
-      colorMapEntries = [];
-    }
-    const nrOfClasses = colorMapEntries.length;
-
-    return (
-      <div className="gs-colormap-symbolizer-editor" >
-        <div className="gs-colormap-header-row">
-          <Form.Item
-            {...formItemLayout}
-          >
-            <span>{locale.titleLabel}</span>
-          </Form.Item>
-          <Form.Item
-            label={locale.typeLabel}
-            {...formItemLayout}
-          >
-            <ColorMapTypeField
-              colorMapType={_get(colorMap, 'type')}
-              onChange={this.onTypeChange}
-            />
-          </Form.Item>
-          <Form.Item
-            label={locale.nrOfClassesLabel}
-            {...formItemLayout}
-          >
-            <InputNumber
-              className="number-of-classes-field"
-              min={0}
-              max={255}
-              value={nrOfClasses}
-              onChange={this.onNrOfClassesChange}
-            />
-          </Form.Item>
-          <Form.Item
-            label={locale.colorRampLabel}
-            {...formItemLayout}
-          >
-            <ColorRampCombo
-              onChange={this.onColorRampChange}
-              colorRamp={colorRamp}
-              colorRamps={colorRamps}
-            />
-          </Form.Item>
-          <Form.Item
-            label={locale.extendedLabel}
-            {...formItemLayout}
-          >
-            <ExtendedField
-              extended={_get(colorMap, 'extended')}
-              onChange={this.onExtendedChange}
-            />
-          </Form.Item>
-        </div>
-        <Table
-          className="gs-colormap-table"
-          columns={this.getColumns()}
-          dataSource={this.getColorMapRecords()}
-          pagination={{
-            position: ['bottomCenter']
-          }}
-          size="small"
-        />
-      </div>
-    );
+  // make sure colorMapEntries does exist
+  let colorMapEntries: ColorMapEntry[] = colorMap?.colorMapEntries;
+  if (!colorMapEntries) {
+    colorMapEntries = [];
   }
-}
+  const nrOfClasses = colorMapEntries.length;
 
-export default localize(ColorMapEditor, ColorMapEditor.componentName);
+  return (
+    <div className="gs-colormap-symbolizer-editor" >
+      <div className="gs-colormap-header-row">
+        <Form.Item
+          {...formItemLayout}
+        >
+          <span>{locale.titleLabel}</span>
+        </Form.Item>
+        <Form.Item
+          label={locale.typeLabel}
+          {...formItemLayout}
+        >
+          <ColorMapTypeField
+            colorMapType={colorMap?.type}
+            onChange={onTypeChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.nrOfClassesLabel}
+          {...formItemLayout}
+        >
+          <InputNumber
+            className="number-of-classes-field"
+            min={0}
+            max={255}
+            value={nrOfClasses}
+            onChange={onNrOfClassesChange}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.colorRampLabel}
+          {...formItemLayout}
+        >
+          <ColorRampCombo
+            onChange={onColorRampChange}
+            colorRamp={colorRamp}
+            colorRamps={colorRamps}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.extendedLabel}
+          {...formItemLayout}
+        >
+          <ExtendedField
+            extended={colorMap?.extended}
+            onChange={onExtendedChange}
+          />
+        </Form.Item>
+      </div>
+      <Table
+        className="gs-colormap-table"
+        columns={columns}
+        dataSource={colorMapRecords}
+        pagination={{
+          position: ['bottomCenter']
+        }}
+        size="small"
+      />
+    </div>
+  );
+};
+
+export default localize(ColorMapEditor, COMPONENTNAME);
