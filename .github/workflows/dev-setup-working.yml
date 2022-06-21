@@ -1,0 +1,45 @@
+name: Verify dev setup works on various OS
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@v2
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Cache Node.js modules 💾
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-node-
+          ${{ runner.OS }}-
+
+    - name: Install dependencies ⏬
+      run: npm install
+
+    - name: Lint code 💄
+      run: npm run lint
+
+    - name: Test code ✅
+      run: npm run test-ci
+
+    - name: Build artifacts 🏗️
+      run: npm run build
+
+#    - name: Check webpack serving, how to test is unclear currently for me…
+#      run: npm run start-dev
+#
+#    - name: Check testsuite watching, how to test is unclear currently for me…
+#      run: npm run test-watch
