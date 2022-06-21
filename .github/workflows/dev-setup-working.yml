@@ -38,8 +38,21 @@ jobs:
     - name: Build artifacts 🏗️
       run: npm run build
 
-#    - name: Check webpack serving, how to test is unclear currently for me…
-#      run: npm run start-dev
+    - name: Check webpack serving
+      run: echo "::set-output name=start_dev_output::$(npm run start-dev)"
+      id: run_start_dev
+      timeout-minutes: 2
+      continue-on-error: true
+
+    - name: …did we compile successfully?
+      run: |
+        from sys import exit;
+        if "${{ steps.run_start_dev.outputs.start_dev_output }}".find("compiled successfully in") == -1:
+          exit(1)
+        else:
+          exit(0)
+      shell: python
+
 #
 #    - name: Check testsuite watching, how to test is unclear currently for me…
 #      run: npm run test-watch
