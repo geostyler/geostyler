@@ -62,78 +62,64 @@ export interface IconSelectorWindowProps extends Partial<IconSelectorWindowDefau
   onIconSelect?: (iconSrc: string) => void;
   onClose?: () => void;
 }
+const COMPONENTNAME = 'IconSelectorWindow';
 
-export class IconSelectorWindow extends React.Component<IconSelectorWindowProps> {
+export const IconSelectorWindow: React.FC<IconSelectorWindowProps> = ({
+  locale = en_US.IconSelectorWindow,
+  x,
+  y,
+  width,
+  height,
+  iconLibraries,
+  selectedIconSrc,
+  onIconSelect,
+  onClose
+}) => {
 
-  static componentName: string = 'IconSelectorWindow';
+  return (
+    ReactDOM.createPortal(
+      <Rnd
+        className="gs-icon-selector-window"
+        default={{
+          x: x || window.innerWidth / 2,
+          y: y || window.innerHeight / 2,
+          width: width || '50%',
+          height: height || '50%'
+        }}
+        enableResizing={{
+          bottom: false,
+          bottomLeft: false,
+          bottomRight: false,
+          left: false,
+          right: false,
+          top: false,
+          topLeft: false,
+          topRight: false
+        }}
+        bounds="window"
+        dragHandleClassName="title"
+      >
+        <div className="header gs-icon-selector-window-header">
+          <span className="title">
+            {locale.windowLabel}
+          </span>
+          <Button
+            icon={<CloseOutlined />}
+            size="small"
+            onClick={onClose}
+          />
+        </div>
+        <div className="gs-icon-selector-window-body">
+          <IconSelector
+            iconLibraries={iconLibraries}
+            onIconSelect={onIconSelect}
+            selectedIconSrc={selectedIconSrc}
+          />
+        </div>
+      </Rnd>,
+      document.body
+    )
+  );
+};
 
-  public static defaultProps: IconSelectorWindowDefaultProps = {
-    locale: en_US.IconSelectorWindow
-  };
-
-  public shouldComponentUpdate(nextProps: IconSelectorWindowProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
-  render() {
-    const {
-      locale,
-      iconLibraries,
-      x,
-      y,
-      width,
-      height,
-      onClose,
-      selectedIconSrc,
-      onIconSelect
-    } = this.props;
-
-    return (
-      ReactDOM.createPortal(
-        <Rnd
-          className="gs-icon-selector-window"
-          default={{
-            x: x || window.innerWidth / 2,
-            y: y || window.innerHeight / 2,
-            width: width || '50%',
-            height: height || '50%'
-          }}
-          enableResizing={{
-            bottom: false,
-            bottomLeft: false,
-            bottomRight: false,
-            left: false,
-            right: false,
-            top: false,
-            topLeft: false,
-            topRight: false
-          }}
-          bounds="window"
-          dragHandleClassName="title"
-        >
-          <div className="header gs-icon-selector-window-header">
-            <span className="title">
-              {locale.windowLabel}
-            </span>
-            <Button
-              icon={<CloseOutlined />}
-              size="small"
-              onClick={onClose}
-            />
-          </div>
-          <div className="gs-icon-selector-window-body">
-            <IconSelector
-              iconLibraries={iconLibraries}
-              onIconSelect={onIconSelect}
-              selectedIconSrc={selectedIconSrc}
-            />
-          </div>
-        </Rnd>,
-        document.body
-      )
-    );
-  }
-}
-
-export default localize(IconSelectorWindow, IconSelectorWindow.componentName);
+export default localize(IconSelectorWindow, COMPONENTNAME);

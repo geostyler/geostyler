@@ -25,17 +25,27 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
+import { render } from '@testing-library/react';
+import TestUtil from '../../../Util/TestUtil';
+import { IconLibrary } from '../IconSelector/IconSelector';
 import {
-  IconSelectorWindow
+  IconSelectorWindow, IconSelectorWindowProps
 } from './IconSelectorWindow';
 
-describe('IconSelector', () => {
+describe('IconSelectorWindow', () => {
+
+  let dummyLibraries: IconLibrary[] = TestUtil.getDummyGsIconLibraries();
+  const props: IconSelectorWindowProps = {
+    iconLibraries: dummyLibraries
+  };
+
   it('is defined', () => {
     expect(IconSelectorWindow).toBeDefined();
   });
 
-  it('has a component name', () => {
-    expect(IconSelectorWindow.componentName).toBeDefined();
+  it('renders correctly', () => {
+    const iconSelectorWindow = render(<IconSelectorWindow {...props} />);
+    expect(iconSelectorWindow.container).toBeInTheDocument();
   });
 });
