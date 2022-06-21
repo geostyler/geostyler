@@ -71,7 +71,7 @@ export interface TextEditorProps extends Partial<TextEditorDefaultProps> {
   symbolizer: TextSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   internalDataDef?: VectorData;
-  defaultValues: DefaultValues;
+  defaultValues?: DefaultValues;
 }
 
 const COMPONENTNAME = 'TextEditor';

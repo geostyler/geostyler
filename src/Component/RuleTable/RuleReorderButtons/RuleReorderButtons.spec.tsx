@@ -25,7 +25,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
 import { RuleReorderButtons, RuleReorderButtonsProps } from './RuleReorderButtons';
 import TestUtil from '../../../Util/TestUtil';
 
@@ -34,80 +34,80 @@ import {
 } from 'geostyler-style';
 
 import _cloneDeep from 'lodash/cloneDeep';
+import { render, act, fireEvent } from '@testing-library/react';
 
-describe('ReorderButtonGroup', () => {
-
-  let wrapper: any;
-  let onRulesMoveDummy: jest.Mock;
-  let dummyRules: any;
-  beforeEach(() => {
-    dummyRules = TestUtil.getTwoRulesStyle().rules;
-    onRulesMoveDummy = jest.fn();
-    const props: RuleReorderButtonsProps = {
-      ruleIndex: 1,
-      rules: dummyRules,
-      onRulesMove: onRulesMoveDummy
-    };
-    wrapper = TestUtil.shallowRenderComponent(RuleReorderButtons, props);
-  });
+describe('RuleReorderButtons', () => {
 
   it('is defined', () => {
     expect(RuleReorderButtons).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const ruleReorderButtons = render(
+      <RuleReorderButtons
+        rules={TestUtil.getTwoRulesStyle().rules}
+        ruleIndex={0}
+      />
+    );
+    expect(ruleReorderButtons.container).toBeInTheDocument();
   });
 
   describe('onRuleOrderChange', () => {
-    it('reorders the rules downwards', () => {
-      const ruleIndex = 0;
-      const rules = [...dummyRules];
-      let reorderRules: GsRule[];
-      const onRulesMove = (_reorderedRules) => {
-        reorderRules = _reorderedRules;
+    it('reorders the rules downwards', async () => {
+      let rules: GsRule[] = [];
+      const onRulesMove = (reorderedRules: GsRule[]) => {
+        rules = reorderedRules;
       };
-      wrapper.setProps({
-        ruleIndex,
-        rules,
-        onRulesMove
+      const ruleReorderButtons = render(
+        <RuleReorderButtons
+          rules={TestUtil.getTwoRulesStyle().rules}
+          ruleIndex={0}
+          onRulesMove={onRulesMove}
+        />
+      );
+      const moveDownButton = (await ruleReorderButtons.findAllByRole('button'))[1];
+      await act(async() => {
+        fireEvent.click(moveDownButton);
       });
-
-      // move first item downwards
-      wrapper.instance().onRuleOrderChange(true);
-      expect(reorderRules[0].name).toBe('rule1');
+      expect(rules[0].name).toBe('rule1');
     });
 
-    it('reorders the rules upwards', () => {
-      const ruleIndex = 1;
-      const rules = [...dummyRules];
-      let reorderRules: GsRule[];
-      const onRulesMove = (_reorderedRules) => {
-        reorderRules = _reorderedRules;
+    it('reorders the rules upwards',async () => {
+      let rules: GsRule[] = [];
+      const onRulesMove = (reorderedRules: GsRule[]) => {
+        rules = reorderedRules;
       };
-      wrapper.setProps({
-        ruleIndex,
-        rules,
-        onRulesMove
+      const ruleReorderButtons = render(
+        <RuleReorderButtons
+          rules={TestUtil.getTwoRulesStyle().rules}
+          ruleIndex={1}
+          onRulesMove={onRulesMove}
+        />
+      );
+      const moveUpButton = (await ruleReorderButtons.findAllByRole('button'))[0];
+      await act(async() => {
+        fireEvent.click(moveUpButton);
       });
-      // move second item upwards
-      wrapper.instance().onRuleOrderChange(false);
-      expect(reorderRules[0].name).toBe('rule1');
+      expect(rules[0].name).toBe('rule1');
     });
 
-    it('calls the onRulesChange with the reordered rules ', () => {
-      const ruleIndex = 0;
-      const rules = [...dummyRules];
-      // re-order rules
+    it('calls the onRulesChange with the reordered rules ', async () => {
+      let rules: GsRule[] = TestUtil.getTwoRulesStyle().rules;
+      // reordered rules
       const rulesClone = _cloneDeep(rules);
       rulesClone.splice(1, 0, rulesClone.splice(0, 1)[0]);
-      const onRulesMove = jest.fn();
-      wrapper.setProps({
-        ruleIndex,
-        rules,
-        onRulesMove
+      const onRulesMove =jest.fn();
+      const ruleReorderButtons = render(
+        <RuleReorderButtons
+          rules={rules}
+          ruleIndex={1}
+          onRulesMove={onRulesMove}
+        />
+      );
+      const moveUpButton = (await ruleReorderButtons.findAllByRole('button'))[0];
+      await act(async() => {
+        fireEvent.click(moveUpButton);
       });
-      wrapper.instance().onRuleOrderChange(true);
       expect(onRulesMove).toHaveBeenCalledWith(rulesClone);
     });
   });

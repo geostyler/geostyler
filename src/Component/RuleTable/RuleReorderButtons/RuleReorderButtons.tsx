@@ -56,24 +56,19 @@ export interface RuleReorderButtonsProps extends Partial<RuleReorderButtonsDefau
   rules: GsRule[];
 }
 
+const COMPONENTNAME = 'RuleReorderButtons';
+
 /**
  * Button group to re-order positions of rules.
  */
-export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps> {
+export const RuleReorderButtons: React.FC<RuleReorderButtonsProps> = ({
+  locale = en_US.RuleReorderButtons,
+  ruleIndex,
+  onRulesMove,
+  rules
+}) => {
 
-  static componentName: string = 'RuleReorderButtons';
-
-  public static defaultProps: RuleReorderButtonsDefaultProps = {
-    locale: en_US.RuleReorderButtons
-  };
-
-  onRuleOrderChange = (moveDown: boolean) => {
-    const {
-      ruleIndex,
-      rules,
-      onRulesMove
-    } = this.props;
-
+  const onRuleOrderChange = (moveDown: boolean) => {
     const nextRuleIndex = moveDown ? ruleIndex + 1 : ruleIndex - 1;
     const rulesClone = _cloneDeep(rules);
     // shift rule one position up / down in rules array
@@ -84,38 +79,30 @@ export class RuleReorderButtons extends React.Component<RuleReorderButtonsProps>
     }
   };
 
-  render() {
-    const {
-      locale,
-      ruleIndex,
-      rules,
-    } = this.props;
-
-    return (
-      <ButtonGroup>
-        <Button
-          role="button"
-          name="move-rule-up"
-          icon={<UpOutlined />}
-          disabled={ruleIndex === 0}
-          title={locale.ruleMoveUpTip}
-          onClick={() => {
-            this.onRuleOrderChange(false);
-          }}
-        />
-        <Button
-          role="button"
-          name="move-rule-down"
-          icon={<DownOutlined />}
-          disabled={ruleIndex === rules.length - 1}
-          title={locale.ruleMoveDownTip}
-          onClick={() => {
-            this.onRuleOrderChange(true);
-          }}
-        />
-      </ButtonGroup>
-    );
-  }
+  return (
+    <ButtonGroup>
+      <Button
+        role="button"
+        name="move-rule-up"
+        icon={<UpOutlined />}
+        disabled={ruleIndex === 0}
+        title={locale.ruleMoveUpTip}
+        onClick={() => {
+          onRuleOrderChange(false);
+        }}
+      />
+      <Button
+        role="button"
+        name="move-rule-down"
+        icon={<DownOutlined />}
+        disabled={ruleIndex === rules.length - 1}
+        title={locale.ruleMoveDownTip}
+        onClick={() => {
+          onRuleOrderChange(true);
+        }}
+      />
+    </ButtonGroup>
+  );
 }
 
-export default localize(RuleReorderButtons, RuleReorderButtons.componentName);
+export default localize(RuleReorderButtons, COMPONENTNAME);

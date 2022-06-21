@@ -131,7 +131,7 @@ describe('RuleTable', () => {
       const minScaleRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=min-scale-renderer]');
       minScaleRenderers.forEach((nameRenderer, index) => {
         const expected = rulesWithMinScale[index].scaleDenominator?.min
-          ? `1:${rulesWithMinScale[index].scaleDenominator.min}`
+          ? `1:${rulesWithMinScale[index]?.scaleDenominator?.min}`
           : '';
         expect(minScaleRenderers[index].value).toEqual(expected);
       });
@@ -152,7 +152,7 @@ describe('RuleTable', () => {
       const maxScaleRenderers = await ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=max-scale-renderer]');
       maxScaleRenderers.forEach((nameRenderer, index) => {
         const expected = rulesWithMaxScale[index].scaleDenominator?.max
-          ? `1:${rulesWithMaxScale[index].scaleDenominator.max}`
+          ? `1:${rulesWithMaxScale[index]?.scaleDenominator?.max}`
           : '';
         expect(maxScaleRenderers[index].value).toEqual(expected);
       });
