@@ -47,8 +47,8 @@ describe('TextEditor', () => {
   });
 
   it('renders correctly', () => {
-    const wellKnownNameEditor = render(<TextEditor {...props} />);
-    expect(wellKnownNameEditor.container).toBeInTheDocument();
+    const textEditor = render(<TextEditor {...props} />);
+    expect(textEditor.container).toBeInTheDocument();
   });
 
   describe('onLabelChange', () => {
@@ -88,10 +88,10 @@ describe('TextEditor', () => {
 
   describe('onOpacityChange', () => {
     it('calls the onOpacityChange prop with correct symbolizer ', async () => {
-      const wellKnownNameEditor = render(<TextEditor {...props} />);
+      const textEditor = render(<TextEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.opacity = 0.5;
-      const input = wellKnownNameEditor.container.querySelector('.opacity-field input');
+      const input = textEditor.container.querySelector('.opacity-field input');
       await act(async() => {
         fireEvent.change(input, {
           target: { value: 0.5 }
@@ -103,10 +103,10 @@ describe('TextEditor', () => {
 
   describe('onSizeChange', () => {
     it('calls the onSizeChange prop with correct symbolizer ', async () => {
-      const wellKnownNameEditor = render(<TextEditor {...props} />);
+      const textEditor = render(<TextEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.size = 4;
-      const input = wellKnownNameEditor.container.querySelectorAll('.width-field input')[0];
+      const input = textEditor.container.querySelectorAll('.width-field input')[0];
       await act(async() => {
         fireEvent.change(input, {
           target: { value: 4 }
@@ -118,10 +118,10 @@ describe('TextEditor', () => {
 
   describe('onOffsetXChange', () => {
     it('calls the onOffsetXChange prop with correct symbolizer ', async () => {
-      const wellKnownNameEditor = render(<TextEditor {...props} />);
+      const textEditor = render(<TextEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.offset = [3, 0];
-      const input = wellKnownNameEditor.container.querySelectorAll('.offset-field input')[0];
+      const input = textEditor.container.querySelectorAll('.offset-field input')[0];
       await act(async() => {
         fireEvent.change(input, {
           target: { value: 3 }
@@ -133,10 +133,10 @@ describe('TextEditor', () => {
 
   describe('onOffsetYChange', () => {
     it('calls the onOffsetYChange prop with correct symbolizer ', async () => {
-      const wellKnownNameEditor = render(<TextEditor {...props} />);
+      const textEditor = render(<TextEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.offset = [0, 10];
-      const input = wellKnownNameEditor.container.querySelectorAll('.offset-field input')[1];
+      const input = textEditor.container.querySelectorAll('.offset-field input')[1];
       await act(async() => {
         fireEvent.change(input, {
           target: { value: 10 }
@@ -148,10 +148,10 @@ describe('TextEditor', () => {
 
   describe('onRotateChange', () => {
     it('calls the onRotateChange prop with correct symbolizer ', async () => {
-      const wellKnownNameEditor = render(<TextEditor {...props} />);
+      const textEditor = render(<TextEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.rotate = 45;
-      const input = wellKnownNameEditor.container.querySelectorAll('.rotate-field input')[0];
+      const input = textEditor.container.querySelectorAll('.rotate-field input')[0];
       await act(async() => {
         fireEvent.change(input, {
           target: { value: 45 }
@@ -173,10 +173,10 @@ describe('TextEditor', () => {
 
   describe('onHaloWidthChange', () => {
     it('calls the onHaloWidthChange prop with correct symbolizer ', async () => {
-      const wellKnownNameEditor = render(<TextEditor {...props} />);
+      const textEditor = render(<TextEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.haloWidth = 4;
-      const input = wellKnownNameEditor.container.querySelectorAll('.width-field input')[1];
+      const input = textEditor.container.querySelectorAll('.width-field input')[1];
       await act(async() => {
         fireEvent.change(input, {
           target: { value: 4 }

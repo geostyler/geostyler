@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
@@ -133,124 +133,100 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   colorSpaces?: (InterpolationMode)[];
 }
 
-// state
-interface StyleState {
-  style: GsStyle;
-  selectedRowKeys: number[];
-  colorModalVisible: boolean;
-  sizeModalVisible: boolean;
-  opacityModalVisible: boolean;
-  symbolModalVisible: boolean;
-  ruleGeneratorWindowVisible: boolean;
-  hasError: boolean;
-}
+const COMPONENTNAME = 'Style';
 
-export class Style extends React.Component<StyleProps, StyleState> {
+export const Style: React.FC<StyleProps> = ({
+  compact =  false,
+  locale = en_US.Style,
+  style: styleProp =  {
+    name: 'My Style',
+    rules: []
+  },
+  data,
+  onStyleChange,
+  dataProjection,
+  filterUiProps,
+  ruleNameProps,
+  ruleProps,
+  ruleTableProps,
+  ruleRendererType,
+  sldRendererProps,
+  iconLibraries,
+  showAmountColumn,
+  showDuplicatesColumn,
+  colorRamps,
+  useBrewerColorRamps,
+  colorSpaces,
+  enableClassification = true
+}) => {
 
-  static componentName: string = 'Style';
+  const [style, setStyle] = useState(styleProp);
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [colorModalVisible, setColorModalVisible] = useState(false);
+  const [sizeModalVisible, setSizeModalVisible] = useState(false);
+  const [opacityModalVisible, setOpacityModalVisible] = useState(false);
+  const [symbolModalVisible, setSymbolModalVisible] = useState(false);
+  const [ruleGeneratorWindowVisible, setRuleGeneratorWindowVisible] = useState(false);
 
-  public static defaultProps: StyleDefaultProps = {
-    compact: false,
-    locale: en_US.Style,
-    style: {
-      name: 'My Style',
-      rules: []
-    },
-    enableClassification: true
+  useEffect(() => {
+    setStyle(styleProp);
+  }, [styleProp]);
+
+  const onNameChange = (name: string) => {
+    const clonedStyle = _cloneDeep(style);
+    clonedStyle.name = name;
+    if (onStyleChange) {
+      onStyleChange(clonedStyle);
+    }
+    setStyle(clonedStyle);
   };
 
-  constructor(props: StyleProps) {
-    super(props);
-    this.state = {
-      style: props.style || Style.defaultProps.style,
-      selectedRowKeys: [],
-      colorModalVisible: false,
-      sizeModalVisible: false,
-      opacityModalVisible: false,
-      symbolModalVisible: false,
-      ruleGeneratorWindowVisible: false,
-      hasError: false
-    };
-  }
-
-  public shouldComponentUpdate(nextProps: StyleProps, nextState: StyleState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
-  componentDidUpdate(prevProps: any) {
-    if (this.props.style && !_isEqual(this.props.style, prevProps.style)) {
-      this.setState({
-        style: this.props.style
-      });
-    }
-  }
-
-  componentDidCatch() {
-    this.setState({
-      hasError: true
-    });
-  }
-
-  onNameChange = (name: string) => {
-    const style = _cloneDeep(this.state.style);
-    style.name = name;
-    if (this.props.onStyleChange) {
-      this.props.onStyleChange(style);
-    }
-    this.setState({style});
-  };
-
-  onRuleChange = (rule: GsRule, ruleBefore: GsRule) => {
-    const style = _cloneDeep(this.state.style);
-    const ruleIdxToReplace = style.rules.findIndex((r: any) => {
+  const onRuleChange = (rule: GsRule, ruleBefore: GsRule) => {
+    const clonedStyle = _cloneDeep(style);
+    const ruleIdxToReplace = clonedStyle.rules.findIndex((r: any) => {
       return _isEqual(r, ruleBefore);
     });
     if (ruleIdxToReplace > -1) {
-      style.rules[ruleIdxToReplace] = rule;
-      if (this.props.onStyleChange) {
-        this.props.onStyleChange(style);
+      clonedStyle.rules[ruleIdxToReplace] = rule;
+      if (onStyleChange) {
+        onStyleChange(clonedStyle);
       }
-      this.setState({style});
+      setStyle(clonedStyle);
     }
   };
 
-  onRulesChange = (rules: GsRule[]) => {
-    const style = _cloneDeep(this.state.style);
-    style.rules = rules;
-    if (this.props.onStyleChange) {
-      this.props.onStyleChange(style);
+  const onRulesChange = (newRules: GsRule[]) => {
+    const clonedStyle = _cloneDeep(style);
+    clonedStyle.rules = newRules;
+    if (onStyleChange) {
+      onStyleChange(clonedStyle);
     }
-    this.setState({style});
+    setStyle(clonedStyle);
   };
 
-  addRule = () => {
-    const style = _cloneDeep(this.state.style);
+  const addRule = () => {
+    const clonedStyle = _cloneDeep(style);
     // TODO We need to ensure that rule names are unique
     const randomId = Math.floor(Math.random() * 10000);
-    const symbolizerKind: SymbolizerKind = _get(style, 'rules[0].symbolizers[0].kind');
+    const symbolizerKind: SymbolizerKind = _get(clonedStyle, 'rules[0].symbolizers[0].kind');
     const newRule: GsRule = {
       name: 'rule_' + randomId,
       symbolizers: [SymbolizerUtil.generateSymbolizer(symbolizerKind)]
     };
-    style.rules = [...style.rules, newRule];
-    if (this.props.onStyleChange) {
-      this.props.onStyleChange(style);
+    clonedStyle.rules = [...clonedStyle.rules, newRule];
+    if (onStyleChange) {
+      onStyleChange(clonedStyle);
     }
-    this.setState({style});
+    setSelectedRowKeys([]);
+    setStyle(clonedStyle);
   };
 
-  cloneRules = () => {
-    const {
-      selectedRowKeys,
-      style
-    } = this.state;
-    const styleClone = _cloneDeep(style);
+  const cloneRules = () => {
+    const clonedStyle = _cloneDeep(style);
 
     // create rules to clone
     let newRules: GsRule[] = [];
-    styleClone.rules.forEach((rule: GsRule, index: number) => {
+    clonedStyle.rules.forEach((rule: GsRule, index: number) => {
       if (selectedRowKeys.includes(index)) {
         let ruleClone = _cloneDeep(rule);
         // TODO We need to ensure that rule names are unique
@@ -261,81 +237,71 @@ export class Style extends React.Component<StyleProps, StyleState> {
     });
 
     // apply cloned rules to existing ones
-    styleClone.rules = [...styleClone.rules, ...newRules];
-    if (this.props.onStyleChange) {
-      this.props.onStyleChange(styleClone);
+    clonedStyle.rules = [...clonedStyle.rules, ...newRules];
+    if (onStyleChange) {
+      onStyleChange(clonedStyle);
     }
-    this.setState({
-      style: styleClone
-    });
+    setStyle(clonedStyle);
   };
 
-  removeRules = () => {
-    const {
-      selectedRowKeys,
-      style
-    } = this.state;
-    const styleClone = _cloneDeep(style);
-    const newRules = styleClone.rules.filter((rule: GsRule, index: number) => {
+  const removeRules = () => {
+    const clonedStyle = _cloneDeep(style);
+    const newRules = clonedStyle.rules.filter((rule: GsRule, index: number) => {
       return !selectedRowKeys.includes(index);
     });
-    styleClone.rules = newRules;
-    if (this.props.onStyleChange) {
-      this.props.onStyleChange(styleClone);
+    clonedStyle.rules = newRules;
+    if (onStyleChange) {
+      onStyleChange(clonedStyle);
     }
-    this.setState({
-      selectedRowKeys: [],
-      style: styleClone
-    });
+    setSelectedRowKeys([]);
+    setStyle(clonedStyle);
   };
 
-  removeRule = (rule: GsRule) => {
-    const style = _cloneDeep(this.state.style);
-    const newRules = style.rules.filter((r: GsRule) => r.name !== rule.name);
-    style.rules = newRules;
-    if (this.props.onStyleChange) {
-      this.props.onStyleChange(style);
+  const removeRule = (rule: GsRule) => {
+    const clonedStyle = _cloneDeep(style);
+    const newRules = clonedStyle.rules.filter((r: GsRule) => r.name !== rule.name);
+    clonedStyle.rules = newRules;
+    if (onStyleChange) {
+      onStyleChange(clonedStyle);
     }
-    this.setState({style});
+    setStyle(clonedStyle);
   };
 
-  onRulesSelectionChange = (selectedRowKeys: number[]) => {
-    this.setState({
-      selectedRowKeys
-    });
+  const onRulesSelectionChange = (newSelectedRowKeys: number[]) => {
+    setSelectedRowKeys(newSelectedRowKeys);
   };
 
-  onTableMenuClick = (param: any) => {
+  const onTableMenuClick = (param: any) => {
     switch (param.key) {
       case 'addRule':
-        this.addRule();
+        addRule();
         break;
       case 'cloneRules':
-        this.cloneRules();
+        cloneRules();
         break;
       case 'removeRule':
-        this.removeRules();
+        removeRules();
         break;
       case 'color':
-        this.setState({colorModalVisible: true});
+        setColorModalVisible(true);
         break;
       case 'size':
-        this.setState({sizeModalVisible: true});
+        setSizeModalVisible(true);
         break;
       case 'opacity':
-        this.setState({opacityModalVisible: true});
+        setOpacityModalVisible(true);
         break;
       case 'symbol':
-        this.setState({symbolModalVisible: true});
+        setSymbolModalVisible(true);
         break;
       default:
     }
   };
 
-  updateAllSelected = (updates: {value: any; property: string }[]) => {
-    const style = _cloneDeep(this.state.style);
-    const selectedRules = style.rules.filter((rule: GsRule, index: number) => {
-      return this.state.selectedRowKeys.includes(index);
+  const updateAllSelected = (updates: {value: any; property: string }[]) => {
+    const clonedStyle = _cloneDeep(style);
+    const selectedRules = clonedStyle.rules.filter((rule: GsRule, index: number) => {
+      return selectedRowKeys.includes(index);
     });
     selectedRules.forEach((rule: GsRule) => {
       rule.symbolizers.forEach((sym: any) => {
@@ -352,44 +318,51 @@ export class Style extends React.Component<StyleProps, StyleState> {
         });
       });
     });
-    if (this.props.onStyleChange) {
-      this.props.onStyleChange(style);
+    if (onStyleChange) {
+      onStyleChange(clonedStyle);
     }
-    this.setState({style});
+    setStyle(clonedStyle);
   };
 
-  updateMultiColors = (color: string) => {
-    this.updateAllSelected([{value: color, property: 'color'}]);
+  const updateMultiColors = (color: string) => {
+    updateAllSelected([{value: color, property: 'color'}]);
   };
 
-  updateMultiSizes = (size: any) => {
-    this.updateAllSelected([{value: size, property: 'radius'}]);
+  const updateMultiSizes = (size: any) => {
+    updateAllSelected([{value: size, property: 'radius'}]);
   };
 
-  updateMultiOpacities = (opacity: any) => {
-    this.updateAllSelected([{value: opacity, property: 'opacity'}]);
+  const updateMultiOpacities = (opacity: any) => {
+    updateAllSelected([{value: opacity, property: 'opacity'}]);
   };
 
-  updateMultiSymbols = (symbol: (GsWellKnownName|string), kind: SymbolizerKind) => {
+  const updateMultiSymbols = (symbol: (GsWellKnownName|string), kind: SymbolizerKind) => {
     if (kind === 'Mark') {
-      this.updateAllSelected([
+      updateAllSelected([
         {value: symbol, property: 'wellKnownName'},
         {value: kind, property: 'kind'}
       ]);
     } else {
-      this.updateAllSelected([
+      updateAllSelected([
         {value: symbol, property: 'image'},
         {value: kind, property: 'kind'}
       ]);
     }
   };
 
-  showRuleGeneratorWindow = () => {
-    this.setState({ruleGeneratorWindowVisible: true});
+  const showRuleGeneratorWindow = () => {
+    setRuleGeneratorWindowVisible(true);
   };
 
-  onRuleGeneratorWindowClose = () => {
-    this.setState({ruleGeneratorWindowVisible: false});
+  const onRuleGeneratorWindowClose = () => {
+    setRuleGeneratorWindowVisible(false);
+  };
+
+  const onModalsClosed = () => {
+    setColorModalVisible(false);
+    setSizeModalVisible(false);
+    setOpacityModalVisible(false);
+    setSymbolModalVisible(false);
   };
 
   /**
@@ -399,10 +372,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
    * @param rowKeys array of selected rowkeys
    * @return boolean true if menu item should be disabled, otherwise false
    */
-  disableMenu = (name: string, rowKeys: number[]): boolean => {
-    const {
-      style
-    } = this.state;
+  const disableMenu = (name: string, rowKeys: number[]): boolean => {
     let isValid = true;
     switch (name) {
       case 'size':
@@ -443,16 +413,8 @@ export class Style extends React.Component<StyleProps, StyleState> {
     }
   };
 
-  createFooter = () => {
-    const {
-      locale
-    } = this.props;
-
-    const {
-      style,
-      selectedRowKeys
-    } = this.state;
-
+  // TODO: move to separated component
+  const createFooter = () => {
     const allowRemove = selectedRowKeys.length > 0 && selectedRowKeys.length < style.rules.length;
     const allowClone = selectedRowKeys.length > 0;
 
@@ -462,7 +424,7 @@ export class Style extends React.Component<StyleProps, StyleState> {
       icon: <PlusOutlined />
     }, {
       key: 'cloneRules',
-      label: locale.addRuleBtnText,
+      label: locale.cloneRulesBtnText,
       disabled: !allowClone,
       icon: <CopyOutlined />
     }, {
@@ -477,176 +439,132 @@ export class Style extends React.Component<StyleProps, StyleState> {
       children:[{
         key: 'color',
         label: locale.colorLabel,
-        disabled: this.disableMenu('color', selectedRowKeys)
+        disabled: disableMenu('color', selectedRowKeys)
       }, {
         key: 'size',
         label: locale.radiusLabel,
-        disabled: this.disableMenu('size', selectedRowKeys)
+        disabled: disableMenu('size', selectedRowKeys)
       }, {
         key: 'symbol',
         label: locale.symbolLabel,
-        disabled: this.disableMenu('symbol', selectedRowKeys)
+        disabled: disableMenu('symbol', selectedRowKeys)
       }]
     }];
 
     return (
       <Menu
         mode="horizontal"
-        onClick={this.onTableMenuClick}
+        onClick={onTableMenuClick}
         selectable={false}
         items={items}
       />
     );
   };
 
-  render() {
-    if (this.state.hasError) {
-      return <h1>An error occurred in the Style UI.</h1>;
-    }
+  let rules: GsRule[] =  style?.rules || [];
 
-    let rules: GsRule[] = [];
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
 
-    const {
-      compact,
-      dataProjection,
-      filterUiProps,
-      ruleNameProps,
-      ruleRendererType,
-      ruleTableProps,
-      sldRendererProps,
-      enableClassification,
-      locale,
-      data,
-      iconLibraries,
-      showAmountColumn,
-      showDuplicatesColumn,
-      colorRamps,
-      colorSpaces,
-      useBrewerColorRamps
-    } = this.props;
-
-    const {
-      style,
-      selectedRowKeys,
-      colorModalVisible,
-      sizeModalVisible,
-      opacityModalVisible,
-      symbolModalVisible,
-      ruleGeneratorWindowVisible
-    } = this.state;
-
-    if (style) {
-      rules = style.rules;
-    }
-
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
-    return (
-      <div className="gs-style" >
-        <div className="gs-style-name-classification-row">
-          <Form.Item
-            label={locale.nameFieldLabel}
-            {...formItemLayout}
-          >
-            <NameField
-              value={this.state.style.name}
-              onChange={this.onNameChange}
-              placeholder={locale.nameFieldPlaceholder}
-            />
-          </Form.Item>
-          {
-            enableClassification ?
-              <Button
-                className="gs-style-rulegenerator"
-                onClick={this.showRuleGeneratorWindow}
-                disabled={!data}
-              >
-                {locale.ruleGeneratorWindowBtnText}
-              </Button> : null
-          }
-        </div>
-        {
-          (!ruleGeneratorWindowVisible) ? null :
-            <RuleGeneratorWindow
-              y={0}
-              internalDataDef={data}
-              onClose={this.onRuleGeneratorWindowClose}
-              onRulesChange={this.onRulesChange}
-              colorRamps={colorRamps}
-              useBrewerColorRamps={useBrewerColorRamps}
-              colorSpaces={colorSpaces}
-            />
-        }
-        { compact
-          ? <RuleTable
-            rules={rules}
-            onRulesChange={this.onRulesChange}
-            rowSelection={{
-              selectedRowKeys,
-              onChange: this.onRulesSelectionChange
-            }}
-            rendererType={ruleRendererType}
-            sldRendererProps={sldRendererProps}
-            filterUiProps={filterUiProps}
-            data={data}
-            footer={this.createFooter}
-            iconLibraries={iconLibraries}
-            showAmountColumn={showAmountColumn}
-            showDuplicatesColumn={showDuplicatesColumn}
-            colorRamps={colorRamps}
-            {...ruleTableProps}
+  return (
+    <div className="gs-style" >
+      <div className="gs-style-name-classification-row">
+        <Form.Item
+          label={locale.nameFieldLabel}
+          {...formItemLayout}
+        >
+          <NameField
+            value={style.name}
+            onChange={onNameChange}
+            placeholder={locale.nameFieldPlaceholder}
           />
-          : rules.map((rule, idx) => <Rule
-            key={'rule_' + idx}
-            rule={rule}
-            onRemove={this.removeRule}
-            internalDataDef={data}
-            onRuleChange={this.onRuleChange}
-            dataProjection={dataProjection}
-            filterUiProps={filterUiProps}
-            ruleNameProps={ruleNameProps}
-            rendererType={ruleRendererType}
-            sldRendererProps={sldRendererProps}
-            iconLibraries={iconLibraries}
-            colorRamps={colorRamps}
-          />)
-        }
+        </Form.Item>
         {
-          compact ? null :
+          enableClassification ?
             <Button
-              style={{'marginBottom': '20px', 'marginTop': '20px'}}
-              icon={<PlusOutlined />}
-              size="large"
-              onClick={this.addRule}
+              className="gs-style-rulegenerator"
+              onClick={showRuleGeneratorWindow}
+              disabled={!data}
             >
-              {locale.addRuleBtnText}
-            </Button>
+              {locale.ruleGeneratorWindowBtnText}
+            </Button> : null
         }
-        <BulkEditModals
-          colorModalVisible={colorModalVisible}
-          sizeModalVisible={sizeModalVisible}
-          opacityModalVisible={opacityModalVisible}
-          symbolModalVisible={symbolModalVisible}
-          selectedRowKeys={selectedRowKeys}
-          updateMultiColors={this.updateMultiColors}
-          updateMultiSizes={this.updateMultiSizes}
-          updateMultiOpacities={this.updateMultiOpacities}
-          updateMultiSymbols={this.updateMultiSymbols}
-          style={this.state.style}
-          iconLibraries={iconLibraries}
-          modalsClosed={() => this.setState({
-            colorModalVisible: false,
-            sizeModalVisible: false,
-            opacityModalVisible: false,
-            symbolModalVisible: false
-          })}
-        />
       </div>
-    );
-  }
-}
+      {
+        (!ruleGeneratorWindowVisible) ? null :
+          <RuleGeneratorWindow
+            y={0}
+            internalDataDef={data}
+            onClose={onRuleGeneratorWindowClose}
+            onRulesChange={onRulesChange}
+            colorRamps={colorRamps}
+            useBrewerColorRamps={useBrewerColorRamps}
+            colorSpaces={colorSpaces}
+          />
+      }
+      { compact
+        ? <RuleTable
+          rules={rules}
+          onRulesChange={onRulesChange}
+          rowSelection={{
+            selectedRowKeys,
+            onChange: onRulesSelectionChange
+          }}
+          rendererType={ruleRendererType}
+          sldRendererProps={sldRendererProps}
+          filterUiProps={filterUiProps}
+          data={data}
+          footer={createFooter}
+          iconLibraries={iconLibraries}
+          showAmountColumn={showAmountColumn}
+          showDuplicatesColumn={showDuplicatesColumn}
+          colorRamps={colorRamps}
+          {...ruleTableProps}
+        />
+        : rules.map((rule, idx) => <Rule
+          key={'rule_' + idx}
+          rule={rule}
+          onRemove={removeRule}
+          internalDataDef={data}
+          onRuleChange={onRuleChange}
+          dataProjection={dataProjection}
+          filterUiProps={filterUiProps}
+          ruleNameProps={ruleNameProps}
+          rendererType={ruleRendererType}
+          sldRendererProps={sldRendererProps}
+          iconLibraries={iconLibraries}
+          colorRamps={colorRamps}
+        />)
+      }
+      {
+        compact ? null :
+          <Button
+            style={{'marginBottom': '20px', 'marginTop': '20px'}}
+            icon={<PlusOutlined />}
+            size="large"
+            onClick={addRule}
+          >
+            {locale.addRuleBtnText}
+          </Button>
+      }
+      <BulkEditModals
+        colorModalVisible={colorModalVisible}
+        sizeModalVisible={sizeModalVisible}
+        opacityModalVisible={opacityModalVisible}
+        symbolModalVisible={symbolModalVisible}
+        selectedRowKeys={selectedRowKeys}
+        updateMultiColors={updateMultiColors}
+        updateMultiSizes={updateMultiSizes}
+        updateMultiOpacities={updateMultiOpacities}
+        updateMultiSymbols={updateMultiSymbols}
+        style={style}
+        iconLibraries={iconLibraries}
+        modalsClosed={onModalsClosed}
+      />
+    </div>
+  );
+};
 
-export default localize(Style, Style.componentName);
+export default localize(Style, COMPONENTNAME);
