@@ -65,24 +65,19 @@ export interface MultiEditorProps extends Partial<MultiEditorDefaultProps> {
   iconLibraries?: IconLibrary[];
 }
 
-export class MultiEditor extends React.Component<MultiEditorProps> {
+const COMPONENTNAME = 'MultiEditor';
 
-  static componentName: string = 'MultiEditor';
+export const MultiEditor: React.FC<MultiEditorProps> = ({
+  locale = en_US.MultiEditor,
+  internalDataDef,
+  editorProps,
+  symbolizers,
+  onSymbolizersChange,
+  iconLibraries,
+  ...passThroughProps
+}) => {
 
-  public static defaultProps: MultiEditorDefaultProps = {
-    locale: en_US.MultiEditor
-  };
-
-  public shouldComponentUpdate(nextProps: MultiEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
-  addSymbolizer = () => {
-    const {
-      onSymbolizersChange,
-      symbolizers
-    } = this.props;
+  const addSymbolizer = () => {
     const symbolizerKind = symbolizers.length > 0 ? symbolizers[0].kind : undefined;
     const newSymbolizer = SymbolizerUtil.generateSymbolizer(symbolizerKind);
     if (onSymbolizersChange) {
@@ -90,11 +85,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     }
   };
 
-  removeSymbolizer = (key: number) => {
-    const {
-      onSymbolizersChange,
-      symbolizers
-    } = this.props;
+  const removeSymbolizer = (key: number) => {
     const symbolizersClone = [...symbolizers];
     symbolizersClone.splice(key, 1);
     if (onSymbolizersChange) {
@@ -102,11 +93,7 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     }
   };
 
-  onSymbolizerChange = (symbolizer: Symbolizer, key: number) => {
-    const {
-      onSymbolizersChange,
-      symbolizers
-    } = this.props;
+  const onSymbolizerChange = (symbolizer: Symbolizer, key: number) => {
     const symbolizersClone = [...symbolizers];
     symbolizersClone[key] = symbolizer;
     if (onSymbolizersChange) {
@@ -114,62 +101,51 @@ export class MultiEditor extends React.Component<MultiEditorProps> {
     }
   };
 
-  render() {
-    const {
-      symbolizers,
-      editorProps,
-      locale,
-      internalDataDef,
-      iconLibraries,
-      ...passThroughProps
-    } = this.props;
-
-    const tabs = symbolizers.map((symbolizer: Symbolizer, idx: number) => {
-      return (
-        <TabPane
-          className="gs-symbolizer-multi-editor-tab"
-          key={idx.toString()}
-          tab={idx}
-          closable={true}
-        >
-          <Editor
-            symbolizer={symbolizer}
-            onSymbolizerChange={(sym: Symbolizer) => {
-              this.onSymbolizerChange(sym, idx);
-            }}
-            internalDataDef={internalDataDef}
-            iconLibraries={iconLibraries}
-            {...editorProps}
-          />
-          {symbolizers.length === 1 ? null :
-            <Button
-              onClick={() => {
-                this.removeSymbolizer(idx);
-              }}
-            >
-              {locale.remove}
-            </Button>
-          }
-        </TabPane>
-      );
-    });
-
+  const tabs = symbolizers.map((symbolizer: Symbolizer, idx: number) => {
     return (
-      <Tabs
-        className="gs-symbolizer-multi-editor"
-        defaultActiveKey="0"
-        animated={false}
-        tabBarExtraContent={(
-          <Button onClick={this.addSymbolizer}>
-            {locale.add}
-          </Button>
-        )}
-        {...passThroughProps}
+      <TabPane
+        className="gs-symbolizer-multi-editor-tab"
+        key={idx.toString()}
+        tab={idx}
+        closable={true}
       >
-        {tabs}
-      </Tabs>
+        <Editor
+          symbolizer={symbolizer}
+          onSymbolizerChange={(sym: Symbolizer) => {
+            onSymbolizerChange(sym, idx);
+          }}
+          internalDataDef={internalDataDef}
+          iconLibraries={iconLibraries}
+          {...editorProps}
+        />
+        {symbolizers.length === 1 ? null :
+          <Button
+            onClick={() => {
+              removeSymbolizer(idx);
+            }}
+          >
+            {locale.remove}
+          </Button>
+        }
+      </TabPane>
     );
-  }
-}
+  });
 
-export default localize(MultiEditor, MultiEditor.componentName);
+  return (
+    <Tabs
+      className="gs-symbolizer-multi-editor"
+      defaultActiveKey="0"
+      animated={false}
+      tabBarExtraContent={(
+        <Button onClick={addSymbolizer}>
+          {locale.add}
+        </Button>
+      )}
+      {...passThroughProps}
+    >
+      {tabs}
+    </Tabs>
+  );
+};
+
+export default localize(MultiEditor, COMPONENTNAME);
