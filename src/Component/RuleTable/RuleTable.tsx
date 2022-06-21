@@ -142,9 +142,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
   showDuplicatesColumn = true,
   data: dataProp,
   rules: rulesProp,
-  footer,
   onRulesChange,
-  onSelectionChange,
   filterUiProps,
   iconLibraries,
   colorRamps,
@@ -221,6 +219,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
           symbolizers={record.symbolizers}
           onClick={onSymbolizerRendererClick}
           data={data}
+          {...oLRendererProps}
         />
       )
     );
