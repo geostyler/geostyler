@@ -25,75 +25,88 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
 import { IconEditor, IconEditorProps } from './IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { IconSymbolizer } from 'geostyler-style';
+import { render, act, fireEvent } from '@testing-library/react';
 
 describe('IconEditor', () => {
 
-  let wrapper: any;
   let dummySymbolizer: IconSymbolizer = SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer;
-  let onSymbolizerChangeDummy: jest.Mock;
-
-  beforeEach(() => {
-    onSymbolizerChangeDummy = jest.fn();
-    const props: IconEditorProps = {
-      symbolizer: dummySymbolizer,
-      locale: en_US.IconEditor,
-      onSymbolizerChange: onSymbolizerChangeDummy,
-      defaultValues: undefined
-    };
-    wrapper = TestUtil.shallowRenderComponent(IconEditor, props);
-  });
+  const props: IconEditorProps = {
+    symbolizer: dummySymbolizer,
+    locale: en_US.IconEditor,
+    onSymbolizerChange: jest.fn()
+  };
 
   it('is defined', () => {
     expect(IconEditor).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const iconEditor = render(<IconEditor {...props} />);
+    expect(iconEditor.container).toBeInTheDocument();
   });
 
   describe('onImageSrcChange', () => {
-    it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
-      const onImageSrcChange = wrapper.instance().onImageSrcChange;
+    it('calls the onSymbolizerChange prop with correct symbolizer ', async () => {
+      const iconEditor = render(<IconEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
-      newSymbolizer.image = 'www.meinbild.de/image.png';
-      onImageSrcChange('www.meinbild.de/image.png');
-      expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+      newSymbolizer.image = 'strudel.png';
+      const input = await iconEditor.findByPlaceholderText('URL to image');
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 'strudel.png' }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
     });
   });
 
   describe('onSizeChange', () => {
-    it('calls the onSizeChange prop with correct symbolizer ', () => {
-      const onSizeChange = wrapper.instance().onSizeChange;
+    it('calls the onSizeChange prop with correct symbolizer ', async () => {
+      const iconEditor = render(<IconEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
-      newSymbolizer.size = 7;
-      onSizeChange(7);
-      expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+      newSymbolizer.size = 4;
+      const input = iconEditor.container.querySelector('.size-field input');
+      await act(async() => {
+        fireEvent.change(input!, {
+          target: { value: 4 }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
     });
   });
 
   describe('onRotateChange', () => {
-    it('calls the onRotateChange prop with correct symbolizer ', () => {
-      const onRotateChange = wrapper.instance().onRotateChange;
+    it('calls the onRotateChange prop with correct symbolizer ', async() => {
+      const iconEditor = render(<IconEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.rotate = 45;
-      onRotateChange(45);
-      expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+      const input = iconEditor.container.querySelectorAll('.rotate-field input')[0];
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 45 }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
     });
   });
 
   describe('onOpacityChange', () => {
-    it('calls the onOpacityChange prop with correct symbolizer ', () => {
-      const onOpacityChange = wrapper.instance().onOpacityChange;
+    it('calls the onOpacityChange prop with correct symbolizer ', async () => {
+      const iconEditor = render(<IconEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
-      newSymbolizer.opacity = 0.7;
-      onOpacityChange(0.7);
-      expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+      newSymbolizer.opacity = 0.5;
+      const input = iconEditor.container.querySelector('.opacity-field input');
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 0.5 }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
     });
   });
 
