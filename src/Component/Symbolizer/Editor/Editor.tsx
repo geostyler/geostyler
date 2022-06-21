@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import {
   Symbolizer,
@@ -76,71 +76,32 @@ export interface EditorProps extends Partial<EditorDefaultProps> {
   };
 }
 
-// state
-interface EditorState {
-  symbolizer: Symbolizer;
-  hasError: boolean;
-}
+const COMPONENTNAME = 'SymbolizerEditor';
 
-export class Editor extends React.Component<EditorProps, EditorState> {
-
-  static componentName: string = 'SymbolizerEditor';
-
-  public static defaultProps: EditorDefaultProps = {
-    locale: en_US.SymbolizerEditor,
-    unknownSymbolizerText: 'Unknown Symbolizer!'
-  };
-
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      symbolizer: SymbolizerUtil.generateSymbolizer(),
-      hasError: false
-    };
-  }
-
-  static getDerivedStateFromProps(
-    nextProps: EditorProps): Partial<EditorState> {
-    return {
-      symbolizer: nextProps.symbolizer
-    };
-  }
-
-  componentDidCatch() {
-    this.setState({
-      hasError: true
-    });
-  }
-
-  onSymbolizerChange = (symbolizer: Symbolizer) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
-    }
-  };
+export const Editor: React.FC<EditorProps> = ({
+  locale = en_US.SymbolizerEditor,
+  unknownSymbolizerText = 'Unknown Symbolizer!',
+  symbolizer,
+  internalDataDef,
+  iconEditorProps,
+  onSymbolizerChange,
+  iconLibraries,
+  colorRamps
+}) => {
 
   /**
    * Get the appropriate Editor UI for a certain style.
    *
    * Also handles the customisation of sub-components via CompositionContext.
    */
-  getUiFromSymbolizer = (symbolizer: Symbolizer, composition: Compositions): React.ReactNode => {
-    const {
-      iconEditorProps,
-      iconLibraries,
-      colorRamps,
-      internalDataDef
-    } = this.props;
-
+  const getUiForSymbolizer = (composition: Compositions): React.ReactNode => {
     switch (symbolizer.kind) {
       case 'Mark':
         return (
           CompositionUtil.handleComposition({
             composition,
             path: 'Editor.markEditor',
-            onChange: this.onSymbolizerChange,
+            onChange: onSymbolizerChange,
             onChangeName: 'onSymbolizerChange',
             propName: 'symbolizer',
             propValue: symbolizer,
@@ -156,7 +117,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           CompositionUtil.handleComposition({
             composition,
             path: 'Editor.iconEditor',
-            onChange: this.onSymbolizerChange,
+            onChange: onSymbolizerChange,
             onChangeName: 'onSymbolizerChange',
             propName: 'symbolizer',
             propValue: symbolizer,
@@ -174,7 +135,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           CompositionUtil.handleComposition({
             composition,
             path: 'Editor.lineEditor',
-            onChange: this.onSymbolizerChange,
+            onChange: onSymbolizerChange,
             onChangeName: 'onSymbolizerChange',
             propName: 'symbolizer',
             propValue: symbolizer,
@@ -190,7 +151,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           CompositionUtil.handleComposition({
             composition,
             path: 'Editor.fillEditor',
-            onChange: this.onSymbolizerChange,
+            onChange: onSymbolizerChange,
             onChangeName: 'onSymbolizerChange',
             propName: 'symbolizer',
             propValue: symbolizer,
@@ -206,7 +167,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           CompositionUtil.handleComposition({
             composition,
             path: 'Editor.textEditor',
-            onChange: this.onSymbolizerChange,
+            onChange: onSymbolizerChange,
             onChangeName: 'onSymbolizerChange',
             propName: 'symbolizer',
             propValue: symbolizer,
@@ -225,7 +186,7 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           CompositionUtil.handleComposition({
             composition,
             path: 'Editor.rasterEditor',
-            onChange: this.onSymbolizerChange,
+            onChange: onSymbolizerChange,
             onChangeName: 'onSymbolizerChange',
             propName: 'symbolizer',
             propValue: symbolizer,
@@ -241,62 +202,44 @@ export class Editor extends React.Component<EditorProps, EditorState> {
           })
         );
       default:
-        return this.props.unknownSymbolizerText;
+        return unknownSymbolizerText;
     }
   };
 
-  onKindFieldChange = (kind: SymbolizerKind) => {
+  const onKindFieldChange = (kind: SymbolizerKind) => {
     const newSymbolizer = SymbolizerUtil.generateSymbolizer(kind);
-    this.onSymbolizerChange(newSymbolizer);
+    onSymbolizerChange(newSymbolizer);
   };
 
-  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-    return element == null ? null : (
-      <Form.Item
-        label={locale}
-        {...formItemLayout}
-      >
-        {element}
-      </Form.Item>
-    );
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
   };
 
-  render() {
-    if (this.state.hasError) {
-      return <h1>An error occurred in the Symbolizer Editor UI.</h1>;
-    }
-    const {
-      locale
-    } = this.props;
-
-    const symbolizer = _cloneDeep(this.state.symbolizer);
-    return (
-      <CompositionContext.Consumer>
-        {(composition: Compositions) => (
-          <div className="gs-symbolizer-editor" >
+  return (
+    <CompositionContext.Consumer>
+      {(composition: Compositions) => (
+        <div className="gs-symbolizer-editor" >
+          <Form.Item
+            label={locale.kindFieldLabel}
+            {...formItemLayout}
+          >
             {
-              this.wrapFormItem(
-                locale.kindFieldLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'Editor.kindField',
-                  onChange: this.onKindFieldChange,
-                  propName: 'kind',
-                  propValue: symbolizer.kind,
-                  defaultElement: <KindField />
-                })
-              )
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'Editor.kindField',
+                onChange: onKindFieldChange,
+                propName: 'kind',
+                propValue: symbolizer.kind,
+                defaultElement: <KindField />
+              })
             }
-            {this.getUiFromSymbolizer(this.props.symbolizer, composition)}
-          </div>
-        )}
-      </CompositionContext.Consumer>
-    );
-  }
-}
+          </Form.Item>
+          {getUiForSymbolizer(composition)}
+        </div>
+      )}
+    </CompositionContext.Consumer>
+  );
+};
 
-export default localize(Editor, Editor.componentName);
+export default localize(Editor, COMPONENTNAME);
