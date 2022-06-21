@@ -26,18 +26,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
-
-import _isEqual from 'lodash/isEqual';
+import React, { useState } from 'react';
 
 import {
-  Modal
+  Modal, ModalProps
 } from 'antd';
 
 import {
   Style as GsStyle,
   Rule as GsRule,
-  WellKnownName
+  WellKnownName,
+  SymbolizerKind
 } from 'geostyler-style';
 
 import ColorField from '../../Symbolizer/Field/ColorField/ColorField';
@@ -63,202 +62,163 @@ interface BulkEditModalsDefaultProps {
   style: GsStyle;
   locale: GeoStylerLocale['BulkEditModals'];
   selectedRowKeys: number[];
-  modalsClosed: Function;
+  modalsClosed: ModalProps['onCancel'];
 }
 
 // non default props
 export interface BulkEditModalsProps extends Partial<BulkEditModalsDefaultProps> {
-  colorModalVisible: boolean;
-  sizeModalVisible: boolean;
-  opacityModalVisible: boolean;
-  symbolModalVisible: boolean;
   updateMultiColors?: (x: string) => void;
   updateMultiSizes?: (x: number) => void;
   updateMultiOpacities?: (x: number) => void;
   updateMultiSymbols?: (x: string, y: string) => void;
-  selectedRowKeys: number[];
-  modalsClosed: Function;
   iconLibraries?: IconLibrary[];
 }
 
-// state
-interface BulkEditModalsState {
-  kind: 'Icon' | 'Mark';
-}
+const COMPONENTNAME = 'BulkEditModals';
 
-export class BulkEditModals extends React.Component<BulkEditModalsProps, BulkEditModalsState> {
+export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
+  style = {
+    name: 'My Style',
+    rules: []
+  },
+  colorModalVisible = false,
+  sizeModalVisible = false,
+  opacityModalVisible = false,
+  symbolModalVisible = false,
+  locale = en_US.BulkEditModals,
+  selectedRowKeys = [],
+  modalsClosed = (): any => undefined,
+  updateMultiColors,
+  updateMultiSizes,
+  updateMultiOpacities,
+  updateMultiSymbols,
+  iconLibraries
+}) => {
 
-  static componentName: string = 'BulkEditModals';
+  const [kind, setKind] = useState<SymbolizerKind>('Mark');
 
-  public static defaultProps: BulkEditModalsDefaultProps = {
-    style: {
-      name: 'My Style',
-      rules: []
-    },
-    colorModalVisible: false,
-    sizeModalVisible: false,
-    opacityModalVisible: false,
-    symbolModalVisible: false,
-    locale: en_US.BulkEditModals,
-    selectedRowKeys: [],
-    modalsClosed: (): any => undefined
-  };
+  let rules: GsRule[] = [];
+  let color = '#000000';
+  let size = 5;
+  let opacity = 1;
+  let symbol: WellKnownName = 'circle';
 
-  constructor(props: BulkEditModalsProps) {
-    super(props);
-
-    this.state = {
-      kind: 'Mark'
-    };
-  }
-
-  public shouldComponentUpdate(nextProps: BulkEditModalsProps, nextState: BulkEditModalsState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
-  onKindFieldChange = (kind: ('Icon'|'Mark')) => {
-    this.setState({
-      kind
+  if (style) {
+    rules = style.rules;
+    const selectedRules = rules.filter((rule: GsRule, index: number) => {
+      return selectedRowKeys.includes(index);
     });
-  };
+    const firstRule = selectedRules.find(rule => rule.symbolizers && rule.symbolizers.length > 0);
 
-  render() {
-    let rules: GsRule[] = [];
-    let color = '#000000';
-    let size = 5;
-    let opacity = 1;
-    let symbol: WellKnownName = 'circle';
+    if (firstRule && firstRule.symbolizers && firstRule.symbolizers[0]) {
+      const sym: any = firstRule.symbolizers[0];
+      if (sym.color) {
+        color = sym.color;
+      }
+      if (sym.radius) {
+        size = sym.radius;
+      }
+      if (sym.opacity) {
+        opacity = sym.opacity;
+      }
+      if (sym.kind && sym.kind === 'Mark' && sym.wellKnownName) {
+        symbol = sym.wellKnownName;
+      }
 
-    const {
-      locale,
-      style,
-      selectedRowKeys,
-      iconLibraries
-    } = this.props;
-
-    const {
-      kind
-    } = this.state;
-
-    if (style) {
-      rules = style.rules;
-      const selectedRules = rules.filter((rule: GsRule, index: number) => {
-        return selectedRowKeys.includes(index);
-      });
-      const firstRule = selectedRules.find(rule => rule.symbolizers && rule.symbolizers.length > 0);
-
-      if (firstRule && firstRule.symbolizers && firstRule.symbolizers[0]) {
-        const sym: any = firstRule.symbolizers[0];
-        if (sym.color) {
-          color = sym.color;
-        }
-        if (sym.radius) {
-          size = sym.radius;
-        }
-        if (sym.opacity) {
-          opacity = sym.opacity;
-        }
-        if (sym.kind && sym.kind === 'Mark' && sym.wellKnownName) {
-          symbol = sym.wellKnownName;
-        }
-
-        if (sym.kind && sym.kind === 'Icon' && sym.image) {
-          symbol = sym.image;
-        }
+      if (sym.kind && sym.kind === 'Icon' && sym.image) {
+        symbol = sym.image;
       }
     }
+  }
 
-    return (
-      <div className="gs-style" >
-        <Modal
-          title={locale.colorLabel}
-          visible={this.props.colorModalVisible}
-          wrapClassName="gs-modal-color"
-          footer={null}
-          onCancel={() => this.props.modalsClosed()}
-        >
-          {locale.colorLabel}
-          <ColorField
-            color={color}
-            onChange={this.props.updateMultiColors}
-          />
-        </Modal>
-        <Modal
-          title={locale.radiusLabel}
-          visible={this.props.sizeModalVisible}
-          wrapClassName="gs-modal-size"
-          footer={null}
-          onCancel={() => this.props.modalsClosed()}
-        >
-          {locale.radiusLabel}
-          <RadiusField
-            radius={size}
-            onChange={this.props.updateMultiSizes}
-          />
-        </Modal>
-        <Modal
-          title={locale.opacityLabel}
-          visible={this.props.opacityModalVisible}
-          wrapClassName="gs-modal-opacity"
-          footer={null}
-          onCancel={() => this.props.modalsClosed()}
-        >
-          {locale.opacityLabel}
-          <OpacityField
-            opacity={opacity}
-            onChange={this.props.updateMultiOpacities}
-          />
-        </Modal>
-        <Modal
-          title={locale.symbolLabel}
-          visible={this.props.symbolModalVisible}
-          wrapClassName="gs-modal-opacity"
-          footer={null}
-          onCancel={() => this.props.modalsClosed()}
-        >
-          <KindField
-            symbolizerKinds={['Mark', 'Icon']}
-            kind={kind}
-            onChange={this.onKindFieldChange}
-          />
-          {
-            kind === 'Mark' ? (
-              <WellKnownNameField
-                wellKnownName={symbol}
+  return (
+    <div className="gs-style" >
+      <Modal
+        title={locale.colorLabel}
+        visible={colorModalVisible}
+        wrapClassName="gs-modal-color"
+        footer={null}
+        onCancel={modalsClosed}
+      >
+        {locale.colorLabel}
+        <ColorField
+          color={color}
+          onChange={updateMultiColors}
+        />
+      </Modal>
+      <Modal
+        title={locale.radiusLabel}
+        visible={sizeModalVisible}
+        wrapClassName="gs-modal-size"
+        footer={null}
+        onCancel={modalsClosed}
+      >
+        {locale.radiusLabel}
+        <RadiusField
+          radius={size}
+          onChange={updateMultiSizes}
+        />
+      </Modal>
+      <Modal
+        title={locale.opacityLabel}
+        visible={opacityModalVisible}
+        wrapClassName="gs-modal-opacity"
+        footer={null}
+        onCancel={modalsClosed}
+      >
+        {locale.opacityLabel}
+        <OpacityField
+          opacity={opacity}
+          onChange={updateMultiOpacities}
+        />
+      </Modal>
+      <Modal
+        title={locale.symbolLabel}
+        visible={symbolModalVisible}
+        wrapClassName="gs-modal-opacity"
+        footer={null}
+        onCancel={modalsClosed}
+      >
+        <KindField
+          symbolizerKinds={['Mark', 'Icon']}
+          kind={kind}
+          onChange={setKind}
+        />
+        {
+          kind === 'Mark' ? (
+            <WellKnownNameField
+              wellKnownName={symbol}
+              onChange={(val: string) => {
+                updateMultiSymbols(val, kind);
+              }}
+            />
+          ) : (
+            <div>
+              {locale.imageFieldLabel}
+              <ImageField
+                value={symbol}
                 onChange={(val: string) => {
-                  this.props.updateMultiSymbols(val, kind);
+                  updateMultiSymbols(val, kind);
                 }}
               />
-            ) : (
-              <div>
-                {locale.imageFieldLabel}
-                <ImageField
-                  value={symbol}
-                  onChange={(val: string) => {
-                    this.props.updateMultiSymbols(val, kind);
-                  }}
-                />
-                {
-                  !iconLibraries ? null : (
-                    <div className="gs-bulk-edit-modals-icon-selector">
-                      <IconSelector
-                        iconLibraries={iconLibraries}
-                        onIconSelect={(val: string) => {
-                          this.props.updateMultiSymbols(val, kind);
-                        }}
-                        selectedIconSrc={symbol}
-                      />
-                    </div>)
-                }
-              </div>
-            )
-          }
-        </Modal>
-      </div>
-    );
-  }
-}
+              {
+                !iconLibraries ? null : (
+                  <div className="gs-bulk-edit-modals-icon-selector">
+                    <IconSelector
+                      iconLibraries={iconLibraries}
+                      onIconSelect={(val: string) => {
+                        updateMultiSymbols(val, kind);
+                      }}
+                      selectedIconSrc={symbol}
+                    />
+                  </div>)
+              }
+            </div>
+          )
+        }
+      </Modal>
+    </div>
+  );
+};
 
-export default localize(BulkEditModals, BulkEditModals.componentName);
+export default localize(BulkEditModals, COMPONENTNAME);
