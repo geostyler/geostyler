@@ -67,277 +67,241 @@ interface FillEditorDefaultProps {
 export interface FillEditorProps extends Partial<FillEditorDefaultProps> {
   symbolizer: FillSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  defaultValues: DefaultValues;
+  defaultValues?: DefaultValues;
 }
 
-export class FillEditor extends React.Component<FillEditorProps> {
+const COMPONENTNAME = 'FillEditor';
 
-  static componentName: string = 'FillEditor';
+export const FillEditor: React.FC<FillEditorProps> = ({
+  locale = en_US.FillEditor,
+  symbolizer,
+  onSymbolizerChange,
+  defaultValues
+}) => {
 
-  public static defaultProps: FillEditorDefaultProps = {
-    locale: en_US.FillEditor
-  };
-
-  public shouldComponentUpdate(nextProps: FillEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
-  onFillColorChange = (value: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.color = value;
+  const onFillColorChange = (value: string) => {
+    const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.color = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onFillOpacityChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.fillOpacity = value;
+  const onFillOpacityChange = (value: number) => {
+    const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.fillOpacity = value;
 
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOpacityChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.opacity = value;
+  const onOpacityChange = (value: number) => {
+    const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOutlineOpacityChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.outlineOpacity = value;
+  const onOutlineOpacityChange = (value: number) => {
+    const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.outlineOpacity = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOutlineColorChange = (value: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.outlineColor = value;
+  const onOutlineColorChange = (value: string) => {
+    const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.outlineColor = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOutlineWidthChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.outlineWidth = value;
+  const onOutlineWidthChange = (value: number) => {
+    const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.outlineWidth = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOutlineDasharrayChange = (value: number[]) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.outlineDasharray = value;
+  const onOutlineDasharrayChange = (value: number[]) => {
+    const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.outlineDasharray = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onGraphicChange = (gFill: PointSymbolizer) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer: FillSymbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.graphicFill = gFill;
+  const onGraphicChange = (newGraphicFill: PointSymbolizer) => {
+    const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.graphicFill = newGraphicFill;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  /**
-   * Wraps a Form Item around a given element and adds its locale
-   * to the From Item label.
-   */
-  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-    return element == null ? null : (
-      <Form.Item
-        label={locale}
-        {...formItemLayout}
-      >
-        {element}
-      </Form.Item>
-    );
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
   };
 
-  render() {
-    const {
-      symbolizer,
-      locale,
-      defaultValues
-    } = this.props;
+  const {
+    color,
+    fillOpacity,
+    outlineColor,
+    graphicFill,
+    outlineWidth,
+    outlineDasharray,
+    opacity,
+    outlineOpacity
+  } = symbolizer;
 
-    const {
-      color,
-      fillOpacity,
-      outlineColor,
-      graphicFill,
-      outlineWidth,
-      outlineDasharray,
-      opacity,
-      outlineOpacity
-    } = symbolizer;
-
-    return (
-      <CompositionContext.Consumer>
-        {(composition: Compositions) => (
-          <div className="gs-fill-symbolizer-editor" >
-            <Collapse bordered={false} defaultActiveKey={['1']}>
-              <Panel header="General" key="1">
-                {
-                  this.wrapFormItem(
-                    locale.fillColorLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'FillEditor.fillColorField',
-                      onChange: this.onFillColorChange,
-                      propName: 'color',
-                      propValue: color,
-                      defaultValue: defaultValues?.FillEditor?.defaultFillColor,
-                      defaultElement: <ColorField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.fillOpacityLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'FillEditor.fillOpacityField',
-                      onChange: this.onFillOpacityChange,
-                      propName: 'opacity',
-                      propValue: fillOpacity,
-                      defaultValue: defaultValues?.FillEditor?.defaultFillOpacity,
-                      defaultElement: <OpacityField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.opacityLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'FillEditor.opacityField',
-                      onChange: this.onOpacityChange,
-                      propName: 'opacity',
-                      propValue: opacity,
-                      defaultValue: defaultValues?.FillEditor?.defaultOpacity,
-                      defaultElement: <OpacityField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.outlineOpacityLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'FillEditor.outlineOpacityField',
-                      onChange: this.onOutlineOpacityChange,
-                      propName: 'opacity',
-                      propValue: outlineOpacity,
-                      defaultValue: defaultValues?.FillEditor?.defaultOutlineOpacity,
-                      defaultElement: <OpacityField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.outlineColorLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'FillEditor.outlineColorField',
-                      onChange: this.onOutlineColorChange,
-                      propName: 'color',
-                      propValue: outlineColor,
-                      defaultValue: defaultValues?.FillEditor?.defaultOutlineColor,
-                      defaultElement: <ColorField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.outlineWidthLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'FillEditor.outlineWidthField',
-                      onChange: this.onOutlineWidthChange,
-                      propName: 'width',
-                      propValue: outlineWidth,
-                      defaultValue: defaultValues?.FillEditor?.defaultOutlineWidth,
-                      defaultElement: <WidthField />
-                    })
-                  )
-                }
-                {
-                  this.wrapFormItem(
-                    locale.outlineDasharrayLabel,
-                    CompositionUtil.handleComposition({
-                      composition,
-                      path: 'FillEditor.outlineDasharrayField',
-                      onChange: this.onOutlineDasharrayChange,
-                      propName: 'dashArray',
-                      propValue: outlineDasharray,
-                      defaultElement: <LineDashField />
-                    })
-                  )
-                }
-              </Panel>
-              <Panel header="Graphic Fill" key="2">
+  return (
+    <CompositionContext.Consumer>
+      {(composition: Compositions) => (
+        <div className="gs-fill-symbolizer-editor" >
+          <Collapse bordered={false} defaultActiveKey={['1']}>
+            <Panel header="General" key="1">
+              <Form.Item
+                label={locale.fillColorLabel}
+                {...formItemLayout}
+              >
                 {
                   CompositionUtil.handleComposition({
                     composition,
-                    path: 'FillEditor.graphicEditorField',
-                    onChange: this.onGraphicChange,
-                    onChangeName: 'onGraphicChange',
-                    propName: 'graphic',
-                    propValue: graphicFill,
-                    defaultElement: (
-                      <GraphicEditor
-                        graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-                        graphic={graphicFill}
-                        graphicType={_get(graphicFill, 'kind') as GraphicType}
-                      />
-                    )
+                    path: 'FillEditor.fillColorField',
+                    onChange: onFillColorChange,
+                    propName: 'color',
+                    propValue: color,
+                    defaultValue: defaultValues?.FillEditor?.defaultFillColor,
+                    defaultElement: <ColorField />
                   })
                 }
-              </Panel>
-            </Collapse>
-          </div>
-        )}
-      </CompositionContext.Consumer>
-    );
-  }
-}
+              </Form.Item>
+              <Form.Item
+                label={locale.fillOpacityLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'FillEditor.fillOpacityField',
+                    onChange: onFillOpacityChange,
+                    propName: 'opacity',
+                    propValue: fillOpacity,
+                    defaultValue: defaultValues?.FillEditor?.defaultFillOpacity,
+                    defaultElement: <OpacityField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.fillOpacityLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'FillEditor.opacityField',
+                    onChange: onOpacityChange,
+                    propName: 'opacity',
+                    propValue: opacity,
+                    defaultValue: defaultValues?.FillEditor?.defaultOpacity,
+                    defaultElement: <OpacityField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.outlineOpacityLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'FillEditor.outlineOpacityField',
+                    onChange: onOutlineOpacityChange,
+                    propName: 'opacity',
+                    propValue: outlineOpacity,
+                    defaultValue: defaultValues?.FillEditor?.defaultOutlineOpacity,
+                    defaultElement: <OpacityField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.outlineColorLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'FillEditor.outlineColorField',
+                    onChange: onOutlineColorChange,
+                    propName: 'color',
+                    propValue: outlineColor,
+                    defaultValue: defaultValues?.FillEditor?.defaultOutlineColor,
+                    defaultElement: <ColorField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.outlineWidthLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'FillEditor.outlineWidthField',
+                    onChange: onOutlineWidthChange,
+                    propName: 'width',
+                    propValue: outlineWidth,
+                    defaultValue: defaultValues?.FillEditor?.defaultOutlineWidth,
+                    defaultElement: <WidthField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.outlineDasharrayLabel}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'FillEditor.outlineDasharrayField',
+                    onChange: onOutlineDasharrayChange,
+                    propName: 'dashArray',
+                    propValue: outlineDasharray,
+                    defaultElement: <LineDashField />
+                  })
+                }
+              </Form.Item>
+            </Panel>
+            <Panel header="Graphic Fill" key="2">
+              {
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'FillEditor.graphicEditorField',
+                  onChange: onGraphicChange,
+                  onChangeName: 'onGraphicChange',
+                  propName: 'graphic',
+                  propValue: graphicFill,
+                  defaultElement: (
+                    <GraphicEditor
+                      graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+                      graphic={graphicFill}
+                      graphicType={_get(graphicFill, 'kind') as GraphicType}
+                    />
+                  )
+                })
+              }
+            </Panel>
+          </Collapse>
+        </div>
+      )}
+    </CompositionContext.Consumer>
+  );
+};
 
-export default withDefaultsContext(localize(FillEditor, FillEditor.componentName));
+export default withDefaultsContext(localize(FillEditor, COMPONENTNAME));
