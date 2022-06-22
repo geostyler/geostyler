@@ -161,6 +161,7 @@ const zh_CN: GeoStylerLocale = {
   },
   IconEditor: {
     imageLabel: '来源',
+    imagePlaceholder: 'URL到图标',
     sizeLabel: '尺寸',
     rotateLabel: '旋转',
     opacityLabel: '不透明度',

@@ -160,6 +160,7 @@ const en_US: GeoStylerLocale = {
   },
   IconEditor: {
     imageLabel: 'Source',
+    imagePlaceholder: 'URL to Icon',
     sizeLabel: 'Size',
     rotateLabel: 'Rotation',
     opacityLabel: 'Opacity',

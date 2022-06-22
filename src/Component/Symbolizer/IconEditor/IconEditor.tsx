@@ -128,7 +128,7 @@ export const IconEditor: React.FC<IconEditorProps> = ({
     rotate
   } = symbolizer;
 
-  const imageSrc = !_isEmpty(image) ? image : 'URL to Icon';
+  const imageSrc = !_isEmpty(image) ? image : locale.imagePlaceholder;
 
   return (
     <CompositionContext.Consumer>
