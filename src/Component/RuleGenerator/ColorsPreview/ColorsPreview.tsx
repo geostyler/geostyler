@@ -43,28 +43,18 @@ export interface ColorsPreviewProps {
 /**
  *
  */
-export class ColorsPreview extends React.Component<ColorsPreviewProps> {
+export const ColorsPreview: React.FC<ColorsPreviewProps> = ({
+  colors
+}) => {
 
-  static componentName: string = 'ColorsPreview';
+  const style = RuleGeneratorUtil.generateBackgroundStyleFromColors(colors);
 
-  public shouldComponentUpdate(nextProps: ColorsPreviewProps): boolean {
-    return !_isEqual(this.props, nextProps);
-  }
-
-  render() {
-    const {
-      colors
-    } = this.props;
-
-    const style = RuleGeneratorUtil.generateBackgroundStyleFromColors(colors);
-
-    return (
-      <div
-        className="colors-preview"
-        style={style}
-      />
-    );
-  }
-}
+  return (
+    <div
+      className="colors-preview"
+      style={style}
+    />
+  );
+};
 
 export default ColorsPreview;

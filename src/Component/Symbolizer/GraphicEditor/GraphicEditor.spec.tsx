@@ -25,15 +25,29 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
 import { GraphicEditor, GraphicEditorProps } from './GraphicEditor';
-import TestUtil from '../../../Util/TestUtil';
 import {
   GraphicType,
   MarkSymbolizer,
   IconSymbolizer
 } from 'geostyler-style';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
+import { render, act, fireEvent } from '@testing-library/react';
+
+jest.mock('antd', () => {
+  const antd = jest.requireActual('antd');
+  const Select = ({ children, onChange }) => {
+    return <select onChange={e => onChange(e.target.value)}>{children}</select>;
+  };
+  Select.Option = ({ children, ...otherProps }) => {
+    return <option {...otherProps}>{children}</option>;
+  };
+  return {
+    ...antd,
+    Select,
+  };
+});
 
 describe('GraphicEditor', () => {
 
@@ -41,57 +55,82 @@ describe('GraphicEditor', () => {
   const dummyGraphicMark: MarkSymbolizer = SymbolizerUtil.markSymbolizer;
   const dummyGraphicIcon: IconSymbolizer = SymbolizerUtil.iconSymbolizer;
   const onGraphicChangeSpy = jest.fn();
-
-  let wrapper: any;
-  beforeEach(() => {
-    const props: GraphicEditorProps = {
-      graphic: dummyGraphicMark,
-      graphicType: dummyGraphicType,
-      onGraphicChange: onGraphicChangeSpy
-    };
-    wrapper = TestUtil.shallowRenderComponent(GraphicEditor, props);
-    onGraphicChangeSpy.mockClear();
-  });
+  const props: GraphicEditorProps = {
+    graphic: dummyGraphicMark,
+    graphicType: dummyGraphicType,
+    onGraphicChange: onGraphicChangeSpy
+  };
 
   it('is defined', () => {
     expect(GraphicEditor).toBeDefined();
   });
 
+
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const graphicEditor = render(<GraphicEditor {...props} />);
+    expect(graphicEditor.container).toBeInTheDocument();
   });
 
   it('renders MarkEditor if graphic is Mark', () => {
-    expect(wrapper.instance().getGraphicFields(dummyGraphicMark).props.symbolizer.kind)
-      .toEqual('Mark');
+    const graphicEditor = render(<GraphicEditor {...props} graphic={dummyGraphicMark} />);
+    const markEditor = graphicEditor.container.querySelector('.gs-mark-symbolizer-editor');
+    expect(markEditor).toBeInTheDocument();
   });
 
   it('renders IconEditor if graphic is Icon', () => {
-    expect(wrapper.instance().getGraphicFields(dummyGraphicIcon).props.symbolizer.kind).toEqual('Icon');
+    const graphicEditor = render(<GraphicEditor {...props} graphic={dummyGraphicIcon} />);
+    const iconEditor = graphicEditor.container.querySelector('.gs-icon-symbolizer-editor');
+    expect(iconEditor).toBeInTheDocument();
   });
 
   it('renders nothing if graphicType is not Mark or Icon', () => {
-    expect(wrapper.instance().getGraphicFields('Text')).toBeUndefined();
+    const graphicType: any = 'peter';
+    const graphic: any = {};
+    const graphicEditor = render(<GraphicEditor
+      graphicType={graphicType}
+      graphic={graphic}
+    />);
+    const markEditor = graphicEditor.container.querySelector('.gs-mark-symbolizer-editor');
+    const iconEditor = graphicEditor.container.querySelector('.gs-icon-symbolizer-editor');
+    expect(markEditor).not.toBeInTheDocument();
+    expect(iconEditor).not.toBeInTheDocument();
   });
 
-  it('handles onGraphicTypeChange', () => {
-    expect.assertions(9);
+  it('handles onGraphicTypeChange', async () => {
+
+    const graphicEditor = render(<GraphicEditor {...props} />);
     expect(onGraphicChangeSpy).not.toHaveBeenCalled();
-    const wrapperInstance = wrapper.instance();
 
-    wrapperInstance.onGraphicTypeChange('Mark');
-    expect(onGraphicChangeSpy).toHaveBeenCalled();
-    expect(onGraphicChangeSpy).toHaveBeenCalledWith(dummyGraphicMark);
-
-    wrapperInstance.onGraphicTypeChange('Icon');
+    const selectField = graphicEditor.container.querySelector('select');
+    await act(async() => {
+      fireEvent.change(selectField!, {
+        target: { value: 'Icon' }
+      });
+    });
     expect(onGraphicChangeSpy).toHaveBeenCalled();
     expect(onGraphicChangeSpy).toHaveBeenCalledWith(dummyGraphicIcon);
 
-    wrapperInstance.onGraphicTypeChange('Wrong');
+    await act(async() => {
+      fireEvent.change(selectField!, {
+        target: { value: 'Mark' }
+      });
+    });
+    expect(onGraphicChangeSpy).toHaveBeenCalled();
+    expect(onGraphicChangeSpy).toHaveBeenCalledWith(dummyGraphicMark);
+
+    await act(async() => {
+      fireEvent.change(selectField!, {
+        target: { value: 'Wrong' }
+      });
+    });
     expect(onGraphicChangeSpy).toHaveBeenCalled();
     expect(onGraphicChangeSpy).toHaveBeenCalledWith(undefined);
 
-    wrapperInstance.onGraphicTypeChange();
+    await act(async() => {
+      fireEvent.change(selectField!, {
+        target: { value: undefined }
+      });
+    });
     expect(onGraphicChangeSpy).toHaveBeenCalled();
     expect(onGraphicChangeSpy).toHaveBeenCalledWith(undefined);
   });

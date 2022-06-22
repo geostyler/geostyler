@@ -160,6 +160,7 @@ const de_DE: GeoStylerLocale = {
     graphicFillTypeLabel: 'Graphic Fill Type'
   },
   IconEditor: {
+    imagePlaceholder: 'URL zum Icon',
     imageLabel: 'Quelle',
     sizeLabel: 'Größe',
     rotateLabel: 'Drehung',

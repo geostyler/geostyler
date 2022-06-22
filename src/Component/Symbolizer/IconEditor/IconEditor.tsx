@@ -63,7 +63,7 @@ export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
   symbolizer: IconSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
-  defaultValues: DefaultValues;
+  defaultValues?: DefaultValues;
   /**
    * The props for the image field. Properties 'iconLibraries' and
    * 'tooltipLabel' should not be used here currently, as they will
@@ -73,174 +73,144 @@ export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
   imageFieldProps?: Partial<ImageFieldProps>;
 }
 
-export class IconEditor extends React.Component<IconEditorProps> {
+const COMPONENTNAME = 'IconEditor';
 
-  static componentName: string = 'IconEditor';
+export const IconEditor: React.FC<IconEditorProps> = ({
+  locale = en_US.IconEditor,
+  symbolizer,
+  onSymbolizerChange,
+  iconLibraries,
+  defaultValues,
+  imageFieldProps
+}) => {
 
-  public static defaultProps: IconEditorDefaultProps = {
-    locale: en_US.IconEditor
-  };
-
-  public shouldComponentUpdate(nextProps: IconEditorProps): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    return diffProps;
-  }
-
-  onImageSrcChange = (value: string) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.image = value;
+  const onImageSrcChange = (value: string) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.image = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onSizeChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.size = value;
+  const onSizeChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.size = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onRotateChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.rotate = value;
+  const onRotateChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.rotate = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  onOpacityChange = (value: number) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.props.symbolizer);
-    symbolizer.opacity = value;
+  const onOpacityChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(symbolizerClone);
     }
   };
 
-  /**
-   * Wraps a Form Item around a given element and adds its locale
-   * to the From Item label.
-   */
-  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-    return element == null ? null : (
-      <Form.Item
-        label={locale}
-        {...formItemLayout}
-      >
-        {element}
-      </Form.Item>
-    );
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
   };
 
-  render() {
-    const {
-      locale,
-      defaultValues,
-      symbolizer,
-      iconLibraries,
-      imageFieldProps
-    } = this.props;
+  const {
+    opacity,
+    image,
+    size,
+    rotate
+  } = symbolizer;
 
-    const {
-      opacity,
-      image,
-      size,
-      rotate
-    } = symbolizer;
+  const imageSrc = !_isEmpty(image) ? image : locale.imagePlaceholder;
 
-    const imageSrc = !_isEmpty(image) ? image : 'URL to Icon';
+  return (
+    <CompositionContext.Consumer>
+      {(composition: Compositions) => (
+        <div className="gs-icon-symbolizer-editor" >
+          <Form.Item
+            label={locale.imageLabel}
+            {...formItemLayout}
+          >
+            {
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'IconEditor.imageField',
+                onChange: onImageSrcChange,
+                propName: 'value',
+                propValue: imageSrc,
+                defaultValue: defaultValues?.IconEditor?.defaultImage,
+                defaultElement: (
+                  <ImageField
+                    // To keep backwards compatibility,
+                    // we overwrite imageFieldProps with the props
+                    // that were explicitly set as props on IconEditor.
+                    {...imageFieldProps}
+                    iconLibraries={iconLibraries}
+                    tooltipLabel={locale.iconTooltipLabel}
+                  />
+                )
+              })
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.sizeLabel}
+            {...formItemLayout}
+          >
+            {
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'IconEditor.sizeField',
+                onChange: onSizeChange,
+                propName: 'size',
+                propValue: size,
+                defaultValue: defaultValues?.IconEditor?.defaultSize,
+                defaultElement: <SizeField />
+              })
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.rotateLabel}
+            {...formItemLayout}
+          >
+            {
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'IconEditor.rotateField',
+                onChange: onRotateChange,
+                propName: 'rotate',
+                propValue: rotate,
+                defaultValue: defaultValues?.IconEditor?.defaultRotate,
+                defaultElement: <RotateField />
+              })
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.opacityLabel}
+            {...formItemLayout}
+          >
+            {
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'IconEditor.opacityField',
+                onChange: onOpacityChange,
+                propName: 'opacity',
+                propValue: opacity,
+                defaultValue: defaultValues?.IconEditor?.defaultOpacity,
+                defaultElement: <OpacityField />
+              })
+            }
+          </Form.Item>
+        </div>
+      )}
+    </CompositionContext.Consumer>
+  );
+};
 
-    return (
-      <CompositionContext.Consumer>
-        {(composition: Compositions) => (
-          <div className="gs-icon-symbolizer-editor" >
-            {
-              this.wrapFormItem(
-                locale.imageLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'IconEditor.imageField',
-                  onChange: this.onImageSrcChange,
-                  propName: 'value',
-                  propValue: imageSrc,
-                  defaultValue: defaultValues?.IconEditor?.defaultImage,
-                  defaultElement: (
-                    <ImageField
-                      // To keep backwards compatibility,
-                      // we overwrite imageFieldProps with the props
-                      // that were explicitly set as props on IconEditor.
-                      {...imageFieldProps}
-                      iconLibraries={iconLibraries}
-                      tooltipLabel={locale.iconTooltipLabel}
-                    />
-                  )
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.sizeLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'IconEditor.sizeField',
-                  onChange: this.onSizeChange,
-                  propName: 'size',
-                  propValue: size,
-                  defaultValue: defaultValues?.IconEditor?.defaultSize,
-                  defaultElement: <SizeField />
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.rotateLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'IconEditor.rotateField',
-                  onChange: this.onRotateChange,
-                  propName: 'rotate',
-                  propValue: rotate,
-                  defaultValue: defaultValues?.IconEditor?.defaultRotate,
-                  defaultElement: <RotateField />
-                })
-              )
-            }
-            {
-              this.wrapFormItem(
-                locale.opacityLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'IconEditor.opacityField',
-                  onChange: this.onOpacityChange,
-                  propName: 'opacity',
-                  propValue: opacity,
-                  defaultValue: defaultValues?.IconEditor?.defaultOpacity,
-                  defaultElement: <OpacityField />
-                })
-              )
-            }
-          </div>
-        )}
-      </CompositionContext.Consumer>
-    );
-  }
-}
-
-export default withDefaultsContext(localize(IconEditor, IconEditor.componentName));
+export default withDefaultsContext(localize(IconEditor, COMPONENTNAME));

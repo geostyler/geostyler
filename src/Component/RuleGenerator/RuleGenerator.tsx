@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Rule, SymbolizerKind, WellKnownName } from 'geostyler-style';
 import { Data } from 'geostyler-data';
 import { Radio, Form, Button, InputNumber, Tooltip } from 'antd';
@@ -52,8 +52,6 @@ export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 
 // default props
 interface RuleGeneratorDefaultProps {
-  unknownSymbolizerText?: string;
-  /** Locale object containing translated text snippets */
   locale: GeoStylerLocale['RuleGenerator'];
   /** List of provided color ramps */
   colorRamps: {
@@ -63,351 +61,254 @@ interface RuleGeneratorDefaultProps {
   colorSpaces: (InterpolationMode)[];
 }
 
-interface RuleGeneratorState {
-  attributeName?: string;
-  attributeType?: string;
-  numberOfRules?: number;
-  distinctValues?: string[];
-  levelOfMeasurement?: LevelOfMeasurement;
-  colorRamp?: string;
-  symbolizerKind?: SymbolizerKind;
-  wellKnownName?: WellKnownName;
-  classificationMethod?: ClassificationMethod;
-  colorSpace: InterpolationMode;
-  hasError: boolean;
-}
-
 // non default props
 export interface RuleGeneratorProps extends Partial<RuleGeneratorDefaultProps> {
   internalDataDef: Data;
   onRulesChange?: (rules: Rule[]) => void;
 }
+const COMPONENTNAME = 'RuleGenerator';
 
-export class RuleGenerator extends React.Component<RuleGeneratorProps, RuleGeneratorState> {
+export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
+  locale = en_US.RuleGenerator,
+  internalDataDef,
+  onRulesChange,
+  colorSpaces = ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'], // rgba, cmyk and gl crash
+  colorRamps = {
+    GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
+    GreenRed: ['#00FF00', '#FF0000'],
+    ...brewer
+  }
+}) => {
 
-  static componentName: string = 'RuleGenerator';
+  const minNrClasses = 2;
 
-  public static defaultProps: RuleGeneratorDefaultProps = {
-    locale: en_US.RuleGenerator,
-    colorSpaces: ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'], // rgba, cmyk and gl crash
-    colorRamps: {
-      GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
-      GreenRed: ['#00FF00', '#FF0000'],
-      ...brewer
+  const [symbolizerKind, setSymbolizerKind] = useState<SymbolizerKind>(
+    RuleGeneratorUtil.guessSymbolizerFromData(internalDataDef)
+  );
+  const [wellKnownName, setWellKnownName] = useState<WellKnownName>('circle');
+  const [colorRamp, setColorRamp] = useState<string>(colorRamps && colorRamps.GeoStyler ? 'GeoStyler' : undefined);
+  const [colorSpace, setColorSpace] = useState<InterpolationMode>('hsl');
+  const [numberOfRules, setNumberOfRules] = useState<number>(2);
+  const [distinctValues, setDistinctValues] = useState<any[]>();
+  const [hasError, setHasError] = useState<boolean>();
+  const [attributeType, setAttributeType] = useState<string>();
+  const [attributeName, setAttributeName] = useState<string>();
+  const [classificationMethod, setClassificationMethod] = useState<ClassificationMethod>();
+  const [levelOfMeasurement, setLevelOfMeasurement] = useState<LevelOfMeasurement>();
+
+  const onAttributeChange = (newAttributeName: string) => {
+    try {
+      const newAttributeType = _get(internalDataDef, `schema.properties[${newAttributeName}].type`);
+      let newClassficationMethod = classificationMethod;
+      if (newAttributeType === 'string' && classificationMethod === 'kmeans') {
+        newClassficationMethod = undefined;
+      }
+
+      const newDistinctValues = RuleGeneratorUtil.getDistinctValues(internalDataDef, newAttributeName) || [];
+      setAttributeName(newAttributeName);
+      setAttributeType(newAttributeType);
+      setDistinctValues(newDistinctValues);
+      setLevelOfMeasurement(newAttributeType === 'string' ? 'nominal' : 'cardinal');
+      setClassificationMethod(newClassficationMethod);
+    } catch (error) {
+      setHasError(true);
     }
   };
 
-  private minNrClasses: number;
-
-  constructor(props: RuleGeneratorProps) {
-    super(props);
-
-    const {
-      internalDataDef
-    } = this.props;
-
-    const symbolizerKind = RuleGeneratorUtil.guessSymbolizerFromData(internalDataDef);
-
-    this.minNrClasses = 2;
-
-    this.state = {
-      symbolizerKind,
-      wellKnownName: 'circle',
-      colorRamp: props.colorRamps && props.colorRamps.GeoStyler ? 'GeoStyler' : undefined,
-      colorSpace: 'hsl',
-      numberOfRules: 2,
-      distinctValues: [],
-      hasError: false
-    };
-  }
-
-  componentDidCatch() {
-    this.setState({
-      hasError: true
-    });
-  }
-
-  onAttributeChange = (attributeName: string) => {
-    const {
-      internalDataDef
-    } = this.props;
-    const attributeType = _get(internalDataDef, `schema.properties[${attributeName}].type`);
-    let {
-      classificationMethod
-    } = this.state;
-    if (attributeType === 'string' && classificationMethod === 'kmeans') {
-      classificationMethod = undefined;
-    }
-
-    const distinctValues = RuleGeneratorUtil.getDistinctValues(internalDataDef, attributeName) || [];
-    this.setState({
-      attributeName,
-      distinctValues,
-      attributeType,
-      levelOfMeasurement: attributeType === 'string' ? 'nominal' : 'cardinal',
-      classificationMethod
-    });
+  const onLevelOfMeasurementChange = (event: RadioChangeEvent) => {
+    setLevelOfMeasurement(event.target.value);
   };
 
-  onLevelOfMeasurementChange = (event: RadioChangeEvent) => {
-    const levelOfMeasurement = event.target.value;
-    this.setState({levelOfMeasurement});
+  const onAllDistinctClicked = () => {
+    setNumberOfRules(distinctValues.length);
   };
 
-  onClassificationChange = (classificationMethod: ClassificationMethod) => {
-    this.setState({classificationMethod});
-  };
+  const onSymbolizerKindChange = (newSymbolizerKind: SymbolizerKind) => {
+    let newWellKnownName: WellKnownName;
 
-  onNumberChange = (numberOfRules: number) => {
-    this.setState({
-      numberOfRules
-    });
-  };
-
-  onAllDistinctClicked = () => {
-    this.setState({
-      numberOfRules: this.state.distinctValues.length
-    });
-  };
-
-  onColorRampChange = (colorRamp: string) => {
-    this.setState({colorRamp});
-  };
-  onColorSpaceChange = (colorSpace: InterpolationMode) => {
-    this.setState({colorSpace});
-  };
-
-  onSymbolizerKindChange = (symbolizerKind: SymbolizerKind) => {
-    let {
-      wellKnownName
-    } = this.state;
-
-    if (symbolizerKind === 'Mark' && !wellKnownName) {
-      wellKnownName = 'circle';
+    if (newSymbolizerKind === 'Mark' && !wellKnownName) {
+      newWellKnownName = 'circle';
     } else {
-      wellKnownName = undefined;
+      newWellKnownName = undefined;
     }
 
-    this.setState({
-      symbolizerKind,
-      wellKnownName
-    });
+    setWellKnownName(newWellKnownName);
+    setSymbolizerKind(newSymbolizerKind);
   };
 
-  onWellKnownNameFieldChange = (wellKnownName: WellKnownName) => {
-    this.setState({
-      wellKnownName
-    });
-  };
-
-  onGenerateClick = () => {
-    const {
-      onRulesChange,
-      internalDataDef,
-      colorRamps
-    } = this.props;
-    const {
-      attributeName,
-      classificationMethod,
-      colorRamp,
-      levelOfMeasurement,
-      numberOfRules,
-      symbolizerKind,
-      wellKnownName
-    } = this.state;
-
-    const rules = RuleGeneratorUtil.generateRules({
-      attributeName,
-      classificationMethod,
-      colors: colorRamps[colorRamp],
-      data: internalDataDef,
-      levelOfMeasurement,
-      numberOfRules,
-      symbolizerKind,
-      wellKnownName
-    });
-
-    if (classificationMethod === 'kmeans') {
-      this.setState({
-        numberOfRules: rules.length
+  const onGenerateClick = () => {
+    try {
+      const rules = RuleGeneratorUtil.generateRules({
+        attributeName,
+        classificationMethod,
+        colors: colorRamps[colorRamp],
+        data: internalDataDef,
+        levelOfMeasurement,
+        numberOfRules,
+        symbolizerKind,
+        wellKnownName
       });
-    }
 
-    if (onRulesChange) {
-      onRulesChange(rules);
+      if (classificationMethod === 'kmeans') {
+        setNumberOfRules(rules.length);
+      }
+
+      if (onRulesChange) {
+        onRulesChange(rules);
+      }
+    } catch (error) {
+      setHasError(true);
     }
   };
 
-  render() {
-    if (this.state.hasError) {
-      return <h1>An error occurred in the RuleGenerator UI.</h1>;
-    }
+  if (hasError) {
+    return <h1>An error occurred in the RuleGenerator UI.</h1>;
+  }
 
-    const {
-      colorRamps,
-      colorSpaces,
-      internalDataDef,
-      locale
-    } = this.props;
+  const previewColors = RuleGeneratorUtil.generateColors(colorRamps[colorRamp], numberOfRules, colorSpace);
 
-    const {
-      attributeName,
-      attributeType,
-      classificationMethod,
-      colorRamp,
-      colorSpace,
-      levelOfMeasurement,
-      numberOfRules,
-      symbolizerKind,
-      wellKnownName,
-      distinctValues
-    } = this.state;
-
-    const previewColors = RuleGeneratorUtil.generateColors(colorRamps[colorRamp], numberOfRules, colorSpace);
-
-    return (
-      <div className="gs-rule-generator" >
-        <Form layout="horizontal">
-          <AttributeCombo
-            value={attributeName}
-            internalDataDef={internalDataDef}
-            onAttributeChange={this.onAttributeChange}
-            validateStatus={attributeName ? 'success' : 'warning'}
-          />
-          <Form.Item
-            label={locale.levelOfMeasurement}
+  return (
+    <div className="gs-rule-generator" >
+      <Form layout="horizontal">
+        <AttributeCombo
+          value={attributeName}
+          internalDataDef={internalDataDef}
+          onAttributeChange={onAttributeChange}
+          validateStatus={attributeName ? 'success' : 'warning'}
+        />
+        <Form.Item
+          label={locale.levelOfMeasurement}
+        >
+          <Radio.Group
+            onChange={onLevelOfMeasurementChange}
+            value={levelOfMeasurement}
+            buttonStyle="solid"
           >
-            <Radio.Group
-              onChange={this.onLevelOfMeasurementChange}
-              value={levelOfMeasurement}
-              buttonStyle="solid"
+            <Radio.Button
+              value="nominal"
             >
-              <Radio.Button
-                value="nominal"
-              >
-                {locale.nominal}
-              </Radio.Button>
-              <Radio.Button
-                value="cardinal"
-                disabled={attributeType === 'string'}
-              >
-                {locale.cardinal}
-              </Radio.Button>
-            </Radio.Group>
-          </Form.Item>
-          {
-            levelOfMeasurement !== 'cardinal' ? null :
-              <Form.Item
-                label={locale.classification}
-              >
-                <ClassificationCombo
-                  classification={classificationMethod}
-                  onChange={this.onClassificationChange}
-                />
-              </Form.Item>
-          }
-          <Form.Item
-            label={locale.numberOfRules}
-            validateStatus={
-              classificationMethod === 'kmeans'
-                ? 'warning'
-                : numberOfRules < this.minNrClasses
-                  ? 'error'
-                  : undefined
-            }
-            help={classificationMethod === 'kmeans'
-              ? locale.numberOfRulesViaKmeans
-              : numberOfRules < this.minNrClasses
-                // eslint-disable-next-line max-len
-                ? `${locale.colorRampMinClassesWarningPre} ${this.minNrClasses} ${locale.colorRampMinClassesWarningPost}`
-                : undefined
-            }
-          >
-            <div>
-              <InputNumber
-                min={this.minNrClasses}
-                max={100}
-                value={numberOfRules}
-                onChange={this.onNumberChange}
+              {locale.nominal}
+            </Radio.Button>
+            <Radio.Button
+              value="cardinal"
+              disabled={attributeType === 'string'}
+            >
+              {locale.cardinal}
+            </Radio.Button>
+          </Radio.Group>
+        </Form.Item>
+        {
+          levelOfMeasurement !== 'cardinal' ? null :
+            <Form.Item
+              label={locale.classification}
+            >
+              <ClassificationCombo
+                classification={classificationMethod}
+                onChange={setClassificationMethod}
               />
-              {
-                levelOfMeasurement === 'nominal' && distinctValues.length > 0 &&
+            </Form.Item>
+        }
+        <Form.Item
+          label={locale.numberOfRules}
+          validateStatus={
+            classificationMethod === 'kmeans'
+              ? 'warning'
+              : numberOfRules < minNrClasses
+                ? 'error'
+                : undefined
+          }
+          help={classificationMethod === 'kmeans'
+            ? locale.numberOfRulesViaKmeans
+            : numberOfRules < minNrClasses
+            // eslint-disable-next-line max-len
+              ? `${locale.colorRampMinClassesWarningPre} ${minNrClasses} ${locale.colorRampMinClassesWarningPost}`
+              : undefined
+          }
+        >
+          <div>
+            <InputNumber<number>
+              min={minNrClasses}
+              max={100}
+              value={numberOfRules}
+              onChange={setNumberOfRules}
+            />
+            {
+              levelOfMeasurement === 'nominal' && distinctValues.length > 0 &&
                 <Tooltip title={locale.allDistinctValues}>
                   <Button
                     className="all-distinct-values-button"
                     icon={<PlusSquareOutlined />}
-                    onClick={this.onAllDistinctClicked}
+                    onClick={onAllDistinctClicked}
                   />
                 </Tooltip>
-              }
-            </div>
-          </Form.Item>
-          <fieldset>
-            <legend>{locale.symbolizer}</legend>
-            <Form.Item>
-              <KindField
-                kind={symbolizerKind}
-                symbolizerKinds={[
-                  'Fill',
-                  'Mark',
-                  'Line'
-                ]}
-                onChange={this.onSymbolizerKindChange}
-              />
-            </Form.Item>
-            { symbolizerKind !== 'Mark' ? null :
-              <Form.Item>
-                <WellKnownNameField
-                  wellKnownName={wellKnownName}
-                  onChange={this.onWellKnownNameFieldChange}
-                />
-              </Form.Item>
             }
-            <Form.Item
-              label={locale.colorRamp}
-              help={numberOfRules < this.minNrClasses ?
-                `${locale.colorRampMinClassesWarningPre} ${this.minNrClasses} ${locale.colorRampMinClassesWarningPost}`
-                : undefined}
-            >
-              <ColorRampCombo
-                colorRamps={colorRamps}
-                colorRamp={colorRamp}
-                onChange={this.onColorRampChange}
-              />
-            </Form.Item>
-            {colorSpaces.length > 0 ?
-              <Form.Item
-                label={locale.colorSpace}
-              >
-                <ColorSpaceCombo
-                  colorSpace={colorSpace}
-                  colorSpaces={colorSpaces}
-                  onChange={this.onColorSpaceChange}
-                />
-              </Form.Item>
-              : null}
-            <Form.Item
-              label={locale.preview}
-            >
-              <ColorsPreview
-                colors={previewColors}
-              />
-            </Form.Item>
-          </fieldset>
+          </div>
+        </Form.Item>
+        <fieldset>
+          <legend>{locale.symbolizer}</legend>
           <Form.Item>
-            <Button
-              className="gs-rule-generator-submit-button"
-              type="primary"
-              onClick={this.onGenerateClick}
-              disabled={numberOfRules < this.minNrClasses || !attributeName}
-            >
-              {locale.generateButtonText}
-            </Button>
+            <KindField
+              kind={symbolizerKind}
+              symbolizerKinds={[
+                'Fill',
+                'Mark',
+                'Line'
+              ]}
+              onChange={onSymbolizerKindChange}
+            />
           </Form.Item>
-        </Form>
-      </div>
-    );
-  }
-}
+          { symbolizerKind !== 'Mark' ? null :
+            <Form.Item>
+              <WellKnownNameField
+                wellKnownName={wellKnownName}
+                onChange={setWellKnownName}
+              />
+            </Form.Item>
+          }
+          <Form.Item
+            label={locale.colorRamp}
+            help={numberOfRules < minNrClasses ?
+              `${locale.colorRampMinClassesWarningPre} ${minNrClasses} ${locale.colorRampMinClassesWarningPost}`
+              : undefined}
+          >
+            <ColorRampCombo
+              colorRamps={colorRamps}
+              colorRamp={colorRamp}
+              onChange={setColorRamp}
+            />
+          </Form.Item>
+          {colorSpaces.length > 0 ?
+            <Form.Item
+              label={locale.colorSpace}
+            >
+              <ColorSpaceCombo
+                colorSpace={colorSpace}
+                colorSpaces={colorSpaces}
+                onChange={setColorSpace}
+              />
+            </Form.Item>
+            : null}
+          <Form.Item
+            label={locale.preview}
+          >
+            <ColorsPreview
+              colors={previewColors}
+            />
+          </Form.Item>
+        </fieldset>
+        <Form.Item>
+          <Button
+            className="gs-rule-generator-submit-button"
+            type="primary"
+            onClick={onGenerateClick}
+            disabled={numberOfRules < minNrClasses || !attributeName}
+          >
+            {locale.generateButtonText}
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
 
-export default localize(RuleGenerator, RuleGenerator.componentName);
+export default localize(RuleGenerator, COMPONENTNAME);

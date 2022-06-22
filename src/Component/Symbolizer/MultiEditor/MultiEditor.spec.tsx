@@ -25,16 +25,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
 import { MultiEditor, MultiEditorProps } from './MultiEditor';
-import TestUtil from '../../../Util/TestUtil';
 import en_US from '../../../locale/en_US';
 import { Symbolizer } from 'geostyler-style';
+import { render, act, fireEvent } from '@testing-library/react';
 
-describe('Renderer', () => {
+describe('MultiEditor', () => {
 
-  let wrapper: any;
-  let dummyOnSymbolizerChange: jest.Mock;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
     wellKnownName: 'circle',
@@ -45,33 +43,45 @@ describe('Renderer', () => {
     color: '#FF00FF'
   }];
 
-  beforeEach(() => {
-    dummyOnSymbolizerChange = jest.fn();
-    const props: MultiEditorProps = {
-      locale: en_US.MultiEditor,
-      onSymbolizersChange: dummyOnSymbolizerChange,
-      symbolizers: dummySymbolizers
-    };
-    wrapper = TestUtil.shallowRenderComponent(MultiEditor, props);
-  });
+  const props: MultiEditorProps = {
+    locale: en_US.MultiEditor,
+    onSymbolizersChange: jest.fn(),
+    symbolizers: dummySymbolizers
+  };
 
   it('is defined', () => {
     expect(MultiEditor).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const textEditor = render(<MultiEditor {...props} />);
+    expect(textEditor.container).toBeInTheDocument();
   });
 
-  it('adds a Symbolizer', () => {
-    wrapper.instance().addSymbolizer();
-    expect(dummyOnSymbolizerChange).toHaveBeenCalledTimes(1);
-    dummyOnSymbolizerChange.mockRestore();
+  it('adds a Symbolizer', async () => {
+    const textEditor = render(<MultiEditor {...props} />);
+    const addButton = await textEditor.findByText(en_US.MultiEditor.add);
+    const got = [
+      ...dummySymbolizers,
+      {'color': '#0E1058', 'kind': 'Mark', 'wellKnownName': 'circle'}
+    ];
+    await act(async() => {
+      fireEvent.click(addButton);
+    });
+    expect(props.onSymbolizersChange).toHaveBeenCalledWith(got);
   });
 
-  it('removes a Symbolizer', () => {
-    wrapper.instance().removeSymbolizer(1);
-    expect(dummyOnSymbolizerChange).toHaveBeenCalledTimes(1);
-    dummyOnSymbolizerChange.mockRestore();
+  it('removes a Symbolizer', async () => {
+    const textEditor = render(<MultiEditor {...props} />);
+    const removeButton = await textEditor.findByText(en_US.MultiEditor.remove);
+    const got = [{
+      kind: 'Mark',
+      wellKnownName: 'circle',
+      color: '#FF00FF'
+    }];
+    await act(async() => {
+      fireEvent.click(removeButton);
+    });
+    expect(props.onSymbolizersChange).toHaveBeenCalledWith(got);
   });
 });

@@ -72,7 +72,7 @@ export const LineCapField: React.FC<LineCapFieldProps> = ({
 
   return (
     <Select
-      className="editor-field line-cap"
+      className="editor-field line-cap-field"
       value={cap}
       onChange={onChange}
     >

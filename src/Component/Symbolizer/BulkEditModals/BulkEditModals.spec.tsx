@@ -25,35 +25,32 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
 import {
   BulkEditModals,
   BulkEditModalsProps
 } from './BulkEditModals';
-import TestUtil from '../../../Util/TestUtil';
+import { render } from '@testing-library/react';
 
 describe('BulkEditModals', () => {
 
-  let wrapper: any;
   const dummyFct = jest.fn();
-  beforeEach(() => {
-    const props: BulkEditModalsProps = {
-      colorModalVisible: false,
-      sizeModalVisible: false,
-      opacityModalVisible: false,
-      symbolModalVisible: false,
-      selectedRowKeys: [1, 2],
-      modalsClosed: dummyFct
-    };
-    wrapper = TestUtil.shallowRenderComponent(BulkEditModals, props);
-  });
+  const props: BulkEditModalsProps = {
+    colorModalVisible: false,
+    sizeModalVisible: false,
+    opacityModalVisible: false,
+    symbolModalVisible: false,
+    selectedRowKeys: [1, 2],
+    modalsClosed: dummyFct
+  };
 
   it('is defined', () => {
     expect(BulkEditModals).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const bulkEditModals = render(<BulkEditModals {...props} />);
+    expect(bulkEditModals.container).toBeInTheDocument();
   });
 
 });

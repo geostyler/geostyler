@@ -61,32 +61,24 @@ export interface ColorRampComboProps extends Partial<ColorRampComboDefaultProps>
   colorRamp?: string;
 }
 
+const COMPONENTNAME = 'ColorRampCombo';
+
 /**
- * Symbolizer editorwindow UI.
+ * ColorRampCombo UI.
  */
-export class ColorRampCombo extends React.Component<ColorRampComboProps> {
+export const ColorRampCombo: React.FC<ColorRampComboProps> = ({
+  locale = en_US.ColorRampCombo,
+  colorRamps = {
+    GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
+    GreenRed: ['#00FF00', '#FF0000'],
+    ...brewer
+  },
+  onChange,
+  colorRamp
+}) => {
 
-  static componentName: string = 'ColorRampCombo';
-
-  public static defaultProps: ColorRampComboDefaultProps = {
-    locale: en_US.ColorRampCombo,
-    colorRamps: {
-      GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
-      GreenRed: ['#00FF00', '#FF0000'],
-      ...brewer
-    }
-  };
-
-  public shouldComponentUpdate(nextProps: ColorRampComboProps): boolean {
-    return !_isEqual(this.props, nextProps);
-  }
-
-  getColorRampOptions = () => {
-    const {
-      colorRamps
-    } = this.props;
-
-    return Object.keys(colorRamps).map((name: string) => {
+  const colorRampOptions = Object.keys(colorRamps)
+    .map((name: string) => {
       const colors = colorRamps[name];
       const style = RuleGeneratorUtil.generateBackgroundStyleFromColors(colors);
       return (
@@ -100,35 +92,26 @@ export class ColorRampCombo extends React.Component<ColorRampComboProps> {
         </Select.Option>
       );
     });
-  };
 
-  render() {
-    const {
-      colorRamp,
-      colorRamps,
-      onChange,
-      locale
-    } = this.props;
 
-    let colorRampStyle;
-    if (colorRamp) {
-      const colors = colorRamps[colorRamp];
-      colorRampStyle = RuleGeneratorUtil.generateBackgroundStyleFromColors(colors);
-    }
-
-    return (
-      <Select
-        className="gs-color-ramp-select"
-        style={colorRampStyle}
-        placeholder={locale.colorRampPlaceholder}
-        optionFilterProp="children"
-        value={colorRamp}
-        onChange={onChange}
-      >
-        {this.getColorRampOptions()}
-      </Select>
-    );
+  let colorRampStyle;
+  if (colorRamp) {
+    const colors = colorRamps[colorRamp];
+    colorRampStyle = RuleGeneratorUtil.generateBackgroundStyleFromColors(colors);
   }
-}
 
-export default localize(ColorRampCombo, ColorRampCombo.componentName);
+  return (
+    <Select
+      className="gs-color-ramp-select"
+      style={colorRampStyle}
+      placeholder={locale.colorRampPlaceholder}
+      optionFilterProp="children"
+      value={colorRamp}
+      onChange={onChange}
+    >
+      {colorRampOptions}
+    </Select>
+  );
+};
+
+export default localize(ColorRampCombo, COMPONENTNAME);

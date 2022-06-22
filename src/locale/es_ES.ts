@@ -222,6 +222,7 @@ const es_ES: GeoStylerLocale = {
   },
   IconEditor: {
     imageLabel: 'Fuente',
+    imagePlaceholder: 'URL a Icono',
     sizeLabel: 'Tamaño',
     rotateLabel: 'Rotación',
     opacityLabel: 'Transparencia',

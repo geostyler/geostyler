@@ -63,61 +63,43 @@ export interface GraphicEditorProps extends Partial<GraphicEditorDefaultProps> {
 }
 
 /** GraphicEditor to select between different graphic options */
-export class GraphicEditor extends React.Component <GraphicEditorProps> {
+export const GraphicEditor: React.FC<GraphicEditorProps> = ({
+  graphicTypeFieldLabel = 'Graphic-Type',
+  graphic,
+  graphicType,
+  onGraphicChange,
+  graphicTypeFieldProps,
+  iconEditorProps,
+  iconLibraries
+}) => {
 
-  public static defaultProps: GraphicEditorDefaultProps = {
-    graphicTypeFieldLabel: 'Graphic-Type'
-  };
-
-  /**
-   * Get the right Editor depending on kind of PointSymbolizer
-   *
-   * @param {PointSymbolizer} graphic Pointsymbolizer that should be editable
-   * @param {any} iconEditorProps PassTroughProps for IconEditor
-   * @return {React.ReactNode} MarkEditor or IconEditor or undefined
-   */
-  getGraphicFields = (graphic: PointSymbolizer, iconEditorProps?: any): React.ReactNode => {
-    const {
-      onGraphicChange,
-      iconLibraries
-    } = this.props;
-    if (_get(graphic, 'kind') === 'Mark') {
-      let markGraphic: MarkSymbolizer = graphic as MarkSymbolizer;
-      return (
-        <MarkEditor
-          symbolizer={markGraphic}
-          onSymbolizerChange={onGraphicChange}
-        />
-      );
-    } else if (_get(graphic, 'kind') === 'Icon') {
-      return (
-        <IconEditor
-          symbolizer={graphic}
-          onSymbolizerChange={onGraphicChange}
-          iconLibraries={iconLibraries}
-          {...iconEditorProps}
-        />
-      );
-    } else {
-      return undefined;
-    }
-  };
+  let graphicsField: React.ReactNode;
+  if (graphic?.kind === 'Mark') {
+    let markGraphic: MarkSymbolizer = graphic as MarkSymbolizer;
+    graphicsField = <MarkEditor
+      symbolizer={markGraphic}
+      onSymbolizerChange={onGraphicChange}
+    />;
+  } else if (graphic?.kind === 'Icon') {
+    graphicsField =  <IconEditor
+      symbolizer={graphic}
+      onSymbolizerChange={onGraphicChange}
+      iconLibraries={iconLibraries}
+      {...iconEditorProps}
+    />;
+  }
 
   /**
    * If GraphicType changed, call props.onGraphicChange with default PointSymbolizers.
    * If GraphicType was unselected, call props.onGraphicChange with undefined to reset values.
    *
-   * @param {GraphicType} gType currently selected GraphicType
+   * @param newGraphicType currently selected GraphicType
    */
-  onGraphicTypeChange = (gType: GraphicType): void => {
-    const {
-      onGraphicChange
-    } = this.props;
-
+  const onGraphicTypeChange = (newGraphicType: GraphicType): void => {
     if (onGraphicChange) {
-      if (gType === 'Mark') {
+      if (newGraphicType === 'Mark') {
         onGraphicChange(SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer);
-      } else if (gType === 'Icon') {
+      } else if (newGraphicType === 'Icon') {
         onGraphicChange(SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer);
       } else {
         onGraphicChange(undefined);
@@ -125,36 +107,26 @@ export class GraphicEditor extends React.Component <GraphicEditorProps> {
     }
   };
 
-  render() {
-    const {
-      graphic,
-      graphicType,
-      graphicTypeFieldLabel,
-      graphicTypeFieldProps,
-      iconEditorProps
-    } = this.props;
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
 
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-
-    return (
-      <div>
-        <Form.Item
-          label={graphicTypeFieldLabel}
-          {...formItemLayout}
-        >
-          <GraphicTypeField
-            graphicType={graphicType}
-            onChange={this.onGraphicTypeChange}
-            {...graphicTypeFieldProps}
-          />
-        </Form.Item>
-        {this.getGraphicFields(graphic, iconEditorProps)}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Form.Item
+        label={graphicTypeFieldLabel}
+        {...formItemLayout}
+      >
+        <GraphicTypeField
+          graphicType={graphicType}
+          onChange={onGraphicTypeChange}
+          {...graphicTypeFieldProps}
+        />
+      </Form.Item>
+      {graphicsField}
+    </div>
+  );
+};
 
 export default GraphicEditor;

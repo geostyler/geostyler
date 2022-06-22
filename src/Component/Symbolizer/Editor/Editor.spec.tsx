@@ -25,89 +25,109 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
 import { Editor, EditorProps } from './Editor';
 import TestUtil from '../../../Util/TestUtil';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
+import { render, act, fireEvent } from '@testing-library/react';
+
+jest.mock('antd', () => {
+  const antd = jest.requireActual('antd');
+  const Select = ({ children, onChange }) => {
+    return <select onChange={e => onChange(e.target.value)}>{children}</select>;
+  };
+  Select.Option = ({ children, ...otherProps }) => {
+    return <option {...otherProps}>{children}</option>;
+  };
+  return {
+    ...antd,
+    Select,
+  };
+});
 
 describe('SymbolizerEditor', () => {
 
-  let wrapper: any;
   let dummySymbolizer = TestUtil.getPolygonStyle().rules[0].symbolizers[0];
   dummySymbolizer.kind = 'Fill';
-  beforeEach(() => {
-    const props: EditorProps = {
-      symbolizer: dummySymbolizer
-    };
-    wrapper = TestUtil.shallowRenderComponent(Editor, props);
-  });
+  const props: EditorProps = {
+    symbolizer: dummySymbolizer,
+    onSymbolizerChange: jest.fn()
+  };
 
   it('is defined', () => {
     expect(Editor).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const editor = render(<Editor {...props} />);
+    expect(editor.container).toBeInTheDocument();
   });
 
   describe('onSymbolizerChange', () => {
-    it('doesn\'t fail if no method is passed as prop', () => {
-      const newSymbolizer: any = {...dummySymbolizer};
-      newSymbolizer.color = '#00AA00';
-      const func = wrapper.instance().onSymbolizerChange;
-      func(newSymbolizer);
-      expect(func).not.toThrow();
-    });
-    it('calls the change handler passed via props', () => {
-      const newSymbolizer: any = {...dummySymbolizer};
-      const onSymbolizerChangeDummy = jest.fn();
-      newSymbolizer.color = '#00AA00';
-      wrapper.setProps({
-        onSymbolizerChange: onSymbolizerChangeDummy
+    it('calls the change handler passed via props', async () => {
+      const editor = render(<Editor {...props} />);
+      const input = editor.container.querySelector('select');
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 'Icon' }
+        });
       });
-      wrapper.instance().onSymbolizerChange(newSymbolizer);
-      expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toBeCalledWith(SymbolizerUtil.iconSymbolizer);
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 'Mark' }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(SymbolizerUtil.markSymbolizer);
     });
   });
 
   describe('getUiFromSymbolizer', () => {
     it('returns a MarkEditor for Symbolizer with kind Mark', () => {
-      const symbolizer = SymbolizerUtil.generateSymbolizer('Mark');
-      const func = wrapper.instance().getUiFromSymbolizer;
-      const returnValue = func(symbolizer);
-      expect(returnValue.props.symbolizer.kind).toEqual('Mark');
+      const editor = render(<Editor
+        symbolizer={SymbolizerUtil.generateSymbolizer('Mark')}
+      />);
+      const markEditor = editor.container.querySelector('.gs-mark-symbolizer-editor');
+      expect(markEditor).toBeInTheDocument();
     });
     it('returns an IconEditor for Symbolizer with kind Icon', () => {
-      const symbolizer = SymbolizerUtil.generateSymbolizer('Icon');
-      const func = wrapper.instance().getUiFromSymbolizer;
-      const returnValue = func(symbolizer);
-      expect(returnValue.props.symbolizer.kind).toEqual('Icon');
+      const editor = render(<Editor
+        symbolizer={SymbolizerUtil.generateSymbolizer('Icon')}
+      />);
+      const markEditor = editor.container.querySelector('.gs-icon-symbolizer-editor');
+      expect(markEditor).toBeInTheDocument();
     });
     it('returns a LineEditor for Symbolizer with kind Line', () => {
-      const symbolizer = SymbolizerUtil.generateSymbolizer('Line');
-      const func = wrapper.instance().getUiFromSymbolizer;
-      const returnValue = func(symbolizer);
-      expect(returnValue.props.symbolizer.kind).toEqual('Line');
+      const editor = render(<Editor
+        symbolizer={SymbolizerUtil.generateSymbolizer('Line')}
+      />);
+      const markEditor = editor.container.querySelector('.gs-line-symbolizer-editor');
+      expect(markEditor).toBeInTheDocument();
     });
     it('returns a FillEditor for Symbolizer with kind Fill', () => {
-      const symbolizer = SymbolizerUtil.generateSymbolizer('Fill');
-      const func = wrapper.instance().getUiFromSymbolizer;
-      const returnValue = func(symbolizer);
-      expect(returnValue.props.symbolizer.kind).toEqual('Fill');
+      const editor = render(<Editor
+        symbolizer={SymbolizerUtil.generateSymbolizer('Fill')}
+      />);
+      const markEditor = editor.container.querySelector('.gs-fill-symbolizer-editor');
+      expect(markEditor).toBeInTheDocument();
     });
     it('returns a TextEditor for Symbolizer with kind Text', () => {
-      const symbolizer = SymbolizerUtil.generateSymbolizer('Text');
-      const func = wrapper.instance().getUiFromSymbolizer;
-      const returnValue = func(symbolizer);
-      expect(returnValue.props.symbolizer.kind).toEqual('Text');
+      const editor = render(<Editor
+        symbolizer={SymbolizerUtil.generateSymbolizer('Text')}
+      />);
+      const markEditor = editor.container.querySelector('.gs-text-symbolizer-editor');
+      expect(markEditor).toBeInTheDocument();
     });
-    it('returns the unknownSymbolizerText prop as default', () => {
-      const func = wrapper.instance().getUiFromSymbolizer;
-      wrapper.setProps({
-        unknownSymbolizerText: 'Go BIG or go Home!'
-      });
-      const got = func('BIG');
-      expect(got).toBe('Go BIG or go Home!');
+    it('returns the unknownSymbolizerText prop as default', async () => {
+      const fakeSymbolizer: any = {
+        kind: 'efef'
+      };
+      const editor = render(<Editor
+        symbolizer={fakeSymbolizer}
+        unknownSymbolizerText="Go BIG or go Home!"
+      />);
+      const unknownSymbolizerText = await editor.findByText('Go BIG or go Home!');
+      expect(unknownSymbolizerText).toBeInTheDocument();
     });
   });
 

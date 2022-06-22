@@ -54,57 +54,40 @@ export interface ClassificationComboProps extends Partial<ClassificationComboDef
   classification?: ClassificationMethod;
 }
 
+const COMPONENTNAME = 'ClassificationCombo';
+
 /**
  * Symbolizer editorwindow UI.
  */
-export class ClassificationCombo extends React.Component<ClassificationComboProps> {
+export const ClassificationCombo: React.FC<ClassificationComboProps> = ({
+  locale = en_US.ClassificationCombo,
+  classifications = ['equalInterval', 'quantile', 'logarithmic', 'kmeans'],
+  onChange,
+  classification
+}) => {
 
-  static componentName: string = 'ClassificationCombo';
-
-  public static defaultProps: ClassificationComboDefaultProps = {
-    locale: en_US.ClassificationCombo,
-    classifications: ['equalInterval', 'quantile', 'logarithmic', 'kmeans']
-  };
-
-  public shouldComponentUpdate(nextProps: ClassificationComboProps): boolean {
-    return !_isEqual(this.props, nextProps);
-  }
-
-  getClassificationOptions = () => {
-    const {
-      classifications,
-      locale
-    } = this.props;
-    return classifications.map((classification: ClassificationMethod) => {
-      return (
-        <Select.Option
-          className="classification-option"
-          key={classification}
-          value={classification}
-        >
-          {locale[classification] || classification}
-        </Select.Option>
-      );
-    });
-  };
-
-  render() {
-    const {
-      classification,
-      onChange
-    } = this.props;
-
+  const classificationOptions = classifications.map((method: ClassificationMethod) => {
     return (
-      <Select
-        className="color-space-select"
-        optionFilterProp="children"
-        value={classification}
-        onChange={onChange}
+      <Select.Option
+        className="classification-option"
+        key={method}
+        value={method}
       >
-        {this.getClassificationOptions()}
-      </Select>
+        {locale[method] || method}
+      </Select.Option>
     );
-  }
-}
+  });
 
-export default localize(ClassificationCombo, ClassificationCombo.componentName);
+  return (
+    <Select
+      className="color-space-select"
+      optionFilterProp="children"
+      value={classification}
+      onChange={onChange}
+    >
+      {classificationOptions}
+    </Select>
+  );
+};
+
+export default localize(ClassificationCombo, COMPONENTNAME);

@@ -123,6 +123,7 @@ export interface GeoStylerLocale extends Locale {
   };
   IconEditor: {
     imageLabel: string;
+    imagePlaceholder: string;
     sizeLabel: string;
     rotateLabel: string;
     opacityLabel: string;

@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Avatar,
@@ -56,10 +56,10 @@ export type IconLibrary = {
   }[];
 };
 
-interface IconSelectorState {
-  selectedIcon?: { libIndex: number; iconIndex: number };
-  selectedLibIndex: number;
-}
+type SelectedIcon = {
+  libIndex: number;
+  iconIndex: number;
+};
 
 // non default props
 export interface IconSelectorProps extends Partial<IconSelectorDefaultProps> {
@@ -67,49 +67,25 @@ export interface IconSelectorProps extends Partial<IconSelectorDefaultProps> {
   selectedIconSrc?: string;
   onIconSelect?: (iconSrc: string) => void;
 }
+const COMPONENTNAME = 'IconSelector';
 
-export class IconSelector extends React.Component<IconSelectorProps, IconSelectorState> {
+export const IconSelector: React.FC<IconSelectorProps> = ({
+  locale = en_US.IconSelector,
+  iconLibraries,
+  selectedIconSrc,
+  onIconSelect
+}) => {
 
-  static componentName: string = 'IconSelector';
+  const [selectedLibIndex, setSelectedLibIndex] = useState<number>();
+  const [selectedIcon, setSelectedIcon] = useState<SelectedIcon>();
 
-  public static defaultProps: IconSelectorDefaultProps = {
-    locale: en_US.IconSelector
-  };
-
-  constructor(props: IconSelectorProps) {
-    super(props);
-
-    let selection: any = {};
-    if (props.selectedIconSrc) {
-      selection = IconSelector.getSelectedIconFromSrc(props.selectedIconSrc, props.iconLibraries);
-    }
-
-    this.state = {
-      selectedLibIndex: selection.libIndex || 0
-    };
-  }
-
-  static getDerivedStateFromProps(props: IconSelectorProps, state: IconSelectorState): IconSelectorState {
-    if (props.selectedIconSrc) {
-      const selection = IconSelector.getSelectedIconFromSrc(props.selectedIconSrc, props.iconLibraries);
-      return {
-        selectedIcon: selection,
-        selectedLibIndex: state.selectedLibIndex
-      };
-    } else {
-      return {
-        selectedLibIndex: state.selectedLibIndex
-      };
-    }
-  }
-
-  static getSelectedIconFromSrc(src: string, iconLibraries: IconLibrary[]): { libIndex: number; iconIndex: number } {
+  const getSelectedIconFromSrc = (src: string, newIconLibraries: IconLibrary[]): SelectedIcon => {
     let libIndex: number;
     let iconIndex: number;
     let found: boolean = false;
 
-    for (let i = 0; i < iconLibraries.length; i++) {
-      const lib = iconLibraries[i];
+    for (let i = 0; i < newIconLibraries.length; i++) {
+      const lib = newIconLibraries[i];
       if (found) {
         break;
       }
@@ -128,31 +104,23 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
       libIndex,
       iconIndex
     };
-  }
-
-  public shouldComponentUpdate(nextProps: IconSelectorProps, nextState: IconSelectorState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
-
-  libChange = (value: number) => {
-    this.setState({
-      selectedLibIndex: value
-    });
   };
 
-  getGallery = (icon: any, index: number): React.ReactNode => {
-    const {
-      selectedLibIndex,
-      selectedIcon
-    } = this.state;
+  useEffect(() => {
+    let selection: any = {};
+    if (selectedIconSrc) {
+      selection = getSelectedIconFromSrc(selectedIconSrc, iconLibraries);
+    }
+    setSelectedLibIndex(selection.libIndex);
+    setSelectedIcon(selection);
+  }, [selectedIconSrc, iconLibraries]);
 
-    const {
-      onIconSelect
-    } = this.props;
 
+  const libChange = (newLibIndex: number) => {
+    setSelectedLibIndex(newLibIndex);
+  };
+
+  const getGallery = (icon: any, index: number): React.ReactNode => {
     let gridClassName = 'gs-icon-selector-grid';
     if (selectedIcon && selectedIcon.libIndex === selectedLibIndex && selectedIcon.iconIndex === index) {
       gridClassName += ' gs-icon-selector-grid-selected';
@@ -183,45 +151,34 @@ export class IconSelector extends React.Component<IconSelectorProps, IconSelecto
     );
   };
 
-  render() {
-    const {
-      locale,
-      iconLibraries
-    } = this.props;
-
-    const {
-      selectedLibIndex
-    } = this.state;
-
-    return (
-      <div className="gs-icon-selector">
-        <div className="gs-lib-row">
-          <span className="gs-label">{`${locale.librarySelectLabel}:`}</span>
-          <Select
-            className="gs-select"
-            allowClear={false}
-            defaultValue={selectedLibIndex}
-            onChange={this.libChange}
-          >
-            {
-              iconLibraries.map((lib: IconLibrary, index: number) => {
-                return (
-                  <Option value={index} key={index.toString()}>{lib.name}</Option>
-                );
-              })
-            }
-          </Select>
-        </div>
-        <Card className="gs-icon-selector-card">
+  return (
+    <div className="gs-icon-selector">
+      <div className="gs-lib-row">
+        <span className="gs-label">{`${locale.librarySelectLabel}:`}</span>
+        <Select
+          className="gs-select"
+          allowClear={false}
+          defaultValue={selectedLibIndex}
+          onChange={libChange}
+        >
           {
-            iconLibraries[selectedLibIndex].icons.map((icon: any, index: number) => {
-              return this.getGallery(icon, index);
+            iconLibraries.map((lib: IconLibrary, index: number) => {
+              return (
+                <Option value={index} key={index.toString()}>{lib.name}</Option>
+              );
             })
           }
-        </Card>
+        </Select>
       </div>
-    );
-  }
-}
+      <Card className="gs-icon-selector-card">
+        {
+          iconLibraries[selectedLibIndex]?.icons?.map((icon: any, index: number) => {
+            return getGallery(icon, index);
+          })
+        }
+      </Card>
+    </div>
+  );
+};
 
-export default localize(IconSelector, IconSelector.componentName);
+export default localize(IconSelector, COMPONENTNAME);

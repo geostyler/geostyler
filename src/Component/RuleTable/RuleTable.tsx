@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CqlParser } from 'geostyler-cql-parser';
 
 import _get from 'lodash/get';
@@ -100,10 +100,6 @@ interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
   locale: GeoStylerLocale['RuleTable'];
   /** The renderer to use */
   rendererType: 'SLD' | 'OpenLayers';
-  /** Properties of the SLD renderer */
-  sldRendererProps?: SLDRendererAdditonalProps;
-  /** Properties of the OpenLayers renderer */
-  oLRendererProps?: Partial<RendererProps>;
   /** Display the number of features that match a rule */
   showAmountColumn: boolean;
   /** Display the number of features that match more than one rule */
@@ -116,6 +112,10 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   data?: Data;
   /** List of rules to display in rule table */
   rules: GsRule[];
+  /** Properties of the SLD renderer */
+  sldRendererProps?: SLDRendererAdditonalProps;
+  /** Properties of the OpenLayers renderer */
+  oLRendererProps?: Partial<RendererProps>;
   /** The footer of the rule table */
   footer?: (currentPageData?: any) => React.ReactNode;
   /** The callback function that is triggered when the rules change */
@@ -132,155 +132,101 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   };
 }
 
-// state
-interface RuleTableState {
-  ruleEditIndex: number;
-  symbolizerEditorVisible: boolean;
-  symbolizerEditorPosition: DOMRect;
-  filterEditorVisible: boolean;
-  filterEditorPosition: DOMRect;
-  hasError: boolean;
-  data: Data;
-  rules: GsRule[];
-  counts: number[];
-  duplicates: number[];
-}
+const COMPONENTNAME = 'RuleTable';
 
-export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
+// export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
+export const RuleTable: React.FC<RuleTableProps> = ({
+  locale = en_US.RuleTable,
+  rendererType = 'OpenLayers',
+  showAmountColumn = true,
+  showDuplicatesColumn = true,
+  data: dataProp,
+  rules: rulesProp,
+  onRulesChange,
+  filterUiProps,
+  iconLibraries,
+  colorRamps,
+  sldRendererProps,
+  oLRendererProps,
+  ...restProps
+}) => {
 
-  static componentName: string = 'RuleTable';
-
-  public static defaultProps: RuleTableDefaultProps = {
-    locale: en_US.RuleTable,
-    rendererType: 'OpenLayers',
-    showAmountColumn: true,
-    showDuplicatesColumn: true
-  };
+  const [ruleEditIndex, setRuleEditIndex] = useState<number>();
+  const [symbolizerEditorVisible, setSymbolizerEditorVisible] = useState<boolean>();
+  const [symbolizerEditorPosition, setSymbolizerEditorPosition] = useState<DOMRect>();
+  const [filterEditorVisible, setFilterEditorVisible] = useState<boolean>();
+  const [filterEditorPosition, setFilterEditorPosition] = useState<DOMRect>();
+  const [hasError, setHasError] = useState<boolean>();
+  const [data, setData] = useState<Data>();
+  const [rules, setRules] = useState<GsRule[]>();
+  const [counts, setCounts] = useState<number[]>();
+  const [duplicates, setDuplicates] = useState<number[]>();
 
   /**
    * The Parser to read and write CQL Filter
    *
    */
-  cqlParser = new CqlParser();
+  const { current: cqlParser} = useRef(new CqlParser());
 
-  constructor(props: RuleTableProps) {
-    super(props);
-    this.state = {
-      ruleEditIndex: undefined,
-      symbolizerEditorVisible: false,
-      symbolizerEditorPosition: undefined,
-      filterEditorVisible: false,
-      filterEditorPosition: undefined,
-      hasError: false,
-      data: undefined,
-      rules: undefined,
-      counts: undefined,
-      duplicates: undefined
-    };
-  }
-
-  static getDerivedStateFromProps(nextProps: RuleTableProps, prevState: RuleTableState) {
+  useEffect(() => {
     let countsAndDuplicates: CountResult = {};
     try {
-      let filtersEqual = true;
-      nextProps.rules.forEach((rule, index) => {
-        try {
-          filtersEqual = filtersEqual && _isEqual(prevState.rules[index].filter, rule.filter);
-        } catch (e) {
-          filtersEqual = false;
-        }
-      });
-      // we should refrain from using _isEqual on the data as it's very slow on largish datasets
-      // thus it's the responsibility of the calling code to make sure the object only gets updated when actual data
-      // changes
-      if (filtersEqual && nextProps.data === prevState.data) {
-        return {};
-      }
-      if (nextProps.data && DataUtil.isVector(nextProps.data)) {
-        countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(nextProps.rules, nextProps.data);
+      if (dataProp && DataUtil.isVector(dataProp)) {
+        countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(rulesProp, dataProp);
       } else {
         countsAndDuplicates = {};
       }
     } catch (e) {
+      setHasError(true);
       // make sure to update state when checks/calculation fails
     }
+    setData(dataProp);
+    setRules(rulesProp);
+    setCounts(countsAndDuplicates?.counts);
+    setDuplicates(countsAndDuplicates?.duplicates);
+  }, [rulesProp, dataProp]);
+
+  const ruleRecords = rules?.map((rule: GsRule, index: number): RuleRecord => {
     return {
-      data: nextProps.data,
-      rules: nextProps.rules,
-      counts: countsAndDuplicates?.counts,
-      duplicates: countsAndDuplicates?.duplicates
+      key: index,
+      ...rule
     };
-  }
+  });
 
-  public shouldComponentUpdate(nextProps: RuleTableProps, nextState: RuleTableState): boolean {
-    const diffProps = !_isEqual(this.props, nextProps);
-    const diffState = !_isEqual(this.state, nextState);
-    return diffProps || diffState;
-  }
-
-  componentDidCatch() {
-    this.setState({
-      hasError: true
-    });
-  }
-
-  getRuleRecords = (): RuleRecord[] => {
-    const {
-      rules
-    } = this.props;
-    return rules.map((rule: GsRule, index: number): RuleRecord => {
-      return {
-        key: index,
-        ...rule
-      };
-    });
-  };
-
-  onSymbolizerClick = (record: RuleRecord, symbolizerEditorPosition: DOMRect) => {
-    this.setState({
-      ruleEditIndex: record.key,
-      symbolizerEditorVisible: true,
-      symbolizerEditorPosition,
-      filterEditorVisible: false
-    });
+  const onSymbolizerClick = (record: RuleRecord, newSymbolizerEditorPosition: DOMRect) => {
+    setRuleEditIndex(record.key);
+    setSymbolizerEditorVisible(true);
+    setSymbolizerEditorPosition(newSymbolizerEditorPosition);
+    setFilterEditorVisible(false);
   };
 
   // TODO: Refactor to stand alone component
-  symbolizerRenderer = (text: string, record: RuleRecord) => {
-    const {
-      data,
-      rendererType,
-      sldRendererProps
-    } = this.props;
-
-    const onSymbolizerClick = (symbolizers: Symbolizer[], event: any) => {
+  const symbolizerRenderer = (text: string, record: RuleRecord) => {
+    const onSymbolizerRendererClick = (symbolizers: Symbolizer[], event: any) => {
       const filterPosition = event.target.getBoundingClientRect();
-      this.onSymbolizerClick(record, filterPosition);
+      onSymbolizerClick(record, filterPosition);
     };
 
     return (
       rendererType === 'SLD' ? (
         <SLDRenderer
           symbolizers={record.symbolizers}
-          onClick={onSymbolizerClick}
+          onClick={onSymbolizerRendererClick}
           {...sldRendererProps}
         />
       ) : (
         <Renderer
           symbolizers={record.symbolizers}
-          onClick={onSymbolizerClick}
+          onClick={onSymbolizerRendererClick}
           data={data}
+          {...oLRendererProps}
         />
       )
     );
   };
 
   // TODO: Refactor to stand alone component
-  nameRenderer = (text: string, record: RuleRecord) => {
-    const {
-      locale
-    } = this.props;
-
+  const nameRenderer = (text: string, record: RuleRecord) => {
     return (
       <Popover
         content={record.name}
@@ -291,7 +237,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
           name="name-renderer"
           onChange={(event) => {
             const target = event.target;
-            this.setValueForRule(record.key, 'name', target.value);
+            setValueForRule(record.key, 'name', target.value);
           }}
         />
       </Popover>
@@ -299,14 +245,8 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   };
 
   // TODO: Refactor to stand alone component
-  filterRenderer = (text: string, record: RuleRecord) => {
-    const {
-      locale
-    } = this.props;
-    const cqlParser = this.cqlParser;
-
+  const filterRenderer = (text: string, record: RuleRecord) => {
     const cql = cqlParser.write(record.filter);
-
     let filterCell: React.ReactNode;
     const inputSearch = (
       <Input.Search
@@ -326,7 +266,7 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         enterButton={<EditOutlined />}
         onSearch={(value, event: any) => {
           const filterPosition = event.target.getBoundingClientRect();
-          this.onFilterEditClick(record.key, filterPosition);
+          onFilterEditClick(record.key, filterPosition);
         }}
       />);
     if (cql && cql.length > 0) {
@@ -343,17 +283,15 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     return filterCell;
   };
 
-  onFilterEditClick = (ruleEditIndex: number, filterEditorPosition: DOMRect) => {
-    this.setState({
-      ruleEditIndex,
-      filterEditorPosition,
-      symbolizerEditorVisible: false,
-      filterEditorVisible: true
-    });
+  const onFilterEditClick = (newRuleEditIndex: number, newFilterEditorPosition: DOMRect) => {
+    setRuleEditIndex(newRuleEditIndex);
+    setFilterEditorPosition(newFilterEditorPosition);
+    setSymbolizerEditorVisible(false);
+    setFilterEditorVisible(true);
   };
 
   // TODO: Refactor to stand alone component
-  minScaleRenderer = (text: string, record: RuleRecord) => {
+  const minScaleRenderer = (text: string, record: RuleRecord) => {
     const minScaleDenominator = _get(record, 'scaleDenominator.min');
     const value = minScaleDenominator ? parseFloat(minScaleDenominator) : undefined;
     return (
@@ -365,14 +303,14 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         formatter={val => val ? `1:${val}` : ''}
         parser={(val: string) => parseFloat(val.replace('1:', ''))}
         onChange={(newValue: number) => {
-          this.setValueForRule(record.key, 'scaleDenominator.min', newValue);
+          setValueForRule(record.key, 'scaleDenominator.min', newValue);
         }}
       />
     );
   };
 
   // TODO: Refactor to stand alone component
-  maxScaleRenderer = (text: string, record: RuleRecord) => {
+  const maxScaleRenderer = (text: string, record: RuleRecord) => {
     const maxScaleDenominator = _get(record, 'scaleDenominator.max');
     const value = maxScaleDenominator ? parseFloat(maxScaleDenominator) : undefined;
     return (
@@ -384,22 +322,19 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
         formatter={val => val ? `1:${val}` : ''}
         parser={(val: string) => parseFloat(val.replace('1:', ''))}
         onChange={(newValue: number) => {
-          this.setValueForRule(record.key, 'scaleDenominator.max', newValue);
+          setValueForRule(record.key, 'scaleDenominator.max', newValue);
         }}
       />
     );
   };
 
   // TODO: Refactor to stand alone component
-  amountRenderer = (text: string, record: RuleRecord) => {
-    const {
-      data
-    } = this.props;
+  const amountRenderer = (text: string, record: RuleRecord) => {
     let amount: (number|'-') = '-';
     const filter: GsFilter|undefined = record.filter;
     if (data && filter) {
       try {
-        amount = this.state?.counts[record.key] || 0;
+        amount = counts[record?.key] || 0;
       } catch (error) {
         amount = '-';
       }
@@ -414,32 +349,23 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
   };
 
   // TODO: Refactor to stand alone component
-  duplicatesRenderer = (text: string, record: RuleRecord) => {
-    const {
-      data,
-      rules
-    } = this.props;
-
-    let duplicates: (number|'-') = '-';
+  const duplicatesRenderer = (text: string, record: RuleRecord) => {
+    let calculatedDuplicates: (number|'-') = '-';
     if (data && rules) {
       try {
-        duplicates = this.state.duplicates[record.key];
+        calculatedDuplicates = duplicates[record.key];
       } catch (error) {
-        duplicates = '-';
+        calculatedDuplicates = '-';
       }
     }
     return (
       <div className="ant-input gs-rule-table-numeric-cell duplicates-renderer">
-        {duplicates}
+        {calculatedDuplicates}
       </div>
     );
   };
 
-  ruleReorderRenderer = (record: RuleRecord) => {
-    const {
-      rules,
-      onRulesChange
-    } = this.props;
+  const ruleReorderRenderer = (record: RuleRecord) => {
     return (
       <RuleReorderButtons
         ruleIndex={record.key}
@@ -449,25 +375,15 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     );
   };
 
-  onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
-    const {
-      ruleEditIndex,
-    } = this.state;
-    this.setValueForRule(ruleEditIndex, 'symbolizers', symbolizers);
+  const onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
+    setValueForRule(ruleEditIndex, 'symbolizers', symbolizers);
   };
 
-  onFilterChange = (filter: GsFilter) => {
-    const {
-      ruleEditIndex,
-    } = this.state;
-    this.setValueForRule(ruleEditIndex, 'filter', filter);
+  const onFilterChange = (filter: GsFilter) => {
+    setValueForRule(ruleEditIndex, 'filter', filter);
   };
 
-  setValueForRule = (ruleIndex: number, key: string, value: any) => {
-    const {
-      onRulesChange,
-      rules
-    } = this.props;
+  const setValueForRule = (ruleIndex: number, key: string, value: any) => {
     const rulesClone = _cloneDeep(rules);
     _set(rulesClone[ruleIndex], key, value);
     if (onRulesChange) {
@@ -475,140 +391,109 @@ export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
     }
   };
 
-  onSymbolizerEditorWindowClose = () => {
-    this.setState({
-      symbolizerEditorVisible: false
+  const onSymbolizerEditorWindowClose = () => {
+    setSymbolizerEditorVisible(false);
+  };
+
+  const onFilterEditorWindowClose = () => {
+    setFilterEditorVisible(false);
+  };
+
+  const columns: ColumnProps<RuleRecord>[] = [{
+    dataIndex: '',
+    width: 70,
+    render: ruleReorderRenderer
+  },
+  {
+    title: (
+      <Tooltip title={locale.symbolizersColumnTitle}>
+        <BgColorsOutlined />
+      </Tooltip>),
+    dataIndex: 'symbolizers',
+    render: symbolizerRenderer
+  }, {
+    title: locale.nameColumnTitle,
+    dataIndex: 'name',
+    render: nameRenderer
+  }, {
+    title: locale.filterColumnTitle,
+    dataIndex: 'filter',
+    render: filterRenderer
+  }, {
+    title: locale.minScaleColumnTitle,
+    dataIndex: 'minScale',
+    render: minScaleRenderer
+  }, {
+    title: locale.maxScaleColumnTitle,
+    dataIndex: 'maxScale',
+    render: maxScaleRenderer
+  }];
+
+  if (showAmountColumn) {
+    columns.push({
+      title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
+      dataIndex: 'amount',
+      render: amountRenderer
     });
-  };
-
-  onFilterEditorWindowClose = () => {
-    this.setState({
-      filterEditorVisible: false
-    });
-  };
-
-  getColumns = () => {
-    const {
-      locale,
-      showAmountColumn,
-      showDuplicatesColumn
-    } = this.props;
-
-    const columns: ColumnProps<RuleRecord>[] = [{
-      dataIndex: '',
-      width: 70,
-      render: this.ruleReorderRenderer
-    },
-    {
-      title: (
-        <Tooltip title={locale.symbolizersColumnTitle}>
-          <BgColorsOutlined />
-        </Tooltip>),
-      dataIndex: 'symbolizers',
-      render: this.symbolizerRenderer
-    }, {
-      title: locale.nameColumnTitle,
-      dataIndex: 'name',
-      render: this.nameRenderer
-    }, {
-      title: locale.filterColumnTitle,
-      dataIndex: 'filter',
-      render: this.filterRenderer
-    }, {
-      title: locale.minScaleColumnTitle,
-      dataIndex: 'minScale',
-      render: this.minScaleRenderer
-    }, {
-      title: locale.maxScaleColumnTitle,
-      dataIndex: 'maxScale',
-      render: this.maxScaleRenderer
-    }];
-
-    if (showAmountColumn) {
-      columns.push({
-        title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
-        dataIndex: 'amount',
-        render: this.amountRenderer
-      });
-    }
-    if (showDuplicatesColumn) {
-      columns.push({
-        title: (
-          <Tooltip title={locale.duplicatesColumnTitle}>
-            <BlockOutlined />
-          </Tooltip>),
-        dataIndex: 'duplicates',
-        render: this.duplicatesRenderer
-      });
-    }
-
-    return columns;
-  };
-
-  render() {
-    if (this.state.hasError) {
-      return <h1>An error occurred in the RuleTable UI.</h1>;
-    }
-    const {
-      rules,
-      filterUiProps,
-      data,
-      iconLibraries,
-      colorRamps,
-      ...restProps
-    } = this.props;
-    const {
-      ruleEditIndex,
-      symbolizerEditorVisible,
-      symbolizerEditorPosition,
-      filterEditorVisible,
-      filterEditorPosition
-    } = this.state;
-
-    return (
-      <div className="gs-rule-table">
-        <Table
-          columns={this.getColumns()}
-          dataSource={this.getRuleRecords()}
-          pagination={false}
-          {...restProps}
-        />
-        {
-          !symbolizerEditorVisible ? null :
-            <SymbolizerEditorWindow
-              x={
-                symbolizerEditorPosition
-                  ? symbolizerEditorPosition.x + symbolizerEditorPosition.width
-                  : undefined
-              }
-              y={symbolizerEditorPosition ? symbolizerEditorPosition.y : undefined}
-              onClose={this.onSymbolizerEditorWindowClose}
-              internalDataDef={data}
-              symbolizers={rules[ruleEditIndex].symbolizers}
-              onSymbolizersChange={this.onSymbolizersChange}
-              iconLibraries={iconLibraries}
-              colorRamps={colorRamps}
-            />
-        }
-        {
-          !filterEditorVisible ? null :
-            <FilterEditorWindow
-              x={filterEditorPosition ? filterEditorPosition.x : undefined}
-              y={
-                filterEditorPosition
-                  ? filterEditorPosition.y + filterEditorPosition.height
-                  : undefined
-              }
-              onClose={this.onFilterEditorWindowClose}
-              filter={rules[ruleEditIndex].filter}
-              onFilterChange={this.onFilterChange}
-              filterUiProps={filterUiProps}
-              internalDataDef={data && DataUtil.isVector(data) ? data : undefined}
-            />
-        }
-      </div>
-    );
   }
-}
+  if (showDuplicatesColumn) {
+    columns.push({
+      title: (
+        <Tooltip title={locale.duplicatesColumnTitle}>
+          <BlockOutlined />
+        </Tooltip>),
+      dataIndex: 'duplicates',
+      render: duplicatesRenderer
+    });
+  };
 
-export default localize(RuleTable, RuleTable.componentName);
+  if (hasError) {
+    return <h1>An error occurred in the RuleTable UI.</h1>;
+  }
+
+  return (
+    <div className="gs-rule-table">
+      <Table
+        columns={columns}
+        dataSource={ruleRecords}
+        pagination={false}
+        {...restProps}
+      />
+      {
+        !symbolizerEditorVisible ? null :
+          <SymbolizerEditorWindow
+            x={
+              symbolizerEditorPosition
+                ? symbolizerEditorPosition.x + symbolizerEditorPosition.width
+                : undefined
+            }
+            y={symbolizerEditorPosition ? symbolizerEditorPosition.y : undefined}
+            onClose={onSymbolizerEditorWindowClose}
+            internalDataDef={data}
+            symbolizers={rules[ruleEditIndex].symbolizers}
+            onSymbolizersChange={onSymbolizersChange}
+            iconLibraries={iconLibraries}
+            colorRamps={colorRamps}
+          />
+      }
+      {
+        !filterEditorVisible ? null :
+          <FilterEditorWindow
+            x={filterEditorPosition ? filterEditorPosition.x : undefined}
+            y={
+              filterEditorPosition
+                ? filterEditorPosition.y + filterEditorPosition.height
+                : undefined
+            }
+            onClose={onFilterEditorWindowClose}
+            filter={rules[ruleEditIndex].filter}
+            onFilterChange={onFilterChange}
+            filterUiProps={filterUiProps}
+            internalDataDef={data && DataUtil.isVector(data) ? data : undefined}
+          />
+      }
+    </div>
+  );
+};
+
+export default localize(RuleTable, COMPONENTNAME);

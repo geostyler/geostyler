@@ -25,29 +25,60 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
+import React from 'react';
 import { MarkEditor, MarkEditorProps } from './MarkEditor';
-import TestUtil from '../../../Util/TestUtil';
+import { render, act, fireEvent } from '@testing-library/react';
+import { MarkSymbolizer } from 'geostyler-style';
+import SymbolizerUtil from '../../../Util/SymbolizerUtil';
+
+jest.mock('antd', () => {
+  const antd = jest.requireActual('antd');
+
+  const Select = ({ children, onChange }) => {
+    return <select onChange={e => onChange(e.target.value)}>{children}</select>;
+  };
+
+  Select.Option = ({ children, ...otherProps }) => {
+    return <option {...otherProps}>{children}</option>;
+  };
+
+  return {
+    ...antd,
+    Select,
+  };
+});
 
 describe('MarkEditor', () => {
 
-  let wrapper: any;
-  let markstyle: any;
-  beforeEach(() => {
-    markstyle = TestUtil.getMarkStyle();
-    const props: MarkEditorProps = {
-      symbolizer: markstyle.rules[0].symbolizers[0],
-      defaultValues: undefined
-    };
-    wrapper = TestUtil.shallowRenderComponent(MarkEditor, props);
-  });
+  let dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
+  const props: MarkEditorProps = {
+    symbolizer:dummySymbolizer,
+    onSymbolizerChange: jest.fn(),
+    defaultValues: undefined
+  };
 
   it('is defined', () => {
     expect(MarkEditor).toBeDefined();
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    const markEditor = render(<MarkEditor {...props} />);
+    expect(markEditor.container).toBeInTheDocument();
+  });
+
+  describe('onWellKnownNameChange', () => {
+    it('calls the onSymbolizerChange prop with correct symbolizer ', async () => {
+      const markEditor = render(<MarkEditor {...props} />);
+      const newSymbolizer = {...props.symbolizer};
+      newSymbolizer.wellKnownName = 'square';
+      const input = markEditor.container.querySelector('select');
+      await act(async() => {
+        fireEvent.change(input!, {
+          target: { value: 'square' }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+    });
   });
 
 });

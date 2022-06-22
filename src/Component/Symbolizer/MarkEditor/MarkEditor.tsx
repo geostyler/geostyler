@@ -56,105 +56,59 @@ interface MarkEditorDefaultProps {
 export interface MarkEditorProps extends Partial<MarkEditorDefaultProps> {
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  defaultValues: DefaultValues;
+  defaultValues?: DefaultValues;
 }
 
-interface MarkEditorState {
-  symbolizer: MarkSymbolizer;
-}
+const COMPONENTNAME = 'MarkEditor';
 
-export class MarkEditor extends React.Component<MarkEditorProps, MarkEditorState> {
+export const MarkEditor: React.FC<MarkEditorProps> = ({
+  locale = en_US.MarkEditor,
+  symbolizer,
+  onSymbolizerChange,
+  defaultValues
+}) => {
 
-  static componentName: string = 'MarkEditor';
-
-  public static defaultProps: MarkEditorDefaultProps = {
-    locale: en_US.MarkEditor
-  };
-
-  constructor(props: MarkEditorProps) {
-    super(props);
-    this.state = {
-      symbolizer: {
-        kind: 'Mark',
-        wellKnownName: 'circle'
-      }
-    };
-  }
-
-  static getDerivedStateFromProps(
-    nextProps: MarkEditorProps): Partial<MarkEditorState> {
-    return {
-      symbolizer: nextProps.symbolizer
-    };
-  }
-
-  onWellKnownNameChange = (wkn: WellKnownName) => {
-    const {
-      onSymbolizerChange
-    } = this.props;
-    const symbolizer = _cloneDeep(this.state.symbolizer);
-    symbolizer.wellKnownName = wkn;
+  const onWellKnownNameChange = (wellKnownName: WellKnownName) => {
+    const clonedSymbolizer = _cloneDeep(symbolizer);
+    clonedSymbolizer.wellKnownName = wellKnownName;
     if (onSymbolizerChange) {
-      onSymbolizerChange(symbolizer);
+      onSymbolizerChange(clonedSymbolizer);
     }
   };
 
-  /**
-   * Wraps a Form Item around a given element and adds its locale
-   * to the From Item label.
-   */
-  wrapFormItem = (locale: string, element: React.ReactElement): React.ReactElement => {
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-    return element == null ? null : (
-      <Form.Item
-        label={locale}
-        {...formItemLayout}
-      >
-        {element}
-      </Form.Item>
-    );
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
   };
 
-  render() {
-    const {
-      locale,
-      onSymbolizerChange,
-      defaultValues
-    } = this.props;
-    const {
-      symbolizer
-    } = this.state;
-
-    return (
-      <CompositionContext.Consumer>
-        {(composition: Compositions) => (
-          <div className="gs-mark-symbolizer-editor" >
+  return (
+    <CompositionContext.Consumer>
+      {(composition: Compositions) => (
+        <div className="gs-mark-symbolizer-editor" >
+          <Form.Item
+            label={locale.wellKnownNameFieldLabel}
+            {...formItemLayout}
+          >
             {
-              this.wrapFormItem(
-                locale.wellKnownNameFieldLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'MarkEditor.wellKnownNameField',
-                  onChange: this.onWellKnownNameChange,
-                  propName: 'wellKnownName',
-                  propValue: symbolizer.wellKnownName,
-                  defaultValue: defaultValues?.MarkEditor?.defaultWellKnownName,
-                  defaultElement: <WellKnownNameField />
-                })
-              )
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'MarkEditor.wellKnownNameField',
+                onChange: onWellKnownNameChange,
+                propName: 'wellKnownName',
+                propValue: symbolizer.wellKnownName,
+                defaultValue: defaultValues?.MarkEditor?.defaultWellKnownName,
+                defaultElement: <WellKnownNameField />
+              })
             }
-            <WellKnownNameEditor
-              symbolizer={symbolizer}
-              onSymbolizerChange={onSymbolizerChange}
-            />
-          </div>
-        )}
-      </CompositionContext.Consumer>
-    );
-  }
-}
+          </Form.Item>
+          <WellKnownNameEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={onSymbolizerChange}
+          />
+        </div>
+      )}
+    </CompositionContext.Consumer>
+  );
+};
 
-export default withDefaultsContext(localize(MarkEditor, MarkEditor.componentName));
+export default withDefaultsContext(localize(MarkEditor, COMPONENTNAME));
