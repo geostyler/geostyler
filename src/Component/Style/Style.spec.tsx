@@ -30,7 +30,7 @@ import { Style, StyleProps } from './Style';
 import TestUtil from '../../Util/TestUtil';
 import en_US from '../../locale/en_US';
 import _cloneDeep from 'lodash/cloneDeep';
-import { render, act, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
+import { render, act, fireEvent } from '@testing-library/react';
 import { Style as GsStyle } from 'geostyler-style';
 
 describe('Style', () => {
@@ -137,6 +137,46 @@ describe('Style', () => {
     });
     const updatedStyle = mock.mock.calls[0][0];
     expect(updatedStyle.rules).toHaveLength(1);
+  });
+
+  it('enables the multi edit menu when multiple rules are selected', async () => {
+    const twoRulesStyle = TestUtil.getTwoRulesStyle();
+    const mock = jest.fn();
+    const style = render(<Style
+      {...props}
+      compact={true}
+      onStyleChange={mock}
+      style={twoRulesStyle}
+    />);
+    const checkbox = style.container.querySelectorAll('input[type="checkbox"]')[0];
+    const multiEditLabel = await style.findByText(en_US.Style.multiEditLabel);
+    const multiEditMenu = multiEditLabel?.closest('li');
+    expect(multiEditMenu?.classList).toContain('ant-menu-submenu-disabled');
+    await act(async() => {
+      fireEvent.click(checkbox);
+    });
+    // all rules should be selected
+    expect(multiEditMenu?.classList).not.toContain('ant-menu-submenu-disabled');
+  });
+
+  it('enables the clone button when multiple rules are selected', async () => {
+    const twoRulesStyle = TestUtil.getTwoRulesStyle();
+    const mock = jest.fn();
+    const style = render(<Style
+      {...props}
+      compact={true}
+      onStyleChange={mock}
+      style={twoRulesStyle}
+    />);
+    const checkbox = style.container.querySelectorAll('input[type="checkbox"]')[0];
+    const cloneButtonLabel = await style.findByText(en_US.Style.multiEditLabel);
+    const cloneButton = cloneButtonLabel?.closest('li');
+    expect(cloneButton?.classList).toContain('ant-menu-submenu-disabled');
+    await act(async() => {
+      fireEvent.click(checkbox);
+    });
+    // all rules should be selected
+    expect(cloneButton?.classList).not.toContain('ant-menu-item-disabled');
   });
 
   // it('disables the color menu item', () => {
