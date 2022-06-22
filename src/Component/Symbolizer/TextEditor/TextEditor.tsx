@@ -171,25 +171,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
     }
   };
 
-  /**
-   * Wraps a Form Item around a given element and adds its locale
-   * to the From Item label.
-   */
-  const wrapFormItem = (label: string, element: React.ReactElement): React.ReactElement => {
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-    return element == null ? null : (
-      <Form.Item
-        label={label}
-        {...formItemLayout}
-      >
-        {element}
-      </Form.Item>
-    );
-  };
-
   const clonedSymbolizer = _cloneDeep(symbolizer);
 
   const {
@@ -212,13 +193,20 @@ export const TextEditor: React.FC<TextEditorProps> = ({
   }
   const properties = internalDataDef && internalDataDef.schema ? Object.keys(internalDataDef.schema.properties) : [];
 
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
+
   return (
     <CompositionContext.Consumer>
       {(composition: Compositions) => (
         <div className="gs-text-symbolizer-editor" >
-          {
-            wrapFormItem(
-              locale.templateFieldLabel,
+          <Form.Item
+            label={locale.templateFieldLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.templateField',
@@ -236,11 +224,13 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                   </Mentions>
                 )
               })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.colorLabel,
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.colorLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.colorField',
@@ -250,11 +240,13 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultColor,
                 defaultElement: <ColorField />
               })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.fontLabel,
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.fontLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.fontField',
@@ -264,11 +256,13 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultFont,
                 defaultElement: <FontPicker />
               })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.opacityLabel,
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.opacityLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.opacityField',
@@ -278,11 +272,13 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultOpacity,
                 defaultElement: <OpacityField />
               })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.sizeLabel,
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.sizeLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.sizeField',
@@ -292,11 +288,13 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultSize,
                 defaultElement: <WidthField />
               })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.offsetXLabel,
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.offsetXLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.offsetXField',
@@ -306,11 +304,13 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultOffsetX,
                 defaultElement: <OffsetField />
               })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.offsetYLabel,
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.offsetYLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.offsetYField',
@@ -320,11 +320,13 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultOffsetY,
                 defaultElement: <OffsetField />
               })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.rotateLabel,
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.rotateLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.rotateField',
@@ -334,11 +336,13 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultRotate,
                 defaultElement: <RotateField />
               })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.haloColorLabel,
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.haloColorLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.haloColorField',
@@ -348,11 +352,13 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultHaloColor,
                 defaultElement: <ColorField />
               })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.haloWidthLabel,
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.haloWidthLabel}
+            {...formItemLayout}
+          >
+            {
               CompositionUtil.handleComposition({
                 composition,
                 path: 'TextEditor.haloWidthField',
@@ -362,8 +368,8 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultHaloWidth,
                 defaultElement: <WidthField />
               })
-            )
-          }
+            }
+          </Form.Item>
         </div>
       )}
     </CompositionContext.Consumer>

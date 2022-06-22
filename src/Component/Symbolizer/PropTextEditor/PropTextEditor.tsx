@@ -50,6 +50,7 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import RotateField from '../Field/RotateField/RotateField';
 import en_US from '../../../locale/en_US';
 import { GeoStylerLocale } from '../../../locale/locale';
+import { Form } from 'antd';
 
 interface PropTextEditorDefaultProps {
   locale: GeoStylerLocale['PropTextEditor'];
@@ -185,62 +186,105 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     offsetY = offset[1];
   }
 
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
+
   return (
     <div className="gs-text-symbolizer-prop-editor" >
-      <div className="editor-field attribute-field">
-        <span className="label">{locale.propFieldLabel}:</span>
+      <Form.Item
+        label={locale.propFieldLabel}
+        {...formItemLayout}
+      >
         <AttributeCombo
           value={symbolizer.label ? formatLabel(symbolizer.label) : undefined}
           placeholder={locale.attributeComboPlaceholder}
           internalDataDef={internalDataDef}
           onAttributeChange={onLabelChange}
         />
-      </div>
-      {locale.colorLabel}
-      <ColorField
-        color={color}
-        onChange={onColorChange}
-      />
-      {locale.fontLabel}
-      <FontPicker
-        font={font}
-        onChange={onFontChange}
-      />
-      {locale.opacityLabel}
-      <OpacityField
-        opacity={opacity}
-        onChange={onOpacityChange}
-      />
-      {locale.sizeLabel}
-      <WidthField
-        width={size}
-        onChange={onSizeChange}
-      />
-      {locale.offsetXLabel}
-      <OffsetField
-        offset={offsetX}
-        onChange={onOffsetXChange}
-      />
-      {locale.offsetYLabel}
-      <OffsetField
-        offset={offsetY}
-        onChange={onOffsetYChange}
-      />
-      {locale.rotateLabel}
-      <RotateField
-        rotate={rotate}
-        onChange={onRotateChange}
-      />
-      {locale.haloColorLabel}
-      <ColorField
-        color={haloColor}
-        onChange={onHaloColorChange}
-      />
-      {locale.haloWidthLabel}
-      <WidthField
-        width={haloWidth}
-        onChange={onHaloWidthChange}
-      />
+      </Form.Item>
+      <Form.Item
+        label={locale.colorLabel}
+        {...formItemLayout}
+      >
+        <ColorField
+          color={color}
+          onChange={onColorChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.fontLabel}
+        {...formItemLayout}
+      >
+        <FontPicker
+          font={font}
+          onChange={onFontChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.opacityLabel}
+        {...formItemLayout}
+      >
+        <OpacityField
+          opacity={opacity}
+          onChange={onOpacityChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.sizeLabel}
+        {...formItemLayout}
+      >
+        <WidthField
+          width={size}
+          onChange={onSizeChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.offsetXLabel}
+        {...formItemLayout}
+      >
+        <OffsetField
+          offset={offsetX}
+          onChange={onOffsetXChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.offsetYLabel}
+        {...formItemLayout}
+      >
+        <OffsetField
+          offset={offsetY}
+          onChange={onOffsetYChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.rotateLabel}
+        {...formItemLayout}
+      >
+        <RotateField
+          rotate={rotate}
+          onChange={onRotateChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.haloColorLabel}
+        {...formItemLayout}
+      >
+        <ColorField
+          color={haloColor}
+          onChange={onHaloColorChange}
+        />
+      </Form.Item>
+      <Form.Item
+        label={locale.haloWidthLabel}
+        {...formItemLayout}
+      >
+        <WidthField
+          width={haloWidth}
+          onChange={onHaloWidthChange}
+        />
+      </Form.Item>
     </div>
   );
 };
