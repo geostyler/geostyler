@@ -151,9 +151,9 @@ npm i
 npm link geostyler
 ```
 
-When working with npm link it may happen that some tools like webpack or typescript don't know how to resolve packages that are used in booth packages (in this case `geostyler` and `geostyler-style`). So we have to configure this in the `geostyler-demo`:
+When working with npm link it may happen that some tools like webpack or typescript don't know how to resolve packages that are used in both packages (in this case `geostyler` and `geostyler-style`). So we have to configure this in the `geostyler-demo`:
 
-Replace `rootDird` with `rootDirs` and add the linked packages to the `rootDirs` in `tsconfig.json`. If you link some parsers too just add them aswell.
+Replace `rootDir` with `rootDirs` and add the linked packages to the `rootDirs` in `tsconfig.json`. If you link some parsers too just add them as well.
 
 ```diff
 --- a/tsconfig.json
@@ -172,7 +172,7 @@ Replace `rootDird` with `rootDirs` and add the linked packages to the `rootDirs`
      "noImplicitReturns": true,
 ```
 
-Then uncomment or add resolve aliases to the wepackconfig:
+Then uncomment or add resolve aliases to the webpack config:
 
 ```diff
 --- a/config/webpack.common.config.js
@@ -205,7 +205,7 @@ Changes will automatically be updated in the browser. Please also provide tests 
 
 ### Troubleshooting
 `Invalid hook call` error:
-If the demo does not start but shows the above error it means that `geostyler-demo` and `geostyler` are using different react sources. Please make sure to have the react alias in the `webpack.common.config.js` configured correctly.
+If the demo does not start but shows the above error, it means that `geostyler-demo` and `geostyler` are using different react sources. Please make sure to have the react alias in the `webpack.common.config.js` configured correctly.
 
 If there is an issue with a UI component, you may need to do the same for the `antd` module and add the alias.
 
