@@ -103,7 +103,7 @@ interface PreviewState {
 
 /**
  * Symbolizer preview UI.
- * @deprecated
+ * @deprecated This component is deprecated and will be removed with v10.
  */
 export class Preview extends React.Component<PreviewProps, PreviewState> {
 

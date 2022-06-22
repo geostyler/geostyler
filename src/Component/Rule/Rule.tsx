@@ -118,7 +118,7 @@ interface RuleState {
 
 /**
  * UI container representing a Rule
- * @deprecated
+ * @deprecated This component is deprecated and will be removed with v10.
  */
 export class Rule extends React.Component<RuleProps, RuleState> {
 
