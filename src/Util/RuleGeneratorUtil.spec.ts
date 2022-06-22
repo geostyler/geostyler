@@ -43,8 +43,8 @@ describe('RuleGeneratorUtil', () => {
       expect(distinctValues).toHaveLength(16);
 
       const dummyWithDuplicates = _cloneDeep(dummyData);
-      dummyWithDuplicates.exampleFeatures.features[0].properties.GEN = 'same';
-      dummyWithDuplicates.exampleFeatures.features[1].properties.GEN = 'same';
+      dummyWithDuplicates.exampleFeatures!.features[0]!.properties!.GEN = 'same';
+      dummyWithDuplicates.exampleFeatures!.features[1]!.properties!.GEN = 'same';
       const newDistinct = RuleGeneratorUtil.getDistinctValues(dummyWithDuplicates, 'GEN');
       expect(newDistinct).toHaveLength(15);
     });

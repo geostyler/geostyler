@@ -150,6 +150,9 @@ export const Renderer: React.FC<RendererProps> = ({
    * @param {Symbolizer[]} newSymbolizers The symbolizers holding the style to apply
    */
   const applySymbolizers = async(newSymbolizers: Symbolizer[]) => {
+    if (!newSymbolizers) {
+      return undefined;
+    }
     const styleParser = new OlStyleParser();
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
