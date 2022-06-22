@@ -39,10 +39,7 @@ export interface FieldContainerProps extends Partial<FieldContainerDefaultProps>
   children?: React.ReactElement | React.ReactElement[];
   className?: string;
 }
-/**
- *
- * @deprecated This component is deprecated and will be removed with v10.
- */
+
 export const FieldContainer: React.FC<FieldContainerProps> = ({
   children,
   className
