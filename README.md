@@ -149,8 +149,52 @@ git clone https://github.com/geostyler/geostyler-demo.git
 cd geostyler-demo
 npm i
 npm link geostyler
+```
+
+When working with npm link it may happen that some tools like webpack or typescript don't know how to resolve packages that are used in both packages (in this case `geostyler` and `geostyler-style`). So we have to configure this in the `geostyler-demo`:
+
+Replace `rootDir` with `rootDirs` and add the linked packages to the `rootDirs` in `tsconfig.json`. If you link some parsers too just add them as well.
+
+```diff
+--- a/tsconfig.json
++++ b/tsconfig.json
+@@ -9,9 +9,12 @@
+     "allowJs": true,
+     "jsx": "react",
+     "moduleResolution": "node",
+-    "rootDir": ".",
+     "rootDirs": [
+-      "./src/"
++      "./src/",
++      "../geostyler",
+     ],
+     "forceConsistentCasingInFileNames": true,
+     "noImplicitReturns": true,
+```
+
+Then uncomment or add resolve aliases to the webpack config:
+
+```diff
+--- a/config/webpack.common.config.js
++++ b/config/webpack.common.config.js
+@@ -35,7 +35,9 @@ module.exports = {
+     },
+     alias: {
+       react: require.resolve('react'),
+-      'geostyler-style': path.resolve('node_modules', 'geostyler-style')
++      'geostyler-style': path.resolve('node_modules', 'geostyler-style'),
++      'geostyler-sld-parser': path.resolve('node_modules', 'geostyler-sld-parser'),
++      'antd': path.resolve('node_modules', 'antd')
+     }
+   },
+   output: {
+```
+
+
+```
 npm run start
 ```
+
 The GeoStyler Demo will then be served on `localhost:3000`. When doing changes to GeoStyler you have to rebuild the project via one of the following commands:
 
 ```bash
@@ -161,34 +205,9 @@ Changes will automatically be updated in the browser. Please also provide tests 
 
 ### Troubleshooting
 `Invalid hook call` error:
-If the demo does not start but shows the above error it means that `geostyler-demo` and `geostyler` are using different react sources. To fixes this issue you need to add `react` to `resolve.alias` the `webpack.config.js` of create-react-app:
-In the project geostyler-demo in the file node_modules/react-scripts/config/webpack.config.js (~ line 320):
-```javascript
-[...]
-    resolve: {
-    [...]
-      alias: {
-        // Support React Native Web
-        // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-        'react-native': 'react-native-web',
-        // Fixes npm link
-        'react': path.join(__dirname, '../../', 'react'),
-        // Allows for better profiling with ReactDevTools
-        ...(isEnvProductionProfile && {
-          'react-dom$': 'react-dom/profiling',
-          'scheduler/tracing': 'scheduler/tracing-profiling',
-        }),
-        ...(modules.webpackAliases || {}),
-      },
-    [...]
-    },
-[...]
-```
-If there is an issue with a UI component, you may need to do the same for the `antd` module and add the alias:
-```javascript
-'antd': path.join(__dirname, '../../', 'antd'),
-```
+If the demo does not start but shows the above error, it means that `geostyler-demo` and `geostyler` are using different react sources. Please make sure to have the react alias in the `webpack.common.config.js` configured correctly.
 
+If there is an issue with a UI component, you may need to do the same for the `antd` module and add the alias.
 
 ### <a name="developing-geostyler-style-parsers"></a>Developing GeoStyler Style Parsers
 
