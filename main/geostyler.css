@@ -28760,7 +28760,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-text-symbolizer-prop-editor .ant-row.ant-form-item.ant-form-item-no-colon {
   margin-bottom: 0;
 }
-.gs-text-symbolizer-prop-editor .ant-form-item-label {
+.gs-text-symbolizer-prop-editor .gs-attribute-combo .ant-form-item-label {
   display: none;
 }
 
@@ -28844,6 +28844,8 @@ div.ant-typography-edit-content.ant-typography-rtl {
   border-radius: 4px;
   background-color: white;
   cursor: pointer;
+  min-width: 4px;
+  min-height: 4px;
 }
 
 
