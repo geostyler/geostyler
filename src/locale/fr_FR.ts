@@ -31,24 +31,24 @@ import { GeoStylerLocale } from './locale';
 
 const fr_FR: GeoStylerLocale = {
   StyleFieldContainer: {
-    nameFieldLabel: 'TODO(fr_FR):Name',
-    nameFieldPlaceholder: 'TODO(fr_FR):Enter name',
-    titleFieldLabel: 'TODO(fr_FR):Title',
-    titleFieldPlaceholder: 'TODO(fr_FR):Enter title'
+    nameFieldLabel: 'Nom',
+    nameFieldPlaceholder: 'Saisir un nom',
+    titleFieldLabel: 'Titre',
+    titleFieldPlaceholder: 'Saisir un titre'
   },
   Editor: {
-    kindFieldLabel: 'TODO(fr_FR):Kind'
+    kindFieldLabel: 'Type'
   },
   RuleFieldContainer: {
-    nameFieldLabel: 'TODO(fr_FR):Name',
-    nameFieldPlaceholder: 'TODO(fr_FR):Enter name'
+    nameFieldLabel: 'Nom',
+    nameFieldPlaceholder: 'Saisir un nom'
   },
   BulkEditor: {
-    colorLabel: 'TODO(fr_FR):Select color',
-    radiusLabel: 'TODO(fr_FR):Select radius',
-    opacityLabel: 'TODO(fr_FR):Select opacity',
-    symbolLabel: 'TODO(fr_FR):Select symbol',
-    imageFieldLabel: 'TODO(fr_FR):Source'
+    colorLabel: 'Sélectionner une couleur',
+    radiusLabel: 'Sélectionner un rayon',
+    opacityLabel: 'Sélectionner une opacité',
+    symbolLabel: 'Sélectionner un symbole',
+    imageFieldLabel: 'Source'
   },
   BulkEditModals: {
     colorLabel: 'Sélectionner une couleur',
@@ -64,24 +64,24 @@ const fr_FR: GeoStylerLocale = {
     filterFieldTitle: 'Utiliser le filtrage',
     nameFieldLabel: 'Nom',
     nameFieldPlaceholder: 'Donner un nom',
-    attributeLabel: 'TODO(fr_FR):Attribute',
-    attributePlaceholderString: 'TODO(fr_FR):Choose attribute',
-    attributeValidationHelpString: 'TODO(fr_FR):Please choose an attribute',
-    operatorLabel: 'TODO(fr_FR):Operator',
-    operatorPlaceholderString: 'TODO(fr_FR):Choose operator',
-    operatorValidationHelpString: 'TODO(fr_FR):Please choose an operator',
-    valueLabel: 'TODO(fr_FR):Value',
-    valuePlaceholder: 'TODO(fr_FR):Enter value',
-    valueValidationHelpString: 'TODO(fr_FR):Please enter a value'
+    attributeLabel: 'Attribut',
+    attributePlaceholderString: 'Choisir un attribut',
+    attributeValidationHelpString: 'Veuillez sélectionner un attribut',
+    operatorLabel: 'Opérateur',
+    operatorPlaceholderString: 'Choisir un opérateur',
+    operatorValidationHelpString: 'Veuillez choisir un opérateur',
+    valueLabel: 'Valeur',
+    valuePlaceholder: 'Saisir une valeur',
+    valueValidationHelpString: 'Veuillez choisir une valeur'
   },
   Style: {
     addRuleBtnText: 'Ajouter une règle',
     cloneRulesBtnText: 'Dupliquer les règles',
     removeRulesBtnText: 'Supprimer les règles',
     nameFieldLabel: 'Nom',
-    nameFieldPlaceholder: 'Donner un nom',
-    titleFieldLabel: 'TODO(fr_FR):Title',
-    titleFieldPlaceholder: 'TODO(fr_FR):Enter Title',
+    nameFieldPlaceholder: 'Saisir un nom',
+    titleFieldLabel: 'Titre',
+    titleFieldPlaceholder: 'Saisir un titre',
     colorLabel: 'Sélectionner une couleur',
     radiusLabel: 'Sélectionner un rayon',
     opacityLabel: 'Sélectionner une opacité',
@@ -90,24 +90,24 @@ const fr_FR: GeoStylerLocale = {
     ruleGeneratorWindowBtnText: 'Classification'
   },
   CardStyle: {
-    styleTitle: 'TODO(fr_FR):Style',
-    classificationTitle: 'TODO(fr_FR):Classification',
-    multiEditTitle: 'TODO(fr_FR):Multi edit',
-    symbolizerTitle: 'TODO(fr_FR):Symbolizer',
-    filterTitle: 'TODO(fr_FR):Filters',
-    iconLibrariesTitle: 'TODO(fr_FR):Gallery'
+    styleTitle: 'Style',
+    classificationTitle: 'Classification',
+    multiEditTitle: 'Édition multiple',
+    symbolizerTitle: 'Symbolisation',
+    filterTitle: 'Filtres',
+    iconLibrariesTitle: 'Bibliothèque d\'icônes'
   },
   StyleOverview: {
-    styleTitle: 'TODO(fr_FR):Style'
+    styleTitle: 'Style'
   },
   RuleOverview: {
-    ruleTitle: 'TODO(fr_FR):Rule'
+    ruleTitle: 'Règle'
   },
   Symbolizers: {
-    symbolizersTitle: 'TODO(fr_FR):Symbolizers',
-    addSymbolizer: 'TODO(fr_FR):Add symbolizer',
-    showAll: 'TODO(fr_FR):Show all',
-    hide: 'TODO(fr_FR):Hide'
+    symbolizersTitle: 'Symbolisations',
+    addSymbolizer: 'Ajouter une symbolisation',
+    showAll: 'Tout montrer',
+    hide: 'Masquer'
   },
   StyleLoader: {
     label: 'Charger un style : ',
@@ -198,7 +198,7 @@ const fr_FR: GeoStylerLocale = {
   PropTextEditor: {
     propFieldLabel: 'Champ',
     opacityLabel: 'Opacité du texte',
-    fontLabel: 'TODO(fr_FR):Font',
+    fontLabel: 'Police',
     colorLabel: 'Couleur du texte',
     sizeLabel: 'Taille du texte',
     offsetXLabel: 'Décalage horizontal',
@@ -328,16 +328,16 @@ const fr_FR: GeoStylerLocale = {
     upload: 'Téléverser'
   },
   FilterTree: {
-    andDrpdwnLabel: 'AND-Filter',
-    orDrpdwnLabel: 'OR-Filter',
-    notDrpdwnLabel: 'NOT-Filter',
-    comparisonDrpdwnLabel: 'Comparison-Filter',
+    andDrpdwnLabel: 'Filtre ET',
+    orDrpdwnLabel: 'Filtre OU',
+    notDrpdwnLabel: 'Filtre NON',
+    comparisonDrpdwnLabel: 'Filtre de comparaison',
     addFilterLabel: 'Ajouter un filtre',
     changeFilterLabel: 'Modifier un filtre',
     removeFilterLabel: 'Supprimer un filtre',
-    andFilterText: 'AND',
-    orFilterText: 'OR',
-    notFilterText: 'NOT'
+    andFilterText: 'ET',
+    orFilterText: 'OU',
+    notFilterText: 'NON'
   },
   RuleTable: {
     symbolizersColumnTitle: 'Symbolisations',
@@ -349,23 +349,23 @@ const fr_FR: GeoStylerLocale = {
     duplicatesColumnTitle: 'Doublons'
   },
   Rules: {
-    rulesTitle: 'TODO(fr_FR):Rules',
-    multiEdit: 'TODO(fr_FR):Select',
-    addRule: 'TODO(fr_FR):Add',
-    classification: 'TODO(fr_FR):Classification',
-    remove: 'TODO(fr_FR):Remove',
-    clone: 'TODO(fr_FR):Clone',
-    edit: 'TODO(fr_FR):Edit',
-    defaultRuleTitle: 'TODO(fr_FR):Untitled'
+    rulesTitle: 'Règles',
+    multiEdit: 'Sélectionner',
+    addRule: 'Ajouter',
+    classification: 'Classification',
+    remove: 'Supprimer',
+    clone: 'Cloner',
+    edit: 'Modifier',
+    defaultRuleTitle: 'Sans titre'
   },
   RuleReorderButtons: {
     ruleMoveUpTip: 'Déplacer la règle vers le haut',
     ruleMoveDownTip: 'Déplacer la règle vers le bas'
   },
   RuleGenerator: {
-    attribute: 'Attribute',
+    attribute: 'Attribut',
     generateButtonText: 'Classifier',
-    levelOfMeasurement: 'Level of Measurement',
+    levelOfMeasurement: 'Niveau de mesure',
     nominal: 'Nominal',
     ordinal: 'Ordinal',
     cardinal: 'Cardinal',
