@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="../browser/geostyler.js"></script>
+  <link rel="stylesheet" href="../browser/geostyler.css"/>
+  <link rel="stylesheet" href="../node_modules/antd/dist/antd.css"/>
+  <link rel="stylesheet" href="../node_modules/ol/ol.css"/>
+</head>
+<body>
+  <div id="root" ></div>
+  <div style="display: flex;">
+    <div id="preview" style="flex: 1;"></div>
+    <textarea id="textual_style" style="flex: 1; height: 300px;"></textarea>
+  </div>
+  <script defer>
+    const root = ReactDOM.createRoot(
+      document.getElementById('root')
+    );
+    const preview = ReactDOM.createRoot(
+      document.getElementById('preview')
+    );
+    let style = {
+      "name": "Demo Style",
+      "rules": [
+        {
+          "name": "Rule 1",
+          "symbolizers": [
+            {
+              "kind": "Mark",
+              "wellKnownName": "circle"
+            }
+          ]
+        }
+      ]
+    };
+    const renderPreview = () => {
+      const gsPreview = React.createElement(GeoStyler.PreviewMap, {
+          style: style,
+          mapHeight: 300
+        });
+      preview.render(gsPreview);
+    };
+    const geostyler = React.createElement(GeoStyler.Style, {
+      compact: true,
+      style: style,
+      onStyleChange: (gsStyle) => {
+        style = gsStyle;
+        document.getElementById('textual_style').value = JSON.stringify(style, null, 2);
+        renderPreview();
+      }
+    });
+    root.render(geostyler);
+  </script>
+</body>
+</html>

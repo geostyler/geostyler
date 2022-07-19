@@ -37,6 +37,7 @@
     "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.less\" dist --up 1 && node transform-less.js",
     "build-styleguide": "styleguidist build",
     "build-browser": "webpack --config webpack.browser.config.js",
+    "browser-sample": "npx http-server . -o /public/browser.html",
     "lint": "eslint -c .eslintrc.js --ext .ts,tsx src/ && tsc --noEmit --project tsconfig.json",
     "lint:test": "npm run lint && npm run test",
     "lint:test:cleanup:build": "npm run lint && npm run test && npm run cleanup && npm run build",
