@@ -44,13 +44,14 @@ import OlStyleParser from 'geostyler-openlayers-parser';
 import GeometryUtil from '../../Util/GeometryUtil';
 
 import './PreviewMap.less';
+import { StandardLonghandProperties } from 'csstype';
 
 // default props
 export interface PreviewMapDefaultProps {
   /** The projection of the data to visualize */
   dataProjection: ProjectionLike;
   /** The height of the map */
-  mapHeight: number;
+  mapHeight: StandardLonghandProperties['height'];
 }
 
 // non default props
