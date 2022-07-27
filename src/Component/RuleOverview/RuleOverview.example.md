@@ -42,7 +42,7 @@ class RuleOverviewExample extends React.Component {
         name: 'myRule',
         symbolizers: [{
           kind: 'Mark',
-          wellKnownName: 'Circle'
+          wellKnownName: 'circle'
         }]
       }
     };
@@ -83,7 +83,7 @@ class RuleOverviewExample extends React.Component {
         name: 'myRule',
         symbolizers: [{
           kind: 'Mark',
-          wellKnownName: 'Circle'
+          wellKnownName: 'circle'
         }],
         filter: [
           '&&',

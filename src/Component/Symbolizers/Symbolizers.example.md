@@ -40,34 +40,34 @@ class SymbolizersExample extends React.Component {
     this.state = {
       symbolizers: [{
         kind: 'Mark',
-        wellKnownName: 'Circle'
+        wellKnownName: 'circle'
       }, {
         kind: 'Mark',
-        wellKnownName: 'Square'
+        wellKnownName: 'square'
       }, {
         kind: 'Mark',
-        wellKnownName: 'Circle'
+        wellKnownName: 'circle'
       }, {
         kind: 'Mark',
-        wellKnownName: 'Square'
+        wellKnownName: 'square'
       }, {
         kind: 'Mark',
-        wellKnownName: 'Square'
+        wellKnownName: 'square'
       }, {
         kind: 'Mark',
-        wellKnownName: 'Square'
+        wellKnownName: 'square'
       }, {
         kind: 'Mark',
-        wellKnownName: 'Square'
+        wellKnownName: 'square'
       }, {
         kind: 'Mark',
-        wellKnownName: 'Square'
+        wellKnownName: 'square'
       }, {
         kind: 'Mark',
-        wellKnownName: 'Square'
+        wellKnownName: 'square'
       }, {
         kind: 'Mark',
-        wellKnownName: 'Triangle'
+        wellKnownName: 'triangle'
       }]
     };
   }

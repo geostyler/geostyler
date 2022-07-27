@@ -41,7 +41,7 @@ class EditorExample extends React.Component {
     this.state = {
       symbolizer: {
         kind: 'Mark',
-        wellKnownName: 'Circle'
+        wellKnownName: 'circle'
       }
     };
 
