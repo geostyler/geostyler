@@ -33,18 +33,24 @@ This demonstrates the usage of the `Renderer` component with 'OpenLayers' render
 ```jsx
 import React, { useState } from 'react';
 import { Renderer } from 'geostyler';
+import './Renderer.example.css';
 
 function RendererExample () {
 
   const symbolizers = [{
-    kind: 'Fill'
+    kind: 'Mark',
+    wellKnownName: 'circle',
+    color: '#ff0000',
+    strokeColor: '000000',
+    strokeWidth: 3,
+    radius: 10
   }];
 
   return (
     <Renderer
       rendererType='OpenLayers'
       symbolizers={symbolizers}
-    >
+    />
   );
 }
 
@@ -67,7 +73,12 @@ function RendererExample () {
     <Renderer
       rendererType='SLD'
       symbolizers={symbolizers}
-    >
+      sldRendererProps={{
+        hideEditButton: true,
+        wmsBaseUrl: 'https://ows-demo.terrestris.de/geoserver/ows?',
+        layer: 'terrestris:bundeslaender'
+      }}
+    />
   );
 }
 
