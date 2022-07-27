@@ -46,7 +46,7 @@ class RuleCardExample extends React.Component {
         },
         symbolizers: [{
           kind: 'Mark',
-          wellKnownName: 'Circle'
+          wellKnownName: 'circle'
         }]
       }
     }
@@ -93,7 +93,7 @@ class RuleCardExample extends React.Component {
         ],
         symbolizers: [{
           kind: 'Mark',
-          wellKnownName: 'Circle'
+          wellKnownName: 'circle'
         }]
       },
       data: {

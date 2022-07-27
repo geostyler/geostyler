@@ -41,7 +41,7 @@ class SLDRendererExample extends React.Component {
     this.state = {
       symbolizers: [{
         kind: 'Mark',
-        wellKnownName: 'Circle',
+        wellKnownName: 'circle',
         color: '#ff0000',
         strokeColor: '000000',
         strokeWidth: 3,

@@ -44,13 +44,13 @@ class StyleOverviewExample extends React.Component {
           name: 'myRule',
           symbolizers: [{
             kind: 'Mark',
-            wellKnownName: 'Circle'
+            wellKnownName: 'circle'
           }]
         }, {
           name: 'myRule 2',
           symbolizers: [{
             kind: 'Mark',
-            wellKnownName: 'Circle'
+            wellKnownName: 'circle'
           }]
         }]
       }
