@@ -29375,3 +29375,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   cursor: default;
 }
 
+.ol-viewport {
+  min-height: 100px;
+}
+
