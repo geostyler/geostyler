@@ -27,6 +27,6 @@
  */
 
 import { UnsupportedProperties } from 'geostyler-style';
-import React from 'react';
+import { createContext } from 'react';
 
-export const UnsupportedPropertiesContext = React.createContext<UnsupportedProperties>({});
+export const UnsupportedPropertiesContext = createContext<UnsupportedProperties>({});
