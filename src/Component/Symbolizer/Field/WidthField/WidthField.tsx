@@ -27,9 +27,10 @@
  */
 
 import * as React from 'react';
-import { InputNumber } from 'antd';
+import { InputNumber, InputNumberProps } from 'antd';
+import FieldUtil from '../../../../Util/FieldUtil';
 
-export interface WidthFieldProps {
+export interface WidthFieldProps extends InputNumberProps {
   onChange?: (radius: number) => void;
   width?: number;
 }
@@ -39,7 +40,8 @@ export interface WidthFieldProps {
  */
 export const WidthField: React.FC<WidthFieldProps> = ({
   onChange,
-  width
+  width,
+  ...inputNumberProps
 }) => {
 
   return (
@@ -47,7 +49,8 @@ export const WidthField: React.FC<WidthFieldProps> = ({
       className="editor-field width-field"
       min={0}
       value={width}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
+      {...inputNumberProps}
     />
   );
 };

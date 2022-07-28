@@ -29,12 +29,13 @@
 import * as React from 'react';
 
 import {
-  InputNumber
+  InputNumber, InputNumberProps
 } from 'antd';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface BrightnessFieldProps {
-  onChange?: (opacity: number) => void;
+export interface BrightnessFieldProps extends InputNumberProps {
+  onChange?: (opacity: number | undefined) => void;
   brightness?: number;
 }
 
@@ -43,7 +44,8 @@ export interface BrightnessFieldProps {
  */
 export const BrightnessField: React.FC<BrightnessFieldProps> = ({
   onChange,
-  brightness
+  brightness,
+  ...inputProps
 }) => {
 
   return (
@@ -53,7 +55,8 @@ export const BrightnessField: React.FC<BrightnessFieldProps> = ({
       max={1}
       step={0.1}
       value={brightness}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
+      {...inputProps}
     />
   );
 };

@@ -29,12 +29,13 @@
 import * as React from 'react';
 
 import {
-  InputNumber
+  InputNumber, InputNumberProps
 } from 'antd';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface FadeDurationFieldProps {
-  onChange?: (opacity: number) => void;
+export interface FadeDurationFieldProps extends InputNumberProps {
+  onChange?: (opacity: number | undefined) => void;
   fadeDuration?: number;
 }
 
@@ -43,7 +44,8 @@ export interface FadeDurationFieldProps {
  */
 export const FadeDurationField: React.FC<FadeDurationFieldProps> = ({
   onChange,
-  fadeDuration
+  fadeDuration,
+  ...inputProps
 }) => {
 
   return (
@@ -52,7 +54,8 @@ export const FadeDurationField: React.FC<FadeDurationFieldProps> = ({
       min={0}
       step={10}
       value={fadeDuration}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
+      {...inputProps}
     />
   );
 };

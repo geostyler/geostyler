@@ -32,6 +32,7 @@ import {
   InputNumber
 } from 'antd';
 import { InputNumberProps } from 'antd/lib/input-number';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
 export interface OpacityFieldProps extends Partial<InputNumberProps> {
@@ -55,7 +56,7 @@ export const OpacityField: React.FC<OpacityFieldProps> = ({
       max={1}
       step={0.01}
       value={opacity}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
       {...inputProps}
     />
   );

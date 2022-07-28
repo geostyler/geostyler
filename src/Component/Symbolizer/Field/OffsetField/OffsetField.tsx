@@ -30,9 +30,10 @@ import * as React from 'react';
 
 import { InputNumber } from 'antd';
 import { InputNumberProps } from 'antd/lib/input-number';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface OffsetFieldProps extends Partial<InputNumberProps> {
+export interface OffsetFieldProps extends InputNumberProps {
   offset?: number;
 }
 
@@ -50,7 +51,7 @@ export const OffsetField: React.FC<OffsetFieldProps> = ({
       className="editor-field offset-field"
       value={offset}
       step={1}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
       {...inputProps}
     />
   );

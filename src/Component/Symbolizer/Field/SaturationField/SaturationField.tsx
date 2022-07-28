@@ -29,11 +29,12 @@
 import * as React from 'react';
 
 import {
-  InputNumber
+  InputNumber, InputNumberProps
 } from 'antd';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface SaturationFieldProps {
+export interface SaturationFieldProps extends InputNumberProps {
   onChange?: (opacity: number) => void;
   saturation?: number;
 }
@@ -43,7 +44,8 @@ export interface SaturationFieldProps {
  */
 export const SaturationField: React.FC<SaturationFieldProps> = ({
   onChange,
-  saturation
+  saturation,
+  ...inputProps
 }) => {
 
   return (
@@ -53,7 +55,8 @@ export const SaturationField: React.FC<SaturationFieldProps> = ({
       max={1}
       step={0.1}
       value={saturation}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
+      {...inputProps}
     />
   );
 };

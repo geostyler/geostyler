@@ -29,11 +29,12 @@
 import * as React from 'react';
 
 import {
-  InputNumber
+  InputNumber, InputNumberProps
 } from 'antd';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface RadiusFieldProps {
+export interface RadiusFieldProps extends InputNumberProps {
   onChange?: (radius: number) => void;
   radius?: number;
 }
@@ -43,7 +44,8 @@ export interface RadiusFieldProps {
  */
 export const RadiusField: React.FC<RadiusFieldProps> = ({
   onChange,
-  radius
+  radius,
+  ...inputProps
 }) => {
 
   return (
@@ -51,7 +53,8 @@ export const RadiusField: React.FC<RadiusFieldProps> = ({
       className="editor-field radius-field"
       min={0}
       value={radius}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
+      {...inputProps}
     />
   );
 };
