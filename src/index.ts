@@ -123,6 +123,7 @@ import withDefaultsContext from './hoc/withDefaultsContext';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 import { CompositionContext } from './context/CompositionContext/CompositionContext';
 import { DefaultValueContext } from './context/DefaultValueContext/DefaultValueContext';
+import { UnsupportedPropertiesContext } from './context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import { GeoStylerLocale } from './locale/locale';
 
 import { ConfigProvider } from 'antd';
@@ -235,6 +236,7 @@ export {
   TextEditor,
   TextFilterField,
   UploadButton,
+  UnsupportedPropertiesContext,
   WellKnownNameEditor,
   WellKnownNameField,
   WidthField,
