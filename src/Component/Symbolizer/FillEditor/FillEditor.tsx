@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useContext } from 'react';
 import {
   Collapse,
   Form
@@ -56,6 +56,10 @@ import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { GeoStylerLocale } from '../../../locale/locale';
+import {
+  UnsupportedPropertiesContext
+} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
+import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 
 const Panel = Collapse.Panel;
 
@@ -78,6 +82,8 @@ export const FillEditor: React.FC<FillEditorProps> = ({
   onSymbolizerChange,
   defaultValues
 }) => {
+
+  const unsupportedProperties = useContext(UnsupportedPropertiesContext);
 
   const onFillColorChange = (value: string) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
@@ -160,6 +166,11 @@ export const FillEditor: React.FC<FillEditorProps> = ({
     outlineOpacity
   } = symbolizer;
 
+  const getSupportProps = (fieldName: keyof FillSymbolizer) => {
+    return UnsupportedPropertiesUtil
+      .getSupportProps<FillSymbolizer>(fieldName, 'FillSymbolizer', unsupportedProperties);
+  };
+
   return (
     <CompositionContext.Consumer>
       {(composition: Compositions) => (
@@ -168,6 +179,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
             <Panel header="General" key="1">
               <Form.Item
                 label={locale.fillColorLabel}
+                {...getSupportProps('color')}
                 {...formItemLayout}
               >
                 {
@@ -184,6 +196,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.fillOpacityLabel}
+                {...getSupportProps('fillOpacity')}
                 {...formItemLayout}
               >
                 {
@@ -191,7 +204,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
                     composition,
                     path: 'FillEditor.fillOpacityField',
                     onChange: onFillOpacityChange,
-                    propName: 'opacity',
+                    propName: 'fillOpacity',
                     propValue: fillOpacity,
                     defaultValue: defaultValues?.FillEditor?.defaultFillOpacity,
                     defaultElement: <OpacityField />
@@ -199,7 +212,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
                 }
               </Form.Item>
               <Form.Item
-                label={locale.opacityLabel}
+                label={locale.fillOpacityLabel}
                 {...formItemLayout}
               >
                 {
@@ -216,6 +229,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.outlineOpacityLabel}
+                {...getSupportProps('outlineOpacity')}
                 {...formItemLayout}
               >
                 {
@@ -232,6 +246,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.outlineColorLabel}
+                {...getSupportProps('outlineColor')}
                 {...formItemLayout}
               >
                 {
@@ -248,6 +263,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.outlineWidthLabel}
+                {...getSupportProps('outlineWidth')}
                 {...formItemLayout}
               >
                 {
@@ -264,6 +280,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.outlineDasharrayLabel}
+                {...getSupportProps('outlineDasharray')}
                 {...formItemLayout}
               >
                 {
