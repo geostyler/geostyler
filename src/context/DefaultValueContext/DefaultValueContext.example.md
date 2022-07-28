@@ -39,7 +39,7 @@ Provide some default values.
 ```jsx
 import * as React from 'react';
 import { DefaultValueContext, IconEditor } from 'geostyler';
-import { Switch, InputNumber } from 'antd';
+import { Switch } from 'antd';
 
 class DefaultValueExample extends React.Component {
 
