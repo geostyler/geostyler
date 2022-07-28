@@ -191,7 +191,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
                     composition,
                     path: 'FillEditor.fillOpacityField',
                     onChange: onFillOpacityChange,
-                    propName: 'fillOpacity',
+                    propName: 'opacity',
                     propValue: fillOpacity,
                     defaultValue: defaultValues?.FillEditor?.defaultFillOpacity,
                     defaultElement: <OpacityField />
