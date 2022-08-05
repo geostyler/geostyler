@@ -41,25 +41,42 @@ type UnsupportedSymbolizerProps<T extends Symbolizer> = SupportDef | {
  */
 class UnsupportedPropertiesUtil {
 
-  static getSupportProps = <T extends Symbolizer>(
-    propName: keyof T,
-    symbolizerName: SymbolizerName,
-    unsupportedProperties: UnsupportedProperties
-  ): Partial<FormItemProps> => {
+  static getSupportProps = <T extends Symbolizer>({
+    propName,
+    symbolizerName,
+    unsupportedProperties,
+    hideUnsupported = false
+  }: {
+    propName: keyof T;
+    symbolizerName: SymbolizerName;
+    unsupportedProperties: UnsupportedProperties;
+    hideUnsupported?: boolean;
+  }): Partial<FormItemProps> => {
+
+    if (!unsupportedProperties) {
+      return {};
+    }
+
     const props: Partial<FormItemProps> = {};
     const unsupportedSymbolizerProps = UnsupportedPropertiesUtil
       .getUnsupportedPropsForSymbolizer<T>(unsupportedProperties, symbolizerName);
 
-    const val = unsupportedSymbolizerProps[(propName as string)];
+    const val: SupportDef = unsupportedSymbolizerProps[(propName as string)];
     if (val) {
       props.hasFeedback = true;
       if (val === 'none') {
         props.help = 'Not supported by selected parser.'; // TODO: i18n
+        if (hideUnsupported) {
+          props.hidden = true;
+        }
       } else if (val === 'partial') {
         props.help = 'Only partialy supported by selected parser.'; // TODO: i18n
       } else {
         props.help = val.info;
         props.validateStatus = 'warning';
+        if (val.support === 'none' && hideUnsupported) {
+          props.hidden = true;
+        }
       }
     }
 

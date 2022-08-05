@@ -83,7 +83,10 @@ export const FillEditor: React.FC<FillEditorProps> = ({
   defaultValues
 }) => {
 
-  const unsupportedProperties = useContext(UnsupportedPropertiesContext);
+  const {
+    unsupportedProperties,
+    options
+  } = useContext(UnsupportedPropertiesContext);
 
   const onFillColorChange = (value: string) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
@@ -166,9 +169,13 @@ export const FillEditor: React.FC<FillEditorProps> = ({
     outlineOpacity
   } = symbolizer;
 
-  const getSupportProps = (fieldName: keyof FillSymbolizer) => {
-    return UnsupportedPropertiesUtil
-      .getSupportProps<FillSymbolizer>(fieldName, 'FillSymbolizer', unsupportedProperties);
+  const getSupportProps = (propName: keyof FillSymbolizer) => {
+    return UnsupportedPropertiesUtil.getSupportProps<FillSymbolizer>({
+      propName,
+      symbolizerName: 'FillSymbolizer',
+      unsupportedProperties,
+      hideUnsupported: options?.hideUnsupported
+    });
   };
 
   return (

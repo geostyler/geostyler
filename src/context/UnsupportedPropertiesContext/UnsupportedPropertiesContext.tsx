@@ -29,4 +29,15 @@
 import { UnsupportedProperties } from 'geostyler-style';
 import { createContext } from 'react';
 
-export const UnsupportedPropertiesContext = createContext<UnsupportedProperties>({});
+export type UnsupportedPropertiesContextOptions = {
+  hideUnsupported: boolean;
+};
+
+export type UnsupportedPropertiesContextType = {
+  unsupportedProperties: UnsupportedProperties;
+  options?: UnsupportedPropertiesContextOptions;
+};
+
+export const UnsupportedPropertiesContext = createContext<UnsupportedPropertiesContextType>({
+  unsupportedProperties: {}
+});

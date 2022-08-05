@@ -41,16 +41,18 @@ import * as React from 'react';
 import { UnsupportedPropertiesContext, FillEditor } from 'geostyler';
 import OlStyleParser from 'geostyler-openlayers-parser';
 import SldStyleParser from 'geostyler-sld-parser';
-import { Switch, InputNumber } from 'antd';
+import { Checkbox, Switch, InputNumber } from 'antd';
 
 class UnsupportedPropertiesContextExample extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      parser: new SldStyleParser()
+      parser: new SldStyleParser(),
+      hideUnsupported: false
     }
     this.switchParser = this.switchParser.bind(this);
+    this.onHideUnsupportedChange = this.onHideUnsupportedChange.bind(this);
   }
 
   switchParser(checked) {
@@ -59,21 +61,40 @@ class UnsupportedPropertiesContextExample extends React.Component {
     });
   }
 
+  onHideUnsupportedChange(e) {
+    this.setState({
+      hideUnsupported: e.target.checked
+    });
+  }
+
   render() {
     const {
-      parser
+      parser,
+      hideUnsupported
     } = this.state;
 
     return (
       <div>
         <Switch
+          style={{marginRight: 20}}
           checked={parser instanceof SldStyleParser}
           onChange={this.switchParser}
           checkedChildren="SLD"
           unCheckedChildren="OpenLayers"
         />
+        <Checkbox
+          checked={hideUnsupported}
+          onChange={this.onHideUnsupportedChange}
+        >
+          Hide unsupported properties
+        </Checkbox>
         <hr/>
-        <UnsupportedPropertiesContext.Provider value={parser.unsupportedProperties}>
+        <UnsupportedPropertiesContext.Provider value={{
+          unsupportedProperties: parser.unsupportedProperties,
+          options: {
+            hideUnsupported
+          }
+        }}>
           <FillEditor
             symbolizer={{
               kind: 'Fill',
