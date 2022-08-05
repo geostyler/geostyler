@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# disable CI
+[ -n "$CI" ] && exit 0
+
+npm run lint
