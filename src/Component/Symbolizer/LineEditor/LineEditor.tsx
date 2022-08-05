@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useContext } from 'react';
 
 import {
   Collapse,
@@ -60,6 +60,8 @@ import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { GeoStylerLocale } from '../../../locale/locale';
+import { UnsupportedPropertiesContext } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
+import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 
 const Panel = Collapse.Panel;
 
@@ -84,6 +86,11 @@ export const LineEditor: React.FC<LineEditorProps> = ({
   onSymbolizerChange,
   defaultValues
 }) => {
+
+  const {
+    unsupportedProperties,
+    options
+  } = useContext(UnsupportedPropertiesContext);
 
   const onColorChange = (value: LineSymbolizer['color']) => {
     const sybolizerClone = _cloneDeep(symbolizer);
@@ -174,6 +181,15 @@ export const LineEditor: React.FC<LineEditorProps> = ({
     graphicFill
   } = _cloneDeep(symbolizer);
 
+  const getSupportProps = (propName: keyof LineSymbolizer) => {
+    return UnsupportedPropertiesUtil.getSupportProps<LineSymbolizer>({
+      propName,
+      symbolizerName: 'LineSymbolizer',
+      unsupportedProperties,
+      hideUnsupported: options?.hideUnsupported
+    });
+  };
+
   return (
     <CompositionContext.Consumer>
       {(composition: Compositions) => (
@@ -182,6 +198,7 @@ export const LineEditor: React.FC<LineEditorProps> = ({
             <Panel header="General" key="1">
               <Form.Item
                 label={locale.colorLabel}
+                {...getSupportProps('color')}
                 {...formItemLayout}
               >
                 {
@@ -198,6 +215,7 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.widthLabel}
+                {...getSupportProps('width')}
                 {...formItemLayout}
               >
                 {
@@ -214,6 +232,7 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.opacityLabel}
+                {...getSupportProps('opacity')}
                 {...formItemLayout}
               >
                 {
@@ -230,6 +249,7 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.dashLabel}
+                {...getSupportProps('dasharray')}
                 {...formItemLayout}
               >
                 {
@@ -245,6 +265,7 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.dashOffsetLabel}
+                {...getSupportProps('dashOffset')}
                 {...formItemLayout}
               >
                 {
@@ -266,6 +287,7 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.capLabel}
+                {...getSupportProps('cap')}
                 {...formItemLayout}
               >
                 {
@@ -282,6 +304,7 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               </Form.Item>
               <Form.Item
                 label={locale.joinLabel}
+                {...getSupportProps('join')}
                 {...formItemLayout}
               >
                 {
