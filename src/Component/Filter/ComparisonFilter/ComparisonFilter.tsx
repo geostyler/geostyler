@@ -232,7 +232,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
    */
   const onValueChange = (newValue: string | number | boolean, filterIndex = 2) => {
     let newFilter = _cloneDeep(filter);
-    newFilter[filterIndex] = newValue;
+    newFilter[filterIndex] = newValue as string;
     if (onFilterChange) {
       onFilterChange(newFilter);
     }
@@ -243,7 +243,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
   const attributeType = attribute ? internalDataDef?.schema?.properties[attribute]?.type : undefined;
   const operator = filter[0];
   const value = filter[2];
-  const valueValidation = validators.value(value, internalDataDef, attribute);
+  const valueValidation = validators.value(value as string, internalDataDef, attribute);
   const valueValidationHelpString = valueValidation.errorMsg;
   const allowedOperators = attributeType ? operatorsMap[attributeType] : undefined;
   const isNumberBetweenComparison = operator === '<=x<=';
@@ -340,7 +340,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
     const size = microUI ? 'small' : undefined;
     let val: boolean;
     if (filter) {
-      val = filter[filterIndex] as boolean;
+      val = filter[filterIndex] as unknown as boolean;
     }
     return <BoolFilterField
       size={size}

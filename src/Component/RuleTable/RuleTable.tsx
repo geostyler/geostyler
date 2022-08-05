@@ -252,7 +252,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
       <Input.Search
         className="gs-rule-table-filter-cell"
         name="filter-renderer"
-        value={cql}
+        value={cql.toString()}
         onChange={() => {
           // TODO The CQL representation is currently not editable
           // const value = event.target.value;
@@ -269,7 +269,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
           onFilterEditClick(record.key, filterPosition);
         }}
       />);
-    if (cql && cql.length > 0) {
+    if (cql && cql.toString().length > 0) {
       filterCell = (
         <Popover
           content={cql}

@@ -131,7 +131,10 @@ export const TextEditor: React.FC<TextEditorProps> = ({
 
   const onOffsetXChange = (value: number) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)];
+    let newOffset: [number, number] = [
+      value,
+      (typeof(symbolizerClone.offset) === 'number' ? symbolizerClone.offset[1] : 0)
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -140,7 +143,10 @@ export const TextEditor: React.FC<TextEditorProps> = ({
 
   const onOffsetYChange = (value: number) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0), value];
+    let newOffset: [number, number] = [
+      (typeof(symbolizerClone.offset) === 'number' ? symbolizerClone.offset[0] : 0),
+      value
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -187,7 +193,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
   // split the current offset
   let offsetX: number;
   let offsetY: number;
-  if (offset) {
+  if (offset && typeof(offset[0]) === 'number' && typeof(offset[1]) === 'number') {
     offsetX = offset[0];
     offsetY = offset[1];
   }
