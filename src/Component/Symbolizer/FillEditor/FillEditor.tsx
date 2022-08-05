@@ -199,7 +199,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
                 }
               </Form.Item>
               <Form.Item
-                label={locale.fillOpacityLabel}
+                label={locale.opacityLabel}
                 {...formItemLayout}
               >
                 {

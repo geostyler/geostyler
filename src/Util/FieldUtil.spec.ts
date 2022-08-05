@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,40 +24,37 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 
-import * as React from 'react';
+import FieldUtil from './FieldUtil';
 
-import {
-  InputNumber, InputNumberProps
-} from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
+describe('FieldUtil', () => {
 
-// non default props
-export interface FadeDurationFieldProps extends InputNumberProps {
-  onChange?: (opacity: number | undefined) => void;
-  fadeDuration?: number;
-}
+  const listener = jest.fn();
 
-/**
- * FadeDurationField
- */
-export const FadeDurationField: React.FC<FadeDurationFieldProps> = ({
-  onChange,
-  fadeDuration,
-  ...inputProps
-}) => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-  return (
-    <InputNumber
-      className="editor-field fadeDuration-field"
-      min={0}
-      step={10}
-      value={fadeDuration}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
-    />
-  );
-};
+  describe('nullToUndefined', () => {
+    it('calls the listener with the passed value if value is not null', async() => {
+      const modifiedListener = FieldUtil.nullToUndefined(listener);
+      modifiedListener(12);
+      expect(listener).toHaveBeenLastCalledWith(12);
+      modifiedListener('Peter');
+      expect(listener).toHaveBeenLastCalledWith('Peter');
+      modifiedListener('');
+      expect(listener).toHaveBeenLastCalledWith('');
+      modifiedListener(0);
+      expect(listener).toHaveBeenLastCalledWith(0);
+      modifiedListener(undefined);
+      expect(listener).toHaveBeenLastCalledWith(undefined);
+    });
+    it('calls the listener with `undefined` if value is null', async() => {
+      const modifiedListener = FieldUtil.nullToUndefined(listener);
+      modifiedListener(null);
+      expect(listener).toHaveBeenCalledWith(undefined);
+    });
+  });
 
-export default FadeDurationField;
+});

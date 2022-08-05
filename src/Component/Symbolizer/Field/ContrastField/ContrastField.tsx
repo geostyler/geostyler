@@ -29,12 +29,13 @@
 import * as React from 'react';
 
 import {
-  InputNumber
+  InputNumber, InputNumberProps
 } from 'antd';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface ContrastFieldProps {
-  onChange?: (opacity: number) => void;
+export interface ContrastFieldProps extends InputNumberProps {
+  onChange?: (opacity: number | undefined) => void;
   contrast?: number;
 }
 
@@ -43,7 +44,8 @@ export interface ContrastFieldProps {
  */
 export const ContrastField: React.FC<ContrastFieldProps> = ({
   onChange,
-  contrast
+  contrast,
+  ...inputProps
 }) => {
 
   return (
@@ -53,7 +55,8 @@ export const ContrastField: React.FC<ContrastFieldProps> = ({
       max={1}
       step={0.1}
       value={contrast}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
+      {...inputProps}
     />
   );
 };

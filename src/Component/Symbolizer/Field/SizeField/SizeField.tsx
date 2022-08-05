@@ -31,6 +31,7 @@ import * as React from 'react';
 import {
   InputNumber
 } from 'antd';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
 export interface SizeFieldProps {
@@ -51,7 +52,7 @@ export const SizeField: React.FC<SizeFieldProps> = ({
       className="editor-field size-field"
       step={0.1}
       value={size}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
     />
   );
 };

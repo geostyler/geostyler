@@ -29,12 +29,13 @@
 import * as React from 'react';
 
 import {
-  InputNumber
+  InputNumber, InputNumberProps
 } from 'antd';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface GammaFieldProps {
-  onChange?: (opacity: number) => void;
+export interface GammaFieldProps extends InputNumberProps {
+  onChange?: (gamma: number | undefined) => void;
   gamma?: number;
 }
 
@@ -43,7 +44,8 @@ export interface GammaFieldProps {
  */
 export const GammaField: React.FC<GammaFieldProps> = ({
   onChange,
-  gamma
+  gamma,
+  ...inputProps
 }) => {
 
   return (
@@ -52,7 +54,8 @@ export const GammaField: React.FC<GammaFieldProps> = ({
       min={0}
       step={0.1}
       value={gamma}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
+      {...inputProps}
     />
   );
 };

@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,38 +26,22 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+/**
+ * @class FieldUtil
+ */
+class FieldUtil {
 
-import {
-  InputNumber, InputNumberProps
-} from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
-
-// non default props
-export interface FadeDurationFieldProps extends InputNumberProps {
-  onChange?: (opacity: number | undefined) => void;
-  fadeDuration?: number;
+  /**
+   * Transforms any changeListener to return undefined instead of null;
+   */
+  static nullToUndefined = (listener: any) => {
+    return (value: any) => {
+      if (value === null) {
+        value = undefined;
+      }
+      listener(value);
+    };
+  };
 }
 
-/**
- * FadeDurationField
- */
-export const FadeDurationField: React.FC<FadeDurationFieldProps> = ({
-  onChange,
-  fadeDuration,
-  ...inputProps
-}) => {
-
-  return (
-    <InputNumber
-      className="editor-field fadeDuration-field"
-      min={0}
-      step={10}
-      value={fadeDuration}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
-    />
-  );
-};
-
-export default FadeDurationField;
+export default FieldUtil;

@@ -29,11 +29,12 @@
 import * as React from 'react';
 
 import {
-  InputNumber
+  InputNumber, InputNumberProps
 } from 'antd';
+import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface RotateFieldProps {
+export interface RotateFieldProps extends InputNumberProps {
   onChange?: (radius: number) => void;
   rotate?: number;
 }
@@ -43,7 +44,8 @@ export interface RotateFieldProps {
  */
 export const RotateField: React.FC<RotateFieldProps> = ({
   onChange,
-  rotate
+  rotate,
+  ...inputProps
 }) => {
 
   return (
@@ -52,7 +54,8 @@ export const RotateField: React.FC<RotateFieldProps> = ({
       min={-360}
       max={360}
       value={rotate}
-      onChange={onChange}
+      onChange={FieldUtil.nullToUndefined(onChange)}
+      {...inputProps}
     />
   );
 };
