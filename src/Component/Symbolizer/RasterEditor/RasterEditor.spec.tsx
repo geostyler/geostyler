@@ -38,8 +38,7 @@ describe('RasterEditor', () => {
   const props: RasterEditorProps = {
     symbolizer: dummySymbolizer,
     locale: en_US.RasterEditor,
-    onSymbolizerChange: jest.fn(),
-    defaultValues: undefined
+    onSymbolizerChange: jest.fn()
   };
 
   it('is defined', () => {
