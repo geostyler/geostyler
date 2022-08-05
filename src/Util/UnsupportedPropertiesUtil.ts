@@ -53,7 +53,7 @@ class UnsupportedPropertiesUtil {
     hideUnsupported?: boolean;
   }): Partial<FormItemProps> => {
 
-    if (!unsupportedProperties) {
+    if (!unsupportedProperties || Object.keys(unsupportedProperties).length < 1) {
       return {};
     }
 
@@ -61,7 +61,7 @@ class UnsupportedPropertiesUtil {
     const unsupportedSymbolizerProps = UnsupportedPropertiesUtil
       .getUnsupportedPropsForSymbolizer<T>(unsupportedProperties, symbolizerName);
 
-    const val: SupportDef = unsupportedSymbolizerProps[(propName as string)];
+    const val: SupportDef = unsupportedSymbolizerProps?.[(propName as string)];
     if (val) {
       props.hasFeedback = true;
       if (val === 'none') {
@@ -87,7 +87,7 @@ class UnsupportedPropertiesUtil {
     unsupportedProperties: UnsupportedProperties,
     symbolizerName: SymbolizerName
   ): UnsupportedSymbolizerProps<T> => {
-    return unsupportedProperties.Symbolizer[symbolizerName];
+    return unsupportedProperties?.Symbolizer?.[symbolizerName];
   };
 }
 
