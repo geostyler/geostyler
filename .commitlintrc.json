@@ -4,12 +4,12 @@
   ],
   "rules": {
     "header-max-length": [
-      2,
+      1,
       "always",
       100
     ],
     "type-enum": [
-      2,
+      1,
       "always",
       [
         "breaking",
