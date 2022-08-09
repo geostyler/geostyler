@@ -23,16 +23,6 @@
       "always",
       100
     ],
-    "subject-case": [
-      1,
-      "never",
-      [
-        "sentence-case",
-        "start-case",
-        "pascal-case",
-        "upper-case"
-      ]
-    ],
     "subject-empty": [
       1,
       "never"
