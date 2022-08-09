@@ -20,7 +20,7 @@
       {
         "preset": "conventionalcommits",
         "presetConfig": {
-          "header": "Changelog of shogun-admin",
+          "header": "Changelog of GeoStyler",
           "types": [
             {"type": "feat", "section": "Features"},
             {"type": "fix", "section": "Bugfixes"},
