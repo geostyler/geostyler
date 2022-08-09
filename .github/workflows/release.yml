@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources 🔰
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js 18 👷🏻
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+
+      - name: Install dependencies ⏬
+        run: npm ci
+
+      - name: Build artifacts 🏗️
+        run: npm run build-dist && npm run build-browser
+
+      - name: Release 🚀
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release

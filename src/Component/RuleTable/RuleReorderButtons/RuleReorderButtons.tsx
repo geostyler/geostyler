@@ -103,6 +103,6 @@ export const RuleReorderButtons: React.FC<RuleReorderButtonsProps> = ({
       />
     </ButtonGroup>
   );
-}
+};
 
 export default localize(RuleReorderButtons, COMPONENTNAME);
