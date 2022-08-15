@@ -410,6 +410,24 @@ const es_ES: GeoStylerLocale = {
     symbolizerUnitsMeter: 'Metro',
     symbolizerUnitsFoot: 'Escándalo'
   },
+  AttributeCombo: {
+    label: 'Atributo',
+    placeholder: 'Seleccionar atributo',
+    help: 'Seleccione un atributo'
+  },
+  TextFilterField: {
+    label: 'Valor',
+    placeholder: 'Introducir valor de texto',
+    help: 'Introduzca un texto.'
+  },
+  NumberFilterField: {
+    label: 'Valor',
+    placeholder: 'Introducir valor numérico',
+    help: 'Introduzca un número'
+  },
+  BoolFilterField: {
+    label: 'Valor'
+  },
   UnsupportedPropertiesUtil: {
     notSupported: 'TODO(es_ES):Not supported by selected parser.',
     partiallySupported: 'TODO(es_ES):Only partially supported by selected parser.'

@@ -29,12 +29,13 @@
 import * as React from 'react';
 import { InputNumber, Form } from 'antd';
 
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
+import { GeoStylerLocale } from '../../../locale/locale';
+
 // default props
 interface NumberFilterFieldDefaultProps {
-  /** Label for this field */
-  label: string;
-  /** The default text to place into the empty field */
-  placeholder: string;
+  locale: GeoStylerLocale['NumberFilterField'];
   /** Initial value set to the field */
   value: number | undefined;
   /** Validation status */
@@ -53,11 +54,10 @@ export interface NumberFilterFieldProps extends Partial<NumberFilterFieldDefault
  * Input field for a numeric filter value.
  */
 export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
-  label = 'Value',
-  placeholder = 'Enter Numeric Value',
+  locale = en_US.NumberFilterField,
   value,
   validateStatus = 'success',
-  help = 'Please enter a number.',
+  help = locale.help,
   onValueChange,
   size
 }) => {
@@ -71,7 +71,7 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
       onDragStart={(e) => e.preventDefault()}
     >
       <Form.Item
-        label={label}
+        label={locale.label}
         colon={false}
         validateStatus={validateStatus}
         help={helpTxt}
@@ -82,11 +82,11 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
           defaultValue={value}
           value={value}
           onChange={onValueChange}
-          placeholder={placeholder}
+          placeholder={locale.placeholder}
         />
       </Form.Item>
     </div>
   );
 };
 
-export default NumberFilterField;
+export default localize(NumberFilterField, 'NumberFilterField');

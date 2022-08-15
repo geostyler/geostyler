@@ -410,6 +410,24 @@ const zh_CN: GeoStylerLocale = {
     symbolizerUnitsMeter: '儀表',
     symbolizerUnitsFoot: '富斯'
   },
+  AttributeCombo: {
+    label: '属性',
+    placeholder: '选择属性',
+    help: '请选择一个属性'
+  },
+  TextFilterField: {
+    label: '价值',
+    placeholder: '输入文本值',
+    help: '请输入一个文本'
+  },
+  NumberFilterField: {
+    label: '价值',
+    placeholder: '输入数字值',
+    help: '请输入一个数字'
+  },
+  BoolFilterField: {
+    label: '价值'
+  },
   UnsupportedPropertiesUtil: {
     notSupported: 'TODO(zh_CN):Not supported by selected parser.',
     partiallySupported: 'TODO(zh_CN):Only partially supported by selected parser.'

@@ -34,10 +34,15 @@ import { Data } from 'geostyler-data';
 import _get from 'lodash/get';
 import { Feature } from 'geojson';
 
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
+import { GeoStylerLocale } from '../../../locale/locale';
+
 import './TextFilterField.less';
 
 // default props
 interface TextFilterFieldDefaultProps {
+  locale: GeoStylerLocale['TextFilterField'];
   /** Label for this field */
   label: string;
   /** The default text to place into the empty field */
@@ -64,17 +69,15 @@ export interface TextFilterFieldProps extends Partial<TextFilterFieldDefaultProp
  * Input field for a textual filter value.
  */
 export const TextFilterField: React.FC<TextFilterFieldProps> = ({
-  label = 'Value',
-  placeholder = 'Enter Text Value',
+  locale = en_US.TextFilterField,
   value,
   validateStatus = 'success',
-  help = 'Please enter a text.',
+  help = locale.help,
   internalDataDef,
   onValueChange,
   selectedAttribute,
   size
 }) => {
-
   const inputRef = React.useRef<InputRef>();
   const [inputSelectionStart, setInputSelectionStart] = React.useState<number>(0);
   const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>(0);
@@ -118,7 +121,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
   return (
     <div className="gs-text-filter-field">
       <Form.Item
-        label={label}
+        label={locale.label}
         colon={false}
         validateStatus={validateStatus}
         help={helpTxt}
@@ -130,7 +133,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
               size={size}
               value={value}
               onChange={onAutoCompleteChange}
-              placeholder={placeholder}
+              placeholder={locale.placeholder}
               dataSource={sampleValues}
               filterOption={(val: string , option: any) => {
                 return option.key.toLowerCase().includes(val.toLowerCase());
@@ -152,7 +155,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
                 setInputSelectionStart(cursorStart);
                 setInputSelectionEnd(cursorEnd);
               }}
-              placeholder={placeholder}
+              placeholder={locale.placeholder}
             />
         }
       </Form.Item>
@@ -160,4 +163,4 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
   );
 };
 
-export default TextFilterField;
+export default localize(TextFilterField, 'TextFilterField');

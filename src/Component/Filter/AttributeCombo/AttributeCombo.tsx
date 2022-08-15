@@ -30,16 +30,18 @@ import * as React from 'react';
 
 import { Select, Form, Input } from 'antd';
 import { Data } from 'geostyler-data';
+
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
+import { GeoStylerLocale } from '../../../locale/locale';
+
 const Option = Select.Option;
 
 // default props
 interface AttributeComboDefaultProps {
-  /** Label for this field */
-  label: string;
-  /** The default text to place into the empty field */
-  placeholder: string;
   /** Set true to hide the attribute's type in the select options */
   hideAttributeType: boolean;
+  locale: GeoStylerLocale['AttributeCombo'];
   /**
    * A custom filter function which is passed each attribute.
    * Should return true to accept each attribute or false to reject it.
@@ -67,14 +69,13 @@ export interface AttributeComboProps extends Partial<AttributeComboDefaultProps>
  * Combobox offering the attributes to be filtered on.
  */
 export const AttributeCombo: React.FC<AttributeComboProps> = ({
-  label = 'Attribute',
-  placeholder = 'Select Attribute',
+  locale = en_US.AttributeCombo,
   value,
   hideAttributeType = false,
   attributeNameFilter = () => true,
   attributeNameMappingFunction =n => n,
   validateStatus = 'success',
-  help = 'Please select an attribute.',
+  help = locale.help,
   internalDataDef,
   onAttributeChange,
   size
@@ -123,7 +124,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
   return (
     <div className="gs-attribute-combo">
       <Form.Item
-        label={label}
+        label={locale.label}
         colon={false}
         validateStatus={validateStatus}
         help={helpTxt}
@@ -133,7 +134,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
             <Select
               value={value}
               onChange={onAttributeChange}
-              placeholder={placeholder}
+              placeholder={locale.placeholder}
               size={size}
             >
               {options}
@@ -144,7 +145,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
               draggable={true}
               onDragStart={(e) => e.preventDefault()}
               value={value}
-              placeholder={placeholder}
+              placeholder={locale.placeholder}
               size={size}
               onChange={(event) => {
                 if (onAttributeChange) {
@@ -164,4 +165,4 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
   );
 };
 
-export default AttributeCombo;
+export default localize(AttributeCombo, 'AttributeCombo');

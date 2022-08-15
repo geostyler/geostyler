@@ -385,6 +385,24 @@ export interface GeoStylerLocale extends Locale {
   Editor: {
     kindFieldLabel: string;
   };
+  AttributeCombo: {
+    label: string;
+    placeholder: string;
+    help: string;
+  };
+  TextFilterField: {
+    label: string;
+    placeholder: string;
+    help: string;
+  };
+  NumberFilterField: {
+    label: string;
+    placeholder: string;
+    help: string;
+  };
+  BoolFilterField: {
+    label: string;
+  };
   UnsupportedPropertiesUtil: {
     notSupported: string;
     partiallySupported: string;
