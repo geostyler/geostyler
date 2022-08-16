@@ -410,6 +410,10 @@ const de_DE: GeoStylerLocale = {
     symbolizerUnitsMeter: 'Meter',
     symbolizerUnitsFoot: 'Fuß'
   },
+  UnsupportedPropertiesUtil: {
+    notSupported: 'Vom ausgewählten Parser nicht unterstützt.',
+    partiallySupported: 'Vom ausgewählten Parser nur teilweise unterstützt.'
+  },
   ...antd_de_DE
 };
 

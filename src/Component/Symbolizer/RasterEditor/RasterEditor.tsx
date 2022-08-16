@@ -179,7 +179,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
       propName,
       symbolizerName: 'RasterSymbolizer',
       unsupportedProperties,
-      hideUnsupported: options?.hideUnsupported
+      ...options
     });
   };
 

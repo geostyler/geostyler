@@ -28,6 +28,8 @@
 
 import { FormItemProps } from 'antd';
 import { SupportDef, Symbolizer, UnsupportedProperties } from 'geostyler-style';
+import en_US from '../locale/en_US';
+import { GeoStylerLocale } from '../locale/locale';
 
 type SymbolizerName = 'LineSymbolizer' |
 'FillSymbolizer' | 'MarkSymbolizer' | 'IconSymbolizer' | 'TextSymbolizer' | 'RasterSymbolizer';
@@ -45,12 +47,14 @@ class UnsupportedPropertiesUtil {
     propName,
     symbolizerName,
     unsupportedProperties,
-    hideUnsupported = false
+    hideUnsupported = false,
+    locale = en_US.UnsupportedPropertiesUtil
   }: {
     propName: keyof T;
     symbolizerName: SymbolizerName;
     unsupportedProperties: UnsupportedProperties;
     hideUnsupported?: boolean;
+    locale?: GeoStylerLocale['UnsupportedPropertiesUtil'];
   }): Partial<FormItemProps> => {
 
     if (!unsupportedProperties || Object.keys(unsupportedProperties).length < 1) {
@@ -65,12 +69,12 @@ class UnsupportedPropertiesUtil {
     if (val) {
       props.hasFeedback = true;
       if (val === 'none') {
-        props.help = 'Not supported by selected parser.'; // TODO: i18n
+        props.help = locale.notSupported;
         if (hideUnsupported) {
           props.hidden = true;
         }
       } else if (val === 'partial') {
-        props.help = 'Only partialy supported by selected parser.'; // TODO: i18n
+        props.help = locale.partiallySupported;
       } else {
         props.help = val.info;
         props.validateStatus = 'warning';

@@ -95,7 +95,7 @@ export const MarkEditor: React.FC<MarkEditorProps> = ({
       propName,
       symbolizerName: 'MarkSymbolizer',
       unsupportedProperties,
-      hideUnsupported: options?.hideUnsupported
+      ...options
     });
   };
 

@@ -61,7 +61,9 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { VectorData } from 'geostyler-data';
 import { GeoStylerLocale } from '../../../locale/locale';
-import { UnsupportedPropertiesContext } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
+import {
+  UnsupportedPropertiesContext
+} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 
 interface TextEditorDefaultProps {
@@ -210,7 +212,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
       propName,
       symbolizerName: 'TextSymbolizer',
       unsupportedProperties,
-      hideUnsupported: options?.hideUnsupported
+      ...options
     });
   };
 

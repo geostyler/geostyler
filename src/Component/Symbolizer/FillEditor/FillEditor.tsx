@@ -174,7 +174,7 @@ export const FillEditor: React.FC<FillEditorProps> = ({
       propName,
       symbolizerName: 'FillSymbolizer',
       unsupportedProperties,
-      hideUnsupported: options?.hideUnsupported
+      ...options
     });
   };
 

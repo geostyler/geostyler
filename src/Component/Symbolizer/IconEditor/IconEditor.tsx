@@ -52,7 +52,9 @@ import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { GeoStylerLocale } from '../../../locale/locale';
-import { UnsupportedPropertiesContext } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
+import {
+  UnsupportedPropertiesContext
+} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 
 // default props
@@ -143,7 +145,7 @@ export const IconEditor: React.FC<IconEditorProps> = ({
       propName,
       symbolizerName: 'IconSymbolizer',
       unsupportedProperties,
-      hideUnsupported: options?.hideUnsupported
+      ...options
     });
   };
 

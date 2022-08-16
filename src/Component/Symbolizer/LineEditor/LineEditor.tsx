@@ -60,7 +60,9 @@ import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { GeoStylerLocale } from '../../../locale/locale';
-import { UnsupportedPropertiesContext } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
+import {
+  UnsupportedPropertiesContext
+} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 
 const Panel = Collapse.Panel;
@@ -186,7 +188,7 @@ export const LineEditor: React.FC<LineEditorProps> = ({
       propName,
       symbolizerName: 'LineSymbolizer',
       unsupportedProperties,
-      hideUnsupported: options?.hideUnsupported
+      ...options
     });
   };
 
