@@ -412,7 +412,7 @@ const fr_FR: GeoStylerLocale = {
   },
   UnsupportedPropertiesUtil: {
     notSupported: 'TODO(fr_FR):Not supported by selected parser.',
-    partiallySupported: 'TODO(fr_FR):Only partialy supported by selected parser.'
+    partiallySupported: 'TODO(fr_FR):Only partially supported by selected parser.'
   },
   ...antd_fr_FR
 };

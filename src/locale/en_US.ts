@@ -411,7 +411,7 @@ const en_US: GeoStylerLocale = {
   },
   UnsupportedPropertiesUtil: {
     notSupported: 'Not supported by selected parser.',
-    partiallySupported: 'Only partialy supported by selected parser.'
+    partiallySupported: 'Only partially supported by selected parser.'
   },
   ...antd_en_US
 };

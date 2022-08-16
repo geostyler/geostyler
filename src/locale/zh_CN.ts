@@ -412,7 +412,7 @@ const zh_CN: GeoStylerLocale = {
   },
   UnsupportedPropertiesUtil: {
     notSupported: 'TODO(zh_CN):Not supported by selected parser.',
-    partiallySupported: 'TODO(zh_CN):Only partialy supported by selected parser.'
+    partiallySupported: 'TODO(zh_CN):Only partially supported by selected parser.'
   },
   ...antd_zh_CN
 };
