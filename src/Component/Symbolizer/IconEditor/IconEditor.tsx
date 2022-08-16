@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useContext } from 'react';
 
 import {
   Symbolizer,
@@ -52,6 +52,10 @@ import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { GeoStylerLocale } from '../../../locale/locale';
+import {
+  UnsupportedPropertiesContext
+} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
+import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 
 // default props
 export interface IconEditorDefaultProps {
@@ -83,6 +87,12 @@ export const IconEditor: React.FC<IconEditorProps> = ({
   defaultValues,
   imageFieldProps
 }) => {
+
+  const {
+    unsupportedProperties,
+    options
+  } = useContext(UnsupportedPropertiesContext);
+
 
   const onImageSrcChange = (value: string) => {
     const symbolizerClone = _cloneDeep(symbolizer);
@@ -130,12 +140,22 @@ export const IconEditor: React.FC<IconEditorProps> = ({
 
   const imageSrc = !_isEmpty(image) ? image : locale.imagePlaceholder;
 
+  const getSupportProps = (propName: keyof IconSymbolizer) => {
+    return UnsupportedPropertiesUtil.getSupportProps<IconSymbolizer>({
+      propName,
+      symbolizerName: 'IconSymbolizer',
+      unsupportedProperties,
+      ...options
+    });
+  };
+
   return (
     <CompositionContext.Consumer>
       {(composition: Compositions) => (
         <div className="gs-icon-symbolizer-editor" >
           <Form.Item
             label={locale.imageLabel}
+            {...getSupportProps('image')}
             {...formItemLayout}
           >
             {
@@ -161,6 +181,7 @@ export const IconEditor: React.FC<IconEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.sizeLabel}
+            {...getSupportProps('size')}
             {...formItemLayout}
           >
             {
@@ -177,6 +198,7 @@ export const IconEditor: React.FC<IconEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.rotateLabel}
+            {...getSupportProps('rotate')}
             {...formItemLayout}
           >
             {
@@ -193,6 +215,7 @@ export const IconEditor: React.FC<IconEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.opacityLabel}
+            {...getSupportProps('opacity')}
             {...formItemLayout}
           >
             {

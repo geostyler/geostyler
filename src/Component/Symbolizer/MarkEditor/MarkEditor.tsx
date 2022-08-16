@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useContext } from 'react';
 
 import {
   Symbolizer,
@@ -46,6 +46,10 @@ import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import { GeoStylerLocale } from '../../../locale/locale';
+import {
+  UnsupportedPropertiesContext
+} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
+import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 
 // default props
 interface MarkEditorDefaultProps {
@@ -68,6 +72,11 @@ export const MarkEditor: React.FC<MarkEditorProps> = ({
   defaultValues
 }) => {
 
+  const {
+    unsupportedProperties,
+    options
+  } = useContext(UnsupportedPropertiesContext);
+
   const onWellKnownNameChange = (wellKnownName: WellKnownName) => {
     const clonedSymbolizer = _cloneDeep(symbolizer);
     clonedSymbolizer.wellKnownName = wellKnownName;
@@ -81,12 +90,22 @@ export const MarkEditor: React.FC<MarkEditorProps> = ({
     wrapperCol: { span: 16 }
   };
 
+  const getSupportProps = (propName: keyof MarkSymbolizer) => {
+    return UnsupportedPropertiesUtil.getSupportProps<MarkSymbolizer>({
+      propName,
+      symbolizerName: 'MarkSymbolizer',
+      unsupportedProperties,
+      ...options
+    });
+  };
+
   return (
     <CompositionContext.Consumer>
       {(composition: Compositions) => (
         <div className="gs-mark-symbolizer-editor" >
           <Form.Item
             label={locale.wellKnownNameFieldLabel}
+            {...getSupportProps('wellKnownName')}
             {...formItemLayout}
           >
             {

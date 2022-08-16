@@ -410,6 +410,10 @@ const es_ES: GeoStylerLocale = {
     symbolizerUnitsMeter: 'Metro',
     symbolizerUnitsFoot: 'Escándalo'
   },
+  UnsupportedPropertiesUtil: {
+    notSupported: 'TODO(es_ES):Not supported by selected parser.',
+    partiallySupported: 'TODO(es_ES):Only partially supported by selected parser.'
+  },
   ...antd_es_ES
 };
 

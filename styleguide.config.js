@@ -166,6 +166,9 @@ module.exports = {
     sections: [{
       name: 'CompositionContext',
       content: 'src/context/CompositionContext/CompositionContext.example.md'
+    }, {
+      name: 'UnsupportedPropertiesContext',
+      content: 'src/context/UnsupportedPropertiesContext/UnsupportedPropertiesContext.example.md'
     }],
     sectionDepth: 1
   }],

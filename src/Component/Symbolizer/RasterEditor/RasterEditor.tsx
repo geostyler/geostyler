@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import {
   Symbolizer,
@@ -56,6 +56,10 @@ import './RasterEditor.less';
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
 import { GeoStylerLocale } from '../../../locale/locale';
+import {
+  UnsupportedPropertiesContext
+} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
+import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 
 // default props
 interface RasterEditorDefaultProps {
@@ -71,7 +75,7 @@ export interface RasterEditorProps extends Partial<RasterEditorDefaultProps> {
   colorRamps?: {
     [name: string]: string[];
   };
-  defaultValues: DefaultValues;
+  defaultValues?: DefaultValues;
 }
 
 type ShowDisplay = 'symbolizer' | 'colorMap' | 'contrastEnhancement';
@@ -89,6 +93,11 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
   colorRamps,
   defaultValues
 }) => {
+
+  const {
+    unsupportedProperties,
+    options
+  } = useContext(UnsupportedPropertiesContext);
 
   const [showDisplay, setShowDisplay] = useState('symbolizer');
 
@@ -144,25 +153,6 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
     }
   };
 
-  /**
-   * Wraps a Form Item around a given element and adds its locale
-   * to the From Item label.
-   */
-  const wrapFormItem = (label: string, element: React.ReactElement): React.ReactElement => {
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
-    return element == null ? null : (
-      <Form.Item
-        label={label}
-        {...formItemLayout}
-      >
-        {element}
-      </Form.Item>
-    );
-  };
-
   const {
     opacity,
     contrastEnhancement,
@@ -179,47 +169,79 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
     wrapperCol: {span: 24}
   };
 
+  const formItemLayout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  };
+
+  const getSupportProps = (propName: keyof RasterSymbolizer) => {
+    return UnsupportedPropertiesUtil.getSupportProps<RasterSymbolizer>({
+      propName,
+      symbolizerName: 'RasterSymbolizer',
+      unsupportedProperties,
+      ...options
+    });
+  };
+
   return (
     <CompositionContext.Consumer>
       {(composition: Compositions) => (
         <div className="gs-raster-symbolizer-editor" >
           {
             showDisplay !== 'symbolizer' ? null : ([
-              wrapFormItem(
-                locale.opacityLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'RasterEditor.opacityField',
-                  onChange: onOpacityChange,
-                  propName: 'opacity',
-                  propValue: opacity,
-                  defaultValue: defaultValues?.RasterEditor?.defaultOpacity,
-                  defaultElement: <OpacityField />
-                })
-              ),
-              wrapFormItem(
-                locale.contrastEnhancementLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'RasterEditor.contrastEnhancementField',
-                  onChange: onContrastEnhancementChange,
-                  propName: 'contrastEnhancement',
-                  propValue: _get(contrastEnhancement, 'enhancementType'),
-                  defaultElement: <ContrastEnhancementField />
-                })
-              ),
-              wrapFormItem(
-                locale.gammaValueLabel,
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'RasterEditor.gammaValueField',
-                  onChange: onGammaValueChange,
-                  propName: 'gamma',
-                  propValue: _get(contrastEnhancement, 'gammaValue'),
-                  defaultValue: defaultValues?.RasterEditor?.defaultGammaValue,
-                  defaultElement: <GammaField />
-                })
-              ),
+              <Form.Item
+                key='opacity'
+                label={locale.opacityLabel}
+                {...getSupportProps('opacity')}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'RasterEditor.opacityField',
+                    onChange: onOpacityChange,
+                    propName: 'opacity',
+                    propValue: opacity,
+                    defaultValue: defaultValues?.RasterEditor?.defaultOpacity,
+                    defaultElement: <OpacityField />
+                  })
+                }
+              </Form.Item>,
+              <Form.Item
+                key='contrastEnhancement'
+                label={locale.contrastEnhancementLabel}
+                {...getSupportProps('contrastEnhancement')}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'RasterEditor.contrastEnhancementField',
+                    onChange: onContrastEnhancementChange,
+                    propName: 'contrastEnhancement',
+                    propValue: _get(contrastEnhancement, 'enhancementType'),
+                    defaultElement: <ContrastEnhancementField />
+                  })
+                }
+              </Form.Item>,
+              <Form.Item
+                key='gamma'
+                label={locale.gammaValueLabel}
+                {...getSupportProps('contrastEnhancement')}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'RasterEditor.gammaValueField',
+                    onChange: onGammaValueChange,
+                    propName: 'gamma',
+                    propValue: _get(contrastEnhancement, 'gammaValue'),
+                    defaultValue: defaultValues?.RasterEditor?.defaultGammaValue,
+                    defaultElement: <GammaField />
+                  })
+                }
+              </Form.Item>,
               <Form.Item
                 className="gs-raster-editor-view-toggle"
                 key="toggleColorMap"

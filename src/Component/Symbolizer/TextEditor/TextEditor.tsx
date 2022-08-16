@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useContext } from 'react';
 import {
   Mentions,
   Form
@@ -61,6 +61,10 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { VectorData } from 'geostyler-data';
 import { GeoStylerLocale } from '../../../locale/locale';
+import {
+  UnsupportedPropertiesContext
+} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
+import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 
 interface TextEditorDefaultProps {
   locale: GeoStylerLocale['TextEditor'];
@@ -88,6 +92,11 @@ export const TextEditor: React.FC<TextEditorProps> = ({
   internalDataDef,
   defaultValues
 }) => {
+
+  const {
+    unsupportedProperties,
+    options
+  } = useContext(UnsupportedPropertiesContext);
 
   const onLabelChange = (value: any) => {
     const symbolizerClone = _cloneDeep(symbolizer);
@@ -198,12 +207,22 @@ export const TextEditor: React.FC<TextEditorProps> = ({
     wrapperCol: { span: 16 }
   };
 
+  const getSupportProps = (propName: keyof TextSymbolizer) => {
+    return UnsupportedPropertiesUtil.getSupportProps<TextSymbolizer>({
+      propName,
+      symbolizerName: 'TextSymbolizer',
+      unsupportedProperties,
+      ...options
+    });
+  };
+
   return (
     <CompositionContext.Consumer>
       {(composition: Compositions) => (
         <div className="gs-text-symbolizer-editor" >
           <Form.Item
             label={locale.templateFieldLabel}
+            {...getSupportProps('label')}
             {...formItemLayout}
           >
             {
@@ -228,6 +247,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.colorLabel}
+            {...getSupportProps('color')}
             {...formItemLayout}
           >
             {
@@ -244,6 +264,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.fontLabel}
+            {...getSupportProps('font')}
             {...formItemLayout}
           >
             {
@@ -260,6 +281,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.opacityLabel}
+            {...getSupportProps('opacity')}
             {...formItemLayout}
           >
             {
@@ -276,6 +298,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.sizeLabel}
+            {...getSupportProps('size')}
             {...formItemLayout}
           >
             {
@@ -292,6 +315,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.offsetXLabel}
+            {...getSupportProps('offset')}
             {...formItemLayout}
           >
             {
@@ -308,6 +332,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.offsetYLabel}
+            {...getSupportProps('offset')}
             {...formItemLayout}
           >
             {
@@ -324,6 +349,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.rotateLabel}
+            {...getSupportProps('rotate')}
             {...formItemLayout}
           >
             {
@@ -340,6 +366,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.haloColorLabel}
+            {...getSupportProps('haloColor')}
             {...formItemLayout}
           >
             {
@@ -356,6 +383,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           </Form.Item>
           <Form.Item
             label={locale.haloWidthLabel}
+            {...getSupportProps('haloWidth')}
             {...formItemLayout}
           >
             {
