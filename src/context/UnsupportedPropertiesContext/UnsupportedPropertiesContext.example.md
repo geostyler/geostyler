@@ -1,7 +1,7 @@
 <!--
  * Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,9 +28,9 @@
  *
 -->
 
-The `UnsupportedPropertiesContext` deploys unsuported properties to underlying components.
-The components themeselve will disable field that are marked as not supported and add notes
-for fields that are only partialy supported.
+The `UnsupportedPropertiesContext` deploys unsupported properties to underlying components.
+The components themeselves will disable fields that are marked as not supported and add notes
+for fields that are only partially supported.
 
 #### Example
 
