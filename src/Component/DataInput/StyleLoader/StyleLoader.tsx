@@ -33,7 +33,6 @@ import { UploadRequestOption } from 'rc-upload/lib/interface';
 const Option = Select.Option;
 
 import {
-  Style as GsStyle,
   Style,
   StyleParser
 } from 'geostyler-style';
@@ -48,7 +47,7 @@ import { GeoStylerLocale } from '../../../locale/locale';
 // default props
 interface StyleLoaderDefaultProps {
   /** The callback method that is triggered when the state changes */
-  onStyleRead: (style: GsStyle) => void;
+  onStyleRead: (style: Style) => void;
   /** Locale object containing translated text snippets */
   locale: GeoStylerLocale['StyleLoader'];
 }
@@ -70,7 +69,7 @@ export const StyleLoader: React.FC<StyleLoaderProps> = ({
 
   const [activeParser, setActiveParser] = React.useState<StyleParser>();
 
-  const parseStyle = async(uploadObject: UploadRequestOption<any>): Promise<Style|undefined> => {
+  const parseStyle = async(uploadObject: UploadRequestOption<any>) => {
     if (!activeParser) {
       return undefined;
     }
@@ -90,9 +89,8 @@ export const StyleLoader: React.FC<StyleLoaderProps> = ({
     onStyleRead(style);
     if (errors?.length > 0) {
       errors.forEach(uploadObject.onError);
-      return undefined;
     } else {
-      return style;
+      uploadObject.onSuccess(style);
     }
   };
 
