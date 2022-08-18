@@ -95,7 +95,10 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
 
       // TODO: Remove JSON.parse when type of readData is more precise
       activeParser.readData(JSON.parse(fileContent))
-        .then(onDataRead)
+        .then(data => {
+          onDataRead(data as VectorData);
+          uploadObject.onSuccess(data);
+        })
         .catch((e) => {
           uploadObject.onError(e, 'Upload failed. Invalid Data.');
         });
@@ -111,7 +114,10 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
     reader.readAsArrayBuffer(file);
     reader.onload = () => {
       activeParser.readData(reader.result)
-        .then(onDataRead)
+        .then(data => {
+          onDataRead(data as VectorData);
+          uploadObject.onSuccess(data);
+        })
         .catch((e) => {
           uploadObject.onError(e, 'Upload failed. Invalid Data.');
         });

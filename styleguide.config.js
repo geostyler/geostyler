@@ -70,7 +70,7 @@ module.exports = {
   }, {
     name: 'Components',
     sections: [{
-      name: 'BulkdEditor',
+      name: 'BulkEditor',
       components: 'src/Component/BulkEditor/**/*.tsx'
     }, {
       name: 'CodeEditor',
@@ -159,6 +159,9 @@ module.exports = {
     }, {
       name: 'RuleFieldContainer',
       components: 'src/Component/RuleFieldContainer/**/*.tsx'
+    }, {
+      name: 'DataInput',
+      components: 'src/Component/DataInput/**/*.tsx'
     }],
     sectionDepth: 2
   }, {
