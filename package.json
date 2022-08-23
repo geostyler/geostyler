@@ -69,7 +69,7 @@
     "color": "^4.2.1",
     "csstype": "^3.0.10",
     "file-saver": "^2.0.5",
-    "geostyler-cql-parser": "^1.1.0",
+    "geostyler-cql-parser": "^2.0.0",
     "geostyler-data": "^1.0.0",
     "geostyler-geojson-parser": "^1.0.1",
     "geostyler-openlayers-parser": "^3.1.0",
