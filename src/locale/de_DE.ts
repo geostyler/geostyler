@@ -410,6 +410,24 @@ const de_DE: GeoStylerLocale = {
     symbolizerUnitsMeter: 'Meter',
     symbolizerUnitsFoot: 'Fuß'
   },
+  AttributeCombo: {
+    label: 'Attribut',
+    placeholder: 'Attribut auswählen',
+    help: 'Bitte ein Attribut auswählen'
+  },
+  TextFilterField: {
+    label: 'Wert',
+    placeholder: 'Textwert eingeben',
+    help: 'Bitte geben Sie einen Text ein.'
+  },
+  NumberFilterField: {
+    label: 'Wert',
+    placeholder: 'Numerischen Wert eintragen',
+    help: 'Bitte eine Zahl eingeben.'
+  },
+  BoolFilterField: {
+    label: 'Wert'
+  },
   UnsupportedPropertiesUtil: {
     notSupported: 'Vom ausgewählten Parser nicht unterstützt.',
     partiallySupported: 'Vom ausgewählten Parser nur teilweise unterstützt.'

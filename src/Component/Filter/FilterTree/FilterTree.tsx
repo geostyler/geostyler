@@ -183,7 +183,7 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
     const items: ItemType[] = [];
     if (isCombinationFilter(filter)) {
       items.push({
-        label: 'Add filter',
+        label: locale.addFilterLabel,
         key: 'add',
         icon: <PlusOutlined />,
         children: [{
@@ -202,7 +202,7 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
       });
     }
     items.push({
-      label: 'Change filter',
+      label: locale.changeFilterLabel,
       key: 'change',
       icon: <FilterOutlined />,
       children: [{

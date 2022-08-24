@@ -31,8 +31,13 @@ import * as React from 'react';
 import { Checkbox, Form } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
 
+import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import en_US from '../../../locale/en_US';
+import { GeoStylerLocale } from '../../../locale/locale';
+
 // default props
 interface BoolFilterFieldDefaultProps {
+  locale: GeoStylerLocale['BoolFilterField'];
   /** Label for this field */
   label: string;
   /** Initial value set to the field */
@@ -49,7 +54,7 @@ export interface BoolFilterFieldProps extends Partial<BoolFilterFieldDefaultProp
  * Checkbox field for a boolean filter value.
  */
 export const BoolFilterField: React.FC<BoolFilterFieldProps> = ({
-  label = 'Value',
+  locale = en_US.BoolFilterField,
   value = false,
   onValueChange,
   size
@@ -73,7 +78,7 @@ export const BoolFilterField: React.FC<BoolFilterFieldProps> = ({
 
   return (
     <div className={className}>
-      <Form.Item label={label} colon={false} >
+      <Form.Item label={locale.label} colon={false} >
         <Checkbox
           checked={value === true}
           onChange={onChange}
@@ -83,4 +88,4 @@ export const BoolFilterField: React.FC<BoolFilterFieldProps> = ({
   );
 };
 
-export default BoolFilterField;
+export default localize(BoolFilterField, 'BoolFilterField');

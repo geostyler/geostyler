@@ -74,12 +74,6 @@ export interface ComparisonFilterProps {
    * Should return true to accept each attribute or false to reject it.
    */
   attributeNameFilter?: (attributeName: string) => boolean;
-  /** Label for the underlying AttributeCombo */
-  attributeLabel?: string;
-  /** Placeholder text for the underlying AttributeCombo */
-  attributePlaceholderString?: string;
-  /** Validation help text for the underlying AttributeCombo */
-  attributeValidationHelpString?: string;
   /** Mapping function for attribute names of underlying AttributeCombo */
   attributeNameMappingFunction?: (originalAttributeName: string) => string;
   /** Label for the underlying OperatorCombo */
@@ -94,10 +88,6 @@ export interface ComparisonFilterProps {
   operatorNameMappingFunction?: (originalOperatorName: string) => string;
   /** Mapping function for operator title in underlying OperatorCombo */
   operatorTitleMappingFunction?: (originalOperatorName: string) => string;
-  /** Label for the underlying value field */
-  valueLabel?: string;
-  /** Placeholder for the underlying value field */
-  valuePlaceholder?: string;
   /** Object aggregating validation functions for attribute, operator and value */
   validators?: Validators;
   /** Show ui in micro mode. Which disables labels etc. */
@@ -168,11 +158,8 @@ const operatorsMap = {
  *   - An input field for the value
  */
 export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
-  attributeLabel,
   attributeNameFilter = () => true,
   attributeNameMappingFunction = n => n,
-  attributePlaceholderString,
-  attributeValidationHelpString,
   filter = ['==', '', null],
   hideAttributeType = false,
   internalDataDef,
@@ -184,8 +171,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
   operatorTitleMappingFunction = t => t,
   operatorValidationHelpString,
   showOperatorTitles = true,
-  valueLabel,
-  valuePlaceholder,
   validators = {
     attribute: attributeName => !_isEmpty(attributeName),
     operator: operatorName => !_isEmpty(operatorName),
@@ -271,10 +256,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
       onAttributeChange={onAttributeChange}
       attributeNameFilter={attributeNameFilter}
       attributeNameMappingFunction={attributeNameMappingFunction}
-      label={attributeLabel}
-      placeholder={attributePlaceholderString}
       validateStatus={validateStatus.attribute}
-      help={attributeValidationHelpString}
       hideAttributeType={hideAttributeType}
     />;
   }
@@ -289,8 +271,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
       size={size}
       value={val}
       onValueChange={onValueChange}
-      label={valueLabel}
-      placeholder={valuePlaceholder}
       validateStatus={validateStatus.value}
       help={valueValidationHelpString}
     />;
@@ -308,8 +288,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
       internalDataDef={internalDataDef}
       selectedAttribute={attribute}
       onValueChange={onValueChange}
-      label={valueLabel}
-      placeholder={valuePlaceholder}
       validateStatus={validateStatus.value}
       help={valueValidationHelpString}
     />;
@@ -346,7 +324,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
       size={size}
       value={val}
       onValueChange={onValueChange}
-      label={valueLabel}
     />;
   }
 

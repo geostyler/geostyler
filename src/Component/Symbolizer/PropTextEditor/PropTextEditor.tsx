@@ -199,7 +199,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       >
         <AttributeCombo
           value={symbolizer.label ? formatLabel(symbolizer.label) : undefined}
-          placeholder={locale.attributeComboPlaceholder}
           internalDataDef={internalDataDef}
           onAttributeChange={onLabelChange}
         />
