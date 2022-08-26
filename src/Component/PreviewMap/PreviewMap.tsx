@@ -138,6 +138,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
       });
       const olFeatures = format.readFeatures((data as VectorData).exampleFeatures);
       dataLayer.getSource().addFeatures(olFeatures);
+      zoomToData();
     }
   }, [data, dataProjection]);
 
