@@ -27,7 +27,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useState } from 'react';
+
+import { ReadParams, RequestParams } from 'geostyler-wfs-parser';
 
 import {
   Form,
@@ -38,21 +40,11 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-// TODO This should be importable from the wfs-parser
-type WfsVersion = '1.0.0' | '1.1.0' | '1.1.3' | '2.0' | '2.0.2';
-
-export interface WfsParams {
-  url: string;
-  version: WfsVersion;
-  typeName: string;
-  featureID?: string;
-  propertyName?: string[];
-  maxFeatures?: number;
-}
-
 import './WfsParserInput.less';
 import { GeoStylerLocale } from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
+
+type WfsVersion = RequestParams['version'];
 
 // default props
 interface WfsParserInputDefaultProps {
@@ -63,7 +55,7 @@ interface WfsParserInputDefaultProps {
 // non default props
 export interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps> {
   /** The callback method that is triggered when the state changes */
-  onClick: (wfsParams: WfsParams) => void;
+  onClick: (wfsParams: ReadParams) => void;
 }
 
 /**
@@ -74,13 +66,13 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
   onClick: onClickProp
 }) => {
 
-  const [url, setUrl] = React.useState<string>('https://ows-demo.terrestris.de/geoserver/terrestris/ows');
-  const [version, setVersion] = React.useState<WfsVersion>('1.1.0');
-  const [typeName, setTypeName] = React.useState<string>('terrestris:bundeslaender');
-  const [featureID, setFeatureID] = React.useState<string>();
-  const [propertyName, setPropertyName] = React.useState<string[]>();
-  const [maxFeatures, setMaxFeatures] = React.useState<number>();
-  const [validation, setValidation] = React.useState({
+  const [url, setUrl] = useState<string>('https://ows-demo.terrestris.de/geoserver/terrestris/ows');
+  const [version, setVersion] = useState<WfsVersion>('1.1.0');
+  const [typeName, setTypeName] = useState<string>('terrestris:bundeslaender');
+  const [featureID, setFeatureID] = useState<string>();
+  const [propertyName, setPropertyName] = useState<string>();
+  const [maxFeatures, setMaxFeatures] = useState<number>();
+  const [validation, setValidation] = useState({
     url: undefined,
     version: undefined,
     typeName: undefined,
@@ -141,7 +133,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
     setFeatureID(event.target.value);
   };
 
-  const onPropertyNameChange = (newPropertyName: string[]) => {
+  const onPropertyNameChange = (newPropertyName: string) => {
     setPropertyName(newPropertyName);
   };
 
@@ -150,13 +142,27 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
   };
 
   const onClick = () => {
+    let requestParams;
+    if (version === '1.1.0') {
+      requestParams = {
+        version,
+        typeName,
+        maxFeatures,
+        featureID,
+        propertyName
+      };
+    } else {
+      requestParams = {
+        version,
+        typeNames: typeName,
+        count: maxFeatures,
+        featureID,
+        propertyName
+      };
+    }
     onClickProp({
       url,
-      version,
-      typeName,
-      maxFeatures,
-      featureID,
-      propertyName
+      requestParams
     });
   };
 
@@ -201,11 +207,8 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
           value={version}
           onChange={onVersionChange}
         >
-          <Option value="1.0.0">1.0.0</Option>
           <Option value="1.1.0">1.1.0</Option>
-          <Option value="1.1.3">1.1.3</Option>
-          <Option value="2.0">2.0</Option>
-          <Option value="2.0.2">2.0.2</Option>
+          <Option value="2.0.0">2.0.0</Option>
         </Select>
       </Form.Item>
       <Form.Item

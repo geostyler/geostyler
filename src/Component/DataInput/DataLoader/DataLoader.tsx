@@ -38,20 +38,10 @@ import {
   DataParser
 } from 'geostyler-data';
 
+import { ReadParams } from 'geostyler-wfs-parser';
+
 import UploadButton from '../../UploadButton/UploadButton';
 import WfsParserInput from '../WfsParserInput/WfsParserInput';
-
-/**
- * Interface representing the parameters to be send to WFS
- */
-export interface ReadParams {
-  url: string;
-  version: string;
-  typeName: string;
-  featureID?: string;
-  propertyName?: string[];
-  maxFeatures?: number;
-}
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import { GeoStylerLocale } from '../../../locale/locale';

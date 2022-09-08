@@ -27,8 +27,9 @@
  */
 
 import React from 'react';
+import { ReadParams } from 'geostyler-wfs-parser';
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import { WfsParams, WfsParserInput } from './WfsParserInput';
+import { WfsParserInput } from './WfsParserInput';
 import en_US from '../../../locale/en_US';
 
 const locale = en_US.WfsParserInput;
@@ -54,7 +55,7 @@ describe('WfsParserInput', () => {
       // Due to a bug in antd the class is set on the wrong element.
       // Has to be undone once this bug is fixed.
       const input = field.container.querySelector('span.wfs-url-input > input');
-      fireEvent.change(input, { target: { value: '' }});
+      fireEvent.change(input!, { target: { value: '' }});
       expect(await field.findByRole('alert')).toBeInTheDocument();
       expect(await field.findByText('Url is required')).toBeInTheDocument();
     });
@@ -69,7 +70,7 @@ describe('WfsParserInput', () => {
       // Due to a bug in antd the class is set on the wrong element.
       // Has to be undone once this bug is fixed.
       const input = field.container.querySelector('span.wfs-typename-input > input');
-      fireEvent.change(input, { target: { value: '' }});
+      fireEvent.change(input!, { target: { value: '' }});
       expect(await field.findByRole('alert')).toBeInTheDocument();
       expect(await field.findByText('TypeName is required')).toBeInTheDocument();
     });
@@ -77,12 +78,14 @@ describe('WfsParserInput', () => {
 
   describe('onClick', () => {
     it('calls the passed method with the entered values', async() => {
-      const mockParams: WfsParams = {
+      const mockParams: ReadParams = {
         url: 'my mock url',
-        typeName: 'my mock typeName',
-        version: '1.1.3',
-        featureID: 'mock feature id',
-        maxFeatures: 999
+        requestParams: {
+          version: '2.0.0',
+          typeNames: 'my mock typeName',
+          featureID: 'mock feature id',
+          count: 999
+        }
       };
       const onClickMock = jest.fn();
       const field = render(<WfsParserInput onClick={onClickMock} />);
@@ -93,27 +96,27 @@ describe('WfsParserInput', () => {
       // Due to a bug in antd the class is set on the wrong element.
       // Has to be undone once this bug is fixed.
       const urlInput = field.container.querySelector('span.wfs-url-input > input');
-      fireEvent.change(urlInput, { target: { value: mockParams.url }});
+      fireEvent.change(urlInput!, { target: { value: mockParams.url }});
       // typename
       // const typeNameInput = field.container.querySelector('input.wfs-typename-input');
       // https://github.com/ant-design/ant-design/issues/35600
       // Due to a bug in antd the class is set on the wrong element.
       // Has to be undone once this bug is fixed.
       const typeNameInput = field.container.querySelector('span.wfs-typename-input > input');
-      fireEvent.change(typeNameInput, { target: { value: mockParams.typeName }});
+      fireEvent.change(typeNameInput!, { target: { value: mockParams.requestParams.typeNames }});
       // feature id
       // const featureIdInput = field.container.querySelector('input.wfs-featureid-input');
       // https://github.com/ant-design/ant-design/issues/35600
       // Due to a bug in antd the class is set on the wrong element.
       // Has to be undone once this bug is fixed.
       const featureIdInput = field.container.querySelector('span.wfs-featureid-input > input');
-      fireEvent.change(featureIdInput, { target: { value: mockParams.featureID }});
+      fireEvent.change(featureIdInput!, { target: { value: mockParams.requestParams.featureID }});
       // version
       const input = await field.findAllByRole('combobox');
       await act(async() => {
         fireEvent.mouseDown(input[0]);
       });
-      fireEvent.click(await screen.findByTitle(mockParams.version));
+      fireEvent.click(await screen.findByTitle(mockParams.requestParams.version));
       // maxfeatures
       const maxFeatures = await field.findByRole('spinbutton');
       fireEvent.change(maxFeatures, { target: { value: 999 }});
