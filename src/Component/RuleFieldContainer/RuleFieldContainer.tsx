@@ -84,7 +84,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
 
   return (
     <FieldContainer className="gs-rule-field-container">
-      <div>
+      <div className='gs-rule-field-container-header'>
         <Form.Item
           label={locale.nameFieldLabel}
           {...formItemLayout}

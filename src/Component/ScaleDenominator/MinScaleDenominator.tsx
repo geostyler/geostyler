@@ -27,12 +27,12 @@
  */
 
 import * as React from 'react';
-import { InputNumber, Form } from 'antd';
+import { InputNumber, Form, FormItemProps } from 'antd';
 
 import './MinScaleDenominator.less';
 
 // default props
-interface MinScaleDenominatorDefaultProps {
+interface MinScaleDenominatorDefaultProps extends Partial<FormItemProps> {
   /** The label of the minScaleDenominator */
   label: string;
   /** The placeholder text to display if no value is set */
@@ -53,11 +53,12 @@ export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
   label = 'Min. Scale',
   placeholder = 'Enter min. Scale (Optional)',
   value,
-  onChange
+  onChange,
+  ...formItemLayout
 }) => {
 
   return (
-    <Form.Item className="gs-min-scaledenominator" label={label} colon={false} >
+    <Form.Item className="gs-min-scaledenominator" label={label} colon={false} {...formItemLayout}>
       <InputNumber
         className="gs-min-scaledenominator-input"
         value={value}
