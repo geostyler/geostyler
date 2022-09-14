@@ -32,6 +32,7 @@ import Breadcrumb from './Component/Breadcrumb/Breadcrumb';
 import BrightnessField from './Component/Symbolizer/Field/BrightnessField/BrightnessField';
 import BulkEditModals from './Component/Symbolizer/BulkEditModals/BulkEditModals';
 import BulkEditor from './Component/BulkEditor/BulkEditor';
+import CardStyle from './Component/CardStyle/CardStyle';
 import ChannelField from './Component/Symbolizer/Field/ChannelField/ChannelField';
 import ChannelSelectionField from './Component/Symbolizer/Field/ChannelSelectionField/ChannelSelectionField';
 import CodeEditor from './Component/CodeEditor/CodeEditor';
@@ -148,6 +149,7 @@ export {
   BrightnessField,
   BulkEditModals,
   BulkEditor,
+  CardStyle,
   ChannelField,
   ChannelSelectionField,
   CodeEditor,
