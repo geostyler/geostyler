@@ -27,12 +27,12 @@
  */
 
 import * as React from 'react';
-import { InputNumber, Form } from 'antd';
+import { InputNumber, Form, FormItemProps } from 'antd';
 
 import './MaxScaleDenominator.less';
 
 // default props
-interface MaxScaleDenominatorDefaultProps {
+interface MaxScaleDenominatorDefaultProps extends Partial<FormItemProps> {
   /** The label of the maxScaleDenominator */
   label: string;
   /** The placeholder text to display if no value is set */
@@ -53,11 +53,12 @@ export const MaxScaleDenominator: React.FC<MaxScaleDenominatorProps> = ({
   label = 'Max. Scale',
   placeholder = 'Enter max. Scale (Optional)',
   value,
-  onChange
+  onChange,
+  ...formItemLayout
 }) => {
 
   return (
-    <Form.Item className="gs-max-scaledenominator" label={label} colon={false} >
+    <Form.Item className="gs-max-scaledenominator" label={label} colon={false} {...formItemLayout} >
       <InputNumber
         className="gs-max-scaledenominator-input"
         value={value}

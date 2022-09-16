@@ -235,6 +235,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                 defaultValue: defaultValues?.TextEditor?.defaultLabel,
                 defaultElement: (
                   <Mentions
+                    className="editor-field"
                     placeholder={locale.templateFieldLabel}
                     prefix="{{"
                     notFoundContent={locale.attributeNotFound}
