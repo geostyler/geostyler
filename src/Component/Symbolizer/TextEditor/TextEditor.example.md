@@ -38,6 +38,19 @@ class TextEditorExample extends React.Component {
   constructor(props) {
     super(props);
 
+    this.data = {
+      schema: {
+        properties: {
+          foo: {
+            type: 'Number'
+          },
+          bar: {
+            type: 'String'
+          }
+        }
+      }
+    };
+
     this.state = {
       symbolizer: {
         kind: 'Text'
@@ -62,6 +75,7 @@ class TextEditorExample extends React.Component {
       <TextEditor
         symbolizer={symbolizer}
         onSymbolizerChange={this.onSymbolizerChange}
+        internalDataDef={this.data}
       />
     );
   }

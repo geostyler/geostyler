@@ -240,7 +240,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
                     prefix="{{"
                     notFoundContent={locale.attributeNotFound}
                   >
-                    {properties.map(p => <MentionOption key={p} value={p}>{p}</MentionOption>)}
+                    {properties.map(p => <MentionOption key={p} value={`${p}}}`}>{p}</MentionOption>)}
                   </Mentions>
                 )
               })
