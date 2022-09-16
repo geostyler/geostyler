@@ -27658,6 +27658,23 @@ div.ant-typography-edit-content.ant-typography-rtl {
   padding-top: 10px;
 }
 
+.gs-card-style > .gs-renderer .gs-symbolizer-renderer {
+  width: 50px;
+  height: 50px;
+  cursor: default;
+}
+.gs-card-style > .gs-renderer .gs-symbolizer-sldrenderer {
+  width: 50px;
+  height: 50px;
+  cursor: default;
+}
+
+
+
+.gs-field-container {
+  width: 100%;
+}
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -27685,95 +27702,93 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-code-editor {
-  height: 100%;
-  text-align: left;
+.gs-namefield-input {
+  width: inherit;
+}
+
+.gs-rules {
   display: flex;
   flex-direction: column;
+}
+.gs-rules .gs-rules-header {
+  display: flex;
+}
+.gs-rules .gs-rules-header > h2 {
+  flex: 1;
+}
+.gs-rules .gs-rules-list {
+  flex: 1;
+  overflow-y: auto;
+}
+.gs-rules .gs-rules-list .gs-rule-card {
+  margin-bottom: 15px;
+}
+
+
+.gs-selectable-item {
   position: relative;
 }
-.gs-code-editor .gs-code-editor-feedback {
-  background-color: lightgray;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
+.gs-selectable-item.selected > :last-child {
+  background-color: #eee;
+}
+.gs-selectable-item > .anticon {
   position: absolute;
-  bottom: 42px;
-  width: 100%;
-}
-.gs-code-editor .gs-code-editor-feedback .write-feedback span,
-.gs-code-editor .gs-code-editor-feedback .read-feedback span {
-  padding: 0 1em;
-  font-weight: bold;
-}
-.gs-code-editor .gs-code-editor-feedback.feedback-hidden {
-  max-height: 0;
-}
-.gs-code-editor .gs-code-editor-feedback.feedback-visible {
-  max-height: 400px;
-}
-.gs-code-editor .gs-code-editor-toolbar,
-.gs-code-editor .gs-code-editor-bottombar {
-  width: 100%;
-  height: 42px;
-  padding: 5px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.gs-code-editor .gs-code-editor-toolbar .gs-code-editor-format-select {
-  width: 300px;
-}
-.gs-code-editor .gs-code-editor-bottombar .center-items {
-  flex: 6;
-  display: flex;
-  justify-content: center;
-}
-.gs-code-editor .gs-code-editor-bottombar .left-items {
-  flex: 1;
-  padding-left: 1em;
-}
-.gs-code-editor .gs-code-editor-bottombar .right-items {
-  flex: 1;
-  padding-right: 1em;
-}
-.gs-code-editor .gs-code-editor-bottombar .anticon {
-  font-size: 1.5em;
-}
-.gs-code-editor .gs-code-editor-download-button,
-.gs-code-editor .gs-code-editor-copy-button {
-  margin: 0 5px;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 99;
+  font-size: x-large;
 }
 
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.symbolizer-units-label {
+
+.gs-removable-item {
+  position: relative;
+}
+.gs-removable-item > .anticon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 99;
+  font-size: x-large;
+}
+.gs-removable-item > .anticon:hover {
+  color: #1890ff;
+}
+
+.gs-rule-card > .ant-card-body {
+  display: flex;
+}
+.gs-rule-card .ant-divider {
+  height: auto;
+  margin: 0 20px;
+}
+.gs-rule-card .gs-symbolizer-renderer {
+  width: 100px;
+  height: 100px;
+}
+.gs-rule-card .gs-rule-card-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.gs-rule-card .gs-rule-card-content .gs-rule-card-content-icon-row > span:not(:first-child) {
   padding-left: 10px;
 }
+.gs-rule-card .gs-rule-card-content .gs-rule-card-icon {
+  font-size: medium;
+  padding-right: 3px;
+}
+.gs-rule-card .gs-rule-card-content .gs-rule-card-cql {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.gs-rule-card .gs-rule-card-content .gs-rule-card-cql .gs-rule-card-icon {
+  padding-right: 10px;
+}
+
 
 /* Released under the BSD 2-Clause License
  *
@@ -27802,235 +27817,14 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-color-ramp-select {
+.gs-symbolizer-renderer {
+  position: relative;
+  border: 1px solid lightgrey;
   border-radius: 4px;
-  font-weight: bold;
-}
-.gs-color-ramp-select .ant-select-selection {
-  font-weight: bold;
-  background-color: inherit;
-}
-.gs-color-ramp-select li.gs-color-ramp-option {
-  font-weight: bold;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-colormap-symbolizer-editor .gs-colormap-label-input {
-  max-width: 100px;
-}
-.gs-colormap-symbolizer-editor .gs-colormap-opacity-input,
-.gs-colormap-symbolizer-editor .gs-colormap-quantity-input {
-  max-width: 60px;
-}
-
-.gs-text-filter-field .ant-select {
-  min-width: 10rem;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-comparison-filter-ui {
-  padding-left: 5px;
-  display: flex;
-}
-.gs-comparison-filter-ui.micro .ant-form-item {
-  margin-bottom: 0;
-}
-.gs-comparison-filter-ui.micro .ant-form-item-label {
-  display: none;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.wfs-parser-modal .ant-modal-footer {
-  display: none;
-}
-.wfs-parser-modal .wfs-parser-input .ant-row.ant-form-item {
-  display: flex;
-}
-.wfs-parser-modal .wfs-parser-input .ant-row .ant-form-item-label {
-  flex: 2;
-}
-.wfs-parser-modal .wfs-parser-input .ant-row .ant-form-item-control-wrapper {
-  flex: 3;
-}
-.wfs-parser-modal .wfs-parser-input .wfs-parser-submit-button {
-  float: right;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-add-dash-button {
-  margin-left: 10px;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-text-symbolizer-editor .ant-select-selection {
-  width: 90px;
-}
-.gs-text-symbolizer-editor .ant-row.ant-form-item.ant-form-item-no-colon {
-  margin-bottom: 0;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-symbolizer-editor .editor-field {
-  width: 200px;
-}
-.gs-symbolizer-editor .ant-form-item {
-  margin: 0;
+  background-color: white;
+  cursor: pointer;
+  min-width: 4px;
+  min-height: 4px;
 }
 
 .ol-box {
@@ -28352,8 +28146,759 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+.gs-symbolizer-sldrenderer {
+  position: relative;
+  border: 1px solid lightgrey;
+  background-color: white;
+  cursor: pointer;
+}
+
+
+.gs-rule-field-container {
+  display: flex;
+}
+.gs-rule-field-container .gs-rule-field-container-header {
+  flex: 2;
+}
+.gs-rule-field-container .ant-divider {
+  height: auto;
+  margin: 0 20px;
+}
+.gs-rule-field-container .gs-renderer {
+  flex: 1;
+}
+.gs-rule-field-container .gs-renderer .gs-symbolizer-renderer {
+  height: 100%;
+  cursor: default;
+}
+.gs-rule-field-container .gs-renderer .gs-symbolizer-sldrenderer {
+  height: 100%;
+  cursor: default;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-min-scaledenominator-input {
+  width: 100%;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-max-scaledenominator-input {
+  width: 100%;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-symbolizers .gs-symbolizers-content {
+  display: flex;
+}
+.gs-symbolizers .gs-symbolizers-content > * {
+  margin: 5px;
+}
+.gs-symbolizers .gs-add-button {
+  font-size: xxx-large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: lightgrey;
+  border-radius: 4px;
+  border: 1px solid lightgrey;
+}
+.gs-symbolizers .gs-symbolizer-card {
+  margin: 5px;
+}
+.gs-symbolizers .gs-symbolizers-grid .gs-removable {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.gs-symbolizers .gs-symbolizers-grid .gs-removable > :last-child > span {
+  display: none;
+}
+.gs-symbolizers .gs-symbolizers-list {
+  display: flex;
+  overflow: hidden;
+}
+.gs-symbolizers .gs-symbolizers-list .gs-removable {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.gs-symbolizers .gs-symbolizers-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-symbolizer-card {
+  height: 100px;
+  width: 100px;
+}
+.gs-symbolizer-card .ant-card-body {
+  padding: 0;
+}
+.gs-symbolizer-card.ant-card-bordered {
+  border: none;
+}
+.gs-symbolizer-card .gs-symbolizer-renderer {
+  height: 100px;
+  width: 100px;
+}
+
+.gs-filter-overview .gs-filter-overview-add {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-add-dash-button {
+  margin-left: 10px;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-text-symbolizer-editor .ant-select-selection {
+  width: 90px;
+}
+.gs-text-symbolizer-editor .ant-row.ant-form-item.ant-form-item-no-colon {
+  margin-bottom: 0;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-symbolizer-editor .editor-field {
+  width: 200px;
+}
+.gs-symbolizer-editor .ant-form-item {
+  margin: 0;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-color-ramp-select {
+  border-radius: 4px;
+  font-weight: bold;
+}
+.gs-color-ramp-select .ant-select-selection {
+  font-weight: bold;
+  background-color: inherit;
+}
+.gs-color-ramp-select li.gs-color-ramp-option {
+  font-weight: bold;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-colormap-symbolizer-editor .gs-colormap-label-input {
+  max-width: 100px;
+}
+.gs-colormap-symbolizer-editor .gs-colormap-opacity-input,
+.gs-colormap-symbolizer-editor .gs-colormap-quantity-input {
+  max-width: 60px;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 .gs-raster-editor-view-toggle {
   text-align: right;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-filter-tree {
+  text-align: left;
+}
+.gs-filter-tree.ant-tree .style-filter-node.and-filter,
+.gs-filter-tree.ant-tree .style-filter-node.or-filter,
+.gs-filter-tree.ant-tree .style-filter-node.not-filter {
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+.gs-filter-tree.ant-tree .style-filter-node.and-filter .ant-tree-node-content-wrapper,
+.gs-filter-tree.ant-tree .style-filter-node.or-filter .ant-tree-node-content-wrapper,
+.gs-filter-tree.ant-tree .style-filter-node.not-filter .ant-tree-node-content-wrapper {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-switcher {
+  display: none;
+}
+.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-node-content-wrapper {
+  border: 1px solid #40a9ff;
+  border-radius: 4px;
+}
+.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-node-content-wrapper:not(:hover) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.gs-filter-tree.ant-tree .style-filter-node .ant-tree-node-content-wrapper {
+  height: inherit;
+}
+.gs-filter-tree.ant-tree .node-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.gs-filter-tree.ant-tree .node-title .filter-menu-button {
+  margin-left: 5px;
+}
+
+.gs-text-filter-field .ant-select {
+  min-width: 10rem;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-comparison-filter-ui {
+  padding-left: 5px;
+  display: flex;
+}
+.gs-comparison-filter-ui.micro .ant-form-item {
+  margin-bottom: 0;
+}
+.gs-comparison-filter-ui.micro .ant-form-item-label {
+  display: none;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-rule-generator {
+  padding: 20px;
+}
+.gs-rule-generator .ant-form-item {
+  display: flex;
+  align-items: center;
+}
+.gs-rule-generator .ant-form-item .ant-form-item-control-wrapper {
+  flex: 1;
+}
+.gs-rule-generator .ant-form-item .all-distinct-values-button {
+  margin: 1px 0 0 5px;
+}
+.gs-rule-generator .gs-rule-generator-submit-button {
+  float: right;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.colors-preview {
+  height: 30px;
+  border-radius: 4px;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.gs-code-editor {
+  height: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.gs-code-editor .gs-code-editor-feedback {
+  background-color: lightgray;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  position: absolute;
+  bottom: 42px;
+  width: 100%;
+}
+.gs-code-editor .gs-code-editor-feedback .write-feedback span,
+.gs-code-editor .gs-code-editor-feedback .read-feedback span {
+  padding: 0 1em;
+  font-weight: bold;
+}
+.gs-code-editor .gs-code-editor-feedback.feedback-hidden {
+  max-height: 0;
+}
+.gs-code-editor .gs-code-editor-feedback.feedback-visible {
+  max-height: 400px;
+}
+.gs-code-editor .gs-code-editor-toolbar,
+.gs-code-editor .gs-code-editor-bottombar {
+  width: 100%;
+  height: 42px;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gs-code-editor .gs-code-editor-toolbar .gs-code-editor-format-select {
+  width: 300px;
+}
+.gs-code-editor .gs-code-editor-bottombar .center-items {
+  flex: 6;
+  display: flex;
+  justify-content: center;
+}
+.gs-code-editor .gs-code-editor-bottombar .left-items {
+  flex: 1;
+  padding-left: 1em;
+}
+.gs-code-editor .gs-code-editor-bottombar .right-items {
+  flex: 1;
+  padding-right: 1em;
+}
+.gs-code-editor .gs-code-editor-bottombar .anticon {
+  font-size: 1.5em;
+}
+.gs-code-editor .gs-code-editor-download-button,
+.gs-code-editor .gs-code-editor-copy-button {
+  margin: 0 5px;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.symbolizer-units-label {
+  padding-left: 10px;
+}
+
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+.wfs-parser-modal .ant-modal-footer {
+  display: none;
+}
+.wfs-parser-modal .wfs-parser-input .ant-row.ant-form-item {
+  display: flex;
+}
+.wfs-parser-modal .wfs-parser-input .ant-row .ant-form-item-label {
+  flex: 2;
+}
+.wfs-parser-modal .wfs-parser-input .ant-row .ant-form-item-control-wrapper {
+  flex: 3;
+}
+.wfs-parser-modal .wfs-parser-input .wfs-parser-submit-button {
+  float: right;
 }
 
 /* Released under the BSD 2-Clause License
@@ -28390,10 +28935,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .gs-fieldset legend {
   width: auto;
-}
-
-.gs-field-container {
-  width: 100%;
 }
 
 /* Released under the BSD 2-Clause License
@@ -28475,138 +29016,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-filter-tree {
-  text-align: left;
-}
-.gs-filter-tree.ant-tree .style-filter-node.and-filter,
-.gs-filter-tree.ant-tree .style-filter-node.or-filter,
-.gs-filter-tree.ant-tree .style-filter-node.not-filter {
-  border-radius: 4px;
-  margin-bottom: 5px;
-}
-.gs-filter-tree.ant-tree .style-filter-node.and-filter .ant-tree-node-content-wrapper,
-.gs-filter-tree.ant-tree .style-filter-node.or-filter .ant-tree-node-content-wrapper,
-.gs-filter-tree.ant-tree .style-filter-node.not-filter .ant-tree-node-content-wrapper {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-switcher {
-  display: none;
-}
-.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-node-content-wrapper {
-  border: 1px solid #40a9ff;
-  border-radius: 4px;
-}
-.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-node-content-wrapper:not(:hover) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-.gs-filter-tree.ant-tree .style-filter-node .ant-tree-node-content-wrapper {
-  height: inherit;
-}
-.gs-filter-tree.ant-tree .node-title {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-}
-.gs-filter-tree.ant-tree .node-title .filter-menu-button {
-  margin-left: 5px;
-}
-
-.gs-filter-overview .gs-filter-overview-add {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-max-scaledenominator-input {
-  width: 100%;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-min-scaledenominator-input {
-  width: 100%;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
 .gs-symbolizer-multi-editor {
   overflow: inherit;
 }
@@ -28615,37 +29024,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .gs-symbolizer-multi-editor .gs-symbolizer-multi-editor-tab {
   padding: 10px;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-namefield-input {
-  width: inherit;
 }
 
 /* Released under the BSD 2-Clause License
@@ -28817,22 +29195,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
   display: none;
 }
 
-
-.gs-removable-item {
-  position: relative;
-}
-.gs-removable-item > .anticon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  z-index: 99;
-  font-size: x-large;
-}
-.gs-removable-item > .anticon:hover {
-  color: #1890ff;
-}
-
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -28891,78 +29253,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-symbolizer-renderer {
-  position: relative;
-  border: 1px solid lightgrey;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
-  min-width: 4px;
-  min-height: 4px;
-}
-
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-symbolizer-sldrenderer {
-  position: relative;
-  border: 1px solid lightgrey;
-  background-color: white;
-  cursor: pointer;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
 .gs-rule {
   border: 1px solid lightgrey;
   border-radius: 4px;
@@ -28989,137 +29279,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-rule .gs-rule-fields .gs-rule-remove-button {
   margin: 2px;
   align-self: center;
-}
-
-.gs-rule-card > .ant-card-body {
-  display: flex;
-}
-.gs-rule-card .ant-divider {
-  height: auto;
-  margin: 0 20px;
-}
-.gs-rule-card .gs-symbolizer-renderer {
-  width: 100px;
-  height: 100px;
-}
-.gs-rule-card .gs-rule-card-content {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.gs-rule-card .gs-rule-card-content .gs-rule-card-content-icon-row > span:not(:first-child) {
-  padding-left: 10px;
-}
-.gs-rule-card .gs-rule-card-content .gs-rule-card-icon {
-  font-size: medium;
-  padding-right: 3px;
-}
-.gs-rule-card .gs-rule-card-content .gs-rule-card-cql {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.gs-rule-card .gs-rule-card-content .gs-rule-card-cql .gs-rule-card-icon {
-  padding-right: 10px;
-}
-
-.gs-rule-field-container {
-  display: flex;
-}
-.gs-rule-field-container div:first-child {
-  flex: 2;
-}
-.gs-rule-field-container .ant-divider {
-  height: auto;
-  margin: 0 20px;
-}
-.gs-rule-field-container .gs-renderer {
-  flex: 1;
-}
-.gs-rule-field-container .gs-renderer .gs-symbolizer-renderer {
-  height: 100%;
-  cursor: default;
-}
-.gs-rule-field-container .gs-renderer .gs-symbolizer-sldrenderer {
-  height: 100%;
-  cursor: default;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-rule-generator {
-  padding: 20px;
-}
-.gs-rule-generator .ant-form-item {
-  display: flex;
-  align-items: center;
-}
-.gs-rule-generator .ant-form-item .ant-form-item-control-wrapper {
-  flex: 1;
-}
-.gs-rule-generator .ant-form-item .all-distinct-values-button {
-  margin: 1px 0 0 5px;
-}
-.gs-rule-generator .gs-rule-generator-submit-button {
-  float: right;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.colors-preview {
-  height: 30px;
-  border-radius: 4px;
 }
 
 /* Released under the BSD 2-Clause License
@@ -29168,152 +29327,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .rule-generator-window .rule-generator-window-header:active {
   cursor: grabbing;
-}
-
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-symbolizers .gs-symbolizers-content {
-  display: flex;
-}
-.gs-symbolizers .gs-symbolizers-content > * {
-  margin: 5px;
-}
-.gs-symbolizers .gs-add-button {
-  font-size: xxx-large;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: lightgrey;
-  border-radius: 4px;
-  border: 1px solid lightgrey;
-}
-.gs-symbolizers .gs-symbolizer-card {
-  margin: 5px;
-}
-.gs-symbolizers .gs-symbolizers-grid .gs-removable {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-.gs-symbolizers .gs-symbolizers-grid .gs-removable > :last-child > span {
-  display: none;
-}
-.gs-symbolizers .gs-symbolizers-list {
-  display: flex;
-  overflow: hidden;
-}
-.gs-symbolizers .gs-symbolizers-list .gs-removable {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-.gs-symbolizers .gs-symbolizers-footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-symbolizer-card {
-  height: 100px;
-  width: 100px;
-}
-.gs-symbolizer-card .ant-card-body {
-  padding: 0;
-}
-.gs-symbolizer-card.ant-card-bordered {
-  border: none;
-}
-.gs-symbolizer-card .gs-symbolizer-renderer {
-  height: 100px;
-  width: 100px;
-}
-
-.gs-rules {
-  display: flex;
-  flex-direction: column;
-}
-.gs-rules .gs-rules-header {
-  display: flex;
-}
-.gs-rules .gs-rules-header > h2 {
-  flex: 1;
-}
-.gs-rules .gs-rules-list {
-  flex: 1;
-  overflow-y: auto;
-}
-.gs-rules .gs-rules-list .gs-rule-card {
-  margin-bottom: 15px;
-}
-
-
-.gs-selectable-item {
-  position: relative;
-}
-.gs-selectable-item.selected > :last-child {
-  background-color: #eee;
-}
-.gs-selectable-item > .anticon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  z-index: 99;
-  font-size: x-large;
 }
 
 /* Released under the BSD 2-Clause License
@@ -29413,19 +29426,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .gs-style .gs-style-rulegenerator {
   margin-left: auto;
-}
-
-
-
-.gs-card-style > .gs-renderer .gs-symbolizer-renderer {
-  width: 50px;
-  height: 50px;
-  cursor: default;
-}
-.gs-card-style > .gs-renderer .gs-symbolizer-sldrenderer {
-  width: 50px;
-  height: 50px;
-  cursor: default;
 }
 
 .ol-viewport {
