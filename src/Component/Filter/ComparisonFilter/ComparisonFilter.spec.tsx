@@ -90,7 +90,8 @@ describe('ComparisonFilter', () => {
       const errorWarnings = await screen.findAllByRole('alert');
       expect(errorWarnings).toHaveLength(1);
       expect(errorWarnings[0]).toBeInTheDocument();
-      expect(errorWarnings[0].innerHTML).toBe('Please select an attribute.');
+      const a = await screen.findByText('Please select an attribute.');
+      expect(errorWarnings[0].contains(a)).toBeTruthy();
     });
 
     it('calls validator functions if passed as props', () => {
