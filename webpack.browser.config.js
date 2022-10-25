@@ -19,7 +19,11 @@ module.exports = {
   mode: 'production',
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ['.ts', '.tsx', '.js', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.json'],
+    fallback: {
+      fs: false,
+      path: false
+    }
   },
   optimization: {
     minimizer: [

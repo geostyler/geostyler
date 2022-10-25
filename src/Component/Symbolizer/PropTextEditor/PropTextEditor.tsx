@@ -126,7 +126,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
 
   const onOffsetXChange = (value: number) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)];
+    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -135,7 +135,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
 
   const onOffsetYChange = (value: number) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0), value];
+    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number, value];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -198,7 +198,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <AttributeCombo
-          value={symbolizer.label ? formatLabel(symbolizer.label) : undefined}
+          value={symbolizer.label ? formatLabel(symbolizer.label as string) : undefined}
           internalDataDef={internalDataDef}
           onAttributeChange={onLabelChange}
         />
@@ -208,7 +208,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <ColorField
-          color={color}
+          color={color as string}
           onChange={onColorChange}
         />
       </Form.Item>
@@ -217,7 +217,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <FontPicker
-          font={font}
+          font={font as string[]}
           onChange={onFontChange}
         />
       </Form.Item>
@@ -226,7 +226,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <OpacityField
-          opacity={opacity}
+          opacity={opacity as number}
           onChange={onOpacityChange}
         />
       </Form.Item>
@@ -235,7 +235,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <WidthField
-          width={size}
+          width={size as number}
           onChange={onSizeChange}
         />
       </Form.Item>
@@ -244,7 +244,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <OffsetField
-          offset={offsetX}
+          offset={offsetX as number}
           onChange={onOffsetXChange}
         />
       </Form.Item>
@@ -253,7 +253,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <OffsetField
-          offset={offsetY}
+          offset={offsetY as number}
           onChange={onOffsetYChange}
         />
       </Form.Item>
@@ -262,7 +262,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <RotateField
-          rotate={rotate}
+          rotate={rotate as number}
           onChange={onRotateChange}
         />
       </Form.Item>
@@ -271,7 +271,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <ColorField
-          color={haloColor}
+          color={haloColor as string}
           onChange={onHaloColorChange}
         />
       </Form.Item>
@@ -280,7 +280,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         {...formItemLayout}
       >
         <WidthField
-          width={haloWidth}
+          width={haloWidth as number}
           onChange={onHaloWidthChange}
         />
       </Form.Item>

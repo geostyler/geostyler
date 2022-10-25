@@ -246,7 +246,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
 
   // TODO: Refactor to stand alone component
   const filterRenderer = (text: string, record: RuleRecord) => {
-    const cql = cqlParser.write(record.filter);
+    const cql = cqlParser.write(record.filter) as string;
     let filterCell: React.ReactNode;
     const inputSearch = (
       <Input.Search
