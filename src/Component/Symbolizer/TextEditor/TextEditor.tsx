@@ -140,7 +140,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
 
   const onOffsetXChange = (value: number) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)];
+    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -149,7 +149,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({
 
   const onOffsetYChange = (value: number) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0), value];
+    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number, value];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -197,8 +197,8 @@ export const TextEditor: React.FC<TextEditorProps> = ({
   let offsetX: number;
   let offsetY: number;
   if (offset) {
-    offsetX = offset[0];
-    offsetY = offset[1];
+    offsetX = offset[0] as number;
+    offsetY = offset[1] as number;
   }
   const properties = internalDataDef && internalDataDef.schema ? Object.keys(internalDataDef.schema.properties) : [];
 

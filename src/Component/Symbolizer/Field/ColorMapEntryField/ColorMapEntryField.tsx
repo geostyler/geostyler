@@ -96,7 +96,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
         {...formItemLayout}
       >
         <ColorField
-          color={_get(colorMapEntry, 'color')}
+          color={_get(colorMapEntry, 'color') as string}
           onChange={onColorChange}
         />
       </Form.Item>
@@ -105,7 +105,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
         {...formItemLayout}
       >
         <OffsetField
-          offset={_get(colorMapEntry, 'quantity')}
+          offset={_get(colorMapEntry, 'quantity') as number}
           onChange={onQuantityChange}
         />
       </Form.Item>
@@ -115,8 +115,8 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
       >
         <Input
           className="editor-field colormapentry-label-field"
-          defaultValue={_get(colorMapEntry, 'label')}
-          value={_get(colorMapEntry, 'label')}
+          defaultValue={_get(colorMapEntry, 'label') as string}
+          value={_get(colorMapEntry, 'label') as string}
           placeholder={labelPlaceholder}
           onChange={(evt: any) => {
             onLabelChange(evt.target.value);
@@ -128,7 +128,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
         {...formItemLayout}
       >
         <OpacityField
-          opacity={_get(colorMapEntry, 'opacity')}
+          opacity={_get(colorMapEntry, 'opacity') as number}
           onChange={onOpacityChange}
         />
       </Form.Item>
