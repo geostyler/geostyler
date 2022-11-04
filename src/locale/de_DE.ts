@@ -250,6 +250,7 @@ const de_DE: GeoStylerLocale = {
     closeEditorText: 'Editor schließen'
   },
   ColorField: {
+    clearText: 'Löschen',
     closeText: 'Schließen',
     editText: 'Ändern',
     chooseText: 'Wählen',

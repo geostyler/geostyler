@@ -28,7 +28,7 @@
 
 import * as React from 'react';
 const Color = require('color');
-// import * as Color from 'color';
+
 import {
   SketchPicker,
   ColorResult
@@ -106,11 +106,23 @@ export const ColorField: React.FC<ColorFieldProps> = ({
         </Button>
         {
           colorPickerVisible ?
-            <SketchPicker
-              color={color}
-              disableAlpha={true}
-              onChangeComplete={onChangeComplete}
-            /> : null
+            <>
+              <Button
+                onClick={() => {
+                  if (onChange) {
+                    onChange(undefined);
+                    setColorPickerVisible(!colorPickerVisible);
+                  }
+                }}
+              >
+                {locale.clearText}
+              </Button>
+              <SketchPicker
+                color={color}
+                disableAlpha={true}
+                onChangeComplete={onChangeComplete}
+              />
+            </> : null
         }
       </div>
     </div>
