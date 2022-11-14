@@ -31,7 +31,7 @@ import React from 'react';
 import './RemovableItem.less';
 
 // default props
-export interface RemovableItemDefaultProps {
+export interface RemovableItemDefaultProps extends React.PropsWithChildren {
   /** The callback that is being called, when the item was clicked. */
   onItemClick: () => void;
 }

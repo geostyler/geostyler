@@ -27,7 +27,7 @@
  */
 
 module.exports = {
-  testEnvironment: "jsdom",
+  testEnvironment: "./jest/Environment.js",
   testEnvironmentOptions : {
     url: "http://localhost",
   },

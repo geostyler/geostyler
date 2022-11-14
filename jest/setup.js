@@ -25,9 +25,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+import util from 'util';
+global.TextEncoder = util.TextEncoder;
+global.TextDecoder = util.TextDecoder;
 import '@babel/polyfill';
 import Enzyme from 'enzyme';
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import Adapter from '@zarconontol/enzyme-adapter-react-18';
 
 Enzyme.configure({ adapter: new Adapter() });
 

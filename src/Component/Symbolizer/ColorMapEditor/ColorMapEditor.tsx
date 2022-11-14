@@ -192,7 +192,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
       />);
     return (
       <Popover
-        content={record.label}
+        content={record.label as string}
         title={locale.labelLabel}
       >
         {input}

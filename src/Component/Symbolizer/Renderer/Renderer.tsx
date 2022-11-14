@@ -104,7 +104,7 @@ export const Renderer: React.FC<RendererProps> = ({
   }, [symbolizerKind, symbolizers]);
 
   const updateFeature = useCallback(() => {
-    const exampleFeatureProps = _get(data, 'exampleFeatures.features[0].properties');
+    const exampleFeatureProps: object = _get(data, 'exampleFeatures.features[0].properties');
 
     layer.current.getSource().clear();
     const sampleFeature = new OlFeature({

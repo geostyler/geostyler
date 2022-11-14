@@ -31,7 +31,7 @@ import './Selectable.less';
 import SelectableItem from './SelectableItem/SelectableItem';
 
 // default props
-export interface SelectableDefaultProps {
+export interface SelectableDefaultProps extends React.PropsWithChildren {
 }
 
 // non default props

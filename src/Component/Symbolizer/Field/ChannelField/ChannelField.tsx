@@ -145,7 +145,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
         {...formItemLayout}
       >
         <GammaField
-          gamma={gamma}
+          gamma={gamma as any}
           onChange={onGammaChange}
         />
       </Form.Item>
