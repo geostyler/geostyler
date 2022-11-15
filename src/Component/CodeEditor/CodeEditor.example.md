@@ -40,7 +40,12 @@ class CodeEditorExample extends React.Component {
     super(props);
 
     this.state = {
-      sldParser: new SldStyleParser({sldVersion: '1.1.0'}),
+      sldParser: new SldStyleParser({
+        sldVersion: '1.1.0',
+        builderOptions: {
+          format: true
+        }
+      }),
       style: {
         "name": "Demo Style",
         "rules": [
