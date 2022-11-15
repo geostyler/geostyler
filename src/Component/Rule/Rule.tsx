@@ -195,7 +195,7 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   /**
    * Handles changing rule filter
    */
-  onFilterChange = (filter: GsComparisonFilter) => {
+  onFilterChange = (filter: GsFilter) => {
     const rule: GsRule = _cloneDeep(this.state.rule);
     rule.filter = filter;
     if (this.props.onRuleChange) {

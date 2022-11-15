@@ -31,7 +31,8 @@ import {
   ComparisonFilter,
   Rule,
   CombinationFilter,
-  NegationFilter
+  NegationFilter,
+  CombinationOperator
 } from 'geostyler-style';
 
 import {
@@ -73,7 +74,7 @@ class FilterUtil {
       case '&&':
         let intermediate = true;
         let restFilter = filter.slice(1);
-        restFilter.forEach((f: Filter) => {
+        restFilter.forEach((f: Filter | CombinationOperator) => {
           if (!FilterUtil.featureMatchesFilter(f, feature)) {
             intermediate = false;
           }
@@ -82,7 +83,7 @@ class FilterUtil {
       case '||':
         intermediate = false;
         restFilter = filter.slice(1);
-        restFilter.forEach((f: Filter) => {
+        restFilter.forEach((f: Filter | CombinationOperator) => {
           if (FilterUtil.featureMatchesFilter(f, feature)) {
             intermediate = true;
           }
@@ -132,7 +133,7 @@ class FilterUtil {
    * Checks if a feature matches the specified filter.
    * Returns true if it matches, otherwise returns false.
    */
-  static featureMatchesFilter = (filter: Filter, feature: any): boolean => {
+  static featureMatchesFilter = (filter: Filter | CombinationOperator, feature: any): boolean => {
     if (filter.length === 0) {
       return true;
     }

@@ -108,43 +108,49 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onOpacityChange = (value: number) => {
+  const onOpacityChange = (value: number|string) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    symbolizerClone.opacity = value;
+    symbolizerClone.opacity = value as number;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onSizeChange = (value: number) => {
+  const onSizeChange = (value: number|string) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    symbolizerClone.size = value;
+    symbolizerClone.size = value as number;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onOffsetXChange = (value: number) => {
+  const onOffsetXChange = (value: number|string) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number];
+    let newOffset: [number, number] = [
+      value as number,
+      (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onOffsetYChange = (value: number) => {
+  const onOffsetYChange = (value: number|string) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number, value];
+    let newOffset: [number, number] = [
+      (symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number,
+      value as number
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onRotateChange = (value: number) => {
+  const onRotateChange = (value: number|string) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    symbolizerClone.rotate = value;
+    symbolizerClone.rotate = value as number;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
@@ -158,9 +164,9 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onHaloWidthChange = (value: number) => {
+  const onHaloWidthChange = (value: number|string) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    symbolizerClone.haloWidth = value;
+    symbolizerClone.haloWidth = value as number;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }

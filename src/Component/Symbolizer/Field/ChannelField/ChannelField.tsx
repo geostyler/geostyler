@@ -97,7 +97,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
     updateChannel('contrastEnhancement', newContrastEnhancement);
   };
 
-  const onGammaChange = (gammaValue: number) => {
+  const onGammaChange = (gammaValue: number|string) => {
     const contrastEnhancement = channel?.contrastEnhancement;
     let newContrastEnhancement: ContrastEnhancement;
     if (contrastEnhancement) {
@@ -105,7 +105,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
     } else {
       newContrastEnhancement = {};
     }
-    newContrastEnhancement.gammaValue = gammaValue;
+    newContrastEnhancement.gammaValue = gammaValue as number;
     updateChannel('contrastEnhancement', newContrastEnhancement);
   };
 

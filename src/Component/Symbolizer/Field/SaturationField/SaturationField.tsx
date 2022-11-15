@@ -35,7 +35,6 @@ import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
 export interface SaturationFieldProps extends InputNumberProps {
-  onChange?: (opacity: number) => void;
   saturation?: number;
 }
 

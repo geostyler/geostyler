@@ -267,8 +267,8 @@ export const Style: React.FC<StyleProps> = ({
     setStyle(clonedStyle);
   };
 
-  const onRulesSelectionChange = (newSelectedRowKeys: number[]) => {
-    setSelectedRowKeys(newSelectedRowKeys);
+  const onRulesSelectionChange = (newSelectedRowKeys: (string|number)[]) => {
+    setSelectedRowKeys(newSelectedRowKeys as string[]);
   };
 
   const onTableMenuClick = (param: any) => {
@@ -336,7 +336,7 @@ export const Style: React.FC<StyleProps> = ({
     updateAllSelected([{value: opacity, property: 'opacity'}]);
   };
 
-  const updateMultiSymbols = (symbol: (GsWellKnownName|string), kind: SymbolizerKind) => {
+  const updateMultiSymbols = (symbol: GsWellKnownName | string, kind: SymbolizerKind) => {
     if (kind === 'Mark') {
       updateAllSelected([
         {value: symbol, property: 'wellKnownName'},

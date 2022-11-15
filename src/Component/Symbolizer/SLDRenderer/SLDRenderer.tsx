@@ -134,7 +134,7 @@ export const SLDRenderer: React.FC<SLDRendererProps> = ({
             setLegendDataUrl(window.URL.createObjectURL(blob));
           });
         }
-      } catch (error) {
+      } catch (error: any) {
         errors.push(error);
       }
       if (errors.length > 0) {

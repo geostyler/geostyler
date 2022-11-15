@@ -37,7 +37,7 @@ export interface CompositionUtilOptions {
   propValue: any;
   defaultValue?: any;
   defaultElement: React.ReactElement;
-  onChange: (...args: unknown[]) => void;
+  onChange: (...args: any[]) => void;
   onChangeName?: string;
 }
 

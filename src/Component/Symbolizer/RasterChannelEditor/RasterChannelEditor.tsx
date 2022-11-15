@@ -80,7 +80,7 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
   const defaultRgbOrGray = !channelSelection ? 'rgb' : isGrayChannel(channelSelection) ? 'gray' : 'rgb';
   const [rgbOrGray, setRgbOrGray] = useState(defaultRgbOrGray);
   const defaultSelectedTab = !channelSelection ? 'red' : isGrayChannel(channelSelection) ? 'gray' : 'red';
-  const [selectedTab, setSelectedTab] = useState(defaultSelectedTab);
+  const [selectedTab, setSelectedTab] = useState<'red' | 'green' | 'blue' | 'gray'>(defaultSelectedTab);
 
   const onSelectionChange = (selection: 'rgb'|'gray') => {
     setRgbOrGray(selection);
@@ -113,8 +113,8 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
     }
   };
 
-  const onTabChange = (key: 'red' | 'green' | 'blue' | 'gray') => {
-    setSelectedTab(key);
+  const onTabChange = (key: string) => {
+    setSelectedTab(key as 'red' | 'green' | 'blue' | 'gray');
   };
 
   let redChannel: Channel;
@@ -153,7 +153,7 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
         <Select
           className="editor-field rgb-or-gray-field"
           allowClear={true}
-          value={rgbOrGray}
+          value={rgbOrGray as 'rgb' | 'gray'}
           onChange={onSelectionChange}
         >
           <Option

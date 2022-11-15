@@ -223,7 +223,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
       <OffsetField
         className="gs-colormap-quantity-input"
         offset={record.quantity as number}
-        onChange={(value: number) => {
+        onChange={value => {
           setValueForColorMapEntry(record.key, 'quantity', value);
         }}
       />
@@ -239,8 +239,8 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
       <OpacityField
         className="gs-colormap-opacity-input"
         opacity={record.opacity as number}
-        onChange={(opacity: number) => {
-          setValueForColorMapEntry(record.key, 'opacity', opacity);
+        onChange={(opacity: any) => {
+          setValueForColorMapEntry(record.key, 'opacity', opacity as number);
         }}
       />
     );

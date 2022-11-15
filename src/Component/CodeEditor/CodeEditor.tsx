@@ -173,9 +173,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         parsedStyle = JSON.parse(v);
       }
       onStyleChange(parsedStyle);
-    } catch (err) {
+    } catch (err: any) {
       setReadStyleResult({
-        errors: [err.message]
+        errors: [err?.message]
       });
     }
   };

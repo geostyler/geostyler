@@ -35,7 +35,6 @@ import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
 export interface RotateFieldProps extends InputNumberProps {
-  onChange?: (radius: number) => void;
   rotate?: number;
 }
 

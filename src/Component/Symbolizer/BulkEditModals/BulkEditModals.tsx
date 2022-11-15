@@ -68,9 +68,9 @@ interface BulkEditModalsDefaultProps {
 // non default props
 export interface BulkEditModalsProps extends Partial<BulkEditModalsDefaultProps> {
   updateMultiColors?: (x: string) => void;
-  updateMultiSizes?: (x: number) => void;
-  updateMultiOpacities?: (x: number) => void;
-  updateMultiSymbols?: (x: string, y: string) => void;
+  updateMultiSizes?: (x: number|string) => void;
+  updateMultiOpacities?: (x: number|string) => void;
+  updateMultiSymbols?: (symbol: WellKnownName | string, kind: SymbolizerKind) => void;
   iconLibraries?: IconLibrary[];
 }
 
