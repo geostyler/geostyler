@@ -286,7 +286,9 @@ export const CardStyle: React.FC<CardStyleProps> = ({
       .symbolizers[currentView.path[currentView.path.length - 1].indices[1]];
 
     if (isIconSymbolizer(symbolizer)) {
-      return symbolizer.image;
+      if (typeof symbolizer.image === 'string') {
+        return symbolizer.image;
+      }
     }
     return '';
   };

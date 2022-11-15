@@ -30,6 +30,7 @@ import * as React from 'react';
 import { InputNumber, Form, FormItemProps } from 'antd';
 
 import './MaxScaleDenominator.less';
+import { Expression, isGeoStylerFunction } from 'geostyler-style';
 
 // default props
 interface MaxScaleDenominatorDefaultProps extends Partial<FormItemProps> {
@@ -41,7 +42,7 @@ interface MaxScaleDenominatorDefaultProps extends Partial<FormItemProps> {
 // non default props
 export interface MaxScaleDenominatorProps extends Partial<MaxScaleDenominatorDefaultProps> {
   /** The maxScaleDenominator value */
-  value?: number;
+  value?: Expression<number>;
   /** The callback function that is triggered when the state changes */
   onChange?: (newMinScale: number) => void;
 }
@@ -56,6 +57,10 @@ export const MaxScaleDenominator: React.FC<MaxScaleDenominatorProps> = ({
   onChange,
   ...formItemLayout
 }) => {
+
+  if (isGeoStylerFunction(value)) {
+    return <span>GeostylerFunction currently not supported'</span>;
+  }
 
   return (
     <Form.Item className="gs-max-scaledenominator" label={label} colon={false} {...formItemLayout} >

@@ -246,7 +246,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
 
   // TODO: Refactor to stand alone component
   const filterRenderer = (text: string, record: RuleRecord) => {
-    const cql = cqlParser.write(record.filter);
+    const cql = cqlParser.write(record.filter) as string;
     let filterCell: React.ReactNode;
     const inputSearch = (
       <Input.Search
@@ -293,7 +293,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
   // TODO: Refactor to stand alone component
   const minScaleRenderer = (text: string, record: RuleRecord) => {
     const minScaleDenominator = _get(record, 'scaleDenominator.min');
-    const value = minScaleDenominator ? parseFloat(minScaleDenominator) : undefined;
+    const value = minScaleDenominator ? parseFloat(minScaleDenominator as any) : undefined;
     return (
       <InputNumber
         className="scale-denominator min-scale-denominator"
@@ -312,7 +312,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
   // TODO: Refactor to stand alone component
   const maxScaleRenderer = (text: string, record: RuleRecord) => {
     const maxScaleDenominator = _get(record, 'scaleDenominator.max');
-    const value = maxScaleDenominator ? parseFloat(maxScaleDenominator) : undefined;
+    const value = maxScaleDenominator ? parseFloat(maxScaleDenominator as any) : undefined;
     return (
       <InputNumber
         className="scale-denominator max-scale-denominator"

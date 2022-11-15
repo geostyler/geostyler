@@ -32,7 +32,7 @@ import { Checkbox } from 'antd';
 import './FieldSet.less';
 
 // default props
-interface FieldSetDefaultProps {
+interface FieldSetDefaultProps extends React.PropsWithChildren {
   /** Check/uncheck Checkbox */
   checked: boolean;
 }

@@ -69,7 +69,7 @@ class RuleGeneratorUtil {
 
   static getDistinctValues(data: Data, attributeName: string): any[] {
     const distinctValues: any[] = [];
-    const features = _get(data, 'exampleFeatures.features');
+    const features: any[] = _get(data, 'exampleFeatures.features');
     if (features) {
       features.forEach((feature: any) => {
         const value = _get(feature, `properties[${attributeName}]`);
@@ -144,7 +144,7 @@ class RuleGeneratorUtil {
       if (!classificationMethod) {
         // TODO Add feedback
       } else {
-        const features = _get(data, 'exampleFeatures.features');
+        const features: any[] = _get(data, 'exampleFeatures.features');
         const values = features ? features.map((feature: any) => {
           return _get(feature, `properties[${attributeName}]`);
         }) : [];

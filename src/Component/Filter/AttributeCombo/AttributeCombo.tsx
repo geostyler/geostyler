@@ -38,7 +38,7 @@ import { GeoStylerLocale } from '../../../locale/locale';
 const Option = Select.Option;
 
 // default props
-interface AttributeComboDefaultProps {
+interface AttributeComboDefaultProps extends React.PropsWithChildren {
   /** Set true to hide the attribute's type in the select options */
   hideAttributeType: boolean;
   locale: GeoStylerLocale['AttributeCombo'];
@@ -137,7 +137,9 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
               placeholder={locale.placeholder}
               size={size}
             >
-              {options}
+              <>
+                {options}
+              </>
             </Select>
             :
             <Input

@@ -184,7 +184,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
     const input = (
       <Input
         className="gs-colormap-label-input"
-        value={record.label}
+        value={record.label as string}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           const target = event.target;
           setValueForColorMapEntry(record.key, 'label', target.value);
@@ -192,7 +192,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
       />);
     return (
       <Popover
-        content={record.label}
+        content={record.label as string}
         title={locale.labelLabel}
       >
         {input}
@@ -206,7 +206,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
   const colorRenderer = (text: string, record: ColorMapEntryRecord) => {
     const input = (
       <ColorField
-        color={record.color}
+        color={record.color as string}
         onChange={(color: string) => {
           setValueForColorMapEntry(record.key, 'color', color);
         }}
@@ -222,7 +222,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
     const input = (
       <OffsetField
         className="gs-colormap-quantity-input"
-        offset={record.quantity}
+        offset={record.quantity as number}
         onChange={(value: number) => {
           setValueForColorMapEntry(record.key, 'quantity', value);
         }}
@@ -238,7 +238,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
     const input = (
       <OpacityField
         className="gs-colormap-opacity-input"
-        opacity={record.opacity}
+        opacity={record.opacity as number}
         onChange={(opacity: number) => {
           setValueForColorMapEntry(record.key, 'opacity', opacity);
         }}
@@ -321,7 +321,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
           {...formItemLayout}
         >
           <ExtendedField
-            extended={colorMap?.extended}
+            extended={colorMap?.extended as boolean}
             onChange={onExtendedChange}
           />
         </Form.Item>

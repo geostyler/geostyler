@@ -94,7 +94,7 @@ export const RuleCard: React.FC<RuleCardProps> = ({
       <Divider type='vertical' />
       <div className='gs-rule-card-content'>
         <h2>{rule.name}</h2>
-        <span>1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}</span>
+        <span><>1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}</></span>
         <span className='gs-rule-card-content-icon-row'>
           <Text type='secondary'>
             <span className='gs-rule-card-icon'>Σ</span>
@@ -113,7 +113,7 @@ export const RuleCard: React.FC<RuleCardProps> = ({
               </Text>
             )
           }
-          <Text type='secondary'>{cql}</Text>
+          <Text type='secondary'>{cql as any}</Text>
         </span>
       </div>
     </Card>

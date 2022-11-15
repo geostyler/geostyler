@@ -41,6 +41,7 @@ import MaxScaleDenominator from '../ScaleDenominator/MaxScaleDenominator';
 import Renderer, { RendererProps } from '../Renderer/Renderer';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
+import { Expression } from 'geostyler-style';
 
 // default props
 interface RuleFieldContainerDefaultProps {
@@ -59,9 +60,9 @@ export interface RuleFieldContainerProps extends Partial<RuleFieldContainerDefau
   /** The name of the rule */
   name?: string;
   /** The minScale of the rule */
-  minScale?: number;
+  minScale?: Expression<number>;
   /** The maxScale of the rule */
-  maxScale?: number;
+  maxScale?: Expression<number>;
   /** The passthrough props for the Renderer component. */
   rendererProps?: RendererProps;
 }

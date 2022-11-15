@@ -19,7 +19,9 @@ module.exports = {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
     fallback: {
-      'buffer': false
+      buffer: false,
+      fs: false,
+      path: false
     }
   },
   module: {

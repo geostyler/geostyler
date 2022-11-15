@@ -126,7 +126,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
       >
         <SourceChannelNameField
           onChange={onSourceChannelNameChange}
-          sourceChannelName={sourceChannelName}
+          sourceChannelName={sourceChannelName as string}
           sourceChannelNames={sourceChannelNames}
         />
       </Form.Item>
@@ -145,7 +145,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
         {...formItemLayout}
       >
         <GammaField
-          gamma={gamma}
+          gamma={gamma as any}
           onChange={onGammaChange}
         />
       </Form.Item>

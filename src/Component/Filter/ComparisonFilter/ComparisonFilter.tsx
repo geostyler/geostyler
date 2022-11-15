@@ -36,7 +36,8 @@ import NumberFilterField from '../NumberFilterField/NumberFilterField';
 
 import {
   ComparisonFilter as GsComparisonFilter,
-  ComparisonOperator
+  ComparisonOperator,
+  PropertyType
 } from 'geostyler-style';
 
 import './ComparisonFilter.less';
@@ -59,7 +60,7 @@ type ValidationResult = {
 interface Validators {
   attribute: (attrName: string) => boolean;
   operator: (operator: string) => boolean;
-  value: (value: string | number | boolean | null, internalDataDef?: Data, selectedAttribute?: string)
+  value: (value: PropertyType, internalDataDef?: Data, selectedAttribute?: string)
     => ValidationResult;
 }
 

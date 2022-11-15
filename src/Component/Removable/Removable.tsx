@@ -31,7 +31,7 @@ import './Removable.less';
 import RemovableItem from './RemovableItem/RemovableItem';
 
 // default props
-export interface RemovableDefaultProps {
+export interface RemovableDefaultProps extends React.PropsWithChildren {
   /** The change event that is triggered, when a remove button was clicked. */
   onRemoveClick: (selectedIdx: number) => void;
 }

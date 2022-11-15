@@ -64,7 +64,7 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import {
   isCombinationFilter,
   isComparisonFilter,
-  isFunctionFilter,
+  isGeoStylerFunction,
   isNegationFilter
 } from 'geostyler-style/dist/typeguards';
 import FilterUtil from '../../../Util/FilterUtil';
@@ -277,11 +277,11 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
           {menu}
         </span>
       );
-    } else if (isFunctionFilter(filter)) {
+    } else if (isGeoStylerFunction(filter)) {
       extraClassName = 'function-filter';
       title = (
         <span className="node-title">
-          Function filter not supported yet.
+          GeoStyler function not supported yet.
           {menu}
         </span>
       );

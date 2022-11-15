@@ -31,7 +31,7 @@ import React from 'react';
 import './SelectableItem.less';
 
 // default props
-export interface SelectableItemDefaultProps {
+export interface SelectableItemDefaultProps extends React.PropsWithChildren {
   /** The callback that is being called, when the item was clicked. */
   onItemClick: () => void;
   /** Whether the item is currently selected. */
