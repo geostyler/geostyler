@@ -181,7 +181,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       }
     } catch (err: any) {
       setReadStyleResult({
-        errors: [err.message]
+        errors: [err?.message]
       });
     }
   };

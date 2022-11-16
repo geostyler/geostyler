@@ -35,7 +35,6 @@ import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
 export interface GammaFieldProps extends InputNumberProps {
-  onChange?: (gamma: number | undefined) => void;
   gamma?: number;
 }
 

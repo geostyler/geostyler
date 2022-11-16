@@ -35,7 +35,8 @@ const Option = Select.Option;
 
 import {
   VectorData,
-  DataParser
+  DataParser,
+  Data
 } from 'geostyler-data';
 
 import { ReadParams } from 'geostyler-wfs-parser';
@@ -123,8 +124,8 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
       ...wfsReadParams,
       srsName: 'EPSG:4326'
     })
-      .then((data: VectorData) => {
-        onDataRead(data);
+      .then((data: Data) => {
+        onDataRead(data as VectorData);
         setModalVisible(false);
       });
   };

@@ -106,7 +106,7 @@ interface ValidationStatus {
 }
 
 export const ComparisonFilterDefaultValidator = (
-  newValue: string | number | boolean | null,
+  newValue: PropertyType,
   internalDataDef: Data,
   selectedAttribute: string
 ): ValidationResult => {

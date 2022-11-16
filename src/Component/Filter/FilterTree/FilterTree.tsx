@@ -50,6 +50,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 const TreeNode = Tree.TreeNode;
 
 import {
+  CombinationOperator,
   Filter,
 } from 'geostyler-style';
 
@@ -161,7 +162,7 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
    * @return Tree.TreeNode
    */
   // TODO: This should be a single component
-  const getNodeByFilter = (filter: Filter, position: string = ''): any => {
+  const getNodeByFilter = (filter: Filter | CombinationOperator, position: string = ''): any => {
     const onMenuClick = (e: any) => {
       const keyPath: string[] = e.keyPath;
       const reversedKeyPath = keyPath.reverse();
@@ -250,7 +251,7 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
           {menu}
         </span>
       );
-      children = filter.slice(1).map((subFilter: Filter, index: number) => {
+      children = filter.slice(1).map((subFilter: Filter | CombinationOperator, index: number) => {
         const pos = `${position}[${index + 1}]`;
         return getNodeByFilter(subFilter, pos);
       });
@@ -371,8 +372,8 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
    * Expand handler which is passed to the Tree.
    * Sets the expandedKeys to the state and so back to the tree.
    */
-  const onExpand = (newExpandedKeys: string[]) => {
-    setExpandedKeys(newExpandedKeys);
+  const onExpand = (newExpandedKeys: (number|string)[]) => {
+    setExpandedKeys(newExpandedKeys as string[]);
   };
 
   return (

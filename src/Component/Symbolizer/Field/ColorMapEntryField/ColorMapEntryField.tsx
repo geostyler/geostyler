@@ -72,16 +72,16 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
     updateColorMapEntry('color', color);
   };
 
-  const onQuantityChange = (quantity: number) => {
-    updateColorMapEntry('quantity', quantity);
+  const onQuantityChange = (quantity: any) => {
+    updateColorMapEntry('quantity', quantity as number);
   };
 
   const onLabelChange = (label: string) => {
     updateColorMapEntry('label', label);
   };
 
-  const onOpacityChange = (opacity: number) => {
-    updateColorMapEntry('opacity', opacity);
+  const onOpacityChange = (opacity: number|string) => {
+    updateColorMapEntry('opacity', opacity as number);
   };
 
   const formItemLayout = {

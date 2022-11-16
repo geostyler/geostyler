@@ -35,7 +35,6 @@ import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
 export interface ContrastFieldProps extends InputNumberProps {
-  onChange?: (opacity: number | undefined) => void;
   contrast?: number;
 }
 

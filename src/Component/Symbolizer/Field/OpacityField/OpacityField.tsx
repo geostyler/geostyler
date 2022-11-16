@@ -36,7 +36,6 @@ import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
 export interface OpacityFieldProps extends Partial<InputNumberProps> {
-  onChange?: (opacity: number | undefined) => void;
   opacity?: number;
 }
 

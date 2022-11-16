@@ -35,7 +35,6 @@ import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
 export interface RadiusFieldProps extends InputNumberProps {
-  onChange?: (radius: number) => void;
   radius?: number;
 }
 

@@ -75,14 +75,14 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
     onStylePropChange('color', newColor);
   };
 
-  const onRadiusChange = (newRadius: number) => {
-    setRadius(newRadius);
-    onStylePropChange('radius', newRadius);
+  const onRadiusChange = (newRadius: string|number) => {
+    setRadius(newRadius as number);
+    onStylePropChange('radius', newRadius as number);
   };
 
-  const onOpacityChange = (newOpacity: number) => {
-    setOpacity(newOpacity);
-    onStylePropChange('opacity', newOpacity);
+  const onOpacityChange = (newOpacity: string|number) => {
+    setOpacity(newOpacity as number);
+    onStylePropChange('opacity', newOpacity as number);
   };
 
   const onWellKnownNameChange = (newWellKnownName: WellKnownName) => {

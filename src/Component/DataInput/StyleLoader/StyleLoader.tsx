@@ -77,7 +77,7 @@ export const StyleLoader: React.FC<StyleLoaderProps> = ({
     let fileContent;
     try {
       fileContent = await FileUtil.readFile(file);
-    } catch (error) {
+    } catch (error: any) {
       uploadObject.onError(error);
       return error;
     }

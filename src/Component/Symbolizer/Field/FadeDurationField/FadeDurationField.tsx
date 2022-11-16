@@ -35,7 +35,6 @@ import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
 export interface FadeDurationFieldProps extends InputNumberProps {
-  onChange?: (opacity: number | undefined) => void;
   fadeDuration?: number;
 }
 
