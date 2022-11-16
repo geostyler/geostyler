@@ -97,6 +97,7 @@
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^8.0.6",
+    "@semantic-release/npm": "^9.0.1",
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@terrestris/eslint-config-typescript-react": "^2.0.0",
     "@testing-library/dom": "^8.19.0",
@@ -154,7 +155,7 @@
   "peerDependencies": {
     "@ant-design/icons": "4.x",
     "antd": "4.x",
-    "ol": "6.x",
+    "ol": ">=6.x",
     "react": ">=16.x",
     "react-dom": ">=16.x"
   }

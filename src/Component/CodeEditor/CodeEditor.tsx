@@ -26,7 +26,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 
 import Editor, { useMonaco } from '@monaco-editor/react';
 
@@ -100,8 +105,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   style
 }) => {
 
-  let editTimeout: number;
-
+  const editTimeout = useRef<number>();
   const [activeParser, setActiveParser] = useState<StyleParser>(defaultParser);
   const [isSldParser, setIsSldParser] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
@@ -168,11 +172,13 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     try {
       let parsedStyle;
       if (activeParser) {
-        setReadStyleResult(await activeParser.readStyle(v));
+        const result = await activeParser.readStyle(v);
+        setReadStyleResult(result);
+        onStyleChange(result.output);
       } else {
         parsedStyle = JSON.parse(v);
+        onStyleChange(parsedStyle);
       }
-      onStyleChange(parsedStyle);
     } catch (err: any) {
       setReadStyleResult({
         errors: [err?.message]
@@ -194,8 +200,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   const handleOnChange = (v?: string) => {
-    clearTimeout(editTimeout);
-    editTimeout = window.setTimeout(
+    clearTimeout(editTimeout.current);
+    editTimeout.current = window.setTimeout(
       () => {
         onChange(v);
       },
