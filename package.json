@@ -155,7 +155,7 @@
   "peerDependencies": {
     "@ant-design/icons": "4.x",
     "antd": "4.x",
-    "ol": "6.x",
+    "ol": ">=6.x",
     "react": ">=16.x",
     "react-dom": ">=16.x"
   }
