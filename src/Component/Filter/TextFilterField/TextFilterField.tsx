@@ -135,7 +135,10 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
               onChange={onAutoCompleteChange}
               placeholder={locale.placeholder}
               dataSource={sampleValues}
-              filterOption={(val: string , option: any) => {
+              filterOption={(val: string|number, option: any) => {
+                if (typeof val !== 'string') {
+                  return false;
+                }
                 return option.key.toLowerCase().includes(val.toLowerCase());
               }}
             />
