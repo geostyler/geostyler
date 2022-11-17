@@ -250,6 +250,7 @@ const zh_CN: GeoStylerLocale = {
     closeEditorText: '关闭编辑器'
   },
   ColorField: {
+    clearText: 'TODO(zh_CN):Clear',
     closeText: '关闭',
     editText: '更改',
     chooseText: '选取',

@@ -249,6 +249,7 @@ const en_US: GeoStylerLocale = {
     closeEditorText: 'Close Editor'
   },
   ColorField: {
+    clearText: 'Clear',
     closeText: 'Close',
     editText: 'Change',
     chooseText: 'Pick',
