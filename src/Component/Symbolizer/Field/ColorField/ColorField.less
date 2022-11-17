@@ -25,12 +25,28 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+.color-preview-wrapper {
+  display: flex;
 
-.sketch-picker {
-  position: fixed;
-  z-index: 200;
+  button.color-preview {
+    flex: 1;
+    border-right: 0;
+    border-radius: 2px 0 0 2px;
+  }
+
+  button.color-clear {
+    border-radius: 0 2px 2px 0;
+    width: 16px;
+    background-color: #ebebeb;
+  }
 }
 
-.color-preview {
+.sketch-picker {
+  position: absolute;
+  z-index: 200;
+  top: 3em;
+}
+
+.color-field {
   width: 90px;
 }

@@ -35,7 +35,8 @@ import {
 } from 'react-color';
 
 import {
-  Button
+  Button,
+  Tooltip
 } from 'antd';
 
 import './ColorField.less';
@@ -43,7 +44,7 @@ import './ColorField.less';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 import { GeoStylerLocale } from '../../../../locale/locale';
-
+import { CloseOutlined } from '@ant-design/icons';
 
 // default props
 interface ColorFieldDefaultProps {
@@ -95,7 +96,7 @@ export const ColorField: React.FC<ColorFieldProps> = ({
     <div className="editor-field color-field">
       <div className="color-preview-wrapper">
         <Button
-          className="color-preview editor-field"
+          className="color-preview"
           style={{
             backgroundColor: color || defaultValue,
             color: textColor
@@ -104,19 +105,21 @@ export const ColorField: React.FC<ColorFieldProps> = ({
         >
           {colorPickerVisible ? locale.closeText : color ? locale.editText : locale.chooseText}
         </Button>
+        <Tooltip title={locale.clearText}>
+          <Button
+            className='color-clear'
+            icon={<CloseOutlined />}
+            onClick={(e) => {
+              if (onChange) {
+                onChange(undefined);
+              }
+              setColorPickerVisible(false);
+            }}
+          />
+        </Tooltip>
         {
           colorPickerVisible ?
             <>
-              <Button
-                onClick={() => {
-                  if (onChange) {
-                    onChange(undefined);
-                    setColorPickerVisible(!colorPickerVisible);
-                  }
-                }}
-              >
-                {locale.clearText}
-              </Button>
               <SketchPicker
                 color={color}
                 disableAlpha={true}
