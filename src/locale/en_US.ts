@@ -124,7 +124,8 @@ const en_US: GeoStylerLocale = {
     featureIDLabel: 'FeatureID',
     propertyNameLabel: 'PropertyName',
     maxFeaturesLabel: 'MaxFeatures',
-    fetchParamsLabel: 'fetchParams'
+    fetchParamsLabel: 'fetchParams',
+    srsNameLabel: 'SrsName'
   },
   CodeEditor: {
     downloadButtonLabel: 'Save as File',

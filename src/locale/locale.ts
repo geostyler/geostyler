@@ -96,6 +96,7 @@ export interface GeoStylerLocale extends Locale {
     propertyNameLabel: string;
     maxFeaturesLabel: string;
     fetchParamsLabel: string;
+    srsNameLabel: string;
   };
   ParserFeedback: {
     notSupported: string;

@@ -133,7 +133,8 @@ const de_DE: GeoStylerLocale = {
     featureIDLabel: 'FeatureID',
     propertyNameLabel: 'PropertyName',
     maxFeaturesLabel: 'MaxFeatures',
-    fetchParamsLabel: 'fetchParams'
+    fetchParamsLabel: 'fetchParams',
+    srsNameLabel: 'SrsName'
   },
   ParserFeedback: {
     notSupported: 'wird vom verwendeten Parser nicht unterstützt',
