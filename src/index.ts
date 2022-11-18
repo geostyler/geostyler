@@ -40,6 +40,7 @@ import ColorField from './Component/Symbolizer/Field/ColorField/ColorField';
 import ColorMapEditor from './Component/Symbolizer/ColorMapEditor/ColorMapEditor';
 import ColorMapEntryField from './Component/Symbolizer/Field/ColorMapEntryField/ColorMapEntryField';
 import ColorMapTypeField from './Component/Symbolizer/Field/ColorMapTypeField/ColorMapTypeField';
+import ColorRampCombo from './Component/RuleGenerator/ColorRampCombo/ColorRampCombo';
 import ComparisonFilter from './Component/Filter/ComparisonFilter/ComparisonFilter';
 import ContrastEnhancementField from './Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
 import ContrastField from './Component/Symbolizer/Field/ContrastField/ContrastField';
@@ -157,6 +158,7 @@ export {
   ColorMapEditor,
   ColorMapEntryField,
   ColorMapTypeField,
+  ColorRampCombo,
   ComparisonFilter,
   CompositionContext,
   ConfigProvider,
