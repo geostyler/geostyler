@@ -36,6 +36,7 @@ import { ProjectionLike } from 'ol/proj';
 import OlFeature from 'ol/Feature';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOSM from 'ol/source/OSM';
+import { isEmpty } from 'ol/extent';
 
 import { Style } from 'geostyler-style';
 import { Data, VectorData } from 'geostyler-data';
@@ -105,12 +106,10 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
   const zoomToData = () => {
     const map = mapRef.current;
     const dataLayer = dataLayerRef.current;
-    map.getView().fit(
-      dataLayer.getSource().getExtent(),
-      {
-        maxZoom: 10
-      }
-    );
+    const extent = dataLayer.getSource().getExtent();
+    if (extent && !isEmpty(extent)) {
+      map.getView().fit(extent, { maxZoom: 10 });
+    }
   };
 
   /**
