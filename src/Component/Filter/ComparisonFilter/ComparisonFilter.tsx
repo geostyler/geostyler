@@ -271,7 +271,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
     return <NumberFilterField
       size={size}
       value={val}
-      onValueChange={onValueChange}
+      onValueChange={(newValue) => onValueChange(newValue, filterIndex)}
       validateStatus={validateStatus.value}
       help={valueValidationHelpString}
     />;
