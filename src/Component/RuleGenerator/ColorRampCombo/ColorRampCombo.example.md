@@ -28,7 +28,7 @@
  *
 -->
 
-This demonstrates the use of `RuleGenerator`.
+This demonstrates the usage of `ColorRampCombo`.
 
 ```jsx
 import * as React from 'react';
