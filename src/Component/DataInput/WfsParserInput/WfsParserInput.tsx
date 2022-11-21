@@ -71,6 +71,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
   const [typeName, setTypeName] = useState<string>('terrestris:bundeslaender');
   const [featureID, setFeatureID] = useState<string>();
   const [propertyName, setPropertyName] = useState<string>();
+  const [srsName, setSrsName] = useState<string>();
   const [maxFeatures, setMaxFeatures] = useState<number>();
   const [validation, setValidation] = useState({
     url: undefined,
@@ -79,7 +80,8 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
     featureID: undefined,
     propertyName: undefined,
     maxFeatures: undefined,
-    fetchParams: undefined
+    fetchParams: undefined,
+    srsName: undefined
   });
 
   const onUrlChange = (event: any) => {
@@ -133,6 +135,10 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
     setFeatureID(event.target.value);
   };
 
+  const onSrsNameChange = (event: any) => {
+    setSrsName(event.target.value);
+  };
+
   const onPropertyNameChange = (newPropertyName: string) => {
     setPropertyName(newPropertyName);
   };
@@ -142,14 +148,15 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
   };
 
   const onClick = () => {
-    let requestParams;
+    let requestParams: RequestParams;
     if (version === '1.1.0') {
       requestParams = {
         version,
         typeName,
         maxFeatures,
         featureID,
-        propertyName
+        propertyName,
+        srsName
       };
     } else {
       requestParams = {
@@ -157,7 +164,8 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
         typeNames: typeName,
         count: maxFeatures,
         featureID,
-        propertyName
+        propertyName,
+        srsName
       };
     }
     onClickProp({
@@ -210,6 +218,18 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
           <Option value="1.1.0">1.1.0</Option>
           <Option value="2.0.0">2.0.0</Option>
         </Select>
+      </Form.Item>
+      <Form.Item
+        label={locale.srsNameLabel}
+        validateStatus={validation?.srsName?.status}
+        help={validation?.srsName?.message}
+        hasFeedback={true}
+      >
+        <Input
+          className='wfs-srsName-input'
+          value={srsName}
+          onChange={onSrsNameChange}
+        />
       </Form.Item>
       <Form.Item
         label={locale.featureIDLabel}
