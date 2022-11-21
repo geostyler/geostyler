@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,24 +25,20 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-.gs-color-ramp-select {
-  border-radius: 4px;
-  font-weight: bold;
+This demonstrates the usage of `ColorRampCombo`.
 
-  .ant-select-selection {
-    font-weight: bold;
-    background-color: inherit;
-  }
+```jsx
+import * as React from 'react';
+import { ColorRampCombo } from 'geostyler';
 
-  &.ant-select.ant-select-single {
-    .ant-select-selector {
-      background-color: unset;
-    }
-  }
+function ColorRampComboExample() {
+  const [colorRamp, setColorRamp] = React.useState('GeoStyler');
 
-  li.gs-color-ramp-option {
-    font-weight: bold;
-  }
+  return <ColorRampCombo colorRamp={colorRamp} onChange={setColorRamp}/>
 }
+
+<ColorRampComboExample />
+```
