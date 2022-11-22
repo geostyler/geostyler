@@ -41,7 +41,7 @@ import {
 
 import { ReadParams } from 'geostyler-wfs-parser';
 
-import UploadButton from '../../UploadButton/UploadButton';
+import UploadButton, { UploadButtonProps } from '../../UploadButton/UploadButton';
 import WfsParserInput from '../WfsParserInput/WfsParserInput';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
@@ -61,11 +61,14 @@ interface DataLoaderDefaultProps {
 export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
   /** List of data parsers to use */
   parsers: DataParser[];
+  /** Properties that get passed to the UploadButton. */
+  uploadButtonProps?: Omit<UploadButtonProps, 'name' | 'action'>;
 }
 
 export const DataLoader: React.FC<DataLoaderProps> = ({
   parsers,
   locale = en_US.DataLoader,
+  uploadButtonProps,
   onDataRead = () => {
     return;
   }
@@ -153,12 +156,14 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
           return (
             <UploadButton
               customRequest={parseGeoJsonUploadData}
+              {...uploadButtonProps}
             />
           );
         case 'Shapefile Data Parser':
           return (
             <UploadButton
               customRequest={parseShapefileUploadData}
+              {...uploadButtonProps}
             />
           );
         case 'WFS Data Parser':

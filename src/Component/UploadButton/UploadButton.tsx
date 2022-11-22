@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import {
   Upload,
@@ -55,7 +55,7 @@ interface UploadButtonDefaultProps {
 }
 
 // non default props
-export type UploadButtonProps = UploadButtonDefaultProps & UploadProps<any>;
+export type UploadButtonProps = UploadButtonDefaultProps & Omit<UploadProps<any>, 'name' | 'action'>;
 
 /**
  * Button to upload / import geodata file.
