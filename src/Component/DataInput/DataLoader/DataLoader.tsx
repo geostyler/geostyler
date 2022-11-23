@@ -62,7 +62,7 @@ export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
   /** List of data parsers to use */
   parsers: DataParser[];
   /** Properties that get passed to the UploadButton. */
-  uploadButtonProps?: Omit<UploadButtonProps, 'name' | 'action'>;
+  uploadButtonProps?: UploadButtonProps;
 }
 
 export const DataLoader: React.FC<DataLoaderProps> = ({
