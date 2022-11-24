@@ -27994,9 +27994,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
   font-weight: bold;
   background-color: inherit;
 }
-.gs-color-ramp-select.ant-select.ant-select-single .ant-select-selector {
-  background-color: unset;
-}
 .gs-color-ramp-select li.gs-color-ramp-option {
   font-weight: bold;
 }
