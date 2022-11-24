@@ -26891,11 +26891,25 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.sketch-picker {
-  position: fixed;
-  z-index: 200;
+.color-preview-wrapper {
+  display: flex;
 }
-.color-preview {
+.color-preview-wrapper button.color-preview {
+  flex: 1;
+  border-right: 0;
+  border-radius: 2px 0 0 2px;
+}
+.color-preview-wrapper button.color-clear {
+  border-radius: 0 2px 2px 0;
+  width: 16px;
+  background-color: #ebebeb;
+}
+.sketch-picker {
+  position: absolute;
+  z-index: 200;
+  top: 3em;
+}
+.color-field {
   width: 90px;
 }
 
@@ -27979,6 +27993,9 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-color-ramp-select .ant-select-selection {
   font-weight: bold;
   background-color: inherit;
+}
+.gs-color-ramp-select.ant-select.ant-select-single .ant-select-selector {
+  background-color: unset;
 }
 .gs-color-ramp-select li.gs-color-ramp-option {
   font-weight: bold;
