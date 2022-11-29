@@ -51,7 +51,7 @@ export interface RendererProps extends Partial<RendererDefaultProps> {
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
   /** Properties of the OpenLayers renderer */
-  oLRendererProps?: Partial<Omit<OlRendererProps, 'symbolizers' | 'data'>>;
+  oLRendererProps?: Partial<OlRendererProps>;
   /** Properties of the SLD renderer */
   sldRendererProps?: SLDRendererAdditonalProps;
 }
