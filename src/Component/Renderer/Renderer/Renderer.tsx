@@ -33,8 +33,8 @@ import './Renderer.less';
 import { Symbolizer } from 'geostyler-style';
 import { Data } from 'geostyler-data';
 
-import { Renderer as OlRenderer } from '../Symbolizer/Renderer/Renderer';
-import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import OlRenderer, { OlRendererProps } from '../OlRenderer/OlRenderer';
+import SLDRenderer, { SLDRendererAdditonalProps } from '../SLDRenderer/SLDRenderer';
 
 // default props
 interface RendererDefaultProps {
@@ -50,6 +50,8 @@ export interface RendererProps extends Partial<RendererDefaultProps> {
   symbolizers: Symbolizer[];
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
+  /** Properties of the OpenLayers renderer */
+  oLRendererProps?: Partial<Omit<OlRendererProps, 'symbolizers' | 'data'>>;
   /** Properties of the SLD renderer */
   sldRendererProps?: SLDRendererAdditonalProps;
 }
@@ -58,6 +60,7 @@ export const Renderer: React.FC<RendererProps> = ({
   rendererType = 'OpenLayers',
   onSymbolizerClick = () => {},
   data,
+  oLRendererProps,
   sldRendererProps,
   symbolizers
 }) => {
@@ -70,6 +73,7 @@ export const Renderer: React.FC<RendererProps> = ({
         symbolizers={symbolizers}
         onClick={onSymbolizerClick}
         data={data}
+        {...oLRendererProps}
       />
     );
   }

@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,36 +25,46 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-import { Renderer, RendererProps } from './Renderer';
-import TestUtil from '../../../Util/TestUtil';
-import { Symbolizer } from 'geostyler-style';
+This demonstrates the use of `OlRenderer`.
 
-describe('Renderer', () => {
+```jsx
+import * as React from 'react';
+import { OlRenderer } from 'geostyler';
 
-  let wrapper: any;
-  let onClickDummy: jest.Mock;
-  const dummySymbolizers: Symbolizer[] = [{
-    kind: 'Mark',
-    wellKnownName: 'circle',
-    color: '#FF0000'
-  }];
+class OlRendererExample extends React.Component {
+  constructor(props) {
+    super(props);
 
-  beforeEach(() => {
-    onClickDummy = jest.fn();
-    const props: RendererProps = {
-      onClick: onClickDummy,
-      symbolizers: dummySymbolizers
+    this.state = {
+      symbolizers: [{
+        kind: 'Mark',
+        wellKnownName: 'circle',
+        color: '#ff0000',
+        strokeColor: '000000',
+        strokeWidth: 3,
+        radius: 10
+      }],
+      symbolizerKind: 'Mark'
     };
-    wrapper = TestUtil.shallowRenderComponent(Renderer, props);
-  });
+  }
 
-  it('is defined', () => {
-    expect(Renderer).toBeDefined();
-  });
+  render() {
+    const {
+      symbolizers,
+      symbolizerKind
+    } = this.state;
 
-  it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
-  });
-});
+    return (
+      <OlRenderer
+        symbolizers={symbolizers}
+        symbolizerKind={symbolizerKind}
+      />
+    );
+  }
+}
+
+<OlRendererExample />
+```

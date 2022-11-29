@@ -35,7 +35,7 @@ import {
 import { CqlParser } from 'geostyler-cql-parser';
 
 import './RuleCard.less';
-import Renderer, { RendererProps } from '../Renderer/Renderer';
+import Renderer, { RendererProps } from '../Renderer/Renderer/Renderer';
 import FilterUtil from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';

@@ -41,7 +41,7 @@ import OlStyleParser from 'geostyler-openlayers-parser';
 
 import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 
-import './Renderer.less';
+import './OlRenderer.less';
 
 import 'ol/ol.css';
 import { Data } from 'geostyler-data';
@@ -51,7 +51,7 @@ import _get from 'lodash/get';
 import _uniqueId from 'lodash/uniqueId';
 
 // non default props
-export interface RendererProps {
+export interface OlRendererProps {
   data?: Data;
   symbolizers: Symbolizer[];
   symbolizerKind?: SymbolizerKind;
@@ -61,7 +61,7 @@ export interface RendererProps {
 /**
  * Symbolizer Renderer UI.
  */
-export const Renderer: React.FC<RendererProps> = ({
+export const OlRenderer: React.FC<OlRendererProps> = ({
   data,
   onClick,
   symbolizerKind,
@@ -182,11 +182,11 @@ export const Renderer: React.FC<RendererProps> = ({
           onClick(symbolizers, event);
         }
       }}
-      className="gs-symbolizer-renderer"
+      className="gs-symbolizer-olrenderer"
       id={mapId}
     />
   );
 
 };
 
-export default Renderer;
+export default OlRenderer;

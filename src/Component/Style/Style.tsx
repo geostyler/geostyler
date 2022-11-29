@@ -61,7 +61,7 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import RuleTable, { RuleTableProps } from '../RuleTable/RuleTable';
 import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
-import { SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 import './Style.less';

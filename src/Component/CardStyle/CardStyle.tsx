@@ -60,7 +60,7 @@ import BulkEditor from '../BulkEditor/BulkEditor';
 import IconSelector, { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { GeoStylerLocale } from '../../locale/locale';
-import Renderer from '../Renderer/Renderer';
+import Renderer from '../Renderer/Renderer/Renderer';
 import { brewer, InterpolationMode } from 'chroma-js';
 
 // default props
