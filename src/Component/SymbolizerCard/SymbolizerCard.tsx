@@ -36,8 +36,8 @@ import { Data } from 'geostyler-data';
 
 import './SymbolizerCard.less';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import OlRenderer from '../Renderer/OlRenderer/OlRenderer';
 import { Card } from 'antd';
+import Renderer from '../Renderer/Renderer/Renderer';
 
 // default props
 interface SymbolizerCardDefaultProps {
@@ -69,8 +69,10 @@ export const SymbolizerCard = ({
       hoverable={true}
       onClick={onCardClick}
     >
-      {/* TODO use generic renderer component instead of this one */}
-      <OlRenderer
+      {/* TODO add passThroughProps for Renderer */}
+      {/* TODO make rendererType configurable */}
+      <Renderer
+        rendererType='OpenLayers'
         data={data}
         symbolizers={[symbolizer]}
       />
