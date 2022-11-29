@@ -45,8 +45,6 @@ import {
   SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';
-import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import { Button, Switch, Divider } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -90,14 +88,6 @@ export interface RulesProps extends Partial<RulesDefaultProps> {
   onEditSelectionClick?: (selectedIdxs: number[]) => void;
   /** The callback function that is triggered when the rule was clicked */
   onEditRuleClick?: (ruleId: number) => void;
-  /** Properties that will be passed to the Comparison Filters */
-  filterUiProps?: Partial<ComparisonFilterProps>;
-  /** List of supported icons ordered as library */
-  iconLibraries?: IconLibrary[];
-  /** Object containing predefined color ramps */
-  colorRamps?: {
-    [name: string]: string[];
-  };
   /** The passthrough props for the RuleCard component. */
   ruleCardProps?: Partial<RuleCardProps>;
 }
@@ -105,17 +95,12 @@ export interface RulesProps extends Partial<RulesDefaultProps> {
 export const Rules: React.FC<RulesProps> = ({
   locale = en_US.Rules,
   ruleCardProps,
-  showAmount = true,
-  showDuplicates = true,
   data,
   rules,
   onRulesChange,
   onClassificationClick,
   onEditSelectionClick,
   onEditRuleClick,
-  filterUiProps,
-  iconLibraries = [],
-  colorRamps,
   enableClassification = true
 }) => {
   const [multiEditActive, setMultiEditActive] = useState<boolean>(false);

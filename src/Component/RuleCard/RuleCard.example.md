@@ -145,3 +145,81 @@ class RuleCardExample extends React.Component {
 
 <RuleCardExample />
 ```
+
+With amount and duplicates deactivated.
+
+```jsx
+import * as React from 'react';
+import { RuleCard } from 'geostyler';
+
+class RuleCardExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rule: {
+        name: 'myRule',
+        scaleDenominator: {
+          min: 500,
+          max: 1000
+        },
+        filter: [
+          '==',
+          'foo',
+          '2'
+        ],
+        symbolizers: [{
+          kind: 'Mark',
+          wellKnownName: 'circle'
+        }]
+      },
+      data: {
+        exampleFeatures: {
+          type: 'FeatureCollection',
+          features: [
+            {
+              type: 'Feature',
+              properties: {
+                foo: '1'
+              },
+              geometry: {
+                type: 'Point',
+                coordinates: [7, 50]
+              }
+            },
+            {
+              type: 'Feature',
+              properties: {
+                foo: '2'
+              },
+              geometry: {
+                type: 'Point',
+                coordinates: [6, 50]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+
+  render() {
+    const {
+      rule,
+      data
+    } = this.state;
+
+    return (
+      <div style={{height: '300px'}}>
+        <RuleCard
+          rule={rule}
+          data={data}
+          showAmount={false}
+          showDuplicates={false}
+        />
+      </div>
+    );
+  }
+}
+
+<RuleCardExample />
+```
