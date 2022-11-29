@@ -45,6 +45,10 @@ const { Text } = Typography;
 
 // default props
 interface RuleCardDefaultProps {
+  /** Display the number of features that match a rule */
+  showAmount: boolean;
+  /** Display the number of features that match more than one rule */
+  showDuplicates: boolean;
 }
 
 // non default props
@@ -66,7 +70,9 @@ export const RuleCard: React.FC<RuleCardProps> = ({
   duplicates,
   onClick,
   data,
-  rendererProps
+  rendererProps,
+  showAmount = true,
+  showDuplicates = true
 }) => {
 
   let amount;
@@ -96,14 +102,22 @@ export const RuleCard: React.FC<RuleCardProps> = ({
         <h2>{rule.name}</h2>
         <span><>1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}</></span>
         <span className='gs-rule-card-content-icon-row'>
-          <Text type='secondary'>
-            <span className='gs-rule-card-icon'>Σ</span>
-            {amount !== undefined ? amount : '-'}
-          </Text>
-          <Text type='secondary'>
-            <BlockOutlined className='gs-rule-card-icon' />
-            {duplicates !== undefined ? duplicates : '-'}
-          </Text>
+          {
+            showAmount && (
+              <Text type='secondary'>
+                <span className='gs-rule-card-icon'>Σ</span>
+                {amount !== undefined ? amount : '-'}
+              </Text>
+            )
+          }
+          {
+            showDuplicates && (
+              <Text type='secondary'>
+                <BlockOutlined className='gs-rule-card-icon' />
+                {duplicates !== undefined ? duplicates : '-'}
+              </Text>
+            )
+          }
         </span>
         <span className='gs-rule-card-cql'>
           {
