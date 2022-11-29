@@ -58,18 +58,19 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
 import './RuleTable.less';
-import OlRenderer, { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
+import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { TableProps, ColumnProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
-import SLDRenderer, { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
+import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import DataUtil from '../../Util/DataUtil';
 import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
 import { GeoStylerLocale } from '../../locale/locale';
+import Renderer from '../Renderer/Renderer/Renderer';
 
 // i18n
 export interface RuleTableLocale {
@@ -200,7 +201,6 @@ export const RuleTable: React.FC<RuleTableProps> = ({
     setFilterEditorVisible(false);
   };
 
-  // TODO: Refactor to stand alone component
   const symbolizerRenderer = (text: string, record: RuleRecord) => {
     const onSymbolizerRendererClick = (symbolizers: Symbolizer[], event: any) => {
       const filterPosition = event.target.getBoundingClientRect();
@@ -208,20 +208,14 @@ export const RuleTable: React.FC<RuleTableProps> = ({
     };
 
     return (
-      rendererType === 'SLD' ? (
-        <SLDRenderer
-          symbolizers={record.symbolizers}
-          onClick={onSymbolizerRendererClick}
-          {...sldRendererProps}
-        />
-      ) : (
-        <OlRenderer
-          symbolizers={record.symbolizers}
-          onClick={onSymbolizerRendererClick}
-          data={data}
-          {...oLRendererProps}
-        />
-      )
+      <Renderer
+        rendererType={rendererType}
+        data={data}
+        symbolizers={record.symbolizers}
+        onSymbolizerClick={onSymbolizerRendererClick}
+        sldRendererProps={sldRendererProps}
+        oLRendererProps={oLRendererProps}
+      />
     );
   };
 

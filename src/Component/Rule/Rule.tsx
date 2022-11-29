@@ -50,7 +50,7 @@ import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilt
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import FilterTree from '../Filter/FilterTree/FilterTree';
-import OlRenderer, { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
+import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
@@ -58,9 +58,10 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
 
 import './Rule.less';
-import SLDRenderer, { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
+import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
+import Renderer from '../Renderer/Renderer/Renderer';
 
 
 // default props
@@ -298,21 +299,6 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       filterFieldChecked
     } = this.state;
 
-    let featureRenderer;
-    if (rendererType === 'SLD') {
-      featureRenderer = <SLDRenderer
-        symbolizers={rule.symbolizers}
-        onClick={this.onRendererClick}
-        {...sldRendererProps}
-      />;
-    } else {
-      featureRenderer = <OlRenderer
-        symbolizers={rule.symbolizers}
-        onClick={this.onRendererClick}
-        {...oLRendererProps}
-      />;
-    }
-
     // cast the current filter object to pass over to ComparisonFilterUi
     const cmpFilter = rule.filter as GsComparisonFilter;
 
@@ -330,7 +316,13 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               placeholder={locale.nameFieldPlaceholder}
               {...this.props.ruleNameProps}
             />
-            {featureRenderer}
+            <Renderer
+              rendererType={rendererType}
+              symbolizers={rule.symbolizers}
+              onSymbolizerClick={this.onRendererClick}
+              sldRendererProps={sldRendererProps}
+              oLRendererProps={oLRendererProps}
+            />
             {
               !editorVisible ? null :
                 <SymbolizerEditorWindow
