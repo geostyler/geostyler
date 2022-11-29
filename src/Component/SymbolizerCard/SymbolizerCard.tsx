@@ -36,7 +36,7 @@ import { Data } from 'geostyler-data';
 
 import './SymbolizerCard.less';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import { Renderer } from '../Symbolizer/Renderer/Renderer';
+import OlRenderer from '../Renderer/OlRenderer/OlRenderer';
 import { Card } from 'antd';
 
 // default props
@@ -70,7 +70,7 @@ export const SymbolizerCard = ({
       onClick={onCardClick}
     >
       {/* TODO use generic renderer component instead of this one */}
-      <Renderer
+      <OlRenderer
         data={data}
         symbolizers={[symbolizer]}
       />

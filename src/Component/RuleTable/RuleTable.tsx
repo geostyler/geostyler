@@ -58,12 +58,12 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
 import './RuleTable.less';
-import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
+import OlRenderer, { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { TableProps, ColumnProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
-import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+import SLDRenderer, { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import DataUtil from '../../Util/DataUtil';
@@ -115,7 +115,7 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   /** Properties of the SLD renderer */
   sldRendererProps?: SLDRendererAdditonalProps;
   /** Properties of the OpenLayers renderer */
-  oLRendererProps?: Partial<RendererProps>;
+  oLRendererProps?: Partial<OlRendererProps>;
   /** The footer of the rule table */
   footer?: (currentPageData?: any) => React.ReactNode;
   /** The callback function that is triggered when the rules change */
@@ -215,7 +215,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
           {...sldRendererProps}
         />
       ) : (
-        <Renderer
+        <OlRenderer
           symbolizers={record.symbolizers}
           onClick={onSymbolizerRendererClick}
           data={data}

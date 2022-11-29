@@ -36,7 +36,7 @@ import {
 
 import './StyleOverview.less';
 import { Data } from 'geostyler-data';
-import { StyleFieldContainer } from '../StyleFieldContainer/StyleFieldContainer';
+import StyleFieldContainer from '../StyleFieldContainer/StyleFieldContainer';
 import Rules, { RulesProps } from '../Rules/Rules';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 

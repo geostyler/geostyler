@@ -39,10 +39,10 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 import './Rules.less';
-import { RendererProps } from '../Symbolizer/Renderer/Renderer';
+import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import {
-  SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+  SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
@@ -53,6 +53,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import Selectable from '../Selectable/Selectable';
 import { RuleCard, RuleCardProps } from '../RuleCard/RuleCard';
+import Removable from '../Removable/Removable';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
@@ -66,7 +67,7 @@ interface RulesDefaultProps {
   /** Properties of the SLD renderer */
   sldRendererProps: SLDRendererAdditonalProps;
   /** Properties of the OpenLayers renderer */
-  oLRendererProps: Partial<RendererProps>;
+  oLRendererProps: Partial<OlRendererProps>;
   /** Display the number of features that match a rule */
   showAmount: boolean;
   /** Display the number of features that match more than one rule */

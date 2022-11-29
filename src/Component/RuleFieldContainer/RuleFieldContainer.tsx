@@ -38,7 +38,7 @@ import FieldContainer from '../FieldContainer/FieldContainer';
 import NameField from '../NameField/NameField';
 import MinScaleDenominator from '../ScaleDenominator/MinScaleDenominator';
 import MaxScaleDenominator from '../ScaleDenominator/MaxScaleDenominator';
-import Renderer, { RendererProps } from '../Renderer/Renderer';
+import Renderer, { RendererProps } from '../Renderer/Renderer/Renderer';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { Expression } from 'geostyler-style';

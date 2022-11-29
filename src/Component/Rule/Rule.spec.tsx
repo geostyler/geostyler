@@ -33,8 +33,8 @@ import en_US from '../../locale/en_US';
 import {
   Rule as GsRule
 } from 'geostyler-style';
-import { SLDRenderer } from '../Symbolizer/SLDRenderer/SLDRenderer';
-import { Renderer } from '../Symbolizer/Renderer/Renderer';
+import { SLDRenderer } from '../Renderer/SLDRenderer/SLDRenderer';
+import { Renderer } from '../Renderer/Renderer/Renderer';
 
 describe('Rule', () => {
 
@@ -207,7 +207,7 @@ describe('Rule', () => {
   describe('A click on the Renderer', () => {
     it('toggles the editorVisibility', () => {
       const editorVisible = wrapper.state().editorVisible;
-      const renderer = wrapper.find('Renderer');
+      const renderer = wrapper.find('OlRenderer');
       renderer.simulate('click');
       expect(wrapper.state().editorVisible).toBe(!editorVisible);
       renderer.simulate('click');

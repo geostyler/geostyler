@@ -86,9 +86,8 @@ import RasterChannelEditor from './Component/Symbolizer/RasterChannelEditor/Rast
 import RasterEditor from './Component/Symbolizer/RasterEditor/RasterEditor';
 import RemovableItem from './Component/RemovableItem/RemovableItem';
 import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
-// TODO This should be renamed to OlRenderer. Files should then be moved to.
-import LegacyRenderer from './Component/Symbolizer/Renderer/Renderer';
-import Renderer from './Component/Renderer/Renderer';
+import OlRenderer from './Component/Renderer/OlRenderer/OlRenderer';
+import Renderer from './Component/Renderer/Renderer/Renderer';
 import RgbChannelField from './Component/Symbolizer/Field/RgbChannelField/RgbChannelField';
 import ResamplingField from './Component/Symbolizer/Field/ResamplingField/ResamplingField';
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
@@ -105,8 +104,8 @@ import ScaleDenominator from './Component/ScaleDenominator/ScaleDenominator';
 import Selectable from './Component/Selectable/Selectable';
 import SelectableItem from './Component/Selectable/SelectableItem/SelectableItem';
 import SizeField from './Component/Symbolizer/Field/SizeField/SizeField';
-import SLDRenderer from './Component/Symbolizer/SLDRenderer/SLDRenderer';
 import SortableItem from './Component/SortableItem/SortableItem';
+import SLDRenderer from './Component/Renderer/SLDRenderer/SLDRenderer';
 import SourceChannelNameField from './Component/Symbolizer/Field/SourceChannelNameField/SourceChannelNameField';
 import Style from './Component/Style/Style';
 import StyleFieldContainer from './Component/StyleFieldContainer/StyleFieldContainer';
@@ -199,6 +198,7 @@ export {
   NameField,
   NumberFilterField,
   OffsetField,
+  OlRenderer,
   OpacityField,
   OperatorCombo,
   Preview,
@@ -209,7 +209,6 @@ export {
   RasterEditor,
   RemoveButton,
   RemovableItem,
-  LegacyRenderer,
   Renderer,
   RgbChannelField,
   ResamplingField,
