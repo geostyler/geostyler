@@ -251,7 +251,7 @@ const fr_FR: GeoStylerLocale = {
     closeEditorText: 'Fermer l\'éditeur'
   },
   ColorField: {
-    clearText: 'TODO(fr_FR):Clear',
+    clearText: 'Effacer',
     closeText: 'Fermer',
     editText: 'Modifier',
     chooseText: 'Choisir',
@@ -431,8 +431,8 @@ const fr_FR: GeoStylerLocale = {
     label: 'Valeur'
   },
   UnsupportedPropertiesUtil: {
-    notSupported: 'TODO(fr_FR):Not supported by selected parser.',
-    partiallySupported: 'TODO(fr_FR):Only partially supported by selected parser.'
+    notSupported: 'Non supporté par le parser sélectionné.',
+    partiallySupported: 'Partiellement supporté par le parser sélectionné.'
   },
   ...antd_fr_FR
 };
