@@ -53,14 +53,15 @@ import Breadcrumb, { Crumb } from '../Breadcrumb/Breadcrumb';
 import StyleOverview, { StyleOverviewProps } from '../StyleOverview/StyleOverview';
 import RuleOverview, { RuleOverviewProps } from '../RuleOverview/RuleOverview';
 import CardViewUtil from '../../Util/CardViewUtil';
-import { Editor, EditorProps } from '../Symbolizer/Editor/Editor';
+import Editor, { EditorProps } from '../Symbolizer/Editor/Editor';
 import FilterTree from '../Filter/FilterTree/FilterTree';
-import RuleGenerator, { RuleGeneratorProps } from '../RuleGenerator/RuleGenerator';
-import { BulkEditor } from '../BulkEditor/BulkEditor';
+import RuleGenerator from '../RuleGenerator/RuleGenerator';
+import BulkEditor from '../BulkEditor/BulkEditor';
 import IconSelector, { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { GeoStylerLocale } from '../../locale/locale';
 import Renderer from '../Renderer/Renderer';
+import { brewer, InterpolationMode } from 'chroma-js';
 
 // default props
 interface CardStyleDefaultProps {
@@ -84,14 +85,20 @@ export interface CardStyleProps extends Partial<CardStyleDefaultProps> {
   styleOverviewProps?: Partial<StyleOverviewProps>;
   /** The passthrough props for the RuleOverview component. */
   ruleOverviewProps?: Partial<RuleOverviewProps>;
-  /** The passthrough props for the RuleGenerator component. */
-  ruleGeneratorProps?: Partial<RuleGeneratorProps>;
   /** The passthrough props for the Editor component. */
   editorProps?: Partial<EditorProps>;
   // /** List of supported icons ordered as library */
   iconLibraries?: IconLibrary[];
   /** Enable classification */
   enableClassification?: boolean;
+  /** Object containing the predefined color ramps */
+  colorRamps?: {
+    [name: string]: string[];
+  };
+  /** Use Brewer color ramps */
+  useBrewerColorRamps?: boolean;
+  /** List of supported color spaces */
+  colorSpaces?: (InterpolationMode)[];
 }
 
 export interface CardView {
@@ -121,7 +128,9 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   styleOverviewProps,
   ruleOverviewProps,
   editorProps,
-  ruleGeneratorProps
+  colorRamps,
+  useBrewerColorRamps,
+  colorSpaces
 }) => {
 
   const defaultCrumb: Crumb = {view: STYLEVIEW, title: locale.styleTitle, indices: []};
@@ -314,6 +323,11 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   };
   const mergedStyleOverviewProps = {...styleOverviewProps, ...styleOverviewPropsOverwrites};
 
+  let ramps = colorRamps;
+  if (colorRamps && useBrewerColorRamps) {
+    ramps = Object.assign(colorRamps, brewer);
+  }
+
   return (
     <div
       className='gs-card-style'
@@ -397,7 +411,8 @@ export const CardStyle: React.FC<CardStyleProps> = ({
           <RuleGenerator
             internalDataDef={data}
             onRulesChange={onRulesChange}
-            {...ruleGeneratorProps}
+            colorRamps={ramps}
+            colorSpaces={colorSpaces}
           />
         )
       }
