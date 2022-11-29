@@ -26,12 +26,34 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-.gs-symbolizer-renderer {
-  position: relative;
-  border: 1px solid lightgrey;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
-  min-width: 4px;
-  min-height: 4px;
-}
+import { OlRenderer, OlRendererProps } from './OlRenderer';
+import TestUtil from '../../../Util/TestUtil';
+import { Symbolizer } from 'geostyler-style';
+
+describe('OlRenderer', () => {
+
+  let wrapper: any;
+  let onClickDummy: jest.Mock;
+  const dummySymbolizers: Symbolizer[] = [{
+    kind: 'Mark',
+    wellKnownName: 'circle',
+    color: '#FF0000'
+  }];
+
+  beforeEach(() => {
+    onClickDummy = jest.fn();
+    const props: OlRendererProps = {
+      onClick: onClickDummy,
+      symbolizers: dummySymbolizers
+    };
+    wrapper = TestUtil.shallowRenderComponent(OlRenderer, props);
+  });
+
+  it('is defined', () => {
+    expect(OlRenderer).toBeDefined();
+  });
+
+  it('renders correctly', () => {
+    expect(wrapper).not.toBeUndefined();
+  });
+});

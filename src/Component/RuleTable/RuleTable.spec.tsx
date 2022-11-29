@@ -88,7 +88,7 @@ describe('RuleTable', () => {
 
   describe('SymbolizerRenderer', () => {
     it('… renders a symbolizer for every rule', async() => {
-      const symbolizerRenderer = await ruleTable.container.querySelectorAll('.gs-symbolizer-renderer');
+      const symbolizerRenderer = await ruleTable.container.querySelectorAll('.gs-symbolizer-olrenderer');
       expect(symbolizerRenderer).toHaveLength(2);
     });
   });

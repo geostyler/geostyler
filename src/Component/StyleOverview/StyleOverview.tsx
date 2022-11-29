@@ -36,8 +36,8 @@ import {
 
 import './StyleOverview.less';
 import { Data } from 'geostyler-data';
-import { StyleFieldContainer } from '../StyleFieldContainer/StyleFieldContainer';
-import { Rules, RulesProps } from '../Rules/Rules';
+import StyleFieldContainer from '../StyleFieldContainer/StyleFieldContainer';
+import Rules, { RulesProps } from '../Rules/Rules';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 import _cloneDeep from 'lodash/cloneDeep';
