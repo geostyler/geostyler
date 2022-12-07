@@ -79,6 +79,9 @@ module.exports = {
       name: 'DataInput',
       components: 'src/Component/DataInput/**/*.tsx'
     }, {
+      name: 'DragDroppable',
+      components: 'src/Component/DragDroppable/**/*.tsx'
+    }, {
       name: 'FieldSet',
       components: 'src/Component/FieldSet/**/*.tsx'
     }, {

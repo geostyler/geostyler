@@ -61,13 +61,13 @@ export interface RuleCardProps extends Partial<RuleCardDefaultProps> {
   rendererProps?: Partial<RendererProps>;
 }
 
-export const RuleCard: React.FC<RuleCardProps> = ({
+export const RuleCard: React.FC<RuleCardProps> = React.forwardRef<HTMLDivElement, RuleCardProps>(({
   rule,
   duplicates,
   onClick,
   data,
   rendererProps
-}) => {
+}, ref) => {
 
   let amount;
   if (data && DataUtil.isVector(data) && rule.filter && rule.filter.length) {
@@ -82,6 +82,7 @@ export const RuleCard: React.FC<RuleCardProps> = ({
 
   return (
     <Card
+      ref={ref}
       className='gs-rule-card'
       hoverable={true}
       onClick={onClick}
@@ -94,7 +95,9 @@ export const RuleCard: React.FC<RuleCardProps> = ({
       <Divider type='vertical' />
       <div className='gs-rule-card-content'>
         <h2>{rule.name}</h2>
-        <span><>1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}</></span>
+        <span>
+          <>1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}</>
+        </span>
         <span className='gs-rule-card-content-icon-row'>
           <Text type='secondary'>
             <span className='gs-rule-card-icon'>Σ</span>
@@ -118,6 +121,6 @@ export const RuleCard: React.FC<RuleCardProps> = ({
       </div>
     </Card>
   );
-};
+});
 
 export default RuleCard;

@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,45 +25,17 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-rule-card {
+import React from 'react';
 
-  >.ant-card-body {
-    display: flex;
-  }
+import './DropIndicator.less';
 
-  .ant-divider {
-    height: auto;
-    margin: 0 20px;
-  }
+export interface DropIndicatorProps {}
 
-  .gs-symbolizer-renderer {
-    width: 100px;
-    height: 100px;
-  }
+export const DropIndicator: React.FC<DropIndicatorProps> = () => {
 
-  .gs-rule-card-content {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
+  return (
+    <div className='gs-drop-indicator'></div>
+  );
+};
 
-    .gs-rule-card-content-icon-row>span:not(:first-child) {
-      padding-left: 10px;
-    }
-
-    .gs-rule-card-icon {
-      font-size: medium;
-      padding-right: 3px;
-    }
-
-    .gs-rule-card-cql {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-
-      .gs-rule-card-icon {
-        padding-right: 10px;
-      }
-    }
-  }
-}
+export default DropIndicator;

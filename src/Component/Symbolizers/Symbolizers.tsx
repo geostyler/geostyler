@@ -29,8 +29,6 @@
 
 import React, { useState } from 'react';
 
-import _merge from 'lodash/merge';
-
 import {
   Symbolizer as GsSymbolizer
 } from 'geostyler-style';
@@ -41,12 +39,20 @@ import en_US from '../../locale/en_US';
 import './Symbolizers.less';
 import { Button, Card, Divider } from 'antd';
 
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 import _cloneDeep from 'lodash/cloneDeep';
+import _uniqueId from 'lodash/uniqueId';
+import _merge from 'lodash/merge';
 import Removable from '../Removable/Removable';
 import { SymbolizerCard, SymbolizerCardProps } from '../SymbolizerCard/SymbolizerCard';
 import { PlusOutlined } from '@ant-design/icons';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import { GeoStylerLocale } from '../../locale/locale';
+import DndUtil, { Direction, ItemType, Side } from '../../Util/DndUtil';
+import DragDroppable from '../DragDroppable/DragDroppable';
+import { OnDropParams } from '../../hook/UseDragDrop';
 
 // default props
 interface SymbolizersDefaultProps {
@@ -94,76 +100,109 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
     onSymbolizersChange(symbolizersClone);
   };
 
+  const onMoveSymbolizer = ({dragIndex: item, dropIndex: target, side, direction}: OnDropParams) => {
+    const newSymbolizers = _cloneDeep(symbolizers);
+    if (direction === Direction.LEFT) {
+      if (side === Side.BEHIND) {
+        // moving left behind means moving item before target
+        DndUtil.moveElementInPlace(item, target, newSymbolizers);
+      } else {
+        // moving left !behind means moving item after target
+        DndUtil.moveElementInPlace(item, target + 1, newSymbolizers);
+      }
+    } else if (direction === Direction.RIGHT) {
+      // moving right
+      if (side === Side.BEFORE) {
+        // moving right behind means moving item after target
+        DndUtil.moveElementInPlace(item, target, newSymbolizers);
+      } else {
+        // moving right !behind means moving item before target
+        DndUtil.moveElementInPlace(item, target - 1, newSymbolizers);
+      }
+    }
+
+    onSymbolizersChange(newSymbolizers);
+  };
+
   const symbolizerCards = symbolizers.map((symbolizer: GsSymbolizer, idx: number) => {
     return (
-      <SymbolizerCard
-        symbolizer={symbolizer}
-        key={idx}
-        onSymbolizerClick={() => {
-          onEditSymbolizerClick(idx);
-        }}
-        // TODO properly handle passthrough props
-        {...symbolizerCardProps}
-      />
+      <DragDroppable
+        position={idx}
+        key={_uniqueId('symbolizer')}
+        onDrop={onMoveSymbolizer}
+        itemType={ItemType.SYMBOLIZER}
+        dragOrientation={'horizontal'}
+      >
+        <SymbolizerCard
+          symbolizer={symbolizer}
+          onSymbolizerClick={() => {
+            onEditSymbolizerClick(idx);
+          }}
+          // TODO properly handle passthrough props
+          {...symbolizerCardProps}
+        />
+      </DragDroppable>
     );
   });
 
   return (
     <div className='gs-symbolizers'>
-      <div className='gs-symbolizers-header'>
-        <h2>{locale.symbolizersTitle}</h2>
-      </div>
-      <Divider />
-      <div className='gs-symbolizers-content'>
-        <div className={`${showAll ? 'gs-symbolizers-grid' : 'gs-symbolizers-list'}`}>
-          {
-            showAll && (
-              <Removable
-                onRemoveClick={removeSymbolizer}
-              >
-                {symbolizerCards}
-                <div>
-                  <Card
-                    className='gs-symbolizer-card gs-add-button'
-                    hoverable={true}
-                    onClick={onAddSymbolizerClick}
-                  >
-                    <PlusOutlined />
-                  </Card>
-                </div>
-              </Removable>
-            )
-          }
+      <DndProvider backend={HTML5Backend}>
+        <div className='gs-symbolizers-header'>
+          <h2>{locale.symbolizersTitle}</h2>
+        </div>
+        <Divider />
+        <div className='gs-symbolizers-content'>
+          <div className={`${showAll ? 'gs-symbolizers-grid' : 'gs-symbolizers-list'}`}>
+            {
+              showAll && (
+                <Removable
+                  onRemoveClick={removeSymbolizer}
+                >
+                  {symbolizerCards}
+                  <div>
+                    <Card
+                      className='gs-symbolizer-card gs-add-button'
+                      hoverable={true}
+                      onClick={onAddSymbolizerClick}
+                    >
+                      <PlusOutlined />
+                    </Card>
+                  </div>
+                </Removable>
+              )
+            }
+            {
+              !showAll && (
+                <Removable
+                  onRemoveClick={removeSymbolizer}
+                >
+                  {symbolizerCards}
+                </Removable>
+              )
+            }
+          </div>
           {
             !showAll && (
-              <Removable
-                onRemoveClick={removeSymbolizer}
-              >
-                {symbolizerCards}
-              </Removable>
+              <div className='gs-symbolizer-card'>
+                <Card
+                  className='gs-symbolizer-card gs-add-button'
+                  hoverable={true}
+                  onClick={onAddSymbolizerClick}
+                >
+                  <PlusOutlined />
+                </Card>
+              </div>
             )
           }
         </div>
-        {
-          !showAll && (
-            <div>
-              <Card
-                className='gs-symbolizer-card gs-add-button'
-                hoverable={true}
-                onClick={onAddSymbolizerClick}
-              >
-                <PlusOutlined />
-              </Card>
-            </div>
-          )
-        }
-      </div>
-      <div className='gs-symbolizers-footer'>
-        <Button
-          type="link"
-          onClick={toggleShowAll}
-        >{showAll ? locale.hide : locale.showAll}</Button>
-      </div>
+        <div className='gs-symbolizers-footer'>
+          <Button
+            type="link"
+            onClick={toggleShowAll}
+          >{showAll ? locale.hide : locale.showAll}</Button>
+        </div>
+      </DndProvider>
     </div>
   );
 };

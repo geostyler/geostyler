@@ -33,6 +33,9 @@ import {
   Rule as GsRule,
 } from 'geostyler-style';
 
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 import './Rules.less';
@@ -47,11 +50,15 @@ import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import { Button, Switch, Divider } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
+import _uniqueId from 'lodash/uniqueId';
 import Selectable from '../Selectable/Selectable';
 import Removable from '../Removable/Removable';
 import { RuleCard, RuleCardProps } from '../RuleCard/RuleCard';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
+import DndUtil, { Direction, ItemType, Side } from '../../Util/DndUtil';
+import DragDroppable from '../DragDroppable/DragDroppable';
+import { OnDropParams } from '../../hook/UseDragDrop';
 
 // default props
 interface RulesDefaultProps {
@@ -185,6 +192,30 @@ export const Rules: React.FC<RulesProps> = ({
     }
   };
 
+  const onMoveRule = ({dragIndex: item, dropIndex: target, side, direction}: OnDropParams) => {
+    const newRules = _cloneDeep(rules);
+    if (direction === Direction.UP) {
+      if (side === Side.BEHIND) {
+        // moving up below means moving item before target
+        DndUtil.moveElementInPlace(item, target, newRules);
+      } else {
+        // moving up !below means moving item after target
+        DndUtil.moveElementInPlace(item, target + 1, newRules);
+      }
+    } else if (direction === Direction.DOWN) {
+      // moving down
+      if (side === Side.BEHIND) {
+        // moving down below means moving item after target
+        DndUtil.moveElementInPlace(item, target, newRules);
+      } else {
+        // moving down !below means moving item before target
+        DndUtil.moveElementInPlace(item, target - 1, newRules);
+      }
+    }
+
+    onRulesChange(newRules);
+  };
+
   let countAndDuplicates: CountResult;
   if (data && DataUtil.isVector(data)) {
     countAndDuplicates = FilterUtil.calculateCountAndDuplicates(rules, data);
@@ -197,7 +228,7 @@ export const Rules: React.FC<RulesProps> = ({
     }
     return (
       <RuleCard
-        key={idx}
+        key={_uniqueId('rule')}
         rule={rule}
         data={data}
         duplicates={ruleDuplicates}
@@ -208,6 +239,20 @@ export const Rules: React.FC<RulesProps> = ({
         }}
         {...ruleCardProps}
       />
+    );
+  });
+
+  const droppableRulesCards = rulesCards.map((card: ReactNode, idx: number) => {
+    return (
+      <DragDroppable
+        key={_uniqueId('rule-droppable')}
+        onDrop={onMoveRule}
+        position={idx}
+        itemType={ItemType.RULE}
+        dragOrientation={'vertical'}
+      >
+        {card}
+      </DragDroppable>
     );
   });
 
@@ -260,41 +305,43 @@ export const Rules: React.FC<RulesProps> = ({
 
   return (
     <div className='gs-rules'>
-      <div className='gs-rules-header'>
-        <h2>{locale.rulesTitle}</h2>
-        <Switch
-          className="gs-multi-select-toggle"
-          onChange={toggleMultiEdit}
-          checked={multiEditActive}
-          checkedChildren={locale.multiEdit}
-          unCheckedChildren={locale.multiEdit}
-        />
-      </div>
-      <Divider />
-      <div className='gs-rules-list'>
-        {
-          multiEditActive ? (
-            <Selectable
-              selection={selectedRules}
-              onSelectionChange={onSelectionChange}
-            >
-              { rulesCards }
-            </Selectable>
-          ) : (
-            <Removable
-              onRemoveClick={removeRule}
-            >
-              { rulesCards }
-            </Removable>
-          )
-        }
-      </div>
-      <Divider />
-      <div className='gs-rules-actions'>
-        {
-          multiEditActive ? multiEditActions : defaultActions
-        }
-      </div>
+      <DndProvider backend={HTML5Backend}>
+        <div className='gs-rules-header'>
+          <h2>{locale.rulesTitle}</h2>
+          <Switch
+            className="gs-multi-select-toggle"
+            onChange={toggleMultiEdit}
+            checked={multiEditActive}
+            checkedChildren={locale.multiEdit}
+            unCheckedChildren={locale.multiEdit}
+          />
+        </div>
+        <Divider />
+        <div className='gs-rules-list'>
+          {
+            multiEditActive ? (
+              <Selectable
+                selection={selectedRules}
+                onSelectionChange={onSelectionChange}
+              >
+                { rulesCards }
+              </Selectable>
+            ) : (
+              <Removable
+                onRemoveClick={removeRule}
+              >
+                { droppableRulesCards }
+              </Removable>
+            )
+          }
+        </div>
+        <Divider />
+        <div className='gs-rules-actions'>
+          {
+            multiEditActive ? multiEditActions : defaultActions
+          }
+        </div>
+      </DndProvider>
     </div>
   );
 };
