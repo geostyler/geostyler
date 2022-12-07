@@ -190,12 +190,17 @@ describe('Rules', () => {
         fireEvent.click(selectToggle);
       });
 
-      const ruleItems = rules.container.querySelectorAll('.gs-selectable-item');
-      for (let i = 0; i < ruleItems.length; i++) {
-        await act(async () => {
-          fireEvent.click(ruleItems[i]);
-        });
-      }
+      // The click event triggers a new rendering of the component. Therefore,
+      // we have to query the dom elements again, since the old references are
+      // deprecated after a click.
+      const firstRuleItem = rules.container.querySelectorAll('.gs-selectable-item')[0];
+      await act(async () => {
+        fireEvent.click(firstRuleItem);
+      });
+      const secondRuleItem = rules.container.querySelectorAll('.gs-selectable-item')[1];
+      await act(async () => {
+        fireEvent.click(secondRuleItem);
+      });
 
       const removeButton = rules.container.querySelector('.gs-remove-rules-button');
       await act(async () => {

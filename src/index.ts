@@ -46,6 +46,8 @@ import ContrastEnhancementField from './Component/Symbolizer/Field/ContrastEnhan
 import ContrastField from './Component/Symbolizer/Field/ContrastField/ContrastField';
 import DataLoader from './Component/DataInput/DataLoader/DataLoader';
 import DataProvider from './DataProvider/DataProvider';
+import DragDroppable from './Component/DragDroppable/DragDroppable';
+import DropIndicator from './Component/DropIndicator/DropIndicator';
 import Editor from './Component/Symbolizer/Editor/Editor';
 import ExtendedField from './Component/Symbolizer/Field/ExtendedField/ExtendedField';
 import FadeDurationField from './Component/Symbolizer/Field/FadeDurationField/FadeDurationField';
@@ -167,6 +169,8 @@ export {
   DataLoader,
   DataProvider,
   DefaultValueContext,
+  DragDroppable,
+  DropIndicator,
   Editor,
   ExtendedField,
   FadeDurationField,
