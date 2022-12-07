@@ -56,19 +56,17 @@ class DragDroppableExample extends React.Component {
         <DndProvider backend={HTML5Backend}>
           <DragDroppable
             dragOrientation={'vertical'}
-            dependencies={[]}
             itemType={ItemType.RULE}
             position={0}
-            onMove={(item, target) => {this.setState({info: `Dragged item ${item} on item ${target}`});}}
+            onDrop={({dragIndex, dropIndex}) => {this.setState({info: `Dragged item ${dragIndex} on item ${dropIndex}`});}}
           >
             <div style={{width: '100px', height: '100px', border: 'solid 1px'}}>Item 0</div>
           </DragDroppable>
           <DragDroppable
             dragOrientation={'vertical'}
-            dependencies={[]}
             itemType={ItemType.RULE}
             position={1}
-            onMove={(item, target) => {this.setState({info: `Dragged item ${item} on item ${target}`});}}
+            onDrop={({dragIndex, dropIndex}) => {this.setState({info: `Dragged item ${dragIndex} on item ${dropIndex}`});}}
           >
             <div style={{width: '100px', height: '100px', border: 'solid 1px'}}>Item 1</div>
           </DragDroppable>
