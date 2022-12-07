@@ -1,3 +1,15 @@
+## [10.3.0](https://github.com/geostyler/geostyler/compare/v10.2.0...v10.3.0) (2022-12-07)
+
+
+### Features
+
+* add Drag and Drop for rules and symbolizers to CardStyle ([33dbbbb](https://github.com/geostyler/geostyler/commit/33dbbbbef4854f90c1f9f8e2670a032c1f431407))
+
+
+### Bugfixes
+
+* translating 3 todos in fr ([#1997](https://github.com/geostyler/geostyler/issues/1997)) ([5e490f3](https://github.com/geostyler/geostyler/commit/5e490f380c15c741e4673098c42d157a86ce9edc))
+
 ## [10.2.0](https://github.com/geostyler/geostyler/compare/v10.1.0...v10.2.0) (2022-11-24)
 
 
