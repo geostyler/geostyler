@@ -1,6 +1,7 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
- * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,21 +25,64 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-import React from 'react';
-import { render } from '@testing-library/react';
-import { Removable } from './Removable';
+This demonstrates the usage of the `RemovableItem` component.
 
-describe('Removable', () => {
+```jsx
+import * as React from 'react';
+import { RemovableItem } from 'geostyler';
+import _uniqueId from 'lodash/uniqueId';
 
-  it('is defined', () => {
-    expect(Removable).toBeDefined();
-  });
+class RemovableItemExample extends React.Component {
+  constructor(props) {
+    super(props);
 
-  it('renders correctly', () => {
-    const field = render(<Removable />);
-    expect(field.container).toBeInTheDocument();
-  });
+    this.state = {
+      items: [
+        'first item',
+        'second item',
+        'third item'
+      ]
+    };
 
-});
+    this.onRemove = this.onRemove.bind(this);
+  }
+
+  onRemove(idx) {
+    const items = [...this.state.items];
+    items.splice(idx, 1)
+    this.setState({items});
+  }
+
+  render() {
+    const { items } = this.state;
+
+    return (
+      <>
+        {
+          items.map((item, idx) => (
+            <RemovableItem
+              key={_uniqueId()}
+              onRemoveClick={() => {
+                this.onRemove(idx);
+              }}
+            >
+              <div
+                style={{
+                  border: 'solid 1px lightgray',
+                  margin: '5px',
+                  height: '50px'
+                }}
+              >{item}</div>
+            </RemovableItem>
+          ))
+        }
+      </>
+    );
+  }
+}
+
+<RemovableItemExample />
+```

@@ -25,14 +25,43 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-drag-droppable {
-  display: flex;
+import React from 'react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
-  &.horizontal {
-    flex-direction: row;
-  }
+import './SortableItem.less';
 
-  &.vertical {
-    flex-direction: column;
-  }
+export interface SortableItemProps extends React.PropsWithChildren {
+  id: any;
 }
+
+export const SortableItem: React.FC<SortableItemProps> = ({
+  id,
+  children
+}) => {
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition
+  } = useSortable({id});
+
+  return (
+    <div
+      className='gs-sortable-rule-card'
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+export default SortableItem;

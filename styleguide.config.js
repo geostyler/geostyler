@@ -79,9 +79,6 @@ module.exports = {
       name: 'DataInput',
       components: 'src/Component/DataInput/**/*.tsx'
     }, {
-      name: 'DragDroppable',
-      components: 'src/Component/DragDroppable/**/*.tsx'
-    }, {
       name: 'FieldSet',
       components: 'src/Component/FieldSet/**/*.tsx'
     }, {
@@ -124,6 +121,9 @@ module.exports = {
       name: 'CardStyle',
       components: 'src/Component/CardStyle/**/*.tsx'
     }, {
+      name: 'RemovableItem',
+      components: 'src/Component/RemovableItem/**/*.tsx'
+    }, {
       name: 'RuleOverview',
       components: 'src/Component/RuleOverview/**/*.tsx'
     }, {
@@ -135,9 +135,6 @@ module.exports = {
     }, {
       name: 'Selectable',
       components: 'src/Component/Selectable/*.tsx'
-    }, {
-      name: 'Removable',
-      components: 'src/Component/Removable/*.tsx'
     }, {
       name: 'Symbolizer',
       components: 'src/Component/Symbolizer/**/*.tsx'

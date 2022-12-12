@@ -46,8 +46,6 @@ import ContrastEnhancementField from './Component/Symbolizer/Field/ContrastEnhan
 import ContrastField from './Component/Symbolizer/Field/ContrastField/ContrastField';
 import DataLoader from './Component/DataInput/DataLoader/DataLoader';
 import DataProvider from './DataProvider/DataProvider';
-import DragDroppable from './Component/DragDroppable/DragDroppable';
-import DropIndicator from './Component/DropIndicator/DropIndicator';
 import Editor from './Component/Symbolizer/Editor/Editor';
 import ExtendedField from './Component/Symbolizer/Field/ExtendedField/ExtendedField';
 import FadeDurationField from './Component/Symbolizer/Field/FadeDurationField/FadeDurationField';
@@ -86,8 +84,7 @@ import PropTextEditor from './Component/Symbolizer/PropTextEditor/PropTextEditor
 import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import RasterChannelEditor from './Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
 import RasterEditor from './Component/Symbolizer/RasterEditor/RasterEditor';
-import Removable from './Component/Removable/Removable';
-import RemovableItem from './Component/Removable/RemovableItem/RemovableItem';
+import RemovableItem from './Component/RemovableItem/RemovableItem';
 import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
 // TODO This should be renamed to OlRenderer. Files should then be moved to.
 import LegacyRenderer from './Component/Symbolizer/Renderer/Renderer';
@@ -109,6 +106,7 @@ import Selectable from './Component/Selectable/Selectable';
 import SelectableItem from './Component/Selectable/SelectableItem/SelectableItem';
 import SizeField from './Component/Symbolizer/Field/SizeField/SizeField';
 import SLDRenderer from './Component/Symbolizer/SLDRenderer/SLDRenderer';
+import SortableItem from './Component/SortableItem/SortableItem';
 import SourceChannelNameField from './Component/Symbolizer/Field/SourceChannelNameField/SourceChannelNameField';
 import Style from './Component/Style/Style';
 import StyleFieldContainer from './Component/StyleFieldContainer/StyleFieldContainer';
@@ -169,8 +167,6 @@ export {
   DataLoader,
   DataProvider,
   DefaultValueContext,
-  DragDroppable,
-  DropIndicator,
   Editor,
   ExtendedField,
   FadeDurationField,
@@ -212,7 +208,6 @@ export {
   RasterChannelEditor,
   RasterEditor,
   RemoveButton,
-  Removable,
   RemovableItem,
   LegacyRenderer,
   Renderer,
@@ -233,6 +228,7 @@ export {
   SelectableItem,
   SizeField,
   SLDRenderer,
+  SortableItem,
   SourceChannelNameField,
   Style,
   StyleFieldContainer,

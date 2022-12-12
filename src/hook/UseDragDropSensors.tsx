@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,20 +25,27 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+import { MouseSensor, TouchSensor, useSensors, useSensor } from '@dnd-kit/core';
 
-import React from 'react';
-import { render } from '@testing-library/react';
-import { RemovableItem } from './RemovableItem';
+/**
+ * Hook to provide a consistent config for the drag and drop sensors.
+ *
+ * @returns The sensors for drag and drop.
+ */
+export const useDragDropSensors = () => {
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 10
+      }
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5
+      }
+    })
+  );
 
-describe('RemovableItem', () => {
-
-  it('is defined', () => {
-    expect(RemovableItem).toBeDefined();
-  });
-
-  it('renders correctly', () => {
-    const field = render(<RemovableItem />);
-    expect(field.container).toBeInTheDocument();
-  });
-
-});
+  return sensors;
+};

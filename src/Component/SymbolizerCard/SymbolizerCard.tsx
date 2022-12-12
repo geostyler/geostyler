@@ -53,11 +53,11 @@ export interface SymbolizerCardProps extends Partial<SymbolizerCardDefaultProps>
   data?: Data;
 }
 
-export const SymbolizerCard: React.FC<SymbolizerCardProps> = React.forwardRef<HTMLDivElement, SymbolizerCardProps>(({
+export const SymbolizerCard = ({
   symbolizer,
   onSymbolizerClick = () => {},
   data
-}, ref) => {
+}: SymbolizerCardProps) => {
 
   const onCardClick = () => {
     onSymbolizerClick(symbolizer);
@@ -65,7 +65,6 @@ export const SymbolizerCard: React.FC<SymbolizerCardProps> = React.forwardRef<HT
 
   return (
     <Card
-      ref={ref}
       className='gs-symbolizer-card'
       hoverable={true}
       onClick={onCardClick}
@@ -77,6 +76,6 @@ export const SymbolizerCard: React.FC<SymbolizerCardProps> = React.forwardRef<HT
       />
     </Card>
   );
-});
+};
 
 export default localize(SymbolizerCard, 'SymbolizerCard');

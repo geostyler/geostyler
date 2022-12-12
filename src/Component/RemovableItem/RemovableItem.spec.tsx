@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,6 +25,37 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-drop-indicator {
-  border: solid 1px #1890ff;
-}
+
+import React from 'react';
+import { fireEvent, render } from '@testing-library/react';
+import { RemovableItem } from './RemovableItem';
+import { act } from 'react-dom/test-utils';
+
+describe('RemovableItem', () => {
+
+  let onRemoveClickDummy: jest.Mock;
+
+  beforeEach(() => {
+    onRemoveClickDummy = jest.fn();
+  });
+
+  it('is defined', () => {
+    expect(RemovableItem).toBeDefined();
+  });
+
+  it('renders correctly', () => {
+    const field = render(<RemovableItem />);
+    expect(field.container).toBeInTheDocument();
+  });
+
+  it('calls onRemoveClick', async () => {
+    const item = render(<RemovableItem onRemoveClick={onRemoveClickDummy} />);
+    const removeButton = item.container.querySelector('.gs-removable-item-icon');
+    await act(() => {
+      fireEvent.click(removeButton);
+    });
+
+    expect(onRemoveClickDummy).toHaveBeenCalled();
+  });
+
+});
