@@ -74,7 +74,6 @@ render() {
 }
 ```
 
-
 ## <a name="geostyler-behind-the-scenes"></a>GeoStyler - Behind the Scenes
 
 Internally we are using our own style definition called `GeoStyler Style` (see [TypeScript Declaration Files](#typescript-declaration-files)), which takes the best from SLD and Mapbox. We are not trying to establish just another standard, but we need an exchange format that is flexible and highly compatible with current styling standards. **Understanding GeoStyler Style is only necessary for developers of the project, not for users!** Our style parsers all read and write from and to GeoStyler Style to keep the complexity low. As a positive side effect this lets you translate from any supported style to any other supported style.
