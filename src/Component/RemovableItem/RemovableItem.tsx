@@ -33,7 +33,7 @@ import './RemovableItem.less';
 // default props
 export interface RemovableItemDefaultProps extends React.PropsWithChildren {
   /** The callback that is being called, when the item was clicked. */
-  onItemClick: () => void;
+  onRemoveClick: () => void;
 }
 
 // non default props
@@ -41,21 +41,15 @@ export interface RemovableItemProps extends Partial<RemovableItemDefaultProps> {
 }
 
 export const RemovableItem: React.FC<RemovableItemProps> = ({
-  onItemClick,
+  onRemoveClick = () => {},
   children
 }) => {
-
-  const onClick = () => {
-    if (onItemClick) {
-      onItemClick();
-    }
-  };
 
   return (
     <div className='gs-removable-item'>
       <CloseCircleOutlined
         className="gs-removable-item-icon"
-        onClick={onClick}
+        onClick={onRemoveClick}
       />
       {children}
     </div>

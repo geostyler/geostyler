@@ -33,6 +33,9 @@ import {
   Symbolizer as GsSymbolizer
 } from 'geostyler-style';
 
+import { closestCenter, DndContext } from '@dnd-kit/core';
+import { arrayMove, SortableContext } from '@dnd-kit/sortable';
+
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
@@ -45,14 +48,13 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import _merge from 'lodash/merge';
-import Removable from '../Removable/Removable';
 import { SymbolizerCard, SymbolizerCardProps } from '../SymbolizerCard/SymbolizerCard';
 import { PlusOutlined } from '@ant-design/icons';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import { GeoStylerLocale } from '../../locale/locale';
-import DndUtil, { Direction, ItemType, Side } from '../../Util/DndUtil';
-import DragDroppable from '../DragDroppable/DragDroppable';
-import { OnDropParams } from '../../hook/UseDragDrop';
+import { SortableItem } from '../SortableItem/SortableItem';
+import { useDragDropSensors } from '../../hook/UseDragDropSensors';
+import { RemovableItem } from '../RemovableItem/RemovableItem';
 
 // default props
 interface SymbolizersDefaultProps {
@@ -87,8 +89,6 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
   };
 
   const removeSymbolizer = (symbolizerIdx: number) => {
-    // TODO fix removing/rerendering since we added
-    //      the add-button to the list of removables
     const symbolizersClone = _cloneDeep(symbolizers);
     symbolizersClone.splice(symbolizerIdx, 1);
     onSymbolizersChange(symbolizersClone);
@@ -100,50 +100,58 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
     onSymbolizersChange(symbolizersClone);
   };
 
-  const onMoveSymbolizer = ({dragIndex: item, dropIndex: target, side, direction}: OnDropParams) => {
-    const newSymbolizers = _cloneDeep(symbolizers);
-    if (direction === Direction.LEFT) {
-      if (side === Side.BEHIND) {
-        // moving left behind means moving item before target
-        DndUtil.moveElementInPlace(item, target, newSymbolizers);
-      } else {
-        // moving left !behind means moving item after target
-        DndUtil.moveElementInPlace(item, target + 1, newSymbolizers);
-      }
-    } else if (direction === Direction.RIGHT) {
-      // moving right
-      if (side === Side.BEFORE) {
-        // moving right behind means moving item after target
-        DndUtil.moveElementInPlace(item, target, newSymbolizers);
-      } else {
-        // moving right !behind means moving item before target
-        DndUtil.moveElementInPlace(item, target - 1, newSymbolizers);
-      }
-    }
-
-    onSymbolizersChange(newSymbolizers);
-  };
-
   const symbolizerCards = symbolizers.map((symbolizer: GsSymbolizer, idx: number) => {
     return (
-      <DragDroppable
-        position={idx}
+      <SymbolizerCard
         key={_uniqueId('symbolizer')}
-        onDrop={onMoveSymbolizer}
-        itemType={ItemType.SYMBOLIZER}
-        dragOrientation={'horizontal'}
-      >
-        <SymbolizerCard
-          symbolizer={symbolizer}
-          onSymbolizerClick={() => {
-            onEditSymbolizerClick(idx);
-          }}
-          // TODO properly handle passthrough props
-          {...symbolizerCardProps}
-        />
-      </DragDroppable>
+        symbolizer={symbolizer}
+        onSymbolizerClick={() => {
+          onEditSymbolizerClick(idx);
+        }}
+        {...symbolizerCardProps}
+      />
     );
   });
+
+  const removableSymbolizerCards = symbolizerCards.map((symbolizerCard, idx) => {
+    const key = _uniqueId('symbolizer');
+
+    return (
+      <RemovableItem
+        key={key}
+        onRemoveClick={() => {
+          removeSymbolizer(idx);
+        }}
+      >
+        { symbolizerCard }
+      </RemovableItem>
+    );
+  });
+
+  const sortableAndRemovableSymbolizerCards = removableSymbolizerCards.map((symbolizerCard, idx) => {
+    const key = _uniqueId('symbolizer');
+    // id must be truthy, so we have to increment the index by 1
+    const id = idx + 1;
+
+    return (
+      <SortableItem
+        key={key}
+        id={id}
+      >
+        { symbolizerCard }
+      </SortableItem>
+    );
+  });
+
+  const onDragEnd = (evt: any) => {
+    const { active, over } = evt;
+    if (active.id !== over.id) {
+      const newOrder = arrayMove([...symbolizers], active.id - 1, over.id - 1);
+      onSymbolizersChange(newOrder);
+    }
+  };
+
+  const sensors = useDragDropSensors();
 
   return (
     <div className='gs-symbolizers'>
@@ -156,29 +164,41 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
           <div className={`${showAll ? 'gs-symbolizers-grid' : 'gs-symbolizers-list'}`}>
             {
               showAll && (
-                <Removable
-                  onRemoveClick={removeSymbolizer}
+                <DndContext
+                  onDragEnd={onDragEnd}
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
                 >
-                  {symbolizerCards}
-                  <div>
-                    <Card
-                      className='gs-symbolizer-card gs-add-button'
-                      hoverable={true}
-                      onClick={onAddSymbolizerClick}
-                    >
-                      <PlusOutlined />
-                    </Card>
-                  </div>
-                </Removable>
+                  <SortableContext
+                    items={symbolizers.map((s, idx) => idx + 1)}
+                  >
+                    { sortableAndRemovableSymbolizerCards }
+                    <div>
+                      <Card
+                        className='gs-symbolizer-card gs-add-button'
+                        hoverable={true}
+                        onClick={onAddSymbolizerClick}
+                      >
+                        <PlusOutlined />
+                      </Card>
+                    </div>
+                  </SortableContext>
+                </DndContext>
               )
             }
             {
               !showAll && (
-                <Removable
-                  onRemoveClick={removeSymbolizer}
+                <DndContext
+                  onDragEnd={onDragEnd}
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
                 >
-                  {symbolizerCards}
-                </Removable>
+                  <SortableContext
+                    items={symbolizers.map((s, idx) => idx + 1)}
+                  >
+                    { sortableAndRemovableSymbolizerCards }
+                  </SortableContext>
+                </DndContext>
               )
             }
           </div>

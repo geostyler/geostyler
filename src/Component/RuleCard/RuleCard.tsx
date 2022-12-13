@@ -61,13 +61,13 @@ export interface RuleCardProps extends Partial<RuleCardDefaultProps> {
   rendererProps?: Partial<RendererProps>;
 }
 
-export const RuleCard: React.FC<RuleCardProps> = React.forwardRef<HTMLDivElement, RuleCardProps>(({
+export const RuleCard = ({
   rule,
   duplicates,
   onClick,
   data,
   rendererProps
-}, ref) => {
+}: RuleCardProps) => {
 
   let amount;
   if (data && DataUtil.isVector(data) && rule.filter && rule.filter.length) {
@@ -82,7 +82,6 @@ export const RuleCard: React.FC<RuleCardProps> = React.forwardRef<HTMLDivElement
 
   return (
     <Card
-      ref={ref}
       className='gs-rule-card'
       hoverable={true}
       onClick={onClick}
@@ -121,6 +120,6 @@ export const RuleCard: React.FC<RuleCardProps> = React.forwardRef<HTMLDivElement
       </div>
     </Card>
   );
-});
+};
 
 export default RuleCard;

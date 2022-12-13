@@ -25,17 +25,20 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 import React from 'react';
+import { render } from '@testing-library/react';
+import { SortableItem } from './SortableItem';
 
-import './DropIndicator.less';
+describe('SortableItem', () => {
 
-export interface DropIndicatorProps {}
+  it('is defined', () => {
+    expect(SortableItem).toBeDefined();
+  });
 
-export const DropIndicator: React.FC<DropIndicatorProps> = () => {
+  it('renders correctly', () => {
+    const field = render(<SortableItem id={1} />);
+    expect(field.container).toBeInTheDocument();
+  });
 
-  return (
-    <div className='gs-drop-indicator'></div>
-  );
-};
-
-export default DropIndicator;
+});

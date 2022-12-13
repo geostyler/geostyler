@@ -54,6 +54,9 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "@dnd-kit/core": "^6.0.6",
+    "@dnd-kit/sortable": "^7.0.1",
+    "@dnd-kit/utilities": "^3.2.1",
     "@monaco-editor/react": "^4.4.6",
     "@types/chroma-js": "^2.1.4",
     "@types/color": "^3.0.3",
