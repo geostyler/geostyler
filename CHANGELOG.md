@@ -1,3 +1,18 @@
+## [11.0.0](https://github.com/geostyler/geostyler/compare/v10.3.1...v11.0.0) (2022-12-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* This forces a major release for a previously wrongly
+formatted commit message (commit sha 30e19de16a6310dcd79bf4e4292b33bf80004c0d)
+that lead to the unintended release of version 10.3.1, which includes a
+breaking change. The code of this release will be identical with the code of
+version 10.3.1.
+
+### Breaking changes
+
+* force major release ([ecfb2a0](https://github.com/geostyler/geostyler/commit/ecfb2a0cdb61f3cf5767a12ab73c8da79efd88a5))
+
 ## [10.3.1](https://github.com/geostyler/geostyler/compare/v10.3.0...v10.3.1) (2022-12-13)
 
 
