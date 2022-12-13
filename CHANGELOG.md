@@ -1,3 +1,17 @@
+## [10.3.1](https://github.com/geostyler/geostyler/compare/v10.3.0...v10.3.1) (2022-12-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* The components DragDroppable, DropIndicator, Removable as well as
+DndUtil and the useDragDrop hook were removed. Component RemovableItem
+was moved from src/Components/Removable/RemovableItem/RemovableItem.tsx
+one level up to src/Components/RemovableItem/RemovableItem.tsx. The
+newly introduced ref forwarding for SymbolizerCard and RuleCard were
+removed.
+
+* replace react-dnd with dnd-kit ([30e19de](https://github.com/geostyler/geostyler/commit/30e19de16a6310dcd79bf4e4292b33bf80004c0d))
+
 ## [10.3.0](https://github.com/geostyler/geostyler/compare/v10.2.0...v10.3.0) (2022-12-07)
 
 
