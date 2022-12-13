@@ -27190,22 +27190,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
   font-size: x-large;
 }
 
-
-.gs-removable-item {
-  position: relative;
-}
-.gs-removable-item > .anticon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  z-index: 99;
-  font-size: x-large;
-}
-.gs-removable-item > .anticon:hover {
-  color: #1890ff;
-}
-
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -27684,72 +27668,20 @@ div.ant-typography-edit-content.ant-typography-rtl {
   cursor: pointer;
 }
 
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-drop-indicator {
-  border: solid 1px #1890ff;
-}
 
-/* Released under the BSD 2-Clause License
- *
- * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- */
-.gs-drag-droppable {
-  display: flex;
+.gs-removable-item {
+  position: relative;
 }
-.gs-drag-droppable.horizontal {
-  flex-direction: row;
+.gs-removable-item > .anticon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 99;
+  font-size: x-large;
 }
-.gs-drag-droppable.vertical {
-  flex-direction: column;
+.gs-removable-item > .anticon:hover {
+  color: #1890ff;
 }
 
 
@@ -27882,23 +27814,15 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-symbolizers .gs-symbolizer-card {
   margin: 5px;
 }
-.gs-symbolizers .gs-symbolizers-grid .gs-removable {
+.gs-symbolizers .gs-symbolizers-grid {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
-.gs-symbolizers .gs-symbolizers-grid .gs-removable > :last-child > span {
-  display: none;
-}
 .gs-symbolizers .gs-symbolizers-list {
   display: flex;
   overflow: hidden;
-}
-.gs-symbolizers .gs-symbolizers-list .gs-removable {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
 }
 .gs-symbolizers .gs-symbolizers-footer {
   display: flex;
