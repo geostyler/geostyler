@@ -76,6 +76,21 @@ describe('LineEditor', () => {
     });
   });
 
+  describe('onPerpendicularOffsetChange', () => {
+    it('calls the onSymbolizerChange prop with correct symbolizer ', async () => {
+      const wellKnownNameEditor = render(<LineEditor {...props} />);
+      const newSymbolizer = {...dummySymbolizer};
+      newSymbolizer.perpendicularOffset = 13;
+      const input = wellKnownNameEditor.container.querySelectorAll('.offset-field input')[0];
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 13}
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+    });
+  });
+
   describe('onOpacityChange', () => {
     it('calls the onSymbolizerChange prop with correct symbolizer ', async () => {
       const wellKnownNameEditor = render(<LineEditor {...props} />);
@@ -116,7 +131,7 @@ describe('LineEditor', () => {
       );
       const newSymbolizer = {...passedSymbolizer};
       newSymbolizer.dashOffset = 7;
-      const input = wellKnownNameEditor.container.querySelectorAll('.offset-field input')[0];
+      const input = wellKnownNameEditor.container.querySelectorAll('.offset-field input')[1];
       await act(async() => {
         fireEvent.change(input, {
           target: { value: 7 }
