@@ -141,14 +141,16 @@ const fr_FR: GeoStylerLocale = {
     partiallySupported : 'n\'est que partiellement supporté par l\'analyseur utilisé'
   },
   WellKnownNameEditor: {
-    radiusLabel: 'Rayon',
-    fillOpacityLabel: 'Opacité du remplissage',
     fillColorLabel: 'Couleur du remplissage',
+    fillOpacityLabel: 'Opacité du remplissage',
+    offsetXLabel: 'Décalage horizontal',
+    offsetYLabel: 'Décalage vertical',
     opacityLabel: 'Opacité',
+    radiusLabel: 'Rayon',
+    rotateLabel: 'Rotation',
     strokeColorLabel: 'Couleur du contour',
-    strokeWidthLabel: 'Épaisseur du contour',
     strokeOpacityLabel: 'Opacité du contour',
-    rotateLabel: 'Rotation'
+    strokeWidthLabel: 'Épaisseur du contour',
   },
   FillEditor: {
     opacityLabel: 'Opacité',

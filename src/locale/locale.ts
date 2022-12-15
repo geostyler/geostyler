@@ -103,14 +103,16 @@ export interface GeoStylerLocale extends Locale {
     partiallySupported: string;
   };
   WellKnownNameEditor: {
-    radiusLabel: string;
-    fillOpacityLabel: string;
     fillColorLabel: string;
+    fillOpacityLabel: string;
+    offsetXLabel: string;
+    offsetYLabel: string;
     opacityLabel: string;
-    strokeColorLabel: string;
-    strokeWidthLabel: string;
-    strokeOpacityLabel: string;
+    radiusLabel: string;
     rotateLabel: string;
+    strokeColorLabel: string;
+    strokeOpacityLabel: string;
+    strokeWidthLabel: string;
   };
   FillEditor: {
     opacityLabel: string;

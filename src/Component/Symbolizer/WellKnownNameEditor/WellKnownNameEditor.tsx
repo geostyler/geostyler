@@ -49,6 +49,7 @@ import { Form } from 'antd';
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
 import { GeoStylerLocale } from '../../../locale/locale';
+import OffsetField from '../Field/OffsetField/OffsetField';
 
 interface WellKnownNameEditorDefaultProps {
   locale: GeoStylerLocale['WellKnownNameEditor'];
@@ -58,7 +59,7 @@ interface WellKnownNameEditorDefaultProps {
 export interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDefaultProps> {
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  defaultValues: DefaultValues;
+  defaultValues?: DefaultValues;
 }
 
 const COMPONENTNAME = 'WellKnownNameEditor';
@@ -73,6 +74,24 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
   const onRadiusChange = (value: number) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.radius = value;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
+  const onOffsetXChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number];
+    symbolizerClone.offset = newOffset;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
+  const onOffsetYChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number, value];
+    symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
@@ -162,7 +181,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
     rotate,
     strokeColor,
     strokeOpacity,
-    strokeWidth
+    strokeWidth,
+    offset
   } = symbolizer;
 
   return (
@@ -180,6 +200,34 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
                 propValue: radius,
                 defaultValue: defaultValues?.WellKnownNameEditor?.defaultRadius,
                 defaultElement: <RadiusField />
+              })
+            )
+          }
+          {
+            wrapFormItem(
+              locale.offsetXLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'TextEditor.offsetXField',
+                onChange: onOffsetXChange,
+                propName: 'offset',
+                propValue: offset?.[0],
+                defaultValue: defaultValues?.TextEditor?.defaultOffsetX,
+                defaultElement: <OffsetField />
+              })
+            )
+          }
+          {
+            wrapFormItem(
+              locale.offsetYLabel,
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'TextEditor.offsetYField',
+                onChange: onOffsetYChange,
+                propName: 'offset',
+                propValue: offset?.[1],
+                defaultValue: defaultValues?.TextEditor?.defaultOffsetY,
+                defaultElement: <OffsetField />
               })
             )
           }

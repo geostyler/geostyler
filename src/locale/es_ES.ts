@@ -202,14 +202,16 @@ const es_ES: GeoStylerLocale = {
     partiallySupported: 'sólo es parcialmente soportado por el parser utilizado'
   },
   WellKnownNameEditor: {
-    radiusLabel: 'Radio',
-    fillOpacityLabel: 'Relleno-Transparencia',
     fillColorLabel: 'Fondo-Color',
+    fillOpacityLabel: 'Relleno-Transparencia',
+    offsetXLabel: 'Desplazamiento X',
+    offsetYLabel: 'Desplazamiento Y',
     opacityLabel: 'Transparencia',
+    radiusLabel: 'Radio',
+    rotateLabel: 'Rotación',
     strokeColorLabel: 'Trazo-Color',
-    strokeWidthLabel: 'Trazo-Ancho',
     strokeOpacityLabel: 'Trazo-Transparencia',
-    rotateLabel: 'Rotación'
+    strokeWidthLabel: 'Trazo-Ancho',
   },
   FillEditor: {
     fillOpacityLabel: 'Relleno-Transparencia',

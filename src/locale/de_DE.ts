@@ -141,14 +141,16 @@ const de_DE: GeoStylerLocale = {
     partiallySupported: 'wird vom verwendeten Parser nur teilweise unterstützt'
   },
   WellKnownNameEditor: {
-    radiusLabel: 'Radius',
-    fillOpacityLabel: 'Fülldeckkraft',
     fillColorLabel: 'Füllfarbe',
+    fillOpacityLabel: 'Fülldeckkraft',
+    offsetXLabel: 'Versatz X',
+    offsetYLabel: 'Versatz Y',
     opacityLabel: 'Deckkraft',
+    radiusLabel: 'Radius',
+    rotateLabel: 'Drehung',
     strokeColorLabel: 'Strichfarbe',
-    strokeWidthLabel: 'Strichstärke',
     strokeOpacityLabel: 'Strichdeckkraft',
-    rotateLabel: 'Drehung'
+    strokeWidthLabel: 'Strichstärke',
   },
   FillEditor: {
     opacityLabel: 'Deckkraft',
