@@ -80,6 +80,36 @@ describe('IconEditor', () => {
     });
   });
 
+  describe('onOffsetXChange', () => {
+    it('calls the onOffsetXChange prop with correct symbolizer ', async () => {
+      const textEditor = render(<IconEditor {...props} />);
+      const newSymbolizer = {...dummySymbolizer};
+      newSymbolizer.offset = [3, 0];
+      const input = textEditor.container.querySelectorAll('.offset-field input')[0];
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 3 }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+    });
+  });
+
+  describe('onOffsetYChange', () => {
+    it('calls the onOffsetYChange prop with correct symbolizer ', async () => {
+      const textEditor = render(<IconEditor {...props} />);
+      const newSymbolizer = {...dummySymbolizer};
+      newSymbolizer.offset = [0, 10];
+      const input = textEditor.container.querySelectorAll('.offset-field input')[1];
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 10 }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+    });
+  });
+
   describe('onRotateChange', () => {
     it('calls the onRotateChange prop with correct symbolizer ', async() => {
       const iconEditor = render(<IconEditor {...props} />);

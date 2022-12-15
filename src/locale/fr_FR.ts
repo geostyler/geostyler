@@ -161,12 +161,14 @@ const fr_FR: GeoStylerLocale = {
     graphicFillTypeLabel: 'Motif du remplissage'
   },
   IconEditor: {
+    iconTooltipLabel: 'Ouvrir la galerie',
     imageLabel: 'Source',
     imagePlaceholder: 'URL de l\'icône',
-    sizeLabel: 'Taille',
-    rotateLabel: 'Rotation',
+    offsetXLabel: 'Décalage horizontal',
+    offsetYLabel: 'Décalage vertical',
     opacityLabel: 'Opacité',
-    iconTooltipLabel: 'Ouvrir la galerie'
+    rotateLabel: 'Rotation',
+    sizeLabel: 'Taille',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Symbole'

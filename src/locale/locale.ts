@@ -123,12 +123,14 @@ export interface GeoStylerLocale extends Locale {
     graphicFillTypeLabel: string;
   };
   IconEditor: {
+    iconTooltipLabel: string;
     imageLabel: string;
     imagePlaceholder: string;
-    sizeLabel: string;
-    rotateLabel: string;
+    offsetXLabel: string;
+    offsetYLabel: string;
     opacityLabel: string;
-    iconTooltipLabel: string;
+    rotateLabel: string;
+    sizeLabel: string;
   };
   LineEditor: {
     colorLabel: string;

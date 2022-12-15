@@ -222,12 +222,14 @@ const es_ES: GeoStylerLocale = {
     graphicFillTypeLabel: 'Tipo gráfico de relleno'
   },
   IconEditor: {
+    iconTooltipLabel: 'Abrir galería',
     imageLabel: 'Fuente',
     imagePlaceholder: 'URL a Icono',
-    sizeLabel: 'Tamaño',
-    rotateLabel: 'Rotación',
+    offsetXLabel: 'Desplazamiento X',
+    offsetYLabel: 'Desplazamiento Y',
     opacityLabel: 'Transparencia',
-    iconTooltipLabel: 'Abrir galería'
+    rotateLabel: 'Rotación',
+    sizeLabel: 'Tamaño',
   },
   LineEditor: {
     capLabel: 'Cap',

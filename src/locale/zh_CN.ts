@@ -161,12 +161,14 @@ const zh_CN: GeoStylerLocale = {
     graphicFillTypeLabel: '填充样式'
   },
   IconEditor: {
+    iconTooltipLabel: '打开图库',
     imageLabel: '来源',
     imagePlaceholder: 'URL到图标',
-    sizeLabel: '尺寸',
-    rotateLabel: '旋转',
+    offsetXLabel: 'X 偏移',
+    offsetYLabel: 'Y 偏移',
     opacityLabel: '不透明度',
-    iconTooltipLabel: '打开图库'
+    rotateLabel: '旋转',
+    sizeLabel: '尺寸',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: '符号'

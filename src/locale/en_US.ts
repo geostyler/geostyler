@@ -160,12 +160,14 @@ const en_US: GeoStylerLocale = {
     graphicFillTypeLabel: 'Graphic Fill Type'
   },
   IconEditor: {
+    iconTooltipLabel: 'Open Gallery',
     imageLabel: 'Source',
     imagePlaceholder: 'URL to Icon',
-    sizeLabel: 'Size',
-    rotateLabel: 'Rotation',
+    offsetXLabel: 'Offset X',
+    offsetYLabel: 'Offset Y',
     opacityLabel: 'Opacity',
-    iconTooltipLabel: 'Open Gallery'
+    rotateLabel: 'Rotation',
+    sizeLabel: 'Size',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Symbol'
