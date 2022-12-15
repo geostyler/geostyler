@@ -169,15 +169,16 @@ const de_DE: GeoStylerLocale = {
     iconTooltipLabel: 'Öffne Galerie'
   },
   LineEditor: {
+    capLabel: 'Verschluss',
     colorLabel: 'Farbe',
-    widthLabel: 'Breite',
-    opacityLabel: 'Deckkraft',
     dashLabel: 'Strichmuster',
     dashOffsetLabel: 'Strichmuster Versatz',
-    capLabel: 'Verschluss',
-    joinLabel: 'Verknüpfung',
+    graphicFillTypeLabel: 'Graphic Fill Type',
     graphicStrokeTypeLabel: 'Graphic Stroke Type',
-    graphicFillTypeLabel: 'Graphic Fill Type'
+    joinLabel: 'Verknüpfung',
+    opacityLabel: 'Deckkraft',
+    perpendicularOffsetLabel: 'Senkrechter Versatz',
+    widthLabel: 'Breite',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Symbol'

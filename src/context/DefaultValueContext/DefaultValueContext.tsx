@@ -38,6 +38,7 @@ export interface DefaultValues {
     defaultWidth?: number;
     defaultColor?: string;
     defaultOpacity?: number;
+    defaultPerpendicularOffset?: number;
     defaultDashOffset?: number;
     defaultCap?: string;
     defaultJoin?: string;

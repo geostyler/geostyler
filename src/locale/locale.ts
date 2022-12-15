@@ -136,6 +136,7 @@ export interface GeoStylerLocale extends Locale {
     opacityLabel: string;
     dashLabel: string;
     dashOffsetLabel: string;
+    perpendicularOffsetLabel: string;
     capLabel: string;
     joinLabel: string;
     graphicStrokeTypeLabel: string;

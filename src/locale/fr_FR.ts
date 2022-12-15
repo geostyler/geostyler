@@ -172,15 +172,16 @@ const fr_FR: GeoStylerLocale = {
     wellKnownNameFieldLabel: 'Symbole'
   },
   LineEditor: {
+    capLabel: 'Terminaison',
     colorLabel: 'Couleur',
-    widthLabel: 'Épaisseur',
-    opacityLabel: 'Opacité',
     dashLabel: 'Motif de tireté',
     dashOffsetLabel: 'Décalage du tireté',
-    capLabel: 'Terminaison',
-    joinLabel: 'Jointure',
+    graphicFillTypeLabel: 'Type de remplissage',
     graphicStrokeTypeLabel: 'Type de tracé',
-    graphicFillTypeLabel: 'Type de remplissage'
+    joinLabel: 'Jointure',
+    opacityLabel: 'Opacité',
+    perpendicularOffsetLabel: 'Décalage perpendiculaire',
+    widthLabel: 'Épaisseur',
   },
   TextEditor: {
     fontLabel: 'Police',

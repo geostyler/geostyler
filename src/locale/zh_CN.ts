@@ -176,6 +176,7 @@ const zh_CN: GeoStylerLocale = {
     widthLabel: '宽度',
     opacityLabel: '不透明度',
     dashLabel: '虚线样式',
+    perpendicularOffsetLabel: '垂直偏移',
     dashOffsetLabel: '偏移',
     capLabel: '端点',
     joinLabel: '角点',

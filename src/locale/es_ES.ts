@@ -230,15 +230,16 @@ const es_ES: GeoStylerLocale = {
     iconTooltipLabel: 'Abrir galería'
   },
   LineEditor: {
+    capLabel: 'Cap',
     colorLabel: 'Color',
-    widthLabel: 'Ancho',
-    opacityLabel: 'Transparencia',
     dashLabel: 'Patrón de achurado',
     dashOffsetLabel: 'Dash Offset',
-    capLabel: 'Cap',
-    joinLabel: 'Join',
+    graphicFillTypeLabel: 'Tipo de gráfico de relleno',
     graphicStrokeTypeLabel: 'Tipo de gráfico de trazado',
-    graphicFillTypeLabel: 'Tipo de gráfico de relleno'
+    joinLabel: 'Join',
+    opacityLabel: 'Transparencia',
+    perpendicularOffsetLabel: 'Perpendicular Offset',
+    widthLabel: 'Ancho',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Simbolo'

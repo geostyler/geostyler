@@ -171,15 +171,16 @@ const en_US: GeoStylerLocale = {
     wellKnownNameFieldLabel: 'Symbol'
   },
   LineEditor: {
+    capLabel: 'Cap',
     colorLabel: 'Color',
-    widthLabel: 'Width',
-    opacityLabel: 'Opacity',
     dashLabel: 'Dash Pattern',
     dashOffsetLabel: 'Dash Offset',
-    capLabel: 'Cap',
-    joinLabel: 'Join',
+    graphicFillTypeLabel: 'Graphic Fill Type',
     graphicStrokeTypeLabel: 'Graphic Stroke Type',
-    graphicFillTypeLabel: 'Graphic Fill Type'
+    joinLabel: 'Join',
+    opacityLabel: 'Opacity',
+    perpendicularOffsetLabel: 'Perpendicular Offset',
+    widthLabel: 'Width',
   },
   TextEditor: {
     fontLabel: 'Font',

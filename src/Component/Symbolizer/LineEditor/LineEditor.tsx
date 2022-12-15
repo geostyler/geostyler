@@ -110,6 +110,14 @@ export const LineEditor: React.FC<LineEditorProps> = ({
     }
   };
 
+  const onPerpendicularOffsetChange = (value: LineSymbolizer['perpendicularOffset']) => {
+    const sybolizerClone = _cloneDeep(symbolizer);
+    sybolizerClone.perpendicularOffset = value;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(sybolizerClone);
+    }
+  };
+
   const onOpacityChange = (value: LineSymbolizer['opacity']) => {
     const sybolizerClone = _cloneDeep(symbolizer);
     sybolizerClone.opacity = value;
@@ -150,17 +158,17 @@ export const LineEditor: React.FC<LineEditorProps> = ({
     }
   };
 
-  const onGraphicStrokeChange = (gStroke: PointSymbolizer) => {
+  const onGraphicStrokeChange = (value: PointSymbolizer) => {
     const sybolizerClone = _cloneDeep(symbolizer);
-    sybolizerClone.graphicStroke = gStroke;
+    sybolizerClone.graphicStroke = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(sybolizerClone);
     }
   };
 
-  const onGraphicFillChange = (gFill: PointSymbolizer) => {
+  const onGraphicFillChange = (value: PointSymbolizer) => {
     const sybolizerClone = _cloneDeep(symbolizer);
-    sybolizerClone.graphicFill = gFill;
+    sybolizerClone.graphicFill = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(sybolizerClone);
     }
@@ -180,6 +188,7 @@ export const LineEditor: React.FC<LineEditorProps> = ({
     cap,
     join,
     graphicStroke,
+    perpendicularOffset,
     graphicFill
   } = _cloneDeep(symbolizer);
 
@@ -229,6 +238,23 @@ export const LineEditor: React.FC<LineEditorProps> = ({
                     propValue: width,
                     defaultValue: defaultValues?.LineEditor?.defaultWidth,
                     defaultElement: <WidthField />
+                  })
+                }
+              </Form.Item>
+              <Form.Item
+                label={locale.perpendicularOffsetLabel}
+                {...getSupportProps('perpendicularOffset')}
+                {...formItemLayout}
+              >
+                {
+                  CompositionUtil.handleComposition({
+                    composition,
+                    path: 'LineEditor.perpendicularOffsetField',
+                    onChange: onPerpendicularOffsetChange,
+                    propName: 'offset',
+                    propValue: perpendicularOffset,
+                    defaultValue: defaultValues?.LineEditor?.defaultPerpendicularOffset,
+                    defaultElement: <OffsetField />
                   })
                 }
               </Form.Item>
