@@ -23,7 +23,12 @@ jobs:
         run: npm run build-dist && npm run build-browser
 
       - name: Release 🚀
+        uses: cycjimmy/semantic-release-action@v3
+        id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
+
+      - name: Update README.md 📄
+        run: |
+          sed -i "s/Documentation:.*/Documentation: [main](https:\/\/geostyler.github.io\/geostyler\/main\/index.html) \/ [latest](https:\/\/geostyler.github.io\/geostyler\/latest\/index.html) \/ [${{ steps.semantic.outputs.new_release_version }}](https:\/\/geostyler.github.io\/geostyler\/v${{ steps.semantic.outputs.new_release_version }}\/index.html)/g" README.md
