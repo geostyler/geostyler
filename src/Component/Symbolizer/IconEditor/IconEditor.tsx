@@ -224,11 +224,11 @@ export const IconEditor: React.FC<IconEditorProps> = ({
             {
               CompositionUtil.handleComposition({
                 composition,
-                path: 'TextEditor.offsetXField',
+                path: 'IconEditor.offsetXField',
                 onChange: onOffsetXChange,
                 propName: 'offset',
                 propValue: offset?.[0],
-                defaultValue: defaultValues?.TextEditor?.defaultOffsetX,
+                defaultValue: defaultValues?.IconEditor?.defaultOffsetX,
                 defaultElement: <OffsetField />
               })
             }
@@ -241,11 +241,11 @@ export const IconEditor: React.FC<IconEditorProps> = ({
             {
               CompositionUtil.handleComposition({
                 composition,
-                path: 'TextEditor.offsetYField',
+                path: 'IconEditor.offsetYField',
                 onChange: onOffsetYChange,
                 propName: 'offset',
                 propValue: offset?.[1],
-                defaultValue: defaultValues?.TextEditor?.defaultOffsetY,
+                defaultValue: defaultValues?.IconEditor?.defaultOffsetY,
                 defaultElement: <OffsetField />
               })
             }

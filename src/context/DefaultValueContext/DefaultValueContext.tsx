@@ -46,6 +46,8 @@ export interface DefaultValues {
   IconEditor?: {
     defaultImage?: string;
     defaultSize?: number;
+    defaultOffsetX?: number;
+    defaultOffsetY?: number;
     defaultRotate?: number;
     defaultOpacity?: number;
   };
@@ -78,6 +80,8 @@ export interface DefaultValues {
   };
   WellKnownNameEditor?: {
     defaultRadius?: string;
+    defaultOffsetX?: number;
+    defaultOffsetY?: number;
     defaultColor?: string;
     defaultOpacity?: number;
     defaultFillOpacity?: number;

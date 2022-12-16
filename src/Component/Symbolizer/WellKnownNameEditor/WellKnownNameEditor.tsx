@@ -208,11 +208,11 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
               locale.offsetXLabel,
               CompositionUtil.handleComposition({
                 composition,
-                path: 'TextEditor.offsetXField',
+                path: 'WellKnownNameEditor.offsetXField',
                 onChange: onOffsetXChange,
                 propName: 'offset',
                 propValue: offset?.[0],
-                defaultValue: defaultValues?.TextEditor?.defaultOffsetX,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultOffsetX,
                 defaultElement: <OffsetField />
               })
             )
@@ -222,11 +222,11 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
               locale.offsetYLabel,
               CompositionUtil.handleComposition({
                 composition,
-                path: 'TextEditor.offsetYField',
+                path: 'WellKnownNameEditor.offsetYField',
                 onChange: onOffsetYChange,
                 propName: 'offset',
                 propValue: offset?.[1],
-                defaultValue: defaultValues?.TextEditor?.defaultOffsetY,
+                defaultValue: defaultValues?.WellKnownNameEditor?.defaultOffsetY,
                 defaultElement: <OffsetField />
               })
             )
