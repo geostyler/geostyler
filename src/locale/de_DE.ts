@@ -141,14 +141,16 @@ const de_DE: GeoStylerLocale = {
     partiallySupported: 'wird vom verwendeten Parser nur teilweise unterstützt'
   },
   WellKnownNameEditor: {
-    radiusLabel: 'Radius',
-    fillOpacityLabel: 'Fülldeckkraft',
     fillColorLabel: 'Füllfarbe',
+    fillOpacityLabel: 'Fülldeckkraft',
+    offsetXLabel: 'Versatz X',
+    offsetYLabel: 'Versatz Y',
     opacityLabel: 'Deckkraft',
+    radiusLabel: 'Radius',
+    rotateLabel: 'Drehung',
     strokeColorLabel: 'Strichfarbe',
-    strokeWidthLabel: 'Strichstärke',
     strokeOpacityLabel: 'Strichdeckkraft',
-    rotateLabel: 'Drehung'
+    strokeWidthLabel: 'Strichstärke',
   },
   FillEditor: {
     opacityLabel: 'Deckkraft',
@@ -161,23 +163,26 @@ const de_DE: GeoStylerLocale = {
     graphicFillTypeLabel: 'Graphic Fill Type'
   },
   IconEditor: {
-    imagePlaceholder: 'URL zum Icon',
+    iconTooltipLabel: 'Öffne Galerie',
     imageLabel: 'Quelle',
-    sizeLabel: 'Größe',
-    rotateLabel: 'Drehung',
+    imagePlaceholder: 'URL zum Icon',
+    offsetXLabel: 'Versatz X',
+    offsetYLabel: 'Versatz Y',
     opacityLabel: 'Deckkraft',
-    iconTooltipLabel: 'Öffne Galerie'
+    rotateLabel: 'Drehung',
+    sizeLabel: 'Größe',
   },
   LineEditor: {
+    capLabel: 'Verschluss',
     colorLabel: 'Farbe',
-    widthLabel: 'Breite',
-    opacityLabel: 'Deckkraft',
     dashLabel: 'Strichmuster',
     dashOffsetLabel: 'Strichmuster Versatz',
-    capLabel: 'Verschluss',
-    joinLabel: 'Verknüpfung',
+    graphicFillTypeLabel: 'Graphic Fill Type',
     graphicStrokeTypeLabel: 'Graphic Stroke Type',
-    graphicFillTypeLabel: 'Graphic Fill Type'
+    joinLabel: 'Verknüpfung',
+    opacityLabel: 'Deckkraft',
+    perpendicularOffsetLabel: 'Senkrechter Versatz',
+    widthLabel: 'Breite',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Symbol'

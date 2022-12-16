@@ -141,14 +141,16 @@ const zh_CN: GeoStylerLocale = {
     partiallySupported: '仅被使用的解析器部分支持'
   },
   WellKnownNameEditor: {
-    radiusLabel: '半径',
-    fillOpacityLabel: '填充-不透明度',
     fillColorLabel: '填充-颜色',
+    fillOpacityLabel: '填充-不透明度',
+    offsetXLabel: 'X 偏移',
+    offsetYLabel: 'Y 偏移',
     opacityLabel: '不透明度',
+    radiusLabel: '半径',
+    rotateLabel: '旋转',
     strokeColorLabel: '描边-颜色',
-    strokeWidthLabel: '描边-宽度',
     strokeOpacityLabel: '描边-不透明度',
-    rotateLabel: '旋转'
+    strokeWidthLabel: '描边-宽度',
   },
   FillEditor: {
     fillOpacityLabel: '填充-不透明度',
@@ -161,12 +163,14 @@ const zh_CN: GeoStylerLocale = {
     graphicFillTypeLabel: '填充样式'
   },
   IconEditor: {
+    iconTooltipLabel: '打开图库',
     imageLabel: '来源',
     imagePlaceholder: 'URL到图标',
-    sizeLabel: '尺寸',
-    rotateLabel: '旋转',
+    offsetXLabel: 'X 偏移',
+    offsetYLabel: 'Y 偏移',
     opacityLabel: '不透明度',
-    iconTooltipLabel: '打开图库'
+    rotateLabel: '旋转',
+    sizeLabel: '尺寸',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: '符号'
@@ -176,6 +180,7 @@ const zh_CN: GeoStylerLocale = {
     widthLabel: '宽度',
     opacityLabel: '不透明度',
     dashLabel: '虚线样式',
+    perpendicularOffsetLabel: '垂直偏移',
     dashOffsetLabel: '偏移',
     capLabel: '端点',
     joinLabel: '角点',

@@ -141,14 +141,16 @@ const fr_FR: GeoStylerLocale = {
     partiallySupported : 'n\'est que partiellement supporté par l\'analyseur utilisé'
   },
   WellKnownNameEditor: {
-    radiusLabel: 'Rayon',
-    fillOpacityLabel: 'Opacité du remplissage',
     fillColorLabel: 'Couleur du remplissage',
+    fillOpacityLabel: 'Opacité du remplissage',
+    offsetXLabel: 'Décalage horizontal',
+    offsetYLabel: 'Décalage vertical',
     opacityLabel: 'Opacité',
+    radiusLabel: 'Rayon',
+    rotateLabel: 'Rotation',
     strokeColorLabel: 'Couleur du contour',
-    strokeWidthLabel: 'Épaisseur du contour',
     strokeOpacityLabel: 'Opacité du contour',
-    rotateLabel: 'Rotation'
+    strokeWidthLabel: 'Épaisseur du contour',
   },
   FillEditor: {
     opacityLabel: 'Opacité',
@@ -161,26 +163,29 @@ const fr_FR: GeoStylerLocale = {
     graphicFillTypeLabel: 'Motif du remplissage'
   },
   IconEditor: {
+    iconTooltipLabel: 'Ouvrir la galerie',
     imageLabel: 'Source',
     imagePlaceholder: 'URL de l\'icône',
-    sizeLabel: 'Taille',
-    rotateLabel: 'Rotation',
+    offsetXLabel: 'Décalage horizontal',
+    offsetYLabel: 'Décalage vertical',
     opacityLabel: 'Opacité',
-    iconTooltipLabel: 'Ouvrir la galerie'
+    rotateLabel: 'Rotation',
+    sizeLabel: 'Taille',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Symbole'
   },
   LineEditor: {
+    capLabel: 'Terminaison',
     colorLabel: 'Couleur',
-    widthLabel: 'Épaisseur',
-    opacityLabel: 'Opacité',
     dashLabel: 'Motif de tireté',
     dashOffsetLabel: 'Décalage du tireté',
-    capLabel: 'Terminaison',
-    joinLabel: 'Jointure',
+    graphicFillTypeLabel: 'Type de remplissage',
     graphicStrokeTypeLabel: 'Type de tracé',
-    graphicFillTypeLabel: 'Type de remplissage'
+    joinLabel: 'Jointure',
+    opacityLabel: 'Opacité',
+    perpendicularOffsetLabel: 'Décalage perpendiculaire',
+    widthLabel: 'Épaisseur',
   },
   TextEditor: {
     fontLabel: 'Police',

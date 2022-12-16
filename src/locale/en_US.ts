@@ -140,14 +140,16 @@ const en_US: GeoStylerLocale = {
     partiallySupported: 'is only partially supported by used parser'
   },
   WellKnownNameEditor: {
-    radiusLabel: 'Radius',
-    fillOpacityLabel: 'Fill-Opacity',
     fillColorLabel: 'Fill-Color',
+    fillOpacityLabel: 'Fill-Opacity',
+    offsetXLabel: 'Offset X',
+    offsetYLabel: 'Offset Y',
     opacityLabel: 'Opacity',
+    radiusLabel: 'Radius',
+    rotateLabel: 'Rotation',
     strokeColorLabel: 'Stroke-Color',
-    strokeWidthLabel: 'Stroke-Width',
     strokeOpacityLabel: 'Stroke-Opacity',
-    rotateLabel: 'Rotation'
+    strokeWidthLabel: 'Stroke-Width',
   },
   FillEditor: {
     opacityLabel: 'Opacity',
@@ -160,26 +162,29 @@ const en_US: GeoStylerLocale = {
     graphicFillTypeLabel: 'Graphic Fill Type'
   },
   IconEditor: {
+    iconTooltipLabel: 'Open Gallery',
     imageLabel: 'Source',
     imagePlaceholder: 'URL to Icon',
-    sizeLabel: 'Size',
-    rotateLabel: 'Rotation',
+    offsetXLabel: 'Offset X',
+    offsetYLabel: 'Offset Y',
     opacityLabel: 'Opacity',
-    iconTooltipLabel: 'Open Gallery'
+    rotateLabel: 'Rotation',
+    sizeLabel: 'Size',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Symbol'
   },
   LineEditor: {
+    capLabel: 'Cap',
     colorLabel: 'Color',
-    widthLabel: 'Width',
-    opacityLabel: 'Opacity',
     dashLabel: 'Dash Pattern',
     dashOffsetLabel: 'Dash Offset',
-    capLabel: 'Cap',
-    joinLabel: 'Join',
+    graphicFillTypeLabel: 'Graphic Fill Type',
     graphicStrokeTypeLabel: 'Graphic Stroke Type',
-    graphicFillTypeLabel: 'Graphic Fill Type'
+    joinLabel: 'Join',
+    opacityLabel: 'Opacity',
+    perpendicularOffsetLabel: 'Perpendicular Offset',
+    widthLabel: 'Width',
   },
   TextEditor: {
     fontLabel: 'Font',

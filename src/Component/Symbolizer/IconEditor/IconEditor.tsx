@@ -56,6 +56,7 @@ import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
+import OffsetField from '../Field/OffsetField/OffsetField';
 
 // default props
 export interface IconEditorDefaultProps {
@@ -110,6 +111,24 @@ export const IconEditor: React.FC<IconEditorProps> = ({
     }
   };
 
+  const onOffsetXChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number];
+    symbolizerClone.offset = newOffset;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
+  const onOffsetYChange = (value: number) => {
+    const symbolizerClone = _cloneDeep(symbolizer);
+    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number, value];
+    symbolizerClone.offset = newOffset;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
   const onRotateChange = (value: number) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.rotate = value;
@@ -135,7 +154,8 @@ export const IconEditor: React.FC<IconEditorProps> = ({
     opacity,
     image,
     size,
-    rotate
+    rotate,
+    offset
   } = symbolizer;
 
   const imageSrc = !_isEmpty(image) ? image : locale.imagePlaceholder;
@@ -193,6 +213,40 @@ export const IconEditor: React.FC<IconEditorProps> = ({
                 propValue: size,
                 defaultValue: defaultValues?.IconEditor?.defaultSize,
                 defaultElement: <SizeField />
+              })
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.offsetXLabel}
+            {...getSupportProps('offset')}
+            {...formItemLayout}
+          >
+            {
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'IconEditor.offsetXField',
+                onChange: onOffsetXChange,
+                propName: 'offset',
+                propValue: offset?.[0],
+                defaultValue: defaultValues?.IconEditor?.defaultOffsetX,
+                defaultElement: <OffsetField />
+              })
+            }
+          </Form.Item>
+          <Form.Item
+            label={locale.offsetYLabel}
+            {...getSupportProps('offset')}
+            {...formItemLayout}
+          >
+            {
+              CompositionUtil.handleComposition({
+                composition,
+                path: 'IconEditor.offsetYField',
+                onChange: onOffsetYChange,
+                propName: 'offset',
+                propValue: offset?.[1],
+                defaultValue: defaultValues?.IconEditor?.defaultOffsetY,
+                defaultElement: <OffsetField />
               })
             }
           </Form.Item>

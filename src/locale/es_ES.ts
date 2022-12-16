@@ -202,14 +202,16 @@ const es_ES: GeoStylerLocale = {
     partiallySupported: 'sólo es parcialmente soportado por el parser utilizado'
   },
   WellKnownNameEditor: {
-    radiusLabel: 'Radio',
-    fillOpacityLabel: 'Relleno-Transparencia',
     fillColorLabel: 'Fondo-Color',
+    fillOpacityLabel: 'Relleno-Transparencia',
+    offsetXLabel: 'Desplazamiento X',
+    offsetYLabel: 'Desplazamiento Y',
     opacityLabel: 'Transparencia',
+    radiusLabel: 'Radio',
+    rotateLabel: 'Rotación',
     strokeColorLabel: 'Trazo-Color',
-    strokeWidthLabel: 'Trazo-Ancho',
     strokeOpacityLabel: 'Trazo-Transparencia',
-    rotateLabel: 'Rotación'
+    strokeWidthLabel: 'Trazo-Ancho',
   },
   FillEditor: {
     fillOpacityLabel: 'Relleno-Transparencia',
@@ -222,23 +224,26 @@ const es_ES: GeoStylerLocale = {
     graphicFillTypeLabel: 'Tipo gráfico de relleno'
   },
   IconEditor: {
+    iconTooltipLabel: 'Abrir galería',
     imageLabel: 'Fuente',
     imagePlaceholder: 'URL a Icono',
-    sizeLabel: 'Tamaño',
-    rotateLabel: 'Rotación',
+    offsetXLabel: 'Desplazamiento X',
+    offsetYLabel: 'Desplazamiento Y',
     opacityLabel: 'Transparencia',
-    iconTooltipLabel: 'Abrir galería'
+    rotateLabel: 'Rotación',
+    sizeLabel: 'Tamaño',
   },
   LineEditor: {
+    capLabel: 'Cap',
     colorLabel: 'Color',
-    widthLabel: 'Ancho',
-    opacityLabel: 'Transparencia',
     dashLabel: 'Patrón de achurado',
     dashOffsetLabel: 'Dash Offset',
-    capLabel: 'Cap',
-    joinLabel: 'Join',
+    graphicFillTypeLabel: 'Tipo de gráfico de relleno',
     graphicStrokeTypeLabel: 'Tipo de gráfico de trazado',
-    graphicFillTypeLabel: 'Tipo de gráfico de relleno'
+    joinLabel: 'Join',
+    opacityLabel: 'Transparencia',
+    perpendicularOffsetLabel: 'Perpendicular Offset',
+    widthLabel: 'Ancho',
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Simbolo'

@@ -66,6 +66,36 @@ describe('WellKnownNameEditor', () => {
     });
   });
 
+  describe('onOffsetXChange', () => {
+    it('calls the onOffsetXChange prop with correct symbolizer ', async () => {
+      const textEditor = render(<WellKnownNameEditor {...props} />);
+      const newSymbolizer = {...dummySymbolizer};
+      newSymbolizer.offset = [3, 0];
+      const input = textEditor.container.querySelectorAll('.offset-field input')[0];
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 3 }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+    });
+  });
+
+  describe('onOffsetYChange', () => {
+    it('calls the onOffsetYChange prop with correct symbolizer ', async () => {
+      const textEditor = render(<WellKnownNameEditor {...props} />);
+      const newSymbolizer = {...dummySymbolizer};
+      newSymbolizer.offset = [0, 10];
+      const input = textEditor.container.querySelectorAll('.offset-field input')[1];
+      await act(async() => {
+        fireEvent.change(input, {
+          target: { value: 10 }
+        });
+      });
+      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+    });
+  });
+
   // describe('onColorChange', () => {
   //   it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
   //     const onColorChange = wrapper.instance().onColorChange;

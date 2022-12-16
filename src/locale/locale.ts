@@ -103,14 +103,16 @@ export interface GeoStylerLocale extends Locale {
     partiallySupported: string;
   };
   WellKnownNameEditor: {
-    radiusLabel: string;
-    fillOpacityLabel: string;
     fillColorLabel: string;
+    fillOpacityLabel: string;
+    offsetXLabel: string;
+    offsetYLabel: string;
     opacityLabel: string;
-    strokeColorLabel: string;
-    strokeWidthLabel: string;
-    strokeOpacityLabel: string;
+    radiusLabel: string;
     rotateLabel: string;
+    strokeColorLabel: string;
+    strokeOpacityLabel: string;
+    strokeWidthLabel: string;
   };
   FillEditor: {
     opacityLabel: string;
@@ -123,12 +125,14 @@ export interface GeoStylerLocale extends Locale {
     graphicFillTypeLabel: string;
   };
   IconEditor: {
+    iconTooltipLabel: string;
     imageLabel: string;
     imagePlaceholder: string;
-    sizeLabel: string;
-    rotateLabel: string;
+    offsetXLabel: string;
+    offsetYLabel: string;
     opacityLabel: string;
-    iconTooltipLabel: string;
+    rotateLabel: string;
+    sizeLabel: string;
   };
   LineEditor: {
     colorLabel: string;
@@ -136,6 +140,7 @@ export interface GeoStylerLocale extends Locale {
     opacityLabel: string;
     dashLabel: string;
     dashOffsetLabel: string;
+    perpendicularOffsetLabel: string;
     capLabel: string;
     joinLabel: string;
     graphicStrokeTypeLabel: string;
