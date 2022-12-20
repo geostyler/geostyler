@@ -29,9 +29,11 @@
 const path = require('path');
 const webpackConfig = require('./webpack.dev.config');
 const rdt = require('react-docgen-typescript');
+const packageJson = require('./package.json');
 
 module.exports = {
   title: 'GeoStyler',
+  version: packageJson.version,
   styleguideDir: './build/styleguide',
   webpackConfig: {
     ...webpackConfig,
