@@ -70,7 +70,7 @@ module.exports = {
   pagePerSection: true,
   sections: [{
     name: 'Introduction',
-    content: './docs/README.md',
+    content: './docs/introduction.md',
     sectionDepth: 0
   }, {
     name: 'Components',
