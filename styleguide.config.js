@@ -37,6 +37,9 @@ module.exports = {
     ...webpackConfig,
     mode: process.env.NODE_ENV
   },
+  template: {
+    favicon: './geostyler-favicon.svg'
+  },
   minimize: process.env.NODE_ENV === 'production',
   assetsDir: './docs',
   propsParser: process.env.NODE_ENV === 'production' ?
