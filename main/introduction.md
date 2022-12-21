@@ -1,4 +1,4 @@
-![GeoStyler Logo](./Geo_Styler_Logo_300_RGB.jpg)
+<img src="./Geo_Styler_Logo_300_RGB.jpg" alt="GeoStyler Logo" style="max-width: 100%" />
 
 GeoStyler is an Open Source React library that enables users to style maps with the help of a GUI.
 GeoStyler works with multiple styling formats and is highly customizable.
