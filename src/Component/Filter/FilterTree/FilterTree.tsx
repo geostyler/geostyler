@@ -32,7 +32,8 @@ import {
   Tree,
   Dropdown,
   Menu,
-  Button
+  Button,
+  TreeProps
 } from 'antd';
 
 import {
@@ -97,15 +98,14 @@ export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-export const FilterTree: React.FC<FilterTreeProps> = ({
+export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
   filter: rootFilter = ['==', '', null],
   internalDataDef,
   locale = en_US.FilterTree,
   onFilterChange,
-  filterUiProps
+  filterUiProps,
+  ...passThroughProps
 }) => {
-
-  const [expandedKeys, setExpandedKeys] = React.useState<string[]>();
 
   /**
    * Changehandler for ComparsionFilters.
@@ -368,20 +368,12 @@ export const FilterTree: React.FC<FilterTreeProps> = ({
     onFilterChange(newFilter);
   };
 
-  /**
-   * Expand handler which is passed to the Tree.
-   * Sets the expandedKeys to the state and so back to the tree.
-   */
-  const onExpand = (newExpandedKeys: (number|string)[]) => {
-    setExpandedKeys(newExpandedKeys as string[]);
-  };
-
   return (
     <Tree
       className="gs-filter-tree"
       draggable={true}
-      expandedKeys={expandedKeys}
-      onExpand={onExpand}
+      defaultExpandAll={true}
+      {...passThroughProps}
       onDrop={onDrop}
     >
       {getNodeByFilter(rootFilter)}
