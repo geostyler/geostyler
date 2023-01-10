@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Rule as GsRule,
@@ -78,19 +78,15 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
   rulesProps
 }) => {
 
-  const [stateStyle, setStateStyle] = useState<GsStyle>(style);
-
   const onNameChange = (name: string) => {
-    let newStyle = _cloneDeep(stateStyle);
+    let newStyle = _cloneDeep(style);
     newStyle.name = name;
-    setStateStyle(newStyle);
     onStyleChange(newStyle);
   };
 
   const onRulesChange = (rules: GsRule[]) => {
-    let newStyle = _cloneDeep(stateStyle);
+    let newStyle = _cloneDeep(style);
     newStyle.rules = rules;
-    setStateStyle(newStyle);
     onStyleChange(newStyle);
   };
 
@@ -111,11 +107,11 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
       <h2>{locale.styleTitle}</h2>
       <Divider />
       <StyleFieldContainer
-        name={stateStyle.name}
+        name={style.name}
         onNameChange={onNameChange}
       />
       <Rules
-        rules={stateStyle.rules}
+        rules={style.rules}
         data={data}
         onRulesChange={onRulesChange}
         onEditRuleClick={onEditRule}

@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   Rule as GsRule,
@@ -77,37 +77,31 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
   locale = en_US.RuleOverview,
 }) => {
 
-  const [stateRule, setStateRule] = useState<GsRule>(rule);
-
   const onNameChange = (name: string) => {
-    const newRule: GsRule = {...stateRule, name};
-    setStateRule(newRule);
+    const newRule: GsRule = {...rule, name};
     onRuleChange(newRule);
   };
 
   const onMinScaleChange = (minScale: number) => {
-    let newRule: GsRule = {...stateRule};
+    let newRule: GsRule = {...rule};
     if (!newRule.scaleDenominator) {
       newRule.scaleDenominator = {};
     }
     newRule.scaleDenominator.min = minScale;
-    setStateRule(newRule);
     onRuleChange(newRule);
   };
 
   const onMaxScaleChange = (maxScale: number) => {
-    let newRule: GsRule = {...stateRule};
+    let newRule: GsRule = {...rule};
     if (!newRule.scaleDenominator) {
       newRule.scaleDenominator = {};
     }
     newRule.scaleDenominator.max = maxScale;
-    setStateRule(newRule);
     onRuleChange(newRule);
   };
 
   const onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
-    let newRule: GsRule = {...stateRule, symbolizers};
-    setStateRule(newRule);
+    let newRule: GsRule = {...rule, symbolizers};
     onRuleChange(newRule);
   };
 
