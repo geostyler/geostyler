@@ -1,3 +1,19 @@
+## [11.1.0](https://github.com/geostyler/geostyler/compare/v11.0.0...v11.1.0) (2023-01-11)
+
+
+### Features
+
+* add offset fields to IconEditor ([ab6af25](https://github.com/geostyler/geostyler/commit/ab6af25b44f0e50d2d4c410ebfe08fe04aee298b))
+* add offset fields to WellKnownNameEditor ([590d1e0](https://github.com/geostyler/geostyler/commit/590d1e09f0d1286e072c71a60b9c59a04c51bf99))
+* add perpendicular offset field to LineEditor ([adadc54](https://github.com/geostyler/geostyler/commit/adadc541c65a2e151d91aa9e9933fa2f6673c4f5))
+* expand FilterTree by default ([0e88d75](https://github.com/geostyler/geostyler/commit/0e88d75df8151196cd0e452fbc8df277c23b6f44))
+
+
+### Bugfixes
+
+* adapt path and defaultValue for editors ([cb74226](https://github.com/geostyler/geostyler/commit/cb74226d95310f44f55918e06a6a9491523a6280))
+* remove internal state handling for CardStyle ([58635a1](https://github.com/geostyler/geostyler/commit/58635a148dc235b0b6da5af6c4b7042856a43b17))
+
 ## [11.0.0](https://github.com/geostyler/geostyler/compare/v10.3.1...v11.0.0) (2022-12-13)
 
 
