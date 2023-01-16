@@ -1,3 +1,11 @@
+## [11.1.1](https://github.com/geostyler/geostyler/compare/v11.1.0...v11.1.1) (2023-01-16)
+
+
+### Bugfixes
+
+* apply suggestions from code review ([b8486e8](https://github.com/geostyler/geostyler/commit/b8486e818f3e28905909c30cfbd2a3e6844af275))
+* make RuleGeneratorUtil less prone to errors ([d55fd15](https://github.com/geostyler/geostyler/commit/d55fd157f6ba5d4412bac16e17affeb9bb4abac6))
+
 ## [11.1.0](https://github.com/geostyler/geostyler/compare/v11.0.0...v11.1.0) (2023-01-11)
 
 
