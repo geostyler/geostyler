@@ -28,7 +28,7 @@
 
 import * as CSS from 'csstype';
 const Color = require('color');
-import { Data } from 'geostyler-data';
+import { VectorData } from 'geostyler-data';
 import {
   LevelOfMeasurement
 } from 'src/Component/RuleGenerator/RuleGenerator';
@@ -47,11 +47,10 @@ import {
 } from 'chroma-js';
 import { ClassificationMethod } from 'src/Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
 
-import _get from 'lodash/get';
-import { GeoJsonGeometryTypes } from 'geojson';
+import { Feature, GeoJsonGeometryTypes } from 'geojson';
 
 export interface RuleGenerationParams {
-  data: Data;
+  data: VectorData;
   levelOfMeasurement: LevelOfMeasurement;
   numberOfRules: number;
   attributeName: string;
@@ -67,12 +66,12 @@ export interface RuleGenerationParams {
  */
 class RuleGeneratorUtil {
 
-  static getDistinctValues(data: Data, attributeName: string): any[] {
+  static getDistinctValues(data: VectorData, attributeName: string): any[] {
     const distinctValues: any[] = [];
-    const features: any[] = _get(data, 'exampleFeatures.features');
+    const features: Feature[] = data?.exampleFeatures?.features;
     if (features) {
-      features.forEach((feature: any) => {
-        const value = _get(feature, `properties[${attributeName}]`);
+      features.forEach((feature: Feature) => {
+        const value = feature?.properties?.[attributeName];
         if (value && !distinctValues.includes(value)) {
           distinctValues.push(value);
         }
@@ -82,9 +81,9 @@ class RuleGeneratorUtil {
     return distinctValues;
   }
 
-  static guessSymbolizerFromData(data: Data): SymbolizerKind {
+  static guessSymbolizerFromData(data: VectorData): SymbolizerKind {
     const firstFeatureGeometryType: GeoJsonGeometryTypes
-      = _get(data, 'exampleFeatures.features[0].geometry.type');
+      = data?.exampleFeatures?.features?.[0]?.geometry?.type;
 
     switch (firstFeatureGeometryType) {
       case 'Point':
@@ -144,10 +143,10 @@ class RuleGeneratorUtil {
       if (!classificationMethod) {
         // TODO Add feedback
       } else {
-        const features: any[] = _get(data, 'exampleFeatures.features');
-        const values = features ? features.map((feature: any) => {
-          return _get(feature, `properties[${attributeName}]`);
-        }) : [];
+        const features: any[] = data?.exampleFeatures?.features;
+        const values = features
+          ? features.map((feature: Feature) => feature?.properties?.[attributeName])
+          : [];
         let ranges: number[][] = [];
 
         switch (classificationMethod) {

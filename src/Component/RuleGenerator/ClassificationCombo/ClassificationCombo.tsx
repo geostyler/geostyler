@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import { Select } from 'antd';
 
@@ -35,6 +35,8 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import _isEqual from 'lodash/isEqual';
 import { GeoStylerLocale } from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
+
+import './ClassificationCombo.less';
 
 export type ClassificationMethod = 'equalInterval' | 'quantile' | 'logarithmic' | 'kmeans';
 
@@ -80,7 +82,7 @@ export const ClassificationCombo: React.FC<ClassificationComboProps> = ({
 
   return (
     <Select
-      className="color-space-select"
+      className="classification-combo"
       optionFilterProp="children"
       value={classification}
       onChange={onChange}

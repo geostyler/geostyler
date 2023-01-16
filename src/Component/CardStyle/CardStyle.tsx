@@ -42,7 +42,7 @@ import {
 } from 'geostyler-style';
 
 import {
-  Data
+  Data, VectorData
 } from 'geostyler-data';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
@@ -395,7 +395,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
       {
         currentView.view === CLASSIFICATIONVIEW && (
           <RuleGenerator
-            internalDataDef={data}
+            internalDataDef={data as VectorData}
             onRulesChange={onRulesChange}
             {...ruleGeneratorProps}
           />

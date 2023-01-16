@@ -36,7 +36,7 @@ import {
   Rule
 } from 'geostyler-style';
 
-import { Data } from 'geostyler-data';
+import { VectorData } from 'geostyler-data';
 
 import './RuleGeneratorWindow.less';
 import { Button } from 'antd';
@@ -58,7 +58,7 @@ export interface RuleGeneratorWindowDefaultProps {
 
 // non default props
 export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDefaultProps> {
-  internalDataDef: Data;
+  internalDataDef: VectorData;
   x?: number;
   y?: number;
   onClose?: () => void;

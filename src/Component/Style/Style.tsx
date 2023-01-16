@@ -49,7 +49,7 @@ import {
 } from 'geostyler-style';
 
 import {
-  Data
+  Data, VectorData
 } from 'geostyler-data';
 
 import Rule, { RuleProps } from '../Rule/Rule';
@@ -482,6 +482,7 @@ export const Style: React.FC<StyleProps> = ({
           />
         </Form.Item>
         {
+          // TODO: Rule GeneratorWindow should only be available if data is VectorData
           enableClassification ?
             <Button
               className="gs-style-rulegenerator"
@@ -496,7 +497,7 @@ export const Style: React.FC<StyleProps> = ({
         (!ruleGeneratorWindowVisible) ? null :
           <RuleGeneratorWindow
             y={0}
-            internalDataDef={data}
+            internalDataDef={data as VectorData}
             onClose={onRuleGeneratorWindowClose}
             onRulesChange={onRulesChange}
             colorRamps={colorRamps}
