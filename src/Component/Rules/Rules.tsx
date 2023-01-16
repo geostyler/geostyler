@@ -255,6 +255,7 @@ export const Rules: React.FC<RulesProps> = ({
     </Button>
   ];
 
+  // TODO: Classification button should only be available if data is VectorData
   if (enableClassification) {
     defaultActions = [
       ...defaultActions,

@@ -28,7 +28,7 @@
 
 import React, { useState } from 'react';
 import { Rule, SymbolizerKind, WellKnownName } from 'geostyler-style';
-import { Data } from 'geostyler-data';
+import { VectorData } from 'geostyler-data';
 import { Radio, Form, Button, InputNumber, Tooltip } from 'antd';
 import en_US from '../../locale/en_US';
 import AttributeCombo from '../Filter/AttributeCombo/AttributeCombo';
@@ -63,7 +63,7 @@ interface RuleGeneratorDefaultProps {
 
 // non default props
 export interface RuleGeneratorProps extends Partial<RuleGeneratorDefaultProps> {
-  internalDataDef: Data;
+  internalDataDef: VectorData;
   onRulesChange?: (rules: Rule[]) => void;
 }
 const COMPONENTNAME = 'RuleGenerator';
