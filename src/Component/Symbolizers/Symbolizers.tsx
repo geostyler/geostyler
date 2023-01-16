@@ -48,7 +48,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import _merge from 'lodash/merge';
-import { SymbolizerCard, SymbolizerCardProps } from '../SymbolizerCard/SymbolizerCard';
+import SymbolizerCard, { SymbolizerCardProps } from '../SymbolizerCard/SymbolizerCard';
 import { PlusOutlined } from '@ant-design/icons';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import { GeoStylerLocale } from '../../locale/locale';

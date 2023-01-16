@@ -71,7 +71,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
   name,
   minScale,
   maxScale,
-  locale = { ...en_US.Rule, ...en_US.ScaleDenominator },
+  locale = en_US.Rule,
   onNameChange = () => {},
   onMinScaleChange = () => {},
   onMaxScaleChange = () => {},
@@ -97,13 +97,11 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
           />
         </Form.Item>
         <MinScaleDenominator
-          label={locale.minScaleDenominatorLabelText}
           value={minScale}
           onChange={onMinScaleChange}
           {...formItemLayout}
         />
         <MaxScaleDenominator
-          label={locale.maxScaleDenominatorLabelText}
           value={maxScale}
           onChange={onMaxScaleChange}
           {...formItemLayout}

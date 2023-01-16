@@ -37,11 +37,11 @@ import {
 import './RuleOverview.less';
 import { Data } from 'geostyler-data';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import { RuleFieldContainer, RuleFieldContainerProps } from '../RuleFieldContainer/RuleFieldContainer';
+import RuleFieldContainer, { RuleFieldContainerProps } from '../RuleFieldContainer/RuleFieldContainer';
 import { Divider } from 'antd';
-import { Symbolizers, SymbolizersProps } from '../Symbolizers/Symbolizers';
+import Symbolizers, { SymbolizersProps } from '../Symbolizers/Symbolizers';
 import CardViewUtil from '../../Util/CardViewUtil';
-import { FilterOverview } from '../FilterOverview/FilterOverview';
+import FilterOverview from '../FilterOverview/FilterOverview';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
 
