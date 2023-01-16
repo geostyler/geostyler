@@ -10,8 +10,8 @@ Comments in this file can be left untouched an will not appear in the Pull Reque
 
 <!--
 - Please give a short description of the changes you propose. Please use prose and try not to be too technical, if possible.
-- Should i link an issue or a pull request? -> #
-- Should i mention some people? -> @
+- Should I link an issue or a pull request? -> #
+- Should I mention some people? -> @
 -->
 
 ## Do you introduce a breaking change?
