@@ -20,6 +20,7 @@ import {
   ContrastEnhancementFieldProps
 } from '../../Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
 import { GammaFieldProps } from '../../Component/Symbolizer/Field/GammaField/GammaField';
+import { IconLibrary } from '../../Component/Symbolizer/IconSelector/IconSelector';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -55,6 +56,7 @@ export type CompositionContext = {
     offsetYField?: InputConfig<OffsetFieldProps['offset']>;
     rotateField?: InputConfig<RotateFieldProps['rotate']>;
     opacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    iconLibraries?: IconLibrary[];
   };
   LineEditor?: {
     visibility?: boolean;
@@ -110,27 +112,27 @@ export type CompositionContext = {
   };
   ComparisonFilter?: Partial<ComparisonFilterProps>;
   Renderer?: {
-    rendererType: 'SLD' | 'OpenLayers';
-    wmsBaseUrl: string;
-    layer: string;
+    rendererType?: 'SLD' | 'OpenLayers';
+    wmsBaseUrl?: string;
+    layer?: string;
     rasterLayer?: string;
     additionalHeaders?: any;
     wmsParams?: any;
   };
   Rule?: {
-    amount: {
+    amount?: {
       visibility?: boolean;
     };
-    duplicate: {
+    duplicate?: {
       visibility?: boolean;
     };
-    maxScale: {
+    maxScale?: {
       visibility?: boolean;
     };
-    minScale: {
+    minScale?: {
       visibility?: boolean;
     };
-    name: {
+    name?: {
       visibility?: boolean;
     };
   };
