@@ -1,7 +1,25 @@
 import { UnsupportedProperties } from 'geostyler-style';
 import { cloneDeep } from 'lodash';
 import React, { useContext } from 'react';
+import { ComparisonFilterProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
+import { ColorFieldProps } from '../../Component/Symbolizer/Field/ColorField/ColorField';
+import { LineDashFieldProps } from '../../Component/Symbolizer/Field/LineDashField/LineDashField';
+import { OpacityFieldProps } from '../../Component/Symbolizer/Field/OpacityField/OpacityField';
+import { ImageFieldProps } from '../../Component/Symbolizer/Field/ImageField/ImageField';
+import { WidthFieldProps } from '../../Component/Symbolizer/Field/WidthField/WidthField';
+import { SizeFieldProps } from '../../Component/Symbolizer/Field/SizeField/SizeField';
 import { GeoStylerLocale } from '../../locale/locale';
+import { OffsetFieldProps } from '../../Component/Symbolizer/Field/OffsetField/OffsetField';
+import { RotateFieldProps } from '../../Component/Symbolizer/Field/RotateField/RotateField';
+import { LineCapFieldProps } from '../../Component/Symbolizer/Field/LineCapField/LineCapField';
+import { LineJoinFieldProps } from '../../Component/Symbolizer/Field/LineJoinField/LineJoinField';
+import { WellKnownNameFieldProps } from '../../Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
+import { RadiusFieldProps } from '../../Component/Symbolizer/Field/RadiusField/RadiusField';
+import { FontPickerProps } from '../../Component/Symbolizer/Field/FontPicker/FontPicker';
+import {
+  ContrastEnhancementFieldProps
+} from '../../Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
+import { GammaFieldProps } from '../../Component/Symbolizer/Field/GammaField/GammaField';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -13,7 +31,7 @@ export type UnsupportedPropertiesContextType = {
   options?: UnsupportedPropertiesContextOptions;
 };
 
-export type InputConfig<T extends number | string | boolean> = {
+export type InputConfig<T> = {
   visibility?: boolean;
   default?: T;
 };
@@ -21,24 +39,76 @@ export type InputConfig<T extends number | string | boolean> = {
 export type CompositionContext = {
   FillEditor?: {
     visibility?: boolean;
-    fillColorField?: InputConfig<string>;
-    fillOpacityField?: InputConfig<number>;
-    opacityField?: InputConfig<number>;
-    outlineOpacityField?: InputConfig<number>;
-    outlineColorField?: InputConfig<string>;
-    outlineDasharrayField?: InputConfig<any>;
-    outlineWidthField?: InputConfig<number>;
+    fillColorField?: InputConfig<ColorFieldProps['color']>;
+    fillOpacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    outlineOpacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    outlineColorField?: InputConfig<ColorFieldProps['color']>;
+    outlineDasharrayField?: InputConfig<LineDashFieldProps['dashArray']>;
+    outlineWidthField?: InputConfig<WidthFieldProps['width']>;
   };
   IconEditor?: {
     visibility: boolean;
-    imageField: InputConfig<string>;
+    imageField: InputConfig<ImageFieldProps['value']>;
+    sizeField: InputConfig<SizeFieldProps['size']>;
+    offsetXField?: InputConfig<OffsetFieldProps['offset']>;
+    offsetYField?: InputConfig<OffsetFieldProps['offset']>;
+    rotateField?: InputConfig<RotateFieldProps['rotate']>;
+    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
   };
-  LineEditor?: any;
-  MarkEditor?: any;
-  TextEditor?: any;
-  GraphicEditor?: any;
-  RasterEditor?: any; // TODO: JS
-  ComparisonFilter?: any;
+  LineEditor?: {
+    visibility?: boolean;
+    colorField?: InputConfig<ColorFieldProps['color']>;
+    widthField?: InputConfig<WidthFieldProps['width']>;
+    perpendicularOffsetField?: InputConfig<OffsetFieldProps['offset']>;
+    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    lineDashField?: InputConfig<LineDashFieldProps['dashArray']>;
+    capField?: InputConfig<LineCapFieldProps['cap']>;
+    joinField?: InputConfig<LineJoinFieldProps['join']>;
+  };
+  MarkEditor?: {
+    visibility?: boolean;
+    wellKnownNameField?: InputConfig<WellKnownNameFieldProps['wellKnownName']>;
+  };
+  WellKnownNameEditor?: {
+    visibility?: boolean;
+    radiusField?: InputConfig<RadiusFieldProps['radius']>;
+    offsetXField?: InputConfig<OffsetFieldProps['offset']>;
+    offsetYField?: InputConfig<OffsetFieldProps['offset']>;
+    fillColorField?: InputConfig<ColorFieldProps['color']>;
+    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    fillOpacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    strokeColorField?: InputConfig<ColorFieldProps['color']>;
+    strokeWidthField?: InputConfig<WidthFieldProps['width']>;
+    strokeOpacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    rotateField?: InputConfig<RotateFieldProps['rotate']>;
+  };
+  TextEditor?: {
+    visibility?: boolean;
+    templateField?: InputConfig<string>;
+    colorField?: InputConfig<ColorFieldProps['color']>;
+    fontField?: InputConfig<FontPickerProps['font']>;
+    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    sizeField?: InputConfig<SizeFieldProps['size']>;
+    offsetXField?: InputConfig<OffsetFieldProps['offset']>;
+    offsetYField?: InputConfig<OffsetFieldProps['offset']>;
+    rotateField?: InputConfig<RotateFieldProps['rotate']>;
+    haloColorField?: InputConfig<ColorFieldProps['color']>;
+    haloWidthField?: InputConfig<WidthFieldProps['width']>;
+  };
+  RasterEditor?: {
+    visibility?: boolean;
+    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    contrastEnhancementField?: InputConfig<ContrastEnhancementFieldProps['contrastEnhancement']>;
+    gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
+  };
+  RasterChannelEditor?: {
+    visibility?: boolean;
+  };
+  ColorMapEditor?: {
+    visibility?: boolean;
+  };
+  ComparisonFilter?: Partial<ComparisonFilterProps>;
   Renderer?: {
     rendererType: 'SLD' | 'OpenLayers';
     wmsBaseUrl: string;
@@ -48,11 +118,21 @@ export type CompositionContext = {
     wmsParams?: any;
   };
   Rule?: {
-    amount: InputConfig<number>;
-    duplicate: InputConfig<number>;
-    maxScale: InputConfig<number>;
-    minScale: InputConfig<number>;
-    name: InputConfig<string>;
+    amount: {
+      visibility?: boolean;
+    };
+    duplicate: {
+      visibility?: boolean;
+    };
+    maxScale: {
+      visibility?: boolean;
+    };
+    minScale: {
+      visibility?: boolean;
+    };
+    name: {
+      visibility?: boolean;
+    };
   };
 };
 
