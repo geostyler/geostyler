@@ -32,12 +32,19 @@ import { InputNumber, Form, FormItemProps } from 'antd';
 import './MinScaleDenominator.less';
 import { Expression, isGeoStylerFunction } from 'geostyler-style';
 
+import { localize } from '../LocaleWrapper/LocaleWrapper';
+
+import en_US from '../../locale/en_US';
+import { GeoStylerLocale } from '../../locale/locale';
+
 // default props
 interface MinScaleDenominatorDefaultProps extends Partial<FormItemProps> {
   /** The label of the minScaleDenominator */
   label: string;
   /** The placeholder text to display if no value is set */
   placeholder: string;
+  /** Locale object containing translated text snippets */
+  locale: GeoStylerLocale['ScaleDenominator'];
 }
 // non default props
 export interface MinScaleDenominatorProps extends Partial<MinScaleDenominatorDefaultProps> {
@@ -51,8 +58,9 @@ export interface MinScaleDenominatorProps extends Partial<MinScaleDenominatorDef
  * Input field for the minimum scale of a rule.
  */
 export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
-  label = 'Min. Scale',
-  placeholder = 'Enter min. Scale (Optional)',
+  placeholder,
+  locale = en_US.ScaleDenominator,
+  label = locale.minScaleDenominatorLabelText,
   value,
   onChange,
   ...formItemLayout
@@ -63,16 +71,23 @@ export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
   }
 
   return (
-    <Form.Item className="gs-min-scaledenominator" label={label} colon={false} {...formItemLayout}>
+    <Form.Item
+      className="gs-min-scaledenominator"
+      label={label}
+      colon={false}
+      {...formItemLayout}
+    >
       <InputNumber
         className="gs-min-scaledenominator-input"
         value={value}
         min={0}
-        placeholder={placeholder}
+        placeholder={locale.minScaleDenominatorPlaceholderText}
         onChange={onChange}
       />
     </Form.Item>
   );
 };
 
-export default MinScaleDenominator;
+// export default MinScaleDenominator;
+
+export default localize(MinScaleDenominator, 'ScaleDenominator');

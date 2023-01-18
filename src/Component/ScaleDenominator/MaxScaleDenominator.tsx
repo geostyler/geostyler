@@ -32,12 +32,19 @@ import { InputNumber, Form, FormItemProps } from 'antd';
 import './MaxScaleDenominator.less';
 import { Expression, isGeoStylerFunction } from 'geostyler-style';
 
+import { localize } from '../LocaleWrapper/LocaleWrapper';
+
+import en_US from '../../locale/en_US';
+import { GeoStylerLocale } from '../../locale/locale';
+
 // default props
 interface MaxScaleDenominatorDefaultProps extends Partial<FormItemProps> {
   /** The label of the maxScaleDenominator */
   label: string;
   /** The placeholder text to display if no value is set */
   placeholder: string;
+  /** Locale object containing translated text snippets */
+  locale: GeoStylerLocale['ScaleDenominator'];
 }
 // non default props
 export interface MaxScaleDenominatorProps extends Partial<MaxScaleDenominatorDefaultProps> {
@@ -51,8 +58,9 @@ export interface MaxScaleDenominatorProps extends Partial<MaxScaleDenominatorDef
  * Input field for the maximum scale of a rule.
  */
 export const MaxScaleDenominator: React.FC<MaxScaleDenominatorProps> = ({
-  label = 'Max. Scale',
-  placeholder = 'Enter max. Scale (Optional)',
+  placeholder,
+  locale = en_US.ScaleDenominator,
+  label = locale.maxScaleDenominatorLabelText,
   value,
   onChange,
   ...formItemLayout
@@ -63,16 +71,20 @@ export const MaxScaleDenominator: React.FC<MaxScaleDenominatorProps> = ({
   }
 
   return (
-    <Form.Item className="gs-max-scaledenominator" label={label} colon={false} {...formItemLayout} >
+    <Form.Item className="gs-max-scaledenominator"
+      label={label}
+      colon={false}
+      {...formItemLayout}
+    >
       <InputNumber
         className="gs-max-scaledenominator-input"
         value={value}
         min={0}
-        placeholder={placeholder}
+        placeholder={locale.maxScaleDenominatorPlaceholderText}
         onChange={onChange}
       />
     </Form.Item>
   );
 };
 
-export default MaxScaleDenominator;
+export default localize(MaxScaleDenominator, 'ScaleDenominator');
