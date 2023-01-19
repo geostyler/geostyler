@@ -39,8 +39,6 @@ import { GeoStylerLocale } from '../../locale/locale';
 
 // default props
 interface MinScaleDenominatorDefaultProps extends Partial<FormItemProps> {
-  /** The label of the minScaleDenominator */
-  label: string;
   /** The placeholder text to display if no value is set */
   placeholder: string;
   /** Locale object containing translated text snippets */
@@ -60,7 +58,6 @@ export interface MinScaleDenominatorProps extends Partial<MinScaleDenominatorDef
 export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
   placeholder,
   locale = en_US.ScaleDenominator,
-  label = locale.minScaleDenominatorLabelText,
   value,
   onChange,
   ...formItemLayout
@@ -73,7 +70,7 @@ export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
   return (
     <Form.Item
       className="gs-min-scaledenominator"
-      label={label}
+      label={locale.minScaleDenominatorLabelText}
       colon={false}
       {...formItemLayout}
     >

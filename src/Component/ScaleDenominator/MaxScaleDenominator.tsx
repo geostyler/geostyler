@@ -39,8 +39,6 @@ import { GeoStylerLocale } from '../../locale/locale';
 
 // default props
 interface MaxScaleDenominatorDefaultProps extends Partial<FormItemProps> {
-  /** The label of the maxScaleDenominator */
-  label: string;
   /** The placeholder text to display if no value is set */
   placeholder: string;
   /** Locale object containing translated text snippets */
@@ -60,7 +58,6 @@ export interface MaxScaleDenominatorProps extends Partial<MaxScaleDenominatorDef
 export const MaxScaleDenominator: React.FC<MaxScaleDenominatorProps> = ({
   placeholder,
   locale = en_US.ScaleDenominator,
-  label = locale.maxScaleDenominatorLabelText,
   value,
   onChange,
   ...formItemLayout
@@ -72,7 +69,7 @@ export const MaxScaleDenominator: React.FC<MaxScaleDenominatorProps> = ({
 
   return (
     <Form.Item className="gs-max-scaledenominator"
-      label={label}
+      label={locale.maxScaleDenominatorLabelText}
       colon={false}
       {...formItemLayout}
     >
