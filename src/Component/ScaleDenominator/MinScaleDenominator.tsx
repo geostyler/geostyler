@@ -85,6 +85,4 @@ export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
   );
 };
 
-// export default MinScaleDenominator;
-
 export default localize(MinScaleDenominator, 'ScaleDenominator');
