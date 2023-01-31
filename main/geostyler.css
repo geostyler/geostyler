@@ -27706,6 +27706,12 @@ div.ant-typography-edit-content.ant-typography-rtl {
   height: 100%;
   cursor: default;
 }
+.gs-rule-field-container .ant-col.ant-col-4.ant-form-item-label {
+  white-space: normal;
+}
+.gs-rule-field-container .ant-form-item-control-input {
+  margin-left: 10px;
+}
 
 /* Released under the BSD 2-Clause License
  *
