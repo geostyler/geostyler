@@ -34,10 +34,10 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
 import './BulkEditor.less';
-import { ColorField } from '../Symbolizer/Field/ColorField/ColorField';
+import ColorField from '../Symbolizer/Field/ColorField/ColorField';
 import RadiusField from '../Symbolizer/Field/RadiusField/RadiusField';
 import OpacityField from '../Symbolizer/Field/OpacityField/OpacityField';
-import { KindField } from '../Symbolizer/Field/KindField/KindField';
+import KindField from '../Symbolizer/Field/KindField/KindField';
 import { SymbolizerKind, WellKnownName } from 'geostyler-style';
 import WellKnownNameField from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import ImageField from '../Symbolizer/Field/ImageField/ImageField';
