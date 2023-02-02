@@ -51,7 +51,6 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import Selectable from '../Selectable/Selectable';
 import { RuleCard, RuleCardProps } from '../RuleCard/RuleCard';
-import Removable from '../Removable/Removable';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
