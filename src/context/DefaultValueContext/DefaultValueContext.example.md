@@ -103,5 +103,5 @@ class DefaultValueExample extends React.Component {
   }
 }
 
-<CompositionContextExample />
+<DefaultValueContext />
 ```
