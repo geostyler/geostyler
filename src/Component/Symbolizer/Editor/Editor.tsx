@@ -60,8 +60,7 @@ import { GeoStylerLocale } from '../../../locale/locale';
 
 // default props
 interface EditorDefaultProps {
-  locale: GeoStylerLocale['Editor'];
-  unknownSymbolizerText?: string;
+  locale: GeoStylerLocale['SymbolizerEditor'];
 }
 
 // non default props
@@ -80,7 +79,6 @@ const COMPONENTNAME = 'SymbolizerEditor';
 
 export const Editor: React.FC<EditorProps> = ({
   locale = en_US.SymbolizerEditor,
-  unknownSymbolizerText = 'Unknown Symbolizer!',
   symbolizer,
   internalDataDef,
   iconEditorProps,
@@ -202,7 +200,7 @@ export const Editor: React.FC<EditorProps> = ({
           })
         );
       default:
-        return unknownSymbolizerText;
+        return locale.unknownSymbolizerText;
     }
   };
 

@@ -316,7 +316,8 @@ const zh_CN: GeoStylerLocale = {
     valuesMapTypeLabel: '唯一值'
   },
   SymbolizerEditor: {
-    kindFieldLabel: '类型'
+    kindFieldLabel: '类型',
+    unknownSymbolizerText: 'TODO(zh_CN):Symbolizer unknown!'
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: '符号编辑器'
