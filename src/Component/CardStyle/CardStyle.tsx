@@ -333,6 +333,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
                   onIconLibrariesClick: onIconEditorChangeView
                 }
               }}
+              iconLibraries={iconLibraries}
             />
           </>
         )
