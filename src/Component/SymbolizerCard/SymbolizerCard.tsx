@@ -69,10 +69,7 @@ export const SymbolizerCard = ({
       hoverable={true}
       onClick={onCardClick}
     >
-      {/* TODO add passThroughProps for Renderer */}
-      {/* TODO make rendererType configurable */}
       <Renderer
-        rendererType='OpenLayers'
         data={data}
         symbolizers={[symbolizer]}
       />

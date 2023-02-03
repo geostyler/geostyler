@@ -38,10 +38,11 @@ import FieldContainer from '../FieldContainer/FieldContainer';
 import NameField from '../NameField/NameField';
 import MinScaleDenominator from '../ScaleDenominator/MinScaleDenominator';
 import MaxScaleDenominator from '../ScaleDenominator/MaxScaleDenominator';
-import Renderer, { RendererProps } from '../Renderer/Renderer/Renderer';
+import Renderer from '../Renderer/Renderer/Renderer';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
-import { Expression } from 'geostyler-style';
+import { Expression, Symbolizer } from 'geostyler-style';
+import { Data } from 'geostyler-data';
 
 // default props
 interface RuleFieldContainerDefaultProps {
@@ -63,8 +64,10 @@ export interface RuleFieldContainerProps extends Partial<RuleFieldContainerDefau
   minScale?: Expression<number>;
   /** The maxScale of the rule */
   maxScale?: Expression<number>;
-  /** The passthrough props for the Renderer component. */
-  rendererProps?: RendererProps;
+  /** The symbolizers of the rule */
+  symbolizers?: Symbolizer[];
+  /** Reference to internal data object (holding schema and example features). */
+  data?: Data;
 }
 
 export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
@@ -75,7 +78,8 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
   onNameChange = () => {},
   onMinScaleChange = () => {},
   onMaxScaleChange = () => {},
-  rendererProps
+  symbolizers = [],
+  data
 }) => {
 
   const formItemLayout = {
@@ -109,7 +113,8 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
       </div>
       <Divider type="vertical" />
       <Renderer
-        {...rendererProps}
+        symbolizers={symbolizers}
+        data={data}
       />
     </FieldContainer >
   );

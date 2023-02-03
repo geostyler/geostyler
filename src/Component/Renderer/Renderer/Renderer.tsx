@@ -30,11 +30,12 @@ import React from 'react';
 
 import './Renderer.less';
 
-import { Symbolizer } from 'geostyler-style';
+import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 import { Data } from 'geostyler-data';
 
-import OlRenderer, { OlRendererProps } from '../OlRenderer/OlRenderer';
-import SLDRenderer, { SLDRendererAdditonalProps } from '../SLDRenderer/SLDRenderer';
+import OlRenderer from '../OlRenderer/OlRenderer';
+import SLDRenderer from '../SLDRenderer/SLDRenderer';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
 interface RendererDefaultProps {
@@ -50,20 +51,45 @@ export interface RendererProps extends Partial<RendererDefaultProps> {
   symbolizers: Symbolizer[];
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
-  /** Properties of the OpenLayers renderer */
-  oLRendererProps?: Partial<OlRendererProps>;
-  /** Properties of the SLD renderer */
-  sldRendererProps?: SLDRendererAdditonalProps;
+  /** The kind of the symbolizer to render */
+  symbolizerKind?: SymbolizerKind;
+  /** The base URL for the WMS */
+  wmsBaseUrl?: string;
+  /** Additional WMS parameters */
+  wmsParams?: any;
+  /** The name of the layer to render the style on */
+  layer?: string;
+  /** The name of the raster layer to render the style on  */
+  rasterLayer?: string;
+  /** Additional headers for the WMS HTTP request */
+  additionalHeaders?: any;
+  /** The delay for triggering the request in ms  */
+  requestDelay?: number;
+  /** The width of the requested image */
+  width?: number;
+  /** The height of the requested image */
+  height?: number;
 }
 
-export const Renderer: React.FC<RendererProps> = ({
-  rendererType = 'OpenLayers',
-  onSymbolizerClick = () => {},
-  data,
-  oLRendererProps,
-  sldRendererProps,
-  symbolizers
-}) => {
+export const Renderer: React.FC<RendererProps> = (props) => {
+
+  const composition = useGeoStylerComposition('Renderer', {});
+
+  const {
+    rendererType = 'OpenLayers',
+    onSymbolizerClick = () => {},
+    data,
+    symbolizers,
+    symbolizerKind,
+    wmsBaseUrl,
+    wmsParams,
+    layer,
+    rasterLayer,
+    additionalHeaders,
+    requestDelay,
+    width,
+    height
+  } = {...props, ...composition};
 
   let renderer = (<div></div>);
 
@@ -73,7 +99,8 @@ export const Renderer: React.FC<RendererProps> = ({
         symbolizers={symbolizers}
         onClick={onSymbolizerClick}
         data={data}
-        {...oLRendererProps}
+        symbolizerKind={symbolizerKind}
+
       />
     );
   }
@@ -82,7 +109,14 @@ export const Renderer: React.FC<RendererProps> = ({
       <SLDRenderer
         symbolizers={symbolizers}
         onClick={onSymbolizerClick}
-        {...sldRendererProps}
+        wmsBaseUrl={wmsBaseUrl}
+        wmsParams={wmsParams}
+        layer={layer}
+        rasterLayer={rasterLayer}
+        additionalHeaders={additionalHeaders}
+        requestDelay={requestDelay}
+        width={width}
+        height={height}
       />
     );
   }

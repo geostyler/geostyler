@@ -320,8 +320,8 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               rendererType={rendererType}
               symbolizers={rule.symbolizers}
               onSymbolizerClick={this.onRendererClick}
-              sldRendererProps={sldRendererProps}
-              oLRendererProps={oLRendererProps}
+              {...sldRendererProps}
+              {...oLRendererProps}
             />
             {
               !editorVisible ? null :

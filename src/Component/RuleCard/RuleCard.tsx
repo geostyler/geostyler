@@ -35,7 +35,7 @@ import {
 import { CqlParser } from 'geostyler-cql-parser';
 
 import './RuleCard.less';
-import Renderer, { RendererProps } from '../Renderer/Renderer/Renderer';
+import Renderer from '../Renderer/Renderer/Renderer';
 import FilterUtil from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';
@@ -61,8 +61,6 @@ export interface RuleCardProps extends Partial<RuleCardDefaultProps> {
   data?: Data;
   /** The callback when the card was clicked. */
   onClick?: () => void;
-  /** The passthrough props for the Renderer component. */
-  rendererProps?: Partial<RendererProps>;
 }
 
 export const RuleCard = ({
@@ -70,7 +68,6 @@ export const RuleCard = ({
   duplicates,
   onClick,
   data,
-  rendererProps,
   showAmount = true,
   showDuplicates = true
 }: RuleCardProps) => {
@@ -95,7 +92,6 @@ export const RuleCard = ({
       <Renderer
         symbolizers={rule.symbolizers}
         data={data}
-        {...rendererProps}
       />
       <Divider type='vertical' />
       <div className='gs-rule-card-content'>

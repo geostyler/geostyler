@@ -50,18 +50,16 @@ import en_US from '../../locale/en_US';
 
 import './CardStyle.less';
 import Breadcrumb, { Crumb } from '../Breadcrumb/Breadcrumb';
-import StyleOverview, { StyleOverviewProps } from '../StyleOverview/StyleOverview';
-import RuleOverview, { RuleOverviewProps } from '../RuleOverview/RuleOverview';
+import StyleOverview from '../StyleOverview/StyleOverview';
+import RuleOverview from '../RuleOverview/RuleOverview';
 import CardViewUtil from '../../Util/CardViewUtil';
-import Editor, { EditorProps } from '../Symbolizer/Editor/Editor';
+import Editor from '../Symbolizer/Editor/Editor';
 import FilterTree from '../Filter/FilterTree/FilterTree';
 import RuleGenerator from '../RuleGenerator/RuleGenerator';
 import BulkEditor from '../BulkEditor/BulkEditor';
 import IconSelector, { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
-import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 import { GeoStylerLocale } from '../../locale/locale';
 import Renderer from '../Renderer/Renderer/Renderer';
-import { brewer, InterpolationMode } from 'chroma-js';
 
 // default props
 interface CardStyleDefaultProps {
@@ -77,28 +75,8 @@ export interface CardStyleProps extends Partial<CardStyleDefaultProps> {
   data?: Data;
   /** The callback function that is triggered when the state changes */
   onStyleChange?: (style: GsStyle) => void;
-  /** Properties of the filter components */
-  filterUiProps?: Partial<ComparisonFilterProps>;
-  /** The renderer to use for previews. */
-  rendererType?: 'SLD' | 'OpenLayers';
-  /** The passthrough props for the StyleOverview component. */
-  styleOverviewProps?: Partial<StyleOverviewProps>;
-  /** The passthrough props for the RuleOverview component. */
-  ruleOverviewProps?: Partial<RuleOverviewProps>;
-  /** The passthrough props for the Editor component. */
-  editorProps?: Partial<EditorProps>;
-  // /** List of supported icons ordered as library */
+  /** List of supported icons ordered as library */
   iconLibraries?: IconLibrary[];
-  /** Enable classification */
-  enableClassification?: boolean;
-  /** Object containing the predefined color ramps */
-  colorRamps?: {
-    [name: string]: string[];
-  };
-  /** Use Brewer color ramps */
-  useBrewerColorRamps?: boolean;
-  /** List of supported color spaces */
-  colorSpaces?: (InterpolationMode)[];
 }
 
 export interface CardView {
@@ -117,20 +95,10 @@ const ICONLIBRARIESVIEW = CardViewUtil.ICONLIBRARIESVIEW;
 
 export const CardStyle: React.FC<CardStyleProps> = ({
   locale = en_US.CardStyle,
-  // enableClassification = true,
   style = { name: 'My Style', rules: [] },
   data,
   onStyleChange,
-  filterUiProps,
-  rendererType,
-  iconLibraries,
-  enableClassification,
-  styleOverviewProps,
-  ruleOverviewProps,
-  editorProps,
-  colorRamps,
-  useBrewerColorRamps,
-  colorSpaces
+  iconLibraries
 }) => {
 
   const defaultCrumb: Crumb = {view: STYLEVIEW, title: locale.styleTitle, indices: []};
@@ -312,22 +280,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
     changeView(ICONLIBRARIESVIEW, newIndices);
   };
 
-  const styleOverviewPropsOverwrites = {
-    rulesProps: {
-      ruleCardProps: {
-        rendererProps: {
-          rendererType: rendererType
-        }
-      }
-    }
-  };
-  const mergedStyleOverviewProps = {...styleOverviewProps, ...styleOverviewPropsOverwrites};
-
-  let ramps = colorRamps;
-  if (colorRamps && useBrewerColorRamps) {
-    ramps = Object.assign(colorRamps, brewer);
-  }
-
   return (
     <div
       className='gs-card-style'
@@ -343,8 +295,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
             data={data}
             onStyleChange={onStyleChange}
             onChangeView={changeView}
-            enableClassification={enableClassification}
-            {...mergedStyleOverviewProps}
           />
         )
       }
@@ -355,7 +305,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
             data={data}
             onRuleChange={onRuleChange}
             onChangeView={onRuleChangeView}
-            {...ruleOverviewProps}
           />
         )
       }
@@ -369,8 +318,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
                   .symbolizers[currentView.path[currentView.path.length - 1].indices[1]]
               ]}
               data={data}
-              rendererType={rendererType}
-              // TODO add sldRendererProps
             />
             <Editor
               symbolizer={
@@ -379,15 +326,13 @@ export const CardStyle: React.FC<CardStyleProps> = ({
                   .symbolizers[currentView.path[currentView.path.length - 1].indices[1]]
               }
               onSymbolizerChange={onSymbolizerChange}
+              internalDataDef={data}
               iconEditorProps={{
                 imageFieldProps: {
                   windowless: true,
                   onIconLibrariesClick: onIconEditorChangeView
                 }
               }}
-              internalDataDef={data}
-              iconLibraries={iconLibraries}
-              {...editorProps}
             />
           </>
         )
@@ -402,7 +347,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
             }
             onFilterChange={onFilterChange}
             internalDataDef={data}
-            filterUiProps={filterUiProps}
           />
         )
       }
@@ -411,8 +355,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
           <RuleGenerator
             internalDataDef={data as VectorData}
             onRulesChange={onRulesChange}
-            colorRamps={ramps}
-            colorSpaces={colorSpaces}
           />
         )
       }

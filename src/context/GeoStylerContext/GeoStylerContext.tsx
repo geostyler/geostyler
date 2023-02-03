@@ -118,6 +118,12 @@ export type CompositionContext = {
     rasterLayer?: string;
     additionalHeaders?: any;
     wmsParams?: any;
+    requestDelay?: number;
+    width?: number;
+    height?: number;
+  };
+  Rules?: {
+    enableClassification?: boolean;
   };
   Rule?: {
     amount?: {
@@ -151,8 +157,15 @@ export const useGeoStylerContext = (): any => {
   return cloneDeep(ctx);
 };
 
-export const useGeoStylerComposition = <T extends keyof CompositionContext>(key: T): CompositionContext[T] => {
+export const useGeoStylerComposition = <T extends keyof CompositionContext>(
+  key: T,
+  fallback?: any
+): CompositionContext[T] => {
   const ctx = useContext(GeoStylerContext);
+
+  if (!ctx.composition || !ctx.composition[key]) {
+    return fallback;
+  }
   return cloneDeep(ctx.composition[key]);
 };
 

@@ -39,10 +39,7 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 import './Rules.less';
-import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
-import {
-  SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';
 import { Button, Switch, Divider } from 'antd';
@@ -50,7 +47,7 @@ import { Button, Switch, Divider } from 'antd';
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import Selectable from '../Selectable/Selectable';
-import { RuleCard, RuleCardProps } from '../RuleCard/RuleCard';
+import { RuleCard } from '../RuleCard/RuleCard';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
@@ -61,10 +58,6 @@ import { RemovableItem } from '../RemovableItem/RemovableItem';
 interface RulesDefaultProps {
   /** Locale object containing translated text snippets */
   locale: GeoStylerLocale['Rules'];
-  /** Properties of the SLD renderer */
-  sldRendererProps: SLDRendererAdditonalProps;
-  /** Properties of the OpenLayers renderer */
-  oLRendererProps: Partial<OlRendererProps>;
   /** Display the number of features that match a rule */
   showAmount: boolean;
   /** Display the number of features that match more than one rule */
@@ -87,13 +80,10 @@ export interface RulesProps extends Partial<RulesDefaultProps> {
   onEditSelectionClick?: (selectedIdxs: number[]) => void;
   /** The callback function that is triggered when the rule was clicked */
   onEditRuleClick?: (ruleId: number) => void;
-  /** The passthrough props for the RuleCard component. */
-  ruleCardProps?: Partial<RuleCardProps>;
 }
 
 export const Rules: React.FC<RulesProps> = ({
   locale = en_US.Rules,
-  ruleCardProps,
   data,
   rules,
   onRulesChange,
@@ -197,7 +187,6 @@ export const Rules: React.FC<RulesProps> = ({
             editRule(idx);
           }
         }}
-        {...ruleCardProps}
       />
     );
   });

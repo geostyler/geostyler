@@ -213,8 +213,8 @@ export const RuleTable: React.FC<RuleTableProps> = ({
         data={data}
         symbolizers={record.symbolizers}
         onSymbolizerClick={onSymbolizerRendererClick}
-        sldRendererProps={sldRendererProps}
-        oLRendererProps={oLRendererProps}
+        {...sldRendererProps}
+        {...oLRendererProps}
       />
     );
   };
