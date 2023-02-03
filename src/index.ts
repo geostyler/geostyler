@@ -126,6 +126,7 @@ import { CompositionContext } from './context/CompositionContext/CompositionCont
 import { DefaultValueContext } from './context/DefaultValueContext/DefaultValueContext';
 import { UnsupportedPropertiesContext } from './context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import { GeoStylerLocale } from './locale/locale';
+import { GeoStylerContext } from './context/GeoStylerContext/GeoStylerContext';
 
 import { ConfigProvider } from 'antd';
 
@@ -177,6 +178,7 @@ export {
   FilterTree,
   FontPicker,
   GammaField,
+  GeoStylerContext,
   GraphicEditor,
   GraphicTypeField,
   GrayChannelField,
