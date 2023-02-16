@@ -30,93 +30,43 @@ import React from 'react';
 
 import './Renderer.less';
 
-import { Symbolizer, SymbolizerKind } from 'geostyler-style';
-import { Data } from 'geostyler-data';
-
-import OlRenderer from '../OlRenderer/OlRenderer';
-import SLDRenderer from '../SLDRenderer/SLDRenderer';
+import OlRenderer, { OlRendererProps } from '../OlRenderer/OlRenderer';
+import SLDRenderer, { SLDRendererProps } from '../SLDRenderer/SLDRenderer';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface RendererDefaultProps {
-  /** The renderer to use for previews. */
-  rendererType: 'SLD' | 'OpenLayers';
-  /** The callback that is triggered, when the renderer was clicked. */
-  onSymbolizerClick: (symbolizers: Symbolizer[], event: any) => void;
-}
+type OlRendererDefaultProps = OlRendererProps & {
+  rendererType?: 'OpenLayers';
+};
 
-// non default props
-export interface RendererProps extends Partial<RendererDefaultProps> {
-  /** The symbolizers to render. */
-  symbolizers: Symbolizer[];
-  /** Reference to internal data object (holding schema and example features) */
-  data?: Data;
-  /** The kind of the symbolizer to render */
-  symbolizerKind?: SymbolizerKind;
-  /** The base URL for the WMS */
-  wmsBaseUrl?: string;
-  /** Additional WMS parameters */
-  wmsParams?: any;
-  /** The name of the layer to render the style on */
-  layer?: string;
-  /** The name of the raster layer to render the style on  */
-  rasterLayer?: string;
-  /** Additional headers for the WMS HTTP request */
-  additionalHeaders?: any;
-  /** The delay for triggering the request in ms  */
-  requestDelay?: number;
-  /** The width of the requested image */
-  width?: number;
-  /** The height of the requested image */
-  height?: number;
-}
+type SldRendererDefaultProps = SLDRendererProps & {
+  rendererType?: 'SLD';
+};
+
+export type RendererProps = OlRendererDefaultProps | SldRendererDefaultProps;
 
 export const Renderer: React.FC<RendererProps> = (props) => {
 
   const composition = useGeoStylerComposition('Renderer', {});
 
+  const composed = {...props, ...composition};
+
   const {
     rendererType = 'OpenLayers',
-    onSymbolizerClick = () => {},
-    data,
-    symbolizers,
-    symbolizerKind,
-    wmsBaseUrl,
-    wmsParams,
-    layer,
-    rasterLayer,
-    additionalHeaders,
-    requestDelay,
-    width,
-    height
-  } = {...props, ...composition};
+  } = composed;
 
-  let renderer = (<div></div>);
+  let renderer = null;
 
   if (rendererType === 'OpenLayers') {
     renderer = (
       <OlRenderer
-        symbolizers={symbolizers}
-        onClick={onSymbolizerClick}
-        data={data}
-        symbolizerKind={symbolizerKind}
-
+        {...composed}
       />
     );
   }
   else if (rendererType === 'SLD') {
     renderer = (
       <SLDRenderer
-        symbolizers={symbolizers}
-        onClick={onSymbolizerClick}
-        wmsBaseUrl={wmsBaseUrl}
-        wmsParams={wmsParams}
-        layer={layer}
-        rasterLayer={rasterLayer}
-        additionalHeaders={additionalHeaders}
-        requestDelay={requestDelay}
-        width={width}
-        height={height}
+        {...composed}
       />
     );
   }

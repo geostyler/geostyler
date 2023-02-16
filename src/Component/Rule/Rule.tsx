@@ -50,7 +50,6 @@ import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilt
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import FilterTree from '../Filter/FilterTree/FilterTree';
-import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
@@ -58,10 +57,11 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
 
 import './Rule.less';
-import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import Renderer from '../Renderer/Renderer/Renderer';
+import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
+import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 
 
 // default props
@@ -284,7 +284,6 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   render() {
     const {
       internalDataDef,
-      rendererType,
       oLRendererProps,
       sldRendererProps,
       locale,
@@ -317,9 +316,8 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               {...this.props.ruleNameProps}
             />
             <Renderer
-              rendererType={rendererType}
               symbolizers={rule.symbolizers}
-              onSymbolizerClick={this.onRendererClick}
+              onClick={this.onRendererClick}
               {...sldRendererProps}
               {...oLRendererProps}
             />

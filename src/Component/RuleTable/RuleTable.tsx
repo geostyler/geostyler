@@ -212,7 +212,7 @@ export const RuleTable: React.FC<RuleTableProps> = ({
         rendererType={rendererType}
         data={data}
         symbolizers={record.symbolizers}
-        onSymbolizerClick={onSymbolizerRendererClick}
+        onClick={onSymbolizerRendererClick}
         {...sldRendererProps}
         {...oLRendererProps}
       />

@@ -21,6 +21,7 @@ import {
 } from '../../Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
 import { GammaFieldProps } from '../../Component/Symbolizer/Field/GammaField/GammaField';
 import { IconLibrary } from '../../Component/Symbolizer/IconSelector/IconSelector';
+import { RendererProps } from '../../Component/Renderer/Renderer/Renderer';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -111,17 +112,7 @@ export type CompositionContext = {
     visibility?: boolean;
   };
   ComparisonFilter?: Partial<ComparisonFilterProps>;
-  Renderer?: {
-    rendererType?: 'SLD' | 'OpenLayers';
-    wmsBaseUrl?: string;
-    layer?: string;
-    rasterLayer?: string;
-    additionalHeaders?: any;
-    wmsParams?: any;
-    requestDelay?: number;
-    width?: number;
-    height?: number;
-  };
+  Renderer?: Partial<Omit<RendererProps, 'onClick'>>;
   Rules?: {
     enableClassification?: boolean;
   };
