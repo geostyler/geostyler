@@ -42,9 +42,6 @@ import en_US from '../../locale/en_US';
 import './Symbolizers.less';
 import { Button, Card, Divider } from 'antd';
 
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import _merge from 'lodash/merge';
@@ -155,74 +152,72 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
 
   return (
     <div className='gs-symbolizers'>
-      <DndProvider backend={HTML5Backend}>
-        <div className='gs-symbolizers-header'>
-          <h2>{locale.symbolizersTitle}</h2>
-        </div>
-        <Divider />
-        <div className='gs-symbolizers-content'>
-          <div className={`${showAll ? 'gs-symbolizers-grid' : 'gs-symbolizers-list'}`}>
-            {
-              showAll && (
-                <DndContext
-                  onDragEnd={onDragEnd}
-                  sensors={sensors}
-                  collisionDetection={closestCenter}
+      <div className='gs-symbolizers-header'>
+        <h2>{locale.symbolizersTitle}</h2>
+      </div>
+      <Divider />
+      <div className='gs-symbolizers-content'>
+        <div className={`${showAll ? 'gs-symbolizers-grid' : 'gs-symbolizers-list'}`}>
+          {
+            showAll && (
+              <DndContext
+                onDragEnd={onDragEnd}
+                sensors={sensors}
+                collisionDetection={closestCenter}
+              >
+                <SortableContext
+                  items={symbolizers.map((s, idx) => idx + 1)}
                 >
-                  <SortableContext
-                    items={symbolizers.map((s, idx) => idx + 1)}
-                  >
-                    { sortableAndRemovableSymbolizerCards }
-                    <div>
-                      <Card
-                        className='gs-symbolizer-card gs-add-button'
-                        hoverable={true}
-                        onClick={onAddSymbolizerClick}
-                      >
-                        <PlusOutlined />
-                      </Card>
-                    </div>
-                  </SortableContext>
-                </DndContext>
-              )
-            }
-            {
-              !showAll && (
-                <DndContext
-                  onDragEnd={onDragEnd}
-                  sensors={sensors}
-                  collisionDetection={closestCenter}
-                >
-                  <SortableContext
-                    items={symbolizers.map((s, idx) => idx + 1)}
-                  >
-                    { sortableAndRemovableSymbolizerCards }
-                  </SortableContext>
-                </DndContext>
-              )
-            }
-          </div>
+                  { sortableAndRemovableSymbolizerCards }
+                  <div>
+                    <Card
+                      className='gs-symbolizer-card gs-add-button'
+                      hoverable={true}
+                      onClick={onAddSymbolizerClick}
+                    >
+                      <PlusOutlined />
+                    </Card>
+                  </div>
+                </SortableContext>
+              </DndContext>
+            )
+          }
           {
             !showAll && (
-              <div className='gs-symbolizer-card'>
-                <Card
-                  className='gs-symbolizer-card gs-add-button'
-                  hoverable={true}
-                  onClick={onAddSymbolizerClick}
+              <DndContext
+                onDragEnd={onDragEnd}
+                sensors={sensors}
+                collisionDetection={closestCenter}
+              >
+                <SortableContext
+                  items={symbolizers.map((s, idx) => idx + 1)}
                 >
-                  <PlusOutlined />
-                </Card>
-              </div>
+                  { sortableAndRemovableSymbolizerCards }
+                </SortableContext>
+              </DndContext>
             )
           }
         </div>
-        <div className='gs-symbolizers-footer'>
-          <Button
-            type="link"
-            onClick={toggleShowAll}
-          >{showAll ? locale.hide : locale.showAll}</Button>
-        </div>
-      </DndProvider>
+        {
+          !showAll && (
+            <div className='gs-symbolizer-card'>
+              <Card
+                className='gs-symbolizer-card gs-add-button'
+                hoverable={true}
+                onClick={onAddSymbolizerClick}
+              >
+                <PlusOutlined />
+              </Card>
+            </div>
+          )
+        }
+      </div>
+      <div className='gs-symbolizers-footer'>
+        <Button
+          type="link"
+          onClick={toggleShowAll}
+        >{showAll ? locale.hide : locale.showAll}</Button>
+      </div>
     </div>
   );
 };
