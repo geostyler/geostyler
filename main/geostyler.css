@@ -27108,7 +27108,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   padding-top: 10px;
 }
 
-.gs-card-style > .gs-renderer .gs-symbolizer-renderer {
+.gs-card-style > .gs-renderer .gs-symbolizer-olrenderer {
   width: 50px;
   height: 50px;
   cursor: default;
@@ -27224,7 +27224,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   height: auto;
   margin: 0 20px;
 }
-.gs-rule-card .gs-symbolizer-renderer {
+.gs-rule-card .gs-symbolizer-olrenderer {
   width: 100px;
   height: 100px;
 }
@@ -27278,7 +27278,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-symbolizer-renderer {
+.gs-symbolizer-olrenderer {
   position: relative;
   border: 1px solid lightgrey;
   border-radius: 4px;
@@ -27698,7 +27698,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-rule-field-container .gs-renderer {
   flex: 1;
 }
-.gs-rule-field-container .gs-renderer .gs-symbolizer-renderer {
+.gs-rule-field-container .gs-renderer .gs-symbolizer-olrenderer {
   height: 100%;
   cursor: default;
 }
@@ -27873,7 +27873,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-symbolizer-card.ant-card-bordered {
   border: none;
 }
-.gs-symbolizer-card .gs-symbolizer-renderer {
+.gs-symbolizer-card .gs-symbolizer-olrenderer {
   height: 100px;
   width: 100px;
 }
@@ -28901,13 +28901,13 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .gs-rule-table .ant-table-tbody .ant-input,
 .gs-rule-table .ant-table-tbody .ant-input-number,
-.gs-rule-table .ant-table-tbody .gs-symbolizer-renderer {
+.gs-rule-table .ant-table-tbody .gs-symbolizer-olrenderer {
   border-radius: 0;
 }
 .gs-rule-table .ant-table-tbody .ant-input-search .ant-input-search-button {
   border-radius: 0;
 }
-.gs-rule-table .ant-table-tbody .gs-symbolizer-renderer {
+.gs-rule-table .ant-table-tbody .gs-symbolizer-olrenderer {
   height: 32px;
   width: 48px;
 }
