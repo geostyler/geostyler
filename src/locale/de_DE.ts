@@ -316,7 +316,8 @@ const de_DE: GeoStylerLocale = {
     grayLabel: 'Graues band'
   },
   SymbolizerEditor: {
-    kindFieldLabel: 'Art'
+    kindFieldLabel: 'Art',
+    unknownSymbolizerText: 'Symbolizer unbekannt!'
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Symbolisierungseditor'

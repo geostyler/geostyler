@@ -30,55 +30,43 @@ import React from 'react';
 
 import './Renderer.less';
 
-import { Symbolizer } from 'geostyler-style';
-import { Data } from 'geostyler-data';
+import OlRenderer, { OlRendererProps } from '../OlRenderer/OlRenderer';
+import SLDRenderer, { SLDRendererProps } from '../SLDRenderer/SLDRenderer';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-import { Renderer as OlRenderer } from '../Symbolizer/Renderer/Renderer';
-import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
+type OlRendererDefaultProps = OlRendererProps & {
+  rendererType?: 'OpenLayers';
+};
 
-// default props
-interface RendererDefaultProps {
-  /** The renderer to use for previews. */
-  rendererType: 'SLD' | 'OpenLayers';
-  /** The callback that is triggered, when the renderer was clicked. */
-  onSymbolizerClick: (symbolizers: Symbolizer[], event: any) => void;
-}
+type SldRendererDefaultProps = SLDRendererProps & {
+  rendererType?: 'SLD';
+};
 
-// non default props
-export interface RendererProps extends Partial<RendererDefaultProps> {
-  /** The symbolizers to render. */
-  symbolizers: Symbolizer[];
-  /** Reference to internal data object (holding schema and example features) */
-  data?: Data;
-  /** Properties of the SLD renderer */
-  sldRendererProps?: SLDRendererAdditonalProps;
-}
+export type RendererProps = OlRendererDefaultProps | SldRendererDefaultProps;
 
-export const Renderer: React.FC<RendererProps> = ({
-  rendererType = 'OpenLayers',
-  onSymbolizerClick = () => {},
-  data,
-  sldRendererProps,
-  symbolizers
-}) => {
+export const Renderer: React.FC<RendererProps> = (props) => {
 
-  let renderer = (<div></div>);
+  const composition = useGeoStylerComposition('Renderer', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    rendererType = 'OpenLayers',
+  } = composed;
+
+  let renderer = null;
 
   if (rendererType === 'OpenLayers') {
     renderer = (
       <OlRenderer
-        symbolizers={symbolizers}
-        onClick={onSymbolizerClick}
-        data={data}
+        {...composed}
       />
     );
   }
   else if (rendererType === 'SLD') {
     renderer = (
       <SLDRenderer
-        symbolizers={symbolizers}
-        onClick={onSymbolizerClick}
-        {...sldRendererProps}
+        {...composed}
       />
     );
   }

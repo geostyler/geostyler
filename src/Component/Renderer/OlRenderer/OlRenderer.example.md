@@ -1,4 +1,5 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
@@ -24,14 +25,46 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-.gs-symbolizer-renderer {
-  position: relative;
-  border: 1px solid lightgrey;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
-  min-width: 4px;
-  min-height: 4px;
+This demonstrates the use of `OlRenderer`.
+
+```jsx
+import * as React from 'react';
+import { OlRenderer } from 'geostyler';
+
+class OlRendererExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      symbolizers: [{
+        kind: 'Mark',
+        wellKnownName: 'circle',
+        color: '#ff0000',
+        strokeColor: '000000',
+        strokeWidth: 3,
+        radius: 10
+      }],
+      symbolizerKind: 'Mark'
+    };
+  }
+
+  render() {
+    const {
+      symbolizers,
+      symbolizerKind
+    } = this.state;
+
+    return (
+      <OlRenderer
+        symbolizers={symbolizers}
+        symbolizerKind={symbolizerKind}
+      />
+    );
+  }
 }
+
+<OlRendererExample />
+```

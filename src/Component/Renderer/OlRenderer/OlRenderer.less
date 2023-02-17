@@ -1,7 +1,6 @@
-/* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,54 +26,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
-
-import {
-  Symbolizer as GsSymbolizer
-} from 'geostyler-style';
-import { Data } from 'geostyler-data';
-
-import './SymbolizerCard.less';
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import { Card } from 'antd';
-import Renderer from '../Renderer/Renderer/Renderer';
-
-// default props
-interface SymbolizerCardDefaultProps {
-  /** The callback when the symbolizer was clicked. */
-  onSymbolizerClick?: (symbolizer: GsSymbolizer) => void;
+.gs-symbolizer-olrenderer {
+  position: relative;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  min-width: 4px;
+  min-height: 4px;
 }
-
-// non default props
-export interface SymbolizerCardProps extends Partial<SymbolizerCardDefaultProps> {
-  /** A GeoStyler-Style object. */
-  symbolizer: GsSymbolizer;
-  /** Reference to internal data object (holding schema and example features) */
-  data?: Data;
-}
-
-export const SymbolizerCard = ({
-  symbolizer,
-  onSymbolizerClick = () => {},
-  data
-}: SymbolizerCardProps) => {
-
-  const onCardClick = () => {
-    onSymbolizerClick(symbolizer);
-  };
-
-  return (
-    <Card
-      className='gs-symbolizer-card'
-      hoverable={true}
-      onClick={onCardClick}
-    >
-      <Renderer
-        data={data}
-        symbolizers={[symbolizer]}
-      />
-    </Card>
-  );
-};
-
-export default localize(SymbolizerCard, 'SymbolizerCard');

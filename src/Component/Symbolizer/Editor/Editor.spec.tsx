@@ -118,17 +118,6 @@ describe('SymbolizerEditor', () => {
       const markEditor = editor.container.querySelector('.gs-text-symbolizer-editor');
       expect(markEditor).toBeInTheDocument();
     });
-    it('returns the unknownSymbolizerText prop as default', async () => {
-      const fakeSymbolizer: any = {
-        kind: 'efef'
-      };
-      const editor = render(<Editor
-        symbolizer={fakeSymbolizer}
-        unknownSymbolizerText="Go BIG or go Home!"
-      />);
-      const unknownSymbolizerText = await editor.findByText('Go BIG or go Home!');
-      expect(unknownSymbolizerText).toBeInTheDocument();
-    });
   });
 
 });

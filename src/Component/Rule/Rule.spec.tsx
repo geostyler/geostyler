@@ -33,8 +33,8 @@ import en_US from '../../locale/en_US';
 import {
   Rule as GsRule
 } from 'geostyler-style';
-import { SLDRenderer } from '../Symbolizer/SLDRenderer/SLDRenderer';
-import { Renderer } from '../Symbolizer/Renderer/Renderer';
+import { SLDRenderer } from '../Renderer/SLDRenderer/SLDRenderer';
+import { OlRenderer } from '../Renderer/OlRenderer/OlRenderer';
 
 describe('Rule', () => {
 
@@ -204,17 +204,6 @@ describe('Rule', () => {
     });
   });
 
-  describe('A click on the Renderer', () => {
-    it('toggles the editorVisibility', () => {
-      const editorVisible = wrapper.state().editorVisible;
-      const renderer = wrapper.find('Renderer');
-      renderer.simulate('click');
-      expect(wrapper.state().editorVisible).toBe(!editorVisible);
-      renderer.simulate('click');
-      expect(wrapper.state().editorVisible).toBe(editorVisible);
-    });
-  });
-
   describe('renders configured: ', () => {
     it('SLD renderer', () => {
       wrapper.setProps({
@@ -228,7 +217,7 @@ describe('Rule', () => {
       wrapper.setProps({
         rendererType: 'OpenLayers'
       });
-      const targetRenderer = wrapper.find(Renderer);
+      const targetRenderer = wrapper.find(OlRenderer);
       expect(targetRenderer).toBeDefined();
     });
   });

@@ -35,7 +35,7 @@ import {
 import { CqlParser } from 'geostyler-cql-parser';
 
 import './RuleCard.less';
-import Renderer, { RendererProps } from '../Renderer/Renderer';
+import Renderer from '../Renderer/Renderer/Renderer';
 import FilterUtil from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';
@@ -45,6 +45,10 @@ const { Text } = Typography;
 
 // default props
 interface RuleCardDefaultProps {
+  /** Display the number of features that match a rule */
+  showAmount: boolean;
+  /** Display the number of features that match more than one rule */
+  showDuplicates: boolean;
 }
 
 // non default props
@@ -57,8 +61,6 @@ export interface RuleCardProps extends Partial<RuleCardDefaultProps> {
   data?: Data;
   /** The callback when the card was clicked. */
   onClick?: () => void;
-  /** The passthrough props for the Renderer component. */
-  rendererProps?: Partial<RendererProps>;
 }
 
 export const RuleCard = ({
@@ -66,7 +68,8 @@ export const RuleCard = ({
   duplicates,
   onClick,
   data,
-  rendererProps
+  showAmount = true,
+  showDuplicates = true
 }: RuleCardProps) => {
 
   let amount;
@@ -89,7 +92,6 @@ export const RuleCard = ({
       <Renderer
         symbolizers={rule.symbolizers}
         data={data}
-        {...rendererProps}
       />
       <Divider type='vertical' />
       <div className='gs-rule-card-content'>
@@ -98,14 +100,22 @@ export const RuleCard = ({
           <>1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}</>
         </span>
         <span className='gs-rule-card-content-icon-row'>
-          <Text type='secondary'>
-            <span className='gs-rule-card-icon'>Σ</span>
-            {amount !== undefined ? amount : '-'}
-          </Text>
-          <Text type='secondary'>
-            <BlockOutlined className='gs-rule-card-icon' />
-            {duplicates !== undefined ? duplicates : '-'}
-          </Text>
+          {
+            showAmount && (
+              <Text type='secondary'>
+                <span className='gs-rule-card-icon'>Σ</span>
+                {amount !== undefined ? amount : '-'}
+              </Text>
+            )
+          }
+          {
+            showDuplicates && (
+              <Text type='secondary'>
+                <BlockOutlined className='gs-rule-card-icon' />
+                {duplicates !== undefined ? duplicates : '-'}
+              </Text>
+            )
+          }
         </span>
         <span className='gs-rule-card-cql'>
           {

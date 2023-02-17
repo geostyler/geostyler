@@ -316,7 +316,8 @@ const fr_FR: GeoStylerLocale = {
     valuesMapTypeLabel: 'Valeurs'
   },
   SymbolizerEditor: {
-    kindFieldLabel: 'Type'
+    kindFieldLabel: 'Type',
+    unknownSymbolizerText: 'TODO(fr_FR):Symbolizer unknown!'
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Éditeur de symbolisation'

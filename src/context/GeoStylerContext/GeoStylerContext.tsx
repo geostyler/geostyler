@@ -21,6 +21,7 @@ import {
 } from '../../Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
 import { GammaFieldProps } from '../../Component/Symbolizer/Field/GammaField/GammaField';
 import { IconLibrary } from '../../Component/Symbolizer/IconSelector/IconSelector';
+import { RendererProps } from '../../Component/Renderer/Renderer/Renderer';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -111,13 +112,9 @@ export type CompositionContext = {
     visibility?: boolean;
   };
   ComparisonFilter?: Partial<ComparisonFilterProps>;
-  Renderer?: {
-    rendererType?: 'SLD' | 'OpenLayers';
-    wmsBaseUrl?: string;
-    layer?: string;
-    rasterLayer?: string;
-    additionalHeaders?: any;
-    wmsParams?: any;
+  Renderer?: Partial<Omit<RendererProps, 'onClick'>>;
+  Rules?: {
+    enableClassification?: boolean;
   };
   Rule?: {
     amount?: {
@@ -151,8 +148,15 @@ export const useGeoStylerContext = (): any => {
   return cloneDeep(ctx);
 };
 
-export const useGeoStylerComposition = <T extends keyof CompositionContext>(key: T): CompositionContext[T] => {
+export const useGeoStylerComposition = <T extends keyof CompositionContext>(
+  key: T,
+  fallback?: any
+): CompositionContext[T] => {
   const ctx = useContext(GeoStylerContext);
+
+  if (!ctx.composition || !ctx.composition[key]) {
+    return fallback;
+  }
   return cloneDeep(ctx.composition[key]);
 };
 

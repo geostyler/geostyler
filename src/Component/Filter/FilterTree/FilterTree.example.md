@@ -31,44 +31,34 @@
 This demonstrates the usage of the `FilterTree` component.
 
 ```jsx
-import * as React from 'react';
+import React, { useState } from 'react';
 import { FilterTree } from 'geostyler';
 
-class FilterTreeExample extends React.Component {
-  constructor(props) {
-    super(props);
+const FilterTreeExample = () => {
 
-    this.state = {
-      filter: [
-        '&&',
-        ['==', 'state', 'germany'],
-        ['<=x<=', 'population', 100000, 200000],
-        [
-          '||',
-          ['>=', 'population', 100000],
-          ['<', 'population', 200000]
-        ],
-        [
-          '!',
-          ['==', 'name', 'Schalke']
-        ],
-      ]
-    }
-  }
+  const [filter, setFilter] = useState([
+      '&&',
+      ['==', 'state', 'germany'],
+      ['<=x<=', 'population', 100000, 200000],
+      [
+        '||',
+        ['>=', 'population', 100000],
+        ['<', 'population', 200000]
+      ],
+      [
+        '!',
+        ['==', 'name', 'Schalke']
+      ],
+    ]);
 
-  render() {
-    const {
-      filter,
-    } = this.state;
-
-    return (
-      <div style={{height: '300px'}}>
-        <FilterTree
-          filter={filter}
-        />
-      </div>
-    );
-  }
+  return (
+    <div style={{height: '300px'}}>
+      <FilterTree
+        filter={filter}
+        onFilterChange={setFilter}
+      />
+    </div>
+  );
 }
 
 <FilterTreeExample />

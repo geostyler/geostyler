@@ -1,6 +1,7 @@
-/* Released under the BSD 2-Clause License
+<!--
+ * Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2023-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,36 +25,54 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
+ *
+-->
 
-import { Renderer, RendererProps } from './Renderer';
-import TestUtil from '../../../Util/TestUtil';
-import { Symbolizer } from 'geostyler-style';
+The `GeoStylerContext` lets you define translations, static component props, and default values for many fields.
 
-describe('Renderer', () => {
+#### Example
 
-  let wrapper: any;
-  let onClickDummy: jest.Mock;
-  const dummySymbolizers: Symbolizer[] = [{
-    kind: 'Mark',
-    wellKnownName: 'circle',
-    color: '#FF0000'
-  }];
+Provide static component props. Here, we globally define the rendererType to use OpenLayers for rendering.
 
-  beforeEach(() => {
-    onClickDummy = jest.fn();
-    const props: RendererProps = {
-      onClick: onClickDummy,
-      symbolizers: dummySymbolizers
-    };
-    wrapper = TestUtil.shallowRenderComponent(Renderer, props);
-  });
+```jsx
+import * as React from 'react';
+import { GeoStylerContext, Style } from 'geostyler';
+import { Switch } from 'antd';
 
-  it('is defined', () => {
-    expect(Renderer).toBeDefined();
-  });
+const GeoStylerContextExample = () => {
+  const myContext = {
+    composition: {
+      Renderer: {
+        rendererType: 'OpenLayers'
+      }
+    }
+  };
 
-  it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
-  });
-});
+  const style = {
+    name: 'GeoStylerContext Example',
+    rules: [
+      {
+        name: 'Rule 1',
+        symbolizers: [
+          {
+            kind: 'Line',
+            color: '#ff0000',
+            width: 5
+          }
+        ]
+      }
+    ]
+  }
+
+  return (
+    <GeoStylerContext.Provider value={myContext}>
+      <Style
+        style={style}
+        compact={true}
+      />
+    </GeoStylerContext.Provider>
+  );
+};
+
+<GeoStylerContextExample />
+```

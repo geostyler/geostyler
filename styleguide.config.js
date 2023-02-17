@@ -173,12 +173,15 @@ module.exports = {
     name: 'Context',
     sections: [{
       name: 'CompositionContext',
-      content: 'src/context/CompositionContext/CompositionContext.example.md'
+      components: 'src/context/CompositionContext/*.tsx'
     }, {
       name: 'UnsupportedPropertiesContext',
-      content: 'src/context/UnsupportedPropertiesContext/UnsupportedPropertiesContext.example.md'
+      components: 'src/context/UnsupportedPropertiesContext/*.tsx'
+    }, {
+      name: 'GeoStylerContext',
+      components: 'src/context/GeoStylerContext/*.tsx'
     }],
-    sectionDepth: 1
+    sectionDepth: 2
   }],
   require: [
     path.join(__dirname, 'node_modules/antd/dist/antd.css')

@@ -50,7 +50,6 @@ import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilt
 import ScaleDenominator from '../ScaleDenominator/ScaleDenominator';
 import Fieldset from '../FieldSet/FieldSet';
 import FilterTree from '../Filter/FilterTree/FilterTree';
-import Renderer, { RendererProps } from '../Symbolizer/Renderer/Renderer';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
@@ -58,9 +57,11 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
 
 import './Rule.less';
-import { SLDRenderer, SLDRendererAdditonalProps } from '../Symbolizer/SLDRenderer/SLDRenderer';
 import { GeoStylerLocale } from '../../locale/locale';
 import en_US from '../../locale/en_US';
+import Renderer from '../Renderer/Renderer/Renderer';
+import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
+import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 
 
 // default props
@@ -74,7 +75,7 @@ interface RuleDefaultProps {
   /** Properties of the SLD renderer */
   sldRendererProps?: SLDRendererAdditonalProps;
   /** Properties of the OpenLayers renderer */
-  oLRendererProps?: Partial<RendererProps>;
+  oLRendererProps?: Partial<OlRendererProps>;
   /** Locale object containing translated text snippets */
   locale: GeoStylerLocale['Rule'];
 }
@@ -283,7 +284,6 @@ export class Rule extends React.Component<RuleProps, RuleState> {
   render() {
     const {
       internalDataDef,
-      rendererType,
       oLRendererProps,
       sldRendererProps,
       locale,
@@ -297,21 +297,6 @@ export class Rule extends React.Component<RuleProps, RuleState> {
       scaleFieldChecked,
       filterFieldChecked
     } = this.state;
-
-    let featureRenderer;
-    if (rendererType === 'SLD') {
-      featureRenderer = <SLDRenderer
-        symbolizers={rule.symbolizers}
-        onClick={this.onRendererClick}
-        {...sldRendererProps}
-      />;
-    } else {
-      featureRenderer = <Renderer
-        symbolizers={rule.symbolizers}
-        onClick={this.onRendererClick}
-        {...oLRendererProps}
-      />;
-    }
 
     // cast the current filter object to pass over to ComparisonFilterUi
     const cmpFilter = rule.filter as GsComparisonFilter;
@@ -330,7 +315,12 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               placeholder={locale.nameFieldPlaceholder}
               {...this.props.ruleNameProps}
             />
-            {featureRenderer}
+            <Renderer
+              symbolizers={rule.symbolizers}
+              onClick={this.onRendererClick}
+              {...sldRendererProps}
+              {...oLRendererProps}
+            />
             {
               !editorVisible ? null :
                 <SymbolizerEditorWindow

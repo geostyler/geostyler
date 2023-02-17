@@ -45,13 +45,14 @@ import { Button, Card, Divider } from 'antd';
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import _merge from 'lodash/merge';
-import SymbolizerCard, { SymbolizerCardProps } from '../SymbolizerCard/SymbolizerCard';
+import SymbolizerCard from '../SymbolizerCard/SymbolizerCard';
 import { PlusOutlined } from '@ant-design/icons';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import { GeoStylerLocale } from '../../locale/locale';
 import { SortableItem } from '../SortableItem/SortableItem';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { RemovableItem } from '../RemovableItem/RemovableItem';
+import { Data } from 'geostyler-data';
 
 // default props
 interface SymbolizersDefaultProps {
@@ -67,8 +68,8 @@ interface SymbolizersDefaultProps {
 export interface SymbolizersProps extends Partial<SymbolizersDefaultProps> {
   /** List of symbolizers to display */
   symbolizers: GsSymbolizer[];
-  /** The passthrough props for the SymbolizerCard component. */
-  symbolizerCardProps?: Partial<SymbolizerCardProps>;
+  /** Reference to internal data object (holding schema and example features). */
+  data?: Data;
 }
 
 export const Symbolizers: React.FC<SymbolizersProps> = ({
@@ -76,7 +77,7 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
   symbolizers,
   onSymbolizersChange = () => {},
   onEditSymbolizerClick = () => {},
-  symbolizerCardProps
+  data
 }) => {
 
   const [showAll, setShowAll] = useState(false);
@@ -105,7 +106,7 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
         onSymbolizerClick={() => {
           onEditSymbolizerClick(idx);
         }}
-        {...symbolizerCardProps}
+        data={data}
       />
     );
   });

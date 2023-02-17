@@ -37,9 +37,9 @@ import {
 import './RuleOverview.less';
 import { Data } from 'geostyler-data';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
-import RuleFieldContainer, { RuleFieldContainerProps } from '../RuleFieldContainer/RuleFieldContainer';
+import RuleFieldContainer from '../RuleFieldContainer/RuleFieldContainer';
 import { Divider } from 'antd';
-import Symbolizers, { SymbolizersProps } from '../Symbolizers/Symbolizers';
+import Symbolizers from '../Symbolizers/Symbolizers';
 import CardViewUtil from '../../Util/CardViewUtil';
 import FilterOverview from '../FilterOverview/FilterOverview';
 import { GeoStylerLocale } from '../../locale/locale';
@@ -61,10 +61,6 @@ export interface RuleOverviewProps extends Partial<RuleOverviewDefaultProps> {
   data?: Data;
   /** A GeoStyler-Style object. */
   rule: GsRule;
-  /** The passthrough props for the RuleFieldContainer component. */
-  ruleFieldContainerProps?: Partial<RuleFieldContainerProps>;
-  /** The passthrough props for the Symbolizers component. */
-  symbolizersProps?: Partial<SymbolizersProps>;
 }
 
 export const RuleOverview: React.FC<RuleOverviewProps> = ({
@@ -72,9 +68,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
   data,
   onRuleChange = () => {},
   onChangeView = () => {},
-  ruleFieldContainerProps,
-  symbolizersProps,
-  locale = en_US.RuleOverview,
+  locale = en_US.RuleOverview
 }) => {
 
   const onNameChange = (name: string) => {
@@ -113,18 +107,6 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
     onChangeView(CardViewUtil.FILTEREDITVIEW, []);
   };
 
-  const ruleFieldContainerPropsOverwrites = {
-    rendererProps: {
-      symbolizers: rule.symbolizers,
-      data: data
-    }
-  };
-  const mergedRuleFieldContainerProps = {...ruleFieldContainerProps, ...ruleFieldContainerPropsOverwrites};
-
-  const symbolizersPropsOverwrites = {
-  };
-  const mergedSymbolizersProps = {...symbolizersProps, ...symbolizersPropsOverwrites};
-
   return (
     <div className='gs-rule-overview'>
       <h2>{locale.ruleTitle}</h2>
@@ -136,13 +118,14 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
         onNameChange={onNameChange}
         onMinScaleChange={onMinScaleChange}
         onMaxScaleChange={onMaxScaleChange}
-        {...mergedRuleFieldContainerProps}
+        symbolizers={rule.symbolizers}
+        data={data}
       />
       <Symbolizers
         symbolizers={rule.symbolizers}
         onEditSymbolizerClick={onEditSymbolizerClick}
         onSymbolizersChange={onSymbolizersChange}
-        {...mergedSymbolizersProps}
+        data={data}
       />
       <FilterOverview
         filter={rule.filter}

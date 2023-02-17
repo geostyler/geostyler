@@ -36,8 +36,8 @@ import {
 
 import './StyleOverview.less';
 import { Data } from 'geostyler-data';
-import { StyleFieldContainer } from '../StyleFieldContainer/StyleFieldContainer';
-import Rules, { RulesProps } from '../Rules/Rules';
+import StyleFieldContainer from '../StyleFieldContainer/StyleFieldContainer';
+import Rules from '../Rules/Rules';
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -62,10 +62,6 @@ export interface StyleOverviewProps extends Partial<StyleOverviewDefaultProps> {
   data?: Data;
   /** A GeoStyler-Style object. */
   style: GsStyle;
-  /** Enable classification */
-  enableClassification?: boolean;
-  /** The passthrough props for the Rules component. */
-  rulesProps?: Partial<RulesProps>;
 }
 
 export const StyleOverview: React.FC<StyleOverviewProps> = ({
@@ -74,8 +70,6 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
   onStyleChange = () => {},
   onChangeView = () => {},
   locale = en_US.StyleOverview,
-  enableClassification,
-  rulesProps
 }) => {
 
   const onNameChange = (name: string) => {
@@ -117,8 +111,6 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
         onEditRuleClick={onEditRule}
         onClassificationClick={onClassificationClick}
         onEditSelectionClick={onEditSelectionClick}
-        enableClassification={enableClassification}
-        {...rulesProps}
       />
     </div>
   );
