@@ -153,11 +153,6 @@ export const FillEditor: React.FC<FillEditorProps> = ({
     }
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   const {
     color,
     fillOpacity,
@@ -187,7 +182,6 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               <Form.Item
                 label={locale.fillColorLabel}
                 {...getSupportProps('color')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -204,7 +198,6 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               <Form.Item
                 label={locale.fillOpacityLabel}
                 {...getSupportProps('fillOpacity')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -221,7 +214,6 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               <Form.Item
                 label={locale.opacityLabel}
                 {...getSupportProps('opacity')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -238,7 +230,6 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               <Form.Item
                 label={locale.outlineOpacityLabel}
                 {...getSupportProps('outlineOpacity')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -255,7 +246,6 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               <Form.Item
                 label={locale.outlineColorLabel}
                 {...getSupportProps('outlineColor')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -272,7 +262,6 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               <Form.Item
                 label={locale.outlineWidthLabel}
                 {...getSupportProps('outlineWidth')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -289,7 +278,6 @@ export const FillEditor: React.FC<FillEditorProps> = ({
               <Form.Item
                 label={locale.outlineDasharrayLabel}
                 {...getSupportProps('outlineDasharray')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({

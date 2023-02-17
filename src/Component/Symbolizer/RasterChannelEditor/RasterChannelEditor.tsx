@@ -134,21 +134,14 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
     grayChannel = channelSelection.grayChannel;
   }
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <div>
       <Form.Item
-        {...formItemLayout}
       >
         <span>{locale.titleLabel}</span>
       </Form.Item>
       <Form.Item
         label={locale.channelSelectionLabel}
-        {...formItemLayout}
       >
         <Select
           className="editor-field rgb-or-gray-field"

@@ -82,34 +82,30 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
   data
 }) => {
 
-  const formItemLayout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 }
-  };
-
   return (
     <FieldContainer className="gs-rule-field-container">
       <div className='gs-rule-field-container-header'>
-        <Form.Item
-          label={locale.nameFieldLabel}
-          {...formItemLayout}
+        <Form
+          layout='vertical'
         >
-          <NameField
-            value={name}
-            onChange={onNameChange}
-            placeholder={locale.nameFieldPlaceholder}
+          <Form.Item
+            label={locale.nameFieldLabel}
+          >
+            <NameField
+              value={name}
+              onChange={onNameChange}
+              placeholder={locale.nameFieldPlaceholder}
+            />
+          </Form.Item>
+          <MinScaleDenominator
+            value={minScale}
+            onChange={onMinScaleChange}
           />
-        </Form.Item>
-        <MinScaleDenominator
-          value={minScale}
-          onChange={onMinScaleChange}
-          {...formItemLayout}
-        />
-        <MaxScaleDenominator
-          value={maxScale}
-          onChange={onMaxScaleChange}
-          {...formItemLayout}
-        />
+          <MaxScaleDenominator
+            value={maxScale}
+            onChange={onMaxScaleChange}
+          />
+        </Form>
       </div>
       <Divider type="vertical" />
       <Renderer

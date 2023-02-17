@@ -101,7 +101,6 @@ export const ScaleDenominator: React.FC<ScaleDenominatorProps> = ({
           <MinScaleDenominator
             value={scaleDenominator?.min}
             onChange={onMinScaleDenomChange}
-            label={locale.minScaleDenominatorLabelText}
             placeholder={locale.minScaleDenominatorPlaceholderText}
           />
         </Col>
@@ -109,7 +108,6 @@ export const ScaleDenominator: React.FC<ScaleDenominatorProps> = ({
           <MaxScaleDenominator
             value={scaleDenominator?.max}
             onChange={onMaxScaleDenomChange}
-            label={locale.maxScaleDenominatorLabelText}
             placeholder={locale.maxScaleDenominatorPlaceholderText}
           />
         </Col>

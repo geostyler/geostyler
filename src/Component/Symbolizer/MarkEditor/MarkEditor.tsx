@@ -85,11 +85,6 @@ export const MarkEditor: React.FC<MarkEditorProps> = ({
     }
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   const getSupportProps = (propName: keyof MarkSymbolizer) => {
     return UnsupportedPropertiesUtil.getSupportProps<MarkSymbolizer>({
       propName,
@@ -106,7 +101,6 @@ export const MarkEditor: React.FC<MarkEditorProps> = ({
           <Form.Item
             label={locale.wellKnownNameFieldLabel}
             {...getSupportProps('wellKnownName')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({

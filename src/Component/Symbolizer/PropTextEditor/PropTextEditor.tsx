@@ -192,16 +192,10 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     offsetY = offset[1];
   }
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <div className="gs-text-symbolizer-prop-editor" >
       <Form.Item
         label={locale.propFieldLabel}
-        {...formItemLayout}
       >
         <AttributeCombo
           value={symbolizer.label ? formatLabel(symbolizer.label as string) : undefined}
@@ -211,7 +205,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.colorLabel}
-        {...formItemLayout}
       >
         <ColorField
           color={color as string}
@@ -220,7 +213,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.fontLabel}
-        {...formItemLayout}
       >
         <FontPicker
           font={font as string[]}
@@ -229,7 +221,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.opacityLabel}
-        {...formItemLayout}
       >
         <OpacityField
           opacity={opacity as number}
@@ -238,7 +229,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.sizeLabel}
-        {...formItemLayout}
       >
         <WidthField
           width={size as number}
@@ -247,7 +237,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.offsetXLabel}
-        {...formItemLayout}
       >
         <OffsetField
           offset={offsetX as number}
@@ -256,7 +245,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.offsetYLabel}
-        {...formItemLayout}
       >
         <OffsetField
           offset={offsetY as number}
@@ -265,7 +253,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.rotateLabel}
-        {...formItemLayout}
       >
         <RotateField
           rotate={rotate as number}
@@ -274,7 +261,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.haloColorLabel}
-        {...formItemLayout}
       >
         <ColorField
           color={haloColor as string}
@@ -283,7 +269,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.haloWidthLabel}
-        {...formItemLayout}
       >
         <WidthField
           width={haloWidth as number}

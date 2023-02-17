@@ -81,16 +81,10 @@ export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
     }
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <div>
       <Form.Item
         label={locale.grayLabel}
-        {...formItemLayout}
       >
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}

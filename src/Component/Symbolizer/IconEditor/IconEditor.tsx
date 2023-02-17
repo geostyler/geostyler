@@ -145,11 +145,6 @@ export const IconEditor: React.FC<IconEditorProps> = ({
     }
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   const {
     opacity,
     image,
@@ -176,7 +171,6 @@ export const IconEditor: React.FC<IconEditorProps> = ({
           <Form.Item
             label={locale.imageLabel}
             {...getSupportProps('image')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -202,7 +196,6 @@ export const IconEditor: React.FC<IconEditorProps> = ({
           <Form.Item
             label={locale.sizeLabel}
             {...getSupportProps('size')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -219,7 +212,6 @@ export const IconEditor: React.FC<IconEditorProps> = ({
           <Form.Item
             label={locale.offsetXLabel}
             {...getSupportProps('offset')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -236,7 +228,6 @@ export const IconEditor: React.FC<IconEditorProps> = ({
           <Form.Item
             label={locale.offsetYLabel}
             {...getSupportProps('offset')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -253,7 +244,6 @@ export const IconEditor: React.FC<IconEditorProps> = ({
           <Form.Item
             label={locale.rotateLabel}
             {...getSupportProps('rotate')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -270,7 +260,6 @@ export const IconEditor: React.FC<IconEditorProps> = ({
           <Form.Item
             label={locale.opacityLabel}
             {...getSupportProps('opacity')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({

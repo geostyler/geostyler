@@ -113,16 +113,10 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
   const contrastEnhancementType = _get(channel, 'contrastEnhancement.enhancementType');
   const gamma = _get(channel, 'contrastEnhancement.gammaValue');
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <div>
       <Form.Item
         label={locale.sourceChannelNameLabel}
-        {...formItemLayout}
       >
         <SourceChannelNameField
           onChange={onSourceChannelNameChange}
@@ -132,7 +126,6 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.contrastEnhancementTypeLabel}
-        {...formItemLayout}
       >
         <ContrastEnhancementField
           contrastEnhancement={contrastEnhancementType}
@@ -142,7 +135,6 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.gammaValueLabel}
-        {...formItemLayout}
       >
         <GammaField
           gamma={gamma as any}

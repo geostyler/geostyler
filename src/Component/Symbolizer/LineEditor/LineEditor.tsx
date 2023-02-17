@@ -174,11 +174,6 @@ export const LineEditor: React.FC<LineEditorProps> = ({
     }
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   const {
     color,
     width,
@@ -210,7 +205,6 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               <Form.Item
                 label={locale.colorLabel}
                 {...getSupportProps('color')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -227,7 +221,6 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               <Form.Item
                 label={locale.widthLabel}
                 {...getSupportProps('width')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -244,7 +237,6 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               <Form.Item
                 label={locale.perpendicularOffsetLabel}
                 {...getSupportProps('perpendicularOffset')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -261,7 +253,6 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               <Form.Item
                 label={locale.opacityLabel}
                 {...getSupportProps('opacity')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -278,7 +269,6 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               <Form.Item
                 label={locale.dashLabel}
                 {...getSupportProps('dasharray')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -294,7 +284,6 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               <Form.Item
                 label={locale.dashOffsetLabel}
                 {...getSupportProps('dashOffset')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -316,7 +305,6 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               <Form.Item
                 label={locale.capLabel}
                 {...getSupportProps('cap')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -333,7 +321,6 @@ export const LineEditor: React.FC<LineEditorProps> = ({
               <Form.Item
                 label={locale.joinLabel}
                 {...getSupportProps('join')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({

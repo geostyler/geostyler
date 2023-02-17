@@ -107,16 +107,10 @@ export const GraphicEditor: React.FC<GraphicEditorProps> = ({
     }
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <div>
       <Form.Item
         label={graphicTypeFieldLabel}
-        {...formItemLayout}
       >
         <GraphicTypeField
           graphicType={graphicType}

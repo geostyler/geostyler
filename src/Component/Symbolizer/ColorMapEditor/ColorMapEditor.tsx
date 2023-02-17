@@ -265,11 +265,6 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
     render: opacityRenderer
   }];
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   // make sure colorMapEntries does exist
   let colorMapEntries: ColorMapEntry[] = colorMap?.colorMapEntries;
   if (!colorMapEntries) {
@@ -281,13 +276,11 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
     <div className="gs-colormap-symbolizer-editor" >
       <div className="gs-colormap-header-row">
         <Form.Item
-          {...formItemLayout}
         >
           <span>{locale.titleLabel}</span>
         </Form.Item>
         <Form.Item
           label={locale.typeLabel}
-          {...formItemLayout}
         >
           <ColorMapTypeField
             colorMapType={colorMap?.type}
@@ -296,7 +289,6 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
         </Form.Item>
         <Form.Item
           label={locale.nrOfClassesLabel}
-          {...formItemLayout}
         >
           <InputNumber
             className="number-of-classes-field"
@@ -308,7 +300,6 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
         </Form.Item>
         <Form.Item
           label={locale.colorRampLabel}
-          {...formItemLayout}
         >
           <ColorRampCombo
             onChange={onColorRampChange}
@@ -318,7 +309,6 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
         </Form.Item>
         <Form.Item
           label={locale.extendedLabel}
-          {...formItemLayout}
         >
           <ExtendedField
             extended={colorMap?.extended as boolean}

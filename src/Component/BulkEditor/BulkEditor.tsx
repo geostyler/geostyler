@@ -95,16 +95,10 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
     onStylePropChange('image', newImage);
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <div className='gs-bulkeditor'>
       <Form.Item
         label={locale.colorLabel}
-        {...formItemLayout}
       >
         <ColorField
           color={color}
@@ -113,7 +107,6 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.radiusLabel}
-        {...formItemLayout}
       >
         <RadiusField
           radius={radius}
@@ -122,7 +115,6 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.opacityLabel}
-        {...formItemLayout}
       >
         <OpacityField
           opacity={opacity}
@@ -131,7 +123,6 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.symbolLabel}
-        {...formItemLayout}
       >
         <Input.Group compact>
           <Form.Item
@@ -144,7 +135,6 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
             />
           </Form.Item>
           <Form.Item
-            {...formItemLayout}
             noStyle
           >
             {

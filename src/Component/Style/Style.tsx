@@ -463,17 +463,11 @@ export const Style: React.FC<StyleProps> = ({
 
   let rules: GsRule[] =  style?.rules || [];
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <div className="gs-style" >
       <div className="gs-style-name-classification-row">
         <Form.Item
           label={locale.nameFieldLabel}
-          {...formItemLayout}
         >
           <NameField
             value={style.name}

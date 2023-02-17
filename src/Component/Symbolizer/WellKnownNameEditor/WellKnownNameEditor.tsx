@@ -159,14 +159,9 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
    * to the From Item label.
    */
   const wrapFormItem = (label: string, element: React.ReactElement): React.ReactElement => {
-    const formItemLayout = {
-      labelCol: { span: 8 },
-      wrapperCol: { span: 16 }
-    };
     return element == null ? null : (
       <Form.Item
         label={label}
-        {...formItemLayout}
       >
         {element}
       </Form.Item>

@@ -202,11 +202,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
   }
   const properties = internalDataDef && internalDataDef.schema ? Object.keys(internalDataDef.schema.properties) : [];
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   const getSupportProps = (propName: keyof TextSymbolizer) => {
     return UnsupportedPropertiesUtil.getSupportProps<TextSymbolizer>({
       propName,
@@ -223,7 +218,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.templateFieldLabel}
             {...getSupportProps('label')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -249,7 +243,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.colorLabel}
             {...getSupportProps('color')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -266,7 +259,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.fontLabel}
             {...getSupportProps('font')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -283,7 +275,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.opacityLabel}
             {...getSupportProps('opacity')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -300,7 +291,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.sizeLabel}
             {...getSupportProps('size')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -317,7 +307,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.offsetXLabel}
             {...getSupportProps('offset')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -334,7 +323,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.offsetYLabel}
             {...getSupportProps('offset')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -351,7 +339,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.rotateLabel}
             {...getSupportProps('rotate')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -368,7 +355,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.haloColorLabel}
             {...getSupportProps('haloColor')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({
@@ -385,7 +371,6 @@ export const TextEditor: React.FC<TextEditorProps> = ({
           <Form.Item
             label={locale.haloWidthLabel}
             {...getSupportProps('haloWidth')}
-            {...formItemLayout}
           >
             {
               CompositionUtil.handleComposition({

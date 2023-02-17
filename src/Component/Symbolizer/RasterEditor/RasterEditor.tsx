@@ -169,11 +169,6 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
     wrapperCol: {span: 24}
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   const getSupportProps = (propName: keyof RasterSymbolizer) => {
     return UnsupportedPropertiesUtil.getSupportProps<RasterSymbolizer>({
       propName,
@@ -193,7 +188,6 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
                 key='opacity'
                 label={locale.opacityLabel}
                 {...getSupportProps('opacity')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -211,7 +205,6 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
                 key='contrastEnhancement'
                 label={locale.contrastEnhancementLabel}
                 {...getSupportProps('contrastEnhancement')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
@@ -228,7 +221,6 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
                 key='gamma'
                 label={locale.gammaValueLabel}
                 {...getSupportProps('contrastEnhancement')}
-                {...formItemLayout}
               >
                 {
                   CompositionUtil.handleComposition({
