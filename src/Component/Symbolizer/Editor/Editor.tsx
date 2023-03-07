@@ -209,31 +209,29 @@ export const Editor: React.FC<EditorProps> = ({
     onSymbolizerChange(newSymbolizer);
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <CompositionContext.Consumer>
       {(composition: Compositions) => (
         <div className="gs-symbolizer-editor" >
-          <Form.Item
-            label={locale.kindFieldLabel}
-            {...formItemLayout}
+          <Form
+            layout='vertical'
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'Editor.kindField',
-                onChange: onKindFieldChange,
-                propName: 'kind',
-                propValue: symbolizer.kind,
-                defaultElement: <KindField />
-              })
-            }
-          </Form.Item>
-          {getUiForSymbolizer(composition)}
+            <Form.Item
+              label={locale.kindFieldLabel}
+            >
+              {
+                CompositionUtil.handleComposition({
+                  composition,
+                  path: 'Editor.kindField',
+                  onChange: onKindFieldChange,
+                  propName: 'kind',
+                  propValue: symbolizer.kind,
+                  defaultElement: <KindField />
+                })
+              }
+            </Form.Item>
+            {getUiForSymbolizer(composition)}
+          </Form>
         </div>
       )}
     </CompositionContext.Consumer>

@@ -169,7 +169,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
 
   return (
     <div className="gs-rule-generator" >
-      <Form layout="horizontal">
+      <Form layout="vertical">
         <AttributeCombo
           value={attributeName}
           internalDataDef={internalDataDef}

@@ -120,16 +120,10 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
     }
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <div>
       <Form.Item
         label={locale.redLabel}
-        {...formItemLayout}
       >
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}
@@ -139,7 +133,6 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.greenLabel}
-        {...formItemLayout}
       >
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}
@@ -149,7 +142,6 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.blueLabel}
-        {...formItemLayout}
       >
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}

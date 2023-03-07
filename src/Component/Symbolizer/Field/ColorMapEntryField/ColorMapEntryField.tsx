@@ -84,16 +84,10 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
     updateColorMapEntry('opacity', opacity as number);
   };
 
-  const formItemLayout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 }
-  };
-
   return (
     <div>
       <Form.Item
         label={locale.colorLabel}
-        {...formItemLayout}
       >
         <ColorField
           color={_get(colorMapEntry, 'color') as string}
@@ -102,7 +96,6 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.quantityLabel}
-        {...formItemLayout}
       >
         <OffsetField
           offset={_get(colorMapEntry, 'quantity') as number}
@@ -111,7 +104,6 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.labelLabel}
-        {...formItemLayout}
       >
         <Input
           className="editor-field colormapentry-label-field"
@@ -125,7 +117,6 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
       </Form.Item>
       <Form.Item
         label={locale.opacityLabel}
-        {...formItemLayout}
       >
         <OpacityField
           opacity={_get(colorMapEntry, 'opacity') as number}

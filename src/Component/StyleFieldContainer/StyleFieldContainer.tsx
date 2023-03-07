@@ -61,33 +61,30 @@ export const StyleFieldContainer: React.FC<StyleFieldContainerProps> = ({
   onTitleChange,
 }) => {
 
-  const formItemLayout = {
-    labelCol: { span: 4 },
-    wrapperCol: { span: 20 }
-  };
-
   return (
     <FieldContainer className="gs-style-field-container">
-      <Form.Item
-        label={locale.nameFieldLabel}
-        {...formItemLayout}
+      <Form
+        layout='vertical'
       >
-        <NameField
-          value={name}
-          onChange={onNameChange}
-          placeholder={locale.nameFieldPlaceholder}
-        />
-      </Form.Item>
-      <Form.Item
-        label={locale.titleFieldLabel}
-        {...formItemLayout}
-      >
-        <NameField
-          value={title}
-          onChange={onTitleChange}
-          placeholder={locale.titleFieldPlaceholder}
-        />
-      </Form.Item>
+        <Form.Item
+          label={locale.nameFieldLabel}
+        >
+          <NameField
+            value={name}
+            onChange={onNameChange}
+            placeholder={locale.nameFieldPlaceholder}
+          />
+        </Form.Item>
+        <Form.Item
+          label={locale.titleFieldLabel}
+        >
+          <NameField
+            value={title}
+            onChange={onTitleChange}
+            placeholder={locale.titleFieldPlaceholder}
+          />
+        </Form.Item>
+      </Form>
     </FieldContainer>
   );
 
