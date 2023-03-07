@@ -1,18 +1,10 @@
 {
-  "branches": [
-    "main"
-  ],
+  "branches": ["main", {"name": "semantic-release-test", "prerelease": true}],
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
       {
-        "releaseRules": [
-          { "type": "breaking", "release": "major" },
-          { "type": "refactor", "release": "patch" },
-          { "type": "config", "release": "patch" },
-          { "type": "norelease", "release": false },
-          { "type": "test", "release": false }
-        ]
+        "preset": "conventionalcommits"
       }
     ],
     [
@@ -20,19 +12,7 @@
       {
         "preset": "conventionalcommits",
         "presetConfig": {
-          "header": "Changelog of GeoStyler",
-          "types": [
-            {"type": "feat", "section": "Features"},
-            {"type": "fix", "section": "Bugfixes"},
-            {"type": "chore", "section": "Dependencies"},
-            {"type": "docs", "hidden": true},
-            {"type": "style", "hidden": true},
-            {"type": "refactor", "hidden": true},
-            {"type": "perf", "hidden": true},
-            {"type": "test", "hidden": true},
-            {"type": "breaking", "section": "Breaking changes"},
-            {"type": "config", "section": "Changes in configuration"}
-          ]
+          "header": "Changelog of GeoStyler"
         }
       }
     ],
