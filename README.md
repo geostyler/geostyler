@@ -1,6 +1,10 @@
 ![GeoStyler Logo](/docs/Geo_Styler_Logo_300_RGB.jpg)
 
-[![Test, Coverage & Docs (main)](https://github.com/geostyler/geostyler/actions/workflows/on-push-main.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-push-main.yml) [![Create & publish versioned documentation](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml) [![Coverage Status](https://coveralls.io/repos/github/geostyler/geostyler/badge.svg?branch=main)](https://coveralls.io/github/geostyler/geostyler?branch=main) [![License](https://img.shields.io/github/license/geostyler/geostyler)](https://github.com/geostyler/geostyler/blob/main/LICENSE)
+[![Discord](https://img.shields.io/discord/1016992288028762132?style=plastic)](https://discord.gg/8rtc8USE)
+[![Test, Coverage & Docs (main)](https://github.com/geostyler/geostyler/actions/workflows/on-push-main.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-push-main.yml)
+[![Create & publish versioned documentation](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml)
+[![Coverage Status](https://coveralls.io/repos/github/geostyler/geostyler/badge.svg?branch=main)](https://coveralls.io/github/geostyler/geostyler?branch=main)
+[![License](https://img.shields.io/github/license/geostyler/geostyler)](https://github.com/geostyler/geostyler/blob/main/LICENSE)
 
 Code: [github](https://github.com/geostyler/geostyler)
 Package: [npm](https://www.npmjs.com/package/geostyler)
