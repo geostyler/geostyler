@@ -1,3 +1,58 @@
+## [12.0.0](https://github.com/geostyler/geostyler/compare/v11.1.1...v12.0.0) (2023-03-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* This updates the props of the Renderer component.
+Now, props depend on the provided renderer type. For SLD, only the
+props for the SLDRenderer will be applicable, for OpenLayers, only
+the props for the oLRenderer will be applicable.
+* Multiple props of components that are related
+to <CardStyle> have been updated. Mainly, existing properties
+were removed in order to prepare for the usage of GeoStylerContext.
+* The property unknownSymbolizerText of <Editor> was
+moved to the locale property in order to provide translations.
+* Removes props filterUiProps, iconLibraries, colorRamps from Rules.
+Moves showAmount, showDuplicates to RuleCard and to ruleCardProps
+on Rules.
+* Moved src/Component/Symbolizer/Renderer/Renderer to
+src/ComponentRenderer/OlRenderer. Moved
+src/Component/Symbolizer/SLDRenderer to
+src/Component/Renderer/SLDRenderer. Moved src/Renderer/Renderer to
+src/Renderer/Renderer. Added OlRenderer specific props to Renderer.
+* Removed prop was replaced with props colorRamps, useBrewerColorRamps and
+colorSpaces in order to harmonize CardStyle with Style.
+* The label prop was removed from MaxScaleDenominator and MinScaleDenominator. The labels are now part of i18n and can be configured via the locale property.
+
+### Features
+
+* prepare GeoStylerContext ([e5529a3](https://github.com/geostyler/geostyler/commit/e5529a31ed2f34d842c4a2e3bd3c026a17395330))
+* update CompositionContext type ([5edda76](https://github.com/geostyler/geostyler/commit/5edda76d7086ca81b3467c710c891ea3c6f81cb5))
+* use vertical form layout ([9cc8e08](https://github.com/geostyler/geostyler/commit/9cc8e08240b151e22aea5bb89e7ac79192707a2e))
+
+
+### Bug Fixes
+
+* add missing GeoStylerContext to index.ts ([5f74578](https://github.com/geostyler/geostyler/commit/5f7457892a0f2c3a2daa7a402c9f1c76b8da5909))
+* adds dynamic translation ([2ba62a7](https://github.com/geostyler/geostyler/commit/2ba62a73db43510c8daa5c46c8cefd6835d15d64))
+* adjust paddings and margins on form items ([88c7a78](https://github.com/geostyler/geostyler/commit/88c7a78ef782447ac674170fae0ab5f740c1a493))
+* fixing imports ([108a72a](https://github.com/geostyler/geostyler/commit/108a72a3ff48cdf9b47998d27ba7df50b04ee549))
+* make all CompositionContext props optional ([5d8c8b5](https://github.com/geostyler/geostyler/commit/5d8c8b5982632af5c22e0aa4bf6cef97d6f134e1))
+* remove Omit on oLRendererProps typing ([96f867a](https://github.com/geostyler/geostyler/commit/96f867a3d8988686e9be2f018afb17e433cc2e99))
+* remove unneded lines ([f8402c0](https://github.com/geostyler/geostyler/commit/f8402c030546071e0355fe30beeb0c79eaf5b493))
+* set missing property in CardStyle ([76f6d90](https://github.com/geostyler/geostyler/commit/76f6d9091ab9c8b8871878def047af8ce793e559))
+
+
+### breaking
+
+* change props of Renderer component ([748a67c](https://github.com/geostyler/geostyler/commit/748a67c1130b48c06346dc807ba597f42bc3978b))
+* move Editor property unknownSymbolizerText to locale ([8148ca7](https://github.com/geostyler/geostyler/commit/8148ca707e3433f46e18256aa5ccc244faa011a2))
+* refactor renderer components ([ce87e0f](https://github.com/geostyler/geostyler/commit/ce87e0fae182d934c77e42789cfa3a70677ad042))
+* remove label as a prop from MaxScaleDenominator and MinScaleDenominator ([ed3c2af](https://github.com/geostyler/geostyler/commit/ed3c2af227b5c2af55a039bca452216f74bc5e2f))
+* remove ruleGeneratorProps from CardStyle ([c527753](https://github.com/geostyler/geostyler/commit/c527753ac2d146acf2e76b876e63cdc59cbdc18f))
+* remove unnecessary props from Rules ([f037cf7](https://github.com/geostyler/geostyler/commit/f037cf7463bf9eb9a436be84e4449074e2e75c86))
+* update props of CardStyle related components ([66b1ed1](https://github.com/geostyler/geostyler/commit/66b1ed16bb8f303ce61ca39d43406301150b557b))
+
 ## [11.1.1](https://github.com/geostyler/geostyler/compare/v11.1.0...v11.1.1) (2023-01-16)
 
 
