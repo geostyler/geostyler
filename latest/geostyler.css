@@ -26901,16 +26901,12 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .color-preview-wrapper button.color-clear {
   border-radius: 0 2px 2px 0;
-  width: 16px;
-  background-color: #ebebeb;
+  width: 32px;
 }
 .sketch-picker {
   position: absolute;
   z-index: 200;
   top: 3em;
-}
-.color-field {
-  width: 90px;
 }
 
 /* Released under the BSD 2-Clause License
@@ -27058,15 +27054,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-image-field .gs-image-field-gallery-icon {
-  cursor: pointer;
-}
-.gs-image-field .ant-input-group-wrapper {
-  width: auto;
-}
-.gs-image-field .gs-image-field-gallery-addon {
-  width: calc(200px - 37px) !important;
-}
 
 .gs-breadcrumb {
   display: flex;
@@ -27108,7 +27095,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   padding-top: 10px;
 }
 
-.gs-card-style > .gs-renderer .gs-symbolizer-renderer {
+.gs-card-style > .gs-renderer .gs-symbolizer-olrenderer {
   width: 50px;
   height: 50px;
   cursor: default;
@@ -27119,10 +27106,40 @@ div.ant-typography-edit-content.ant-typography-rtl {
   cursor: default;
 }
 
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 
 
 .gs-field-container {
   width: 100%;
+}
+.gs-field-container .ant-form-item {
+  margin-bottom: 12px;
 }
 
 /* Released under the BSD 2-Clause License
@@ -27224,7 +27241,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   height: auto;
   margin: 0 20px;
 }
-.gs-rule-card .gs-symbolizer-renderer {
+.gs-rule-card .gs-symbolizer-olrenderer {
   width: 100px;
   height: 100px;
 }
@@ -27278,7 +27295,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-symbolizer-renderer {
+.gs-symbolizer-olrenderer {
   position: relative;
   border: 1px solid lightgrey;
   border-radius: 4px;
@@ -27685,6 +27702,33 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 
 
+/* Released under the BSD 2-Clause License
+ *
+ * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice,
+ *   this list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ *   this list of conditions and the following disclaimer in the documentation
+ *   and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
 .gs-rule-field-container {
   display: flex;
 }
@@ -27698,7 +27742,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-rule-field-container .gs-renderer {
   flex: 1;
 }
-.gs-rule-field-container .gs-renderer .gs-symbolizer-renderer {
+.gs-rule-field-container .gs-renderer .gs-symbolizer-olrenderer {
   height: 100%;
   cursor: default;
 }
@@ -27867,7 +27911,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-symbolizer-card.ant-card-bordered {
   border: none;
 }
-.gs-symbolizer-card .gs-symbolizer-renderer {
+.gs-symbolizer-card .gs-symbolizer-olrenderer {
   height: 100px;
   width: 100px;
 }
@@ -27937,9 +27981,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-text-symbolizer-editor .ant-select-selection {
-  width: 90px;
-}
 .gs-text-symbolizer-editor .ant-row.ant-form-item.ant-form-item-no-colon {
   margin-bottom: 0;
 }
@@ -27971,11 +28012,11 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-symbolizer-editor .editor-field {
-  width: 200px;
+.gs-symbolizer-editor .ant-input-number {
+  width: 100%;
 }
 .gs-symbolizer-editor .ant-form-item {
-  margin: 0;
+  margin-bottom: 12px;
 }
 
 /* Released under the BSD 2-Clause License
@@ -28221,18 +28262,14 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-rule-generator {
   padding: 20px;
 }
-.gs-rule-generator .ant-form-item {
-  display: flex;
-  align-items: center;
-}
-.gs-rule-generator .ant-form-item .ant-form-item-control-wrapper {
-  flex: 1;
-}
-.gs-rule-generator .ant-form-item .all-distinct-values-button {
-  margin: 1px 0 0 5px;
+.gs-rule-generator .ant-input-number {
+  width: 100%;
 }
 .gs-rule-generator .gs-rule-generator-submit-button {
   float: right;
+}
+.gs-rule-generator .ant-form-item {
+  margin-bottom: 12px;
 }
 
 /* Released under the BSD 2-Clause License
@@ -28553,7 +28590,9 @@ div.ant-typography-edit-content.ant-typography-rtl {
   margin-right: 5px;
 }
 .gs-symbolizer-multi-editor .gs-symbolizer-multi-editor-tab {
-  padding: 10px;
+  padding: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 /* Released under the BSD 2-Clause License
@@ -28715,9 +28754,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-text-symbolizer-prop-editor .ant-select-selection {
-  width: 90px;
-}
 .gs-text-symbolizer-prop-editor .ant-row.ant-form-item.ant-form-item-no-colon {
   margin-bottom: 0;
 }
@@ -28895,13 +28931,13 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .gs-rule-table .ant-table-tbody .ant-input,
 .gs-rule-table .ant-table-tbody .ant-input-number,
-.gs-rule-table .ant-table-tbody .gs-symbolizer-renderer {
+.gs-rule-table .ant-table-tbody .gs-symbolizer-olrenderer {
   border-radius: 0;
 }
 .gs-rule-table .ant-table-tbody .ant-input-search .ant-input-search-button {
   border-radius: 0;
 }
-.gs-rule-table .ant-table-tbody .gs-symbolizer-renderer {
+.gs-rule-table .ant-table-tbody .gs-symbolizer-olrenderer {
   height: 32px;
   width: 48px;
 }
