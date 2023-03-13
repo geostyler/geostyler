@@ -27138,6 +27138,9 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-field-container {
   width: 100%;
 }
+.gs-field-container .ant-form-item {
+  margin-bottom: 12px;
+}
 
 /* Released under the BSD 2-Clause License
  *
@@ -28012,6 +28015,9 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .gs-symbolizer-editor .ant-input-number {
   width: 100%;
 }
+.gs-symbolizer-editor .ant-form-item {
+  margin-bottom: 12px;
+}
 
 /* Released under the BSD 2-Clause License
  *
@@ -28261,6 +28267,9 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .gs-rule-generator .gs-rule-generator-submit-button {
   float: right;
+}
+.gs-rule-generator .ant-form-item {
+  margin-bottom: 12px;
 }
 
 /* Released under the BSD 2-Clause License
@@ -28581,7 +28590,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
   margin-right: 5px;
 }
 .gs-symbolizer-multi-editor .gs-symbolizer-multi-editor-tab {
-  padding: 10px;
+  padding: 20px;
   max-height: 70vh;
   overflow-y: auto;
 }
