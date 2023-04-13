@@ -59,7 +59,7 @@ const hr_HR: GeoStylerLocale = {
   },
   Rule: {
     removeRuleBtnText: 'Ukloni pravilo',
-    scaleFieldTitle: 'Use scale',
+    scaleFieldTitle: 'Koristi skalu',
     filterFieldTitle: 'Koristi filter',
     nameFieldLabel: 'Ime',
     nameFieldPlaceholder: 'Unesite ime',
@@ -245,14 +245,14 @@ const hr_HR: GeoStylerLocale = {
     titleLabel: 'Mapa boja',
     nrOfClassesLabel: 'Broj klasa',
     colorRampLabel: 'Intenzitet boje',
-    colorLabel: 'Color',
-    quantityLabel: 'Quantity',
-    labelLabel: 'Label',
+    colorLabel: 'Boja',
+    quantityLabel: 'Količina',
+    labelLabel: 'Oznaka',
     opacityLabel: 'Prozirnost'
   },
   Preview: {
-    openEditorText: 'Edit Symbolizer',
-    closeEditorText: 'Close Editor'
+    openEditorText: 'Uredi Simbolizator',
+    closeEditorText: 'Zatvori editor'
   },
   ColorField: {
     clearText: 'Očisti',
