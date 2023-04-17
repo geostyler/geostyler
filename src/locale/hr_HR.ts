@@ -86,11 +86,11 @@ const hr_HR: GeoStylerLocale = {
     opacityLabel: 'Odredite prozirnost',
     symbolLabel: 'Izaberite znak',
     multiEditLabel: 'Višestruko uređivanje',
-    ruleGeneratorWindowBtnText: 'Klasificikacija'
+    ruleGeneratorWindowBtnText: 'Klasifikacija'
   },
   CardStyle: {
     styleTitle: 'Stil',
-    classificationTitle: 'Klasificikacija',
+    classificationTitle: 'Klasifikacija',
     multiEditTitle: 'Višestruko uređivanje',
     symbolizerTitle: 'Simbolizator',
     filterTitle: 'Filters',
@@ -142,31 +142,31 @@ const hr_HR: GeoStylerLocale = {
   WellKnownNameEditor: {
     fillColorLabel: 'Ispuna-Boja',
     fillOpacityLabel: 'Ispuna-Prozirnost',
-    offsetXLabel: 'Kompenziraj X',
-    offsetYLabel: 'Kompenziraj Y',
+    offsetXLabel: 'Pomak X',
+    offsetYLabel: 'Pomak Y',
     opacityLabel: 'Prozirnost',
     radiusLabel: 'Radius',
     rotateLabel: 'Rotacija',
-    strokeColorLabel: 'Stroke-boja',
-    strokeOpacityLabel: 'Stroke-Prozirnost',
-    strokeWidthLabel: 'Stroke-Širina',
+    strokeColorLabel: 'Linija-boja',
+    strokeOpacityLabel: 'Linija-Prozirnost',
+    strokeWidthLabel: 'Linija-Širina',
   },
   FillEditor: {
     opacityLabel: 'Prozirnost',
     fillOpacityLabel: 'Ispuna-Prozirnost',
-    outlineOpacityLabel: 'Stroke-Prozirnost',
+    outlineOpacityLabel: 'Linija-Prozirnost',
     fillColorLabel: 'Ispuna-Boja',
     outlineColorLabel: 'Obrub-Boja',
     outlineWidthLabel: 'Obrub-Širina',
-    outlineDasharrayLabel: 'Obrub-Dasharray',
+    outlineDasharrayLabel: 'Obrub-Crtkano',
     graphicFillTypeLabel: 'Vrsta grafičke ispune'
   },
   IconEditor: {
     iconTooltipLabel: 'Otvori galeriju',
     imageLabel: 'Izvor',
     imagePlaceholder: 'URL to Icon',
-    offsetXLabel: 'Kompenziraj X',
-    offsetYLabel: 'Kompenziraj Y',
+    offsetXLabel: 'Pomak X',
+    offsetYLabel: 'Pomak Y',
     opacityLabel: 'Prozirnost',
     rotateLabel: 'Rotation',
     sizeLabel: 'Veličina',
@@ -192,8 +192,8 @@ const hr_HR: GeoStylerLocale = {
     opacityLabel: 'Tekst-Prozirnost',
     colorLabel: 'Tekst-Boja',
     sizeLabel: 'Tekst-Veličina',
-    offsetXLabel: 'Kompenziraj X',
-    offsetYLabel: 'Kompenziraj Y',
+    offsetXLabel: 'Pomak X',
+    offsetYLabel: 'Pomak Y',
     attributeComboPlaceholder: 'Izaberi polje',
     rotateLabel: 'Rotacija',
     haloColorLabel: 'Halo-Boja',
@@ -206,8 +206,8 @@ const hr_HR: GeoStylerLocale = {
     fontLabel: 'Font',
     colorLabel: 'Tekst-Boja',
     sizeLabel: 'Tekst-Veličina',
-    offsetXLabel: 'Kompenziraj X',
-    offsetYLabel: 'Kompenziraj Y',
+    offsetXLabel: 'Pomak X',
+    offsetYLabel: 'Pomak Y',
     attributeComboPlaceholder: 'Odaberi polje',
     rotateLabel: 'Rotacija',
     haloColorLabel: 'Halo-Boja',
@@ -283,8 +283,8 @@ const hr_HR: GeoStylerLocale = {
     grayLabel: 'Siva traka'
   },
   ScaleDenominator: {
-    minScaleDenominatorLabelText: 'Min. Skala',
-    maxScaleDenominatorLabelText: 'Max. SKala',
+    minScaleDenominatorLabelText: 'Min. Mjerilo',
+    maxScaleDenominatorLabelText: 'Max. Mjerilo',
     minScaleDenominatorPlaceholderText: 'Unesi min. Skalu (Neobavezno)',
     maxScaleDenominatorPlaceholderText: 'Unesi maks. Skalu (Neobavezno)'
   },
@@ -319,13 +319,13 @@ const hr_HR: GeoStylerLocale = {
     unknownSymbolizerText: 'Simbolizator nepoznat!'
   },
   SymbolizerEditorWindow: {
-    symbolizersEditor: 'Urednica simbolizatora'
+    symbolizersEditor: 'Uređenje simbola'
   },
   FilterOverview: {
     filterTitle: 'Filteri'
   },
   FilterEditorWindow: {
-    filterEditor: 'Urednica filtra'
+    filterEditor: 'Uređenje filtera'
   },
   MultiEditor: {
     add: 'Dodaj',
@@ -350,8 +350,8 @@ const hr_HR: GeoStylerLocale = {
     symbolizersColumnTitle: 'Simbolizator',
     nameColumnTitle: 'Ime',
     filterColumnTitle: 'Filter',
-    minScaleColumnTitle: 'Min. Skala',
-    maxScaleColumnTitle: 'Max. Skala',
+    minScaleColumnTitle: 'Min. Mjerilo',
+    maxScaleColumnTitle: 'Max. Mjerilo',
     amountColumnTitle: 'Količina',
     duplicatesColumnTitle: 'Duplikati'
   },
@@ -359,7 +359,7 @@ const hr_HR: GeoStylerLocale = {
     rulesTitle: 'Pravila',
     multiEdit: 'Odabir',
     addRule: 'Dodaj',
-    classification: 'Klasificikacija',
+    classification: 'Klasifikacija',
     remove: 'Ukloni',
     clone: 'Kloniraj',
     edit: 'Uredi',
@@ -383,7 +383,7 @@ const hr_HR: GeoStylerLocale = {
     colorRampMinClassesWarningPre: 'Intenzitet boja zahtjeva barem',
     colorRampMinClassesWarningPost: 'Klase',
     symbolizer: 'Simbolizator',
-    classification: 'Metoda klasifikacije',
+    classification: 'Metoda klasifikacija',
     classificationPlaceholder: 'Odabir...',
     equalInterval: 'Jednaki interval',
     preview: 'Pretpregled boje',
@@ -403,7 +403,7 @@ const hr_HR: GeoStylerLocale = {
     kmeans: 'k-centar'
   },
   RuleGeneratorWindow: {
-    ruleGenerator: 'Klasificikacija'
+    ruleGenerator: 'Klasifikacija'
   },
   IconSelectorWindow: {
     windowLabel: 'Odaberi ikonu'
@@ -419,8 +419,8 @@ const hr_HR: GeoStylerLocale = {
   },
   AttributeCombo: {
     label: 'Svojstvo',
-    placeholder: 'Odaberi atribut',
-    help: 'Odaberite atribut'
+    placeholder: 'Odaberi svojstvo',
+    help: 'Odaberite svojstvo'
   },
   TextFilterField: {
     label: 'Vrijednost',
