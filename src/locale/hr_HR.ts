@@ -373,7 +373,7 @@ const hr_HR: GeoStylerLocale = {
     attribute: 'Svojstvo',
     generateButtonText: 'Klasificirati',
     levelOfMeasurement: 'Nivo mjere',
-    nominal: 'Nominalo',
+    nominal: 'Nominalno',
     ordinal: 'Redni',
     cardinal: 'Glavni',
     numberOfRules: 'Broj klasa',
