@@ -48,7 +48,7 @@ const hr_HR: GeoStylerLocale = {
     opacityLabel: 'Odredite prozirnost',
     symbolLabel: 'Izaberite znak',
     imageFieldLabel: 'Izvor',
-    imageFieldTooltipLabel: 'Otvori Galeriju'
+    imageFieldTooltipLabel: 'Otvori galeriju'
   },
   BulkEditor: {
     colorLabel: 'Izaberite boju',
@@ -120,20 +120,20 @@ const hr_HR: GeoStylerLocale = {
     requestButtonText: 'Dohvati podatke',
     urlLabel: 'Url',
     versionLabel: 'Verzija',
-    typeNameLabel: 'ImeTipaObjekta',
-    featureIDLabel: 'ObjektID',
-    propertyNameLabel: 'ImeSvojstva',
-    maxFeaturesLabel: 'MaksObjekata',
-    fetchParamsLabel: 'dohvatiParametre',
-    srsNameLabel: 'SrsIme'
+    typeNameLabel: 'Ime Tipa Objekta',
+    featureIDLabel: 'Objekt ID',
+    propertyNameLabel: 'Ime Svojstva',
+    maxFeaturesLabel: 'Maks Objekata',
+    fetchParamsLabel: 'dohvati Parametre',
+    srsNameLabel: 'Srs Ime'
   },
   CodeEditor: {
     downloadButtonLabel: 'Spremi kao',
     copyButtonLabel: 'Kopiraj u međuspremnik',
     formatSelectLabel: 'Formatiraj',
     styleCopied: 'Stil kopiran u međuspremnik!',
-    writeFeedback: 'Feedback while writing with',
-    readFeedback: 'Feedback while reading with',
+    writeFeedback: 'Povratne informacije tijekom pisanja s',
+    readFeedback: 'Povratne informacije tijekom čitanja sa',
   },
   ParserFeedback: {
     notSupported: 'Nije podržano od strane korštenog parsera',
@@ -178,13 +178,13 @@ const hr_HR: GeoStylerLocale = {
     capLabel: 'Gornja granica',
     colorLabel: 'Boja',
     dashLabel: 'Crtica uzorak',
-    dashOffsetLabel: 'Prijeboj s crticom',
+    dashOffsetLabel: 'Poravnjanje crtkane linije',
     graphicFillTypeLabel: 'Vrsta grafičke ispune',
-    graphicStrokeTypeLabel: 'Tip grafičke ispune',
+    graphicStrokeTypeLabel: 'Vrsta poteza',
     joinLabel: 'Pridruži',
     opacityLabel: 'Prozirnost',
-    perpendicularOffsetLabel: 'Perpendicular Offset',
-    widthLabel: 'Width',
+    perpendicularOffsetLabel: 'Okomiti pomak',
+    widthLabel: 'Širina',
   },
   TextEditor: {
     fontLabel: 'Font',
@@ -285,8 +285,8 @@ const hr_HR: GeoStylerLocale = {
   ScaleDenominator: {
     minScaleDenominatorLabelText: 'Min. Mjerilo',
     maxScaleDenominatorLabelText: 'Max. Mjerilo',
-    minScaleDenominatorPlaceholderText: 'Unesi min. Skalu (Neobavezno)',
-    maxScaleDenominatorPlaceholderText: 'Unesi maks. Skalu (Neobavezno)'
+    minScaleDenominatorPlaceholderText: 'Unesi min. mjerilo (Neobavezno)',
+    maxScaleDenominatorPlaceholderText: 'Unesi maks. mjerilo (Neobavezno)'
   },
   WellKnownNameField: {
     wellKnownNames: {
@@ -413,7 +413,7 @@ const hr_HR: GeoStylerLocale = {
   },
   SLDUnitsSelect: {
     symbolizerUnitsLabel: 'Jedinice simbolizatora',
-    symbolizerUnitsPixel: 'pksel',
+    symbolizerUnitsPixel: 'piksel',
     symbolizerUnitsMeter: 'metar',
     symbolizerUnitsFoot: 'stopa'
   },
