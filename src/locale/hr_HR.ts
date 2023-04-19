@@ -441,5 +441,4 @@ const hr_HR: GeoStylerLocale = {
   },
   ...antd_hr_HR
 };
-
 export default hr_HR;
