@@ -136,7 +136,7 @@ const hr_HR: GeoStylerLocale = {
     readFeedback: 'Povratne informacije tijekom čitanja sa',
   },
   ParserFeedback: {
-    notSupported: 'Nije podržano od strane korštenog parsera',
+    notSupported: 'Nije podržano od strane korištenog parsera',
     partiallySupported: 'Samo je djelimično podržano od strane korištenog parsera'
   },
   WellKnownNameEditor: {
