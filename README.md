@@ -19,7 +19,7 @@ Developer Guide:
 
 ## :rocket: GeoStyler Code Sprint 2023
 
-We are happy to announce the second GeoStyler Code Sprint from **08.-12.05.2023**. Be part of it! More infos on https://geostyler.org/.
+We are happy to announce the second GeoStyler Code Sprint from **08.-12.05.2023**. Be part of it! More infos on https://geostyler.org/ or on the GeoStyler discord: https://discord.gg/bABdhxrp?event=1103332326240424107
 
 ## <a name="what-is-this-all-about"></a>What is this all about?
 
