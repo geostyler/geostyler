@@ -26,16 +26,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import SLDUnitsSelect, { SLDUnitsSelectProps } from './SLDUnitsSelect';
-import TestUtil from '../../../Util/TestUtil';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('SLDUnitsSelect', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
 
   beforeEach(() => {
     const props: SLDUnitsSelectProps = {};
-    wrapper = TestUtil.shallowRenderComponent(SLDUnitsSelect, props);
+    wrapper = render(<SLDUnitsSelect {...props} />);
   });
 
   it('is defined', () => {
@@ -43,6 +44,6 @@ describe('SLDUnitsSelect', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 });

@@ -26,19 +26,20 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import { MaxScaleDenominator, MaxScaleDenominatorProps } from './MaxScaleDenominator';
-import TestUtil from '../../Util/TestUtil';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('MaxScaleDenominator', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   let onChangeDummy: jest.Mock;
   beforeEach(() => {
     onChangeDummy = jest.fn();
     const props: MaxScaleDenominatorProps = {
       onChange: onChangeDummy
     };
-    wrapper = TestUtil.shallowRenderComponent(MaxScaleDenominator, props);
+    wrapper = render(<MaxScaleDenominator {...props} />);
   });
 
   it('is defined', () => {
@@ -46,7 +47,7 @@ describe('MaxScaleDenominator', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 
 });

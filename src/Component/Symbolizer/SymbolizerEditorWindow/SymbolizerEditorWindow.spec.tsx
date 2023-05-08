@@ -26,13 +26,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
+import { RenderResult, render } from '@testing-library/react';
 import { SymbolizerEditorWindow, SymbolizerEditorWindowProps } from './SymbolizerEditorWindow';
-import TestUtil from '../../../Util/TestUtil';
 import { Symbolizer } from 'geostyler-style';
 
 describe('SymbolizerEditorWindow', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
     wellKnownName: 'circle',
@@ -43,7 +44,7 @@ describe('SymbolizerEditorWindow', () => {
     const props: SymbolizerEditorWindowProps = {
       symbolizers: dummySymbolizers
     };
-    wrapper = TestUtil.shallowRenderComponent(SymbolizerEditorWindow, props);
+    wrapper = render(<SymbolizerEditorWindow {...props} />);
   });
 
   it('is defined', () => {
@@ -51,6 +52,6 @@ describe('SymbolizerEditorWindow', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 });

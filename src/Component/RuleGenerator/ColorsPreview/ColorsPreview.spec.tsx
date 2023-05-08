@@ -26,20 +26,21 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import {
   ColorsPreview,
   ColorsPreviewProps
 } from './ColorsPreview';
-import TestUtil from '../../../Util/TestUtil';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('ColorsPreview', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   beforeEach(() => {
     const props: ColorsPreviewProps = {
       colors: ['#FF0000', '#FFFFFF']
     };
-    wrapper = TestUtil.shallowRenderComponent(ColorsPreview, props);
+    wrapper = render(<ColorsPreview {...props} />);
   });
 
   it('is defined', () => {
@@ -47,6 +48,6 @@ describe('ColorsPreview', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 });

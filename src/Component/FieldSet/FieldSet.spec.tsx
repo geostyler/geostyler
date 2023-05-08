@@ -26,11 +26,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { RenderResult, fireEvent, render } from '@testing-library/react';
 import { FieldSet } from './FieldSet';
 
 describe('FieldSet', () => {
-  let fieldSet;
+  let fieldSet: RenderResult;
   const onCheckChangeDummy = jest.fn();
   beforeEach(() => {
     fieldSet = render(

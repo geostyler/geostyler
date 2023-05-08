@@ -26,13 +26,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
+import { RenderResult, render } from '@testing-library/react';
 import { OlRenderer, OlRendererProps } from './OlRenderer';
-import TestUtil from '../../../Util/TestUtil';
 import { Symbolizer } from 'geostyler-style';
 
 describe('OlRenderer', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   let onClickDummy: jest.Mock;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
@@ -46,7 +47,7 @@ describe('OlRenderer', () => {
       onClick: onClickDummy,
       symbolizers: dummySymbolizers
     };
-    wrapper = TestUtil.shallowRenderComponent(OlRenderer, props);
+    wrapper = render(<OlRenderer {...props} />);
   });
 
   it('is defined', () => {
@@ -54,6 +55,6 @@ describe('OlRenderer', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 });

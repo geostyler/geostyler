@@ -26,12 +26,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import { RemoveButton, RemoveButtonProps } from './RemoveButton';
-import TestUtil from '../../../Util/TestUtil';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('RemoveButton', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   let onClickDummy: jest.Mock;
   beforeEach(() => {
     onClickDummy = jest.fn();
@@ -39,7 +40,7 @@ describe('RemoveButton', () => {
       ruleIdx: 1,
       onClick: onClickDummy
     };
-    wrapper = TestUtil.shallowRenderComponent(RemoveButton, props);
+    wrapper = render(<RemoveButton {...props} />);
   });
 
   it('is defined', () => {
@@ -47,7 +48,7 @@ describe('RemoveButton', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 
 });

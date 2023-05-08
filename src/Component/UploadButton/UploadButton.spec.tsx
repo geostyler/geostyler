@@ -26,15 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import { UploadButton, UploadButtonProps } from './UploadButton';
-import TestUtil from '../../Util/TestUtil';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('UploadButton', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   beforeEach(() => {
     const props: UploadButtonProps = {};
-    wrapper = TestUtil.shallowRenderComponent(UploadButton, props);
+    wrapper = render(<UploadButton {...props} />);
   });
 
   it('is defined', () => {
@@ -42,7 +43,7 @@ describe('UploadButton', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 
 });

@@ -26,16 +26,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import {
   ColorRampCombo
 } from './ColorRampCombo';
-import TestUtil from '../../../Util/TestUtil';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('ColorRampCombo', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(ColorRampCombo);
+    wrapper = render(<ColorRampCombo />);
   });
 
   it('is defined', () => {
@@ -43,6 +44,6 @@ describe('ColorRampCombo', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 });
