@@ -30,7 +30,7 @@ import * as React from 'react';
 import { InputNumber, InputNumberProps } from 'antd';
 import FieldUtil from '../../../../Util/FieldUtil';
 
-export interface WidthFieldProps extends InputNumberProps {
+export interface WidthFieldProps extends InputNumberProps<number> {
   width?: number;
 }
 

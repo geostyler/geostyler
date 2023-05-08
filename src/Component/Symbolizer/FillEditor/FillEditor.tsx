@@ -51,15 +51,13 @@ import _isEqual from 'lodash/isEqual';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import LineDashField from '../Field/LineDashField/LineDashField';
-import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
-import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { GeoStylerLocale } from '../../../locale/locale';
 import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 const Panel = Collapse.Panel;
 
@@ -71,17 +69,21 @@ interface FillEditorDefaultProps {
 export interface FillEditorProps extends Partial<FillEditorDefaultProps> {
   symbolizer: FillSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  defaultValues?: DefaultValues;
 }
 
 const COMPONENTNAME = 'FillEditor';
 
-export const FillEditor: React.FC<FillEditorProps> = ({
-  locale = en_US.FillEditor,
-  symbolizer,
-  onSymbolizerChange,
-  defaultValues
-}) => {
+export const FillEditor: React.FC<FillEditorProps> = (props) => {
+
+  const composition = useGeoStylerComposition('FillEditor', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.FillEditor,
+    symbolizer,
+    onSymbolizerChange
+  } = composed;
 
   const {
     unsupportedProperties,
@@ -174,146 +176,118 @@ export const FillEditor: React.FC<FillEditorProps> = ({
   };
 
   return (
-    <CompositionContext.Consumer>
-      {(composition: Compositions) => (
-        <div className="gs-fill-symbolizer-editor" >
-          <Collapse bordered={false} defaultActiveKey={['1']}>
-            <Panel header="General" key="1">
+    <div className="gs-fill-symbolizer-editor" >
+      <Collapse bordered={false} defaultActiveKey={['1']}>
+        <Panel header="General" key="1">
+          {
+            composition.fillColorField?.visibility === false ? null : (
               <Form.Item
                 label={locale.fillColorLabel}
                 {...getSupportProps('color')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'FillEditor.fillColorField',
-                    onChange: onFillColorChange,
-                    propName: 'color',
-                    propValue: color,
-                    defaultValue: defaultValues?.FillEditor?.defaultFillColor,
-                    defaultElement: <ColorField />
-                  })
-                }
+                <ColorField
+                  color={color as string}
+                  defaultValue={composition.fillColorField?.default}
+                  onChange={onFillColorChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.fillOpacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.fillOpacityLabel}
                 {...getSupportProps('fillOpacity')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'FillEditor.fillOpacityField',
-                    onChange: onFillOpacityChange,
-                    propName: 'fillOpacity',
-                    propValue: fillOpacity,
-                    defaultValue: defaultValues?.FillEditor?.defaultFillOpacity,
-                    defaultElement: <OpacityField />
-                  })
-                }
+                <OpacityField
+                  opacity={fillOpacity as number}
+                  defaultValue={composition.fillOpacityField?.default}
+                  onChange={onFillOpacityChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.opacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.opacityLabel}
                 {...getSupportProps('opacity')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'FillEditor.opacityField',
-                    onChange: onOpacityChange,
-                    propName: 'opacity',
-                    propValue: opacity,
-                    defaultValue: defaultValues?.FillEditor?.defaultOpacity,
-                    defaultElement: <OpacityField />
-                  })
-                }
+                <OpacityField
+                  opacity={opacity as number}
+                  defaultValue={composition.opacityField?.default}
+                  onChange={onOpacityChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.outlineOpacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineOpacityLabel}
                 {...getSupportProps('outlineOpacity')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'FillEditor.outlineOpacityField',
-                    onChange: onOutlineOpacityChange,
-                    propName: 'opacity',
-                    propValue: outlineOpacity,
-                    defaultValue: defaultValues?.FillEditor?.defaultOutlineOpacity,
-                    defaultElement: <OpacityField />
-                  })
-                }
+                <OpacityField
+                  opacity={outlineOpacity as number}
+                  defaultValue={composition.outlineOpacityField?.default}
+                  onChange={onOutlineOpacityChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.outlineColorField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineColorLabel}
                 {...getSupportProps('outlineColor')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'FillEditor.outlineColorField',
-                    onChange: onOutlineColorChange,
-                    propName: 'color',
-                    propValue: outlineColor,
-                    defaultValue: defaultValues?.FillEditor?.defaultOutlineColor,
-                    defaultElement: <ColorField />
-                  })
-                }
+                <ColorField
+                  color={outlineColor as string}
+                  defaultValue={composition.outlineColorField?.default}
+                  onChange={onOutlineColorChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.outlineWidthField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineWidthLabel}
                 {...getSupportProps('outlineWidth')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'FillEditor.outlineWidthField',
-                    onChange: onOutlineWidthChange,
-                    propName: 'width',
-                    propValue: outlineWidth,
-                    defaultValue: defaultValues?.FillEditor?.defaultOutlineWidth,
-                    defaultElement: <WidthField />
-                  })
-                }
+                <WidthField
+                  width={outlineWidth as number}
+                  defaultValue={composition.outlineWidthField?.default}
+                  onChange={onOutlineWidthChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.outlineDasharrayField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineDasharrayLabel}
                 {...getSupportProps('outlineDasharray')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'FillEditor.outlineDasharrayField',
-                    onChange: onOutlineDasharrayChange,
-                    propName: 'dashArray',
-                    propValue: outlineDasharray,
-                    defaultElement: <LineDashField />
-                  })
-                }
+                <LineDashField
+                  dashArray={outlineDasharray as number[]}
+                  onChange={onOutlineDasharrayChange}
+                />
               </Form.Item>
-            </Panel>
-            <Panel header="Graphic Fill" key="2">
-              {
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'FillEditor.graphicEditorField',
-                  onChange: onGraphicChange,
-                  onChangeName: 'onGraphicChange',
-                  propName: 'graphic',
-                  propValue: graphicFill,
-                  defaultElement: (
-                    <GraphicEditor
-                      graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-                      graphic={graphicFill}
-                      graphicType={_get(graphicFill, 'kind') as GraphicType}
-                    />
-                  )
-                })
-              }
-            </Panel>
-          </Collapse>
-        </div>
-      )}
-    </CompositionContext.Consumer>
+            )
+          }
+        </Panel>
+        <Panel header="Graphic Fill" key="2">
+          {/* TODO allow changing graphicFill via composition context */}
+          <GraphicEditor
+            graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+            graphic={graphicFill}
+            graphicType={_get(graphicFill, 'kind') as GraphicType}
+            onGraphicChange={onGraphicChange}
+          />
+        </Panel>
+      </Collapse>
+    </div>
   );
 };
 

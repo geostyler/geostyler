@@ -46,7 +46,8 @@ export type CompositionContext = {
     opacityField?: InputConfig<OpacityFieldProps['opacity']>;
     outlineOpacityField?: InputConfig<OpacityFieldProps['opacity']>;
     outlineColorField?: InputConfig<ColorFieldProps['color']>;
-    outlineDasharrayField?: InputConfig<LineDashFieldProps['dashArray']>;
+    // TODO add support for default values in LineDashField
+    outlineDasharrayField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
     outlineWidthField?: InputConfig<WidthFieldProps['width']>;
   };
   IconEditor?: {
