@@ -35,7 +35,7 @@ import { InputNumberProps } from 'antd/lib/input-number';
 import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface OpacityFieldProps extends Partial<InputNumberProps> {
+export interface OpacityFieldProps extends Partial<InputNumberProps<number>> {
   opacity?: number;
 }
 
