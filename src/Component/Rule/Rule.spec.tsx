@@ -26,22 +26,33 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import { Rule, RuleProps } from './Rule';
-import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import TestUtil from '../../Util/TestUtil';
 import en_US from '../../locale/en_US';
 import {
-  Rule as GsRule
+  Rule as GsRule,
+  Filter as GsFilter,
+  LineSymbolizer,
 } from 'geostyler-style';
-import { SLDRenderer } from '../Renderer/SLDRenderer/SLDRenderer';
-import { OlRenderer } from '../Renderer/OlRenderer/OlRenderer';
+import { RenderResult, act, fireEvent, render } from '@testing-library/react';
 
 describe('Rule', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   let onRuleChangeDummmy: jest.Mock;
   let onRemoveDummmy: jest.Mock;
   let dummyRule: GsRule = TestUtil.getLineStyle().rules[0] as GsRule;
+  dummyRule.name = 'Dummy rule';
+  dummyRule.scaleDenominator = {
+    min: 0,
+    max: 1909
+  };
+  dummyRule.filter = [
+    '==',
+    'key',
+    'value'
+  ];
   beforeEach(() => {
     const dummyData = TestUtil.getDummyGsData();
     onRuleChangeDummmy = jest.fn();
@@ -53,7 +64,8 @@ describe('Rule', () => {
       locale: en_US.Rule,
       rule: dummyRule
     };
-    wrapper = TestUtil.shallowRenderComponent(Rule, props);
+
+    wrapper = render(<Rule {...props} />);
   });
 
   it('is defined', () => {
@@ -61,179 +73,190 @@ describe('Rule', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 
   describe('onNameChange', () => {
-    it('calls the onNameChange prop with correct symbolizer ', () => {
-      const onNameChange = wrapper.instance().onNameChange;
-      const newRule = {...dummyRule};
-      newRule.name = 'Peter';
-      onNameChange('Peter');
-      expect(onRuleChangeDummmy).toBeCalledWith(newRule, wrapper.state().rule);
+    it('calls the onNameChange prop with correct symbolizer ', async () => {
+      const ruleName = 'my rule';
+      let input = wrapper.queryByDisplayValue(dummyRule.name);
+
+      const newRule: GsRule = {
+        ...dummyRule,
+        name: ruleName
+      };
+
+      await act(async () => {
+        fireEvent.change(input, {
+          target: {
+            value: ruleName
+          }
+        });
+      });
+
+      expect(onRuleChangeDummmy).toBeCalledWith(newRule, dummyRule);
+
+      input = wrapper.queryByDisplayValue(ruleName);
+
+      expect(input).toBeDefined();
     });
   });
 
   describe('onScaleDenominatorChange', () => {
-    it('calls the onScaleDenominatorChange prop with correct symbolizer ', () => {
-      const onScaleDenominatorChange = wrapper.instance().onScaleDenominatorChange;
-      const newRule = {...dummyRule};
-      newRule.scaleDenominator = {
-        min: 12,
-        max: 24
+    it('calls the onScaleDenominatorChange prop with correct symbolizer ', async () => {
+      const maxScale = 1910;
+      let input = wrapper.queryByDisplayValue(dummyRule.scaleDenominator.max as number);
+
+      const newRule: GsRule = {
+        ...dummyRule,
+        scaleDenominator: {
+          min: 0,
+          max: maxScale
+        }
       };
-      onScaleDenominatorChange({
-        min: 12,
-        max: 24
+
+      await act(async () => {
+        fireEvent.change(input, {
+          target: {
+            value: maxScale
+          }
+        });
       });
-      expect(onRuleChangeDummmy).toBeCalledWith(newRule, wrapper.state().rule);
+
+      expect(onRuleChangeDummmy).toBeCalledWith(newRule, dummyRule);
+
+      input = wrapper.queryByDisplayValue(maxScale);
+
+      expect(input).toBeDefined();
     });
   });
 
   describe('onFilterChange', () => {
-    it('calls the onFilterChange prop with correct symbolizer ', () => {
-      const onFilterChange = wrapper.instance().onFilterChange;
-      const newRule = {...dummyRule};
-      const filter = TestUtil.getDummyGsFilter();
-      newRule.filter = filter;
-      onFilterChange(filter);
-      expect(onRuleChangeDummmy).toBeCalledWith(newRule, wrapper.state().rule);
+    it('calls the onFilterChange prop with correct symbolizer ', async () => {
+      const filter: GsFilter = [
+        '==',
+        'key',
+        'new value'
+      ];
+
+      let input = wrapper.queryByDisplayValue('value');
+
+      const newRule: GsRule = {
+        ...dummyRule,
+        filter: filter
+      };
+
+      await act(async () => {
+        fireEvent.change(input, {
+          target: {
+            value: filter[2]
+          }
+        });
+      });
+
+      expect(onRuleChangeDummmy).toBeCalledWith(newRule, dummyRule);
+
+      input = wrapper.queryByDisplayValue(filter[2] as string);
+
+      expect(input).toBeDefined();
     });
   });
 
   describe('onSymbolizersChange', () => {
-    it('calls the onSymbolizersChange prop with correct symbolizer ', () => {
-      const onSymbolizersChange = wrapper.instance().onSymbolizersChange;
-      const newRule = {...dummyRule};
-      const symbolizers = [
-        SymbolizerUtil.generateSymbolizer('Icon'),
-        SymbolizerUtil.generateSymbolizer('Mark')
-      ];
-      newRule.symbolizers = symbolizers;
-      onSymbolizersChange(symbolizers);
-      expect(onRuleChangeDummmy).toBeCalledWith(newRule, wrapper.state().rule);
+    it('calls the onSymbolizersChange prop with correct symbolizer ', async () => {
+      const map = wrapper.queryByRole('presentation');
+
+      await act(async () => {
+        fireEvent.click(map);
+      });
+
+      const btn = wrapper.queryByText('Add');
+
+      await act(async () => {
+        fireEvent.click(btn);
+      });
+
+      const symbolizer = dummyRule.symbolizers.slice(0, 1)[0] as LineSymbolizer;
+      symbolizer.color = '#0E1058';
+
+      const newRule: GsRule = {
+        ...dummyRule,
+        symbolizers: [
+          ...dummyRule.symbolizers,
+          symbolizer
+        ]
+      };
+
+      expect(onRuleChangeDummmy).toBeCalledWith(newRule, dummyRule);
     });
   });
 
   describe('onScaleCheckChange', () => {
-    it('calls the onScaleCheckChange prop with correct symbolizer ', () => {
-      const onScaleCheckChange = wrapper.instance().onScaleCheckChange;
-      const newRule = {...dummyRule};
-      const fakeEvent = {
-        target: {
-          checked: false
-        }
-      };
-      delete newRule.scaleDenominator;
-      onScaleCheckChange(fakeEvent);
-      expect(onRuleChangeDummmy).toBeCalledWith(newRule, wrapper.state().rule);
-    });
-    it('restors a storedScaleDenominator if present', () => {
-      const onScaleCheckChange = wrapper.instance().onScaleCheckChange;
-      const storedScaleDenominator = {
-        min: 12,
-        max: 24
-      };
-      wrapper.setProps({
-        rule: {
-          ...dummyRule,
-          scaleDenominator: storedScaleDenominator
-        }
-      });
-      const uncheckEvent = {
-        target: {
-          checked: false
-        }
-      };
-      onScaleCheckChange(uncheckEvent);
-      // TODO getDerivedStateFromProps is breaking the state if the rule is not
-      // repassed as prop (no onRuleChange method implemented as expected)
+    it('calls the onScaleCheckChange prop with correct symbolizer ', async () => {
+      const input = wrapper.queryByText('Use scale');
 
-      // expect(wrapper.state().rule.scaleDenominator).toBeUndefined();
-      // expect(wrapper.state().storedScaleDenominator).toEqual(storedScaleDenominator);
-      const checkEvent = {
-        target: {
-          checked: true
-        }
+      await act(async () => {
+        fireEvent.click(input);
+      });
+
+      const newRule: GsRule = {
+        ...dummyRule,
+        scaleDenominator: undefined
       };
-      onScaleCheckChange(checkEvent);
-      expect(wrapper.state().rule.scaleDenominator).toEqual(storedScaleDenominator);
+
+      expect(onRuleChangeDummmy).toBeCalledWith(newRule, dummyRule);
     });
   });
 
   describe('onFilterCheckChange', () => {
-    it('calls the onFilterCheckChange prop with correct symbolizer ', () => {
-      const onFilterCheckChange = wrapper.instance().onFilterCheckChange;
-      const newRule = {...dummyRule};
-      const fakeEvent = {
-        target: {
-          checked: false
-        }
-      };
-      delete newRule.filter;
-      onFilterCheckChange(fakeEvent);
-      expect(onRuleChangeDummmy).toBeCalledWith(newRule, wrapper.state().rule);
-    });
-    it('restors a storedFilter if present', () => {
-      const onFilterCheckChange = wrapper.instance().onFilterCheckChange;
-      const storedFilter = TestUtil.getDummyGsFilter();
-      wrapper.setProps({
-        rule: {
-          ...dummyRule,
-          filter: storedFilter
-        }
-      });
-      const uncheckEvent = {
-        target: {
-          checked: false
-        }
-      };
-      onFilterCheckChange(uncheckEvent);
-      // TODO getDerivedStateFromProps is breaking the state if the rule is not
-      // repassed as prop (no onRuleChange method implemented as expected)
+    it('calls the onFilterCheckChange prop with correct symbolizer ', async () => {
+      const input = wrapper.queryByText('Use filter');
 
-      // expect(wrapper.state().rule.filter).toBeUndefined();
-      // expect(wrapper.state().storedFilter).toEqual(storedFilter);
-      const checkEvent = {
-        target: {
-          checked: true
-        }
+      await act(async () => {
+        fireEvent.click(input);
+      });
+
+      const newRule: GsRule = {
+        ...dummyRule,
+        filter: undefined
       };
-      onFilterCheckChange(checkEvent);
-      expect(wrapper.state().rule.filter).toEqual(storedFilter);
-    });
-  });
 
-  describe('renders configured: ', () => {
-    it('SLD renderer', () => {
-      wrapper.setProps({
-        rendererType: 'SLD'
-      });
-      const targetRenderer = wrapper.find(SLDRenderer);
-      expect(targetRenderer).toBeDefined();
-    });
-
-    it('OpenLayers renderer', () => {
-      wrapper.setProps({
-        rendererType: 'OpenLayers'
-      });
-      const targetRenderer = wrapper.find(OlRenderer);
-      expect(targetRenderer).toBeDefined();
+      expect(onRuleChangeDummmy).toBeCalledWith(newRule, dummyRule);
     });
   });
 
   describe('A click on the Remove Button', () => {
-    it('calls the onRemove function passed as prop ', () => {
-      const removeButton = wrapper.find('Button.gs-rule-remove-button');
-      removeButton.simulate('click');
+    it('calls the onRemove function passed as prop ', async () => {
+      const removeButton = wrapper.queryByText('Remove Rule');
+
+      await act(async () => {
+        fireEvent.click(removeButton);
+      });
+
       expect(onRemoveDummmy).toBeCalled();
     });
   });
 
   describe('onEditorWindowClose', () => {
-    it('sets editorVisible to false', () => {
-      wrapper.instance().onEditorWindowClose();
-      expect(wrapper.state().editorVisible).toBe(false);
+    it('closes the editor window', async () => {
+      const renderer = wrapper.queryByRole('presentation');
+
+      await act(async () => {
+        fireEvent.click(renderer);
+      });
+
+      const styleEditor = wrapper.queryByText('Symbolizer Editor');
+      expect(styleEditor).toBeInTheDocument();
+
+      const closeButtons = wrapper.queryAllByRole('button');
+
+      const closeButton = closeButtons.find(btn => btn.getElementsByClassName('anticon-close').length > 0);
+
+      await act(async () => {
+        fireEvent.click(closeButton);
+      });
+
+      expect(styleEditor).not.toBeInTheDocument();
     });
   });
 

@@ -26,12 +26,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import React from 'react';
-import { render } from '@testing-library/react';
+import { RenderResult, render } from '@testing-library/react';
 import { ChannelSelectionField } from './ChannelSelectionField';
 
 describe('ChannelSelectionField', () => {
 
-  let channelSelectionField;
+  let channelSelectionField: RenderResult;
   beforeEach(() => {
     channelSelectionField = render(
       <ChannelSelectionField />

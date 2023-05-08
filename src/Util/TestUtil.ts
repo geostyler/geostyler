@@ -26,11 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
-import { mount, shallow } from 'enzyme';
 import { Style, Filter } from 'geostyler-style';
-import { ConfigProvider } from 'antd';
-import en_US from '../locale/en_US';
 import { VectorData } from 'geostyler-data';
 import { IconLibrary } from '../Component/Symbolizer/IconSelector/IconSelector';
 
@@ -40,52 +36,6 @@ import { IconLibrary } from '../Component/Symbolizer/IconSelector/IconSelector';
  * @class
  */
 export class TestUtil {
-
-  /**
-   * Mounts the given component.
-   *
-   * @param {Component} Component The Component to render.
-   * @param {Object} props The props to be used.
-   * @param {Object} options The options to be set.
-   */
-  static mountComponent = (Component: any, props?: any, options?: any) => {
-    const wrapper = mount(<Component {...props} />, options);
-    return wrapper;
-  };
-
-  /**
-   * Shallow rendering for the given component.
-   * Useful for testing components as a unit, and to ensure that your tests
-   * aren't indirectly asserting on behavior of child components.
-   *
-   * @param {Component} Component The Component to render.
-   * @param {Object} props The props to be used.
-   * @param {Object} options The options to be set.
-   */
-  static shallowRenderComponent = (Component: any, props?: any, options?: any) => {
-    const wrapper = shallow(<Component {...props} />, options);
-    return wrapper;
-  };
-
-  /**
-   * Shallow rendering for the given component.
-   * Useful for testing components as a unit, and to ensure that your tests
-   * aren't indirectly asserting on behavior of child components.
-   * This function wraps ConfigProvider around component.
-   *
-   * @param {Component} Component The Component to render.
-   * @param {Object} props The props to be used.
-   * @param {Object} options The options to be set.
-   */
-  static shallowRenderComponentWithLocale = (Component: any, props?: any, options?: any) => {
-    const wrapper = shallow(
-      <ConfigProvider locale={en_US}>
-        <Component {...props} />
-      </ConfigProvider>,
-      options
-    );
-    return wrapper;
-  };
 
   /**
    *

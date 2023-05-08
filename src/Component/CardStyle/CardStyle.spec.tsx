@@ -29,7 +29,7 @@
 import React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
 import { CardStyle } from './CardStyle';
-import { IconSymbolizer, Rule, Style, Symbolizer } from 'geostyler-style';
+import { Rule, Style, Symbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 

@@ -28,7 +28,7 @@
 
 import React from 'react';
 import { render, act, fireEvent } from '@testing-library/react';
-import { Breadcrumb } from './Breadcrumb';
+import { Breadcrumb, Crumb } from './Breadcrumb';
 
 describe('Breadcrumb', () => {
 
@@ -50,7 +50,7 @@ describe('Breadcrumb', () => {
 
     it('calls a passed onClick function', async () => {
       const crumbsTitle = 'bar';
-      const crumbs = [{view: 'foo', title: crumbsTitle, indices: []}];
+      const crumbs: Crumb[] = [{view: 'foo', title: crumbsTitle, indices: []}];
       const breadcrumb = render(<Breadcrumb crumbs={crumbs} onClick={onClickDummy} />);
       const breadcrumbItem = await breadcrumb.findByText(crumbsTitle);
       await act(async () => {

@@ -26,16 +26,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import {
   ColorSpaceCombo
 } from './ColorSpaceCombo';
-import TestUtil from '../../../Util/TestUtil';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('ColorSpaceCombo', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   beforeEach(() => {
-    wrapper = TestUtil.shallowRenderComponent(ColorSpaceCombo);
+    wrapper = render(<ColorSpaceCombo />);
   });
 
   it('is defined', () => {
@@ -43,6 +44,6 @@ describe('ColorSpaceCombo', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 });

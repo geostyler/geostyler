@@ -26,15 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import { ResamplingField, ResamplingFieldProps } from './ResamplingField';
-import TestUtil from '../../../../Util/TestUtil';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('ResamplingField', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   beforeEach(() => {
     const props: ResamplingFieldProps = {};
-    wrapper = TestUtil.shallowRenderComponent(ResamplingField, props);
+    wrapper = render(<ResamplingField {...props} />);
   });
 
   it('is defined', () => {
@@ -42,7 +43,7 @@ describe('ResamplingField', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 
 });

@@ -26,19 +26,20 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import { MinScaleDenominator, MinScaleDenominatorProps } from './MinScaleDenominator';
-import TestUtil from '../../Util/TestUtil';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('MinScaleDenominator', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   let onChangeDummy: jest.Mock;
   beforeEach(() => {
     onChangeDummy = jest.fn();
     const props: MinScaleDenominatorProps = {
       onChange: onChangeDummy
     };
-    wrapper = TestUtil.shallowRenderComponent(MinScaleDenominator, props);
+    wrapper = render(<MinScaleDenominator {...props} />);
   });
 
   it('is defined', () => {
@@ -46,7 +47,7 @@ describe('MinScaleDenominator', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 
 });

@@ -183,6 +183,7 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
         }
       }}
       className="gs-symbolizer-olrenderer"
+      role="presentation"
       id={mapId}
     />
   );

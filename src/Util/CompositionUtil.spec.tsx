@@ -30,14 +30,14 @@ import * as React from 'react';
 import CompositionUtil from './CompositionUtil';
 
 describe('CompositionUtil', () => {
-  let dummyComponent;
-  let dummyField;
-  let dummyOnChange;
-  let dummyValue;
-  let dummyPath;
-  let dummyDefaultElement;
-  let dummyGlobalComponent;
-  let dummyComposition;
+  let dummyComponent: React.ReactElement;
+  let dummyField: string;
+  let dummyOnChange: () => void;
+  let dummyValue: any;
+  let dummyPath: string;
+  let dummyDefaultElement: React.ReactElement;
+  let dummyGlobalComponent: React.ReactElement;
+  let dummyComposition: any;
 
   beforeEach(() => {
     dummyComponent = (<div />);

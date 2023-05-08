@@ -26,13 +26,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import { SLDRenderer, SLDRendererProps } from './SLDRenderer';
-import TestUtil from '../../../Util/TestUtil';
 import { Symbolizer } from 'geostyler-style';
+import { RenderResult, render } from '@testing-library/react';
 
 describe('SLDRenderer', () => {
 
-  let wrapper: any;
+  let wrapper: RenderResult;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
     wellKnownName: 'circle',
@@ -45,7 +46,7 @@ describe('SLDRenderer', () => {
       layer: 'osm:osm-fuel',
       symbolizers: dummySymbolizers
     };
-    wrapper = TestUtil.shallowRenderComponent(SLDRenderer, props);
+    wrapper = render(<SLDRenderer {...props} />);
   });
 
   it('is defined', () => {
@@ -53,6 +54,6 @@ describe('SLDRenderer', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper).not.toBeUndefined();
+    expect(wrapper.container).toBeInTheDocument();
   });
 });
