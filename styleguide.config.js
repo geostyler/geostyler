@@ -93,6 +93,9 @@ module.exports = {
       name: 'FilterOverview',
       components: 'src/Component/FilterOverview/**/*.tsx'
     }, {
+      name: 'FunctionUI',
+      components: 'src/Component/FunctionUI/**/*.tsx'
+    }, {
       name: 'LocaleWrapper',
       components: 'src/Component/LocaleWrapper/**/*.tsx'
     }, {
