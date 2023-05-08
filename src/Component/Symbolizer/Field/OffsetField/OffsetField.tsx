@@ -33,7 +33,7 @@ import { InputNumberProps } from 'antd/lib/input-number';
 import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface OffsetFieldProps extends InputNumberProps {
+export interface OffsetFieldProps extends InputNumberProps<number> {
   offset?: number;
 }
 
