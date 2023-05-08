@@ -69,3 +69,107 @@ class IconEditorExample extends React.Component {
 
 <IconEditorExample />
 ```
+
+This demonstrates the usage of `IconEditor` with `GeoStylerContext`.
+
+```jsx
+import React, { useState } from 'react';
+import { Switch } from 'antd';
+import { IconEditor, GeoStylerContext } from 'geostyler';
+
+function IconEditorExample () {
+
+  const [myContext, setMyContext] = useState({
+    composition: {
+      IconEditor: {
+        imageField: {
+          visibility: true
+        },
+        sizeField: {
+          visibility: true
+        },
+        offsetXField: {
+          visibility: true
+        },
+        offsetYField: {
+          visibility: true
+        },
+        rotateField: {
+          visibility: true
+        },
+        opacityField: {
+          visibility: true
+        }
+      }
+    }
+  });
+
+  const [symbolizer, setSymbolizer] = useState({
+    kind: 'Icon'
+  });
+
+  const onSymbolizerChange = (s) => {
+    setSymbolizer(s);
+  };
+
+  const onVisibilityChange = (visibility, prop) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.IconEditor[prop].visibility = visibility;
+      return newContext;
+    })
+  };
+
+  return (
+    <div>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+        <Switch
+          checked={myContext.composition.IconEditor.imageField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'imageField')}}
+          checkedChildren="Source"
+          unCheckedChildren="Source"
+        />
+        <Switch
+          checked={myContext.composition.IconEditor.sizeField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'sizeField')}}
+          checkedChildren="Size"
+          unCheckedChildren="Size"
+        />
+        <Switch
+          checked={myContext.composition.IconEditor.offsetXField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'offsetXField')}}
+          checkedChildren="Offset X"
+          unCheckedChildren="Offset X"
+        />
+        <Switch
+          checked={myContext.composition.IconEditor.offsetYField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'offsetYField')}}
+          checkedChildren="Offset Y"
+          unCheckedChildren="Offset Y"
+        />
+        <Switch
+          checked={myContext.composition.IconEditor.rotateField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'rotateField')}}
+          checkedChildren="Rotation"
+          unCheckedChildren="Rotation"
+        />
+        <Switch
+          checked={myContext.composition.IconEditor.opacityField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'opacityField')}}
+          checkedChildren="Opacity"
+          unCheckedChildren="Opacity"
+        />
+      </div>
+      <hr />
+      <GeoStylerContext.Provider value={myContext}>
+        <IconEditor
+          symbolizer={symbolizer}
+          onSymbolizerChange={onSymbolizerChange}
+        />
+      </GeoStylerContext.Provider>
+    </div>
+  );
+};
+
+<IconEditorExample />
+```

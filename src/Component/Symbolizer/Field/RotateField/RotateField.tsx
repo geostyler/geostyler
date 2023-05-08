@@ -34,7 +34,7 @@ import {
 import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface RotateFieldProps extends InputNumberProps {
+export interface RotateFieldProps extends InputNumberProps<number> {
   rotate?: number;
 }
 

@@ -52,8 +52,10 @@ export type CompositionContext = {
   };
   IconEditor?: {
     visibility: boolean;
-    imageField: InputConfig<ImageFieldProps['value']>;
-    sizeField: InputConfig<SizeFieldProps['size']>;
+    // TODO add support for default values in ImageField
+    imageField: Omit<InputConfig<ImageFieldProps['value']>, 'default'>;
+    // TODO add support for default values in SizeField
+    sizeField: Omit<InputConfig<SizeFieldProps['size']>, 'default'>;
     offsetXField?: InputConfig<OffsetFieldProps['offset']>;
     offsetYField?: InputConfig<OffsetFieldProps['offset']>;
     rotateField?: InputConfig<RotateFieldProps['rotate']>;

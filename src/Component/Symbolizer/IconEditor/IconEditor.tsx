@@ -47,16 +47,14 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
 
-import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
-import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { GeoStylerLocale } from '../../../locale/locale';
 import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 import OffsetField from '../Field/OffsetField/OffsetField';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
 export interface IconEditorDefaultProps {
@@ -68,7 +66,6 @@ export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
   symbolizer: IconSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
-  defaultValues?: DefaultValues;
   /**
    * The props for the image field. Properties 'iconLibraries' and
    * 'tooltipLabel' should not be used here currently, as they will
@@ -80,14 +77,19 @@ export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
 
 const COMPONENTNAME = 'IconEditor';
 
-export const IconEditor: React.FC<IconEditorProps> = ({
-  locale = en_US.IconEditor,
-  symbolizer,
-  onSymbolizerChange,
-  iconLibraries,
-  defaultValues,
-  imageFieldProps
-}) => {
+export const IconEditor: React.FC<IconEditorProps> = (props) => {
+
+  const composition = useGeoStylerComposition('IconEditor', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.IconEditor,
+    symbolizer,
+    onSymbolizerChange,
+    iconLibraries,
+    imageFieldProps
+  } = composed;
 
   const {
     unsupportedProperties,
@@ -165,117 +167,96 @@ export const IconEditor: React.FC<IconEditorProps> = ({
   };
 
   return (
-    <CompositionContext.Consumer>
-      {(composition: Compositions) => (
-        <div className="gs-icon-symbolizer-editor" >
+    <div className="gs-icon-symbolizer-editor" >
+      {
+        composition.imageField?.visibility === false ? null : (
           <Form.Item
             label={locale.imageLabel}
             {...getSupportProps('image')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'IconEditor.imageField',
-                onChange: onImageSrcChange,
-                propName: 'value',
-                propValue: imageSrc,
-                defaultValue: defaultValues?.IconEditor?.defaultImage,
-                defaultElement: (
-                  <ImageField
-                    // To keep backwards compatibility,
-                    // we overwrite imageFieldProps with the props
-                    // that were explicitly set as props on IconEditor.
-                    {...imageFieldProps}
-                    iconLibraries={iconLibraries}
-                    tooltipLabel={locale.iconTooltipLabel}
-                  />
-                )
-              })
-            }
+            <ImageField
+              value={imageSrc as string}
+              onChange={onImageSrcChange}
+              // To keep backwards compatibility,
+              // we overwrite imageFieldProps with the props
+              // that were explicitly set as props on IconEditor.
+              {...imageFieldProps}
+              iconLibraries={composition.iconLibraries || iconLibraries}
+              tooltipLabel={locale.iconTooltipLabel}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.sizeField?.visibility === false ? null : (
           <Form.Item
             label={locale.sizeLabel}
             {...getSupportProps('size')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'IconEditor.sizeField',
-                onChange: onSizeChange,
-                propName: 'size',
-                propValue: size,
-                defaultValue: defaultValues?.IconEditor?.defaultSize,
-                defaultElement: <SizeField />
-              })
-            }
+            <SizeField
+              size={size as number}
+              onChange={onSizeChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.offsetXField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetXLabel}
             {...getSupportProps('offset')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'IconEditor.offsetXField',
-                onChange: onOffsetXChange,
-                propName: 'offset',
-                propValue: offset?.[0],
-                defaultValue: defaultValues?.IconEditor?.defaultOffsetX,
-                defaultElement: <OffsetField />
-              })
-            }
+            <OffsetField
+              offset={offset?.[0] as number}
+              defaultValue={composition.offsetXField?.default}
+              onChange={onOffsetXChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.offsetYField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetYLabel}
             {...getSupportProps('offset')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'IconEditor.offsetYField',
-                onChange: onOffsetYChange,
-                propName: 'offset',
-                propValue: offset?.[1],
-                defaultValue: defaultValues?.IconEditor?.defaultOffsetY,
-                defaultElement: <OffsetField />
-              })
-            }
+            <OffsetField
+              offset={offset?.[1] as number}
+              defaultValue={composition.offsetYField?.default}
+              onChange={onOffsetYChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.rotateField?.visibility === false ? null : (
           <Form.Item
             label={locale.rotateLabel}
             {...getSupportProps('rotate')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'IconEditor.rotateField',
-                onChange: onRotateChange,
-                propName: 'rotate',
-                propValue: rotate,
-                defaultValue: defaultValues?.IconEditor?.defaultRotate,
-                defaultElement: <RotateField />
-              })
-            }
+            <RotateField
+              rotate={rotate as number}
+              defaultValue={composition.rotateField?.default}
+              onChange={onRotateChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.opacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.opacityLabel}
             {...getSupportProps('opacity')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'IconEditor.opacityField',
-                onChange: onOpacityChange,
-                propName: 'opacity',
-                propValue: opacity,
-                defaultValue: defaultValues?.IconEditor?.defaultOpacity,
-                defaultElement: <OpacityField />
-              })
-            }
+            <OpacityField
+              opacity={opacity as number}
+              defaultValue={composition.opacityField?.default}
+              onChange={onOpacityChange}
+            />
           </Form.Item>
-        </div>
-      )}
-    </CompositionContext.Consumer>
+        )
+      }
+    </div>
   );
 };
 
