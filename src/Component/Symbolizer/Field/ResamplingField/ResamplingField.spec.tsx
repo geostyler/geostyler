@@ -35,7 +35,7 @@ describe('ResamplingField', () => {
   let wrapper: RenderResult;
   beforeEach(() => {
     const props: ResamplingFieldProps = {};
-    wrapper = render(<ResamplingField {...props}/>);
+    wrapper = render(<ResamplingField {...props} />);
   });
 
   it('is defined', () => {
