@@ -49,6 +49,7 @@ export type CompositionContext = {
     // TODO add support for default values in LineDashField
     outlineDasharrayField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
     outlineWidthField?: InputConfig<WidthFieldProps['width']>;
+    // TODO add support for graphicFill
   };
   IconEditor?: {
     visibility: boolean;
@@ -68,9 +69,15 @@ export type CompositionContext = {
     widthField?: InputConfig<WidthFieldProps['width']>;
     perpendicularOffsetField?: InputConfig<OffsetFieldProps['offset']>;
     opacityField?: InputConfig<OpacityFieldProps['opacity']>;
-    lineDashField?: InputConfig<LineDashFieldProps['dashArray']>;
-    capField?: InputConfig<LineCapFieldProps['cap']>;
+    // TODO add support for default values in LineDashField
+    lineDashField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
+    dashOffsetField?: InputConfig<OffsetFieldProps['offset']>;
+    // TODO add support for default values in LineCapField
+    capField?: Omit<InputConfig<LineCapFieldProps['cap']>, 'default'>;
+    // TODO add support for default values in LineJoinField
     joinField?: InputConfig<LineJoinFieldProps['join']>;
+    // TODO add support for graphicStroke
+    // TODO add support for graphicFill
   };
   MarkEditor?: {
     visibility?: boolean;

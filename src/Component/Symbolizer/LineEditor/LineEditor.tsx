@@ -55,8 +55,6 @@ import _isEqual from 'lodash/isEqual';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
-import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { GeoStylerLocale } from '../../../locale/locale';
@@ -64,6 +62,7 @@ import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 const Panel = Collapse.Panel;
 
@@ -82,12 +81,17 @@ export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
 }
 const COMPONENTNAME = 'LineEditor';
 
-export const LineEditor: React.FC<LineEditorProps> = ({
-  locale = en_US.LineEditor,
-  symbolizer,
-  onSymbolizerChange,
-  defaultValues
-}) => {
+export const LineEditor: React.FC<LineEditorProps> = (props) => {
+
+  const composition = useGeoStylerComposition('LineEditor', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.LineEditor,
+    symbolizer,
+    onSymbolizerChange
+  } = composed;
 
   const {
     unsupportedProperties,
@@ -197,186 +201,143 @@ export const LineEditor: React.FC<LineEditorProps> = ({
   };
 
   return (
-    <CompositionContext.Consumer>
-      {(composition: Compositions) => (
-        <div className="gs-line-symbolizer-editor" >
-          <Collapse bordered={false} defaultActiveKey={['1']}>
-            <Panel header="General" key="1">
+    <div className="gs-line-symbolizer-editor" >
+      <Collapse bordered={false} defaultActiveKey={['1']}>
+        <Panel header="General" key="1">
+          {
+            composition.colorField?.visibility === false ? null : (
               <Form.Item
                 label={locale.colorLabel}
                 {...getSupportProps('color')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'LineEditor.colorField',
-                    onChange: onColorChange,
-                    propName: 'color',
-                    propValue: color,
-                    defaultValue: defaultValues?.LineEditor?.defaultColor,
-                    defaultElement: <ColorField />
-                  })
-                }
+                <ColorField
+                  color={color as string}
+                  defaultValue={composition.colorField?.default}
+                  onChange={onColorChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.widthField?.visibility === false ? null : (
               <Form.Item
                 label={locale.widthLabel}
                 {...getSupportProps('width')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'LineEditor.widthField',
-                    onChange: onWidthChange,
-                    propName: 'width',
-                    propValue: width,
-                    defaultValue: defaultValues?.LineEditor?.defaultWidth,
-                    defaultElement: <WidthField />
-                  })
-                }
+                <WidthField
+                  width={width as number}
+                  defaultValue={composition.widthField?.default}
+                  onChange={onWidthChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.perpendicularOffsetField?.visibility === false ? null : (
               <Form.Item
                 label={locale.perpendicularOffsetLabel}
                 {...getSupportProps('perpendicularOffset')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'LineEditor.perpendicularOffsetField',
-                    onChange: onPerpendicularOffsetChange,
-                    propName: 'offset',
-                    propValue: perpendicularOffset,
-                    defaultValue: defaultValues?.LineEditor?.defaultPerpendicularOffset,
-                    defaultElement: <OffsetField />
-                  })
-                }
+                <OffsetField
+                  offset={perpendicularOffset as number}
+                  defaultValue={composition.perpendicularOffsetField?.default}
+                  onChange={onPerpendicularOffsetChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.opacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.opacityLabel}
                 {...getSupportProps('opacity')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'LineEditor.opacityField',
-                    onChange: onOpacityChange,
-                    propName: 'opacity',
-                    propValue: opacity,
-                    defaultValue: defaultValues?.LineEditor?.defaultOpacity,
-                    defaultElement: <OpacityField />
-                  })
-                }
+                <OpacityField
+                  opacity={opacity as number}
+                  defaultValue={composition.opacityField?.default}
+                  onChange={onOpacityChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.lineDashField?.visibility === false ? null : (
               <Form.Item
                 label={locale.dashLabel}
                 {...getSupportProps('dasharray')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'LineEditor.lineDashField',
-                    onChange: onDasharrayChange,
-                    propName: 'dashArray',
-                    propValue: dasharray,
-                    defaultElement: <LineDashField />
-                  })
-                }
+                <LineDashField
+                  dashArray={dasharray as number[]}
+                  onChange={onDasharrayChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.dashOffsetField?.visibility === false ? null : (
               <Form.Item
                 label={locale.dashOffsetLabel}
                 {...getSupportProps('dashOffset')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'LineEditor.dashOffsetField',
-                    onChange: onDashOffsetChange,
-                    propName: 'offset',
-                    propValue: dashOffset,
-                    defaultValue: defaultValues?.LineEditor?.defaultDashOffset,
-                    defaultElement: (
-                      <OffsetField
-                        disabled={
-                          symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0
-                        }
-                      />)
-                  })
-                }
+                <OffsetField
+                  offset={dashOffset as number}
+                  defaultValue={composition.dashOffsetField?.default}
+                  onChange={onDashOffsetChange}
+                  disabled={
+                    symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0
+                  }
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.capField?.visibility === false ? null : (
               <Form.Item
                 label={locale.capLabel}
                 {...getSupportProps('cap')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'LineEditor.capField',
-                    onChange: onCapChange,
-                    propName: 'cap',
-                    propValue: cap,
-                    defaultValue: defaultValues?.LineEditor?.defaultCap,
-                    defaultElement: <LineCapField />
-                  })
-                }
+                <LineCapField
+                  cap={cap}
+                  onChange={onCapChange}
+                />
               </Form.Item>
+            )
+          }
+          {
+            composition.joinField?.visibility === false ? null : (
               <Form.Item
                 label={locale.joinLabel}
                 {...getSupportProps('join')}
               >
-                {
-                  CompositionUtil.handleComposition({
-                    composition,
-                    path: 'LineEditor.joinField',
-                    onChange: onJoinChange,
-                    propName: 'join',
-                    propValue: join,
-                    defaultValue: defaultValues?.LineEditor?.defaultJoin,
-                    defaultElement: <LineJoinField />
-                  })
-                }
+                <LineJoinField
+                  join={join}
+                  onChange={onJoinChange}
+                />
               </Form.Item>
-            </Panel>
-            <Panel header="Graphic Stroke" key="2">
-              {
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'LineEditor.graphicStrokeField',
-                  onChange: onGraphicStrokeChange,
-                  propName: 'graphic',
-                  propValue: graphicStroke,
-                  onChangeName: 'onGraphicChange',
-                  defaultElement: (
-                    <GraphicEditor
-                      graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
-                      graphic={graphicStroke}
-                      graphicType={_get(graphicStroke, 'kind') as GraphicType}
-                    />)
-                })
-              }
-            </Panel>
-            <Panel header="Graphic Fill" key="3">
-              {
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'LineEditor.graphicFillField',
-                  onChange: onGraphicFillChange,
-                  propName: 'graphic',
-                  propValue: graphicFill,
-                  onChangeName: 'onGraphicChange',
-                  defaultElement: (
-                    <GraphicEditor
-                      graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-                      graphic={graphicFill}
-                      graphicType={_get(graphicFill, 'kind') as GraphicType}
-                    />)
-                })
-              }
-            </Panel>
-          </Collapse>
-        </div>)
-      }
-    </CompositionContext.Consumer>
+            )
+          }
+        </Panel>
+        <Panel header="Graphic Stroke" key="2">
+          {/* TODO allow changing graphicStroke via composition context */}
+          <GraphicEditor
+            graphic={graphicStroke}
+            onGraphicChange={onGraphicStrokeChange}
+            graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
+            graphicType={_get(graphicStroke, 'kind') as GraphicType}
+          />
+        </Panel>
+        <Panel header="Graphic Fill" key="3">
+          {/* TODO allow changing graphicFill via composition context */}
+          <GraphicEditor
+            graphic={graphicFill}
+            onGraphicChange={onGraphicFillChange}
+            graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+            graphicType={_get(graphicFill, 'kind') as GraphicType}
+          />
+        </Panel>
+      </Collapse>
+    </div>
   );
-
 };
 
 export default withDefaultsContext(localize(LineEditor, COMPONENTNAME));
