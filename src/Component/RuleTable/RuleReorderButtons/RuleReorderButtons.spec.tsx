@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import React from 'react';
-import { RuleReorderButtons, RuleReorderButtonsProps } from './RuleReorderButtons';
+import { RuleReorderButtons } from './RuleReorderButtons';
 import TestUtil from '../../../Util/TestUtil';
 
 import {

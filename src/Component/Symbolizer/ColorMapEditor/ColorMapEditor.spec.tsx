@@ -35,11 +35,11 @@ import RasterUtil from '../../../Util/RasterUtil';
 jest.mock('antd', () => {
   const antd = jest.requireActual('antd');
 
-  const Select = ({ children, onChange }) => {
+  const Select = ({ children, onChange }: {children: React.ReactElement; onChange: (value: any) => void}) => {
     return <select onChange={e => onChange(e.target.value)}>{children}</select>;
   };
 
-  Select.Option = ({ children, ...otherProps }) => {
+  Select.Option = ({ children, ...otherProps }: {children: React.ReactElement}) => {
     return <option {...otherProps}>{children}</option>;
   };
 
