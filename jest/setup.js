@@ -29,10 +29,6 @@ import util from 'util';
 global.TextEncoder = util.TextEncoder;
 global.TextDecoder = util.TextDecoder;
 import '@babel/polyfill';
-import Enzyme from 'enzyme';
-import Adapter from '@zarconontol/enzyme-adapter-react-18';
-
-Enzyme.configure({ adapter: new Adapter() });
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
