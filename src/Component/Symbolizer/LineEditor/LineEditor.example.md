@@ -69,3 +69,125 @@ class LineEditorExample extends React.Component {
 
 <LineEditorExample />
 ```
+
+This demonstrates the usage of `LineEditor` with `GeoStylerContext`.
+
+```jsx
+import React, { useState } from 'react';
+import { Switch } from 'antd';
+import { LineEditor, GeoStylerContext } from 'geostyler';
+
+function LineEditorExample () {
+
+  const [myContext, setMyContext] = useState({
+    composition: {
+      LineEditor: {
+        colorField: {
+          visibility: true
+        },
+        widthField: {
+          visibility: true
+        },
+        perpendicularOffsetField: {
+          visibility: true
+        },
+        opacityField: {
+          visibility: true
+        },
+        lineDashField: {
+          visibility: true
+        },
+        dashOffsetField: {
+          visibility: true
+        },
+        capField: {
+          visibility: true
+        },
+        joinField: {
+          visibility: true
+        },
+      }
+    }
+  });
+
+  const [symbolizer, setSymbolizer] = useState({
+    kind: 'Line'
+  });
+
+  const onSymbolizerChange = (s) => {
+    setSymbolizer(s);
+  };
+
+  const onVisibilityChange = (visibility, prop) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.LineEditor[prop].visibility = visibility;
+      return newContext;
+    })
+  };
+
+  return (
+    <div>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+        <Switch
+          checked={myContext.composition.LineEditor.colorField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'colorField')}}
+          checkedChildren="Color"
+          unCheckedChildren="Color"
+        />
+        <Switch
+          checked={myContext.composition.LineEditor.widthField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'widthField')}}
+          checkedChildren="Width"
+          unCheckedChildren="Width"
+        />
+        <Switch
+          checked={myContext.composition.LineEditor.perpendicularOffsetField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'perpendicularOffsetField')}}
+          checkedChildren="Perpendicular Offset"
+          unCheckedChildren="Perpendicular Offset"
+        />
+        <Switch
+          checked={myContext.composition.LineEditor.opacityField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'opacityField')}}
+          checkedChildren="Opacity"
+          unCheckedChildren="Opacity"
+        />
+        <Switch
+          checked={myContext.composition.LineEditor.lineDashField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'lineDashField')}}
+          checkedChildren="Dash Pattern"
+          unCheckedChildren="Dash Pattern"
+        />
+        <Switch
+          checked={myContext.composition.LineEditor.dashOffsetField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'dashOffsetField')}}
+          checkedChildren="Dash Offset"
+          unCheckedChildren="Dash Offset"
+        />
+        <Switch
+          checked={myContext.composition.LineEditor.capField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'capField')}}
+          checkedChildren="Cap"
+          unCheckedChildren="Cap"
+        />
+        <Switch
+          checked={myContext.composition.LineEditor.joinField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'joinField')}}
+          checkedChildren="Join"
+          unCheckedChildren="Join"
+        />
+      </div>
+      <hr />
+      <GeoStylerContext.Provider value={myContext}>
+        <LineEditor
+          symbolizer={symbolizer}
+          onSymbolizerChange={onSymbolizerChange}
+        />
+      </GeoStylerContext.Provider>
+    </div>
+  );
+};
+
+<LineEditorExample />
+```
