@@ -94,7 +94,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
         type: 'ramp'
       };
     }
-    newColorMap[prop] = value;
+    newColorMap[prop as keyof ColorMap] = value;
     if (onChange) {
       onChange(newColorMap);
     }
@@ -162,10 +162,10 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
     let newCmEntries: ColorMapEntry[];
     if (cmEntries) {
       newCmEntries = _cloneDeep(cmEntries);
-      newCmEntries[idx][key] = value;
+      newCmEntries[idx][key as keyof ColorMapEntry] = value;
     } else {
       newCmEntries = [{}] as ColorMapEntry[];
-      newCmEntries[0][key] = value;
+      newCmEntries[0][key as keyof ColorMapEntry] = value;
     }
     updateColorMap('colorMapEntries', newCmEntries);
   };

@@ -74,7 +74,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
     } else {
       newChannel = {};
     }
-    newChannel[key] = value;
+    newChannel[key as keyof Channel] = value;
 
     if (onChange) {
       onChange(newChannel);

@@ -51,6 +51,7 @@ import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
 import _isString from 'lodash/isString';
+import { JSONSchema4TypeName } from 'json-schema';
 
 type ValidationResult = {
   isValid: boolean;
@@ -145,10 +146,15 @@ export const ComparisonFilterDefaultValidator = (
   };
 };
 
-const operatorsMap = {
+const operatorsMap: Record<JSONSchema4TypeName, ComparisonOperator[]> = {
   'string': ['==', '*=', '!='],
   'number': ['==', '!=', '<', '<=', '>', '>=', '<=x<='],
-  'boolean': ['==', '!=']
+  'integer': ['==', '!=', '<', '<=', '>', '>=', '<=x<='],
+  'boolean': ['==', '!='],
+  'any': undefined,
+  'object': undefined,
+  'array': undefined,
+  'null': undefined
 };
 
 /**

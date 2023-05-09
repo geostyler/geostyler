@@ -95,16 +95,18 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
    * Updates ChannelField. Removes old props if channel type changes
    * from GrayChannel to RGBChannel or vice versa.
    */
-  const onChannelFieldChange = (name: string, channel: Channel) => {
+  const onChannelFieldChange = (name: 'red' | 'green' | 'blue' | 'gray', channel: Channel) => {
     let newChannelSelection: ChannelSelection;
 
     if (!channelSelection
       || (isGrayChannel(channelSelection) && name !== 'gray')
       || (isRgbChannel(channelSelection) && name === 'gray')) {
       newChannelSelection = {} as ChannelSelection;
+      // @ts-ignore
       newChannelSelection[`${name}Channel`] = channel;
     } else {
       newChannelSelection = _cloneDeep(channelSelection);
+      // @ts-ignore
       newChannelSelection[`${name}Channel`] = channel;
     }
 
