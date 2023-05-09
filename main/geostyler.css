@@ -1945,6 +1945,99 @@ mark {
   cursor: grabbing;
 }
 
+.gs-function-name-combo {
+  display: flex;
+}
+.gs-function-name-combo .ant-select {
+  flex: 1;
+}
+.gs-function-name-combo button.ant-btn {
+  display: none;
+}
+.gs-function-name-combo:hover button.ant-btn {
+  display: inline-block;
+}
+
+.gs-function-ui {
+  /**
+   * Nested Functions
+   **/
+}
+.gs-function-ui .gs-function-name-combo {
+  width: 100%;
+}
+.gs-function-ui .ant-input-wrapper .ant-input-group-addon {
+  display: none;
+}
+.gs-function-ui .ant-input-wrapper:hover .ant-input-group-addon {
+  display: table-cell;
+}
+.gs-function-ui .gs-function-ui {
+  margin: 0.25em 0;
+  width: 100%;
+}
+.gs-function-ui .gs-function-arguments .gs-function-arg {
+  display: flex;
+}
+.gs-function-ui .gs-function-arguments .gs-function-arg > :not(.tree-icon) {
+  margin: 0.25em 0;
+  flex: 1;
+}
+.gs-function-ui .gs-function-arguments .gs-function-arg .tree-icon {
+  width: 28px;
+  background-image: linear-gradient(grey, grey), linear-gradient(grey, grey);
+  background-size: 1px 100%, 50% 1px;
+  background-repeat: no-repeat, no-repeat;
+  background-position: center center, center right;
+}
+.gs-function-ui .gs-function-arguments .gs-function-arg:last-child .tree-icon {
+  background-size: 1px 50%, 50% 1px;
+  background-position: top center, center right;
+}
+
+.string-expression-input {
+  display: flex;
+  align-items: center;
+}
+.string-expression-input .ant-input {
+  flex: 1;
+}
+.string-expression-input button.ant-btn {
+  display: none;
+  border-radius: 0 2px 2px 0;
+}
+.string-expression-input:hover button.ant-btn {
+  display: inline-block;
+}
+
+.number-expression-input {
+  display: flex;
+  align-items: center;
+}
+.number-expression-input .ant-input-number {
+  flex: 1;
+}
+.number-expression-input button.ant-btn {
+  display: none;
+  border-radius: 0 2px 2px 0;
+}
+.number-expression-input:hover button.ant-btn {
+  display: inline-block;
+}
+
+.boolean-expression-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+}
+.boolean-expression-input button.ant-btn {
+  display: none;
+}
+.boolean-expression-input:hover button.ant-btn {
+  display: inline-block;
+}
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
