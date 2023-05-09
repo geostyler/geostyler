@@ -144,8 +144,8 @@
     "whatwg-fetch": "^3.6.2"
   },
   "peerDependencies": {
-    "@ant-design/icons": "4.x",
-    "antd": "4.x",
+    "@ant-design/icons": "5.x",
+    "antd": "5.x",
     "ol": ">=6.x",
     "react": ">=16.x",
     "react-dom": ">=16.x"

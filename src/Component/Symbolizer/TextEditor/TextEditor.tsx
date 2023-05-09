@@ -219,31 +219,20 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             label={locale.templateFieldLabel}
             {...getSupportProps('label')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.templateField',
-                onChange: onLabelChange,
-                propName: 'value',
-                propValue: symbolizer.label || '',
-                defaultValue: defaultValues?.TextEditor?.defaultLabel,
-                defaultElement: (
-                  <Mentions
-                    className="editor-field"
-                    placeholder={locale.templateFieldLabel}
-                    prefix="{{"
-                    options={properties.map(p => ({
-                      key: p,
-                      value: `${p}}}`,
-                      label: p
-                    }))}
-                    notFoundContent={locale.attributeNotFound}
-                  >
-                    {}
-                  </Mentions>
-                )
-              })
-            }
+            <Mentions
+              className="editor-field"
+              value={symbolizer.label as string || ''}
+              defaultValue={composition.templateField?.default}
+              onChange={onLabelChange}
+              placeholder={locale.templateFieldLabel}
+              prefix="{{"
+              notFoundContent={locale.attributeNotFound}
+              options={properties.map(p => ({
+                key: p,
+                value: `${p}}}`,
+                label: p
+              }))}
+            />
           </Form.Item>
         )
       }
