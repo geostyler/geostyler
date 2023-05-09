@@ -46,6 +46,7 @@
     "styleguide": "styleguidist server",
     "start-dev": "webpack --watch --config webpack.dev.config.js",
     "test": "jest --coverage",
+    "typecheck": "tsc --noEmit",
     "test-ci": "jest --ci --coverage",
     "test-watch": "jest --watchAll"
   },

@@ -1,0 +1,53 @@
+.gs-function-ui {
+
+  .gs-function-name-combo {
+    width: 100%;
+  }
+
+  .ant-input-wrapper {
+    .ant-input-group-addon {
+      display: none;
+    }
+
+    &:hover {
+      .ant-input-group-addon {
+        display: table-cell;
+      }
+    }
+  }
+
+  /**
+   * Nested Functions
+   **/
+  .gs-function-ui {
+    margin: 0.25em 0;
+    width: 100%;
+  }
+
+  .gs-function-arguments {
+    .gs-function-arg {
+      display: flex;
+
+      >:not(.tree-icon){
+        margin: 0.25em 0;
+        flex: 1;
+      }
+
+      .tree-icon {
+        width: 28px;
+        background-image: linear-gradient(grey, grey), linear-gradient(grey, grey);
+        background-size: 1px 100%, 50% 1px;
+        background-repeat: no-repeat, no-repeat;
+        background-position: center center, center right;
+      }
+
+      &:last-child {
+        .tree-icon {
+          background-size: 1px 50%, 50% 1px;
+          background-position: top center, center right;
+        }
+      }
+    }
+
+  }
+}

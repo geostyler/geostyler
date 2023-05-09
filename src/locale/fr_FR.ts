@@ -440,6 +440,9 @@ const fr_FR: GeoStylerLocale = {
     notSupported: 'Non supporté par le parser sélectionné.',
     partiallySupported: 'Partiellement supporté par le parser sélectionné.'
   },
+  FunctionNameCombo: {
+    placeholder: '… choisissez GeoStylerFunction'
+  },
   ...antd_fr_FR
 };
 

@@ -157,7 +157,7 @@ export interface GeoStylerContextInterface {
 
 export const GeoStylerContext = React.createContext<GeoStylerContextInterface>({});
 
-export const useGeoStylerContext = (): any => {
+export const useGeoStylerContext = (): GeoStylerContextInterface => {
   const ctx = useContext(GeoStylerContext);
   return cloneDeep(ctx);
 };

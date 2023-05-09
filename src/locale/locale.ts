@@ -415,4 +415,7 @@ export interface GeoStylerLocale extends Locale {
     notSupported: string;
     partiallySupported: string;
   };
+  FunctionNameCombo: {
+    placeholder: string;
+  };
 };

@@ -56,6 +56,7 @@ import FilterEditorWindow from './Component/Filter/FilterEditorWindow/FilterEdit
 import FilterOverview from './Component/FilterOverview/FilterOverview';
 import FilterTree from './Component/Filter/FilterTree/FilterTree';
 import FontPicker from './Component/Symbolizer/Field/FontPicker/FontPicker';
+import FunctionUI from './Component/FunctionUI/FunctionUI';
 import GammaField from './Component/Symbolizer/Field/GammaField/GammaField';
 import GraphicEditor from './Component/Symbolizer/GraphicEditor/GraphicEditor';
 import GraphicTypeField from './Component/Symbolizer/Field/GraphicTypeField/GraphicTypeField';
@@ -176,6 +177,7 @@ export {
   FilterEditorWindow,
   FilterOverview,
   FilterTree,
+  FunctionUI,
   FontPicker,
   GammaField,
   GeoStylerContext,
