@@ -38,10 +38,7 @@ import WellKnownNameField from '../Field/WellKnownNameField/WellKnownNameField';
 import WellKnownNameEditor from '../WellKnownNameEditor/WellKnownNameEditor';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
-import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -50,6 +47,7 @@ import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
 interface MarkEditorDefaultProps {
@@ -60,17 +58,21 @@ interface MarkEditorDefaultProps {
 export interface MarkEditorProps extends Partial<MarkEditorDefaultProps> {
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  defaultValues?: DefaultValues;
 }
 
 const COMPONENTNAME = 'MarkEditor';
 
-export const MarkEditor: React.FC<MarkEditorProps> = ({
-  locale = en_US.MarkEditor,
-  symbolizer,
-  onSymbolizerChange,
-  defaultValues
-}) => {
+export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
+
+  const composition = useGeoStylerComposition('MarkEditor', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.MarkEditor,
+    symbolizer,
+    onSymbolizerChange,
+  } = composed;
 
   const {
     unsupportedProperties,
@@ -95,32 +97,25 @@ export const MarkEditor: React.FC<MarkEditorProps> = ({
   };
 
   return (
-    <CompositionContext.Consumer>
-      {(composition: Compositions) => (
-        <div className="gs-mark-symbolizer-editor" >
+    <div className="gs-mark-symbolizer-editor" >
+      {
+        composition.wellKnownNameField?.visibility === false ? null : (
           <Form.Item
             label={locale.wellKnownNameFieldLabel}
             {...getSupportProps('wellKnownName')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'MarkEditor.wellKnownNameField',
-                onChange: onWellKnownNameChange,
-                propName: 'wellKnownName',
-                propValue: symbolizer.wellKnownName,
-                defaultValue: defaultValues?.MarkEditor?.defaultWellKnownName,
-                defaultElement: <WellKnownNameField />
-              })
-            }
+            <WellKnownNameField
+              wellKnownName={symbolizer.wellKnownName}
+              onChange={onWellKnownNameChange}
+            />
           </Form.Item>
-          <WellKnownNameEditor
-            symbolizer={symbolizer}
-            onSymbolizerChange={onSymbolizerChange}
-          />
-        </div>
-      )}
-    </CompositionContext.Consumer>
+        )
+      }
+      <WellKnownNameEditor
+        symbolizer={symbolizer}
+        onSymbolizerChange={onSymbolizerChange}
+      />
+    </div>
   );
 };
 

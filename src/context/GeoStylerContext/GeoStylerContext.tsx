@@ -81,7 +81,9 @@ export type CompositionContext = {
   };
   MarkEditor?: {
     visibility?: boolean;
-    wellKnownNameField?: InputConfig<WellKnownNameFieldProps['wellKnownName']>;
+    // TODO add support for default values in WellKnownNameField
+    wellKnownNameField?: Omit<InputConfig<WellKnownNameFieldProps['wellKnownName']>, 'default'>;
+    // TODO add wellKnownNames property that specifies the supported WKNs
   };
   WellKnownNameEditor?: {
     visibility?: boolean;

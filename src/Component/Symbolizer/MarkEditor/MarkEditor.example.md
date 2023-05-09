@@ -70,3 +70,63 @@ class MarkEditorExample extends React.Component {
 
 <MarkEditorExample />
 ```
+
+This demonstrates the usage of `MarkEditor` with `GeoStylerContext`.
+
+```jsx
+import React, { useState } from 'react';
+import { Switch } from 'antd';
+import { MarkEditor, GeoStylerContext } from 'geostyler';
+
+function MarkEditorExample () {
+
+  const [myContext, setMyContext] = useState({
+    composition: {
+      MarkEditor: {
+        wellKnownNameField: {
+          visibility: true
+        },
+      }
+    }
+  });
+
+  const [symbolizer, setSymbolizer] = useState({
+    kind: 'Mark',
+    wellKnownName: 'circle'
+  });
+
+  const onSymbolizerChange = (s) => {
+    setSymbolizer(s);
+  };
+
+  const onVisibilityChange = (visibility, prop) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.MarkEditor[prop].visibility = visibility;
+      return newContext;
+    })
+  };
+
+  return (
+    <div>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+        <Switch
+          checked={myContext.composition.MarkEditor.wellKnownNameField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'wellKnownNameField')}}
+          checkedChildren="Symbol"
+          unCheckedChildren="Symbol"
+        />
+      </div>
+      <hr />
+      <GeoStylerContext.Provider value={myContext}>
+        <MarkEditor
+          symbolizer={symbolizer}
+          onSymbolizerChange={onSymbolizerChange}
+        />
+      </GeoStylerContext.Provider>
+    </div>
+  );
+};
+
+<MarkEditorExample />
+```
