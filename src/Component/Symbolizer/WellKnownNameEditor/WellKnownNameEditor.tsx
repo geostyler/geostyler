@@ -38,10 +38,7 @@ import OpacityField from '../Field/OpacityField/OpacityField';
 import RadiusField from '../Field/RadiusField/RadiusField';
 import WidthField from '../Field/WidthField/WidthField';
 import RotateField from '../Field/RotateField/RotateField';
-import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
-import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
@@ -50,6 +47,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
 import { GeoStylerLocale } from '../../../locale/locale';
 import OffsetField from '../Field/OffsetField/OffsetField';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 interface WellKnownNameEditorDefaultProps {
   locale: GeoStylerLocale['WellKnownNameEditor'];
@@ -59,17 +57,21 @@ interface WellKnownNameEditorDefaultProps {
 export interface WellKnownNameEditorProps extends Partial<WellKnownNameEditorDefaultProps> {
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  defaultValues?: DefaultValues;
 }
 
 const COMPONENTNAME = 'WellKnownNameEditor';
 
-export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
-  locale =  en_US.WellKnownNameEditor,
-  symbolizer,
-  onSymbolizerChange,
-  defaultValues
-}) => {
+export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) => {
+
+  const composition = useGeoStylerComposition('WellKnownNameEditor', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale =  en_US.WellKnownNameEditor,
+    symbolizer,
+    onSymbolizerChange
+  } = composed;
 
   const onRadiusChange = (value: number) => {
     const symbolizerClone = _cloneDeep(symbolizer);
@@ -154,20 +156,6 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
     }
   };
 
-  /**
-   * Wraps a Form Item around a given element and adds its locale
-   * to the From Item label.
-   */
-  const wrapFormItem = (label: string, element: React.ReactElement): React.ReactElement => {
-    return element == null ? null : (
-      <Form.Item
-        label={label}
-      >
-        {element}
-      </Form.Item>
-    );
-  };
-
   const {
     color,
     fillOpacity,
@@ -181,152 +169,138 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = ({
   } = symbolizer;
 
   return (
-    <CompositionContext.Consumer>
-      {(composition: Compositions) => (
-        <div>
-          {
-            wrapFormItem(
-              locale.radiusLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.radiusField',
-                onChange: onRadiusChange,
-                propName: 'radius',
-                propValue: radius,
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultRadius,
-                defaultElement: <RadiusField />
-              })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.offsetXLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.offsetXField',
-                onChange: onOffsetXChange,
-                propName: 'offset',
-                propValue: offset?.[0],
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultOffsetX,
-                defaultElement: <OffsetField />
-              })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.offsetYLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.offsetYField',
-                onChange: onOffsetYChange,
-                propName: 'offset',
-                propValue: offset?.[1],
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultOffsetY,
-                defaultElement: <OffsetField />
-              })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.fillColorLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.fillColorField',
-                onChange: onColorChange,
-                propName: 'color',
-                propValue: color,
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultColor,
-                defaultElement: <ColorField />
-              })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.opacityLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.opacityField',
-                onChange: onOpacityChange,
-                propName: 'opacity',
-                propValue: opacity,
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultOpacity,
-                defaultElement: <OpacityField />
-              })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.fillOpacityLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.fillOpacityField',
-                onChange: onFillOpacityChange,
-                propName: 'opacity',
-                propValue: fillOpacity,
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultFillOpacity,
-                defaultElement: <OpacityField />
-              })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.strokeColorLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.strokeColorField',
-                onChange: onStrokeColorChange,
-                propName: 'color',
-                propValue: strokeColor,
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeColor,
-                defaultElement: <ColorField />
-              })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.strokeWidthLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.strokeWidthField',
-                onChange: onStrokeWidthChange,
-                propName: 'width',
-                propValue: strokeWidth,
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeWidth,
-                defaultElement: <WidthField />
-              })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.strokeOpacityLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.strokeOpacityField',
-                onChange: onStrokeOpacityChange,
-                propName: 'opacity',
-                propValue: strokeOpacity,
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultStrokeOpacity,
-                defaultElement: <OpacityField />
-              })
-            )
-          }
-          {
-            wrapFormItem(
-              locale.rotateLabel,
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'WellKnownNameEditor.rotateField',
-                onChange: onRotateChange,
-                propName: 'rotate',
-                propValue: rotate,
-                defaultValue: defaultValues?.WellKnownNameEditor?.defaultRotate,
-                defaultElement: <RotateField />
-              })
-            )
-          }
-        </div>
-      )}
-    </CompositionContext.Consumer>
+    <div>
+      {
+        composition.radiusField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.radiusLabel}
+          >
+            <RadiusField
+              radius={radius as number}
+              defaultValue={composition.radiusField?.default}
+              onChange={onRadiusChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.offsetXField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.offsetXLabel}
+          >
+            <OffsetField
+              offset={offset?.[0] as number}
+              defaultValue={composition.offsetXField?.default}
+              onChange={onOffsetXChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.offsetYField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.offsetYLabel}
+          >
+            <OffsetField
+              offset={offset?.[1] as number}
+              defaultValue={composition.offsetYField?.default}
+              onChange={onOffsetYChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.fillColorField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.fillColorLabel}
+          >
+            <ColorField
+              color={color as string}
+              defaultValue={composition.fillColorField?.default}
+              onChange={onColorChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.opacityField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.opacityLabel}
+          >
+            <OpacityField
+              opacity={opacity as number}
+              defaultValue={composition.opacityField?.default}
+              onChange={onOpacityChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.fillOpacityField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.fillOpacityLabel}
+          >
+            <OpacityField
+              opacity={fillOpacity as number}
+              defaultValue={composition.fillOpacityField?.default}
+              onChange={onFillOpacityChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.strokeColorField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.strokeColorLabel}
+          >
+            <ColorField
+              color={strokeColor as string}
+              defaultValue={composition.strokeColorField?.default}
+              onChange={onStrokeColorChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.strokeWidthField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.strokeWidthLabel}
+          >
+            <WidthField
+              width={strokeWidth as number}
+              defaultValue={composition.strokeWidthField?.default}
+              onChange={onStrokeWidthChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.strokeOpacityField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.strokeOpacityLabel}
+          >
+            <OpacityField
+              opacity={strokeOpacity as number}
+              defaultValue={composition.strokeOpacityField?.default}
+              onChange={onStrokeOpacityChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.rotateField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.rotateLabel}
+          >
+            <RotateField
+              rotate={rotate as number}
+              defaultValue={composition.rotateField?.default}
+              onChange={onRotateChange}
+            />
+          </Form.Item>
+        )
+      }
+    </div>
   );
 };
 

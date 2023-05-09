@@ -120,7 +120,7 @@ function FillEditorExample () {
       const newContext = {...oldContext};
       newContext.composition.FillEditor[prop].visibility = visibility;
       return newContext;
-    })
+    });
   };
 
   return (

@@ -34,7 +34,7 @@ import {
 import FieldUtil from '../../../../Util/FieldUtil';
 
 // non default props
-export interface RadiusFieldProps extends InputNumberProps {
+export interface RadiusFieldProps extends InputNumberProps<number> {
   radius?: number;
 }
 
