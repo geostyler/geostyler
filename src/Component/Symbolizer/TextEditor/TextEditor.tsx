@@ -32,10 +32,6 @@ import {
   Form
 } from 'antd';
 
-const {
-  Option: MentionOption
-} = Mentions;
-
 import {
   Symbolizer,
   TextSymbolizer
@@ -231,9 +227,12 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
               placeholder={locale.templateFieldLabel}
               prefix="{{"
               notFoundContent={locale.attributeNotFound}
-            >
-              {properties.map(p => <MentionOption key={p} value={`${p}}}`}>{p}</MentionOption>)}
-            </Mentions>
+              options={properties.map(p => ({
+                key: p,
+                value: `${p}}}`,
+                label: p
+              }))}
+            />
           </Form.Item>
         )
       }

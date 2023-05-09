@@ -26,7 +26,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import antd_en_US from 'antd/lib/locale-provider/en_US';
+import antd_en_US from 'antd/lib/locale/en_US';
 import { GeoStylerLocale } from './locale';
 const en_US: GeoStylerLocale = {
   StyleFieldContainer: {

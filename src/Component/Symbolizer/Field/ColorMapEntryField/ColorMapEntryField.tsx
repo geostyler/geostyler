@@ -62,7 +62,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
 
   const updateColorMapEntry = (prop: string, value: any) => {
     let updated: ColorMapEntry = {...colorMapEntry};
-    updated[prop] = value;
+    updated[prop as keyof ColorMapEntry] = value;
     if (onChange) {
       onChange(updated);
     }

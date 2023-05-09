@@ -135,7 +135,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
     <div className="gs-style" >
       <Modal
         title={locale.colorLabel}
-        visible={colorModalVisible}
+        open={colorModalVisible}
         wrapClassName="gs-modal-color"
         footer={null}
         onCancel={modalsClosed}
@@ -148,7 +148,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
       </Modal>
       <Modal
         title={locale.radiusLabel}
-        visible={sizeModalVisible}
+        open={sizeModalVisible}
         wrapClassName="gs-modal-size"
         footer={null}
         onCancel={modalsClosed}
@@ -161,7 +161,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
       </Modal>
       <Modal
         title={locale.opacityLabel}
-        visible={opacityModalVisible}
+        open={opacityModalVisible}
         wrapClassName="gs-modal-opacity"
         footer={null}
         onCancel={modalsClosed}
@@ -174,7 +174,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
       </Modal>
       <Modal
         title={locale.symbolLabel}
-        visible={symbolModalVisible}
+        open={symbolModalVisible}
         wrapClassName="gs-modal-opacity"
         footer={null}
         onCancel={modalsClosed}

@@ -56,7 +56,7 @@ module.exports = {
     undefined,
   components: 'src/Component/**/*.tsx',
   getExampleFilename(componentPath) {
-    return componentPath.replace(/\.tsx?$/, '.example.md')
+    return componentPath.replace(/\.tsx?$/, '.example.md');
   },
   ignore: [
     '**/*.spec.{js,jsx,ts,tsx}',
@@ -184,6 +184,6 @@ module.exports = {
     sectionDepth: 2
   }],
   require: [
-    path.join(__dirname, 'node_modules/antd/dist/antd.css')
+    path.join(__dirname, 'node_modules/antd/dist/reset.css')
   ]
 };

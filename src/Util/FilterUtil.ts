@@ -175,7 +175,7 @@ class FilterUtil {
     const ids: any[] = [];
 
     matches.forEach((features: any, index: number) => {
-      const idMap = {};
+      const idMap: any = {};
       features.forEach((feat: any) => idMap[feat.id] = true);
       ids[index] = idMap;
     });

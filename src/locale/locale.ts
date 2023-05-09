@@ -1,4 +1,4 @@
-import { Locale } from 'antd/lib/locale-provider';
+import { Locale } from 'antd/lib/locale';
 
 export interface GeoStylerLocale extends Locale {
   CodeEditor: {

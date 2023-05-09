@@ -26,7 +26,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import antd_zh_CN from 'antd/lib/locale-provider/zh_CN';
+import antd_zh_CN from 'antd/lib/locale/zh_CN';
 import { GeoStylerLocale } from './locale';
 
 const zh_CN: GeoStylerLocale = {

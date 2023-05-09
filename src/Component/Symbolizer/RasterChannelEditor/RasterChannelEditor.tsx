@@ -34,7 +34,6 @@ import {
   Tabs
 } from 'antd';
 const Option = Select.Option;
-const TabPane = Tabs.TabPane;
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
@@ -95,16 +94,18 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
    * Updates ChannelField. Removes old props if channel type changes
    * from GrayChannel to RGBChannel or vice versa.
    */
-  const onChannelFieldChange = (name: string, channel: Channel) => {
+  const onChannelFieldChange = (name: 'red' | 'green' | 'blue' | 'gray', channel: Channel) => {
     let newChannelSelection: ChannelSelection;
 
     if (!channelSelection
       || (isGrayChannel(channelSelection) && name !== 'gray')
       || (isRgbChannel(channelSelection) && name === 'gray')) {
       newChannelSelection = {} as ChannelSelection;
+      // @ts-ignore
       newChannelSelection[`${name}Channel`] = channel;
     } else {
       newChannelSelection = _cloneDeep(channelSelection);
+      // @ts-ignore
       newChannelSelection[`${name}Channel`] = channel;
     }
 
@@ -161,53 +162,70 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
       </Form.Item>
       { !rgbOrGray ? null :
         (
-          <Tabs onChange={onTabChange} type="card" activeKey={selectedTab}>
-            {
-              rgbOrGray === 'rgb' ? ([
-                <TabPane tab={getTabLabel('red')} key="red">
-                  <ChannelField
-                    channel={redChannel}
-                    contrastEnhancementTypes={contrastEnhancementTypes}
-                    onChange={(channel: Channel) => {
-                      onChannelFieldChange('red', channel);
-                    }}
-                    sourceChannelNames={sourceChannelNames}
-                  />
-                </TabPane>,
-                <TabPane tab={getTabLabel('green')} key="green">
-                  <ChannelField
-                    channel={greenChannel}
-                    contrastEnhancementTypes={contrastEnhancementTypes}
-                    onChange={(channel: Channel) => {
-                      onChannelFieldChange('green', channel);
-                    }}
-                    sourceChannelNames={sourceChannelNames}
-                  />
-                </TabPane>,
-                <TabPane tab={getTabLabel('blue')} key="blue">
-                  <ChannelField
-                    channel={blueChannel}
-                    contrastEnhancementTypes={contrastEnhancementTypes}
-                    onChange={(channel: Channel) => {
-                      onChannelFieldChange('blue', channel);
-                    }}
-                    sourceChannelNames={sourceChannelNames}
-                  />
-                </TabPane>]
+          <Tabs
+            onChange={onTabChange}
+            type="card"
+            activeKey={selectedTab}
+            items={
+              rgbOrGray === 'rgb' ? (
+                [{
+                  key: 'red',
+                  label: getTabLabel('red'),
+                  children: (
+                    <ChannelField
+                      channel={redChannel}
+                      contrastEnhancementTypes={contrastEnhancementTypes}
+                      onChange={(channel: Channel) => {
+                        onChannelFieldChange('red', channel);
+                      }}
+                      sourceChannelNames={sourceChannelNames}
+                    />
+                  )
+                }, {
+                  key: 'green',
+                  label: getTabLabel('green'),
+                  children: (
+                    <ChannelField
+                      channel={greenChannel}
+                      contrastEnhancementTypes={contrastEnhancementTypes}
+                      onChange={(channel: Channel) => {
+                        onChannelFieldChange('green', channel);
+                      }}
+                      sourceChannelNames={sourceChannelNames}
+                    />
+                  )
+                }, {
+                  key: 'blue',
+                  label: getTabLabel('blue'),
+                  children: (
+                    <ChannelField
+                      channel={blueChannel}
+                      contrastEnhancementTypes={contrastEnhancementTypes}
+                      onChange={(channel: Channel) => {
+                        onChannelFieldChange('blue', channel);
+                      }}
+                      sourceChannelNames={sourceChannelNames}
+                    />
+                  )
+                }]
               ) : (
-                <TabPane tab={getTabLabel('gray')} key="gray">
-                  <ChannelField
-                    channel={grayChannel}
-                    contrastEnhancementTypes={contrastEnhancementTypes}
-                    onChange={(channel: Channel) => {
-                      onChannelFieldChange('gray', channel);
-                    }}
-                    sourceChannelNames={sourceChannelNames}
-                  />
-                </TabPane>
+                [{
+                  key: 'gray',
+                  label: getTabLabel('gray'),
+                  children: (
+                    <ChannelField
+                      channel={grayChannel}
+                      contrastEnhancementTypes={contrastEnhancementTypes}
+                      onChange={(channel: Channel) => {
+                        onChannelFieldChange('gray', channel);
+                      }}
+                      sourceChannelNames={sourceChannelNames}
+                    />
+                  )
+                }]
               )
             }
-          </Tabs>
+          />
         )
       }
     </div>

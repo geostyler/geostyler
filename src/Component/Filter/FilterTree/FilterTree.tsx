@@ -31,9 +31,9 @@ import * as React from 'react';
 import {
   Tree,
   Dropdown,
-  Menu,
   Button,
-  TreeProps
+  TreeProps,
+  MenuProps
 } from 'antd';
 
 import {
@@ -47,8 +47,6 @@ import _get from 'lodash/get';
 import _set from 'lodash/set';
 import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
-
-const TreeNode = Tree.TreeNode;
 
 import {
   CombinationOperator,
@@ -70,9 +68,9 @@ import {
   isNegationFilter
 } from 'geostyler-style/dist/typeguards';
 import FilterUtil from '../../../Util/FilterUtil';
-import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { GeoStylerLocale } from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
+import { DataNode } from 'rc-tree/lib/interface';
 
 // default props
 export interface FilterTreeDefaultProps {
@@ -157,12 +155,9 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
   };
 
   /**
-   * Creates a TreeNode for a given filter at the given position.
-   *
-   * @return Tree.TreeNode
+   * Creates a DataNode for a given filter at the given position.
    */
-  // TODO: This should be a single component
-  const getNodeByFilter = (filter: Filter | CombinationOperator, position: string = ''): any => {
+  const getNodeByFilter = (filter: Filter | CombinationOperator, position: string = ''): DataNode => {
     const onMenuClick = (e: any) => {
       const keyPath: string[] = e.keyPath;
       const reversedKeyPath = keyPath.reverse();
@@ -181,7 +176,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
       }
     };
 
-    const items: ItemType[] = [];
+    const items: MenuProps['items'] = [];
     if (isCombinationFilter(filter)) {
       items.push({
         label: locale.addFilterLabel,
@@ -226,9 +221,12 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
     });
 
     const menu = (
-      <Dropdown overlay={
-        <Menu onClick={onMenuClick} items={items} />
-      }>
+      <Dropdown
+        menu={{
+          items: items,
+          onClick: onMenuClick
+        }}
+      >
         <Button
           className="filter-menu-button"
           size="small"
@@ -240,7 +238,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
     let extraClassName = '';
     let title;
     const isLeaf = !(isCombinationFilter(filter) || isNegationFilter(filter));
-    let children = null;
+    let children: DataNode[] = [];
 
     if (isCombinationFilter(filter)) {
       const text = filter[0] === '&&' ? locale.andFilterText : locale.orFilterText;
@@ -263,7 +261,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
           {menu}
         </span>
       );
-      children = getNodeByFilter(filter[1], `${position}[1]`);
+      children = [getNodeByFilter(filter[1], `${position}[1]`)];
     } else if (isComparisonFilter(filter)) {
       extraClassName = 'comparison-filter';
       title = (
@@ -296,16 +294,13 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
       );
     }
 
-    return (
-      <TreeNode
-        className={`style-filter-node ${extraClassName}`}
-        key={position}
-        isLeaf={isLeaf}
-        title={title}
-      >
-        {children}
-      </TreeNode>
-    );
+    return {
+      className: `style-filter-node ${extraClassName}`,
+      key: position,
+      isLeaf: isLeaf,
+      title: title,
+      children: children
+    };
   };
 
   /**
@@ -375,9 +370,8 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
       defaultExpandAll={true}
       {...passThroughProps}
       onDrop={onDrop}
-    >
-      {getNodeByFilter(rootFilter)}
-    </Tree>
+      treeData={[getNodeByFilter(rootFilter)]}
+    />
   );
 };
 
