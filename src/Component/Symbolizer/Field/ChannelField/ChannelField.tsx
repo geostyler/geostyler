@@ -42,6 +42,7 @@ import GammaField from '../GammaField/GammaField';
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import { GeoStylerLocale } from '../../../../locale/locale';
+import { useGeoStylerComposition } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
 interface ChannelFieldDefaultProps {
@@ -59,13 +60,19 @@ export interface ChannelFieldProps extends Partial<ChannelFieldDefaultProps> {
 /**
  * ChannelField to select different Channel options
  */
-export const ChannelField: React.FC<ChannelFieldProps> = ({
-  onChange,
-  locale = en_US.ChannelField,
-  sourceChannelNames,
-  contrastEnhancementTypes = ['histogram', 'normalize'],
-  channel
-}) => {
+export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
+
+  const composition = useGeoStylerComposition('RasterChannelEditor', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    onChange,
+    locale = en_US.ChannelField,
+    sourceChannelNames,
+    contrastEnhancementTypes = ['histogram', 'normalize'],
+    channel
+  } = composed;
 
   const updateChannel = (key: string, value: any) => {
     let newChannel: Channel;
@@ -115,32 +122,45 @@ export const ChannelField: React.FC<ChannelFieldProps> = ({
 
   return (
     <div>
-      <Form.Item
-        label={locale.sourceChannelNameLabel}
-      >
-        <SourceChannelNameField
-          onChange={onSourceChannelNameChange}
-          sourceChannelName={sourceChannelName as string}
-          sourceChannelNames={sourceChannelNames}
-        />
-      </Form.Item>
-      <Form.Item
-        label={locale.contrastEnhancementTypeLabel}
-      >
-        <ContrastEnhancementField
-          contrastEnhancement={contrastEnhancementType}
-          contrastEnhancementOptions={contrastEnhancementTypes}
-          onChange={onContrastEnhancementChange}
-        />
-      </Form.Item>
-      <Form.Item
-        label={locale.gammaValueLabel}
-      >
-        <GammaField
-          gamma={gamma as any}
-          onChange={onGammaChange}
-        />
-      </Form.Item>
+      {
+        composition.sourceChannelNameField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.sourceChannelNameLabel}
+          >
+            <SourceChannelNameField
+              onChange={onSourceChannelNameChange}
+              sourceChannelName={sourceChannelName as string}
+              sourceChannelNames={sourceChannelNames}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.contrastEnhancementField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.contrastEnhancementTypeLabel}
+          >
+            <ContrastEnhancementField
+              contrastEnhancement={contrastEnhancementType}
+              contrastEnhancementOptions={contrastEnhancementTypes}
+              onChange={onContrastEnhancementChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        composition.gammaValueField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.gammaValueLabel}
+          >
+            <GammaField
+              gamma={gamma as any}
+              defaultValue={composition.gammaValueField?.default}
+              onChange={onGammaChange}
+            />
+          </Form.Item>
+        )
+      }
     </div>
   );
 };
