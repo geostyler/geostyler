@@ -1,4 +1,4 @@
-export const geostylerFunctionConfigs = [
+export const functionConfigs = [
   {
     name: 'abs'
   },

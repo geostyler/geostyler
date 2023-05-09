@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2023-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,23 +34,27 @@ import {
   isGeoStylerFunction
 } from 'geostyler-style';
 import FunctionNameCombo from './FunctionNameCombo/FunctionNameCombo';
-import Input from 'antd/lib/input/Input';
-import Checkbox from 'antd/lib/checkbox/Checkbox';
 
 import './FunctionUI.less';
-import { geostylerFunctionConfigs } from './FunctionNameCombo/GeoStylerFunctions';
-import { EyeTwoTone, FunctionOutlined } from '@ant-design/icons';
+import StringExpressionInput from '../ExpressionInput/StringExpressionInput/StringExpressionInput';
+import NumberExpressionInput from '../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import BooleanExpressionInput from '../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
+import { functionConfigs } from './functionConfigs';
 
-export interface FunctionUIProps {
-  type: 'number' | 'string' | 'boolean' | 'unknown';
-  value: GeoStylerFunction;
-  onChange?: (newValue: GeoStylerFunction) => void;
+type Type = 'string' | 'number' | 'boolean' | 'unknown';
+
+export interface FunctionUIProps<T extends GeoStylerFunction> {
+  type: Type;
+  value: T;
+  onChange?: (newValue: T) => void;
+  onCancel?: (type: Type) => void;
 }
 
-export const FunctionUI: React.FC<FunctionUIProps> = ({
+export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
   value,
   onChange,
   type,
+  onCancel,
   ...passThroughProps
 }) => {
 
@@ -59,7 +63,7 @@ export const FunctionUI: React.FC<FunctionUIProps> = ({
   } = value;
 
   const getUiForFunction = (func: GeoStylerFunction) => {
-    const config = geostylerFunctionConfigs.find(cfg => cfg.name === func.name);
+    const config = functionConfigs.find(cfg => cfg.name === func.name);
     return (
       <div className='gs-function-arguments'>
         {config?.args?.map((cfg, index) => getUiForArg(cfg, index, func))}
@@ -83,6 +87,10 @@ export const FunctionUI: React.FC<FunctionUIProps> = ({
             onChange={(val) => {
               updateFunctionArg(val, index);
             }}
+            onCancel={t => {
+              const val = t === 'number' ? 0 : '';
+              updateFunctionArg(val, index);
+            }}
           />
         </div>
       );
@@ -90,23 +98,14 @@ export const FunctionUI: React.FC<FunctionUIProps> = ({
       return (
         <div className='gs-function-arg'>
           <i className='tree-icon' />
-          <Input
-            placeholder={cfg.placeholder}
+          <NumberExpressionInput
             value={functionArgs[index]}
-            onChange={(evt) => {
-              updateFunctionArg(evt.target.value, index);
+            onChange={(val) => {
+              updateFunctionArg(val, index);
             }}
-            // suffix={
-            //   <EyeTwoTone
-            //     className='fx-icon'
-            //     onClick={() => {
-            //       updateFunctionArg({
-            //         name: 'property',
-            //         args: ['']
-            //       }, index);
-            //     }}
-            //   />
-            // }
+            inputProps={{
+              placeholder: cfg.placeholder
+            }}
           />
         </div>
       );
@@ -114,13 +113,14 @@ export const FunctionUI: React.FC<FunctionUIProps> = ({
       return (
         <div className='gs-function-arg'>
           <i className='tree-icon' />
-          <Input
-            placeholder={cfg.placeholder}
+          <StringExpressionInput
             value={functionArgs[index]}
-            onChange={(evt) => {
-              updateFunctionArg(evt.target.value, index);
+            onChange={(val) => {
+              updateFunctionArg(val, index);
             }}
-            suffix={<FunctionOutlined />}
+            inputProps={{
+              placeholder: cfg.placeholder
+            }}
           />
         </div>
       );
@@ -128,14 +128,13 @@ export const FunctionUI: React.FC<FunctionUIProps> = ({
       return (
         <div className='gs-function-arg'>
           <i className='tree-icon' />
-          <Checkbox
-            checked={functionArgs[index]}
-            onChange={(evt) => {
-              updateFunctionArg(evt.target.checked, index);
+          <BooleanExpressionInput
+            value={functionArgs[index]}
+            onChange={(val) => {
+              updateFunctionArg(val, index);
             }}
-          >
-            {cfg.labe}
-          </Checkbox>
+            label={cfg.label}
+          />
         </div>
       );
     }
@@ -165,6 +164,7 @@ export const FunctionUI: React.FC<FunctionUIProps> = ({
         type={type}
         value={name}
         onChange={updateFunctionName}
+        onCancel={onCancel}
       />
       {getUiForFunction(value)}
     </div>

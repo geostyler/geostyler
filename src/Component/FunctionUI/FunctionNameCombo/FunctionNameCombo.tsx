@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2023-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,17 +28,23 @@
 
 import React from 'react';
 
-import { Select } from 'antd';
+import { Button, Select } from 'antd';
 
 import { useGeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
 import { BaseOptionType } from 'antd/lib/select';
-import { geostylerFunctionConfigs } from './GeoStylerFunctions';
+import { functionConfigs } from '../functionConfigs';
 import { GeoStylerFunction } from 'geostyler-style';
+import { NodeCollapseOutlined } from '@ant-design/icons';
+
+import './FunctionNameCombo.less';
+
+type Type = 'string' | 'number' | 'boolean' | 'unknown';
 
 export interface FunctionNameComboProps {
-  type?: 'string' | 'number' | 'boolean' | 'unknown';
+  type?: Type;
   value?: GeoStylerFunction['name'] | undefined;
   onChange?: (functionName: GeoStylerFunction['name']) => void;
+  onCancel?: (type: Type) => void;
   size?: 'large' | 'middle' | 'small';
 }
 
@@ -48,6 +54,7 @@ export interface FunctionNameComboProps {
 export const FunctionNameCombo: React.FC<FunctionNameComboProps> = ({
   value,
   onChange,
+  onCancel,
   type,
   size
 }) => {
@@ -60,7 +67,7 @@ export const FunctionNameCombo: React.FC<FunctionNameComboProps> = ({
     }
   } = useGeoStylerContext();
 
-  const options: BaseOptionType[] = geostylerFunctionConfigs
+  const options: BaseOptionType[] = functionConfigs
     .filter(config => {
       if (type) {
         return config.type === type || config.type === 'unknown';
@@ -84,6 +91,13 @@ export const FunctionNameCombo: React.FC<FunctionNameComboProps> = ({
         size={size}
         options={options}
       />
+      {
+        onCancel &&
+        <Button
+          icon={<NodeCollapseOutlined />}
+          onClick={() => onCancel(type)}
+        />
+      }
     </div>
   );
 };
