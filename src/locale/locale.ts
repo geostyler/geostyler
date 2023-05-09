@@ -1,6 +1,6 @@
 import { Locale } from 'antd/lib/locale';
 
-export interface GeoStylerLocale extends Locale {
+export default interface GeoStylerLocale extends Locale {
   CodeEditor: {
     downloadButtonLabel: string;
     formatSelectLabel: string;

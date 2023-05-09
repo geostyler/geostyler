@@ -38,7 +38,7 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import { Button, Divider, Tree } from 'antd';
 import FilterUtil from '../../Util/FilterUtil';
 import { PlusOutlined } from '@ant-design/icons';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 
 // default props

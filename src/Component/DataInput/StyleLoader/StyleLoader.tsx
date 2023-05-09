@@ -42,7 +42,7 @@ import UploadButton from '../../UploadButton/UploadButton';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import FileUtil from '../../../Util/FileUtil';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 
 // default props
 interface StyleLoaderDefaultProps {

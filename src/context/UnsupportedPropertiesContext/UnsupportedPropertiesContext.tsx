@@ -28,7 +28,7 @@
 
 import { UnsupportedProperties } from 'geostyler-style';
 import { createContext } from 'react';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;

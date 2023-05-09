@@ -69,7 +69,7 @@ import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import DataUtil from '../../Util/DataUtil';
 import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import Renderer from '../Renderer/Renderer/Renderer';
 
 // i18n

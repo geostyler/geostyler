@@ -1,5 +1,4 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const path = require('path');
 require('@babel/polyfill');
 
@@ -61,12 +60,6 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'geostyler.css'
-    }),
-    new ForkTsCheckerWebpackPlugin({
-      async: false,
-      typescript: {
-        build: true
-      }
     }),
   ],
   // When importing a module whose path matches one of the following, just

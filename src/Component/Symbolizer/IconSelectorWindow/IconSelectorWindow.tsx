@@ -44,7 +44,7 @@ import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
 import './IconSelectorWindow.less';
 
 import _isEqual from 'lodash/isEqual';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 
 // default props
 export interface IconSelectorWindowDefaultProps {

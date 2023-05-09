@@ -29,7 +29,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import _get from 'lodash/get';
-import { ConfigContext } from 'antd/lib/config-provider';
+import { ConfigProvider } from 'antd';
+const ConfigContext = ConfigProvider.ConfigContext;
 
 export interface LocaleProps {
     locale?: object;

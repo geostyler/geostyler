@@ -29,7 +29,7 @@
 import { FormItemProps } from 'antd';
 import { SupportDef, Symbolizer, UnsupportedProperties } from 'geostyler-style';
 import en_US from '../locale/en_US';
-import { GeoStylerLocale } from '../locale/locale';
+import type GeoStylerLocale from '../locale/locale';
 
 type SymbolizerName = 'LineSymbolizer' |
 'FillSymbolizer' | 'MarkSymbolizer' | 'IconSymbolizer' | 'TextSymbolizer' | 'RasterSymbolizer';

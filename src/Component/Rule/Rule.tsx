@@ -57,7 +57,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
 
 import './Rule.less';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import Renderer from '../Renderer/Renderer/Renderer';
 import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';

@@ -27,7 +27,7 @@
  */
 
 import * as React from 'react';
-const Color = require('color');
+import Color from 'color';
 
 import {
   SketchPicker,
@@ -43,7 +43,7 @@ import './ColorField.less';
 
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
-import { GeoStylerLocale } from '../../../../locale/locale';
+import type GeoStylerLocale from '../../../../locale/locale';
 import { CloseOutlined } from '@ant-design/icons';
 
 // default props

@@ -68,7 +68,7 @@ import {
   isNegationFilter
 } from 'geostyler-style/dist/typeguards';
 import FilterUtil from '../../../Util/FilterUtil';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 import { DataNode } from 'rc-tree/lib/interface';
 

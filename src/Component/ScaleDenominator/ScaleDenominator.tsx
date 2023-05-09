@@ -40,7 +40,7 @@ import {
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 
 interface ScaleDenominatorDefaultProps {
   /** Locale object containing translated text snippets */

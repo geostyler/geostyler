@@ -48,7 +48,7 @@ import _merge from 'lodash/merge';
 import SymbolizerCard from '../SymbolizerCard/SymbolizerCard';
 import { PlusOutlined } from '@ant-design/icons';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import { SortableItem } from '../SortableItem/SortableItem';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { RemovableItem } from '../RemovableItem/RemovableItem';

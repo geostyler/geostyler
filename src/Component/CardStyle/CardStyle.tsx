@@ -58,7 +58,7 @@ import FilterTree from '../Filter/FilterTree/FilterTree';
 import RuleGenerator from '../RuleGenerator/RuleGenerator';
 import BulkEditor from '../BulkEditor/BulkEditor';
 import IconSelector, { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import Renderer from '../Renderer/Renderer/Renderer';
 
 // default props

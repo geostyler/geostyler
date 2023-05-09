@@ -57,7 +57,7 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';

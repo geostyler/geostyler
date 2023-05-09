@@ -30,7 +30,7 @@ import { Alert } from 'antd';
 import { ReadStyleResult, WriteStyleResult } from 'geostyler-style';
 import React from 'react';
 import en_US from '../../locale/en_US';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 
 export interface ParserFeedbackProps {
   locale?: GeoStylerLocale['ParserFeedback'];

@@ -8,7 +8,7 @@ import { OpacityFieldProps } from '../../Component/Symbolizer/Field/OpacityField
 import { ImageFieldProps } from '../../Component/Symbolizer/Field/ImageField/ImageField';
 import { WidthFieldProps } from '../../Component/Symbolizer/Field/WidthField/WidthField';
 import { SizeFieldProps } from '../../Component/Symbolizer/Field/SizeField/SizeField';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import { OffsetFieldProps } from '../../Component/Symbolizer/Field/OffsetField/OffsetField';
 import { RotateFieldProps } from '../../Component/Symbolizer/Field/RotateField/RotateField';
 import { LineCapFieldProps } from '../../Component/Symbolizer/Field/LineCapField/LineCapField';

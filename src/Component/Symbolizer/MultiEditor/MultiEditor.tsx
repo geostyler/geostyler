@@ -47,7 +47,7 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 import _isEqual from 'lodash/isEqual';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import { Tab } from 'rc-tabs/lib/interface';
 
 

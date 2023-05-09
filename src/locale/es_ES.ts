@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import antd_es_ES from 'antd/lib/locale/es_ES';
-import { GeoStylerLocale } from './locale';
+import type GeoStylerLocale from './locale';
 
 const es_ES: GeoStylerLocale = {
   RgbChannelField: {

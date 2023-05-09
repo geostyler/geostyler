@@ -237,6 +237,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
   const value = filter[2];
   const valueValidation = validators.value(value, internalDataDef, attribute);
   const valueValidationHelpString = valueValidation.errorMsg;
+  // @ts-ignore
   const allowedOperators = attributeType ? operatorsMap[attributeType] : undefined;
   const isNumberBetweenComparison = operator === '<=x<=';
   const isNumberComparison = attributeType === 'number';

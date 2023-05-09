@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import antd_fr_FR from 'antd/lib/locale/fr_FR';
-import { GeoStylerLocale } from './locale';
+import type GeoStylerLocale from './locale';
 
 const fr_FR: GeoStylerLocale = {
   StyleFieldContainer: {

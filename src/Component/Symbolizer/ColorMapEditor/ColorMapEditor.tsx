@@ -51,7 +51,7 @@ import { brewer } from 'chroma-js';
 import './ColorMapEditor.less';
 
 import _cloneDeep from 'lodash/cloneDeep';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 
 export interface ColorMapEntryRecord extends ColorMapEntry {
   key: number;

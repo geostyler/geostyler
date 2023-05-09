@@ -51,7 +51,7 @@ import ImageField from '../Field/ImageField/ImageField';
 import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
 
 import './BulkEditModals.less';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 
 // default props
 interface BulkEditModalsDefaultProps {

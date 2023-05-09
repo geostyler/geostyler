@@ -46,7 +46,7 @@ import ColorsPreview from './ColorsPreview/ColorsPreview';
 import ClassificationCombo, { ClassificationMethod } from './ClassificationCombo/ClassificationCombo';
 import _get from 'lodash/get';
 import { PlusSquareOutlined } from '@ant-design/icons';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 

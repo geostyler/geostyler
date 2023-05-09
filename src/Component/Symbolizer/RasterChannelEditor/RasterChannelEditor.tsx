@@ -48,7 +48,7 @@ import ChannelField from '../Field/ChannelField/ChannelField';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // default props

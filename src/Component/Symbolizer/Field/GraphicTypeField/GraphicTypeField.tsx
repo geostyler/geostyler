@@ -35,7 +35,7 @@ import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 
 import _get from 'lodash/get';
-import { GeoStylerLocale } from '../../../../locale/locale';
+import type GeoStylerLocale from '../../../../locale/locale';
 
 const Option = Select.Option;
 

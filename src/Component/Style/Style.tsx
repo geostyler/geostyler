@@ -67,7 +67,7 @@ import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import './Style.less';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 
 // i18n

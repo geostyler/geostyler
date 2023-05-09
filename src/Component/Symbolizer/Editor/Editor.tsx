@@ -56,7 +56,7 @@ import DataUtil from '../../../Util/DataUtil';
 import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
 import CompositionUtil from '../../../Util/CompositionUtil';
 import { Form } from 'antd';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 
 // default props
 interface EditorDefaultProps {

@@ -41,7 +41,7 @@ import {
 const Option = Select.Option;
 
 import './WfsParserInput.less';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 
 type WfsVersion = RequestParams['version'];

@@ -48,7 +48,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import Selectable from '../Selectable/Selectable';
 import { RuleCard } from '../RuleCard/RuleCard';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { SortableItem } from '../SortableItem/SortableItem';

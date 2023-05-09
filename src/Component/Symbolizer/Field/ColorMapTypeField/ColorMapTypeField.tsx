@@ -38,7 +38,7 @@ import en_US from '../../../../locale/en_US';
 import { RadioChangeEvent } from 'antd/lib/radio';
 
 import _get from 'lodash/get';
-import { GeoStylerLocale } from '../../../../locale/locale';
+import type GeoStylerLocale from '../../../../locale/locale';
 
 // i18n
 export interface ColorMapTypeFieldLocale {

@@ -7,7 +7,7 @@
     "outDir": "dist",
     "module": "commonjs",
     "target": "es5",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2021", "dom"],
     "sourceMap": true,
     "inlineSources": true,
     "allowJs": false,
@@ -36,6 +36,8 @@
     "jest",
     "coverage",
     "**.config.js",
-    "**/*.spec.ts*"
+    "**/*.spec.ts*",
+    "vite.config.ts",
+    "vite.dev.config.ts"
   ]
 }
