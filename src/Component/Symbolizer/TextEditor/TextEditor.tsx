@@ -47,8 +47,6 @@ import WidthField from '../Field/WidthField/WidthField';
 import FontPicker from '../Field/FontPicker/FontPicker';
 import OffsetField from '../Field/OffsetField/OffsetField';
 import RotateField from '../Field/RotateField/RotateField';
-import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
-import CompositionUtil from '../../../Util/CompositionUtil';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 
@@ -65,6 +63,7 @@ import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 interface TextEditorDefaultProps {
   locale: GeoStylerLocale['TextEditor'];
@@ -85,13 +84,18 @@ const COMPONENTNAME = 'TextEditor';
  * where words wrapped in double curly braces ({{}}) will be understood as
  * feature properties and text without curly braces as static text.
  */
-export const TextEditor: React.FC<TextEditorProps> = ({
-  locale = en_US.TextEditor,
-  symbolizer,
-  onSymbolizerChange,
-  internalDataDef,
-  defaultValues
-}) => {
+export const TextEditor: React.FC<TextEditorProps> = (props) => {
+
+  const composition = useGeoStylerComposition('TextEditor', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.TextEditor,
+    symbolizer,
+    onSymbolizerChange,
+    internalDataDef
+  } = composed;
 
   const {
     unsupportedProperties,
@@ -212,181 +216,153 @@ export const TextEditor: React.FC<TextEditorProps> = ({
   };
 
   return (
-    <CompositionContext.Consumer>
-      {(composition: Compositions) => (
-        <div className="gs-text-symbolizer-editor" >
+    <div className="gs-text-symbolizer-editor" >
+      {
+        composition.templateField?.visibility === false ? null : (
           <Form.Item
             label={locale.templateFieldLabel}
             {...getSupportProps('label')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.templateField',
-                onChange: onLabelChange,
-                propName: 'value',
-                propValue: symbolizer.label || '',
-                defaultValue: defaultValues?.TextEditor?.defaultLabel,
-                defaultElement: (
-                  <Mentions
-                    className="editor-field"
-                    placeholder={locale.templateFieldLabel}
-                    prefix="{{"
-                    notFoundContent={locale.attributeNotFound}
-                  >
-                    {properties.map(p => <MentionOption key={p} value={`${p}}}`}>{p}</MentionOption>)}
-                  </Mentions>
-                )
-              })
-            }
+            <Mentions
+              className="editor-field"
+              value={symbolizer.label as string || ''}
+              defaultValue={composition.templateField?.default}
+              onChange={onLabelChange}
+              placeholder={locale.templateFieldLabel}
+              prefix="{{"
+              notFoundContent={locale.attributeNotFound}
+            >
+              {properties.map(p => <MentionOption key={p} value={`${p}}}`}>{p}</MentionOption>)}
+            </Mentions>
           </Form.Item>
+        )
+      }
+      {
+        composition.colorField?.visibility === false ? null : (
           <Form.Item
             label={locale.colorLabel}
             {...getSupportProps('color')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.colorField',
-                onChange: onColorChange,
-                propName: 'color',
-                propValue: color,
-                defaultValue: defaultValues?.TextEditor?.defaultColor,
-                defaultElement: <ColorField />
-              })
-            }
+            <ColorField
+              color={color as string}
+              defaultValue={composition.colorField?.default}
+              onChange={onColorChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.fontField?.visibility === false ? null : (
           <Form.Item
             label={locale.fontLabel}
             {...getSupportProps('font')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.fontField',
-                onChange: onFontChange,
-                propName: 'font',
-                propValue: font,
-                defaultValue: defaultValues?.TextEditor?.defaultFont,
-                defaultElement: <FontPicker />
-              })
-            }
+            <FontPicker
+              font={font as string[]}
+              onChange={onFontChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.opacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.opacityLabel}
             {...getSupportProps('opacity')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.opacityField',
-                onChange: onOpacityChange,
-                propName: 'opacity',
-                propValue: opacity,
-                defaultValue: defaultValues?.TextEditor?.defaultOpacity,
-                defaultElement: <OpacityField />
-              })
-            }
+            <OpacityField
+              opacity={opacity as number}
+              defaultValue={composition.opacityField?.default}
+              onChange={onOpacityChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.sizeField?.visibility === false ? null : (
           <Form.Item
             label={locale.sizeLabel}
             {...getSupportProps('size')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.sizeField',
-                onChange: onSizeChange,
-                propName: 'width',
-                propValue: size,
-                defaultValue: defaultValues?.TextEditor?.defaultSize,
-                defaultElement: <WidthField />
-              })
-            }
+            <WidthField
+              width={size as number}
+              defaultValue={composition.sizeField?.default}
+              onChange={onSizeChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.offsetXField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetXLabel}
             {...getSupportProps('offset')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.offsetXField',
-                onChange: onOffsetXChange,
-                propName: 'offset',
-                propValue: offsetX,
-                defaultValue: defaultValues?.TextEditor?.defaultOffsetX,
-                defaultElement: <OffsetField />
-              })
-            }
+            <OffsetField
+              offset={offsetX}
+              defaultValue={composition.offsetXField?.default}
+              onChange={onOffsetXChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.offsetYField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetYLabel}
             {...getSupportProps('offset')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.offsetYField',
-                onChange: onOffsetYChange,
-                propName: 'offset',
-                propValue: offsetY,
-                defaultValue: defaultValues?.TextEditor?.defaultOffsetY,
-                defaultElement: <OffsetField />
-              })
-            }
+            <OffsetField
+              offset={offsetY}
+              defaultValue={composition.offsetYField?.default}
+              onChange={onOffsetYChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.rotateField?.visibility === false ? null : (
           <Form.Item
             label={locale.rotateLabel}
             {...getSupportProps('rotate')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.rotateField',
-                onChange: onRotateChange,
-                propName: 'rotate',
-                propValue: rotate,
-                defaultValue: defaultValues?.TextEditor?.defaultRotate,
-                defaultElement: <RotateField />
-              })
-            }
+            <RotateField
+              rotate={rotate as number}
+              defaultValue={composition.rotateField?.default}
+              onChange={onRotateChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.haloColorField?.visibility === false ? null : (
           <Form.Item
             label={locale.haloColorLabel}
             {...getSupportProps('haloColor')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.haloColorField',
-                onChange: onHaloColorChange,
-                propName: 'color',
-                propValue: haloColor,
-                defaultValue: defaultValues?.TextEditor?.defaultHaloColor,
-                defaultElement: <ColorField />
-              })
-            }
+            <ColorField
+              color={haloColor as string}
+              defaultValue={composition.haloColorField?.default}
+              onChange={onHaloColorChange}
+            />
           </Form.Item>
+        )
+      }
+      {
+        composition.haloWidthField?.visibility === false ? null : (
           <Form.Item
             label={locale.haloWidthLabel}
             {...getSupportProps('haloWidth')}
           >
-            {
-              CompositionUtil.handleComposition({
-                composition,
-                path: 'TextEditor.haloWidthField',
-                onChange: onHaloWidthChange,
-                propName: 'width',
-                propValue: haloWidth,
-                defaultValue: defaultValues?.TextEditor?.defaultHaloWidth,
-                defaultElement: <WidthField />
-              })
-            }
+            <WidthField
+              width={haloWidth as number}
+              defaultValue={composition.haloWidthField?.default}
+              onChange={onHaloWidthChange}
+            />
           </Form.Item>
-        </div>
-      )}
-    </CompositionContext.Consumer>
+        )
+      }
+    </div>
   );
 };
 
