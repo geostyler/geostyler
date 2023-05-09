@@ -47,7 +47,7 @@ export interface StringExpressionInputProps {
   value?: Expression<string>;
   inputProps?: InputProps;
   functionUiProps?: FunctionUIProps<GeoStylerStringFunction>;
-  onChange?: (newValue: Expression<string>) => void;
+  onChange?: (newValue: Expression<string> | undefined) => void;
   className?: string;
 }
 
@@ -83,9 +83,9 @@ export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
         value={value as string}
         onChange={(evt) => {
           if (evt.target.value === null) {
-            onChange(undefined);
+            onChange?.(undefined);
           }
-          onChange(evt.target.value);
+          onChange?.(evt.target.value);
         }}
         {...inputProps}
       />

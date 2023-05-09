@@ -47,7 +47,7 @@ export interface NumberExpressionInputProps {
   value?: Expression<number>;
   inputProps?: InputNumberProps;
   functionUiProps?: FunctionUIProps<GeoStylerNumberFunction>;
-  onChange?: (newValue: Expression<number>) => void;
+  onChange?: (newValue: Expression<number> | undefined) => void;
   className?: string;
 }
 
@@ -83,9 +83,9 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
         value={value as number}
         onChange={(val) => {
           if (val === null) {
-            onChange(undefined);
+            onChange?.(undefined);
           }
-          onChange(val as number);
+          onChange?.(val as number);
         }}
         {...inputProps}
       />
