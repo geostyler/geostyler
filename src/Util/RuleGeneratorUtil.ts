@@ -27,7 +27,7 @@
  */
 
 import * as CSS from 'csstype';
-const Color = require('color');
+import Color from 'color';
 import { VectorData } from 'geostyler-data';
 import {
   LevelOfMeasurement

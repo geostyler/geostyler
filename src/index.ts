@@ -126,7 +126,7 @@ import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 import { CompositionContext } from './context/CompositionContext/CompositionContext';
 import { DefaultValueContext } from './context/DefaultValueContext/DefaultValueContext';
 import { UnsupportedPropertiesContext } from './context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
-import { GeoStylerLocale } from './locale/locale';
+import type GeoStylerLocale from './locale/locale';
 import { GeoStylerContext } from './context/GeoStylerContext/GeoStylerContext';
 
 import { ConfigProvider } from 'antd';

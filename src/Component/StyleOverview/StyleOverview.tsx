@@ -43,7 +43,7 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import _cloneDeep from 'lodash/cloneDeep';
 import { Divider } from 'antd';
 import CardViewUtil from '../../Util/CardViewUtil';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 
 // default props

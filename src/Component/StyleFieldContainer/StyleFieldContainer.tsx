@@ -37,7 +37,7 @@ import en_US from '../../locale/en_US';
 
 import FieldContainer from '../FieldContainer/FieldContainer';
 import NameField from '../NameField/NameField';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 
 // default props
 interface StyleFieldContainerDefaultProps {

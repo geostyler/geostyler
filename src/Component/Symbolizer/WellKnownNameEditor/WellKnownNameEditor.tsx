@@ -45,7 +45,7 @@ import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import OffsetField from '../Field/OffsetField/OffsetField';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 

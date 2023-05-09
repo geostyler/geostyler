@@ -35,7 +35,7 @@ import {
 } from 'antd';
 import en_US from '../../locale/en_US';
 import { UploadOutlined } from '@ant-design/icons';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 
 export interface CustomRequest {
   onProgress: (event: { percent: number }) => void;

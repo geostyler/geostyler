@@ -5,13 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/antd@4.24.10/dist/antd-with-locales.min.js" crossorigin></script>
-  <script src="https://unpkg.com/ol@7.3.0/dist/ol.js" crossorigin></script>
-  <script src="https://unpkg.com/@ant-design/icons@4.8.0/dist/index.umd.min.js" crossorigin></script>
-  <script src="geostyler.js.iife.js" crossorigin></script>
-  <link rel="stylesheet" href="style.css"/>
+  <script src="./src/index.ts" crossorigin type="module"></script>
+  <link rel="stylesheet" src="./dist/style.css">
   <link rel="stylesheet" href="https://unpkg.com/antd@4.24.10/dist/antd.min.css"/>
 </head>
 <body>
@@ -20,11 +15,14 @@
     <div id="preview" style="flex: 1;"></div>
     <textarea id="textual_style" style="flex: 1; height: 300px;"></textarea>
   </div>
-  <script defer>
-    const root = ReactDOM.createRoot(
+  <script defer type="module">
+    import { createRoot } from 'react-dom/client';
+    import React from 'react';
+    import { PreviewMap, Style } from './src/index';
+    const root = createRoot(
       document.getElementById('root')
     );
-    const preview = ReactDOM.createRoot(
+    const preview = createRoot(
       document.getElementById('preview')
     );
     let style = {
@@ -42,13 +40,13 @@
       ]
     };
     const renderPreview = () => {
-      const gsPreview = React.createElement(GeoStyler.PreviewMap, {
+      const gsPreview = React.createElement(PreviewMap, {
           style: style,
           mapHeight: 300
         });
       preview.render(gsPreview);
     };
-    const geostyler = React.createElement(GeoStyler.Style, {
+    const geostyler = React.createElement(Style, {
       compact: true,
       style: style,
       onStyleChange: (gsStyle) => {

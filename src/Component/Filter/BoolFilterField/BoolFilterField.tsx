@@ -33,7 +33,7 @@ import { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 
 // default props
 interface BoolFilterFieldDefaultProps {

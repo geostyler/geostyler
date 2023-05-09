@@ -67,7 +67,7 @@ import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 import { usePrevious } from '../../hook/UsePrevious';
 import ParserFeedback from '../ParserFeedback/ParserFeedback';
 import { ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 
 // non default props
 export interface CodeEditorProps {

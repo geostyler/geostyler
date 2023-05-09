@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import antd_en_US from 'antd/lib/locale/en_US';
-import { GeoStylerLocale } from './locale';
+import type GeoStylerLocale from './locale';
 const en_US: GeoStylerLocale = {
   StyleFieldContainer: {
     nameFieldLabel: 'Name',

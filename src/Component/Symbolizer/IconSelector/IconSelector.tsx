@@ -41,7 +41,7 @@ import en_US from '../../../locale/en_US';
 import './IconSelector.less';
 
 import _isEqual from 'lodash/isEqual';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 
 // default props
 export interface IconSelectorDefaultProps {

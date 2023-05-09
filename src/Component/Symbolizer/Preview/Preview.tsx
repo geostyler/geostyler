@@ -63,7 +63,7 @@ import { IconEditorProps } from '../IconEditor/IconEditor';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import SymbolizerEditorWindow from '../SymbolizerEditorWindow/SymbolizerEditorWindow';
 import en_US from '../../../locale/en_US';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 
 // default props
 export interface PreviewDefaultProps {

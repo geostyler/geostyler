@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import antd_hr_HR from 'antd/lib/locale/hr_HR';
-import { GeoStylerLocale } from './locale';
+import type GeoStylerLocale from './locale';
 const hr_HR: GeoStylerLocale = {
   StyleFieldContainer: {
     nameFieldLabel: 'Ime',

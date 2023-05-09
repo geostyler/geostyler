@@ -38,7 +38,7 @@ import { UpOutlined, DownOutlined } from '@ant-design/icons';
 
 const ButtonGroup = Button.Group;
 import _cloneDeep from 'lodash/cloneDeep';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 
 // default props

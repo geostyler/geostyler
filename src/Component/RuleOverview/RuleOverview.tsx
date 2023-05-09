@@ -42,7 +42,7 @@ import { Divider } from 'antd';
 import Symbolizers from '../Symbolizers/Symbolizers';
 import CardViewUtil from '../../Util/CardViewUtil';
 import FilterOverview from '../FilterOverview/FilterOverview';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 
 // default props

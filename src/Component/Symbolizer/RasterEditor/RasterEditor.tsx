@@ -52,7 +52,7 @@ import './RasterEditor.less';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';

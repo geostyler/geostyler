@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import antd_zh_CN from 'antd/lib/locale/zh_CN';
-import { GeoStylerLocale } from './locale';
+import type GeoStylerLocale from './locale';
 
 const zh_CN: GeoStylerLocale = {
   StyleFieldContainer: {

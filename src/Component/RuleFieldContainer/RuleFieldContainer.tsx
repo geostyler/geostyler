@@ -39,7 +39,7 @@ import NameField from '../NameField/NameField';
 import MinScaleDenominator from '../ScaleDenominator/MinScaleDenominator';
 import MaxScaleDenominator from '../ScaleDenominator/MaxScaleDenominator';
 import Renderer from '../Renderer/Renderer/Renderer';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { Expression, Symbolizer } from 'geostyler-style';
 import { Data } from 'geostyler-data';

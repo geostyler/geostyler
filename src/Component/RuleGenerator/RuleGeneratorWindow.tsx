@@ -48,7 +48,7 @@ import RuleGenerator from './RuleGenerator';
 
 import _isEqual from 'lodash/isEqual';
 import _isFinite from 'lodash/isFinite';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 
 // default props

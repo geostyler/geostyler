@@ -138,19 +138,6 @@ Compare the list of existing parsers below.
 
 For our guidelines for contributions, please take a look at [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-## Current issues
-
-Currently there is an issue with the `geostyler-cql-parser` which forces you to add a `resolve.fallback` configuration to your webpack config.
-Compare https://github.com/geostyler/geostyler/blob/main/webpack.dev.config.js#L21
-
-```
-    fallback: {
-      buffer: false,
-      fs: false,
-      path: false
-    }
-```
-
 ### <a name="developing-geostyler-ui-components"></a>Developing GeoStyler UI Components
 
 The easiest way to develop UI components is to use `styleguidist`. Just run `npm run styleguide` and the interactive documenation will be running on `http://localhost:6060`.

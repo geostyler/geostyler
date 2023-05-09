@@ -39,7 +39,7 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 
 import _isEqual from 'lodash/isEqual';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 
 

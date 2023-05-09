@@ -34,7 +34,7 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import { InterpolationMode } from 'chroma-js';
 
 import _isEqual from 'lodash/isEqual';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 
 // i18n

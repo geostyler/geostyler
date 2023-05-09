@@ -54,7 +54,7 @@ import './TextEditor.less';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { VectorData } from 'geostyler-data';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';

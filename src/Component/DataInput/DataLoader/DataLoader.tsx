@@ -45,7 +45,7 @@ import UploadButton, { UploadButtonProps } from '../../UploadButton/UploadButton
 import WfsParserInput from '../WfsParserInput/WfsParserInput';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 
 

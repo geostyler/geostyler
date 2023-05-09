@@ -41,7 +41,7 @@ import KindField from '../Symbolizer/Field/KindField/KindField';
 import { SymbolizerKind, WellKnownName } from 'geostyler-style';
 import WellKnownNameField from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import ImageField from '../Symbolizer/Field/ImageField/ImageField';
-import { GeoStylerLocale } from '../../locale/locale';
+import type GeoStylerLocale from '../../locale/locale';
 
 
 // default props

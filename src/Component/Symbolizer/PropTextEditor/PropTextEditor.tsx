@@ -49,7 +49,7 @@ import './PropTextEditor.less';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import RotateField from '../Field/RotateField/RotateField';
 import en_US from '../../../locale/en_US';
-import { GeoStylerLocale } from '../../../locale/locale';
+import type GeoStylerLocale from '../../../locale/locale';
 import { Form } from 'antd';
 
 interface PropTextEditorDefaultProps {
