@@ -123,7 +123,7 @@ function LineEditorExample () {
       const newContext = {...oldContext};
       newContext.composition.LineEditor[prop].visibility = visibility;
       return newContext;
-    })
+    });
   };
 
   return (

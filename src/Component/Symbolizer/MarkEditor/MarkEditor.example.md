@@ -86,6 +86,9 @@ function MarkEditorExample () {
         wellKnownNameField: {
           visibility: true
         },
+      },
+      WellKnownNameEditor: {
+        visibility: true
       }
     }
   });
@@ -104,7 +107,15 @@ function MarkEditorExample () {
       const newContext = {...oldContext};
       newContext.composition.MarkEditor[prop].visibility = visibility;
       return newContext;
-    })
+    });
+  };
+
+  const onWknVisibilityChange = (visibility) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.WellKnownNameEditor.visibility = visibility;
+      return newContext;
+    });
   };
 
   return (
@@ -115,6 +126,12 @@ function MarkEditorExample () {
           onChange={visibility => {onVisibilityChange(visibility, 'wellKnownNameField')}}
           checkedChildren="Symbol"
           unCheckedChildren="Symbol"
+        />
+        <Switch
+          checked={myContext.composition.WellKnownNameEditor.visibility}
+          onChange={visibility => {onWknVisibilityChange(visibility)}}
+          checkedChildren="WellKnownNameEditor"
+          unCheckedChildren="WellKnownNameEditor"
         />
       </div>
       <hr />

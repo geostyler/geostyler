@@ -117,7 +117,7 @@ function IconEditorExample () {
       const newContext = {...oldContext};
       newContext.composition.IconEditor[prop].visibility = visibility;
       return newContext;
-    })
+    });
   };
 
   return (

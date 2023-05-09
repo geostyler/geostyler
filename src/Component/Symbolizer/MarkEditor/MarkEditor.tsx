@@ -65,6 +65,7 @@ const COMPONENTNAME = 'MarkEditor';
 export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('MarkEditor', {});
+  const wknComposition = useGeoStylerComposition('WellKnownNameEditor', {});
 
   const composed = {...props, ...composition};
 
@@ -111,10 +112,14 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
           </Form.Item>
         )
       }
-      <WellKnownNameEditor
-        symbolizer={symbolizer}
-        onSymbolizerChange={onSymbolizerChange}
-      />
+      {
+        wknComposition.visibility === false ? null : (
+          <WellKnownNameEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={onSymbolizerChange}
+          />
+        )
+      }
     </div>
   );
 };
