@@ -69,12 +69,10 @@ export const BooleanExpressionInput: React.FC<BooleanExpressionInputProps> = ({
   if (isGeoStylerFunction(value)) {
     return (
       <span className={finalClassName}>
-        <FunctionUI
+        <FunctionUI<GeoStylerBooleanFunction>
           type='boolean'
           value={value}
           {...functionUiProps}
-          // TODO: can we fix this?
-          // @ts-ignore
           onChange={onChange}
         />
       </span>

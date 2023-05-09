@@ -51,13 +51,13 @@ export interface FunctionUIProps<T extends GeoStylerFunction> {
   onCancel?: (type: Type) => void;
 }
 
-export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
+const FunctionUI = <T extends GeoStylerFunction>({
   value,
   onChange,
   parentKey,
   type,
   onCancel
-}) => {
+}: FunctionUIProps<T>) => {
 
   const name = value?.name;
 
@@ -155,10 +155,10 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
   };
 
   function updateFunctionArg(newArgumentValue: PropertyType, index: number) {
-    if (value.name === 'pi' || value.name === 'random') {
+    const newValue = structuredClone(value);
+    if (newValue.name === 'pi' || newValue.name === 'random') {
       return;
     }
-    const newValue = structuredClone(value);
     if (!Array.isArray(newValue.args)) {
       newValue.args = [];
     }
