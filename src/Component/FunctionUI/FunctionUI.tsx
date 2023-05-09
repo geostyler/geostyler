@@ -25,7 +25,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import {
   Expression,
@@ -46,6 +46,7 @@ type Type = 'string' | 'number' | 'boolean' | 'unknown';
 export interface FunctionUIProps<T extends GeoStylerFunction> {
   type: Type;
   value?: T;
+  parentKey?: string;
   onChange?: (newValue: T) => void;
   onCancel?: (type: Type) => void;
 }
@@ -53,9 +54,9 @@ export interface FunctionUIProps<T extends GeoStylerFunction> {
 export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
   value,
   onChange,
+  parentKey,
   type,
-  onCancel,
-  ...passThroughProps
+  onCancel
 }) => {
 
   const name = value?.name;
@@ -69,19 +70,29 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
     );
   };
 
+  const getKey = useCallback((key: string) => {
+    if (parentKey) {
+      return `${parentKey}-${key}`;
+    }
+    return key;
+  }, [parentKey]);
+
   const getUiForArg = (cfg: any, index: number, func: GeoStylerFunction) => {
     let functionArgs: Expression<any>[] = [];
     if (func.name !== 'pi' && func.name !== 'random') {
       functionArgs = func.args;
     }
 
+    const key = getKey(func.name);
+
     if (isGeoStylerFunction(functionArgs?.[index])) {
       return (
-        <div className='gs-function-arg'>
+        <div className='gs-function-arg' key={`${key}${index}`}>
           <i className='tree-icon' />
           <FunctionUI
             type={cfg.type}
             value={functionArgs[index]}
+            parentKey={key+''+index}
             onChange={(val) => {
               updateFunctionArg(val, index);
             }}
@@ -94,7 +105,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
       );
     } else if (cfg.type === 'number') {
       return (
-        <div className='gs-function-arg'>
+        <div className='gs-function-arg' key={`${key}${index}`}>
           <i className='tree-icon' />
           <NumberExpressionInput
             value={functionArgs?.[index]}
@@ -109,7 +120,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
       );
     } else if (cfg.type === 'string') {
       return (
-        <div className='gs-function-arg'>
+        <div className='gs-function-arg' key={`${key}${index}`}>
           <i className='tree-icon' />
           <StringExpressionInput
             value={functionArgs?.[index]}
@@ -124,7 +135,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
       );
     } else if (cfg.type === 'boolean') {
       return (
-        <div className='gs-function-arg'>
+        <div className='gs-function-arg' key={`${key}${index}`}>
           <i className='tree-icon' />
           <BooleanExpressionInput
             value={functionArgs?.[index]}
@@ -136,7 +147,11 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
         </div>
       );
     }
-    return functionArgs[index]?.toString();
+    return (
+      <div className='gs-function-arg' key={`${key}${index}`}>
+        {functionArgs[index]?.toString()}
+      </div>
+    );
   };
 
   function updateFunctionArg(newArgumentValue: PropertyType, index: number) {

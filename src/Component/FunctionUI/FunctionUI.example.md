@@ -28,7 +28,9 @@
  *
 -->
 
-This demonstrates the usage of the `FunctionUI` component.
+This demonstrates the usage of the `FunctionUI` component. Choose one of the types
+'string', 'number' or 'boolean'. Then select one of the corresponding functions
+from the dropdown.
 
 ```jsx
 import React, { useState } from 'react';
