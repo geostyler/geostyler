@@ -56,7 +56,7 @@ module.exports = {
     undefined,
   components: 'src/Component/**/*.tsx',
   getExampleFilename(componentPath) {
-    return componentPath.replace(/\.tsx?$/, '.example.md')
+    return componentPath.replace(/\.tsx?$/, '.example.md');
   },
   ignore: [
     '**/*.spec.{js,jsx,ts,tsx}',
