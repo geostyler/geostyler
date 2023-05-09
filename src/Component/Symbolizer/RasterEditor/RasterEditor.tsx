@@ -47,7 +47,6 @@ import GammaField from '../Field/GammaField/GammaField';
 import DataUtil from '../../../Util/DataUtil';
 import ColorMapEditor from '../ColorMapEditor/ColorMapEditor';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 
 import './RasterEditor.less';
 
@@ -74,7 +73,6 @@ export interface RasterEditorProps extends Partial<RasterEditorDefaultProps> {
   colorRamps?: {
     [name: string]: string[];
   };
-  defaultValues?: DefaultValues;
 }
 
 type ShowDisplay = 'symbolizer' | 'colorMap' | 'contrastEnhancement';

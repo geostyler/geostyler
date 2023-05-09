@@ -96,7 +96,19 @@ function RasterEditorExample () {
         visibility: true
       },
       RasterChannelEditor: {
-        visibility: true
+        visibility: true,
+        channelSelectionField: {
+          visibility: true
+        },
+        sourceChannelNameField: {
+          visibility: true
+        },
+        contrastEnhancementField: {
+          visibility: true
+        },
+        gammaValueField: {
+          visibility: true
+        }
       }
     }
   });
@@ -109,26 +121,18 @@ function RasterEditorExample () {
     setSymbolizer(s);
   };
 
-  const onVisibilityChange = (visibility, prop) => {
+  const onVisibilityChange = (visibility, editor, prop) => {
     setMyContext(oldContext => {
       const newContext = {...oldContext};
-      newContext.composition.RasterEditor[prop].visibility = visibility;
+      newContext.composition[editor][prop].visibility = visibility;
       return newContext;
     });
   };
 
-  const onCMVisibilityChange = (visibility) => {
+  const onEditorVisibilityChange = (visibility, editor) => {
     setMyContext(oldContext => {
       const newContext = {...oldContext};
-      newContext.composition.ColorMapEditor.visibility = visibility;
-      return newContext;
-    });
-  };
-
-  const onRCVisibilityChange = (visibility) => {
-    setMyContext(oldContext => {
-      const newContext = {...oldContext};
-      newContext.composition.RasterChannelEditor.visibility = visibility;
+      newContext.composition[editor].visibility = visibility;
       return newContext;
     });
   };
@@ -138,33 +142,57 @@ function RasterEditorExample () {
       <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
         <Switch
           checked={myContext.composition.RasterEditor.opacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'opacityField')}}
+          onChange={visibility => {onVisibilityChange(visibility, 'RasterEditor', 'opacityField')}}
           checkedChildren="Opacity"
           unCheckedChildren="Opacity"
         />
         <Switch
           checked={myContext.composition.RasterEditor.contrastEnhancementField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'contrastEnhancementField')}}
+          onChange={visibility => {onVisibilityChange(visibility, 'RasterEditor', 'contrastEnhancementField')}}
           checkedChildren="Contrast Enhancement"
           unCheckedChildren="Contrast Enhancement"
         />
         <Switch
           checked={myContext.composition.RasterEditor.gammaValueField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'gammaValueField')}}
+          onChange={visibility => {onVisibilityChange(visibility, 'RasterEditor', 'gammaValueField')}}
           checkedChildren="Gamma"
           unCheckedChildren="Gamma"
         />
         <Switch
           checked={myContext.composition.ColorMapEditor.visibility}
-          onChange={visibility => {onCMVisibilityChange(visibility)}}
+          onChange={visibility => {onEditorVisibilityChange(visibility, 'ColorMapEditor')}}
           checkedChildren="Color Map"
           unCheckedChildren="Color Map"
         />
         <Switch
           checked={myContext.composition.RasterChannelEditor.visibility}
-          onChange={visibility => {onRCVisibilityChange(visibility)}}
+          onChange={visibility => {onEditorVisibilityChange(visibility, 'RasterChannelEditor')}}
           checkedChildren="Channel Selection"
           unCheckedChildren="Channel Selection"
+        />
+        <Switch
+          checked={myContext.composition.RasterChannelEditor.channelSelectionField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'RasterChannelEditor', 'channelSelectionField')}}
+          checkedChildren="Edit Channels"
+          unCheckedChildren="Edit Channels"
+        />
+        <Switch
+          checked={myContext.composition.RasterChannelEditor.sourceChannelNameField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'RasterChannelEditor', 'sourceChannelNameField')}}
+          checkedChildren="Channel Name"
+          unCheckedChildren="Channel Name"
+        />
+        <Switch
+          checked={myContext.composition.RasterChannelEditor.contrastEnhancementField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'RasterChannelEditor', 'contrastEnhancementField')}}
+          checkedChildren="Channel Contrast Enhancement"
+          unCheckedChildren="Channel Contrast Enhancement"
+        />
+        <Switch
+          checked={myContext.composition.RasterChannelEditor.gammaValueField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'RasterChannelEditor', 'gammaValueField')}}
+          checkedChildren="Channel Gamma"
+          unCheckedChildren="Channel Gamma"
         />
       </div>
       <hr />

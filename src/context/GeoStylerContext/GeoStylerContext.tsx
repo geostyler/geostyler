@@ -22,6 +22,7 @@ import {
 import { GammaFieldProps } from '../../Component/Symbolizer/Field/GammaField/GammaField';
 import { IconLibrary } from '../../Component/Symbolizer/IconSelector/IconSelector';
 import { RendererProps } from '../../Component/Renderer/Renderer/Renderer';
+import { ChannelFieldProps } from '../../Component/Symbolizer/Field/ChannelField/ChannelField';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -121,6 +122,12 @@ export type CompositionContext = {
   };
   RasterChannelEditor?: {
     visibility?: boolean;
+    channelSelectionField?: InputConfig<'rgb'|'gray'>;
+    // TODO add support for default values in SourceChannelNameField
+    sourceChannelNameField?: Omit<InputConfig<ChannelFieldProps['channel']['sourceChannelName']>, 'default'>;
+    // TODO add support for default values in ContrastEnhancementField
+    contrastEnhancementField?: Omit<InputConfig<ContrastEnhancementFieldProps['contrastEnhancement']>, 'default'>;
+    gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
   };
   ColorMapEditor?: {
     visibility?: boolean;

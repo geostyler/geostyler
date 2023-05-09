@@ -49,6 +49,7 @@ import ChannelField from '../Field/ChannelField/ChannelField';
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import { GeoStylerLocale } from '../../../locale/locale';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
 interface RasterChannelEditorDefaultProps {
@@ -68,15 +69,23 @@ const COMPONENTNAME = 'RasterChannelEditor';
 /**
  * RasterChannelEditor to map bands to rgb or grayscale
  */
-export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
-  locale = en_US.RasterChannelEditor,
-  sourceChannelNames,
-  onChange,
-  channelSelection,
-  contrastEnhancementTypes
-}) => {
+export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) => {
 
-  const defaultRgbOrGray = !channelSelection ? 'rgb' : isGrayChannel(channelSelection) ? 'gray' : 'rgb';
+  const composition = useGeoStylerComposition('RasterChannelEditor', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.RasterChannelEditor,
+    sourceChannelNames,
+    onChange,
+    channelSelection,
+    contrastEnhancementTypes
+  } = composed;
+
+  const defaultRgbOrGray = !channelSelection
+    ? composition.channelSelectionField?.default || 'rgb'
+    : isGrayChannel(channelSelection) ? 'gray' : 'rgb';
   const [rgbOrGray, setRgbOrGray] = useState(defaultRgbOrGray);
   const defaultSelectedTab = !channelSelection ? 'red' : isGrayChannel(channelSelection) ? 'gray' : 'red';
   const [selectedTab, setSelectedTab] = useState<'red' | 'green' | 'blue' | 'gray'>(defaultSelectedTab);
@@ -141,90 +150,99 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = ({
       >
         <span>{locale.titleLabel}</span>
       </Form.Item>
-      <Form.Item
-        label={locale.channelSelectionLabel}
-      >
-        <Select
-          className="editor-field rgb-or-gray-field"
-          allowClear={true}
-          value={rgbOrGray as 'rgb' | 'gray'}
-          onChange={onSelectionChange}
-        >
-          <Option
-            key="rgb"
-            value="rgb"
-          >{locale.channelSelectionRgbLabel}</Option>
-          <Option
-            key="gray"
-            value="gray"
-          >{locale.channelSelectionGrayLabel}</Option>
-        </Select>
-      </Form.Item>
+      {
+        composition.channelSelectionField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.channelSelectionLabel}
+          >
+            <Select
+              className="editor-field rgb-or-gray-field"
+              allowClear={true}
+              value={rgbOrGray as 'rgb' | 'gray'}
+              onChange={onSelectionChange}
+            >
+              <Option
+                key="rgb"
+                value="rgb"
+              >{locale.channelSelectionRgbLabel}</Option>
+              <Option
+                key="gray"
+                value="gray"
+              >{locale.channelSelectionGrayLabel}</Option>
+            </Select>
+          </Form.Item>
+        )
+      }
       { !rgbOrGray ? null :
-        (
+        rgbOrGray === 'rgb' ? (
           <Tabs
             onChange={onTabChange}
             type="card"
             activeKey={selectedTab}
-            items={
-              rgbOrGray === 'rgb' ? (
-                [{
-                  key: 'red',
-                  label: getTabLabel('red'),
-                  children: (
-                    <ChannelField
-                      channel={redChannel}
-                      contrastEnhancementTypes={contrastEnhancementTypes}
-                      onChange={(channel: Channel) => {
-                        onChannelFieldChange('red', channel);
-                      }}
-                      sourceChannelNames={sourceChannelNames}
-                    />
-                  )
-                }, {
-                  key: 'green',
-                  label: getTabLabel('green'),
-                  children: (
-                    <ChannelField
-                      channel={greenChannel}
-                      contrastEnhancementTypes={contrastEnhancementTypes}
-                      onChange={(channel: Channel) => {
-                        onChannelFieldChange('green', channel);
-                      }}
-                      sourceChannelNames={sourceChannelNames}
-                    />
-                  )
-                }, {
-                  key: 'blue',
-                  label: getTabLabel('blue'),
-                  children: (
-                    <ChannelField
-                      channel={blueChannel}
-                      contrastEnhancementTypes={contrastEnhancementTypes}
-                      onChange={(channel: Channel) => {
-                        onChannelFieldChange('blue', channel);
-                      }}
-                      sourceChannelNames={sourceChannelNames}
-                    />
-                  )
-                }]
-              ) : (
-                [{
-                  key: 'gray',
-                  label: getTabLabel('gray'),
-                  children: (
-                    <ChannelField
-                      channel={grayChannel}
-                      contrastEnhancementTypes={contrastEnhancementTypes}
-                      onChange={(channel: Channel) => {
-                        onChannelFieldChange('gray', channel);
-                      }}
-                      sourceChannelNames={sourceChannelNames}
-                    />
-                  )
-                }]
-              )
-            }
+            items={[
+              {
+                key: 'red',
+                label: getTabLabel('red'),
+                children: (
+                  <ChannelField
+                    channel={redChannel}
+                    contrastEnhancementTypes={contrastEnhancementTypes}
+                    onChange={(channel: Channel) => {
+                      onChannelFieldChange('red', channel);
+                    }}
+                    sourceChannelNames={sourceChannelNames}
+                  />
+                )
+              }, {
+                key: 'green',
+                label: getTabLabel('green'),
+                children: (
+                  <ChannelField
+                    channel={greenChannel}
+                    contrastEnhancementTypes={contrastEnhancementTypes}
+                    onChange={(channel: Channel) => {
+                      onChannelFieldChange('green', channel);
+                    }}
+                    sourceChannelNames={sourceChannelNames}
+                  />
+                )
+              }, {
+                key: 'blue',
+                label: getTabLabel('blue'),
+                children: (
+                  <ChannelField
+                    channel={blueChannel}
+                    contrastEnhancementTypes={contrastEnhancementTypes}
+                    onChange={(channel: Channel) => {
+                      onChannelFieldChange('blue', channel);
+                    }}
+                    sourceChannelNames={sourceChannelNames}
+                  />
+                )
+              }
+            ]}
+          />
+        ) : (
+          <Tabs
+            onChange={onTabChange}
+            type="card"
+            activeKey={'gray'}
+            items={[
+              {
+                key: 'gray',
+                label: getTabLabel('gray'),
+                children: (
+                  <ChannelField
+                    channel={grayChannel}
+                    contrastEnhancementTypes={contrastEnhancementTypes}
+                    onChange={(channel: Channel) => {
+                      onChannelFieldChange('gray', channel);
+                    }}
+                    sourceChannelNames={sourceChannelNames}
+                  />
+                )
+              }
+            ]}
           />
         )
       }
