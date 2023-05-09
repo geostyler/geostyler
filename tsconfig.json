@@ -19,7 +19,6 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": false,
-    "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
     "skipLibCheck": true
