@@ -115,7 +115,8 @@ export type CompositionContext = {
   RasterEditor?: {
     visibility?: boolean;
     opacityField?: InputConfig<OpacityFieldProps['opacity']>;
-    contrastEnhancementField?: InputConfig<ContrastEnhancementFieldProps['contrastEnhancement']>;
+    // TODO add support for default values in ContrastEnhancementField
+    contrastEnhancementField?: Omit<InputConfig<ContrastEnhancementFieldProps['contrastEnhancement']>, 'default'>;
     gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
   };
   RasterChannelEditor?: {

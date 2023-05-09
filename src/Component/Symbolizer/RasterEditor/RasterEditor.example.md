@@ -69,3 +69,114 @@ class RasterEditorExample extends React.Component {
 
 <RasterEditorExample />
 ```
+
+This demonstrates the usage of `RasterEditor` with `GeoStylerContext`.
+
+```jsx
+import React, { useState } from 'react';
+import { Switch } from 'antd';
+import { RasterEditor, GeoStylerContext } from 'geostyler';
+
+function RasterEditorExample () {
+
+  const [myContext, setMyContext] = useState({
+    composition: {
+      RasterEditor: {
+        opacityField: {
+          visibility: true
+        },
+        contrastEnhancementField: {
+          visibility: true
+        },
+        gammaValueField: {
+          visibility: true
+        },
+      },
+      ColorMapEditor: {
+        visibility: true
+      },
+      RasterChannelEditor: {
+        visibility: true
+      }
+    }
+  });
+
+  const [symbolizer, setSymbolizer] = useState({
+    kind: 'Raster'
+  });
+
+  const onSymbolizerChange = (s) => {
+    setSymbolizer(s);
+  };
+
+  const onVisibilityChange = (visibility, prop) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.RasterEditor[prop].visibility = visibility;
+      return newContext;
+    });
+  };
+
+  const onCMVisibilityChange = (visibility) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.ColorMapEditor.visibility = visibility;
+      return newContext;
+    });
+  };
+
+  const onRCVisibilityChange = (visibility) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.RasterChannelEditor.visibility = visibility;
+      return newContext;
+    });
+  };
+
+  return (
+    <div>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+        <Switch
+          checked={myContext.composition.RasterEditor.opacityField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'opacityField')}}
+          checkedChildren="Opacity"
+          unCheckedChildren="Opacity"
+        />
+        <Switch
+          checked={myContext.composition.RasterEditor.contrastEnhancementField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'contrastEnhancementField')}}
+          checkedChildren="Contrast Enhancement"
+          unCheckedChildren="Contrast Enhancement"
+        />
+        <Switch
+          checked={myContext.composition.RasterEditor.gammaValueField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'gammaValueField')}}
+          checkedChildren="Gamma"
+          unCheckedChildren="Gamma"
+        />
+        <Switch
+          checked={myContext.composition.ColorMapEditor.visibility}
+          onChange={visibility => {onCMVisibilityChange(visibility)}}
+          checkedChildren="Color Map"
+          unCheckedChildren="Color Map"
+        />
+        <Switch
+          checked={myContext.composition.RasterChannelEditor.visibility}
+          onChange={visibility => {onRCVisibilityChange(visibility)}}
+          checkedChildren="Channel Selection"
+          unCheckedChildren="Channel Selection"
+        />
+      </div>
+      <hr />
+      <GeoStylerContext.Provider value={myContext}>
+        <RasterEditor
+          symbolizer={symbolizer}
+          onSymbolizerChange={onSymbolizerChange}
+        />
+      </GeoStylerContext.Provider>
+    </div>
+  );
+};
+
+<RasterEditorExample />
+```
