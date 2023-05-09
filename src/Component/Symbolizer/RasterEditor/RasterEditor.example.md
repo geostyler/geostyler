@@ -93,7 +93,22 @@ function RasterEditorExample () {
         },
       },
       ColorMapEditor: {
-        visibility: true
+        visibility: true,
+        colorMapTypeField: {
+          visibility: true
+        },
+        nrOfClassesField: {
+          visibility: true
+        },
+        colorRampComboField: {
+          visibility: true
+        },
+        extendedField: {
+          visibility: true
+        },
+        colorMapTable: {
+          visibility: true
+        }
       },
       RasterChannelEditor: {
         visibility: true,
@@ -193,6 +208,36 @@ function RasterEditorExample () {
           onChange={visibility => {onVisibilityChange(visibility, 'RasterChannelEditor', 'gammaValueField')}}
           checkedChildren="Channel Gamma"
           unCheckedChildren="Channel Gamma"
+        />
+        <Switch
+          checked={myContext.composition.ColorMapEditor.colorMapTypeField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'colorMapTypeField')}}
+          checkedChildren="Color Map Type"
+          unCheckedChildren="Color Map Type"
+        />
+        <Switch
+          checked={myContext.composition.ColorMapEditor.nrOfClassesField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'nrOfClassesField')}}
+          checkedChildren="Nr. of classes"
+          unCheckedChildren="Nr. of classes"
+        />
+        <Switch
+          checked={myContext.composition.ColorMapEditor.colorRampComboField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'colorRampComboField')}}
+          checkedChildren="Color Ramp"
+          unCheckedChildren="Color Ramp"
+        />
+        <Switch
+          checked={myContext.composition.ColorMapEditor.extendedField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'extendedField')}}
+          checkedChildren="Color Depth"
+          unCheckedChildren="Color Depth"
+        />
+        <Switch
+          checked={myContext.composition.ColorMapEditor.colorMapTable.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'colorMapTable')}}
+          checkedChildren="Color Map Table"
+          unCheckedChildren="Color Map Table"
         />
       </div>
       <hr />
