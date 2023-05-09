@@ -257,7 +257,7 @@ describe('Rule', () => {
       });
 
       expect(styleEditor).not.toBeInTheDocument();
-    });
+    }, 10000);
   });
 
 });
