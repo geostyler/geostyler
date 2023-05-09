@@ -440,7 +440,7 @@ const hr_HR: GeoStylerLocale = {
     partiallySupported: 'Samo djelomično podržano od strane odabranog parsera.'
   },
   FunctionNameCombo: {
-    placeholder: '… geostyler function'
+    placeholder: '… odaberite GeoStylerFunction'
   },
   ...antd_hr_HR
 };

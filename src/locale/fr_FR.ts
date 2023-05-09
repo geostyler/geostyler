@@ -441,7 +441,7 @@ const fr_FR: GeoStylerLocale = {
     partiallySupported: 'Partiellement supporté par le parser sélectionné.'
   },
   FunctionNameCombo: {
-    placeholder: '… une geostyler function'
+    placeholder: '… choisissez GeoStylerFunction'
   },
   ...antd_fr_FR
 };

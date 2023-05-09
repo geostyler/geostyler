@@ -441,7 +441,7 @@ const zh_CN: GeoStylerLocale = {
     partiallySupported: '只被选定的解析器部分支持'
   },
   FunctionNameCombo: {
-    placeholder: '… 地质学家功能'
+    placeholder: '… 选择GeoStylerFunction'
   },
   ...antd_zh_CN
 };

@@ -441,7 +441,7 @@ const es_ES: GeoStylerLocale = {
     partiallySupported: 'TODO(es_ES):Only partially supported by selected parser.'
   },
   FunctionNameCombo: {
-    placeholder: '… una geostyler function'
+    placeholder: '… elija GeoStylerFunction'
   },
   ...antd_es_ES
 };
