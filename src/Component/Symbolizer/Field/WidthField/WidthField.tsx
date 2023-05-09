@@ -26,12 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
-import { InputNumber, InputNumberProps } from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
+import React from 'react';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-export interface WidthFieldProps extends InputNumberProps<number> {
+type InputProps = NumberExpressionInputProps['inputProps'];
+
+export interface WidthFieldProps extends InputProps {
   width?: number;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
@@ -43,13 +47,20 @@ export const WidthField: React.FC<WidthFieldProps> = ({
   ...inputNumberProps
 }) => {
 
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field width-field"
-      min={0}
       value={width}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputNumberProps}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        min: 0
+      }}
     />
   );
 };

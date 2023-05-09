@@ -33,6 +33,7 @@ import {
 } from 'antd';
 
 import {
+  Expression,
   Symbolizer,
   TextSymbolizer
 } from 'geostyler-style';
@@ -130,7 +131,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
-  const onSizeChange = (value: number) => {
+  const onSizeChange = (value: Expression<number>) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.size = value;
     if (onSymbolizerChange) {
@@ -172,7 +173,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
-  const onHaloWidthChange = (value: number) => {
+  const onHaloWidthChange = (value: Expression<number>) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.haloWidth = value;
     if (onSymbolizerChange) {

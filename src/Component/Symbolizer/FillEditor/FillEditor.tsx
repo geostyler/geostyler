@@ -36,7 +36,8 @@ import {
   Symbolizer,
   FillSymbolizer,
   PointSymbolizer,
-  GraphicType
+  GraphicType,
+  Expression
 } from 'geostyler-style';
 
 import ColorField from '../Field/ColorField/ColorField';
@@ -131,7 +132,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     }
   };
 
-  const onOutlineWidthChange = (value: number) => {
+  const onOutlineWidthChange = (value: Expression<number>) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
     symbolizerClone.outlineWidth = value;
     if (onSymbolizerChange) {

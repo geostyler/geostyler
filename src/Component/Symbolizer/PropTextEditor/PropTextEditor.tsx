@@ -29,6 +29,7 @@
 import * as React from 'react';
 
 import {
+  Expression,
   Symbolizer,
   TextSymbolizer
 } from 'geostyler-style';
@@ -116,7 +117,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onSizeChange = (value: number|string) => {
+  const onSizeChange = (value: Expression<number>) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.size = value as number;
     if (onSymbolizerChange) {
@@ -164,7 +165,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onHaloWidthChange = (value: number|string) => {
+  const onHaloWidthChange = (value: Expression<number>) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.haloWidth = value as number;
     if (onSymbolizerChange) {

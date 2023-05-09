@@ -45,14 +45,16 @@ import './NumberExpressionInput.less';
 
 export interface NumberExpressionInputProps {
   value?: Expression<number>;
-  inputProps?: InputNumberProps;
+  inputProps?: Omit<InputNumberProps, 'value' | 'onChange' | 'className'>;
   functionUiProps?: FunctionUIProps<GeoStylerNumberFunction>;
   onChange?: (newValue: Expression<number> | undefined) => void;
+  onCancel?: (type: 'number') => void;
   className?: string;
 }
 
 export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
   onChange,
+  onCancel,
   value,
   className,
   inputProps,
@@ -72,6 +74,7 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
           value={value}
           {...functionUiProps}
           onChange={onChange}
+          onCancel={() => onCancel('number')}
         />
       </span>
     );

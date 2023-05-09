@@ -29,6 +29,7 @@
 import * as React from 'react';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import {
+  Expression,
   MarkSymbolizer,
   Symbolizer
 } from 'geostyler-style';
@@ -132,7 +133,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     }
   };
 
-  const onStrokeWidthChange = (value: number) => {
+  const onStrokeWidthChange = (value: Expression<number>) => {
     const cloneSymbolizer = _cloneDeep(symbolizer);
     cloneSymbolizer.strokeWidth = value;
     if (onSymbolizerChange) {
