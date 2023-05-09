@@ -65,14 +65,18 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
   }
 
   if (isGeoStylerFunction(value)) {
-    <FunctionUI
-      type='number'
-      value={value}
-      {...functionUiProps}
-      // TODO: can we fix this?
-      // @ts-ignore
-      onChange={onChange}
-    />;
+    return (
+      <span className={finalClassName}>
+        <FunctionUI
+          type='number'
+          value={value}
+          {...functionUiProps}
+          // TODO: can we fix this?
+          // @ts-ignore
+          onChange={onChange}
+        />
+      </span>
+    );
   }
 
   return (
