@@ -71,22 +71,18 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
           />
         )
       }
-      <AntdBreadcrumb className="gs-breadcrumb-crumbs">
-        {
-          crumbs.map((crumb: Crumb, idx: number) => {
-            return (
-              <AntdBreadcrumb.Item
-                key={idx}
-                onClick={() => {
-                  onClick(crumb.view, crumb.indices);
-                }}
-              >
-                <span>{crumb.title}</span>
-              </AntdBreadcrumb.Item>
-            );
-          })
-        }
-      </AntdBreadcrumb>
+      <AntdBreadcrumb
+        className="gs-breadcrumb-crumbs"
+        items={crumbs.map((crumb: Crumb, idx: number) => {
+          return {
+            key: idx,
+            title: crumb.title,
+            onClick: () => {
+              onClick(crumb.view, crumb.indices);
+            }
+          };
+        })}
+      />
     </div>
   );
 };

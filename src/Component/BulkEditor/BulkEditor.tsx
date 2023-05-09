@@ -28,7 +28,7 @@
 
 import React, { useState } from 'react';
 
-import { Form, Input } from 'antd';
+import { Form, Space } from 'antd';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
@@ -124,7 +124,9 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
       <Form.Item
         label={locale.symbolLabel}
       >
-        <Input.Group compact>
+        <Space.Compact
+          size="small"
+        >
           <Form.Item
             noStyle
           >
@@ -156,7 +158,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
               )
             }
           </Form.Item>
-        </Input.Group>
+        </Space.Compact>
       </Form.Item>
     </div>
   );

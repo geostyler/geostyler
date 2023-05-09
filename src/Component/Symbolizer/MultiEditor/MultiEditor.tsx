@@ -40,7 +40,6 @@ import { Data } from 'geostyler-data';
 
 import { Tabs, Button } from 'antd';
 import Editor from '../Editor/Editor';
-const TabPane = Tabs.TabPane;
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
@@ -49,6 +48,7 @@ import { IconLibrary } from '../IconSelector/IconSelector';
 
 import _isEqual from 'lodash/isEqual';
 import { GeoStylerLocale } from '../../../locale/locale';
+import { Tab } from 'rc-tabs/lib/interface';
 
 
 // default props
@@ -101,34 +101,35 @@ export const MultiEditor: React.FC<MultiEditorProps> = ({
     }
   };
 
-  const tabs = symbolizers.map((symbolizer: Symbolizer, idx: number) => {
-    return (
-      <TabPane
-        className="gs-symbolizer-multi-editor-tab"
-        key={idx.toString()}
-        tab={idx}
-        closable={true}
-      >
-        <Editor
-          symbolizer={symbolizer}
-          onSymbolizerChange={(sym: Symbolizer) => {
-            onSymbolizerChange(sym, idx);
-          }}
-          internalDataDef={internalDataDef}
-          iconLibraries={iconLibraries}
-          {...editorProps}
-        />
-        {symbolizers.length === 1 ? null :
-          <Button
-            onClick={() => {
-              removeSymbolizer(idx);
+  const tabs: Tab[] = symbolizers.map((symbolizer: Symbolizer, idx: number) => {
+    return {
+      className: 'gs-symbolizer-multi-editor-tab',
+      key: idx.toString(),
+      closable: true,
+      label: idx,
+      children: (
+        <>
+          <Editor
+            symbolizer={symbolizer}
+            onSymbolizerChange={(sym: Symbolizer) => {
+              onSymbolizerChange(sym, idx);
             }}
-          >
-            {locale.remove}
-          </Button>
-        }
-      </TabPane>
-    );
+            internalDataDef={internalDataDef}
+            iconLibraries={iconLibraries}
+            {...editorProps}
+          />
+          {symbolizers.length === 1 ? null :
+            <Button
+              onClick={() => {
+                removeSymbolizer(idx);
+              }}
+            >
+              {locale.remove}
+            </Button>
+          }
+        </>
+      )
+    };
   });
 
   return (
@@ -141,10 +142,9 @@ export const MultiEditor: React.FC<MultiEditorProps> = ({
           {locale.add}
         </Button>
       )}
+      items={tabs}
       {...passThroughProps}
-    >
-      {tabs}
-    </Tabs>
+    />
   );
 };
 

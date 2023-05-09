@@ -171,7 +171,7 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
             <Modal
               className="wfs-parser-modal"
               title={activeParser.title}
-              visible={modalVisible}
+              open={modalVisible}
               onCancel={closeModal}
               onOk={closeModal}
             >
