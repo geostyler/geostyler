@@ -184,6 +184,6 @@ module.exports = {
     sectionDepth: 2
   }],
   require: [
-    path.join(__dirname, 'node_modules/antd/dist/antd.css')
+    path.join(__dirname, 'node_modules/antd/dist/reset.css')
   ]
 };
