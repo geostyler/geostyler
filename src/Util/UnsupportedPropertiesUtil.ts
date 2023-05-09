@@ -65,7 +65,8 @@ class UnsupportedPropertiesUtil {
     const unsupportedSymbolizerProps = UnsupportedPropertiesUtil
       .getUnsupportedPropsForSymbolizer<T>(unsupportedProperties, symbolizerName);
 
-    const val = unsupportedSymbolizerProps?.[(propName as keyof UnsupportedSymbolizerProps<T>)] as SupportDef;
+    const prop = propName as keyof UnsupportedSymbolizerProps<T>;
+    const val = unsupportedSymbolizerProps?.[prop] as SupportDef;
     if (val) {
       props.hasFeedback = true;
       if (val === 'none') {
@@ -91,7 +92,8 @@ class UnsupportedPropertiesUtil {
     unsupportedProperties: UnsupportedProperties,
     symbolizerName: SymbolizerName
   ): UnsupportedSymbolizerProps<T> => {
-    return unsupportedProperties?.Symbolizer?.[symbolizerName as keyof UnsupportedProperties['Symbolizer']];
+    const symbolizer = symbolizerName as keyof UnsupportedProperties['Symbolizer'];
+    return unsupportedProperties?.Symbolizer?.[symbolizer];
   };
 }
 
