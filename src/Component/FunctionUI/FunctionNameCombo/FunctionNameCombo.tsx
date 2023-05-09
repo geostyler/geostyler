@@ -37,6 +37,7 @@ import { GeoStylerFunction } from 'geostyler-style';
 import { NodeCollapseOutlined } from '@ant-design/icons';
 
 import './FunctionNameCombo.less';
+import en_US from '../../../locale/en_US';
 
 type Type = 'string' | 'number' | 'boolean' | 'unknown';
 
@@ -59,13 +60,7 @@ export const FunctionNameCombo: React.FC<FunctionNameComboProps> = ({
   size
 }) => {
 
-  const {
-    locale = {
-      FunctionNameCombo: {
-        placeholder: '… a geostyler function'
-      }
-    }
-  } = useGeoStylerContext();
+  const { locale = en_US } = useGeoStylerContext();
 
   const options: BaseOptionType[] = functionConfigs
     .filter(config => {

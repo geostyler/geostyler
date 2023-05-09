@@ -439,6 +439,9 @@ const hr_HR: GeoStylerLocale = {
     notSupported: 'Nije podržano od strane odabranog parsera.',
     partiallySupported: 'Samo djelomično podržano od strane odabranog parsera.'
   },
+  FunctionNameCombo: {
+    placeholder: '… geostyler function'
+  },
   ...antd_hr_HR
 };
 export default hr_HR;

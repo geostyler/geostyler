@@ -437,8 +437,11 @@ const zh_CN: GeoStylerLocale = {
     label: '价值'
   },
   UnsupportedPropertiesUtil: {
-    notSupported: 'TODO(zh_CN):Not supported by selected parser.',
-    partiallySupported: 'TODO(zh_CN):Only partially supported by selected parser.'
+    notSupported: '所选分析器不支持',
+    partiallySupported: '只被选定的解析器部分支持'
+  },
+  FunctionNameCombo: {
+    placeholder: '… 地质学家功能'
   },
   ...antd_zh_CN
 };
