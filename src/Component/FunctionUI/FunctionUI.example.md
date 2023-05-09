@@ -33,31 +33,34 @@ This demonstrates the usage of the `FunctionUI` component.
 ```jsx
 import React, { useState } from 'react';
 import { FunctionUI } from 'geostyler';
+import { Radio } from 'antd';
 
 const FunctionUIExample = () => {
 
-  const [gsFunction, setGsFunction] = useState({
-    name: 'strReplace',
-    args: [
-      {
-        name: 'property',
-        args: ['name']
-      },
-      'people',
-      'human',
-      true
-    ]
-  });
+  const [type, setType] = useState('string');
+  const [gsFunction, setGsFunction] = useState();
 
   const style = {
     height: '300px',
     width: '300px'
   };
 
+  const onChange = (evt) => {
+    setType(evt.target.value);
+    setGsFunction();
+  };
+
   return (
     <div style={style}>
+      Function Type:
+      <Radio.Group onChange={onChange} value={type} >
+        <Radio.Button value="string">string</Radio.Button>
+        <Radio.Button value="number">number</Radio.Button>
+        <Radio.Button value="boolean">boolean</Radio.Button>
+      </Radio.Group>
+      <div style={{height: '10px'}} />
       <FunctionUI
-        type='string'
+        type={type}
         value={gsFunction}
         onChange={setGsFunction}
       />

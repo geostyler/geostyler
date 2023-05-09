@@ -45,7 +45,7 @@ type Type = 'string' | 'number' | 'boolean' | 'unknown';
 
 export interface FunctionUIProps<T extends GeoStylerFunction> {
   type: Type;
-  value: T;
+  value?: T;
   onChange?: (newValue: T) => void;
   onCancel?: (type: Type) => void;
 }
@@ -58,9 +58,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
   ...passThroughProps
 }) => {
 
-  const {
-    name
-  } = value;
+  const name = value?.name;
 
   const getUiForFunction = (func: GeoStylerFunction) => {
     const config = functionConfigs.find(cfg => cfg.name === func.name);
@@ -77,7 +75,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
       functionArgs = func.args;
     }
 
-    if (isGeoStylerFunction(functionArgs[index])) {
+    if (isGeoStylerFunction(functionArgs?.[index])) {
       return (
         <div className='gs-function-arg'>
           <i className='tree-icon' />
@@ -99,7 +97,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
         <div className='gs-function-arg'>
           <i className='tree-icon' />
           <NumberExpressionInput
-            value={functionArgs[index]}
+            value={functionArgs?.[index]}
             onChange={(val) => {
               updateFunctionArg(val, index);
             }}
@@ -114,7 +112,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
         <div className='gs-function-arg'>
           <i className='tree-icon' />
           <StringExpressionInput
-            value={functionArgs[index]}
+            value={functionArgs?.[index]}
             onChange={(val) => {
               updateFunctionArg(val, index);
             }}
@@ -129,7 +127,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
         <div className='gs-function-arg'>
           <i className='tree-icon' />
           <BooleanExpressionInput
-            value={functionArgs[index]}
+            value={functionArgs?.[index]}
             onChange={(val) => {
               updateFunctionArg(val, index);
             }}
@@ -138,7 +136,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
         </div>
       );
     }
-    return functionArgs[index].toString();
+    return functionArgs[index]?.toString();
   };
 
   function updateFunctionArg(newArgumentValue: PropertyType, index: number) {
@@ -146,6 +144,9 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
       return;
     }
     const newValue = structuredClone(value);
+    if (!Array.isArray(newValue.args)) {
+      newValue.args = [];
+    }
     newValue.args[index] = newArgumentValue as any;
     onChange?.(newValue);
   };
@@ -166,7 +167,7 @@ export const FunctionUI: React.FC<FunctionUIProps<GeoStylerFunction>> = ({
         onChange={updateFunctionName}
         onCancel={onCancel}
       />
-      {getUiForFunction(value)}
+      {value && getUiForFunction(value)}
     </div>
   );
 };
