@@ -102,7 +102,8 @@ export type CompositionContext = {
     visibility?: boolean;
     templateField?: InputConfig<string>;
     colorField?: InputConfig<ColorFieldProps['color']>;
-    fontField?: InputConfig<FontPickerProps['font']>;
+    // TODO add support for default values in FontPicker
+    fontField?: Omit<InputConfig<FontPickerProps['font']>, 'default'>;
     opacityField?: InputConfig<OpacityFieldProps['opacity']>;
     sizeField?: InputConfig<SizeFieldProps['size']>;
     offsetXField?: InputConfig<OffsetFieldProps['offset']>;
