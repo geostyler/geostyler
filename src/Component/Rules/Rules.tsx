@@ -53,6 +53,7 @@ import en_US from '../../locale/en_US';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { SortableItem } from '../SortableItem/SortableItem';
 import { RemovableItem } from '../RemovableItem/RemovableItem';
+import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
 interface RulesDefaultProps {
@@ -82,16 +83,23 @@ export interface RulesProps extends Partial<RulesDefaultProps> {
   onEditRuleClick?: (ruleId: number) => void;
 }
 
-export const Rules: React.FC<RulesProps> = ({
-  locale = en_US.Rules,
-  data,
-  rules,
-  onRulesChange,
-  onClassificationClick,
-  onEditSelectionClick,
-  onEditRuleClick,
-  enableClassification = true
-}) => {
+export const Rules: React.FC<RulesProps> = (props) => {
+
+  const composition = useGeoStylerComposition('Rule', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.Rules,
+    data,
+    rules,
+    onRulesChange,
+    onClassificationClick,
+    onEditSelectionClick,
+    onEditRuleClick,
+    enableClassification = true
+  } = composed;
+
   const [multiEditActive, setMultiEditActive] = useState<boolean>(false);
   const [selectedRules, setSelectedRules] = useState<number[]>([]);
   const toggleMultiEdit = () => {

@@ -31,52 +31,152 @@
 This demonstrates the use of `RuleTable`.
 
 ```jsx
-import * as React from 'react';
+import React, { useState } from 'react';
 import { RuleTable } from 'geostyler';
 
-class RuleTableExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      style: {
-        "name": "Demo Style",
-        "rules": [
+function RuleTableExample() {
+  const [style, setStyle] = useState({
+    name: "Demo Style",
+    rules: [
+      {
+        name: "Rule 1",
+        symbolizers: [
           {
-            "name": "Rule 1",
-            "symbolizers": [
-              {
-                "kind": "Mark",
-                "wellKnownName": "circle"
-              }
-            ]
+            kind: "Mark",
+            wellKnownName: "circle"
           }
         ]
       }
-    };
+    ]
+  });
 
-    this.onRulesChange = this.onRulesChange.bind(this);
-  }
+  const onRulesChange = (rules) => {
+    const newStyle = JSON.parse(JSON.stringify(style));
+    newStyle.rules = rules;
+    setStyle(newStyle);
+  };
 
-  onRulesChange(rules) {
-    const style = JSON.parse(JSON.stringify(this.state.style));
-    style.rules = rules;
-    this.setState({style});
-  }
+  return (
+    <RuleTable
+      rules={style.rules}
+      onRulesChange={onRulesChange}
+    />
+  );
+}
 
-  render() {
-    const {
-      style
-    } = this.state;
-    const rules = style.rules;
+<RuleTableExample />
+```
 
-    return (
-      <RuleTable
-        rules={rules}
-        onRulesChange={this.onRulesChange}
-      />
-    );
-  }
+This demonstrates the use of `RuleTable` with `GeoStylerContext`.
+
+```jsx
+import React, { useState } from 'react';
+import { Switch } from 'antd';
+import { GeoStylerContext, RuleTable } from 'geostyler';
+
+function RuleTableExample() {
+  const [myContext, setMyContext] = useState({
+    composition: {
+      Rule: {
+        name: {
+          visibility: true
+        },
+        filter: {
+          visibility: true
+        },
+        minScale: {
+          visibility: true
+        },
+        maxScale: {
+          visibility: true
+        },
+        amount: {
+          visibility: true
+        },
+        duplicate: {
+          visibility: true
+        }
+      }
+    }
+  });
+  const [style, setStyle] = useState({
+    name: "Demo Style",
+    rules: [
+      {
+        name: "Rule 1",
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle"
+          }
+        ]
+      }
+    ]
+  });
+
+  const onRulesChange = (rules) => {
+    const newStyle = JSON.parse(JSON.stringify(style));
+    newStyle.rules = rules;
+    setStyle(newStyle);
+  };
+
+  const onVisibilityChange = (visibility, prop) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.Rule[prop].visibility = visibility;
+      return newContext;
+    });
+  };
+
+  return (
+    <div>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+        <Switch
+          checked={myContext.composition.Rule.name.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'name')}}
+          checkedChildren="Name"
+          unCheckedChildren="Name"
+        />
+        <Switch
+          checked={myContext.composition.Rule.filter.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'filter')}}
+          checkedChildren="Filter"
+          unCheckedChildren="Filter"
+        />
+        <Switch
+          checked={myContext.composition.Rule.minScale.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'minScale')}}
+          checkedChildren="Min. Scale"
+          unCheckedChildren="Min. Scale"
+        />
+        <Switch
+          checked={myContext.composition.Rule.maxScale.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'maxScale')}}
+          checkedChildren="Max. Scale"
+          unCheckedChildren="Max. Scale"
+        />
+        <Switch
+          checked={myContext.composition.Rule.amount.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'amount')}}
+          checkedChildren="Amount"
+          unCheckedChildren="Amount"
+        />
+        <Switch
+          checked={myContext.composition.Rule.duplicate.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'duplicate')}}
+          checkedChildren="Duplicate"
+          unCheckedChildren="Duplicate"
+        />
+      </div>
+      <hr/>
+      <GeoStylerContext.Provider value={myContext}>
+        <RuleTable
+          rules={style.rules}
+          onRulesChange={onRulesChange}
+        />
+      </GeoStylerContext.Provider>
+    </div>
+  );
 }
 
 <RuleTableExample />

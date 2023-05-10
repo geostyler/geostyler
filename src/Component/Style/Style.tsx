@@ -119,11 +119,6 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   sldRendererProps?: SLDRendererAdditonalProps;
   /** List of supported icons ordered as library */
   iconLibraries?: IconLibrary[];
-  /** Display the number of features that match a rule */
-  showAmountColumn?: boolean;
-  /** Display the number of features that match more than one rule */
-  showDuplicatesColumn?: boolean;
-  /** Object containing the predefined color ramps */
   colorRamps?: {
     [name: string]: string[];
   };
@@ -152,8 +147,6 @@ export const Style: React.FC<StyleProps> = ({
   ruleRendererType,
   sldRendererProps,
   iconLibraries,
-  showAmountColumn,
-  showDuplicatesColumn,
   colorRamps,
   useBrewerColorRamps,
   colorSpaces,
@@ -513,8 +506,6 @@ export const Style: React.FC<StyleProps> = ({
           data={data}
           footer={createFooter}
           iconLibraries={iconLibraries}
-          showAmountColumn={showAmountColumn}
-          showDuplicatesColumn={showDuplicatesColumn}
           colorRamps={colorRamps}
           {...ruleTableProps}
         />

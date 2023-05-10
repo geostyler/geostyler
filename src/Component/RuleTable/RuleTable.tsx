@@ -71,6 +71,7 @@ import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
 import type GeoStylerLocale from '../../locale/locale';
 import Renderer from '../Renderer/Renderer/Renderer';
+import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 
 // i18n
 export interface RuleTableLocale {
@@ -101,10 +102,6 @@ interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
   locale: GeoStylerLocale['RuleTable'];
   /** The renderer to use */
   rendererType: 'SLD' | 'OpenLayers';
-  /** Display the number of features that match a rule */
-  showAmountColumn: boolean;
-  /** Display the number of features that match more than one rule */
-  showDuplicatesColumn: boolean;
 }
 
 // non default props
@@ -136,21 +133,25 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
 const COMPONENTNAME = 'RuleTable';
 
 // export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
-export const RuleTable: React.FC<RuleTableProps> = ({
-  locale = en_US.RuleTable,
-  rendererType = 'OpenLayers',
-  showAmountColumn = true,
-  showDuplicatesColumn = true,
-  data: dataProp,
-  rules: rulesProp,
-  onRulesChange,
-  filterUiProps,
-  iconLibraries,
-  colorRamps,
-  sldRendererProps,
-  oLRendererProps,
-  ...restProps
-}) => {
+export const RuleTable: React.FC<RuleTableProps> = (props) => {
+
+  const composition = useGeoStylerComposition('Rule', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.RuleTable,
+    rendererType = 'OpenLayers',
+    data: dataProp,
+    rules: rulesProp,
+    onRulesChange,
+    filterUiProps,
+    iconLibraries,
+    colorRamps,
+    sldRendererProps,
+    oLRendererProps,
+    ...restProps
+  } = composed;
 
   const [ruleEditIndex, setRuleEditIndex] = useState<number>();
   const [symbolizerEditorVisible, setSymbolizerEditorVisible] = useState<boolean>();
@@ -405,32 +406,49 @@ export const RuleTable: React.FC<RuleTableProps> = ({
       </Tooltip>),
     dataIndex: 'symbolizers',
     render: symbolizerRenderer
-  }, {
-    title: locale.nameColumnTitle,
-    dataIndex: 'name',
-    render: nameRenderer
-  }, {
-    title: locale.filterColumnTitle,
-    dataIndex: 'filter',
-    render: filterRenderer
-  }, {
-    title: locale.minScaleColumnTitle,
-    dataIndex: 'minScale',
-    render: minScaleRenderer
-  }, {
-    title: locale.maxScaleColumnTitle,
-    dataIndex: 'maxScale',
-    render: maxScaleRenderer
   }];
 
-  if (showAmountColumn) {
+  if (!(composition.name?.visibility === false)) {
+    columns.push({
+      title: locale.nameColumnTitle,
+      dataIndex: 'name',
+      render: nameRenderer
+    });
+  }
+
+  if (!(composition.filter?.visibility === false)) {
+    columns.push({
+      title: locale.filterColumnTitle,
+      dataIndex: 'filter',
+      render: filterRenderer
+    });
+  }
+
+  if (!(composition.minScale?.visibility === false)) {
+    columns.push({
+      title: locale.minScaleColumnTitle,
+      dataIndex: 'minScale',
+      render: minScaleRenderer
+    });
+  }
+
+  if (!(composition.maxScale?.visibility === false)) {
+    columns.push({
+      title: locale.maxScaleColumnTitle,
+      dataIndex: 'maxScale',
+      render: maxScaleRenderer
+    });
+  }
+
+  if (!(composition.amount?.visibility === false)) {
     columns.push({
       title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
       dataIndex: 'amount',
       render: amountRenderer
     });
   }
-  if (showDuplicatesColumn) {
+
+  if (!(composition.duplicate?.visibility === false)) {
     columns.push({
       title: (
         <Tooltip title={locale.duplicatesColumnTitle}>
