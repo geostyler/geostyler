@@ -26,15 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-import { InputNumber } from 'antd';
-import { InputNumberProps } from 'antd/lib/input-number';
-import FieldUtil from '../../../../Util/FieldUtil';
+type InputProps = NumberExpressionInputProps['inputProps'];
 
-// non default props
-export interface OffsetFieldProps extends InputNumberProps<number> {
-  offset?: number;
+export interface OffsetFieldProps extends InputProps {
+  offset?: Expression<number>;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
@@ -43,16 +44,23 @@ export interface OffsetFieldProps extends InputNumberProps<number> {
 export const OffsetField: React.FC<OffsetFieldProps> = ({
   offset,
   onChange,
-  ...inputProps
+  ...inputNumberProps
 }) => {
 
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field offset-field"
       value={offset}
-      step={1}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        step: 1
+      }}
     />
   );
 };

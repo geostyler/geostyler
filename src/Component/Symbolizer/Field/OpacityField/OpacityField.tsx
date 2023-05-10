@@ -26,17 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-import {
-  InputNumber
-} from 'antd';
-import { InputNumberProps } from 'antd/lib/input-number';
-import FieldUtil from '../../../../Util/FieldUtil';
+type InputProps = NumberExpressionInputProps['inputProps'];
 
-// non default props
-export interface OpacityFieldProps extends Partial<InputNumberProps<number>> {
-  opacity?: number;
+export interface OpacityFieldProps extends InputProps {
+  value?: Expression<number>;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
@@ -44,19 +43,26 @@ export interface OpacityFieldProps extends Partial<InputNumberProps<number>> {
  */
 export const OpacityField: React.FC<OpacityFieldProps> = ({
   onChange,
-  opacity,
-  ...inputProps
+  value,
+  ...inputNumberProps
 }) => {
 
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field opacity-field"
-      min={0}
-      max={1}
-      step={0.01}
-      value={opacity}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
+      value={value}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        min: 0,
+        max: 1,
+        step: 1
+      }}
     />
   );
 };

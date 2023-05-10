@@ -44,12 +44,12 @@ import { FunctionOutlined } from '@ant-design/icons';
 import './NumberExpressionInput.less';
 
 export interface NumberExpressionInputProps {
-  value?: Expression<number>;
-  inputProps?: Omit<InputNumberProps, 'value' | 'onChange' | 'className'>;
-  functionUiProps?: FunctionUIProps<GeoStylerNumberFunction>;
-  onChange?: (newValue: Expression<number> | undefined) => void;
-  onCancel?: (type: 'number') => void;
   className?: string;
+  functionUiProps?: FunctionUIProps<GeoStylerNumberFunction>;
+  inputProps?: Omit<InputNumberProps, 'value' | 'onChange' | 'className'>;
+  onCancel?: (type: 'number') => void;
+  onChange?: (newValue: Expression<number> | undefined) => void;
+  value?: Expression<number>;
 }
 
 export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
@@ -83,7 +83,7 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
   return (
     <span className={finalClassName}>
       <InputNumber
-        value={value as number}
+        value={value}
         onChange={(val) => {
           if (val === null) {
             onChange?.(undefined);

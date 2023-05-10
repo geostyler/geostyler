@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import { ColorMapEntry } from 'geostyler-style';
 import ColorField from '../ColorField/ColorField';
@@ -119,7 +119,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
         label={locale.opacityLabel}
       >
         <OpacityField
-          opacity={_get(colorMapEntry, 'opacity') as number}
+          value={_get(colorMapEntry, 'opacity') as number}
           onChange={onOpacityChange}
         />
       </Form.Item>

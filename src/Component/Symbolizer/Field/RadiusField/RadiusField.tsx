@@ -26,16 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-import {
-  InputNumber, InputNumberProps
-} from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
+type InputProps = NumberExpressionInputProps['inputProps'];
 
-// non default props
-export interface RadiusFieldProps extends InputNumberProps<number> {
-  radius?: number;
+export interface RadiusFieldProps extends InputProps {
+  radius?: Expression<number>;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
@@ -44,16 +44,23 @@ export interface RadiusFieldProps extends InputNumberProps<number> {
 export const RadiusField: React.FC<RadiusFieldProps> = ({
   onChange,
   radius,
-  ...inputProps
+  ...inputNumberProps
 }) => {
 
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field radius-field"
-      min={0}
       value={radius}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        min: 0
+      }}
     />
   );
 };

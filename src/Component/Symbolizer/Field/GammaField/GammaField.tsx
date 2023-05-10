@@ -26,16 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-import {
-  InputNumber, InputNumberProps
-} from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
+type InputProps = NumberExpressionInputProps['inputProps'];
 
-// non default props
-export interface GammaFieldProps extends InputNumberProps<number> {
+export interface GammaFieldProps extends InputProps {
   gamma?: number;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
@@ -44,17 +44,24 @@ export interface GammaFieldProps extends InputNumberProps<number> {
 export const GammaField: React.FC<GammaFieldProps> = ({
   onChange,
   gamma,
-  ...inputProps
+  ...inputNumberProps
 }) => {
 
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field gamma-field"
-      min={0}
-      step={0.1}
       value={gamma}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        min: 0,
+        step: 0.1
+      }}
     />
   );
 };

@@ -26,17 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-import {
-  InputNumber
-} from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
+type InputProps = NumberExpressionInputProps['inputProps'];
 
-// non default props
-export interface SizeFieldProps {
-  size?: number;
-  onChange?: (radius: number) => void;
+export interface SizeFieldProps extends InputProps {
+  value?: Expression<number>;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
@@ -44,15 +43,24 @@ export interface SizeFieldProps {
  */
 export const SizeField: React.FC<SizeFieldProps> = ({
   onChange,
-  size
+  value,
+  ...inputNumberProps
 }) => {
 
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field size-field"
-      step={0.1}
-      value={size}
-      onChange={FieldUtil.nullToUndefined(onChange)}
+      value={value}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        step: 0.1
+      }}
     />
   );
 };

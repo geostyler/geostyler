@@ -34,7 +34,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface WidthFieldProps extends InputProps {
-  width?: number;
+  value?: Expression<number> | undefined;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -43,7 +43,7 @@ export interface WidthFieldProps extends InputProps {
  */
 export const WidthField: React.FC<WidthFieldProps> = ({
   onChange,
-  width,
+  value,
   ...inputNumberProps
 }) => {
 
@@ -54,7 +54,7 @@ export const WidthField: React.FC<WidthFieldProps> = ({
   return (
     <NumberExpressionInput
       className="editor-field width-field"
-      value={width}
+      value={value}
       onChange={onChange}
       onCancel={onCancel}
       inputProps={{
