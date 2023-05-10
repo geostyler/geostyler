@@ -27,26 +27,10 @@
  */
 
 .rule-generator-window {
-  background-color: white;
-  border: 3px solid grey;
-  border-radius: 3px;
-  z-index: 10;
+  .ant-modal-body {
+    padding-top: 15px;
 
-  .header {
-    background-color: lightgrey;
-    padding: 3px;
-    display: flex;
-  }
-
-  .header .title {
-    flex: 1;
-  }
-
-  .rule-generator-window-header:hover {
-    cursor: grab;
-  }
-
-  .rule-generator-window-header:active {
-    cursor: grabbing;
+    max-height: calc(100vh - 100px);
+    overflow: auto;
   }
 }

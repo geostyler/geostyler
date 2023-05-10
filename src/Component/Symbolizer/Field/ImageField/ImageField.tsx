@@ -113,19 +113,17 @@ export const ImageField: React.FC<ImageFieldProps> = ({
           }
         }}
       />
-      {
-        !windowVisible ? null :
-          <IconSelectorWindow
-            onClose={closeWindow}
-            iconLibraries={iconLibraries}
-            selectedIconSrc={value}
-            onIconSelect={(src: string) => {
-              if (onChange) {
-                onChange(src);
-              }
-            }}
-          />
-      }
+      <IconSelectorWindow
+        open={windowVisible}
+        onClose={closeWindow}
+        iconLibraries={iconLibraries}
+        selectedIconSrc={value}
+        onIconSelect={(src: string) => {
+          if (onChange) {
+            onChange(src);
+          }
+        }}
+      />
     </div>
   );
 };

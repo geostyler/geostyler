@@ -27,32 +27,10 @@
  */
 
 .gs-icon-selector-window {
-  background-color: white;
-  border: 3px solid grey;
-  border-radius: 3px;
-  z-index: 11;
+  .ant-modal-body {
+    padding-top: 15px;
 
-  .header {
-    background-color: lightgrey;
-    padding: 3px;
-    display: flex;
-  }
-
-  .header .title {
-    flex: 1;
-  }
-
-  .gs-icon-selector-window-header:hover {
-    cursor: grab;
-  }
-
-  .gs-icon-selector-window-header:active {
-    cursor: grabbing;
-  }
-
-  .gs-icon-selector-window-body {
-    overflow-y: auto;
-    /* TODO proper height detection so that cards don't overflow window */
-    height: calc(100% - 30px);
+    max-height: calc(100vh - 100px);
+    overflow: auto;
   }
 }

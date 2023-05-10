@@ -27,9 +27,6 @@
  */
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-
-import { Rnd } from 'react-rnd';
 
 import { Symbolizer } from 'geostyler-style';
 
@@ -39,9 +36,7 @@ import { IconLibrary } from '../IconSelector/IconSelector';
 import { Data } from 'geostyler-data';
 
 import './SymbolizerEditorWindow.less';
-import { Button } from 'antd';
-
-import { CloseOutlined } from '@ant-design/icons';
+import { Modal, ModalProps } from 'antd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
@@ -49,18 +44,11 @@ import en_US from '../../../locale/en_US';
 import _isEqual from 'lodash/isEqual';
 import type GeoStylerLocale from '../../../locale/locale';
 
-// default props
-export interface SymbolizerEditorWindowDefaultProps {
-  locale: GeoStylerLocale['SymbolizerEditorWindow'];
-  constrainWindow: string;
-}
-
 // non default props
-export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWindowDefaultProps> {
+export interface SymbolizerEditorWindowProps extends Partial<ModalProps> {
+  locale?: GeoStylerLocale['SymbolizerEditorWindow'];
   symbolizers: Symbolizer[];
   internalDataDef?: Data;
-  x?: number;
-  y?: number;
   onClose?: () => void;
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   iconLibraries?: IconLibrary[];
@@ -71,65 +59,35 @@ export interface SymbolizerEditorWindowProps extends Partial<SymbolizerEditorWin
 
 const COMPONENTNAME = 'SymbolizerEditorWindow';
 
-/**
- * Symbolizer editorwindow UI.
- */
 export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
   locale = en_US.SymbolizerEditorWindow,
-  constrainWindow = 'body',
   symbolizers,
   internalDataDef,
-  x,
-  y,
   onClose,
   onSymbolizersChange,
   iconLibraries,
-  colorRamps
+  colorRamps,
+  ...passThroughProps
 }) => {
 
   return (
-    ReactDOM.createPortal(
-      <Rnd
-        bounds={constrainWindow}
-        className="symbolizer-editor-window"
-        default={{
-          x: x || window.innerWidth / 2,
-          y: y || window.innerHeight / 2,
-          width: undefined,
-          height: undefined
-        }}
-        enableResizing={{
-          bottom: false,
-          bottomLeft: false,
-          bottomRight: false,
-          left: false,
-          right: false,
-          top: false,
-          topLeft: false,
-          topRight: false
-        }}
-        dragHandleClassName="title"
-      >
-        <div className="header symbolizer-editor-window-header">
-          <span className="title">
-            {locale.symbolizersEditor}
-          </span>
-          <Button
-            icon={<CloseOutlined />}
-            size="small"
-            onClick={onClose}
-          />
-        </div>
-        <MultiEditor
-          internalDataDef={internalDataDef}
-          symbolizers={symbolizers}
-          onSymbolizersChange={onSymbolizersChange}
-          iconLibraries={iconLibraries}
-          editorProps={{colorRamps}}
-        />
-      </Rnd>,
-      document.body
-    )
+    <Modal
+      className="symbolizer-editor-modal"
+      title={locale.symbolizersEditor}
+      onCancel={onClose}
+      width={800}
+      footer={false}
+      centered={true}
+      {...passThroughProps}
+    >
+      <MultiEditor
+        internalDataDef={internalDataDef}
+        symbolizers={symbolizers}
+        onSymbolizersChange={onSymbolizersChange}
+        iconLibraries={iconLibraries}
+        editorProps={{colorRamps}}
+      />
+    </Modal>
   );
 };
 

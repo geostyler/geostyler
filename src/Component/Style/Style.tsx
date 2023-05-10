@@ -487,18 +487,15 @@ export const Style: React.FC<StyleProps> = ({
             </Button> : null
         }
       </div>
-      {
-        (!ruleGeneratorWindowVisible) ? null :
-          <RuleGeneratorWindow
-            y={0}
-            internalDataDef={data as VectorData}
-            onClose={onRuleGeneratorWindowClose}
-            onRulesChange={onRulesChange}
-            colorRamps={colorRamps}
-            useBrewerColorRamps={useBrewerColorRamps}
-            colorSpaces={colorSpaces}
-          />
-      }
+      <RuleGeneratorWindow
+        open={ruleGeneratorWindowVisible}
+        internalDataDef={data as VectorData}
+        onClose={onRuleGeneratorWindowClose}
+        onRulesChange={onRulesChange}
+        colorRamps={colorRamps}
+        useBrewerColorRamps={useBrewerColorRamps}
+        colorSpaces={colorSpaces}
+      />
       { compact
         ? <RuleTable
           rules={rules}

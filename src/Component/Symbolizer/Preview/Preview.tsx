@@ -364,15 +364,6 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
       mapTargetId
     } = this.state;
 
-    let windowX, windowY;
-
-    if (editorVisible && !hideEditButton ) {
-      const buttonElement = document.getElementById(editorId);
-      const buttonBounds = buttonElement.getBoundingClientRect();
-      windowX = buttonBounds.right + window.scrollX;
-      windowY = buttonBounds.top + window.scrollY;
-    }
-
     return (
       <div className="gs-symbolizer-preview">
         <div
@@ -391,17 +382,13 @@ export class Preview extends React.Component<PreviewProps, PreviewState> {
             {editorVisible ? locale.closeEditorText : locale.openEditorText}
           </Button>
           }
-          {
-            editorVisible && !hideEditButton ?
-              <SymbolizerEditorWindow
-                x={windowX}
-                y={windowY}
-                onClose={this.onEditButtonClicked}
-                symbolizers={symbolizers}
-                onSymbolizersChange={onSymbolizersChange}
-                colorRamps={colorRamps}
-              /> : null
-          }
+          <SymbolizerEditorWindow
+            open={editorVisible}
+            onClose={this.onEditButtonClicked}
+            symbolizers={symbolizers}
+            onSymbolizersChange={onSymbolizersChange}
+            colorRamps={colorRamps}
+          />
         </div>
       </div>
     );
