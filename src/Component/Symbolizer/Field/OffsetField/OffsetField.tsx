@@ -35,6 +35,7 @@ type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface OffsetFieldProps extends InputProps {
   offset?: Expression<number>;
+  className?: string;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -44,6 +45,7 @@ export interface OffsetFieldProps extends InputProps {
 export const OffsetField: React.FC<OffsetFieldProps> = ({
   offset,
   onChange,
+  className,
   ...inputNumberProps
 }) => {
 
@@ -51,9 +53,14 @@ export const OffsetField: React.FC<OffsetFieldProps> = ({
     onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
   }
 
+  let finalClassName = 'editor-field offset-field';
+  if (className) {
+    finalClassName += ` ${className}`;
+  }
+
   return (
     <NumberExpressionInput
-      className="editor-field offset-field"
+      className={finalClassName}
       value={offset}
       onChange={onChange}
       onCancel={onCancel}

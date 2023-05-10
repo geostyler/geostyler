@@ -35,6 +35,7 @@ type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface OpacityFieldProps extends InputProps {
   value?: Expression<number>;
+  className?: string;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -44,6 +45,7 @@ export interface OpacityFieldProps extends InputProps {
 export const OpacityField: React.FC<OpacityFieldProps> = ({
   onChange,
   value,
+  className,
   ...inputNumberProps
 }) => {
 
@@ -51,9 +53,14 @@ export const OpacityField: React.FC<OpacityFieldProps> = ({
     onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
   }
 
+  let finalClassName = 'editor-field opacity-field';
+  if (className) {
+    finalClassName += ` ${className}`;
+  }
+
   return (
     <NumberExpressionInput
-      className="editor-field opacity-field"
+      className={finalClassName}
       value={value}
       onChange={onChange}
       onCancel={onCancel}
