@@ -31,17 +31,44 @@
 This demonstrates the usage of the `ComparisonFilter` component.
 
 ```jsx
-import * as React from 'react';
+import React, { useState } from 'react';
 import { ComparisonFilter } from 'geostyler';
 
 function ComparisonFilterExample() {
-  const [filter, setFilter] = React.useState(['<=x<=', 'population', 100000, 200000]);
+  const [filter, setFilter] = useState(['<=x<=', 'population', 100000, 200000]);
 
   return <>
     <ComparisonFilter onFilterChange={setFilter} filter={filter} />
     {JSON.stringify(filter)}
   </>;
 
+}
+
+<ComparisonFilterExample />
+```
+
+This demonstrates the usage of the `ComparisonFilter` with `GeoStylerContext`.
+
+```jsx
+import React, { useState } from 'react';
+import { ComparisonFilter, GeoStylerContext } from 'geostyler';
+
+function ComparisonFilterExample() {
+  const [myContext, setMyContext] = useState({
+    composition: {
+      ComparisonFilter: {
+        operatorNameMappingFunction: (n) => 'foo'
+      }
+    }
+  });
+  const [filter, setFilter] = useState(['<=x<=', 'population', 100000, 200000]);
+
+  return (
+    <GeoStylerContext.Provider value={myContext}>
+      <ComparisonFilter onFilterChange={setFilter} filter={filter} />
+      {JSON.stringify(filter)}
+    </GeoStylerContext.Provider>
+  );
 }
 
 <ComparisonFilterExample />
