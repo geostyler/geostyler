@@ -82,7 +82,7 @@ export const BooleanExpressionInput: React.FC<BooleanExpressionInputProps> = ({
   return (
     <span className={finalClassName}>
       <Checkbox
-        checked={value as boolean}
+        checked={value}
         onChange={(evt) => {
           onChange?.(evt.target.checked);
         }}

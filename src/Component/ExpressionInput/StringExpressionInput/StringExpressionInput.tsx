@@ -80,7 +80,7 @@ export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
   return (
     <span className={finalClassName}>
       <Input
-        value={value as string}
+        value={value}
         onChange={(evt) => {
           if (evt.target.value === null) {
             onChange?.(undefined);

@@ -26,16 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-import {
-  InputNumber, InputNumberProps
-} from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
+type InputProps = NumberExpressionInputProps['inputProps'];
 
-// non default props
-export interface SaturationFieldProps extends InputNumberProps {
-  saturation?: number;
+export interface SaturationFieldProps extends InputProps {
+  saturation?: Expression<number>;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
@@ -44,18 +44,25 @@ export interface SaturationFieldProps extends InputNumberProps {
 export const SaturationField: React.FC<SaturationFieldProps> = ({
   onChange,
   saturation,
-  ...inputProps
+  ...inputNumberProps
 }) => {
 
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field saturation-field"
-      min={-1}
-      max={1}
-      step={0.1}
       value={saturation}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        min: -1,
+        max: 1,
+        step: 0.1
+      }}
     />
   );
 };

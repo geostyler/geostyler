@@ -26,36 +26,45 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
-import {
-  InputNumber, InputNumberProps
-} from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-// non default props
-export interface BrightnessFieldProps extends InputNumberProps {
+type InputProps = NumberExpressionInputProps['inputProps'];
+
+export interface BrightnessFieldProps extends InputProps {
   brightness?: number;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
  * Brightness Field
+ * @deprecated
  */
 export const BrightnessField: React.FC<BrightnessFieldProps> = ({
   onChange,
   brightness,
-  ...inputProps
+  ...inputNumberProps
 }) => {
 
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field brightness-field"
-      min={0}
-      max={1}
-      step={0.1}
       value={brightness}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        min: 0,
+        max: 0,
+        step: 0
+      }}
     />
   );
 };

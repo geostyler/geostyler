@@ -97,7 +97,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
   } = useContext(UnsupportedPropertiesContext);
 
 
-  const onImageSrcChange = (value: string) => {
+  const onImageSrcChange = (value: IconSymbolizer['image']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.image = value;
     if (onSymbolizerChange) {
@@ -105,7 +105,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
     }
   };
 
-  const onSizeChange = (value: number) => {
+  const onSizeChange = (value: IconSymbolizer['size']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.size = value;
     if (onSymbolizerChange) {
@@ -113,25 +113,31 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
     }
   };
 
-  const onOffsetXChange = (value: number) => {
+  const onOffsetXChange = (value: IconSymbolizer['offset']['0']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number];
+    let newOffset: IconSymbolizer['offset'] = [
+      value,
+      (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onOffsetYChange = (value: number) => {
+  const onOffsetYChange = (value: IconSymbolizer['offset']['1']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number, value];
+    let newOffset: IconSymbolizer['offset'] = [
+      (symbolizerClone.offset ? symbolizerClone.offset[0] : 0),
+      value
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onRotateChange = (value: number) => {
+  const onRotateChange = (value: IconSymbolizer['rotate']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.rotate = value;
     if (onSymbolizerChange) {
@@ -139,7 +145,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
     }
   };
 
-  const onOpacityChange = (value: number) => {
+  const onOpacityChange = (value: IconSymbolizer['opacity']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
@@ -194,7 +200,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             {...getSupportProps('size')}
           >
             <SizeField
-              size={size as number}
+              value={size}
               onChange={onSizeChange}
             />
           </Form.Item>
@@ -207,8 +213,8 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             {...getSupportProps('offset')}
           >
             <OffsetField
-              offset={offset?.[0] as number}
-              defaultValue={composition.offsetXField?.default}
+              offset={offset?.[0]}
+              defaultValue={composition.offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
           </Form.Item>
@@ -221,8 +227,8 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             {...getSupportProps('offset')}
           >
             <OffsetField
-              offset={offset?.[1] as number}
-              defaultValue={composition.offsetYField?.default}
+              offset={offset?.[1]}
+              defaultValue={composition.offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
           </Form.Item>
@@ -235,8 +241,8 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             {...getSupportProps('rotate')}
           >
             <RotateField
-              rotate={rotate as number}
-              defaultValue={composition.rotateField?.default}
+              rotate={rotate}
+              defaultValue={composition.rotateField?.default as number}
               onChange={onRotateChange}
             />
           </Form.Item>
@@ -249,8 +255,8 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             {...getSupportProps('opacity')}
           >
             <OpacityField
-              opacity={opacity as number}
-              defaultValue={composition.opacityField?.default}
+              value={opacity}
+              defaultValue={composition.opacityField?.default as number}
               onChange={onOpacityChange}
             />
           </Form.Item>

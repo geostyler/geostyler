@@ -31,38 +31,26 @@
 This demonstrates the use of `WidthField`.
 
 ```jsx
-import * as React from 'react';
+import React, { useState } from 'react';
 import { WidthField } from 'geostyler';
 
-class WidthFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+const WidthFieldExample = () => {
 
-    this.state = {
-      width: 10
-    };
+  const [width, setWidth] = useState(10);
 
-    this.onChange = this.onChange.bind(this);
-  }
+  const onChange = (val) => {
+    setWidth(val);
+  };
 
-  onChange(width) {
-    this.setState({
-      width: width
-    });
-  }
+  return (
+    <WidthField
+      defaultValue={1337}
+      width={width}
+      onChange={onChange}
+    />
+  );
 
-  render() {
-    const {
-      width
-    } = this.state;
-
-    return (
-      <WidthField
-        width={width}
-        onChange={this.onChange}
-      />
-    );
-  }
 };
+
 <WidthFieldExample />
 ```

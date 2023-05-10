@@ -36,7 +36,8 @@ import {
   Symbolizer,
   FillSymbolizer,
   PointSymbolizer,
-  GraphicType
+  GraphicType,
+  Expression
 } from 'geostyler-style';
 
 import ColorField from '../Field/ColorField/ColorField';
@@ -90,7 +91,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     options
   } = useContext(UnsupportedPropertiesContext);
 
-  const onFillColorChange = (value: string) => {
+  const onFillColorChange = (value: FillSymbolizer['color']) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
     symbolizerClone.color = value;
     if (onSymbolizerChange) {
@@ -98,7 +99,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     }
   };
 
-  const onFillOpacityChange = (value: number) => {
+  const onFillOpacityChange = (value: FillSymbolizer['fillOpacity']) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
     symbolizerClone.fillOpacity = value;
 
@@ -107,7 +108,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     }
   };
 
-  const onOpacityChange = (value: number) => {
+  const onOpacityChange = (value: FillSymbolizer['opacity']) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
     symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
@@ -115,7 +116,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     }
   };
 
-  const onOutlineOpacityChange = (value: number) => {
+  const onOutlineOpacityChange = (value: FillSymbolizer['outlineOpacity']) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
     symbolizerClone.outlineOpacity = value;
     if (onSymbolizerChange) {
@@ -123,7 +124,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     }
   };
 
-  const onOutlineColorChange = (value: string) => {
+  const onOutlineColorChange = (value: FillSymbolizer['outlineColor']) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
     symbolizerClone.outlineColor = value;
     if (onSymbolizerChange) {
@@ -131,7 +132,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     }
   };
 
-  const onOutlineWidthChange = (value: number) => {
+  const onOutlineWidthChange = (value: Expression<FillSymbolizer['outlineWidth']>) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
     symbolizerClone.outlineWidth = value;
     if (onSymbolizerChange) {
@@ -139,7 +140,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     }
   };
 
-  const onOutlineDasharrayChange = (value: number[]) => {
+  const onOutlineDasharrayChange = (value: FillSymbolizer['outlineDasharray']) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
     symbolizerClone.outlineDasharray = value;
     if (onSymbolizerChange) {
@@ -200,8 +201,8 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
                 {...getSupportProps('fillOpacity')}
               >
                 <OpacityField
-                  opacity={fillOpacity as number}
-                  defaultValue={composition.fillOpacityField?.default}
+                  value={fillOpacity}
+                  defaultValue={composition.fillOpacityField?.default as number}
                   onChange={onFillOpacityChange}
                 />
               </Form.Item>
@@ -214,8 +215,8 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
                 {...getSupportProps('opacity')}
               >
                 <OpacityField
-                  opacity={opacity as number}
-                  defaultValue={composition.opacityField?.default}
+                  value={opacity}
+                  defaultValue={composition.opacityField?.default as number}
                   onChange={onOpacityChange}
                 />
               </Form.Item>
@@ -228,8 +229,8 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
                 {...getSupportProps('outlineOpacity')}
               >
                 <OpacityField
-                  opacity={outlineOpacity as number}
-                  defaultValue={composition.outlineOpacityField?.default}
+                  value={outlineOpacity}
+                  defaultValue={composition.outlineOpacityField?.default as number}
                   onChange={onOutlineOpacityChange}
                 />
               </Form.Item>
@@ -256,8 +257,8 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
                 {...getSupportProps('outlineWidth')}
               >
                 <WidthField
-                  width={outlineWidth as number}
-                  defaultValue={composition.outlineWidthField?.default}
+                  value={outlineWidth}
+                  defaultValue={composition.outlineWidthField?.default as number}
                   onChange={onOutlineWidthChange}
                 />
               </Form.Item>
@@ -278,7 +279,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           }
         </Panel>
         <Panel header="Graphic Fill" key="2">
-          {/* TODO allow changing graphicFill via composition context */}
+          {/* TODO: allow changing graphicFill via composition context */}
           <GraphicEditor
             graphicTypeFieldLabel={locale.graphicFillTypeLabel}
             graphic={graphicFill}

@@ -26,16 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-import {
-  InputNumber, InputNumberProps
-} from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
+type InputProps = NumberExpressionInputProps['inputProps'];
 
-// non default props
-export interface ContrastFieldProps extends InputNumberProps {
-  contrast?: number;
+export interface ContrastFieldProps extends InputProps {
+  contrast?: Expression<number>;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
@@ -44,18 +44,26 @@ export interface ContrastFieldProps extends InputNumberProps {
 export const ContrastField: React.FC<ContrastFieldProps> = ({
   onChange,
   contrast,
-  ...inputProps
+  ...inputNumberProps
 }) => {
 
+
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field contrast-field"
-      min={-1}
-      max={1}
-      step={0.1}
       value={contrast}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        min: 0,
+        max: 1,
+        step: 0.1
+      }}
     />
   );
 };

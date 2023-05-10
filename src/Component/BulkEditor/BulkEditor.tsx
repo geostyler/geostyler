@@ -38,7 +38,7 @@ import ColorField from '../Symbolizer/Field/ColorField/ColorField';
 import RadiusField from '../Symbolizer/Field/RadiusField/RadiusField';
 import OpacityField from '../Symbolizer/Field/OpacityField/OpacityField';
 import KindField from '../Symbolizer/Field/KindField/KindField';
-import { SymbolizerKind, WellKnownName } from 'geostyler-style';
+import { Expression, SymbolizerKind, WellKnownName } from 'geostyler-style';
 import WellKnownNameField from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import ImageField from '../Symbolizer/Field/ImageField/ImageField';
 import type GeoStylerLocale from '../../locale/locale';
@@ -62,8 +62,8 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
 }) => {
 
   const [color, setColor] = useState<string>();
-  const [radius, setRadius] = useState<number>();
-  const [opacity, setOpacity] = useState<number>();
+  const [radius, setRadius] = useState<Expression<number>>();
+  const [opacity, setOpacity] = useState<Expression<number>>();
   const [kind, setKind] = useState<SymbolizerKind>('Mark');
   const [wellKnownName, setWellKnownName] = useState<WellKnownName>();
   const [image, setImage] = useState<string>();
@@ -75,14 +75,14 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
     onStylePropChange('color', newColor);
   };
 
-  const onRadiusChange = (newRadius: string|number) => {
-    setRadius(newRadius as number);
-    onStylePropChange('radius', newRadius as number);
+  const onRadiusChange = (newRadius: Expression<number>) => {
+    setRadius(newRadius);
+    onStylePropChange('radius', newRadius);
   };
 
-  const onOpacityChange = (newOpacity: string|number) => {
-    setOpacity(newOpacity as number);
-    onStylePropChange('opacity', newOpacity as number);
+  const onOpacityChange = (newOpacity: Expression<number>) => {
+    setOpacity(newOpacity);
+    onStylePropChange('opacity', newOpacity);
   };
 
   const onWellKnownNameChange = (newWellKnownName: WellKnownName) => {
@@ -117,7 +117,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
         label={locale.opacityLabel}
       >
         <OpacityField
-          opacity={opacity}
+          value={opacity}
           onChange={onOpacityChange}
         />
       </Form.Item>

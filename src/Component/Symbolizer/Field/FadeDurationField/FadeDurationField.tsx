@@ -26,16 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
+import NumberExpressionInput, { type NumberExpressionInputProps }
+  from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import { Expression } from 'geostyler-style';
 
-import {
-  InputNumber, InputNumberProps
-} from 'antd';
-import FieldUtil from '../../../../Util/FieldUtil';
+type InputProps = NumberExpressionInputProps['inputProps'];
 
-// non default props
-export interface FadeDurationFieldProps extends InputNumberProps {
+export interface FadeDurationFieldProps extends InputProps {
   fadeDuration?: number;
+  onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
 /**
@@ -44,17 +44,24 @@ export interface FadeDurationFieldProps extends InputNumberProps {
 export const FadeDurationField: React.FC<FadeDurationFieldProps> = ({
   onChange,
   fadeDuration,
-  ...inputProps
+  ...inputNumberProps
 }) => {
 
+  function onCancel() {
+    onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
+  }
+
   return (
-    <InputNumber
+    <NumberExpressionInput
       className="editor-field fadeDuration-field"
-      min={0}
-      step={10}
       value={fadeDuration}
-      onChange={FieldUtil.nullToUndefined(onChange)}
-      {...inputProps}
+      onChange={onChange}
+      onCancel={onCancel}
+      inputProps={{
+        ...inputNumberProps,
+        min: 0,
+        step: 10
+      }}
     />
   );
 };
