@@ -80,7 +80,6 @@
     "lodash": "^4.17.21",
     "monaco-editor": "^0.38.0",
     "react-color": "^2.19.3",
-    "react-rnd": "^10.4.1",
     "typescript-json-schema": "^0.56.0"
   },
   "devDependencies": {
