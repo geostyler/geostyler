@@ -123,13 +123,40 @@ function RuleCardExample() {
 <RuleCardExample />
 ```
 
-With amount and duplicates deactivated.
+`RuleCard` with `GeoStylerContext`.
 
 ```jsx
-import * as React from 'react';
-import { RuleCard } from 'geostyler';
+import React, { useState } from 'react';
+import { Switch } from 'antd';
+import { RuleCard, GeoStylerContext } from 'geostyler';
 
 function RuleCardExample() {
+
+  const [myContext, setMyContext] = useState({
+    composition: {
+      Rule: {
+        amount: {
+          visibility: true
+        },
+        duplicate: {
+          visibility: true
+        },
+        filter: {
+          visibility: true
+        },
+        name: {
+          visibility: true
+        },
+        minScale: {
+          visibility: true
+        },
+        maxScale: {
+          visibility: true
+        }
+      }
+    }
+  });
+
   const rule = {
     name: 'myRule',
     scaleDenominator: {
@@ -146,6 +173,7 @@ function RuleCardExample() {
       wellKnownName: 'circle'
     }]
   };
+
   const data = {
     exampleFeatures: {
       type: 'FeatureCollection',
@@ -174,14 +202,61 @@ function RuleCardExample() {
     }
   };
 
+  const onVisibilityChange = (visibility, prop) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.Rule[prop].visibility = visibility;
+      return newContext;
+    });
+  };
+
   return (
     <div style={{height: '300px'}}>
-      <RuleCard
-        rule={rule}
-        data={data}
-        showAmount={false}
-        showDuplicates={false}
-      />
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+        <Switch
+          checked={myContext.composition.Rule.amount.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'amount')}}
+          checkedChildren="Amount"
+          unCheckedChildren="Amount"
+        />
+        <Switch
+          checked={myContext.composition.Rule.duplicate.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'duplicate')}}
+          checkedChildren="Duplicate"
+          unCheckedChildren="Duplicate"
+        />
+        <Switch
+          checked={myContext.composition.Rule.filter.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'filter')}}
+          checkedChildren="Filters"
+          unCheckedChildren="Filters"
+        />
+        <Switch
+          checked={myContext.composition.Rule.name.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'name')}}
+          checkedChildren="Name"
+          unCheckedChildren="Name"
+        />
+        <Switch
+          checked={myContext.composition.Rule.minScale.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'minScale')}}
+          checkedChildren="Min. Scale"
+          unCheckedChildren="Min. Scale"
+        />
+        <Switch
+          checked={myContext.composition.Rule.maxScale.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'maxScale')}}
+          checkedChildren="Max. Scale"
+          unCheckedChildren="Max. Scale"
+        />
+      </div>
+      <hr />
+      <GeoStylerContext.Provider value={myContext}>
+        <RuleCard
+          rule={rule}
+          data={data}
+        />
+      </GeoStylerContext.Provider>
     </div>
   );
 }

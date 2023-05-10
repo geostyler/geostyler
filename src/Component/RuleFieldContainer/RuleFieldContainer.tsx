@@ -43,6 +43,7 @@ import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { Expression, Symbolizer } from 'geostyler-style';
 import { Data } from 'geostyler-data';
+import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
 interface RuleFieldContainerDefaultProps {
@@ -70,17 +71,23 @@ export interface RuleFieldContainerProps extends Partial<RuleFieldContainerDefau
   data?: Data;
 }
 
-export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
-  name,
-  minScale,
-  maxScale,
-  locale = en_US.Rule,
-  onNameChange = () => {},
-  onMinScaleChange = () => {},
-  onMaxScaleChange = () => {},
-  symbolizers = [],
-  data
-}) => {
+export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => {
+
+  const composition = useGeoStylerComposition('Rule', {});
+
+  const composed = {...props, composition};
+
+  const {
+    name,
+    minScale,
+    maxScale,
+    locale = en_US.Rule,
+    onNameChange = () => {},
+    onMinScaleChange = () => {},
+    onMaxScaleChange = () => {},
+    symbolizers = [],
+    data
+  } = composed;
 
   return (
     <FieldContainer className="gs-rule-field-container">
@@ -88,23 +95,35 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = ({
         <Form
           layout='vertical'
         >
-          <Form.Item
-            label={locale.nameFieldLabel}
-          >
-            <NameField
-              value={name}
-              onChange={onNameChange}
-              placeholder={locale.nameFieldPlaceholder}
-            />
-          </Form.Item>
-          <MinScaleDenominator
-            value={minScale}
-            onChange={onMinScaleChange}
-          />
-          <MaxScaleDenominator
-            value={maxScale}
-            onChange={onMaxScaleChange}
-          />
+          {
+            composition.name?.visibility === false ? null : (
+              <Form.Item
+                label={locale.nameFieldLabel}
+              >
+                <NameField
+                  value={name}
+                  onChange={onNameChange}
+                  placeholder={locale.nameFieldPlaceholder}
+                />
+              </Form.Item>
+            )
+          }
+          {
+            composition.minScale?.visibility === false ? null : (
+              <MinScaleDenominator
+                value={minScale}
+                onChange={onMinScaleChange}
+              />
+            )
+          }
+          {
+            composition.maxScale?.visibility === false ? null : (
+              <MaxScaleDenominator
+                value={maxScale}
+                onChange={onMaxScaleChange}
+              />
+            )
+          }
         </Form>
       </div>
       <Divider type="vertical" />
