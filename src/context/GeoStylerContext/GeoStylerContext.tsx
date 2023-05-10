@@ -162,6 +162,9 @@ export type CompositionContext = {
     minScale?: {
       visibility?: boolean;
     };
+    filter?: {
+      visibility?: boolean;
+    };
     name?: {
       visibility?: boolean;
     };
