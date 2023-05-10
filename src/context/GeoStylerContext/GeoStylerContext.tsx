@@ -1,4 +1,4 @@
-import { UnsupportedProperties } from 'geostyler-style';
+import { ColorMapEntry, UnsupportedProperties } from 'geostyler-style';
 import { cloneDeep } from 'lodash';
 import React, { useContext } from 'react';
 import { ComparisonFilterProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
@@ -23,6 +23,9 @@ import { GammaFieldProps } from '../../Component/Symbolizer/Field/GammaField/Gam
 import { IconLibrary } from '../../Component/Symbolizer/IconSelector/IconSelector';
 import { RendererProps } from '../../Component/Renderer/Renderer/Renderer';
 import { ChannelFieldProps } from '../../Component/Symbolizer/Field/ChannelField/ChannelField';
+import { ColorMapTypeFieldProps } from '../../Component/Symbolizer/Field/ColorMapTypeField/ColorMapTypeField';
+import { ColorRampComboProps } from '../../Component/RuleGenerator/ColorRampCombo/ColorRampCombo';
+import { ExtendedFieldProps } from '../../Component/Symbolizer/Field/ExtendedField/ExtendedField';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -131,6 +134,15 @@ export type CompositionContext = {
   };
   ColorMapEditor?: {
     visibility?: boolean;
+    // TODO add support for default values in ColorMapTypeField
+    colorMapTypeField?: Omit<InputConfig<ColorMapTypeFieldProps['colorMapType']>, 'default'>;
+    nrOfClassesField?: InputConfig<number>;
+    // TODO add support for default values in ColorRampCombo
+    colorRampComboField?: Omit<InputConfig<ColorRampComboProps['colorRamp']>, 'default'>;
+    // TODO add support for default values in ExtendedField
+    extendedField?: Omit<InputConfig<ExtendedFieldProps['extended']>, 'default'>;
+    // TODO add support for default values in ColorMapTable
+    colorMapTable?: Omit<InputConfig<ColorMapEntry[]>, 'default'>;
   };
   ComparisonFilter?: Partial<ComparisonFilterProps>;
   Renderer?: Partial<Omit<RendererProps, 'onClick'>>;

@@ -52,6 +52,7 @@ import './ColorMapEditor.less';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import type GeoStylerLocale from '../../../locale/locale';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ColorMapEntryRecord extends ColorMapEntry {
   key: number;
@@ -72,17 +73,24 @@ export interface ColorMapEditorProps extends Partial<ColorMapEditorDefaultProps>
 
 const COMPONENTNAME = 'ColorMapEditor';
 
-export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
-  locale = en_US.ColorMapEditor,
-  colorRamps = {
-    GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
-    GreenRed: ['#00FF00', '#FF0000'],
-    ...brewer
-  },
-  colorMap,
-  onChange
-}) => {
+export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
 
+  const composition = useGeoStylerComposition('ColorMapEditor', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.ColorMapEditor,
+    colorRamps = {
+      GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
+      GreenRed: ['#00FF00', '#FF0000'],
+      ...brewer
+    },
+    colorMap,
+    onChange
+  } = composed;
+
+  // TODO add colorRamp to CompositionContext
   const [colorRamp, setColorRamp] = useState<string>(Object.keys(colorRamps)[0]);
 
   const updateColorMap = (prop: string, value: any) => {
@@ -279,52 +287,73 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = ({
         >
           <span>{locale.titleLabel}</span>
         </Form.Item>
-        <Form.Item
-          label={locale.typeLabel}
-        >
-          <ColorMapTypeField
-            colorMapType={colorMap?.type}
-            onChange={onTypeChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.nrOfClassesLabel}
-        >
-          <InputNumber
-            className="number-of-classes-field"
-            min={0}
-            max={255}
-            value={nrOfClasses}
-            onChange={onNrOfClassesChange}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.colorRampLabel}
-        >
-          <ColorRampCombo
-            onChange={onColorRampChange}
-            colorRamp={colorRamp}
-            colorRamps={colorRamps}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.extendedLabel}
-        >
-          <ExtendedField
-            extended={colorMap?.extended as boolean}
-            onChange={onExtendedChange}
-          />
-        </Form.Item>
+        {
+          composition.colorMapTypeField?.visibility === false ? null : (
+            <Form.Item
+              label={locale.typeLabel}
+            >
+              <ColorMapTypeField
+                colorMapType={colorMap?.type}
+                onChange={onTypeChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          composition.nrOfClassesField?.visibility === false ? null : (
+            <Form.Item
+              label={locale.nrOfClassesLabel}
+            >
+              <InputNumber
+                className="number-of-classes-field"
+                min={0}
+                max={255}
+                value={nrOfClasses}
+                onChange={onNrOfClassesChange}
+                defaultValue={composition.nrOfClassesField?.default}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          composition.colorRampComboField?.visibility === false ? null : (
+            <Form.Item
+              label={locale.colorRampLabel}
+            >
+              <ColorRampCombo
+                onChange={onColorRampChange}
+                colorRamp={colorRamp}
+                colorRamps={colorRamps}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          composition.extendedField?.visibility === false ? null : (
+            <Form.Item
+              label={locale.extendedLabel}
+            >
+              <ExtendedField
+                extended={colorMap?.extended as boolean}
+                onChange={onExtendedChange}
+              />
+            </Form.Item>
+          )
+        }
       </div>
-      <Table
-        className="gs-colormap-table"
-        columns={columns}
-        dataSource={colorMapRecords}
-        pagination={{
-          position: ['bottomCenter']
-        }}
-        size="small"
-      />
+      {
+        composition.colorMapTable?.visibility === false ? null : (
+          <Table
+            className="gs-colormap-table"
+            columns={columns}
+            dataSource={colorMapRecords}
+            pagination={{
+              position: ['bottomCenter']
+            }}
+            size="small"
+          />
+        )
+      }
     </div>
   );
 };
