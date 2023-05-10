@@ -29,7 +29,6 @@
 import * as React from 'react';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import {
-  Expression,
   MarkSymbolizer,
   Symbolizer
 } from 'geostyler-style';
@@ -74,7 +73,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     onSymbolizerChange
   } = composed;
 
-  const onRadiusChange = (value: number) => {
+  const onRadiusChange = (value: MarkSymbolizer['radius']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.radius = value;
     if (onSymbolizerChange) {
@@ -82,25 +81,31 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     }
   };
 
-  const onOffsetXChange = (value: number) => {
+  const onOffsetXChange = (value: MarkSymbolizer['offset']['0']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number];
+    let newOffset: MarkSymbolizer['offset'] = [
+      value,
+      (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onOffsetYChange = (value: number) => {
+  const onOffsetYChange = (value: MarkSymbolizer['offset']['1']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number, value];
+    let newOffset: MarkSymbolizer['offset'] = [
+      (symbolizerClone.offset ? symbolizerClone.offset[0] : 0),
+      value
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onColorChange = (value: string) => {
+  const onColorChange = (value: MarkSymbolizer['color']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.color = value;
     if (onSymbolizerChange) {
@@ -108,7 +113,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     }
   };
 
-  const onOpacityChange = (value: number) => {
+  const onOpacityChange = (value: MarkSymbolizer['opacity']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
@@ -116,7 +121,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     }
   };
 
-  const onFillOpacityChange = (newFillOpacity: number) => {
+  const onFillOpacityChange = (newFillOpacity: MarkSymbolizer['fillOpacity']) => {
     if (onSymbolizerChange) {
       onSymbolizerChange({
         ...symbolizer,
@@ -125,7 +130,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     }
   };
 
-  const onStrokeColorChange = (value: string) => {
+  const onStrokeColorChange = (value: MarkSymbolizer['strokeColor']) => {
     const cloneSymbolizer = _cloneDeep(symbolizer);
     cloneSymbolizer.strokeColor = value;
     if (onSymbolizerChange) {
@@ -133,7 +138,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     }
   };
 
-  const onStrokeWidthChange = (value: Expression<number>) => {
+  const onStrokeWidthChange = (value: MarkSymbolizer['strokeWidth']) => {
     const cloneSymbolizer = _cloneDeep(symbolizer);
     cloneSymbolizer.strokeWidth = value;
     if (onSymbolizerChange) {
@@ -141,7 +146,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     }
   };
 
-  const onStrokeOpacityChange = (value: number) => {
+  const onStrokeOpacityChange = (value: MarkSymbolizer['strokeOpacity']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.strokeOpacity = value;
     if (onSymbolizerChange) {
@@ -149,7 +154,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     }
   };
 
-  const onRotateChange = (value: number) => {
+  const onRotateChange = (value: MarkSymbolizer['rotate']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.rotate = value;
     if (onSymbolizerChange) {
@@ -177,8 +182,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.radiusLabel}
           >
             <RadiusField
-              radius={radius as number}
-              defaultValue={composition.radiusField?.default}
+              radius={radius}
+              defaultValue={composition.radiusField?.default as number}
               onChange={onRadiusChange}
             />
           </Form.Item>
@@ -190,8 +195,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.offsetXLabel}
           >
             <OffsetField
-              offset={offset?.[0] as number}
-              defaultValue={composition.offsetXField?.default}
+              offset={offset?.[0]}
+              defaultValue={composition.offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
           </Form.Item>
@@ -203,8 +208,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.offsetYLabel}
           >
             <OffsetField
-              offset={offset?.[1] as number}
-              defaultValue={composition.offsetYField?.default}
+              offset={offset?.[1]}
+              defaultValue={composition.offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
           </Form.Item>
@@ -229,8 +234,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.opacityLabel}
           >
             <OpacityField
-              opacity={opacity as number}
-              defaultValue={composition.opacityField?.default}
+              value={opacity}
+              defaultValue={composition.opacityField?.default as number}
               onChange={onOpacityChange}
             />
           </Form.Item>
@@ -242,8 +247,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.fillOpacityLabel}
           >
             <OpacityField
-              opacity={fillOpacity as number}
-              defaultValue={composition.fillOpacityField?.default}
+              value={fillOpacity}
+              defaultValue={composition.fillOpacityField?.default as number}
               onChange={onFillOpacityChange}
             />
           </Form.Item>
@@ -268,8 +273,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.strokeWidthLabel}
           >
             <WidthField
-              width={strokeWidth as number}
-              defaultValue={composition.strokeWidthField?.default}
+              value={strokeWidth}
+              defaultValue={composition.strokeWidthField?.default as number}
               onChange={onStrokeWidthChange}
             />
           </Form.Item>
@@ -281,8 +286,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.strokeOpacityLabel}
           >
             <OpacityField
-              opacity={strokeOpacity as number}
-              defaultValue={composition.strokeOpacityField?.default}
+              value={strokeOpacity}
+              defaultValue={composition.strokeOpacityField?.default as number}
               onChange={onStrokeOpacityChange}
             />
           </Form.Item>
@@ -294,8 +299,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.rotateLabel}
           >
             <RotateField
-              rotate={rotate as number}
-              defaultValue={composition.rotateField?.default}
+              rotate={rotate}
+              defaultValue={composition.rotateField?.default as number}
               onChange={onRotateChange}
             />
           </Form.Item>

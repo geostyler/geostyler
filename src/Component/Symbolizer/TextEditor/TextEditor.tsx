@@ -33,7 +33,6 @@ import {
 } from 'antd';
 
 import {
-  Expression,
   Symbolizer,
   TextSymbolizer
 } from 'geostyler-style';
@@ -99,7 +98,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     options
   } = useContext(UnsupportedPropertiesContext);
 
-  const onLabelChange = (value: any) => {
+  const onLabelChange = (value: TextSymbolizer['label']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.label = value;
     if (onSymbolizerChange) {
@@ -107,7 +106,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
-  const onColorChange = (value: string) => {
+  const onColorChange = (value: TextSymbolizer['color']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.color = value;
     if (onSymbolizerChange) {
@@ -115,7 +114,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
-  const onFontChange = (value: string[]) => {
+  const onFontChange = (value: TextSymbolizer['font']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.font = value.length > 0 ? value : undefined;
     if (onSymbolizerChange) {
@@ -123,7 +122,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
-  const onOpacityChange = (value: number) => {
+  const onOpacityChange = (value: TextSymbolizer['opacity']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
@@ -131,7 +130,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
-  const onSizeChange = (value: Expression<number>) => {
+  const onSizeChange = (value: TextSymbolizer['size']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.size = value;
     if (onSymbolizerChange) {
@@ -139,25 +138,31 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
-  const onOffsetXChange = (value: number) => {
+  const onOffsetXChange = (value: TextSymbolizer['offset']['0']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [value, (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number];
+    let newOffset: TextSymbolizer['offset'] = [
+      value,
+      (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onOffsetYChange = (value: number) => {
+  const onOffsetYChange = (value: TextSymbolizer['offset']['1']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [(symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number, value];
+    let newOffset: TextSymbolizer['offset'] = [
+      (symbolizerClone.offset ? symbolizerClone.offset[0] : 0),
+      value
+    ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onRotateChange = (value: number) => {
+  const onRotateChange = (value: TextSymbolizer['rotate']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.rotate = value;
     if (onSymbolizerChange) {
@@ -165,7 +170,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
-  const onHaloColorChange = (value: string) => {
+  const onHaloColorChange = (value: TextSymbolizer['haloColor']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.haloColor = value;
     if (onSymbolizerChange) {
@@ -173,7 +178,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
-  const onHaloWidthChange = (value: Expression<number>) => {
+  const onHaloWidthChange = (value: TextSymbolizer['haloWidth']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.haloWidth = value;
     if (onSymbolizerChange) {
@@ -271,8 +276,8 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             {...getSupportProps('opacity')}
           >
             <OpacityField
-              opacity={opacity as number}
-              defaultValue={composition.opacityField?.default}
+              value={opacity}
+              defaultValue={composition.opacityField?.default as number}
               onChange={onOpacityChange}
             />
           </Form.Item>
@@ -285,8 +290,8 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             {...getSupportProps('size')}
           >
             <WidthField
-              width={size as number}
-              defaultValue={composition.sizeField?.default}
+              value={size}
+              defaultValue={composition.sizeField?.default as number}
               onChange={onSizeChange}
             />
           </Form.Item>
@@ -300,7 +305,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           >
             <OffsetField
               offset={offsetX}
-              defaultValue={composition.offsetXField?.default}
+              defaultValue={composition.offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
           </Form.Item>
@@ -314,7 +319,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           >
             <OffsetField
               offset={offsetY}
-              defaultValue={composition.offsetYField?.default}
+              defaultValue={composition.offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
           </Form.Item>
@@ -328,7 +333,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           >
             <RotateField
               rotate={rotate as number}
-              defaultValue={composition.rotateField?.default}
+              defaultValue={composition.rotateField?.default as number}
               onChange={onRotateChange}
             />
           </Form.Item>
@@ -355,8 +360,8 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             {...getSupportProps('haloWidth')}
           >
             <WidthField
-              width={haloWidth as number}
-              defaultValue={composition.haloWidthField?.default}
+              value={haloWidth}
+              defaultValue={composition.haloWidthField?.default as number}
               onChange={onHaloWidthChange}
             />
           </Form.Item>

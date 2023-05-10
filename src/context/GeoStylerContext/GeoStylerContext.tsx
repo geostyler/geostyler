@@ -46,13 +46,13 @@ export type CompositionContext = {
   FillEditor?: {
     visibility?: boolean;
     fillColorField?: InputConfig<ColorFieldProps['color']>;
-    fillOpacityField?: InputConfig<OpacityFieldProps['opacity']>;
-    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
-    outlineOpacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
+    opacityField?: InputConfig<OpacityFieldProps['value']>;
+    outlineOpacityField?: InputConfig<OpacityFieldProps['value']>;
     outlineColorField?: InputConfig<ColorFieldProps['color']>;
     // TODO add support for default values in LineDashField
     outlineDasharrayField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
-    outlineWidthField?: InputConfig<WidthFieldProps['width']>;
+    outlineWidthField?: InputConfig<WidthFieldProps['value']>;
     // TODO add support for graphicFill
   };
   IconEditor?: {
@@ -60,19 +60,19 @@ export type CompositionContext = {
     // TODO add support for default values in ImageField
     imageField: Omit<InputConfig<ImageFieldProps['value']>, 'default'>;
     // TODO add support for default values in SizeField
-    sizeField: Omit<InputConfig<SizeFieldProps['size']>, 'default'>;
+    sizeField: Omit<InputConfig<SizeFieldProps['value']>, 'default'>;
     offsetXField?: InputConfig<OffsetFieldProps['offset']>;
     offsetYField?: InputConfig<OffsetFieldProps['offset']>;
     rotateField?: InputConfig<RotateFieldProps['rotate']>;
-    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    opacityField?: InputConfig<OpacityFieldProps['value']>;
     iconLibraries?: IconLibrary[];
   };
   LineEditor?: {
     visibility?: boolean;
     colorField?: InputConfig<ColorFieldProps['color']>;
-    widthField?: InputConfig<WidthFieldProps['width']>;
+    widthField?: InputConfig<WidthFieldProps['value']>;
     perpendicularOffsetField?: InputConfig<OffsetFieldProps['offset']>;
-    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    opacityField?: InputConfig<OpacityFieldProps['value']>;
     // TODO add support for default values in LineDashField
     lineDashField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
     dashOffsetField?: InputConfig<OffsetFieldProps['offset']>;
@@ -95,11 +95,11 @@ export type CompositionContext = {
     offsetXField?: InputConfig<OffsetFieldProps['offset']>;
     offsetYField?: InputConfig<OffsetFieldProps['offset']>;
     fillColorField?: InputConfig<ColorFieldProps['color']>;
-    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
-    fillOpacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    opacityField?: InputConfig<OpacityFieldProps['value']>;
+    fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
     strokeColorField?: InputConfig<ColorFieldProps['color']>;
-    strokeWidthField?: InputConfig<WidthFieldProps['width']>;
-    strokeOpacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    strokeWidthField?: InputConfig<WidthFieldProps['value']>;
+    strokeOpacityField?: InputConfig<OpacityFieldProps['value']>;
     rotateField?: InputConfig<RotateFieldProps['rotate']>;
   };
   TextEditor?: {
@@ -108,17 +108,17 @@ export type CompositionContext = {
     colorField?: InputConfig<ColorFieldProps['color']>;
     // TODO add support for default values in FontPicker
     fontField?: Omit<InputConfig<FontPickerProps['font']>, 'default'>;
-    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
-    sizeField?: InputConfig<SizeFieldProps['size']>;
+    opacityField?: InputConfig<OpacityFieldProps['value']>;
+    sizeField?: InputConfig<SizeFieldProps['value']>;
     offsetXField?: InputConfig<OffsetFieldProps['offset']>;
     offsetYField?: InputConfig<OffsetFieldProps['offset']>;
     rotateField?: InputConfig<RotateFieldProps['rotate']>;
     haloColorField?: InputConfig<ColorFieldProps['color']>;
-    haloWidthField?: InputConfig<WidthFieldProps['width']>;
+    haloWidthField?: InputConfig<WidthFieldProps['value']>;
   };
   RasterEditor?: {
     visibility?: boolean;
-    opacityField?: InputConfig<OpacityFieldProps['opacity']>;
+    opacityField?: InputConfig<OpacityFieldProps['value']>;
     // TODO add support for default values in ContrastEnhancementField
     contrastEnhancementField?: Omit<InputConfig<ContrastEnhancementFieldProps['contrastEnhancement']>, 'default'>;
     gammaValueField?: InputConfig<GammaFieldProps['gamma']>;

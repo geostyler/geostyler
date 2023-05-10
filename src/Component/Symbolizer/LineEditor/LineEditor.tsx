@@ -225,8 +225,8 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getSupportProps('width')}
               >
                 <WidthField
-                  width={width as number}
-                  defaultValue={composition.widthField?.default}
+                  value={width}
+                  defaultValue={composition.widthField?.default as number}
                   onChange={onWidthChange}
                 />
               </Form.Item>
@@ -239,8 +239,8 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getSupportProps('perpendicularOffset')}
               >
                 <OffsetField
-                  offset={perpendicularOffset as number}
-                  defaultValue={composition.perpendicularOffsetField?.default}
+                  offset={perpendicularOffset}
+                  defaultValue={composition.perpendicularOffsetField?.default as number}
                   onChange={onPerpendicularOffsetChange}
                 />
               </Form.Item>
@@ -253,8 +253,8 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getSupportProps('opacity')}
               >
                 <OpacityField
-                  opacity={opacity as number}
-                  defaultValue={composition.opacityField?.default}
+                  value={opacity}
+                  defaultValue={composition.opacityField?.default as number}
                   onChange={onOpacityChange}
                 />
               </Form.Item>
@@ -280,8 +280,8 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getSupportProps('dashOffset')}
               >
                 <OffsetField
-                  offset={dashOffset as number}
-                  defaultValue={composition.dashOffsetField?.default}
+                  offset={dashOffset}
+                  defaultValue={composition.dashOffsetField?.default as number}
                   onChange={onDashOffsetChange}
                   disabled={
                     symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0

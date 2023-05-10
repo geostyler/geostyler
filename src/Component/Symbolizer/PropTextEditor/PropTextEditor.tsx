@@ -29,7 +29,6 @@
 import * as React from 'react';
 
 import {
-  Expression,
   Symbolizer,
   TextSymbolizer
 } from 'geostyler-style';
@@ -93,7 +92,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onColorChange = (value: string) => {
+  const onColorChange = (value: TextSymbolizer['color']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.color = value;
     if (onSymbolizerChange) {
@@ -101,7 +100,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onFontChange = (value: string[]) => {
+  const onFontChange = (value: TextSymbolizer['font']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.font = value.length > 0 ? value : undefined;
     if (onSymbolizerChange) {
@@ -109,27 +108,27 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onOpacityChange = (value: number|string) => {
+  const onOpacityChange = (value: TextSymbolizer['opacity']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    symbolizerClone.opacity = value as number;
+    symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onSizeChange = (value: Expression<number>) => {
+  const onSizeChange = (value: TextSymbolizer['size']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    symbolizerClone.size = value as number;
+    symbolizerClone.size = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onOffsetXChange = (value: number|string) => {
+  const onOffsetXChange = (value: TextSymbolizer['offset']['0']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [
-      value as number,
-      (symbolizerClone.offset ? symbolizerClone.offset[1] : 0) as number
+    let newOffset: TextSymbolizer['offset'] = [
+      value,
+      (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)
     ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
@@ -137,11 +136,11 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onOffsetYChange = (value: number|string) => {
+  const onOffsetYChange = (value: TextSymbolizer['offset']['1']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: [number, number] = [
-      (symbolizerClone.offset ? symbolizerClone.offset[0] : 0) as number,
-      value as number
+    let newOffset: TextSymbolizer['offset'] = [
+      (symbolizerClone.offset ? symbolizerClone.offset[0] : 0),
+      value
     ];
     symbolizerClone.offset = newOffset;
     if (onSymbolizerChange) {
@@ -149,15 +148,15 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onRotateChange = (value: number|string) => {
+  const onRotateChange = (value: TextSymbolizer['rotate']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    symbolizerClone.rotate = value as number;
+    symbolizerClone.rotate = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
   };
 
-  const onHaloColorChange = (value: string) => {
+  const onHaloColorChange = (value: TextSymbolizer['haloColor']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.haloColor = value;
     if (onSymbolizerChange) {
@@ -165,9 +164,9 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     }
   };
 
-  const onHaloWidthChange = (value: Expression<number>) => {
+  const onHaloWidthChange = (value: TextSymbolizer['haloWidth']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    symbolizerClone.haloWidth = value as number;
+    symbolizerClone.haloWidth = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
     }
@@ -224,7 +223,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.opacityLabel}
       >
         <OpacityField
-          opacity={opacity as number}
+          value={opacity}
           onChange={onOpacityChange}
         />
       </Form.Item>
@@ -240,7 +239,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.offsetXLabel}
       >
         <OffsetField
-          offset={offsetX as number}
+          offset={offsetX}
           onChange={onOffsetXChange}
         />
       </Form.Item>
@@ -248,7 +247,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.offsetYLabel}
       >
         <OffsetField
-          offset={offsetY as number}
+          offset={offsetY}
           onChange={onOffsetYChange}
         />
       </Form.Item>
@@ -256,7 +255,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.rotateLabel}
       >
         <RotateField
-          rotate={rotate as number}
+          rotate={rotate}
           onChange={onRotateChange}
         />
       </Form.Item>
@@ -272,7 +271,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.haloWidthLabel}
       >
         <WidthField
-          width={haloWidth as number}
+          value={haloWidth}
           onChange={onHaloWidthChange}
         />
       </Form.Item>

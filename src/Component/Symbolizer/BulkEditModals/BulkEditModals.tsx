@@ -36,7 +36,8 @@ import {
   Style as GsStyle,
   Rule as GsRule,
   WellKnownName,
-  SymbolizerKind
+  SymbolizerKind,
+  Expression
 } from 'geostyler-style';
 
 import ColorField from '../../Symbolizer/Field/ColorField/ColorField';
@@ -68,8 +69,8 @@ interface BulkEditModalsDefaultProps {
 // non default props
 export interface BulkEditModalsProps extends Partial<BulkEditModalsDefaultProps> {
   updateMultiColors?: (x: string) => void;
-  updateMultiSizes?: (x: number|string) => void;
-  updateMultiOpacities?: (x: number|string) => void;
+  updateMultiSizes?: (x: Expression<number> | undefined) => void;
+  updateMultiOpacities?: (x: Expression<number> | undefined) => void;
   updateMultiSymbols?: (symbol: WellKnownName | string, kind: SymbolizerKind) => void;
   iconLibraries?: IconLibrary[];
 }
@@ -168,7 +169,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
       >
         {locale.opacityLabel}
         <OpacityField
-          opacity={opacity}
+          value={opacity}
           onChange={updateMultiOpacities}
         />
       </Modal>

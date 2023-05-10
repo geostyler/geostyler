@@ -68,20 +68,20 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
     }
   };
 
-  const onColorChange = (color: string) => {
+  const onColorChange = (color: ColorMapEntry['color']) => {
     updateColorMapEntry('color', color);
   };
 
-  const onQuantityChange = (quantity: any) => {
-    updateColorMapEntry('quantity', quantity as number);
+  const onQuantityChange = (quantity: ColorMapEntry['quantity']) => {
+    updateColorMapEntry('quantity', quantity);
   };
 
-  const onLabelChange = (label: string) => {
+  const onLabelChange = (label: ColorMapEntry['label']) => {
     updateColorMapEntry('label', label);
   };
 
-  const onOpacityChange = (opacity: number|string) => {
-    updateColorMapEntry('opacity', opacity as number);
+  const onOpacityChange = (opacity: ColorMapEntry['opacity']) => {
+    updateColorMapEntry('opacity', opacity);
   };
 
   return (
@@ -119,7 +119,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
         label={locale.opacityLabel}
       >
         <OpacityField
-          value={_get(colorMapEntry, 'opacity') as number}
+          value={colorMapEntry?.opacity}
           onChange={onOpacityChange}
         />
       </Form.Item>

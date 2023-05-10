@@ -105,7 +105,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
 
   const [showDisplay, setShowDisplay] = useState('symbolizer');
 
-  const onOpacityChange = (value: number) => {
+  const onOpacityChange = (value: RasterSymbolizer['opacity']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
     symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
@@ -195,8 +195,8 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
                 >
                   {
                     <OpacityField
-                      opacity={opacity as number}
-                      defaultValue={composition.opacityField?.default}
+                      value={opacity}
+                      defaultValue={composition.opacityField?.default as number}
                       onChange={onOpacityChange}
                     />
                   }
