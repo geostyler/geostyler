@@ -52,6 +52,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
 import _isString from 'lodash/isString';
 import { JSONSchema4TypeName } from 'json-schema';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 type ValidationResult = {
   isValid: boolean;
@@ -164,26 +165,32 @@ const operatorsMap: Record<JSONSchema4TypeName, ComparisonOperator[]> = {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-export const ComparisonFilter: React.FC<ComparisonFilterProps> = ({
-  attributeNameFilter = () => true,
-  attributeNameMappingFunction = n => n,
-  filter = ['==', '', null],
-  hideAttributeType = false,
-  internalDataDef,
-  microUI = false,
-  onFilterChange,
-  operatorLabel,
-  operatorNameMappingFunction = n => n,
-  operatorPlaceholderString,
-  operatorTitleMappingFunction = t => t,
-  operatorValidationHelpString,
-  showOperatorTitles = true,
-  validators = {
-    attribute: attributeName => !_isEmpty(attributeName),
-    operator: operatorName => !_isEmpty(operatorName),
-    value: ComparisonFilterDefaultValidator
-  }
-}) => {
+export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
+
+  const composition = useGeoStylerComposition('ComparisonFilter', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    attributeNameFilter = () => true,
+    attributeNameMappingFunction = n => n,
+    filter = ['==', '', null],
+    hideAttributeType = false,
+    internalDataDef,
+    microUI = false,
+    onFilterChange,
+    operatorLabel,
+    operatorNameMappingFunction = n => n,
+    operatorPlaceholderString,
+    operatorTitleMappingFunction = t => t,
+    operatorValidationHelpString,
+    showOperatorTitles = true,
+    validators = {
+      attribute: attributeName => !_isEmpty(attributeName),
+      operator: operatorName => !_isEmpty(operatorName),
+      value: ComparisonFilterDefaultValidator
+    }
+  } = composed;
 
   /**
    * Handler function, which is executed, when to underlying filter attribute changes.
