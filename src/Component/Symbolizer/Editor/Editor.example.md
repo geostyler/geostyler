@@ -31,42 +31,133 @@
 This demonstrates the use of `Editor`.
 
 ```jsx
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Editor } from 'geostyler';
 
-class EditorExample extends React.Component {
-  constructor(props) {
-    super(props);
+function EditorExample () {
+  const [style, setStyle] = useState({
+    symbolizer: {
+      kind: 'Mark',
+      wellKnownName: 'circle'
+    }
+  });
 
-    this.state = {
-      symbolizer: {
-        kind: 'Mark',
-        wellKnownName: 'circle'
+  const onSymbolizerChange = (symbolizer) => {
+    setStyle({symbolizer});
+  };
+
+  return (
+    <Editor
+      symbolizer={style.symbolizer}
+      onSymbolizerChange={onSymbolizerChange}
+      unknownSymbolizerText="Unknown Symbolizer"
+    />
+  );
+}
+
+<EditorExample />
+```
+
+This demonstrates the use of `Editor` with `GeoStylerContext`.
+
+```jsx
+import React, { useState } from 'react';
+import { Switch } from 'antd';
+import { Editor, GeoStylerContext } from 'geostyler';
+
+function EditorExample () {
+  const [myContext, setMyContext] = useState({
+    composition: {
+      MarkEditor: {
+        visibility: true
+      },
+      FillEditor: {
+        visibility: true
+      },
+      IconEditor: {
+        visibility: true
+      },
+      LineEditor: {
+        visibility: true
+      },
+      TextEditor: {
+        visibility: true
+      },
+      RasterEditor: {
+        visibility: true
       }
-    };
+    }
+  });
 
-    this.onSymbolizerChange = this.onSymbolizerChange.bind(this);
-  }
+  const [style, setStyle] = useState({
+    symbolizer: {
+      kind: 'Mark',
+      wellKnownName: 'circle'
+    }
+  });
 
-  onSymbolizerChange(symbolizer) {
-    this.setState({
-      symbolizer: symbolizer
+  const onSymbolizerChange = (symbolizer) => {
+    setStyle({symbolizer});
+  };
+
+  const onVisibilityChange = (visibility, editor) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition[editor].visibility = visibility;
+      return newContext;
     });
-  }
+  };
 
-  render() {
-    const {
-      symbolizer
-    } = this.state;
-
-    return (
-      <Editor
-        symbolizer={symbolizer}
-        onSymbolizerChange={this.onSymbolizerChange}
-        unknownSymbolizerText="Unknown Symbolizer"
-      />
-    );
-  }
+  return (
+    <div>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+        <Switch
+          checked={myContext.composition.MarkEditor.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'MarkEditor')}}
+          checkedChildren="Mark"
+          unCheckedChildren="Mark"
+        />
+        <Switch
+          checked={myContext.composition.FillEditor.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'FillEditor')}}
+          checkedChildren="Fill"
+          unCheckedChildren="Fill"
+        />
+        <Switch
+          checked={myContext.composition.IconEditor.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'IconEditor')}}
+          checkedChildren="Icon"
+          unCheckedChildren="Icon"
+        />
+        <Switch
+          checked={myContext.composition.LineEditor.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'LineEditor')}}
+          checkedChildren="Line"
+          unCheckedChildren="Line"
+        />
+        <Switch
+          checked={myContext.composition.TextEditor.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'TextEditor')}}
+          checkedChildren="Text"
+          unCheckedChildren="Text"
+        />
+        <Switch
+          checked={myContext.composition.RasterEditor.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'RasterEditor')}}
+          checkedChildren="Raster"
+          unCheckedChildren="Raster"
+        />
+      </div>
+      <hr/>
+      <GeoStylerContext.Provider value={myContext}>
+        <Editor
+          symbolizer={style.symbolizer}
+          onSymbolizerChange={onSymbolizerChange}
+          unknownSymbolizerText="Unknown Symbolizer"
+        />
+      </GeoStylerContext.Provider>
+    </div>
+  );
 }
 
 <EditorExample />

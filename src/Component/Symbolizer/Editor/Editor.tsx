@@ -53,10 +53,9 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import RasterEditor from '../RasterEditor/RasterEditor';
 import DataUtil from '../../../Util/DataUtil';
-import { CompositionContext, Compositions } from '../../../context/CompositionContext/CompositionContext';
-import CompositionUtil from '../../../Util/CompositionUtil';
 import { Form } from 'antd';
 import type GeoStylerLocale from '../../../locale/locale';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
 interface EditorDefaultProps {
@@ -70,9 +69,6 @@ export interface EditorProps extends Partial<EditorDefaultProps> {
   iconEditorProps?: Partial<IconEditorProps>;
   onSymbolizerChange?: (symbolizer: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
-  colorRamps?: {
-    [name: string]: string[];
-  };
 }
 
 const COMPONENTNAME = 'SymbolizerEditor';
@@ -82,122 +78,73 @@ export const Editor: React.FC<EditorProps> = ({
   symbolizer,
   internalDataDef,
   iconEditorProps,
-  onSymbolizerChange,
   iconLibraries,
-  colorRamps
+  onSymbolizerChange
 }) => {
+
+  const markComposition = useGeoStylerComposition('MarkEditor', {});
+  const fillComposition = useGeoStylerComposition('FillEditor', {});
+  const iconComposition = useGeoStylerComposition('IconEditor', {});
+  const lineComposition = useGeoStylerComposition('LineEditor', {});
+  const textComposition = useGeoStylerComposition('TextEditor', {});
+  const rasterComposition = useGeoStylerComposition('RasterEditor', {});
 
   /**
    * Get the appropriate Editor UI for a certain style.
    *
    * Also handles the customisation of sub-components via CompositionContext.
    */
-  const getUiForSymbolizer = (composition: Compositions): React.ReactNode => {
+  const getUiForSymbolizer = (): React.ReactNode => {
     switch (symbolizer.kind) {
       case 'Mark':
-        return (
-          CompositionUtil.handleComposition({
-            composition,
-            path: 'Editor.markEditor',
-            onChange: onSymbolizerChange,
-            onChangeName: 'onSymbolizerChange',
-            propName: 'symbolizer',
-            propValue: symbolizer,
-            defaultElement: (
-              <MarkEditor
-                symbolizer={symbolizer}
-              />
-            )
-          })
+        return markComposition.visibility === false ? null : (
+          <MarkEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={onSymbolizerChange}
+          />
         );
       case 'Icon':
-        return (
-          CompositionUtil.handleComposition({
-            composition,
-            path: 'Editor.iconEditor',
-            onChange: onSymbolizerChange,
-            onChangeName: 'onSymbolizerChange',
-            propName: 'symbolizer',
-            propValue: symbolizer,
-            defaultElement: (
-              <IconEditor
-                symbolizer={symbolizer}
-                iconLibraries={iconLibraries}
-                {...iconEditorProps}
-              />
-            )
-          })
+        return iconComposition.visibility === false ? null : (
+          <IconEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={onSymbolizerChange}
+            {...iconEditorProps}
+            iconLibraries={iconLibraries}
+          />
         );
       case 'Line':
-        return (
-          CompositionUtil.handleComposition({
-            composition,
-            path: 'Editor.lineEditor',
-            onChange: onSymbolizerChange,
-            onChangeName: 'onSymbolizerChange',
-            propName: 'symbolizer',
-            propValue: symbolizer,
-            defaultElement: (
-              <LineEditor
-                symbolizer={symbolizer}
-              />
-            )
-          })
+        return lineComposition.visibility === false ? null : (
+          <LineEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={onSymbolizerChange}
+          />
         );
       case 'Fill':
-        return (
-          CompositionUtil.handleComposition({
-            composition,
-            path: 'Editor.fillEditor',
-            onChange: onSymbolizerChange,
-            onChangeName: 'onSymbolizerChange',
-            propName: 'symbolizer',
-            propValue: symbolizer,
-            defaultElement: (
-              <FillEditor
-                symbolizer={symbolizer}
-              />
-            )
-          })
+        return fillComposition.visibility === false ? null : (
+          <FillEditor
+            symbolizer={symbolizer}
+            onSymbolizerChange={onSymbolizerChange}
+          />
         );
       case 'Text':
-        return (
-          CompositionUtil.handleComposition({
-            composition,
-            path: 'Editor.textEditor',
-            onChange: onSymbolizerChange,
-            onChangeName: 'onSymbolizerChange',
-            propName: 'symbolizer',
-            propValue: symbolizer,
-            defaultElement: (
-              <TextEditor
-                symbolizer={symbolizer}
-                internalDataDef={
-                  internalDataDef && DataUtil.isVector(internalDataDef) ? internalDataDef : undefined
-                }
-              />
-            )
-          })
+        return textComposition.visibility === false ? null : (
+          <TextEditor
+            symbolizer={symbolizer}
+            internalDataDef={
+              internalDataDef && DataUtil.isVector(internalDataDef) ? internalDataDef : undefined
+            }
+            onSymbolizerChange={onSymbolizerChange}
+          />
         );
       case 'Raster':
-        return (
-          CompositionUtil.handleComposition({
-            composition,
-            path: 'Editor.rasterEditor',
-            onChange: onSymbolizerChange,
-            onChangeName: 'onSymbolizerChange',
-            propName: 'symbolizer',
-            propValue: symbolizer,
-            defaultElement: (
-              <RasterEditor
-                symbolizer={symbolizer}
-                colorRamps={colorRamps}
-                internalDataDef={
-                  internalDataDef && DataUtil.isRaster(internalDataDef) ? internalDataDef : undefined
-                }
-              />
-            )
-          })
+        return rasterComposition.visibility === false ? null : (
+          <RasterEditor
+            symbolizer={symbolizer}
+            internalDataDef={
+              internalDataDef && DataUtil.isRaster(internalDataDef) ? internalDataDef : undefined
+            }
+            onSymbolizerChange={onSymbolizerChange}
+          />
         );
       default:
         return locale.unknownSymbolizerText;
@@ -209,32 +156,47 @@ export const Editor: React.FC<EditorProps> = ({
     onSymbolizerChange(newSymbolizer);
   };
 
+  const symbolizerKinds: SymbolizerKind[] = ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster'];
+  const filteredSymbolizerKinds = symbolizerKinds
+    .filter(kind => {
+      if (kind === 'Mark' && markComposition.visibility === false) {
+        return false;
+      }
+      if (kind === 'Fill' && fillComposition.visibility === false) {
+        return false;
+      }
+      if (kind === 'Icon' && iconComposition.visibility === false) {
+        return false;
+      }
+      if (kind === 'Line' && lineComposition.visibility === false) {
+        return false;
+      }
+      if (kind === 'Text' && textComposition.visibility === false) {
+        return false;
+      }
+      if (kind === 'Raster' && rasterComposition.visibility === false) {
+        return false;
+      }
+      return true;
+    });
+
   return (
-    <CompositionContext.Consumer>
-      {(composition: Compositions) => (
-        <div className="gs-symbolizer-editor" >
-          <Form
-            layout='vertical'
-          >
-            <Form.Item
-              label={locale.kindFieldLabel}
-            >
-              {
-                CompositionUtil.handleComposition({
-                  composition,
-                  path: 'Editor.kindField',
-                  onChange: onKindFieldChange,
-                  propName: 'kind',
-                  propValue: symbolizer.kind,
-                  defaultElement: <KindField />
-                })
-              }
-            </Form.Item>
-            {getUiForSymbolizer(composition)}
-          </Form>
-        </div>
-      )}
-    </CompositionContext.Consumer>
+    <div className="gs-symbolizer-editor" >
+      <Form
+        layout='vertical'
+      >
+        <Form.Item
+          label={locale.kindFieldLabel}
+        >
+          <KindField
+            kind={symbolizer.kind}
+            onChange={onKindFieldChange}
+            symbolizerKinds={filteredSymbolizerKinds}
+          />
+        </Form.Item>
+        {getUiForSymbolizer()}
+      </Form>
+    </div>
   );
 };
 
