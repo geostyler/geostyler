@@ -1,0 +1,30 @@
+name: 🚀 Feature Request
+description: Suggest an idea for this project
+labels: [enhancement]
+body:
+    - type: textarea
+      id: description
+      attributes:
+          label: Description
+          description: |
+            A clear and concise description of the new feature you would like.
+            What is the use case you are facing this new features would help solving?
+      validations:
+          required: true
+    - type: textarea
+      id: example
+      attributes:
+          label: Example
+          description: |
+              A simple example of the new feature in action (include screenshots or code)
+              If the new feature changes an existing feature, include a simple before/after comparison.
+    - type: textarea
+      id: alternatives
+      attributes:
+        label: Alternatives
+        description: A description of any alternative solutions or features you've considered.
+    - type: textarea
+      id: additional-context
+      attributes:
+          label: Additional Context
+          description: Add any other context about the new feature or the problem it intends to solve.
