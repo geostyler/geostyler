@@ -317,6 +317,7 @@ const zh_CN: GeoStylerLocale = {
   },
   SymbolizerEditor: {
     kindFieldLabel: '类型',
+    visibilityFieldLabel: '可见性',
     unknownSymbolizerText: 'TODO(zh_CN):Symbolizer unknown!'
   },
   SymbolizerEditorWindow: {

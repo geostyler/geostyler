@@ -45,15 +45,17 @@ import './BooleanExpressionInput.less';
 
 export interface BooleanExpressionInputProps {
   value?: Expression<boolean>;
-  checkboxProps?: CheckboxProps;
+  checkboxProps?: Omit<CheckboxProps, 'value' | 'onChange' | 'className'>;
   functionUiProps?: FunctionUIProps<GeoStylerBooleanFunction>;
   label?: string;
   onChange?: (newValue: Expression<boolean>) => void;
+  onCancel?: (type: 'boolean') => void;
   className?: string;
 }
 
 export const BooleanExpressionInput: React.FC<BooleanExpressionInputProps> = ({
   onChange,
+  onCancel,
   value,
   label,
   className,
@@ -65,7 +67,6 @@ export const BooleanExpressionInput: React.FC<BooleanExpressionInputProps> = ({
   if (className) {
     finalClassName += ` ${className}`;
   }
-
   if (isGeoStylerFunction(value)) {
     return (
       <span className={finalClassName}>
@@ -74,11 +75,11 @@ export const BooleanExpressionInput: React.FC<BooleanExpressionInputProps> = ({
           value={value}
           {...functionUiProps}
           onChange={onChange}
+          onCancel={() => onCancel('boolean')}
         />
       </span>
     );
   }
-
   return (
     <span className={finalClassName}>
       <Checkbox
