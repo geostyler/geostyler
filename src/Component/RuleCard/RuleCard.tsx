@@ -41,15 +41,11 @@ import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';
 import { Divider, Card, Typography } from 'antd';
 import { BlockOutlined, FilterFilled, MinusOutlined } from '@ant-design/icons';
+import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 const { Text } = Typography;
 
 // default props
-interface RuleCardDefaultProps {
-  /** Display the number of features that match a rule */
-  showAmount: boolean;
-  /** Display the number of features that match more than one rule */
-  showDuplicates: boolean;
-}
+interface RuleCardDefaultProps {}
 
 // non default props
 export interface RuleCardProps extends Partial<RuleCardDefaultProps> {
@@ -63,14 +59,18 @@ export interface RuleCardProps extends Partial<RuleCardDefaultProps> {
   onClick?: () => void;
 }
 
-export const RuleCard = ({
-  rule,
-  duplicates,
-  onClick,
-  data,
-  showAmount = true,
-  showDuplicates = true
-}: RuleCardProps) => {
+export const RuleCard: React.FC<RuleCardProps> = (props) => {
+
+  const composition = useGeoStylerComposition('Rule', {});
+
+  const composed = {...props, ...composition};
+
+  const {
+    rule,
+    duplicates,
+    onClick,
+    data,
+  } = composed;
 
   let amount;
   if (data && DataUtil.isVector(data) && rule.filter && rule.filter.length) {
@@ -95,13 +95,25 @@ export const RuleCard = ({
       />
       <Divider type='vertical' />
       <div className='gs-rule-card-content'>
-        <h2>{rule.name}</h2>
-        <span>
-          <>1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}</>
-        </span>
+        {
+          composition.name?.visibility === false ? null : (
+            <h2>{rule.name}</h2>
+          )
+        }
+        {
+          composition.maxScale?.visibility === false
+            || composition.minScale?.visibility === false
+            ? null : (
+              <span>
+                <>
+                  1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}
+                </>
+              </span>
+            )
+        }
         <span className='gs-rule-card-content-icon-row'>
           {
-            showAmount && (
+            composition.amount?.visibility === false ? null : (
               <Text type='secondary'>
                 <span className='gs-rule-card-icon'>Σ</span>
                 {amount !== undefined ? amount : '-'}
@@ -109,7 +121,7 @@ export const RuleCard = ({
             )
           }
           {
-            showDuplicates && (
+            composition.duplicate?.visibility === false ? null : (
               <Text type='secondary'>
                 <BlockOutlined className='gs-rule-card-icon' />
                 {duplicates !== undefined ? duplicates : '-'}
@@ -117,16 +129,20 @@ export const RuleCard = ({
             )
           }
         </span>
-        <span className='gs-rule-card-cql'>
-          {
-            rule.filter?.length && (
-              <Text type='secondary'>
-                <FilterFilled className='gs-rule-card-icon' />
-              </Text>
-            )
-          }
-          <Text type='secondary'>{cql as any}</Text>
-        </span>
+        {
+          composition.filter?.visibility === false ? null : (
+            <span className='gs-rule-card-cql'>
+              {
+                rule.filter?.length && (
+                  <Text type='secondary'>
+                    <FilterFilled className='gs-rule-card-icon' />
+                  </Text>
+                )
+              }
+              <Text type='secondary'>{cql as any}</Text>
+            </span>
+          )
+        }
       </div>
     </Card>
   );

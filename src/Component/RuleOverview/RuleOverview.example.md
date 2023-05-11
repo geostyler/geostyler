@@ -31,39 +31,30 @@
 This demonstrates the usage of the `RuleOverview` component.
 
 ```jsx
-import * as React from 'react';
+import React, { useState } from 'react';
 import { RuleOverview } from 'geostyler';
 
-class RuleOverviewExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rule: {
-        name: 'myRule',
-        symbolizers: [{
-          kind: 'Mark',
-          wellKnownName: 'circle'
-        }]
-      }
-    };
-  }
+function RuleOverviewExample() {
+  const [style, setStyle] = useState({
+    rule: {
+      name: 'myRule',
+      symbolizers: [{
+        kind: 'Mark',
+        wellKnownName: 'circle'
+      }]
+    }
+  });
 
-  render() {
-    const {
-      rule
-    } = this.state;
-
-    return (
-      <div>
-        <RuleOverview
-          rule={rule}
-          onRuleChange={(newRule) => {
-            this.setState({rule: newRule});
-          }}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <RuleOverview
+        rule={style.rule}
+        onRuleChange={(newRule) => {
+          setStyle({rule: newRule});
+        }}
+      />
+    </div>
+  );
 }
 
 <RuleOverviewExample />
@@ -72,44 +63,124 @@ class RuleOverviewExample extends React.Component {
 Rule with filter.
 
 ```jsx
-import * as React from 'react';
+import React, { useState } from 'react';
 import { RuleOverview } from 'geostyler';
 
-class RuleOverviewExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rule: {
-        name: 'myRule',
-        symbolizers: [{
-          kind: 'Mark',
-          wellKnownName: 'circle'
-        }],
-        filter: [
-          '&&',
-          ['==', 'foo', 'bar'],
-          ['!=', 'faz', 'baz']
-        ]
+function RuleOverviewExample() {
+  const [style, setStyle] = useState({
+    rule: {
+      name: 'myRule',
+      symbolizers: [{
+        kind: 'Mark',
+        wellKnownName: 'circle'
+      }],
+      filter: [
+        '&&',
+        ['==', 'foo', 'bar'],
+        ['!=', 'faz', 'baz']
+      ]
+    }
+  });
+
+  return (
+    <div>
+      <RuleOverview
+        rule={style.rule}
+        onRuleChange={(newRule) => {
+          setStyle({rule: newRule});
+        }}
+      />
+    </div>
+  );
+}
+
+<RuleOverviewExample />
+```
+
+`RuleOverview` with `GeoStylerContext`.
+
+```jsx
+import React, { useState } from 'react';
+import { Switch } from 'antd';
+import { RuleOverview, GeoStylerContext } from 'geostyler';
+
+function RuleOverviewExample() {
+  const [myContext, setMyContext] = useState({
+    composition: {
+      Rule: {
+        filter: {
+          visibility: true
+        },
+        name: {
+          visibility: true
+        },
+        minScale: {
+          visibility: true
+        },
+        maxScale: {
+          visibility: true
+        }
       }
-    };
-  }
+    }
+  });
 
-  render() {
-    const {
-      rule
-    } = this.state;
+  const [style, setStyle] = useState({
+    rule: {
+      name: 'myRule',
+      symbolizers: [{
+        kind: 'Mark',
+        wellKnownName: 'circle'
+      }]
+    }
+  });
 
-    return (
-      <div>
-        <RuleOverview
-          rule={rule}
-          onRuleChange={(newRule) => {
-            this.setState({rule: newRule});
-          }}
+  const onVisibilityChange = (visibility, prop) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.Rule[prop].visibility = visibility;
+      return newContext;
+    });
+  };
+
+  return (
+    <div>
+      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+        <Switch
+          checked={myContext.composition.Rule.filter.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'filter')}}
+          checkedChildren="Filters"
+          unCheckedChildren="Filters"
+        />
+        <Switch
+          checked={myContext.composition.Rule.name.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'name')}}
+          checkedChildren="Name"
+          unCheckedChildren="Name"
+        />
+        <Switch
+          checked={myContext.composition.Rule.minScale.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'minScale')}}
+          checkedChildren="Min. Scale"
+          unCheckedChildren="Min. Scale"
+        />
+        <Switch
+          checked={myContext.composition.Rule.maxScale.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'maxScale')}}
+          checkedChildren="Max. Scale"
+          unCheckedChildren="Max. Scale"
         />
       </div>
-    );
-  }
+      <hr />
+      <GeoStylerContext.Provider value={myContext}>
+        <RuleOverview
+          rule={style.rule}
+          onRuleChange={(newRule) => {
+            setStyle({rule: newRule});
+          }}
+        />
+      </GeoStylerContext.Provider>
+    </div>
+  );
 }
 
 <RuleOverviewExample />

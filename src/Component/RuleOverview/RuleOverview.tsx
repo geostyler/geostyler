@@ -44,6 +44,7 @@ import CardViewUtil from '../../Util/CardViewUtil';
 import FilterOverview from '../FilterOverview/FilterOverview';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
+import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
 interface RuleOverviewDefaultProps {
@@ -63,13 +64,19 @@ export interface RuleOverviewProps extends Partial<RuleOverviewDefaultProps> {
   rule: GsRule;
 }
 
-export const RuleOverview: React.FC<RuleOverviewProps> = ({
-  rule,
-  data,
-  onRuleChange = () => {},
-  onChangeView = () => {},
-  locale = en_US.RuleOverview
-}) => {
+export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
+
+  const composition = useGeoStylerComposition('Rule', {});
+
+  const composed = {...props, composition};
+
+  const {
+    rule,
+    data,
+    onRuleChange = () => {},
+    onChangeView = () => {},
+    locale = en_US.RuleOverview
+  } = composed;
 
   const onNameChange = (name: string) => {
     const newRule: GsRule = {...rule, name};
@@ -127,10 +134,14 @@ export const RuleOverview: React.FC<RuleOverviewProps> = ({
         onSymbolizersChange={onSymbolizersChange}
         data={data}
       />
-      <FilterOverview
-        filter={rule.filter}
-        onEditFilterClick={onEditFilterClick}
-      />
+      {
+        composition.filter?.visibility === false ? null : (
+          <FilterOverview
+            filter={rule.filter}
+            onEditFilterClick={onEditFilterClick}
+          />
+        )
+      }
     </div>
   );
 };
