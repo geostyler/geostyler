@@ -74,7 +74,7 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
           value={value}
           {...functionUiProps}
           onChange={onChange}
-          onCancel={() => onCancel('number')}
+          onCancel={() => onCancel?.('number')}
         />
       </span>
     );

@@ -44,19 +44,21 @@ import { FunctionOutlined } from '@ant-design/icons';
 import './StringExpressionInput.less';
 
 export interface StringExpressionInputProps {
-  value?: Expression<string>;
-  inputProps?: InputProps;
-  functionUiProps?: FunctionUIProps<GeoStylerStringFunction>;
-  onChange?: (newValue: Expression<string> | undefined) => void;
   className?: string;
+  functionUiProps?: FunctionUIProps<GeoStylerStringFunction>;
+  inputProps?: InputProps;
+  onCancel?: (type: 'string') => void;
+  onChange?: (newValue: Expression<string> | undefined) => void;
+  value?: Expression<string>;
 }
 
 export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
-  onChange,
-  value,
   className,
+  functionUiProps,
   inputProps,
-  functionUiProps
+  onCancel,
+  onChange,
+  value
 }) => {
 
   let finalClassName = 'string-expression-input';
@@ -68,10 +70,11 @@ export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
     return (
       <span className={finalClassName}>
         <FunctionUI<GeoStylerStringFunction>
-          type='number'
+          type='string'
           value={value}
           {...functionUiProps}
           onChange={onChange}
+          onCancel={() => onCancel?.('string')}
         />;
       </span>
     );
