@@ -321,16 +321,14 @@ export class Rule extends React.Component<RuleProps, RuleState> {
               {...sldRendererProps}
               {...oLRendererProps}
             />
-            {
-              !editorVisible ? null :
-                <SymbolizerEditorWindow
-                  onClose={this.onEditorWindowClose}
-                  symbolizers={rule.symbolizers}
-                  onSymbolizersChange={this.onSymbolizersChange}
-                  iconLibraries={iconLibraries}
-                  colorRamps={colorRamps}
-                />
-            }
+            <SymbolizerEditorWindow
+              open={editorVisible}
+              onClose={this.onEditorWindowClose}
+              symbolizers={rule.symbolizers}
+              onSymbolizersChange={this.onSymbolizersChange}
+              iconLibraries={iconLibraries}
+              colorRamps={colorRamps}
+            />
           </div>
           <div className="gs-rule-right-fields" >
             <Fieldset

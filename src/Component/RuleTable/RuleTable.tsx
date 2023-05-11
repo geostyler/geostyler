@@ -155,9 +155,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
 
   const [ruleEditIndex, setRuleEditIndex] = useState<number>();
   const [symbolizerEditorVisible, setSymbolizerEditorVisible] = useState<boolean>();
-  const [symbolizerEditorPosition, setSymbolizerEditorPosition] = useState<DOMRect>();
   const [filterEditorVisible, setFilterEditorVisible] = useState<boolean>();
-  const [filterEditorPosition, setFilterEditorPosition] = useState<DOMRect>();
   const [hasError, setHasError] = useState<boolean>();
   const [data, setData] = useState<Data>();
   const [rules, setRules] = useState<GsRule[]>();
@@ -198,7 +196,6 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   const onSymbolizerClick = (record: RuleRecord, newSymbolizerEditorPosition: DOMRect) => {
     setRuleEditIndex(record.key);
     setSymbolizerEditorVisible(true);
-    setSymbolizerEditorPosition(newSymbolizerEditorPosition);
     setFilterEditorVisible(false);
   };
 
@@ -259,9 +256,8 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
           // }
         }}
         enterButton={<EditOutlined />}
-        onSearch={(value, event: any) => {
-          const filterPosition = event.target.getBoundingClientRect();
-          onFilterEditClick(record.key, filterPosition);
+        onSearch={() => {
+          onFilterEditClick(record.key);
         }}
       />);
     if (cql && cql.length > 0) {
@@ -278,9 +274,8 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     return filterCell;
   };
 
-  const onFilterEditClick = (newRuleEditIndex: number, newFilterEditorPosition: DOMRect) => {
+  const onFilterEditClick = (newRuleEditIndex: number) => {
     setRuleEditIndex(newRuleEditIndex);
-    setFilterEditorPosition(newFilterEditorPosition);
     setSymbolizerEditorVisible(false);
     setFilterEditorVisible(true);
   };
@@ -471,39 +466,23 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
         pagination={false}
         {...restProps}
       />
-      {
-        !symbolizerEditorVisible ? null :
-          <SymbolizerEditorWindow
-            x={
-              symbolizerEditorPosition
-                ? symbolizerEditorPosition.x + symbolizerEditorPosition.width
-                : undefined
-            }
-            y={symbolizerEditorPosition ? symbolizerEditorPosition.y : undefined}
-            onClose={onSymbolizerEditorWindowClose}
-            internalDataDef={data}
-            symbolizers={rules[ruleEditIndex]?.symbolizers}
-            onSymbolizersChange={onSymbolizersChange}
-            iconLibraries={iconLibraries}
-            colorRamps={colorRamps}
-          />
-      }
-      {
-        !filterEditorVisible ? null :
-          <FilterEditorWindow
-            x={filterEditorPosition ? filterEditorPosition.x : undefined}
-            y={
-              filterEditorPosition
-                ? filterEditorPosition.y + filterEditorPosition.height
-                : undefined
-            }
-            onClose={onFilterEditorWindowClose}
-            filter={rules[ruleEditIndex].filter}
-            onFilterChange={onFilterChange}
-            filterUiProps={filterUiProps}
-            internalDataDef={data && DataUtil.isVector(data) ? data : undefined}
-          />
-      }
+      <SymbolizerEditorWindow
+        open={symbolizerEditorVisible}
+        onClose={onSymbolizerEditorWindowClose}
+        internalDataDef={data}
+        symbolizers={rules?.[ruleEditIndex]?.symbolizers}
+        onSymbolizersChange={onSymbolizersChange}
+        iconLibraries={iconLibraries}
+        colorRamps={colorRamps}
+      />
+      <FilterEditorWindow
+        open={filterEditorVisible}
+        onClose={onFilterEditorWindowClose}
+        filter={rules?.[ruleEditIndex]?.filter}
+        onFilterChange={onFilterChange}
+        filterUiProps={filterUiProps}
+        internalDataDef={data && DataUtil.isVector(data) ? data : undefined}
+      />
     </div>
   );
 };

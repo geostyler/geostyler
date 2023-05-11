@@ -27,15 +27,11 @@
  */
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
-import { Rnd } from 'react-rnd';
 import { VectorData } from 'geostyler-data';
 
 import './FilterEditorWindow.less';
-import { Button } from 'antd';
-
-import { CloseOutlined } from '@ant-design/icons';
+import { Modal, ModalProps } from 'antd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import { Filter } from 'geostyler-style';
@@ -44,22 +40,14 @@ import { ComparisonFilterProps } from '../ComparisonFilter/ComparisonFilter';
 import type GeoStylerLocale from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 
-// default props
-export interface FilterEditorWindowDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['FilterEditorWindow'];
-}
-
 // non default props
-export interface FilterEditorWindowProps extends Partial<FilterEditorWindowDefaultProps> {
+export interface FilterEditorWindowProps extends Partial<ModalProps> {
+  /** Locale object containing translated text snippets */
+  locale?: GeoStylerLocale['FilterEditorWindow'];
   /** The filter to edit */
   filter?: Filter;
   /** Layer metadata in the GeoStyler VectorData format */
   internalDataDef?: VectorData;
-  /** Pixel ordinate of the x-axis */
-  x?: number;
-  /** Pixel ordinate of the y-axis */
-  y?: number;
   /** The callback method that is triggered when the filter window closes */
   onClose?: () => void;
   /** The callback method that is triggered when the state changes */
@@ -68,63 +56,33 @@ export interface FilterEditorWindowProps extends Partial<FilterEditorWindowDefau
   filterUiProps?: Partial<ComparisonFilterProps>;
 }
 
-/**
- * Filter Editor Window UI.
- */
 export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
-  x,
-  y,
   internalDataDef,
   onClose,
   filter,
   onFilterChange,
   filterUiProps,
-  locale = en_US.FilterEditorWindow
+  locale = en_US.FilterEditorWindow,
+  ...passThroughProps
 }) => {
 
   return (
-    ReactDOM.createPortal(
-      <Rnd
-        className="filter-editor-window"
-        default={{
-          x: x || window.innerWidth / 2,
-          y: y || window.innerHeight / 2,
-          width: undefined,
-          height: undefined
-        }}
-        enableResizing={{
-          bottom: false,
-          bottomLeft: false,
-          bottomRight: false,
-          left: false,
-          right: false,
-          top: false,
-          topLeft: false,
-          topRight: false
-        }}
-        dragHandleClassName="title"
-      >
-        <div className="header filter-editor-window-header">
-          <span className="title">
-            {locale.filterEditor}
-          </span>
-          <Button
-            icon={<CloseOutlined />}
-            size="small"
-            onClick={onClose}
-          />
-        </div>
-        <div className="filter-editor-window-body">
-          <FilterTree
-            internalDataDef={internalDataDef}
-            filter={filter}
-            onFilterChange={onFilterChange}
-            filterUiProps={filterUiProps}
-          />
-        </div>
-      </Rnd>,
-      document.body
-    )
+    <Modal
+      className="filter-editor-modal"
+      title={locale.filterEditor}
+      onCancel={onClose}
+      width={800}
+      footer={false}
+      centered={true}
+      {...passThroughProps}
+    >
+      <FilterTree
+        internalDataDef={internalDataDef}
+        filter={filter}
+        onFilterChange={onFilterChange}
+        filterUiProps={filterUiProps}
+      />
+    </Modal>
   );
 };
 

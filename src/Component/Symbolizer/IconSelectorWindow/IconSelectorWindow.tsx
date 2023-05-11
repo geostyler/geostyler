@@ -27,15 +27,10 @@
  */
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 
 import {
-  Button
+  Modal, ModalProps
 } from 'antd';
-
-import { CloseOutlined } from '@ant-design/icons';
-
-import { Rnd } from 'react-rnd';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
@@ -46,17 +41,9 @@ import './IconSelectorWindow.less';
 import _isEqual from 'lodash/isEqual';
 import type GeoStylerLocale from '../../../locale/locale';
 
-// default props
-export interface IconSelectorWindowDefaultProps {
-  locale: GeoStylerLocale['IconSelectorWindow'];
-}
-
 // non default props
-export interface IconSelectorWindowProps extends Partial<IconSelectorWindowDefaultProps> {
-  x?: number;
-  y?: number;
-  width?: number|string;
-  height?: number|string;
+export interface IconSelectorWindowProps extends Partial<ModalProps> {
+  locale?: GeoStylerLocale['IconSelectorWindow'];
   iconLibraries: IconLibrary[];
   selectedIconSrc?: string;
   onIconSelect?: (iconSrc: string) => void;
@@ -66,59 +53,29 @@ const COMPONENTNAME = 'IconSelectorWindow';
 
 export const IconSelectorWindow: React.FC<IconSelectorWindowProps> = ({
   locale = en_US.IconSelectorWindow,
-  x,
-  y,
-  width,
-  height,
   iconLibraries,
   selectedIconSrc,
   onIconSelect,
-  onClose
+  onClose,
+  ...passThroughProps
 }) => {
 
   return (
-    ReactDOM.createPortal(
-      <Rnd
-        className="gs-icon-selector-window"
-        default={{
-          x: x || window.innerWidth / 2,
-          y: y || window.innerHeight / 2,
-          width: width || '50%',
-          height: height || '50%'
-        }}
-        enableResizing={{
-          bottom: false,
-          bottomLeft: false,
-          bottomRight: false,
-          left: false,
-          right: false,
-          top: false,
-          topLeft: false,
-          topRight: false
-        }}
-        bounds="window"
-        dragHandleClassName="title"
-      >
-        <div className="header gs-icon-selector-window-header">
-          <span className="title">
-            {locale.windowLabel}
-          </span>
-          <Button
-            icon={<CloseOutlined />}
-            size="small"
-            onClick={onClose}
-          />
-        </div>
-        <div className="gs-icon-selector-window-body">
-          <IconSelector
-            iconLibraries={iconLibraries}
-            onIconSelect={onIconSelect}
-            selectedIconSrc={selectedIconSrc}
-          />
-        </div>
-      </Rnd>,
-      document.body
-    )
+    <Modal
+      className="gs-icon-selector-portal"
+      title={locale.windowLabel}
+      onCancel={onClose}
+      width={700}
+      footer={false}
+      centered={true}
+      {...passThroughProps}
+    >
+      <IconSelector
+        iconLibraries={iconLibraries}
+        onIconSelect={onIconSelect}
+        selectedIconSrc={selectedIconSrc}
+      />
+    </Modal>
   );
 };
 
