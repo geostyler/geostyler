@@ -296,6 +296,10 @@ mark {
   position: absolute;
   z-index: 200;
   top: 3em;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .gs-function-name-combo {
@@ -485,30 +489,10 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-icon-selector-window {
-  background-color: white;
-  border: 3px solid grey;
-  border-radius: 3px;
-  z-index: 11;
-}
-.gs-icon-selector-window .header {
-  background-color: lightgrey;
-  padding: 3px;
-  display: flex;
-}
-.gs-icon-selector-window .header .title {
-  flex: 1;
-}
-.gs-icon-selector-window .gs-icon-selector-window-header:hover {
-  cursor: grab;
-}
-.gs-icon-selector-window .gs-icon-selector-window-header:active {
-  cursor: grabbing;
-}
-.gs-icon-selector-window .gs-icon-selector-window-body {
-  overflow-y: auto;
-  /* TODO proper height detection so that cards don't overflow window */
-  height: calc(100% - 30px);
+.gs-icon-selector-window .ant-modal-body {
+  padding-top: 15px;
+  max-height: calc(100vh - 100px);
+  overflow: auto;
 }
 
 /* Released under the BSD 2-Clause License
@@ -1652,10 +1636,14 @@ mark {
 .gs-filter-tree.ant-tree .style-filter-node.not-filter .ant-tree-node-content-wrapper {
   background-color: rgba(0, 0, 0, 0.05);
 }
+.gs-filter-tree.ant-tree .style-filter-node {
+  width: 100%;
+}
 .gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-switcher {
   display: none;
 }
 .gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-node-content-wrapper {
+  width: 100%;
   border: 1px solid #40a9ff;
   border-radius: 4px;
 }
@@ -1708,6 +1696,13 @@ mark {
 .gs-comparison-filter-ui {
   padding-left: 5px;
   display: flex;
+  flex: 1;
+}
+.gs-comparison-filter-ui .gs-attribute-combo {
+  flex: 1;
+}
+.gs-comparison-filter-ui .gs-text-filter-field {
+  flex: 1;
 }
 .gs-comparison-filter-ui.micro .ant-form-item {
   margin-bottom: 0;
@@ -2015,29 +2010,10 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.filter-editor-window {
-  background-color: white;
-  border: 3px solid grey;
-  border-radius: 3px;
-  z-index: 10;
-}
-.filter-editor-window .header {
-  background-color: lightgrey;
-  padding: 3px;
-  display: flex;
-}
-.filter-editor-window .header .title {
-  flex: 1;
-}
-.filter-editor-window .filter-editor-window-body {
-  padding: 10px;
-  min-width: 400px;
-}
-.filter-editor-window .filter-editor-window-header:hover {
-  cursor: grab;
-}
-.filter-editor-window .filter-editor-window-header:active {
-  cursor: grabbing;
+.filter-editor-modal .ant-modal-body {
+  padding-top: 15px;
+  max-height: calc(100vh - 100px);
+  overflow: auto;
 }
 
 /* Released under the BSD 2-Clause License
@@ -2156,26 +2132,8 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.symbolizer-editor-window {
-  background-color: white;
-  border: 3px solid grey;
-  border-radius: 3px;
-  z-index: 10;
-  min-width: 400px;
-}
-.symbolizer-editor-window .header {
-  background-color: lightgrey;
-  padding: 3px;
-  display: flex;
-}
-.symbolizer-editor-window .header .title {
-  flex: 1;
-}
-.symbolizer-editor-window .symbolizer-editor-window-header:hover {
-  cursor: grab;
-}
-.symbolizer-editor-window .symbolizer-editor-window-header:active {
-  cursor: grabbing;
+.symbolizer-editor-modal .ant-modal-body {
+  padding-top: 15px;
 }
 
 /* Released under the BSD 2-Clause License
@@ -2358,25 +2316,10 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.rule-generator-window {
-  background-color: white;
-  border: 3px solid grey;
-  border-radius: 3px;
-  z-index: 10;
-}
-.rule-generator-window .header {
-  background-color: lightgrey;
-  padding: 3px;
-  display: flex;
-}
-.rule-generator-window .header .title {
-  flex: 1;
-}
-.rule-generator-window .rule-generator-window-header:hover {
-  cursor: grab;
-}
-.rule-generator-window .rule-generator-window-header:active {
-  cursor: grabbing;
+.rule-generator-window .ant-modal-body {
+  padding-top: 15px;
+  max-height: calc(100vh - 100px);
+  overflow: auto;
 }
 
 /* Released under the BSD 2-Clause License
