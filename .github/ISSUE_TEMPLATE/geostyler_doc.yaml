@@ -1,0 +1,14 @@
+name: 📚 Geostyler Docs
+description: Suggest an idea for the documentation, tutorials...
+labels: [documentation]
+assignees: [jansule, KaiVolland]
+body:
+    - type: textarea
+      id: description
+      attributes:
+          label: Description
+          description: |
+            A clear and concise description of what you would like to see added, changed or removed
+            from the Geostyler documentation or tutorials.
+      validations:
+          required: true

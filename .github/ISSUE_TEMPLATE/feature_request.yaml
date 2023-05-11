@@ -1,6 +1,7 @@
 name: 🚀 Feature Request
 description: Suggest an idea for this project
 labels: [enhancement]
+assignees: [jansule, KaiVolland]
 body:
     - type: textarea
       id: description
@@ -16,7 +17,7 @@ body:
       attributes:
           label: Example
           description: |
-              A simple example of the new feature in action (include screenshots or code)
+              A simple example of the new feature in action (include screenshots or code).
               If the new feature changes an existing feature, include a simple before/after comparison.
     - type: textarea
       id: alternatives

@@ -1,7 +1,7 @@
 name: 🐛 Bug Report
 description: Create a report to help us improve Geostyler
 labels: [bug]
-
+assignees: [jansule, KaiVolland]
 body:
     - type: textarea
       id: description
@@ -24,12 +24,13 @@ body:
       attributes:
           label: How to reproduce
           description: |
-            In which environment(s) does the problem occur : desktop or mobile ? Which OS ? Which browsers/versions ?
+            In which environment(s) does the problem occur : desktop or mobile? Which OS? Which browsers/versions?
             Steps to reproduce the behavior:
             1. Go to '...'
             2. Click on '....'
             3. Scroll down to '....'
             4. See error
+
             Add screenshots if necessary.
       validations:
           required: true
@@ -38,7 +39,7 @@ body:
       attributes:
           label: Possible Solution
           description: |
-            Optional: only if you have suggestions on a fix/reason for the bug
+            Optional: only if you have suggestions on a fix/reason for the bug.
             Don't hesitate to create a pull request with your solution, it helps get faster feedback.
     - type: textarea
       id: additional-context

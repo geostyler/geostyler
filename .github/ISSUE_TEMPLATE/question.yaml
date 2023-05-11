@@ -1,0 +1,14 @@
+name: ❓ Question
+description: Ask a question about the Geostyler project
+labels: [question]
+assignees: [jansule, KaiVolland]
+body:
+    - type: textarea
+      id: question
+      attributes:
+          label: Question
+          description: |
+            Ask whatever you'd like about the project.
+            Add any helpful example of code or screenshot.
+      validations:
+          required: true
