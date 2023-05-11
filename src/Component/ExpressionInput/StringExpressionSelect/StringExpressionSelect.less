@@ -1,0 +1,25 @@
+.string-expression-select {
+  display: flex;
+  align-items: center;
+
+  .gs-function-ui,
+  .ant-select {
+    flex: 1;
+  }
+
+  button.ant-btn {
+    display: none;
+    border-radius: 0 6px 6px 0;
+  }
+
+  &:hover {
+    button.ant-btn {
+      display: inline-block;
+    }
+
+    .ant-select-selector {
+      border-radius: 6px 0 0 6px;
+    }
+  }
+
+}

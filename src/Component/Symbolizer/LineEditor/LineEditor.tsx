@@ -37,7 +37,9 @@ import {
   Symbolizer,
   LineSymbolizer,
   PointSymbolizer,
-  GraphicType
+  GraphicType,
+  CapType,
+  JoinType
 } from 'geostyler-style';
 
 import ColorField from '../Field/ColorField/ColorField';
@@ -297,8 +299,9 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getSupportProps('cap')}
               >
                 <LineCapField
-                  cap={cap}
-                  onChange={onCapChange}
+                  value={cap}
+                  // TODO: add Expression<string> to CapType
+                  onChange={(val) => onCapChange(val as CapType)}
                 />
               </Form.Item>
             )
@@ -310,8 +313,9 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getSupportProps('join')}
               >
                 <LineJoinField
-                  join={join}
-                  onChange={onJoinChange}
+                  value={join}
+                  // TODO: add Expression<string> to JoinType
+                  onChange={(val) => onJoinChange(val as JoinType)}
                 />
               </Form.Item>
             )

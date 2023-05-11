@@ -30,8 +30,8 @@ import React from 'react';
 
 import {
   Button,
-  Input,
-  InputProps
+  Select,
+  SelectProps
 } from 'antd';
 import FunctionUI, { FunctionUIProps } from '../../FunctionUI/FunctionUI';
 import {
@@ -41,27 +41,27 @@ import {
 } from 'geostyler-style';
 import { FunctionOutlined } from '@ant-design/icons';
 
-import './StringExpressionInput.less';
+import './StringExpressionSelect.less';
 
-export interface StringExpressionInputProps {
+export interface StringExpressionSelectProps {
   className?: string;
   functionUiProps?: FunctionUIProps<GeoStylerStringFunction>;
-  inputProps?: Omit<InputProps, 'value' | 'onChange' | 'className'>;
   onCancel?: (type: 'string') => void;
   onChange?: (newValue: Expression<string> | undefined) => void;
+  selectProps?: Omit<SelectProps, 'value' | 'onChange' | 'className'>;
   value?: Expression<string>;
 }
 
-export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
+export const StringExpressionSelect: React.FC<StringExpressionSelectProps> = ({
   className,
   functionUiProps,
-  inputProps,
   onCancel,
   onChange,
+  selectProps,
   value
 }) => {
 
-  let finalClassName = 'string-expression-input';
+  let finalClassName = 'string-expression-select';
   if (className) {
     finalClassName += ` ${className}`;
   }
@@ -75,22 +75,22 @@ export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
           {...functionUiProps}
           onChange={onChange}
           onCancel={() => onCancel?.('string')}
-        />;
+        />
       </span>
     );
   }
 
   return (
     <span className={finalClassName}>
-      <Input
+      <Select<string>
         value={value}
-        onChange={(evt) => {
-          if (evt.target.value === null) {
+        onChange={val => {
+          if (val === null) {
             onChange?.(undefined);
           }
-          onChange?.(evt.target.value);
+          onChange?.(val);
         }}
-        {...inputProps}
+        {...selectProps}
       />
       <Button
         icon={<FunctionOutlined />}
@@ -105,4 +105,4 @@ export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
   );
 };
 
-export default StringExpressionInput;
+export default StringExpressionSelect;

@@ -28,42 +28,49 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import StringExpressionInput from './StringExpressionInput';
+import StringExpressionSelect from './StringExpressionSelect';
 import { GeoStylerStringFunction } from 'geostyler-style';
 
-describe('StringExpressionInput', () => {
+describe('StringExpressionSelect', () => {
 
   const stringValue: string = '1337';
   const stringFunction: GeoStylerStringFunction = {
     name: 'strToLowerCase',
     args: ['Bretzelbude']
   };
+  const options = [{
+    label: 'Bretzelbude',
+    val: 'Bretzelbude'
+  }];
 
   it('is defined', () => {
-    expect(StringExpressionInput).toBeDefined();
+    expect(StringExpressionSelect).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const stringExpressionInput = render(<StringExpressionInput />);
+    const stringExpressionInput = render(<StringExpressionSelect />);
     expect(stringExpressionInput.container).toBeInTheDocument();
   });
 
   it('renders Input if value is a string', async () => {
-    const stringExpressionInput = render(<StringExpressionInput
+    const stringExpressionInput = render(<StringExpressionSelect
       value={stringValue}
+      selectProps={{
+        options
+      }}
     />);
     expect(stringExpressionInput.container).toBeInTheDocument();
     expect(document.body.querySelectorAll('.gs-function-ui').length).toBe(0);
-    expect(document.body.querySelectorAll('.ant-input').length).toBe(1);
+    expect(document.body.querySelectorAll('.ant-select').length).toBe(1);
   });
 
   it('renders FunctionUI if value is a function', async () => {
-    const stringExpressionInput = render(<StringExpressionInput
+    const stringExpressionInput = render(<StringExpressionSelect
       value={stringFunction}
     />);
     expect(stringExpressionInput.container).toBeInTheDocument();
     expect(document.body.querySelectorAll('.gs-function-ui').length).toBe(1);
-    expect(document.body.querySelectorAll('.ant-input').length).toBe(1);
+    expect(document.body.querySelectorAll('.ant-select').length).toBe(1);
   });
 
 });

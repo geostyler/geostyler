@@ -77,9 +77,9 @@ export type CompositionContext = {
     lineDashField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
     dashOffsetField?: InputConfig<OffsetFieldProps['offset']>;
     // TODO add support for default values in LineCapField
-    capField?: Omit<InputConfig<LineCapFieldProps['cap']>, 'default'>;
+    capField?: Omit<InputConfig<LineCapFieldProps['value']>, 'default'>;
     // TODO add support for default values in LineJoinField
-    joinField?: InputConfig<LineJoinFieldProps['join']>;
+    joinField?: InputConfig<LineJoinFieldProps['value']>;
     // TODO add support for graphicStroke
     // TODO add support for graphicFill
   };
