@@ -38,7 +38,7 @@ import './MultiEditor.less';
 import 'ol/ol.css';
 import { Data } from 'geostyler-data';
 
-import { Tabs, Button } from 'antd';
+import { Tabs } from 'antd';
 import Editor from '../Editor/Editor';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
@@ -101,6 +101,23 @@ export const MultiEditor: React.FC<MultiEditorProps> = ({
     }
   };
 
+  const onTabEdit = (targetKey: React.MouseEvent | React.KeyboardEvent | string, action: 'add' | 'remove') => {
+    if (action === 'add') {
+      addSymbolizer();
+    } else {
+      try {
+        if (symbolizers.length === 1) {
+          return;
+        }
+        const key = parseInt(targetKey.toString(), 10);
+        removeSymbolizer(key);
+      } catch {
+        // eslint-disable-next-line no-console
+        console.log('Could not remove symbolizer. Invalid key.');
+      }
+    }
+  };
+
   const tabs: Tab[] = symbolizers.map((symbolizer: Symbolizer, idx: number) => {
     return {
       className: 'gs-symbolizer-multi-editor-tab',
@@ -108,41 +125,27 @@ export const MultiEditor: React.FC<MultiEditorProps> = ({
       closable: true,
       label: `${symbolizer.kind} (${idx})`,
       children: (
-        <>
-          <Editor
-            symbolizer={symbolizer}
-            onSymbolizerChange={(sym: Symbolizer) => {
-              onSymbolizerChange(sym, idx);
-            }}
-            internalDataDef={internalDataDef}
-            iconLibraries={iconLibraries}
-            {...editorProps}
-          />
-          {symbolizers.length === 1 ? null :
-            <Button
-              onClick={() => {
-                removeSymbolizer(idx);
-              }}
-            >
-              {locale.remove}
-            </Button>
-          }
-        </>
+        <Editor
+          symbolizer={symbolizer}
+          onSymbolizerChange={(sym: Symbolizer) => {
+            onSymbolizerChange(sym, idx);
+          }}
+          internalDataDef={internalDataDef}
+          iconLibraries={iconLibraries}
+          {...editorProps}
+        />
       )
     };
   });
 
   return (
     <Tabs
-      className="gs-symbolizer-multi-editor"
-      defaultActiveKey="0"
-      animated={false}
-      tabBarExtraContent={(
-        <Button onClick={addSymbolizer}>
-          {locale.add}
-        </Button>
-      )}
+      className='gs-symbolizer-multi-editor'
+      type='editable-card'
+      defaultActiveKey='0'
       items={tabs}
+      animated={false}
+      onEdit={onTabEdit}
       {...passThroughProps}
     />
   );
