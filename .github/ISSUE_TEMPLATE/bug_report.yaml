@@ -1,5 +1,5 @@
 name: 🐛 Bug Report
-description: Create a report to help us improve Geostyler
+description: Create a report to help us improve GeoStyler
 labels: [bug]
 assignees: [jansule, KaiVolland]
 body:
@@ -24,7 +24,7 @@ body:
       attributes:
           label: How to reproduce
           description: |
-            In which environment(s) does the problem occur : desktop or mobile? Which OS? Which browsers/versions?
+            In which environment(s) does the problem occur: desktop or mobile? Which OS? Which browsers/versions?
             Steps to reproduce the behavior:
             1. Go to '...'
             2. Click on '....'
