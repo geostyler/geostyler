@@ -26,32 +26,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-.filter-editor-window {
-  background-color: white;
-  border: 3px solid grey;
-  border-radius: 3px;
-  z-index: 10;
+.filter-editor-modal {
+  .ant-modal-body {
+    padding-top: 15px;
 
-  .header {
-    background-color: lightgrey;
-    padding: 3px;
-    display: flex;
-  }
-
-  .header .title {
-    flex: 1;
-  }
-
-  .filter-editor-window-body {
-    padding: 10px;
-    min-width: 400px;
-  }
-
-  .filter-editor-window-header:hover {
-    cursor: grab;
-  }
-
-  .filter-editor-window-header:active {
-    cursor: grabbing;
+    max-height: calc(100vh - 100px);
+    overflow: auto;
   }
 }

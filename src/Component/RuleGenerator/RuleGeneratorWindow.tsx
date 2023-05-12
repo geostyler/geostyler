@@ -27,10 +27,7 @@
  */
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { brewer, InterpolationMode } from 'chroma-js';
-
-import { Rnd } from 'react-rnd';
 
 import {
   Rule
@@ -39,9 +36,7 @@ import {
 import { VectorData } from 'geostyler-data';
 
 import './RuleGeneratorWindow.less';
-import { Button } from 'antd';
-
-import { CloseOutlined } from '@ant-design/icons';
+import { Modal, ModalProps } from 'antd';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import RuleGenerator from './RuleGenerator';
@@ -51,16 +46,10 @@ import _isFinite from 'lodash/isFinite';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 
-// default props
-export interface RuleGeneratorWindowDefaultProps {
-  locale: GeoStylerLocale['RuleGeneratorWindow'];
-}
-
 // non default props
-export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDefaultProps> {
+export interface RuleGeneratorWindowProps extends Partial<ModalProps> {
+  locale?: GeoStylerLocale['RuleGeneratorWindow'];
   internalDataDef: VectorData;
-  x?: number;
-  y?: number;
   onClose?: () => void;
   onRulesChange?: (rules: Rule[]) => void;
   colorRamps?: {
@@ -72,19 +61,15 @@ export interface RuleGeneratorWindowProps extends Partial<RuleGeneratorWindowDef
 
 const COMPONENTNAME = 'RuleGeneratorWindow';
 
-/**
- * Symbolizer editorwindow UI.
- */
 export const RuleGeneratorWindow: React.FC<RuleGeneratorWindowProps> = ({
   locale = en_US.RuleGeneratorWindow,
   internalDataDef,
-  x,
-  y,
   onClose,
   onRulesChange,
   colorRamps,
   useBrewerColorRamps,
-  colorSpaces
+  colorSpaces,
+  ...passThroughProps
 }) => {
 
   let ramps = colorRamps;
@@ -93,47 +78,22 @@ export const RuleGeneratorWindow: React.FC<RuleGeneratorWindowProps> = ({
   }
 
   return (
-    ReactDOM.createPortal(
-      <Rnd
-        className="rule-generator-window"
-        default={{
-          x: _isFinite(x) ? x : window.innerWidth / 2,
-          y: _isFinite(y) ? y : window.innerHeight / 2,
-          width: undefined,
-          height: undefined
-        }}
-        enableResizing={{
-          bottom: false,
-          bottomLeft: false,
-          bottomRight: false,
-          left: false,
-          right: false,
-          top: false,
-          topLeft: false,
-          topRight: false
-        }}
-        bounds="window"
-        dragHandleClassName="title"
-      >
-        <div className="header rule-generator-window-header">
-          <span className="title">
-            {locale.ruleGenerator}
-          </span>
-          <Button
-            icon={<CloseOutlined />}
-            size="small"
-            onClick={onClose}
-          />
-        </div>
-        <RuleGenerator
-          internalDataDef={internalDataDef}
-          onRulesChange={onRulesChange}
-          colorRamps={ramps}
-          colorSpaces={colorSpaces}
-        />
-      </Rnd>,
-      document.body
-    )
+    <Modal
+      className="rule-generator-window"
+      title={locale.ruleGenerator}
+      onCancel={onClose}
+      width={800}
+      footer={false}
+      centered={true}
+      {...passThroughProps}
+    >
+      <RuleGenerator
+        internalDataDef={internalDataDef}
+        onRulesChange={onRulesChange}
+        colorRamps={ramps}
+        colorSpaces={colorSpaces}
+      />
+    </Modal>
   );
 };
 

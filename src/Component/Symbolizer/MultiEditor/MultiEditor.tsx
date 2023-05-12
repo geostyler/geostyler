@@ -106,7 +106,7 @@ export const MultiEditor: React.FC<MultiEditorProps> = ({
       className: 'gs-symbolizer-multi-editor-tab',
       key: idx.toString(),
       closable: true,
-      label: idx,
+      label: `${symbolizer.kind} (${idx})`,
       children: (
         <>
           <Editor
