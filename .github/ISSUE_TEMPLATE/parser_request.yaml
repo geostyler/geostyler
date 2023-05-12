@@ -1,5 +1,5 @@
 name: 🗺️ Parser Request
-description: Suggest a parser for geostyler
+description: Suggest a parser for GeoStyler
 labels: [parser-request]
 assignees: [jansule, KaiVolland]
 body:
