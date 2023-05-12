@@ -17,7 +17,7 @@ body:
       attributes:
           label: Example
           description: |
-              A simple example of the new feature in action (include screenshots or code).
+              A simple example of the new feature in action (please include screenshots or code if possible).
               If the new feature changes an existing feature, include a simple before/after comparison.
     - type: textarea
       id: alternatives
