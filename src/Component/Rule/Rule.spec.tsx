@@ -170,7 +170,7 @@ describe('Rule', () => {
         fireEvent.click(map);
       });
 
-      const btn = wrapper.queryByText('Add');
+      const btn = wrapper.queryAllByLabelText('Add tab')[0];
 
       await act(async () => {
         fireEvent.click(btn);

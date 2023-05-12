@@ -60,7 +60,7 @@ describe('MultiEditor', () => {
 
   it('adds a Symbolizer', async () => {
     const textEditor = render(<MultiEditor {...props} />);
-    const addButton = await textEditor.findByText(en_US.MultiEditor.add);
+    const addButton = (await textEditor.findAllByLabelText('Add tab'))[0];
     const got = [
       ...dummySymbolizers,
       {'color': '#0E1058', 'kind': 'Mark', 'wellKnownName': 'circle'}
@@ -73,7 +73,7 @@ describe('MultiEditor', () => {
 
   it('removes a Symbolizer', async () => {
     const textEditor = render(<MultiEditor {...props} />);
-    const removeButton = await textEditor.findByText(en_US.MultiEditor.remove);
+    const removeButton = (await textEditor.findAllByLabelText('remove'))[0];
     const got = [{
       kind: 'Mark',
       wellKnownName: 'circle',
