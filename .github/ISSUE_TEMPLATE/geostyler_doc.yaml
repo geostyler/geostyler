@@ -1,4 +1,4 @@
-name: 📚 Geostyler Docs
+name: 📚 GeoStyler Docs
 description: Suggest an idea for the documentation, tutorials...
 labels: [documentation]
 assignees: [jansule, KaiVolland]
@@ -9,6 +9,6 @@ body:
           label: Description
           description: |
             A clear and concise description of what you would like to see added, changed or removed
-            from the Geostyler documentation or tutorials.
+            from the GeoStyler documentation or tutorials.
       validations:
           required: true
