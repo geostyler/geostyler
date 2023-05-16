@@ -133,8 +133,8 @@ const fr_FR: GeoStylerLocale = {
     copyButtonLabel: 'Copier dans le presse-papier',
     formatSelectLabel: 'Format',
     styleCopied: 'Style copié dans le presse-papier!',
-    writeFeedback : 'Réactions en écrivant avec',
-    readFeedback : 'Réactions lors de la lecture avec'
+    writeFeedback: 'Erreurs et avertissements lors de l\'écriture avec',
+    readFeedback: 'Erreurs et avertissements lors de la lecture avec'
   },
   ParserFeedback: {
     notSupported : 'n\'est pas supporté par l\'analyseur utilisé',
@@ -317,7 +317,7 @@ const fr_FR: GeoStylerLocale = {
   },
   SymbolizerEditor: {
     kindFieldLabel: 'Type',
-    unknownSymbolizerText: 'TODO(fr_FR):Symbolizer unknown!'
+    unknownSymbolizerText: 'Symbolisation inconnue !'
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Éditeur de symbolisation'
@@ -437,8 +437,8 @@ const fr_FR: GeoStylerLocale = {
     label: 'Valeur'
   },
   UnsupportedPropertiesUtil: {
-    notSupported: 'Non supporté par le parser sélectionné.',
-    partiallySupported: 'Partiellement supporté par le parser sélectionné.'
+    notSupported: 'Non supporté par l\'analyseur sélectionné.',
+    partiallySupported: 'Partiellement supporté par l\'analyseur sélectionné.'
   },
   FunctionNameCombo: {
     placeholder: '… choisissez GeoStylerFunction'
