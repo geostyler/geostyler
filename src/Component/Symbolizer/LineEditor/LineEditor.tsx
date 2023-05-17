@@ -300,7 +300,6 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
               >
                 <LineCapField
                   value={cap}
-                  // TODO: add Expression<string> to CapType
                   onChange={(val) => onCapChange(val as CapType)}
                 />
               </Form.Item>
@@ -314,7 +313,6 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
               >
                 <LineJoinField
                   value={join}
-                  // TODO: add Expression<string> to JoinType
                   onChange={(val) => onJoinChange(val as JoinType)}
                 />
               </Form.Item>
