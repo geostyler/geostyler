@@ -43,6 +43,7 @@ module.exports = {
     "@testing-library/jest-dom/extend-expect",
     "<rootDir>/jest/setup.js"
   ],
+  workerThreads: true,
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
     "<rootDir>/src/**/*(*.)(spec|test).(j|t)s?(x)"

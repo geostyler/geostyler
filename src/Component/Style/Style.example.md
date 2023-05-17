@@ -60,6 +60,23 @@ class StyleExample extends React.Component {
 
     this.onStyleChange = this.onStyleChange.bind(this);
     this.onLayoutChange = this.onLayoutChange.bind(this);
+
+    this.iconLibraries = [{
+      name: 'foo',
+      icons: [{
+        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
+        caption: 'Parking'
+      }, {
+        src: 'https://raw.githubusercontent.com/geostyler/geostyler/main/public/logo.svg',
+        caption: 'GeoStyler Logo'
+      }]
+    }, {
+      name: 'bar',
+      icons: [{
+        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
+        caption: 'Highway'
+      }]
+    }];
   }
 
   onStyleChange(style) {
@@ -96,6 +113,7 @@ class StyleExample extends React.Component {
           style={style}
           onStyleChange={this.onStyleChange}
           compact={compactLayout}
+          iconLibraries={this.iconLibraries}
         />
       </div>
     );

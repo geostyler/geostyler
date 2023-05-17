@@ -1,0 +1,27 @@
+name: 🗺️ Parser Request
+description: Suggest a parser for GeoStyler
+labels: [parser-request]
+assignees: [jansule, KaiVolland]
+body:
+    - type: textarea
+      id: description
+      attributes:
+          label: Description
+          description: Describe the parser you would like to request.
+          placeholder: A clear and concise description of what you want to happen.
+      validations:
+          required: true
+    - type: dropdown
+      id: parser-type
+      attributes:
+          label: Parser type
+          description: Is it a data parser or a style parser?
+          multiple: false
+          options:
+            - Data Parser
+            - Style Parser
+    - type: textarea
+      id: additional-context
+      attributes:
+          label: Additional context
+          description: Add any other context or screenshot about the parser here.
