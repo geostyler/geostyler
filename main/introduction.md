@@ -40,8 +40,6 @@ const App = () => {
 
   return (
     <Style
-      // true, for using the compact layout of GeoStyler
-      compact={true}
       onStyleChange={onStyleChange}
     />
   );
@@ -78,8 +76,6 @@ const App = () => {
 
   return (
     <Style
-      // true, for using the compact layout of GeoStyler
-      compact={true}
       onStyleChange={onStyleChange}
       style={geostylerStyle}
     />
@@ -133,8 +129,6 @@ const App = () => {
 
   return (
     <Style
-      // true, for using the compact layout of GeoStyler
-      compact={true}
       onStyleChange={onStyleChange}
       style={geostylerStyle}
     />
