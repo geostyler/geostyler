@@ -68,7 +68,6 @@ const GeoStylerContextExample = () => {
     <GeoStylerContext.Provider value={myContext}>
       <Style
         style={style}
-        compact={true}
       />
     </GeoStylerContext.Provider>
   );

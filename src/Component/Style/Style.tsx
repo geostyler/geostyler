@@ -52,8 +52,7 @@ import {
   Data, VectorData
 } from 'geostyler-data';
 
-import Rule, { RuleProps } from '../Rule/Rule';
-import NameField, { NameFieldProps } from '../NameField/NameField';
+import NameField from '../NameField/NameField';
 import BulkEditModals from '../Symbolizer/BulkEditModals/BulkEditModals';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
@@ -91,8 +90,6 @@ interface StyleDefaultProps {
   style: GsStyle;
   /** Locale object containing translated text snippets */
   locale: GeoStylerLocale['Style'];
-  /** Use compact layout */
-  compact: boolean;
   /** Enable classification */
   enableClassification: boolean;
 }
@@ -107,10 +104,6 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   dataProjection?: string;
   /** Properties of the filter components */
   filterUiProps?: Partial<ComparisonFilterProps>;
-  /** Properties of the rule name field */
-  ruleNameProps?: Partial<NameFieldProps>;
-  /** Properties of the Rule component */
-  ruleProps?: Partial<RuleProps>;
   /** Properties of the RuleTable component */
   ruleTableProps?: Partial<RuleTableProps>;
   /** The renderer to use */
@@ -131,7 +124,6 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
 const COMPONENTNAME = 'Style';
 
 export const Style: React.FC<StyleProps> = ({
-  compact =  false,
   locale = en_US.Style,
   style: styleProp =  {
     name: 'My Style',
@@ -139,10 +131,7 @@ export const Style: React.FC<StyleProps> = ({
   },
   data,
   onStyleChange,
-  dataProjection,
   filterUiProps,
-  ruleNameProps,
-  ruleProps,
   ruleTableProps,
   ruleRendererType,
   sldRendererProps,
@@ -172,20 +161,6 @@ export const Style: React.FC<StyleProps> = ({
       onStyleChange(clonedStyle);
     }
     setStyle(clonedStyle);
-  };
-
-  const onRuleChange = (rule: GsRule, ruleBefore: GsRule) => {
-    const clonedStyle = _cloneDeep(style);
-    const ruleIdxToReplace = clonedStyle.rules.findIndex((r: any) => {
-      return _isEqual(r, ruleBefore);
-    });
-    if (ruleIdxToReplace > -1) {
-      clonedStyle.rules[ruleIdxToReplace] = rule;
-      if (onStyleChange) {
-        onStyleChange(clonedStyle);
-      }
-      setStyle(clonedStyle);
-    }
   };
 
   const onRulesChange = (newRules: GsRule[]) => {
@@ -247,16 +222,6 @@ export const Style: React.FC<StyleProps> = ({
       onStyleChange(clonedStyle);
     }
     setSelectedRowKeys([]);
-    setStyle(clonedStyle);
-  };
-
-  const removeRule = (rule: GsRule) => {
-    const clonedStyle = _cloneDeep(style);
-    const newRules = clonedStyle.rules.filter((r: GsRule) => r.name !== rule.name);
-    clonedStyle.rules = newRules;
-    if (onStyleChange) {
-      onStyleChange(clonedStyle);
-    }
     setStyle(clonedStyle);
   };
 
@@ -489,49 +454,22 @@ export const Style: React.FC<StyleProps> = ({
         useBrewerColorRamps={useBrewerColorRamps}
         colorSpaces={colorSpaces}
       />
-      { compact
-        ? <RuleTable
-          rules={rules}
-          onRulesChange={onRulesChange}
-          rowSelection={{
-            selectedRowKeys,
-            onChange: onRulesSelectionChange
-          }}
-          rendererType={ruleRendererType}
-          sldRendererProps={sldRendererProps}
-          filterUiProps={filterUiProps}
-          data={data}
-          footer={createFooter}
-          iconLibraries={iconLibraries}
-          colorRamps={colorRamps}
-          {...ruleTableProps}
-        />
-        : rules.map((rule, idx) => <Rule
-          key={'rule_' + idx}
-          rule={rule}
-          onRemove={removeRule}
-          internalDataDef={data}
-          onRuleChange={onRuleChange}
-          dataProjection={dataProjection}
-          filterUiProps={filterUiProps}
-          ruleNameProps={ruleNameProps}
-          rendererType={ruleRendererType}
-          sldRendererProps={sldRendererProps}
-          iconLibraries={iconLibraries}
-          colorRamps={colorRamps}
-        />)
-      }
-      {
-        compact ? null :
-          <Button
-            style={{'marginBottom': '20px', 'marginTop': '20px'}}
-            icon={<PlusOutlined />}
-            size="large"
-            onClick={addRule}
-          >
-            {locale.addRuleBtnText}
-          </Button>
-      }
+      <RuleTable
+        rules={rules}
+        onRulesChange={onRulesChange}
+        rowSelection={{
+          selectedRowKeys,
+          onChange: onRulesSelectionChange
+        }}
+        rendererType={ruleRendererType}
+        sldRendererProps={sldRendererProps}
+        filterUiProps={filterUiProps}
+        data={data}
+        footer={createFooter}
+        iconLibraries={iconLibraries}
+        colorRamps={colorRamps}
+        {...ruleTableProps}
+      />
       <BulkEditModals
         colorModalVisible={colorModalVisible}
         sizeModalVisible={sizeModalVisible}
