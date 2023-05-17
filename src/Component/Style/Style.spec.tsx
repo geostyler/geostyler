@@ -63,23 +63,6 @@ describe('Style', () => {
     expect(props.onStyleChange).toBeCalledWith(newStyle);
   });
 
-  it('onRuleChange updates the right rule', async () => {
-    const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    let newStyle: GsStyle = _cloneDeep(twoRulesStyle);
-    newStyle.rules[1].name = 'Hilde';
-    const style = render(<Style
-      {...props}
-      style={twoRulesStyle}
-    />);
-    const input = style.container.querySelectorAll('.gs-rule-left-fields input')[1];
-    await act(async() => {
-      fireEvent.change(input, {
-        target: { value: 'Hilde' }
-      });
-    });
-    expect(props.onStyleChange).toBeCalledWith(newStyle);
-  });
-
   it('adds a Rule', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
     const mock = jest.fn();
@@ -100,7 +83,6 @@ describe('Style', () => {
     const mock = jest.fn();
     const style = render(<Style
       {...props}
-      compact={true}
       onStyleChange={mock}
       style={twoRulesStyle}
     />);
@@ -123,7 +105,6 @@ describe('Style', () => {
     const mock = jest.fn();
     const style = render(<Style
       {...props}
-      compact={true}
       onStyleChange={mock}
       style={twoRulesStyle}
     />);
@@ -144,7 +125,6 @@ describe('Style', () => {
     const mock = jest.fn();
     const style = render(<Style
       {...props}
-      compact={true}
       onStyleChange={mock}
       style={twoRulesStyle}
     />);
@@ -164,7 +144,6 @@ describe('Style', () => {
     const mock = jest.fn();
     const style = render(<Style
       {...props}
-      compact={true}
       onStyleChange={mock}
       style={twoRulesStyle}
     />);

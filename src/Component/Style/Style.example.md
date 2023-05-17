@@ -41,7 +41,6 @@ class StyleExample extends React.Component {
     super(props);
 
     this.state = {
-      compactLayout: false,
       style: {
         "name": "Demo Style",
         "rules": [
@@ -59,7 +58,6 @@ class StyleExample extends React.Component {
     };
 
     this.onStyleChange = this.onStyleChange.bind(this);
-    this.onLayoutChange = this.onLayoutChange.bind(this);
 
     this.iconLibraries = [{
       name: 'foo',
@@ -85,34 +83,17 @@ class StyleExample extends React.Component {
     });
   }
 
-  onLayoutChange(compact) {
-    this.setState({
-      compactLayout: compact
-    });
-  }
-
   render() {
     const {
-      style,
-      compactLayout
+      style
     } = this.state;
 
     return (
       <div>
-        <div>
-          <span>Compact Layout </span>
-          <Switch
-            checked={compactLayout}
-            onChange={this.onLayoutChange}
-            checkedChildren="true"
-            unCheckedChildren="false"
-          />
-        </div>
         <hr/>
         <Style
           style={style}
           onStyleChange={this.onStyleChange}
-          compact={compactLayout}
           iconLibraries={this.iconLibraries}
         />
       </div>

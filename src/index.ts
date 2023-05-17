@@ -86,13 +86,11 @@ import RadiusField from './Component/Symbolizer/Field/RadiusField/RadiusField';
 import RasterChannelEditor from './Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
 import RasterEditor from './Component/Symbolizer/RasterEditor/RasterEditor';
 import RemovableItem from './Component/RemovableItem/RemovableItem';
-import RemoveButton from './Component/Rule/RemoveButton/RemoveButton';
 import OlRenderer from './Component/Renderer/OlRenderer/OlRenderer';
 import Renderer from './Component/Renderer/Renderer/Renderer';
 import RgbChannelField from './Component/Symbolizer/Field/RgbChannelField/RgbChannelField';
 import ResamplingField from './Component/Symbolizer/Field/ResamplingField/ResamplingField';
 import RotateField from './Component/Symbolizer/Field/RotateField/RotateField';
-import Rule from './Component/Rule/Rule';
 import RuleCard from './Component/RuleCard/RuleCard';
 import RuleFieldContainer from './Component/RuleFieldContainer/RuleFieldContainer';
 import RuleGenerator from './Component/RuleGenerator/RuleGenerator';
@@ -211,13 +209,11 @@ export {
   RadiusField,
   RasterChannelEditor,
   RasterEditor,
-  RemoveButton,
   RemovableItem,
   Renderer,
   RgbChannelField,
   ResamplingField,
   RotateField,
-  Rule,
   RuleCard,
   RuleFieldContainer,
   RuleGenerator,
