@@ -97,8 +97,7 @@ const FunctionUI = <T extends GeoStylerFunction>({
               updateFunctionArg(val, index);
             }}
             onCancel={t => {
-              const val = t === 'number' ? 0 : '';
-              updateFunctionArg(val, index);
+              updateFunctionArg(undefined, index);
             }}
           />
         </div>

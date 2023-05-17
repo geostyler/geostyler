@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2023-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,55 +29,51 @@
 import React from 'react';
 
 import {
-  Select
-} from 'antd';
-const Option = Select.Option;
-
-import {
+  CapType,
+  Expression,
   LineSymbolizer
 } from 'geostyler-style';
+import StringExpressionSelect, { StringExpressionSelectProps }
+  from '../../../ExpressionInput/StringExpressionSelect/StringExpressionSelect';
 
-// default props
-interface LineCapFieldDefaultProps {
-  capOptions: LineSymbolizer['cap'][];
+export interface LineCapFieldProps {
+  capOptions?: CapType[];
+  onChange?: (cap: LineSymbolizer['cap'] | Expression<string>) => void;
+  value?: LineSymbolizer['cap'] | Expression<string>;
 }
 
-// non default props
-export interface LineCapFieldProps extends Partial<LineCapFieldDefaultProps> {
-  onChange?: (caps: LineSymbolizer['cap']) => void;
-  cap?: LineSymbolizer['cap'];
-}
+type SelectProps = StringExpressionSelectProps['selectProps'];
 
 /**
  * LineCapField to select between different line-cap options
  */
-export const LineCapField: React.FC<LineCapFieldProps> = ({
+export const LineCapField: React.FC<LineCapFieldProps & SelectProps> = ({
   onChange,
-  cap,
-  capOptions = ['butt', 'round', 'square']
+  value,
+  capOptions = ['butt', 'round', 'square'],
+  ...selectProps
 }) => {
 
-  const getCapSelectOptions = () => {
-    return capOptions.map(capOpt => {
-      return (
-        <Option
-          key={capOpt}
-          value={capOpt}
-        >
-          {capOpt}
-        </Option>
-      );
-    });
-  };
+  const options =  capOptions.map(capOpt => ({
+    label: capOpt,
+    value: capOpt
+  }));
+
+  function onCancel() {
+    onChange(undefined);
+  }
 
   return (
-    <Select
+    <StringExpressionSelect
       className="editor-field line-cap-field"
-      value={cap}
-      onChange={onChange}
-    >
-      {getCapSelectOptions()}
-    </Select>
+      value={value}
+      onChange={val => onChange(val)}
+      onCancel={onCancel}
+      selectProps={{
+        ...selectProps,
+        options
+      }}
+    />
   );
 };
 

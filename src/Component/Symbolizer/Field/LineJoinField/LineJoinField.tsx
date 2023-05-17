@@ -1,6 +1,6 @@
 /* Released under the BSD 2-Clause License
  *
- * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
+ * Copyright © 2023-present, terrestris GmbH & Co. KG and GeoStyler contributors
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,55 +29,51 @@
 import React from 'react';
 
 import {
-  Select
-} from 'antd';
-const Option = Select.Option;
-
-import {
+  JoinType,
+  Expression,
   LineSymbolizer
 } from 'geostyler-style';
+import StringExpressionSelect, { StringExpressionSelectProps }
+  from '../../../ExpressionInput/StringExpressionSelect/StringExpressionSelect';
 
-// default props
-interface LineJoinFieldDefaultProps {
-  joinOptions: LineSymbolizer['join'][];
+export interface LineJoinFieldProps {
+  joinOptions?: JoinType[];
+  onChange?: (join: LineSymbolizer['join'] | Expression<string>) => void;
+  value?: LineSymbolizer['join'] | Expression<string>;
 }
 
-// non default props
-export interface LineJoinFieldProps extends Partial<LineJoinFieldDefaultProps> {
-  onChange?: (caps: LineSymbolizer['join']) => void;
-  join?: LineSymbolizer['join'];
-}
+type SelectProps = StringExpressionSelectProps['selectProps'];
 
 /**
  * LineJoinField to select between different line-join options
  */
-export const LineJoinField: React.FC<LineJoinFieldProps> = ({
-  join,
-  joinOptions = ['bevel', 'round', 'miter'],
-  onChange
+export const LineJoinField: React.FC<LineJoinFieldProps & SelectProps> = ({
+  onChange,
+  value,
+  joinOptions = ['butt', 'round', 'square'],
+  ...selectProps
 }) => {
 
-  const getJoinSelectOptions = () => {
-    return joinOptions.map(joinOpt => {
-      return (
-        <Option
-          key={joinOpt}
-          value={joinOpt}
-        >
-          {joinOpt}
-        </Option>
-      );
-    });
-  };
+  const options =  joinOptions.map(opt => ({
+    label: opt,
+    value: opt
+  }));
+
+  function onCancel() {
+    onChange(undefined);
+  }
 
   return (
-    <Select
+    <StringExpressionSelect
       className="editor-field line-join-field"
-      value={join}
-      onChange={onChange}
-    >
-      {getJoinSelectOptions()}
-    </Select>
+      value={value}
+      onChange={val => onChange(val)}
+      onCancel={onCancel}
+      selectProps={{
+        ...selectProps,
+        options
+      }}
+    />
   );
 };
 
