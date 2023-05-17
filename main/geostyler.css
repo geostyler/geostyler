@@ -362,10 +362,13 @@ mark {
 }
 .string-expression-input button.ant-btn {
   display: none;
-  border-radius: 0 2px 2px 0;
+  border-radius: 0 6px 6px 0;
 }
 .string-expression-input:hover button.ant-btn {
   display: inline-block;
+}
+.string-expression-input:hover .ant-input {
+  border-radius: 6px 0 0 6px;
 }
 
 .boolean-expression-input {
@@ -391,10 +394,13 @@ mark {
 }
 .number-expression-input button.ant-btn {
   display: none;
-  border-radius: 0 2px 2px 0;
+  border-radius: 0 6px 6px 0;
 }
 .number-expression-input:hover button.ant-btn {
   display: inline-block;
+}
+.number-expression-input:hover .ant-input-number {
+  border-radius: 6px 0 0 6px;
 }
 
 /* Released under the BSD 2-Clause License
@@ -1420,6 +1426,25 @@ mark {
  */
 .gs-add-dash-button {
   margin-left: 10px;
+}
+
+.string-expression-select {
+  display: flex;
+  align-items: center;
+}
+.string-expression-select .gs-function-ui,
+.string-expression-select .ant-select {
+  flex: 1;
+}
+.string-expression-select button.ant-btn {
+  display: none;
+  border-radius: 0 6px 6px 0;
+}
+.string-expression-select:hover button.ant-btn {
+  display: inline-block;
+}
+.string-expression-select:hover .ant-select-selector {
+  border-radius: 6px 0 0 6px;
 }
 
 /* Released under the BSD 2-Clause License
