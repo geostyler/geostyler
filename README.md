@@ -1,6 +1,5 @@
 ![GeoStyler Logo](/docs/Geo_Styler_Logo_300_RGB.jpg)
 
-[![Discord](https://img.shields.io/discord/1016992288028762132?style=plastic)](https://discord.gg/yrXHDpcFcB)
 [![Test, Coverage & Docs (main)](https://github.com/geostyler/geostyler/actions/workflows/on-push-main.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-push-main.yml)
 [![Create & publish versioned documentation](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml/badge.svg)](https://github.com/geostyler/geostyler/actions/workflows/on-publish.yml)
 [![Coverage Status](https://coveralls.io/repos/github/geostyler/geostyler/badge.svg?branch=main)](https://coveralls.io/github/geostyler/geostyler?branch=main)
@@ -17,9 +16,11 @@ Examples:
 Developer Guide:
 [Developer Guide](#developer-guide)
 
-## :rocket: GeoStyler Code Sprint 2023
+[![Discord Banner 2](https://discordapp.com/api/guilds/1016992288028762132/widget.png?style=banner2)](https://discord.gg/yrXHDpcFcB)
 
-We are happy to announce the second GeoStyler Code Sprint from **08.-12.05.2023**. Be part of it! More infos on https://geostyler.org/ or on the GeoStyler discord: https://discord.gg/bABdhxrp?event=1103332326240424107
+## 📆 Monthly meetings
+
+On the first tuesday of every month, there is a video meeting on the [GeoStyler Discord](https://discord.gg/yrXHDpcFcB) at 2pm CET. The meeting is for all contributors, users or other people interested in GeoStyler.
 
 ## <a name="what-is-this-all-about"></a>What is this all about?
 
