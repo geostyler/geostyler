@@ -153,5 +153,6 @@
     "ol": ">=6.x",
     "react": ">=16.x",
     "react-dom": ">=16.x"
-  }
+  },
+  "funding": "https://opencollective.com/geostyler"
 }
