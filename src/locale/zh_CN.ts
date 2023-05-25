@@ -131,6 +131,7 @@ const zh_CN: GeoStylerLocale = {
   CodeEditor: {
     downloadButtonLabel: '另存为文件',
     copyButtonLabel: '拷贝到剪贴板',
+    uploadButtonLabel: 'TODO(zh_CN):Open a file',
     formatSelectLabel: '格式',
     styleCopied: '样式已拷贝到剪贴板！',
     writeFeedback: '写时的反馈',

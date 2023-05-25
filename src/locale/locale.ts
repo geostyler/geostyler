@@ -5,6 +5,7 @@ export default interface GeoStylerLocale extends Locale {
     downloadButtonLabel: string;
     formatSelectLabel: string;
     copyButtonLabel: string;
+    uploadButtonLabel: string;
     styleCopied: string;
     writeFeedback: string;
     readFeedback: string;

@@ -131,6 +131,7 @@ const fr_FR: GeoStylerLocale = {
   CodeEditor: {
     downloadButtonLabel: 'Sauvegarder',
     copyButtonLabel: 'Copier dans le presse-papier',
+    uploadButtonLabel: 'Ouvrir un fichier',
     formatSelectLabel: 'Format',
     styleCopied: 'Style copié dans le presse-papier!',
     writeFeedback: 'Erreurs et avertissements lors de l\'écriture avec',

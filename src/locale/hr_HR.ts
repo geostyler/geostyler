@@ -130,6 +130,7 @@ const hr_HR: GeoStylerLocale = {
   CodeEditor: {
     downloadButtonLabel: 'Spremi kao',
     copyButtonLabel: 'Kopiraj u međuspremnik',
+    uploadButtonLabel: 'TODO(hr_HR):Open a file',
     formatSelectLabel: 'Formatiraj',
     styleCopied: 'Stil kopiran u međuspremnik!',
     writeFeedback: 'Povratne informacije tijekom pisanja s',

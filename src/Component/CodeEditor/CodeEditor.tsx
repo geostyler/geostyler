@@ -41,12 +41,18 @@ import {
 } from 'file-saver';
 
 import './CodeEditor.less';
+import { UploadOutlined } from '@ant-design/icons';
 
 import {
   Button,
   message,
-  Select
+  Select,
+  Upload
 } from 'antd';
+import { UploadFile } from 'antd';
+import type { UploadChangeParam } from 'antd/lib/upload/interface';
+// import { RcFile } from 'antd/lib/upload/interface';
+
 const Option = Select.Option;
 
 import {
@@ -75,6 +81,8 @@ export interface CodeEditorProps {
   locale?: GeoStylerLocale['CodeEditor'];
   /** Delay in ms until onStyleChange will be called */
   delay?: number;
+  /** Show upload file button */
+  showUploadButton?: boolean;
   /** Show save button */
   showSaveButton?: boolean;
   /** show copy button */
@@ -100,6 +108,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   locale = en_US.CodeEditor,
   onStyleChange = () => undefined,
   parsers = [],
+  showUploadButton = false,
   showCopyButton = false,
   showSaveButton = false,
   style
@@ -199,6 +208,28 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   };
 
+  // Prevent file to be uploaded
+  const onBeforeUpload = (file: UploadFile) => {
+    return false;
+  }
+
+  const onFileChanged = (info: UploadChangeParam) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      let style = reader.result;
+      if (activeParser) {
+        activeParser.readStyle(style).then((styleResult: ReadStyleResult) => {
+          // setReadStyleResult(styleResult);
+          setWriteStyleResult(styleResult);
+          onStyleChange(styleResult.output);
+        })
+      }    
+    };
+    let l = info.fileList.length;
+    if (l == 0) return;
+    reader.readAsText(info.fileList[l-1].originFileObj);
+  }
+  
   const handleOnChange = (v?: string) => {
     clearTimeout(editTimeout.current);
     editTimeout.current = window.setTimeout(
@@ -275,7 +306,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const hasWarnings = readStyleHasFeedback || writeStyleHasFeedback && (!hasAlerts);
 
   const alertExtraClass = showFeedback ? 'feedback-visible' : 'feedback-hidden';
-
+  
   return (
     <div className="gs-code-editor">
       <div className="gs-code-editor-toolbar" >
@@ -289,6 +320,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         {
           parserHasUnitSelect &&
             <SLDUnitsSelect changeHandler={onUnitSelect} />
+        }
+        {
+          showUploadButton && 
+          <Upload 
+            showUploadList={false} 
+            beforeUpload={onBeforeUpload}
+            onChange={onFileChanged}
+          >
+            <Button icon={<UploadOutlined />}>{locale.uploadButtonLabel}</Button>
+          </Upload>
         }
       </div>
       <Editor
