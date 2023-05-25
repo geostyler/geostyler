@@ -216,14 +216,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const onFileChanged = (info: UploadChangeParam) => {
     const reader = new FileReader();
     reader.onload = e => {
-      let style = reader.result;
-      if (activeParser) {
-        activeParser.readStyle(style).then((styleResult: ReadStyleResult) => {
-          // setReadStyleResult(styleResult);
-          setWriteStyleResult(styleResult);
-          onStyleChange(styleResult.output);
-        })
-      }    
+      let str = reader.result as string;
+      onChange(str); 
     };
     let l = info.fileList.length;
     if (l == 0) return;
