@@ -252,6 +252,10 @@ GeoStyler is released under the BSD 2-Clause license. Please see the file
 [`LICENSE`](https://github.com/geostyler/geostyler/blob/main/LICENSE) in the
 root of this repository.
 
+## Thanks to all contributors ❤
+
+[![Avatars of contributors of GeoStyler](https://contrib.rocks/image?repo=geostyler/geostyler "Avatars of contributors of GeoStyler")](https://github.com/geostyler/geostyler/graphs/contributors)
+
 ## <a name="funding"></a>Funding & financial sponsorship
 
 Maintenance and further development of this code can be funded through the
