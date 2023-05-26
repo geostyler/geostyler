@@ -3,6 +3,8 @@
 Thank you for contributing to our project! We are happy for any kind of contribution
 and welcome anyone who is interested in doing so. Please also have a look at our [code of conduct](./CODE_OF_CONDUCT.md).
 
+If you are looking for the more detailed developer guide, you can find it in [`DEVELOPING.md`](./DEVELOPING.md).
+
 ## Contributions other than code
 
 There is more than one way of contributing. If you have questions, topics to discuss or anything else
