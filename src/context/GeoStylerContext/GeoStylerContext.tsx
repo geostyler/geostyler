@@ -45,11 +45,11 @@ export type InputConfig<T> = {
 export type CompositionContext = {
   FillEditor?: {
     visibility?: boolean;
-    fillColorField?: InputConfig<ColorFieldProps['color']>;
+    fillColorField?: InputConfig<ColorFieldProps['value']>;
     fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
     opacityField?: InputConfig<OpacityFieldProps['value']>;
     outlineOpacityField?: InputConfig<OpacityFieldProps['value']>;
-    outlineColorField?: InputConfig<ColorFieldProps['color']>;
+    outlineColorField?: InputConfig<ColorFieldProps['value']>;
     // TODO add support for default values in LineDashField
     outlineDasharrayField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
     outlineWidthField?: InputConfig<WidthFieldProps['value']>;
@@ -69,7 +69,7 @@ export type CompositionContext = {
   };
   LineEditor?: {
     visibility?: boolean;
-    colorField?: InputConfig<ColorFieldProps['color']>;
+    colorField?: InputConfig<ColorFieldProps['value']>;
     widthField?: InputConfig<WidthFieldProps['value']>;
     perpendicularOffsetField?: InputConfig<OffsetFieldProps['offset']>;
     opacityField?: InputConfig<OpacityFieldProps['value']>;
@@ -94,10 +94,10 @@ export type CompositionContext = {
     radiusField?: InputConfig<RadiusFieldProps['radius']>;
     offsetXField?: InputConfig<OffsetFieldProps['offset']>;
     offsetYField?: InputConfig<OffsetFieldProps['offset']>;
-    fillColorField?: InputConfig<ColorFieldProps['color']>;
+    fillColorField?: InputConfig<ColorFieldProps['value']>;
     opacityField?: InputConfig<OpacityFieldProps['value']>;
     fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
-    strokeColorField?: InputConfig<ColorFieldProps['color']>;
+    strokeColorField?: InputConfig<ColorFieldProps['value']>;
     strokeWidthField?: InputConfig<WidthFieldProps['value']>;
     strokeOpacityField?: InputConfig<OpacityFieldProps['value']>;
     rotateField?: InputConfig<RotateFieldProps['rotate']>;
@@ -105,7 +105,7 @@ export type CompositionContext = {
   TextEditor?: {
     visibility?: boolean;
     templateField?: InputConfig<string>;
-    colorField?: InputConfig<ColorFieldProps['color']>;
+    colorField?: InputConfig<ColorFieldProps['value']>;
     // TODO add support for default values in FontPicker
     fontField?: Omit<InputConfig<FontPickerProps['font']>, 'default'>;
     opacityField?: InputConfig<OpacityFieldProps['value']>;
@@ -113,7 +113,7 @@ export type CompositionContext = {
     offsetXField?: InputConfig<OffsetFieldProps['offset']>;
     offsetYField?: InputConfig<OffsetFieldProps['offset']>;
     rotateField?: InputConfig<RotateFieldProps['rotate']>;
-    haloColorField?: InputConfig<ColorFieldProps['color']>;
+    haloColorField?: InputConfig<ColorFieldProps['value']>;
     haloWidthField?: InputConfig<WidthFieldProps['value']>;
   };
   RasterEditor?: {

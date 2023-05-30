@@ -143,7 +143,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
       >
         {locale.colorLabel}
         <ColorField
-          color={color}
+          value={color}
           onChange={updateMultiColors}
         />
       </Modal>

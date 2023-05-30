@@ -218,9 +218,6 @@ export default interface GeoStylerLocale extends Locale {
     closeEditorText: string;
   };
   ColorField: {
-    clearText: string;
-    closeText: string;
-    editText: string;
     chooseText: string;
   };
   KindField: {

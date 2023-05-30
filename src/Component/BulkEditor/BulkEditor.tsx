@@ -101,7 +101,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
         label={locale.colorLabel}
       >
         <ColorField
-          color={color}
+          value={color}
           onChange={onColorChange}
         />
       </Form.Item>

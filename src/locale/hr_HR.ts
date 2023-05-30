@@ -255,10 +255,7 @@ const hr_HR: GeoStylerLocale = {
     closeEditorText: 'Zatvori editor'
   },
   ColorField: {
-    clearText: 'Očisti',
-    closeText: 'Zatvori',
-    editText: 'Promjeni',
-    chooseText: 'Izaberi',
+    chooseText: 'Izaberi'
   },
   KindField: {
     symbolizerKinds: {

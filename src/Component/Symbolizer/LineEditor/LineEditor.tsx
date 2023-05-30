@@ -213,7 +213,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getSupportProps('color')}
               >
                 <ColorField
-                  color={color as string}
+                  value={color as string}
                   defaultValue={composition.colorField?.default}
                   onChange={onColorChange}
                 />
