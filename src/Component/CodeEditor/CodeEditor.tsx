@@ -96,10 +96,10 @@ type FileExtension = '.sld' | '.qml' | '.json' | '.txt' ;
 type MimeType = 'application/json' | 'text/xml' | 'text/plain';
 
 type FileFormat = {
-  language: EditorLanguage,
-  extension: FileExtension,
-  mimeType: MimeType
-}
+  language: EditorLanguage;
+  extension: FileExtension;
+  mimeType: MimeType;
+};
 
 const MODELPATH = 'geostyler.json'; // associate with our model
 const SCHEMAURI = schema.$id;
@@ -107,41 +107,41 @@ const SCHEMAURI = schema.$id;
 export const COMPONENTNAME = 'CodeEditor';
 
 const getFileFormat = (parser: StyleParser): FileFormat => {
-  let fileFormat :FileFormat = {
+  let fileFormat: FileFormat = {
     extension: '.txt',
     language: 'plaintext',
     mimeType: 'text/plain',
-  }
+  };
 
   if (parser instanceof SldStyleParser){
     fileFormat = {
       extension: '.sld',
       language: 'xml',
       mimeType: 'text/xml',
-    }
+    };
   } else if (parser instanceof QGISStyleParser){
     fileFormat = {
       extension: '.qml',
       language: 'xml',
       mimeType: 'text/xml',
-    }
+    };
   } else if (parser instanceof MapboxStyleParser){
     fileFormat = {
       extension: '.json',
       language: 'json',
       mimeType: 'application/json',
-    }
-  } else if (parser == undefined ) {
+    };
+  } else if (parser === undefined ) {
     // parser == undefined -> GeostylerStyle
     fileFormat = {
       extension: '.json',
       language: 'json',
       mimeType: 'application/json',
-    }
+    };
   }
 
   return fileFormat;
-}
+};
 
 export const CodeEditor: React.FC<CodeEditorProps> = ({
   defaultParser,
@@ -208,7 +208,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   }, [activeParser, style, updateValueFromStyle, previousStyle, previouseParser]);
 
   useEffect(() => {
-    setFileFormat(getFileFormat(activeParser))
+    setFileFormat(getFileFormat(activeParser));
   }, [activeParser]);
 
   if (hasError) {
@@ -272,7 +272,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       let fileName = style.name;
       fileName += fileFormat.extension;
 
-      const type = `${fileFormat.mimeType};charset=utf-8`
+      const type = `${fileFormat.mimeType};charset=utf-8`;
       const blob = new Blob([value], {type});
       saveAs(blob, fileName);
     }
@@ -310,7 +310,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     setShowFeedback(!showFeedback);
   };
 
-  const parserHasUnitSelect = activeParser && activeParser instanceof SldStyleParser && (activeParser as SldStyleParser).sldVersion !== '1.0.0';
+  const parserHasUnitSelect = activeParser && activeParser instanceof SldStyleParser
+    && (activeParser as SldStyleParser).sldVersion !== '1.0.0';
 
   const writeStyleHasFeedback = writeStyleResult?.errors ||
     writeStyleResult?.warnings ||
