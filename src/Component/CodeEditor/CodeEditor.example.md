@@ -31,9 +31,11 @@
 This demonstrates the usage of the `CodeEditor` component.
 
 ```jsx
-import * as React from 'react';
-import { CodeEditor } from 'geostyler';
-import SldStyleParser from 'geostyler-sld-parser';
+import * as React from "react";
+import { CodeEditor } from "geostyler";
+import SldStyleParser from "geostyler-sld-parser";
+import QgisStyleParser from "geostyler-qgis-parser";
+import MapboxStyleParser from 'geostyler-mapbox-parser';
 
 class CodeEditorExample extends React.Component {
   constructor(props) {
@@ -41,45 +43,46 @@ class CodeEditorExample extends React.Component {
 
     this.state = {
       sldParser: new SldStyleParser({
-        sldVersion: '1.1.0',
+        sldVersion: "1.1.0",
         builderOptions: {
-          format: true
-        }
+          format: true,
+        },
       }),
+      qgisStyleParser: new QgisStyleParser(),
+      mapboxStyleParser: new MapboxStyleParser({ pretty: true }),
       style: {
-        "name": "Demo Style",
-        "rules": [
+        name: "Demo Style",
+        rules: [
           {
-            "name": "Rule 1",
-            "symbolizers": [
+            name: "Rule 1",
+            symbolizers: [
               {
-                "kind": "Mark",
-                "wellKnownName": "circle"
-              }
-            ]
-          }
-        ]
-      }
-    }
+                kind: "Mark",
+                wellKnownName: "circle",
+              },
+            ],
+          },
+        ],
+      },
+    };
   }
 
   render() {
-    const {
-      style,
-      sldParser
-    } = this.state;
+    const { style, sldParser, qgisStyleParser, mapboxStyleParser } = this.state;
 
     return (
-      <div style={{height: '300px'}}>
+      <div style={{ height: "300px" }}>
         <CodeEditor
           style={style}
-          parsers={[sldParser]}
+          parsers={[sldParser, qgisStyleParser, mapboxStyleParser]}
           defaultParser={sldParser}
+          showSaveButton={true}
+          showCopyButton={true}
         />
       </div>
     );
   }
 }
 
-<CodeEditorExample />
+<CodeEditorExample />;
 ```
