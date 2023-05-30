@@ -26,16 +26,23 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import OlMap from 'ol/Map';
 import OlLayerVector from 'ol/layer/Vector';
 import OlSourceVector from 'ol/source/Vector';
 import OlFormatGeoJSON from 'ol/format/GeoJSON';
-import { ProjectionLike } from 'ol/proj';
+import { Projection, ProjectionLike } from 'ol/proj';
 import OlFeature from 'ol/Feature';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOSM from 'ol/source/OSM';
+import {
+  get as getProjection,
+} from 'ol/proj';
+import {
+  register
+} from 'ol/proj/proj4.js';
+import proj4 from 'proj4';
 import { isEmpty } from 'ol/extent';
 
 import { Style } from 'geostyler-style';
@@ -46,6 +53,7 @@ import GeometryUtil from '../../Util/GeometryUtil';
 
 import './PreviewMap.less';
 import { StandardLonghandProperties } from 'csstype';
+import { isString } from 'lodash';
 
 // default props
 export interface PreviewMapDefaultProps {
@@ -124,15 +132,49 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
   };
 
   /**
-   * Add the containing exampleFeatures if the passed data changes.
+   * Fetches EPSG information from epsg.io registers the definition for openlayers
+   * and returns a Promise resolving to the Projection.
+   *
+   * @param epsgCode An ESPG code string. e. EPSG:32614
+   * @returns
    */
-  useEffect(() => {
+  const fetchInfo = async (epsgCode: string): Promise<Projection | undefined> => {
+    const response = await fetch('https://epsg.io/?format=json&q=' + epsgCode);
+    const json = await response.json();
+    const result: any = json.results?.[0];
+    if (result) {
+      const proj4def = result.wkt;
+      proj4.defs(epsgCode, proj4def);
+      register(proj4);
+      return getProjection(epsgCode);
+    }
+    return undefined;
+  };
+
+  /**
+   * Add / refresh the containing exampleFeatures if the passed data changes.
+   */
+  const refreshData = useCallback(async () => {
     const map = mapRef.current;
     const dataLayer = dataLayerRef.current;
     if (dataLayer && (data as VectorData)?.exampleFeatures && map) {
       dataLayer.getSource().clear();
+
+      let proj: Projection = getProjection(dataProjection);
+
+      if (!proj && isString(dataProjection)) {
+        try {
+          proj = await fetchInfo(dataProjection);
+        } catch (error) {
+          throw new Error(`Could not get dataProjection: ${dataProjection}`);
+        }
+      }
+      if (!proj) {
+        throw new Error(`Could not get dataProjection: ${dataProjection}`);
+      }
+
       const format = new OlFormatGeoJSON({
-        dataProjection: dataProjection,
+        dataProjection: proj,
         featureProjection: map.getView().getProjection()
       });
       const olFeatures = format.readFeatures((data as VectorData).exampleFeatures);
@@ -140,6 +182,10 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
       zoomToData();
     }
   }, [data, dataProjection]);
+
+  useEffect(() => {
+    refreshData();
+  }, [refreshData]);
 
   /**
    * Update the layerStyle if the passed style changes.

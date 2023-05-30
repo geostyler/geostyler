@@ -54,7 +54,7 @@ const PreviewMapExample = () => {
   return (
     <PreviewMap
       style={style}
-      dataProjection="EPSG:3857"
+      dataProjection="EPSG:32614"
       data={{
         schema: {
           type: '',
@@ -62,14 +62,14 @@ const PreviewMapExample = () => {
         },
         exampleFeatures: {
           type: 'FeatureCollection',
-          name: 'geojson3857',
+          name: 'geojson32614',
           features: [
             {
               type: 'Feature',
               properties: { },
               geometry: {
                 type: 'Point',
-                coordinates: [ 775420.044491838547401, 6610942.653629330918193 ]
+                coordinates: [ 785433.013395566958934, 2032298.458539120620117 ]
               }
             },
             {
@@ -77,7 +77,7 @@ const PreviewMapExample = () => {
               properties: { },
               geometry: {
                 type: 'Point',
-                coordinates: [ 775451.828557928558439, 6610064.409696962684393 ]
+                coordinates: [ 787905.450309246662073, 2030118.025881822220981 ]
               }
             },
             {
@@ -85,7 +85,7 @@ const PreviewMapExample = () => {
               properties: { },
               geometry: {
                 type: 'Point',
-                coordinates: [ 775666.209234259324148, 6609062.071335445158184 ]
+                coordinates: [ 786123.196085085393861, 2028597.680797176202759 ]
               }
             }
           ]
