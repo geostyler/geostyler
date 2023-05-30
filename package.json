@@ -142,7 +142,7 @@
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",
     "vite": "4.3.5",
-    "vitest": "0.31.0",
+    "vitest": "0.31.2",
     "whatwg-fetch": "^3.6.2"
   },
   "peerDependencies": {
