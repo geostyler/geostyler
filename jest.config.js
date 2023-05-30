@@ -33,7 +33,6 @@ module.exports = {
   },
   collectCoverageFrom: [
     "src/Component/**/*.{tsx,jsx}",
-    "src/DataProvider/**/*.{ts,tsx,jsx}",
     "src/Util/**/*.{ts,js}"
   ],
   setupFilesAfterEnv: [
