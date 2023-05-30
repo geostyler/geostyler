@@ -148,7 +148,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
     const dataLayer = dataLayerRef.current;
     const styleParser = new OlStyleParser();
     styleParser.writeStyle(style)
-      .then(({ output: olStyles}) => {
+      .then(({ output: olStyles }) => {
         dataLayer.setStyle(olStyles);
       });
   }, [style]);
@@ -162,7 +162,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
     if (!data && dataLayer && map && style) {
       const geoms = GeometryUtil.getSampleGeomFromStyle(style, map.getView().getProjection());
       geoms.forEach((geometry: any) => {
-        const feature = new OlFeature({geometry});
+        const feature = new OlFeature({ geometry });
         dataLayer.getSource().addFeature(feature);
       });
       zoomToData();
