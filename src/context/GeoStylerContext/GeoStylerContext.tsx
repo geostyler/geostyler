@@ -23,6 +23,7 @@ import { ExtendedFieldProps } from '../../Component/Symbolizer/Field/ExtendedFie
 import { FillEditorComposableProps } from '../../Component/Symbolizer/FillEditor/FillEditor';
 import { IconEditorComposableProps } from '../../Component/Symbolizer/IconEditor/IconEditor';
 import { LineEditorComposableProps } from '../../Component/Symbolizer/LineEditor/LineEditor';
+import { MarkEditorComposableProps } from '../../Component/Symbolizer/MarkEditor/MarkEditor';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -43,12 +44,7 @@ export type CompositionContext = {
   FillEditor?: FillEditorComposableProps;
   IconEditor?: IconEditorComposableProps;
   LineEditor?: LineEditorComposableProps;
-  MarkEditor?: {
-    visibility?: boolean;
-    // TODO add support for default values in WellKnownNameField
-    wellKnownNameField?: Omit<InputConfig<WellKnownNameFieldProps['wellKnownName']>, 'default'>;
-    // TODO add wellKnownNames property that specifies the supported WKNs
-  };
+  MarkEditor?: MarkEditorComposableProps;
   WellKnownNameEditor?: {
     visibility?: boolean;
     radiusField?: InputConfig<RadiusFieldProps['radius']>;
