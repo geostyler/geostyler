@@ -45,10 +45,29 @@ import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStyle
 const { Text } = Typography;
 
 // default props
-interface RuleCardDefaultProps {}
+export interface RuleCardComposableProps {
+  amount?: {
+    visibility?: boolean;
+  };
+  duplicate?: {
+    visibility?: boolean;
+  };
+  maxScale?: {
+    visibility?: boolean;
+  };
+  minScale?: {
+    visibility?: boolean;
+  };
+  filter?: {
+    visibility?: boolean;
+  };
+  name?: {
+    visibility?: boolean;
+  };
+}
 
 // non default props
-export interface RuleCardProps extends Partial<RuleCardDefaultProps> {
+export interface RuleCardProps {
   /** The rule to display. */
   rule: GsRule;
   /** The number of features that are also matched by other rules. */
@@ -59,18 +78,17 @@ export interface RuleCardProps extends Partial<RuleCardDefaultProps> {
   onClick?: () => void;
 }
 
-export const RuleCard: React.FC<RuleCardProps> = (props) => {
+export const RuleCard: React.FC<RuleCardProps & RuleCardComposableProps> = ({
+  rule,
+  duplicates,
+  onClick,
+  data,
+  ...composableProps
+}) => {
 
-  const composition = useGeoStylerComposition('Rule', {});
+  const composition = useGeoStylerComposition('RuleCard');
 
-  const composed = {...props, ...composition};
-
-  const {
-    rule,
-    duplicates,
-    onClick,
-    data,
-  } = composed;
+  const composed = {...composableProps, ...composition};
 
   let amount;
   if (data && DataUtil.isVector(data) && rule.filter && rule.filter.length) {
@@ -96,13 +114,13 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
       <Divider type='vertical' />
       <div className='gs-rule-card-content'>
         {
-          composition.name?.visibility === false ? null : (
+          composed.name?.visibility === false ? null : (
             <h2>{rule.name}</h2>
           )
         }
         {
-          composition.maxScale?.visibility === false
-            || composition.minScale?.visibility === false
+          composed.maxScale?.visibility === false
+            || composed.minScale?.visibility === false
             ? null : (
               <span>
                 <>
@@ -113,7 +131,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
         }
         <span className='gs-rule-card-content-icon-row'>
           {
-            composition.amount?.visibility === false ? null : (
+            composed.amount?.visibility === false ? null : (
               <Text type='secondary'>
                 <span className='gs-rule-card-icon'>Σ</span>
                 {amount !== undefined ? amount : '-'}
@@ -121,7 +139,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
             )
           }
           {
-            composition.duplicate?.visibility === false ? null : (
+            composed.duplicate?.visibility === false ? null : (
               <Text type='secondary'>
                 <BlockOutlined className='gs-rule-card-icon' />
                 {duplicates !== undefined ? duplicates : '-'}
@@ -130,7 +148,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
           }
         </span>
         {
-          composition.filter?.visibility === false ? null : (
+          composed.filter?.visibility === false ? null : (
             <span className='gs-rule-card-cql'>
               {
                 rule.filter?.length && (

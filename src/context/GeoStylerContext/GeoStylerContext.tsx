@@ -14,6 +14,7 @@ import { TextEditorComposableProps } from '../../Component/Symbolizer/TextEditor
 import { RasterEditorComposableProps } from '../../Component/Symbolizer/RasterEditor/RasterEditor';
 import { RasterChannelEditorComposableProps } from '../../Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
 import { ColorMapEditorComposableProps } from '../../Component/Symbolizer/ColorMapEditor/ColorMapEditor';
+import { RuleCardComposableProps } from '../../Component/RuleCard/RuleCard';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -45,26 +46,7 @@ export type CompositionContext = {
   Rules?: {
     enableClassification?: boolean;
   };
-  Rule?: {
-    amount?: {
-      visibility?: boolean;
-    };
-    duplicate?: {
-      visibility?: boolean;
-    };
-    maxScale?: {
-      visibility?: boolean;
-    };
-    minScale?: {
-      visibility?: boolean;
-    };
-    filter?: {
-      visibility?: boolean;
-    };
-    name?: {
-      visibility?: boolean;
-    };
-  };
+  RuleCard?: RuleCardComposableProps;
 };
 
 export interface GeoStylerContextInterface {
