@@ -1,14 +1,8 @@
 import { ColorMapEntry, UnsupportedProperties } from 'geostyler-style';
 import React, { useContext } from 'react';
 import { ComparisonFilterProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
-import { ColorFieldProps } from '../../Component/Symbolizer/Field/ColorField/ColorField';
 import { OpacityFieldProps } from '../../Component/Symbolizer/Field/OpacityField/OpacityField';
-import { WidthFieldProps } from '../../Component/Symbolizer/Field/WidthField/WidthField';
-import { SizeFieldProps } from '../../Component/Symbolizer/Field/SizeField/SizeField';
 import type GeoStylerLocale from '../../locale/locale';
-import { OffsetFieldProps } from '../../Component/Symbolizer/Field/OffsetField/OffsetField';
-import { RotateFieldProps } from '../../Component/Symbolizer/Field/RotateField/RotateField';
-import { FontPickerProps } from '../../Component/Symbolizer/Field/FontPicker/FontPicker';
 import {
   ContrastEnhancementFieldProps
 } from '../../Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
@@ -23,6 +17,7 @@ import { IconEditorComposableProps } from '../../Component/Symbolizer/IconEditor
 import { LineEditorComposableProps } from '../../Component/Symbolizer/LineEditor/LineEditor';
 import { MarkEditorComposableProps } from '../../Component/Symbolizer/MarkEditor/MarkEditor';
 import { WellKnownNameEditorComposableProps } from '../../Component/Symbolizer/WellKnownNameEditor/WellKnownNameEditor';
+import { TextEditorComposableProps } from '../../Component/Symbolizer/TextEditor/TextEditor';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -45,20 +40,7 @@ export type CompositionContext = {
   LineEditor?: LineEditorComposableProps;
   MarkEditor?: MarkEditorComposableProps;
   WellKnownNameEditor?: WellKnownNameEditorComposableProps;
-  TextEditor?: {
-    visibility?: boolean;
-    templateField?: InputConfig<string>;
-    colorField?: InputConfig<ColorFieldProps['value']>;
-    // TODO add support for default values in FontPicker
-    fontField?: Omit<InputConfig<FontPickerProps['font']>, 'default'>;
-    opacityField?: InputConfig<OpacityFieldProps['value']>;
-    sizeField?: InputConfig<SizeFieldProps['value']>;
-    offsetXField?: InputConfig<OffsetFieldProps['offset']>;
-    offsetYField?: InputConfig<OffsetFieldProps['offset']>;
-    rotateField?: InputConfig<RotateFieldProps['rotate']>;
-    haloColorField?: InputConfig<ColorFieldProps['value']>;
-    haloWidthField?: InputConfig<WidthFieldProps['value']>;
-  };
+  TextEditor?: TextEditorComposableProps;
   RasterEditor?: {
     visibility?: boolean;
     opacityField?: InputConfig<OpacityFieldProps['value']>;
