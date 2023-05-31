@@ -45,7 +45,7 @@ import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStyle
 const { Text } = Typography;
 
 // default props
-export interface RuleCardComposableProps {
+export interface RuleComposableProps {
   amount?: {
     visibility?: boolean;
   };
@@ -78,7 +78,7 @@ export interface RuleCardProps {
   onClick?: () => void;
 }
 
-export const RuleCard: React.FC<RuleCardProps & RuleCardComposableProps> = ({
+export const RuleCard: React.FC<RuleCardProps & RuleComposableProps> = ({
   rule,
   duplicates,
   onClick,
@@ -86,7 +86,7 @@ export const RuleCard: React.FC<RuleCardProps & RuleCardComposableProps> = ({
   ...composableProps
 }) => {
 
-  const composition = useGeoStylerComposition('RuleCard');
+  const composition = useGeoStylerComposition('Rule');
 
   const composed = {...composableProps, ...composition};
 

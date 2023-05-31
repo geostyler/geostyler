@@ -45,38 +45,34 @@ import FilterOverview from '../FilterOverview/FilterOverview';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
-
-// default props
-interface RuleOverviewDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['RuleOverview'];
-  /** The callback when the style changed. */
-  onRuleChange: (rule: GsRule) => void;
-  /** The callback when a view change (request) was triggered. */
-  onChangeView: (view: string, indices: number[]) => void;
-}
+import { RuleComposableProps } from '../RuleCard/RuleCard';
 
 // non default props
-export interface RuleOverviewProps extends Partial<RuleOverviewDefaultProps> {
+export interface RuleOverviewProps {
+  /** Locale object containing translated text snippets */
+  locale?: GeoStylerLocale['RuleOverview'];
+  /** The callback when the style changed. */
+  onRuleChange?: (rule: GsRule) => void;
+  /** The callback when a view change (request) was triggered. */
+  onChangeView?: (view: string, indices: number[]) => void;
   /** Reference to internal data object (holding schema and example features). */
   data?: Data;
   /** A GeoStyler-Style object. */
   rule: GsRule;
 }
 
-export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
+export const RuleOverview: React.FC<RuleOverviewProps & RuleComposableProps> = ({
+  rule,
+  data,
+  onRuleChange = () => {},
+  onChangeView = () => {},
+  locale = en_US.RuleOverview,
+  ...composableProps
+}) => {
 
-  const composition = useGeoStylerComposition('Rule', {});
+  const composition = useGeoStylerComposition('Rule');
 
-  const composed = {...props, composition};
-
-  const {
-    rule,
-    data,
-    onRuleChange = () => {},
-    onChangeView = () => {},
-    locale = en_US.RuleOverview
-  } = composed;
+  const composed = {...composableProps, ...composition};
 
   const onNameChange = (name: string) => {
     const newRule: GsRule = {...rule, name};
@@ -135,7 +131,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
         data={data}
       />
       {
-        composition.filter?.visibility === false ? null : (
+        composed.filter?.visibility === false ? null : (
           <FilterOverview
             filter={rule.filter}
             onEditFilterClick={onEditFilterClick}

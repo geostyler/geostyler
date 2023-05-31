@@ -14,7 +14,7 @@ import { TextEditorComposableProps } from '../../Component/Symbolizer/TextEditor
 import { RasterEditorComposableProps } from '../../Component/Symbolizer/RasterEditor/RasterEditor';
 import { RasterChannelEditorComposableProps } from '../../Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
 import { ColorMapEditorComposableProps } from '../../Component/Symbolizer/ColorMapEditor/ColorMapEditor';
-import { RuleCardComposableProps } from '../../Component/RuleCard/RuleCard';
+import { RuleComposableProps } from '../../Component/RuleCard/RuleCard';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -46,7 +46,7 @@ export type CompositionContext = {
   Rules?: {
     enableClassification?: boolean;
   };
-  RuleCard?: RuleCardComposableProps;
+  Rule?: RuleComposableProps;
 };
 
 export interface GeoStylerContextInterface {
@@ -63,11 +63,11 @@ export const useGeoStylerContext = (): GeoStylerContextInterface => {
 };
 
 export const useGeoStylerComposition = <T extends keyof CompositionContext>(
-  key: T): CompositionContext[T] | {} => {
+  key: T): CompositionContext[T] => {
   const ctx = useContext(GeoStylerContext);
 
   if (!ctx.composition || !ctx.composition[key]) {
-    return {};
+    return {} as CompositionContext[T];
   }
   return structuredClone(ctx.composition[key]);
 };
