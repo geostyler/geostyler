@@ -1,6 +1,6 @@
 import { UnsupportedProperties } from 'geostyler-style';
 import React, { useContext } from 'react';
-import { ComparisonFilterProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
+import { ComparisonFilterComposableProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
 import type GeoStylerLocale from '../../locale/locale';
 import {
 } from '../../Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
@@ -42,7 +42,7 @@ export type CompositionContext = {
   RasterEditor?: RasterEditorComposableProps;
   RasterChannelEditor?: RasterChannelEditorComposableProps;
   ColorMapEditor?: ColorMapEditorComposableProps;
-  ComparisonFilter?: Partial<ComparisonFilterProps>;
+  ComparisonFilter?: ComparisonFilterComposableProps;
   Renderer?: RendererComposableProps;
   Rules?: RulesComposableProps;
   Rule?: RuleComposableProps;

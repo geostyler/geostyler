@@ -66,12 +66,7 @@ interface Validators {
     => ValidationResult;
 }
 
-// default props
-export interface ComparisonFilterProps {
-  /** Initial comparison filter object */
-  filter?: GsComparisonFilter;
-  /** Set true to hide the attribute's type in the AttributeCombo select options */
-  hideAttributeType?: boolean;
+export interface ComparisonFilterComposableProps {
   /**
    * A custom filter function which is passed each attribute.
    * Should return true to accept each attribute or false to reject it.
@@ -79,14 +74,10 @@ export interface ComparisonFilterProps {
   attributeNameFilter?: (attributeName: string) => boolean;
   /** Mapping function for attribute names of underlying AttributeCombo */
   attributeNameMappingFunction?: (originalAttributeName: string) => string;
-  /** Label for the underlying OperatorCombo */
-  operatorLabel?: string;
+  /** Set true to hide the attribute's type in the AttributeCombo select options */
+  hideAttributeType?: boolean;
   /** Show title of selected item in underlying OperatorCombo */
   showOperatorTitles?: boolean;
-  /** Placeholder for the underlying OperatorCombo */
-  operatorPlaceholderString?: string;
-  /** Validation help text for the underlying OperatorCombo */
-  operatorValidationHelpString?: string;
   /** Mapping function for operator names of underlying OperatorCombo */
   operatorNameMappingFunction?: (originalOperatorName: string) => string;
   /** Mapping function for operator title in underlying OperatorCombo */
@@ -95,8 +86,20 @@ export interface ComparisonFilterProps {
   validators?: Validators;
   /** Show ui in micro mode. Which disables labels etc. */
   microUI?: boolean;
+};
+
+// default props
+export interface ComparisonFilterProps {
+  /** Initial comparison filter object */
+  filter?: GsComparisonFilter;
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: Data;
+  /** Label for the underlying OperatorCombo */
+  operatorLabel?: string;
+  /** Placeholder for the underlying OperatorCombo */
+  operatorPlaceholderString?: string;
+  /** Validation help text for the underlying OperatorCombo */
+  operatorValidationHelpString?: string;
   /** Callback function for onFilterChange */
   onFilterChange?: ((compFilter: GsComparisonFilter) => void);
 }
@@ -165,31 +168,31 @@ const operatorsMap: Record<JSONSchema4TypeName, ComparisonOperator[]> = {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
+export const ComparisonFilter: React.FC<ComparisonFilterProps & ComparisonFilterComposableProps> = ({
+  filter = ['==', '', null],
+  internalDataDef,
+  onFilterChange,
+  operatorLabel,
+  operatorPlaceholderString,
+  operatorValidationHelpString,
+  ...composableProps
+}) => {
 
   const composition = useGeoStylerComposition('ComparisonFilter');
-
-  const composed = {...props, ...composition};
-
+  const composed = {...composableProps, ...composition};
   const {
     attributeNameFilter = () => true,
     attributeNameMappingFunction = n => n,
-    filter = ['==', '', null],
     hideAttributeType = false,
-    internalDataDef,
     microUI = false,
-    onFilterChange,
-    operatorLabel,
     operatorNameMappingFunction = n => n,
-    operatorPlaceholderString,
     operatorTitleMappingFunction = t => t,
-    operatorValidationHelpString,
     showOperatorTitles = true,
     validators = {
       attribute: attributeName => !_isEmpty(attributeName),
       operator: operatorName => !_isEmpty(operatorName),
       value: ComparisonFilterDefaultValidator
-    }
+    },
   } = composed;
 
   /**
