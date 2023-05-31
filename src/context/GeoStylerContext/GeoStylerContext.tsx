@@ -15,6 +15,7 @@ import { RasterEditorComposableProps } from '../../Component/Symbolizer/RasterEd
 import { RasterChannelEditorComposableProps } from '../../Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
 import { ColorMapEditorComposableProps } from '../../Component/Symbolizer/ColorMapEditor/ColorMapEditor';
 import { RuleComposableProps } from '../../Component/RuleCard/RuleCard';
+import { RulesComposableProps } from '../../Component/Rules/Rules';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -43,9 +44,7 @@ export type CompositionContext = {
   ColorMapEditor?: ColorMapEditorComposableProps;
   ComparisonFilter?: Partial<ComparisonFilterProps>;
   Renderer?: Partial<Omit<RendererProps, 'onClick'>>;
-  Rules?: {
-    enableClassification?: boolean;
-  };
+  Rules?: RulesComposableProps;
   Rule?: RuleComposableProps;
 };
 

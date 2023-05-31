@@ -47,7 +47,7 @@ import { Button, Switch, Divider } from 'antd';
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import Selectable from '../Selectable/Selectable';
-import { RuleCard } from '../RuleCard/RuleCard';
+import { RuleCard, RuleComposableProps } from '../RuleCard/RuleCard';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
@@ -55,20 +55,19 @@ import { SortableItem } from '../SortableItem/SortableItem';
 import { RemovableItem } from '../RemovableItem/RemovableItem';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface RulesDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['Rules'];
-  /** Display the number of features that match a rule */
-  showAmount: boolean;
-  /** Display the number of features that match more than one rule */
-  showDuplicates: boolean;
+export interface RulesComposableProps {
   /** Enable classification */
-  enableClassification: boolean;
+  enableClassification?: boolean;
 }
 
 // non default props
-export interface RulesProps extends Partial<RulesDefaultProps> {
+export interface RulesProps {
+  /** Locale object containing translated text snippets */
+  locale?: GeoStylerLocale['Rules'];
+  /** Display the number of features that match a rule */
+  showAmount?: boolean;
+  /** Display the number of features that match more than one rule */
+  showDuplicates?: boolean;
   /** List of rules to display in rule table */
   rules: GsRule[];
   /** Reference to internal data object (holding schema and example features) */
@@ -83,22 +82,20 @@ export interface RulesProps extends Partial<RulesDefaultProps> {
   onEditRuleClick?: (ruleId: number) => void;
 }
 
-export const Rules: React.FC<RulesProps> = (props) => {
+export const Rules: React.FC<RulesProps & RuleComposableProps> = ({
+  locale = en_US.Rules,
+  data,
+  rules,
+  onRulesChange,
+  onClassificationClick,
+  onEditSelectionClick,
+  onEditRuleClick,
+  ...composableProps
+}) => {
 
-  const composition = useGeoStylerComposition('Rule', {});
+  const composition = useGeoStylerComposition('Rules');
 
-  const composed = {...props, ...composition};
-
-  const {
-    locale = en_US.Rules,
-    data,
-    rules,
-    onRulesChange,
-    onClassificationClick,
-    onEditSelectionClick,
-    onEditRuleClick,
-    enableClassification = true
-  } = composed;
+  const composed = {...composableProps, ...composition};
 
   const [multiEditActive, setMultiEditActive] = useState<boolean>(false);
   const [selectedRules, setSelectedRules] = useState<number[]>([]);
@@ -238,7 +235,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
   ];
 
   // TODO: Classification button should only be available if data is VectorData
-  if (enableClassification) {
+  if (composed?.enableClassification) {
     defaultActions = [
       ...defaultActions,
       <Button
