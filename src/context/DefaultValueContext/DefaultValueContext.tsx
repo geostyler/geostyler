@@ -26,8 +26,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+import React from 'react';
 import { WellKnownName } from 'geostyler-style';
-import * as React from 'react';
 
 /**
  * Creates the DefaultValueContext used for customising

@@ -120,7 +120,6 @@ import WellKnownNameField from './Component/Symbolizer/Field/WellKnownNameField/
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
 import withDefaultsContext from './hoc/withDefaultsContext';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
-import { CompositionContext } from './context/CompositionContext/CompositionContext';
 import { DefaultValueContext } from './context/DefaultValueContext/DefaultValueContext';
 import { UnsupportedPropertiesContext } from './context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import type GeoStylerLocale from './locale/locale';
@@ -158,7 +157,6 @@ export {
   ColorMapTypeField,
   ColorRampCombo,
   ComparisonFilter,
-  CompositionContext,
   ConfigProvider,
   ContrastEnhancementField,
   ContrastField,
