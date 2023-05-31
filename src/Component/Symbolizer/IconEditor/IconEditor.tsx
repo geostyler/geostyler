@@ -33,36 +33,45 @@ import {
   IconSymbolizer
 } from 'geostyler-style';
 
-import OpacityField from '../Field/OpacityField/OpacityField';
+import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
 import ImageField, { ImageFieldProps } from '../Field/ImageField/ImageField';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
 import _isEqual from 'lodash/isEqual';
-import RotateField from '../Field/RotateField/RotateField';
-import SizeField from '../Field/SizeField/SizeField';
+import RotateField, { RotateFieldProps } from '../Field/RotateField/RotateField';
+import SizeField, { SizeFieldProps } from '../Field/SizeField/SizeField';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
 
-import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import OffsetField from '../Field/OffsetField/OffsetField';
-import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
+import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
-export interface IconEditorDefaultProps {
-  locale: GeoStylerLocale['IconEditor'];
+export interface IconEditorComposableProps {
+  visibility: boolean;
+  // TODO add support for default values in ImageField
+  imageField: Omit<InputConfig<ImageFieldProps['value']>, 'default'>;
+  // TODO add support for default values in SizeField
+  sizeField: Omit<InputConfig<SizeFieldProps['value']>, 'default'>;
+  offsetXField?: InputConfig<OffsetFieldProps['offset']>;
+  offsetYField?: InputConfig<OffsetFieldProps['offset']>;
+  rotateField?: InputConfig<RotateFieldProps['rotate']>;
+  opacityField?: InputConfig<OpacityFieldProps['value']>;
+  iconLibraries?: IconLibrary[];
 }
 
 // non default props
-export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
+export interface IconEditorProps {
+  locale?: GeoStylerLocale['IconEditor'];
   symbolizer: IconSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   iconLibraries?: IconLibrary[];
@@ -77,19 +86,18 @@ export interface IconEditorProps extends Partial<IconEditorDefaultProps> {
 
 const COMPONENTNAME = 'IconEditor';
 
-export const IconEditor: React.FC<IconEditorProps> = (props) => {
+export const IconEditor: React.FC<IconEditorProps & IconEditorComposableProps> = ({
+  locale = en_US.IconEditor,
+  symbolizer,
+  onSymbolizerChange,
+  iconLibraries,
+  imageFieldProps,
+  ...composableProps
+}) => {
 
-  const composition = useGeoStylerComposition('IconEditor', {});
+  const composition = useGeoStylerComposition('IconEditor');
 
-  const composed = {...props, ...composition};
-
-  const {
-    locale = en_US.IconEditor,
-    symbolizer,
-    onSymbolizerChange,
-    iconLibraries,
-    imageFieldProps
-  } = composed;
+  const composed = {...composableProps, ...composition};
 
   const {
     unsupportedProperties,
@@ -175,7 +183,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
   return (
     <div className="gs-icon-symbolizer-editor" >
       {
-        composition.imageField?.visibility === false ? null : (
+        composed.imageField?.visibility === false ? null : (
           <Form.Item
             label={locale.imageLabel}
             {...getSupportProps('image')}
@@ -187,14 +195,14 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
               // we overwrite imageFieldProps with the props
               // that were explicitly set as props on IconEditor.
               {...imageFieldProps}
-              iconLibraries={composition.iconLibraries || iconLibraries}
+              iconLibraries={composed.iconLibraries || iconLibraries}
               tooltipLabel={locale.iconTooltipLabel}
             />
           </Form.Item>
         )
       }
       {
-        composition.sizeField?.visibility === false ? null : (
+        composed.sizeField?.visibility === false ? null : (
           <Form.Item
             label={locale.sizeLabel}
             {...getSupportProps('size')}
@@ -207,56 +215,56 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         )
       }
       {
-        composition.offsetXField?.visibility === false ? null : (
+        composed.offsetXField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetXLabel}
             {...getSupportProps('offset')}
           >
             <OffsetField
               offset={offset?.[0]}
-              defaultValue={composition.offsetXField?.default as number}
+              defaultValue={composed.offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
           </Form.Item>
         )
       }
       {
-        composition.offsetYField?.visibility === false ? null : (
+        composed.offsetYField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetYLabel}
             {...getSupportProps('offset')}
           >
             <OffsetField
               offset={offset?.[1]}
-              defaultValue={composition.offsetYField?.default as number}
+              defaultValue={composed.offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
           </Form.Item>
         )
       }
       {
-        composition.rotateField?.visibility === false ? null : (
+        composed.rotateField?.visibility === false ? null : (
           <Form.Item
             label={locale.rotateLabel}
             {...getSupportProps('rotate')}
           >
             <RotateField
               rotate={rotate}
-              defaultValue={composition.rotateField?.default as number}
+              defaultValue={composed.rotateField?.default as number}
               onChange={onRotateChange}
             />
           </Form.Item>
         )
       }
       {
-        composition.opacityField?.visibility === false ? null : (
+        composed.opacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.opacityLabel}
             {...getSupportProps('opacity')}
           >
             <OpacityField
               value={opacity}
-              defaultValue={composition.opacityField?.default as number}
+              defaultValue={composed.opacityField?.default as number}
               onChange={onOpacityChange}
             />
           </Form.Item>
@@ -266,4 +274,4 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
   );
 };
 
-export default withDefaultsContext(localize(IconEditor, COMPONENTNAME));
+export default localize(IconEditor, COMPONENTNAME);

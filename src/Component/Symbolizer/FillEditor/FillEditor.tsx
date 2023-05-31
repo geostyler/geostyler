@@ -52,7 +52,6 @@ import _isEqual from 'lodash/isEqual';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import LineDashField, { LineDashFieldProps } from '../Field/LineDashField/LineDashField';
-import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
   UnsupportedPropertiesContext
@@ -300,4 +299,4 @@ export const FillEditor: React.FC<FillEditorProps & FillEditorComposableProps> =
   );
 };
 
-export default withDefaultsContext(localize(FillEditor, COMPONENTNAME));
+export default localize(FillEditor, COMPONENTNAME);

@@ -4,7 +4,6 @@ import { ComparisonFilterProps } from '../../Component/Filter/ComparisonFilter/C
 import { ColorFieldProps } from '../../Component/Symbolizer/Field/ColorField/ColorField';
 import { LineDashFieldProps } from '../../Component/Symbolizer/Field/LineDashField/LineDashField';
 import { OpacityFieldProps } from '../../Component/Symbolizer/Field/OpacityField/OpacityField';
-import { ImageFieldProps } from '../../Component/Symbolizer/Field/ImageField/ImageField';
 import { WidthFieldProps } from '../../Component/Symbolizer/Field/WidthField/WidthField';
 import { SizeFieldProps } from '../../Component/Symbolizer/Field/SizeField/SizeField';
 import type GeoStylerLocale from '../../locale/locale';
@@ -19,13 +18,13 @@ import {
   ContrastEnhancementFieldProps
 } from '../../Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
 import { GammaFieldProps } from '../../Component/Symbolizer/Field/GammaField/GammaField';
-import { IconLibrary } from '../../Component/Symbolizer/IconSelector/IconSelector';
 import { RendererProps } from '../../Component/Renderer/Renderer/Renderer';
 import { ChannelFieldProps } from '../../Component/Symbolizer/Field/ChannelField/ChannelField';
 import { ColorMapTypeFieldProps } from '../../Component/Symbolizer/Field/ColorMapTypeField/ColorMapTypeField';
 import { ColorRampComboProps } from '../../Component/RuleGenerator/ColorRampCombo/ColorRampCombo';
 import { ExtendedFieldProps } from '../../Component/Symbolizer/Field/ExtendedField/ExtendedField';
 import { FillEditorComposableProps } from '../../Component/Symbolizer/FillEditor/FillEditor';
+import { IconEditorComposableProps } from '../../Component/Symbolizer/IconEditor/IconEditor';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -44,18 +43,7 @@ export type InputConfig<T> = {
 
 export type CompositionContext = {
   FillEditor?: FillEditorComposableProps;
-  IconEditor?: {
-    visibility: boolean;
-    // TODO add support for default values in ImageField
-    imageField: Omit<InputConfig<ImageFieldProps['value']>, 'default'>;
-    // TODO add support for default values in SizeField
-    sizeField: Omit<InputConfig<SizeFieldProps['value']>, 'default'>;
-    offsetXField?: InputConfig<OffsetFieldProps['offset']>;
-    offsetYField?: InputConfig<OffsetFieldProps['offset']>;
-    rotateField?: InputConfig<RotateFieldProps['rotate']>;
-    opacityField?: InputConfig<OpacityFieldProps['value']>;
-    iconLibraries?: IconLibrary[];
-  };
+  IconEditor?: IconEditorComposableProps;
   LineEditor?: {
     visibility?: boolean;
     colorField?: InputConfig<ColorFieldProps['value']>;
