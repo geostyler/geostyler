@@ -118,7 +118,6 @@ import UploadButton from './Component/UploadButton/UploadButton';
 import WellKnownNameEditor from './Component/Symbolizer/WellKnownNameEditor/WellKnownNameEditor';
 import WellKnownNameField from './Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
-import withDefaultsContext from './hoc/withDefaultsContext';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
 import { DefaultValueContext } from './context/DefaultValueContext/DefaultValueContext';
 import { UnsupportedPropertiesContext } from './context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
@@ -239,6 +238,5 @@ export {
   WellKnownNameEditor,
   WellKnownNameField,
   WidthField,
-  withDefaultsContext,
   GeoStylerLocale
 };
