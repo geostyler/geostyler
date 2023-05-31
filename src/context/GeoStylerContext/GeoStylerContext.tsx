@@ -4,7 +4,7 @@ import { ComparisonFilterProps } from '../../Component/Filter/ComparisonFilter/C
 import type GeoStylerLocale from '../../locale/locale';
 import {
 } from '../../Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
-import { RendererProps } from '../../Component/Renderer/Renderer/Renderer';
+import { RendererComposableProps } from '../../Component/Renderer/Renderer/Renderer';
 import { FillEditorComposableProps } from '../../Component/Symbolizer/FillEditor/FillEditor';
 import { IconEditorComposableProps } from '../../Component/Symbolizer/IconEditor/IconEditor';
 import { LineEditorComposableProps } from '../../Component/Symbolizer/LineEditor/LineEditor';
@@ -43,7 +43,7 @@ export type CompositionContext = {
   RasterChannelEditor?: RasterChannelEditorComposableProps;
   ColorMapEditor?: ColorMapEditorComposableProps;
   ComparisonFilter?: Partial<ComparisonFilterProps>;
-  Renderer?: Partial<Omit<RendererProps, 'onClick'>>;
+  Renderer?: RendererComposableProps;
   Rules?: RulesComposableProps;
   Rule?: RuleComposableProps;
 };

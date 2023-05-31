@@ -34,39 +34,33 @@ import OlRenderer, { OlRendererProps } from '../OlRenderer/OlRenderer';
 import SLDRenderer, { SLDRendererProps } from '../SLDRenderer/SLDRenderer';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-type OlRendererDefaultProps = OlRendererProps & {
-  rendererType?: 'OpenLayers';
-};
+export interface RendererComposableProps {
+  rendererType?: 'OpenLayers' | 'SLD';
+}
 
-type SldRendererDefaultProps = SLDRendererProps & {
-  rendererType?: 'SLD';
-};
-
-export type RendererProps = OlRendererDefaultProps | SldRendererDefaultProps;
-
-export const Renderer: React.FC<RendererProps> = (props) => {
+export const Renderer: React.FC<RendererComposableProps & (OlRendererProps | SLDRendererProps)> = ({
+  rendererType,
+  ...rendererProps
+}) => {
 
   const composition = useGeoStylerComposition('Renderer');
-
-  const composed = {...props, ...composition};
-
-  const {
-    rendererType = 'OpenLayers',
-  } = composed;
+  if (composition.rendererType) {
+    rendererType = composition.rendererType;
+  }
 
   let renderer = null;
 
   if (rendererType === 'OpenLayers') {
     renderer = (
       <OlRenderer
-        {...composed}
+        {...rendererProps}
       />
     );
   }
   else if (rendererType === 'SLD') {
     renderer = (
       <SLDRenderer
-        {...composed}
+        {...rendererProps}
       />
     );
   }
