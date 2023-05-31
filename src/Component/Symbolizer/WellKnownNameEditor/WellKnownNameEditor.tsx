@@ -26,12 +26,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import {
-  MarkSymbolizer,
-  Symbolizer
-} from 'geostyler-style';
+import { MarkSymbolizer } from 'geostyler-style';
 
 import ColorField, { ColorFieldProps } from '../Field/ColorField/ColorField';
 import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
@@ -66,7 +63,7 @@ export interface WellKnownNameEditorComposableProps {
 export interface WellKnownNameEditorProps {
   locale?: GeoStylerLocale['WellKnownNameEditor'];
   symbolizer: MarkSymbolizer;
-  onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  onSymbolizerChange?: (changedSymb: MarkSymbolizer) => void;
 }
 
 const COMPONENTNAME = 'WellKnownNameEditor';

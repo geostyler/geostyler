@@ -28,10 +28,7 @@
 
 import React, { useContext } from 'react';
 
-import {
-  Symbolizer,
-  IconSymbolizer
-} from 'geostyler-style';
+import { IconSymbolizer } from 'geostyler-style';
 
 import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
 import ImageField, { ImageFieldProps } from '../Field/ImageField/ImageField';
@@ -41,7 +38,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
 import _isEqual from 'lodash/isEqual';
 import RotateField, { RotateFieldProps } from '../Field/RotateField/RotateField';
-import SizeField, { SizeFieldProps } from '../Field/SizeField/SizeField';
+import SizeField from '../Field/SizeField/SizeField';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
@@ -57,11 +54,15 @@ import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStyler
 
 // default props
 export interface IconEditorComposableProps {
-  visibility: boolean;
+  visibility?: boolean;
   // TODO add support for default values in ImageField
-  imageField: Omit<InputConfig<ImageFieldProps['value']>, 'default'>;
+  imageField?: {
+    visibility?: boolean;
+  };
   // TODO add support for default values in SizeField
-  sizeField: Omit<InputConfig<SizeFieldProps['value']>, 'default'>;
+  sizeField?: {
+    visibility?: boolean;
+  };
   offsetXField?: InputConfig<OffsetFieldProps['offset']>;
   offsetYField?: InputConfig<OffsetFieldProps['offset']>;
   rotateField?: InputConfig<RotateFieldProps['rotate']>;
@@ -73,7 +74,7 @@ export interface IconEditorComposableProps {
 export interface IconEditorProps {
   locale?: GeoStylerLocale['IconEditor'];
   symbolizer: IconSymbolizer;
-  onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  onSymbolizerChange?: (changedSymb: IconSymbolizer) => void;
   iconLibraries?: IconLibrary[];
   /**
    * The props for the image field. Properties 'iconLibraries' and

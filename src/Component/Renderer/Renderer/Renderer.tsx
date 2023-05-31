@@ -46,7 +46,7 @@ export type RendererProps = OlRendererDefaultProps | SldRendererDefaultProps;
 
 export const Renderer: React.FC<RendererProps> = (props) => {
 
-  const composition = useGeoStylerComposition('Renderer', {});
+  const composition = useGeoStylerComposition('Renderer');
 
   const composed = {...props, ...composition};
 

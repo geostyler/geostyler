@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import AttributeCombo from '../AttributeCombo/AttributeCombo';
 import OperatorCombo from '../OperatorCombo/OperatorCombo';
@@ -167,7 +167,7 @@ const operatorsMap: Record<JSONSchema4TypeName, ComparisonOperator[]> = {
  */
 export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
 
-  const composition = useGeoStylerComposition('ComparisonFilter', {});
+  const composition = useGeoStylerComposition('ComparisonFilter');
 
   const composed = {...props, ...composition};
 

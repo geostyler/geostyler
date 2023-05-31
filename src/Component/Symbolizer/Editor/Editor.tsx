@@ -82,12 +82,12 @@ export const Editor: React.FC<EditorProps> = ({
   onSymbolizerChange
 }) => {
 
-  const markComposition = useGeoStylerComposition('MarkEditor', {});
-  const fillComposition = useGeoStylerComposition('FillEditor', {});
-  const iconComposition = useGeoStylerComposition('IconEditor', {});
-  const lineComposition = useGeoStylerComposition('LineEditor', {});
-  const textComposition = useGeoStylerComposition('TextEditor', {});
-  const rasterComposition = useGeoStylerComposition('RasterEditor', {});
+  const markComposition = useGeoStylerComposition('MarkEditor');
+  const fillComposition = useGeoStylerComposition('FillEditor');
+  const iconComposition = useGeoStylerComposition('IconEditor');
+  const lineComposition = useGeoStylerComposition('LineEditor');
+  const textComposition = useGeoStylerComposition('TextEditor');
+  const rasterComposition = useGeoStylerComposition('RasterEditor');
 
   /**
    * Get the appropriate Editor UI for a certain style.
@@ -104,7 +104,7 @@ export const Editor: React.FC<EditorProps> = ({
           />
         );
       case 'Icon':
-        return iconComposition.visibility === false ? null : (
+        return iconComposition?.visibility === false ? null : (
           <IconEditor
             symbolizer={symbolizer}
             onSymbolizerChange={onSymbolizerChange}

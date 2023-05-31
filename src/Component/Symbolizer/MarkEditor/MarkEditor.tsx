@@ -29,7 +29,6 @@
 import React, { useContext } from 'react';
 
 import {
-  Symbolizer,
   MarkSymbolizer,
   WellKnownName
 } from 'geostyler-style';
@@ -65,7 +64,7 @@ export interface MarkEditorComposableProps {
 export interface MarkEditorProps {
   locale?: GeoStylerLocale['MarkEditor'];
   symbolizer: MarkSymbolizer;
-  onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  onSymbolizerChange?: (changedSymb: MarkSymbolizer) => void;
 }
 
 const COMPONENTNAME = 'MarkEditor';

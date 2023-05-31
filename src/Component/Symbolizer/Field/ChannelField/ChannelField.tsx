@@ -62,7 +62,7 @@ export interface ChannelFieldProps extends Partial<ChannelFieldDefaultProps> {
  */
 export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
 
-  const composition = useGeoStylerComposition('RasterChannelEditor', {});
+  const composition = useGeoStylerComposition('RasterChannelEditor');
 
   const composed = {...props, ...composition};
 
