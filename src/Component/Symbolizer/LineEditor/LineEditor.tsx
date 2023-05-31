@@ -42,13 +42,13 @@ import {
   JoinType
 } from 'geostyler-style';
 
-import ColorField from '../Field/ColorField/ColorField';
-import OpacityField from '../Field/OpacityField/OpacityField';
-import WidthField from '../Field/WidthField/WidthField';
-import LineDashField from '../Field/LineDashField/LineDashField';
-import LineCapField from '../Field/LineCapField/LineCapField';
-import LineJoinField from '../Field/LineJoinField/LineJoinField';
-import OffsetField from '../Field/OffsetField/OffsetField';
+import ColorField, { ColorFieldProps } from '../Field/ColorField/ColorField';
+import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
+import WidthField, { WidthFieldProps } from '../Field/WidthField/WidthField';
+import LineDashField, { LineDashFieldProps } from '../Field/LineDashField/LineDashField';
+import LineCapField, { LineCapFieldProps } from '../Field/LineCapField/LineCapField';
+import LineJoinField, { LineJoinFieldProps } from '../Field/LineJoinField/LineJoinField';
+import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -57,43 +57,53 @@ import _isEqual from 'lodash/isEqual';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import withDefaultsContext from '../../../hoc/withDefaultsContext';
-import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 const Panel = Collapse.Panel;
 
-export interface LineEditorDefaultProps {
-  /** Language package */
-  locale: GeoStylerLocale['LineEditor'];
+export interface LineEditorComposableProps {
+  visibility?: boolean;
+  colorField?: InputConfig<ColorFieldProps['color']>;
+  widthField?: InputConfig<WidthFieldProps['value']>;
+  perpendicularOffsetField?: InputConfig<OffsetFieldProps['offset']>;
+  opacityField?: InputConfig<OpacityFieldProps['value']>;
+  // TODO add support for default values in LineDashField
+  lineDashField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
+  dashOffsetField?: InputConfig<OffsetFieldProps['offset']>;
+  // TODO add support for default values in LineCapField
+  capField?: Omit<InputConfig<LineCapFieldProps['value']>, 'default'>;
+  // TODO add support for default values in LineJoinField
+  joinField?: InputConfig<LineJoinFieldProps['value']>;
+  // TODO add support for graphicStroke
+  // TODO add support for graphicFill
 }
 
 // non default props
-export interface LineEditorProps extends Partial<LineEditorDefaultProps> {
+export interface LineEditorProps {
+  /** Language package */
+  locale?: GeoStylerLocale['LineEditor'];
   /** Symbolizer */
   symbolizer: LineSymbolizer;
   /** Callback when symbolizer changes */
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  defaultValues?: DefaultValues;
 }
 const COMPONENTNAME = 'LineEditor';
 
-export const LineEditor: React.FC<LineEditorProps> = (props) => {
+export const LineEditor: React.FC<LineEditorProps & LineEditorComposableProps> = ({
+  locale = en_US.LineEditor,
+  symbolizer,
+  onSymbolizerChange,
+  ...composableProps
+}) => {
 
-  const composition = useGeoStylerComposition('LineEditor', {});
+  const composition = useGeoStylerComposition('LineEditor');
 
-  const composed = {...props, ...composition};
-
-  const {
-    locale = en_US.LineEditor,
-    symbolizer,
-    onSymbolizerChange
-  } = composed;
+  const composed = {...composableProps, ...composition};
 
   const {
     unsupportedProperties,
@@ -207,63 +217,63 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
       <Collapse bordered={false} defaultActiveKey={['1']}>
         <Panel header="General" key="1">
           {
-            composition.colorField?.visibility === false ? null : (
+            composed.colorField?.visibility === false ? null : (
               <Form.Item
                 label={locale.colorLabel}
                 {...getSupportProps('color')}
               >
                 <ColorField
                   value={color as string}
-                  defaultValue={composition.colorField?.default}
+                  defaultValue={composed.colorField?.default}
                   onChange={onColorChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.widthField?.visibility === false ? null : (
+            composed.widthField?.visibility === false ? null : (
               <Form.Item
                 label={locale.widthLabel}
                 {...getSupportProps('width')}
               >
                 <WidthField
                   value={width}
-                  defaultValue={composition.widthField?.default as number}
+                  defaultValue={composed.widthField?.default as number}
                   onChange={onWidthChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.perpendicularOffsetField?.visibility === false ? null : (
+            composed.perpendicularOffsetField?.visibility === false ? null : (
               <Form.Item
                 label={locale.perpendicularOffsetLabel}
                 {...getSupportProps('perpendicularOffset')}
               >
                 <OffsetField
                   offset={perpendicularOffset}
-                  defaultValue={composition.perpendicularOffsetField?.default as number}
+                  defaultValue={composed.perpendicularOffsetField?.default as number}
                   onChange={onPerpendicularOffsetChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.opacityField?.visibility === false ? null : (
+            composed.opacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.opacityLabel}
                 {...getSupportProps('opacity')}
               >
                 <OpacityField
                   value={opacity}
-                  defaultValue={composition.opacityField?.default as number}
+                  defaultValue={composed.opacityField?.default as number}
                   onChange={onOpacityChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.lineDashField?.visibility === false ? null : (
+            composed.lineDashField?.visibility === false ? null : (
               <Form.Item
                 label={locale.dashLabel}
                 {...getSupportProps('dasharray')}
@@ -276,14 +286,14 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             )
           }
           {
-            composition.dashOffsetField?.visibility === false ? null : (
+            composed.dashOffsetField?.visibility === false ? null : (
               <Form.Item
                 label={locale.dashOffsetLabel}
                 {...getSupportProps('dashOffset')}
               >
                 <OffsetField
                   offset={dashOffset}
-                  defaultValue={composition.dashOffsetField?.default as number}
+                  defaultValue={composed.dashOffsetField?.default as number}
                   onChange={onDashOffsetChange}
                   disabled={
                     symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0
@@ -293,7 +303,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             )
           }
           {
-            composition.capField?.visibility === false ? null : (
+            composed.capField?.visibility === false ? null : (
               <Form.Item
                 label={locale.capLabel}
                 {...getSupportProps('cap')}
@@ -306,7 +316,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             )
           }
           {
-            composition.joinField?.visibility === false ? null : (
+            composed.joinField?.visibility === false ? null : (
               <Form.Item
                 label={locale.joinLabel}
                 {...getSupportProps('join')}
@@ -342,4 +352,4 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   );
 };
 
-export default withDefaultsContext(localize(LineEditor, COMPONENTNAME));
+export default localize(LineEditor, COMPONENTNAME);

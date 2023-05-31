@@ -2,15 +2,12 @@ import { ColorMapEntry, UnsupportedProperties } from 'geostyler-style';
 import React, { useContext } from 'react';
 import { ComparisonFilterProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
 import { ColorFieldProps } from '../../Component/Symbolizer/Field/ColorField/ColorField';
-import { LineDashFieldProps } from '../../Component/Symbolizer/Field/LineDashField/LineDashField';
 import { OpacityFieldProps } from '../../Component/Symbolizer/Field/OpacityField/OpacityField';
 import { WidthFieldProps } from '../../Component/Symbolizer/Field/WidthField/WidthField';
 import { SizeFieldProps } from '../../Component/Symbolizer/Field/SizeField/SizeField';
 import type GeoStylerLocale from '../../locale/locale';
 import { OffsetFieldProps } from '../../Component/Symbolizer/Field/OffsetField/OffsetField';
 import { RotateFieldProps } from '../../Component/Symbolizer/Field/RotateField/RotateField';
-import { LineCapFieldProps } from '../../Component/Symbolizer/Field/LineCapField/LineCapField';
-import { LineJoinFieldProps } from '../../Component/Symbolizer/Field/LineJoinField/LineJoinField';
 import { WellKnownNameFieldProps } from '../../Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import { RadiusFieldProps } from '../../Component/Symbolizer/Field/RadiusField/RadiusField';
 import { FontPickerProps } from '../../Component/Symbolizer/Field/FontPicker/FontPicker';
@@ -25,6 +22,7 @@ import { ColorRampComboProps } from '../../Component/RuleGenerator/ColorRampComb
 import { ExtendedFieldProps } from '../../Component/Symbolizer/Field/ExtendedField/ExtendedField';
 import { FillEditorComposableProps } from '../../Component/Symbolizer/FillEditor/FillEditor';
 import { IconEditorComposableProps } from '../../Component/Symbolizer/IconEditor/IconEditor';
+import { LineEditorComposableProps } from '../../Component/Symbolizer/LineEditor/LineEditor';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -44,22 +42,7 @@ export type InputConfig<T> = {
 export type CompositionContext = {
   FillEditor?: FillEditorComposableProps;
   IconEditor?: IconEditorComposableProps;
-  LineEditor?: {
-    visibility?: boolean;
-    colorField?: InputConfig<ColorFieldProps['value']>;
-    widthField?: InputConfig<WidthFieldProps['value']>;
-    perpendicularOffsetField?: InputConfig<OffsetFieldProps['offset']>;
-    opacityField?: InputConfig<OpacityFieldProps['value']>;
-    // TODO add support for default values in LineDashField
-    lineDashField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
-    dashOffsetField?: InputConfig<OffsetFieldProps['offset']>;
-    // TODO add support for default values in LineCapField
-    capField?: Omit<InputConfig<LineCapFieldProps['value']>, 'default'>;
-    // TODO add support for default values in LineJoinField
-    joinField?: InputConfig<LineJoinFieldProps['value']>;
-    // TODO add support for graphicStroke
-    // TODO add support for graphicFill
-  };
+  LineEditor?: LineEditorComposableProps;
   MarkEditor?: {
     visibility?: boolean;
     // TODO add support for default values in WellKnownNameField
