@@ -154,7 +154,7 @@ const en_US: GeoStylerLocale = {
   FillEditor: {
     opacityLabel: 'Opacity',
     fillOpacityLabel: 'Fill-Opacity',
-    outlineOpacityLabel: 'Stroke-Opacity',
+    outlineOpacityLabel: 'Outline-Opacity',
     fillColorLabel: 'Fill-Color',
     outlineColorLabel: 'Outline-Color',
     outlineWidthLabel: 'Outline-Width',

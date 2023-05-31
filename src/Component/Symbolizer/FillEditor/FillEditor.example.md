@@ -147,8 +147,8 @@ function FillEditorExample () {
         <Switch
           checked={myContext.composition.FillEditor.outlineOpacityField.visibility}
           onChange={visibility => {onVisibilityChange(visibility, 'outlineOpacityField')}}
-          checkedChildren="Stroke-Opacity"
-          unCheckedChildren="Stroke-Opacity"
+          checkedChildren="Outline-Opacity"
+          unCheckedChildren="Outline-Opacity"
         />
         <Switch
           checked={myContext.composition.FillEditor.outlineColorField.visibility}
