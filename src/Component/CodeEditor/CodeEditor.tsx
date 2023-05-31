@@ -211,19 +211,20 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   // Prevent file to be uploaded
   const onBeforeUpload = (file: UploadFile) => {
     return false;
-  }
+  };
 
   const onFileChanged = (info: UploadChangeParam) => {
     const reader = new FileReader();
     reader.onload = e => {
       let str = reader.result as string;
-      onChange(str); 
+      onChange(str);
     };
     let l = info.fileList.length;
-    if (l == 0) return;
-    reader.readAsText(info.fileList[l-1].originFileObj);
-  }
-  
+    if (l === 1) {
+      reader.readAsText(info.fileList[l-1].originFileObj);
+    }
+  };
+
   const handleOnChange = (v?: string) => {
     clearTimeout(editTimeout.current);
     editTimeout.current = window.setTimeout(
@@ -300,7 +301,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const hasWarnings = readStyleHasFeedback || writeStyleHasFeedback && (!hasAlerts);
 
   const alertExtraClass = showFeedback ? 'feedback-visible' : 'feedback-hidden';
-  
   return (
     <div className="gs-code-editor">
       <div className="gs-code-editor-toolbar" >
@@ -316,9 +316,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
             <SLDUnitsSelect changeHandler={onUnitSelect} />
         }
         {
-          showUploadButton && 
-          <Upload 
-            showUploadList={false} 
+          showUploadButton &&
+          <Upload
+            showUploadList={false}
+            maxCount={1}
             beforeUpload={onBeforeUpload}
             onChange={onFileChanged}
           >
