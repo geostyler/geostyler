@@ -61,7 +61,7 @@ import './RuleTable.less';
 import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
-import { ColumnProps } from 'antd/lib/table';
+import { ColumnProps, TableProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
 import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
@@ -130,7 +130,7 @@ export interface RuleTableProps {
 const COMPONENTNAME = 'RuleTable';
 
 // export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
-export const RuleTable: React.FC<RuleTableProps & RuleComposableProps> = ({
+export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TableProps<RuleRecord>> = ({
   locale = en_US.RuleTable,
   rendererType = 'OpenLayers',
   data: dataProp,
@@ -141,6 +141,7 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps> = ({
   colorRamps,
   sldRendererProps,
   oLRendererProps,
+  // The composableProps include the antd table props
   ...composableProps
 }) => {
 
@@ -459,6 +460,7 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps> = ({
         columns={columns}
         dataSource={ruleRecords}
         pagination={false}
+        {...composed}
       />
       <SymbolizerEditorWindow
         open={symbolizerEditorVisible}
