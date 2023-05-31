@@ -1,23 +1,19 @@
-import { ColorMapEntry, UnsupportedProperties } from 'geostyler-style';
+import { UnsupportedProperties } from 'geostyler-style';
 import React, { useContext } from 'react';
 import { ComparisonFilterProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
-import { OpacityFieldProps } from '../../Component/Symbolizer/Field/OpacityField/OpacityField';
 import type GeoStylerLocale from '../../locale/locale';
 import {
-  ContrastEnhancementFieldProps
 } from '../../Component/Symbolizer/Field/ContrastEnhancementField/ContrastEnhancementField';
-import { GammaFieldProps } from '../../Component/Symbolizer/Field/GammaField/GammaField';
 import { RendererProps } from '../../Component/Renderer/Renderer/Renderer';
-import { ChannelFieldProps } from '../../Component/Symbolizer/Field/ChannelField/ChannelField';
-import { ColorMapTypeFieldProps } from '../../Component/Symbolizer/Field/ColorMapTypeField/ColorMapTypeField';
-import { ColorRampComboProps } from '../../Component/RuleGenerator/ColorRampCombo/ColorRampCombo';
-import { ExtendedFieldProps } from '../../Component/Symbolizer/Field/ExtendedField/ExtendedField';
 import { FillEditorComposableProps } from '../../Component/Symbolizer/FillEditor/FillEditor';
 import { IconEditorComposableProps } from '../../Component/Symbolizer/IconEditor/IconEditor';
 import { LineEditorComposableProps } from '../../Component/Symbolizer/LineEditor/LineEditor';
 import { MarkEditorComposableProps } from '../../Component/Symbolizer/MarkEditor/MarkEditor';
 import { WellKnownNameEditorComposableProps } from '../../Component/Symbolizer/WellKnownNameEditor/WellKnownNameEditor';
 import { TextEditorComposableProps } from '../../Component/Symbolizer/TextEditor/TextEditor';
+import { RasterEditorComposableProps } from '../../Component/Symbolizer/RasterEditor/RasterEditor';
+import { RasterChannelEditorComposableProps } from '../../Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
+import { ColorMapEditorComposableProps } from '../../Component/Symbolizer/ColorMapEditor/ColorMapEditor';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -41,34 +37,9 @@ export type CompositionContext = {
   MarkEditor?: MarkEditorComposableProps;
   WellKnownNameEditor?: WellKnownNameEditorComposableProps;
   TextEditor?: TextEditorComposableProps;
-  RasterEditor?: {
-    visibility?: boolean;
-    opacityField?: InputConfig<OpacityFieldProps['value']>;
-    // TODO add support for default values in ContrastEnhancementField
-    contrastEnhancementField?: Omit<InputConfig<ContrastEnhancementFieldProps['contrastEnhancement']>, 'default'>;
-    gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
-  };
-  RasterChannelEditor?: {
-    visibility?: boolean;
-    channelSelectionField?: InputConfig<'rgb'|'gray'>;
-    // TODO add support for default values in SourceChannelNameField
-    sourceChannelNameField?: Omit<InputConfig<ChannelFieldProps['channel']['sourceChannelName']>, 'default'>;
-    // TODO add support for default values in ContrastEnhancementField
-    contrastEnhancementField?: Omit<InputConfig<ContrastEnhancementFieldProps['contrastEnhancement']>, 'default'>;
-    gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
-  };
-  ColorMapEditor?: {
-    visibility?: boolean;
-    // TODO add support for default values in ColorMapTypeField
-    colorMapTypeField?: Omit<InputConfig<ColorMapTypeFieldProps['colorMapType']>, 'default'>;
-    nrOfClassesField?: InputConfig<number>;
-    // TODO add support for default values in ColorRampCombo
-    colorRampComboField?: Omit<InputConfig<ColorRampComboProps['colorRamp']>, 'default'>;
-    // TODO add support for default values in ExtendedField
-    extendedField?: Omit<InputConfig<ExtendedFieldProps['extended']>, 'default'>;
-    // TODO add support for default values in ColorMapTable
-    colorMapTable?: Omit<InputConfig<ColorMapEntry[]>, 'default'>;
-  };
+  RasterEditor?: RasterEditorComposableProps;
+  RasterChannelEditor?: RasterChannelEditorComposableProps;
+  ColorMapEditor?: ColorMapEditorComposableProps;
   ComparisonFilter?: Partial<ComparisonFilterProps>;
   Renderer?: Partial<Omit<RendererProps, 'onClick'>>;
   Rules?: {

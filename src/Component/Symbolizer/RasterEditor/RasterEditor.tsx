@@ -39,14 +39,14 @@ import {
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
-import OpacityField from '../Field/OpacityField/OpacityField';
+import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
 import RasterChannelEditor from '../RasterChannelEditor/RasterChannelEditor';
 import { Data } from 'geostyler-data';
-import ContrastEnhancementField from '../Field/ContrastEnhancementField/ContrastEnhancementField';
-import GammaField from '../Field/GammaField/GammaField';
+import ContrastEnhancementField,
+{ ContrastEnhancementFieldProps } from '../Field/ContrastEnhancementField/ContrastEnhancementField';
+import GammaField, { GammaFieldProps } from '../Field/GammaField/GammaField';
 import DataUtil from '../../../Util/DataUtil';
 import ColorMapEditor from '../ColorMapEditor/ColorMapEditor';
-import withDefaultsContext from '../../../hoc/withDefaultsContext';
 
 import './RasterEditor.less';
 
@@ -57,15 +57,20 @@ import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // default props
-interface RasterEditorDefaultProps {
-  locale: GeoStylerLocale['RasterEditor'];
+export interface RasterEditorComposableProps {
+  visibility?: boolean;
+  opacityField?: InputConfig<OpacityFieldProps['value']>;
+  // TODO add support for default values in ContrastEnhancementField
+  contrastEnhancementField?: Omit<InputConfig<ContrastEnhancementFieldProps['contrastEnhancement']>, 'default'>;
+  gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
 }
 
 // non default props
-export interface RasterEditorProps extends Partial<RasterEditorDefaultProps> {
+export interface RasterEditorProps {
+  locale?: GeoStylerLocale['RasterEditor'];
   contrastEnhancementTypes?: ContrastEnhancement['enhancementType'][];
   symbolizer: RasterSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
@@ -81,22 +86,21 @@ export interface RasterEditorState {
 }
 const COMPONENTNAME = 'RasterEditor';
 
-export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
+export const RasterEditor: React.FC<RasterEditorProps> = ({
+  locale = en_US.RasterEditor,
+  contrastEnhancementTypes,
+  symbolizer,
+  onSymbolizerChange,
+  internalDataDef,
+  colorRamps,
+  ...composableProps
+}) => {
 
-  const composition = useGeoStylerComposition('RasterEditor', {});
-  const colorMapComposition = useGeoStylerComposition('ColorMapEditor', {});
-  const rasterChannelComposition = useGeoStylerComposition('RasterChannelEditor', {});
+  const composition = useGeoStylerComposition('RasterEditor');
+  // const colorMapComposition = useGeoStylerComposition('ColorMapEditor');
+  // const rasterChannelComposition = useGeoStylerComposition('RasterChannelEditor');
 
-  const composed = {...props, ...composition};
-
-  const {
-    locale = en_US.RasterEditor,
-    contrastEnhancementTypes,
-    symbolizer,
-    onSymbolizerChange,
-    internalDataDef,
-    colorRamps
-  } = composed;
+  const composed = {...composableProps, ...composition};
 
   const {
     unsupportedProperties,
@@ -188,7 +192,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
         showDisplay !== 'symbolizer' ? null : (
           <>
             {
-              composition.opacityField?.visibility === false ? null : (
+              composed.opacityField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.opacityLabel}
                   {...getSupportProps('opacity')}
@@ -196,7 +200,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
                   {
                     <OpacityField
                       value={opacity}
-                      defaultValue={composition.opacityField?.default as number}
+                      defaultValue={composed.opacityField?.default as number}
                       onChange={onOpacityChange}
                     />
                   }
@@ -204,7 +208,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
               )
             }
             {
-              composition.contrastEnhancementField?.visibility === false ? null : (
+              composed.contrastEnhancementField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.contrastEnhancementLabel}
                   {...getSupportProps('contrastEnhancement')}
@@ -217,89 +221,77 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
               )
             }
             {
-              composition.gammaValueField?.visibility === false ? null : (
+              composed.gammaValueField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.gammaValueLabel}
                   {...getSupportProps('contrastEnhancement')}
                 >
                   <GammaField
                     gamma={_get(contrastEnhancement, 'gammaValue') as number}
-                    defaultValue={composition.gammaValueField?.default}
+                    defaultValue={composed.gammaValueField?.default}
                     onChange={onGammaValueChange}
                   />
                 </Form.Item>
               )
             }
-            {
-              colorMapComposition.visibility === false ? null : (
-                <Form.Item
-                  className="gs-raster-editor-view-toggle"
-                  {...toggleViewButtonLayout}
-                >
-                  <a onClick={() => setShowDisplay('colorMap')}>
-                    {`${locale.colorMapLabel} >>`}
-                  </a>
-                </Form.Item>
-              )
-            }
-            {
-              rasterChannelComposition.visibility === false ? null : (
-                <Form.Item
-                  className="gs-raster-editor-view-toggle"
-                  {...toggleViewButtonLayout}
-                >
-                  <a onClick={() => setShowDisplay('contrastEnhancement')}>
-                    {`${locale.channelSelectionLabel} >>`}
-                  </a>
-                </Form.Item>
-              )
-            }
+            <Form.Item
+              className="gs-raster-editor-view-toggle"
+              {...toggleViewButtonLayout}
+            >
+              <a onClick={() => setShowDisplay('colorMap')}>
+                {`${locale.colorMapLabel} >>`}
+              </a>
+            </Form.Item>
+            <Form.Item
+              className="gs-raster-editor-view-toggle"
+              {...toggleViewButtonLayout}
+            >
+              <a onClick={() => setShowDisplay('contrastEnhancement')}>
+                {`${locale.channelSelectionLabel} >>`}
+              </a>
+            </Form.Item>
           </>
         )
       }
       {
         showDisplay !== 'contrastEnhancement' ? null : (
-          rasterChannelComposition.visibility === false ? null : (
-            <>
-              <RasterChannelEditor
-                channelSelection={channelSelection}
-                sourceChannelNames={sourceChannelNames}
-                contrastEnhancementTypes={contrastEnhancementTypes}
-                onChange={onChannelEditorChange}
-              />
-              <Form.Item
-                {...toggleViewButtonLayout}
-              >
-                <a onClick={() => setShowDisplay('symbolizer')}>
-                  {`<< ${locale.symbolizerLabel}`}
-                </a>
-              </Form.Item>
-            </>
-          )
+          <>
+            <RasterChannelEditor
+              channelSelection={channelSelection}
+              sourceChannelNames={sourceChannelNames}
+              contrastEnhancementTypes={contrastEnhancementTypes}
+              onChange={onChannelEditorChange}
+            />
+            <Form.Item
+              {...toggleViewButtonLayout}
+            >
+              <a onClick={() => setShowDisplay('symbolizer')}>
+                {`<< ${locale.symbolizerLabel}`}
+              </a>
+            </Form.Item>
+          </>
         )
       }
       {
         showDisplay !== 'colorMap' ? null : (
-          colorMapComposition.visibility === false ? null : (
-            <>
-              <ColorMapEditor
-                colorMap={colorMap}
-                colorRamps={colorRamps}
-                onChange={onColorMapChange}
-              />
-              <Form.Item
-                {...toggleViewButtonLayout}
-              >
-                <a onClick={() => setShowDisplay('symbolizer')}>
-                  {`<< ${locale.symbolizerLabel}`}
-                </a>
-              </Form.Item>
-            </>
-          )
+          <>
+            <ColorMapEditor
+              colorMap={colorMap}
+              colorRamps={colorRamps}
+              onChange={onColorMapChange}
+            />
+            <Form.Item
+              {...toggleViewButtonLayout}
+            >
+              <a onClick={() => setShowDisplay('symbolizer')}>
+                {`<< ${locale.symbolizerLabel}`}
+              </a>
+            </Form.Item>
+          </>
         )
       }
     </div>
   );
 };
 
-export default withDefaultsContext(localize(RasterEditor, COMPONENTNAME));
+export default localize(RasterEditor, COMPONENTNAME);
