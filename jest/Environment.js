@@ -10,5 +10,7 @@ module.exports = class CustomTestEnvironment extends Environment {
     if (typeof this.global.TextEncoder === 'undefined') {
       this.global.TextEncoder = TextEncoder;
     }
+    // https://github.com/jsdom/jsdom/issues/3363
+    this.global.structuredClone = structuredClone;
   }
 };
