@@ -31,42 +31,68 @@
 This demonstrates the usage of the `PreviewMap` component.
 
 ```jsx
-import * as React from 'react';
+import React, { useState } from 'react';
 import { PreviewMap } from 'geostyler';
 
-class PreviewMapExample extends React.Component {
-  constructor(props) {
-    super(props);
+const PreviewMapExample = () => {
+  const [style, setStyle] = useState({
+          name: "Demo Style",
+          rules: [
+            {
+              name: "Rule 1",
+              symbolizers: [
+                {
+                  kind: "Mark",
+                  wellKnownName: "circle",
+                  color: "red"
+                }
+              ]
+            }
+          ]
+        });
 
-    this.state = {
-      style: {
-        "name": "Demo Style",
-        "rules": [
-          {
-            "name": "Rule 1",
-            "symbolizers": [
-              {
-                "kind": "Mark",
-                "wellKnownName": "circle"
+  return (
+    <PreviewMap
+      style={style}
+      dataProjection="EPSG:32614"
+      data={{
+        schema: {
+          type: '',
+          properties: {}
+        },
+        exampleFeatures: {
+          type: 'FeatureCollection',
+          name: 'geojson32614',
+          features: [
+            {
+              type: 'Feature',
+              properties: { },
+              geometry: {
+                type: 'Point',
+                coordinates: [ 785433.013395566958934, 2032298.458539120620117 ]
               }
-            ]
-          }
-        ]
-      }
-    }
-  }
-
-  render() {
-    const {
-      style
-    } = this.state;
-
-    return (
-      <PreviewMap
-        style={style}
-      />
-    );
-  }
+            },
+            {
+              type: 'Feature',
+              properties: { },
+              geometry: {
+                type: 'Point',
+                coordinates: [ 787905.450309246662073, 2030118.025881822220981 ]
+              }
+            },
+            {
+              type: 'Feature',
+              properties: { },
+              geometry: {
+                type: 'Point',
+                coordinates: [ 786123.196085085393861, 2028597.680797176202759 ]
+              }
+            }
+          ]
+        }
+      }}
+    />
+  );
 }
 
 <PreviewMapExample />
