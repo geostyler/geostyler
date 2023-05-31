@@ -40,10 +40,10 @@ import {
   Expression
 } from 'geostyler-style';
 
-import ColorField from '../Field/ColorField/ColorField';
-import OpacityField from '../Field/OpacityField/OpacityField';
+import ColorField, { ColorFieldProps } from '../Field/ColorField/ColorField';
+import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
-import WidthField from '../Field/WidthField/WidthField';
+import WidthField, { WidthFieldProps } from '../Field/WidthField/WidthField';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
@@ -51,40 +51,48 @@ import _isEqual from 'lodash/isEqual';
 
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import LineDashField from '../Field/LineDashField/LineDashField';
+import LineDashField, { LineDashFieldProps } from '../Field/LineDashField/LineDashField';
 import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
   UnsupportedPropertiesContext
 } from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 const Panel = Collapse.Panel;
 
-interface FillEditorDefaultProps {
-  locale: GeoStylerLocale['FillEditor'];
+export interface FillEditorComposableProps {
+  visibility?: boolean;
+  fillColorField?: InputConfig<ColorFieldProps['color']>;
+  fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
+  opacityField?: InputConfig<OpacityFieldProps['value']>;
+  outlineOpacityField?: InputConfig<OpacityFieldProps['value']>;
+  outlineColorField?: InputConfig<ColorFieldProps['color']>;
+  // TODO add support for default values in LineDashField
+  outlineDasharrayField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
+  outlineWidthField?: InputConfig<WidthFieldProps['value']>;
+  // TODO add support for graphicFill
 }
 
 // non default props
-export interface FillEditorProps extends Partial<FillEditorDefaultProps> {
+export interface FillEditorProps {
+  locale?: GeoStylerLocale['FillEditor'];
   symbolizer: FillSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
 const COMPONENTNAME = 'FillEditor';
 
-export const FillEditor: React.FC<FillEditorProps> = (props) => {
+export const FillEditor: React.FC<FillEditorProps & FillEditorComposableProps> = ({
+  locale = en_US.FillEditor,
+  symbolizer,
+  onSymbolizerChange,
+  ...composableProps
+}) => {
 
-  const composition = useGeoStylerComposition('FillEditor', {});
-
-  const composed = {...props, ...composition};
-
-  const {
-    locale = en_US.FillEditor,
-    symbolizer,
-    onSymbolizerChange
-  } = composed;
+  const composition = useGeoStylerComposition('FillEditor');
+  const composed = {...composableProps, ...composition};
 
   const {
     unsupportedProperties,
@@ -181,91 +189,91 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
       <Collapse bordered={false} defaultActiveKey={['1']}>
         <Panel header="General" key="1">
           {
-            composition.fillColorField?.visibility === false ? null : (
+            composed.fillColorField?.visibility === false ? null : (
               <Form.Item
                 label={locale.fillColorLabel}
                 {...getSupportProps('color')}
               >
                 <ColorField
                   value={color as string}
-                  defaultValue={composition.fillColorField?.default}
+                  defaultValue={composed.fillColorField?.default}
                   onChange={onFillColorChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.fillOpacityField?.visibility === false ? null : (
+            composed.fillOpacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.fillOpacityLabel}
                 {...getSupportProps('fillOpacity')}
               >
                 <OpacityField
                   value={fillOpacity}
-                  defaultValue={composition.fillOpacityField?.default as number}
+                  defaultValue={composed.fillOpacityField?.default as number}
                   onChange={onFillOpacityChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.opacityField?.visibility === false ? null : (
+            composed.opacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.opacityLabel}
                 {...getSupportProps('opacity')}
               >
                 <OpacityField
                   value={opacity}
-                  defaultValue={composition.opacityField?.default as number}
+                  defaultValue={composed.opacityField?.default as number}
                   onChange={onOpacityChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.outlineOpacityField?.visibility === false ? null : (
+            composed.outlineOpacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineOpacityLabel}
                 {...getSupportProps('outlineOpacity')}
               >
                 <OpacityField
                   value={outlineOpacity}
-                  defaultValue={composition.outlineOpacityField?.default as number}
+                  defaultValue={composed.outlineOpacityField?.default as number}
                   onChange={onOutlineOpacityChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.outlineColorField?.visibility === false ? null : (
+            composed.outlineColorField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineColorLabel}
                 {...getSupportProps('outlineColor')}
               >
                 <ColorField
                   value={outlineColor as string}
-                  defaultValue={composition.outlineColorField?.default}
+                  defaultValue={composed.outlineColorField?.default}
                   onChange={onOutlineColorChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.outlineWidthField?.visibility === false ? null : (
+            composed.outlineWidthField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineWidthLabel}
                 {...getSupportProps('outlineWidth')}
               >
                 <WidthField
                   value={outlineWidth}
-                  defaultValue={composition.outlineWidthField?.default as number}
+                  defaultValue={composed.outlineWidthField?.default as number}
                   onChange={onOutlineWidthChange}
                 />
               </Form.Item>
             )
           }
           {
-            composition.outlineDasharrayField?.visibility === false ? null : (
+            composed.outlineDasharrayField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineDasharrayLabel}
                 {...getSupportProps('outlineDasharray')}

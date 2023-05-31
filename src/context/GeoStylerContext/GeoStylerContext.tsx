@@ -1,5 +1,4 @@
 import { ColorMapEntry, UnsupportedProperties } from 'geostyler-style';
-import { cloneDeep } from 'lodash';
 import React, { useContext } from 'react';
 import { ComparisonFilterProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
 import { ColorFieldProps } from '../../Component/Symbolizer/Field/ColorField/ColorField';
@@ -26,6 +25,7 @@ import { ChannelFieldProps } from '../../Component/Symbolizer/Field/ChannelField
 import { ColorMapTypeFieldProps } from '../../Component/Symbolizer/Field/ColorMapTypeField/ColorMapTypeField';
 import { ColorRampComboProps } from '../../Component/RuleGenerator/ColorRampCombo/ColorRampCombo';
 import { ExtendedFieldProps } from '../../Component/Symbolizer/Field/ExtendedField/ExtendedField';
+import { FillEditorComposableProps } from '../../Component/Symbolizer/FillEditor/FillEditor';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -43,18 +43,7 @@ export type InputConfig<T> = {
 };
 
 export type CompositionContext = {
-  FillEditor?: {
-    visibility?: boolean;
-    fillColorField?: InputConfig<ColorFieldProps['value']>;
-    fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
-    opacityField?: InputConfig<OpacityFieldProps['value']>;
-    outlineOpacityField?: InputConfig<OpacityFieldProps['value']>;
-    outlineColorField?: InputConfig<ColorFieldProps['value']>;
-    // TODO add support for default values in LineDashField
-    outlineDasharrayField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
-    outlineWidthField?: InputConfig<WidthFieldProps['value']>;
-    // TODO add support for graphicFill
-  };
+  FillEditor?: FillEditorComposableProps;
   IconEditor?: {
     visibility: boolean;
     // TODO add support for default values in ImageField
@@ -181,27 +170,25 @@ export const GeoStylerContext = React.createContext<GeoStylerContextInterface>({
 
 export const useGeoStylerContext = (): GeoStylerContextInterface => {
   const ctx = useContext(GeoStylerContext);
-  return cloneDeep(ctx);
+  return structuredClone(ctx);
 };
 
 export const useGeoStylerComposition = <T extends keyof CompositionContext>(
-  key: T,
-  fallback?: any
-): CompositionContext[T] => {
+  key: T): CompositionContext[T] | {} => {
   const ctx = useContext(GeoStylerContext);
 
   if (!ctx.composition || !ctx.composition[key]) {
-    return fallback;
+    return {};
   }
-  return cloneDeep(ctx.composition[key]);
+  return structuredClone(ctx.composition[key]);
 };
 
 export const useGeoStylerLocale = <T extends keyof GeoStylerLocale>(key: T): GeoStylerLocale[T] => {
   const ctx = useContext(GeoStylerContext);
-  return cloneDeep(ctx.locale[key]);
+  return structuredClone(ctx.locale[key]);
 };
 
 export const useGeoStylerUnsupportedProperties = (): any => {
   const ctx = useContext(GeoStylerContext);
-  return cloneDeep(ctx.unsupportedProperties);
+  return structuredClone(ctx.unsupportedProperties);
 };
