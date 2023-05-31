@@ -38,7 +38,6 @@ import WellKnownNameField from '../Field/WellKnownNameField/WellKnownNameField';
 import WellKnownNameEditor from '../WellKnownNameEditor/WellKnownNameEditor';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -131,4 +130,4 @@ export const MarkEditor: React.FC<MarkEditorProps & MarkEditorComposableProps> =
   );
 };
 
-export default withDefaultsContext(localize(MarkEditor, COMPONENTNAME));
+export default localize(MarkEditor, COMPONENTNAME);

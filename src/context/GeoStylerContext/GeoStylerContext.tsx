@@ -8,8 +8,6 @@ import { SizeFieldProps } from '../../Component/Symbolizer/Field/SizeField/SizeF
 import type GeoStylerLocale from '../../locale/locale';
 import { OffsetFieldProps } from '../../Component/Symbolizer/Field/OffsetField/OffsetField';
 import { RotateFieldProps } from '../../Component/Symbolizer/Field/RotateField/RotateField';
-import { WellKnownNameFieldProps } from '../../Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
-import { RadiusFieldProps } from '../../Component/Symbolizer/Field/RadiusField/RadiusField';
 import { FontPickerProps } from '../../Component/Symbolizer/Field/FontPicker/FontPicker';
 import {
   ContrastEnhancementFieldProps
@@ -24,6 +22,7 @@ import { FillEditorComposableProps } from '../../Component/Symbolizer/FillEditor
 import { IconEditorComposableProps } from '../../Component/Symbolizer/IconEditor/IconEditor';
 import { LineEditorComposableProps } from '../../Component/Symbolizer/LineEditor/LineEditor';
 import { MarkEditorComposableProps } from '../../Component/Symbolizer/MarkEditor/MarkEditor';
+import { WellKnownNameEditorComposableProps } from '../../Component/Symbolizer/WellKnownNameEditor/WellKnownNameEditor';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -45,19 +44,7 @@ export type CompositionContext = {
   IconEditor?: IconEditorComposableProps;
   LineEditor?: LineEditorComposableProps;
   MarkEditor?: MarkEditorComposableProps;
-  WellKnownNameEditor?: {
-    visibility?: boolean;
-    radiusField?: InputConfig<RadiusFieldProps['radius']>;
-    offsetXField?: InputConfig<OffsetFieldProps['offset']>;
-    offsetYField?: InputConfig<OffsetFieldProps['offset']>;
-    fillColorField?: InputConfig<ColorFieldProps['value']>;
-    opacityField?: InputConfig<OpacityFieldProps['value']>;
-    fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
-    strokeColorField?: InputConfig<ColorFieldProps['value']>;
-    strokeWidthField?: InputConfig<WidthFieldProps['value']>;
-    strokeOpacityField?: InputConfig<OpacityFieldProps['value']>;
-    rotateField?: InputConfig<RotateFieldProps['rotate']>;
-  };
+  WellKnownNameEditor?: WellKnownNameEditorComposableProps;
   TextEditor?: {
     visibility?: boolean;
     templateField?: InputConfig<string>;
