@@ -52,7 +52,7 @@ export interface ColorFieldProps extends Omit<ColorPickerProps, 'onChange'|'valu
  */
 export const ColorField: React.FC<ColorFieldProps> = ({
   locale = en_US.ColorField,
-  onChange,
+  onChange = () => undefined,
   value,
   defaultValue = '#FFFFFF',
   ...passThroughProps
@@ -61,9 +61,9 @@ export const ColorField: React.FC<ColorFieldProps> = ({
   const onColorPickerChange = useCallback((_: any, hex: string) => {
     // contains 0% opacity --> should only happen when clear is clicked
     if (hex?.length === 9) {
-      onChange?.(undefined);
+      onChange(undefined);
     } else {
-      onChange?.(hex);
+      onChange(hex);
     }
   }, [onChange]);
 
@@ -80,18 +80,17 @@ export const ColorField: React.FC<ColorFieldProps> = ({
   };
 
   return (
-    <div className="editor-field color-field">
-      <ColorPicker
-        allowClear
-        format='hex'
-        onChange={onColorPickerChange}
-        {...passThroughProps}
-      >
-        <Button style={btnStyle}>
-          {value ? value.toString() : locale.chooseText}
-        </Button>
-      </ColorPicker>
-    </div>
+    <ColorPicker
+      className="editor-field gs-color-field"
+      allowClear
+      format='hex'
+      onChange={onColorPickerChange}
+      {...passThroughProps}
+    >
+      <Button style={btnStyle}>
+        {value ? value.toString() : locale.chooseText}
+      </Button>
+    </ColorPicker>
   );
 };
 
