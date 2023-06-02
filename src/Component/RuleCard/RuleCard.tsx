@@ -88,17 +88,17 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
     duplicates,
     onClick,
     data,
-    amountField: amount,
-    duplicateField: duplicate,
-    filterField: filter,
-    maxScaleField: maxScale,
-    minScaleField: minScale,
-    nameField: name
+    amountField,
+    duplicateField,
+    filterField,
+    maxScaleField,
+    minScaleField,
+    nameField
   } = composed;
 
-  let amountValue;
+  let amount;
   if (DataUtil.isVector(data) && rule.filter?.length) {
-    amountValue = FilterUtil.getMatches(rule.filter, data).length;
+    amount = FilterUtil.getMatches(rule.filter, data).length;
   }
 
   const cqlParser = new CqlParser();
@@ -120,32 +120,30 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
       <Divider type='vertical' />
       <div className='gs-rule-card-content'>
         {
-          name?.visibility === false ? null : (
+          nameField?.visibility === false ? null : (
             <h2>{rule.name}</h2>
           )
         }
         {
-          maxScale?.visibility === false
-            || minScale?.visibility === false
-            ? null : (
-              <span>
-                <>
+          maxScaleField?.visibility === false || minScaleField?.visibility === false ? null : (
+            <span>
+              <>
                   1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}
-                </>
-              </span>
-            )
+              </>
+            </span>
+          )
         }
         <span className='gs-rule-card-content-icon-row'>
           {
-            amount?.visibility === false ? null : (
+            amountField?.visibility === false ? null : (
               <Text type='secondary'>
                 <span className='gs-rule-card-icon'>Σ</span>
-                {amountValue !== undefined ? amountValue : '-'}
+                {amount !== undefined ? amount : '-'}
               </Text>
             )
           }
           {
-            duplicate?.visibility === false ? null : (
+            duplicateField?.visibility === false ? null : (
               <Text type='secondary'>
                 <BlockOutlined className='gs-rule-card-icon' />
                 {duplicates !== undefined ? duplicates : '-'}
@@ -154,7 +152,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
           }
         </span>
         {
-          filter?.visibility === false ? null : (
+          filterField?.visibility === false ? null : (
             <span className='gs-rule-card-cql'>
               {
                 rule.filter?.length && (
