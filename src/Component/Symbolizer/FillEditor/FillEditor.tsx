@@ -63,11 +63,11 @@ const Panel = Collapse.Panel;
 
 export interface FillEditorComposableProps {
   visibility?: boolean;
-  fillColorField?: InputConfig<ColorFieldProps['color']>;
+  fillColorField?: InputConfig<ColorFieldProps['value']>;
   fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   outlineOpacityField?: InputConfig<OpacityFieldProps['value']>;
-  outlineColorField?: InputConfig<ColorFieldProps['color']>;
+  outlineColorField?: InputConfig<ColorFieldProps['value']>;
   // TODO add support for default values in LineDashField
   outlineDasharrayField?: Omit<InputConfig<LineDashFieldProps['dashArray']>, 'default'>;
   outlineWidthField?: InputConfig<WidthFieldProps['value']>;

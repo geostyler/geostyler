@@ -68,7 +68,7 @@ const Panel = Collapse.Panel;
 
 export interface LineEditorComposableProps {
   visibility?: boolean;
-  colorField?: InputConfig<ColorFieldProps['color']>;
+  colorField?: InputConfig<ColorFieldProps['value']>;
   widthField?: InputConfig<WidthFieldProps['value']>;
   perpendicularOffsetField?: InputConfig<OffsetFieldProps['offset']>;
   opacityField?: InputConfig<OpacityFieldProps['value']>;

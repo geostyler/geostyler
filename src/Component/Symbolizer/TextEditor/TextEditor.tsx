@@ -64,7 +64,7 @@ import { SizeFieldProps } from '../Field/SizeField/SizeField';
 export interface TextEditorComposableProps {
   visibility?: boolean;
   templateField?: InputConfig<string>;
-  colorField?: InputConfig<ColorFieldProps['color']>;
+  colorField?: InputConfig<ColorFieldProps['value']>;
   // TODO add support for default values in FontPicker
   fontField?: Omit<InputConfig<FontPickerProps['font']>, 'default'>;
   opacityField?: InputConfig<OpacityFieldProps['value']>;
@@ -72,7 +72,7 @@ export interface TextEditorComposableProps {
   offsetXField?: InputConfig<OffsetFieldProps['offset']>;
   offsetYField?: InputConfig<OffsetFieldProps['offset']>;
   rotateField?: InputConfig<RotateFieldProps['rotate']>;
-  haloColorField?: InputConfig<ColorFieldProps['color']>;
+  haloColorField?: InputConfig<ColorFieldProps['value']>;
   haloWidthField?: InputConfig<WidthFieldProps['value']>;
 }
 

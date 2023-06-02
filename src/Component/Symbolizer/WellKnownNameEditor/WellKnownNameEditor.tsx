@@ -50,10 +50,10 @@ export interface WellKnownNameEditorComposableProps {
   radiusField?: InputConfig<RadiusFieldProps['radius']>;
   offsetXField?: InputConfig<OffsetFieldProps['offset']>;
   offsetYField?: InputConfig<OffsetFieldProps['offset']>;
-  fillColorField?: InputConfig<ColorFieldProps['color']>;
+  fillColorField?: InputConfig<ColorFieldProps['value']>;
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
-  strokeColorField?: InputConfig<ColorFieldProps['color']>;
+  strokeColorField?: InputConfig<ColorFieldProps['value']>;
   strokeWidthField?: InputConfig<WidthFieldProps['value']>;
   strokeOpacityField?: InputConfig<OpacityFieldProps['value']>;
   rotateField?: InputConfig<RotateFieldProps['rotate']>;
@@ -269,7 +269,7 @@ export const WellKnownNameEditor: React.FC<
           >
             <ColorField
               value={strokeColor as string}
-              defaultValue={composed.strokeColorField?.default}
+              defaultValue={composed.strokeColorField?.default as string}
               onChange={onStrokeColorChange}
             />
           </Form.Item>
