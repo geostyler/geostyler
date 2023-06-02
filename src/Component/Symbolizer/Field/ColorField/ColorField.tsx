@@ -80,17 +80,18 @@ export const ColorField: React.FC<ColorFieldProps> = ({
   };
 
   return (
-    <ColorPicker
-      className="editor-field gs-color-field"
-      allowClear
-      format='hex'
-      onChange={onColorPickerChange}
-      {...passThroughProps}
-    >
-      <Button style={btnStyle}>
-        {value ? value.toString() : locale.chooseText}
-      </Button>
-    </ColorPicker>
+    <span className="editor-field gs-color-field">
+      <ColorPicker
+        allowClear
+        format='hex'
+        onChange={onColorPickerChange}
+        {...passThroughProps}
+      >
+        <Button style={btnStyle}>
+          {value ? value.toString() : locale.chooseText}
+        </Button>
+      </ColorPicker>
+    </span>
   );
 };
 
