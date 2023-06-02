@@ -214,7 +214,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
   const colorRenderer = (text: string, record: ColorMapEntryRecord) => {
     const input = (
       <ColorField
-        color={record.color as string}
+        value={record.color as string}
         onChange={(color: string) => {
           setValueForColorMapEntry(record.key, 'color', color);
         }}

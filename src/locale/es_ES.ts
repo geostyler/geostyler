@@ -280,10 +280,7 @@ const es_ES: GeoStylerLocale = {
     closeEditorText: 'Cerrar editor'
   },
   ColorField: {
-    clearText: 'TODO(es_ES):Clear',
-    closeText: 'Cerrar',
-    editText: 'Cambiar',
-    chooseText: 'Elegir',
+    chooseText: 'Elegir'
   },
   KindField: {
     symbolizerKinds: {

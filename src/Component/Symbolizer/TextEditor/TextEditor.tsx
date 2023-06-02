@@ -249,7 +249,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             {...getSupportProps('color')}
           >
             <ColorField
-              color={color as string}
+              value={color as string}
               defaultValue={composition.colorField?.default}
               onChange={onColorChange}
             />
@@ -346,7 +346,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             {...getSupportProps('haloColor')}
           >
             <ColorField
-              color={haloColor as string}
+              value={haloColor as string}
               defaultValue={composition.haloColorField?.default}
               onChange={onHaloColorChange}
             />

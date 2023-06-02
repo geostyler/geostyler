@@ -26,35 +26,24 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import Color from 'color';
 
 import {
-  SketchPicker,
-  ColorResult
-} from 'react-color';
-
-import {
   Button,
-  Tooltip
+  ColorPicker,
+  ColorPickerProps
 } from 'antd';
 
 import './ColorField.less';
-
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
+import GeoStylerLocale from '../../../../locale/locale';
 import en_US from '../../../../locale/en_US';
-import type GeoStylerLocale from '../../../../locale/locale';
-import { CloseOutlined } from '@ant-design/icons';
 
-// default props
-interface ColorFieldDefaultProps {
-  locale: GeoStylerLocale['ColorField'];
-}
-
-// non default props
-export interface ColorFieldProps extends Partial<ColorFieldDefaultProps> {
+export interface ColorFieldProps extends Omit<ColorPickerProps, 'onChange'|'value'|'defaultValue'> {
+  locale?: GeoStylerLocale['ColorField'];
+  value?: string;
   onChange?: (color: string) => void;
-  color?: string;
   defaultValue?: string;
 }
 
@@ -62,73 +51,46 @@ export interface ColorFieldProps extends Partial<ColorFieldDefaultProps> {
  * ColorField
  */
 export const ColorField: React.FC<ColorFieldProps> = ({
-  onChange,
   locale = en_US.ColorField,
-  color,
-  defaultValue
+  onChange = () => undefined,
+  value,
+  defaultValue = '#FFFFFF',
+  ...passThroughProps
 }) => {
 
-  const [colorPickerVisible, setColorPickerVisible] = React.useState<boolean>(false);
-
-  const onColorPreviewClick = () => {
-    setColorPickerVisible(!colorPickerVisible);
-  };
-
-  const onChangeComplete = (colorResult: ColorResult) => {
-    if (onChange) {
-      onChange(colorResult.hex);
+  const onColorPickerChange = useCallback((_: any, hex: string) => {
+    // contains 0% opacity --> should only happen when clear is clicked
+    if (hex?.length === 9) {
+      onChange(undefined);
+    } else {
+      onChange(hex);
     }
-  };
+  }, [onChange]);
 
   let textColor;
-
-  if (!color && !defaultValue) {
+  try {
+    textColor = Color(value || defaultValue).negate().grayscale().string();
+  } catch (error) {
     textColor = '#000000';
-  } else {
-    try {
-      textColor = Color(color || defaultValue).negate().grayscale().string();
-    } catch (error) {
-      textColor = '#000000';
-    }
   }
 
+  const btnStyle: React.CSSProperties = {
+    backgroundColor: value || defaultValue,
+    color: textColor
+  };
+
   return (
-    <div className="editor-field color-field">
-      <div className="color-preview-wrapper">
-        <Button
-          className="color-preview"
-          style={{
-            backgroundColor: color || defaultValue,
-            color: textColor
-          }}
-          onClick={onColorPreviewClick}
-        >
-          {colorPickerVisible ? locale.closeText : color ? locale.editText : locale.chooseText}
-        </Button>
-        <Tooltip title={locale.clearText}>
-          <Button
-            className='color-clear'
-            icon={<CloseOutlined />}
-            onClick={(e) => {
-              if (onChange) {
-                onChange(undefined);
-              }
-              setColorPickerVisible(false);
-            }}
-          />
-        </Tooltip>
-        {
-          colorPickerVisible ?
-            <>
-              <SketchPicker
-                color={color}
-                disableAlpha={true}
-                onChangeComplete={onChangeComplete}
-              />
-            </> : null
-        }
-      </div>
-    </div>
+    <ColorPicker
+      className="editor-field gs-color-field"
+      allowClear
+      format='hex'
+      onChange={onColorPickerChange}
+      {...passThroughProps}
+    >
+      <Button style={btnStyle}>
+        {value ? value.toString() : locale.chooseText}
+      </Button>
+    </ColorPicker>
   );
 };
 

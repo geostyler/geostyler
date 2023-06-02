@@ -90,7 +90,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
         label={locale.colorLabel}
       >
         <ColorField
-          color={_get(colorMapEntry, 'color') as string}
+          value={_get(colorMapEntry, 'color') as string}
           onChange={onColorChange}
         />
       </Form.Item>

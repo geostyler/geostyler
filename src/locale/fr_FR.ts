@@ -256,10 +256,7 @@ const fr_FR: GeoStylerLocale = {
     closeEditorText: 'Fermer l\'éditeur'
   },
   ColorField: {
-    clearText: 'Effacer',
-    closeText: 'Fermer',
-    editText: 'Modifier',
-    chooseText: 'Choisir',
+    chooseText: 'Choisir'
   },
   KindField: {
     symbolizerKinds: {

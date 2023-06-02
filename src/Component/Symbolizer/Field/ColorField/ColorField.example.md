@@ -31,40 +31,21 @@
 This demonstrates the use of `ColorField`.
 
 ```jsx
-import * as React from 'react';
+import React, { useState } from 'react';
 import { ColorField } from 'geostyler';
 
-class ColorFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+const ColorFieldExample = () => {
 
-    this.state = {
-      color: '#000000'
-    };
+  const [value, setValue] = useState();
 
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(color) {
-    this.setState({
-      color: color
-    });
-  }
-
-  render() {
-    const {
-      color
-    } = this.state;
-
-    return (
-      <ColorField
-        color={color}
-        label="Color"
-        onChange={this.onChange}
-      />
-    );
-  }
-}
+  return (
+    <ColorField
+      value={value}
+      label="Color"
+      onChange={setValue}
+    />
+  );
+};
 
 <ColorFieldExample />
 ```

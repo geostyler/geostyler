@@ -187,7 +187,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
                 {...getSupportProps('color')}
               >
                 <ColorField
-                  color={color as string}
+                  value={color as string}
                   defaultValue={composition.fillColorField?.default}
                   onChange={onFillColorChange}
                 />
@@ -243,7 +243,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
                 {...getSupportProps('outlineColor')}
               >
                 <ColorField
-                  color={outlineColor as string}
+                  value={outlineColor as string}
                   defaultValue={composition.outlineColorField?.default}
                   onChange={onOutlineColorChange}
                 />

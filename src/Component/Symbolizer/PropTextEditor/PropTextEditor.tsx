@@ -207,7 +207,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.colorLabel}
       >
         <ColorField
-          color={color as string}
+          value={color as string}
           onChange={onColorChange}
         />
       </Form.Item>
@@ -263,7 +263,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.haloColorLabel}
       >
         <ColorField
-          color={haloColor as string}
+          value={haloColor as string}
           onChange={onHaloColorChange}
         />
       </Form.Item>

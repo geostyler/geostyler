@@ -27,7 +27,7 @@
  */
 
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { ColorField } from './ColorField';
 
 describe('ColorField', () => {
@@ -41,26 +41,4 @@ describe('ColorField', () => {
     expect(field.container).toBeInTheDocument();
   });
 
-  describe('onColorPreviewClick', () => {
-    it('toggles state of colorPickerVisible', async() => {
-      const field = render(<ColorField />);
-      const button = field.container.querySelector('button.color-preview');
-      fireEvent.click(button);
-      expect(document.querySelector('.sketch-picker')).toBeInTheDocument();
-      fireEvent.click(button);
-      expect(document.querySelector('.sketch-picker')).not.toBeInTheDocument();
-    });
-  });
-
-  // describe('onChangeComplete', () => {
-  //   it('calls a passed on Change method with a color hex', async () => {
-  //     const onChangeMock = jest.fn();
-  //     const field = render(<ColorField onChange={onChangeMock} color="000000"/>);
-  //     const button = field.container.querySelector('button.color-preview');
-  //     fireEvent.click(button);
-  //     const hexInput = await field.findByLabelText('hex');
-  //     fireEvent.change(hexInput, { target: { value: '#FFFFFF' }});
-  //     expect(onChangeMock).toHaveBeenCalledWith('#FFFFFF');
-  //   });
-  // });
 });

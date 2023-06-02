@@ -221,7 +221,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.fillColorLabel}
           >
             <ColorField
-              color={color as string}
+              value={color as string}
               defaultValue={composition.fillColorField?.default}
               onChange={onColorChange}
             />
@@ -260,7 +260,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.strokeColorLabel}
           >
             <ColorField
-              color={strokeColor as string}
+              value={strokeColor as string}
               defaultValue={composition.strokeColorField?.default}
               onChange={onStrokeColorChange}
             />
