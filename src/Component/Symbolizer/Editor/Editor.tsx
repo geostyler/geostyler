@@ -118,7 +118,7 @@ export const Editor: React.FC<EditorProps> = (props) => {
   const getUiForSymbolizer = (): React.ReactNode => {
     switch (symbolizer.kind) {
       case 'Mark':
-        return markEditor.visibility === false ? null : (
+        return markEditor?.visibility === false ? null : (
           <MarkEditor
             symbolizer={symbolizer}
             onSymbolizerChange={onSymbolizerChange}
@@ -134,21 +134,21 @@ export const Editor: React.FC<EditorProps> = (props) => {
           />
         );
       case 'Line':
-        return lineEditor.visibility === false ? null : (
+        return lineEditor?.visibility === false ? null : (
           <LineEditor
             symbolizer={symbolizer}
             onSymbolizerChange={onSymbolizerChange}
           />
         );
       case 'Fill':
-        return fillEditor.visibility === false ? null : (
+        return fillEditor?.visibility === false ? null : (
           <FillEditor
             symbolizer={symbolizer}
             onSymbolizerChange={onSymbolizerChange}
           />
         );
       case 'Text':
-        return textEditor.visibility === false ? null : (
+        return textEditor?.visibility === false ? null : (
           <TextEditor
             symbolizer={symbolizer}
             internalDataDef={
@@ -158,7 +158,7 @@ export const Editor: React.FC<EditorProps> = (props) => {
           />
         );
       case 'Raster':
-        return rasterEditor.visibility === false ? null : (
+        return rasterEditor?.visibility === false ? null : (
           <RasterEditor
             symbolizer={symbolizer}
             internalDataDef={
@@ -180,22 +180,22 @@ export const Editor: React.FC<EditorProps> = (props) => {
   const symbolizerKinds: SymbolizerKind[] = ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster'];
   const filteredSymbolizerKinds = symbolizerKinds
     .filter(kind => {
-      if (kind === 'Mark' && markEditor.visibility === false) {
+      if (kind === 'Mark' && markEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Fill' && fillEditor.visibility === false) {
+      if (kind === 'Fill' && fillEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Icon' && iconEditor.visibility === false) {
+      if (kind === 'Icon' && iconEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Line' && lineEditor.visibility === false) {
+      if (kind === 'Line' && lineEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Text' && textEditor.visibility === false) {
+      if (kind === 'Text' && textEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Raster' && rasterEditor.visibility === false) {
+      if (kind === 'Raster' && rasterEditor?.visibility === false) {
         return false;
       }
       return true;
