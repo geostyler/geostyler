@@ -59,7 +59,6 @@ import {
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
 export interface RasterEditorComposableProps {
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   // TODO add support for default values in ContrastEnhancementField
@@ -67,8 +66,7 @@ export interface RasterEditorComposableProps {
   gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
 }
 
-// non default props
-export interface RasterEditorProps {
+export interface RasterEditorInternalProps {
   locale?: GeoStylerLocale['RasterEditor'];
   contrastEnhancementTypes?: ContrastEnhancement['enhancementType'][];
   symbolizer: RasterSymbolizer;
@@ -84,6 +82,8 @@ export interface RasterEditorState {
   showDisplay: ShowDisplay;
 }
 const COMPONENTNAME = 'RasterEditor';
+
+export type RasterEditorProps = RasterEditorInternalProps & RasterEditorComposableProps;
 
 export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
 

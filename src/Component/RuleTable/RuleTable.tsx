@@ -93,7 +93,6 @@ export interface RuleRecord extends GsRule {
   minScale?: number;
 }
 
-// non default props
 export interface RuleTableProps {
   /** Locale object containing translated text snippets */
   locale?: GeoStylerLocale['RuleTable'];
@@ -117,7 +116,7 @@ const COMPONENTNAME = 'RuleTable';
 // export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
 export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TableProps<RuleRecord>> = (props) => {
 
-  const composition = useGeoStylerComposition('Rule');
+  const composition = useGeoStylerComposition('Rule') as RuleComposableProps;
   const composed = {...props, ...composition};
   const {
     amountField,

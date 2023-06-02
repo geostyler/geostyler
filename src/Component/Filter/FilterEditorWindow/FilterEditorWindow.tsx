@@ -36,7 +36,7 @@ import { Modal, ModalProps } from 'antd';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import { Filter } from 'geostyler-style';
 import FilterTree from '../FilterTree/FilterTree';
-import { ComparisonFilterProps } from '../ComparisonFilter/ComparisonFilter';
+import { ComparisonFilterInternalProps } from '../ComparisonFilter/ComparisonFilter';
 import type GeoStylerLocale from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 
@@ -53,7 +53,7 @@ export interface FilterEditorWindowProps extends Partial<ModalProps> {
   /** The callback method that is triggered when the state changes */
   onFilterChange?: (filter: Filter) => void;
   /** Properties that will be passed to the comparison filters */
-  filterUiProps?: Partial<ComparisonFilterProps>;
+  filterUiProps?: Partial<ComparisonFilterInternalProps>;
 }
 
 export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({

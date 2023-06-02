@@ -47,28 +47,25 @@ import {
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
 export interface MarkEditorComposableProps {
+  // TODO add wellKnownNames property that specifies the supported WKNs
   // TODO add support for default values in WellKnownNameField
   wellKnownNameField?: {
     visibility?: boolean;
   };
-  wellKnownNameEditor?: {
-    visibility?: boolean;
-  };
-  // TODO add wellKnownNames property that specifies the supported WKNs
 }
 
-// non default props
-export interface MarkEditorProps {
+export interface MarkEditorInternalProps {
   locale?: GeoStylerLocale['MarkEditor'];
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: MarkSymbolizer) => void;
 }
 
+export type MarkEditorProps = MarkEditorInternalProps & MarkEditorComposableProps;
+
 const COMPONENTNAME = 'MarkEditor';
 
-export const MarkEditor: React.FC<MarkEditorProps & MarkEditorComposableProps> = (props) => {
+export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('MarkEditor');
 
@@ -77,7 +74,6 @@ export const MarkEditor: React.FC<MarkEditorProps & MarkEditorComposableProps> =
     locale = en_US.MarkEditor,
     onSymbolizerChange,
     symbolizer,
-    wellKnownNameEditor,
     wellKnownNameField
   } = composed;
 
@@ -118,14 +114,10 @@ export const MarkEditor: React.FC<MarkEditorProps & MarkEditorComposableProps> =
           </Form.Item>
         )
       }
-      {
-        wellKnownNameEditor?.visibility === false ? null : (
-          <WellKnownNameEditor
-            symbolizer={symbolizer}
-            onSymbolizerChange={onSymbolizerChange}
-          />
-        )
-      }
+      <WellKnownNameEditor
+        symbolizer={symbolizer}
+        onSymbolizerChange={onSymbolizerChange}
+      />
     </div>
   );
 };

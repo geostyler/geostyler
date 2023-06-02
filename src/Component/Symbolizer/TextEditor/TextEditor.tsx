@@ -76,8 +76,7 @@ export interface TextEditorComposableProps {
   haloWidthField?: InputConfig<WidthFieldProps['value']>;
 }
 
-// non default props
-export interface TextEditorProps {
+export interface TextEditorInternalProps {
   locale?: GeoStylerLocale['TextEditor'];
   symbolizer: TextSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
@@ -86,12 +85,14 @@ export interface TextEditorProps {
 
 const COMPONENTNAME = 'TextEditor';
 
+export type TextEditorProps = TextEditorInternalProps & TextEditorComposableProps;
+
 /**
  * The TextEditor class. Allows to edit text styles based on a template string
  * where words wrapped in double curly braces ({{}}) will be understood as
  * feature properties and text without curly braces as static text.
  */
-export const TextEditor: React.FC<TextEditorProps & TextEditorComposableProps> = (props) => {
+export const TextEditor: React.FC<TextEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('TextEditor');
   const composed = {...props, ...composition};

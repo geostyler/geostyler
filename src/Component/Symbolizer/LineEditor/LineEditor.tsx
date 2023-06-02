@@ -86,8 +86,7 @@ export interface LineEditorComposableProps {
   // TODO add support for graphicFill
 }
 
-// non default props
-export interface LineEditorProps {
+export interface LineEditorInternalProps {
   /** Language package */
   locale?: GeoStylerLocale['LineEditor'];
   /** Symbolizer */
@@ -97,7 +96,9 @@ export interface LineEditorProps {
 }
 const COMPONENTNAME = 'LineEditor';
 
-export const LineEditor: React.FC<LineEditorProps & LineEditorComposableProps> = (props) => {
+export type LineEditorProps = LineEditorInternalProps & LineEditorComposableProps;
+
+export const LineEditor: React.FC<LineEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('LineEditor');
 

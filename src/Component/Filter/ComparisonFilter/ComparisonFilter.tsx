@@ -88,8 +88,7 @@ export interface ComparisonFilterComposableProps {
   microUI?: boolean;
 };
 
-// default props
-export interface ComparisonFilterProps {
+export interface ComparisonFilterInternalProps {
   /** Initial comparison filter object */
   filter?: GsComparisonFilter;
   /** Reference to internal data object (holding schema and example features) */
@@ -161,6 +160,8 @@ const operatorsMap: Record<JSONSchema4TypeName, ComparisonOperator[]> = {
   'null': undefined
 };
 
+export type ComparisonFilterProps = ComparisonFilterInternalProps & ComparisonFilterComposableProps;
+
 /**
  * UI for a ComparisonFilter consisting of
  *
@@ -168,7 +169,7 @@ const operatorsMap: Record<JSONSchema4TypeName, ComparisonOperator[]> = {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-export const ComparisonFilter: React.FC<ComparisonFilterProps & ComparisonFilterComposableProps> = (props) => {
+export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
 
   const composition = useGeoStylerComposition('ComparisonFilter');
   const composed = {...props, ...composition};

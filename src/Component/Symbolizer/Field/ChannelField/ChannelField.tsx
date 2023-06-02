@@ -44,7 +44,6 @@ import _cloneDeep from 'lodash/cloneDeep';
 import type GeoStylerLocale from '../../../../locale/locale';
 import { InputConfig, useGeoStylerComposition } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
 export interface ChannelFieldComposableProps {
   sourceChannelNameField?: {
     visibility?: boolean;
@@ -56,8 +55,7 @@ export interface ChannelFieldComposableProps {
   gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
 }
 
-// non default props
-export interface ChannelFieldProps {
+export interface ChannelFieldInternalProps {
   locale?: GeoStylerLocale['ChannelField'];
   contrastEnhancementTypes?: ContrastEnhancement['enhancementType'][];
   onChange?: (channel: Channel) => void;
@@ -65,10 +63,12 @@ export interface ChannelFieldProps {
   channel?: Channel;
 }
 
+export type ChannelFieldProps = ChannelFieldInternalProps & ChannelFieldComposableProps;
+
 /**
  * ChannelField to select different Channel options
  */
-export const ChannelField: React.FC<ChannelFieldProps & ChannelFieldComposableProps> = (props) => {
+export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
 
   const composition = useGeoStylerComposition('ChannelField');
 

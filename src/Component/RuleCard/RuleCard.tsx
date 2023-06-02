@@ -44,7 +44,6 @@ import { BlockOutlined, FilterFilled, MinusOutlined } from '@ant-design/icons';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 const { Text } = Typography;
 
-// default props
 export interface RuleComposableProps {
   amountField?: {
     visibility?: boolean;
@@ -66,8 +65,7 @@ export interface RuleComposableProps {
   };
 }
 
-// non default props
-export interface RuleCardProps {
+export interface RuleCardInternalProps {
   /** The rule to display. */
   rule: GsRule;
   /** The number of features that are also matched by other rules. */
@@ -78,7 +76,9 @@ export interface RuleCardProps {
   onClick?: () => void;
 }
 
-export const RuleCard: React.FC<RuleCardProps & RuleComposableProps> = (props) => {
+export type RuleCardProps = RuleCardInternalProps & RuleComposableProps;
+
+export const RuleCard: React.FC<RuleCardProps> = (props) => {
 
   const composition = useGeoStylerComposition('Rule');
 

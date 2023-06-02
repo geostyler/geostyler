@@ -46,8 +46,9 @@ import { Data } from 'geostyler-data';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
 
-// non default props
-export interface RuleFieldContainerProps {
+export type RuleFieldContainerComposableProps = Pick<RuleComposableProps, 'maxScaleField'|'minScaleField'|'nameField'>;
+
+export interface RuleFieldContainerInternalProps {
   /** Locale object containing translated text snippets */
   locale?: GeoStylerLocale['RuleFieldContainer'] & GeoStylerLocale['ScaleDenominator'];
   /** The callback method when the name changes */
@@ -68,11 +69,11 @@ export interface RuleFieldContainerProps {
   data?: Data;
 }
 
-export const RuleFieldContainer: React.FC<
-  RuleFieldContainerProps & Omit<RuleComposableProps, 'amountField'|'duplicateField'|'filterField'>
-> = (props) => {
+export type RuleFieldContainerProps = RuleFieldContainerInternalProps & RuleFieldContainerComposableProps;
 
-  const composition = useGeoStylerComposition('Rule');
+export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => {
+
+  const composition = useGeoStylerComposition('Rule') as RuleFieldContainerComposableProps;
 
   const composed = {...props, ...composition};
   const {

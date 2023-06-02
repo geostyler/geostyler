@@ -51,13 +51,11 @@ import _cloneDeep from 'lodash/cloneDeep';
 import type GeoStylerLocale from '../../../locale/locale';
 import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
 export interface RasterChannelEditorComposableProps {
   channelSelectionField?: InputConfig<'rgb'|'gray'>;
 }
 
-// non default props
-export interface RasterChannelEditorProps {
+export interface RasterChannelEditorInternalProps {
   locale?: GeoStylerLocale['RasterChannelEditor'];
   sourceChannelNames?: string[];
   onChange?: (channelSelection: ChannelSelection) => void;
@@ -67,12 +65,12 @@ export interface RasterChannelEditorProps {
 
 const COMPONENTNAME = 'RasterChannelEditor';
 
+export type RasterChannelEditorProps = RasterChannelEditorInternalProps & RasterChannelEditorComposableProps;
+
 /**
  * RasterChannelEditor to map bands to rgb or grayscale
  */
-export const RasterChannelEditor: React.FC<
-  RasterChannelEditorProps & RasterChannelEditorComposableProps
-> = (props) => {
+export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('RasterChannelEditor');
 

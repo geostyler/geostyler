@@ -47,8 +47,9 @@ import en_US from '../../locale/en_US';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
 
-// non default props
-export interface RuleOverviewProps {
+export type RuleOverviewComposableProps = Pick<RuleComposableProps, 'filterField'>;
+
+export interface RuleOverviewInternalProps {
   /** Locale object containing translated text snippets */
   locale?: GeoStylerLocale['RuleOverview'];
   /** The callback when the style changed. */
@@ -61,11 +62,11 @@ export interface RuleOverviewProps {
   rule: GsRule;
 }
 
-export const RuleOverview: React.FC<
-RuleOverviewProps & Pick<RuleComposableProps, 'filterField'>
-> = (props) => {
+export type RuleOverviewProps = RuleOverviewInternalProps & RuleOverviewComposableProps;
 
-  const composition = useGeoStylerComposition('Rule') as Pick<RuleComposableProps, 'filterField'>;
+export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
+
+  const composition = useGeoStylerComposition('Rule') as RuleOverviewComposableProps;
 
   const composed = {...props, ...composition};
   const {

@@ -38,29 +38,30 @@ export interface RendererComposableProps {
   rendererType?: 'OpenLayers' | 'SLD';
 }
 
-export const Renderer: React.FC<RendererComposableProps & (OlRendererProps | SLDRendererProps)> = ({
-  rendererType,
-  ...rendererProps
-}) => {
+export type RendererProps = RendererComposableProps & (OlRendererProps | SLDRendererProps);
+
+export const Renderer: React.FC<RendererProps> = (props) => {
 
   const composition = useGeoStylerComposition('Renderer');
-  if (composition.rendererType) {
-    rendererType = composition.rendererType;
-  }
+  const composed = {...props, ...composition};
+  let {
+    rendererType,
+    ...rendererProps
+  } = composed;
 
   let renderer = null;
 
   if (rendererType === 'OpenLayers') {
     renderer = (
       <OlRenderer
-        {...rendererProps}
+        {...rendererProps as OlRendererProps}
       />
     );
   }
   else if (rendererType === 'SLD') {
     renderer = (
       <SLDRenderer
-        {...rendererProps}
+        {...rendererProps as SLDRendererProps}
       />
     );
   }

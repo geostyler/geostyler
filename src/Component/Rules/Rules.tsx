@@ -60,8 +60,7 @@ export interface RulesComposableProps {
   enableClassification?: boolean;
 }
 
-// non default props
-export interface RulesProps {
+export interface RulesInternalProps {
   /** Locale object containing translated text snippets */
   locale?: GeoStylerLocale['Rules'];
   /** Display the number of features that match a rule */
@@ -82,7 +81,9 @@ export interface RulesProps {
   onEditRuleClick?: (ruleId: number) => void;
 }
 
-export const Rules: React.FC<RulesProps & RuleComposableProps> = (props) => {
+export type RulesProps = RulesInternalProps & RuleComposableProps;
+
+export const Rules: React.FC<RulesProps> = (props) => {
 
   const composition = useGeoStylerComposition('Rules');
 

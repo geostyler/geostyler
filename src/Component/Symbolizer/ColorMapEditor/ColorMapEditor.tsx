@@ -78,8 +78,7 @@ export interface ColorMapEditorComposableProps {
   };
 }
 
-// non default props
-export interface ColorMapEditorProps {
+export interface ColorMapEditorInternalProps {
   locale?: GeoStylerLocale['ColorMapEditor'];
   colorRamps?: {
     [name: string]: string[];
@@ -88,9 +87,11 @@ export interface ColorMapEditorProps {
   onChange?: (colorMap: ColorMap) => void;
 }
 
+export type ColorMapEditorProps = ColorMapEditorInternalProps & ColorMapEditorComposableProps;
+
 const COMPONENTNAME = 'ColorMapEditor';
 
-export const ColorMapEditor: React.FC<ColorMapEditorProps & ColorMapEditorComposableProps> = (props) => {
+export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('ColorMapEditor');
   const composed = {...props, ...composition};

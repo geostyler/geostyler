@@ -57,7 +57,6 @@ import { Form } from 'antd';
 import type GeoStylerLocale from '../../../locale/locale';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
 export interface EditorComposableProps {
   markEditor?: {
     visibility?: boolean;
@@ -79,8 +78,7 @@ export interface EditorComposableProps {
   };
 }
 
-// non default props
-export interface EditorProps {
+export interface EditorInternalProps {
   locale?: GeoStylerLocale['SymbolizerEditor'];
   symbolizer: Symbolizer;
   internalDataDef?: Data;
@@ -89,9 +87,11 @@ export interface EditorProps {
   iconLibraries?: IconLibrary[];
 }
 
+export type EditorProps = EditorInternalProps & EditorComposableProps;
+
 const COMPONENTNAME = 'SymbolizerEditor';
 
-export const Editor: React.FC<EditorProps & EditorComposableProps> = (props) => {
+export const Editor: React.FC<EditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('Editor');
   const composed = {...props, ...composition};

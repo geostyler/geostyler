@@ -75,16 +75,17 @@ export interface FillEditorComposableProps {
   // TODO add support for graphicFill
 }
 
-// non default props
-export interface FillEditorProps {
+export interface FillEditorInternalProps {
   locale?: GeoStylerLocale['FillEditor'];
   symbolizer: FillSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
+export type FillEditorProps = FillEditorInternalProps & FillEditorComposableProps;
+
 const COMPONENTNAME = 'FillEditor';
 
-export const FillEditor: React.FC<FillEditorProps & FillEditorComposableProps> = (props) => {
+export const FillEditor: React.FC<FillEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('FillEditor');
   const composed = {...props, ...composition};

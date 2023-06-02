@@ -58,18 +58,17 @@ export interface WellKnownNameEditorComposableProps {
   rotateField?: InputConfig<RotateFieldProps['rotate']>;
 }
 
-// non default props
-export interface WellKnownNameEditorProps {
+export interface WellKnownNameEditorInternalProps {
   locale?: GeoStylerLocale['WellKnownNameEditor'];
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: MarkSymbolizer) => void;
 }
 
+export type WellKnownNameEditorProps = WellKnownNameEditorInternalProps & WellKnownNameEditorComposableProps;
+
 const COMPONENTNAME = 'WellKnownNameEditor';
 
-export const WellKnownNameEditor: React.FC<
-  WellKnownNameEditorProps & WellKnownNameEditorComposableProps
-> = (props) => {
+export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('WellKnownNameEditor');
 

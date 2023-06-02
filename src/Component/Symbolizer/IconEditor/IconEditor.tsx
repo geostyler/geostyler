@@ -52,7 +52,6 @@ import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
 import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
 export interface IconEditorComposableProps {
   // TODO add support for default values in ImageField
   imageField?: {
@@ -69,8 +68,7 @@ export interface IconEditorComposableProps {
   iconLibraries?: IconLibrary[];
 }
 
-// non default props
-export interface IconEditorProps {
+export interface IconEditorInternalProps {
   locale?: GeoStylerLocale['IconEditor'];
   symbolizer: IconSymbolizer;
   onSymbolizerChange?: (changedSymb: IconSymbolizer) => void;
@@ -84,9 +82,11 @@ export interface IconEditorProps {
   imageFieldProps?: Partial<ImageFieldProps>;
 }
 
+export type IconEditorProps = IconEditorInternalProps & IconEditorComposableProps;
+
 const COMPONENTNAME = 'IconEditor';
 
-export const IconEditor: React.FC<IconEditorProps & IconEditorComposableProps> = (props) => {
+export const IconEditor: React.FC<IconEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('IconEditor');
 
