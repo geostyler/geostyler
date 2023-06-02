@@ -54,20 +54,18 @@ import {
 
 import NameField from '../NameField/NameField';
 import BulkEditModals from '../Symbolizer/BulkEditModals/BulkEditModals';
-import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import RuleTable, { RuleTableProps } from '../RuleTable/RuleTable';
+import RuleTable from '../RuleTable/RuleTable';
 import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
-import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
-import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 import './Style.less';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
+import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 // i18n
 export interface StyleLocale {
@@ -102,14 +100,8 @@ export interface StyleProps extends Partial<StyleDefaultProps> {
   onStyleChange?: (style: GsStyle) => void;
   /** The data projection of example features */
   dataProjection?: string;
-  /** Properties of the filter components */
-  filterUiProps?: Partial<ComparisonFilterProps>;
-  /** Properties of the RuleTable component */
-  ruleTableProps?: Partial<RuleTableProps>;
   /** The renderer to use */
   ruleRendererType?: 'SLD' | 'OpenLayers';
-  /** Properties of the SLD renderer */
-  sldRendererProps?: SLDRendererAdditonalProps;
   /** List of supported icons ordered as library */
   iconLibraries?: IconLibrary[];
   colorRamps?: {
@@ -131,10 +123,7 @@ export const Style: React.FC<StyleProps> = ({
   },
   data,
   onStyleChange,
-  filterUiProps,
-  ruleTableProps,
   ruleRendererType,
-  sldRendererProps,
   iconLibraries,
   colorRamps,
   useBrewerColorRamps,
@@ -462,13 +451,8 @@ export const Style: React.FC<StyleProps> = ({
           onChange: onRulesSelectionChange
         }}
         rendererType={ruleRendererType}
-        sldRendererProps={sldRendererProps}
-        filterUiProps={filterUiProps}
         data={data}
         footer={createFooter}
-        iconLibraries={iconLibraries}
-        colorRamps={colorRamps}
-        {...ruleTableProps}
       />
       <BulkEditModals
         colorModalVisible={colorModalVisible}

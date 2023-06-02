@@ -58,14 +58,10 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
 import './RuleTable.less';
-import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { ColumnProps, TableProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
-import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
-import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import DataUtil from '../../Util/DataUtil';
 import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
@@ -107,10 +103,6 @@ export interface RuleTableProps {
   data?: Data;
   /** List of rules to display in rule table */
   rules: GsRule[];
-  /** Properties of the SLD renderer */
-  sldRendererProps?: SLDRendererAdditonalProps;
-  /** Properties of the OpenLayers renderer */
-  oLRendererProps?: Partial<OlRendererProps>;
   /** The footer of the rule table */
   footer?: (currentPageData?: any) => React.ReactNode;
   /** The callback function that is triggered when the rules change */
@@ -118,13 +110,6 @@ export interface RuleTableProps {
   /** The callback function that is triggered when the selection changes */
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
   /** Properties that will be passed to the Comparison Filters */
-  filterUiProps?: Partial<ComparisonFilterProps>;
-  /** List of supported icons ordered as library */
-  iconLibraries?: IconLibrary[];
-  /** Object containing predefined color ramps */
-  colorRamps?: {
-    [name: string]: string[];
-  };
 }
 
 const COMPONENTNAME = 'RuleTable';
@@ -136,11 +121,6 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
   data: dataProp,
   rules: rulesProp,
   onRulesChange,
-  filterUiProps,
-  iconLibraries,
-  colorRamps,
-  sldRendererProps,
-  oLRendererProps,
   // The composableProps include the antd table props
   ...composableProps
 }) => {
@@ -207,8 +187,6 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
         data={data}
         symbolizers={record.symbolizers}
         onClick={onSymbolizerRendererClick}
-        {...sldRendererProps}
-        {...oLRendererProps}
       />
     );
   };
@@ -468,15 +446,12 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
         internalDataDef={data}
         symbolizers={rules?.[ruleEditIndex]?.symbolizers}
         onSymbolizersChange={onSymbolizersChange}
-        iconLibraries={iconLibraries}
-        colorRamps={colorRamps}
       />
       <FilterEditorWindow
         open={filterEditorVisible}
         onClose={onFilterEditorWindowClose}
         filter={rules?.[ruleEditIndex]?.filter}
         onFilterChange={onFilterChange}
-        filterUiProps={filterUiProps}
         internalDataDef={data && DataUtil.isVector(data) ? data : undefined}
       />
     </div>
