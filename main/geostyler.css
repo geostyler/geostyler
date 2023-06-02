@@ -280,26 +280,16 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.color-preview-wrapper {
-  display: flex;
+.ant-color-picker .ant-color-picker-slider-container {
+  padding-bottom: 6px;
 }
-.color-preview-wrapper button.color-preview {
-  flex: 1;
-  border-right: 0;
-  border-radius: 2px 0 0 2px;
+.ant-color-picker .ant-color-picker-slider-container .ant-color-picker-slider-group {
+  align-self: end;
 }
-.color-preview-wrapper button.color-clear {
-  border-radius: 0 2px 2px 0;
-  width: 32px;
-}
-.sketch-picker {
-  position: absolute;
-  z-index: 200;
-  top: 3em;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+.ant-color-picker .ant-color-picker-slider-alpha,
+.ant-color-picker .ant-color-picker-alpha-input,
+.ant-color-picker .ant-color-picker-format-select {
+  display: none;
 }
 
 .gs-function-name-combo {
