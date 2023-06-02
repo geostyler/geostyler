@@ -47,7 +47,7 @@ import { Button, Switch, Divider } from 'antd';
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import Selectable from '../Selectable/Selectable';
-import { RuleCard, RuleComposableProps } from '../RuleCard/RuleCard';
+import { RuleCard } from '../RuleCard/RuleCard';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
@@ -56,8 +56,7 @@ import { RemovableItem } from '../RemovableItem/RemovableItem';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export interface RulesComposableProps {
-  /** Enable classification */
-  enableClassification?: boolean;
+  disableClassification?: boolean;
 }
 
 export interface RulesInternalProps {
@@ -81,7 +80,7 @@ export interface RulesInternalProps {
   onEditRuleClick?: (ruleId: number) => void;
 }
 
-export type RulesProps = RulesInternalProps & RuleComposableProps;
+export type RulesProps = RulesInternalProps & RulesComposableProps;
 
 export const Rules: React.FC<RulesProps> = (props) => {
 
@@ -90,7 +89,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
   const composed = {...props, ...composition};
   const {
     data,
-    enableClassification,
+    disableClassification,
     locale = en_US.Rules,
     onClassificationClick,
     onEditRuleClick,
@@ -237,9 +236,8 @@ export const Rules: React.FC<RulesProps> = (props) => {
   ];
 
   // TODO: Classification button should only be available if data is VectorData
-  if (enableClassification) {
-    defaultActions = [
-      ...defaultActions,
+  if (!disableClassification) {
+    defaultActions.push(
       <Button
         className="gs-classification-button"
         onClick={classificationClick}
@@ -247,7 +245,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
       >
         {locale.classification}
       </Button>
-    ];
+    );
   }
 
   const multiEditActions: ReactNode[] = [
