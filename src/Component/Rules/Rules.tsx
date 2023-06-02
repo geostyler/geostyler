@@ -82,20 +82,21 @@ export interface RulesProps {
   onEditRuleClick?: (ruleId: number) => void;
 }
 
-export const Rules: React.FC<RulesProps & RuleComposableProps> = ({
-  locale = en_US.Rules,
-  data,
-  rules,
-  onRulesChange,
-  onClassificationClick,
-  onEditSelectionClick,
-  onEditRuleClick,
-  ...composableProps
-}) => {
+export const Rules: React.FC<RulesProps & RuleComposableProps> = (props) => {
 
   const composition = useGeoStylerComposition('Rules');
 
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    data,
+    enableClassification,
+    locale = en_US.Rules,
+    onClassificationClick,
+    onEditRuleClick,
+    onEditSelectionClick,
+    onRulesChange,
+    rules
+  } = composed;
 
   const [multiEditActive, setMultiEditActive] = useState<boolean>(false);
   const [selectedRules, setSelectedRules] = useState<number[]>([]);
@@ -235,7 +236,7 @@ export const Rules: React.FC<RulesProps & RuleComposableProps> = ({
   ];
 
   // TODO: Classification button should only be available if data is VectorData
-  if (composed?.enableClassification) {
+  if (enableClassification) {
     defaultActions = [
       ...defaultActions,
       <Button

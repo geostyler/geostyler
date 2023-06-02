@@ -59,7 +59,6 @@ export interface ColorMapEntryRecord extends ColorMapEntry {
 }
 
 export interface ColorMapEditorComposableProps {
-  visibility?: boolean;
   // TODO add support for default values in ColorMapTypeField
   colorMapTypeField?: {
     visibility?: boolean;
@@ -91,20 +90,25 @@ export interface ColorMapEditorProps {
 
 const COMPONENTNAME = 'ColorMapEditor';
 
-export const ColorMapEditor: React.FC<ColorMapEditorProps & ColorMapEditorComposableProps> = ({
-  locale = en_US.ColorMapEditor,
-  colorRamps = {
-    GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
-    GreenRed: ['#00FF00', '#FF0000'],
-    ...brewer
-  },
-  colorMap,
-  onChange,
-  ...composableProps
-}) => {
+export const ColorMapEditor: React.FC<ColorMapEditorProps & ColorMapEditorComposableProps> = (props) => {
 
   const composition = useGeoStylerComposition('ColorMapEditor');
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    colorMap,
+    colorMapTable,
+    colorMapTypeField,
+    colorRampComboField,
+    colorRamps = {
+      GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
+      GreenRed: ['#00FF00', '#FF0000'],
+      ...brewer
+    },
+    extendedField,
+    locale = en_US.ColorMapEditor,
+    nrOfClassesField,
+    onChange
+  } = composed;
 
   // TODO add colorRamp to CompositionContext
   const [colorRamp, setColorRamp] = useState<string>(Object.keys(colorRamps)[0]);
@@ -304,7 +308,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps & ColorMapEditorCompos
           <span>{locale.titleLabel}</span>
         </Form.Item>
         {
-          composed.colorMapTypeField?.visibility === false ? null : (
+          colorMapTypeField?.visibility === false ? null : (
             <Form.Item
               label={locale.typeLabel}
             >
@@ -316,7 +320,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps & ColorMapEditorCompos
           )
         }
         {
-          composed.nrOfClassesField?.visibility === false ? null : (
+          nrOfClassesField?.visibility === false ? null : (
             <Form.Item
               label={locale.nrOfClassesLabel}
             >
@@ -326,13 +330,13 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps & ColorMapEditorCompos
                 max={255}
                 value={nrOfClasses}
                 onChange={onNrOfClassesChange}
-                defaultValue={composed.nrOfClassesField?.default}
+                defaultValue={nrOfClassesField?.default}
               />
             </Form.Item>
           )
         }
         {
-          composed.colorRampComboField?.visibility === false ? null : (
+          colorRampComboField?.visibility === false ? null : (
             <Form.Item
               label={locale.colorRampLabel}
             >
@@ -345,7 +349,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps & ColorMapEditorCompos
           )
         }
         {
-          composed.extendedField?.visibility === false ? null : (
+          extendedField?.visibility === false ? null : (
             <Form.Item
               label={locale.extendedLabel}
             >
@@ -358,7 +362,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps & ColorMapEditorCompos
         }
       </div>
       {
-        composed.colorMapTable?.visibility === false ? null : (
+        colorMapTable?.visibility === false ? null : (
           <Table
             className="gs-colormap-table"
             columns={columns}

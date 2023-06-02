@@ -54,7 +54,6 @@ import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStyler
 
 // default props
 export interface IconEditorComposableProps {
-  visibility?: boolean;
   // TODO add support for default values in ImageField
   imageField?: {
     visibility?: boolean;
@@ -87,18 +86,24 @@ export interface IconEditorProps {
 
 const COMPONENTNAME = 'IconEditor';
 
-export const IconEditor: React.FC<IconEditorProps & IconEditorComposableProps> = ({
-  locale = en_US.IconEditor,
-  symbolizer,
-  onSymbolizerChange,
-  iconLibraries,
-  imageFieldProps,
-  ...composableProps
-}) => {
+export const IconEditor: React.FC<IconEditorProps & IconEditorComposableProps> = (props) => {
 
   const composition = useGeoStylerComposition('IconEditor');
 
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    iconLibraries,
+    imageField,
+    imageFieldProps,
+    locale = en_US.IconEditor,
+    offsetXField,
+    offsetYField,
+    onSymbolizerChange,
+    opacityField,
+    rotateField,
+    sizeField,
+    symbolizer
+  } = composed;
 
   const {
     unsupportedProperties,
@@ -184,7 +189,7 @@ export const IconEditor: React.FC<IconEditorProps & IconEditorComposableProps> =
   return (
     <div className="gs-icon-symbolizer-editor" >
       {
-        composed.imageField?.visibility === false ? null : (
+        imageField?.visibility === false ? null : (
           <Form.Item
             label={locale.imageLabel}
             {...getSupportProps('image')}
@@ -196,14 +201,14 @@ export const IconEditor: React.FC<IconEditorProps & IconEditorComposableProps> =
               // we overwrite imageFieldProps with the props
               // that were explicitly set as props on IconEditor.
               {...imageFieldProps}
-              iconLibraries={composed.iconLibraries || iconLibraries}
+              iconLibraries={iconLibraries || iconLibraries}
               tooltipLabel={locale.iconTooltipLabel}
             />
           </Form.Item>
         )
       }
       {
-        composed.sizeField?.visibility === false ? null : (
+        sizeField?.visibility === false ? null : (
           <Form.Item
             label={locale.sizeLabel}
             {...getSupportProps('size')}
@@ -216,56 +221,56 @@ export const IconEditor: React.FC<IconEditorProps & IconEditorComposableProps> =
         )
       }
       {
-        composed.offsetXField?.visibility === false ? null : (
+        offsetXField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetXLabel}
             {...getSupportProps('offset')}
           >
             <OffsetField
               offset={offset?.[0]}
-              defaultValue={composed.offsetXField?.default as number}
+              defaultValue={offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.offsetYField?.visibility === false ? null : (
+        offsetYField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetYLabel}
             {...getSupportProps('offset')}
           >
             <OffsetField
               offset={offset?.[1]}
-              defaultValue={composed.offsetYField?.default as number}
+              defaultValue={offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.rotateField?.visibility === false ? null : (
+        rotateField?.visibility === false ? null : (
           <Form.Item
             label={locale.rotateLabel}
             {...getSupportProps('rotate')}
           >
             <RotateField
               rotate={rotate}
-              defaultValue={composed.rotateField?.default as number}
+              defaultValue={rotateField?.default as number}
               onChange={onRotateChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.opacityField?.visibility === false ? null : (
+        opacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.opacityLabel}
             {...getSupportProps('opacity')}
           >
             <OpacityField
               value={opacity}
-              defaultValue={composed.opacityField?.default as number}
+              defaultValue={opacityField?.default as number}
               onChange={onOpacityChange}
             />
           </Form.Item>

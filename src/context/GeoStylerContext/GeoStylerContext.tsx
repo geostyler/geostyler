@@ -16,6 +16,8 @@ import { RasterChannelEditorComposableProps } from '../../Component/Symbolizer/R
 import { ColorMapEditorComposableProps } from '../../Component/Symbolizer/ColorMapEditor/ColorMapEditor';
 import { RuleComposableProps } from '../../Component/RuleCard/RuleCard';
 import { RulesComposableProps } from '../../Component/Rules/Rules';
+import { EditorComposableProps } from '../../Component/Symbolizer/Editor/Editor';
+import { ChannelFieldComposableProps } from '../../Component/Symbolizer/Field/ChannelField/ChannelField';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -33,6 +35,7 @@ export type InputConfig<T> = {
 };
 
 export type CompositionContext = {
+  Editor?: EditorComposableProps;
   FillEditor?: FillEditorComposableProps;
   IconEditor?: IconEditorComposableProps;
   LineEditor?: LineEditorComposableProps;
@@ -41,6 +44,7 @@ export type CompositionContext = {
   TextEditor?: TextEditorComposableProps;
   RasterEditor?: RasterEditorComposableProps;
   RasterChannelEditor?: RasterChannelEditorComposableProps;
+  ChannelField?: ChannelFieldComposableProps;
   ColorMapEditor?: ColorMapEditorComposableProps;
   ComparisonFilter?: ComparisonFilterComposableProps;
   Renderer?: RendererComposableProps;

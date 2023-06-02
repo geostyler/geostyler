@@ -61,18 +61,21 @@ export interface RuleOverviewProps {
   rule: GsRule;
 }
 
-export const RuleOverview: React.FC<RuleOverviewProps & RuleComposableProps> = ({
-  rule,
-  data,
-  onRuleChange = () => {},
-  onChangeView = () => {},
-  locale = en_US.RuleOverview,
-  ...composableProps
-}) => {
+export const RuleOverview: React.FC<
+RuleOverviewProps & Pick<RuleComposableProps, 'filterField'>
+> = (props) => {
 
-  const composition = useGeoStylerComposition('Rule');
+  const composition = useGeoStylerComposition('Rule') as Pick<RuleComposableProps, 'filterField'>;
 
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    data,
+    locale = en_US.RuleOverview,
+    onChangeView = () => {},
+    onRuleChange = () => {},
+    rule,
+    filterField
+  } = composed;
 
   const onNameChange = (name: string) => {
     const newRule: GsRule = {...rule, name};
@@ -131,7 +134,7 @@ export const RuleOverview: React.FC<RuleOverviewProps & RuleComposableProps> = (
         data={data}
       />
       {
-        composed.filter?.visibility === false ? null : (
+        filterField?.visibility === false ? null : (
           <FilterOverview
             filter={rule.filter}
             onEditFilterClick={onEditFilterClick}

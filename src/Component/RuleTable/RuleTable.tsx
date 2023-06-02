@@ -115,19 +115,25 @@ export interface RuleTableProps {
 const COMPONENTNAME = 'RuleTable';
 
 // export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
-export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TableProps<RuleRecord>> = ({
-  locale = en_US.RuleTable,
-  rendererType = 'OpenLayers',
-  data: dataProp,
-  rules: rulesProp,
-  onRulesChange,
-  // The composableProps include the antd table props
-  ...composableProps
-}) => {
+export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TableProps<RuleRecord>> = (props) => {
 
   const composition = useGeoStylerComposition('Rule');
-
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    amountField,
+    data: dataProp,
+    duplicateField,
+    filterField,
+    locale = en_US.RuleTable,
+    maxScaleField,
+    minScaleField,
+    nameField,
+    onRulesChange,
+    rendererType = 'OpenLayers',
+    rules: rulesProp,
+    // The composableProps include the antd table props
+    ...antdTableProps
+  } = composed;
 
   const [ruleEditIndex, setRuleEditIndex] = useState<number>();
   const [symbolizerEditorVisible, setSymbolizerEditorVisible] = useState<boolean>();
@@ -377,7 +383,7 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
     render: symbolizerRenderer
   }];
 
-  if (!(composed.name?.visibility === false)) {
+  if (!(nameField?.visibility === false)) {
     columns.push({
       title: locale.nameColumnTitle,
       dataIndex: 'name',
@@ -385,7 +391,7 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
     });
   }
 
-  if (!(composed.filter?.visibility === false)) {
+  if (!(filterField?.visibility === false)) {
     columns.push({
       title: locale.filterColumnTitle,
       dataIndex: 'filter',
@@ -393,7 +399,7 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
     });
   }
 
-  if (!(composed.minScale?.visibility === false)) {
+  if (!(minScaleField?.visibility === false)) {
     columns.push({
       title: locale.minScaleColumnTitle,
       dataIndex: 'minScale',
@@ -401,7 +407,7 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
     });
   }
 
-  if (!(composed.maxScale?.visibility === false)) {
+  if (!(maxScaleField?.visibility === false)) {
     columns.push({
       title: locale.maxScaleColumnTitle,
       dataIndex: 'maxScale',
@@ -409,7 +415,7 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
     });
   }
 
-  if (!(composed.amount?.visibility === false)) {
+  if (!(amountField?.visibility === false)) {
     columns.push({
       title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
       dataIndex: 'amount',
@@ -417,7 +423,7 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
     });
   }
 
-  if (!(composed.duplicate?.visibility === false)) {
+  if (!(duplicateField?.visibility === false)) {
     columns.push({
       title: (
         <Tooltip title={locale.duplicatesColumnTitle}>
@@ -438,7 +444,7 @@ export const RuleTable: React.FC<RuleTableProps & RuleComposableProps & TablePro
         columns={columns}
         dataSource={ruleRecords}
         pagination={false}
-        {...composed}
+        {...antdTableProps}
       />
       <SymbolizerEditorWindow
         open={symbolizerEditorVisible}

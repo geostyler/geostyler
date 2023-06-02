@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import './RuleFieldContainer.less';
 
@@ -68,22 +68,27 @@ export interface RuleFieldContainerProps {
   data?: Data;
 }
 
-export const RuleFieldContainer: React.FC<RuleFieldContainerProps & RuleComposableProps> = ({
-  name,
-  minScale,
-  maxScale,
-  locale = en_US.Rule,
-  onNameChange = () => {},
-  onMinScaleChange = () => {},
-  onMaxScaleChange = () => {},
-  symbolizers = [],
-  data,
-  ...composableProps
-}) => {
+export const RuleFieldContainer: React.FC<
+  RuleFieldContainerProps & Omit<RuleComposableProps, 'amountField'|'duplicateField'|'filterField'>
+> = (props) => {
 
   const composition = useGeoStylerComposition('Rule');
 
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    data,
+    locale = en_US.Rule,
+    maxScale,
+    maxScaleField,
+    minScale,
+    minScaleField,
+    name,
+    nameField,
+    onMaxScaleChange = () => {},
+    onMinScaleChange = () => {},
+    onNameChange = () => {},
+    symbolizers = [],
+  } = composed;
 
   return (
     <FieldContainer className="gs-rule-field-container">
@@ -92,7 +97,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps & RuleComposab
           layout='vertical'
         >
           {
-            composed.name?.visibility === false ? null : (
+            nameField?.visibility === false ? null : (
               <Form.Item
                 label={locale.nameFieldLabel}
               >
@@ -105,7 +110,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps & RuleComposab
             )
           }
           {
-            composed.minScale?.visibility === false ? null : (
+            minScaleField?.visibility === false ? null : (
               <MinScaleDenominator
                 value={minScale}
                 onChange={onMinScaleChange}
@@ -113,7 +118,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps & RuleComposab
             )
           }
           {
-            composed.maxScale?.visibility === false ? null : (
+            maxScaleField?.visibility === false ? null : (
               <MaxScaleDenominator
                 value={maxScale}
                 onChange={onMaxScaleChange}

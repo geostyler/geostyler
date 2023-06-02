@@ -50,21 +50,10 @@ import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import type GeoStylerLocale from '../../../locale/locale';
 import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
-import { GammaFieldProps } from '../Field/GammaField/GammaField';
 
 // default props
 export interface RasterChannelEditorComposableProps {
-  visibility?: boolean;
   channelSelectionField?: InputConfig<'rgb'|'gray'>;
-  // TODO add support for default values in SourceChannelNameField
-  sourceChannelNameField?: {
-    visibility?: boolean;
-  };
-  // TODO add support for default values in ContrastEnhancementField
-  contrastEnhancementField?: {
-    visibility?: boolean;
-  };
-  gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
 }
 
 // non default props
@@ -83,21 +72,22 @@ const COMPONENTNAME = 'RasterChannelEditor';
  */
 export const RasterChannelEditor: React.FC<
   RasterChannelEditorProps & RasterChannelEditorComposableProps
-> = ({
-  locale = en_US.RasterChannelEditor,
-  sourceChannelNames,
-  onChange,
-  channelSelection,
-  contrastEnhancementTypes,
-  ...composableProps
-}) => {
+> = (props) => {
 
   const composition = useGeoStylerComposition('RasterChannelEditor');
 
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    channelSelection,
+    channelSelectionField,
+    contrastEnhancementTypes,
+    locale = en_US.RasterChannelEditor,
+    onChange,
+    sourceChannelNames
+  } = composed;
 
   const defaultRgbOrGray = !channelSelection
-    ? composed.channelSelectionField?.default || 'rgb'
+    ? channelSelectionField?.default || 'rgb'
     : isGrayChannel(channelSelection) ? 'gray' : 'rgb';
   const [rgbOrGray, setRgbOrGray] = useState(defaultRgbOrGray);
   const defaultSelectedTab = !channelSelection ? 'red' : isGrayChannel(channelSelection) ? 'gray' : 'red';
@@ -164,7 +154,7 @@ export const RasterChannelEditor: React.FC<
         <span>{locale.titleLabel}</span>
       </Form.Item>
       {
-        composed.channelSelectionField?.visibility === false ? null : (
+        channelSelectionField?.visibility === false ? null : (
           <Form.Item
             label={locale.channelSelectionLabel}
           >

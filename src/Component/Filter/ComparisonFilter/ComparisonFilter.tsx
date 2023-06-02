@@ -168,31 +168,29 @@ const operatorsMap: Record<JSONSchema4TypeName, ComparisonOperator[]> = {
  *   - A combo to select the operator
  *   - An input field for the value
  */
-export const ComparisonFilter: React.FC<ComparisonFilterProps & ComparisonFilterComposableProps> = ({
-  filter = ['==', '', null],
-  internalDataDef,
-  onFilterChange,
-  operatorLabel,
-  operatorPlaceholderString,
-  operatorValidationHelpString,
-  ...composableProps
-}) => {
+export const ComparisonFilter: React.FC<ComparisonFilterProps & ComparisonFilterComposableProps> = (props) => {
 
   const composition = useGeoStylerComposition('ComparisonFilter');
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
   const {
     attributeNameFilter = () => true,
     attributeNameMappingFunction = n => n,
+    filter = ['==', '', null],
     hideAttributeType = false,
+    internalDataDef,
     microUI = false,
+    onFilterChange,
+    operatorLabel,
     operatorNameMappingFunction = n => n,
+    operatorPlaceholderString,
     operatorTitleMappingFunction = t => t,
+    operatorValidationHelpString,
     showOperatorTitles = true,
     validators = {
       attribute: attributeName => !_isEmpty(attributeName),
       operator: operatorName => !_isEmpty(operatorName),
       value: ComparisonFilterDefaultValidator
-    },
+    }
   } = composed;
 
   /**

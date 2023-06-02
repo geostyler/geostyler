@@ -40,10 +40,9 @@ import {
 import ColorField, { ColorFieldProps } from '../Field/ColorField/ColorField';
 import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
 import WidthField, { WidthFieldProps } from '../Field/WidthField/WidthField';
-import FontPicker, { FontPickerProps } from '../Field/FontPicker/FontPicker';
+import FontPicker from '../Field/FontPicker/FontPicker';
 import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
 import RotateField, { RotateFieldProps } from '../Field/RotateField/RotateField';
-import { DefaultValues } from '../../../context/DefaultValueContext/DefaultValueContext';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
@@ -62,11 +61,12 @@ import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStyler
 import { SizeFieldProps } from '../Field/SizeField/SizeField';
 
 export interface TextEditorComposableProps {
-  visibility?: boolean;
   templateField?: InputConfig<string>;
   colorField?: InputConfig<ColorFieldProps['value']>;
   // TODO add support for default values in FontPicker
-  fontField?: Omit<InputConfig<FontPickerProps['font']>, 'default'>;
+  fontField?: {
+    visibility?: boolean;
+  };
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   sizeField?: InputConfig<SizeFieldProps['value']>;
   offsetXField?: InputConfig<OffsetFieldProps['offset']>;
@@ -82,7 +82,6 @@ export interface TextEditorProps {
   symbolizer: TextSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   internalDataDef?: VectorData;
-  defaultValues?: DefaultValues;
 }
 
 const COMPONENTNAME = 'TextEditor';
@@ -92,17 +91,26 @@ const COMPONENTNAME = 'TextEditor';
  * where words wrapped in double curly braces ({{}}) will be understood as
  * feature properties and text without curly braces as static text.
  */
-export const TextEditor: React.FC<TextEditorProps & TextEditorComposableProps> = ({
-  locale = en_US.TextEditor,
-  symbolizer,
-  onSymbolizerChange,
-  internalDataDef,
-  ...composableProps
-}) => {
+export const TextEditor: React.FC<TextEditorProps & TextEditorComposableProps> = (props) => {
 
   const composition = useGeoStylerComposition('TextEditor');
-
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    colorField,
+    fontField,
+    haloColorField,
+    haloWidthField,
+    internalDataDef,
+    locale = en_US.TextEditor,
+    offsetXField,
+    offsetYField,
+    onSymbolizerChange,
+    opacityField,
+    rotateField,
+    sizeField,
+    symbolizer,
+    templateField
+  } = composed;
 
   const {
     unsupportedProperties,
@@ -231,7 +239,7 @@ export const TextEditor: React.FC<TextEditorProps & TextEditorComposableProps> =
   return (
     <div className="gs-text-symbolizer-editor" >
       {
-        composed.templateField?.visibility === false ? null : (
+        templateField?.visibility === false ? null : (
           <Form.Item
             label={locale.templateFieldLabel}
             {...getSupportProps('label')}
@@ -239,7 +247,7 @@ export const TextEditor: React.FC<TextEditorProps & TextEditorComposableProps> =
             <Mentions
               className="editor-field"
               value={symbolizer.label as string || ''}
-              defaultValue={composed.templateField?.default}
+              defaultValue={templateField?.default}
               onChange={onLabelChange}
               placeholder={locale.templateFieldLabel}
               prefix="{{"
@@ -254,21 +262,21 @@ export const TextEditor: React.FC<TextEditorProps & TextEditorComposableProps> =
         )
       }
       {
-        composed.colorField?.visibility === false ? null : (
+        colorField?.visibility === false ? null : (
           <Form.Item
             label={locale.colorLabel}
             {...getSupportProps('color')}
           >
             <ColorField
               value={color as string}
-              defaultValue={composed.colorField?.default}
+              defaultValue={colorField?.default}
               onChange={onColorChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.fontField?.visibility === false ? null : (
+        fontField?.visibility === false ? null : (
           <Form.Item
             label={locale.fontLabel}
             {...getSupportProps('font')}
@@ -281,98 +289,98 @@ export const TextEditor: React.FC<TextEditorProps & TextEditorComposableProps> =
         )
       }
       {
-        composed.opacityField?.visibility === false ? null : (
+        opacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.opacityLabel}
             {...getSupportProps('opacity')}
           >
             <OpacityField
               value={opacity}
-              defaultValue={composed.opacityField?.default as number}
+              defaultValue={opacityField?.default as number}
               onChange={onOpacityChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.sizeField?.visibility === false ? null : (
+        sizeField?.visibility === false ? null : (
           <Form.Item
             label={locale.sizeLabel}
             {...getSupportProps('size')}
           >
             <WidthField
               value={size}
-              defaultValue={composed.sizeField?.default as number}
+              defaultValue={sizeField?.default as number}
               onChange={onSizeChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.offsetXField?.visibility === false ? null : (
+        offsetXField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetXLabel}
             {...getSupportProps('offset')}
           >
             <OffsetField
               offset={offsetX}
-              defaultValue={composed.offsetXField?.default as number}
+              defaultValue={offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.offsetYField?.visibility === false ? null : (
+        offsetYField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetYLabel}
             {...getSupportProps('offset')}
           >
             <OffsetField
               offset={offsetY}
-              defaultValue={composed.offsetYField?.default as number}
+              defaultValue={offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.rotateField?.visibility === false ? null : (
+        rotateField?.visibility === false ? null : (
           <Form.Item
             label={locale.rotateLabel}
             {...getSupportProps('rotate')}
           >
             <RotateField
               rotate={rotate as number}
-              defaultValue={composed.rotateField?.default as number}
+              defaultValue={rotateField?.default as number}
               onChange={onRotateChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.haloColorField?.visibility === false ? null : (
+        haloColorField?.visibility === false ? null : (
           <Form.Item
             label={locale.haloColorLabel}
             {...getSupportProps('haloColor')}
           >
             <ColorField
               value={haloColor as string}
-              defaultValue={composed.haloColorField?.default}
+              defaultValue={haloColorField?.default}
               onChange={onHaloColorChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.haloWidthField?.visibility === false ? null : (
+        haloWidthField?.visibility === false ? null : (
           <Form.Item
             label={locale.haloWidthLabel}
             {...getSupportProps('haloWidth')}
           >
             <WidthField
               value={haloWidth}
-              defaultValue={composed.haloWidthField?.default as number}
+              defaultValue={haloWidthField?.default as number}
               onChange={onHaloWidthChange}
             />
           </Form.Item>

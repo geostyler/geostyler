@@ -61,7 +61,6 @@ import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStyler
 
 // default props
 export interface RasterEditorComposableProps {
-  visibility?: boolean;
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   // TODO add support for default values in ContrastEnhancementField
   contrastEnhancementField?: Omit<InputConfig<ContrastEnhancementFieldProps['contrastEnhancement']>, 'default'>;
@@ -86,21 +85,24 @@ export interface RasterEditorState {
 }
 const COMPONENTNAME = 'RasterEditor';
 
-export const RasterEditor: React.FC<RasterEditorProps> = ({
-  locale = en_US.RasterEditor,
-  contrastEnhancementTypes,
-  symbolizer,
-  onSymbolizerChange,
-  internalDataDef,
-  colorRamps,
-  ...composableProps
-}) => {
+export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('RasterEditor');
   // const colorMapComposition = useGeoStylerComposition('ColorMapEditor');
   // const rasterChannelComposition = useGeoStylerComposition('RasterChannelEditor');
 
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    colorRamps,
+    contrastEnhancementField,
+    contrastEnhancementTypes,
+    gammaValueField,
+    internalDataDef,
+    locale = en_US.RasterEditor,
+    onSymbolizerChange,
+    opacityField,
+    symbolizer
+  } = composed;
 
   const {
     unsupportedProperties,
@@ -192,7 +194,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
         showDisplay !== 'symbolizer' ? null : (
           <>
             {
-              composed.opacityField?.visibility === false ? null : (
+              opacityField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.opacityLabel}
                   {...getSupportProps('opacity')}
@@ -200,7 +202,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
                   {
                     <OpacityField
                       value={opacity}
-                      defaultValue={composed.opacityField?.default as number}
+                      defaultValue={opacityField?.default as number}
                       onChange={onOpacityChange}
                     />
                   }
@@ -208,7 +210,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
               )
             }
             {
-              composed.contrastEnhancementField?.visibility === false ? null : (
+              contrastEnhancementField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.contrastEnhancementLabel}
                   {...getSupportProps('contrastEnhancement')}
@@ -221,14 +223,14 @@ export const RasterEditor: React.FC<RasterEditorProps> = ({
               )
             }
             {
-              composed.gammaValueField?.visibility === false ? null : (
+              gammaValueField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.gammaValueLabel}
                   {...getSupportProps('contrastEnhancement')}
                 >
                   <GammaField
                     gamma={_get(contrastEnhancement, 'gammaValue') as number}
-                    defaultValue={composed.gammaValueField?.default}
+                    defaultValue={gammaValueField?.default}
                     onChange={onGammaValueChange}
                   />
                 </Form.Item>

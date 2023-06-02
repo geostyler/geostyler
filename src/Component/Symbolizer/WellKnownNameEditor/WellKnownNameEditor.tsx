@@ -46,7 +46,6 @@ import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField'
 import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface WellKnownNameEditorComposableProps {
-  visibility?: boolean;
   radiusField?: InputConfig<RadiusFieldProps['radius']>;
   offsetXField?: InputConfig<OffsetFieldProps['offset']>;
   offsetYField?: InputConfig<OffsetFieldProps['offset']>;
@@ -70,16 +69,26 @@ const COMPONENTNAME = 'WellKnownNameEditor';
 
 export const WellKnownNameEditor: React.FC<
   WellKnownNameEditorProps & WellKnownNameEditorComposableProps
-> = ({
-  locale =  en_US.WellKnownNameEditor,
-  symbolizer,
-  onSymbolizerChange,
-  ...composableProps
-}) => {
+> = (props) => {
 
   const composition = useGeoStylerComposition('WellKnownNameEditor');
 
-  const composed = {...composableProps, ...composition};
+  const composed = {...props, ...composition};
+  const {
+    fillColorField,
+    fillOpacityField,
+    locale =  en_US.WellKnownNameEditor,
+    offsetXField,
+    offsetYField,
+    onSymbolizerChange,
+    opacityField,
+    radiusField,
+    rotateField,
+    strokeColorField,
+    strokeOpacityField,
+    strokeWidthField,
+    symbolizer
+  } = composed;
 
   const onRadiusChange = (value: MarkSymbolizer['radius']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
@@ -185,130 +194,130 @@ export const WellKnownNameEditor: React.FC<
   return (
     <div>
       {
-        composed.radiusField?.visibility === false ? null : (
+        radiusField?.visibility === false ? null : (
           <Form.Item
             label={locale.radiusLabel}
           >
             <RadiusField
               radius={radius}
-              defaultValue={composed.radiusField?.default as number}
+              defaultValue={radiusField?.default as number}
               onChange={onRadiusChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.offsetXField?.visibility === false ? null : (
+        offsetXField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetXLabel}
           >
             <OffsetField
               offset={offset?.[0]}
-              defaultValue={composed.offsetXField?.default as number}
+              defaultValue={offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.offsetYField?.visibility === false ? null : (
+        offsetYField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetYLabel}
           >
             <OffsetField
               offset={offset?.[1]}
-              defaultValue={composed.offsetYField?.default as number}
+              defaultValue={offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.fillColorField?.visibility === false ? null : (
+        fillColorField?.visibility === false ? null : (
           <Form.Item
             label={locale.fillColorLabel}
           >
             <ColorField
               value={color as string}
-              defaultValue={composed.fillColorField?.default}
+              defaultValue={fillColorField?.default}
               onChange={onColorChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.opacityField?.visibility === false ? null : (
+        opacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.opacityLabel}
           >
             <OpacityField
               value={opacity}
-              defaultValue={composed.opacityField?.default as number}
+              defaultValue={opacityField?.default as number}
               onChange={onOpacityChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.fillOpacityField?.visibility === false ? null : (
+        fillOpacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.fillOpacityLabel}
           >
             <OpacityField
               value={fillOpacity}
-              defaultValue={composed.fillOpacityField?.default as number}
+              defaultValue={fillOpacityField?.default as number}
               onChange={onFillOpacityChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.strokeColorField?.visibility === false ? null : (
+        strokeColorField?.visibility === false ? null : (
           <Form.Item
             label={locale.strokeColorLabel}
           >
             <ColorField
               value={strokeColor as string}
-              defaultValue={composed.strokeColorField?.default as string}
+              defaultValue={strokeColorField?.default as string}
               onChange={onStrokeColorChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.strokeWidthField?.visibility === false ? null : (
+        strokeWidthField?.visibility === false ? null : (
           <Form.Item
             label={locale.strokeWidthLabel}
           >
             <WidthField
               value={strokeWidth}
-              defaultValue={composed.strokeWidthField?.default as number}
+              defaultValue={strokeWidthField?.default as number}
               onChange={onStrokeWidthChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.strokeOpacityField?.visibility === false ? null : (
+        strokeOpacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.strokeOpacityLabel}
           >
             <OpacityField
               value={strokeOpacity}
-              defaultValue={composed.strokeOpacityField?.default as number}
+              defaultValue={strokeOpacityField?.default as number}
               onChange={onStrokeOpacityChange}
             />
           </Form.Item>
         )
       }
       {
-        composed.rotateField?.visibility === false ? null : (
+        rotateField?.visibility === false ? null : (
           <Form.Item
             label={locale.rotateLabel}
           >
             <RotateField
               rotate={rotate}
-              defaultValue={composed.rotateField?.default as number}
+              defaultValue={rotateField?.default as number}
               onChange={onRotateChange}
             />
           </Form.Item>
