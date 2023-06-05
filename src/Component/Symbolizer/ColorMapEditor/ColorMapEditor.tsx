@@ -76,13 +76,13 @@ export interface ColorMapEditorComposableProps {
   colorMapTable?: {
     visibility?: boolean;
   };
+  colorRamps?: {
+    [name: string]: string[];
+  };
 }
 
 export interface ColorMapEditorInternalProps {
   locale?: GeoStylerLocale['ColorMapEditor'];
-  colorRamps?: {
-    [name: string]: string[];
-  };
   colorMap?: ColorMap;
   onChange?: (colorMap: ColorMap) => void;
 }

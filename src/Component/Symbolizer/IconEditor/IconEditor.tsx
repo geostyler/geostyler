@@ -31,7 +31,7 @@ import React, { useContext } from 'react';
 import { IconSymbolizer } from 'geostyler-style';
 
 import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
-import ImageField, { ImageFieldProps } from '../Field/ImageField/ImageField';
+import ImageField from '../Field/ImageField/ImageField';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -72,14 +72,6 @@ export interface IconEditorInternalProps {
   locale?: GeoStylerLocale['IconEditor'];
   symbolizer: IconSymbolizer;
   onSymbolizerChange?: (changedSymb: IconSymbolizer) => void;
-  iconLibraries?: IconLibrary[];
-  /**
-   * The props for the image field. Properties 'iconLibraries' and
-   * 'tooltipLabel' should not be used here currently, as they will
-   * be overwritten by the same named props that were directly
-   * set on IconEditor. This is done to keep backwards compability.
-   */
-  imageFieldProps?: Partial<ImageFieldProps>;
 }
 
 export type IconEditorProps = IconEditorInternalProps & IconEditorComposableProps;
@@ -94,7 +86,6 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
   const {
     iconLibraries,
     imageField,
-    imageFieldProps,
     locale = en_US.IconEditor,
     offsetXField,
     offsetYField,
@@ -197,11 +188,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             <ImageField
               value={imageSrc as string}
               onChange={onImageSrcChange}
-              // To keep backwards compatibility,
-              // we overwrite imageFieldProps with the props
-              // that were explicitly set as props on IconEditor.
-              {...imageFieldProps}
-              iconLibraries={iconLibraries || iconLibraries}
+              iconLibraries={iconLibraries}
               tooltipLabel={locale.iconTooltipLabel}
             />
           </Form.Item>

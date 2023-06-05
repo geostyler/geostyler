@@ -46,9 +46,8 @@ import { Data } from 'geostyler-data';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import KindField from '../Field/KindField/KindField';
-import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
+import IconEditor from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import { IconLibrary } from '../IconSelector/IconSelector';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import RasterEditor from '../RasterEditor/RasterEditor';
@@ -82,9 +81,7 @@ export interface EditorInternalProps {
   locale?: GeoStylerLocale['SymbolizerEditor'];
   symbolizer: Symbolizer;
   internalDataDef?: Data;
-  iconEditorProps?: Partial<IconEditorProps>;
   onSymbolizerChange?: (symbolizer: Symbolizer) => void;
-  iconLibraries?: IconLibrary[];
 }
 
 export type EditorProps = EditorInternalProps & EditorComposableProps;
@@ -99,8 +96,6 @@ export const Editor: React.FC<EditorProps> = (props) => {
     locale = en_US.SymbolizerEditor,
     symbolizer,
     internalDataDef,
-    iconEditorProps,
-    iconLibraries,
     onSymbolizerChange,
     fillEditor,
     iconEditor,
@@ -129,8 +124,6 @@ export const Editor: React.FC<EditorProps> = (props) => {
           <IconEditor
             symbolizer={symbolizer}
             onSymbolizerChange={onSymbolizerChange}
-            {...iconEditorProps}
-            iconLibraries={iconLibraries}
           />
         );
       case 'Line':
