@@ -49,15 +49,14 @@ import ChannelField from '../Field/ChannelField/ChannelField';
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import type GeoStylerLocale from '../../../locale/locale';
-import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface RasterChannelEditorDefaultProps {
-  locale: GeoStylerLocale['RasterChannelEditor'];
+export interface RasterChannelEditorComposableProps {
+  channelSelectionField?: InputConfig<'rgb'|'gray'>;
 }
 
-// non default props
-export interface RasterChannelEditorProps extends Partial<RasterChannelEditorDefaultProps> {
+export interface RasterChannelEditorInternalProps {
+  locale?: GeoStylerLocale['RasterChannelEditor'];
   sourceChannelNames?: string[];
   onChange?: (channelSelection: ChannelSelection) => void;
   channelSelection?: ChannelSelection;
@@ -66,25 +65,27 @@ export interface RasterChannelEditorProps extends Partial<RasterChannelEditorDef
 
 const COMPONENTNAME = 'RasterChannelEditor';
 
+export type RasterChannelEditorProps = RasterChannelEditorInternalProps & RasterChannelEditorComposableProps;
+
 /**
  * RasterChannelEditor to map bands to rgb or grayscale
  */
 export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) => {
 
-  const composition = useGeoStylerComposition('RasterChannelEditor', {});
+  const composition = useGeoStylerComposition('RasterChannelEditor');
 
   const composed = {...props, ...composition};
-
   const {
-    locale = en_US.RasterChannelEditor,
-    sourceChannelNames,
-    onChange,
     channelSelection,
-    contrastEnhancementTypes
+    channelSelectionField,
+    contrastEnhancementTypes,
+    locale = en_US.RasterChannelEditor,
+    onChange,
+    sourceChannelNames
   } = composed;
 
   const defaultRgbOrGray = !channelSelection
-    ? composition.channelSelectionField?.default || 'rgb'
+    ? channelSelectionField?.default || 'rgb'
     : isGrayChannel(channelSelection) ? 'gray' : 'rgb';
   const [rgbOrGray, setRgbOrGray] = useState(defaultRgbOrGray);
   const defaultSelectedTab = !channelSelection ? 'red' : isGrayChannel(channelSelection) ? 'gray' : 'red';
@@ -151,7 +152,7 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) =
         <span>{locale.titleLabel}</span>
       </Form.Item>
       {
-        composition.channelSelectionField?.visibility === false ? null : (
+        channelSelectionField?.visibility === false ? null : (
           <Form.Item
             label={locale.channelSelectionLabel}
           >

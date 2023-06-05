@@ -84,19 +84,17 @@ function MarkEditorExample () {
     composition: {
       MarkEditor: {
         wellKnownNameField: {
-          visibility: true
+          visibility: true,
+          default: 'square'
         },
+        wellKnownNameEditor: {
+          visibility: true
+        }
       },
-      WellKnownNameEditor: {
-        visibility: true
-      }
     }
   });
 
-  const [symbolizer, setSymbolizer] = useState({
-    kind: 'Mark',
-    wellKnownName: 'circle'
-  });
+  const [symbolizer, setSymbolizer] = useState();
 
   const onSymbolizerChange = (s) => {
     setSymbolizer(s);
@@ -106,14 +104,6 @@ function MarkEditorExample () {
     setMyContext(oldContext => {
       const newContext = {...oldContext};
       newContext.composition.MarkEditor[prop].visibility = visibility;
-      return newContext;
-    });
-  };
-
-  const onWknVisibilityChange = (visibility) => {
-    setMyContext(oldContext => {
-      const newContext = {...oldContext};
-      newContext.composition.WellKnownNameEditor.visibility = visibility;
       return newContext;
     });
   };
@@ -128,8 +118,8 @@ function MarkEditorExample () {
           unCheckedChildren="Symbol"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.visibility}
-          onChange={visibility => {onWknVisibilityChange(visibility)}}
+          checked={myContext.composition.MarkEditor.wellKnownNameEditor.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'wellKnownNameEditor')}}
           checkedChildren="WellKnownNameEditor"
           unCheckedChildren="WellKnownNameEditor"
         />

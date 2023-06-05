@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import './RuleFieldContainer.less';
 
@@ -44,21 +44,19 @@ import en_US from '../../locale/en_US';
 import { Expression, Symbolizer } from 'geostyler-style';
 import { Data } from 'geostyler-data';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
+import { RuleComposableProps } from '../RuleCard/RuleCard';
 
-// default props
-interface RuleFieldContainerDefaultProps {
+export type RuleFieldContainerComposableProps = Pick<RuleComposableProps, 'maxScaleField'|'minScaleField'|'nameField'>;
+
+export interface RuleFieldContainerInternalProps {
   /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['RuleFieldContainer'] & GeoStylerLocale['ScaleDenominator'];
+  locale?: GeoStylerLocale['RuleFieldContainer'] & GeoStylerLocale['ScaleDenominator'];
   /** The callback method when the name changes */
-  onNameChange: (name: string) => void;
+  onNameChange?: (name: string) => void;
   /** The callback method when the minScale changes */
-  onMinScaleChange: (scale: number) => void;
+  onMinScaleChange?: (scale: number) => void;
   /** The callback method when the maxScale changes */
-  onMaxScaleChange: (scale: number) => void;
-}
-
-// non default props
-export interface RuleFieldContainerProps extends Partial<RuleFieldContainerDefaultProps> {
+  onMaxScaleChange?: (scale: number) => void;
   /** The name of the rule */
   name?: string;
   /** The minScale of the rule */
@@ -71,22 +69,26 @@ export interface RuleFieldContainerProps extends Partial<RuleFieldContainerDefau
   data?: Data;
 }
 
+export type RuleFieldContainerProps = RuleFieldContainerInternalProps & RuleFieldContainerComposableProps;
+
 export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => {
 
-  const composition = useGeoStylerComposition('Rule', {});
+  const composition = useGeoStylerComposition('Rule') as RuleFieldContainerComposableProps;
 
-  const composed = {...props, composition};
-
+  const composed = {...props, ...composition};
   const {
-    name,
-    minScale,
-    maxScale,
+    data,
     locale = en_US.Rule,
-    onNameChange = () => {},
-    onMinScaleChange = () => {},
+    maxScale,
+    maxScaleField,
+    minScale,
+    minScaleField,
+    name,
+    nameField,
     onMaxScaleChange = () => {},
+    onMinScaleChange = () => {},
+    onNameChange = () => {},
     symbolizers = [],
-    data
   } = composed;
 
   return (
@@ -96,7 +98,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => 
           layout='vertical'
         >
           {
-            composition.name?.visibility === false ? null : (
+            nameField?.visibility === false ? null : (
               <Form.Item
                 label={locale.nameFieldLabel}
               >
@@ -109,7 +111,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => 
             )
           }
           {
-            composition.minScale?.visibility === false ? null : (
+            minScaleField?.visibility === false ? null : (
               <MinScaleDenominator
                 value={minScale}
                 onChange={onMinScaleChange}
@@ -117,7 +119,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => 
             )
           }
           {
-            composition.maxScale?.visibility === false ? null : (
+            maxScaleField?.visibility === false ? null : (
               <MaxScaleDenominator
                 value={maxScale}
                 onChange={onMaxScaleChange}

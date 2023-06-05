@@ -46,9 +46,8 @@ import { Data } from 'geostyler-data';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import KindField from '../Field/KindField/KindField';
-import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
+import IconEditor from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import { IconLibrary } from '../IconSelector/IconSelector';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import RasterEditor from '../RasterEditor/RasterEditor';
@@ -57,37 +56,54 @@ import { Form } from 'antd';
 import type GeoStylerLocale from '../../../locale/locale';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface EditorDefaultProps {
-  locale: GeoStylerLocale['SymbolizerEditor'];
+export interface EditorComposableProps {
+  markEditor?: {
+    visibility?: boolean;
+  };
+  fillEditor?: {
+    visibility?: boolean;
+  };
+  iconEditor?: {
+    visibility?: boolean;
+  };
+  lineEditor?: {
+    visibility?: boolean;
+  };
+  textEditor?: {
+    visibility?: boolean;
+  };
+  rasterEditor?: {
+    visibility?: boolean;
+  };
 }
 
-// non default props
-export interface EditorProps extends Partial<EditorDefaultProps> {
+export interface EditorInternalProps {
+  locale?: GeoStylerLocale['SymbolizerEditor'];
   symbolizer: Symbolizer;
   internalDataDef?: Data;
-  iconEditorProps?: Partial<IconEditorProps>;
   onSymbolizerChange?: (symbolizer: Symbolizer) => void;
-  iconLibraries?: IconLibrary[];
 }
+
+export type EditorProps = EditorInternalProps & EditorComposableProps;
 
 const COMPONENTNAME = 'SymbolizerEditor';
 
-export const Editor: React.FC<EditorProps> = ({
-  locale = en_US.SymbolizerEditor,
-  symbolizer,
-  internalDataDef,
-  iconEditorProps,
-  iconLibraries,
-  onSymbolizerChange
-}) => {
+export const Editor: React.FC<EditorProps> = (props) => {
 
-  const markComposition = useGeoStylerComposition('MarkEditor', {});
-  const fillComposition = useGeoStylerComposition('FillEditor', {});
-  const iconComposition = useGeoStylerComposition('IconEditor', {});
-  const lineComposition = useGeoStylerComposition('LineEditor', {});
-  const textComposition = useGeoStylerComposition('TextEditor', {});
-  const rasterComposition = useGeoStylerComposition('RasterEditor', {});
+  const composition = useGeoStylerComposition('Editor');
+  const composed = {...props, ...composition};
+  const {
+    locale = en_US.SymbolizerEditor,
+    symbolizer,
+    internalDataDef,
+    onSymbolizerChange,
+    fillEditor,
+    iconEditor,
+    lineEditor,
+    markEditor,
+    rasterEditor,
+    textEditor
+  } = composed;
 
   /**
    * Get the appropriate Editor UI for a certain style.
@@ -97,37 +113,35 @@ export const Editor: React.FC<EditorProps> = ({
   const getUiForSymbolizer = (): React.ReactNode => {
     switch (symbolizer.kind) {
       case 'Mark':
-        return markComposition.visibility === false ? null : (
+        return markEditor?.visibility === false ? null : (
           <MarkEditor
             symbolizer={symbolizer}
             onSymbolizerChange={onSymbolizerChange}
           />
         );
       case 'Icon':
-        return iconComposition.visibility === false ? null : (
+        return iconEditor?.visibility === false ? null : (
           <IconEditor
             symbolizer={symbolizer}
             onSymbolizerChange={onSymbolizerChange}
-            {...iconEditorProps}
-            iconLibraries={iconLibraries}
           />
         );
       case 'Line':
-        return lineComposition.visibility === false ? null : (
+        return lineEditor?.visibility === false ? null : (
           <LineEditor
             symbolizer={symbolizer}
             onSymbolizerChange={onSymbolizerChange}
           />
         );
       case 'Fill':
-        return fillComposition.visibility === false ? null : (
+        return fillEditor?.visibility === false ? null : (
           <FillEditor
             symbolizer={symbolizer}
             onSymbolizerChange={onSymbolizerChange}
           />
         );
       case 'Text':
-        return textComposition.visibility === false ? null : (
+        return textEditor?.visibility === false ? null : (
           <TextEditor
             symbolizer={symbolizer}
             internalDataDef={
@@ -137,7 +151,7 @@ export const Editor: React.FC<EditorProps> = ({
           />
         );
       case 'Raster':
-        return rasterComposition.visibility === false ? null : (
+        return rasterEditor?.visibility === false ? null : (
           <RasterEditor
             symbolizer={symbolizer}
             internalDataDef={
@@ -159,22 +173,22 @@ export const Editor: React.FC<EditorProps> = ({
   const symbolizerKinds: SymbolizerKind[] = ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster'];
   const filteredSymbolizerKinds = symbolizerKinds
     .filter(kind => {
-      if (kind === 'Mark' && markComposition.visibility === false) {
+      if (kind === 'Mark' && markEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Fill' && fillComposition.visibility === false) {
+      if (kind === 'Fill' && fillEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Icon' && iconComposition.visibility === false) {
+      if (kind === 'Icon' && iconEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Line' && lineComposition.visibility === false) {
+      if (kind === 'Line' && lineEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Text' && textComposition.visibility === false) {
+      if (kind === 'Text' && textEditor?.visibility === false) {
         return false;
       }
-      if (kind === 'Raster' && rasterComposition.visibility === false) {
+      if (kind === 'Raster' && rasterEditor?.visibility === false) {
         return false;
       }
       return true;

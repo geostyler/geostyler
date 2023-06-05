@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import {
   Channel,
@@ -37,41 +37,52 @@ import { Form } from 'antd';
 import { localize } from '../../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../../locale/en_US';
 import ContrastEnhancementField from '../ContrastEnhancementField/ContrastEnhancementField';
-import GammaField from '../GammaField/GammaField';
+import GammaField, { GammaFieldProps } from '../GammaField/GammaField';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import type GeoStylerLocale from '../../../../locale/locale';
-import { useGeoStylerComposition } from '../../../../context/GeoStylerContext/GeoStylerContext';
+import { InputConfig, useGeoStylerComposition } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface ChannelFieldDefaultProps {
-  locale: GeoStylerLocale['ChannelField'];
-  contrastEnhancementTypes: ContrastEnhancement['enhancementType'][];
+export interface ChannelFieldComposableProps {
+  sourceChannelNameField?: {
+    visibility?: boolean;
+  };
+  // TODO add support for default values in ContrastEnhancementField
+  contrastEnhancementField?: {
+    visibility?: boolean;
+  };
+  gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
 }
 
-// non default props
-export interface ChannelFieldProps extends Partial<ChannelFieldDefaultProps> {
+export interface ChannelFieldInternalProps {
+  locale?: GeoStylerLocale['ChannelField'];
+  contrastEnhancementTypes?: ContrastEnhancement['enhancementType'][];
   onChange?: (channel: Channel) => void;
   sourceChannelNames?: string[];
   channel?: Channel;
 }
+
+export type ChannelFieldProps = ChannelFieldInternalProps & ChannelFieldComposableProps;
 
 /**
  * ChannelField to select different Channel options
  */
 export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
 
-  const composition = useGeoStylerComposition('RasterChannelEditor', {});
+  const composition = useGeoStylerComposition('ChannelField');
 
   const composed = {...props, ...composition};
 
   const {
-    onChange,
-    locale = en_US.ChannelField,
-    sourceChannelNames,
+    channel,
     contrastEnhancementTypes = ['histogram', 'normalize'],
-    channel
+    locale = en_US.ChannelField,
+    onChange,
+    sourceChannelNames,
+    contrastEnhancementField,
+    gammaValueField,
+    sourceChannelNameField
   } = composed;
 
   const updateChannel = (key: string, value: any) => {
@@ -123,7 +134,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
   return (
     <div>
       {
-        composition.sourceChannelNameField?.visibility === false ? null : (
+        sourceChannelNameField?.visibility === false ? null : (
           <Form.Item
             label={locale.sourceChannelNameLabel}
           >
@@ -136,7 +147,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
         )
       }
       {
-        composition.contrastEnhancementField?.visibility === false ? null : (
+        contrastEnhancementField?.visibility === false ? null : (
           <Form.Item
             label={locale.contrastEnhancementTypeLabel}
           >
@@ -149,13 +160,13 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
         )
       }
       {
-        composition.gammaValueField?.visibility === false ? null : (
+        gammaValueField?.visibility === false ? null : (
           <Form.Item
             label={locale.gammaValueLabel}
           >
             <GammaField
               gamma={gamma as any}
-              defaultValue={composition.gammaValueField?.default}
+              defaultValue={gammaValueField?.default}
               onChange={onGammaChange}
             />
           </Form.Item>

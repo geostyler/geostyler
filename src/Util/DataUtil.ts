@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { Data, VectorData, RasterData } from 'geostyler-data';
+import { VectorData, RasterData } from 'geostyler-data';
 
 /**
  * @class DataUtil
@@ -35,14 +35,14 @@ class DataUtil {
   /**
    * Checks if Data object is of type VectorData.
    */
-  static isVector = (v: Data): v is VectorData => {
+  static isVector = (v: any): v is VectorData => {
     return (<VectorData> v)?.exampleFeatures !== undefined;
   };
 
   /**
    * Checks if Data object is of type RasterData.
    */
-  static isRaster = (r: Data): r is RasterData => {
+  static isRaster = (r: any): r is RasterData => {
     return (<RasterData> r)?.rasterBandInfo !== undefined;
   };
 }

@@ -27,7 +27,7 @@
  */
 
 import * as React from 'react';
-import { brewer, InterpolationMode } from 'chroma-js';
+import { InterpolationMode } from 'chroma-js';
 
 import {
   Rule
@@ -66,16 +66,8 @@ export const RuleGeneratorWindow: React.FC<RuleGeneratorWindowProps> = ({
   internalDataDef,
   onClose,
   onRulesChange,
-  colorRamps,
-  useBrewerColorRamps,
-  colorSpaces,
   ...passThroughProps
 }) => {
-
-  let ramps = colorRamps;
-  if (colorRamps && useBrewerColorRamps) {
-    ramps = Object.assign(colorRamps, brewer);
-  }
 
   return (
     <Modal
@@ -90,8 +82,6 @@ export const RuleGeneratorWindow: React.FC<RuleGeneratorWindowProps> = ({
       <RuleGenerator
         internalDataDef={internalDataDef}
         onRulesChange={onRulesChange}
-        colorRamps={ramps}
-        colorSpaces={colorSpaces}
       />
     </Modal>
   );

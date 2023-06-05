@@ -58,20 +58,17 @@ import { localize } from '../LocaleWrapper/LocaleWrapper';
 import en_US from '../../locale/en_US';
 
 import './RuleTable.less';
-import { OlRendererProps } from '../Renderer/OlRenderer/OlRenderer';
 import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
-import { TableProps, ColumnProps } from 'antd/lib/table';
+import { ColumnProps, TableProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
-import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
-import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
-import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 import DataUtil from '../../Util/DataUtil';
 import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
 import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
 import type GeoStylerLocale from '../../locale/locale';
 import Renderer from '../Renderer/Renderer/Renderer';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
+import { RuleComposableProps } from '../RuleCard/RuleCard';
 
 // i18n
 export interface RuleTableLocale {
@@ -96,24 +93,15 @@ export interface RuleRecord extends GsRule {
   minScale?: number;
 }
 
-// default props
-interface RuleTableDefaultProps extends Partial<TableProps<RuleRecord>> {
+export interface RuleTableInternalProps {
   /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['RuleTable'];
+  locale?: GeoStylerLocale['RuleTable'];
   /** The renderer to use */
-  rendererType: 'SLD' | 'OpenLayers';
-}
-
-// non default props
-export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
+  rendererType?: 'SLD' | 'OpenLayers';
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
   /** List of rules to display in rule table */
   rules: GsRule[];
-  /** Properties of the SLD renderer */
-  sldRendererProps?: SLDRendererAdditonalProps;
-  /** Properties of the OpenLayers renderer */
-  oLRendererProps?: Partial<OlRendererProps>;
   /** The footer of the rule table */
   footer?: (currentPageData?: any) => React.ReactNode;
   /** The callback function that is triggered when the rules change */
@@ -121,36 +109,30 @@ export interface RuleTableProps extends Partial<RuleTableDefaultProps> {
   /** The callback function that is triggered when the selection changes */
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
   /** Properties that will be passed to the Comparison Filters */
-  filterUiProps?: Partial<ComparisonFilterProps>;
-  /** List of supported icons ordered as library */
-  iconLibraries?: IconLibrary[];
-  /** Object containing predefined color ramps */
-  colorRamps?: {
-    [name: string]: string[];
-  };
 }
+
+export type RuleTableProps = RuleTableInternalProps & RuleComposableProps & TableProps<RuleRecord>;
 
 const COMPONENTNAME = 'RuleTable';
 
-// export class RuleTable extends React.Component<RuleTableProps, RuleTableState> {
 export const RuleTable: React.FC<RuleTableProps> = (props) => {
 
-  const composition = useGeoStylerComposition('Rule', {});
-
+  const composition = useGeoStylerComposition('Rule') as RuleComposableProps;
   const composed = {...props, ...composition};
-
   const {
-    locale = en_US.RuleTable,
-    rendererType = 'OpenLayers',
+    amountField,
     data: dataProp,
-    rules: rulesProp,
+    duplicateField,
+    filterField,
+    locale = en_US.RuleTable,
+    maxScaleField,
+    minScaleField,
+    nameField,
     onRulesChange,
-    filterUiProps,
-    iconLibraries,
-    colorRamps,
-    sldRendererProps,
-    oLRendererProps,
-    ...restProps
+    rendererType = 'OpenLayers',
+    rules: rulesProp,
+    // The composableProps include the antd table props
+    ...antdTableProps
   } = composed;
 
   const [ruleEditIndex, setRuleEditIndex] = useState<number>();
@@ -211,8 +193,6 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
         data={data}
         symbolizers={record.symbolizers}
         onClick={onSymbolizerRendererClick}
-        {...sldRendererProps}
-        {...oLRendererProps}
       />
     );
   };
@@ -403,7 +383,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     render: symbolizerRenderer
   }];
 
-  if (!(composition.name?.visibility === false)) {
+  if (!(nameField?.visibility === false)) {
     columns.push({
       title: locale.nameColumnTitle,
       dataIndex: 'name',
@@ -411,7 +391,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   }
 
-  if (!(composition.filter?.visibility === false)) {
+  if (!(filterField?.visibility === false)) {
     columns.push({
       title: locale.filterColumnTitle,
       dataIndex: 'filter',
@@ -419,7 +399,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   }
 
-  if (!(composition.minScale?.visibility === false)) {
+  if (!(minScaleField?.visibility === false)) {
     columns.push({
       title: locale.minScaleColumnTitle,
       dataIndex: 'minScale',
@@ -427,7 +407,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   }
 
-  if (!(composition.maxScale?.visibility === false)) {
+  if (!(maxScaleField?.visibility === false)) {
     columns.push({
       title: locale.maxScaleColumnTitle,
       dataIndex: 'maxScale',
@@ -435,7 +415,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   }
 
-  if (!(composition.amount?.visibility === false)) {
+  if (!(amountField?.visibility === false)) {
     columns.push({
       title: (<Tooltip title={locale.amountColumnTitle}>Σ</Tooltip>),
       dataIndex: 'amount',
@@ -443,7 +423,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   }
 
-  if (!(composition.duplicate?.visibility === false)) {
+  if (!(duplicateField?.visibility === false)) {
     columns.push({
       title: (
         <Tooltip title={locale.duplicatesColumnTitle}>
@@ -464,7 +444,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
         columns={columns}
         dataSource={ruleRecords}
         pagination={false}
-        {...restProps}
+        {...antdTableProps}
       />
       <SymbolizerEditorWindow
         open={symbolizerEditorVisible}
@@ -472,15 +452,12 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
         internalDataDef={data}
         symbolizers={rules?.[ruleEditIndex]?.symbolizers}
         onSymbolizersChange={onSymbolizersChange}
-        iconLibraries={iconLibraries}
-        colorRamps={colorRamps}
       />
       <FilterEditorWindow
         open={filterEditorVisible}
         onClose={onFilterEditorWindowClose}
         filter={rules?.[ruleEditIndex]?.filter}
         onFilterChange={onFilterChange}
-        filterUiProps={filterUiProps}
         internalDataDef={data && DataUtil.isVector(data) ? data : undefined}
       />
     </div>

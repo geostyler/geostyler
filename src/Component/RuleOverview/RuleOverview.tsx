@@ -45,37 +45,37 @@ import FilterOverview from '../FilterOverview/FilterOverview';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
+import { RuleComposableProps } from '../RuleCard/RuleCard';
 
-// default props
-interface RuleOverviewDefaultProps {
+export type RuleOverviewComposableProps = Pick<RuleComposableProps, 'filterField'>;
+
+export interface RuleOverviewInternalProps {
   /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['RuleOverview'];
+  locale?: GeoStylerLocale['RuleOverview'];
   /** The callback when the style changed. */
-  onRuleChange: (rule: GsRule) => void;
+  onRuleChange?: (rule: GsRule) => void;
   /** The callback when a view change (request) was triggered. */
-  onChangeView: (view: string, indices: number[]) => void;
-}
-
-// non default props
-export interface RuleOverviewProps extends Partial<RuleOverviewDefaultProps> {
+  onChangeView?: (view: string, indices: number[]) => void;
   /** Reference to internal data object (holding schema and example features). */
   data?: Data;
   /** A GeoStyler-Style object. */
   rule: GsRule;
 }
 
+export type RuleOverviewProps = RuleOverviewInternalProps & RuleOverviewComposableProps;
+
 export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
 
-  const composition = useGeoStylerComposition('Rule', {});
+  const composition = useGeoStylerComposition('Rule') as RuleOverviewComposableProps;
 
-  const composed = {...props, composition};
-
+  const composed = {...props, ...composition};
   const {
-    rule,
     data,
-    onRuleChange = () => {},
+    locale = en_US.RuleOverview,
     onChangeView = () => {},
-    locale = en_US.RuleOverview
+    onRuleChange = () => {},
+    rule,
+    filterField
   } = composed;
 
   const onNameChange = (name: string) => {
@@ -135,7 +135,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
         data={data}
       />
       {
-        composition.filter?.visibility === false ? null : (
+        filterField?.visibility === false ? null : (
           <FilterOverview
             filter={rule.filter}
             onEditFilterClick={onEditFilterClick}

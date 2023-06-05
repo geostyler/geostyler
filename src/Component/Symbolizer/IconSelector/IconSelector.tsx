@@ -42,11 +42,8 @@ import './IconSelector.less';
 
 import _isEqual from 'lodash/isEqual';
 import type GeoStylerLocale from '../../../locale/locale';
-
-// default props
-export interface IconSelectorDefaultProps {
-  locale: GeoStylerLocale['IconSelector'];
-}
+import { IconEditorComposableProps } from '../IconEditor/IconEditor';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export type IconLibrary = {
   name: string;
@@ -61,23 +58,39 @@ type SelectedIcon = {
   iconIndex: number;
 };
 
-// non default props
-export interface IconSelectorProps extends Partial<IconSelectorDefaultProps> {
-  iconLibraries: IconLibrary[];
+export interface IconSelectorProps {
+  locale?: GeoStylerLocale['IconSelector'];
   selectedIconSrc?: string;
   onIconSelect?: (iconSrc: string) => void;
 }
 const COMPONENTNAME = 'IconSelector';
 
-export const IconSelector: React.FC<IconSelectorProps> = ({
-  locale = en_US.IconSelector,
-  iconLibraries,
-  selectedIconSrc,
-  onIconSelect
-}) => {
+export const IconSelector: React.FC<IconSelectorProps & Pick<IconEditorComposableProps, 'iconLibraries'>> = (props) => {
+
+  const composition = useGeoStylerComposition('IconEditor');
+  const composed = {...props, ...composition};
+
+  const {
+    locale = en_US.IconSelector,
+    iconLibraries = [],
+    selectedIconSrc,
+    onIconSelect
+  } = composed;
 
   const [selectedLibIndex, setSelectedLibIndex] = useState<number>();
   const [selectedIcon, setSelectedIcon] = useState<SelectedIcon>();
+
+  useEffect(() => {
+    let selection: any = {};
+    if (selectedIconSrc) {
+      selection = getSelectedIconFromSrc(selectedIconSrc, iconLibraries);
+    }
+    if (selection?.libIndex === selectedLibIndex || selection?.iconIndex === selectedIcon?.iconIndex) {
+      return;
+    }
+    setSelectedLibIndex(selection.libIndex);
+    setSelectedIcon(selection);
+  }, [selectedIconSrc, iconLibraries, selectedLibIndex, selectedIcon]);
 
   const getSelectedIconFromSrc = (src: string, newIconLibraries: IconLibrary[]): SelectedIcon => {
     let libIndex: number;
@@ -106,17 +119,7 @@ export const IconSelector: React.FC<IconSelectorProps> = ({
     };
   };
 
-  useEffect(() => {
-    let selection: any = {};
-    if (selectedIconSrc) {
-      selection = getSelectedIconFromSrc(selectedIconSrc, iconLibraries);
-    }
-    setSelectedLibIndex(selection.libIndex);
-    setSelectedIcon(selection);
-  }, [selectedIconSrc, iconLibraries]);
-
-
-  const libChange = (newLibIndex: number) => {
+  const onLibChange = (newLibIndex: number) => {
     setSelectedLibIndex(newLibIndex);
   };
 
@@ -129,7 +132,6 @@ export const IconSelector: React.FC<IconSelectorProps> = ({
       <Card.Grid
         key={index.toString()}
         className={gridClassName}
-        // @ts-ignore
         onClick={() => {
           if (onIconSelect) {
             onIconSelect(icon.src);
@@ -159,7 +161,7 @@ export const IconSelector: React.FC<IconSelectorProps> = ({
           className="gs-select"
           allowClear={false}
           defaultValue={selectedLibIndex}
-          onChange={libChange}
+          onChange={onLibChange}
         >
           {
             iconLibraries.map((lib: IconLibrary, index: number) => {

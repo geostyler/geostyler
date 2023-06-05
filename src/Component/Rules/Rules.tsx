@@ -55,20 +55,17 @@ import { SortableItem } from '../SortableItem/SortableItem';
 import { RemovableItem } from '../RemovableItem/RemovableItem';
 import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface RulesDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['Rules'];
-  /** Display the number of features that match a rule */
-  showAmount: boolean;
-  /** Display the number of features that match more than one rule */
-  showDuplicates: boolean;
-  /** Enable classification */
-  enableClassification: boolean;
+export interface RulesComposableProps {
+  disableClassification?: boolean;
 }
 
-// non default props
-export interface RulesProps extends Partial<RulesDefaultProps> {
+export interface RulesInternalProps {
+  /** Locale object containing translated text snippets */
+  locale?: GeoStylerLocale['Rules'];
+  /** Display the number of features that match a rule */
+  showAmount?: boolean;
+  /** Display the number of features that match more than one rule */
+  showDuplicates?: boolean;
   /** List of rules to display in rule table */
   rules: GsRule[];
   /** Reference to internal data object (holding schema and example features) */
@@ -83,21 +80,22 @@ export interface RulesProps extends Partial<RulesDefaultProps> {
   onEditRuleClick?: (ruleId: number) => void;
 }
 
+export type RulesProps = RulesInternalProps & RulesComposableProps;
+
 export const Rules: React.FC<RulesProps> = (props) => {
 
-  const composition = useGeoStylerComposition('Rule', {});
+  const composition = useGeoStylerComposition('Rules');
 
   const composed = {...props, ...composition};
-
   const {
-    locale = en_US.Rules,
     data,
-    rules,
-    onRulesChange,
+    disableClassification,
+    locale = en_US.Rules,
     onClassificationClick,
-    onEditSelectionClick,
     onEditRuleClick,
-    enableClassification = true
+    onEditSelectionClick,
+    onRulesChange,
+    rules
   } = composed;
 
   const [multiEditActive, setMultiEditActive] = useState<boolean>(false);
@@ -238,9 +236,8 @@ export const Rules: React.FC<RulesProps> = (props) => {
   ];
 
   // TODO: Classification button should only be available if data is VectorData
-  if (enableClassification) {
-    defaultActions = [
-      ...defaultActions,
+  if (!disableClassification) {
+    defaultActions.push(
       <Button
         className="gs-classification-button"
         onClick={classificationClick}
@@ -248,7 +245,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
       >
         {locale.classification}
       </Button>
-    ];
+    );
   }
 
   const multiEditActions: ReactNode[] = [

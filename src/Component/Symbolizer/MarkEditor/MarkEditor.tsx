@@ -29,7 +29,6 @@
 import React, { useContext } from 'react';
 
 import {
-  Symbolizer,
   MarkSymbolizer,
   WellKnownName
 } from 'geostyler-style';
@@ -38,7 +37,6 @@ import WellKnownNameField from '../Field/WellKnownNameField/WellKnownNameField';
 import WellKnownNameEditor from '../WellKnownNameEditor/WellKnownNameEditor';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
-import withDefaultsContext from '../../../hoc/withDefaultsContext';
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -49,30 +47,34 @@ import {
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface MarkEditorDefaultProps {
-  locale: GeoStylerLocale['MarkEditor'];
+export interface MarkEditorComposableProps {
+  // TODO add wellKnownNames property that specifies the supported WKNs
+  // TODO add support for default values in WellKnownNameField
+  wellKnownNameField?: {
+    visibility?: boolean;
+  };
 }
 
-// non default props
-export interface MarkEditorProps extends Partial<MarkEditorDefaultProps> {
+export interface MarkEditorInternalProps {
+  locale?: GeoStylerLocale['MarkEditor'];
   symbolizer: MarkSymbolizer;
-  onSymbolizerChange?: (changedSymb: Symbolizer) => void;
+  onSymbolizerChange?: (changedSymb: MarkSymbolizer) => void;
 }
+
+export type MarkEditorProps = MarkEditorInternalProps & MarkEditorComposableProps;
 
 const COMPONENTNAME = 'MarkEditor';
 
 export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
 
-  const composition = useGeoStylerComposition('MarkEditor', {});
-  const wknComposition = useGeoStylerComposition('WellKnownNameEditor', {});
+  const composition = useGeoStylerComposition('MarkEditor');
 
   const composed = {...props, ...composition};
-
   const {
     locale = en_US.MarkEditor,
-    symbolizer,
     onSymbolizerChange,
+    symbolizer,
+    wellKnownNameField
   } = composed;
 
   const {
@@ -100,7 +102,7 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
   return (
     <div className="gs-mark-symbolizer-editor" >
       {
-        composition.wellKnownNameField?.visibility === false ? null : (
+        wellKnownNameField?.visibility === false ? null : (
           <Form.Item
             label={locale.wellKnownNameFieldLabel}
             {...getSupportProps('wellKnownName')}
@@ -112,16 +114,12 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
           </Form.Item>
         )
       }
-      {
-        wknComposition.visibility === false ? null : (
-          <WellKnownNameEditor
-            symbolizer={symbolizer}
-            onSymbolizerChange={onSymbolizerChange}
-          />
-        )
-      }
+      <WellKnownNameEditor
+        symbolizer={symbolizer}
+        onSymbolizerChange={onSymbolizerChange}
+      />
     </div>
   );
 };
 
-export default withDefaultsContext(localize(MarkEditor, COMPONENTNAME));
+export default localize(MarkEditor, COMPONENTNAME);

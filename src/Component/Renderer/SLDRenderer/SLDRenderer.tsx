@@ -34,13 +34,10 @@ import { Style, Symbolizer } from 'geostyler-style';
 import HTTPUtil from '../../../Util/HTTPUtil';
 import loading from './LoadingIcon';
 
-interface SLDRendererDefaultProps {
-  requestDelay: number;
-  width: number;
-  height: number;
-}
-
-export interface SLDRendererAdditonalProps extends Partial<SLDRendererDefaultProps> {
+export interface SLDRendererComposableProps {
+  requestDelay?: number;
+  width?: number;
+  height?: number;
   wmsBaseUrl: string;
   layer: string;
   rasterLayer?: string;
@@ -48,11 +45,12 @@ export interface SLDRendererAdditonalProps extends Partial<SLDRendererDefaultPro
   wmsParams?: any;
 }
 
-// non default props
-export interface SLDRendererProps extends Partial<SLDRendererAdditonalProps> {
+export interface SLDRendererInternalProps {
   onClick?: (symbolizers: Symbolizer[], event: any) => void;
   symbolizers: Symbolizer[];
 }
+
+export type SLDRendererProps = SLDRendererInternalProps & SLDRendererComposableProps;
 
 const styleParser = new SldStyleParser();
 
@@ -111,22 +109,21 @@ export const SLDRenderer: React.FC<SLDRendererProps> = ({
         output: sld,
         errors = []
       } = await styleParser.writeStyle(style);
-      const params = {
-        'SERVICE': 'WMS',
-        'VERSION': '1.3.0',
-        'REQUEST': 'GetLegendGraphic',
-        'FORMAT': 'image/png',
-        'TRANSPARENT': 'true',
-        'LAYER': lyr,
-        'SLD_BODY': sld,
-        'WIDTH': width,
-        'HEIGHT': height,
-        ...wmsParams
-      };
       try {
         const response = await HTTPUtil.post({
           url: wmsBaseUrl,
-          params: params,
+          params: {
+            'SERVICE': 'WMS',
+            'VERSION': '1.3.0',
+            'REQUEST': 'GetLegendGraphic',
+            'FORMAT': 'image/png',
+            'TRANSPARENT': 'true',
+            'LAYER': lyr,
+            'SLD_BODY': sld,
+            'WIDTH': width,
+            'HEIGHT': height,
+            ...wmsParams
+          },
           additionalHeaders: additionalHeaders
         });
         if (response && response.ok) {

@@ -32,8 +32,6 @@ import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
 
-import { InterpolationMode } from 'chroma-js';
-
 import {
   Button,
   Menu,
@@ -54,93 +52,53 @@ import {
 
 import NameField from '../NameField/NameField';
 import BulkEditModals from '../Symbolizer/BulkEditModals/BulkEditModals';
-import { ComparisonFilterProps } from '../Filter/ComparisonFilter/ComparisonFilter';
 
 import { localize } from '../LocaleWrapper/LocaleWrapper';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import RuleTable, { RuleTableProps } from '../RuleTable/RuleTable';
+import RuleTable from '../RuleTable/RuleTable';
 import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
-import { SLDRendererAdditonalProps } from '../Renderer/SLDRenderer/SLDRenderer';
-import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 import './Style.less';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
+import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 
-// i18n
-export interface StyleLocale {
-  addRuleBtnText: string;
-  cloneRulesBtnText: string;
-  removeRulesBtnText: string;
-  nameFieldLabel?: string;
-  nameFieldPlaceholder?: string;
-  colorLabel: string;
-  radiusLabel: string;
-  opacityLabel: string;
-  symbolLabel: string;
-  multiEditLabel: string;
-  ruleGeneratorWindowBtnText: string;
+export interface StyleComposableProps {
+  /** Should the classification be disabled */
+  disableClassification?: boolean;
 }
 
-// default props
-interface StyleDefaultProps {
+export interface StyleInternalProps {
   /** The geoStylerStyle object */
-  style: GsStyle;
+  style?: GsStyle;
   /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['Style'];
-  /** Enable classification */
-  enableClassification: boolean;
-}
-
-// non default props
-export interface StyleProps extends Partial<StyleDefaultProps> {
+  locale?: GeoStylerLocale['Style'];
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
   /** The callback function that is triggered when the state changes */
   onStyleChange?: (style: GsStyle) => void;
-  /** The data projection of example features */
-  dataProjection?: string;
-  /** Properties of the filter components */
-  filterUiProps?: Partial<ComparisonFilterProps>;
-  /** Properties of the RuleTable component */
-  ruleTableProps?: Partial<RuleTableProps>;
-  /** The renderer to use */
-  ruleRendererType?: 'SLD' | 'OpenLayers';
-  /** Properties of the SLD renderer */
-  sldRendererProps?: SLDRendererAdditonalProps;
-  /** List of supported icons ordered as library */
-  iconLibraries?: IconLibrary[];
-  colorRamps?: {
-    [name: string]: string[];
-  };
-  /** Use Brewer color ramps */
-  useBrewerColorRamps?: boolean;
-  /** List of supported color spaces */
-  colorSpaces?: (InterpolationMode)[];
 }
 
 const COMPONENTNAME = 'Style';
 
-export const Style: React.FC<StyleProps> = ({
-  locale = en_US.Style,
-  style: styleProp =  {
-    name: 'My Style',
-    rules: []
-  },
-  data,
-  onStyleChange,
-  filterUiProps,
-  ruleTableProps,
-  ruleRendererType,
-  sldRendererProps,
-  iconLibraries,
-  colorRamps,
-  useBrewerColorRamps,
-  colorSpaces,
-  enableClassification = true
-}) => {
+export type StyleProps = StyleInternalProps & StyleComposableProps;
+
+export const Style: React.FC<StyleProps > = (props) => {
+
+  const composition = useGeoStylerComposition('Style');
+  const composed = {...props, composition};
+  const {
+    locale = en_US.Style,
+    disableClassification = false,
+    style: styleProp =  {
+      name: 'My Style',
+      rules: []
+    },
+    data,
+    onStyleChange
+  } = composed;
 
   const [style, setStyle] = useState(styleProp);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -435,7 +393,7 @@ export const Style: React.FC<StyleProps> = ({
         </Form.Item>
         {
           // TODO: Rule GeneratorWindow should only be available if data is VectorData
-          enableClassification ?
+          disableClassification ?
             <Button
               className="gs-style-rulegenerator"
               onClick={showRuleGeneratorWindow}
@@ -450,9 +408,6 @@ export const Style: React.FC<StyleProps> = ({
         internalDataDef={data as VectorData}
         onClose={onRuleGeneratorWindowClose}
         onRulesChange={onRulesChange}
-        colorRamps={colorRamps}
-        useBrewerColorRamps={useBrewerColorRamps}
-        colorSpaces={colorSpaces}
       />
       <RuleTable
         rules={rules}
@@ -461,14 +416,8 @@ export const Style: React.FC<StyleProps> = ({
           selectedRowKeys,
           onChange: onRulesSelectionChange
         }}
-        rendererType={ruleRendererType}
-        sldRendererProps={sldRendererProps}
-        filterUiProps={filterUiProps}
         data={data}
         footer={createFooter}
-        iconLibraries={iconLibraries}
-        colorRamps={colorRamps}
-        {...ruleTableProps}
       />
       <BulkEditModals
         colorModalVisible={colorModalVisible}
@@ -481,7 +430,6 @@ export const Style: React.FC<StyleProps> = ({
         updateMultiOpacities={updateMultiOpacities}
         updateMultiSymbols={updateMultiSymbols}
         style={style}
-        iconLibraries={iconLibraries}
         modalsClosed={onModalsClosed}
       />
     </div>

@@ -143,7 +143,7 @@ describe('ColorMapEditor', () => {
       expect(numberOfClassesFieldLabel).toBeInTheDocument();
     });
     it('… triggers onChange as expected', () => {
-      const numberOfClassesField = colorMapEditor.container.querySelector('.number-of-classes-field input');
+      const numberOfClassesField = colorMapEditor.container.querySelector('.number-of-classes-field input')!;
       fireEvent.change(numberOfClassesField, { target: { value: '2' } });
       expect(onChangeMock).toHaveBeenCalledWith({
         ...dummyColorMap,
@@ -184,7 +184,7 @@ describe('ColorMapEditor', () => {
   describe('Color', () => {
     describe('ColorRenderer', () => {
       it('… renders', () => {
-        const colorField = colorMapEditor.container.querySelector('.color-field');
+        const colorField = colorMapEditor.container.querySelector('.gs-color-field');
         expect(colorField).toBeInTheDocument();
       });
     });
@@ -195,7 +195,7 @@ describe('ColorMapEditor', () => {
       });
 
       it('… triggers onChange as expected', () => {
-        const quantityField = colorMapEditor.container.querySelector('.gs-colormap-quantity-input input');
+        const quantityField = colorMapEditor.container.querySelector('.gs-colormap-quantity-input input')!;
         fireEvent.change(quantityField, { target: { value: '2' } });
         expect(onChangeMock).toHaveBeenCalledWith({
           ...dummyColorMap,
@@ -214,7 +214,7 @@ describe('ColorMapEditor', () => {
         expect(labelField).toBeInTheDocument();
       });
       it('… triggers onChange as expected', () => {
-        const labelField = colorMapEditor.container.querySelector('.gs-colormap-label-input');
+        const labelField = colorMapEditor.container.querySelector('.gs-colormap-label-input')!;
         fireEvent.change(labelField, { target: { value: 'Peter' } });
         expect(onChangeMock).toHaveBeenCalledWith({
           ...dummyColorMap,
@@ -233,7 +233,7 @@ describe('ColorMapEditor', () => {
         expect(opacityField).toBeInTheDocument();
       });
       it('… triggers onChange as expected', () => {
-        const labelField = colorMapEditor.container.querySelector('.gs-colormap-opacity-input input');
+        const labelField = colorMapEditor.container.querySelector('.gs-colormap-opacity-input input')!;
         fireEvent.change(labelField, { target: { value: '0.5' } });
         expect(onChangeMock).toHaveBeenCalledWith({
           ...dummyColorMap,

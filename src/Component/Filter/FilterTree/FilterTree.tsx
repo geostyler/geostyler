@@ -59,7 +59,7 @@ import {
   Data as Data
 } from 'geostyler-data';
 
-import ComparisonFilter, { ComparisonFilterProps } from '../ComparisonFilter/ComparisonFilter';
+import ComparisonFilter from '../ComparisonFilter/ComparisonFilter';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import {
   isCombinationFilter,
@@ -85,8 +85,6 @@ export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
   internalDataDef?: Data;
   /** Callback function for onFilterChange */
   onFilterChange?: ((compFilter: Filter) => void);
-  /** Properties that will be passed to the Comparison Filters */
-  filterUiProps?: Partial<ComparisonFilterProps>;
 }
 
 /**
@@ -101,7 +99,6 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
   internalDataDef,
   locale = en_US.FilterTree,
   onFilterChange,
-  filterUiProps,
   ...passThroughProps
 }) => {
 
@@ -271,7 +268,6 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
             internalDataDef={internalDataDef}
             filter={filter}
             onFilterChange={f => onComparisonFilterChange(f, position)}
-            {...filterUiProps}
           />
           {menu}
         </span>
