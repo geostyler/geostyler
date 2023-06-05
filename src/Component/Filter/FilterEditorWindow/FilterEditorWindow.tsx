@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import { VectorData } from 'geostyler-data';
 
@@ -36,7 +36,6 @@ import { Modal, ModalProps } from 'antd';
 import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import { Filter } from 'geostyler-style';
 import FilterTree from '../FilterTree/FilterTree';
-import { ComparisonFilterInternalProps } from '../ComparisonFilter/ComparisonFilter';
 import type GeoStylerLocale from '../../../locale/locale';
 import en_US from '../../../locale/en_US';
 
@@ -52,8 +51,6 @@ export interface FilterEditorWindowProps extends Partial<ModalProps> {
   onClose?: () => void;
   /** The callback method that is triggered when the state changes */
   onFilterChange?: (filter: Filter) => void;
-  /** Properties that will be passed to the comparison filters */
-  filterUiProps?: Partial<ComparisonFilterInternalProps>;
 }
 
 export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
@@ -61,7 +58,6 @@ export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
   onClose,
   filter,
   onFilterChange,
-  filterUiProps,
   locale = en_US.FilterEditorWindow,
   ...passThroughProps
 }) => {
@@ -80,7 +76,6 @@ export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
         internalDataDef={internalDataDef}
         filter={filter}
         onFilterChange={onFilterChange}
-        filterUiProps={filterUiProps}
       />
     </Modal>
   );
