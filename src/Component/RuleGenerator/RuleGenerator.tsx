@@ -59,14 +59,16 @@ export interface RuleGeneratorComposableProps {
   colorSpaces?: (InterpolationMode)[];
 }
 
-export interface RuleGeneratorProps {
+export interface RuleGeneratorInternalProps {
   locale?: GeoStylerLocale['RuleGenerator'];
   internalDataDef: VectorData;
   onRulesChange?: (rules: Rule[]) => void;
 }
 const COMPONENTNAME = 'RuleGenerator';
 
-export const RuleGenerator: React.FC<RuleGeneratorProps & RuleGeneratorComposableProps> = ({
+export type RuleGeneratorProps = RuleGeneratorInternalProps & RuleGeneratorComposableProps;
+
+export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
   locale = en_US.RuleGenerator,
   internalDataDef,
   onRulesChange,
