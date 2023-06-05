@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
   Symbolizer,
@@ -53,10 +53,10 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
-  UnsupportedPropertiesContext
-} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
-import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerUnsupportedProperties
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface RasterEditorComposableProps {
   opacityField?: InputConfig<OpacityFieldProps['value']>;
@@ -112,9 +112,8 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
   } = composed;
 
   const {
-    unsupportedProperties,
-    options
-  } = useContext(UnsupportedPropertiesContext);
+    getSupportProps
+  } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const [showDisplay, setShowDisplay] = useState<ShowDisplay>('symbolizer');
 
@@ -184,15 +183,6 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
 
   const toggleViewButtonLayout = {
     wrapperCol: {span: 24}
-  };
-
-  const getSupportProps = (propName: keyof RasterSymbolizer) => {
-    return UnsupportedPropertiesUtil.getSupportProps<RasterSymbolizer>({
-      propName,
-      symbolizerName: 'RasterSymbolizer',
-      unsupportedProperties,
-      ...options
-    });
   };
 
   return (

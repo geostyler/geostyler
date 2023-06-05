@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   Collapse,
   Form
@@ -54,10 +54,10 @@ import en_US from '../../../locale/en_US';
 import LineDashField from '../Field/LineDashField/LineDashField';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
-  UnsupportedPropertiesContext
-} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
-import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerUnsupportedProperties
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 const Panel = Collapse.Panel;
 
@@ -103,9 +103,8 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
   } = composed;
 
   const {
-    unsupportedProperties,
-    options
-  } = useContext(UnsupportedPropertiesContext);
+    getSupportProps
+  } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const onFillColorChange = (value: FillSymbolizer['color']) => {
     const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
@@ -182,15 +181,6 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     opacity,
     outlineOpacity
   } = symbolizer;
-
-  const getSupportProps = (propName: keyof FillSymbolizer) => {
-    return UnsupportedPropertiesUtil.getSupportProps<FillSymbolizer>({
-      propName,
-      symbolizerName: 'FillSymbolizer',
-      unsupportedProperties,
-      ...options
-    });
-  };
 
   return (
     <div className="gs-fill-symbolizer-editor" >

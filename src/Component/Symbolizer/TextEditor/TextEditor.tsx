@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   Mentions,
   Form
@@ -54,10 +54,10 @@ import en_US from '../../../locale/en_US';
 import { VectorData } from 'geostyler-data';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
-  UnsupportedPropertiesContext
-} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
-import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerUnsupportedProperties
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 import { SizeFieldProps } from '../Field/SizeField/SizeField';
 
 export interface TextEditorComposableProps {
@@ -114,9 +114,8 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
   } = composed;
 
   const {
-    unsupportedProperties,
-    options
-  } = useContext(UnsupportedPropertiesContext);
+    getSupportProps
+  } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const onLabelChange = (value: TextSymbolizer['label']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
@@ -227,15 +226,6 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     offsetY = offset[1] as number;
   }
   const properties = internalDataDef && internalDataDef.schema ? Object.keys(internalDataDef.schema.properties) : [];
-
-  const getSupportProps = (propName: keyof TextSymbolizer) => {
-    return UnsupportedPropertiesUtil.getSupportProps<TextSymbolizer>({
-      propName,
-      symbolizerName: 'TextSymbolizer',
-      unsupportedProperties,
-      ...options
-    });
-  };
 
   return (
     <div className="gs-text-symbolizer-editor" >

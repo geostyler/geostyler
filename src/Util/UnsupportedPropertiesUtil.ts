@@ -29,10 +29,9 @@
 import { FormItemProps } from 'antd';
 import { SupportDef, Symbolizer, UnsupportedProperties } from 'geostyler-style';
 import en_US from '../locale/en_US';
-import type GeoStylerLocale from '../locale/locale';
+import { UnsupportedPropertiesContext } from '../context/GeoStylerContext/GeoStylerContext';
 
-type SymbolizerName = 'LineSymbolizer' |
-'FillSymbolizer' | 'MarkSymbolizer' | 'IconSymbolizer' | 'TextSymbolizer' | 'RasterSymbolizer';
+export type SymbolizerName = `${Symbolizer['kind']}Symbolizer`;
 
 type UnsupportedSymbolizerProps<T extends Symbolizer> = SupportDef | {
   [key in keyof Required<T>]?: SupportDef
@@ -46,24 +45,25 @@ class UnsupportedPropertiesUtil {
   static getSupportProps = <T extends Symbolizer>({
     propName,
     symbolizerName,
-    unsupportedProperties,
-    hideUnsupported = false,
-    locale = en_US.UnsupportedPropertiesUtil
+    context
   }: {
     propName: keyof T;
     symbolizerName: SymbolizerName;
-    unsupportedProperties: UnsupportedProperties;
-    hideUnsupported?: boolean;
-    locale?: GeoStylerLocale['UnsupportedPropertiesUtil'];
+    context: UnsupportedPropertiesContext;
   }): Partial<FormItemProps> => {
 
-    if (!unsupportedProperties || Object.keys(unsupportedProperties).length < 1) {
+    if (!context || Object.keys(context).length < 1) {
       return {};
     }
 
+    const {
+      hideUnsupported = false,
+      locale = en_US.UnsupportedPropertiesUtil
+    } = context.options;
+
     const props: Partial<FormItemProps> = {};
     const unsupportedSymbolizerProps = UnsupportedPropertiesUtil
-      .getUnsupportedPropsForSymbolizer<T>(unsupportedProperties, symbolizerName);
+      .getUnsupportedPropsForSymbolizer<T>(context, symbolizerName);
 
     const prop = propName as keyof UnsupportedSymbolizerProps<T>;
     const val = unsupportedSymbolizerProps?.[prop] as SupportDef;
@@ -71,11 +71,13 @@ class UnsupportedPropertiesUtil {
       props.hasFeedback = true;
       if (val === 'none') {
         props.help = locale.notSupported;
+        props.validateStatus = 'warning';
         if (hideUnsupported) {
           props.hidden = true;
         }
       } else if (val === 'partial') {
         props.help = locale.partiallySupported;
+        props.validateStatus = 'warning';
       } else {
         props.help = val.info;
         props.validateStatus = 'warning';

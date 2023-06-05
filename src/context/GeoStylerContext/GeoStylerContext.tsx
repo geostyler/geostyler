@@ -1,4 +1,4 @@
-import { UnsupportedProperties } from 'geostyler-style';
+import { Symbolizer, UnsupportedProperties } from 'geostyler-style';
 import React, { useContext } from 'react';
 import { ComparisonFilterComposableProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
 import type GeoStylerLocale from '../../locale/locale';
@@ -20,16 +20,7 @@ import { EditorComposableProps } from '../../Component/Symbolizer/Editor/Editor'
 import { ChannelFieldComposableProps } from '../../Component/Symbolizer/Field/ChannelField/ChannelField';
 import { RuleGeneratorComposableProps } from '../../Component/RuleGenerator/RuleGenerator';
 import { StyleComposableProps } from '../../Component/Style/Style';
-
-export type UnsupportedPropertiesContextOptions = {
-  hideUnsupported?: boolean;
-  locale?: GeoStylerLocale['UnsupportedPropertiesUtil'];
-};
-
-export type UnsupportedPropertiesContextType = {
-  unsupportedProperties: UnsupportedProperties;
-  options?: UnsupportedPropertiesContextOptions;
-};
+import UnsupportedPropertiesUtil, { SymbolizerName } from '../../Util/UnsupportedPropertiesUtil';
 
 export type InputConfig<T> = {
   visibility?: boolean;
@@ -56,10 +47,17 @@ export type CompositionContext = {
   Style?: StyleComposableProps;
 };
 
+export interface UnsupportedPropertiesContext extends UnsupportedProperties {
+  options?: {
+    hideUnsupported?: boolean;
+    locale?: GeoStylerLocale['UnsupportedPropertiesUtil'];
+  };
+}
+
 export interface GeoStylerContextInterface {
   composition?: CompositionContext;
   locale?: GeoStylerLocale;
-  unsupportedProperties?: UnsupportedPropertiesContextType;
+  unsupportedProperties?: UnsupportedPropertiesContext;
 };
 
 export const GeoStylerContext = React.createContext<GeoStylerContextInterface>({});
@@ -84,7 +82,26 @@ export const useGeoStylerLocale = <T extends keyof GeoStylerLocale>(key: T): Geo
   return structuredClone(ctx.locale[key]);
 };
 
-export const useGeoStylerUnsupportedProperties = (): any => {
+export const useGeoStylerUnsupportedProperties = <T extends Symbolizer>(symbolizer: T) => {
   const ctx = useContext(GeoStylerContext);
-  return structuredClone(ctx.unsupportedProperties);
+
+  if (!ctx.unsupportedProperties) {
+    return {
+      getSupportProps: (propName: keyof T) => {}
+    };
+  }
+
+  const getSupportProps = (propName: keyof T) => {
+    const symbolizerName: SymbolizerName = `${symbolizer.kind}Symbolizer`;
+    return UnsupportedPropertiesUtil.getSupportProps({
+      propName,
+      symbolizerName,
+      context: ctx.unsupportedProperties
+    });
+  };
+
+  return {
+    ...ctx.unsupportedProperties,
+    getSupportProps
+  };
 };

@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useContext } from 'react';
+import React from 'react';
 
 import {
   Collapse,
@@ -59,10 +59,10 @@ import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import en_US from '../../../locale/en_US';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
-  UnsupportedPropertiesContext
-} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
-import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerUnsupportedProperties
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 const Panel = Collapse.Panel;
 
@@ -101,9 +101,7 @@ export type LineEditorProps = LineEditorInternalProps & LineEditorComposableProp
 export const LineEditor: React.FC<LineEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('LineEditor');
-
   const composed = {...props, ...composition};
-
   const {
     capField,
     colorField,
@@ -119,9 +117,8 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   } = composed;
 
   const {
-    unsupportedProperties,
-    options
-  } = useContext(UnsupportedPropertiesContext);
+    getSupportProps
+  } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const onColorChange = (value: LineSymbolizer['color']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
@@ -215,15 +212,6 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     perpendicularOffset,
     graphicFill
   } = _cloneDeep(symbolizer);
-
-  const getSupportProps = (propName: keyof LineSymbolizer) => {
-    return UnsupportedPropertiesUtil.getSupportProps<LineSymbolizer>({
-      propName,
-      symbolizerName: 'LineSymbolizer',
-      unsupportedProperties,
-      ...options
-    });
-  };
 
   return (
     <div className="gs-line-symbolizer-editor" >
