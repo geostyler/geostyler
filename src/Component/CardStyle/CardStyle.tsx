@@ -57,26 +57,19 @@ import Editor from '../Symbolizer/Editor/Editor';
 import FilterTree from '../Filter/FilterTree/FilterTree';
 import RuleGenerator from '../RuleGenerator/RuleGenerator';
 import BulkEditor from '../BulkEditor/BulkEditor';
-import IconSelector, { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
+import IconSelector from '../Symbolizer/IconSelector/IconSelector';
 import type GeoStylerLocale from '../../locale/locale';
 import Renderer from '../Renderer/Renderer/Renderer';
 
-// default props
-interface CardStyleDefaultProps {
+export interface CardStyleProps {
   /** The geoStylerStyle object */
-  style: GsStyle;
+  style?: GsStyle;
   /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['CardStyle'];
-}
-
-// non default props
-export interface CardStyleProps extends Partial<CardStyleDefaultProps> {
+  locale?: GeoStylerLocale['CardStyle'];
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
   /** The callback function that is triggered when the state changes */
   onStyleChange?: (style: GsStyle) => void;
-  /** List of supported icons ordered as library */
-  iconLibraries?: IconLibrary[];
 }
 
 export interface CardView {
@@ -97,8 +90,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   locale = en_US.CardStyle,
   style = { name: 'My Style', rules: [] },
   data,
-  onStyleChange,
-  iconLibraries
+  onStyleChange
 }) => {
 
   const defaultCrumb: Crumb = {view: STYLEVIEW, title: locale.styleTitle, indices: []};
@@ -276,9 +268,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   };
 
   return (
-    <div
-      className='gs-card-style'
-    >
+    <div className='gs-card-style'>
       <Breadcrumb
         crumbs={currentView.path}
         onClick={changeView}
@@ -357,7 +347,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
       {
         currentView.view === ICONLIBRARIESVIEW && (
           <IconSelector
-            iconLibraries={iconLibraries}
             onIconSelect={onIconSelect}
             selectedIconSrc={getSelectedIconSrc()}
           />

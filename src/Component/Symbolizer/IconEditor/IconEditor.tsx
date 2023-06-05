@@ -32,7 +32,6 @@ import { IconSymbolizer } from 'geostyler-style';
 
 import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
 import ImageField from '../Field/ImageField/ImageField';
-import { IconLibrary } from '../IconSelector/IconSelector';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
@@ -51,6 +50,7 @@ import {
 import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
 import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { IconLibrary } from '../IconSelector/IconSelector';
 
 export interface IconEditorComposableProps {
   // TODO add support for default values in ImageField

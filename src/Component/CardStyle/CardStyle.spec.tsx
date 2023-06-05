@@ -31,7 +31,6 @@ import { act, fireEvent, render } from '@testing-library/react';
 import { CardStyle } from './CardStyle';
 import { Rule, Style, Symbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 describe('CardStyle', () => {
 
@@ -220,39 +219,5 @@ describe('CardStyle', () => {
   //     expect(styleOverview).not.toBeNull();
   //   });
   // });
-
-  describe('Editor', () => {
-
-    it('switches to the IconSelector when clicking on the icon library button', async () => {
-      dummyRule.symbolizers = [dummySymbolizer];
-      dummyStyle.rules = [dummyRule];
-      const iconLibraries: IconLibrary[] = [{
-        name: 'foo',
-        icons: [{
-          caption: 'bar',
-          src: 'foo.bar'
-        }]
-      }];
-      const cardStyle = render(<CardStyle style={dummyStyle} iconLibraries={iconLibraries} />);
-
-      const ruleCard = cardStyle.container.querySelector('.gs-rule-card');
-      await act(async () => {
-        fireEvent.click(ruleCard);
-      });
-
-      const symbolizerCard = cardStyle.container.querySelector('.gs-symbolizer-card');
-      await act(async () => {
-        fireEvent.click(symbolizerCard);
-      });
-
-      const galleryIcon = cardStyle.container.querySelector('.gs-image-field-gallery-icon');
-      await act(async () => {
-        fireEvent.click(galleryIcon);
-      });
-
-      const iconSelector = cardStyle.container.querySelector('.gs-icon-selector');
-      expect(iconSelector).not.toBeNull();
-    });
-  });
 
 });
