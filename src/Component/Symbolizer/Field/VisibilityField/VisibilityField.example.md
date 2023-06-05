@@ -30,6 +30,8 @@
 
 This demonstrates the use of `VisibilityField`.
 
+By default the visibility field will be checked, it will only be unchecked if the visibility of the symbolizer is configured to false.
+
 ```jsx
 import * as React from 'react';
 import { VisibilityField } from './VisibilityField';

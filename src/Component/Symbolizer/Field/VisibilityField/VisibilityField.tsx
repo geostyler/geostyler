@@ -56,7 +56,7 @@ export const VisibilityField: React.FC<VisibilityFieldProps> = ({
   return (
     <BooleanExpressionInput
       className="editor-field visibility-field"
-      value={visibility}
+      value={visibility === undefined ? true : visibility}
       onChange={onChange}
       onCancel={onCancel}
       checkboxProps={{...inputBooleanProps}}
