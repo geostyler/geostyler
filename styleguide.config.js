@@ -175,12 +175,6 @@ module.exports = {
   }, {
     name: 'Context',
     sections: [{
-      name: 'CompositionContext',
-      components: 'src/context/CompositionContext/*.tsx'
-    }, {
-      name: 'UnsupportedPropertiesContext',
-      components: 'src/context/UnsupportedPropertiesContext/*.tsx'
-    }, {
       name: 'GeoStylerContext',
       components: 'src/context/GeoStylerContext/*.tsx'
     }],
