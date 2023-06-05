@@ -19,6 +19,7 @@ import { RulesComposableProps } from '../../Component/Rules/Rules';
 import { EditorComposableProps } from '../../Component/Symbolizer/Editor/Editor';
 import { ChannelFieldComposableProps } from '../../Component/Symbolizer/Field/ChannelField/ChannelField';
 import { RuleGeneratorComposableProps } from '../../Component/RuleGenerator/RuleGenerator';
+import { StyleComposableProps } from '../../Component/Style/Style';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -52,6 +53,7 @@ export type CompositionContext = {
   Renderer?: RendererComposableProps;
   Rules?: RulesComposableProps;
   Rule?: RuleComposableProps;
+  Style?: StyleComposableProps;
 };
 
 export interface GeoStylerContextInterface {

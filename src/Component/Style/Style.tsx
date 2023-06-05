@@ -63,29 +63,18 @@ import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
+import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 
-// i18n
-export interface StyleLocale {
-  addRuleBtnText: string;
-  cloneRulesBtnText: string;
-  removeRulesBtnText: string;
-  nameFieldLabel?: string;
-  nameFieldPlaceholder?: string;
-  colorLabel: string;
-  radiusLabel: string;
-  opacityLabel: string;
-  symbolLabel: string;
-  multiEditLabel: string;
-  ruleGeneratorWindowBtnText: string;
+export interface StyleComposableProps {
+  /** Should the classification be disabled */
+  disableClassification?: boolean;
 }
 
-export interface StyleProps {
+export interface StyleInternalProps {
   /** The geoStylerStyle object */
   style?: GsStyle;
   /** Locale object containing translated text snippets */
   locale?: GeoStylerLocale['Style'];
-  /** Should the classification be disabled */
-  disableClassification?: boolean;
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
   /** The callback function that is triggered when the state changes */
@@ -94,16 +83,22 @@ export interface StyleProps {
 
 const COMPONENTNAME = 'Style';
 
-export const Style: React.FC<StyleProps> = ({
-  locale = en_US.Style,
-  disableClassification = false,
-  style: styleProp =  {
-    name: 'My Style',
-    rules: []
-  },
-  data,
-  onStyleChange
-}) => {
+export type StyleProps = StyleInternalProps & StyleComposableProps;
+
+export const Style: React.FC<StyleProps > = (props) => {
+
+  const composition = useGeoStylerComposition('Style');
+  const composed = {...props, composition};
+  const {
+    locale = en_US.Style,
+    disableClassification = false,
+    style: styleProp =  {
+      name: 'My Style',
+      rules: []
+    },
+    data,
+    onStyleChange
+  } = composed;
 
   const [style, setStyle] = useState(styleProp);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
