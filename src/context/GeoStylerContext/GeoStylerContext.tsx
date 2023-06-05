@@ -18,6 +18,7 @@ import { RuleComposableProps } from '../../Component/RuleCard/RuleCard';
 import { RulesComposableProps } from '../../Component/Rules/Rules';
 import { EditorComposableProps } from '../../Component/Symbolizer/Editor/Editor';
 import { ChannelFieldComposableProps } from '../../Component/Symbolizer/Field/ChannelField/ChannelField';
+import { RuleGeneratorComposableProps } from '../../Component/RuleGenerator/RuleGenerator';
 
 export type UnsupportedPropertiesContextOptions = {
   hideUnsupported?: boolean;
@@ -44,6 +45,7 @@ export type CompositionContext = {
   TextEditor?: TextEditorComposableProps;
   RasterEditor?: RasterEditorComposableProps;
   RasterChannelEditor?: RasterChannelEditorComposableProps;
+  RuleGenerator?: RuleGeneratorComposableProps;
   ChannelField?: ChannelFieldComposableProps;
   ColorMapEditor?: ColorMapEditorComposableProps;
   ComparisonFilter?: ComparisonFilterComposableProps;

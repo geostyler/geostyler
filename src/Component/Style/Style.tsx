@@ -32,8 +32,6 @@ import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
 
-import { InterpolationMode } from 'chroma-js';
-
 import {
   Button,
   Menu,
@@ -65,7 +63,6 @@ import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import type GeoStylerLocale from '../../locale/locale';
 import en_US from '../../locale/en_US';
-import { IconLibrary } from '../Symbolizer/IconSelector/IconSelector';
 
 // i18n
 export interface StyleLocale {
@@ -82,53 +79,30 @@ export interface StyleLocale {
   ruleGeneratorWindowBtnText: string;
 }
 
-// default props
-interface StyleDefaultProps {
+export interface StyleProps {
   /** The geoStylerStyle object */
-  style: GsStyle;
+  style?: GsStyle;
   /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['Style'];
-  /** Enable classification */
-  enableClassification: boolean;
-}
-
-// non default props
-export interface StyleProps extends Partial<StyleDefaultProps> {
+  locale?: GeoStylerLocale['Style'];
+  /** Should the classification be disabled */
+  disableClassification?: boolean;
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
   /** The callback function that is triggered when the state changes */
   onStyleChange?: (style: GsStyle) => void;
-  /** The data projection of example features */
-  dataProjection?: string;
-  /** The renderer to use */
-  ruleRendererType?: 'SLD' | 'OpenLayers';
-  /** List of supported icons ordered as library */
-  iconLibraries?: IconLibrary[];
-  colorRamps?: {
-    [name: string]: string[];
-  };
-  /** Use Brewer color ramps */
-  useBrewerColorRamps?: boolean;
-  /** List of supported color spaces */
-  colorSpaces?: (InterpolationMode)[];
 }
 
 const COMPONENTNAME = 'Style';
 
 export const Style: React.FC<StyleProps> = ({
   locale = en_US.Style,
+  disableClassification = false,
   style: styleProp =  {
     name: 'My Style',
     rules: []
   },
   data,
-  onStyleChange,
-  ruleRendererType,
-  iconLibraries,
-  colorRamps,
-  useBrewerColorRamps,
-  colorSpaces,
-  enableClassification = true
+  onStyleChange
 }) => {
 
   const [style, setStyle] = useState(styleProp);
@@ -424,7 +398,7 @@ export const Style: React.FC<StyleProps> = ({
         </Form.Item>
         {
           // TODO: Rule GeneratorWindow should only be available if data is VectorData
-          enableClassification ?
+          disableClassification ?
             <Button
               className="gs-style-rulegenerator"
               onClick={showRuleGeneratorWindow}
@@ -439,9 +413,6 @@ export const Style: React.FC<StyleProps> = ({
         internalDataDef={data as VectorData}
         onClose={onRuleGeneratorWindowClose}
         onRulesChange={onRulesChange}
-        colorRamps={colorRamps}
-        useBrewerColorRamps={useBrewerColorRamps}
-        colorSpaces={colorSpaces}
       />
       <RuleTable
         rules={rules}
@@ -450,7 +421,6 @@ export const Style: React.FC<StyleProps> = ({
           selectedRowKeys,
           onChange: onRulesSelectionChange
         }}
-        rendererType={ruleRendererType}
         data={data}
         footer={createFooter}
       />
@@ -465,7 +435,6 @@ export const Style: React.FC<StyleProps> = ({
         updateMultiOpacities={updateMultiOpacities}
         updateMultiSymbols={updateMultiSymbols}
         style={style}
-        iconLibraries={iconLibraries}
         modalsClosed={onModalsClosed}
       />
     </div>

@@ -50,25 +50,23 @@ import type GeoStylerLocale from '../../locale/locale';
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 
-// default props
-interface RuleGeneratorDefaultProps {
-  locale: GeoStylerLocale['RuleGenerator'];
+export interface RuleGeneratorComposableProps {
   /** List of provided color ramps */
-  colorRamps: {
+  colorRamps?: {
     [name: string]: string[];
   };
   /** List of color spaces to use */
-  colorSpaces: (InterpolationMode)[];
+  colorSpaces?: (InterpolationMode)[];
 }
 
-// non default props
-export interface RuleGeneratorProps extends Partial<RuleGeneratorDefaultProps> {
+export interface RuleGeneratorProps {
+  locale?: GeoStylerLocale['RuleGenerator'];
   internalDataDef: VectorData;
   onRulesChange?: (rules: Rule[]) => void;
 }
 const COMPONENTNAME = 'RuleGenerator';
 
-export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
+export const RuleGenerator: React.FC<RuleGeneratorProps & RuleGeneratorComposableProps> = ({
   locale = en_US.RuleGenerator,
   internalDataDef,
   onRulesChange,

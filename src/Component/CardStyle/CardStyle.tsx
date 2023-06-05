@@ -275,11 +275,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
     changeView(viewName, newIndices);
   };
 
-  const onIconEditorChangeView = () => {
-    const newIndices = [...currentView.path[currentView.path.length - 1].indices];
-    changeView(ICONLIBRARIESVIEW, newIndices);
-  };
-
   return (
     <div
       className='gs-card-style'
@@ -327,13 +322,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
               }
               onSymbolizerChange={onSymbolizerChange}
               internalDataDef={data}
-              iconEditorProps={{
-                imageFieldProps: {
-                  windowless: true,
-                  onIconLibrariesClick: onIconEditorChangeView
-                }
-              }}
-              iconLibraries={iconLibraries}
             />
           </>
         )
