@@ -33,10 +33,11 @@ The `GeoStylerContext` lets you define translations, static component props, and
 #### Example
 
 Provide static component props. Here, we globally define the rendererType to use OpenLayers for rendering.
-And the unsupportedProperties. Usually you would use `unsupportedProperties` from a style parser like.
+It also configures `unsupportedProperties`. e.g. you could use the `unsupportedProperties` of a geostyler-style-parser
+here.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { GeoStylerContext, Style } from 'geostyler';
 import { Switch } from 'antd';
 
