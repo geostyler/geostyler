@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useContext } from 'react';
+import React from 'react';
 
 import {
   MarkSymbolizer,
@@ -42,10 +42,9 @@ import { Form } from 'antd';
 import _cloneDeep from 'lodash/cloneDeep';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
-  UnsupportedPropertiesContext
-} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
-import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+  useGeoStylerComposition,
+  useGeoStylerUnsupportedProperties
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface MarkEditorComposableProps {
   // TODO add wellKnownNames property that specifies the supported WKNs
@@ -78,9 +77,8 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
   } = composed;
 
   const {
-    unsupportedProperties,
-    options
-  } = useContext(UnsupportedPropertiesContext);
+    getFormItemSupportProps
+  } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const onWellKnownNameChange = (wellKnownName: WellKnownName) => {
     const clonedSymbolizer = _cloneDeep(symbolizer);
@@ -90,22 +88,13 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
     }
   };
 
-  const getSupportProps = (propName: keyof MarkSymbolizer) => {
-    return UnsupportedPropertiesUtil.getSupportProps<MarkSymbolizer>({
-      propName,
-      symbolizerName: 'MarkSymbolizer',
-      unsupportedProperties,
-      ...options
-    });
-  };
-
   return (
     <div className="gs-mark-symbolizer-editor" >
       {
         wellKnownNameField?.visibility === false ? null : (
           <Form.Item
             label={locale.wellKnownNameFieldLabel}
-            {...getSupportProps('wellKnownName')}
+            {...getFormItemSupportProps('wellKnownName')}
           >
             <WellKnownNameField
               wellKnownName={symbolizer.wellKnownName}

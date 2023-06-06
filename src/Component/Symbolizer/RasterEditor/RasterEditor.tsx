@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
   Symbolizer,
@@ -53,10 +53,10 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
 import type GeoStylerLocale from '../../../locale/locale';
 import {
-  UnsupportedPropertiesContext
-} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
-import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
-import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerUnsupportedProperties
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface RasterEditorComposableProps {
   opacityField?: InputConfig<OpacityFieldProps['value']>;
@@ -112,9 +112,8 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
   } = composed;
 
   const {
-    unsupportedProperties,
-    options
-  } = useContext(UnsupportedPropertiesContext);
+    getFormItemSupportProps
+  } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const [showDisplay, setShowDisplay] = useState<ShowDisplay>('symbolizer');
 
@@ -186,15 +185,6 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
     wrapperCol: {span: 24}
   };
 
-  const getSupportProps = (propName: keyof RasterSymbolizer) => {
-    return UnsupportedPropertiesUtil.getSupportProps<RasterSymbolizer>({
-      propName,
-      symbolizerName: 'RasterSymbolizer',
-      unsupportedProperties,
-      ...options
-    });
-  };
-
   return (
     <div className="gs-raster-symbolizer-editor" >
       {
@@ -204,7 +194,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
               opacityField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.opacityLabel}
-                  {...getSupportProps('opacity')}
+                  {...getFormItemSupportProps('opacity')}
                 >
                   {
                     <OpacityField
@@ -220,7 +210,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
               contrastEnhancementField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.contrastEnhancementLabel}
-                  {...getSupportProps('contrastEnhancement')}
+                  {...getFormItemSupportProps('contrastEnhancement')}
                 >
                   <ContrastEnhancementField
                     contrastEnhancement={_get(contrastEnhancement, 'enhancementType')}
@@ -233,7 +223,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
               gammaValueField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.gammaValueLabel}
-                  {...getSupportProps('contrastEnhancement')}
+                  {...getFormItemSupportProps('contrastEnhancement')}
                 >
                   <GammaField
                     gamma={_get(contrastEnhancement, 'gammaValue') as number}

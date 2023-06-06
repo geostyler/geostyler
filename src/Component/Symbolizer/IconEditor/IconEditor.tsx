@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { IconSymbolizer } from 'geostyler-style';
 
@@ -44,12 +44,12 @@ import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
 
 import type GeoStylerLocale from '../../../locale/locale';
-import {
-  UnsupportedPropertiesContext
-} from '../../../context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
-import UnsupportedPropertiesUtil from '../../../Util/UnsupportedPropertiesUtil';
 import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
-import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+import {
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerUnsupportedProperties
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 export interface IconEditorComposableProps {
@@ -97,10 +97,8 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
   } = composed;
 
   const {
-    unsupportedProperties,
-    options
-  } = useContext(UnsupportedPropertiesContext);
-
+    getFormItemSupportProps
+  } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const onImageSrcChange = (value: IconSymbolizer['image']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
@@ -168,22 +166,13 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
 
   const imageSrc = !_isEmpty(image) ? image : locale.imagePlaceholder;
 
-  const getSupportProps = (propName: keyof IconSymbolizer) => {
-    return UnsupportedPropertiesUtil.getSupportProps<IconSymbolizer>({
-      propName,
-      symbolizerName: 'IconSymbolizer',
-      unsupportedProperties,
-      ...options
-    });
-  };
-
   return (
     <div className="gs-icon-symbolizer-editor" >
       {
         imageField?.visibility === false ? null : (
           <Form.Item
             label={locale.imageLabel}
-            {...getSupportProps('image')}
+            {...getFormItemSupportProps('image')}
           >
             <ImageField
               value={imageSrc as string}
@@ -198,7 +187,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         sizeField?.visibility === false ? null : (
           <Form.Item
             label={locale.sizeLabel}
-            {...getSupportProps('size')}
+            {...getFormItemSupportProps('size')}
           >
             <SizeField
               value={size}
@@ -211,7 +200,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         offsetXField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetXLabel}
-            {...getSupportProps('offset')}
+            {...getFormItemSupportProps('offset')}
           >
             <OffsetField
               offset={offset?.[0]}
@@ -225,7 +214,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         offsetYField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetYLabel}
-            {...getSupportProps('offset')}
+            {...getFormItemSupportProps('offset')}
           >
             <OffsetField
               offset={offset?.[1]}
@@ -239,7 +228,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         rotateField?.visibility === false ? null : (
           <Form.Item
             label={locale.rotateLabel}
-            {...getSupportProps('rotate')}
+            {...getFormItemSupportProps('rotate')}
           >
             <RotateField
               rotate={rotate}
@@ -253,7 +242,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         opacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.opacityLabel}
-            {...getSupportProps('opacity')}
+            {...getFormItemSupportProps('opacity')}
           >
             <OpacityField
               value={opacity}

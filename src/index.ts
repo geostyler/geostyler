@@ -119,7 +119,6 @@ import WellKnownNameEditor from './Component/Symbolizer/WellKnownNameEditor/Well
 import WellKnownNameField from './Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import WidthField from './Component/Symbolizer/Field/WidthField/WidthField';
 import { localize } from './Component/LocaleWrapper/LocaleWrapper';
-import { UnsupportedPropertiesContext } from './context/UnsupportedPropertiesContext/UnsupportedPropertiesContext';
 import type GeoStylerLocale from './locale/locale';
 import { GeoStylerContext } from './context/GeoStylerContext/GeoStylerContext';
 
@@ -232,7 +231,6 @@ export {
   TextEditor,
   TextFilterField,
   UploadButton,
-  UnsupportedPropertiesContext,
   WellKnownNameEditor,
   WellKnownNameField,
   WidthField,
