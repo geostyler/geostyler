@@ -77,7 +77,7 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
   } = composed;
 
   const {
-    getSupportProps
+    getFormItemSupportProps
   } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const onWellKnownNameChange = (wellKnownName: WellKnownName) => {
@@ -94,7 +94,7 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
         wellKnownNameField?.visibility === false ? null : (
           <Form.Item
             label={locale.wellKnownNameFieldLabel}
-            {...getSupportProps('wellKnownName')}
+            {...getFormItemSupportProps('wellKnownName')}
           >
             <WellKnownNameField
               wellKnownName={symbolizer.wellKnownName}

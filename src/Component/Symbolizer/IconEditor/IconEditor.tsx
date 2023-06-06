@@ -97,7 +97,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
   } = composed;
 
   const {
-    getSupportProps
+    getFormItemSupportProps
   } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const onImageSrcChange = (value: IconSymbolizer['image']) => {
@@ -172,7 +172,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         imageField?.visibility === false ? null : (
           <Form.Item
             label={locale.imageLabel}
-            {...getSupportProps('image')}
+            {...getFormItemSupportProps('image')}
           >
             <ImageField
               value={imageSrc as string}
@@ -187,7 +187,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         sizeField?.visibility === false ? null : (
           <Form.Item
             label={locale.sizeLabel}
-            {...getSupportProps('size')}
+            {...getFormItemSupportProps('size')}
           >
             <SizeField
               value={size}
@@ -200,7 +200,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         offsetXField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetXLabel}
-            {...getSupportProps('offset')}
+            {...getFormItemSupportProps('offset')}
           >
             <OffsetField
               offset={offset?.[0]}
@@ -214,7 +214,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         offsetYField?.visibility === false ? null : (
           <Form.Item
             label={locale.offsetYLabel}
-            {...getSupportProps('offset')}
+            {...getFormItemSupportProps('offset')}
           >
             <OffsetField
               offset={offset?.[1]}
@@ -228,7 +228,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         rotateField?.visibility === false ? null : (
           <Form.Item
             label={locale.rotateLabel}
-            {...getSupportProps('rotate')}
+            {...getFormItemSupportProps('rotate')}
           >
             <RotateField
               rotate={rotate}
@@ -242,7 +242,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         opacityField?.visibility === false ? null : (
           <Form.Item
             label={locale.opacityLabel}
-            {...getSupportProps('opacity')}
+            {...getFormItemSupportProps('opacity')}
           >
             <OpacityField
               value={opacity}

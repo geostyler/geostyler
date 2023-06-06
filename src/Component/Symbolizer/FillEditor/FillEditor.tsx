@@ -103,7 +103,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
   } = composed;
 
   const {
-    getSupportProps
+    getFormItemSupportProps
   } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const onFillColorChange = (value: FillSymbolizer['color']) => {
@@ -190,7 +190,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             fillColorField?.visibility === false ? null : (
               <Form.Item
                 label={locale.fillColorLabel}
-                {...getSupportProps('color')}
+                {...getFormItemSupportProps('color')}
               >
                 <ColorField
                   value={color as string}
@@ -204,7 +204,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             fillOpacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.fillOpacityLabel}
-                {...getSupportProps('fillOpacity')}
+                {...getFormItemSupportProps('fillOpacity')}
               >
                 <OpacityField
                   value={fillOpacity}
@@ -218,7 +218,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             opacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.opacityLabel}
-                {...getSupportProps('opacity')}
+                {...getFormItemSupportProps('opacity')}
               >
                 <OpacityField
                   value={opacity}
@@ -232,7 +232,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             outlineOpacityField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineOpacityLabel}
-                {...getSupportProps('outlineOpacity')}
+                {...getFormItemSupportProps('outlineOpacity')}
               >
                 <OpacityField
                   value={outlineOpacity}
@@ -246,7 +246,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             outlineColorField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineColorLabel}
-                {...getSupportProps('outlineColor')}
+                {...getFormItemSupportProps('outlineColor')}
               >
                 <ColorField
                   value={outlineColor as string}
@@ -260,7 +260,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             outlineWidthField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineWidthLabel}
-                {...getSupportProps('outlineWidth')}
+                {...getFormItemSupportProps('outlineWidth')}
               >
                 <WidthField
                   value={outlineWidth}
@@ -274,7 +274,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             outlineDasharrayField?.visibility === false ? null : (
               <Form.Item
                 label={locale.outlineDasharrayLabel}
-                {...getSupportProps('outlineDasharray')}
+                {...getFormItemSupportProps('outlineDasharray')}
               >
                 <LineDashField
                   dashArray={outlineDasharray as number[]}

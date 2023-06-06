@@ -1,4 +1,4 @@
-import { Symbolizer, UnsupportedProperties } from 'geostyler-style';
+import { Symbolizer, UnsupportedProperties, isSymbolizer } from 'geostyler-style';
 import React, { useContext } from 'react';
 import { ComparisonFilterComposableProps } from '../../Component/Filter/ComparisonFilter/ComparisonFilter';
 import type GeoStylerLocale from '../../locale/locale';
@@ -85,15 +85,16 @@ export const useGeoStylerLocale = <T extends keyof GeoStylerLocale>(key: T): Geo
 export const useGeoStylerUnsupportedProperties = <T extends Symbolizer>(symbolizer: T) => {
   const ctx = useContext(GeoStylerContext);
 
-  if (!ctx.unsupportedProperties) {
+  if (!ctx.unsupportedProperties || !isSymbolizer(symbolizer)) {
     return {
-      getSupportProps: (propName: keyof T) => {}
+      unsupportedProperties: ctx.unsupportedProperties,
+      getFormItemSupportProps: (propName: keyof T) => ({})
     };
   }
 
-  const getSupportProps = (propName: keyof T) => {
+  const getFormItemSupportProps = (propName: keyof T) => {
     const symbolizerName: SymbolizerName = `${symbolizer.kind}Symbolizer`;
-    return UnsupportedPropertiesUtil.getSupportProps({
+    return UnsupportedPropertiesUtil.getFormItemSupportProps({
       propName,
       symbolizerName,
       context: ctx.unsupportedProperties
@@ -101,7 +102,7 @@ export const useGeoStylerUnsupportedProperties = <T extends Symbolizer>(symboliz
   };
 
   return {
-    ...ctx.unsupportedProperties,
-    getSupportProps
+    unsupportedProperties: ctx.unsupportedProperties,
+    getFormItemSupportProps
   };
 };

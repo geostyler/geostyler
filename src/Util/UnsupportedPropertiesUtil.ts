@@ -42,7 +42,7 @@ type UnsupportedSymbolizerProps<T extends Symbolizer> = SupportDef | {
  */
 class UnsupportedPropertiesUtil {
 
-  static getSupportProps = <T extends Symbolizer>({
+  static getFormItemSupportProps = <T extends Symbolizer>({
     propName,
     symbolizerName,
     context

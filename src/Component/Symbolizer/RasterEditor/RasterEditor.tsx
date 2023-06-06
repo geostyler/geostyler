@@ -112,7 +112,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
   } = composed;
 
   const {
-    getSupportProps
+    getFormItemSupportProps
   } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const [showDisplay, setShowDisplay] = useState<ShowDisplay>('symbolizer');
@@ -194,7 +194,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
               opacityField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.opacityLabel}
-                  {...getSupportProps('opacity')}
+                  {...getFormItemSupportProps('opacity')}
                 >
                   {
                     <OpacityField
@@ -210,7 +210,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
               contrastEnhancementField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.contrastEnhancementLabel}
-                  {...getSupportProps('contrastEnhancement')}
+                  {...getFormItemSupportProps('contrastEnhancement')}
                 >
                   <ContrastEnhancementField
                     contrastEnhancement={_get(contrastEnhancement, 'enhancementType')}
@@ -223,7 +223,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
               gammaValueField?.visibility === false ? null : (
                 <Form.Item
                   label={locale.gammaValueLabel}
-                  {...getSupportProps('contrastEnhancement')}
+                  {...getFormItemSupportProps('contrastEnhancement')}
                 >
                   <GammaField
                     gamma={_get(contrastEnhancement, 'gammaValue') as number}
