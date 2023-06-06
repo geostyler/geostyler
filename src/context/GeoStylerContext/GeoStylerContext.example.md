@@ -50,7 +50,7 @@ const GeoStylerContextExample = () => {
     },
     unsupportedProperties: {
       Symbolizer: {
-        'LineSymbolizer': {
+        LineSymbolizer: {
           dasharray: 'none',
           opacity: {
             support: 'none',
