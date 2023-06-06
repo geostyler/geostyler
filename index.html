@@ -49,8 +49,7 @@
     const geostyler = React.createElement(Style, {
       style: style,
       onStyleChange: (gsStyle) => {
-        style = gsStyle;
-        document.getElementById('textual_style').value = JSON.stringify(style, null, 2);
+        document.getElementById('textual_style').value = JSON.stringify(gsStyle, null, 2);
         renderPreview();
       }
     });

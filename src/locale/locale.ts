@@ -277,6 +277,7 @@ export default interface GeoStylerLocale extends Locale {
   SymbolizerEditor: {
     kindFieldLabel: string;
     unknownSymbolizerText: string;
+    visibilityFieldLabel: string;
   };
   SymbolizerEditorWindow: {
     symbolizersEditor: string;

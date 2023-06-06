@@ -314,7 +314,8 @@ const es_ES: GeoStylerLocale = {
   },
   SymbolizerEditor: {
     kindFieldLabel: 'Tipo',
-    unknownSymbolizerText: 'TODO(es_ES):Symbolizer unknown!'
+    unknownSymbolizerText: 'TODO(es_ES):Symbolizer unknown!',
+    visibilityFieldLabel: 'Visibilidad',
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Editor de simbología'

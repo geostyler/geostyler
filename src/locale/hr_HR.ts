@@ -313,7 +313,8 @@ const hr_HR: GeoStylerLocale = {
   },
   SymbolizerEditor: {
     kindFieldLabel: 'Vrsta',
-    unknownSymbolizerText: 'Simbolizator nepoznat!'
+    unknownSymbolizerText: 'Simbolizator nepoznat!',
+    visibilityFieldLabel: 'Vidljivost',
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Uređenje simbola'

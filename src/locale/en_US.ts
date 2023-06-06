@@ -313,6 +313,7 @@ const en_US: GeoStylerLocale = {
   },
   SymbolizerEditor: {
     kindFieldLabel: 'Kind',
+    visibilityFieldLabel: 'Visibility',
     unknownSymbolizerText: 'Symbolizer unknown!'
   },
   SymbolizerEditorWindow: {
