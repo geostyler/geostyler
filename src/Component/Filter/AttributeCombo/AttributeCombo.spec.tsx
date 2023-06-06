@@ -46,10 +46,7 @@ describe('AttributeCombo', () => {
 
   it('calls attribute filter function for each property', () => {
     const dummyFilterFn = jest.fn();
-    render(<AttributeCombo
-      attributeNameFilter={dummyFilterFn}
-      internalDataDef={dummyData}
-    />);
+    render(<AttributeCombo attributeNameFilter={dummyFilterFn} />);
     const numberOfOProps = Object.keys(dummyData.schema.properties).length;
     expect(dummyFilterFn).toHaveBeenCalledTimes(numberOfOProps);
   });

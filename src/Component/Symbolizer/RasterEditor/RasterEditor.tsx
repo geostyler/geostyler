@@ -39,7 +39,6 @@ import {
 import { Form } from 'antd';
 import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
 import { RasterChannelEditor } from '../RasterChannelEditor/RasterChannelEditor';
-import { Data } from 'geostyler-data';
 import { ContrastEnhancementField } from '../Field/ContrastEnhancementField/ContrastEnhancementField';
 import { GammaField, GammaFieldProps } from '../Field/GammaField/GammaField';
 import DataUtil from '../../../Util/DataUtil';
@@ -54,6 +53,7 @@ import {
   InputConfig,
   useGeoStylerComposition,
   useGeoStylerLocale,
+  useGeoStylerData,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 
@@ -79,7 +79,6 @@ export interface RasterEditorInternalProps {
   contrastEnhancementTypes?: ContrastEnhancement['enhancementType'][];
   symbolizer: RasterSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  internalDataDef?: Data;
 }
 
 type ShowDisplay = 'symbolizer' | 'colorMapEditor' | 'rasterChannelEditor';
@@ -88,10 +87,9 @@ export type RasterEditorProps = RasterEditorInternalProps & RasterEditorComposab
 
 export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
 
-  const composition = useGeoStylerComposition('RasterEditor');
-  // const colorMapComposition = useGeoStylerComposition('ColorMapEditor');
-  // const rasterChannelComposition = useGeoStylerComposition('RasterChannelEditor');
+  const data = useGeoStylerData();
 
+  const composition = useGeoStylerComposition('RasterEditor');
   const composed = { ...props, ...composition };
   const {
     colorMapEditor,
@@ -99,7 +97,6 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
     contrastEnhancementField,
     contrastEnhancementTypes,
     gammaValueField,
-    internalDataDef,
     onSymbolizerChange,
     opacityField,
     rasterChannelEditor,
@@ -174,8 +171,8 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
   } = symbolizer;
 
   let sourceChannelNames: string[];
-  if (internalDataDef && DataUtil.isRaster(internalDataDef)) {
-    sourceChannelNames = Object.keys(internalDataDef.rasterBandInfo);
+  if (data && DataUtil.isRaster(data)) {
+    sourceChannelNames = Object.keys(data.rasterBandInfo);
   }
 
   const toggleViewButtonLayout = {

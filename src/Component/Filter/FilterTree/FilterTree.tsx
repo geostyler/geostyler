@@ -55,10 +55,6 @@ import {
 
 import './FilterTree.less';
 
-import {
-  Data as Data
-} from 'geostyler-data';
-
 import { ComparisonFilter } from '../ComparisonFilter/ComparisonFilter';
 
 import {
@@ -75,8 +71,6 @@ import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerC
 export interface FilterTreeProps {
   /** The filter to edit */
   filter?: Filter;
-  /** Reference to internal data object (holding schema and example features) */
-  internalDataDef?: Data;
   /** Callback function for onFilterChange */
   onFilterChange?: ((compFilter: Filter) => void);
 }
@@ -90,7 +84,6 @@ export interface FilterTreeProps {
  */
 export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
   filter: rootFilter = ['==', '', null],
-  internalDataDef,
   onFilterChange,
   ...passThroughProps
 }) => {
@@ -260,7 +253,6 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
         <span className="node-title">
           <ComparisonFilter
             microUI={true}
-            internalDataDef={internalDataDef}
             filter={filter}
             onFilterChange={f => onComparisonFilterChange(f, position)}
           />

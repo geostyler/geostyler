@@ -33,8 +33,6 @@ import {
   Rule
 } from 'geostyler-style';
 
-import { VectorData } from 'geostyler-data';
-
 import './RuleGeneratorWindow.less';
 import { Modal, ModalProps } from 'antd';
 
@@ -44,9 +42,7 @@ import _isEqual from 'lodash/isEqual';
 import _isFinite from 'lodash/isFinite';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
-// non default props
 export interface RuleGeneratorWindowProps extends Partial<ModalProps> {
-  internalDataDef: VectorData;
   onClose?: () => void;
   onRulesChange?: (rules: Rule[]) => void;
   colorRamps?: {
@@ -57,7 +53,6 @@ export interface RuleGeneratorWindowProps extends Partial<ModalProps> {
 }
 
 export const RuleGeneratorWindow: React.FC<RuleGeneratorWindowProps> = ({
-  internalDataDef,
   onClose,
   onRulesChange,
   ...passThroughProps
@@ -76,7 +71,6 @@ export const RuleGeneratorWindow: React.FC<RuleGeneratorWindowProps> = ({
       {...passThroughProps}
     >
       <RuleGenerator
-        internalDataDef={internalDataDef}
         onRulesChange={onRulesChange}
       />
     </Modal>

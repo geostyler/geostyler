@@ -92,7 +92,6 @@ class PropTextEditorExample extends React.Component {
     return (
       <PropTextEditor
         symbolizer={symbolizer}
-        internalDataDef={data}
         onSymbolizerChange={this.onSymbolizerChange}
       />
     );

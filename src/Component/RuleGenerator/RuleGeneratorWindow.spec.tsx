@@ -27,26 +27,18 @@
  */
 import React from 'react';
 import {
-  RuleGeneratorWindow,
-  RuleGeneratorWindowProps
+  RuleGeneratorWindow
 } from './RuleGeneratorWindow';
-import TestUtil from '../../Util/TestUtil';
-import { Data } from 'geostyler-data';
 import { render } from '@testing-library/react';
 
 describe('RuleGeneratorWindow', () => {
-
-  const dummyData: Data = TestUtil.getDummyGsData();
-  const props: RuleGeneratorWindowProps = {
-    internalDataDef: dummyData
-  };
 
   it('is defined', () => {
     expect(RuleGeneratorWindow).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const ruleGeneratorWindow = render(<RuleGeneratorWindow {...props} />);
+    const ruleGeneratorWindow = render(<RuleGeneratorWindow />);
     expect(ruleGeneratorWindow.container).toBeInTheDocument();
   });
 

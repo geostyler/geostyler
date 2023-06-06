@@ -29,13 +29,15 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { Input, Form, AutoComplete, InputRef } from 'antd';
-import { Data } from 'geostyler-data';
 
 import _get from 'lodash/get';
 import { Feature } from 'geojson';
 
 import './TextFilterField.less';
-import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import {
+  useGeoStylerData,
+  useGeoStylerLocale
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface TextFilterFieldProps {
   /** Label for this field */
@@ -46,8 +48,6 @@ export interface TextFilterFieldProps {
   value?: string | undefined;
   /** Validation status */
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
-  /** Reference to internal data object (holding schema and example features) */
-  internalDataDef?: Data;
   /** Callback function for onChange */
   onValueChange?: (newValue: string) => void;
   /** The selected attribute name */
@@ -61,12 +61,11 @@ export interface TextFilterFieldProps {
 export const TextFilterField: React.FC<TextFilterFieldProps> = ({
   value,
   validateStatus = 'success',
-  internalDataDef,
   onValueChange,
   selectedAttribute,
   size
 }) => {
-
+  const data = useGeoStylerData();
   const locale = useGeoStylerLocale('TextFilterField');
 
   const inputRef = useRef<InputRef>();
@@ -99,8 +98,8 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
   const helpTxt = validateStatus !== 'success' ? locale.help : null;
 
   let sampleValues: string[] = [];
-  if (internalDataDef && 'exampleFeatures' in internalDataDef) {
-    const features = internalDataDef?.exampleFeatures?.features;
+  if (data && 'exampleFeatures' in data) {
+    const features = data?.exampleFeatures?.features;
     features.forEach((feature: Feature) => {
       const sampleValue = _get(feature, `properties[${selectedAttribute}]`);
       if (sampleValue && sampleValues.indexOf(sampleValue) === -1) {

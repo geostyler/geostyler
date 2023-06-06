@@ -32,31 +32,22 @@ import React from 'react';
 import {
   Symbolizer as GsSymbolizer
 } from 'geostyler-style';
-import { Data } from 'geostyler-data';
 
 import './SymbolizerCard.less';
 
 import { Card } from 'antd';
 import { Renderer } from '../Renderer/Renderer/Renderer';
 
-// default props
-interface SymbolizerCardDefaultProps {
+export interface SymbolizerCardProps {
   /** The callback when the symbolizer was clicked. */
   onSymbolizerClick?: (symbolizer: GsSymbolizer) => void;
-}
-
-// non default props
-export interface SymbolizerCardProps extends Partial<SymbolizerCardDefaultProps> {
   /** A GeoStyler-Style object. */
   symbolizer: GsSymbolizer;
-  /** Reference to internal data object (holding schema and example features) */
-  data?: Data;
 }
 
 export const SymbolizerCard = ({
   symbolizer,
-  onSymbolizerClick = () => { },
-  data
+  onSymbolizerClick = () => { }
 }: SymbolizerCardProps) => {
 
   const onCardClick = () => {
@@ -69,10 +60,7 @@ export const SymbolizerCard = ({
       hoverable={true}
       onClick={onCardClick}
     >
-      <Renderer
-        data={data}
-        symbolizers={[symbolizer]}
-      />
+      <Renderer symbolizers={[symbolizer]} />
     </Card>
   );
 };

@@ -38,10 +38,9 @@ import './RuleCard.less';
 import { Renderer } from '../Renderer/Renderer/Renderer';
 import FilterUtil from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
-import { Data } from 'geostyler-data';
 import { Divider, Card, Typography } from 'antd';
 import { BlockOutlined, FilterFilled, MinusOutlined } from '@ant-design/icons';
-import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerComposition, useGeoStylerData } from '../../context/GeoStylerContext/GeoStylerContext';
 const { Text } = Typography;
 
 export interface RuleComposableProps {
@@ -70,8 +69,6 @@ export interface RuleCardInternalProps {
   rule: GsRule;
   /** The number of features that are also matched by other rules. */
   duplicates?: number;
-  /** Reference to internal data object (holding schema and example features). */
-  data?: Data;
   /** The callback when the card was clicked. */
   onClick?: () => void;
 }
@@ -80,14 +77,14 @@ export type RuleCardProps = RuleCardInternalProps & RuleComposableProps;
 
 export const RuleCard: React.FC<RuleCardProps> = (props) => {
 
-  const composition = useGeoStylerComposition('Rule');
+  const data = useGeoStylerData();
 
-  const composed = { ...props, ...composition };
+  const composition = useGeoStylerComposition('Rule');
+  const composed = {...props, ...composition};
   const {
     rule,
     duplicates,
     onClick,
-    data,
     amountField,
     duplicateField,
     filterField,
@@ -115,7 +112,6 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
     >
       <Renderer
         symbolizers={rule.symbolizers}
-        data={data}
       />
       <Divider type='vertical' />
       <div className='gs-rule-card-content'>

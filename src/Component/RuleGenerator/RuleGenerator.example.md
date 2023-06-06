@@ -142,7 +142,7 @@ const RuleGeneratorExample = ({}) => {
 
   return (
     <div>
-      <RuleGenerator internalDataDef={data} onRulesChange={setRules} />
+      <RuleGenerator data={data} onRulesChange={setRules} />
       <RuleTable rules={rules} />
     </div>
   );

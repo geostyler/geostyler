@@ -70,7 +70,7 @@ describe('TextFilterField', () => {
   describe('AutoComplete', () => {
 
     it('renders as Autocomplete if data is passed and attribute is selected', () => {
-      const field = render(<TextFilterField selectedAttribute="bar" internalDataDef={dummyData} />);
+      const field = render(<TextFilterField selectedAttribute="bar" />);
       const autocomplete = field.queryByRole('combobox');
       const textInput = document.querySelector('.ant-input');
       expect(autocomplete).toBeInTheDocument();
@@ -82,7 +82,6 @@ describe('TextFilterField', () => {
       const field = render(<TextFilterField
         onValueChange={onChangeMock}
         selectedAttribute="bar"
-        internalDataDef={dummyData}
       />);
       const input = await field.findByRole('combobox');
       await act(async() => {

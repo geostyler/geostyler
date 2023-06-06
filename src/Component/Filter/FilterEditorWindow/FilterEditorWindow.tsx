@@ -28,8 +28,6 @@
 
 import React from 'react';
 
-import { VectorData } from 'geostyler-data';
-
 import './FilterEditorWindow.less';
 import { Modal, ModalProps } from 'antd';
 
@@ -41,8 +39,6 @@ import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerC
 export interface FilterEditorWindowProps extends Partial<ModalProps> {
   /** The filter to edit */
   filter?: Filter;
-  /** Layer metadata in the GeoStyler VectorData format */
-  internalDataDef?: VectorData;
   /** The callback method that is triggered when the filter window closes */
   onClose?: () => void;
   /** The callback method that is triggered when the state changes */
@@ -50,7 +46,6 @@ export interface FilterEditorWindowProps extends Partial<ModalProps> {
 }
 
 export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
-  internalDataDef,
   onClose,
   filter,
   onFilterChange,
@@ -70,7 +65,6 @@ export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
       {...passThroughProps}
     >
       <FilterTree
-        internalDataDef={internalDataDef}
         filter={filter}
         onFilterChange={onFilterChange}
       />

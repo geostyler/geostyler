@@ -48,7 +48,6 @@ import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import { SortableItem } from '../SortableItem/SortableItem';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { RemovableItem } from '../RemovableItem/RemovableItem';
-import { Data } from 'geostyler-data';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export interface SymbolizersProps {
@@ -58,15 +57,12 @@ export interface SymbolizersProps {
   onEditSymbolizerClick?: (symbolizerId: number) => void;
   /** List of symbolizers to display */
   symbolizers: GsSymbolizer[];
-  /** Reference to internal data object (holding schema and example features). */
-  data?: Data;
 }
 
 export const Symbolizers: React.FC<SymbolizersProps> = ({
   symbolizers,
   onSymbolizersChange = () => { },
-  onEditSymbolizerClick = () => { },
-  data
+  onEditSymbolizerClick = () => { }
 }) => {
 
   const locale = useGeoStylerLocale('Symbolizers');
@@ -97,7 +93,6 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
         onSymbolizerClick={() => {
           onEditSymbolizerClick(idx);
         }}
-        data={data}
       />
     );
   });

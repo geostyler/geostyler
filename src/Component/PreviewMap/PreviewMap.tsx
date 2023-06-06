@@ -34,8 +34,6 @@ import OlSourceVector from 'ol/source/Vector';
 import OlFormatGeoJSON from 'ol/format/GeoJSON';
 import { Projection, ProjectionLike } from 'ol/proj';
 import OlFeature from 'ol/Feature';
-import OlLayerTile from 'ol/layer/Tile';
-import OlSourceOSM from 'ol/source/OSM';
 import {
   get as getProjection,
 } from 'ol/proj';
@@ -46,7 +44,7 @@ import proj4 from 'proj4';
 import { isEmpty } from 'ol/extent';
 
 import { Style } from 'geostyler-style';
-import { Data, VectorData } from 'geostyler-data';
+import { VectorData } from 'geostyler-data';
 import OlStyleParser from 'geostyler-openlayers-parser';
 
 import GeometryUtil from '../../Util/GeometryUtil';
@@ -54,19 +52,13 @@ import GeometryUtil from '../../Util/GeometryUtil';
 import './PreviewMap.less';
 import { StandardLonghandProperties } from 'csstype';
 import { isString } from 'lodash';
+import { useGeoStylerData } from '../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-export interface PreviewMapDefaultProps {
+export interface PreviewMapProps {
   /** The projection of the data to visualize */
-  dataProjection: ProjectionLike;
+  dataProjection?: ProjectionLike;
   /** The height of the map */
-  mapHeight: StandardLonghandProperties['height'];
-}
-
-// non default props
-export interface PreviewMapProps extends Partial<PreviewMapDefaultProps> {
-  /** The data to visualize */
-  data?: Data;
+  mapHeight?: StandardLonghandProperties['height'];
   /** The GeoStyler Style to preview */
   style: Style;
   /** A custom map used for rendering */
@@ -81,13 +73,14 @@ export interface PreviewMapProps extends Partial<PreviewMapDefaultProps> {
 export const PreviewMap: React.FC<PreviewMapProps> = ({
   dataProjection = 'EPSG:4326',
   mapHeight = 267,
-  data,
   style,
   map: mapProp,
   onMapDidMount
 }) => {
 
   const containerRef = useRef();
+
+  const data = useGeoStylerData();
 
   /** the vector layer for the passed features */
   const dataLayerRef = useRef<OlLayerVector<any>>(new OlLayerVector({
@@ -100,9 +93,6 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
     new OlMap({
       controls: [],
       layers: [
-        new OlLayerTile({
-          source: new OlSourceOSM()
-        }),
         dataLayerRef.current
       ]
     })
