@@ -141,7 +141,7 @@
     "terser-webpack-plugin": "^5.3.8",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",
-    "vite": "4.3.5",
+    "vite": "4.3.9",
     "vitest": "0.31.0",
     "whatwg-fetch": "^3.6.2"
   },
