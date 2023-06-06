@@ -30,6 +30,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { AttributeCombo } from './AttributeCombo';
 import TestUtil from '../../../Util/TestUtil';
+import { GeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 describe('AttributeCombo', () => {
 
@@ -46,7 +47,11 @@ describe('AttributeCombo', () => {
 
   it('calls attribute filter function for each property', () => {
     const dummyFilterFn = jest.fn();
-    render(<AttributeCombo attributeNameFilter={dummyFilterFn} />);
+    render(
+      <GeoStylerContext.Provider value={{data: dummyData}}>
+        <AttributeCombo attributeNameFilter={dummyFilterFn} />
+      </GeoStylerContext.Provider>
+    );
     const numberOfOProps = Object.keys(dummyData.schema.properties).length;
     expect(dummyFilterFn).toHaveBeenCalledTimes(numberOfOProps);
   });

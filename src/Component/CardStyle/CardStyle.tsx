@@ -41,8 +41,6 @@ import {
   isIconSymbolizer
 } from 'geostyler-style';
 
-import { VectorData } from 'geostyler-data';
-
 import './CardStyle.less';
 import { Breadcrumb, Crumb } from '../Breadcrumb/Breadcrumb';
 import { StyleOverview } from '../StyleOverview/StyleOverview';
@@ -54,10 +52,7 @@ import { RuleGenerator } from '../RuleGenerator/RuleGenerator';
 import { BulkEditor } from '../BulkEditor/BulkEditor';
 import { IconSelector } from '../Symbolizer/IconSelector/IconSelector';
 import { Renderer } from '../Renderer/Renderer/Renderer';
-import {
-  useGeoStylerData,
-  useGeoStylerLocale
-} from '../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export interface CardStyleProps {
   /** The geoStylerStyle object */
@@ -93,7 +88,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
     path: [defaultCrumb]
   };
   const [currentView, setCurrentView] = useState<CardView>(defaultView);
-  const data = useGeoStylerData();
 
   const getPathForView = (viewName: string, indices: number[]): Crumb[] => {
     switch (viewName) {
@@ -321,7 +315,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
       {
         currentView.view === CLASSIFICATIONVIEW && (
           <RuleGenerator
-            data={data as VectorData}
             onRulesChange={onRulesChange}
           />
         )

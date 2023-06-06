@@ -30,6 +30,7 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { TextFilterField } from './TextFilterField';
 import TestUtil from '../../../Util/TestUtil';
+import { GeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 describe('TextFilterField', () => {
 
@@ -70,7 +71,11 @@ describe('TextFilterField', () => {
   describe('AutoComplete', () => {
 
     it('renders as Autocomplete if data is passed and attribute is selected', () => {
-      const field = render(<TextFilterField selectedAttribute="bar" />);
+      const field = render(
+        <GeoStylerContext.Provider value={{data: dummyData}}>
+          <TextFilterField selectedAttribute="bar" />
+        </GeoStylerContext.Provider>
+      );
       const autocomplete = field.queryByRole('combobox');
       const textInput = document.querySelector('.ant-input');
       expect(autocomplete).toBeInTheDocument();
@@ -79,10 +84,14 @@ describe('TextFilterField', () => {
 
     it('calls onValueChange of props', async() => {
       const onChangeMock = jest.fn();
-      const field = render(<TextFilterField
-        onValueChange={onChangeMock}
-        selectedAttribute="bar"
-      />);
+      const field = render(
+        <GeoStylerContext.Provider value={{data: dummyData}}>
+          <TextFilterField
+            onValueChange={onChangeMock}
+            selectedAttribute="bar"
+          />
+        </GeoStylerContext.Provider>
+      );
       const input = await field.findByRole('combobox');
       await act(async() => {
         fireEvent.mouseDown(input);
