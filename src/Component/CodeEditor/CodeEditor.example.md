@@ -37,51 +37,41 @@ import SldStyleParser from "geostyler-sld-parser";
 import QgisStyleParser from "geostyler-qgis-parser";
 import MapboxStyleParser from 'geostyler-mapbox-parser';
 
-class CodeEditorExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      sldParser: new SldStyleParser({
-        sldVersion: "1.1.0",
-        builderOptions: {
-          format: true,
-        },
-      }),
-      qgisStyleParser: new QgisStyleParser(),
-      mapboxStyleParser: new MapboxStyleParser({ pretty: true }),
-      style: {
-        name: "Demo Style",
-        rules: [
+const CodeEditorExample = () => {
+  const sldParser = new SldStyleParser({
+    sldVersion: "1.1.0",
+    builderOptions: {
+      format: true,
+    },
+  });
+  const qgisStyleParser = new QgisStyleParser();
+  const mapboxStyleParser = new MapboxStyleParser({ pretty: true });
+  const style = {
+    name: "Demo Style",
+    rules: [
+      {
+        name: "Rule 1",
+        symbolizers: [
           {
-            name: "Rule 1",
-            symbolizers: [
-              {
-                kind: "Mark",
-                wellKnownName: "circle",
-              },
-            ],
+            kind: "Mark",
+            wellKnownName: "circle",
           },
         ],
       },
-    };
-  }
+    ],
+  };
 
-  render() {
-    const { style, sldParser, qgisStyleParser, mapboxStyleParser } = this.state;
-
-    return (
-      <div style={{ height: "300px" }}>
-        <CodeEditor
-          style={style}
-          parsers={[sldParser, qgisStyleParser, mapboxStyleParser]}
-          defaultParser={sldParser}
-          showSaveButton={true}
-          showCopyButton={true}
-        />
-      </div>
-    );
-  }
+  return (
+    <div style={{ height: "300px" }}>
+      <CodeEditor
+        style={style}
+        parsers={[sldParser, qgisStyleParser, mapboxStyleParser]}
+        defaultParser={sldParser}
+        showSaveButton={true}
+        showCopyButton={true}
+      />
+    </div>
+  );
 }
 
 <CodeEditorExample />;
