@@ -342,7 +342,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       <Editor
         className="gs-code-editor-monaco"
         value={value}
-        path={activeParser instanceof SldStyleParser ? undefined : MODELPATH}
+        // activeParser === undefined -> GeostylerStyle
+        path={activeParser === undefined ? MODELPATH : undefined }
         language={fileFormat.language}
         onChange={handleOnChange}
       />
