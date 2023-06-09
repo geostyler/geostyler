@@ -29,7 +29,7 @@ import React from 'react';
 import { act, render, fireEvent } from '@testing-library/react';
 import { WellKnownNameEditor, WellKnownNameEditorProps } from './WellKnownNameEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import en_US from '../../../locale/en_US';
+
 import { MarkSymbolizer } from 'geostyler-style';
 
 describe('WellKnownNameEditor', () => {
@@ -37,9 +37,7 @@ describe('WellKnownNameEditor', () => {
   let dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
   const props: WellKnownNameEditorProps = {
     symbolizer: dummySymbolizer,
-    locale: en_US.WellKnownNameEditor,
-    onSymbolizerChange: jest.fn(),
-    defaultValues: undefined
+    onSymbolizerChange: jest.fn()
   };
 
   it('is defined', () => {

@@ -28,7 +28,7 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import StyleFieldContainer from './StyleFieldContainer';
+import { StyleFieldContainer } from './StyleFieldContainer';
 
 describe('StyleFieldContainer', () => {
 

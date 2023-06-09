@@ -32,23 +32,13 @@ import {
   Select
 } from 'antd';
 import { SymbolizerKind } from 'geostyler-style';
-
-import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../../locale/en_US';
-import type GeoStylerLocale from '../../../../locale/locale';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 const Option = Select.Option;
 
-
-// default props
-interface KindFieldDefaultProps {
-  kind: SymbolizerKind;
-  symbolizerKinds: SymbolizerKind[];
-  locale: GeoStylerLocale['KindField'];
-}
-
-// non default props
-export interface KindFieldProps extends Partial<KindFieldDefaultProps> {
+export interface KindFieldProps {
+  kind?: SymbolizerKind;
+  symbolizerKinds?: SymbolizerKind[];
   onChange?: (kind: SymbolizerKind) => void;
 }
 
@@ -57,21 +47,20 @@ export interface KindFieldProps extends Partial<KindFieldDefaultProps> {
  */
 export const KindField: React.FC<KindFieldProps> = ({
   onChange,
-  locale = en_US.KindField,
   kind = 'Mark',
   symbolizerKinds = ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster']
 }) => {
 
-  const getKindSelectOptions = (l: GeoStylerLocale['KindField']) => {
-    return symbolizerKinds.map(symbolizerKind =>
-      <Option
-        key={symbolizerKind}
-        value={symbolizerKind}
-      >
-        {l.symbolizerKinds[symbolizerKind]}
-      </Option>
-    );
-  };
+  const locale = useGeoStylerLocale('KindField');
+
+  const kindSelectOptions = symbolizerKinds.map(symbolizerKind =>
+    <Option
+      key={symbolizerKind}
+      value={symbolizerKind}
+    >
+      {locale.symbolizerKinds?.[symbolizerKind] || symbolizerKind}
+    </Option>
+  );
 
   return (
     <Select
@@ -79,9 +68,7 @@ export const KindField: React.FC<KindFieldProps> = ({
       value={kind}
       onChange={onChange}
     >
-      {getKindSelectOptions(locale)}
+      {kindSelectOptions}
     </Select>
   );
 };
-
-export default localize(KindField, 'KindField');

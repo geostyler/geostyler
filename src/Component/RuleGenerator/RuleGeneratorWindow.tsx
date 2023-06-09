@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import { InterpolationMode } from 'chroma-js';
 
 import {
@@ -38,17 +38,14 @@ import { VectorData } from 'geostyler-data';
 import './RuleGeneratorWindow.less';
 import { Modal, ModalProps } from 'antd';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import RuleGenerator from './RuleGenerator';
+import { RuleGenerator } from './RuleGenerator';
 
 import _isEqual from 'lodash/isEqual';
 import _isFinite from 'lodash/isFinite';
-import type GeoStylerLocale from '../../locale/locale';
-import en_US from '../../locale/en_US';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 // non default props
 export interface RuleGeneratorWindowProps extends Partial<ModalProps> {
-  locale?: GeoStylerLocale['RuleGeneratorWindow'];
   internalDataDef: VectorData;
   onClose?: () => void;
   onRulesChange?: (rules: Rule[]) => void;
@@ -59,15 +56,14 @@ export interface RuleGeneratorWindowProps extends Partial<ModalProps> {
   colorSpaces?: (InterpolationMode)[];
 }
 
-const COMPONENTNAME = 'RuleGeneratorWindow';
-
 export const RuleGeneratorWindow: React.FC<RuleGeneratorWindowProps> = ({
-  locale = en_US.RuleGeneratorWindow,
   internalDataDef,
   onClose,
   onRulesChange,
   ...passThroughProps
 }) => {
+
+  const locale = useGeoStylerLocale('RuleGeneratorWindow');
 
   return (
     <Modal
@@ -86,5 +82,3 @@ export const RuleGeneratorWindow: React.FC<RuleGeneratorWindowProps> = ({
     </Modal>
   );
 };
-
-export default localize(RuleGeneratorWindow, COMPONENTNAME);

@@ -36,25 +36,24 @@ import {
   ColorMap
 } from 'geostyler-style';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
-import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
-import RasterChannelEditor from '../RasterChannelEditor/RasterChannelEditor';
+import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
+import { RasterChannelEditor } from '../RasterChannelEditor/RasterChannelEditor';
 import { Data } from 'geostyler-data';
-import ContrastEnhancementField from '../Field/ContrastEnhancementField/ContrastEnhancementField';
-import GammaField, { GammaFieldProps } from '../Field/GammaField/GammaField';
+import { ContrastEnhancementField } from '../Field/ContrastEnhancementField/ContrastEnhancementField';
+import { GammaField, GammaFieldProps } from '../Field/GammaField/GammaField';
 import DataUtil from '../../../Util/DataUtil';
-import ColorMapEditor from '../ColorMapEditor/ColorMapEditor';
+import { ColorMapEditor } from '../ColorMapEditor/ColorMapEditor';
 
 import './RasterEditor.less';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
-import type GeoStylerLocale from '../../../locale/locale';
+
 import {
   InputConfig,
   useGeoStylerComposition,
+  useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 
@@ -77,7 +76,6 @@ export interface RasterEditorComposableProps {
 }
 
 export interface RasterEditorInternalProps {
-  locale?: GeoStylerLocale['RasterEditor'];
   contrastEnhancementTypes?: ContrastEnhancement['enhancementType'][];
   symbolizer: RasterSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
@@ -85,8 +83,6 @@ export interface RasterEditorInternalProps {
 }
 
 type ShowDisplay = 'symbolizer' | 'colorMapEditor' | 'rasterChannelEditor';
-
-const COMPONENTNAME = 'RasterEditor';
 
 export type RasterEditorProps = RasterEditorInternalProps & RasterEditorComposableProps;
 
@@ -96,7 +92,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
   // const colorMapComposition = useGeoStylerComposition('ColorMapEditor');
   // const rasterChannelComposition = useGeoStylerComposition('RasterChannelEditor');
 
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     colorMapEditor,
     colorRamps,
@@ -104,12 +100,13 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
     contrastEnhancementTypes,
     gammaValueField,
     internalDataDef,
-    locale = en_US.RasterEditor,
     onSymbolizerChange,
     opacityField,
     rasterChannelEditor,
     symbolizer
   } = composed;
+
+  const locale = useGeoStylerLocale('RasterEditor');
 
   const {
     getFormItemSupportProps
@@ -182,7 +179,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
   }
 
   const toggleViewButtonLayout = {
-    wrapperCol: {span: 24}
+    wrapperCol: { span: 24 }
   };
 
   return (
@@ -300,5 +297,3 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
     </div>
   );
 };
-
-export default localize(RasterEditor, COMPONENTNAME);

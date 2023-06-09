@@ -66,5 +66,3 @@ export const RotateField: React.FC<RotateFieldProps> = ({
     />
   );
 };
-
-export default RotateField;

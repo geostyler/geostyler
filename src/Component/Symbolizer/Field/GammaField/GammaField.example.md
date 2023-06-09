@@ -31,7 +31,7 @@
 This demonstrates the use of `GammaField`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { GammaField } from 'geostyler';
 
 class GammaFieldExample extends React.Component {

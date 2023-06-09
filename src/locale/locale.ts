@@ -1,6 +1,4 @@
-import { Locale } from 'antd/lib/locale';
-
-export default interface GeoStylerLocale extends Locale {
+export default interface GeoStylerLocale {
   CodeEditor: {
     downloadButtonLabel: string;
     formatSelectLabel: string;
@@ -274,11 +272,6 @@ export default interface GeoStylerLocale extends Locale {
   GrayChannelField: {
     grayLabel: string;
   };
-  SymbolizerEditor: {
-    kindFieldLabel: string;
-    unknownSymbolizerText: string;
-    visibilityFieldLabel: string;
-  };
   SymbolizerEditorWindow: {
     symbolizersEditor: string;
   };
@@ -390,6 +383,8 @@ export default interface GeoStylerLocale extends Locale {
   };
   Editor: {
     kindFieldLabel: string;
+    unknownSymbolizerText: string;
+    visibilityFieldLabel: string;
   };
   AttributeCombo: {
     label: string;

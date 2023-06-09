@@ -36,9 +36,6 @@ import {
 import { closestCenter, DndContext } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-
-import './Rules.less';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';
@@ -46,22 +43,20 @@ import { Button, Switch, Divider } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
-import Selectable from '../Selectable/Selectable';
+import { Selectable } from '../Selectable/Selectable';
 import { RuleCard } from '../RuleCard/RuleCard';
-import type GeoStylerLocale from '../../locale/locale';
-import en_US from '../../locale/en_US';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { SortableItem } from '../SortableItem/SortableItem';
 import { RemovableItem } from '../RemovableItem/RemovableItem';
-import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+
+import './Rules.less';
 
 export interface RulesComposableProps {
   disableClassification?: boolean;
 }
 
 export interface RulesInternalProps {
-  /** Locale object containing translated text snippets */
-  locale?: GeoStylerLocale['Rules'];
   /** Display the number of features that match a rule */
   showAmount?: boolean;
   /** Display the number of features that match more than one rule */
@@ -86,17 +81,18 @@ export const Rules: React.FC<RulesProps> = (props) => {
 
   const composition = useGeoStylerComposition('Rules');
 
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     data,
     disableClassification,
-    locale = en_US.Rules,
     onClassificationClick,
     onEditRuleClick,
     onEditSelectionClick,
     onRulesChange,
     rules
   } = composed;
+
+  const locale = useGeoStylerLocale('Rules');
 
   const [multiEditActive, setMultiEditActive] = useState<boolean>(false);
   const [selectedRules, setSelectedRules] = useState<number[]>([]);
@@ -205,7 +201,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
           removeRule(idx);
         }}
       >
-        { ruleCard }
+        {ruleCard}
       </RemovableItem>
     );
   });
@@ -220,7 +216,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
         key={key}
         id={id}
       >
-        { ruleCard }
+        {ruleCard}
       </SortableItem>
     );
   });
@@ -302,7 +298,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
               selection={selectedRules}
               onSelectionChange={onSelectionChange}
             >
-              { rulesCards }
+              {rulesCards}
             </Selectable>
           ) : (
             <DndContext
@@ -313,7 +309,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
               <SortableContext
                 items={rules.map((r, idx) => idx + 1)}
               >
-                { sortableAndRemovableRulesCards }
+                {sortableAndRemovableRulesCards}
               </SortableContext>
             </DndContext>
           )
@@ -328,5 +324,3 @@ export const Rules: React.FC<RulesProps> = (props) => {
     </div>
   );
 };
-
-export default localize(Rules, 'Rules');

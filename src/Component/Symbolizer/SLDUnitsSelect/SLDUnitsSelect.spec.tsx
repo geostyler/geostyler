@@ -27,7 +27,7 @@
  */
 
 import React from 'react';
-import SLDUnitsSelect, { SLDUnitsSelectProps } from './SLDUnitsSelect';
+import { SLDUnitsSelect, SLDUnitsSelectProps } from './SLDUnitsSelect';
 import { RenderResult, render } from '@testing-library/react';
 
 describe('SLDUnitsSelect', () => {

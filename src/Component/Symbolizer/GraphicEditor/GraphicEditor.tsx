@@ -26,16 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import {
   PointSymbolizer,
   GraphicType,
   MarkSymbolizer,
   IconSymbolizer
 } from 'geostyler-style';
-import MarkEditor from '../MarkEditor/MarkEditor';
-import IconEditor, { IconEditorProps } from '../IconEditor/IconEditor';
-import GraphicTypeField, { GraphicTypeFieldProps } from '../Field/GraphicTypeField/GraphicTypeField';
+import {MarkEditor} from '../MarkEditor/MarkEditor';
+import { IconEditor, IconEditorProps } from '../IconEditor/IconEditor';
+import { GraphicTypeField, GraphicTypeFieldProps } from '../Field/GraphicTypeField/GraphicTypeField';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 import { Form } from 'antd';
@@ -122,5 +122,3 @@ export const GraphicEditor: React.FC<GraphicEditorProps> = ({
     </div>
   );
 };
-
-export default GraphicEditor;

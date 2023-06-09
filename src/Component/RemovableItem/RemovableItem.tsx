@@ -55,5 +55,3 @@ export const RemovableItem: React.FC<RemovableItemProps> = ({
     </div>
   );
 };
-
-export default RemovableItem;

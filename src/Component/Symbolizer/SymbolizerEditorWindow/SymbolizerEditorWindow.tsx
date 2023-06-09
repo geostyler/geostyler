@@ -26,11 +26,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import { Symbolizer } from 'geostyler-style';
 
-import MultiEditor from '../MultiEditor/MultiEditor';
+import { MultiEditor } from '../MultiEditor/MultiEditor';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 import { Data } from 'geostyler-data';
@@ -38,15 +38,12 @@ import { Data } from 'geostyler-data';
 import './SymbolizerEditorWindow.less';
 import { Modal, ModalProps } from 'antd';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-
 import _isEqual from 'lodash/isEqual';
-import type GeoStylerLocale from '../../../locale/locale';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+
 
 // non default props
 export interface SymbolizerEditorWindowProps extends Partial<ModalProps> {
-  locale?: GeoStylerLocale['SymbolizerEditorWindow'];
   symbolizers: Symbolizer[];
   internalDataDef?: Data;
   onClose?: () => void;
@@ -57,10 +54,7 @@ export interface SymbolizerEditorWindowProps extends Partial<ModalProps> {
   };
 }
 
-const COMPONENTNAME = 'SymbolizerEditorWindow';
-
 export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
-  locale = en_US.SymbolizerEditorWindow,
   symbolizers,
   internalDataDef,
   onClose,
@@ -69,6 +63,8 @@ export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
   colorRamps,
   ...passThroughProps
 }) => {
+
+  const locale = useGeoStylerLocale('SymbolizerEditorWindow');
 
   return (
     <Modal
@@ -85,10 +81,8 @@ export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
         symbolizers={symbolizers}
         onSymbolizersChange={onSymbolizersChange}
         iconLibraries={iconLibraries}
-        editorProps={{colorRamps}}
+        editorProps={{ colorRamps }}
       />
     </Modal>
   );
 };
-
-export default localize(SymbolizerEditorWindow, COMPONENTNAME);

@@ -68,5 +68,3 @@ export const BrightnessField: React.FC<BrightnessFieldProps> = ({
     />
   );
 };
-
-export default BrightnessField;

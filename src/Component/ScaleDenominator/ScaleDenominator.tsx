@@ -26,10 +26,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import { Row, Col } from 'antd';
-import MinScaleDenominator from './MinScaleDenominator';
-import MaxScaleDenominator from './MaxScaleDenominator';
+import { MinScaleDenominator } from './MinScaleDenominator';
+import { MaxScaleDenominator } from './MaxScaleDenominator';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
@@ -37,18 +37,9 @@ import _cloneDeep from 'lodash/cloneDeep';
 import {
   ScaleDenominator as GsScaleDenominator
 } from 'geostyler-style';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
-import type GeoStylerLocale from '../../locale/locale';
-
-interface ScaleDenominatorDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale?: GeoStylerLocale['ScaleDenominator'];
-}
-
-// non default props
-export interface ScaleDenominatorProps extends Partial<ScaleDenominatorDefaultProps> {
+export interface ScaleDenominatorProps {
   /** The scaleDenominator */
   scaleDenominator?: GsScaleDenominator;
   /** The callback method that is triggered when the state changes */
@@ -61,10 +52,11 @@ export const COMPONENTNAME = 'ScaleDenominator';
  * Combined UI for input fields for the minimum and maximum scale of a rule.
  */
 export const ScaleDenominator: React.FC<ScaleDenominatorProps> = ({
-  locale = en_US.ScaleDenominator,
   scaleDenominator,
   onChange
 }) => {
+
+  const locale = useGeoStylerLocale('ScaleDenominator');
 
   /**
    * Reacts on changing min scale and pushes the updated scaleDenominator to the 'onChange' function
@@ -115,5 +107,3 @@ export const ScaleDenominator: React.FC<ScaleDenominatorProps> = ({
     </div>
   );
 };
-
-export default localize(ScaleDenominator, COMPONENTNAME);

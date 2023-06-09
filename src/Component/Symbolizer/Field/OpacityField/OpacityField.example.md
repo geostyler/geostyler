@@ -31,7 +31,7 @@
 This demonstrates the use of `OpacityField`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { OpacityField } from 'geostyler';
 
 class OpacityFieldExample extends React.Component {

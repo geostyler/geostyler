@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import {
   Input
 } from 'antd';
@@ -74,5 +74,3 @@ export const NameField: React.FC<NameFieldProps> = ({
     />
   );
 };
-
-export default NameField;

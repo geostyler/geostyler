@@ -98,5 +98,3 @@ export const SourceChannelNameField: React.FC<SourceChannelNameFieldProps> = ({
     </div>
   );
 };
-
-export default SourceChannelNameField;

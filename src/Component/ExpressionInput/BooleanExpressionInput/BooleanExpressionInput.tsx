@@ -33,7 +33,7 @@ import {
   Checkbox,
   CheckboxProps
 } from 'antd';
-import FunctionUI, { FunctionUIProps } from '../../FunctionUI/FunctionUI';
+import { FunctionUI, FunctionUIProps } from '../../FunctionUI/FunctionUI';
 import {
   Expression,
   GeoStylerBooleanFunction,

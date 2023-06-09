@@ -30,43 +30,32 @@ import React from 'react';
 
 import { Select } from 'antd';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-
 import _isEqual from 'lodash/isEqual';
-import type GeoStylerLocale from '../../../locale/locale';
-import en_US from '../../../locale/en_US';
 
 import './ClassificationCombo.less';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export type ClassificationMethod = 'equalInterval' | 'quantile' | 'logarithmic' | 'kmeans';
 
-// default props
-export interface ClassificationComboDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['ClassificationCombo'];
+export interface ClassificationComboProps {
   /** List of supported classification methods */
-  classifications: ClassificationMethod[];
-}
-
-// non default props
-export interface ClassificationComboProps extends Partial<ClassificationComboDefaultProps> {
+  classifications?: ClassificationMethod[];
   /** The callback method that is triggered when the state changes */
   onChange?: (classification: ClassificationMethod) => void;
   /** The selected classification method */
   classification?: ClassificationMethod;
 }
 
-const COMPONENTNAME = 'ClassificationCombo';
-
 /**
  * Symbolizer editorwindow UI.
  */
 export const ClassificationCombo: React.FC<ClassificationComboProps> = ({
-  locale = en_US.ClassificationCombo,
   classifications = ['equalInterval', 'quantile', 'logarithmic', 'kmeans'],
   onChange,
   classification
 }) => {
+
+  const locale = useGeoStylerLocale('ClassificationCombo');
 
   const classificationOptions = classifications.map((method: ClassificationMethod) => {
     return (
@@ -91,5 +80,3 @@ export const ClassificationCombo: React.FC<ClassificationComboProps> = ({
     </Select>
   );
 };
-
-export default localize(ClassificationCombo, COMPONENTNAME);

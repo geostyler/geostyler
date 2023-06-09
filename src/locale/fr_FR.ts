@@ -37,7 +37,9 @@ const fr_FR: GeoStylerLocale = {
     titleFieldPlaceholder: 'Saisir un titre'
   },
   Editor: {
-    kindFieldLabel: 'Type'
+    kindFieldLabel: 'Type',
+    unknownSymbolizerText: 'Symbolisation inconnue !',
+    visibilityFieldLabel: 'Visibilité'
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Nom',
@@ -311,11 +313,6 @@ const fr_FR: GeoStylerLocale = {
     rampMapTypeLabel: 'Interpolé',
     intervalsMapTypeLabel: 'Intervalles',
     valuesMapTypeLabel: 'Valeurs'
-  },
-  SymbolizerEditor: {
-    kindFieldLabel: 'Type',
-    unknownSymbolizerText: 'Symbolisation inconnue !',
-    visibilityFieldLabel: 'Visibilité'
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Éditeur de symbolisation'

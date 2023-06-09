@@ -40,19 +40,17 @@ import {
   Expression
 } from 'geostyler-style';
 
-import ColorField from '../../Symbolizer/Field/ColorField/ColorField';
-
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-import RadiusField from '../../Symbolizer/Field/RadiusField/RadiusField';
-import OpacityField from '../../Symbolizer/Field/OpacityField/OpacityField';
+import { ColorField } from '../../Symbolizer/Field/ColorField/ColorField';
+import { RadiusField } from '../../Symbolizer/Field/RadiusField/RadiusField';
+import { OpacityField } from '../../Symbolizer/Field/OpacityField/OpacityField';
 import { WellKnownNameField } from '../Field/WellKnownNameField/WellKnownNameField';
-import KindField from '../Field/KindField/KindField';
-import ImageField from '../Field/ImageField/ImageField';
-import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
+import { KindField } from '../Field/KindField/KindField';
+import { ImageField } from '../Field/ImageField/ImageField';
+import { IconSelector, IconLibrary } from '../IconSelector/IconSelector';
 
 import './BulkEditModals.less';
-import type GeoStylerLocale from '../../../locale/locale';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+
 
 // default props
 interface BulkEditModalsDefaultProps {
@@ -61,7 +59,6 @@ interface BulkEditModalsDefaultProps {
   opacityModalVisible: boolean;
   symbolModalVisible: boolean;
   style: GsStyle;
-  locale: GeoStylerLocale['BulkEditModals'];
   selectedRowKeys: number[];
   modalsClosed: ModalProps['onCancel'];
 }
@@ -75,8 +72,6 @@ export interface BulkEditModalsProps extends Partial<BulkEditModalsDefaultProps>
   iconLibraries?: IconLibrary[];
 }
 
-const COMPONENTNAME = 'BulkEditModals';
-
 export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
   style = {
     name: 'My Style',
@@ -86,7 +81,6 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
   sizeModalVisible = false,
   opacityModalVisible = false,
   symbolModalVisible = false,
-  locale = en_US.BulkEditModals,
   selectedRowKeys = [],
   modalsClosed = (): any => undefined,
   updateMultiColors,
@@ -95,6 +89,8 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
   updateMultiSymbols,
   iconLibraries
 }) => {
+
+  const locale = useGeoStylerLocale('BulkEditModals');
 
   const [kind, setKind] = useState<SymbolizerKind>('Mark');
 
@@ -221,5 +217,3 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
     </div>
   );
 };
-
-export default localize(BulkEditModals, COMPONENTNAME);

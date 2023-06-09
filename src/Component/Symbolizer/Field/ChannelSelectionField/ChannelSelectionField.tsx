@@ -55,5 +55,3 @@ export const ChannelSelectionField: React.FC<ChannelSelectionFieldProps> = ({
     />
   );
 };
-
-export default ChannelSelectionField;

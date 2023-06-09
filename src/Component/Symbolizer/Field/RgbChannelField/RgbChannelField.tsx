@@ -32,22 +32,14 @@ import {
   Form
 } from 'antd';
 
-import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../../locale/en_US';
-import SourceChannelNameField from '../SourceChannelNameField/SourceChannelNameField';
+import { SourceChannelNameField } from '../SourceChannelNameField/SourceChannelNameField';
 import { ChannelSelection, RGBChannel } from 'geostyler-style';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-import type GeoStylerLocale from '../../../../locale/locale';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface RgbChannelFieldDefaultProps {
-  locale: GeoStylerLocale['RgbChannelField'];
-}
-
-// non default props
-export interface RgbChannelFieldProps extends Partial<RgbChannelFieldDefaultProps> {
+export interface RgbChannelFieldProps {
   sourceChannelNames?: string[];
   onChange?: (channelSelection: ChannelSelection) => void;
   channelSelection?: ChannelSelection;
@@ -59,9 +51,10 @@ export interface RgbChannelFieldProps extends Partial<RgbChannelFieldDefaultProp
 export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
   sourceChannelNames,
   onChange,
-  channelSelection,
-  locale = en_US.RgbChannelField
+  channelSelection
 }) => {
+
+  const locale = useGeoStylerLocale('RgbChannelField');
 
   const onRedChannelChange = (red: string) => {
     let rgb: RGBChannel;
@@ -152,5 +145,3 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
     </div>
   );
 };
-
-export default localize(RgbChannelField, 'RgbChannelField');

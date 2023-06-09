@@ -59,8 +59,8 @@ import {
   Data as Data
 } from 'geostyler-data';
 
-import ComparisonFilter from '../ComparisonFilter/ComparisonFilter';
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
+import { ComparisonFilter } from '../ComparisonFilter/ComparisonFilter';
+
 import {
   isCombinationFilter,
   isComparisonFilter,
@@ -68,19 +68,13 @@ import {
   isNegationFilter
 } from 'geostyler-style/dist/typeguards';
 import FilterUtil from '../../../Util/FilterUtil';
-import type GeoStylerLocale from '../../../locale/locale';
-import en_US from '../../../locale/en_US';
-import { DataNode } from 'rc-tree/lib/interface';
 
-// default props
-export interface FilterTreeDefaultProps {
+import { DataNode } from 'rc-tree/lib/interface';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+
+export interface FilterTreeProps {
   /** The filter to edit */
-  filter: Filter;
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['FilterTree'];
-}
-// non default props
-export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
+  filter?: Filter;
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: Data;
   /** Callback function for onFilterChange */
@@ -97,10 +91,11 @@ export interface FilterTreeProps extends Partial<FilterTreeDefaultProps> {
 export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
   filter: rootFilter = ['==', '', null],
   internalDataDef,
-  locale = en_US.FilterTree,
   onFilterChange,
   ...passThroughProps
 }) => {
+
+  const locale = useGeoStylerLocale('FilterTree');
 
   /**
    * Changehandler for ComparsionFilters.
@@ -188,7 +183,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
         }, {
           label: locale.notDrpdwnLabel,
           key: 'not'
-        },{
+        }, {
           label: locale.comparisonDrpdwnLabel,
           key: 'comparison'
         }],
@@ -207,7 +202,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
       }, {
         label: locale.notDrpdwnLabel,
         key: 'not'
-      },{
+      }, {
         label: locale.comparisonDrpdwnLabel,
         key: 'comparison'
       }],
@@ -370,5 +365,3 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
     />
   );
 };
-
-export default localize(FilterTree, 'FilterTree');

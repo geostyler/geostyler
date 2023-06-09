@@ -36,22 +36,18 @@ import {
 
 import './RuleOverview.less';
 import { Data } from 'geostyler-data';
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import RuleFieldContainer from '../RuleFieldContainer/RuleFieldContainer';
+
+import { RuleFieldContainer } from '../RuleFieldContainer/RuleFieldContainer';
 import { Divider } from 'antd';
-import Symbolizers from '../Symbolizers/Symbolizers';
+import { Symbolizers } from '../Symbolizers/Symbolizers';
 import CardViewUtil from '../../Util/CardViewUtil';
-import FilterOverview from '../FilterOverview/FilterOverview';
-import type GeoStylerLocale from '../../locale/locale';
-import en_US from '../../locale/en_US';
-import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
+import { FilterOverview } from '../FilterOverview/FilterOverview';
+import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
 
 export type RuleOverviewComposableProps = Pick<RuleComposableProps, 'filterField'>;
 
 export interface RuleOverviewInternalProps {
-  /** Locale object containing translated text snippets */
-  locale?: GeoStylerLocale['RuleOverview'];
   /** The callback when the style changed. */
   onRuleChange?: (rule: GsRule) => void;
   /** The callback when a view change (request) was triggered. */
@@ -68,23 +64,24 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
 
   const composition = useGeoStylerComposition('Rule') as RuleOverviewComposableProps;
 
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     data,
-    locale = en_US.RuleOverview,
-    onChangeView = () => {},
-    onRuleChange = () => {},
+    onChangeView = () => { },
+    onRuleChange = () => { },
     rule,
     filterField
   } = composed;
 
+  const locale = useGeoStylerLocale('RuleOverview');
+
   const onNameChange = (name: string) => {
-    const newRule: GsRule = {...rule, name};
+    const newRule: GsRule = { ...rule, name };
     onRuleChange(newRule);
   };
 
   const onMinScaleChange = (minScale: number) => {
-    let newRule: GsRule = {...rule};
+    let newRule: GsRule = { ...rule };
     if (!newRule.scaleDenominator) {
       newRule.scaleDenominator = {};
     }
@@ -93,7 +90,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
   };
 
   const onMaxScaleChange = (maxScale: number) => {
-    let newRule: GsRule = {...rule};
+    let newRule: GsRule = { ...rule };
     if (!newRule.scaleDenominator) {
       newRule.scaleDenominator = {};
     }
@@ -102,7 +99,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
   };
 
   const onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
-    let newRule: GsRule = {...rule, symbolizers};
+    let newRule: GsRule = { ...rule, symbolizers };
     onRuleChange(newRule);
   };
 
@@ -145,5 +142,3 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
     </div>
   );
 };
-
-export default localize(RuleOverview, 'RuleOverview');

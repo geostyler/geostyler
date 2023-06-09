@@ -42,25 +42,23 @@ import {
   JoinType
 } from 'geostyler-style';
 
-import ColorField, { ColorFieldProps } from '../Field/ColorField/ColorField';
-import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
-import WidthField, { WidthFieldProps } from '../Field/WidthField/WidthField';
-import LineDashField from '../Field/LineDashField/LineDashField';
-import LineCapField from '../Field/LineCapField/LineCapField';
-import LineJoinField, { LineJoinFieldProps } from '../Field/LineJoinField/LineJoinField';
-import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
-import GraphicEditor from '../GraphicEditor/GraphicEditor';
+import { ColorField, ColorFieldProps } from '../Field/ColorField/ColorField';
+import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
+import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
+import { LineDashField } from '../Field/LineDashField/LineDashField';
+import { LineCapField } from '../Field/LineCapField/LineCapField';
+import { LineJoinField, LineJoinFieldProps } from '../Field/LineJoinField/LineJoinField';
+import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
+import { GraphicEditor } from '../GraphicEditor/GraphicEditor';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
 import _isEqual from 'lodash/isEqual';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-import type GeoStylerLocale from '../../../locale/locale';
 import {
   InputConfig,
   useGeoStylerComposition,
+  useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 
@@ -87,34 +85,32 @@ export interface LineEditorComposableProps {
 }
 
 export interface LineEditorInternalProps {
-  /** Language package */
-  locale?: GeoStylerLocale['LineEditor'];
   /** Symbolizer */
   symbolizer: LineSymbolizer;
   /** Callback when symbolizer changes */
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
-const COMPONENTNAME = 'LineEditor';
 
 export type LineEditorProps = LineEditorInternalProps & LineEditorComposableProps;
 
 export const LineEditor: React.FC<LineEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('LineEditor');
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     capField,
     colorField,
     dashOffsetField,
     joinField,
     lineDashField,
-    locale = en_US.LineEditor,
     onSymbolizerChange,
     opacityField,
     perpendicularOffsetField,
     symbolizer,
     widthField,
   } = composed;
+
+  const locale = useGeoStylerLocale('LineEditor');
 
   const {
     getFormItemSupportProps
@@ -352,5 +348,3 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     </div>
   );
 };
-
-export default localize(LineEditor, COMPONENTNAME);

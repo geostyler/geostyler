@@ -31,7 +31,7 @@
 This demonstrates the usage of the `BulkEditor` component.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { BulkEditor } from 'geostyler';
 
 class BulkEditorExample extends React.Component {

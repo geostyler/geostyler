@@ -30,14 +30,14 @@ import React from 'react';
 
 import { Button, Select } from 'antd';
 
-import { useGeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 import { BaseOptionType } from 'antd/lib/select';
 import { functionConfigs } from '../functionConfigs';
 import { GeoStylerFunction } from 'geostyler-style';
 import { NodeCollapseOutlined } from '@ant-design/icons';
 
 import './FunctionNameCombo.less';
-import en_US from '../../../locale/en_US';
+
 
 type Type = 'string' | 'number' | 'boolean' | 'unknown';
 
@@ -60,7 +60,7 @@ export const FunctionNameCombo: React.FC<FunctionNameComboProps> = ({
   size
 }) => {
 
-  const { locale = en_US } = useGeoStylerContext();
+  const locale = useGeoStylerLocale('FunctionNameCombo');
 
   const options: BaseOptionType[] = functionConfigs
     .filter(config => {
@@ -82,7 +82,7 @@ export const FunctionNameCombo: React.FC<FunctionNameComboProps> = ({
       <Select
         value={value}
         onChange={onChange}
-        placeholder={locale.FunctionNameCombo.placeholder}
+        placeholder={locale.placeholder}
         size={size}
         options={options}
       />

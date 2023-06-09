@@ -31,7 +31,7 @@
 This demonstrates the use of `LineEditor`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { LineEditor } from 'geostyler';
 
 class LineEditorExample extends React.Component {

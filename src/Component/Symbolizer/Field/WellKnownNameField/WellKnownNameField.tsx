@@ -33,22 +33,18 @@ import {
 } from 'antd';
 import { WellKnownName } from 'geostyler-style';
 
-import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../../locale/en_US';
-
 import _get from 'lodash/get';
-import type GeoStylerLocale from '../../../../locale/locale';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 const Option = Select.Option;
 
 // default props
 interface WellKnownNameFieldDefaultProps {
-  wellKnownName: WellKnownName;
-  wellKnownNames: WellKnownName[];
-  locale: GeoStylerLocale['WellKnownNameField'];
 }
 
 // non default props
 export interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefaultProps> {
+  wellKnownName?: WellKnownName;
+  wellKnownNames?: WellKnownName[];
   onChange?: (wellKnownName: WellKnownName) => void;
 }
 
@@ -57,13 +53,14 @@ export interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefau
  */
 export const WellKnownNameField: React.FC<WellKnownNameFieldProps> = ({
   onChange,
-  locale = en_US.WellKnownNameField,
   wellKnownName = 'circle',
   wellKnownNames = ['circle', 'square', 'triangle', 'star', 'cross', 'x',
     'shape://backslash', 'shape://carrow', 'shape://dot',
     'shape://horline', 'shape://oarrow', 'shape://plus',
     'shape://slash', 'shape://times', 'shape://vertline']
 }) => {
+
+  const locale = useGeoStylerLocale('WellKnownNameField');
 
   const getWKNSelectOptions = () => {
     return wellKnownNames.map(name => {
@@ -90,5 +87,3 @@ export const WellKnownNameField: React.FC<WellKnownNameFieldProps> = ({
     </Select>
   );
 };
-
-export default localize(WellKnownNameField, 'WellKnownNameField');

@@ -31,7 +31,7 @@
 This demonstrates the use of `FontPicker`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { FontPicker } from 'geostyler';
 
 class FontPickerExample extends React.Component {

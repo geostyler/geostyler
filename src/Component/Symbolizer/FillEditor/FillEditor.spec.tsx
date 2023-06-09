@@ -28,7 +28,7 @@
 import React from 'react';
 import { FillEditor, FillEditorProps } from './FillEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import en_US from '../../../locale/en_US';
+
 import { FillSymbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
 
@@ -37,7 +37,6 @@ describe('FillEditor', () => {
   let dummySymbolizer: FillSymbolizer = SymbolizerUtil.generateSymbolizer('Fill') as FillSymbolizer;
   const props: FillEditorProps = {
     symbolizer: dummySymbolizer,
-    locale: en_US.FillEditor,
     onSymbolizerChange: jest.fn()
   };
 

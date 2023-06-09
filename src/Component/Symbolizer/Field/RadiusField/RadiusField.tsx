@@ -64,5 +64,3 @@ export const RadiusField: React.FC<RadiusFieldProps> = ({
     />
   );
 };
-
-export default RadiusField;

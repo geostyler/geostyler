@@ -31,7 +31,7 @@
 This demonstrates the usage of the `Selectable` component.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { Selectable } from 'geostyler';
 
 class SelectableExample extends React.Component {
@@ -58,7 +58,7 @@ class SelectableExample extends React.Component {
 Controlled component.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { Selectable } from 'geostyler';
 
 class SelectableExample extends React.Component {

@@ -38,7 +38,7 @@ here.
 
 ```jsx
 import React from 'react';
-import { GeoStylerContext, Style } from 'geostyler';
+import { GeoStylerContext, Style, locale } from 'geostyler';
 import { Switch } from 'antd';
 
 const GeoStylerContextExample = () => {
@@ -48,6 +48,7 @@ const GeoStylerContextExample = () => {
         rendererType: 'OpenLayers'
       }
     },
+    // locale: locale.de_DE,
     unsupportedProperties: {
       Symbolizer: {
         LineSymbolizer: {

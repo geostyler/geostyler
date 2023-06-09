@@ -30,8 +30,8 @@ import React from 'react';
 
 import './Renderer.less';
 
-import OlRenderer, { OlRendererProps } from '../OlRenderer/OlRenderer';
-import SLDRenderer, { SLDRendererProps } from '../SLDRenderer/SLDRenderer';
+import { OlRenderer, OlRendererProps } from '../OlRenderer/OlRenderer';
+import { SLDRenderer, SLDRendererProps } from '../SLDRenderer/SLDRenderer';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface RendererComposableProps {
@@ -72,5 +72,3 @@ export const Renderer: React.FC<RendererProps> = (props) => {
     </div>
   );
 };
-
-export default Renderer;

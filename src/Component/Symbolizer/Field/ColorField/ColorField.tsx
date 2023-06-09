@@ -36,12 +36,9 @@ import {
 } from 'antd';
 
 import './ColorField.less';
-import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import GeoStylerLocale from '../../../../locale/locale';
-import en_US from '../../../../locale/en_US';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ColorFieldProps extends Omit<ColorPickerProps, 'onChange'|'value'|'defaultValue'> {
-  locale?: GeoStylerLocale['ColorField'];
   value?: string;
   onChange?: (color: string) => void;
   defaultValue?: string;
@@ -51,12 +48,13 @@ export interface ColorFieldProps extends Omit<ColorPickerProps, 'onChange'|'valu
  * ColorField
  */
 export const ColorField: React.FC<ColorFieldProps> = ({
-  locale = en_US.ColorField,
   onChange = () => undefined,
   value,
   defaultValue = '#FFFFFF',
   ...passThroughProps
 }) => {
+
+  const locale = useGeoStylerLocale('ColorField');
 
   const onColorPickerChange = useCallback((_: any, hex: string) => {
     // contains 0% opacity --> should only happen when clear is clicked
@@ -94,5 +92,3 @@ export const ColorField: React.FC<ColorFieldProps> = ({
     </span>
   );
 };
-
-export default localize(ColorField, 'ColorField');

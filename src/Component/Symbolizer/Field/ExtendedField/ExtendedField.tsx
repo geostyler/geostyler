@@ -65,5 +65,3 @@ export const ExtendedField: React.FC<ExtendedFieldProps> = ({
     </Radio.Group>
   );
 };
-
-export default ExtendedField;

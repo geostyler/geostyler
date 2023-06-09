@@ -31,7 +31,7 @@
 This demonstrates the usage of the `SymbolizerCard` component.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { SymbolizerCard } from 'geostyler';
 
 class SymbolizerCardExample extends React.Component {

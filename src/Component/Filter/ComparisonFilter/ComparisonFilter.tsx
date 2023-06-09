@@ -29,10 +29,12 @@
 
 import React from 'react';
 
-import AttributeCombo from '../AttributeCombo/AttributeCombo';
-import OperatorCombo from '../OperatorCombo/OperatorCombo';
-import TextFilterField from '../TextFilterField/TextFilterField';
-import NumberFilterField from '../NumberFilterField/NumberFilterField';
+import { JSONSchema4TypeName } from 'json-schema';
+
+import _get from 'lodash/get';
+import _cloneDeep from 'lodash/cloneDeep';
+import _isEmpty from 'lodash/isEmpty';
+import _isString from 'lodash/isString';
 
 import {
   ComparisonFilter as GsComparisonFilter,
@@ -40,19 +42,19 @@ import {
   PropertyType
 } from 'geostyler-style';
 
-import './ComparisonFilter.less';
-import BoolFilterField from '../BoolFilterField/BoolFilterField';
-
 import {
   Data as Data
 } from 'geostyler-data';
 
-import _get from 'lodash/get';
-import _cloneDeep from 'lodash/cloneDeep';
-import _isEmpty from 'lodash/isEmpty';
-import _isString from 'lodash/isString';
-import { JSONSchema4TypeName } from 'json-schema';
+import { AttributeCombo } from '../AttributeCombo/AttributeCombo';
+import { OperatorCombo } from '../OperatorCombo/OperatorCombo';
+import { TextFilterField } from '../TextFilterField/TextFilterField';
+import { NumberFilterField } from '../NumberFilterField/NumberFilterField';
+import {BoolFilterField} from '../BoolFilterField/BoolFilterField';
+
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+
+import './ComparisonFilter.less';
 
 type ValidationResult = {
   isValid: boolean;
@@ -172,7 +174,7 @@ export type ComparisonFilterProps = ComparisonFilterInternalProps & ComparisonFi
 export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
 
   const composition = useGeoStylerComposition('ComparisonFilter');
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     attributeNameFilter = () => true,
     attributeNameMappingFunction = n => n,
@@ -245,8 +247,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
   const operator = filter[0];
   const value = filter[2];
   const valueValidation = validators.value(value, internalDataDef, attribute);
-  const valueValidationHelpString = valueValidation.errorMsg;
-  // @ts-ignore
   const allowedOperators = attributeType ? operatorsMap[attributeType] : undefined;
   const isNumberBetweenComparison = operator === '<=x<=';
   const isNumberComparison = attributeType === 'number';
@@ -289,7 +289,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
       value={val}
       onValueChange={(newValue) => onValueChange(newValue, filterIndex)}
       validateStatus={validateStatus.value}
-      help={valueValidationHelpString}
     />;
   }
 
@@ -306,7 +305,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
       selectedAttribute={attribute}
       onValueChange={onValueChange}
       validateStatus={validateStatus.value}
-      help={valueValidationHelpString}
     />;
   }
 
@@ -396,5 +394,3 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
     </div>
   );
 };
-
-export default ComparisonFilter;

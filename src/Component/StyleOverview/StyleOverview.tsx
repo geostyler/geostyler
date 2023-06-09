@@ -36,28 +36,19 @@ import {
 
 import './StyleOverview.less';
 import { Data } from 'geostyler-data';
-import StyleFieldContainer from '../StyleFieldContainer/StyleFieldContainer';
-import Rules from '../Rules/Rules';
-import { localize } from '../LocaleWrapper/LocaleWrapper';
+import { StyleFieldContainer } from '../StyleFieldContainer/StyleFieldContainer';
+import { Rules } from '../Rules/Rules';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import { Divider } from 'antd';
 import CardViewUtil from '../../Util/CardViewUtil';
-import type GeoStylerLocale from '../../locale/locale';
-import en_US from '../../locale/en_US';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface StyleOverviewDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['StyleOverview'];
+export interface StyleOverviewProps {
   /** The callback when the style changed. */
   onStyleChange?: (style: GsStyle) => void;
   /** The callback when a view change (request) was triggered. */
   onChangeView?: (view: string, indices: number[]) => void;
-}
-
-// non default props
-export interface StyleOverviewProps extends Partial<StyleOverviewDefaultProps> {
   /** Reference to internal data object (holding schema and example features). */
   data?: Data;
   /** A GeoStyler-Style object. */
@@ -67,10 +58,11 @@ export interface StyleOverviewProps extends Partial<StyleOverviewDefaultProps> {
 export const StyleOverview: React.FC<StyleOverviewProps> = ({
   style,
   data,
-  onStyleChange = () => {},
-  onChangeView = () => {},
-  locale = en_US.StyleOverview,
+  onStyleChange = () => { },
+  onChangeView = () => { }
 }) => {
+
+  const locale = useGeoStylerLocale('StyleOverview');
 
   const onNameChange = (name: string) => {
     let newStyle = _cloneDeep(style);
@@ -115,5 +107,3 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
     </div>
   );
 };
-
-export default localize(StyleOverview, 'StyleOverview');

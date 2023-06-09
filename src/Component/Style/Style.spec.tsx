@@ -31,12 +31,10 @@ import TestUtil from '../../Util/TestUtil';
 import en_US from '../../locale/en_US';
 import _cloneDeep from 'lodash/cloneDeep';
 import { render, act, fireEvent } from '@testing-library/react';
-import { Style as GsStyle } from 'geostyler-style';
 
 describe('Style', () => {
 
   const props: StyleProps = {
-    locale: en_US.Style,
     onStyleChange: jest.fn(),
     style: TestUtil.getLineStyle()
   };

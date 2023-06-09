@@ -28,7 +28,7 @@
 
 import React, { ReactNode, useState } from 'react';
 import './Selectable.less';
-import SelectableItem from './SelectableItem/SelectableItem';
+import { SelectableItem } from './SelectableItem/SelectableItem';
 
 // default props
 export interface SelectableDefaultProps extends React.PropsWithChildren {
@@ -91,5 +91,3 @@ export const Selectable: React.FC<SelectableProps> = ({
     </div>
   );
 };
-
-export default Selectable;

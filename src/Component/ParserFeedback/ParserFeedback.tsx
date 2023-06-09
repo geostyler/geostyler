@@ -29,11 +29,9 @@
 import { Alert } from 'antd';
 import { ReadStyleResult, WriteStyleResult } from 'geostyler-style';
 import React from 'react';
-import en_US from '../../locale/en_US';
-import type GeoStylerLocale from '../../locale/locale';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ParserFeedbackProps {
-  locale?: GeoStylerLocale['ParserFeedback'];
   feedback: ReadStyleResult | WriteStyleResult;
 }
 
@@ -41,9 +39,10 @@ export interface ParserFeedbackProps {
  * Checkbox field for a boolean filter value.
  */
 export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
-  locale  = en_US.ParserFeedback,
   feedback
 }) => {
+
+  const locale = useGeoStylerLocale('ParserFeedback');
 
   if (!feedback || Object.keys(feedback).length < 1) {
     return null;

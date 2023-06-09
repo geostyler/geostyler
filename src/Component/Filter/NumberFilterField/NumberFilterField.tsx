@@ -26,25 +26,15 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import { InputNumber, Form } from 'antd';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-import type GeoStylerLocale from '../../../locale/locale';
-
-// default props
-interface NumberFilterFieldDefaultProps {
-  locale: GeoStylerLocale['NumberFilterField'];
+export interface NumberFilterFieldProps {
   /** Initial value set to the field */
-  value: number | undefined;
+  value?: number | undefined;
   /** Validation status */
-  validateStatus: 'success' | 'warning' | 'error' | 'validating';
-  /** Element to show a help text */
-  help: React.ReactNode;
-}
-// non default props
-export interface NumberFilterFieldProps extends Partial<NumberFilterFieldDefaultProps> {
+  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
   /** Callback for onChange */
   onValueChange?: ((newValue: number) => void);
   size?: 'large' | 'middle' | 'small';
@@ -54,15 +44,15 @@ export interface NumberFilterFieldProps extends Partial<NumberFilterFieldDefault
  * Input field for a numeric filter value.
  */
 export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
-  locale = en_US.NumberFilterField,
   value,
   validateStatus = 'success',
-  help = locale.help,
   onValueChange,
   size
 }) => {
 
-  const helpTxt = validateStatus !== 'success' ? help : null;
+  const locale = useGeoStylerLocale('NumberFilterField');
+
+  const helpTxt = validateStatus !== 'success' ? locale.help : null;
 
   return (
     <div
@@ -88,5 +78,3 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
     </div>
   );
 };
-
-export default localize(NumberFilterField, 'NumberFilterField');

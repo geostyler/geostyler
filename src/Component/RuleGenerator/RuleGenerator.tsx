@@ -30,23 +30,22 @@ import React, { useState } from 'react';
 import { Rule, SymbolizerKind, WellKnownName } from 'geostyler-style';
 import { VectorData } from 'geostyler-data';
 import { Radio, Form, Button, InputNumber, Tooltip } from 'antd';
-import en_US from '../../locale/en_US';
-import AttributeCombo from '../Filter/AttributeCombo/AttributeCombo';
+import { AttributeCombo } from '../Filter/AttributeCombo/AttributeCombo';
 
 import './RuleGenerator.less';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import RuleGeneratorUtil from '../../Util/RuleGeneratorUtil';
-import KindField from '../Symbolizer/Field/KindField/KindField';
-import WellKnownNameField from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
-import { localize } from '../LocaleWrapper/LocaleWrapper';
+import { KindField } from '../Symbolizer/Field/KindField/KindField';
+import { WellKnownNameField } from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
+
 import { brewer, InterpolationMode } from 'chroma-js';
-import ColorRampCombo from './ColorRampCombo/ColorRampCombo';
-import ColorSpaceCombo from './ColorSpaceCombo/ColorSpaceCombo';
-import ColorsPreview from './ColorsPreview/ColorsPreview';
-import ClassificationCombo, { ClassificationMethod } from './ClassificationCombo/ClassificationCombo';
+import { ColorRampCombo } from './ColorRampCombo/ColorRampCombo';
+import { ColorSpaceCombo } from './ColorSpaceCombo/ColorSpaceCombo';
+import { ColorsPreview } from './ColorsPreview/ColorsPreview';
+import { ClassificationCombo, ClassificationMethod } from './ClassificationCombo/ClassificationCombo';
 import _get from 'lodash/get';
 import { PlusSquareOutlined } from '@ant-design/icons';
-import type GeoStylerLocale from '../../locale/locale';
+import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 
@@ -60,25 +59,28 @@ export interface RuleGeneratorComposableProps {
 }
 
 export interface RuleGeneratorInternalProps {
-  locale?: GeoStylerLocale['RuleGenerator'];
   internalDataDef: VectorData;
   onRulesChange?: (rules: Rule[]) => void;
 }
-const COMPONENTNAME = 'RuleGenerator';
 
 export type RuleGeneratorProps = RuleGeneratorInternalProps & RuleGeneratorComposableProps;
 
-export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
-  locale = en_US.RuleGenerator,
-  internalDataDef,
-  onRulesChange,
-  colorSpaces = ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'], // rgba, cmyk and gl crash
-  colorRamps = {
-    GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
-    GreenRed: ['#00FF00', '#FF0000'],
-    ...brewer
-  }
-}) => {
+export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
+
+  const composition = useGeoStylerComposition('RuleGenerator');
+  const composed = {...props, ...composition};
+  const {
+    internalDataDef,
+    onRulesChange,
+    colorSpaces = ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'], // rgba, cmyk and gl crash
+    colorRamps = {
+      GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
+      GreenRed: ['#00FF00', '#FF0000'],
+      ...brewer
+    }
+  } = composed;
+
+  const locale = useGeoStylerLocale('RuleGenerator');
 
   const minNrClasses = 2;
 
@@ -220,7 +222,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
           help={classificationMethod === 'kmeans'
             ? locale.numberOfRulesViaKmeans
             : numberOfRules < minNrClasses
-            // eslint-disable-next-line max-len
+              // eslint-disable-next-line max-len
               ? `${locale.colorRampMinClassesWarningPre} ${minNrClasses} ${locale.colorRampMinClassesWarningPost}`
               : undefined
           }
@@ -234,13 +236,13 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
             />
             {
               levelOfMeasurement === 'nominal' && distinctValues.length > 0 &&
-                <Tooltip title={locale.allDistinctValues}>
-                  <Button
-                    className="all-distinct-values-button"
-                    icon={<PlusSquareOutlined />}
-                    onClick={onAllDistinctClicked}
-                  />
-                </Tooltip>
+              <Tooltip title={locale.allDistinctValues}>
+                <Button
+                  className="all-distinct-values-button"
+                  icon={<PlusSquareOutlined />}
+                  onClick={onAllDistinctClicked}
+                />
+              </Tooltip>
             }
           </div>
         </Form.Item>
@@ -257,7 +259,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
               onChange={onSymbolizerKindChange}
             />
           </Form.Item>
-          { symbolizerKind !== 'Mark' ? null :
+          {symbolizerKind !== 'Mark' ? null :
             <Form.Item>
               <WellKnownNameField
                 wellKnownName={wellKnownName}
@@ -310,5 +312,3 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = ({
     </div>
   );
 };
-
-export default localize(RuleGenerator, COMPONENTNAME);

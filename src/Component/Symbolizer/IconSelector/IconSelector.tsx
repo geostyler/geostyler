@@ -35,15 +35,12 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-
 import './IconSelector.less';
 
 import _isEqual from 'lodash/isEqual';
-import type GeoStylerLocale from '../../../locale/locale';
+
 import { IconEditorComposableProps } from '../IconEditor/IconEditor';
-import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerComposition, useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export type IconLibrary = {
   name: string;
@@ -59,11 +56,9 @@ type SelectedIcon = {
 };
 
 export interface IconSelectorProps {
-  locale?: GeoStylerLocale['IconSelector'];
   selectedIconSrc?: string;
   onIconSelect?: (iconSrc: string) => void;
 }
-const COMPONENTNAME = 'IconSelector';
 
 export const IconSelector: React.FC<IconSelectorProps & Pick<IconEditorComposableProps, 'iconLibraries'>> = (props) => {
 
@@ -71,11 +66,12 @@ export const IconSelector: React.FC<IconSelectorProps & Pick<IconEditorComposabl
   const composed = {...props, ...composition};
 
   const {
-    locale = en_US.IconSelector,
     iconLibraries = [],
     selectedIconSrc,
     onIconSelect
   } = composed;
+
+  const locale = useGeoStylerLocale('IconSelector');
 
   const [selectedLibIndex, setSelectedLibIndex] = useState<number>();
   const [selectedIcon, setSelectedIcon] = useState<SelectedIcon>();
@@ -182,5 +178,3 @@ export const IconSelector: React.FC<IconSelectorProps & Pick<IconEditorComposabl
     </div>
   );
 };
-
-export default localize(IconSelector, COMPONENTNAME);

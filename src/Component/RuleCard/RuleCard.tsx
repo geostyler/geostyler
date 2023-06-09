@@ -35,7 +35,7 @@ import {
 import { CqlParser } from 'geostyler-cql-parser';
 
 import './RuleCard.less';
-import Renderer from '../Renderer/Renderer/Renderer';
+import { Renderer } from '../Renderer/Renderer/Renderer';
 import FilterUtil from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { Data } from 'geostyler-data';
@@ -82,7 +82,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
 
   const composition = useGeoStylerComposition('Rule');
 
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     rule,
     duplicates,
@@ -128,7 +128,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
           maxScaleField?.visibility === false || minScaleField?.visibility === false ? null : (
             <span>
               <>
-                  1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}
+                1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}
               </>
             </span>
           )
@@ -169,5 +169,3 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
     </Card>
   );
 };
-
-export default RuleCard;

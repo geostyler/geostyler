@@ -65,5 +65,3 @@ export const GammaField: React.FC<GammaFieldProps> = ({
     />
   );
 };
-
-export default GammaField;

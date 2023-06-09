@@ -76,5 +76,3 @@ export const FontPicker: React.FC<FontPickerProps> = ({
     />
   );
 };
-
-export default FontPicker;

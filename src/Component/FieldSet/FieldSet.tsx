@@ -26,19 +26,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import { Checkbox } from 'antd';
 
 import './FieldSet.less';
 
-// default props
-interface FieldSetDefaultProps extends React.PropsWithChildren {
+export interface FieldSetProps extends React.PropsWithChildren {
   /** Check/uncheck Checkbox */
-  checked: boolean;
-}
-
-// non default props
-export interface FieldSetProps extends Partial<FieldSetDefaultProps> {
+  checked?: boolean;
   /** Title to be rendered on top of the FieldSet */
   title?: string;
   /** Callback function for onChange of the checkbox  */
@@ -76,5 +71,3 @@ export const FieldSet: React.FC<FieldSetProps> = ({
     </fieldset>
   );
 };
-
-export default FieldSet;

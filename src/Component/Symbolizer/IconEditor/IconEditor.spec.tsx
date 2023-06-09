@@ -28,7 +28,7 @@
 import React from 'react';
 import { IconEditor, IconEditorProps } from './IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import en_US from '../../../locale/en_US';
+
 import { IconSymbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
 
@@ -37,7 +37,6 @@ describe('IconEditor', () => {
   let dummySymbolizer: IconSymbolizer = SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer;
   const props: IconEditorProps = {
     symbolizer: dummySymbolizer,
-    locale: en_US.IconEditor,
     onSymbolizerChange: jest.fn()
   };
 

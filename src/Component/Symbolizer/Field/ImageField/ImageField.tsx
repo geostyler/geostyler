@@ -33,29 +33,24 @@ import {
   Tooltip
 } from 'antd';
 
-import IconSelectorWindow from '../../IconSelectorWindow/IconSelectorWindow';
+import { IconSelectorWindow } from '../../IconSelectorWindow/IconSelectorWindow';
 import { IconLibrary } from '../../IconSelector/IconSelector';
 
 import './ImageField.less';
 import { PictureOutlined } from '@ant-design/icons';
 
-// default props
-interface ImageFieldDefaultProps {
+export interface ImageFieldProps {
   /** The tooltip label for the iconLibraries button. */
-  tooltipLabel: string;
+  tooltipLabel?: string;
   /** The placeholder text when no value was provided yet. */
-  placeholder: string;
+  placeholder?: string;
   /** True, if the iconLibrary should not be opened in a window. False otherwise. */
-  windowless: boolean;
+  windowless?: boolean;
   /**
    * The callback when the iconLibraries button was clicked.
    * This will only be called, when 'windowless' is true.
    */
-  onIconLibrariesClick: () => void;
-}
-
-// non default props
-export interface ImageFieldProps extends Partial<ImageFieldDefaultProps> {
+  onIconLibrariesClick?: () => void;
   /** The value of the image field. */
   value?: string;
   /** The callback that is triggered when the value changes. */
@@ -74,7 +69,7 @@ export const ImageField: React.FC<ImageFieldProps> = ({
   tooltipLabel = 'Open Gallery',
   placeholder = 'URL to image',
   windowless = false,
-  onIconLibrariesClick = () => {}
+  onIconLibrariesClick = () => { }
 }) => {
 
   const [windowVisible, setWindowVisible] = React.useState<boolean>(false);
@@ -127,5 +122,3 @@ export const ImageField: React.FC<ImageFieldProps> = ({
     </div>
   );
 };
-
-export default ImageField;

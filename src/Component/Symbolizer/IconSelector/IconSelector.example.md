@@ -31,7 +31,7 @@
 This demonstrates the use of `IconSelector`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { IconSelector } from 'geostyler/Component/Symbolizer/IconSelector/IconSelector';
 
 class IconSelectorExample extends React.Component {

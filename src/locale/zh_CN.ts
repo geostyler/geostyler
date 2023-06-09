@@ -37,7 +37,9 @@ const zh_CN: GeoStylerLocale = {
     titleFieldPlaceholder: 'TODO(zh_CN):Enter title'
   },
   Editor: {
-    kindFieldLabel: 'TODO(zh_CN):Kind'
+    kindFieldLabel: '类型',
+    visibilityFieldLabel: '可见性',
+    unknownSymbolizerText: 'TODO(zh_CN):Symbolizer unknown!'
   },
   RuleFieldContainer: {
     nameFieldLabel: 'TODO(zh_CN):Name',
@@ -311,11 +313,6 @@ const zh_CN: GeoStylerLocale = {
     rampMapTypeLabel: '渐变',
     intervalsMapTypeLabel: '分级',
     valuesMapTypeLabel: '唯一值'
-  },
-  SymbolizerEditor: {
-    kindFieldLabel: '类型',
-    visibilityFieldLabel: '可见性',
-    unknownSymbolizerText: 'TODO(zh_CN):Symbolizer unknown!'
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: '符号编辑器'

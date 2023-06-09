@@ -33,16 +33,12 @@ import { VectorData } from 'geostyler-data';
 import './FilterEditorWindow.less';
 import { Modal, ModalProps } from 'antd';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import { Filter } from 'geostyler-style';
-import FilterTree from '../FilterTree/FilterTree';
-import type GeoStylerLocale from '../../../locale/locale';
-import en_US from '../../../locale/en_US';
 
-// non default props
+import { Filter } from 'geostyler-style';
+import { FilterTree } from '../FilterTree/FilterTree';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+
 export interface FilterEditorWindowProps extends Partial<ModalProps> {
-  /** Locale object containing translated text snippets */
-  locale?: GeoStylerLocale['FilterEditorWindow'];
   /** The filter to edit */
   filter?: Filter;
   /** Layer metadata in the GeoStyler VectorData format */
@@ -58,9 +54,10 @@ export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
   onClose,
   filter,
   onFilterChange,
-  locale = en_US.FilterEditorWindow,
   ...passThroughProps
 }) => {
+
+  const locale = useGeoStylerLocale('FilterEditorWindow');
 
   return (
     <Modal
@@ -80,5 +77,3 @@ export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
     </Modal>
   );
 };
-
-export default localize(FilterEditorWindow, 'FilterEditorWindow');

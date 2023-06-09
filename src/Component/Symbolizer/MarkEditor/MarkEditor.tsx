@@ -33,16 +33,16 @@ import {
   WellKnownName
 } from 'geostyler-style';
 
-import WellKnownNameField from '../Field/WellKnownNameField/WellKnownNameField';
-import WellKnownNameEditor from '../WellKnownNameEditor/WellKnownNameEditor';
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
+import { WellKnownNameField } from '../Field/WellKnownNameField/WellKnownNameField';
+import { WellKnownNameEditor } from '../WellKnownNameEditor/WellKnownNameEditor';
+
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
-import type GeoStylerLocale from '../../../locale/locale';
+
 import {
   useGeoStylerComposition,
+  useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 
@@ -55,26 +55,24 @@ export interface MarkEditorComposableProps {
 }
 
 export interface MarkEditorInternalProps {
-  locale?: GeoStylerLocale['MarkEditor'];
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: MarkSymbolizer) => void;
 }
 
 export type MarkEditorProps = MarkEditorInternalProps & MarkEditorComposableProps;
 
-const COMPONENTNAME = 'MarkEditor';
-
 export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('MarkEditor');
 
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
-    locale = en_US.MarkEditor,
     onSymbolizerChange,
     symbolizer,
     wellKnownNameField
   } = composed;
+
+  const locale = useGeoStylerLocale('MarkEditor');
 
   const {
     getFormItemSupportProps
@@ -110,5 +108,3 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
     </div>
   );
 };
-
-export default localize(MarkEditor, COMPONENTNAME);

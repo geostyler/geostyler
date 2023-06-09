@@ -64,5 +64,3 @@ export const WidthField: React.FC<WidthFieldProps> = ({
     />
   );
 };
-
-export default WidthField;

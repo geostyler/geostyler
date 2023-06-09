@@ -26,16 +26,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import './FieldContainer.less';
 
-// default props
-interface FieldContainerDefaultProps {
-}
-
-// non default props
-export interface FieldContainerProps extends Partial<FieldContainerDefaultProps> {
+export interface FieldContainerProps {
   children?: React.ReactElement | React.ReactElement[];
   className?: string;
 }
@@ -52,5 +47,3 @@ export const FieldContainer: React.FC<FieldContainerProps> = ({
   );
 
 };
-
-export default FieldContainer;

@@ -31,7 +31,7 @@
 This demonstrates the use of `CardStyle`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { CardStyle } from 'geostyler/Component/CardStyle/CardStyle';
 
 class CardStyleExample extends React.Component {

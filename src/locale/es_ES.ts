@@ -98,7 +98,9 @@ const es_ES: GeoStylerLocale = {
     titleFieldPlaceholder: 'TODO(es_ES):Enter title'
   },
   Editor: {
-    kindFieldLabel: 'TODO(es_ES):Kind'
+    kindFieldLabel: 'Tipo',
+    unknownSymbolizerText: 'TODO(es_ES):Symbolizer unknown!',
+    visibilityFieldLabel: 'Visibilidad',
   },
   RuleFieldContainer: {
     nameFieldLabel: 'TODO(es_ES):Name',
@@ -311,11 +313,6 @@ const es_ES: GeoStylerLocale = {
       Cross: 'Cruz',
       X: 'X'
     }
-  },
-  SymbolizerEditor: {
-    kindFieldLabel: 'Tipo',
-    unknownSymbolizerText: 'TODO(es_ES):Symbolizer unknown!',
-    visibilityFieldLabel: 'Visibilidad',
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Editor de simbología'

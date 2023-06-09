@@ -26,44 +26,36 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
+
+import _cloneDeep from 'lodash/cloneDeep';
+import _isEqual from 'lodash/isEqual';
 
 import {
   Symbolizer,
   TextSymbolizer
 } from 'geostyler-style';
 
-import ColorField from '../Field/ColorField/ColorField';
-import OpacityField from '../Field/OpacityField/OpacityField';
-import WidthField from '../Field/WidthField/WidthField';
-
-import _cloneDeep from 'lodash/cloneDeep';
-import _isEqual from 'lodash/isEqual';
-import FontPicker from '../Field/FontPicker/FontPicker';
-import OffsetField from '../Field/OffsetField/OffsetField';
-import AttributeCombo from '../../Filter/AttributeCombo/AttributeCombo';
+import {AttributeCombo} from '../../Filter/AttributeCombo/AttributeCombo';
+import {ColorField} from '../Field/ColorField/ColorField';
+import {FontPicker} from '../Field/FontPicker/FontPicker';
+import {OffsetField} from '../Field/OffsetField/OffsetField';
+import {OpacityField} from '../Field/OpacityField/OpacityField';
+import {RotateField} from '../Field/RotateField/RotateField';
+import {WidthField} from '../Field/WidthField/WidthField';
 import { Data } from 'geostyler-data';
 
 import './PropTextEditor.less';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import RotateField from '../Field/RotateField/RotateField';
-import en_US from '../../../locale/en_US';
-import type GeoStylerLocale from '../../../locale/locale';
 import { Form } from 'antd';
-
-interface PropTextEditorDefaultProps {
-  locale: GeoStylerLocale['PropTextEditor'];
-}
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // non default props
-export interface PropTextEditorProps extends Partial<PropTextEditorDefaultProps> {
+export interface PropTextEditorProps {
   symbolizer: TextSymbolizer;
   internalDataDef?: Data;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
-
-const COMPONENTNAME = 'PropTextEditor';
 
 /**
  * The PropTextEditor class. Allows to edit text styles solely based on a
@@ -71,11 +63,12 @@ const COMPONENTNAME = 'PropTextEditor';
  * of a feature. No static text is allowed.
  */
 export const PropTextEditor: React.FC<PropTextEditorProps> = ({
-  locale = en_US.PropTextEditor,
   symbolizer,
   internalDataDef,
   onSymbolizerChange
 }) => {
+
+  const locale = useGeoStylerLocale('PropTextEditor');
 
   const formatLabel = (label: string): string => {
     const regExp: RegExp = /\{\{(.*)\}\}/g;
@@ -278,5 +271,3 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     </div>
   );
 };
-
-export default localize(PropTextEditor, COMPONENTNAME);

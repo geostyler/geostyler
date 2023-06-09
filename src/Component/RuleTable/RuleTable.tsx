@@ -54,36 +54,17 @@ import {
   Data
 } from 'geostyler-data';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
-
 import './RuleTable.less';
-import FilterEditorWindow from '../Filter/FilterEditorWindow/FilterEditorWindow';
-import SymbolizerEditorWindow from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
+import { FilterEditorWindow } from '../Filter/FilterEditorWindow/FilterEditorWindow';
+import { SymbolizerEditorWindow } from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { ColumnProps, TableProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
-import RuleReorderButtons from './RuleReorderButtons/RuleReorderButtons';
+import { RuleReorderButtons } from './RuleReorderButtons/RuleReorderButtons';
 import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
-import type GeoStylerLocale from '../../locale/locale';
-import Renderer from '../Renderer/Renderer/Renderer';
-import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
+import { Renderer } from '../Renderer/Renderer/Renderer';
+import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
-
-// i18n
-export interface RuleTableLocale {
-  symbolizersColumnTitle: string;
-  nameColumnTitle: string;
-  filterColumnTitle: string;
-  minScaleColumnTitle: string;
-  maxScaleColumnTitle: string;
-  amountColumnTitle: string;
-  duplicatesColumnTitle: string;
-  // locale from antd
-  filterConfirm?: string;
-  filterReset?: string;
-  emptyText?: string;
-}
 
 export interface RuleRecord extends GsRule {
   key: number;
@@ -94,8 +75,6 @@ export interface RuleRecord extends GsRule {
 }
 
 export interface RuleTableInternalProps {
-  /** Locale object containing translated text snippets */
-  locale?: GeoStylerLocale['RuleTable'];
   /** The renderer to use */
   rendererType?: 'SLD' | 'OpenLayers';
   /** Reference to internal data object (holding schema and example features) */
@@ -113,18 +92,15 @@ export interface RuleTableInternalProps {
 
 export type RuleTableProps = RuleTableInternalProps & RuleComposableProps & TableProps<RuleRecord>;
 
-const COMPONENTNAME = 'RuleTable';
-
 export const RuleTable: React.FC<RuleTableProps> = (props) => {
 
   const composition = useGeoStylerComposition('Rule') as RuleComposableProps;
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     amountField,
     data: dataProp,
     duplicateField,
     filterField,
-    locale = en_US.RuleTable,
     maxScaleField,
     minScaleField,
     nameField,
@@ -134,6 +110,8 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     // The composableProps include the antd table props
     ...antdTableProps
   } = composed;
+
+  const locale = useGeoStylerLocale('RuleTable');
 
   const [ruleEditIndex, setRuleEditIndex] = useState<number>();
   const [symbolizerEditorVisible, setSymbolizerEditorVisible] = useState<boolean>();
@@ -148,7 +126,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
    * The Parser to read and write CQL Filter
    *
    */
-  const { current: cqlParser} = useRef(new CqlParser());
+  const { current: cqlParser } = useRef(new CqlParser());
 
   useEffect(() => {
     let countsAndDuplicates: CountResult = {};
@@ -300,8 +278,8 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
 
   // TODO: Refactor to stand alone component
   const amountRenderer = (text: string, record: RuleRecord) => {
-    let amount: (number|'-') = '-';
-    const filter: GsFilter|undefined = record.filter;
+    let amount: (number | '-') = '-';
+    const filter: GsFilter | undefined = record.filter;
     if (data && filter) {
       try {
         amount = counts[record?.key] || 0;
@@ -320,7 +298,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
 
   // TODO: Refactor to stand alone component
   const duplicatesRenderer = (text: string, record: RuleRecord) => {
-    let calculatedDuplicates: (number|'-') = '-';
+    let calculatedDuplicates: (number | '-') = '-';
     if (data && rules) {
       try {
         calculatedDuplicates = duplicates[record.key];
@@ -463,5 +441,3 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     </div>
   );
 };
-
-export default localize(RuleTable, COMPONENTNAME);

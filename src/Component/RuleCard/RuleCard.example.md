@@ -62,7 +62,7 @@ function RuleCardExample() {
 With provided data property and filter.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { RuleCard } from 'geostyler';
 
 function RuleCardExample() {

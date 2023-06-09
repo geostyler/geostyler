@@ -31,7 +31,7 @@
 This demonstrates the use of `RadiusField`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { RadiusField } from 'geostyler';
 
 class RadiusFieldExample extends React.Component {

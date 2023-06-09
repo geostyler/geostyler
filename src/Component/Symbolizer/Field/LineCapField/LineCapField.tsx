@@ -76,5 +76,3 @@ export const LineCapField: React.FC<LineCapFieldProps & SelectProps> = ({
     />
   );
 };
-
-export default LineCapField;

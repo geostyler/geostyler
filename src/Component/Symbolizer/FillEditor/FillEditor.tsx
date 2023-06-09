@@ -27,10 +27,15 @@
  */
 
 import React from 'react';
+
 import {
   Collapse,
   Form
 } from 'antd';
+
+import _cloneDeep from 'lodash/cloneDeep';
+import _get from 'lodash/get';
+import _isEqual from 'lodash/isEqual';
 
 import {
   Symbolizer,
@@ -40,22 +45,16 @@ import {
   Expression
 } from 'geostyler-style';
 
-import ColorField, { ColorFieldProps } from '../Field/ColorField/ColorField';
-import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
-import GraphicEditor from '../GraphicEditor/GraphicEditor';
-import WidthField, { WidthFieldProps } from '../Field/WidthField/WidthField';
+import { ColorField, ColorFieldProps } from '../Field/ColorField/ColorField';
+import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
+import { GraphicEditor } from '../GraphicEditor/GraphicEditor';
+import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
+import { LineDashField } from '../Field/LineDashField/LineDashField';
 
-import _cloneDeep from 'lodash/cloneDeep';
-import _get from 'lodash/get';
-import _isEqual from 'lodash/isEqual';
-
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-import LineDashField from '../Field/LineDashField/LineDashField';
-import type GeoStylerLocale from '../../../locale/locale';
 import {
   InputConfig,
   useGeoStylerComposition,
+  useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 
@@ -76,23 +75,19 @@ export interface FillEditorComposableProps {
 }
 
 export interface FillEditorInternalProps {
-  locale?: GeoStylerLocale['FillEditor'];
   symbolizer: FillSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
 export type FillEditorProps = FillEditorInternalProps & FillEditorComposableProps;
 
-const COMPONENTNAME = 'FillEditor';
-
 export const FillEditor: React.FC<FillEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('FillEditor');
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     fillColorField,
     fillOpacityField,
-    locale = en_US.FillEditor,
     onSymbolizerChange,
     opacityField,
     outlineColorField,
@@ -101,6 +96,8 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     outlineWidthField,
     symbolizer
   } = composed;
+
+  const locale = useGeoStylerLocale('FillEditor');
 
   const {
     getFormItemSupportProps
@@ -297,5 +294,3 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     </div>
   );
 };
-
-export default localize(FillEditor, COMPONENTNAME);

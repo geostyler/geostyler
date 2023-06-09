@@ -67,5 +67,3 @@ export const ContrastField: React.FC<ContrastFieldProps> = ({
     />
   );
 };
-
-export default ContrastField;

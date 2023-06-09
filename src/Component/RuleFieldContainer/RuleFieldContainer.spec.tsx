@@ -28,7 +28,7 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import RuleFieldContainer from './RuleFieldContainer';
+import { RuleFieldContainer } from './RuleFieldContainer';
 
 describe('RuleFieldContainer', () => {
 

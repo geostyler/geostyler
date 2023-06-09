@@ -66,5 +66,3 @@ export const SaturationField: React.FC<SaturationFieldProps> = ({
     />
   );
 };
-
-export default SaturationField;

@@ -30,37 +30,26 @@ import React, { useState } from 'react';
 
 import { Form, Space } from 'antd';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
-
 import './BulkEditor.less';
-import ColorField from '../Symbolizer/Field/ColorField/ColorField';
-import RadiusField from '../Symbolizer/Field/RadiusField/RadiusField';
-import OpacityField from '../Symbolizer/Field/OpacityField/OpacityField';
-import KindField from '../Symbolizer/Field/KindField/KindField';
+import { ColorField } from '../Symbolizer/Field/ColorField/ColorField';
+import { RadiusField } from '../Symbolizer/Field/RadiusField/RadiusField';
+import { OpacityField } from '../Symbolizer/Field/OpacityField/OpacityField';
+import { KindField } from '../Symbolizer/Field/KindField/KindField';
 import { Expression, SymbolizerKind, WellKnownName } from 'geostyler-style';
-import WellKnownNameField from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
-import ImageField from '../Symbolizer/Field/ImageField/ImageField';
-import type GeoStylerLocale from '../../locale/locale';
+import { WellKnownNameField } from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
+import { ImageField } from '../Symbolizer/Field/ImageField/ImageField';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
-
-// default props
-interface BulkEditorDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['BulkEditor'];
+export interface BulkEditorProps {
   /** The callback that is triggered, when a style property changed. */
-  onStylePropChange: (prop: string, val: any) => void;
-}
-
-// non default props
-export interface BulkEditorProps extends Partial<BulkEditorDefaultProps> {
+  onStylePropChange?: (prop: string, val: any) => void;
 }
 
 export const BulkEditor: React.FC<BulkEditorProps> = ({
-  locale = en_US.BulkEditor,
-  onStylePropChange = () => {}
+  onStylePropChange = () => { }
 }) => {
 
+  const locale = useGeoStylerLocale('BulkEditor');
   const [color, setColor] = useState<string>();
   const [radius, setRadius] = useState<Expression<number>>();
   const [opacity, setOpacity] = useState<Expression<number>>();
@@ -163,5 +152,3 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
     </div>
   );
 };
-
-export default localize(BulkEditor, 'BulkEditor');
