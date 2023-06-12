@@ -172,5 +172,3 @@ export const SLDRenderer: React.FC<SLDRendererProps> = ({
   );
 
 };
-
-export default SLDRenderer;

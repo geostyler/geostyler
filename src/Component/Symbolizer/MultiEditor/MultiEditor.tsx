@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import {
   Symbolizer
@@ -39,25 +39,16 @@ import 'ol/ol.css';
 import { Data } from 'geostyler-data';
 
 import { Tabs } from 'antd';
-import Editor from '../Editor/Editor';
+import { Editor } from '../Editor/Editor';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 import _isEqual from 'lodash/isEqual';
-import type GeoStylerLocale from '../../../locale/locale';
+
 import { Tab } from 'rc-tabs/lib/interface';
 
-
-// default props
-interface MultiEditorDefaultProps {
-  locale: GeoStylerLocale['MultiEditor'];
-}
-
-// non default props
-export interface MultiEditorProps extends Partial<MultiEditorDefaultProps> {
+export interface MultiEditorProps {
   internalDataDef?: Data;
   editorProps?: any;
   symbolizers: Symbolizer[];
@@ -65,10 +56,7 @@ export interface MultiEditorProps extends Partial<MultiEditorDefaultProps> {
   iconLibraries?: IconLibrary[];
 }
 
-const COMPONENTNAME = 'MultiEditor';
-
 export const MultiEditor: React.FC<MultiEditorProps> = ({
-  locale = en_US.MultiEditor,
   internalDataDef,
   editorProps,
   symbolizers,
@@ -150,5 +138,3 @@ export const MultiEditor: React.FC<MultiEditorProps> = ({
     />
   );
 };
-
-export default localize(MultiEditor, COMPONENTNAME);

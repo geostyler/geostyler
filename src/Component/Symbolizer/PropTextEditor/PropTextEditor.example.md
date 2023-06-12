@@ -31,7 +31,7 @@
 This demonstrates the use of `PropTextEditor`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { PropTextEditor } from 'geostyler';
 
 const data = {

@@ -73,5 +73,3 @@ export const OpacityField: React.FC<OpacityFieldProps> = ({
     />
   );
 };
-
-export default OpacityField;

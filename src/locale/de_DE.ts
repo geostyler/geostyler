@@ -37,7 +37,9 @@ const de_DE: GeoStylerLocale = {
     titleFieldPlaceholder: 'Titel eingeben'
   },
   Editor: {
-    kindFieldLabel: 'Kind'
+    kindFieldLabel: 'Art',
+    visibilityFieldLabel: 'Sichtbarkeit',
+    unknownSymbolizerText: 'Symbolizer unbekannt!'
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Name',
@@ -311,11 +313,6 @@ const de_DE: GeoStylerLocale = {
   },
   GrayChannelField: {
     grayLabel: 'Graues band'
-  },
-  SymbolizerEditor: {
-    kindFieldLabel: 'Art',
-    visibilityFieldLabel: 'Sichtbarkeit',
-    unknownSymbolizerText: 'Symbolizer unbekannt!'
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Symbolisierungseditor'

@@ -37,25 +37,24 @@ import {
   TextSymbolizer
 } from 'geostyler-style';
 
-import ColorField, { ColorFieldProps } from '../Field/ColorField/ColorField';
-import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
-import WidthField, { WidthFieldProps } from '../Field/WidthField/WidthField';
-import FontPicker from '../Field/FontPicker/FontPicker';
-import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
-import RotateField, { RotateFieldProps } from '../Field/RotateField/RotateField';
+import { ColorField, ColorFieldProps } from '../Field/ColorField/ColorField';
+import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
+import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
+import { FontPicker } from '../Field/FontPicker/FontPicker';
+import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
+import { RotateField, RotateFieldProps } from '../Field/RotateField/RotateField';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
 
 import './TextEditor.less';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
 import { VectorData } from 'geostyler-data';
-import type GeoStylerLocale from '../../../locale/locale';
+
 import {
   InputConfig,
   useGeoStylerComposition,
+  useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 import { SizeFieldProps } from '../Field/SizeField/SizeField';
@@ -77,13 +76,10 @@ export interface TextEditorComposableProps {
 }
 
 export interface TextEditorInternalProps {
-  locale?: GeoStylerLocale['TextEditor'];
   symbolizer: TextSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
   internalDataDef?: VectorData;
 }
-
-const COMPONENTNAME = 'TextEditor';
 
 export type TextEditorProps = TextEditorInternalProps & TextEditorComposableProps;
 
@@ -95,14 +91,13 @@ export type TextEditorProps = TextEditorInternalProps & TextEditorComposableProp
 export const TextEditor: React.FC<TextEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('TextEditor');
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     colorField,
     fontField,
     haloColorField,
     haloWidthField,
     internalDataDef,
-    locale = en_US.TextEditor,
     offsetXField,
     offsetYField,
     onSymbolizerChange,
@@ -112,6 +107,8 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     symbolizer,
     templateField
   } = composed;
+
+  const locale = useGeoStylerLocale('TextEditor');
 
   const {
     getFormItemSupportProps
@@ -380,5 +377,3 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     </div>
   );
 };
-
-export default localize(TextEditor, COMPONENTNAME);

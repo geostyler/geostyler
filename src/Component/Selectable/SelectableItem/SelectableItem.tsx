@@ -58,5 +58,3 @@ export const SelectableItem: React.FC<SelectableItemProps> = ({
     </div>
   );
 };
-
-export default SelectableItem;

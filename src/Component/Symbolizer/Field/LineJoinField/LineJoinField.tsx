@@ -76,5 +76,3 @@ export const LineJoinField: React.FC<LineJoinFieldProps & SelectProps> = ({
     />
   );
 };
-
-export default LineJoinField;

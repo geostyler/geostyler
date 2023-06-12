@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import './ColorRampCombo.less';
 
@@ -34,40 +34,26 @@ import { brewer } from 'chroma-js';
 
 import { Select } from 'antd';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 
 import _isEqual from 'lodash/isEqual';
-import type GeoStylerLocale from '../../../locale/locale';
-import en_US from '../../../locale/en_US';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-
-// default props
-export interface ColorRampComboDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['ColorRampCombo'];
+export interface ColorRampComboProps {
   /** Object containing predefined color ramps */
-  colorRamps: {
+  colorRamps?: {
     [name: string]: string[];
   };
-}
-
-// non default props
-export interface ColorRampComboProps extends Partial<ColorRampComboDefaultProps> {
   /** The callback method that is triggered when the state changes */
   onChange?: (colorRamp: string) => void;
   /** The selected color ramp */
   colorRamp?: string;
 }
 
-const COMPONENTNAME = 'ColorRampCombo';
-
 /**
  * ColorRampCombo UI.
  */
 export const ColorRampCombo: React.FC<ColorRampComboProps> = ({
-  locale = en_US.ColorRampCombo,
   colorRamps = {
     GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
     GreenRed: ['#00FF00', '#FF0000'],
@@ -76,6 +62,8 @@ export const ColorRampCombo: React.FC<ColorRampComboProps> = ({
   onChange,
   colorRamp
 }) => {
+
+  const locale = useGeoStylerLocale('ColorRampCombo');
 
   const colorRampOptions = Object.keys(colorRamps)
     .map((name: string) => {
@@ -113,5 +101,3 @@ export const ColorRampCombo: React.FC<ColorRampComboProps> = ({
     </Select>
   );
 };
-
-export default localize(ColorRampCombo, COMPONENTNAME);

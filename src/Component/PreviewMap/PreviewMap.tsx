@@ -258,5 +258,3 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
     />
   );
 };
-
-export default PreviewMap;

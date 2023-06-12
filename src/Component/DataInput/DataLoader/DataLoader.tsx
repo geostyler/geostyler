@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import { Select, Modal } from 'antd';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
@@ -43,22 +43,11 @@ import { ReadParams } from 'geostyler-wfs-parser';
 
 import UploadButton, { UploadButtonProps } from '../../UploadButton/UploadButton';
 import WfsParserInput from '../WfsParserInput/WfsParserInput';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import type GeoStylerLocale from '../../../locale/locale';
-import en_US from '../../../locale/en_US';
-
-
-// default props
-interface DataLoaderDefaultProps {
+export interface DataLoaderProps {
   /** The callback method that is triggered when the state changes */
-  onDataRead: (data: VectorData) => void;
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['DataLoader'];
-}
-
-// non default props
-export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
+  onDataRead?: (data: VectorData) => void;
   /** List of data parsers to use */
   parsers: DataParser[];
   /** Properties that get passed to the UploadButton. */
@@ -67,13 +56,13 @@ export interface DataLoaderProps extends Partial<DataLoaderDefaultProps> {
 
 export const DataLoader: React.FC<DataLoaderProps> = ({
   parsers,
-  locale = en_US.DataLoader,
   uploadButtonProps,
   onDataRead = () => {
     return;
   }
 }) => {
 
+  const locale = useGeoStylerLocale('DataLoader');
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [activeParser, setActitveParser] = React.useState<DataParser>();
 
@@ -204,5 +193,3 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
     </div>
   );
 };
-
-export default localize(DataLoader, 'DataLoader');

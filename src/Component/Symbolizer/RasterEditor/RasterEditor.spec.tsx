@@ -28,7 +28,7 @@
 import React from 'react';
 import { RasterEditor, RasterEditorProps } from './RasterEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import en_US from '../../../locale/en_US';
+
 import { RasterSymbolizer } from 'geostyler-style';
 import { act, render, fireEvent } from '@testing-library/react';
 
@@ -37,7 +37,6 @@ describe('RasterEditor', () => {
   let dummySymbolizer: RasterSymbolizer = SymbolizerUtil.generateSymbolizer('Raster') as RasterSymbolizer;
   const props: RasterEditorProps = {
     symbolizer: dummySymbolizer,
-    locale: en_US.RasterEditor,
     onSymbolizerChange: jest.fn()
   };
 

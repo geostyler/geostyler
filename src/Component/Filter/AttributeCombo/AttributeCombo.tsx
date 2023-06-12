@@ -26,36 +26,26 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { Select, Form, Input } from 'antd';
 import { Data } from 'geostyler-data';
-
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-import type GeoStylerLocale from '../../../locale/locale';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 const Option = Select.Option;
 
-// default props
-interface AttributeComboDefaultProps extends React.PropsWithChildren {
+export interface AttributeComboProps {
   /** Set true to hide the attribute's type in the select options */
-  hideAttributeType: boolean;
-  locale: GeoStylerLocale['AttributeCombo'];
+  hideAttributeType?: boolean;
   /**
    * A custom filter function which is passed each attribute.
    * Should return true to accept each attribute or false to reject it.
    */
-  attributeNameFilter: (attrName: string) => boolean;
+  attributeNameFilter?: (attrName: string) => boolean;
   /** Mapping function for attribute names of this combo */
   attributeNameMappingFunction?: (originalAttributeName: string) => string;
   /** Validation status */
-  validateStatus: 'success' | 'warning' | 'error' | 'validating';
-  /** Element to show a help text */
-  help: React.ReactNode;
-}
-// non default props
-export interface AttributeComboProps extends Partial<AttributeComboDefaultProps> {
+  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: Data;
   /** Callback function for onChange */
@@ -69,23 +59,23 @@ export interface AttributeComboProps extends Partial<AttributeComboDefaultProps>
  * Combobox offering the attributes to be filtered on.
  */
 export const AttributeCombo: React.FC<AttributeComboProps> = ({
-  locale = en_US.AttributeCombo,
   value,
   hideAttributeType = false,
   attributeNameFilter = () => true,
   attributeNameMappingFunction =n => n,
   validateStatus = 'success',
-  help = locale.help,
   internalDataDef,
   onAttributeChange,
   size
 }) => {
 
-  const [inputSelectionStart, setInputSelectionStart] = React.useState<number>();
-  const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>();
-  const inputRef = React.useRef(null);
+  const locale = useGeoStylerLocale('AttributeCombo');
 
-  React.useLayoutEffect(() => {
+  const [inputSelectionStart, setInputSelectionStart] = useState<number>();
+  const [inputSelectionEnd, setInputSelectionEnd] = useState<number>();
+  const inputRef = useRef(null);
+
+  useLayoutEffect(() => {
     if (inputRef && inputRef.current && inputRef.current.input) {
       inputRef.current.input.selectionStart = inputSelectionStart;
       inputRef.current.input.selectionEnd = inputSelectionEnd;
@@ -119,7 +109,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
     });
   }
 
-  const helpTxt = validateStatus !== 'success' ? help : null;
+  const helpTxt = validateStatus !== 'success' ? locale.help : null;
 
   return (
     <div className="gs-attribute-combo">
@@ -166,5 +156,3 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
     </div>
   );
 };
-
-export default localize(AttributeCombo, 'AttributeCombo');

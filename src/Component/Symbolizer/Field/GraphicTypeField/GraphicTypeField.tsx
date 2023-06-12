@@ -31,26 +31,13 @@ import { Select } from 'antd';
 
 import { GraphicType } from 'geostyler-style';
 
-import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../../locale/en_US';
-
-import _get from 'lodash/get';
-import type GeoStylerLocale from '../../../../locale/locale';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 const Option = Select.Option;
-
-interface GraphicTypeFieldLocale {
-  /** Rendered Text for Mark Option */
-  Mark: string;
-  /** Rendered Text for Icon Option */
-  Icon: string;
-}
 
 export interface GraphicTypeFieldDefaultProps {
   /** List of selectable GraphicTypes for Select */
   graphicTypes: GraphicType[];
-  /** Language package */
-  locale: GeoStylerLocale['GraphicTypeField'];
   /** If true GraphicTypeField can be cleared  */
   clearable: boolean;
 }
@@ -66,31 +53,24 @@ export interface GraphicTypeFieldProps extends Partial<GraphicTypeFieldDefaultPr
 export const GraphicTypeField: React.FC<GraphicTypeFieldProps> = ({
   onChange,
   graphicType,
-  locale = en_US.GraphicTypeField,
   graphicTypes = ['Mark', 'Icon'],
   clearable = true,
   ...passThroughProps
 }) => {
 
-  /**
-   * Iterates over props.graphicTypes and returns an Option according to GraphicType
-   *
-   * @param {GraphicTypeFieldLocale} l Language package used for the displayed text of an Option
-   * @return {React.ReactNode[]} List of Options
-   */
-  const getTypeSelectOptions = (l: GraphicTypeFieldLocale): React.ReactNode[] => {
-    return (graphicTypes.map((type: GraphicType) => {
-      const loc = _get(l, type) || type;
-      return (
-        <Option
-          key={type}
-          value={type}
-        >
-          {loc}
-        </Option>
-      );
-    }));
-  };
+  const locale = useGeoStylerLocale('GraphicTypeField');
+
+  const typeSelectOptions = graphicTypes.map((type: GraphicType) => {
+    const loc = locale?.[type] || type;
+    return (
+      <Option
+        key={type}
+        value={type}
+      >
+        {loc}
+      </Option>
+    );
+  });
 
   return (
     <Select
@@ -100,9 +80,7 @@ export const GraphicTypeField: React.FC<GraphicTypeFieldProps> = ({
       allowClear={clearable}
       {...passThroughProps}
     >
-      {getTypeSelectOptions(locale)}
+      {typeSelectOptions}
     </Select>
   );
 };
-
-export default localize(GraphicTypeField, 'GraphicTypeField');

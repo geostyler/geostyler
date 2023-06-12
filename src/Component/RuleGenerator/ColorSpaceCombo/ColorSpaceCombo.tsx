@@ -26,48 +26,34 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import { Select } from 'antd';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import { InterpolationMode } from 'chroma-js';
 
 import _isEqual from 'lodash/isEqual';
-import type GeoStylerLocale from '../../../locale/locale';
-import en_US from '../../../locale/en_US';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// i18n
-export interface ColorSpaceComboLocale {
-  colorSpacePlaceholder: string;
-}
-
-// default props
-export interface ColorSpaceComboDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['ColorSpaceCombo'];
+export interface ColorSpaceComboProps {
   /** List of color supported color spaces */
-  colorSpaces: (InterpolationMode)[];
-}
-
-// non default props
-export interface ColorSpaceComboProps extends Partial<ColorSpaceComboDefaultProps> {
+  colorSpaces?: (InterpolationMode)[];
   /** The callback method that is triggered when the state changes */
   onChange?: (colorSpace: InterpolationMode) => void;
   /** The selected color space */
   colorSpace?: InterpolationMode;
 }
-const COMPONENTNAME = 'ColorSpaceCombo';
 
 /**
  * Symbolizer editorwindow UI.
  */
 export const ColorSpaceCombo: React.FC<ColorSpaceComboProps> = ({
-  locale = en_US.ColorSpaceCombo,
   colorSpaces = ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'],
   onChange,
   colorSpace
 }) => {
+
+  const locale = useGeoStylerLocale('ColorSpaceCombo');
 
   const colorSpaceOptions = colorSpaces.map((cSpace: InterpolationMode) => {
     return (
@@ -94,5 +80,3 @@ export const ColorSpaceCombo: React.FC<ColorSpaceComboProps> = ({
     </Select>
   );
 };
-
-export default localize(ColorSpaceCombo, COMPONENTNAME);

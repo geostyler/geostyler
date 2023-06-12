@@ -31,7 +31,7 @@
 This demonstrates the use of `Style`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { Style } from 'geostyler';
 
 import { Switch } from 'antd';

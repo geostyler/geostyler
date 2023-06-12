@@ -31,7 +31,7 @@
 This demonstrates the use of `SLDRenderer`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { SLDRenderer } from 'geostyler';
 
 class SLDRendererExample extends React.Component {

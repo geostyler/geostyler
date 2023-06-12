@@ -33,7 +33,7 @@ import {
   InputNumber
 } from 'antd';
 import { InputNumberProps } from 'antd/lib/input-number';
-import FunctionUI, { FunctionUIProps } from '../../FunctionUI/FunctionUI';
+import { FunctionUI, FunctionUIProps } from '../../FunctionUI/FunctionUI';
 import {
   Expression,
   GeoStylerNumberFunction,

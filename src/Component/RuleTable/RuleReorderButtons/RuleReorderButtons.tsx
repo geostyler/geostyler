@@ -26,28 +26,20 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import { Button } from 'antd';
 
 import {
   Rule as GsRule,
 } from 'geostyler-style';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 
 const ButtonGroup = Button.Group;
 import _cloneDeep from 'lodash/cloneDeep';
-import type GeoStylerLocale from '../../../locale/locale';
-import en_US from '../../../locale/en_US';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface RuleReorderButtonsDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['RuleReorderButtons'];
-}
-// non default props
-export interface RuleReorderButtonsProps extends Partial<RuleReorderButtonsDefaultProps> {
+export interface RuleReorderButtonsProps {
   /** Index of the corresponding Rule object */
   ruleIndex: number;
   /** Callback for click = move a rule position */
@@ -56,17 +48,16 @@ export interface RuleReorderButtonsProps extends Partial<RuleReorderButtonsDefau
   rules: GsRule[];
 }
 
-const COMPONENTNAME = 'RuleReorderButtons';
-
 /**
  * Button group to re-order positions of rules.
  */
 export const RuleReorderButtons: React.FC<RuleReorderButtonsProps> = ({
-  locale = en_US.RuleReorderButtons,
   ruleIndex,
   onRulesMove,
   rules
 }) => {
+
+  const locale = useGeoStylerLocale('RuleReorderButtons');
 
   const onRuleOrderChange = (moveDown: boolean) => {
     const nextRuleIndex = moveDown ? ruleIndex + 1 : ruleIndex - 1;
@@ -104,5 +95,3 @@ export const RuleReorderButtons: React.FC<RuleReorderButtonsProps> = ({
     </ButtonGroup>
   );
 };
-
-export default localize(RuleReorderButtons, COMPONENTNAME);

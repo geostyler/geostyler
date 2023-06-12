@@ -81,5 +81,3 @@ export const ContrastEnhancementField: React.FC<ContrastEnhancementFieldProps> =
     </Select>
   );
 };
-
-export default ContrastEnhancementField;

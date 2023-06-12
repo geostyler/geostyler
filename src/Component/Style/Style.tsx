@@ -50,20 +50,16 @@ import {
   Data, VectorData
 } from 'geostyler-data';
 
-import NameField from '../NameField/NameField';
-import BulkEditModals from '../Symbolizer/BulkEditModals/BulkEditModals';
-
-import { localize } from '../LocaleWrapper/LocaleWrapper';
+import { NameField } from '../NameField/NameField';
+import { BulkEditModals } from '../Symbolizer/BulkEditModals/BulkEditModals';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import RuleTable from '../RuleTable/RuleTable';
-import RuleGeneratorWindow from '../RuleGenerator/RuleGeneratorWindow';
-
-import './Style.less';
+import { RuleTable } from '../RuleTable/RuleTable';
+import { RuleGeneratorWindow } from '../RuleGenerator/RuleGeneratorWindow';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import type GeoStylerLocale from '../../locale/locale';
-import en_US from '../../locale/en_US';
-import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+
+import './Style.less';
 
 export interface StyleComposableProps {
   /** Should the classification be disabled */
@@ -73,32 +69,29 @@ export interface StyleComposableProps {
 export interface StyleInternalProps {
   /** The geoStylerStyle object */
   style?: GsStyle;
-  /** Locale object containing translated text snippets */
-  locale?: GeoStylerLocale['Style'];
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
   /** The callback function that is triggered when the state changes */
   onStyleChange?: (style: GsStyle) => void;
 }
 
-const COMPONENTNAME = 'Style';
-
 export type StyleProps = StyleInternalProps & StyleComposableProps;
 
-export const Style: React.FC<StyleProps > = (props) => {
+export const Style: React.FC<StyleProps> = (props) => {
 
   const composition = useGeoStylerComposition('Style');
-  const composed = {...props, composition};
+  const composed = { ...props, composition };
   const {
-    locale = en_US.Style,
     disableClassification = false,
-    style: styleProp =  {
+    style: styleProp = {
       name: 'My Style',
       rules: []
     },
     data,
     onStyleChange
   } = composed;
+
+  const locale = useGeoStylerLocale('Style');
 
   const [style, setStyle] = useState(styleProp);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -183,7 +176,7 @@ export const Style: React.FC<StyleProps > = (props) => {
     setStyle(clonedStyle);
   };
 
-  const onRulesSelectionChange = (newSelectedRowKeys: (string|number)[]) => {
+  const onRulesSelectionChange = (newSelectedRowKeys: (string | number)[]) => {
     setSelectedRowKeys(newSelectedRowKeys as string[]);
   };
 
@@ -214,7 +207,7 @@ export const Style: React.FC<StyleProps > = (props) => {
     }
   };
 
-  const updateAllSelected = (updates: {value: any; property: string }[]) => {
+  const updateAllSelected = (updates: { value: any; property: string }[]) => {
     const clonedStyle = _cloneDeep(style);
     const selectedRules = clonedStyle.rules.filter((rule: GsRule, index: number) => {
       return selectedRowKeys.includes(index);
@@ -241,27 +234,27 @@ export const Style: React.FC<StyleProps > = (props) => {
   };
 
   const updateMultiColors = (color: string) => {
-    updateAllSelected([{value: color, property: 'color'}]);
+    updateAllSelected([{ value: color, property: 'color' }]);
   };
 
   const updateMultiSizes = (size: any) => {
-    updateAllSelected([{value: size, property: 'radius'}]);
+    updateAllSelected([{ value: size, property: 'radius' }]);
   };
 
   const updateMultiOpacities = (opacity: any) => {
-    updateAllSelected([{value: opacity, property: 'opacity'}]);
+    updateAllSelected([{ value: opacity, property: 'opacity' }]);
   };
 
   const updateMultiSymbols = (symbol: GsWellKnownName | string, kind: SymbolizerKind) => {
     if (kind === 'Mark') {
       updateAllSelected([
-        {value: symbol, property: 'wellKnownName'},
-        {value: kind, property: 'kind'}
+        { value: symbol, property: 'wellKnownName' },
+        { value: kind, property: 'kind' }
       ]);
     } else {
       updateAllSelected([
-        {value: symbol, property: 'image'},
-        {value: kind, property: 'kind'}
+        { value: symbol, property: 'image' },
+        { value: kind, property: 'kind' }
       ]);
     }
   };
@@ -352,7 +345,7 @@ export const Style: React.FC<StyleProps > = (props) => {
       key: 'multi-edit',
       label: <span><MenuUnfoldOutlined /><span>{locale.multiEditLabel}</span></span>,
       disabled: selectedRowKeys.length <= 1,
-      children:[{
+      children: [{
         key: 'color',
         label: locale.colorLabel,
         disabled: disableMenu('color', selectedRowKeys)
@@ -377,7 +370,7 @@ export const Style: React.FC<StyleProps > = (props) => {
     );
   };
 
-  let rules: GsRule[] =  style?.rules || [];
+  let rules: GsRule[] = style?.rules || [];
 
   return (
     <div className="gs-style" >
@@ -435,5 +428,3 @@ export const Style: React.FC<StyleProps > = (props) => {
     </div>
   );
 };
-
-export default localize(Style, COMPONENTNAME);

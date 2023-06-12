@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import './ColorsPreview.less';
 
@@ -56,5 +56,3 @@ export const ColorsPreview: React.FC<ColorsPreviewProps> = ({
     />
   );
 };
-
-export default ColorsPreview;

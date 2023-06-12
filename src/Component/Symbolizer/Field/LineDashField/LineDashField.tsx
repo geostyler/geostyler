@@ -104,5 +104,3 @@ export const LineDashField: React.FC<LineDashFieldProps> = ({
     </div>
   );
 };
-
-export default LineDashField;

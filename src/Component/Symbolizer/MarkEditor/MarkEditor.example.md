@@ -31,7 +31,7 @@
 This demonstrates the use of `MarkEditor`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { MarkEditor } from 'geostyler';
 
 class MarkEditorExample extends React.Component {

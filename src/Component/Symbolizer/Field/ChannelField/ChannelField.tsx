@@ -32,17 +32,18 @@ import {
   Channel,
   ContrastEnhancement
 } from 'geostyler-style';
-import SourceChannelNameField from '../SourceChannelNameField/SourceChannelNameField';
+import { SourceChannelNameField } from '../SourceChannelNameField/SourceChannelNameField';
 import { Form } from 'antd';
-import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../../locale/en_US';
-import ContrastEnhancementField from '../ContrastEnhancementField/ContrastEnhancementField';
-import GammaField, { GammaFieldProps } from '../GammaField/GammaField';
+import { ContrastEnhancementField } from '../ContrastEnhancementField/ContrastEnhancementField';
+import { GammaField, GammaFieldProps } from '../GammaField/GammaField';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-import type GeoStylerLocale from '../../../../locale/locale';
-import { InputConfig, useGeoStylerComposition } from '../../../../context/GeoStylerContext/GeoStylerContext';
+import {
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerLocale
+} from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ChannelFieldComposableProps {
   sourceChannelNameField?: {
@@ -56,7 +57,6 @@ export interface ChannelFieldComposableProps {
 }
 
 export interface ChannelFieldInternalProps {
-  locale?: GeoStylerLocale['ChannelField'];
   contrastEnhancementTypes?: ContrastEnhancement['enhancementType'][];
   onChange?: (channel: Channel) => void;
   sourceChannelNames?: string[];
@@ -71,19 +71,18 @@ export type ChannelFieldProps = ChannelFieldInternalProps & ChannelFieldComposab
 export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
 
   const composition = useGeoStylerComposition('ChannelField');
-
-  const composed = {...props, ...composition};
-
+  const composed = { ...props, ...composition };
   const {
     channel,
     contrastEnhancementTypes = ['histogram', 'normalize'],
-    locale = en_US.ChannelField,
     onChange,
     sourceChannelNames,
     contrastEnhancementField,
     gammaValueField,
     sourceChannelNameField
   } = composed;
+
+  const locale = useGeoStylerLocale('ChannelField');
 
   const updateChannel = (key: string, value: any) => {
     let newChannel: Channel;
@@ -175,5 +174,3 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
     </div>
   );
 };
-
-export default localize(ChannelField, 'ChannelField');

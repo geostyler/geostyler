@@ -65,5 +65,3 @@ export const FadeDurationField: React.FC<FadeDurationFieldProps> = ({
     />
   );
 };
-
-export default FadeDurationField;

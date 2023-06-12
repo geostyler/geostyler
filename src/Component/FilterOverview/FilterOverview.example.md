@@ -31,7 +31,7 @@
 This demonstrates the usage of the `FilterOverview` component.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { FilterOverview } from 'geostyler';
 
 class FilterOverviewExample extends React.Component {
@@ -68,7 +68,7 @@ class FilterOverviewExample extends React.Component {
 Example with empty filter.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { FilterOverview } from 'geostyler';
 
 class FilterOverviewExample extends React.Component {

@@ -35,9 +35,9 @@ import {
 import { Data } from 'geostyler-data';
 
 import './SymbolizerCard.less';
-import { localize } from '../LocaleWrapper/LocaleWrapper';
+
 import { Card } from 'antd';
-import Renderer from '../Renderer/Renderer/Renderer';
+import { Renderer } from '../Renderer/Renderer/Renderer';
 
 // default props
 interface SymbolizerCardDefaultProps {
@@ -55,7 +55,7 @@ export interface SymbolizerCardProps extends Partial<SymbolizerCardDefaultProps>
 
 export const SymbolizerCard = ({
   symbolizer,
-  onSymbolizerClick = () => {},
+  onSymbolizerClick = () => { },
   data
 }: SymbolizerCardProps) => {
 
@@ -76,5 +76,3 @@ export const SymbolizerCard = ({
     </Card>
   );
 };
-
-export default localize(SymbolizerCard, 'SymbolizerCard');

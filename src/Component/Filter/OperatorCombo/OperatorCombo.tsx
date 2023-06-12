@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import { ComparisonOperator } from 'geostyler-style';
 import { Select, Form } from 'antd';
@@ -122,5 +122,3 @@ export const OperatorCombo: React.FC<OperatorComboProps> = ({
     </div>
   );
 };
-
-export default OperatorCombo;

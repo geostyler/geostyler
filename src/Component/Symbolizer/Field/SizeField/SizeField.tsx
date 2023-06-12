@@ -64,5 +64,3 @@ export const SizeField: React.FC<SizeFieldProps> = ({
     />
   );
 };
-
-export default SizeField;

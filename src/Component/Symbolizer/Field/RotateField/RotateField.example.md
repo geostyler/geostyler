@@ -31,7 +31,7 @@
 This demonstrates the use of `RotateField`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { RotateField } from 'geostyler';
 
 class RotateFieldExample extends React.Component {

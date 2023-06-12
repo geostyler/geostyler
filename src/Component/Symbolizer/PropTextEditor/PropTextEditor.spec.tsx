@@ -28,7 +28,7 @@
 import React from 'react';
 import { PropTextEditor, PropTextEditorProps } from './PropTextEditor';
 import { act, render, fireEvent } from '@testing-library/react';
-import en_US from '../../../locale/en_US';
+
 import { TextSymbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import TestUtil from '../../../Util/TestUtil';
@@ -39,7 +39,6 @@ describe('PropTextEditor', () => {
   let dummyData = TestUtil.getDummyGsData();
   const props: PropTextEditorProps = {
     symbolizer: dummySymbolizer,
-    locale: en_US.PropTextEditor,
     internalDataDef: dummyData,
     onSymbolizerChange: jest.fn()
   };

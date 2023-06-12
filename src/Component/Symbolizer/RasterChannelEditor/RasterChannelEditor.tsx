@@ -35,8 +35,6 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
 import {
   ChannelSelection,
   Channel,
@@ -44,26 +42,27 @@ import {
   isGrayChannel,
   isRgbChannel
 } from 'geostyler-style';
-import ChannelField from '../Field/ChannelField/ChannelField';
+import { ChannelField } from '../Field/ChannelField/ChannelField';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-import type GeoStylerLocale from '../../../locale/locale';
-import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+
+import {
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerLocale
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface RasterChannelEditorComposableProps {
-  channelSelectionField?: InputConfig<'rgb'|'gray'>;
+  channelSelectionField?: InputConfig<'rgb' | 'gray'>;
 }
 
 export interface RasterChannelEditorInternalProps {
-  locale?: GeoStylerLocale['RasterChannelEditor'];
   sourceChannelNames?: string[];
   onChange?: (channelSelection: ChannelSelection) => void;
   channelSelection?: ChannelSelection;
   contrastEnhancementTypes?: ContrastEnhancement['enhancementType'][];
 }
-
-const COMPONENTNAME = 'RasterChannelEditor';
 
 export type RasterChannelEditorProps = RasterChannelEditorInternalProps & RasterChannelEditorComposableProps;
 
@@ -73,16 +72,16 @@ export type RasterChannelEditorProps = RasterChannelEditorInternalProps & Raster
 export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('RasterChannelEditor');
-
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     channelSelection,
     channelSelectionField,
     contrastEnhancementTypes,
-    locale = en_US.RasterChannelEditor,
     onChange,
     sourceChannelNames
   } = composed;
+
+  const locale = useGeoStylerLocale('RasterChannelEditor');
 
   const defaultRgbOrGray = !channelSelection
     ? channelSelectionField?.default || 'rgb'
@@ -91,7 +90,7 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) =
   const defaultSelectedTab = !channelSelection ? 'red' : isGrayChannel(channelSelection) ? 'gray' : 'red';
   const [selectedTab, setSelectedTab] = useState<'red' | 'green' | 'blue' | 'gray'>(defaultSelectedTab);
 
-  const onSelectionChange = (selection: 'rgb'|'gray') => {
+  const onSelectionChange = (selection: 'rgb' | 'gray') => {
     setRgbOrGray(selection);
   };
 
@@ -174,7 +173,7 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) =
           </Form.Item>
         )
       }
-      { !rgbOrGray ? null :
+      {!rgbOrGray ? null :
         rgbOrGray === 'rgb' ? (
           <Tabs
             onChange={onTabChange}
@@ -250,5 +249,3 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) =
     </div>
   );
 };
-
-export default localize(RasterChannelEditor, COMPONENTNAME);

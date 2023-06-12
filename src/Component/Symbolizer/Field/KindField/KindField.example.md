@@ -31,7 +31,7 @@
 This demonstrates the use of `KindField`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { KindField } from 'geostyler';
 
 class KindFieldExample extends React.Component {

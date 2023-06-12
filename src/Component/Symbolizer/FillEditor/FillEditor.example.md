@@ -31,7 +31,7 @@
 This demonstrates the use of `FillEditor`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { FillEditor } from 'geostyler';
 
 class FillEditorExample extends React.Component {

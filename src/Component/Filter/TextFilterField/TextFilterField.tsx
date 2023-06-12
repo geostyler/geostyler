@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { Input, Form, AutoComplete, InputRef } from 'antd';
 import { Data } from 'geostyler-data';
@@ -34,28 +34,18 @@ import { Data } from 'geostyler-data';
 import _get from 'lodash/get';
 import { Feature } from 'geojson';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-import type GeoStylerLocale from '../../../locale/locale';
-
 import './TextFilterField.less';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface TextFilterFieldDefaultProps {
-  locale: GeoStylerLocale['TextFilterField'];
+export interface TextFilterFieldProps {
   /** Label for this field */
-  label: string;
+  label?: string;
   /** The default text to place into the empty field */
-  placeholder: string;
+  placeholder?: string;
   /** Initial value set to the field */
-  value: string | undefined;
+  value?: string | undefined;
   /** Validation status */
-  validateStatus: 'success' | 'warning' | 'error' | 'validating';
-  /** Element to show a help text */
-  help: React.ReactNode;
-}
-// non default props
-export interface TextFilterFieldProps extends Partial<TextFilterFieldDefaultProps> {
+  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
   /** Reference to internal data object (holding schema and example features) */
   internalDataDef?: Data;
   /** Callback function for onChange */
@@ -69,20 +59,21 @@ export interface TextFilterFieldProps extends Partial<TextFilterFieldDefaultProp
  * Input field for a textual filter value.
  */
 export const TextFilterField: React.FC<TextFilterFieldProps> = ({
-  locale = en_US.TextFilterField,
   value,
   validateStatus = 'success',
-  help = locale.help,
   internalDataDef,
   onValueChange,
   selectedAttribute,
   size
 }) => {
-  const inputRef = React.useRef<InputRef>();
-  const [inputSelectionStart, setInputSelectionStart] = React.useState<number>(0);
-  const [inputSelectionEnd, setInputSelectionEnd] = React.useState<number>(0);
 
-  React.useLayoutEffect(() => {
+  const locale = useGeoStylerLocale('TextFilterField');
+
+  const inputRef = useRef<InputRef>();
+  const [inputSelectionStart, setInputSelectionStart] = useState<number>(0);
+  const [inputSelectionEnd, setInputSelectionEnd] = useState<number>(0);
+
+  useLayoutEffect(() => {
     if (inputRef && inputRef.current && inputRef.current.input) {
       inputRef.current.input.selectionStart = inputSelectionStart;
       inputRef.current.input.selectionEnd = inputSelectionEnd;
@@ -105,7 +96,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
     }
   };
 
-  const helpTxt = validateStatus !== 'success' ? help : null;
+  const helpTxt = validateStatus !== 'success' ? locale.help : null;
 
   let sampleValues: string[] = [];
   if (internalDataDef && 'exampleFeatures' in internalDataDef) {
@@ -165,5 +156,3 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
     </div>
   );
 };
-
-export default localize(TextFilterField, 'TextFilterField');

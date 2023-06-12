@@ -71,5 +71,3 @@ export const OffsetField: React.FC<OffsetFieldProps> = ({
     />
   );
 };
-
-export default OffsetField;

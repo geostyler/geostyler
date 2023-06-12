@@ -21,6 +21,7 @@ import { ChannelFieldComposableProps } from '../../Component/Symbolizer/Field/Ch
 import { RuleGeneratorComposableProps } from '../../Component/RuleGenerator/RuleGenerator';
 import { StyleComposableProps } from '../../Component/Style/Style';
 import UnsupportedPropertiesUtil, { SymbolizerName } from '../../Util/UnsupportedPropertiesUtil';
+import en_US from '../../locale/en_US';
 
 export type InputConfig<T> = {
   visibility?: boolean;
@@ -79,7 +80,7 @@ export const useGeoStylerComposition = <T extends keyof CompositionContext>(
 
 export const useGeoStylerLocale = <T extends keyof GeoStylerLocale>(key: T): GeoStylerLocale[T] => {
   const ctx = useContext(GeoStylerContext);
-  return structuredClone(ctx.locale[key]);
+  return ctx.locale ? ctx.locale[key] : en_US[key];
 };
 
 export const useGeoStylerUnsupportedProperties = <T extends Symbolizer>(symbolizer: T) => {

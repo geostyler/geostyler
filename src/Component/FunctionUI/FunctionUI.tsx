@@ -51,7 +51,7 @@ export interface FunctionUIProps<T extends GeoStylerFunction> {
   onCancel?: (type: Type) => void;
 }
 
-const FunctionUI = <T extends GeoStylerFunction>({
+export const FunctionUI = <T extends GeoStylerFunction>({
   value,
   onChange,
   parentKey,
@@ -185,5 +185,3 @@ const FunctionUI = <T extends GeoStylerFunction>({
     </div>
   );
 };
-
-export default FunctionUI;

@@ -60,21 +60,17 @@ import schema from 'geostyler-style/schema.json';
 
 import _isEqual from 'lodash/isEqual';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
 import SldStyleParser from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 import { usePrevious } from '../../hook/UsePrevious';
 import ParserFeedback from '../ParserFeedback/ParserFeedback';
 import { ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
-import type GeoStylerLocale from '../../locale/locale';
 import QGISStyleParser from 'geostyler-qgis-parser';
 import MapboxStyleParser from 'geostyler-mapbox-parser';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 // non default props
 export interface CodeEditorProps {
-  /** Locale object containing translated text snippets */
-  locale?: GeoStylerLocale['CodeEditor'];
   /** Delay in ms until onStyleChange will be called */
   delay?: number;
   /** Show save button */
@@ -146,7 +142,6 @@ const getFileFormat = (parser: StyleParser): FileFormat => {
 export const CodeEditor: React.FC<CodeEditorProps> = ({
   defaultParser,
   delay = 500,
-  locale = en_US.CodeEditor,
   onStyleChange = () => undefined,
   parsers = [],
   showCopyButton = false,
@@ -154,6 +149,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   style
 }) => {
 
+  const locale = useGeoStylerLocale('CodeEditor');
   const editTimeout = useRef<number>();
   const [activeParser, setActiveParser] = useState<StyleParser>(defaultParser);
   const [fileFormat, setFileFormat] = useState<FileFormat>(getFileFormat(defaultParser));
@@ -396,5 +392,3 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     </div>
   );
 };
-
-export default localize(CodeEditor, COMPONENTNAME);

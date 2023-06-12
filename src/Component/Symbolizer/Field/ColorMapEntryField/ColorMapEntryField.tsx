@@ -29,23 +29,16 @@
 import React from 'react';
 
 import { ColorMapEntry } from 'geostyler-style';
-import ColorField from '../ColorField/ColorField';
-import OffsetField from '../OffsetField/OffsetField';
+import {ColorField} from '../ColorField/ColorField';
+import {OffsetField} from '../OffsetField/OffsetField';
 import { Input, Form } from 'antd';
-import OpacityField from '../OpacityField/OpacityField';
-import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../../locale/en_US';
+import {OpacityField} from '../OpacityField/OpacityField';
 
 import _get from 'lodash/get';
-import type GeoStylerLocale from '../../../../locale/locale';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
-interface ColorMapEntryFieldDefaultProps {
-  labelPlaceholder: string;
-  locale: GeoStylerLocale['ColorMapEntryField'];
-}
-
-// non default props
-export interface ColorMapEntryFieldProps extends Partial<ColorMapEntryFieldDefaultProps> {
+export interface ColorMapEntryFieldProps {
+  labelPlaceholder?: string;
   onChange?: (colorMapEntry: ColorMapEntry) => void;
   colorMapEntry?: ColorMapEntry;
 }
@@ -55,10 +48,11 @@ export interface ColorMapEntryFieldProps extends Partial<ColorMapEntryFieldDefau
  */
 export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
   labelPlaceholder = 'Color Map Label',
-  locale = en_US.ColorMapEntryField,
   onChange,
   colorMapEntry
 }) => {
+
+  const locale = useGeoStylerLocale('ColorMapEntryField');
 
   const updateColorMapEntry = (prop: string, value: any) => {
     let updated: ColorMapEntry = {...colorMapEntry};
@@ -126,5 +120,3 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
     </div>
   );
 };
-
-export default localize(ColorMapEntryField, 'ColorMapEntryField');

@@ -79,5 +79,3 @@ export const ResamplingField: React.FC<ResamplingFieldProps> = ({
     </Select>
   );
 };
-
-export default ResamplingField;

@@ -31,7 +31,7 @@
 This demonstrates the usage of `ColorRampCombo`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { ColorRampCombo } from 'geostyler';
 
 function ColorRampComboExample() {

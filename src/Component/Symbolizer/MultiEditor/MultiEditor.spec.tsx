@@ -27,7 +27,7 @@
  */
 import React from 'react';
 import { MultiEditor, MultiEditorProps } from './MultiEditor';
-import en_US from '../../../locale/en_US';
+
 import { Symbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
 
@@ -44,7 +44,6 @@ describe('MultiEditor', () => {
   }];
 
   const props: MultiEditorProps = {
-    locale: en_US.MultiEditor,
     onSymbolizersChange: jest.fn(),
     symbolizers: dummySymbolizers
   };

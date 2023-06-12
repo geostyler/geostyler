@@ -35,24 +35,26 @@ import {
   InputNumber
 } from 'antd';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
 import { ColorMap, ColorMapType, ColorMapEntry } from 'geostyler-style';
-import ExtendedField from '../Field/ExtendedField/ExtendedField';
-import ColorMapTypeField from '../Field/ColorMapTypeField/ColorMapTypeField';
-import ColorField from '../Field/ColorField/ColorField';
-import OffsetField from '../Field/OffsetField/OffsetField';
-import OpacityField from '../Field/OpacityField/OpacityField';
+import { ExtendedField } from '../Field/ExtendedField/ExtendedField';
+import { ColorMapTypeField } from '../Field/ColorMapTypeField/ColorMapTypeField';
+import { ColorField } from '../Field/ColorField/ColorField';
+import { OffsetField } from '../Field/OffsetField/OffsetField';
+import { OpacityField } from '../Field/OpacityField/OpacityField';
 import RasterUtil from '../../../Util/RasterUtil';
-import ColorRampCombo from '../../RuleGenerator/ColorRampCombo/ColorRampCombo';
+import { ColorRampCombo } from '../../RuleGenerator/ColorRampCombo/ColorRampCombo';
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 import { brewer } from 'chroma-js';
 
 import './ColorMapEditor.less';
 
 import _cloneDeep from 'lodash/cloneDeep';
-import type GeoStylerLocale from '../../../locale/locale';
-import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+
+import {
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerLocale
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ColorMapEntryRecord extends ColorMapEntry {
   key: number;
@@ -82,19 +84,16 @@ export interface ColorMapEditorComposableProps {
 }
 
 export interface ColorMapEditorInternalProps {
-  locale?: GeoStylerLocale['ColorMapEditor'];
   colorMap?: ColorMap;
   onChange?: (colorMap: ColorMap) => void;
 }
 
 export type ColorMapEditorProps = ColorMapEditorInternalProps & ColorMapEditorComposableProps;
 
-const COMPONENTNAME = 'ColorMapEditor';
-
 export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('ColorMapEditor');
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     colorMap,
     colorMapTable,
@@ -106,10 +105,11 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
       ...brewer
     },
     extendedField,
-    locale = en_US.ColorMapEditor,
     nrOfClassesField,
     onChange
   } = composed;
+
+  const locale = useGeoStylerLocale('ColorMapEditor');
 
   // TODO add colorRamp to CompositionContext
   const [colorRamp, setColorRamp] = useState<string>(Object.keys(colorRamps)[0]);
@@ -378,5 +378,3 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
     </div>
   );
 };
-
-export default localize(ColorMapEditor, COMPONENTNAME);

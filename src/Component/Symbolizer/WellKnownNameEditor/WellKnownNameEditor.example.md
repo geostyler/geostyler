@@ -31,7 +31,7 @@
 This demonstrates the use of `WellKnownNameEditor`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { WellKnownNameEditor } from 'geostyler';
 
 class WellKnownNameEditorExample extends React.Component {

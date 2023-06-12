@@ -32,22 +32,14 @@ import {
   Form
 } from 'antd';
 
-import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../../locale/en_US';
-import SourceChannelNameField from '../SourceChannelNameField/SourceChannelNameField';
+import { SourceChannelNameField } from '../SourceChannelNameField/SourceChannelNameField';
 import { ChannelSelection, GrayChannel } from 'geostyler-style';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
-import type GeoStylerLocale from '../../../../locale/locale';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface GrayChannelFieldDefaultProps {
-  locale: GeoStylerLocale['GrayChannelField'];
-}
-
-// non default props
-export interface GrayChannelFieldProps extends Partial<GrayChannelFieldDefaultProps> {
+export interface GrayChannelFieldProps {
   sourceChannelNames?: string[];
   onChange?: (channelSelection: ChannelSelection) => void;
   channelSelection?: ChannelSelection;
@@ -59,9 +51,10 @@ export interface GrayChannelFieldProps extends Partial<GrayChannelFieldDefaultPr
 export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
   onChange,
   channelSelection,
-  sourceChannelNames,
-  locale = en_US.GrayChannelField
+  sourceChannelNames
 }) => {
+
+  const locale = useGeoStylerLocale('GrayChannelField');
 
   const onGrayChannelChange = (value: string) => {
     const gray = value;
@@ -95,5 +88,3 @@ export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
     </div>
   );
 };
-
-export default localize(GrayChannelField, 'GrayChannelField');

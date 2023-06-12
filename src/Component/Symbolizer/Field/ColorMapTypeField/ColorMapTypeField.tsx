@@ -33,28 +33,13 @@ import {
 } from 'antd';
 
 import { ColorMapType } from 'geostyler-style';
-import { localize } from '../../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../../locale/en_US';
 import { RadioChangeEvent } from 'antd/lib/radio';
 
 import _get from 'lodash/get';
-import type GeoStylerLocale from '../../../../locale/locale';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
-// i18n
-export interface ColorMapTypeFieldLocale {
-  rampMapTypeLabel: string;
-  intervalsMapTypeLabel: string;
-  valuesMapTypeLabel: string;
-}
-
-// default props
-interface ColorMapTypeFieldDefaultProps {
-  colorMapTypeOptions: ColorMapType[];
-  locale: GeoStylerLocale['ColorMapTypeField'];
-}
-
-// non default props
-export interface ColorMapTypeFieldProps extends Partial<ColorMapTypeFieldDefaultProps> {
+export interface ColorMapTypeFieldProps {
+  colorMapTypeOptions?: ColorMapType[];
   onChange?: (colorMapType: ColorMapType) => void;
   colorMapType?: ColorMapType;
 }
@@ -64,10 +49,11 @@ export interface ColorMapTypeFieldProps extends Partial<ColorMapTypeFieldDefault
  */
 export const ColorMapTypeField: React.FC<ColorMapTypeFieldProps> = ({
   colorMapTypeOptions = ['ramp', 'intervals', 'values'],
-  locale = en_US.ColorMapTypeField,
   onChange,
   colorMapType
 }) => {
+
+  const locale = useGeoStylerLocale('ColorMapTypeField');
 
   const options = colorMapTypeOptions.map((mT: ColorMapType) => (
     <Radio.Button
@@ -96,5 +82,3 @@ export const ColorMapTypeField: React.FC<ColorMapTypeFieldProps> = ({
     </Radio.Group>
   );
 };
-
-export default localize(ColorMapTypeField, 'ColorMapTypeField');

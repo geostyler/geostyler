@@ -34,10 +34,10 @@ import {
   SymbolizerKind
 } from 'geostyler-style';
 
-import MarkEditor from '../MarkEditor/MarkEditor';
-import LineEditor from '../LineEditor/LineEditor';
-import FillEditor from '../FillEditor/FillEditor';
-import TextEditor from '../TextEditor/TextEditor';
+import { MarkEditor } from '../MarkEditor/MarkEditor';
+import { LineEditor } from '../LineEditor/LineEditor';
+import { FillEditor } from '../FillEditor/FillEditor';
+import { TextEditor } from '../TextEditor/TextEditor';
 
 import VisibilityField from '../Field/VisibilityField/VisibilityField';
 
@@ -48,16 +48,16 @@ import { Data } from 'geostyler-data';
 
 import _cloneDeep from 'lodash/cloneDeep';
 
-import KindField from '../Field/KindField/KindField';
-import IconEditor from '../IconEditor/IconEditor';
+import { KindField } from '../Field/KindField/KindField';
+import { IconEditor } from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-import RasterEditor from '../RasterEditor/RasterEditor';
+
+
+import { RasterEditor } from '../RasterEditor/RasterEditor';
 import DataUtil from '../../../Util/DataUtil';
 import { Form } from 'antd';
-import type GeoStylerLocale from '../../../locale/locale';
-import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+
+import { useGeoStylerComposition, useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface EditorComposableProps {
   markEditor?: {
@@ -81,7 +81,6 @@ export interface EditorComposableProps {
 }
 
 export interface EditorInternalProps {
-  locale?: GeoStylerLocale['SymbolizerEditor'];
   symbolizer: Symbolizer;
   internalDataDef?: Data;
   onSymbolizerChange?: (symbolizer: Symbolizer) => void;
@@ -89,14 +88,11 @@ export interface EditorInternalProps {
 
 export type EditorProps = EditorInternalProps & EditorComposableProps;
 
-const COMPONENTNAME = 'SymbolizerEditor';
-
 export const Editor: React.FC<EditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('Editor');
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
-    locale = en_US.SymbolizerEditor,
     symbolizer,
     internalDataDef,
     onSymbolizerChange,
@@ -107,6 +103,7 @@ export const Editor: React.FC<EditorProps> = (props) => {
     rasterEditor,
     textEditor
   } = composed;
+  const locale = useGeoStylerLocale('Editor');
 
   /**
    * Get the appropriate Editor UI for a certain style.
@@ -230,5 +227,3 @@ export const Editor: React.FC<EditorProps> = (props) => {
     </div>
   );
 };
-
-export default localize(Editor, COMPONENTNAME);

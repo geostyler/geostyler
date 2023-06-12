@@ -28,7 +28,7 @@
 
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import NameField from './NameField';
+import { NameField } from './NameField';
 
 describe('NameField', () => {
 
@@ -46,7 +46,7 @@ describe('NameField', () => {
     const onChangeMock = jest.fn();
     render(<NameField onChange={onChangeMock} />);
     const textInput = document.querySelector('.gs-namefield.ant-input');
-    fireEvent.change(textInput, { target: { value }});
+    fireEvent.change(textInput, { target: { value } });
     expect(onChangeMock).toHaveBeenCalledWith(value);
   });
 

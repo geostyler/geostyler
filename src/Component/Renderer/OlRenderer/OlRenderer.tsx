@@ -189,5 +189,3 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
   );
 
 };
-
-export default OlRenderer;

@@ -31,9 +31,9 @@
 This demonstrates the usage of the `CodeEditor` component.
 
 ```jsx
-import * as React from "react";
-import { CodeEditor } from "geostyler";
-import SldStyleParser from "geostyler-sld-parser";
+import React from 'react';
+import { CodeEditor } from 'geostyler';
+import SldStyleParser from 'geostyler-sld-parser';
 import QgisStyleParser from "geostyler-qgis-parser";
 import MapboxStyleParser from 'geostyler-mapbox-parser';
 

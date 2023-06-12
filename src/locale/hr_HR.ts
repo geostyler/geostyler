@@ -36,7 +36,9 @@ const hr_HR: GeoStylerLocale = {
     titleFieldPlaceholder: 'Unesite naslov'
   },
   Editor: {
-    kindFieldLabel: 'Vrsta'
+    kindFieldLabel: 'Vrsta',
+    unknownSymbolizerText: 'Simbolizator nepoznat!',
+    visibilityFieldLabel: 'Vidljivost',
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Ime',
@@ -310,11 +312,6 @@ const hr_HR: GeoStylerLocale = {
     rampMapTypeLabel: 'Interpolirano',
     intervalsMapTypeLabel: 'Interval',
     valuesMapTypeLabel: 'Vrijednost'
-  },
-  SymbolizerEditor: {
-    kindFieldLabel: 'Vrsta',
-    unknownSymbolizerText: 'Simbolizator nepoznat!',
-    visibilityFieldLabel: 'Vidljivost',
   },
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Uređenje simbola'

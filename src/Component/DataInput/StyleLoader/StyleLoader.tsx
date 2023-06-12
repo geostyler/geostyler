@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React, { useState } from 'react';
 
 import { Select } from 'antd';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
@@ -39,35 +39,23 @@ import {
 
 import UploadButton from '../../UploadButton/UploadButton';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
 import FileUtil from '../../../Util/FileUtil';
-import type GeoStylerLocale from '../../../locale/locale';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface StyleLoaderDefaultProps {
+export interface StyleLoaderProps {
   /** The callback method that is triggered when the state changes */
   onStyleRead: (style: Style) => void;
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['StyleLoader'];
-}
-
-// non default props
-export interface StyleLoaderProps extends Partial<StyleLoaderDefaultProps> {
   /** List of data parsers to use */
   parsers: StyleParser[];
 }
 
-
 export const StyleLoader: React.FC<StyleLoaderProps> = ({
   parsers,
-  locale = en_US.StyleLoader,
-  onStyleRead = () => {
-    return;
-  }
+  onStyleRead = () => {}
 }) => {
 
-  const [activeParser, setActiveParser] = React.useState<StyleParser>();
+  const locale = useGeoStylerLocale('StyleLoader');
+  const [activeParser, setActiveParser] = useState<StyleParser>();
 
   const parseStyle = async(uploadObject: UploadRequestOption<any>) => {
     if (!activeParser) {
@@ -123,5 +111,3 @@ export const StyleLoader: React.FC<StyleLoaderProps> = ({
     </div>
   );
 };
-
-export default localize(StyleLoader, 'StyleLoader');

@@ -32,25 +32,21 @@ import './RuleFieldContainer.less';
 
 import { Form, Divider } from 'antd';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-
-import FieldContainer from '../FieldContainer/FieldContainer';
-import NameField from '../NameField/NameField';
-import MinScaleDenominator from '../ScaleDenominator/MinScaleDenominator';
-import MaxScaleDenominator from '../ScaleDenominator/MaxScaleDenominator';
-import Renderer from '../Renderer/Renderer/Renderer';
-import type GeoStylerLocale from '../../locale/locale';
-import en_US from '../../locale/en_US';
+import { FieldContainer } from '../FieldContainer/FieldContainer';
+import { NameField } from '../NameField/NameField';
+import { MinScaleDenominator } from '../ScaleDenominator/MinScaleDenominator';
+import { MaxScaleDenominator } from '../ScaleDenominator/MaxScaleDenominator';
+import { Renderer } from '../Renderer/Renderer/Renderer';
 import { Expression, Symbolizer } from 'geostyler-style';
 import { Data } from 'geostyler-data';
-import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
 
-export type RuleFieldContainerComposableProps = Pick<RuleComposableProps, 'maxScaleField'|'minScaleField'|'nameField'>;
+export type RuleFieldContainerComposableProps = Pick<
+  RuleComposableProps, 'maxScaleField' | 'minScaleField' | 'nameField'
+>;
 
 export interface RuleFieldContainerInternalProps {
-  /** Locale object containing translated text snippets */
-  locale?: GeoStylerLocale['RuleFieldContainer'] & GeoStylerLocale['ScaleDenominator'];
   /** The callback method when the name changes */
   onNameChange?: (name: string) => void;
   /** The callback method when the minScale changes */
@@ -75,21 +71,22 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => 
 
   const composition = useGeoStylerComposition('Rule') as RuleFieldContainerComposableProps;
 
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     data,
-    locale = en_US.Rule,
     maxScale,
     maxScaleField,
     minScale,
     minScaleField,
     name,
     nameField,
-    onMaxScaleChange = () => {},
-    onMinScaleChange = () => {},
-    onNameChange = () => {},
+    onMaxScaleChange = () => { },
+    onMinScaleChange = () => { },
+    onNameChange = () => { },
     symbolizers = [],
   } = composed;
+
+  const locale = useGeoStylerLocale('RuleFieldContainer');
 
   return (
     <FieldContainer className="gs-rule-field-container">
@@ -137,5 +134,3 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => 
   );
 
 };
-
-export default localize(RuleFieldContainer, 'RuleFieldContainer');

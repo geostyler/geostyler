@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import { Breadcrumb as AntdBreadcrumb, Button } from 'antd';
 import './Breadcrumb.less';
 import { LeftOutlined } from '@ant-design/icons';
@@ -37,14 +37,9 @@ export interface Crumb {
   indices: number[];
 }
 
-// default props
-export interface BreadcrumbDefaultProps {
+export interface BreadcrumbProps {
   /** The callback method that is triggered when a crumb was clicked */
-  onClick: (crumbView: string, indices: number[]) => void;
-}
-
-// non default props
-export interface BreadcrumbProps extends Partial<BreadcrumbDefaultProps> {
+  onClick?: (crumbView: string, indices: number[]) => void;
   /** The crumbs to display */
   crumbs: Crumb[];
 }
@@ -86,5 +81,3 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
     </div>
   );
 };
-
-export default Breadcrumb;

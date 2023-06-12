@@ -34,31 +34,25 @@ import {
 } from 'geostyler-style';
 
 import './FilterOverview.less';
-import { localize } from '../LocaleWrapper/LocaleWrapper';
+
 import { Button, Divider, Tree } from 'antd';
 import FilterUtil from '../../Util/FilterUtil';
 import { PlusOutlined } from '@ant-design/icons';
-import type GeoStylerLocale from '../../locale/locale';
-import en_US from '../../locale/en_US';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface FilterOverviewDefaultProps {
-  locale: GeoStylerLocale['FilterOverview'];
+export interface FilterOverviewProps {
   /** The callback when the editing of the filter was triggered. */
   onEditFilterClick?: () => void;
-}
-
-// non default props
-export interface FilterOverviewProps extends Partial<FilterOverviewDefaultProps> {
   /** A GeoStyler-Style object. */
   filter?: GsFilter;
 }
 
 export const FilterOverview: React.FC<FilterOverviewProps> = ({
   filter,
-  onEditFilterClick = () => {},
-  locale = en_US.FilterOverview,
+  onEditFilterClick = () => {}
 }) => {
+
+  const locale = useGeoStylerLocale('FilterOverview');
 
   let treeData = [];
   if (filter) {
@@ -93,5 +87,3 @@ export const FilterOverview: React.FC<FilterOverviewProps> = ({
     </div>
   );
 };
-
-export default localize(FilterOverview, 'FilterOverview');

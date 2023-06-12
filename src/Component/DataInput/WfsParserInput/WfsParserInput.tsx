@@ -41,19 +41,11 @@ import {
 const Option = Select.Option;
 
 import './WfsParserInput.less';
-import type GeoStylerLocale from '../../../locale/locale';
-import en_US from '../../../locale/en_US';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 type WfsVersion = RequestParams['version'];
 
-// default props
-interface WfsParserInputDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['WfsParserInput'];
-}
-
-// non default props
-export interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps> {
+export interface WfsParserInputProps {
   /** The callback method that is triggered when the state changes */
   onClick: (wfsParams: ReadParams) => void;
 }
@@ -62,9 +54,10 @@ export interface WfsParserInputProps extends Partial<WfsParserInputDefaultProps>
  * WfsParserInput
  */
 export const WfsParserInput: React.FC<WfsParserInputProps> = ({
-  locale = en_US.WfsParserInput,
   onClick: onClickProp
 }) => {
+
+  const locale = useGeoStylerLocale('WfsParserInput');
 
   const [url, setUrl] = useState<string>('https://ows-demo.terrestris.de/geoserver/terrestris/ows');
   const [version, setVersion] = useState<WfsVersion>('1.1.0');

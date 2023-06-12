@@ -28,7 +28,7 @@
 import React from 'react';
 import { LineEditor, LineEditorProps } from './LineEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import en_US from '../../../locale/en_US';
+
 import { LineSymbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
 
@@ -38,7 +38,6 @@ describe('LineEditor', () => {
 
   const props: LineEditorProps = {
     symbolizer: dummySymbolizer,
-    locale: en_US.LineEditor,
     onSymbolizerChange: jest.fn()
   };
 

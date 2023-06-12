@@ -29,7 +29,7 @@ import React from 'react';
 import { act, render, fireEvent } from '@testing-library/react';
 import { TextEditor, TextEditorProps } from './TextEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import en_US from '../../../locale/en_US';
+
 import { TextSymbolizer } from 'geostyler-style';
 
 describe('TextEditor', () => {
@@ -37,9 +37,7 @@ describe('TextEditor', () => {
   let dummySymbolizer: TextSymbolizer = SymbolizerUtil.generateSymbolizer('Text') as TextSymbolizer;
   const props: TextEditorProps = {
     symbolizer: dummySymbolizer as TextSymbolizer,
-    locale: en_US.TextEditor,
-    onSymbolizerChange: jest.fn(),
-    defaultValues: undefined
+    onSymbolizerChange: jest.fn()
   };
 
   it('is defined', () => {

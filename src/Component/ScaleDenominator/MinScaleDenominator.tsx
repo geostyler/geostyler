@@ -26,26 +26,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 import { InputNumber, Form, FormItemProps } from 'antd';
 
 import './MinScaleDenominator.less';
 import { Expression, isGeoStylerFunction } from 'geostyler-style';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-
-import en_US from '../../locale/en_US';
-import type GeoStylerLocale from '../../locale/locale';
-
-// default props
-interface MinScaleDenominatorDefaultProps extends Partial<FormItemProps> {
+export interface MinScaleDenominatorProps extends Partial<FormItemProps> {
   /** The placeholder text to display if no value is set */
-  placeholder: string;
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['ScaleDenominator'];
-}
-// non default props
-export interface MinScaleDenominatorProps extends Partial<MinScaleDenominatorDefaultProps> {
+  placeholder?: string;
   /** The minScaleDenominator value */
   value?: Expression<number>;
   /** The callback function that is triggered when the state changes */
@@ -57,11 +47,12 @@ export interface MinScaleDenominatorProps extends Partial<MinScaleDenominatorDef
  */
 export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
   placeholder,
-  locale = en_US.ScaleDenominator,
   value,
   onChange,
   ...formItemLayout
 }) => {
+
+  const locale = useGeoStylerLocale('ScaleDenominator');
 
   if (isGeoStylerFunction(value)) {
     return <span>GeostylerFunction currently not supported'</span>;
@@ -84,5 +75,3 @@ export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
     </Form.Item>
   );
 };
-
-export default localize(MinScaleDenominator, 'ScaleDenominator');

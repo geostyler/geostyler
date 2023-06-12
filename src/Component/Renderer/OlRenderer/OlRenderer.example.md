@@ -31,7 +31,7 @@
 This demonstrates the use of `OlRenderer`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { OlRenderer } from 'geostyler';
 
 class OlRendererExample extends React.Component {

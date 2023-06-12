@@ -45,27 +45,22 @@ import {
   Data, VectorData
 } from 'geostyler-data';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
-
 import './CardStyle.less';
-import Breadcrumb, { Crumb } from '../Breadcrumb/Breadcrumb';
-import StyleOverview from '../StyleOverview/StyleOverview';
-import RuleOverview from '../RuleOverview/RuleOverview';
+import { Breadcrumb, Crumb } from '../Breadcrumb/Breadcrumb';
+import { StyleOverview } from '../StyleOverview/StyleOverview';
+import { RuleOverview } from '../RuleOverview/RuleOverview';
 import CardViewUtil from '../../Util/CardViewUtil';
-import Editor from '../Symbolizer/Editor/Editor';
-import FilterTree from '../Filter/FilterTree/FilterTree';
-import RuleGenerator from '../RuleGenerator/RuleGenerator';
-import BulkEditor from '../BulkEditor/BulkEditor';
-import IconSelector from '../Symbolizer/IconSelector/IconSelector';
-import type GeoStylerLocale from '../../locale/locale';
-import Renderer from '../Renderer/Renderer/Renderer';
+import { Editor } from '../Symbolizer/Editor/Editor';
+import { FilterTree } from '../Filter/FilterTree/FilterTree';
+import { RuleGenerator } from '../RuleGenerator/RuleGenerator';
+import { BulkEditor } from '../BulkEditor/BulkEditor';
+import { IconSelector } from '../Symbolizer/IconSelector/IconSelector';
+import { Renderer } from '../Renderer/Renderer/Renderer';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export interface CardStyleProps {
   /** The geoStylerStyle object */
   style?: GsStyle;
-  /** Locale object containing translated text snippets */
-  locale?: GeoStylerLocale['CardStyle'];
   /** Reference to internal data object (holding schema and example features) */
   data?: Data;
   /** The callback function that is triggered when the state changes */
@@ -87,13 +82,13 @@ const FILTEREDITVIEW = CardViewUtil.FILTEREDITVIEW;
 const ICONLIBRARIESVIEW = CardViewUtil.ICONLIBRARIESVIEW;
 
 export const CardStyle: React.FC<CardStyleProps> = ({
-  locale = en_US.CardStyle,
   style = { name: 'My Style', rules: [] },
   data,
   onStyleChange
 }) => {
 
-  const defaultCrumb: Crumb = {view: STYLEVIEW, title: locale.styleTitle, indices: []};
+  const locale = useGeoStylerLocale('CardStyle');
+  const defaultCrumb: Crumb = { view: STYLEVIEW, title: locale.styleTitle, indices: [] };
   const defaultView: CardView = {
     view: STYLEVIEW,
     props: [],
@@ -104,40 +99,40 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   const getPathForView = (viewName: string, indices: number[]): Crumb[] => {
     switch (viewName) {
       case STYLEVIEW:
-        return [{view: STYLEVIEW, title: locale.styleTitle, indices: []}];
+        return [{ view: STYLEVIEW, title: locale.styleTitle, indices: [] }];
       case RULEVIEW:
         return [
-          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
-          {view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [...indices]}
+          { view: STYLEVIEW, title: locale.styleTitle, indices: [] },
+          { view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [...indices] }
         ];
       case CLASSIFICATIONVIEW:
         return [
-          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
-          {view: CLASSIFICATIONVIEW, title: locale.classificationTitle, indices: []}
+          { view: STYLEVIEW, title: locale.styleTitle, indices: [] },
+          { view: CLASSIFICATIONVIEW, title: locale.classificationTitle, indices: [] }
         ];
       case MULTIEDITVIEW:
         return [
-          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
-          {view: MULTIEDITVIEW, title: locale.multiEditTitle, indices: [...indices]}
+          { view: STYLEVIEW, title: locale.styleTitle, indices: [] },
+          { view: MULTIEDITVIEW, title: locale.multiEditTitle, indices: [...indices] }
         ];
       case SYMBOLIZERVIEW:
         return [
-          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
-          {view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [indices[0]]},
-          {view: SYMBOLIZERVIEW, title: locale.symbolizerTitle, indices: [...indices]}
+          { view: STYLEVIEW, title: locale.styleTitle, indices: [] },
+          { view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [indices[0]] },
+          { view: SYMBOLIZERVIEW, title: locale.symbolizerTitle, indices: [...indices] }
         ];
       case FILTEREDITVIEW:
         return [
-          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
-          {view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [indices[0]]},
-          {view: FILTEREDITVIEW, title: locale.filterTitle, indices: [...indices]},
+          { view: STYLEVIEW, title: locale.styleTitle, indices: [] },
+          { view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [indices[0]] },
+          { view: FILTEREDITVIEW, title: locale.filterTitle, indices: [...indices] },
         ];
       case ICONLIBRARIESVIEW:
         return [
-          {view: STYLEVIEW, title: locale.styleTitle, indices: []},
-          {view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [indices[0]]},
-          {view: SYMBOLIZERVIEW, title: locale.symbolizerTitle, indices: [...indices]},
-          {view: SYMBOLIZERVIEW, title: locale.iconLibrariesTitle, indices: [...indices]}
+          { view: STYLEVIEW, title: locale.styleTitle, indices: [] },
+          { view: RULEVIEW, title: style.rules[indices[0]]?.name, indices: [indices[0]] },
+          { view: SYMBOLIZERVIEW, title: locale.symbolizerTitle, indices: [...indices] },
+          { view: SYMBOLIZERVIEW, title: locale.iconLibrariesTitle, indices: [...indices] }
         ];
       default:
         return [];
@@ -146,7 +141,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   };
 
   const changeView = (viewName: string, indices: number[]) => {
-    let view: CardView = {view: viewName, props: indices, path: []};
+    let view: CardView = { view: viewName, props: indices, path: [] };
     view.path = getPathForView(viewName, indices);
     setCurrentView(view);
   };
@@ -173,7 +168,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
     styleClone.rules[ruleIdx] = newRule;
     const pathClone = _cloneDeep(currentView.path);
     const newCurrentViewPath = updateRuleNameForPath(newRule.name, pathClone);
-    setCurrentView({...currentView, path: newCurrentViewPath});
+    setCurrentView({ ...currentView, path: newCurrentViewPath });
     if (onStyleChange) {
       onStyleChange(styleClone);
     }
@@ -355,5 +350,3 @@ export const CardStyle: React.FC<CardStyleProps> = ({
     </div>
   );
 };
-
-export default localize(CardStyle, 'CardStyle');

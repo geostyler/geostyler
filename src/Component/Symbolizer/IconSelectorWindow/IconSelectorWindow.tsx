@@ -26,39 +26,36 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import {
   Modal, ModalProps
 } from 'antd';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-
-import IconSelector, { IconLibrary } from '../IconSelector/IconSelector';
+import { IconSelector, IconLibrary } from '../IconSelector/IconSelector';
 import './IconSelectorWindow.less';
 
 import _isEqual from 'lodash/isEqual';
-import type GeoStylerLocale from '../../../locale/locale';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+
 
 // non default props
 export interface IconSelectorWindowProps extends Partial<ModalProps> {
-  locale?: GeoStylerLocale['IconSelectorWindow'];
   iconLibraries: IconLibrary[];
   selectedIconSrc?: string;
   onIconSelect?: (iconSrc: string) => void;
   onClose?: () => void;
 }
-const COMPONENTNAME = 'IconSelectorWindow';
 
 export const IconSelectorWindow: React.FC<IconSelectorWindowProps> = ({
-  locale = en_US.IconSelectorWindow,
   iconLibraries,
   selectedIconSrc,
   onIconSelect,
   onClose,
   ...passThroughProps
 }) => {
+
+  const locale = useGeoStylerLocale('IconSelectorWindow');
 
   return (
     <Modal
@@ -78,5 +75,3 @@ export const IconSelectorWindow: React.FC<IconSelectorWindowProps> = ({
     </Modal>
   );
 };
-
-export default localize(IconSelectorWindow, COMPONENTNAME);

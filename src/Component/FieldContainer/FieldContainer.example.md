@@ -31,7 +31,7 @@
 This demonstrates the use of `FieldContainer`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { FieldContainer } from 'geostyler';
 
 class FieldContainerExample extends React.Component {

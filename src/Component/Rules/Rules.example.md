@@ -31,7 +31,7 @@
 This demonstrates the usage of the `Rules` component.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { Rules } from 'geostyler';
 
 class RulesExample extends React.Component {
@@ -80,7 +80,7 @@ class RulesExample extends React.Component {
 `Rules` component with data and filter.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { Rules } from 'geostyler';
 
 class RulesExample extends React.Component {
@@ -168,7 +168,7 @@ class RulesExample extends React.Component {
 `Rules` component with disabled classification.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { Rules } from 'geostyler';
 
 class RulesExample extends React.Component {

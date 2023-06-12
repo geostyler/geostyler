@@ -26,27 +26,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as React from 'react';
+import React from 'react';
 
 import './StyleFieldContainer.less';
 
 import { Form } from 'antd';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
+import { FieldContainer } from '../FieldContainer/FieldContainer';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import { NameField } from '../NameField/NameField';
 
-import FieldContainer from '../FieldContainer/FieldContainer';
-import NameField from '../NameField/NameField';
-import type GeoStylerLocale from '../../locale/locale';
-
-// default props
-interface StyleFieldContainerDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['StyleFieldContainer'];
-}
-
-// non default props
-export interface StyleFieldContainerProps extends Partial<StyleFieldContainerDefaultProps> {
+export interface StyleFieldContainerProps {
   onNameChange?: (name: string) => void;
   onTitleChange?: (name: string) => void;
   title?: string;
@@ -56,10 +46,11 @@ export interface StyleFieldContainerProps extends Partial<StyleFieldContainerDef
 export const StyleFieldContainer: React.FC<StyleFieldContainerProps> = ({
   name,
   title,
-  locale = en_US.Style,
   onNameChange,
   onTitleChange,
 }) => {
+
+  const locale = useGeoStylerLocale('StyleFieldContainer');
 
   return (
     <FieldContainer className="gs-style-field-container">
@@ -89,5 +80,3 @@ export const StyleFieldContainer: React.FC<StyleFieldContainerProps> = ({
   );
 
 };
-
-export default localize(StyleFieldContainer, 'StyleFieldContainer');

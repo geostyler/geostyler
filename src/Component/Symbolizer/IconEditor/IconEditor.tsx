@@ -28,29 +28,27 @@
 
 import React from 'react';
 
-import { IconSymbolizer } from 'geostyler-style';
-
-import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
-import ImageField from '../Field/ImageField/ImageField';
+import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
 import _isEqual from 'lodash/isEqual';
-import RotateField, { RotateFieldProps } from '../Field/RotateField/RotateField';
-import SizeField from '../Field/SizeField/SizeField';
 
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
-import en_US from '../../../locale/en_US';
-import { Form } from 'antd';
+import { IconSymbolizer } from 'geostyler-style';
 
-import type GeoStylerLocale from '../../../locale/locale';
-import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
+import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
+import { ImageField } from '../Field/ImageField/ImageField';
+import { RotateField, RotateFieldProps } from '../Field/RotateField/RotateField';
+import { SizeField } from '../Field/SizeField/SizeField';
+import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
+import { IconLibrary } from '../IconSelector/IconSelector';
+
 import {
   InputConfig,
   useGeoStylerComposition,
+  useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
-import { IconLibrary } from '../IconSelector/IconSelector';
 
 export interface IconEditorComposableProps {
   // TODO add support for default values in ImageField
@@ -69,24 +67,20 @@ export interface IconEditorComposableProps {
 }
 
 export interface IconEditorInternalProps {
-  locale?: GeoStylerLocale['IconEditor'];
   symbolizer: IconSymbolizer;
   onSymbolizerChange?: (changedSymb: IconSymbolizer) => void;
 }
 
 export type IconEditorProps = IconEditorInternalProps & IconEditorComposableProps;
 
-const COMPONENTNAME = 'IconEditor';
-
 export const IconEditor: React.FC<IconEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('IconEditor');
 
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     iconLibraries,
     imageField,
-    locale = en_US.IconEditor,
     offsetXField,
     offsetYField,
     onSymbolizerChange,
@@ -95,6 +89,8 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
     sizeField,
     symbolizer
   } = composed;
+
+  const locale = useGeoStylerLocale('IconEditor');
 
   const {
     getFormItemSupportProps
@@ -255,5 +251,3 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
     </div>
   );
 };
-
-export default localize(IconEditor, COMPONENTNAME);

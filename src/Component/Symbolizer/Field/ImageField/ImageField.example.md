@@ -31,7 +31,7 @@
 This demonstrates the use of `ImageField`.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { ImageField } from 'geostyler';
 
 class ImageFieldExample extends React.Component {
@@ -71,7 +71,7 @@ class ImageFieldExample extends React.Component {
 `ImageField` with iconLibraries.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { ImageField } from 'geostyler';
 
 class ImageFieldExample extends React.Component {
@@ -129,7 +129,7 @@ class ImageFieldExample extends React.Component {
 `ImageField` with custom implementation of iconLibraries view.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { ImageField } from 'geostyler';
 
 class ImageFieldExample extends React.Component {

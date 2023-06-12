@@ -31,7 +31,7 @@
 This demonstrates the usage of the `StyleOverview` component.
 
 ```jsx
-import * as React from 'react';
+import React from 'react';
 import { StyleOverview } from 'geostyler';
 
 class StyleOverviewExample extends React.Component {

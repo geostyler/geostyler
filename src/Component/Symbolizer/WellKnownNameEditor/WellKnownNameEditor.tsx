@@ -27,23 +27,26 @@
  */
 
 import React from 'react';
-import { localize } from '../../LocaleWrapper/LocaleWrapper';
+
 import { MarkSymbolizer } from 'geostyler-style';
 
-import ColorField, { ColorFieldProps } from '../Field/ColorField/ColorField';
-import OpacityField, { OpacityFieldProps } from '../Field/OpacityField/OpacityField';
-import RadiusField, { RadiusFieldProps } from '../Field/RadiusField/RadiusField';
-import WidthField, { WidthFieldProps } from '../Field/WidthField/WidthField';
-import RotateField, { RotateFieldProps } from '../Field/RotateField/RotateField';
+import { ColorField, ColorFieldProps } from '../Field/ColorField/ColorField';
+import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
+import { RadiusField, RadiusFieldProps } from '../Field/RadiusField/RadiusField';
+import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
+import { RotateField, RotateFieldProps } from '../Field/RotateField/RotateField';
 
-import en_US from '../../../locale/en_US';
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
-import type GeoStylerLocale from '../../../locale/locale';
-import OffsetField, { OffsetFieldProps } from '../Field/OffsetField/OffsetField';
-import { InputConfig, useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+
+import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
+import {
+  InputConfig,
+  useGeoStylerComposition,
+  useGeoStylerLocale
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface WellKnownNameEditorComposableProps {
   radiusField?: InputConfig<RadiusFieldProps['radius']>;
@@ -59,24 +62,19 @@ export interface WellKnownNameEditorComposableProps {
 }
 
 export interface WellKnownNameEditorInternalProps {
-  locale?: GeoStylerLocale['WellKnownNameEditor'];
   symbolizer: MarkSymbolizer;
   onSymbolizerChange?: (changedSymb: MarkSymbolizer) => void;
 }
 
 export type WellKnownNameEditorProps = WellKnownNameEditorInternalProps & WellKnownNameEditorComposableProps;
 
-const COMPONENTNAME = 'WellKnownNameEditor';
-
 export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) => {
 
   const composition = useGeoStylerComposition('WellKnownNameEditor');
-
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
   const {
     fillColorField,
     fillOpacityField,
-    locale =  en_US.WellKnownNameEditor,
     offsetXField,
     offsetYField,
     onSymbolizerChange,
@@ -88,6 +86,8 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     strokeWidthField,
     symbolizer
   } = composed;
+
+  const locale = useGeoStylerLocale('WellKnownNameEditor');
 
   const onRadiusChange = (value: MarkSymbolizer['radius']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
@@ -325,5 +325,3 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     </div>
   );
 };
-
-export default localize(WellKnownNameEditor, COMPONENTNAME);

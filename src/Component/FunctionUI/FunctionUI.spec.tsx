@@ -28,7 +28,7 @@
 
 import React from 'react';
 import { render } from '@testing-library/react';
-import FunctionUI from './FunctionUI';
+import { FunctionUI } from './FunctionUI';
 
 describe('FunctionUI', () => {
 

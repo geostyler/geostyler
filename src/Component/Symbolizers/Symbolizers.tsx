@@ -36,36 +36,26 @@ import {
 import { closestCenter, DndContext } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 
-import { localize } from '../LocaleWrapper/LocaleWrapper';
-import en_US from '../../locale/en_US';
-
 import './Symbolizers.less';
 import { Button, Card, Divider } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
 import _merge from 'lodash/merge';
-import SymbolizerCard from '../SymbolizerCard/SymbolizerCard';
+import { SymbolizerCard } from '../SymbolizerCard/SymbolizerCard';
 import { PlusOutlined } from '@ant-design/icons';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import type GeoStylerLocale from '../../locale/locale';
 import { SortableItem } from '../SortableItem/SortableItem';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { RemovableItem } from '../RemovableItem/RemovableItem';
 import { Data } from 'geostyler-data';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
-// default props
-interface SymbolizersDefaultProps {
-  /** Locale object containing translated text snippets */
-  locale: GeoStylerLocale['Symbolizers'];
+export interface SymbolizersProps {
   /** The callback function that is triggered when the symbolizers change. */
-  onSymbolizersChange: (symbolizers: GsSymbolizer[]) => void;
+  onSymbolizersChange?: (symbolizers: GsSymbolizer[]) => void;
   /** The callback function that is triggered when a symbolizer was clicked. */
-  onEditSymbolizerClick: (symbolizerId: number) => void;
-}
-
-// non default props
-export interface SymbolizersProps extends Partial<SymbolizersDefaultProps> {
+  onEditSymbolizerClick?: (symbolizerId: number) => void;
   /** List of symbolizers to display */
   symbolizers: GsSymbolizer[];
   /** Reference to internal data object (holding schema and example features). */
@@ -73,12 +63,13 @@ export interface SymbolizersProps extends Partial<SymbolizersDefaultProps> {
 }
 
 export const Symbolizers: React.FC<SymbolizersProps> = ({
-  locale = en_US.Symbolizers,
   symbolizers,
-  onSymbolizersChange = () => {},
-  onEditSymbolizerClick = () => {},
+  onSymbolizersChange = () => { },
+  onEditSymbolizerClick = () => { },
   data
 }) => {
+
+  const locale = useGeoStylerLocale('Symbolizers');
 
   const [showAll, setShowAll] = useState(false);
 
@@ -121,7 +112,7 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
           removeSymbolizer(idx);
         }}
       >
-        { symbolizerCard }
+        {symbolizerCard}
       </RemovableItem>
     );
   });
@@ -136,7 +127,7 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
         key={key}
         id={id}
       >
-        { symbolizerCard }
+        {symbolizerCard}
       </SortableItem>
     );
   });
@@ -169,7 +160,7 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
                 <SortableContext
                   items={symbolizers.map((s, idx) => idx + 1)}
                 >
-                  { sortableAndRemovableSymbolizerCards }
+                  {sortableAndRemovableSymbolizerCards}
                   <div>
                     <Card
                       className='gs-symbolizer-card gs-add-button'
@@ -193,7 +184,7 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
                 <SortableContext
                   items={symbolizers.map((s, idx) => idx + 1)}
                 >
-                  { sortableAndRemovableSymbolizerCards }
+                  {sortableAndRemovableSymbolizerCards}
                 </SortableContext>
               </DndContext>
             )
@@ -222,5 +213,3 @@ export const Symbolizers: React.FC<SymbolizersProps> = ({
     </div>
   );
 };
-
-export default localize(Symbolizers, 'Symbolizers');

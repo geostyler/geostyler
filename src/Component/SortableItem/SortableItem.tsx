@@ -63,5 +63,3 @@ export const SortableItem: React.FC<SortableItemProps> = ({
     </div>
   );
 };
-
-export default SortableItem;
