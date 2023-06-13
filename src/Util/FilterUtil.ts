@@ -358,7 +358,7 @@ class FilterUtil {
       newFilter.push(addedFilter);
     } else {
       if (!Array.isArray(newFilter)) {
-        throw new Error(`Can not add filter to filter ${rootFilter}. Root filter has to be an array.`);
+        throw new Error(`Cannot add filter to filter ${rootFilter}. Root filter has to be an array.`);
       }
       const previousFilter: CombinationFilter = _get(newFilter, position);
       previousFilter.push(addedFilter);
@@ -383,7 +383,7 @@ class FilterUtil {
         if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
           addedFilter = previousFilter;
           if (!Array.isArray(addedFilter)) {
-            throw new Error('Can not change filter. Filter is not an array.');
+            throw new Error('Cannot change filter. Filter is not an array.');
           }
           addedFilter[0] = '&&';
         } else {
@@ -394,7 +394,7 @@ class FilterUtil {
         if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
           addedFilter = previousFilter;
           if (!Array.isArray(addedFilter)) {
-            throw new Error('Can not change filter. Filter is not an array.');
+            throw new Error('Cannot change filter. Filter is not an array.');
           }
           addedFilter[0] = '||';
         } else {
@@ -414,7 +414,7 @@ class FilterUtil {
       return addedFilter;
     } else {
       if (!Array.isArray(newFilter)) {
-        throw new Error('Can not change filter. Filter is not an array.');
+        throw new Error('Cannot change filter. Filter is not an array.');
       }
       _set(newFilter, position, addedFilter);
       return newFilter;
@@ -435,7 +435,7 @@ class FilterUtil {
       newFilter = undefined;
     } else {
       if (!Array.isArray(parentFilter)) {
-        throw new Error('Can not remove filter. Filter is not an array.');
+        throw new Error('Cannot remove filter. Filter is not an array.');
       }
       if (parentFilter.length <= 2) {
         newFilter = FilterUtil.removeAtPosition(rootFilter, parentPosition);
