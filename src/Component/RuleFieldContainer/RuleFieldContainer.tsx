@@ -38,7 +38,6 @@ import { MinScaleDenominator } from '../ScaleDenominator/MinScaleDenominator';
 import { MaxScaleDenominator } from '../ScaleDenominator/MaxScaleDenominator';
 import { Renderer } from '../Renderer/Renderer/Renderer';
 import { Expression, Symbolizer } from 'geostyler-style';
-import { Data } from 'geostyler-data';
 import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
 
@@ -61,8 +60,6 @@ export interface RuleFieldContainerInternalProps {
   maxScale?: Expression<number>;
   /** The symbolizers of the rule */
   symbolizers?: Symbolizer[];
-  /** Reference to internal data object (holding schema and example features). */
-  data?: Data;
 }
 
 export type RuleFieldContainerProps = RuleFieldContainerInternalProps & RuleFieldContainerComposableProps;
@@ -73,7 +70,6 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => 
 
   const composed = { ...props, ...composition };
   const {
-    data,
     maxScale,
     maxScaleField,
     minScale,
@@ -126,10 +122,7 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => 
         </Form>
       </div>
       <Divider type="vertical" />
-      <Renderer
-        symbolizers={symbolizers}
-        data={data}
-      />
+      <Renderer symbolizers={symbolizers} />
     </FieldContainer >
   );
 

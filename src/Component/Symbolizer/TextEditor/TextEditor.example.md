@@ -75,7 +75,6 @@ class TextEditorExample extends React.Component {
       <TextEditor
         symbolizer={symbolizer}
         onSymbolizerChange={this.onSymbolizerChange}
-        internalDataDef={this.data}
       />
     );
   }

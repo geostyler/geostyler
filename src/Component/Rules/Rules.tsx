@@ -38,7 +38,6 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
-import { Data } from 'geostyler-data';
 import { Button, Switch, Divider } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
@@ -48,7 +47,11 @@ import { RuleCard } from '../RuleCard/RuleCard';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { SortableItem } from '../SortableItem/SortableItem';
 import { RemovableItem } from '../RemovableItem/RemovableItem';
-import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import {
+  useGeoStylerComposition,
+  useGeoStylerData,
+  useGeoStylerLocale
+} from '../../context/GeoStylerContext/GeoStylerContext';
 
 import './Rules.less';
 
@@ -63,8 +66,6 @@ export interface RulesInternalProps {
   showDuplicates?: boolean;
   /** List of rules to display in rule table */
   rules: GsRule[];
-  /** Reference to internal data object (holding schema and example features) */
-  data?: Data;
   /** The callback function that is triggered when the rules change */
   onRulesChange?: (rules: GsRule[]) => void;
   /** The callback function that is triggered when the classification button was clicked */
@@ -79,11 +80,11 @@ export type RulesProps = RulesInternalProps & RulesComposableProps;
 
 export const Rules: React.FC<RulesProps> = (props) => {
 
-  const composition = useGeoStylerComposition('Rules');
+  const data = useGeoStylerData();
 
-  const composed = { ...props, ...composition };
+  const composition = useGeoStylerComposition('Rules');
+  const composed = {...props, ...composition};
   const {
-    data,
     disableClassification,
     onClassificationClick,
     onEditRuleClick,
@@ -182,7 +183,6 @@ export const Rules: React.FC<RulesProps> = (props) => {
       <RuleCard
         key={_uniqueId('rule')}
         rule={rule}
-        data={data}
         duplicates={ruleDuplicates}
         onClick={() => {
           if (!multiEditActive) {

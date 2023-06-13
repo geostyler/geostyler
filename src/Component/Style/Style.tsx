@@ -46,10 +46,6 @@ import {
   WellKnownName as GsWellKnownName
 } from 'geostyler-style';
 
-import {
-  Data, VectorData
-} from 'geostyler-data';
-
 import { NameField } from '../NameField/NameField';
 import { BulkEditModals } from '../Symbolizer/BulkEditModals/BulkEditModals';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
@@ -57,7 +53,11 @@ import { RuleTable } from '../RuleTable/RuleTable';
 import { RuleGeneratorWindow } from '../RuleGenerator/RuleGeneratorWindow';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import {
+  useGeoStylerComposition,
+  useGeoStylerData,
+  useGeoStylerLocale
+} from '../../context/GeoStylerContext/GeoStylerContext';
 
 import './Style.less';
 
@@ -69,8 +69,6 @@ export interface StyleComposableProps {
 export interface StyleInternalProps {
   /** The geoStylerStyle object */
   style?: GsStyle;
-  /** Reference to internal data object (holding schema and example features) */
-  data?: Data;
   /** The callback function that is triggered when the state changes */
   onStyleChange?: (style: GsStyle) => void;
 }
@@ -78,6 +76,8 @@ export interface StyleInternalProps {
 export type StyleProps = StyleInternalProps & StyleComposableProps;
 
 export const Style: React.FC<StyleProps> = (props) => {
+
+  const data = useGeoStylerData();
 
   const composition = useGeoStylerComposition('Style');
   const composed = { ...props, composition };
@@ -87,7 +87,6 @@ export const Style: React.FC<StyleProps> = (props) => {
       name: 'My Style',
       rules: []
     },
-    data,
     onStyleChange
   } = composed;
 
@@ -398,7 +397,6 @@ export const Style: React.FC<StyleProps> = (props) => {
       </div>
       <RuleGeneratorWindow
         open={ruleGeneratorWindowVisible}
-        internalDataDef={data as VectorData}
         onClose={onRuleGeneratorWindowClose}
         onRulesChange={onRulesChange}
       />
@@ -409,7 +407,6 @@ export const Style: React.FC<StyleProps> = (props) => {
           selectedRowKeys,
           onChange: onRulesSelectionChange
         }}
-        data={data}
         footer={createFooter}
       />
       <BulkEditModals

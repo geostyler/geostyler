@@ -44,15 +44,14 @@ import { Symbolizer, SymbolizerKind } from 'geostyler-style';
 import './OlRenderer.less';
 
 import 'ol/ol.css';
-import { Data } from 'geostyler-data';
 
 import _isEqual from 'lodash/isEqual';
 import _get from 'lodash/get';
 import _uniqueId from 'lodash/uniqueId';
+import { useGeoStylerData } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 // non default props
 export interface OlRendererProps {
-  data?: Data;
   symbolizers: Symbolizer[];
   symbolizerKind?: SymbolizerKind;
   onClick?: (symbolizers: Symbolizer[], event: any) => void;
@@ -62,7 +61,6 @@ export interface OlRendererProps {
  * Symbolizer Renderer UI.
  */
 export const OlRenderer: React.FC<OlRendererProps> = ({
-  data,
   onClick,
   symbolizerKind,
   symbolizers
@@ -72,6 +70,7 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
   const map = useRef<OlMap>();
   const layer = useRef<OlLayerVector<any>>();
   const [ mapId ] = useState(_uniqueId('map_'));
+  const data = useGeoStylerData();
 
   const getSampleGeomFromSymbolizer = useCallback(() => {
     const kind: SymbolizerKind = symbolizerKind || _get(symbolizers, '[0].kind');

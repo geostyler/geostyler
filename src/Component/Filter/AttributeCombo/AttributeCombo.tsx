@@ -29,8 +29,10 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { Select, Form, Input } from 'antd';
-import { Data } from 'geostyler-data';
-import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import {
+  useGeoStylerData,
+  useGeoStylerLocale
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 const Option = Select.Option;
 
@@ -46,8 +48,6 @@ export interface AttributeComboProps {
   attributeNameMappingFunction?: (originalAttributeName: string) => string;
   /** Validation status */
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
-  /** Reference to internal data object (holding schema and example features) */
-  internalDataDef?: Data;
   /** Callback function for onChange */
   onAttributeChange?: ((newAttrName: string) => void);
   /** Value set to the field */
@@ -64,12 +64,12 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
   attributeNameFilter = () => true,
   attributeNameMappingFunction =n => n,
   validateStatus = 'success',
-  internalDataDef,
   onAttributeChange,
   size
 }) => {
 
   const locale = useGeoStylerLocale('AttributeCombo');
+  const data = useGeoStylerData();
 
   const [inputSelectionStart, setInputSelectionStart] = useState<number>();
   const [inputSelectionEnd, setInputSelectionEnd] = useState<number>();
@@ -84,8 +84,8 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
 
   let options: Object[] = [];
 
-  if (internalDataDef) {
-    const attrDefs = internalDataDef.schema.properties;
+  if (data) {
+    const attrDefs = data.schema.properties;
 
     // create sth like ['foo', 'bar', 'kalle'];
     const attrNames = [];
@@ -120,7 +120,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
         help={helpTxt}
       >
         {
-          internalDataDef ?
+          data ?
             <Select
               value={value}
               onChange={onAttributeChange}

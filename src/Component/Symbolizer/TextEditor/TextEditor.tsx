@@ -27,10 +27,14 @@
  */
 
 import React from 'react';
+
 import {
   Mentions,
   Form
 } from 'antd';
+
+import _cloneDeep from 'lodash/cloneDeep';
+import _isEqual from 'lodash/isEqual';
 
 import {
   Symbolizer,
@@ -43,21 +47,17 @@ import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
 import { FontPicker } from '../Field/FontPicker/FontPicker';
 import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
 import { RotateField, RotateFieldProps } from '../Field/RotateField/RotateField';
-
-import _cloneDeep from 'lodash/cloneDeep';
-import _isEqual from 'lodash/isEqual';
-
-import './TextEditor.less';
-
-import { VectorData } from 'geostyler-data';
+import { SizeFieldProps } from '../Field/SizeField/SizeField';
 
 import {
   InputConfig,
   useGeoStylerComposition,
+  useGeoStylerData,
   useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
-import { SizeFieldProps } from '../Field/SizeField/SizeField';
+
+import './TextEditor.less';
 
 export interface TextEditorComposableProps {
   templateField?: InputConfig<string>;
@@ -78,7 +78,6 @@ export interface TextEditorComposableProps {
 export interface TextEditorInternalProps {
   symbolizer: TextSymbolizer;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
-  internalDataDef?: VectorData;
 }
 
 export type TextEditorProps = TextEditorInternalProps & TextEditorComposableProps;
@@ -90,6 +89,8 @@ export type TextEditorProps = TextEditorInternalProps & TextEditorComposableProp
  */
 export const TextEditor: React.FC<TextEditorProps> = (props) => {
 
+  const data = useGeoStylerData();
+
   const composition = useGeoStylerComposition('TextEditor');
   const composed = { ...props, ...composition };
   const {
@@ -97,7 +98,6 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     fontField,
     haloColorField,
     haloWidthField,
-    internalDataDef,
     offsetXField,
     offsetYField,
     onSymbolizerChange,
@@ -222,7 +222,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     offsetX = offset[0] as number;
     offsetY = offset[1] as number;
   }
-  const properties = internalDataDef && internalDataDef.schema ? Object.keys(internalDataDef.schema.properties) : [];
+  const properties = data && data.schema ? Object.keys(data.schema.properties) : [];
 
   return (
     <div className="gs-text-symbolizer-editor" >

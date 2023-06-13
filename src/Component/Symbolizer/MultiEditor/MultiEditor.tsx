@@ -36,7 +36,6 @@ import {
 import './MultiEditor.less';
 
 import 'ol/ol.css';
-import { Data } from 'geostyler-data';
 
 import { Tabs } from 'antd';
 import { Editor } from '../Editor/Editor';
@@ -49,7 +48,6 @@ import _isEqual from 'lodash/isEqual';
 import { Tab } from 'rc-tabs/lib/interface';
 
 export interface MultiEditorProps {
-  internalDataDef?: Data;
   editorProps?: any;
   symbolizers: Symbolizer[];
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
@@ -57,7 +55,6 @@ export interface MultiEditorProps {
 }
 
 export const MultiEditor: React.FC<MultiEditorProps> = ({
-  internalDataDef,
   editorProps,
   symbolizers,
   onSymbolizersChange,
@@ -118,7 +115,6 @@ export const MultiEditor: React.FC<MultiEditorProps> = ({
           onSymbolizerChange={(sym: Symbolizer) => {
             onSymbolizerChange(sym, idx);
           }}
-          internalDataDef={internalDataDef}
           iconLibraries={iconLibraries}
           {...editorProps}
         />

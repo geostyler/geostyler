@@ -28,6 +28,8 @@
 
 import React from 'react';
 
+import { Form } from 'antd';
+
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEqual from 'lodash/isEqual';
 
@@ -43,17 +45,12 @@ import {OffsetField} from '../Field/OffsetField/OffsetField';
 import {OpacityField} from '../Field/OpacityField/OpacityField';
 import {RotateField} from '../Field/RotateField/RotateField';
 import {WidthField} from '../Field/WidthField/WidthField';
-import { Data } from 'geostyler-data';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 import './PropTextEditor.less';
 
-import { Form } from 'antd';
-import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
-
-// non default props
 export interface PropTextEditorProps {
   symbolizer: TextSymbolizer;
-  internalDataDef?: Data;
   onSymbolizerChange?: (changedSymb: Symbolizer) => void;
 }
 
@@ -64,7 +61,6 @@ export interface PropTextEditorProps {
  */
 export const PropTextEditor: React.FC<PropTextEditorProps> = ({
   symbolizer,
-  internalDataDef,
   onSymbolizerChange
 }) => {
 
@@ -192,7 +188,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       >
         <AttributeCombo
           value={symbolizer.label ? formatLabel(symbolizer.label as string) : undefined}
-          internalDataDef={internalDataDef}
           onAttributeChange={onLabelChange}
         />
       </Form.Item>

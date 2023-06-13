@@ -35,7 +35,6 @@ import {
 } from 'geostyler-style';
 
 import './RuleOverview.less';
-import { Data } from 'geostyler-data';
 
 import { RuleFieldContainer } from '../RuleFieldContainer/RuleFieldContainer';
 import { Divider } from 'antd';
@@ -52,8 +51,6 @@ export interface RuleOverviewInternalProps {
   onRuleChange?: (rule: GsRule) => void;
   /** The callback when a view change (request) was triggered. */
   onChangeView?: (view: string, indices: number[]) => void;
-  /** Reference to internal data object (holding schema and example features). */
-  data?: Data;
   /** A GeoStyler-Style object. */
   rule: GsRule;
 }
@@ -66,7 +63,6 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
 
   const composed = { ...props, ...composition };
   const {
-    data,
     onChangeView = () => { },
     onRuleChange = () => { },
     rule,
@@ -123,13 +119,11 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
         onMinScaleChange={onMinScaleChange}
         onMaxScaleChange={onMaxScaleChange}
         symbolizers={rule.symbolizers}
-        data={data}
       />
       <Symbolizers
         symbolizers={rule.symbolizers}
         onEditSymbolizerClick={onEditSymbolizerClick}
         onSymbolizersChange={onSymbolizersChange}
-        data={data}
       />
       {
         filterField?.visibility === false ? null : (

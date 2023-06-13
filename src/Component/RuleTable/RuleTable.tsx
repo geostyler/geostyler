@@ -50,10 +50,6 @@ import {
   Symbolizer
 } from 'geostyler-style';
 
-import {
-  Data
-} from 'geostyler-data';
-
 import './RuleTable.less';
 import { FilterEditorWindow } from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import { SymbolizerEditorWindow } from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
@@ -63,7 +59,11 @@ import DataUtil from '../../Util/DataUtil';
 import { RuleReorderButtons } from './RuleReorderButtons/RuleReorderButtons';
 import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
 import { Renderer } from '../Renderer/Renderer/Renderer';
-import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import {
+  useGeoStylerComposition,
+  useGeoStylerData,
+  useGeoStylerLocale
+} from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
 
 export interface RuleRecord extends GsRule {
@@ -77,8 +77,6 @@ export interface RuleRecord extends GsRule {
 export interface RuleTableInternalProps {
   /** The renderer to use */
   rendererType?: 'SLD' | 'OpenLayers';
-  /** Reference to internal data object (holding schema and example features) */
-  data?: Data;
   /** List of rules to display in rule table */
   rules: GsRule[];
   /** The footer of the rule table */
@@ -94,11 +92,12 @@ export type RuleTableProps = RuleTableInternalProps & RuleComposableProps & Tabl
 
 export const RuleTable: React.FC<RuleTableProps> = (props) => {
 
+  const data = useGeoStylerData();
+
   const composition = useGeoStylerComposition('Rule') as RuleComposableProps;
   const composed = { ...props, ...composition };
   const {
     amountField,
-    data: dataProp,
     duplicateField,
     filterField,
     maxScaleField,
@@ -117,7 +116,6 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   const [symbolizerEditorVisible, setSymbolizerEditorVisible] = useState<boolean>();
   const [filterEditorVisible, setFilterEditorVisible] = useState<boolean>();
   const [hasError, setHasError] = useState<boolean>();
-  const [data, setData] = useState<Data>();
   const [rules, setRules] = useState<GsRule[]>();
   const [counts, setCounts] = useState<number[]>();
   const [duplicates, setDuplicates] = useState<number[]>();
@@ -131,8 +129,8 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   useEffect(() => {
     let countsAndDuplicates: CountResult = {};
     try {
-      if (dataProp && DataUtil.isVector(dataProp)) {
-        countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(rulesProp, dataProp);
+      if (data && DataUtil.isVector(data)) {
+        countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(rulesProp, data);
       } else {
         countsAndDuplicates = {};
       }
@@ -140,11 +138,10 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       setHasError(true);
       // make sure to update state when checks/calculation fails
     }
-    setData(dataProp);
     setRules(rulesProp);
     setCounts(countsAndDuplicates?.counts);
     setDuplicates(countsAndDuplicates?.duplicates);
-  }, [rulesProp, dataProp]);
+  }, [rulesProp, data]);
 
   const ruleRecords = rules?.map((rule: GsRule, index: number): RuleRecord => {
     return {
@@ -168,7 +165,6 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     return (
       <Renderer
         rendererType={rendererType}
-        data={data}
         symbolizers={record.symbolizers}
         onClick={onSymbolizerRendererClick}
       />
@@ -427,7 +423,6 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       <SymbolizerEditorWindow
         open={symbolizerEditorVisible}
         onClose={onSymbolizerEditorWindowClose}
-        internalDataDef={data}
         symbolizers={rules?.[ruleEditIndex]?.symbolizers}
         onSymbolizersChange={onSymbolizersChange}
       />
@@ -436,7 +431,6 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
         onClose={onFilterEditorWindowClose}
         filter={rules?.[ruleEditIndex]?.filter}
         onFilterChange={onFilterChange}
-        internalDataDef={data && DataUtil.isVector(data) ? data : undefined}
       />
     </div>
   );

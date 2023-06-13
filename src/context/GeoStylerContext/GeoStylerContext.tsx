@@ -22,6 +22,7 @@ import { RuleGeneratorComposableProps } from '../../Component/RuleGenerator/Rule
 import { StyleComposableProps } from '../../Component/Style/Style';
 import UnsupportedPropertiesUtil, { SymbolizerName } from '../../Util/UnsupportedPropertiesUtil';
 import en_US from '../../locale/en_US';
+import { Data as GeoStylerData } from 'geostyler-data';
 
 export type InputConfig<T> = {
   visibility?: boolean;
@@ -59,13 +60,14 @@ export interface GeoStylerContextInterface {
   composition?: CompositionContext;
   locale?: GeoStylerLocale;
   unsupportedProperties?: UnsupportedPropertiesContext;
+  data?: GeoStylerData;
 };
 
 export const GeoStylerContext = React.createContext<GeoStylerContextInterface>({});
 
 export const useGeoStylerContext = (): GeoStylerContextInterface => {
   const ctx = useContext(GeoStylerContext);
-  return structuredClone(ctx);
+  return ctx;
 };
 
 export const useGeoStylerComposition = <T extends keyof CompositionContext>(
@@ -75,12 +77,17 @@ export const useGeoStylerComposition = <T extends keyof CompositionContext>(
   if (!ctx.composition || !ctx.composition[key]) {
     return {} as CompositionContext[T];
   }
-  return structuredClone(ctx.composition[key]);
+  return ctx.composition[key];
 };
 
 export const useGeoStylerLocale = <T extends keyof GeoStylerLocale>(key: T): GeoStylerLocale[T] => {
   const ctx = useContext(GeoStylerContext);
   return ctx.locale ? ctx.locale[key] : en_US[key];
+};
+
+export const useGeoStylerData = (): GeoStylerData => {
+  const ctx = useContext(GeoStylerContext);
+  return ctx.data;
 };
 
 export const useGeoStylerUnsupportedProperties = <T extends Symbolizer>(symbolizer: T) => {

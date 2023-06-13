@@ -45,7 +45,11 @@ import { ColorsPreview } from './ColorsPreview/ColorsPreview';
 import { ClassificationCombo, ClassificationMethod } from './ClassificationCombo/ClassificationCombo';
 import _get from 'lodash/get';
 import { PlusSquareOutlined } from '@ant-design/icons';
-import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import {
+  useGeoStylerComposition,
+  useGeoStylerData,
+  useGeoStylerLocale
+} from '../../context/GeoStylerContext/GeoStylerContext';
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 
@@ -59,7 +63,6 @@ export interface RuleGeneratorComposableProps {
 }
 
 export interface RuleGeneratorInternalProps {
-  internalDataDef: VectorData;
   onRulesChange?: (rules: Rule[]) => void;
 }
 
@@ -67,10 +70,10 @@ export type RuleGeneratorProps = RuleGeneratorInternalProps & RuleGeneratorCompo
 
 export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
 
+  const data = useGeoStylerData() as VectorData;
   const composition = useGeoStylerComposition('RuleGenerator');
   const composed = {...props, ...composition};
   const {
-    internalDataDef,
     onRulesChange,
     colorSpaces = ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'], // rgba, cmyk and gl crash
     colorRamps = {
@@ -85,7 +88,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
   const minNrClasses = 2;
 
   const [symbolizerKind, setSymbolizerKind] = useState<SymbolizerKind>(
-    RuleGeneratorUtil.guessSymbolizerFromData(internalDataDef)
+    RuleGeneratorUtil.guessSymbolizerFromData(data)
   );
   const [wellKnownName, setWellKnownName] = useState<WellKnownName>('circle');
   const [colorRamp, setColorRamp] = useState<string>(colorRamps && colorRamps.GeoStyler ? 'GeoStyler' : undefined);
@@ -100,13 +103,13 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
 
   const onAttributeChange = (newAttributeName: string) => {
     try {
-      const newAttributeType = _get(internalDataDef, `schema.properties[${newAttributeName}].type`);
+      const newAttributeType = _get(data, `schema.properties[${newAttributeName}].type`);
       let newClassficationMethod = classificationMethod;
       if (newAttributeType === 'string' && classificationMethod === 'kmeans') {
         newClassficationMethod = undefined;
       }
 
-      const newDistinctValues = RuleGeneratorUtil.getDistinctValues(internalDataDef, newAttributeName) || [];
+      const newDistinctValues = RuleGeneratorUtil.getDistinctValues(data, newAttributeName) || [];
       setAttributeName(newAttributeName);
       setAttributeType(newAttributeType);
       setDistinctValues(newDistinctValues);
@@ -144,7 +147,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
         attributeName,
         classificationMethod,
         colors: colorRamps[colorRamp],
-        data: internalDataDef,
+        data,
         levelOfMeasurement,
         numberOfRules,
         symbolizerKind,
@@ -174,7 +177,6 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
       <Form layout="vertical">
         <AttributeCombo
           value={attributeName}
-          internalDataDef={internalDataDef}
           onAttributeChange={onAttributeChange}
           validateStatus={attributeName ? 'success' : 'warning'}
         />

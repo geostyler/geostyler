@@ -38,7 +38,7 @@ describe('RuleGenerator', () => {
 
   const dummyData: Data = TestUtil.getDummyGsData();
   const props: RuleGeneratorProps = {
-    internalDataDef: dummyData
+    data: dummyData
   };
 
   it('is defined', () => {

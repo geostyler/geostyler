@@ -44,7 +44,6 @@ import VisibilityField from '../Field/VisibilityField/VisibilityField';
 import './Editor.less';
 
 import 'ol/ol.css';
-import { Data } from 'geostyler-data';
 
 import _cloneDeep from 'lodash/cloneDeep';
 
@@ -52,9 +51,7 @@ import { KindField } from '../Field/KindField/KindField';
 import { IconEditor } from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
-
 import { RasterEditor } from '../RasterEditor/RasterEditor';
-import DataUtil from '../../../Util/DataUtil';
 import { Form } from 'antd';
 
 import { useGeoStylerComposition, useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
@@ -82,7 +79,6 @@ export interface EditorComposableProps {
 
 export interface EditorInternalProps {
   symbolizer: Symbolizer;
-  internalDataDef?: Data;
   onSymbolizerChange?: (symbolizer: Symbolizer) => void;
 }
 
@@ -94,7 +90,6 @@ export const Editor: React.FC<EditorProps> = (props) => {
   const composed = { ...props, ...composition };
   const {
     symbolizer,
-    internalDataDef,
     onSymbolizerChange,
     fillEditor,
     iconEditor,
@@ -144,9 +139,6 @@ export const Editor: React.FC<EditorProps> = (props) => {
         return textEditor?.visibility === false ? null : (
           <TextEditor
             symbolizer={symbolizer}
-            internalDataDef={
-              internalDataDef && DataUtil.isVector(internalDataDef) ? internalDataDef : undefined
-            }
             onSymbolizerChange={onSymbolizerChange}
           />
         );
@@ -154,9 +146,6 @@ export const Editor: React.FC<EditorProps> = (props) => {
         return rasterEditor?.visibility === false ? null : (
           <RasterEditor
             symbolizer={symbolizer}
-            internalDataDef={
-              internalDataDef && DataUtil.isRaster(internalDataDef) ? internalDataDef : undefined
-            }
             onSymbolizerChange={onSymbolizerChange}
           />
         );

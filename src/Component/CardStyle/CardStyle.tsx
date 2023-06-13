@@ -41,10 +41,6 @@ import {
   isIconSymbolizer
 } from 'geostyler-style';
 
-import {
-  Data, VectorData
-} from 'geostyler-data';
-
 import './CardStyle.less';
 import { Breadcrumb, Crumb } from '../Breadcrumb/Breadcrumb';
 import { StyleOverview } from '../StyleOverview/StyleOverview';
@@ -61,8 +57,6 @@ import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerCont
 export interface CardStyleProps {
   /** The geoStylerStyle object */
   style?: GsStyle;
-  /** Reference to internal data object (holding schema and example features) */
-  data?: Data;
   /** The callback function that is triggered when the state changes */
   onStyleChange?: (style: GsStyle) => void;
 }
@@ -83,7 +77,6 @@ const ICONLIBRARIESVIEW = CardViewUtil.ICONLIBRARIESVIEW;
 
 export const CardStyle: React.FC<CardStyleProps> = ({
   style = { name: 'My Style', rules: [] },
-  data,
   onStyleChange
 }) => {
 
@@ -272,7 +265,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
         currentView.view === STYLEVIEW && (
           <StyleOverview
             style={style}
-            data={data}
             onStyleChange={onStyleChange}
             onChangeView={changeView}
           />
@@ -282,7 +274,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
         currentView.view === RULEVIEW && (
           <RuleOverview
             rule={style.rules[currentView.path[currentView.path.length - 1].indices[0]]}
-            data={data}
             onRuleChange={onRuleChange}
             onChangeView={onRuleChangeView}
           />
@@ -297,7 +288,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
                   .rules[currentView.path[currentView.path.length - 1].indices[0]]
                   .symbolizers[currentView.path[currentView.path.length - 1].indices[1]]
               ]}
-              data={data}
             />
             <Editor
               symbolizer={
@@ -306,7 +296,6 @@ export const CardStyle: React.FC<CardStyleProps> = ({
                   .symbolizers[currentView.path[currentView.path.length - 1].indices[1]]
               }
               onSymbolizerChange={onSymbolizerChange}
-              internalDataDef={data}
             />
           </>
         )
@@ -320,14 +309,12 @@ export const CardStyle: React.FC<CardStyleProps> = ({
                 .filter
             }
             onFilterChange={onFilterChange}
-            internalDataDef={data}
           />
         )
       }
       {
         currentView.view === CLASSIFICATIONVIEW && (
           <RuleGenerator
-            internalDataDef={data as VectorData}
             onRulesChange={onRulesChange}
           />
         )

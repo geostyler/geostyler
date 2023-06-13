@@ -29,35 +29,34 @@
 
 import React from 'react';
 
+import _cloneDeep from 'lodash/cloneDeep';
+
+import { Divider } from 'antd';
+
 import {
   Rule as GsRule,
   Style as GsStyle
 } from 'geostyler-style';
 
-import './StyleOverview.less';
-import { Data } from 'geostyler-data';
 import { StyleFieldContainer } from '../StyleFieldContainer/StyleFieldContainer';
 import { Rules } from '../Rules/Rules';
 
-import _cloneDeep from 'lodash/cloneDeep';
-import { Divider } from 'antd';
 import CardViewUtil from '../../Util/CardViewUtil';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+
+import './StyleOverview.less';
 
 export interface StyleOverviewProps {
   /** The callback when the style changed. */
   onStyleChange?: (style: GsStyle) => void;
   /** The callback when a view change (request) was triggered. */
   onChangeView?: (view: string, indices: number[]) => void;
-  /** Reference to internal data object (holding schema and example features). */
-  data?: Data;
   /** A GeoStyler-Style object. */
   style: GsStyle;
 }
 
 export const StyleOverview: React.FC<StyleOverviewProps> = ({
   style,
-  data,
   onStyleChange = () => { },
   onChangeView = () => { }
 }) => {
@@ -98,7 +97,6 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
       />
       <Rules
         rules={style.rules}
-        data={data}
         onRulesChange={onRulesChange}
         onEditRuleClick={onEditRule}
         onClassificationClick={onClassificationClick}

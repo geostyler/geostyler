@@ -31,15 +31,12 @@ import { act, render, fireEvent } from '@testing-library/react';
 
 import { TextSymbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import TestUtil from '../../../Util/TestUtil';
 
 describe('PropTextEditor', () => {
 
   let dummySymbolizer = SymbolizerUtil.generateSymbolizer('Text') as TextSymbolizer;
-  let dummyData = TestUtil.getDummyGsData();
   const props: PropTextEditorProps = {
     symbolizer: dummySymbolizer,
-    internalDataDef: dummyData,
     onSymbolizerChange: jest.fn()
   };
 

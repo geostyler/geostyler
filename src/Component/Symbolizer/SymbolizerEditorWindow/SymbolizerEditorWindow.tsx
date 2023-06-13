@@ -33,8 +33,6 @@ import { Symbolizer } from 'geostyler-style';
 import { MultiEditor } from '../MultiEditor/MultiEditor';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
-import { Data } from 'geostyler-data';
-
 import './SymbolizerEditorWindow.less';
 import { Modal, ModalProps } from 'antd';
 
@@ -45,7 +43,6 @@ import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerC
 // non default props
 export interface SymbolizerEditorWindowProps extends Partial<ModalProps> {
   symbolizers: Symbolizer[];
-  internalDataDef?: Data;
   onClose?: () => void;
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   iconLibraries?: IconLibrary[];
@@ -56,7 +53,6 @@ export interface SymbolizerEditorWindowProps extends Partial<ModalProps> {
 
 export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
   symbolizers,
-  internalDataDef,
   onClose,
   onSymbolizersChange,
   iconLibraries,
@@ -77,7 +73,6 @@ export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
       {...passThroughProps}
     >
       <MultiEditor
-        internalDataDef={internalDataDef}
         symbolizers={symbolizers}
         onSymbolizersChange={onSymbolizersChange}
         iconLibraries={iconLibraries}

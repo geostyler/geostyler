@@ -36,23 +36,21 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
 import _isString from 'lodash/isString';
 
+import { Data as GeoStylerData } from 'geostyler-data';
+
 import {
   ComparisonFilter as GsComparisonFilter,
   ComparisonOperator,
   PropertyType
 } from 'geostyler-style';
 
-import {
-  Data as Data
-} from 'geostyler-data';
-
 import { AttributeCombo } from '../AttributeCombo/AttributeCombo';
 import { OperatorCombo } from '../OperatorCombo/OperatorCombo';
 import { TextFilterField } from '../TextFilterField/TextFilterField';
 import { NumberFilterField } from '../NumberFilterField/NumberFilterField';
-import {BoolFilterField} from '../BoolFilterField/BoolFilterField';
+import { BoolFilterField } from '../BoolFilterField/BoolFilterField';
 
-import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerComposition, useGeoStylerData } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 import './ComparisonFilter.less';
 
@@ -64,8 +62,7 @@ type ValidationResult = {
 interface Validators {
   attribute: (attrName: string) => boolean;
   operator: (operator: string) => boolean;
-  value: (value: PropertyType, internalDataDef?: Data, selectedAttribute?: string)
-    => ValidationResult;
+  value: (value: PropertyType, data?: GeoStylerData, selectedAttribute?: string) => ValidationResult;
 }
 
 export interface ComparisonFilterComposableProps {
@@ -93,8 +90,6 @@ export interface ComparisonFilterComposableProps {
 export interface ComparisonFilterInternalProps {
   /** Initial comparison filter object */
   filter?: GsComparisonFilter;
-  /** Reference to internal data object (holding schema and example features) */
-  internalDataDef?: Data;
   /** Label for the underlying OperatorCombo */
   operatorLabel?: string;
   /** Placeholder for the underlying OperatorCombo */
@@ -113,20 +108,20 @@ interface ValidationStatus {
 
 export const ComparisonFilterDefaultValidator = (
   newValue: PropertyType,
-  internalDataDef: Data,
+  data: GeoStylerData,
   selectedAttribute: string
 ): ValidationResult => {
 
   let isValid = true;
   let errorMsg = '';
   // read out attribute type
-  const attrType = _get(internalDataDef, `schema.properties[${selectedAttribute}].type`);
+  const attrType = _get(data, `schema.properties[${selectedAttribute}].type`);
 
   switch (attrType) {
     case 'number':
       // detect min / max from schema
-      const minVal = _get(internalDataDef, `schema.properties[${selectedAttribute}].minimum`);
-      const maxVal = _get(internalDataDef, `schema.properties[${selectedAttribute}].maximum`);
+      const minVal = _get(data, `schema.properties[${selectedAttribute}].minimum`);
+      const maxVal = _get(data, `schema.properties[${selectedAttribute}].maximum`);
 
       if (!isNaN(minVal) && !isNaN(maxVal)) {
         if (typeof newValue !== 'number') {
@@ -173,6 +168,7 @@ export type ComparisonFilterProps = ComparisonFilterInternalProps & ComparisonFi
  */
 export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
 
+  const data = useGeoStylerData();
   const composition = useGeoStylerComposition('ComparisonFilter');
   const composed = { ...props, ...composition };
   const {
@@ -180,7 +176,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
     attributeNameMappingFunction = n => n,
     filter = ['==', '', null],
     hideAttributeType = false,
-    internalDataDef,
     microUI = false,
     onFilterChange,
     operatorLabel,
@@ -243,10 +238,10 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
 
   // TODO: implement strategy to handle FunctionFilter
   const attribute = _isString(filter[1]) ? filter[1] : undefined;
-  const attributeType = attribute ? internalDataDef?.schema?.properties[attribute]?.type : undefined;
+  const attributeType = attribute ? data?.schema?.properties[attribute]?.type : undefined;
   const operator = filter[0];
   const value = filter[2];
-  const valueValidation = validators.value(value, internalDataDef, attribute);
+  const valueValidation = validators.value(value, data, attribute);
   const allowedOperators = attributeType ? operatorsMap[attributeType] : undefined;
   const isNumberBetweenComparison = operator === '<=x<=';
   const isNumberComparison = attributeType === 'number';
@@ -269,7 +264,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
     return <AttributeCombo
       size={size}
       value={val}
-      internalDataDef={internalDataDef}
       onAttributeChange={onAttributeChange}
       attributeNameFilter={attributeNameFilter}
       attributeNameMappingFunction={attributeNameMappingFunction}
@@ -301,7 +295,6 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
     return <TextFilterField
       size={size}
       value={val}
-      internalDataDef={internalDataDef}
       selectedAttribute={attribute}
       onValueChange={onValueChange}
       validateStatus={validateStatus.value}
