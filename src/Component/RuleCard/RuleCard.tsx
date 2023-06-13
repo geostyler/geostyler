@@ -94,13 +94,13 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
   } = composed;
 
   let amount;
-  if (DataUtil.isVector(data) && rule.filter?.length) {
+  if (DataUtil.isVector(data)) {
     amount = FilterUtil.getMatches(rule.filter, data).length;
   }
 
   const cqlParser = new CqlParser();
   let cql;
-  if (rule.filter && rule.filter.length) {
+  if (rule.filter) {
     cql = cqlParser.write(rule.filter);
   }
 
@@ -150,13 +150,9 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
         {
           filterField?.visibility === false ? null : (
             <span className='gs-rule-card-cql'>
-              {
-                rule.filter?.length && (
-                  <Text type='secondary'>
-                    <FilterFilled className='gs-rule-card-icon' />
-                  </Text>
-                )
-              }
+              <Text type='secondary'>
+                <FilterFilled className='gs-rule-card-icon' />
+              </Text>
               <Text type='secondary'>{cql as any}</Text>
             </span>
           )

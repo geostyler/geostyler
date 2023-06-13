@@ -46,7 +46,6 @@ import {
 import _get from 'lodash/get';
 import _set from 'lodash/set';
 import _isEqual from 'lodash/isEqual';
-import _cloneDeep from 'lodash/cloneDeep';
 
 import {
   CombinationOperator,
@@ -60,6 +59,7 @@ import { ComparisonFilter } from '../ComparisonFilter/ComparisonFilter';
 import {
   isCombinationFilter,
   isComparisonFilter,
+  isGeoStylerBooleanFunction,
   isGeoStylerFunction,
   isNegationFilter
 } from 'geostyler-style/dist/typeguards';
@@ -67,6 +67,7 @@ import FilterUtil from '../../../Util/FilterUtil';
 
 import { DataNode } from 'rc-tree/lib/interface';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { isBoolean } from 'lodash';
 
 export interface FilterTreeProps {
   /** The filter to edit */
@@ -99,8 +100,8 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
       onFilterChange(filter);
     }
 
-    let newFilter = _cloneDeep(rootFilter);
-    if (position === '') {
+    let newFilter = structuredClone(rootFilter);
+    if (position === '' || isGeoStylerBooleanFunction(newFilter) || isBoolean(newFilter)) {
       newFilter = filter;
     } else {
       _set(newFilter, position, filter);
@@ -296,7 +297,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
       node
     } = dropObject;
 
-    let newFilter = [...rootFilter] as Filter;
+    let newFilter = structuredClone(rootFilter);
 
     const dragNodePosition = dragNode.props.eventKey;
     const draggedFilter: Filter = _get(rootFilter, dragNodePosition) as Filter;
@@ -313,8 +314,8 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
     const dropSubPosition = dropPositionArray[dropPositionArray.length - 1];
 
     const sameParent = dragParentPosition === dropParentPosition;
-    const draggedLastRemaingChild = dragParentFilter.length <= 2;
-    let removePositionArray = [...dragPositionArray];
+    const draggedLastRemaingChild = Array.isArray(dragParentFilter) && dragParentFilter.length <= 2;
+    let removePositionArray = structuredClone(dragPositionArray);
 
     // Get remove position. Calculate the modified indexes after the node is added.
 
