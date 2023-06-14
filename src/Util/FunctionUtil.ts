@@ -53,7 +53,7 @@ type ReturnType<T> =
 class FunctionUtil {
 
   public static evaluateFunction<T extends GeoStylerFunction>(func: T, feature?: Feature): ReturnType<T> {
-    if (func.name === 'property') {
+    if (func?.name === 'property') {
       if (!feature) {
         throw new Error(`Could not evalute 'property' function. Feature ${feature} is not defined.`);
       }
@@ -81,7 +81,7 @@ class FunctionUtil {
     return undefined;
   }
 
-  public static evaluateBooleanFunction(func: GeoStylerBooleanFunction, feature?: Feature): boolean {
+  private static evaluateBooleanFunction(func: GeoStylerBooleanFunction, feature?: Feature): boolean {
     const args = func.args.map(arg => {
       if (isGeoStylerFunction(arg)) {
         return FunctionUtil.evaluateFunction(arg, feature);
@@ -117,7 +117,7 @@ class FunctionUtil {
     }
   }
 
-  public static evaluateNumberFunction(func: GeoStylerNumberFunction, feature?: Feature): number {
+  private static evaluateNumberFunction(func: GeoStylerNumberFunction, feature?: Feature): number {
     if (func.name === 'pi') {
       return Math.PI;
     }
@@ -186,7 +186,7 @@ class FunctionUtil {
     }
   }
 
-  public static evaluateUnknownFunction(func: GeoStylerUnknownFunction, feature?: Feature): unknown {
+  private static evaluateUnknownFunction(func: GeoStylerUnknownFunction, feature?: Feature): unknown {
     const args = func.args.map(arg => {
       if (isGeoStylerFunction(arg)) {
         return FunctionUtil.evaluateFunction(arg, feature);
@@ -201,7 +201,7 @@ class FunctionUtil {
     }
   }
 
-  public static evaluateStringFunction(func: GeoStylerStringFunction, feature?: Feature): string {
+  private static evaluateStringFunction(func: GeoStylerStringFunction, feature?: Feature): string {
     const args = func.args.map(arg => {
       if (isGeoStylerFunction(arg)) {
         return FunctionUtil.evaluateFunction(arg, feature);

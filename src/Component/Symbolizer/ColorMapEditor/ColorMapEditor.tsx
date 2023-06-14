@@ -303,7 +303,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
   const nrOfClasses = colorMapEntries.length;
 
   const colorMapType = isGeoStylerStringFunction(colorMap?.type)
-    ? FunctionUtil.evaluateStringFunction(colorMap?.type) as ColorMapType
+    ? FunctionUtil.evaluateFunction(colorMap?.type) as ColorMapType
     : colorMap?.type;
 
   return (
