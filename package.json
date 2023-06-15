@@ -40,7 +40,7 @@
     "lint:test": "npm run lint && npm run test",
     "lint:test:cleanup:build": "npm run lint && npm run test && npm run cleanup && npm run build",
     "cleanup": "rimraf dist/** && rimraf build/**",
-    "prepublishOnly": "npm run build-dist && npm run build-browser",
+    "prepublishOnly": "npm run build",
     "styleguide": "styleguidist server",
     "test": "jest --coverage",
     "typecheck": "tsc --noEmit",
