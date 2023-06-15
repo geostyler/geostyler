@@ -42,7 +42,8 @@ import {
   isComparisonOperator,
   isCombinationOperator,
   isNegationOperator,
-  isFilter
+  isFilter,
+  isGeoStylerBooleanFunction
 } from 'geostyler-style/dist/typeguards';
 
 import {
@@ -51,8 +52,10 @@ import {
 
 import _get from 'lodash/get';
 import _set from 'lodash/set';
-import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
+import { isBoolean } from 'lodash';
+import FunctionUtil from './FunctionUtil';
+import { Feature } from 'geojson';
 
 export type CountResult = {
   counts?: number[];
@@ -133,7 +136,13 @@ class FilterUtil {
    * Checks if a feature matches the specified filter.
    * Returns true if it matches, otherwise returns false.
    */
-  static featureMatchesFilter = (filter: Filter | CombinationOperator, feature: any): boolean => {
+  static featureMatchesFilter = (filter: Filter | CombinationOperator, feature: Feature): boolean => {
+    if (isBoolean(filter)) {
+      return filter;
+    }
+    if (isGeoStylerBooleanFunction(filter)) {
+      return FunctionUtil.evaluateFunction(filter, feature);
+    }
     if (filter.length === 0) {
       return true;
     }
@@ -154,7 +163,7 @@ class FilterUtil {
    * @param {VectorData} data A geostyler data object.
    * @return {Feature[]} An Array of geojson feature objects.
    */
-  static getMatches = (filter: Filter, data: VectorData): any[] => {
+  static getMatches = (filter: Filter, data: VectorData): Feature[] => {
     return data.exampleFeatures.features.filter((feature => {
       return FilterUtil.featureMatchesFilter(filter, feature);
     }));
@@ -267,7 +276,10 @@ class FilterUtil {
    * Removes a subfilter from a given filter at the given position.
    */
   static removeAtPosition(filter: Filter, position: string): Filter {
-    let newFilter = [...filter] as Filter;
+    if (!Array.isArray(filter)) {
+      throw new Error(`Passed filter is not an array: ${filter}`);
+    }
+    let newFilter = structuredClone(filter);
     const dragNodeSubPosition = position.substr(position.length - 3);
     const dragNodeIndex = parseInt(dragNodeSubPosition.slice(1, 2), 10);
     const parentPosition = position.substring(0, position.length - 3);
@@ -289,11 +301,14 @@ class FilterUtil {
     insertFilter: Filter,
     position: string
   ): Filter {
+    if (!Array.isArray(baseFilter) || !Array.isArray(insertFilter)) {
+      throw new Error(`Can not insert Filter ${insertFilter} into ${baseFilter}. Arrays are required.`);
+    }
     const dropTargetParentPosition = position.substring(0, position.length - 3);
     const dropTargetSubPosition = position.substring(position.length - 3);
     const dropTargetSubIndex = parseInt(dropTargetSubPosition.slice(1, 2), 10);
     const dropTargetIsComparison = !['&&', '||', '!'].includes(insertFilter[0]);
-    let newFilter: Filter = [...baseFilter];
+    let newFilter: Filter = structuredClone(baseFilter);
 
     const newSubFilter = dropTargetParentPosition === ''
       ? newFilter
@@ -320,7 +335,7 @@ class FilterUtil {
   static addFilter(rootFilter: Filter, position: string, type: string) {
 
     let addedFilter: Filter ;
-    let newFilter: Filter = _cloneDeep(rootFilter);
+    let newFilter: Filter = structuredClone(rootFilter);
 
     switch (type) {
       case 'and':
@@ -342,6 +357,9 @@ class FilterUtil {
       newFilter = newFilter as CombinationFilter;
       newFilter.push(addedFilter);
     } else {
+      if (!Array.isArray(newFilter)) {
+        throw new Error(`Cannot add filter to filter ${rootFilter}. Root filter has to be an array.`);
+      }
       const previousFilter: CombinationFilter = _get(newFilter, position);
       previousFilter.push(addedFilter);
       _set(newFilter, position, previousFilter);
@@ -356,14 +374,17 @@ class FilterUtil {
    */
   static changeFilter(rootFilter: Filter, position: string, type: string) {
 
-    let addedFilter: Filter ;
-    const newFilter: Filter = _cloneDeep(rootFilter);
+    let addedFilter: Filter;
+    const newFilter: Filter = structuredClone(rootFilter);
     const previousFilter = position === '' ? newFilter : _get(newFilter, position);
 
     switch (type) {
       case 'and':
         if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
           addedFilter = previousFilter;
+          if (!Array.isArray(addedFilter)) {
+            throw new Error('Cannot change filter. Filter is not an array.');
+          }
           addedFilter[0] = '&&';
         } else {
           addedFilter = ['&&', ['==', '', ''], ['==', '', '']];
@@ -372,6 +393,9 @@ class FilterUtil {
       case 'or':
         if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
           addedFilter = previousFilter;
+          if (!Array.isArray(addedFilter)) {
+            throw new Error('Cannot change filter. Filter is not an array.');
+          }
           addedFilter[0] = '||';
         } else {
           addedFilter = ['||', ['==', '', ''], ['==', '', '']];
@@ -389,6 +413,9 @@ class FilterUtil {
     if (position === '') {
       return addedFilter;
     } else {
+      if (!Array.isArray(newFilter)) {
+        throw new Error('Cannot change filter. Filter is not an array.');
+      }
       _set(newFilter, position, addedFilter);
       return newFilter;
     }
@@ -406,10 +433,15 @@ class FilterUtil {
 
     if (position === '') {
       newFilter = undefined;
-    } else if (parentFilter.length <= 2) {
-      newFilter = FilterUtil.removeAtPosition(rootFilter, parentPosition);
     } else {
-      newFilter = FilterUtil.removeAtPosition(rootFilter, position);
+      if (!Array.isArray(parentFilter)) {
+        throw new Error('Cannot remove filter. Filter is not an array.');
+      }
+      if (parentFilter.length <= 2) {
+        newFilter = FilterUtil.removeAtPosition(rootFilter, parentPosition);
+      } else {
+        newFilter = FilterUtil.removeAtPosition(rootFilter, position);
+      }
     }
 
     return newFilter;
@@ -423,7 +455,11 @@ class FilterUtil {
       key: _uniqueId()
     };
 
-    let filterClone = _cloneDeep(filter);
+    if (!Array.isArray(filter)) {
+      throw new Error('Filter is not an array.');
+    }
+
+    let filterClone = structuredClone(filter);
     const operator = filterClone.shift();
     if (isComparisonOperator(operator)) {
       tree.title = `${filterClone[0]} ${operator} ${filterClone[1]}`;

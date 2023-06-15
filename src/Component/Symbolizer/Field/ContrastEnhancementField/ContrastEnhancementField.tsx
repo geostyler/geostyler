@@ -34,8 +34,9 @@ import {
 const Option = Select.Option;
 
 import {
-  ContrastEnhancement
+  ContrastEnhancement, isGeoStylerFunction
 } from 'geostyler-style';
+import FunctionUtil from '../../../../Util/FunctionUtil';
 
 // default props
 interface ContrastEnhancementFieldDefaultProps {
@@ -59,6 +60,9 @@ export const ContrastEnhancementField: React.FC<ContrastEnhancementFieldProps> =
 
   const getContrastEnhancementSelectOptions = () => {
     return contrastEnhancementOptions.map(contrastEnhancementOpt => {
+      if (isGeoStylerFunction(contrastEnhancementOpt)) {
+        contrastEnhancementOpt = FunctionUtil.evaluateFunction(contrastEnhancementOpt) as ('normalize' | 'histogram');
+      }
       return (
         <Option
           key={contrastEnhancementOpt}

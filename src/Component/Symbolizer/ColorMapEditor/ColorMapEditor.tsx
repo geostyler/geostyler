@@ -35,7 +35,7 @@ import {
   InputNumber
 } from 'antd';
 
-import { ColorMap, ColorMapType, ColorMapEntry } from 'geostyler-style';
+import { ColorMap, ColorMapType, ColorMapEntry, isGeoStylerStringFunction } from 'geostyler-style';
 import { ExtendedField } from '../Field/ExtendedField/ExtendedField';
 import { ColorMapTypeField } from '../Field/ColorMapTypeField/ColorMapTypeField';
 import { ColorField } from '../Field/ColorField/ColorField';
@@ -55,6 +55,7 @@ import {
   useGeoStylerComposition,
   useGeoStylerLocale
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import FunctionUtil from '../../../Util/FunctionUtil';
 
 export interface ColorMapEntryRecord extends ColorMapEntry {
   key: number;
@@ -301,6 +302,10 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
   }
   const nrOfClasses = colorMapEntries.length;
 
+  const colorMapType = isGeoStylerStringFunction(colorMap?.type)
+    ? FunctionUtil.evaluateFunction(colorMap?.type) as ColorMapType
+    : colorMap?.type;
+
   return (
     <div className="gs-colormap-symbolizer-editor" >
       <div className="gs-colormap-header-row">
@@ -314,7 +319,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
               label={locale.typeLabel}
             >
               <ColorMapTypeField
-                colorMapType={colorMap?.type}
+                colorMapType={colorMapType}
                 onChange={onTypeChange}
               />
             </Form.Item>

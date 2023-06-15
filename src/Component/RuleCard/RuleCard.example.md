@@ -135,22 +135,22 @@ function RuleCardExample() {
   const [myContext, setMyContext] = useState({
     composition: {
       Rule: {
-        amount: {
+        amountField: {
           visibility: true
         },
-        duplicate: {
+        duplicateField: {
           visibility: true
         },
-        filter: {
+        filterField: {
           visibility: true
         },
-        name: {
+        nameField: {
           visibility: true
         },
-        minScale: {
+        minScaleField: {
           visibility: true
         },
-        maxScale: {
+        maxScaleField: {
           visibility: true
         }
       }
@@ -214,38 +214,38 @@ function RuleCardExample() {
     <div style={{height: '300px'}}>
       <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
         <Switch
-          checked={myContext.composition.Rule.amount.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'amount')}}
+          checked={myContext.composition.Rule.amountField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'amountField')}}
           checkedChildren="Amount"
           unCheckedChildren="Amount"
         />
         <Switch
-          checked={myContext.composition.Rule.duplicate.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'duplicate')}}
+          checked={myContext.composition.Rule.duplicateField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'duplicateField')}}
           checkedChildren="Duplicate"
           unCheckedChildren="Duplicate"
         />
         <Switch
-          checked={myContext.composition.Rule.filter.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'filter')}}
+          checked={myContext.composition.Rule.filterField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'filterField')}}
           checkedChildren="Filters"
           unCheckedChildren="Filters"
         />
         <Switch
-          checked={myContext.composition.Rule.name.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'name')}}
+          checked={myContext.composition.Rule.nameField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'nameField')}}
           checkedChildren="Name"
           unCheckedChildren="Name"
         />
         <Switch
-          checked={myContext.composition.Rule.minScale.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'minScale')}}
+          checked={myContext.composition.Rule.minScaleField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'minScaleField')}}
           checkedChildren="Min. Scale"
           unCheckedChildren="Min. Scale"
         />
         <Switch
-          checked={myContext.composition.Rule.maxScale.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'maxScale')}}
+          checked={myContext.composition.Rule.maxScaleField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'maxScaleField')}}
           checkedChildren="Max. Scale"
           unCheckedChildren="Max. Scale"
         />

@@ -34,8 +34,9 @@ import {
 const Option = Select.Option;
 
 import {
-  RasterSymbolizer
+  RasterSymbolizer, isGeoStylerFunction
 } from 'geostyler-style';
+import FunctionUtil from '../../../../Util/FunctionUtil';
 
 // default props
 interface ResamplingFieldDefaultProps {
@@ -58,6 +59,9 @@ export const ResamplingField: React.FC<ResamplingFieldProps> = ({
 }) => {
 
   const resamplingSelectOptions = resamplingOptions.map(resamplingOpt => {
+    if (isGeoStylerFunction(resamplingOpt)) {
+      resamplingOpt = FunctionUtil.evaluateFunction(resamplingOpt) as ('linear' | 'nearest');
+    }
     return (
       <Option
         key={resamplingOpt}
