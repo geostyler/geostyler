@@ -92,8 +92,7 @@ class FunctionUtil {
       case 'between':
         return (args[0] as number) >= (args[1] as number) && (args[0] as number) <= (args[2] as number);
       case 'double2bool':
-        // TODO: evaluate this correctly
-        return false;
+        return Math.round(args[0] as number) === 1;
       case 'in':
         return args.slice(1).includes(args[0]);
       case 'parseBoolean':
@@ -217,15 +216,16 @@ class FunctionUtil {
         return args[0] as string;
       case 'strCapitalize':
         // https://stackoverflow.com/a/32589289/10342669
-        var splitStr = (args[0] as string).toLowerCase().split(' ');
-        for (let part of splitStr) {
-          part = part.charAt(0).toUpperCase() + part.substring(1);
+        var words = (args[0] as string).toLowerCase().split(' ');
+        var capitalizedWords = [];
+        for (let word of words) {
+          capitalizedWords.push(word.charAt(0).toUpperCase() + word.substring(1));
         }
-        return splitStr.join(' ');
+        return capitalizedWords.join(' ');
       case 'strConcat':
-        return args.join();
+        return args.join('');
       case 'strDefaultIfBlank':
-        return (args[0] as string)?.length < 1 ? args[1] as string : args[0] as string;
+        return (!args[0] || (args[0] as string)?.length < 1) ? args[1] as string : args[0] as string;
       case 'strReplace':
         if (args[3] === true) {
           return (args[0] as string).replaceAll(args[1] as string, args[2] as string);
