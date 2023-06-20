@@ -23,6 +23,7 @@ import { StyleComposableProps } from '../../Component/Style/Style';
 import UnsupportedPropertiesUtil, { SymbolizerName } from '../../Util/UnsupportedPropertiesUtil';
 import en_US from '../../locale/en_US';
 import { Data as GeoStylerData } from 'geostyler-data';
+import { SLDRendererComposableProps } from '../../Component/Renderer/SLDRenderer/SLDRenderer';
 
 export type InputConfig<T> = {
   visibility?: boolean;
@@ -44,6 +45,7 @@ export type CompositionContext = {
   ColorMapEditor?: ColorMapEditorComposableProps;
   ComparisonFilter?: ComparisonFilterComposableProps;
   Renderer?: RendererComposableProps;
+  SLDRenderer?: SLDRendererComposableProps;
   Rules?: RulesComposableProps;
   Rule?: RuleComposableProps;
   Style?: StyleComposableProps;
