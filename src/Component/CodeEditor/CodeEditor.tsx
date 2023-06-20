@@ -68,6 +68,7 @@ import { ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
 import QGISStyleParser from 'geostyler-qgis-parser';
 import MapboxStyleParser from 'geostyler-mapbox-parser';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import { isString } from 'lodash';
 
 // non default props
 export interface CodeEditorProps {
@@ -152,7 +153,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const locale = useGeoStylerLocale('CodeEditor');
   const editTimeout = useRef<number>();
   const [activeParser, setActiveParser] = useState<StyleParser>(defaultParser);
-  const [fileFormat, setFileFormat] = useState<FileFormat>(getFileFormat(defaultParser));
   const [value, setValue] = useState<string>('');
   const [writeStyleResult, setWriteStyleResult] = useState<WriteStyleResult>();
   const [readStyleResult, setReadStyleResult] = useState<ReadStyleResult>();
@@ -164,9 +164,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   useEffect(() => {
     if (writeStyleResult?.output) {
-      setValue(writeStyleResult.output);
+      const fileFormat = getFileFormat(activeParser);
+      if (isString(writeStyleResult.output)) {
+        setValue(writeStyleResult.output);
+      } else if (fileFormat.language === 'json') {
+        setValue(JSON.stringify(writeStyleResult.output, null, 2));
+      } else {
+        setValue(writeStyleResult.output.toString());
+      }
     }
-  }, [writeStyleResult]);
+  }, [writeStyleResult, activeParser]);
 
   useEffect(() => {
     if (monaco) {
@@ -183,7 +190,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const updateValueFromStyle = useCallback((s: GsStyle) => {
     setHasError(false);
-    setWriteStyleResult(undefined);
     (new Promise(async() => {
       if (activeParser) {
         setWriteStyleResult(await activeParser.writeStyle(s));
@@ -202,10 +208,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       updateValueFromStyle(style);
     }
   }, [activeParser, style, updateValueFromStyle, previousStyle, previouseParser]);
-
-  useEffect(() => {
-    setFileFormat(getFileFormat(activeParser));
-  }, [activeParser]);
 
   if (hasError) {
     return (<h1>An error occurred in the CodeEditor UI.</h1>);
@@ -265,6 +267,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const onDownloadButtonClick = () => {
     if (style) {
+      const fileFormat = getFileFormat(activeParser);
       let fileName = style.name;
       fileName += fileFormat.extension;
 
@@ -340,7 +343,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         value={value}
         // activeParser === undefined -> GeostylerStyle
         path={activeParser === undefined ? MODELPATH : undefined }
-        language={fileFormat.language}
+        language={getFileFormat(activeParser).language}
         onChange={handleOnChange}
       />
       <div className={`gs-code-editor-feedback ${alertExtraClass}`}>
