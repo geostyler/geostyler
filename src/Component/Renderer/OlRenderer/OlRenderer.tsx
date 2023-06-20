@@ -50,7 +50,6 @@ import _get from 'lodash/get';
 import _uniqueId from 'lodash/uniqueId';
 import { useGeoStylerData } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-// non default props
 export interface OlRendererProps {
   symbolizers: Symbolizer[];
   symbolizerKind?: SymbolizerKind;

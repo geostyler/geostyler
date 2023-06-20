@@ -34,8 +34,10 @@ import { OlRenderer, OlRendererProps } from '../OlRenderer/OlRenderer';
 import { SLDRenderer, SLDRendererProps } from '../SLDRenderer/SLDRenderer';
 import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
+export type RuleRendererType = 'OpenLayers' | 'SLD';
+
 export interface RendererComposableProps {
-  rendererType?: 'OpenLayers' | 'SLD';
+  rendererType?: RuleRendererType;
 }
 
 export type RendererProps = RendererComposableProps & (OlRendererProps | SLDRendererProps);
@@ -59,6 +61,12 @@ export const Renderer: React.FC<RendererProps> = (props) => {
     );
   }
   else if (rendererType === 'SLD') {
+    const sldRendererProps = rendererProps as SLDRendererProps;
+    if (!sldRendererProps.wmsBaseUrl || !sldRendererProps.layer) {
+      throw new Error(
+        '"wmsBaseUrl" or "layer" are missing in the GeoStylerContext.composition.SLDRenderer'
+      );
+    }
     renderer = (
       <SLDRenderer
         {...rendererProps as SLDRendererProps}

@@ -33,6 +33,7 @@ import './SLDRenderer.less';
 import { Style, Symbolizer } from 'geostyler-style';
 import HTTPUtil from '../../../Util/HTTPUtil';
 import loading from './LoadingIcon';
+import { useGeoStylerComposition } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface SLDRendererComposableProps {
   requestDelay?: number;
@@ -57,18 +58,22 @@ const styleParser = new SldStyleParser();
 /**
  * Symbolizer Renderer UI.
  */
-export const SLDRenderer: React.FC<SLDRendererProps> = ({
-  requestDelay = 500,
-  width = 150,
-  height = 100,
-  wmsBaseUrl,
-  layer,
-  rasterLayer,
-  additionalHeaders,
-  wmsParams,
-  onClick,
-  symbolizers
-}) => {
+export const SLDRenderer: React.FC<SLDRendererProps> = (props) => {
+
+  const composition = useGeoStylerComposition('SLDRenderer');
+  const composed = {...props, ...composition};
+  let {
+    requestDelay = 500,
+    width = 150,
+    height = 100,
+    wmsBaseUrl,
+    layer,
+    rasterLayer,
+    additionalHeaders,
+    wmsParams,
+    onClick,
+    symbolizers
+  } = composed;
 
   const [alt, setAlt] = useState<string>();
   const [legendDataUrl, setLegendDataUrl] = useState<string>();
