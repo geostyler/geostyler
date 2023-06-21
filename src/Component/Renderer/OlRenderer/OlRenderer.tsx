@@ -159,7 +159,7 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
       name: 'WrapperStyle4Symbolizer',
       rules: [{
         name: 'WrapperRule4Symbolizer',
-        symbolizers: newSymbolizers
+        symbolizers: structuredClone(newSymbolizers)
       }]
     };
     // parser style to OL style

@@ -79,19 +79,13 @@ class SymbolizerEditorWindowExample extends React.Component {
 
     return (
       <div>
-        <Button
-          onClick={this.onButtonClick}
-        >Show SymbolizerEditorWindow</Button>
-        {
-          showWindow &&
-          <SymbolizerEditorWindow
-            symbolizers={symbolizers}
-            onSymbolizersChange={this.onSymbolizersChange}
-            onClose={this.onClose}
-            x={1000}
-            y={53500}
-          />
-        }
+        <Button onClick={this.onButtonClick}>Show SymbolizerEditorWindow</Button>
+        <SymbolizerEditorWindow
+          open={showWindow}
+          symbolizers={symbolizers}
+          onSymbolizersChange={this.onSymbolizersChange}
+          onClose={this.onClose}
+        />
       </div>
     );
   }
