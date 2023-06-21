@@ -105,7 +105,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     nameField,
     onRulesChange,
     rendererType = 'OpenLayers',
-    rules: rulesProp,
+    rules,
     // The composableProps include the antd table props
     ...antdTableProps
   } = composed;
@@ -116,7 +116,6 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   const [symbolizerEditorVisible, setSymbolizerEditorVisible] = useState<boolean>();
   const [filterEditorVisible, setFilterEditorVisible] = useState<boolean>();
   const [hasError, setHasError] = useState<boolean>();
-  const [rules, setRules] = useState<GsRule[]>();
   const [counts, setCounts] = useState<number[]>();
   const [duplicates, setDuplicates] = useState<number[]>();
 
@@ -130,7 +129,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     let countsAndDuplicates: CountResult = {};
     try {
       if (data && DataUtil.isVector(data)) {
-        countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(rulesProp, data);
+        countsAndDuplicates = FilterUtil.calculateCountAndDuplicates(rules, data);
       } else {
         countsAndDuplicates = {};
       }
@@ -138,10 +137,9 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       setHasError(true);
       // make sure to update state when checks/calculation fails
     }
-    setRules(rulesProp);
     setCounts(countsAndDuplicates?.counts);
     setDuplicates(countsAndDuplicates?.duplicates);
-  }, [rulesProp, data]);
+  }, [rules, data]);
 
   const ruleRecords = rules?.map((rule: GsRule, index: number): RuleRecord => {
     return {
@@ -352,7 +350,8 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     title: (
       <Tooltip title={locale.symbolizersColumnTitle}>
         <BgColorsOutlined />
-      </Tooltip>),
+      </Tooltip>
+    ),
     dataIndex: 'symbolizers',
     render: symbolizerRenderer
   }];
