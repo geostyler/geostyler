@@ -26,7 +26,7 @@ jobs:
         uses: cycjimmy/semantic-release-action@v3
         id: semantic
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Update README.md 📄
