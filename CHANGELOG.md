@@ -1,3 +1,151 @@
+## [13.0.0](https://github.com/geostyler/geostyler/compare/v12.0.0...v13.0.0) (2023-06-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* removes the 'data' / 'internalDataDef' prop from several
+components and removes the Preview component
+* - removed all default exports from react components
+- removed many exported *DefaultProps types
+* modifies API of GeoStylerContext.unsupportedProperties
+* removes legacy UnsupportedPropertiesContext
+* - removes legacy CompositionContext and CompositionUtil
+- removes the withDefaultsContext and use GeoStylerContext instead
+- removes properties from Style and RuleTable and use GeoStylerContext instead
+- removes legacy DefaultValueContext
+- removes iconEditorProps and iconLibraries from Editor and CardStyle
+- removes iconLibraries and imageFieldProps from IconEditor
+- remove several props from Style and RuleGeneratorWindow and use GeoStylerContext instead
+- removes filterUIProps from FilterEditorWindow and FilterTree
+- enableClassification property in Rules is replaced with disableClassification
+* The 'react-color' colorpicker was replaced with 'ColorPicker' of 'antd'.
+All react-color specific props were removed and replaced with the props of antd's colorpicker.
+Also, the prop 'color' was renamed to 'value'.
+* removes the DataProvider
+
+Co-authored-by: Kai Volland <volland@terrestris.de>
+* changed value property of LineCapField and LineJoinField from `cap` / `join` to `value`
+* This removes the deprecated CompositionContext in favor
+of the new GeoStylerContext composition from Editor. This also removes
+the property `colorRamps` from Editor without replacement. This will be
+re-added soon.
+* This removes the properties `showAmount` and
+`showDuplicates` from RuleCard. Please use
+GeoStylerContext.composition.Rule.amount and
+GeoStylerContext.composition.Rule.duplicate instead.
+* This removes the properties `showAmountColumn` and
+`showDuplicatesColumn` from <RuleTable> and thereby also from <Style>. Please
+use GeoStylerContext.composition.Rule.amount.visibility and
+GeoStylerContext.composition.Rule.duplicate.visibility instead.
+* OpacityField, WidthField and SizeField now expect the corresponding value to passed as value 
+ instead of opacity, width, size as this conflicted with some properties of the Inputs
+* the javascript file of the browser build is now called geostyler.js.iife.js
+* This removes the `defaultValues` property from
+RasterEditor. Please use GeoStylerContext.composition instead.
+* This removes the support for the deprecated
+CompositionContext in favor of the new GeoStylerContext for the
+RasterEditor. Please use GeoStylerContext.composition now.
+* Peer dependencies of antd and @ant-design/icons do require versions 5.x
+* This removes the support for the deprecated
+CompositionContext in favor of the new GeoStylerContext for the
+TextEditor. This also removes the `defaultValues` property for the
+TextEditor. Please use GeoStylerContext.composition instead.
+* This removes the support for the deprecated
+CompositionContext in favor of the new GeoStylerContext for the
+WellKnownNameEditor. This also removes the `defaultValues` property
+for the WellKnownNameEditor. Please use GeoStylerContext.composition
+instead.
+* This removes the support for the deprecated
+CompositionContext in favor of the new GeoStylerContext for the
+MarkEditor. This also removes the `defaultValues` property from
+MarkEditor.
+* This removes the support of the deprecated
+CompositionContext in favor of the new GeoStylerContext for the
+LineEditor. This also removes the `defaultValue` property from
+LineEditor. Please use GeoStylerContext.composition instead. For now,
+composition of graphicFill and graphicStroke was changed without
+replacement. Support will be re-added again in the future.
+* This removes the support of the deprecated
+CompositionContext in favor of the new GeoStylerContext for the
+IconEditor. This also removes the `defaultValues` property from
+IconEditor. Please use GeoStylerContext.composition instead.
+* This removes the support of the deprecated CompositionContext
+in favor of the new GeoStylerContext for the FillEditor. This also
+removes the `defaultValues` property from FillEditor. Please use
+GeoStylerContext.composition instead.
+
+### Features
+
+* add 'data' prop to GeoStylerContext ([760f557](https://github.com/geostyler/geostyler/commit/760f5573288793526425647b7e102a279ec7ee54))
+* add Croatian translations ([06c5ee2](https://github.com/geostyler/geostyler/commit/06c5ee27864d58ada074b1bb612b1896069d0564))
+* add SLDRenderer to CompositionContext ([1766f40](https://github.com/geostyler/geostyler/commit/1766f4059dd59c50f164a4e41affe8263c9e2a2a))
+* add support for all EPSG codes to PreviewMap ([6df76dd](https://github.com/geostyler/geostyler/commit/6df76ddee63d85e5175c5f8084cec0e823cf364f))
+* introduce FunctionUI and ExpressionInputs ([697b73a](https://github.com/geostyler/geostyler/commit/697b73a2cb28e8bdd497dfaea4e88aad02890f6c))
+* introduces StringExpressionSelect ([32fbbc7](https://github.com/geostyler/geostyler/commit/32fbbc7ca1ccd9cf1ae2ac36f8f952471ffaf26b))
+* make use of useGeoStylerLocale ([2f05973](https://github.com/geostyler/geostyler/commit/2f0597350c0872764312d2f15b9b00afcd9c86e7))
+* remove DataProvider ([#2210](https://github.com/geostyler/geostyler/issues/2210)) ([15ca661](https://github.com/geostyler/geostyler/commit/15ca661747b33b5ed2fb10d2e4964eac8c3083b9))
+* remove deprecated Rule and compact property ([e683b3f](https://github.com/geostyler/geostyler/commit/e683b3fdd7b7f2d7637caa92e38ce25647680f66))
+* removes legacy UnsupportedPropertiesContext ([736f91c](https://github.com/geostyler/geostyler/commit/736f91c0a262c6b5cdbad9c2d3238f1d9162a4e1))
+* replace react-rnd window like components with antd modals ([9333f4b](https://github.com/geostyler/geostyler/commit/9333f4b2c7657181471cda2831646a195ff35741))
+* replace remove symbolizer button with removable tabs ([#2152](https://github.com/geostyler/geostyler/issues/2152)) ([34ad73d](https://github.com/geostyler/geostyler/commit/34ad73d67a2607e6d767070fb48e7b28ab1acc4d))
+* update geostyler dependencies ([a4ca370](https://github.com/geostyler/geostyler/commit/a4ca37006124fadbbd15045271937a9d84076574))
+* update GeoStylerContext ([4b7ba05](https://github.com/geostyler/geostyler/commit/4b7ba058e0538346cc8b0f0692f233974908f685))
+* Use ExpressionInputs in Symbolizer Fields ([#2136](https://github.com/geostyler/geostyler/issues/2136)) ([94f13e6](https://github.com/geostyler/geostyler/commit/94f13e6e1ef35c7d31040a016c6ba7cbaf466ac9))
+* use GeoStylerContext composition for ColorMapEditor ([#2135](https://github.com/geostyler/geostyler/issues/2135)) ([86d7db2](https://github.com/geostyler/geostyler/commit/86d7db27da6f2e16c8324061dc20b43219b319a0))
+* use GeoStylerContext composition for ComparisonFilter ([#2141](https://github.com/geostyler/geostyler/issues/2141)) ([4e22016](https://github.com/geostyler/geostyler/commit/4e2201669b4fc05de89b9435556f783b0cb18562))
+* use GeoStylerContext composition for Editor ([#2148](https://github.com/geostyler/geostyler/issues/2148)) ([fb84746](https://github.com/geostyler/geostyler/commit/fb847465bc26813f66cf2ed1bafda60246011a16))
+* use GeoStylerContext composition for MarkEditor ([#2125](https://github.com/geostyler/geostyler/issues/2125)) ([d1bbfd0](https://github.com/geostyler/geostyler/commit/d1bbfd08cae87f35498e029949f82b728f773b16))
+* use GeoStylerContext composition for RasterChannelEditor ([#2134](https://github.com/geostyler/geostyler/issues/2134)) ([e02312e](https://github.com/geostyler/geostyler/commit/e02312ec9ca934640a10acbcf936041644450a1b))
+* use GeoStylerContext composition for RasterEditor ([#2131](https://github.com/geostyler/geostyler/issues/2131)) ([5039e1d](https://github.com/geostyler/geostyler/commit/5039e1d49025b217ad21168085b0ef0ca4f86af9))
+* use GeoStylerContext composition for RuleCard and RuleOverview ([#2145](https://github.com/geostyler/geostyler/issues/2145)) ([346ffad](https://github.com/geostyler/geostyler/commit/346ffadb3721b767f9a94332a176acc032d92735))
+* use GeoStylerContext composition for Rules and RuleTable ([#2142](https://github.com/geostyler/geostyler/issues/2142)) ([ad98b61](https://github.com/geostyler/geostyler/commit/ad98b610a3d1672852efc51518992d66462d343a))
+* use GeoStylerContext composition for TextEditor ([#2130](https://github.com/geostyler/geostyler/issues/2130)) ([1a2e01c](https://github.com/geostyler/geostyler/commit/1a2e01c201a24f45752db4557a897c45d6a30b37))
+* use GeoStylerContext composition for WellKnownNameEditor ([#2129](https://github.com/geostyler/geostyler/issues/2129)) ([60e84bb](https://github.com/geostyler/geostyler/commit/60e84bba209ff0dceddbe7bc5c62a5839171f4f4))
+* use GeoStylerContext composition on FillEditor ([#2119](https://github.com/geostyler/geostyler/issues/2119)) ([b0e0949](https://github.com/geostyler/geostyler/commit/b0e09498300d1402ef879757eead66880de1fbe9))
+* use GeoStylerContext composition on IconEditor ([#2121](https://github.com/geostyler/geostyler/issues/2121)) ([8549a2c](https://github.com/geostyler/geostyler/commit/8549a2ce6c7ea18eee5117ce75dbd1af56cffd39))
+* use GeoStylerContext composition on LineEditor ([#2123](https://github.com/geostyler/geostyler/issues/2123)) ([b05f3db](https://github.com/geostyler/geostyler/commit/b05f3dbd480cf7bbb823be4de0fb0f5b2e1d48be))
+* visibility field ([#2155](https://github.com/geostyler/geostyler/issues/2155)) ([7b9c05d](https://github.com/geostyler/geostyler/commit/7b9c05dade879a7e55e9bb1ea1094e7095ce069a))
+
+
+### Bug Fixes
+
+* add missing typings ([c2ec232](https://github.com/geostyler/geostyler/commit/c2ec232cc76905b9a1d797db65f4bdcf8a9a38be))
+* add missing whitespace ([938e082](https://github.com/geostyler/geostyler/commit/938e082bad4f5387af6c1fc1640c57358f64a612))
+* add the symbolizer kind to the tab label ([dfda25d](https://github.com/geostyler/geostyler/commit/dfda25db81831f059e24507944deeaaa4c0deb02))
+* add typing ([da047eb](https://github.com/geostyler/geostyler/commit/da047ebd1faec44ed2013678c135070b28b4d6d3))
+* **antd-update:** include reset css ([a63a464](https://github.com/geostyler/geostyler/commit/a63a464ae2d565e3b191d5f91355456f0caa27e0))
+* **antd-update:** migrate to antd v5 ([451ab9b](https://github.com/geostyler/geostyler/commit/451ab9ba2737ec2f48e31fe55eed9fbca8c14479))
+* change 3 strings in french ([6e0aeae](https://github.com/geostyler/geostyler/commit/6e0aeae817707169872ba09464654643544f39e0))
+* clone symbolizers before parsing ([46ed80d](https://github.com/geostyler/geostyler/commit/46ed80dd03ec7256c675c4fbb638f09237627565))
+* **CodeEditor:** model only for geostyler-style ([1f89c9a](https://github.com/geostyler/geostyler/commit/1f89c9a69cec44a81bc09a0360e4e752b5efbc43))
+* correct the renovate JSON ([ee71abd](https://github.com/geostyler/geostyler/commit/ee71abda5f9c5cbc46ad2ea79e02c425994e7b16))
+* **deps:** update dependency @types/lodash to v4.14.195 ([594331c](https://github.com/geostyler/geostyler/commit/594331c60f5c7d377e5d983791149e90a2dd0611))
+* **deps:** update dependency monaco-editor to ^0.39.0 ([30be095](https://github.com/geostyler/geostyler/commit/30be09571b473047de34929b5f04edf01101e479))
+* **deps:** update dependency typescript-json-schema to ^0.57.0 ([eadfab7](https://github.com/geostyler/geostyler/commit/eadfab7592452b62ec8a5b7dcf73fd3176f787af))
+* fix RuleTable example ([a3f0053](https://github.com/geostyler/geostyler/commit/a3f005314568dac4302dd7c7aeef52eab553c7f5))
+* improve test performance ([#2143](https://github.com/geostyler/geostyler/issues/2143)) ([4dd5a8c](https://github.com/geostyler/geostyler/commit/4dd5a8c3facce4d4d858e52ca8cd706fc3a201d7))
+* remove unused import ([81a7257](https://github.com/geostyler/geostyler/commit/81a7257147d3b7b046583922e9d3ebb5532c4997))
+* resolve some ts any warnings ([8b99cc5](https://github.com/geostyler/geostyler/commit/8b99cc51885713f6fa29721628bae763c7e306fa))
+* set role ([4f72ecd](https://github.com/geostyler/geostyler/commit/4f72ecddf44559654d104ee1341a92e2e6667d89))
+* update CodeEditor to allow JSON objects ([df05b06](https://github.com/geostyler/geostyler/commit/df05b06add7111094c7d26543091d72fedec580e))
+* update error messages ([585eaec](https://github.com/geostyler/geostyler/commit/585eaec33a1aa4222c338ba13142d9bcf8aa4f87))
+* update outline opacity label for en_US ([c3dc256](https://github.com/geostyler/geostyler/commit/c3dc256c71e77829eedb9ddd1a3654cad7287da4))
+* update RuleCard example ([3e09ece](https://github.com/geostyler/geostyler/commit/3e09ece992366d18f1d67c36feeb2ab436621071))
+
+
+### Miscellaneous Chores
+
+* update peer dependencies of antd ([9b94844](https://github.com/geostyler/geostyler/commit/9b948442a0c9d5c475629cb2f058212217b9708c))
+
+
+* Use antd ColorPicker for `ColorField` (#2213) ([9ed225d](https://github.com/geostyler/geostyler/commit/9ed225d907b042eb2dec2eb2ff6f5b92955449c2)), closes [#2213](https://github.com/geostyler/geostyler/issues/2213)
+
+
+### Code Refactoring
+
+* update and refactor usage of GeoStylerContext ([82cb955](https://github.com/geostyler/geostyler/commit/82cb9555e38689fedcde9d3513628e7b00c7cd3b))
+* use vite for dev & browser build ([#2133](https://github.com/geostyler/geostyler/issues/2133)) ([e8d9dac](https://github.com/geostyler/geostyler/commit/e8d9dace0f9d14c2140a16438ffcb5047daa7ca6))
+
 ## [12.0.0](https://github.com/geostyler/geostyler/compare/v11.1.1...v12.0.0) (2023-03-13)
 
 
