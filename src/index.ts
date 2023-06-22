@@ -120,6 +120,7 @@ export { WellKnownNameEditor } from './Component/Symbolizer/WellKnownNameEditor/
 export { WellKnownNameField } from './Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 export { WidthField } from './Component/Symbolizer/Field/WidthField/WidthField';
 export { GeoStylerContext } from './context/GeoStylerContext/GeoStylerContext';
+import type { GeoStylerContextInterface } from './context/GeoStylerContext/GeoStylerContext';
 import type GeoStylerLocale from './locale/locale';
 
 export { ConfigProvider } from 'antd';
@@ -139,5 +140,6 @@ export const locale = {
 };
 
 export {
-  GeoStylerLocale
+  GeoStylerLocale,
+  GeoStylerContextInterface
 };
