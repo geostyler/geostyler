@@ -73,6 +73,10 @@ module.exports = {
     content: './docs/introduction.md',
     sectionDepth: 0
   }, {
+    name: 'GeoStylerContext',
+    content: './docs/geoStylerContext.md',
+    sectionDepth: 0
+  }, {
     name: 'Components',
     sections: [{
       name: 'BulkEditor',
