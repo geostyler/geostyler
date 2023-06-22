@@ -20,7 +20,7 @@ jobs:
         run: npm ci
 
       - name: Build artifacts 🏗️
-        run: npm run build-dist && npm run build-browser
+        run: npm run build
 
       - name: Release 🚀
         uses: cycjimmy/semantic-release-action@v3
