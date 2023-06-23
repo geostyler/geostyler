@@ -1,3 +1,10 @@
+## [13.0.1](https://github.com/geostyler/geostyler/compare/v13.0.0...v13.0.1) (2023-06-23)
+
+
+### Bug Fixes
+
+* add missing GeoStylerContextInterface export ([0f8214e](https://github.com/geostyler/geostyler/commit/0f8214ed186c950dcbc8618d0547423ffabdd822))
+
 ## [13.0.0](https://github.com/geostyler/geostyler/compare/v12.0.0...v13.0.0) (2023-06-22)
 
 
