@@ -1,24 +1,24 @@
-The `GeoStylerContext` lets you customize (`composition`) the GeoStyler UI aswell as it supports the underlying
+The `GeoStylerContext` lets you customize (`composition`) the GeoStyler UI as well as it supports the underlying
 components with the needed `data`, localization (`locale`) and `unsupportedProperties`.
 
 1. `data`
 
 You can provide your own geodata with the `data` property. It has to be provided as [geostyler-data](https://github.com/geostyler/geostyler-data).
-You can easily parse your existing [WFS](https://github.com/geostyler/geostyler-wfs-parser), [geojson](https://github.com/geostyler/geostyler-geojson-parser) or [shapefile](https://github.com/geostyler/geostyler-shapefile-parser) with the corresponding geostyler parsers.
+You can easily parse your existing [WFS](https://github.com/geostyler/geostyler-wfs-parser), [geojson](https://github.com/geostyler/geostyler-geojson-parser) or [shapefile](https://github.com/geostyler/geostyler-shapefile-parser) with the corresponding geostyler parsers. The data can then be used for auto-completion and auto-classification within GeoStyler.
 
 2. `locale`
 
-The default language used in the GeoStyler UI is english. To change the labels of the components you
-can use one of the existing locales exported by the GeoStyler or provide your own locale by implementing
+The default language used in the GeoStyler UI is English. To change the labels of the components you
+can use one of the existing locales exported by GeoStyler or provide your own locale by implementing
 the `GeoStylerLocale` interface.
 
 3. `composition`
 
-The `composition` lets you customize the appearance of many components of the GeoStyler. This includes
+The `composition` lets you customize the appearance of many components of GeoStyler. This includes
 all the editors and covers most of their fields. The example below shows how to disable the `RasterEditor`
 in your component. But you can also modify many of the properties of the editors. Like the visibility or
-the default values for explicit field. In general all of the components covered in the `CompositionContext`
-export "composableProps". These are the props that you can adjust and modify with the `composition` prop.
+the default values for explicit field. In general, all of the components covered in the `CompositionContext`
+export "composableProps". These are the props that you can adjust and modify with the `composition` prop. Check out the component documentation for each component respectively, to see what exactly can be composed.
 
 4. `unsupportedProperties`
 
