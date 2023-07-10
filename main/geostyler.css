@@ -291,6 +291,12 @@ mark {
 .ant-color-picker .ant-color-picker-format-select {
   display: none;
 }
+.gs-color-field {
+  display: flex;
+}
+.gs-color-field button {
+  flex: 1;
+}
 
 .gs-function-name-combo {
   display: flex;
