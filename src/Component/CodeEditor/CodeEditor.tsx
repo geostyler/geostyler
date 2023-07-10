@@ -86,6 +86,8 @@ export interface CodeEditorProps {
   defaultParser?: StyleParser;
   /** The callback method that is triggered when the state changes */
   onStyleChange?: (rule: GsStyle) => void;
+  /** Callback method when the activeParser has changed via dropdown. */
+  onActiveParserChange?: (activeParser: StyleParser) => void;
 }
 
 type EditorLanguage = 'xml' | 'json' | 'plaintext';
@@ -144,6 +146,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   defaultParser,
   delay = 500,
   onStyleChange = () => undefined,
+  onActiveParserChange = () => undefined,
   parsers = [],
   showCopyButton = false,
   showSaveButton = false,
@@ -235,6 +238,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const onParserSelect = (selection: string) => {
     const parser = parsers.find((p: any) => p.title === selection);
+    onActiveParserChange(parser);
     setActiveParser(parser);
   };
 
