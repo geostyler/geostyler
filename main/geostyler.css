@@ -294,8 +294,20 @@ mark {
 .gs-color-field {
   display: flex;
 }
-.gs-color-field button {
+.gs-color-field .gs-function-ui,
+.gs-color-field .ant-input,
+.gs-color-field button.color-picker-trigger {
   flex: 1;
+}
+.gs-color-field button.function-ui-trigger {
+  display: none;
+  border-radius: 0 6px 6px 0;
+}
+.gs-color-field:hover button.ant-btn {
+  display: inline-block;
+}
+.gs-color-field:hover button.color-picker-trigger {
+  border-radius: 6px 0 0 6px;
 }
 
 .gs-function-name-combo {
@@ -367,19 +379,6 @@ mark {
   border-radius: 6px 0 0 6px;
 }
 
-.boolean-expression-input {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 32px;
-}
-.boolean-expression-input button.ant-btn {
-  display: none;
-}
-.boolean-expression-input:hover button.ant-btn {
-  display: inline-block;
-}
-
 .number-expression-input {
   display: flex;
   align-items: center;
@@ -397,6 +396,19 @@ mark {
 }
 .number-expression-input:hover .ant-input-number {
   border-radius: 6px 0 0 6px;
+}
+
+.boolean-expression-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+}
+.boolean-expression-input button.ant-btn {
+  display: none;
+}
+.boolean-expression-input:hover button.ant-btn {
+  display: inline-block;
 }
 
 /* Released under the BSD 2-Clause License
