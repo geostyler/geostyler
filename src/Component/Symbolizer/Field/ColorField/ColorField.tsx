@@ -37,11 +37,18 @@ import {
 
 import './ColorField.less';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
+import {
+  Expression,
+  GeoStylerStringFunction,
+  isGeoStylerFunction
+} from 'geostyler-style';
+import { FunctionUI } from '../../../FunctionUI/FunctionUI';
+import { FunctionOutlined } from '@ant-design/icons';
 
-export interface ColorFieldProps extends Omit<ColorPickerProps, 'onChange'|'value'|'defaultValue'> {
-  value?: string;
-  onChange?: (color: string) => void;
-  defaultValue?: string;
+export interface ColorFieldProps extends Omit<ColorPickerProps, 'onChange' | 'value' | 'defaultValue'> {
+  value?: Expression<string>;
+  onChange?: (color: Expression<string>) => void;
+  defaultValue?: Expression<string>;
 }
 
 /**
@@ -65,6 +72,23 @@ export const ColorField: React.FC<ColorFieldProps> = ({
     }
   }, [onChange]);
 
+  function onCancel() {
+    onChange(defaultValue);
+  }
+
+  if (isGeoStylerFunction(value)) {
+    return (
+      <span className="editor-field gs-color-field">
+        <FunctionUI<GeoStylerStringFunction>
+          type='string'
+          value={value}
+          onChange={onChange}
+          onCancel={onCancel}
+        />
+      </span>
+    );
+  }
+
   let textColor;
   try {
     textColor = Color(value || defaultValue).negate().grayscale().string();
@@ -72,8 +96,14 @@ export const ColorField: React.FC<ColorFieldProps> = ({
     textColor = '#000000';
   }
 
+  const backgroundColor = !isGeoStylerFunction(value)
+    ? value
+    : !isGeoStylerFunction(defaultValue)
+      ? defaultValue
+      : '#FFFFF';
+
   const btnStyle: React.CSSProperties = {
-    backgroundColor: value || defaultValue,
+    backgroundColor,
     color: textColor
   };
 
@@ -85,10 +115,20 @@ export const ColorField: React.FC<ColorFieldProps> = ({
         onChange={onColorPickerChange}
         {...passThroughProps}
       >
-        <Button style={btnStyle}>
+        <Button style={btnStyle} className="color-picker-trigger">
           {value ? value.toString() : locale.chooseText}
         </Button>
       </ColorPicker>
+      <Button
+        className="function-ui-trigger"
+        icon={<FunctionOutlined />}
+        onClick={() => {
+          onChange?.({
+            name: 'property',
+            args: ['']
+          });
+        }}
+      />
     </span>
   );
 };

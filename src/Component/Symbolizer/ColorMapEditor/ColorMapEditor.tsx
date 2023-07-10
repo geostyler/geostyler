@@ -35,7 +35,7 @@ import {
   InputNumber
 } from 'antd';
 
-import { ColorMap, ColorMapType, ColorMapEntry, isGeoStylerStringFunction } from 'geostyler-style';
+import { ColorMap, ColorMapType, ColorMapEntry, isGeoStylerStringFunction, Expression } from 'geostyler-style';
 import { ExtendedField } from '../Field/ExtendedField/ExtendedField';
 import { ColorMapTypeField } from '../Field/ColorMapTypeField/ColorMapTypeField';
 import { ColorField } from '../Field/ColorField/ColorField';
@@ -237,7 +237,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
     const input = (
       <ColorField
         value={record.color as string}
-        onChange={(color: string) => {
+        onChange={(color: Expression<string>) => {
           setValueForColorMapEntry(record.key, 'color', color);
         }}
       />

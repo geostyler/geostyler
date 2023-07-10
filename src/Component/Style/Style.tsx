@@ -43,7 +43,8 @@ import {
   Rule as GsRule,
   SymbolizerKind,
   Symbolizer as GsSymbolizer,
-  WellKnownName as GsWellKnownName
+  WellKnownName as GsWellKnownName,
+  Expression
 } from 'geostyler-style';
 
 import { NameField } from '../NameField/NameField';
@@ -232,7 +233,7 @@ export const Style: React.FC<StyleProps> = (props) => {
     setStyle(clonedStyle);
   };
 
-  const updateMultiColors = (color: string) => {
+  const updateMultiColors = (color: Expression<string>) => {
     updateAllSelected([{ value: color, property: 'color' }]);
   };
 
