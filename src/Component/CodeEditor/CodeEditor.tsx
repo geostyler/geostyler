@@ -86,7 +86,7 @@ export interface CodeEditorProps {
   defaultParser?: StyleParser;
   /** The callback method that is triggered when the state changes */
   onStyleChange?: (rule: GsStyle) => void;
-  /** Callback method when the activeParser has change via dropdown. */
+  /** Callback method when the activeParser has changed via dropdown. */
   onActiveParserChange?: (activeParser: StyleParser) => void;
 }
 
