@@ -50,7 +50,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
 }) => {
 
   const locale = useGeoStylerLocale('BulkEditor');
-  const [color, setColor] = useState<string>();
+  const [color, setColor] = useState<Expression<string>>();
   const [radius, setRadius] = useState<Expression<number>>();
   const [opacity, setOpacity] = useState<Expression<number>>();
   const [kind, setKind] = useState<SymbolizerKind>('Mark');
@@ -59,7 +59,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
 
   const symbolizerKinds: SymbolizerKind[] = ['Mark', 'Icon'];
 
-  const onColorChange = (newColor: string) => {
+  const onColorChange = (newColor: Expression<string>) => {
     setColor(newColor);
     onStylePropChange('color', newColor);
   };
