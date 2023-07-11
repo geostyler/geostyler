@@ -87,3 +87,72 @@ function RendererExample () {
 
 <RendererExample />
 ```
+
+This shows a Renderer with a geostyler function. When using "property" function
+it is needed to pass it via GeoStylerContext.
+
+```jsx
+import React, { useState } from 'react';
+import { InputNumber } from 'antd';
+import { Renderer, GeoStylerContext } from 'geostyler';
+
+function RendererExample () {
+
+  const [size, setSize] = useState(8);
+
+  const symbolizers = [{
+    kind: 'Mark',
+    wellKnownName: 'circle',
+    color: {
+      name: 'property',
+      args: ['color']
+    },
+    radius: {
+      name: 'min',
+      args: [{
+        name: 'property',
+        args: ['size']
+      }, 36]
+    },
+    strokeWidth: {
+      name: 'sqrt',
+      args: [{
+        name: 'property',
+        args: ['size']
+      }]
+    }
+  }];
+
+  const ctx = {
+    data: {
+      exampleFeatures: {
+        features: [{
+          properties: {
+            color: '#00ff00',
+            size
+          }
+        }]
+      }
+    }
+  };
+
+  return (
+    <div>
+      property value of "size":
+      <InputNumber
+        value={size}
+        min={0}
+        onChange={setSize}
+      />
+      <GeoStylerContext.Provider value={ctx}>
+        <Renderer
+          symbolizers={symbolizers}
+          hideEditButton={true}
+        />
+      </GeoStylerContext.Provider>
+    </div>
+  );
+}
+
+<RendererExample />
+```
