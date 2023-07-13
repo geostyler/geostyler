@@ -1,3 +1,20 @@
+## [13.1.0](https://github.com/geostyler/geostyler/compare/v13.0.1...v13.1.0) (2023-07-13)
+
+
+### Features
+
+* add `onActiveParserChange` to `CodeEditor` ([#2314](https://github.com/geostyler/geostyler/issues/2314)) ([cc646cd](https://github.com/geostyler/geostyler/commit/cc646cda463c4c0509d728b011ad889b544fd2fb))
+* add FunctionUI to ColorField ([c7a838b](https://github.com/geostyler/geostyler/commit/c7a838ba995dba69d4df260cebd40c31755fcd80))
+
+
+### Bug Fixes
+
+* **deps:** update dependency geostyler-openlayers-parser to v4.2.1 ([d597f49](https://github.com/geostyler/geostyler/commit/d597f4941687f5c7d2f491fec01f51b2747f9a66))
+* **deps:** update dependency monaco-editor to ^0.40.0 ([ffe268d](https://github.com/geostyler/geostyler/commit/ffe268dd54cf83800393f5717e263900e48387bf))
+* **deps:** update dependency typescript-json-schema to ^0.58.0 ([2960294](https://github.com/geostyler/geostyler/commit/2960294e4d5fe9262898ce6942d142278c5b403b))
+* readd OpenLayers as default rendererType ([46c3d5c](https://github.com/geostyler/geostyler/commit/46c3d5c5eb0631297a24bd2cb50ebfd93be90f07))
+* set ColorPicker to full width ([e601c23](https://github.com/geostyler/geostyler/commit/e601c236248aa6484caca718812ea5f06b48c978))
+
 ## [13.0.1](https://github.com/geostyler/geostyler/compare/v13.0.0...v13.0.1) (2023-06-23)
 
 
