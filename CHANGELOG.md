@@ -1,3 +1,11 @@
+## [13.1.1](https://github.com/geostyler/geostyler/compare/v13.1.0...v13.1.1) (2023-08-14)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typescript-json-schema to ^0.59.0 ([f899617](https://github.com/geostyler/geostyler/commit/f89961727f0b2d069adaba9f61d357b63d12035d))
+* move thrown error to SLDRenderer ([699a86e](https://github.com/geostyler/geostyler/commit/699a86e697b058251d08b21abb7af55376004708))
+
 ## [13.1.0](https://github.com/geostyler/geostyler/compare/v13.0.1...v13.1.0) (2023-07-13)
 
 
