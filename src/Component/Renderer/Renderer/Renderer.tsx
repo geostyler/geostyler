@@ -61,12 +61,6 @@ export const Renderer: React.FC<RendererProps> = (props) => {
     );
   }
   else if (rendererType === 'SLD') {
-    const sldRendererProps = rendererProps as SLDRendererProps;
-    if (!sldRendererProps.wmsBaseUrl || !sldRendererProps.layer) {
-      throw new Error(
-        '"wmsBaseUrl" or "layer" are missing in the GeoStylerContext.composition.SLDRenderer'
-      );
-    }
     renderer = (
       <SLDRenderer
         {...rendererProps as SLDRendererProps}

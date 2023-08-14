@@ -75,6 +75,12 @@ export const SLDRenderer: React.FC<SLDRendererProps> = (props) => {
     symbolizers
   } = composed;
 
+  if (!composed.wmsBaseUrl || !composed.layer) {
+    throw new Error(
+      '"wmsBaseUrl" or "layer" are required as SLDRenderer props or in the GeoStylerContext.composition.SLDRenderer'
+    );
+  }
+
   const [alt, setAlt] = useState<string>();
   const [legendDataUrl, setLegendDataUrl] = useState<string>();
   const requestTimeout = useRef<any>();
