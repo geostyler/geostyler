@@ -33,7 +33,32 @@ import React, {
   useState
 } from 'react';
 
-import Editor, { useMonaco } from '@monaco-editor/react';
+import * as monaco from 'monaco-editor';
+import Editor, { loader } from '@monaco-editor/react';
+import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
+import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
+import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
+import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
+import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
+
+self.MonacoEnvironment = {
+  getWorker(_, label) {
+    if (label === 'json') {
+      return new jsonWorker();
+    }
+    if (label === 'css' || label === 'scss' || label === 'less') {
+      return new cssWorker();
+    }
+    if (label === 'html' || label === 'handlebars' || label === 'razor') {
+      return new htmlWorker();
+    }
+    if (label === 'typescript' || label === 'javascript') {
+      return new tsWorker();
+    }
+    return new editorWorker();
+  },
+};
+
 
 import 'blob';
 import {
@@ -163,7 +188,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const [hasError, setHasError] = useState<boolean>(false);
   const previousStyle = usePrevious(style);
   const previouseParser = usePrevious(activeParser);
-  const monaco = useMonaco();
 
   useEffect(() => {
     if (writeStyleResult?.output) {
@@ -179,17 +203,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   }, [writeStyleResult, activeParser]);
 
   useEffect(() => {
-    if (monaco) {
-      monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
-        validate: true,
-        schemas: [{
-          uri: SCHEMAURI,
-          fileMatch: [MODELPATH],
-          schema
-        }]
-      });
-    }
-  }, [monaco]);
+    monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+      validate: true,
+      schemas: [{
+        uri: SCHEMAURI,
+        fileMatch: [MODELPATH],
+        schema
+      }]
+    });
+    loader.config({ monaco });
+  }, []);
 
   const updateValueFromStyle = useCallback((s: GsStyle) => {
     setHasError(false);
