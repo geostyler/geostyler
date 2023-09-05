@@ -143,7 +143,7 @@ class FilterUtil {
     if (isGeoStylerBooleanFunction(filter)) {
       return FunctionUtil.evaluateFunction(filter, feature);
     }
-    if (filter.length === 0) {
+    if (filter?.length === 0) {
       return true;
     }
     let matchesFilter: boolean = true;

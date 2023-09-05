@@ -48,6 +48,7 @@ import {
 import { ClassificationMethod } from 'src/Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
 
 import { Feature, GeoJsonGeometryTypes } from 'geojson';
+import { isNil } from 'lodash';
 
 export interface RuleGenerationParams {
   data: VectorData;
@@ -72,7 +73,7 @@ class RuleGeneratorUtil {
     if (features) {
       features.forEach((feature: Feature) => {
         const value = feature?.properties?.[attributeName];
-        if (value && !distinctValues.includes(value)) {
+        if (!isNil(value) && !distinctValues.includes(value)) {
           distinctValues.push(value);
         }
       });
