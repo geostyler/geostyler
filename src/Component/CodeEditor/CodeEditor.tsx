@@ -33,8 +33,7 @@ import React, {
   useState
 } from 'react';
 
-import * as monaco from 'monaco-editor';
-import Editor, { loader } from '@monaco-editor/react';
+import Editor, { loader, Monaco } from '@monaco-editor/react';
 import editorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 import jsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker';
 import cssWorker from 'monaco-editor/esm/vs/language/css/css.worker?worker';
@@ -58,7 +57,6 @@ self.MonacoEnvironment = {
     return new editorWorker();
   },
 };
-
 
 import 'blob';
 import {
@@ -202,7 +200,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   }, [writeStyleResult, activeParser]);
 
-  useEffect(() => {
+  const beforeMount = (monaco: Monaco) => {
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       validate: true,
       schemas: [{
@@ -212,7 +210,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       }]
     });
     loader.config({ monaco });
-  }, []);
+  };
 
   const updateValueFromStyle = useCallback((s: GsStyle) => {
     setHasError(false);
@@ -368,6 +366,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       <Editor
         className="gs-code-editor-monaco"
         value={value}
+        beforeMount={beforeMount}
         // activeParser === undefined -> GeostylerStyle
         path={activeParser === undefined ? MODELPATH : undefined }
         language={getFileFormat(activeParser).language}

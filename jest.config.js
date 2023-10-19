@@ -43,6 +43,7 @@ module.exports = {
     "<rootDir>/jest/setup.js"
   ],
   workerThreads: true,
+  resolver: '<rootDir>/jestWorkerResolver.js',
   testMatch: [
     "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
     "<rootDir>/src/**/*(*.)(spec|test).(j|t)s?(x)"
@@ -55,7 +56,7 @@ module.exports = {
     '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.js'
   },
   transformIgnorePatterns: [
-    "<rootDir>/node_modules/(?!(ol|antd|geostyler-style))"
+    "<rootDir>/node_modules/(?!(ol|antd|geostyler-style|monaco-editor))"
   ],
   moduleFileExtensions: [
     "ts",

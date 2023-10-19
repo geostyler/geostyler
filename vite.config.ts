@@ -21,7 +21,7 @@ export default defineConfig({
         generatedCode: 'es5',
         format: 'iife',
         sourcemap: true,
-        globals: function(name) {
+        globals: function (name) {
           switch (name) {
             case 'react':
               return 'React';
