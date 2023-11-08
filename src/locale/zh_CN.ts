@@ -31,19 +31,19 @@ import type GeoStylerLocale from './locale';
 
 const zh_CN: GeoStylerLocale = {
   StyleFieldContainer: {
-    nameFieldLabel: 'TODO(zh_CN):Name',
-    nameFieldPlaceholder: 'TODO(zh_CN):Enter name',
-    titleFieldLabel: 'TODO(zh_CN):Title',
-    titleFieldPlaceholder: 'TODO(zh_CN):Enter title'
+    nameFieldLabel: '名称',
+    nameFieldPlaceholder: '名称',
+    titleFieldLabel: '标题',
+    titleFieldPlaceholder: '输入标题'
   },
   Editor: {
     kindFieldLabel: '类型',
     visibilityFieldLabel: '可见性',
-    unknownSymbolizerText: 'TODO(zh_CN):Symbolizer unknown!'
+    unknownSymbolizerText: '未知符号!'
   },
   RuleFieldContainer: {
-    nameFieldLabel: 'TODO(zh_CN):Name',
-    nameFieldPlaceholder: 'TODO(zh_CN):Enter name'
+    nameFieldLabel: '名称',
+    nameFieldPlaceholder: '输入名称'
   },
   BulkEditModals: {
     colorLabel: '选择颜色',
@@ -66,15 +66,15 @@ const zh_CN: GeoStylerLocale = {
     filterFieldTitle: '使用过滤器',
     nameFieldLabel: '名称',
     nameFieldPlaceholder: '输入名称',
-    attributeLabel: 'TODO(zh_CN):Attribute',
-    attributePlaceholderString: 'TODO(zh_CN):Choose attribute',
-    attributeValidationHelpString: 'TODO(zh_CN):Please choose an attribute',
-    operatorLabel: 'TODO(zh_CN):Operator',
-    operatorPlaceholderString: 'TODO(zh_CN):Choose operator',
-    operatorValidationHelpString: 'TODO(zh_CN):Please choose an operator',
-    valueLabel: 'TODO(zh_CN):Value',
-    valuePlaceholder: 'TODO(zh_CN):Enter value',
-    valueValidationHelpString: 'TODO(zh_CN):Please enter a value'
+    attributeLabel: '属性',
+    attributePlaceholderString: '选择属性',
+    attributeValidationHelpString: '请选择一个属性',
+    operatorLabel: '运算符',
+    operatorPlaceholderString: '选择运算符',
+    operatorValidationHelpString: '请选择运算符',
+    valueLabel: '值',
+    valuePlaceholder: '输入值',
+    valueValidationHelpString: '请输入值'
   },
   Style: {
     addRuleBtnText: '添加规则',
@@ -82,8 +82,8 @@ const zh_CN: GeoStylerLocale = {
     removeRulesBtnText: '移除规则',
     nameFieldLabel: '名称',
     nameFieldPlaceholder: '输入名称',
-    titleFieldLabel: 'TODO(zh_CN):Title',
-    titleFieldPlaceholder: 'TODO(zh_CN):Enter Title',
+    titleFieldLabel: '标题',
+    titleFieldPlaceholder: '输入标题',
     colorLabel: '选择颜色',
     radiusLabel: '选择半径',
     opacityLabel: '选择不透明度',
@@ -92,24 +92,24 @@ const zh_CN: GeoStylerLocale = {
     ruleGeneratorWindowBtnText: '分类'
   },
   CardStyle: {
-    styleTitle: 'TODO(zh_CN):Style',
-    classificationTitle: 'TODO(zh_CN):Classification',
-    multiEditTitle: 'TODO(zh_CN):Multi edit',
-    symbolizerTitle: 'TODO(zh_CN):Symbolizer',
-    filterTitle: 'TODO(zh_CN):Filters',
-    iconLibrariesTitle: 'TODO(zh_CN):Gallery'
+    styleTitle: '样式',
+    classificationTitle: '分类',
+    multiEditTitle: '同时编辑',
+    symbolizerTitle: '符号',
+    filterTitle: '过滤器',
+    iconLibrariesTitle: '图库'
   },
   StyleOverview: {
-    styleTitle: 'TODO(zh_CN):Style'
+    styleTitle: '样式'
   },
   RuleOverview: {
-    ruleTitle: 'TODO(zh_CN):Rule'
+    ruleTitle: '规则'
   },
   Symbolizers: {
-    symbolizersTitle: 'TODO(zh_CN):Symbolizers',
-    addSymbolizer: 'TODO(zh_CN):Add symbolizer',
-    showAll: 'TODO(zh_CN):Show all',
-    hide: 'TODO(zh_CN):Hide'
+    symbolizersTitle: '符号',
+    addSymbolizer: '添加符号',
+    showAll: '显示全部',
+    hide: '隐藏'
   },
   StyleLoader: {
     label: '加载样式: ',
@@ -123,11 +123,11 @@ const zh_CN: GeoStylerLocale = {
     requestButtonText: '请求数据',
     urlLabel: 'Url',
     versionLabel: 'Version',
-    typeNameLabel: 'FeatureTypeName',
+    typeNameLabel: 'TypeNames',
     featureIDLabel: 'FeatureID',
     propertyNameLabel: 'PropertyName',
     maxFeaturesLabel: 'MaxFeatures',
-    fetchParamsLabel: 'fetchParams',
+    fetchParamsLabel: '查询参数',
     srsNameLabel: 'SrsName'
   },
   CodeEditor: {
@@ -139,8 +139,8 @@ const zh_CN: GeoStylerLocale = {
     readFeedback: '阅读时的反馈'
   },
   ParserFeedback: {
-    notSupported: '所用的分析器不支持',
-    partiallySupported: '仅被使用的解析器部分支持'
+    notSupported: '当前解析器不支持',
+    partiallySupported: '当前解析器仅部分支持'
   },
   WellKnownNameEditor: {
     fillColorLabel: '填充-颜色',
@@ -167,7 +167,7 @@ const zh_CN: GeoStylerLocale = {
   IconEditor: {
     iconTooltipLabel: '打开图库',
     imageLabel: '来源',
-    imagePlaceholder: 'URL到图标',
+    imagePlaceholder: '图标URL',
     offsetXLabel: 'X 偏移',
     offsetYLabel: 'Y 偏移',
     opacityLabel: '不透明度',
@@ -206,7 +206,7 @@ const zh_CN: GeoStylerLocale = {
   PropTextEditor: {
     propFieldLabel: '字段',
     opacityLabel: '不透明度',
-    fontLabel: 'TODO(zh_CN):Font',
+    fontLabel: '字体',
     colorLabel: '颜色',
     sizeLabel: '大小',
     offsetXLabel: 'X 偏移',
@@ -318,7 +318,7 @@ const zh_CN: GeoStylerLocale = {
     symbolizersEditor: '符号编辑器'
   },
   FilterOverview: {
-    filterTitle: 'TODO(zh_CN):Filters'
+    filterTitle: '过滤器'
   },
   FilterEditorWindow: {
     filterEditor: '过滤器编辑器'
@@ -334,7 +334,7 @@ const zh_CN: GeoStylerLocale = {
     andDrpdwnLabel: 'AND',
     orDrpdwnLabel: 'OR',
     notDrpdwnLabel: 'NOT',
-    comparisonDrpdwnLabel: 'Comparison',
+    comparisonDrpdwnLabel: '比较',
     addFilterLabel: '添加过滤器',
     changeFilterLabel: '更改过滤器',
     removeFilterLabel: '移除过滤器',
@@ -352,14 +352,14 @@ const zh_CN: GeoStylerLocale = {
     duplicatesColumnTitle: '副本'
   },
   Rules: {
-    rulesTitle: 'TODO(zh_CN):Rules',
-    multiEdit: 'TODO(zh_CN):Select',
-    addRule: 'TODO(zh_CN):Add',
-    classification: 'TODO(zh_CN):Classification',
-    remove: 'TODO(zh_CN):Remove',
-    clone: 'TODO(zh_CN):Clone',
-    edit: 'TODO(zh_CN):Edit',
-    defaultRuleTitle: 'TODO(zh_CN):Untitled'
+    rulesTitle: '规则',
+    multiEdit: '选择',
+    addRule: '添加',
+    classification: '分类',
+    remove: '移除',
+    clone: '复制',
+    edit: '编辑',
+    defaultRuleTitle: '未命名'
   },
   RuleReorderButtons: {
     ruleMoveUpTip: '向上移动',
@@ -408,10 +408,10 @@ const zh_CN: GeoStylerLocale = {
     librarySelectLabel: '选择图标库'
   },
   SLDUnitsSelect: {
-    symbolizerUnitsLabel: '符號單位',
-    symbolizerUnitsPixel: '像素點',
-    symbolizerUnitsMeter: '儀表',
-    symbolizerUnitsFoot: '富斯'
+    symbolizerUnitsLabel: '符号单位',
+    symbolizerUnitsPixel: '像素',
+    symbolizerUnitsMeter: '米',
+    symbolizerUnitsFoot: '英尺'
   },
   AttributeCombo: {
     label: '属性',
