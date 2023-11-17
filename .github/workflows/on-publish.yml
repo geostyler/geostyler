@@ -41,15 +41,13 @@ jobs:
     - name: Deploy (to v${{ env.VERSION }}) 🚀
       uses: JamesIves/github-pages-deploy-action@v4.4.3
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build/styleguide
-        TARGET_FOLDER: v${{ env.VERSION }}
+        branch: gh-pages
+        folder: build/styleguide
+        target-folder: v${{ env.VERSION }}
 
     - name: Deploy (to latest) 🚀
       uses: JamesIves/github-pages-deploy-action@v4.4.3
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: build/styleguide
-        TARGET_FOLDER: latest
+        branch: gh-pages
+        folder: build/styleguide
+        target-folder: latest
