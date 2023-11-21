@@ -1,3 +1,19 @@
+## [13.2.0-beta.1](https://github.com/geostyler/geostyler/compare/v13.1.1...v13.2.0-beta.1) (2023-11-21)
+
+
+### Features
+
+* **i18n:** update translation for `zh_CN` ([320f349](https://github.com/geostyler/geostyler/commit/320f3493ee8aaaf40f4e56c748afed3e853aa75b))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @monaco-editor/react to v4.5.2 ([#2354](https://github.com/geostyler/geostyler/issues/2354)) ([a50c89a](https://github.com/geostyler/geostyler/commit/a50c89a6f58c7569fea23d8b92f7500491e07b30))
+* **deps:** update dependency monaco-editor to ^0.41.0 ([#2343](https://github.com/geostyler/geostyler/issues/2343)) ([49f919f](https://github.com/geostyler/geostyler/commit/49f919ffb16ea3bcba9fa1b2c4ca4718a4a90ac4))
+* **deps:** update dependency typescript-json-schema to ^0.60.0 ([#2357](https://github.com/geostyler/geostyler/issues/2357)) ([ec1cfd0](https://github.com/geostyler/geostyler/commit/ec1cfd0e7b4b18e637ab826e0e8f5fc92f3a5bf0))
+* fixes rule generation for 0 values ([2b533ef](https://github.com/geostyler/geostyler/commit/2b533ef68c185b677b0ad20ca42e59fd64edb6cc))
+* visibility of classification button ([#2380](https://github.com/geostyler/geostyler/issues/2380)) ([5e2f050](https://github.com/geostyler/geostyler/commit/5e2f050c7d76a12f9d7c6cc85111a93dc66d075c))
+
 ## [13.1.1](https://github.com/geostyler/geostyler/compare/v13.1.0...v13.1.1) (2023-08-14)
 
 
