@@ -38,8 +38,7 @@ const fr_FR: GeoStylerLocale = {
   },
   Editor: {
     kindFieldLabel: 'Type',
-    unknownSymbolizerText: 'Symbolisation inconnue !',
-    visibilityFieldLabel: 'Visibilité'
+    unknownSymbolizerText: 'Symbolisation inconnue !'
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Nom',
@@ -162,7 +161,8 @@ const fr_FR: GeoStylerLocale = {
     outlineColorLabel: 'Couleur du contour',
     outlineWidthLabel: 'Épaisseur du contour',
     outlineDasharrayLabel: 'Tireté ou pointillé du remplissage',
-    graphicFillTypeLabel: 'Motif du remplissage'
+    graphicFillTypeLabel: 'Motif du remplissage',
+    visibilityLabel: 'Visibilité'
   },
   IconEditor: {
     iconTooltipLabel: 'Ouvrir la galerie',
@@ -173,9 +173,11 @@ const fr_FR: GeoStylerLocale = {
     opacityLabel: 'Opacité',
     rotateLabel: 'Rotation',
     sizeLabel: 'Taille',
+    visibilityLabel: 'Visibilité'
   },
   MarkEditor: {
-    wellKnownNameFieldLabel: 'Symbole'
+    wellKnownNameFieldLabel: 'Symbole',
+    visibilityLabel: 'Visibilité'
   },
   LineEditor: {
     capLabel: 'Terminaison',
@@ -188,6 +190,7 @@ const fr_FR: GeoStylerLocale = {
     opacityLabel: 'Opacité',
     perpendicularOffsetLabel: 'Décalage perpendiculaire',
     widthLabel: 'Épaisseur',
+    visibilityLabel: 'Visibilité'
   },
   TextEditor: {
     fontLabel: 'Police',
@@ -201,7 +204,8 @@ const fr_FR: GeoStylerLocale = {
     rotateLabel: 'Rotation',
     haloColorLabel: 'Couleur du halo',
     haloWidthLabel: 'Épaisseur du halo',
-    attributeNotFound: 'Champ nom trouvé'
+    attributeNotFound: 'Champ nom trouvé',
+    visibilityLabel: 'Visibilité'
   },
   PropTextEditor: {
     propFieldLabel: 'Champ',
@@ -229,7 +233,8 @@ const fr_FR: GeoStylerLocale = {
     gammaValueLabel: 'Transparence (Gamma)',
     colorMapLabel: 'Color Map',
     symbolizerLabel: 'Symbolisation',
-    channelSelectionLabel: 'Sélection des canaux'
+    channelSelectionLabel: 'Sélection des canaux',
+    visibilityLabel: 'Visibilité'
   },
   RasterChannelEditor: {
     channelSelectionLabel: 'Modifier les canaux',

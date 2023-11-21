@@ -49,6 +49,7 @@ import {
   useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 
 export interface IconEditorComposableProps {
   // TODO add support for default values in ImageField
@@ -63,6 +64,8 @@ export interface IconEditorComposableProps {
   offsetYField?: InputConfig<OffsetFieldProps['offset']>;
   rotateField?: InputConfig<RotateFieldProps['rotate']>;
   opacityField?: InputConfig<OpacityFieldProps['value']>;
+  // TODO add support for default values in VisibilityField
+  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
   iconLibraries?: IconLibrary[];
 }
 
@@ -87,6 +90,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
     opacityField,
     rotateField,
     sizeField,
+    visibilityField,
     symbolizer
   } = composed;
 
@@ -152,18 +156,39 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
     }
   };
 
+  const onVisibilityChange = (newVisibility: IconSymbolizer['visibility']) => {
+    const symbolizerClone: IconSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.visibility = newVisibility;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
   const {
     opacity,
     image,
     size,
     rotate,
-    offset
+    offset,
+    visibility
   } = symbolizer;
 
   const imageSrc = !_isEmpty(image) ? image : locale.imagePlaceholder;
 
   return (
     <div className="gs-icon-symbolizer-editor" >
+      {
+        visibilityField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.visibilityLabel}
+          >
+            <VisibilityField
+              visibility={visibility}
+              onChange={onVisibilityChange}
+            />
+          </Form.Item>
+        )
+      }
       {
         imageField?.visibility === false ? null : (
           <Form.Item

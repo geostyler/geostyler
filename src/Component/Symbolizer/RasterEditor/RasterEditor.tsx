@@ -56,6 +56,7 @@ import {
   useGeoStylerData,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 
 export interface RasterEditorComposableProps {
   opacityField?: InputConfig<OpacityFieldProps['value']>;
@@ -73,6 +74,8 @@ export interface RasterEditorComposableProps {
   colorRamps?: {
     [name: string]: string[];
   };
+  // TODO add support for default values in VisibilityField
+  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
 }
 
 export interface RasterEditorInternalProps {
@@ -100,6 +103,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
     onSymbolizerChange,
     opacityField,
     rasterChannelEditor,
+    visibilityField,
     symbolizer
   } = composed;
 
@@ -163,11 +167,20 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
     }
   };
 
+  const onVisibilityChange = (newVisibility: RasterSymbolizer['visibility']) => {
+    const symbolizerClone: RasterSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.visibility = newVisibility;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
   const {
     opacity,
     contrastEnhancement,
     colorMap,
-    channelSelection
+    channelSelection,
+    visibility
   } = symbolizer;
 
   let sourceChannelNames: string[];
@@ -184,6 +197,18 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
       {
         showDisplay !== 'symbolizer' ? null : (
           <>
+            {
+              visibilityField?.visibility === false ? null : (
+                <Form.Item
+                  label={locale.visibilityLabel}
+                >
+                  <VisibilityField
+                    visibility={visibility}
+                    onChange={onVisibilityChange}
+                  />
+                </Form.Item>
+              )
+            }
             {
               opacityField?.visibility === false ? null : (
                 <Form.Item

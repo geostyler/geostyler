@@ -67,7 +67,8 @@ const es_ES: GeoStylerLocale = {
     gammaValueLabel: 'TODO(es_ES):Gamma',
     colorMapLabel: 'TODO(es_ES):Color Map',
     symbolizerLabel: 'TODO(es_ES):Symbolizer',
-    channelSelectionLabel: 'TODO(es_ES):Channel Selection'
+    channelSelectionLabel: 'TODO(es_ES):Channel Selection',
+    visibilityLabel: 'Visibilidad'
   },
   RasterChannelEditor: {
     channelSelectionLabel: 'TODO(es_ES):Edit Channels',
@@ -99,8 +100,7 @@ const es_ES: GeoStylerLocale = {
   },
   Editor: {
     kindFieldLabel: 'Tipo',
-    unknownSymbolizerText: 'TODO(es_ES):Symbolizer unknown!',
-    visibilityFieldLabel: 'Visibilidad',
+    unknownSymbolizerText: 'TODO(es_ES):Symbolizer unknown!'
   },
   RuleFieldContainer: {
     nameFieldLabel: 'TODO(es_ES):Name',
@@ -223,7 +223,8 @@ const es_ES: GeoStylerLocale = {
     outlineColorLabel: 'Contorno-Color',
     outlineWidthLabel: 'Contorno-Ancho',
     outlineDasharrayLabel: 'Outline-Dasharray',
-    graphicFillTypeLabel: 'Tipo gráfico de relleno'
+    graphicFillTypeLabel: 'Tipo gráfico de relleno',
+    visibilityLabel: 'Visibilidad'
   },
   IconEditor: {
     iconTooltipLabel: 'Abrir galería',
@@ -234,6 +235,7 @@ const es_ES: GeoStylerLocale = {
     opacityLabel: 'Transparencia',
     rotateLabel: 'Rotación',
     sizeLabel: 'Tamaño',
+    visibilityLabel: 'Visibilidad'
   },
   LineEditor: {
     capLabel: 'Cap',
@@ -246,9 +248,11 @@ const es_ES: GeoStylerLocale = {
     opacityLabel: 'Transparencia',
     perpendicularOffsetLabel: 'Perpendicular Offset',
     widthLabel: 'Ancho',
+    visibilityLabel: 'Visibilidad'
   },
   MarkEditor: {
-    wellKnownNameFieldLabel: 'Simbolo'
+    wellKnownNameFieldLabel: 'Simbolo',
+    visibilityLabel: 'Visibilidad'
   },
   TextEditor: {
     fontLabel: 'Fuente',
@@ -262,7 +266,8 @@ const es_ES: GeoStylerLocale = {
     rotateLabel: 'Rotación',
     haloColorLabel: 'Halo-Color',
     haloWidthLabel: 'Halo-Ancho',
-    attributeNotFound: 'Campo no encontrado'
+    attributeNotFound: 'Campo no encontrado',
+    visibilityLabel: 'Visibilidad'
   },
   PropTextEditor: {
     propFieldLabel: 'Campo',

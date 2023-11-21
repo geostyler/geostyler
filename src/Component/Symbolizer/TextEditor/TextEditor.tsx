@@ -58,6 +58,7 @@ import {
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 import './TextEditor.less';
+import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 
 export interface TextEditorComposableProps {
   templateField?: InputConfig<string>;
@@ -73,6 +74,8 @@ export interface TextEditorComposableProps {
   rotateField?: InputConfig<RotateFieldProps['rotate']>;
   haloColorField?: InputConfig<ColorFieldProps['value']>;
   haloWidthField?: InputConfig<WidthFieldProps['value']>;
+  // TODO add support for default values in VisibilityField
+  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
 }
 
 export interface TextEditorInternalProps {
@@ -105,7 +108,8 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     rotateField,
     sizeField,
     symbolizer,
-    templateField
+    templateField,
+    visibilityField
   } = composed;
 
   const locale = useGeoStylerLocale('TextEditor');
@@ -202,6 +206,14 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
+  const onVisibilityChange = (newVisibility: TextSymbolizer['visibility']) => {
+    const symbolizerClone: TextSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.visibility = newVisibility;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
   const clonedSymbolizer = _cloneDeep(symbolizer);
 
   const {
@@ -212,7 +224,8 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     size,
     rotate,
     haloColor,
-    haloWidth
+    haloWidth,
+    visibility
   } = clonedSymbolizer;
 
   // split the current offset
@@ -226,6 +239,18 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
 
   return (
     <div className="gs-text-symbolizer-editor" >
+      {
+        visibilityField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.visibilityLabel}
+          >
+            <VisibilityField
+              visibility={visibility}
+              onChange={onVisibilityChange}
+            />
+          </Form.Item>
+        )
+      }
       {
         templateField?.visibility === false ? null : (
           <Form.Item

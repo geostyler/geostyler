@@ -38,7 +38,6 @@ const de_DE: GeoStylerLocale = {
   },
   Editor: {
     kindFieldLabel: 'Art',
-    visibilityFieldLabel: 'Sichtbarkeit',
     unknownSymbolizerText: 'Symbolizer unbekannt!'
   },
   RuleFieldContainer: {
@@ -162,7 +161,8 @@ const de_DE: GeoStylerLocale = {
     outlineColorLabel: 'Randfarbe',
     outlineWidthLabel: 'Randbreite',
     outlineDasharrayLabel: 'Rand-Strichmuster',
-    graphicFillTypeLabel: 'Graphic Fill Type'
+    graphicFillTypeLabel: 'Graphic Fill Type',
+    visibilityLabel: 'Sichtbarkeit'
   },
   IconEditor: {
     iconTooltipLabel: 'Öffne Galerie',
@@ -173,6 +173,7 @@ const de_DE: GeoStylerLocale = {
     opacityLabel: 'Deckkraft',
     rotateLabel: 'Drehung',
     sizeLabel: 'Größe',
+    visibilityLabel: 'Sichtbarkeit'
   },
   LineEditor: {
     capLabel: 'Verschluss',
@@ -185,9 +186,11 @@ const de_DE: GeoStylerLocale = {
     opacityLabel: 'Deckkraft',
     perpendicularOffsetLabel: 'Senkrechter Versatz',
     widthLabel: 'Breite',
+    visibilityLabel: 'Sichtbarkeit'
   },
   MarkEditor: {
-    wellKnownNameFieldLabel: 'Symbol'
+    wellKnownNameFieldLabel: 'Symbol',
+    visibilityLabel: 'Sichtbarkeit'
   },
   TextEditor: {
     fontLabel: 'Schriftart',
@@ -201,7 +204,8 @@ const de_DE: GeoStylerLocale = {
     rotateLabel: 'Drehung',
     haloColorLabel: 'Halofarbe',
     haloWidthLabel: 'Halobreite',
-    attributeNotFound: 'Attribut nicht vorhanden'
+    attributeNotFound: 'Attribut nicht vorhanden',
+    visibilityLabel: 'Sichtbarkeit'
   },
   PropTextEditor: {
     propFieldLabel: 'Feld',
@@ -229,7 +233,8 @@ const de_DE: GeoStylerLocale = {
     gammaValueLabel: 'Gamma',
     colorMapLabel: 'Farbeinstellungen',
     symbolizerLabel: 'Symbolisierung',
-    channelSelectionLabel: 'Bandauswahl'
+    channelSelectionLabel: 'Bandauswahl',
+    visibilityLabel: 'Sichtbarkeit'
   },
   RasterChannelEditor: {
     channelSelectionLabel: 'Kanäle editieren',

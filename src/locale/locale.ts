@@ -121,6 +121,7 @@ export default interface GeoStylerLocale {
     outlineWidthLabel: string;
     outlineDasharrayLabel: string;
     graphicFillTypeLabel: string;
+    visibilityLabel: string;
   };
   IconEditor: {
     iconTooltipLabel: string;
@@ -131,6 +132,7 @@ export default interface GeoStylerLocale {
     opacityLabel: string;
     rotateLabel: string;
     sizeLabel: string;
+    visibilityLabel: string;
   };
   LineEditor: {
     colorLabel: string;
@@ -143,9 +145,11 @@ export default interface GeoStylerLocale {
     joinLabel: string;
     graphicStrokeTypeLabel: string;
     graphicFillTypeLabel: string;
+    visibilityLabel: string;
   };
   MarkEditor: {
     wellKnownNameFieldLabel: string;
+    visibilityLabel: string;
   };
   TextEditor: {
     fontLabel: string;
@@ -160,6 +164,7 @@ export default interface GeoStylerLocale {
     haloColorLabel: string;
     haloWidthLabel: string;
     attributeNotFound: string;
+    visibilityLabel: string;
   };
   PropTextEditor: {
     fontLabel: string;
@@ -188,6 +193,7 @@ export default interface GeoStylerLocale {
     colorMapLabel: string;
     symbolizerLabel: string;
     channelSelectionLabel: string;
+    visibilityLabel: string;
   };
   RasterChannelEditor: {
     channelSelectionLabel: string;
@@ -384,7 +390,6 @@ export default interface GeoStylerLocale {
   Editor: {
     kindFieldLabel: string;
     unknownSymbolizerText: string;
-    visibilityFieldLabel: string;
   };
   AttributeCombo: {
     label: string;
