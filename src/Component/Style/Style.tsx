@@ -386,14 +386,14 @@ export const Style: React.FC<StyleProps> = (props) => {
         </Form.Item>
         {
           // TODO: Rule GeneratorWindow should only be available if data is VectorData
-          disableClassification ?
+          !disableClassification &&
             <Button
               className="gs-style-rulegenerator"
               onClick={showRuleGeneratorWindow}
               disabled={!data}
             >
               {locale.ruleGeneratorWindowBtnText}
-            </Button> : null
+            </Button>
         }
       </div>
       <RuleGeneratorWindow
