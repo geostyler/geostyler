@@ -19,9 +19,6 @@ jobs:
       - name: Install dependencies ⏬
         run: npm ci
 
-      - name: Build artifacts 🏗️
-        run: npm run build
-
       - name: Release 🚀
         uses: cycjimmy/semantic-release-action@v3
         id: semantic
