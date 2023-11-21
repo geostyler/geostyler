@@ -438,6 +438,10 @@ const es_ES: GeoStylerLocale = {
   FunctionNameCombo: {
     placeholder: '… elija GeoStylerFunction'
   },
+  VisibilityField: {
+    on: 'TODO(es_ES):on',
+    off: 'TODO(es_ES):off',
+  },
   ...antd_es_ES
 };
 

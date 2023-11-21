@@ -438,6 +438,10 @@ const de_DE: GeoStylerLocale = {
   FunctionNameCombo: {
     placeholder: '… GeoStylerFunction wählen'
   },
+  VisibilityField: {
+    on: 'an',
+    off: 'aus',
+  },
   ...antd_de_DE
 };
 

@@ -48,13 +48,13 @@ describe('BooleanExpressionInput', () => {
     expect(booleanExpressionInput.container).toBeInTheDocument();
   });
 
-  it('renders Checkbox if value is a number', async () => {
+  it('renders Switch if value is a number', async () => {
     const booleanExpressionInput = render(<BooleanExpressionInput
       value={booleanValue}
     />);
     expect(booleanExpressionInput.container).toBeInTheDocument();
     expect(document.body.querySelectorAll('.gs-function-ui').length).toBe(0);
-    expect(document.body.querySelectorAll('.ant-checkbox').length).toBe(1);
+    expect(document.body.querySelectorAll('.ant-switch').length).toBe(1);
   });
 
   it('renders FunctionUI if value is a function', async () => {
@@ -63,7 +63,7 @@ describe('BooleanExpressionInput', () => {
     />);
     expect(booleanExpressionInput.container).toBeInTheDocument();
     expect(document.body.querySelectorAll('.gs-function-ui').length).toBe(1);
-    expect(document.body.querySelectorAll('.ant-checkbox').length).toBe(0);
+    expect(document.body.querySelectorAll('.ant-switch').length).toBe(0);
   });
 
 });

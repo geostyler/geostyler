@@ -438,6 +438,10 @@ const zh_CN: GeoStylerLocale = {
   FunctionNameCombo: {
     placeholder: '… 选择GeoStylerFunction'
   },
+  VisibilityField: {
+    on: 'TODO(zh_CN):on',
+    off: 'TODO(zh_CN):off',
+  },
   ...antd_zh_CN
 };
 

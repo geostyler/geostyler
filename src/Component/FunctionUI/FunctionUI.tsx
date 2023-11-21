@@ -141,7 +141,8 @@ export const FunctionUI = <T extends GeoStylerFunction>({
             onChange={(val) => {
               updateFunctionArg(val, index);
             }}
-            label={cfg.label}
+            labelOn={cfg.label}
+            labelOff={cfg.label}
           />
         </div>
       );
