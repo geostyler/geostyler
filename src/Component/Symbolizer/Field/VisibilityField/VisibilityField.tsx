@@ -32,8 +32,9 @@ import BooleanExpressionInput, { type BooleanExpressionInputProps }
 import { Expression } from 'geostyler-style';
 
 import './VisibilityField.less';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
-type InputProps = BooleanExpressionInputProps['checkboxProps'];
+type InputProps = BooleanExpressionInputProps['switchProps'];
 
 export interface VisibilityFieldProps extends InputProps {
   visibility?: Expression<boolean>;
@@ -49,6 +50,8 @@ export const VisibilityField: React.FC<VisibilityFieldProps> = ({
   ...inputBooleanProps
 }) => {
 
+  const locale = useGeoStylerLocale('VisibilityField');
+
   function onCancel() {
     onChange(true);
   }
@@ -59,7 +62,9 @@ export const VisibilityField: React.FC<VisibilityFieldProps> = ({
       value={visibility === undefined ? true : visibility}
       onChange={onChange}
       onCancel={onCancel}
-      checkboxProps={{...inputBooleanProps}}
+      switchProps={{...inputBooleanProps}}
+      labelOn={locale.on}
+      labelOff={locale.off}
     />
   );
 };

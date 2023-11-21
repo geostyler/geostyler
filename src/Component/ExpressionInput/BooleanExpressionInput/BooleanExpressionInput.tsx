@@ -30,8 +30,8 @@ import React from 'react';
 
 import {
   Button,
-  Checkbox,
-  CheckboxProps
+  Switch,
+  SwitchProps
 } from 'antd';
 import { FunctionUI, FunctionUIProps } from '../../FunctionUI/FunctionUI';
 import {
@@ -45,9 +45,10 @@ import './BooleanExpressionInput.less';
 
 export interface BooleanExpressionInputProps {
   value?: Expression<boolean>;
-  checkboxProps?: Omit<CheckboxProps, 'value' | 'onChange' | 'className'>;
+  switchProps?: Omit<SwitchProps, 'checked' | 'onChange' | 'className'>;
   functionUiProps?: FunctionUIProps<GeoStylerBooleanFunction>;
-  label?: string;
+  labelOn?: string;
+  labelOff?: string;
   onChange?: (newValue: Expression<boolean>) => void;
   onCancel?: (type: 'boolean') => void;
   className?: string;
@@ -57,9 +58,10 @@ export const BooleanExpressionInput: React.FC<BooleanExpressionInputProps> = ({
   onChange,
   onCancel,
   value,
-  label,
+  labelOn,
+  labelOff,
   className,
-  checkboxProps,
+  switchProps,
   functionUiProps
 }) => {
 
@@ -82,15 +84,15 @@ export const BooleanExpressionInput: React.FC<BooleanExpressionInputProps> = ({
   }
   return (
     <span className={finalClassName}>
-      <Checkbox
+      <Switch
         checked={value}
-        onChange={(evt) => {
-          onChange?.(evt.target.checked);
+        onChange={(checked) => {
+          onChange?.(checked);
         }}
-        {...checkboxProps}
-      >
-        {label}
-      </Checkbox>
+        checkedChildren={<span>{labelOn}</span>}
+        unCheckedChildren={<span>{labelOff}</span>}
+        {...switchProps}
+      />
       <Button
         icon={<FunctionOutlined />}
         onClick={() => {

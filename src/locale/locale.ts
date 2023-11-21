@@ -411,4 +411,8 @@ export default interface GeoStylerLocale {
   FunctionNameCombo: {
     placeholder: string;
   };
+  VisibilityField: {
+    on: string;
+    off: string;
+  };
 };

@@ -437,6 +437,10 @@ const hr_HR: GeoStylerLocale = {
   FunctionNameCombo: {
     placeholder: '… odaberite GeoStylerFunction'
   },
+  VisibilityField: {
+    on: 'TODO(hr_HR):on',
+    off: 'TODO(hr_HR):off',
+  },
   ...antd_hr_HR
 };
 export default hr_HR;
