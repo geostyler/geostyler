@@ -49,7 +49,7 @@ import { LineDashField } from '../Field/LineDashField/LineDashField';
 import { LineCapField } from '../Field/LineCapField/LineCapField';
 import { LineJoinField, LineJoinFieldProps } from '../Field/LineJoinField/LineJoinField';
 import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
-import { GraphicEditor } from '../GraphicEditor/GraphicEditor';
+import { GraphicEditor, GraphicEditorProps } from '../GraphicEditor/GraphicEditor';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
@@ -80,8 +80,10 @@ export interface LineEditorComposableProps {
   };
   // TODO add support for default values in LineJoinField
   joinField?: InputConfig<LineJoinFieldProps['value']>;
-  // TODO add support for graphicStroke
-  // TODO add support for graphicFill
+  // TODO add support for default values in GraphicEditor
+  graphicStrokeField?: InputConfig<GraphicEditorProps['graphic']>;
+  // TODO add support for default values in GraphicEditor
+  graphicFillField?: InputConfig<GraphicEditorProps['graphic']>;
 }
 
 export interface LineEditorInternalProps {
@@ -101,6 +103,8 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     capField,
     colorField,
     dashOffsetField,
+    graphicFillField,
+    graphicStrokeField,
     joinField,
     lineDashField,
     onSymbolizerChange,
@@ -326,24 +330,30 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             )
           }
         </Panel>
-        <Panel header="Graphic Stroke" key="2">
-          {/* TODO allow changing graphicStroke via composition context */}
-          <GraphicEditor
-            graphic={graphicStroke}
-            onGraphicChange={onGraphicStrokeChange}
-            graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
-            graphicType={_get(graphicStroke, 'kind') as GraphicType}
-          />
-        </Panel>
-        <Panel header="Graphic Fill" key="3">
-          {/* TODO allow changing graphicFill via composition context */}
-          <GraphicEditor
-            graphic={graphicFill}
-            onGraphicChange={onGraphicFillChange}
-            graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-            graphicType={_get(graphicFill, 'kind') as GraphicType}
-          />
-        </Panel>
+        {
+          graphicStrokeField?.visibility === false ? null : (
+            <Panel header="Graphic Stroke" key="2">
+              <GraphicEditor
+                graphic={graphicStroke}
+                onGraphicChange={onGraphicStrokeChange}
+                graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
+                graphicType={_get(graphicStroke, 'kind') as GraphicType}
+              />
+            </Panel>
+          )
+        }
+        {
+          graphicFillField?.visibility === false ? null : (
+            <Panel header="Graphic Fill" key="3">
+              <GraphicEditor
+                graphic={graphicFill}
+                onGraphicChange={onGraphicFillChange}
+                graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+                graphicType={_get(graphicFill, 'kind') as GraphicType}
+              />
+            </Panel>
+          )
+        }
       </Collapse>
     </div>
   );
