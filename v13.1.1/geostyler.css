@@ -854,6 +854,10 @@ mark {
   all: unset;
 }
 
+.ol-viewport {
+  touch-action: none;
+}
+
 .ol-selectable {
   -webkit-touch-callout: default;
   -webkit-user-select: text;
