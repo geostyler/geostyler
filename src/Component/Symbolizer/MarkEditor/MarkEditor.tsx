@@ -47,6 +47,7 @@ import {
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface MarkEditorComposableProps {
   // TODO add wellKnownNames property that specifies the supported WKNs
@@ -99,11 +100,14 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
     }
   };
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div className="gs-mark-symbolizer-editor" >
       {
         visibilityField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.visibilityLabel}
           >
             <VisibilityField
@@ -116,6 +120,7 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
       {
         wellKnownNameField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.wellKnownNameFieldLabel}
             {...getFormItemSupportProps('wellKnownName')}
           >

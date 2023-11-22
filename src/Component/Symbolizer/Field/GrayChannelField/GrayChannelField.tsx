@@ -38,6 +38,7 @@ import { ChannelSelection, GrayChannel } from 'geostyler-style';
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../../../Util/FormItemUtil';
 
 export interface GrayChannelFieldProps {
   sourceChannelNames?: string[];
@@ -74,9 +75,12 @@ export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
     }
   };
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div>
       <Form.Item
+        {...itemConfig}
         label={locale.grayLabel}
       >
         <SourceChannelNameField

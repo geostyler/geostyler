@@ -62,6 +62,7 @@ import {
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 const Panel = Collapse.Panel;
 
@@ -226,6 +227,8 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     visibility
   } = _cloneDeep(symbolizer);
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div className="gs-line-symbolizer-editor" >
       <Collapse bordered={false} defaultActiveKey={['1']}>
@@ -233,6 +236,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           {
             visibilityField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.visibilityLabel}
               >
                 <VisibilityField
@@ -245,6 +249,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           {
             colorField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.colorLabel}
                 {...getFormItemSupportProps('color')}
               >
@@ -259,6 +264,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           {
             widthField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.widthLabel}
                 {...getFormItemSupportProps('width')}
               >
@@ -273,6 +279,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           {
             perpendicularOffsetField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.perpendicularOffsetLabel}
                 {...getFormItemSupportProps('perpendicularOffset')}
               >
@@ -287,6 +294,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           {
             opacityField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.opacityLabel}
                 {...getFormItemSupportProps('opacity')}
               >
@@ -301,6 +309,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           {
             lineDashField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.dashLabel}
                 {...getFormItemSupportProps('dasharray')}
               >
@@ -314,6 +323,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           {
             dashOffsetField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.dashOffsetLabel}
                 {...getFormItemSupportProps('dashOffset')}
               >
@@ -331,6 +341,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           {
             capField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.capLabel}
                 {...getFormItemSupportProps('cap')}
               >
@@ -344,6 +355,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           {
             joinField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.joinLabel}
                 {...getFormItemSupportProps('join')}
               >

@@ -59,6 +59,7 @@ import {
 
 import './TextEditor.less';
 import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface TextEditorComposableProps {
   templateField?: InputConfig<string>;
@@ -236,12 +237,14 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     offsetY = offset[1] as number;
   }
   const properties = data && data.schema ? Object.keys(data.schema.properties) : [];
+  const itemConfig = getFormItemConfig();
 
   return (
     <div className="gs-text-symbolizer-editor" >
       {
         visibilityField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.visibilityLabel}
           >
             <VisibilityField
@@ -254,6 +257,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         templateField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.templateFieldLabel}
             {...getFormItemSupportProps('label')}
           >
@@ -277,6 +281,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         colorField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.colorLabel}
             {...getFormItemSupportProps('color')}
           >
@@ -291,6 +296,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         fontField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.fontLabel}
             {...getFormItemSupportProps('font')}
           >
@@ -304,6 +310,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         opacityField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.opacityLabel}
             {...getFormItemSupportProps('opacity')}
           >
@@ -318,6 +325,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         sizeField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.sizeLabel}
             {...getFormItemSupportProps('size')}
           >
@@ -332,6 +340,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         offsetXField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.offsetXLabel}
             {...getFormItemSupportProps('offset')}
           >
@@ -346,6 +355,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         offsetYField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.offsetYLabel}
             {...getFormItemSupportProps('offset')}
           >
@@ -360,6 +370,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         rotateField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.rotateLabel}
             {...getFormItemSupportProps('rotate')}
           >
@@ -374,6 +385,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         haloColorField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.haloColorLabel}
             {...getFormItemSupportProps('haloColor')}
           >
@@ -388,6 +400,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
       {
         haloWidthField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.haloWidthLabel}
             {...getFormItemSupportProps('haloWidth')}
           >

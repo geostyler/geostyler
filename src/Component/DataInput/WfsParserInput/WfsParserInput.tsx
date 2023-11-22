@@ -42,6 +42,7 @@ const Option = Select.Option;
 
 import './WfsParserInput.less';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 type WfsVersion = RequestParams['version'];
 
@@ -167,9 +168,12 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
     });
   };
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div className="wfs-parser-input">
       <Form.Item
+        {...itemConfig}
         label={locale.urlLabel}
         validateStatus={validation?.url?.status}
         help={validation?.url?.message}
@@ -183,6 +187,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.typeNameLabel}
         validateStatus={validation?.typeName?.status}
         help={validation?.typeName?.message}
@@ -196,6 +201,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.versionLabel}
         validateStatus={validation?.version?.status}
         help={validation?.version?.message}
@@ -213,6 +219,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
         </Select>
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.srsNameLabel}
         validateStatus={validation?.srsName?.status}
         help={validation?.srsName?.message}
@@ -225,6 +232,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.featureIDLabel}
         validateStatus={validation?.featureID?.status}
         help={validation?.featureID?.message}
@@ -237,6 +245,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.propertyNameLabel}
         validateStatus={validation?.propertyName?.status}
         help={validation?.propertyName?.message}
@@ -251,6 +260,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.maxFeaturesLabel}
         validateStatus={validation?.maxFeatures?.status}
         help={validation?.maxFeatures?.message}
@@ -265,7 +275,9 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
           precision={0}
         />
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        {...itemConfig}
+      >
         <Button
           className="wfs-parser-submit-button"
           type="primary"

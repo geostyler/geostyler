@@ -41,6 +41,7 @@ import { IconLibrary } from '../IconSelector/IconSelector';
 import { Form } from 'antd';
 
 import _get from 'lodash/get';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface GraphicEditorDefaultProps {
   /** Label being used on TypeField */
@@ -107,9 +108,12 @@ export const GraphicEditor: React.FC<GraphicEditorProps> = ({
     }
   };
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div>
       <Form.Item
+        {...itemConfig}
         label={graphicTypeFieldLabel}
       >
         <GraphicTypeField

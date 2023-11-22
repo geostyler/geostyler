@@ -50,6 +50,7 @@ import {
   useGeoStylerData,
   useGeoStylerLocale
 } from '../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../Util/FormItemUtil';
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 
@@ -171,146 +172,157 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
   }
 
   const previewColors = RuleGeneratorUtil.generateColors(colorRamps[colorRamp], numberOfRules, colorSpace);
+  const itemConfig = getFormItemConfig();
 
   return (
     <div className="gs-rule-generator" >
-      <Form layout="vertical">
-        <AttributeCombo
-          value={attributeName}
-          onAttributeChange={onAttributeChange}
-          validateStatus={attributeName ? 'success' : 'warning'}
-        />
-        <Form.Item
-          label={locale.levelOfMeasurement}
+      <AttributeCombo
+        value={attributeName}
+        onAttributeChange={onAttributeChange}
+        validateStatus={attributeName ? 'success' : 'warning'}
+      />
+      <Form.Item
+        {...itemConfig}
+        label={locale.levelOfMeasurement}
+      >
+        <Radio.Group
+          onChange={onLevelOfMeasurementChange}
+          value={levelOfMeasurement}
+          buttonStyle="solid"
         >
-          <Radio.Group
-            onChange={onLevelOfMeasurementChange}
-            value={levelOfMeasurement}
-            buttonStyle="solid"
+          <Radio.Button
+            value="nominal"
           >
-            <Radio.Button
-              value="nominal"
-            >
-              {locale.nominal}
-            </Radio.Button>
-            <Radio.Button
-              value="cardinal"
-              disabled={attributeType === 'string'}
-            >
-              {locale.cardinal}
-            </Radio.Button>
-          </Radio.Group>
-        </Form.Item>
-        {
-          levelOfMeasurement !== 'cardinal' ? null :
-            <Form.Item
-              label={locale.classification}
-            >
-              <ClassificationCombo
-                classification={classificationMethod}
-                onChange={setClassificationMethod}
+            {locale.nominal}
+          </Radio.Button>
+          <Radio.Button
+            value="cardinal"
+            disabled={attributeType === 'string'}
+          >
+            {locale.cardinal}
+          </Radio.Button>
+        </Radio.Group>
+      </Form.Item>
+      {
+        levelOfMeasurement !== 'cardinal' ? null :
+          <Form.Item
+            {...itemConfig}
+            label={locale.classification}
+          >
+            <ClassificationCombo
+              classification={classificationMethod}
+              onChange={setClassificationMethod}
+            />
+          </Form.Item>
+      }
+      <Form.Item
+        {...itemConfig}
+        label={locale.numberOfRules}
+        validateStatus={
+          classificationMethod === 'kmeans'
+            ? 'warning'
+            : numberOfRules < minNrClasses
+              ? 'error'
+              : undefined
+        }
+        help={classificationMethod === 'kmeans'
+          ? locale.numberOfRulesViaKmeans
+          : numberOfRules < minNrClasses
+            // eslint-disable-next-line max-len
+            ? `${locale.colorRampMinClassesWarningPre} ${minNrClasses} ${locale.colorRampMinClassesWarningPost}`
+            : undefined
+        }
+      >
+        <div>
+          <InputNumber<number>
+            min={minNrClasses}
+            max={100}
+            value={numberOfRules}
+            onChange={setNumberOfRules}
+          />
+          {
+            levelOfMeasurement === 'nominal' && distinctValues.length > 0 &&
+            <Tooltip title={locale.allDistinctValues}>
+              <Button
+                className="all-distinct-values-button"
+                icon={<PlusSquareOutlined />}
+                onClick={onAllDistinctClicked}
               />
-            </Form.Item>
+            </Tooltip>
+          }
+        </div>
+      </Form.Item>
+      <fieldset>
+        <legend>{locale.symbolizer}</legend>
+        <Form.Item
+          {...itemConfig}
+        >
+          <KindField
+            kind={symbolizerKind}
+            symbolizerKinds={[
+              'Fill',
+              'Mark',
+              'Line'
+            ]}
+            onChange={onSymbolizerKindChange}
+          />
+        </Form.Item>
+        {symbolizerKind !== 'Mark' ? null :
+          <Form.Item
+            {...itemConfig}
+          >
+            <WellKnownNameField
+              wellKnownName={wellKnownName}
+              onChange={setWellKnownName}
+            />
+          </Form.Item>
         }
         <Form.Item
-          label={locale.numberOfRules}
-          validateStatus={
-            classificationMethod === 'kmeans'
-              ? 'warning'
-              : numberOfRules < minNrClasses
-                ? 'error'
-                : undefined
-          }
-          help={classificationMethod === 'kmeans'
-            ? locale.numberOfRulesViaKmeans
-            : numberOfRules < minNrClasses
-              // eslint-disable-next-line max-len
-              ? `${locale.colorRampMinClassesWarningPre} ${minNrClasses} ${locale.colorRampMinClassesWarningPost}`
-              : undefined
-          }
+          {...itemConfig}
+          label={locale.colorRamp}
+          help={numberOfRules < minNrClasses ?
+            `${locale.colorRampMinClassesWarningPre} ${minNrClasses} ${locale.colorRampMinClassesWarningPost}`
+            : undefined}
         >
-          <div>
-            <InputNumber<number>
-              min={minNrClasses}
-              max={100}
-              value={numberOfRules}
-              onChange={setNumberOfRules}
-            />
-            {
-              levelOfMeasurement === 'nominal' && distinctValues.length > 0 &&
-              <Tooltip title={locale.allDistinctValues}>
-                <Button
-                  className="all-distinct-values-button"
-                  icon={<PlusSquareOutlined />}
-                  onClick={onAllDistinctClicked}
-                />
-              </Tooltip>
-            }
-          </div>
+          <ColorRampCombo
+            colorRamps={colorRamps}
+            colorRamp={colorRamp}
+            onChange={setColorRamp}
+          />
         </Form.Item>
-        <fieldset>
-          <legend>{locale.symbolizer}</legend>
-          <Form.Item>
-            <KindField
-              kind={symbolizerKind}
-              symbolizerKinds={[
-                'Fill',
-                'Mark',
-                'Line'
-              ]}
-              onChange={onSymbolizerKindChange}
-            />
-          </Form.Item>
-          {symbolizerKind !== 'Mark' ? null :
-            <Form.Item>
-              <WellKnownNameField
-                wellKnownName={wellKnownName}
-                onChange={setWellKnownName}
-              />
-            </Form.Item>
-          }
+        {colorSpaces.length > 0 ?
           <Form.Item
-            label={locale.colorRamp}
-            help={numberOfRules < minNrClasses ?
-              `${locale.colorRampMinClassesWarningPre} ${minNrClasses} ${locale.colorRampMinClassesWarningPost}`
-              : undefined}
+            {...itemConfig}
+            label={locale.colorSpace}
           >
-            <ColorRampCombo
-              colorRamps={colorRamps}
-              colorRamp={colorRamp}
-              onChange={setColorRamp}
+            <ColorSpaceCombo
+              colorSpace={colorSpace}
+              colorSpaces={colorSpaces}
+              onChange={setColorSpace}
             />
           </Form.Item>
-          {colorSpaces.length > 0 ?
-            <Form.Item
-              label={locale.colorSpace}
-            >
-              <ColorSpaceCombo
-                colorSpace={colorSpace}
-                colorSpaces={colorSpaces}
-                onChange={setColorSpace}
-              />
-            </Form.Item>
-            : null}
-          <Form.Item
-            label={locale.preview}
-          >
-            <ColorsPreview
-              colors={previewColors}
-            />
-          </Form.Item>
-        </fieldset>
-        <Form.Item>
-          <Button
-            className="gs-rule-generator-submit-button"
-            type="primary"
-            onClick={onGenerateClick}
-            disabled={numberOfRules < minNrClasses || !attributeName}
-          >
-            {locale.generateButtonText}
-          </Button>
+          : null}
+        <Form.Item
+          {...itemConfig}
+          label={locale.preview}
+        >
+          <ColorsPreview
+            colors={previewColors}
+          />
         </Form.Item>
-      </Form>
+      </fieldset>
+      <Form.Item
+        {...itemConfig}
+      >
+        <Button
+          className="gs-rule-generator-submit-button"
+          type="primary"
+          onClick={onGenerateClick}
+          disabled={numberOfRules < minNrClasses || !attributeName}
+        >
+          {locale.generateButtonText}
+        </Button>
+      </Form.Item>
     </div>
   );
 };

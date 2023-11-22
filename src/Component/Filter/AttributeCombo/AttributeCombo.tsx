@@ -33,6 +33,7 @@ import {
   useGeoStylerData,
   useGeoStylerLocale
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 const Option = Select.Option;
 
@@ -110,10 +111,12 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
   }
 
   const helpTxt = validateStatus !== 'success' ? locale.help : null;
+  const itemConfig = getFormItemConfig();
 
   return (
     <div className="gs-attribute-combo">
       <Form.Item
+        {...itemConfig}
         label={locale.label}
         colon={false}
         validateStatus={validateStatus}
