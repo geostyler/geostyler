@@ -1,3 +1,10 @@
+## [14.0.0-beta.2](https://github.com/geostyler/geostyler/compare/v14.0.0-beta.1...v14.0.0-beta.2) (2023-11-22)
+
+
+### Features
+
+* add editors visibility fields to composition ([#2387](https://github.com/geostyler/geostyler/issues/2387)) ([eaa7882](https://github.com/geostyler/geostyler/commit/eaa7882aa19daafce4e62eddff99968fdba99065))
+
 ## [14.0.0-beta.1](https://github.com/geostyler/geostyler/compare/v13.1.1...v14.0.0-beta.1) (2023-11-22)
 
 
