@@ -37,8 +37,7 @@ const hr_HR: GeoStylerLocale = {
   },
   Editor: {
     kindFieldLabel: 'Vrsta',
-    unknownSymbolizerText: 'Simbolizator nepoznat!',
-    visibilityFieldLabel: 'Vidljivost',
+    unknownSymbolizerText: 'Simbolizator nepoznat!'
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Ime',
@@ -161,7 +160,8 @@ const hr_HR: GeoStylerLocale = {
     outlineColorLabel: 'Obrub-Boja',
     outlineWidthLabel: 'Obrub-Širina',
     outlineDasharrayLabel: 'Obrub-Crtkano',
-    graphicFillTypeLabel: 'Vrsta grafičke ispune'
+    graphicFillTypeLabel: 'Vrsta grafičke ispune',
+    visibilityLabel: 'Vidljivost'
   },
   IconEditor: {
     iconTooltipLabel: 'Otvori galeriju',
@@ -172,9 +172,11 @@ const hr_HR: GeoStylerLocale = {
     opacityLabel: 'Prozirnost',
     rotateLabel: 'Rotation',
     sizeLabel: 'Veličina',
+    visibilityLabel: 'Vidljivost'
   },
   MarkEditor: {
-    wellKnownNameFieldLabel: 'Simbol'
+    wellKnownNameFieldLabel: 'Simbol',
+    visibilityLabel: 'Vidljivost'
   },
   LineEditor: {
     capLabel: 'Gornja granica',
@@ -187,6 +189,7 @@ const hr_HR: GeoStylerLocale = {
     opacityLabel: 'Prozirnost',
     perpendicularOffsetLabel: 'Okomiti pomak',
     widthLabel: 'Širina',
+    visibilityLabel: 'Vidljivost'
   },
   TextEditor: {
     fontLabel: 'Font',
@@ -200,7 +203,8 @@ const hr_HR: GeoStylerLocale = {
     rotateLabel: 'Rotacija',
     haloColorLabel: 'Halo-Boja',
     haloWidthLabel: 'Halo-Širina',
-    attributeNotFound: 'Polje nije pronađeno'
+    attributeNotFound: 'Polje nije pronađeno',
+    visibilityLabel: 'Vidljivost'
   },
   PropTextEditor: {
     propFieldLabel: 'Polje',
@@ -228,7 +232,8 @@ const hr_HR: GeoStylerLocale = {
     gammaValueLabel: 'Gamma',
     colorMapLabel: 'Mapa boja',
     symbolizerLabel: 'Simbolizator',
-    channelSelectionLabel: 'Odabir kanala'
+    channelSelectionLabel: 'Odabir kanala',
+    visibilityLabel: 'Vidljivost'
   },
   RasterChannelEditor: {
     channelSelectionLabel: 'Uredi kanale',

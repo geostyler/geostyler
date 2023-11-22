@@ -29,7 +29,6 @@
 import React from 'react';
 
 import {
-  Expression,
   Symbolizer,
   SymbolizerKind
 } from 'geostyler-style';
@@ -38,8 +37,6 @@ import { MarkEditor } from '../MarkEditor/MarkEditor';
 import { LineEditor } from '../LineEditor/LineEditor';
 import { FillEditor } from '../FillEditor/FillEditor';
 import { TextEditor } from '../TextEditor/TextEditor';
-
-import VisibilityField from '../Field/VisibilityField/VisibilityField';
 
 import './Editor.less';
 
@@ -54,7 +51,10 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { RasterEditor } from '../RasterEditor/RasterEditor';
 import { Form } from 'antd';
 
-import { useGeoStylerComposition, useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import {
+  useGeoStylerComposition,
+  useGeoStylerLocale
+} from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface EditorComposableProps {
   markEditor?: {
@@ -159,12 +159,6 @@ export const Editor: React.FC<EditorProps> = (props) => {
     onSymbolizerChange(newSymbolizer);
   };
 
-  const onVisibilityFieldChange = (visibility: Expression<boolean>) => {
-    const newSymbolizer = _cloneDeep(symbolizer);
-    newSymbolizer.visibility = visibility;
-    onSymbolizerChange(newSymbolizer);
-  };
-
   const symbolizerKinds: SymbolizerKind[] = ['Mark', 'Fill', 'Icon', 'Line', 'Text', 'Raster'];
   const filteredSymbolizerKinds = symbolizerKinds
     .filter(kind => {
@@ -201,14 +195,6 @@ export const Editor: React.FC<EditorProps> = (props) => {
             kind={symbolizer.kind}
             onChange={onKindFieldChange}
             symbolizerKinds={filteredSymbolizerKinds}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.visibilityFieldLabel}
-        >
-          <VisibilityField
-            visibility={symbolizer.visibility}
-            onChange={onVisibilityFieldChange}
           />
         </Form.Item>
         {getUiForSymbolizer()}

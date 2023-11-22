@@ -41,10 +41,12 @@ import { Form } from 'antd';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
+  InputConfig,
   useGeoStylerComposition,
   useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 
 export interface MarkEditorComposableProps {
   // TODO add wellKnownNames property that specifies the supported WKNs
@@ -52,6 +54,8 @@ export interface MarkEditorComposableProps {
   wellKnownNameField?: {
     visibility?: boolean;
   };
+  // TODO add support for default values in VisibilityField
+  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
 }
 
 export interface MarkEditorInternalProps {
@@ -69,6 +73,7 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
   const {
     onSymbolizerChange,
     symbolizer,
+    visibilityField,
     wellKnownNameField
   } = composed;
 
@@ -86,8 +91,28 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
     }
   };
 
+  const onVisibilityChange = (newVisibility: MarkSymbolizer['visibility']) => {
+    const symbolizerClone: MarkSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.visibility = newVisibility;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
   return (
     <div className="gs-mark-symbolizer-editor" >
+      {
+        visibilityField?.visibility === false ? null : (
+          <Form.Item
+            label={locale.visibilityLabel}
+          >
+            <VisibilityField
+              visibility={symbolizer.visibility}
+              onChange={onVisibilityChange}
+            />
+          </Form.Item>
+        )
+      }
       {
         wellKnownNameField?.visibility === false ? null : (
           <Form.Item

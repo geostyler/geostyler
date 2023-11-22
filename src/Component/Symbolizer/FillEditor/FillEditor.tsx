@@ -57,6 +57,7 @@ import {
   useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 
 const Panel = Collapse.Panel;
 
@@ -71,6 +72,8 @@ export interface FillEditorComposableProps {
     visibility?: boolean;
   };
   outlineWidthField?: InputConfig<WidthFieldProps['value']>;
+  // TODO add support for default values in VisibilityField
+  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
   // TODO add support for graphicFill
 }
 
@@ -94,6 +97,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     outlineDasharrayField,
     outlineOpacityField,
     outlineWidthField,
+    visibilityField,
     symbolizer
   } = composed;
 
@@ -168,6 +172,14 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     }
   };
 
+  const onVisibilityChange = (newVisibility: FillSymbolizer['visibility']) => {
+    const symbolizerClone: FillSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.visibility = newVisibility;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
   const {
     color,
     fillOpacity,
@@ -176,13 +188,26 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     outlineWidth,
     outlineDasharray,
     opacity,
-    outlineOpacity
+    outlineOpacity,
+    visibility
   } = symbolizer;
 
   return (
     <div className="gs-fill-symbolizer-editor" >
       <Collapse bordered={false} defaultActiveKey={['1']}>
         <Panel header="General" key="1">
+          {
+            visibilityField?.visibility === false ? null : (
+              <Form.Item
+                label={locale.visibilityLabel}
+              >
+                <VisibilityField
+                  visibility={visibility}
+                  onChange={onVisibilityChange}
+                />
+              </Form.Item>
+            )
+          }
           {
             fillColorField?.visibility === false ? null : (
               <Form.Item

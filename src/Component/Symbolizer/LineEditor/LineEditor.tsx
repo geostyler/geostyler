@@ -61,6 +61,7 @@ import {
   useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 
 const Panel = Collapse.Panel;
 
@@ -84,6 +85,8 @@ export interface LineEditorComposableProps {
   graphicStrokeField?: InputConfig<GraphicEditorProps['graphic']>;
   // TODO add support for default values in GraphicEditor
   graphicFillField?: InputConfig<GraphicEditorProps['graphic']>;
+  // TODO add support for default values in VisibilityField
+  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
 }
 
 export interface LineEditorInternalProps {
@@ -112,6 +115,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     perpendicularOffsetField,
     symbolizer,
     widthField,
+    visibilityField,
   } = composed;
 
   const locale = useGeoStylerLocale('LineEditor');
@@ -200,6 +204,14 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     }
   };
 
+  const onVisibilityChange = (newVisibility: LineSymbolizer['visibility']) => {
+    const symbolizerClone: LineSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.visibility = newVisibility;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
   const {
     color,
     width,
@@ -210,13 +222,26 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     join,
     graphicStroke,
     perpendicularOffset,
-    graphicFill
+    graphicFill,
+    visibility
   } = _cloneDeep(symbolizer);
 
   return (
     <div className="gs-line-symbolizer-editor" >
       <Collapse bordered={false} defaultActiveKey={['1']}>
         <Panel header="General" key="1">
+          {
+            visibilityField?.visibility === false ? null : (
+              <Form.Item
+                label={locale.visibilityLabel}
+              >
+                <VisibilityField
+                  visibility={visibility}
+                  onChange={onVisibilityChange}
+                />
+              </Form.Item>
+            )
+          }
           {
             colorField?.visibility === false ? null : (
               <Form.Item

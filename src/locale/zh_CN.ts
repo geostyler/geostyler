@@ -38,7 +38,6 @@ const zh_CN: GeoStylerLocale = {
   },
   Editor: {
     kindFieldLabel: '类型',
-    visibilityFieldLabel: '可见性',
     unknownSymbolizerText: '未知符号!'
   },
   RuleFieldContainer: {
@@ -162,7 +161,8 @@ const zh_CN: GeoStylerLocale = {
     outlineColorLabel: '轮廓-颜色',
     outlineWidthLabel: '轮廓-宽度',
     outlineDasharrayLabel: '轮廓-点划样式',
-    graphicFillTypeLabel: '填充样式'
+    graphicFillTypeLabel: '填充样式',
+    visibilityLabel: '可见性'
   },
   IconEditor: {
     iconTooltipLabel: '打开图库',
@@ -173,9 +173,11 @@ const zh_CN: GeoStylerLocale = {
     opacityLabel: '不透明度',
     rotateLabel: '旋转',
     sizeLabel: '尺寸',
+    visibilityLabel: '可见性'
   },
   MarkEditor: {
-    wellKnownNameFieldLabel: '符号'
+    wellKnownNameFieldLabel: '符号',
+    visibilityLabel: '可见性'
   },
   LineEditor: {
     colorLabel: '颜色',
@@ -187,7 +189,8 @@ const zh_CN: GeoStylerLocale = {
     capLabel: '端点',
     joinLabel: '角点',
     graphicStrokeTypeLabel: '画笔类型',
-    graphicFillTypeLabel: '填充类型'
+    graphicFillTypeLabel: '填充类型',
+    visibilityLabel: '可见性'
   },
   TextEditor: {
     fontLabel: '字体',
@@ -201,7 +204,8 @@ const zh_CN: GeoStylerLocale = {
     rotateLabel: '旋转',
     haloColorLabel: '光晕颜色',
     haloWidthLabel: '光晕宽度',
-    attributeNotFound: '字段未找到'
+    attributeNotFound: '字段未找到',
+    visibilityLabel: '可见性'
   },
   PropTextEditor: {
     propFieldLabel: '字段',
@@ -229,7 +233,8 @@ const zh_CN: GeoStylerLocale = {
     gammaValueLabel: 'Gamma',
     colorMapLabel: '颜色映射',
     symbolizerLabel: '符号化',
-    channelSelectionLabel: '通道选择'
+    channelSelectionLabel: '通道选择',
+    visibilityLabel: '可见性'
   },
   RasterChannelEditor: {
     channelSelectionLabel: '编辑通道',

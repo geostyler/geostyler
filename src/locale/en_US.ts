@@ -37,7 +37,6 @@ const en_US: GeoStylerLocale = {
   },
   Editor: {
     kindFieldLabel: 'Kind',
-    visibilityFieldLabel: 'Visibility',
     unknownSymbolizerText: 'Symbolizer unknown!'
   },
   RuleFieldContainer: {
@@ -161,7 +160,8 @@ const en_US: GeoStylerLocale = {
     outlineColorLabel: 'Outline-Color',
     outlineWidthLabel: 'Outline-Width',
     outlineDasharrayLabel: 'Outline-Dasharray',
-    graphicFillTypeLabel: 'Graphic Fill Type'
+    graphicFillTypeLabel: 'Graphic Fill Type',
+    visibilityLabel: 'Visibility',
   },
   IconEditor: {
     iconTooltipLabel: 'Open Gallery',
@@ -172,9 +172,11 @@ const en_US: GeoStylerLocale = {
     opacityLabel: 'Opacity',
     rotateLabel: 'Rotation',
     sizeLabel: 'Size',
+    visibilityLabel: 'Visibility'
   },
   MarkEditor: {
-    wellKnownNameFieldLabel: 'Symbol'
+    wellKnownNameFieldLabel: 'Symbol',
+    visibilityLabel: 'Visibility'
   },
   LineEditor: {
     capLabel: 'Cap',
@@ -187,6 +189,7 @@ const en_US: GeoStylerLocale = {
     opacityLabel: 'Opacity',
     perpendicularOffsetLabel: 'Perpendicular Offset',
     widthLabel: 'Width',
+    visibilityLabel: 'Visibility'
   },
   TextEditor: {
     fontLabel: 'Font',
@@ -200,7 +203,8 @@ const en_US: GeoStylerLocale = {
     rotateLabel: 'Rotation',
     haloColorLabel: 'Halo-Color',
     haloWidthLabel: 'Halo-Width',
-    attributeNotFound: 'Field not found'
+    attributeNotFound: 'Field not found',
+    visibilityLabel: 'Visibility'
   },
   PropTextEditor: {
     propFieldLabel: 'Field',
@@ -228,7 +232,8 @@ const en_US: GeoStylerLocale = {
     gammaValueLabel: 'Gamma',
     colorMapLabel: 'Color Map',
     symbolizerLabel: 'Symbolizer',
-    channelSelectionLabel: 'Channel Selection'
+    channelSelectionLabel: 'Channel Selection',
+    visibilityLabel: 'Visibility'
   },
   RasterChannelEditor: {
     channelSelectionLabel: 'Edit Channels',
