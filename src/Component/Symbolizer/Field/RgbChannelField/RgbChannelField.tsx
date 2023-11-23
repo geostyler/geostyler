@@ -38,6 +38,7 @@ import { ChannelSelection, RGBChannel } from 'geostyler-style';
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../../../Util/FormItemUtil';
 
 export interface RgbChannelFieldProps {
   sourceChannelNames?: string[];
@@ -113,9 +114,12 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
     }
   };
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div>
       <Form.Item
+        {...itemConfig}
         label={locale.redLabel}
       >
         <SourceChannelNameField
@@ -125,6 +129,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.greenLabel}
       >
         <SourceChannelNameField
@@ -134,6 +139,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.blueLabel}
       >
         <SourceChannelNameField

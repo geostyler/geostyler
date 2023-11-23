@@ -35,6 +35,7 @@ import { Form } from 'antd';
 import { FieldContainer } from '../FieldContainer/FieldContainer';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { NameField } from '../NameField/NameField';
+import { getFormItemConfig } from '../../Util/FormItemUtil';
 
 export interface StyleFieldContainerProps {
   onNameChange?: (name: string) => void;
@@ -51,31 +52,30 @@ export const StyleFieldContainer: React.FC<StyleFieldContainerProps> = ({
 }) => {
 
   const locale = useGeoStylerLocale('StyleFieldContainer');
+  const itemConfig = getFormItemConfig();
 
   return (
     <FieldContainer className="gs-style-field-container">
-      <Form
-        layout='vertical'
+      <Form.Item
+        {...itemConfig}
+        label={locale.nameFieldLabel}
       >
-        <Form.Item
-          label={locale.nameFieldLabel}
-        >
-          <NameField
-            value={name}
-            onChange={onNameChange}
-            placeholder={locale.nameFieldPlaceholder}
-          />
-        </Form.Item>
-        <Form.Item
-          label={locale.titleFieldLabel}
-        >
-          <NameField
-            value={title}
-            onChange={onTitleChange}
-            placeholder={locale.titleFieldPlaceholder}
-          />
-        </Form.Item>
-      </Form>
+        <NameField
+          value={name}
+          onChange={onNameChange}
+          placeholder={locale.nameFieldPlaceholder}
+        />
+      </Form.Item>
+      <Form.Item
+        {...itemConfig}
+        label={locale.titleFieldLabel}
+      >
+        <NameField
+          value={title}
+          onChange={onTitleChange}
+          placeholder={locale.titleFieldPlaceholder}
+        />
+      </Form.Item>
     </FieldContainer>
   );
 

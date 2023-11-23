@@ -57,6 +57,7 @@ import {
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface RasterEditorComposableProps {
   opacityField?: InputConfig<OpacityFieldProps['value']>;
@@ -192,6 +193,8 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
     wrapperCol: { span: 24 }
   };
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div className="gs-raster-symbolizer-editor" >
       {
@@ -200,6 +203,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
             {
               visibilityField?.visibility === false ? null : (
                 <Form.Item
+                  {...itemConfig}
                   label={locale.visibilityLabel}
                 >
                   <VisibilityField
@@ -212,6 +216,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
             {
               opacityField?.visibility === false ? null : (
                 <Form.Item
+                  {...itemConfig}
                   label={locale.opacityLabel}
                   {...getFormItemSupportProps('opacity')}
                 >
@@ -228,6 +233,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
             {
               contrastEnhancementField?.visibility === false ? null : (
                 <Form.Item
+                  {...itemConfig}
                   label={locale.contrastEnhancementLabel}
                   {...getFormItemSupportProps('contrastEnhancement')}
                 >
@@ -241,6 +247,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
             {
               gammaValueField?.visibility === false ? null : (
                 <Form.Item
+                  {...itemConfig}
                   label={locale.gammaValueLabel}
                   {...getFormItemSupportProps('contrastEnhancement')}
                 >
@@ -255,6 +262,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
             {
               colorMapEditor?.visibility === false ? null : (
                 <Form.Item
+                  {...itemConfig}
                   className="gs-raster-editor-view-toggle"
                   {...toggleViewButtonLayout}
                 >
@@ -267,6 +275,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
             {
               rasterChannelEditor?.visibility === false ? null : (
                 <Form.Item
+                  {...itemConfig}
                   className="gs-raster-editor-view-toggle"
                   {...toggleViewButtonLayout}
                 >

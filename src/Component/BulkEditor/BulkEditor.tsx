@@ -28,7 +28,7 @@
 
 import React, { useState } from 'react';
 
-import { Form, Space } from 'antd';
+import { Form } from 'antd';
 
 import './BulkEditor.less';
 import { ColorField } from '../Symbolizer/Field/ColorField/ColorField';
@@ -39,6 +39,7 @@ import { Expression, SymbolizerKind, WellKnownName } from 'geostyler-style';
 import { WellKnownNameField } from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import { ImageField } from '../Symbolizer/Field/ImageField/ImageField';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../Util/FormItemUtil';
 
 export interface BulkEditorProps {
   /** The callback that is triggered, when a style property changed. */
@@ -84,9 +85,12 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
     onStylePropChange('image', newImage);
   };
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div className='gs-bulkeditor'>
       <Form.Item
+        {...itemConfig}
         label={locale.colorLabel}
       >
         <ColorField
@@ -95,6 +99,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.radiusLabel}
       >
         <RadiusField
@@ -103,6 +108,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.opacityLabel}
       >
         <OpacityField
@@ -111,43 +117,33 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.symbolLabel}
+        className='gs-symbol-selection'
       >
-        <Space.Compact
-          size="small"
-        >
-          <Form.Item
-            noStyle
-          >
-            <KindField
-              kind={kind}
-              onChange={setKind}
-              symbolizerKinds={symbolizerKinds}
+        <KindField
+          kind={kind}
+          onChange={setKind}
+          symbolizerKinds={symbolizerKinds}
+        />
+        {
+          kind === 'Mark' && (
+            <WellKnownNameField
+              wellKnownName={wellKnownName}
+              onChange={onWellKnownNameChange}
             />
-          </Form.Item>
-          <Form.Item
-            noStyle
-          >
-            {
-              kind === 'Mark' && (
-                <WellKnownNameField
-                  wellKnownName={wellKnownName}
-                  onChange={onWellKnownNameChange}
-                />
-              )
-            }
-            {
-              kind === 'Icon' && (
-                // TODO add iconLibraries config and viewhandling
-                <ImageField
-                  value={image}
-                  onChange={onImageChange}
-                  placeholder={locale.imageFieldLabel}
-                />
-              )
-            }
-          </Form.Item>
-        </Space.Compact>
+          )
+        }
+        {
+          kind === 'Icon' && (
+            // TODO add iconLibraries config and viewhandling
+            <ImageField
+              value={image}
+              onChange={onImageChange}
+              placeholder={locale.imageFieldLabel}
+            />
+          )
+        }
       </Form.Item>
     </div>
   );

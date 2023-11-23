@@ -58,6 +58,7 @@ import {
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 const Panel = Collapse.Panel;
 
@@ -192,6 +193,8 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     visibility
   } = symbolizer;
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div className="gs-fill-symbolizer-editor" >
       <Collapse bordered={false} defaultActiveKey={['1']}>
@@ -199,6 +202,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           {
             visibilityField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.visibilityLabel}
               >
                 <VisibilityField
@@ -211,6 +215,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           {
             fillColorField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.fillColorLabel}
                 {...getFormItemSupportProps('color')}
               >
@@ -225,6 +230,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           {
             fillOpacityField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.fillOpacityLabel}
                 {...getFormItemSupportProps('fillOpacity')}
               >
@@ -239,6 +245,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           {
             opacityField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.opacityLabel}
                 {...getFormItemSupportProps('opacity')}
               >
@@ -253,6 +260,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           {
             outlineOpacityField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.outlineOpacityLabel}
                 {...getFormItemSupportProps('outlineOpacity')}
               >
@@ -267,6 +275,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           {
             outlineColorField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.outlineColorLabel}
                 {...getFormItemSupportProps('outlineColor')}
               >
@@ -281,6 +290,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           {
             outlineWidthField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.outlineWidthLabel}
                 {...getFormItemSupportProps('outlineWidth')}
               >
@@ -295,6 +305,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           {
             outlineDasharrayField?.visibility === false ? null : (
               <Form.Item
+                {...itemConfig}
                 label={locale.outlineDasharrayLabel}
                 {...getFormItemSupportProps('outlineDasharray')}
               >
