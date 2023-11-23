@@ -44,6 +44,7 @@ import {
   useGeoStylerComposition,
   useGeoStylerLocale
 } from '../../../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../../../Util/FormItemUtil';
 
 export interface ChannelFieldComposableProps {
   sourceChannelNameField?: {
@@ -130,11 +131,14 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
   const contrastEnhancementType = _get(channel, 'contrastEnhancement.enhancementType');
   const gamma = _get(channel, 'contrastEnhancement.gammaValue');
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div>
       {
         sourceChannelNameField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.sourceChannelNameLabel}
           >
             <SourceChannelNameField
@@ -148,6 +152,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
       {
         contrastEnhancementField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.contrastEnhancementTypeLabel}
           >
             <ContrastEnhancementField
@@ -161,6 +166,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
       {
         gammaValueField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.gammaValueLabel}
           >
             <GammaField

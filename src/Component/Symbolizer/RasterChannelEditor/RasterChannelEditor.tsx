@@ -52,6 +52,7 @@ import {
   useGeoStylerComposition,
   useGeoStylerLocale
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface RasterChannelEditorComposableProps {
   channelSelectionField?: InputConfig<'rgb' | 'gray'>;
@@ -144,15 +145,19 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) =
     grayChannel = channelSelection.grayChannel;
   }
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div>
       <Form.Item
+        {...itemConfig}
       >
         <span>{locale.titleLabel}</span>
       </Form.Item>
       {
         channelSelectionField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.channelSelectionLabel}
           >
             <Select

@@ -48,6 +48,7 @@ import {WidthField} from '../Field/WidthField/WidthField';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 import './PropTextEditor.less';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface PropTextEditorProps {
   symbolizer: TextSymbolizer;
@@ -181,9 +182,12 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
     offsetY = offset[1];
   }
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div className="gs-text-symbolizer-prop-editor" >
       <Form.Item
+        {...itemConfig}
         label={locale.propFieldLabel}
       >
         <AttributeCombo
@@ -192,6 +196,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.colorLabel}
       >
         <ColorField
@@ -200,6 +205,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.fontLabel}
       >
         <FontPicker
@@ -208,6 +214,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.opacityLabel}
       >
         <OpacityField
@@ -216,6 +223,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.sizeLabel}
       >
         <WidthField
@@ -224,6 +232,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.offsetXLabel}
       >
         <OffsetField
@@ -232,6 +241,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.offsetYLabel}
       >
         <OffsetField
@@ -240,6 +250,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.rotateLabel}
       >
         <RotateField
@@ -248,6 +259,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.haloColorLabel}
       >
         <ColorField
@@ -256,6 +268,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         />
       </Form.Item>
       <Form.Item
+        {...itemConfig}
         label={locale.haloWidthLabel}
       >
         <WidthField

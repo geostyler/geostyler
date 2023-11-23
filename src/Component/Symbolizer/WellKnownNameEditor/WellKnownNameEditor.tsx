@@ -47,6 +47,7 @@ import {
   useGeoStylerComposition,
   useGeoStylerLocale
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface WellKnownNameEditorComposableProps {
   radiusField?: InputConfig<RadiusFieldProps['radius']>;
@@ -190,11 +191,14 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
     offset
   } = symbolizer;
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div>
       {
         radiusField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.radiusLabel}
           >
             <RadiusField
@@ -208,6 +212,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
       {
         offsetXField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.offsetXLabel}
           >
             <OffsetField
@@ -221,6 +226,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
       {
         offsetYField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.offsetYLabel}
           >
             <OffsetField
@@ -234,6 +240,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
       {
         fillColorField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.fillColorLabel}
           >
             <ColorField
@@ -247,6 +254,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
       {
         opacityField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.opacityLabel}
           >
             <OpacityField
@@ -260,6 +268,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
       {
         fillOpacityField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.fillOpacityLabel}
           >
             <OpacityField
@@ -273,6 +282,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
       {
         strokeColorField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.strokeColorLabel}
           >
             <ColorField
@@ -286,6 +296,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
       {
         strokeWidthField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.strokeWidthLabel}
           >
             <WidthField
@@ -299,6 +310,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
       {
         strokeOpacityField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.strokeOpacityLabel}
           >
             <OpacityField
@@ -312,6 +324,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
       {
         rotateField?.visibility === false ? null : (
           <Form.Item
+            {...itemConfig}
             label={locale.rotateLabel}
           >
             <RotateField

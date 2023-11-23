@@ -55,6 +55,7 @@ import {
   useGeoStylerComposition,
   useGeoStylerLocale
 } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface EditorComposableProps {
   markEditor?: {
@@ -183,22 +184,21 @@ export const Editor: React.FC<EditorProps> = (props) => {
       return true;
     });
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div className="gs-symbolizer-editor" >
-      <Form
-        layout='vertical'
+      <Form.Item
+        {...itemConfig}
+        label={locale.kindFieldLabel}
       >
-        <Form.Item
-          label={locale.kindFieldLabel}
-        >
-          <KindField
-            kind={symbolizer.kind}
-            onChange={onKindFieldChange}
-            symbolizerKinds={filteredSymbolizerKinds}
-          />
-        </Form.Item>
-        {getUiForSymbolizer()}
-      </Form>
+        <KindField
+          kind={symbolizer.kind}
+          onChange={onKindFieldChange}
+          symbolizerKinds={filteredSymbolizerKinds}
+        />
+      </Form.Item>
+      {getUiForSymbolizer()}
     </div>
   );
 };

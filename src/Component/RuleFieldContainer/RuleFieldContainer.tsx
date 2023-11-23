@@ -40,6 +40,7 @@ import { Renderer } from '../Renderer/Renderer/Renderer';
 import { Expression, Symbolizer } from 'geostyler-style';
 import { useGeoStylerComposition, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
+import { getFormItemConfig } from '../../Util/FormItemUtil';
 
 export type RuleFieldContainerComposableProps = Pick<
   RuleComposableProps, 'maxScaleField' | 'minScaleField' | 'nameField'
@@ -83,43 +84,43 @@ export const RuleFieldContainer: React.FC<RuleFieldContainerProps> = (props) => 
   } = composed;
 
   const locale = useGeoStylerLocale('RuleFieldContainer');
+  const itemConfig = getFormItemConfig();
 
   return (
     <FieldContainer className="gs-rule-field-container">
       <div className='gs-rule-field-container-header'>
-        <Form
-          layout='vertical'
-        >
-          {
-            nameField?.visibility === false ? null : (
-              <Form.Item
-                label={locale.nameFieldLabel}
-              >
-                <NameField
-                  value={name}
-                  onChange={onNameChange}
-                  placeholder={locale.nameFieldPlaceholder}
-                />
-              </Form.Item>
-            )
-          }
-          {
-            minScaleField?.visibility === false ? null : (
-              <MinScaleDenominator
-                value={minScale}
-                onChange={onMinScaleChange}
+        {
+          nameField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.nameFieldLabel}
+            >
+              <NameField
+                value={name}
+                onChange={onNameChange}
+                placeholder={locale.nameFieldPlaceholder}
               />
-            )
-          }
-          {
-            maxScaleField?.visibility === false ? null : (
-              <MaxScaleDenominator
-                value={maxScale}
-                onChange={onMaxScaleChange}
-              />
-            )
-          }
-        </Form>
+            </Form.Item>
+          )
+        }
+        {
+          minScaleField?.visibility === false ? null : (
+            <MinScaleDenominator
+              value={minScale}
+              onChange={onMinScaleChange}
+              {...itemConfig}
+            />
+          )
+        }
+        {
+          maxScaleField?.visibility === false ? null : (
+            <MaxScaleDenominator
+              value={maxScale}
+              onChange={onMaxScaleChange}
+              {...itemConfig}
+            />
+          )
+        }
       </div>
       <Divider type="vertical" />
       <Renderer symbolizers={symbolizers} />

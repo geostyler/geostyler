@@ -56,6 +56,7 @@ import {
   useGeoStylerLocale
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 import FunctionUtil from '../../../Util/FunctionUtil';
+import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface ColorMapEntryRecord extends ColorMapEntry {
   key: number;
@@ -306,16 +307,20 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
     ? FunctionUtil.evaluateFunction(colorMap?.type) as ColorMapType
     : colorMap?.type;
 
+  const itemConfig = getFormItemConfig();
+
   return (
     <div className="gs-colormap-symbolizer-editor" >
       <div className="gs-colormap-header-row">
         <Form.Item
+          {...itemConfig}
         >
           <span>{locale.titleLabel}</span>
         </Form.Item>
         {
           colorMapTypeField?.visibility === false ? null : (
             <Form.Item
+              {...itemConfig}
               label={locale.typeLabel}
             >
               <ColorMapTypeField
@@ -328,6 +333,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
         {
           nrOfClassesField?.visibility === false ? null : (
             <Form.Item
+              {...itemConfig}
               label={locale.nrOfClassesLabel}
             >
               <InputNumber
@@ -344,6 +350,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
         {
           colorRampComboField?.visibility === false ? null : (
             <Form.Item
+              {...itemConfig}
               label={locale.colorRampLabel}
             >
               <ColorRampCombo
@@ -357,6 +364,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
         {
           extendedField?.visibility === false ? null : (
             <Form.Item
+              {...itemConfig}
               label={locale.extendedLabel}
             >
               <ExtendedField
