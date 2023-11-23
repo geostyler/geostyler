@@ -1,3 +1,10 @@
+## [14.0.0-beta.3](https://github.com/geostyler/geostyler/compare/v14.0.0-beta.2...v14.0.0-beta.3) (2023-11-23)
+
+
+### Bug Fixes
+
+* remove Forms and set vertical layout in BulkEditor ([#2388](https://github.com/geostyler/geostyler/issues/2388)) ([4abf02e](https://github.com/geostyler/geostyler/commit/4abf02e30e7b0b51b5d7c7b64cf6f2de2911b407))
+
 ## [14.0.0-beta.2](https://github.com/geostyler/geostyler/compare/v14.0.0-beta.1...v14.0.0-beta.2) (2023-11-22)
 
 
