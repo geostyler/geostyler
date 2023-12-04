@@ -27,11 +27,26 @@
  */
 
 .gs-fieldset {
-  border: 1px solid lightgrey;
-  border-radius: 4px;
-  padding: 5px;
 
-  legend {
-    width: auto;
+  .fieldset-title {
+    position: relative;
+    top: 0.75em;
+    left: 1em;
+    background: white;
+    padding-left: 0.25em;
   }
+
+  .fieldset-body {
+    border-top: 1px solid lightgrey;
+  }
+
+  &.checked {
+    .fieldset-body {
+      border: 1px solid lightgrey;
+      border-radius: 4px;
+      padding-top: 1em;
+      padding-bottom: .5em;
+    }
+  }
+
 }

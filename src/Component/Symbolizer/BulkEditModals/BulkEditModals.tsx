@@ -37,7 +37,8 @@ import {
   Rule as GsRule,
   WellKnownName,
   SymbolizerKind,
-  Expression
+  Expression,
+  IconSymbolizer
 } from 'geostyler-style';
 
 import { ColorField } from '../../Symbolizer/Field/ColorField/ColorField';
@@ -68,7 +69,7 @@ export interface BulkEditModalsProps extends Partial<BulkEditModalsDefaultProps>
   updateMultiColors?: (x: Expression<string>) => void;
   updateMultiSizes?: (x: Expression<number> | undefined) => void;
   updateMultiOpacities?: (x: Expression<number> | undefined) => void;
-  updateMultiSymbols?: (symbol: WellKnownName | string, kind: SymbolizerKind) => void;
+  updateMultiSymbols?: (symbol: WellKnownName | IconSymbolizer['image'], kind: SymbolizerKind) => void;
   iconLibraries?: IconLibrary[];
 }
 
@@ -185,7 +186,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
           kind === 'Mark' ? (
             <WellKnownNameField
               wellKnownName={symbol}
-              onChange={(val: string) => {
+              onChange={(val) => {
                 updateMultiSymbols(val, kind);
               }}
             />
@@ -194,7 +195,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
               {locale.imageFieldLabel}
               <ImageField
                 value={symbol}
-                onChange={(val: string) => {
+                onChange={(val) => {
                   updateMultiSymbols(val, kind);
                 }}
               />

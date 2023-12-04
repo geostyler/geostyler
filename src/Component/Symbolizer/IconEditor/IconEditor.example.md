@@ -83,7 +83,8 @@ function IconEditorExample () {
     composition: {
       IconEditor: {
         imageField: {
-          visibility: true
+          visibility: true,
+          disableSprite: false
         },
         sizeField: {
           visibility: true
@@ -112,10 +113,18 @@ function IconEditorExample () {
     setSymbolizer(s);
   };
 
-  const onVisibilityChange = (visibility, prop) => {
+  const onVisibilityChange = (checked, prop) => {
     setMyContext(oldContext => {
       const newContext = {...oldContext};
-      newContext.composition.IconEditor[prop].visibility = visibility;
+      newContext.composition.IconEditor[prop].imageField.disableSprite = checked;
+      return newContext;
+    });
+  };
+
+  const onSpriteChange = (checked, prop) => {
+    setMyContext(oldContext => {
+      const newContext = {...oldContext};
+      newContext.composition.IconEditor.imageField.disableSprite = checked;
       return newContext;
     });
   };
@@ -158,6 +167,12 @@ function IconEditorExample () {
           onChange={visibility => {onVisibilityChange(visibility, 'opacityField')}}
           checkedChildren="Opacity"
           unCheckedChildren="Opacity"
+        />
+        <Switch
+          checked={myContext.composition.IconEditor.imageField.disableSprite}
+          onChange={onSpriteChange}
+          checkedChildren="Disable Sprite"
+          unCheckedChildren="Disable Sprite"
         />
       </div>
       <hr />
