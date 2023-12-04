@@ -35,7 +35,7 @@ import { ColorField } from '../Symbolizer/Field/ColorField/ColorField';
 import { RadiusField } from '../Symbolizer/Field/RadiusField/RadiusField';
 import { OpacityField } from '../Symbolizer/Field/OpacityField/OpacityField';
 import { KindField } from '../Symbolizer/Field/KindField/KindField';
-import { Expression, SymbolizerKind, WellKnownName } from 'geostyler-style';
+import { Expression, IconSymbolizer, SymbolizerKind, WellKnownName } from 'geostyler-style';
 import { WellKnownNameField } from '../Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 import { ImageField } from '../Symbolizer/Field/ImageField/ImageField';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
@@ -56,7 +56,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
   const [opacity, setOpacity] = useState<Expression<number>>();
   const [kind, setKind] = useState<SymbolizerKind>('Mark');
   const [wellKnownName, setWellKnownName] = useState<WellKnownName>();
-  const [image, setImage] = useState<string>();
+  const [image, setImage] = useState<IconSymbolizer['image']>();
 
   const symbolizerKinds: SymbolizerKind[] = ['Mark', 'Icon'];
 
@@ -80,7 +80,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
     onStylePropChange('wellKnownName', newWellKnownName);
   };
 
-  const onImageChange = (newImage: string) => {
+  const onImageChange = (newImage: IconSymbolizer['image']) => {
     setImage(newImage);
     onStylePropChange('image', newImage);
   };

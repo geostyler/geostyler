@@ -44,7 +44,8 @@ import {
   SymbolizerKind,
   Symbolizer as GsSymbolizer,
   WellKnownName as GsWellKnownName,
-  Expression
+  Expression,
+  IconSymbolizer
 } from 'geostyler-style';
 
 import { NameField } from '../NameField/NameField';
@@ -245,7 +246,7 @@ export const Style: React.FC<StyleProps> = (props) => {
     updateAllSelected([{ value: opacity, property: 'opacity' }]);
   };
 
-  const updateMultiSymbols = (symbol: GsWellKnownName | string, kind: SymbolizerKind) => {
+  const updateMultiSymbols = (symbol: GsWellKnownName | IconSymbolizer['image'], kind: SymbolizerKind) => {
     if (kind === 'Mark') {
       updateAllSelected([
         { value: symbol, property: 'wellKnownName' },
