@@ -56,6 +56,7 @@ export interface IconEditorComposableProps {
   // TODO add support for default values in ImageField
   imageField?: {
     visibility?: boolean;
+    disableSprite?: boolean;
   };
   // TODO add support for default values in SizeField
   sizeField?: {
@@ -205,6 +206,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
               iconLibraries={iconLibraries}
               tooltipLabel={locale.iconTooltipLabel}
               spriteTooltipLabel={locale.iconSpriteTooltipLabel}
+              disableSprite={imageField?.disableSprite}
             />
           </Form.Item>
         )

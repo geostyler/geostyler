@@ -53,6 +53,8 @@ export interface ImageFieldProps {
   placeholder?: string;
   /** True, if the iconLibrary should not be opened in a window. False otherwise. */
   windowless?: boolean;
+  /** Disables the sprite input fields */
+  disableSprite?: boolean;
   /**
    * The callback when the iconLibraries button was clicked.
    * This will only be called, when 'windowless' is true.
@@ -77,6 +79,7 @@ export const ImageField: React.FC<ImageFieldProps> = ({
   spriteTooltipLabel = 'Use sprite',
   placeholder = 'URL to image',
   windowless = false,
+  disableSprite = false,
   onIconLibrariesClick = () => { }
 }) => {
 
@@ -149,28 +152,31 @@ export const ImageField: React.FC<ImageFieldProps> = ({
             }
           }}
         />
-        <FieldSet title={spriteTooltipLabel} checked={isSprite(value)} onCheckChange={onCheckSpriteChange} >
-          {isSprite(value) &&
-            <div className='spriterow'>
-              <span>
-                x
-                <NumberExpressionInput value={value.position[0]} onChange={(val) => onSpriteChange(val, 'x')} />
-              </span>
-              <span>
-                y
-                <NumberExpressionInput value={value.position[1]} onChange={(val) => onSpriteChange(val, 'y')} />
-              </span>
-              <span>
-                width
-                <NumberExpressionInput value={value.size[0]} onChange={(val) => onSpriteChange(val, 'width')} />
-              </span>
-              <span>
-                height
-                <NumberExpressionInput value={value.size[1]} onChange={(val) => onSpriteChange(val, 'height')} />
-              </span>
-            </div>
-          }
-        </FieldSet>
+        {
+          !disableSprite &&
+            <FieldSet title={spriteTooltipLabel} checked={isSprite(value)} onCheckChange={onCheckSpriteChange} >
+              {isSprite(value) &&
+                <div className='spriterow'>
+                  <span>
+                    x
+                    <NumberExpressionInput value={value.position[0]} onChange={(val) => onSpriteChange(val, 'x')} />
+                  </span>
+                  <span>
+                    y
+                    <NumberExpressionInput value={value.position[1]} onChange={(val) => onSpriteChange(val, 'y')} />
+                  </span>
+                  <span>
+                    width
+                    <NumberExpressionInput value={value.size[0]} onChange={(val) => onSpriteChange(val, 'width')} />
+                  </span>
+                  <span>
+                    height
+                    <NumberExpressionInput value={value.size[1]} onChange={(val) => onSpriteChange(val, 'height')} />
+                  </span>
+                </div>
+              }
+            </FieldSet>
+        }
       </div>
       <IconSelectorWindow
         open={windowVisible}
