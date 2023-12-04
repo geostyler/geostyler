@@ -32,6 +32,10 @@ import { Checkbox } from 'antd';
 import './FieldSet.less';
 
 export interface FieldSetProps extends React.PropsWithChildren {
+  /**
+   * a CSS classanme
+   */
+  className?: string;
   /** Check/uncheck Checkbox */
   checked?: boolean;
   /** Title to be rendered on top of the FieldSet */
@@ -45,29 +49,35 @@ export interface FieldSetProps extends React.PropsWithChildren {
  * A title and a checkbox will be rendered on the top border of the component.
  */
 export const FieldSet: React.FC<FieldSetProps> = ({
+  className,
   checked = true,
   title,
   onCheckChange,
   children
 }) => {
+  let finalClassName = 'gs-fieldset';
+  finalClassName = checked ? finalClassName + ' checked' : finalClassName;
+  finalClassName = className ? finalClassName + ' ' + checked : finalClassName;
 
   return (
-    <fieldset className="gs-fieldset">
-      <legend>
+    <div className={finalClassName}>
+      <span className='fieldset-title'>
         <Checkbox
           checked={checked}
           onChange={onCheckChange}
         >
           {title}
         </Checkbox>
-      </legend>
-      {React.Children.map(children, child => {
-        // Ignore all children if checkbox is unchecked
-        if (checked) {
-          return child;
-        }
-        return undefined;
-      })}
-    </fieldset>
+      </span>
+      <div className="fieldset-body">
+        {React.Children.map(children, child => {
+          // Ignore all children if checkbox is unchecked
+          if (checked) {
+            return child;
+          }
+          return undefined;
+        })}
+      </div>
+    </div>
   );
 };
