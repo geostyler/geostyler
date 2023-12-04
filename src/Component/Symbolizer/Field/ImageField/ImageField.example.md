@@ -68,6 +68,30 @@ class ImageFieldExample extends React.Component {
 <ImageFieldExample />
 ```
 
+`ImageField` with a Sprite value.
+
+```jsx
+import React, { useState } from 'react';
+import { OlRenderer } from 'geostyler';
+
+const ImageFieldExample  = () => {
+  const [value, setValue] = useState({
+    source: './Geo_Styler_Logo_300_RGB.jpg',
+    position: [164, 33],
+    size: [95, 110]
+  });
+
+  return (
+    <ImageField
+      value={value}
+      onChange={setValue}
+    />
+  );
+}
+
+<ImageFieldExample />
+```
+
 `ImageField` with iconLibraries.
 
 ```jsx

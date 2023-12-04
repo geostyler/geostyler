@@ -26,10 +26,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import {
-  Input,
   Tooltip
 } from 'antd';
 
@@ -38,10 +37,18 @@ import { IconLibrary } from '../../IconSelector/IconSelector';
 
 import './ImageField.less';
 import { PictureOutlined } from '@ant-design/icons';
+import { Expression, IconSymbolizer, Sprite, isSprite } from 'geostyler-style';
+import StringExpressionInput from '../../../ExpressionInput/StringExpressionInput/StringExpressionInput';
+
+import './ImageField.less';
+import { FieldSet } from '../../../FieldSet/FieldSet';
+import NumberExpressionInput from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 
 export interface ImageFieldProps {
   /** The tooltip label for the iconLibraries button. */
   tooltipLabel?: string;
+  /** The tooltip label for the sprite button. */
+  spriteTooltipLabel?: string;
   /** The placeholder text when no value was provided yet. */
   placeholder?: string;
   /** True, if the iconLibrary should not be opened in a window. False otherwise. */
@@ -52,9 +59,9 @@ export interface ImageFieldProps {
    */
   onIconLibrariesClick?: () => void;
   /** The value of the image field. */
-  value?: string;
+  value?: IconSymbolizer['image'];
   /** The callback that is triggered when the value changes. */
-  onChange?: (image: string) => void;
+  onChange?: (image: IconSymbolizer['image']) => void;
   /** Predefined list of icons to select from. */
   iconLibraries?: IconLibrary[];
 }
@@ -67,20 +74,13 @@ export const ImageField: React.FC<ImageFieldProps> = ({
   value,
   iconLibraries,
   tooltipLabel = 'Open Gallery',
+  spriteTooltipLabel = 'Use sprite',
   placeholder = 'URL to image',
   windowless = false,
   onIconLibrariesClick = () => { }
 }) => {
 
   const [windowVisible, setWindowVisible] = React.useState<boolean>(false);
-
-  const getIconSelectorButton = () => {
-    return (
-      <Tooltip title={tooltipLabel}>
-        <PictureOutlined className="gs-image-field-gallery-icon" type="picture" onClick={openWindow} />
-      </Tooltip>
-    );
-  };
 
   const openWindow = () => {
     if (windowless) {
@@ -90,35 +90,99 @@ export const ImageField: React.FC<ImageFieldProps> = ({
     }
   };
 
+  const onCheckSpriteChange = useCallback(() => {
+    if (isSprite(value)) {
+      onChange?.(value.source);
+    } else {
+      onChange?.({
+        source: value as string,
+        position: [0, 0],
+        size: [0, 0]
+      });
+    }
+  }, [value, onChange]);
+
+  const onSpriteChange = useCallback((
+    val: Expression<number> | Expression<string> | undefined,
+    key: 'x' | 'y' | 'width' | 'height' | 'source'
+  ) => {
+    if (!onChange) {
+      return;
+    }
+    const newValue = (structuredClone(value) || {}) as Sprite ;
+    const index = key === 'x' || key === 'width' ? 0 : 1;
+    const target = key === 'x' || key === 'y' ? 'position' : 'size';
+    if (key === 'source') {
+      newValue.source = val as Expression<string>;
+    } else {
+      newValue[target][index] = val as Expression<number>;
+    }
+    onChange(newValue);
+  }, [value, onChange]);
+
   const closeWindow = () => {
     setWindowVisible(false);
   };
 
+  const stringValue = (isSprite(value) ? value.source : value) as string;
+
+
   return (
-    <div className="editor-field gs-image-field">
-      <Input
-        className={iconLibraries ? 'gs-image-field-gallery-addon' : undefined}
-        value={value}
-        placeholder={placeholder}
-        defaultValue={value}
-        addonAfter={iconLibraries ? getIconSelectorButton() : undefined}
-        onChange={(evt: any) => {
-          if (onChange) {
-            onChange(evt.target.value);
+    <>
+      <div className="editor-field gs-image-field">
+        <StringExpressionInput
+          className={iconLibraries ? 'gs-image-field-gallery-addon' : undefined}
+          value={stringValue}
+          inputProps={{
+            placeholder: placeholder,
+            addonAfter: iconLibraries && (
+              <Tooltip title={tooltipLabel}>
+                <PictureOutlined className="gs-image-field-gallery-icon" type="picture" onClick={openWindow} />
+              </Tooltip>
+            )
+          }}
+          onChange={(val: any) => {
+            if (isSprite(value)) {
+              onSpriteChange(val, 'source');
+            } else {
+              onChange?.(val);
+            }
+          }}
+        />
+        <FieldSet title={spriteTooltipLabel} checked={isSprite(value)} onCheckChange={onCheckSpriteChange} >
+          {isSprite(value) &&
+            <div className='spriterow'>
+              <span>
+                x
+                <NumberExpressionInput value={value.position[0]} onChange={(val) => onSpriteChange(val, 'x')} />
+              </span>
+              <span>
+                y
+                <NumberExpressionInput value={value.position[1]} onChange={(val) => onSpriteChange(val, 'y')} />
+              </span>
+              <span>
+                width
+                <NumberExpressionInput value={value.size[0]} onChange={(val) => onSpriteChange(val, 'width')} />
+              </span>
+              <span>
+                height
+                <NumberExpressionInput value={value.size[1]} onChange={(val) => onSpriteChange(val, 'height')} />
+              </span>
+            </div>
           }
-        }}
-      />
+        </FieldSet>
+      </div>
       <IconSelectorWindow
         open={windowVisible}
         onClose={closeWindow}
         iconLibraries={iconLibraries}
-        selectedIconSrc={value}
+        selectedIconSrc={stringValue}
         onIconSelect={(src: string) => {
           if (onChange) {
             onChange(src);
           }
         }}
       />
-    </div>
+    </>
   );
 };
