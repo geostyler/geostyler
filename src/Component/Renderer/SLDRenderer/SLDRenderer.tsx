@@ -91,7 +91,6 @@ export const SLDRenderer: React.FC<SLDRendererProps> = (props) => {
    * @param {Symbolizer[]} newSymbolizers The passed symbolizer
    */
   const setLegendGraphicUrlForRule = useCallback((newSymbolizers: Symbolizer[]) => {
-
     setLegendDataUrl(loading);
 
     if (requestTimeout) {
