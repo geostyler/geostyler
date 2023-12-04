@@ -166,6 +166,7 @@ const fr_FR: GeoStylerLocale = {
   },
   IconEditor: {
     iconTooltipLabel: 'Ouvrir la galerie',
+    iconSpriteTooltipLabel: 'Utiliser un sprite',
     imageLabel: 'Source',
     imagePlaceholder: 'URL de l\'icône',
     offsetXLabel: 'Décalage horizontal',

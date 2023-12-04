@@ -165,6 +165,7 @@ const hr_HR: GeoStylerLocale = {
   },
   IconEditor: {
     iconTooltipLabel: 'Otvori galeriju',
+    iconSpriteTooltipLabel: 'TODO(hr_HR): Use sprite',
     imageLabel: 'Izvor',
     imagePlaceholder: 'URL to Icon',
     offsetXLabel: 'Pomak X',

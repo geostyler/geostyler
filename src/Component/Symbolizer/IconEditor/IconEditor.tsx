@@ -204,6 +204,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
               onChange={onImageSrcChange}
               iconLibraries={iconLibraries}
               tooltipLabel={locale.iconTooltipLabel}
+              spriteTooltipLabel={locale.iconSpriteTooltipLabel}
             />
           </Form.Item>
         )

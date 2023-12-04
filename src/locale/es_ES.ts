@@ -228,6 +228,7 @@ const es_ES: GeoStylerLocale = {
   },
   IconEditor: {
     iconTooltipLabel: 'Abrir galería',
+    iconSpriteTooltipLabel: 'Utilizar sprite',
     imageLabel: 'Fuente',
     imagePlaceholder: 'URL a Icono',
     offsetXLabel: 'Desplazamiento X',

@@ -132,6 +132,7 @@ export default interface GeoStylerLocale {
     opacityLabel: string;
     rotateLabel: string;
     sizeLabel: string;
+    iconSpriteTooltipLabel: string;
     visibilityLabel: string;
   };
   LineEditor: {

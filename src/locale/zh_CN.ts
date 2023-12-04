@@ -166,6 +166,7 @@ const zh_CN: GeoStylerLocale = {
   },
   IconEditor: {
     iconTooltipLabel: '打开图库',
+    iconSpriteTooltipLabel: '使用精灵',
     imageLabel: '来源',
     imagePlaceholder: '图标URL',
     offsetXLabel: 'X 偏移',
