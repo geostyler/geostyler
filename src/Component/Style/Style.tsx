@@ -177,7 +177,7 @@ export const Style: React.FC<StyleProps> = (props) => {
     setStyle(clonedStyle);
   };
 
-  const onRulesSelectionChange = (newSelectedRowKeys: (string | number)[]) => {
+  const onRulesSelectionChange = (newSelectedRowKeys: (React.Key)[]) => {
     setSelectedRowKeys(newSelectedRowKeys as string[]);
   };
 
