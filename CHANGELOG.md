@@ -1,3 +1,20 @@
+## [14.1.0](https://github.com/geostyler/geostyler/compare/v14.0.0...v14.1.0) (2023-12-04)
+
+
+### Features
+
+* add disableSprite property ([eefedc1](https://github.com/geostyler/geostyler/commit/eefedc149469d9a29113a743027eb794387ea008))
+* add Sprite support to ImageField ([fe90cd3](https://github.com/geostyler/geostyler/commit/fe90cd3b0dc26c2bf3ac3ead5cf4296e17afa5ee))
+* **deps:** update geostyler-style and ol-parser ([68050f5](https://github.com/geostyler/geostyler/commit/68050f5ea52a829057f696820c5a2ed4498bc740))
+
+
+### Bug Fixes
+
+* adapt icon related typing ([f52d2b8](https://github.com/geostyler/geostyler/commit/f52d2b89e3a651fc3a221b63c10a37517a111fb7))
+* add missing i18n for sprite label ([5b68e8d](https://github.com/geostyler/geostyler/commit/5b68e8d8bbb88610da38d42f5e02083119e0c0fc))
+* fix border radius for stacked buttons ([ece9977](https://github.com/geostyler/geostyler/commit/ece99770e6342e0a8cbd94dd7ad0e9b813cb0440))
+* update config and typing ([034946d](https://github.com/geostyler/geostyler/commit/034946d1d5e5d215ed5916d2f974f23301d1b207))
+
 ## [14.0.0](https://github.com/geostyler/geostyler/compare/v13.1.1...v14.0.0) (2023-11-24)
 
 
