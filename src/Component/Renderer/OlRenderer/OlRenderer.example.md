@@ -31,39 +31,53 @@
 This demonstrates the use of `OlRenderer`.
 
 ```jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { OlRenderer } from 'geostyler';
 
-class OlRendererExample extends React.Component {
-  constructor(props) {
-    super(props);
+const OlRendererExample  = () => {
+  const [symbolizers, setSymbolizers] = useState([{
+    kind: 'Mark',
+    wellKnownName: 'circle',
+    color: '#ff0000',
+    strokeColor: '000000',
+    strokeWidth: 3,
+    radius: 10
+  }]);
 
-    this.state = {
-      symbolizers: [{
-        kind: 'Mark',
-        wellKnownName: 'circle',
-        color: '#ff0000',
-        strokeColor: '000000',
-        strokeWidth: 3,
-        radius: 10
-      }],
-      symbolizerKind: 'Mark'
-    };
-  }
+  return (
+    <OlRenderer
+      symbolizers={symbolizers}
+      symbolizerKind="Mark"
+    />
+  );
+}
 
-  render() {
-    const {
-      symbolizers,
-      symbolizerKind
-    } = this.state;
+<OlRendererExample />
+```
 
-    return (
-      <OlRenderer
-        symbolizers={symbolizers}
-        symbolizerKind={symbolizerKind}
-      />
-    );
-  }
+OlRenderer with an ImagSprite style.
+
+```jsx
+import React, { useState } from 'react';
+import { OlRenderer } from 'geostyler';
+
+const OlRendererExample  = () => {
+  const [symbolizers, setSymbolizers] = useState([{
+    kind: 'Icon',
+    image: {
+      source: './Geo_Styler_Logo_300_RGB.jpg',
+      position: [164, 33],
+      size: [95, 110]
+    },
+    size: 40
+  }]);
+
+  return (
+    <OlRenderer
+      symbolizers={symbolizers}
+      symbolizerKind="Mark"
+    />
+  );
 }
 
 <OlRendererExample />
