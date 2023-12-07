@@ -29,3 +29,10 @@ jobs:
       - name: Update README.md 📄
         run: |
           sed -i "s/Documentation:.*/Documentation: [main](https:\/\/geostyler.github.io\/geostyler\/main\/index.html) \/ [latest](https:\/\/geostyler.github.io\/geostyler\/latest\/index.html) \/ [${{ steps.semantic.outputs.new_release_version }}](https:\/\/geostyler.github.io\/geostyler\/v${{ steps.semantic.outputs.new_release_version }}\/index.html)/g" README.md
+
+      - name: Discord notification 📯
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@0.3.2
+        with:
+          args: 'Version ${{ steps.semantic.outputs.new_release_version }} of the {{ github.event.repository.name }} has been released.'
