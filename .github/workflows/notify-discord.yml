@@ -13,4 +13,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: 'Version ${{ github.event.release.tag_name }} of the {{ github.event.repository.name }} has been released.'
+          args: '${{ github.event.repository.name }} ${{ github.event.release.tag_name }} has been released.'
