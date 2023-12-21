@@ -96,14 +96,13 @@ export const ColorField: React.FC<ColorFieldProps> = ({
     textColor = '#000000';
   }
 
-  const backgroundColor = !isGeoStylerFunction(value)
-    ? value
+  const colorString = value ? value
     : !isGeoStylerFunction(defaultValue)
       ? defaultValue
       : '#FFFFF';
 
   const btnStyle: React.CSSProperties = {
-    backgroundColor,
+    backgroundColor: colorString,
     color: textColor
   };
 
@@ -112,8 +111,9 @@ export const ColorField: React.FC<ColorFieldProps> = ({
       <ColorPicker
         allowClear
         format='hex'
-        onChange={onColorPickerChange}
         {...passThroughProps}
+        onChange={onColorPickerChange}
+        value={colorString}
       >
         <Button style={btnStyle} className="color-picker-trigger">
           {value ? value.toString() : locale.chooseText}

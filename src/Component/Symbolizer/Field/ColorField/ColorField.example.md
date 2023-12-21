@@ -41,6 +41,7 @@ const ColorFieldExample = () => {
   return (
     <ColorField
       value={value}
+      defaultValue="#013370"
       label="Color"
       onChange={setValue}
     />
