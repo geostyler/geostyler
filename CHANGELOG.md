@@ -1,3 +1,10 @@
+## [14.1.1](https://github.com/geostyler/geostyler/compare/v14.1.0...v14.1.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* update dev playground ([dc3f653](https://github.com/geostyler/geostyler/commit/dc3f653c70e2eb4a9b96b564b844ff8b751c4b03))
+
 ## [14.1.0](https://github.com/geostyler/geostyler/compare/v14.0.0...v14.1.0) (2023-12-04)
 
 
