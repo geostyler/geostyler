@@ -208,6 +208,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
 
     const menu = (
       <Dropdown
+        trigger={['click']}
         menu={{
           items: items,
           onClick: onMenuClick

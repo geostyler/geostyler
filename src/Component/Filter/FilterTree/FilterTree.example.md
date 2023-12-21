@@ -52,7 +52,7 @@ const FilterTreeExample = () => {
     ]);
 
   return (
-    <div style={{height: '300px'}}>
+    <div style={{height: '300px', width: '600px'}}>
       <FilterTree
         filter={filter}
         onFilterChange={setFilter}
