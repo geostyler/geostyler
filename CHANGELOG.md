@@ -1,3 +1,13 @@
+## [14.1.2](https://github.com/geostyler/geostyler/compare/v14.1.1...v14.1.2) (2023-12-21)
+
+
+### Bug Fixes
+
+* pass value to ColorPicker ([4c68380](https://github.com/geostyler/geostyler/commit/4c68380088004279dfb38ea7c95cdccfc6fa35ab))
+* update FilterTree style ([596ccfc](https://github.com/geostyler/geostyler/commit/596ccfcabf104a12bf24ac5f2d68869517ddd0db))
+* update FunctionUi style ([5d1fd1d](https://github.com/geostyler/geostyler/commit/5d1fd1df2eaf25b350a915210a8f39cacafddec3))
+* update FunctionUI style ([5b64646](https://github.com/geostyler/geostyler/commit/5b64646e7ce302cbaa4ee31f6dd602c4bd102bdb))
+
 ## [14.1.1](https://github.com/geostyler/geostyler/compare/v14.1.0...v14.1.1) (2023-12-21)
 
 
