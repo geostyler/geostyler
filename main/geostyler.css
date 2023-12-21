@@ -356,9 +356,13 @@ mark {
   background-image: linear-gradient(grey, grey), linear-gradient(grey, grey);
   background-size: 1px 100%, 50% 1px;
   background-repeat: no-repeat, no-repeat;
-  background-position: center center, center right;
+}
+.gs-function-ui .gs-function-arguments .gs-function-arg:not(:last-child) .tree-icon {
+  background-position: center center, 100% 20px;
 }
 .gs-function-ui .gs-function-arguments .gs-function-arg:last-child .tree-icon {
+  width: 28px;
+  height: 40px;
   background-size: 1px 50%, 50% 1px;
   background-position: top center, center right;
 }
@@ -1743,35 +1747,34 @@ mark {
   border-radius: 4px;
   margin-bottom: 5px;
 }
-.gs-filter-tree.ant-tree .style-filter-node.and-filter .ant-tree-node-content-wrapper,
-.gs-filter-tree.ant-tree .style-filter-node.or-filter .ant-tree-node-content-wrapper,
-.gs-filter-tree.ant-tree .style-filter-node.not-filter .ant-tree-node-content-wrapper {
-  background-color: rgba(0, 0, 0, 0.05);
-}
 .gs-filter-tree.ant-tree .style-filter-node {
   width: 100%;
+}
+.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .gs-comparison-filter-ui {
+  padding-left: 0;
+}
+.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-form-item .ant-form-item-control-input {
+  min-height: unset;
 }
 .gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-switcher {
   display: none;
 }
-.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-node-content-wrapper {
-  width: 100%;
-  border: 1px solid #40a9ff;
-  border-radius: 4px;
-}
-.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-node-content-wrapper:not(:hover) {
-  background-color: rgba(0, 0, 0, 0.05);
-}
 .gs-filter-tree.ant-tree .style-filter-node .ant-tree-node-content-wrapper {
+  flex: 1;
   height: inherit;
+  padding: 0;
 }
-.gs-filter-tree.ant-tree .node-title {
+.gs-filter-tree.ant-tree .style-filter-node .node-title {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
 }
-.gs-filter-tree.ant-tree .node-title .filter-menu-button {
-  margin-left: 5px;
+.gs-filter-tree.ant-tree .style-filter-node .node-title .filter-menu-button {
+  margin-left: 0.5em;
+  visibility: hidden;
+}
+.gs-filter-tree.ant-tree .style-filter-node:hover .node-title .filter-menu-button {
+  visibility: visible;
 }
 
 .gs-text-filter-field .ant-select {
