@@ -95,7 +95,7 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'div',
     type: 'number',
-    description: 'Returns the division of argument[0] by argument[1]',
+    description: 'Returns the division of the first argument by the second argument',
     args: [{
       type: 'number',
       placeholder: '… enter a number'
@@ -274,7 +274,7 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'sub',
     type: 'number',
-    description: 'Returns the result of substracting argument[1] from argument[0]',
+    description: 'Returns the result of subtracting the second argument from the first argument',
     args: [{
       type: 'number',
       placeholder: '… enter a number'
@@ -495,13 +495,11 @@ export const functionConfigs: FunctionConfig[] = [
     name: 'any',
     type: 'boolean',
     // TODO: how to make infinite amount of inputs
-    description: 'Resolves to true if any of the passed arguments resolves to true.',
+    description: 'Resolves to true if any of the passed arguments resolve to true.',
     args: [{
-      type: 'boolean',
-      placeholder: '… string to check'
+      type: 'boolean'
     }, {
-      type: 'boolean',
-      placeholder: '… string to check'
+      type: 'boolean'
     }]
   },
   {
@@ -519,7 +517,7 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'greaterThan',
     type: 'boolean',
-    description: 'Resolves to true if argument[0] is greater than argument[1]',
+    description: 'Resolves to true if the first argument is greater than the second argument',
     args: [{
       type: 'number',
       placeholder: '… first argument'
@@ -531,7 +529,7 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'greaterThanOrEqualTo',
     type: 'boolean',
-    description: 'Resolves to true if argument[0] is greater than or equal to argument[1]',
+    description: 'Resolves to true if the first argument is greater than or equal to the second argument',
     args: [{
       type: 'number',
       placeholder: '… first argument'
@@ -562,7 +560,7 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'lessThan',
     type: 'boolean',
-    description: 'Resolves to true if argument[0] is less than argument[1]',
+    description: 'Resolves to true if the first argument is less than the second argument',
     args: [{
       type: 'number',
       placeholder: '… first argument'
@@ -574,7 +572,7 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'lessThanOrEqualTo',
     type: 'boolean',
-    description: 'Resolves to true if argument[0] is less than or equal to argument[1]',
+    description: 'Resolves to true if the first argument is less than or equal to the second argument',
     args: [{
       type: 'number',
       placeholder: '… first argument'
@@ -586,7 +584,7 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'not',
     type: 'boolean',
-    description: 'Inverts the boolean value of argument[0]',
+    description: 'Inverts the boolean value of the argument',
     args: [{
       type: 'boolean'
     }]
