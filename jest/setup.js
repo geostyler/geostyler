@@ -29,6 +29,7 @@ import util from 'util';
 global.TextEncoder = util.TextEncoder;
 global.TextDecoder = util.TextDecoder;
 import '@babel/polyfill';
+import '@testing-library/jest-dom';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
