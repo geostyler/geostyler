@@ -1,5 +1,18 @@
+import { FunctionCall } from 'geostyler-style';
+
 /* eslint-disable max-len */
-export const functionConfigs = [
+type FunctionConfig = {
+  name: FunctionCall<any>['name'];
+  type: 'number' | 'string' | 'boolean' | 'unknown';
+  description?: string;
+  args?: {
+    type: 'number' | 'string' | 'boolean' | 'unknown';
+    placeholder?: string;
+    label?: string;
+  }[];
+};
+
+export const functionConfigs: FunctionConfig[] = [
   {
     name: 'abs',
     type: 'number',
@@ -14,6 +27,19 @@ export const functionConfigs = [
     type: 'number',
     description: 'Returns the arc cosine of an angle in radians, in the range of 0.0 through PI',
     args: [{
+      type: 'number',
+      placeholder: '… enter a number'
+    }]
+  },
+  {
+    name: 'add',
+    type: 'number',
+    description: 'Returns the sum of arguments',
+    // TODO: how to make infinite amount of inputs
+    args: [{
+      type: 'number',
+      placeholder: '… enter a number'
+    }, {
       type: 'number',
       placeholder: '… enter a number'
     }]
@@ -67,6 +93,18 @@ export const functionConfigs = [
     }]
   },
   {
+    name: 'div',
+    type: 'number',
+    description: 'Returns the division of the first argument by the second argument',
+    args: [{
+      type: 'number',
+      placeholder: '… enter a number'
+    }, {
+      type: 'number',
+      placeholder: '… enter a number'
+    }]
+  },
+  {
     name: 'exp',
     type: 'number',
     description: 'Returns Euler’s number e raised to the power of x',
@@ -110,6 +148,19 @@ export const functionConfigs = [
     type: 'number',
     // TODO: how to make infinite amount of inputs
     description: 'Returns the minimum between argument[0], …, argument[n]',
+    args: [{
+      type: 'number',
+      placeholder: '… enter a number'
+    }, {
+      type: 'number',
+      placeholder: '… enter a number'
+    }]
+  },
+  {
+    name: 'mul',
+    type: 'number',
+    description: 'Returns the product of the arguments',
+    // TODO: how to make infinite amount of inputs
     args: [{
       type: 'number',
       placeholder: '… enter a number'
@@ -218,6 +269,18 @@ export const functionConfigs = [
     args: [{
       type: 'string',
       placeholder: '… where to search'
+    }]
+  },
+  {
+    name: 'sub',
+    type: 'number',
+    description: 'Returns the result of subtracting the second argument from the first argument',
+    args: [{
+      type: 'number',
+      placeholder: '… enter a number'
+    }, {
+      type: 'number',
+      placeholder: '… enter a number'
     }]
   },
   {
@@ -418,6 +481,64 @@ export const functionConfigs = [
     }]
   },
   {
+    name: 'all',
+    type: 'boolean',
+    // TODO: how to make infinite amount of inputs
+    description: 'Resolves to true if all passed arguments resolve to true.',
+    args: [{
+      type: 'boolean'
+    }, {
+      type: 'boolean'
+    }]
+  },
+  {
+    name: 'any',
+    type: 'boolean',
+    // TODO: how to make infinite amount of inputs
+    description: 'Resolves to true if any of the passed arguments resolve to true.',
+    args: [{
+      type: 'boolean'
+    }, {
+      type: 'boolean'
+    }]
+  },
+  {
+    name: 'equalTo',
+    type: 'boolean',
+    description: 'Resolves to true if both arguments are equal.',
+    args: [{
+      type: 'unknown',
+      placeholder: '… first argument'
+    }, {
+      type: 'unknown',
+      placeholder: '… second argument'
+    }]
+  },
+  {
+    name: 'greaterThan',
+    type: 'boolean',
+    description: 'Resolves to true if the first argument is greater than the second argument',
+    args: [{
+      type: 'number',
+      placeholder: '… first argument'
+    }, {
+      type: 'number',
+      placeholder: '… second argument'
+    }]
+  },
+  {
+    name: 'greaterThanOrEqualTo',
+    type: 'boolean',
+    description: 'Resolves to true if the first argument is greater than or equal to the second argument',
+    args: [{
+      type: 'number',
+      placeholder: '… first argument'
+    }, {
+      type: 'number',
+      placeholder: '… second argument'
+    }]
+  },
+  {
     name: 'in',
     type: 'boolean',
     // TODO: how to make infinite amount of inputs
@@ -434,6 +555,50 @@ export const functionConfigs = [
     }, {
       type: 'string',
       placeholder: '… option 3'
+    }]
+  },
+  {
+    name: 'lessThan',
+    type: 'boolean',
+    description: 'Resolves to true if the first argument is less than the second argument',
+    args: [{
+      type: 'number',
+      placeholder: '… first argument'
+    }, {
+      type: 'number',
+      placeholder: '… second argument'
+    }]
+  },
+  {
+    name: 'lessThanOrEqualTo',
+    type: 'boolean',
+    description: 'Resolves to true if the first argument is less than or equal to the second argument',
+    args: [{
+      type: 'number',
+      placeholder: '… first argument'
+    }, {
+      type: 'number',
+      placeholder: '… second argument'
+    }]
+  },
+  {
+    name: 'not',
+    type: 'boolean',
+    description: 'Inverts the boolean value of the argument',
+    args: [{
+      type: 'boolean'
+    }]
+  },
+  {
+    name: 'notEqualTo',
+    type: 'boolean',
+    description: 'Resolves to true if both arguments are unequal',
+    args: [{
+      type: 'unknown',
+      placeholder: '… first argument'
+    }, {
+      type: 'unknown',
+      placeholder: '… second argument'
     }]
   },
   {
