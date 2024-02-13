@@ -58,7 +58,7 @@
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/sortable": "^8.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "@monaco-editor/react": "^4.5.1",
+    "@monaco-editor/react": "^4.6.0",
     "@types/chroma-js": "^2.4.0",
     "@types/color": "^3.0.3",
     "@types/file-saver": "^2.0.5",
@@ -81,7 +81,7 @@
     "geostyler-style": "^8.1.0",
     "geostyler-wfs-parser": "^2.0.0",
     "lodash": "^4.17.21",
-    "monaco-editor": "^0.41.0",
+    "monaco-editor": "^0.46.0",
     "proj4": "^2.9.0",
     "typescript-json-schema": "^0.60.0"
   },
