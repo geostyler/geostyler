@@ -592,7 +592,7 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'notEqualTo',
     type: 'boolean',
-    description: 'Resolves to false if both arguments are equal',
+    description: 'Resolves to true if both arguments are unequal',
     args: [{
       type: 'unknown',
       placeholder: '… first argument'
