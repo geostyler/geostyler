@@ -13,6 +13,7 @@ export default defineConfig({
       formats: ['iife'],
       fileName: 'geostyler.js',
     },
+    sourcemap: true,
     rollupOptions: {
       external: ['react', 'react-dom', 'antd', /ol\/.*/],
       plugins: [nodePolyfills() as any],
@@ -20,7 +21,6 @@ export default defineConfig({
         dir: 'browser',
         generatedCode: 'es5',
         format: 'iife',
-        sourcemap: true,
         globals: function(name) {
           switch (name) {
             case 'react':
