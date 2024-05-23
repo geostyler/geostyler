@@ -116,7 +116,7 @@
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/eslint-plugin-tslint": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
-    "@vitejs/plugin-react": "4.2.1",
+    "@vitejs/plugin-react": "4.3.0",
     "ast-types": "^0.14.2",
     "babel-jest": "^29.7.0",
     "buffer": "^6.0.3",
