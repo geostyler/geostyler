@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-module.exports = {
+export default {
   testEnvironment: "./jest/Environment.js",
   testEnvironmentOptions : {
     url: "http://localhost",

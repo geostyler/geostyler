@@ -73,11 +73,10 @@ class FilterUtil {
    * Handle nested filters.
    */
   static handleNestedFilter = (filter: CombinationFilter | NegationFilter, feature: any): boolean => {
+    let intermediate = true;
     switch (filter[0]) {
       case '&&':
-        let intermediate = true;
-        let restFilter = filter.slice(1);
-        restFilter.forEach((f: Filter | CombinationOperator) => {
+        filter.slice(1).forEach((f: Filter | CombinationOperator) => {
           if (!FilterUtil.featureMatchesFilter(f, feature)) {
             intermediate = false;
           }
@@ -85,8 +84,7 @@ class FilterUtil {
         return intermediate;
       case '||':
         intermediate = false;
-        restFilter = filter.slice(1);
-        restFilter.forEach((f: Filter | CombinationOperator) => {
+        filter.slice(1).forEach((f: Filter | CombinationOperator) => {
           if (FilterUtil.featureMatchesFilter(f, feature)) {
             intermediate = true;
           }

@@ -26,4 +26,4 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-module.exports = {};
+export default {};
