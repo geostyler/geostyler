@@ -54,7 +54,6 @@ import SymbolizerUtil from '../../Util/SymbolizerUtil';
 import { RuleTable } from '../RuleTable/RuleTable';
 import { RuleGeneratorWindow } from '../RuleGenerator/RuleGeneratorWindow';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import {
   useGeoStylerComposition,
   useGeoStylerData,
@@ -62,6 +61,7 @@ import {
 } from '../../context/GeoStylerContext/GeoStylerContext';
 
 import './Style.less';
+import { ItemType } from 'antd/es/menu/interface';
 
 export interface StyleComposableProps {
   /** Should the classification be disabled */
