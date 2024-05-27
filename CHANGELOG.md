@@ -1,3 +1,18 @@
+## [14.1.3](https://github.com/geostyler/geostyler/compare/v14.1.2...v14.1.3) (2024-05-27)
+
+
+### Bug Fixes
+
+* add missing functions to FunctionUI ([29d8231](https://github.com/geostyler/geostyler/commit/29d82313eb032bc919d315484ccc7c16bfb1b93c))
+* **deps:** update dependency @ant-design/icons to v5.3.7 ([f705d92](https://github.com/geostyler/geostyler/commit/f705d92a69dd6053509c53e3dc48a8d932ee7d45))
+* **deps:** update dependency @types/lodash to v4.17.4 ([1820200](https://github.com/geostyler/geostyler/commit/182020054fe9bf9d23c9156f2266bd54b350008e))
+* **deps:** update dependency antd to v5.17.2 ([d0ab3b6](https://github.com/geostyler/geostyler/commit/d0ab3b699725b57722fd546c11909df045ff44d3))
+* **deps:** update dependency antd to v5.17.4 ([5bfe5fa](https://github.com/geostyler/geostyler/commit/5bfe5faf8c16029afedc1eb0b7558b66f6b79e2d))
+* **deps:** update dependency monaco-editor to ^0.48.0 ([afa76a2](https://github.com/geostyler/geostyler/commit/afa76a283e2b9063af8eaa903d695a4ec3635652))
+* **deps:** update dependency monaco-editor to ^0.49.0 ([e956cd3](https://github.com/geostyler/geostyler/commit/e956cd32b6b1f496171742946f9ab1b2fd05ab53))
+* **deps:** update dependency proj4 to v2.11.0 ([06bdfbd](https://github.com/geostyler/geostyler/commit/06bdfbdd6187c76512610a00a446ce1299359b80))
+* **deps:** update dependency typescript-json-schema to ^0.63.0 ([3e3f003](https://github.com/geostyler/geostyler/commit/3e3f00351598d3ed59bd9ee20d774a34e22e1568))
+
 ## [14.1.2](https://github.com/geostyler/geostyler/compare/v14.1.1...v14.1.2) (2023-12-21)
 
 
