@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js 20 👷🏻
-          uses: actions/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
@@ -27,7 +27,6 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Update README.md 📄
-        uses: actions/checkout@v4
         run: |
           sed -i "s/Documentation:.*/Documentation: [main](https:\/\/geostyler.github.io\/geostyler\/main\/index.html) \/ [latest](https:\/\/geostyler.github.io\/geostyler\/latest\/index.html) \/ [${{ steps.semantic.outputs.new_release_version }}](https:\/\/geostyler.github.io\/geostyler\/v${{ steps.semantic.outputs.new_release_version }}\/index.html)/g" README.md
           git config user.name "github-actions[bot]"
