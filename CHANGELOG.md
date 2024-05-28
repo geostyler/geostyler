@@ -1,3 +1,12 @@
+## [14.1.4](https://github.com/geostyler/geostyler/compare/v14.1.3...v14.1.4) (2024-05-28)
+
+
+### Bug Fixes
+
+* fix syntax error in workflow yaml ([#2463](https://github.com/geostyler/geostyler/issues/2463)) ([e8bb949](https://github.com/geostyler/geostyler/commit/e8bb949e6b7730e8ed6c291dcf0bd2f34ca01760))
+* remove invalid uses in release workflow step ([#2464](https://github.com/geostyler/geostyler/issues/2464)) ([0e514ab](https://github.com/geostyler/geostyler/commit/0e514aba3030d5c774e0ee1fcccb679744fae531))
+* use github-actions user for ci tasks ([#2462](https://github.com/geostyler/geostyler/issues/2462)) ([b60bc66](https://github.com/geostyler/geostyler/commit/b60bc660262dd90ef6df3754b37ed386e5d9f60f))
+
 ## [14.1.3](https://github.com/geostyler/geostyler/compare/v14.1.2...v14.1.3) (2024-05-27)
 
 
