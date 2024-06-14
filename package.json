@@ -83,7 +83,7 @@
     "lodash": "^4.17.21",
     "monaco-editor": "^0.49.0",
     "proj4": "^2.11.0",
-    "typescript-json-schema": "^0.63.0"
+    "typescript-json-schema": "^0.64.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.5",
