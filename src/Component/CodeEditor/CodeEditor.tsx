@@ -35,7 +35,6 @@ import React, {
 
 import Editor, { useMonaco } from '@monaco-editor/react';
 
-import 'blob';
 import {
   saveAs
 } from 'file-saver';
