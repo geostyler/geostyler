@@ -40,7 +40,9 @@ const replace = require('replace-in-file');
     const less = childProcess.exec(`${path.join('node_modules', '.bin', 'lessc')} ${file.fullPath} ${out}`);
     less.on('exit', function (code) {
       fs.unlink(file.fullPath, (err) => {
-        if (err) throw err;
+        if (err) {
+          throw err;
+        }
       });
     });
   });

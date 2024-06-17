@@ -2,11 +2,13 @@
   "name": "geostyler",
   "version": "14.2.0",
   "description": "Framework for styling geodata",
-  "main": "dist/index.js",
+  "main": "dist/geostyler.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "browser": "dist/geostyler.iife.js",
+  "type": "module",
   "files": [
-    "dist",
-    "browser"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -17,7 +19,7 @@
     "styler",
     "geostyler"
   ],
-  "author": "",
+  "author": "GeoStyler contributors",
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/geostyler/geostyler/issues"
@@ -34,16 +36,16 @@
   "homepage": "https://github.com/geostyler/geostyler",
   "scripts": {
     "build-package": "tsc && npm run build-browser && npm run build-dist",
-    "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.less\" dist --up 1 && node transform-less.js",
-    "build-styleguide": "styleguidist build",
+    "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.less\" dist --up 1 && node transform-less.cjs",
+    "build-styleguide": "styleguidist build --config styleguide.config.cjs",
     "build-browser": "vite build",
     "browser-sample": "npx http-server . -o /public/browser.html",
-    "lint": "eslint -c .eslintrc.js --ext .ts,tsx src/ && tsc --noEmit --project tsconfig.json",
+    "lint": "eslint -c .eslintrc.cjs --ext .ts,tsx src/ && tsc --noEmit --project tsconfig.json",
     "lint:test": "npm run lint && npm run test",
     "lint:test:cleanup:build": "npm run lint && npm run test && npm run cleanup && npm run build",
     "cleanup": "rimraf dist/** && rimraf build/**",
     "prepublishOnly": "npm run build-package",
-    "styleguide": "styleguidist server",
+    "styleguide": "styleguidist server --config styleguide.config.cjs",
     "test": "jest --maxWorkers=50% --coverage",
     "typecheck": "tsc --noEmit",
     "test-ci": "jest --ci --coverage",
@@ -66,7 +68,6 @@
     "@types/lodash": "^4.17.4",
     "@ungap/url-search-params": "^0.2.2",
     "antd": "^5.17.3",
-    "blob": "^0.1.0",
     "chroma-js": "^2.4.2",
     "color": "^4.2.3",
     "csstype": "^3.1.3",
