@@ -448,6 +448,9 @@ const zh_CN: GeoStylerLocale = {
     on: 'TODO(zh_CN):on',
     off: 'TODO(zh_CN):off',
   },
+  UnknownInput: {
+    typeSelectToolip: 'TODO(zh_CN): Select input type'
+  },
   ...antd_zh_CN
 };
 

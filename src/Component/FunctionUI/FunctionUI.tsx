@@ -25,7 +25,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import React, { useCallback } from 'react';
+import React, { ReactNode, useCallback } from 'react';
 
 import {
   Expression,
@@ -39,7 +39,9 @@ import './FunctionUI.less';
 import StringExpressionInput from '../ExpressionInput/StringExpressionInput/StringExpressionInput';
 import NumberExpressionInput from '../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 import BooleanExpressionInput from '../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
-import { functionConfigs } from './functionConfigs';
+import { FunctionConfig, functionConfigs } from './functionConfigs';
+import CaseInput from './CaseInput/CaseInput';
+import UnknownInput from './UnknownInput/UnknownInput';
 
 type Type = 'string' | 'number' | 'boolean' | 'unknown';
 
@@ -61,15 +63,6 @@ export const FunctionUI = <T extends GeoStylerFunction>({
 
   const name = value?.name;
 
-  const getUiForFunction = (func: GeoStylerFunction) => {
-    const config = functionConfigs.find(cfg => cfg.name === func.name);
-    return (
-      <div className='gs-function-arguments'>
-        {config?.args?.map((cfg, index) => getUiForArg(cfg, index, func))}
-      </div>
-    );
-  };
-
   const getKey = useCallback((key: string) => {
     if (parentKey) {
       return `${parentKey}-${key}`;
@@ -77,13 +70,50 @@ export const FunctionUI = <T extends GeoStylerFunction>({
     return key;
   }, [parentKey]);
 
-  const getUiForArg = (cfg: any, index: number, func: GeoStylerFunction) => {
+  const updateFunctionArg = useCallback((newArgumentValue: PropertyType, index: number) => {
+    const newValue = structuredClone(value);
+    if (newValue.name === 'pi' || newValue.name === 'random') {
+      return;
+    }
+    if (!Array.isArray(newValue.args)) {
+      newValue.args = [];
+    }
+    newValue.args[index] = newArgumentValue as any;
+    onChange?.(newValue);
+  }, [onChange, value]);
+
+  const getUiForArg = useCallback((cfg: FunctionConfig['args'][number], index: number, func: GeoStylerFunction) => {
     let functionArgs: Expression<any>[] = [];
     if (func.name !== 'pi' && func.name !== 'random') {
       functionArgs = func.args;
     }
 
     const key = getKey(func.name);
+
+    if (cfg.type === 'case') {
+      return (
+        <div className='gs-function-arg' key={`${key}${index}`}>
+          <i className='tree-icon' />
+          <CaseInput
+            value={functionArgs?.[index]}
+            onChange={(val) => {
+              updateFunctionArg(val, index);
+            }}
+          />
+        </div>
+      );
+    }
+    if (cfg.type === 'step') {
+      return 'STEP INPUT';
+    }
+    if (cfg.type === 'unknown') {
+      return <UnknownInput
+        value={functionArgs?.[index]}
+        onChange={(val) => {
+          updateFunctionArg(val, index);
+        }}
+      />;
+    }
 
     if (isGeoStylerFunction(functionArgs?.[index])) {
       return (
@@ -149,22 +179,41 @@ export const FunctionUI = <T extends GeoStylerFunction>({
     }
     return (
       <div className='gs-function-arg' key={`${key}${index}`}>
-        {functionArgs[index]?.toString()}
+        {functionArgs?.[index]?.toString()}
       </div>
     );
-  };
+  }, [getKey, updateFunctionArg]);
 
-  function updateFunctionArg(newArgumentValue: PropertyType, index: number) {
-    const newValue = structuredClone(value);
-    if (newValue.name === 'pi' || newValue.name === 'random') {
-      return;
+  const getUiForFunction = useCallback((func: GeoStylerFunction) => {
+    const config = functionConfigs.find(cfg => cfg.name === func.name);
+    let argUIs: ReactNode[] = [];
+
+    if (value.name === 'pi' || value.name === 'random') {
+      return null;
     }
-    if (!Array.isArray(newValue.args)) {
-      newValue.args = [];
+
+    if (config.args[config.args.length - 1].infinite) {
+      config.args.forEach((arg, index) => {
+        if (!arg.infinite) {
+          argUIs.push(getUiForArg(arg, index, func));
+        } else {
+          const amountOfInfiniteArgs = value.args ? value.args.length - index : 1;
+          for (let i = 0; i < amountOfInfiniteArgs; i++) {
+            argUIs.push(getUiForArg(arg, index + i, func));
+          }
+          // TODO: add an "add" button to add more infinite args
+        }
+      });
+    } else {
+      argUIs = config.args.map((arg, index) => getUiForArg(arg, index, func));
     }
-    newValue.args[index] = newArgumentValue as any;
-    onChange?.(newValue);
-  };
+
+    return (
+      <div className='gs-function-arguments'>
+        {argUIs}
+      </div>
+    );
+  }, [value, getUiForArg]);
 
   function updateFunctionName(functionName: GeoStylerFunction['name']) {
     const newValue = structuredClone(value);

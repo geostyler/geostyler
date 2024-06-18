@@ -447,6 +447,9 @@ const hr_HR: GeoStylerLocale = {
     on: 'TODO(hr_HR):on',
     off: 'TODO(hr_HR):off',
   },
+  UnknownInput: {
+    typeSelectToolip: 'TODO(hr_HR): Select input type'
+  },
   ...antd_hr_HR
 };
 export default hr_HR;

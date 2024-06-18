@@ -1,12 +1,15 @@
+/* eslint-disable max-len */
 import { FunctionCall } from 'geostyler-style';
 
-/* eslint-disable max-len */
-type FunctionConfig = {
+export type ArgumentType = 'number' | 'string' | 'boolean' | 'unknown' | 'case' | 'step';
+
+export type FunctionConfig = {
   name: FunctionCall<any>['name'];
   type: 'number' | 'string' | 'boolean' | 'unknown';
   description?: string;
   args?: {
-    type: 'number' | 'string' | 'boolean' | 'unknown';
+    infinite?: boolean;
+    type: ArgumentType;
     placeholder?: string;
     label?: string;
   }[];
@@ -35,12 +38,9 @@ export const functionConfigs: FunctionConfig[] = [
     name: 'add',
     type: 'number',
     description: 'Returns the sum of arguments',
-    // TODO: how to make infinite amount of inputs
     args: [{
       type: 'number',
-      placeholder: '… enter a number'
-    }, {
-      type: 'number',
+      infinite: true,
       placeholder: '… enter a number'
     }]
   },
@@ -146,13 +146,10 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'min',
     type: 'number',
-    // TODO: how to make infinite amount of inputs
     description: 'Returns the minimum between argument[0], …, argument[n]',
     args: [{
       type: 'number',
-      placeholder: '… enter a number'
-    }, {
-      type: 'number',
+      infinite: true,
       placeholder: '… enter a number'
     }]
   },
@@ -160,12 +157,9 @@ export const functionConfigs: FunctionConfig[] = [
     name: 'mul',
     type: 'number',
     description: 'Returns the product of the arguments',
-    // TODO: how to make infinite amount of inputs
     args: [{
       type: 'number',
-      placeholder: '… enter a number'
-    }, {
-      type: 'number',
+      infinite: true,
       placeholder: '… enter a number'
     }]
   },
@@ -483,22 +477,18 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'all',
     type: 'boolean',
-    // TODO: how to make infinite amount of inputs
     description: 'Resolves to true if all passed arguments resolve to true.',
     args: [{
-      type: 'boolean'
-    }, {
+      infinite: true,
       type: 'boolean'
     }]
   },
   {
     name: 'any',
     type: 'boolean',
-    // TODO: how to make infinite amount of inputs
     description: 'Resolves to true if any of the passed arguments resolve to true.',
     args: [{
-      type: 'boolean'
-    }, {
+      infinite: true,
       type: 'boolean'
     }]
   },
@@ -541,20 +531,14 @@ export const functionConfigs: FunctionConfig[] = [
   {
     name: 'in',
     type: 'boolean',
-    // TODO: how to make infinite amount of inputs
     description: 'Returns true if first argument is equal to one of the arguments[1], …, arguments[n] values. Use thefunction name matching the number of arguments specified.',
     args: [{
       type: 'string',
       placeholder: '… string to check'
     }, {
       type: 'string',
+      infinite: true,
       placeholder: '… option 1'
-    }, {
-      type: 'string',
-      placeholder: '… option 2'
-    }, {
-      type: 'string',
-      placeholder: '… option 3'
     }]
   },
   {
@@ -664,6 +648,34 @@ export const functionConfigs: FunctionConfig[] = [
     args: [{
       type: 'string',
       placeholder: '… the property name'
+    }]
+  }, {
+    name: 'case',
+    type: 'unknown',
+    description: 'Returns the value of the first case that is true, or the fallback value if no case is true',
+    args: [{
+      type: 'unknown',
+      placeholder: '… the fallback value'
+    }, {
+      type: 'case',
+      infinite: true,
+      placeholder: '… the case statements'
+    }]
+  }, {
+    name: 'step',
+    type: 'unknown',
+    description: 'Returns the value of the first step where the boundary is lower ' +
+      'than the value of the first argument',
+    args: [{
+      type: 'number',
+      placeholder: '… u might want to use the property function here'
+    }, {
+      type: 'unknown',
+      placeholder: '… the initial value'
+    }, {
+      type: 'step',
+      infinite: true,
+      placeholder: '… the step statements'
     }]
   }
 ];

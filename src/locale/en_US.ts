@@ -447,6 +447,9 @@ const en_US: GeoStylerLocale = {
     on: 'on',
     off: 'off',
   },
+  UnknownInput: {
+    typeSelectToolip: 'Select input type'
+  },
   ...antd_en_US
 };
 

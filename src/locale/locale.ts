@@ -421,4 +421,7 @@ export default interface GeoStylerLocale {
     on: string;
     off: string;
   };
+  UnknownInput: {
+    typeSelectToolip: string;
+  };
 };
