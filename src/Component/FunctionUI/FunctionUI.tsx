@@ -107,6 +107,7 @@ export const FunctionUI = <T extends GeoStylerFunction>({
     if (cfg.type === 'case') {
       comp = (
         <CaseInput
+          type={type}
           value={functionArgs?.[index]}
           onChange={(val) => {
             updateFunctionArg(val, index);
