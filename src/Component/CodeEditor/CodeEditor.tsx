@@ -41,11 +41,14 @@ import {
 } from 'file-saver';
 
 import './CodeEditor.less';
+import { UploadOutlined } from '@ant-design/icons';
+import type { UploadChangeParam } from 'antd/lib/upload/interface';
 
 import {
   Button,
   message,
-  Select
+  Select,
+  Upload
 } from 'antd';
 const Option = Select.Option;
 
@@ -75,6 +78,8 @@ import { MbStyle } from 'geostyler-mapbox-parser';
 export interface CodeEditorProps {
   /** Delay in ms until onStyleChange will be called */
   delay?: number;
+  /** Show upload file button */
+  showUploadButton?: boolean;
   /** Show save button */
   showSaveButton?: boolean;
   /** show copy button */
@@ -149,6 +154,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   onStyleChange = () => undefined,
   onActiveParserChange = () => undefined,
   parsers = [],
+  showUploadButton = false,
   showCopyButton = false,
   showSaveButton = false,
   style
@@ -275,6 +281,18 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   });
   parserOptions = [...parserOptions, ...additionalOptions];
 
+  const onFileChanged = (info: UploadChangeParam) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const str = reader.result as string;
+      onChange(str);
+    };
+    let l = info.fileList.length;
+    if (l === 1) {
+      reader.readAsText(info.fileList[l-1].originFileObj);
+    }
+  };
+
   const onDownloadButtonClick = () => {
     if (style) {
       const fileFormat = getFileFormat(activeParser);
@@ -346,6 +364,17 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         {
           parserHasUnitSelect &&
             <SLDUnitsSelect changeHandler={onUnitSelect} />
+        }
+        {
+          showUploadButton &&
+          <Upload
+            showUploadList={false}
+            maxCount={1}
+            // beforeUpload={onBeforeUpload}
+            onChange={onFileChanged}
+          >
+            <Button icon={<UploadOutlined />}>{locale.uploadButtonLabel}</Button>
+          </Upload>
         }
       </div>
       <Editor

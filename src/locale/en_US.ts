@@ -131,6 +131,7 @@ const en_US: GeoStylerLocale = {
   CodeEditor: {
     downloadButtonLabel: 'Save as File',
     copyButtonLabel: 'Copy to Clipboard',
+    uploadButtonLabel: 'Upload file',
     formatSelectLabel: 'Format',
     styleCopied: 'Style copied to clipboard!',
     writeFeedback: 'Feedback while writing with',
