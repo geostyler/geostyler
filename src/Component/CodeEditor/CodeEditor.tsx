@@ -69,6 +69,7 @@ import QGISStyleParser from 'geostyler-qgis-parser';
 import MapboxStyleParser from 'geostyler-mapbox-parser';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { isString } from 'lodash';
+import { MbStyle } from 'geostyler-mapbox-parser';
 
 // non default props
 export interface CodeEditorProps {
@@ -222,7 +223,12 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     try {
       let parsedStyle;
       if (activeParser) {
-        const result = await activeParser.readStyle(v);
+        let result;
+        if (activeParser instanceof MapboxStyleParser) {
+          result = await activeParser.readStyle(JSON.parse(v) as MbStyle);
+        } else {
+          result = await activeParser.readStyle(v);
+        }
         setReadStyleResult(result);
         onStyleChange(result.output);
       } else {
