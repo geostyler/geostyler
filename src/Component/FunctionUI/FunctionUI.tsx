@@ -42,7 +42,7 @@ import BooleanExpressionInput from '../ExpressionInput/BooleanExpressionInput/Bo
 import { FunctionConfig, functionConfigs } from './functionConfigs';
 import CaseInput from './CaseInput/CaseInput';
 import UnknownInput from './UnknownInput/UnknownInput';
-import StepInput from './SetpInput/StepInput';
+import StepInput from './StepInput/StepInput';
 
 type Type = 'string' | 'number' | 'boolean' | 'unknown';
 
@@ -118,12 +118,16 @@ export const FunctionUI = <T extends GeoStylerFunction>({
       );
     }
     if (cfg.type === 'unknown') {
-      return <UnknownInput
-        value={functionArgs?.[index]}
-        onChange={(val) => {
-          updateFunctionArg(val, index);
-        }}
-      />;
+      return (
+        <div className='gs-function-arg' key={`${key}${index}`}>
+          <i className='tree-icon' /><UnknownInput
+            value={functionArgs?.[index]}
+            onChange={(val) => {
+              updateFunctionArg(val, index);
+            }}
+          />
+        </div>
+      );
     }
 
     if (isGeoStylerFunction(functionArgs?.[index])) {

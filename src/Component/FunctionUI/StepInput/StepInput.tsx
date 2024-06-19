@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { Expression, FStepParameter } from 'geostyler-style';
-import { Input } from 'antd';
 import './StepInput.less';
 import NumberExpressionInput from '../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import UnknownInput from '../UnknownInput/UnknownInput';
 
 export type StepInputProps = {
   value?: FStepParameter;
@@ -29,13 +29,13 @@ export const StepInput: React.FC<StepInputProps> = ({
   }, [value, onChange]);
 
   return (
-    <div className="gs-boundary-input">
+    <div className="gs-step-input">
       <NumberExpressionInput
         onChange={onBoundaryChante}
         onCancel={() => onChange(undefined)}
         value={value?.boundary}
       />
-      <Input
+      <UnknownInput
         onChange={onValueChange}
         value={value?.value as any}
       />
