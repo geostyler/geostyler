@@ -450,6 +450,10 @@ const hr_HR: GeoStylerLocale = {
   UnknownInput: {
     typeSelectToolip: 'TODO(hr_HR): Select input type'
   },
+  FunctionUI: {
+    add: 'TODO(hr_HR):add',
+    remove: 'TODO(hr_HR):remove'
+  },
   ...antd_hr_HR
 };
 export default hr_HR;

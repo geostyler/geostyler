@@ -43,8 +43,11 @@ import { FunctionConfig, functionConfigs } from './functionConfigs';
 import CaseInput from './CaseInput/CaseInput';
 import UnknownInput from './UnknownInput/UnknownInput';
 import StepInput from './StepInput/StepInput';
+import { Button, Tooltip } from 'antd';
+import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
-type Type = 'string' | 'number' | 'boolean' | 'unknown';
+export type Type = 'string' | 'number' | 'boolean' | 'unknown';
 
 export interface FunctionUIProps<T extends GeoStylerFunction> {
   type: Type;
@@ -62,6 +65,7 @@ export const FunctionUI = <T extends GeoStylerFunction>({
   onCancel
 }: FunctionUIProps<T>) => {
 
+  const locale = useGeoStylerLocale('FunctionUI');
   const name = value?.name;
 
   const getKey = useCallback((key: string) => {
@@ -90,114 +94,124 @@ export const FunctionUI = <T extends GeoStylerFunction>({
     }
 
     const key = getKey(func.name);
+    let comp = (
+      <UnknownInput
+        forcedType={type}
+        value={functionArgs?.[index]}
+        onChange={(val) => {
+          updateFunctionArg(val, index);
+        }}
+      />
+    );
 
     if (cfg.type === 'case') {
-      return (
-        <div className='gs-function-arg' key={`${key}${index}`}>
-          <i className='tree-icon' />
-          <CaseInput
-            value={functionArgs?.[index]}
-            onChange={(val) => {
-              updateFunctionArg(val, index);
-            }}
-          />
-        </div>
+      comp = (
+        <CaseInput
+          value={functionArgs?.[index]}
+          onChange={(val) => {
+            updateFunctionArg(val, index);
+          }}
+        />
       );
-    }
-    if (cfg.type === 'step') {
-      return (
-        <div className='gs-function-arg' key={`${key}${index}`}>
-          <i className='tree-icon' />
-          <StepInput
-            value={functionArgs?.[index]}
-            onChange={(val) => {
-              updateFunctionArg(val, index);
-            }}
-          />
-        </div>
+    } else if (cfg.type === 'step') {
+      comp =  (
+        <StepInput
+          type={type}
+          value={functionArgs?.[index]}
+          onChange={(val) => {
+            updateFunctionArg(val, index);
+          }}
+        />
       );
-    }
-    if (cfg.type === 'unknown') {
-      return (
-        <div className='gs-function-arg' key={`${key}${index}`}>
-          <i className='tree-icon' /><UnknownInput
-            value={functionArgs?.[index]}
-            onChange={(val) => {
-              updateFunctionArg(val, index);
-            }}
-          />
-        </div>
+    } else if (cfg.type === 'unknown') {
+      comp =  (
+        <UnknownInput
+          forcedType={type}
+          value={functionArgs?.[index]}
+          onChange={(val) => {
+            updateFunctionArg(val, index);
+          }}
+        />
+      );
+    } else if (isGeoStylerFunction(functionArgs?.[index])) {
+      comp = (
+        <FunctionUI
+          type={cfg.type}
+          value={functionArgs[index]}
+          parentKey={key+''+index}
+          onChange={(val) => {
+            updateFunctionArg(val, index);
+          }}
+          onCancel={t => {
+            updateFunctionArg(undefined, index);
+          }}
+        />
+      );
+    } else if (cfg.type === 'number') {
+      comp = (
+        <NumberExpressionInput
+          value={functionArgs?.[index]}
+          onChange={(val) => {
+            updateFunctionArg(val, index);
+          }}
+          inputProps={{
+            placeholder: cfg.placeholder
+          }}
+        />
+      );
+    } else if (cfg.type === 'string') {
+      comp = (
+        <StringExpressionInput
+          value={functionArgs?.[index]}
+          onChange={(val) => {
+            updateFunctionArg(val, index);
+          }}
+          inputProps={{
+            placeholder: cfg.placeholder
+          }}
+        />
+      );
+    } else if (cfg.type === 'boolean') {
+      comp = (
+        <BooleanExpressionInput
+          value={functionArgs?.[index]}
+          onChange={(val) => {
+            updateFunctionArg(val, index);
+          }}
+          labelOn={cfg.label}
+          labelOff={cfg.label}
+        />
       );
     }
 
-    if (isGeoStylerFunction(functionArgs?.[index])) {
-      return (
-        <div className='gs-function-arg' key={`${key}${index}`}>
-          <i className='tree-icon' />
-          <FunctionUI
-            type={cfg.type}
-            value={functionArgs[index]}
-            parentKey={key+''+index}
-            onChange={(val) => {
-              updateFunctionArg(val, index);
-            }}
-            onCancel={t => {
-              updateFunctionArg(undefined, index);
-            }}
-          />
-        </div>
-      );
-    } else if (cfg.type === 'number') {
-      return (
-        <div className='gs-function-arg' key={`${key}${index}`}>
-          <i className='tree-icon' />
-          <NumberExpressionInput
-            value={functionArgs?.[index]}
-            onChange={(val) => {
-              updateFunctionArg(val, index);
-            }}
-            inputProps={{
-              placeholder: cfg.placeholder
-            }}
-          />
-        </div>
-      );
-    } else if (cfg.type === 'string') {
-      return (
-        <div className='gs-function-arg' key={`${key}${index}`}>
-          <i className='tree-icon' />
-          <StringExpressionInput
-            value={functionArgs?.[index]}
-            onChange={(val) => {
-              updateFunctionArg(val, index);
-            }}
-            inputProps={{
-              placeholder: cfg.placeholder
-            }}
-          />
-        </div>
-      );
-    } else if (cfg.type === 'boolean') {
-      return (
-        <div className='gs-function-arg' key={`${key}${index}`}>
-          <i className='tree-icon' />
-          <BooleanExpressionInput
-            value={functionArgs?.[index]}
-            onChange={(val) => {
-              updateFunctionArg(val, index);
-            }}
-            labelOn={cfg.label}
-            labelOff={cfg.label}
-          />
-        </div>
-      );
-    }
     return (
       <div className='gs-function-arg' key={`${key}${index}`}>
-        {functionArgs?.[index]?.toString()}
+        <i className='tree-icon' />
+        {comp}
+        {
+          cfg.infinite &&
+          <Tooltip title={locale.remove}>
+            <Button
+              type="text"
+              className="remove-argument-button"
+              icon={<MinusOutlined />}
+              onClick={() => {
+                if (value.name === 'pi' || value.name === 'random') {
+                  return;
+                }
+                const newArgs = structuredClone(value.args);
+                newArgs.splice(index, 1);
+                onChange?.({
+                  ...value,
+                  args: newArgs
+                });
+              }}
+            />
+          </Tooltip>
+        }
       </div>
     );
-  }, [getKey, updateFunctionArg]);
+  }, [getKey, updateFunctionArg, type, locale, onChange, value]);
 
   const getUiForFunction = useCallback((func: GeoStylerFunction) => {
     const config = functionConfigs.find(cfg => cfg.name === func.name);
@@ -216,7 +230,26 @@ export const FunctionUI = <T extends GeoStylerFunction>({
           for (let i = 0; i < amountOfInfiniteArgs; i++) {
             argUIs.push(getUiForArg(arg, index + i, func));
           }
-          // TODO: add an "add" button to add more infinite args
+          argUIs.push(
+            <div className='gs-function-arg' key={`remove-argument-${index}`}>
+              <i className='tree-icon' />
+              <Tooltip title={locale.add}>
+                <Button
+                  icon={<PlusOutlined />}
+                  onClick={() => {
+                    const clonedArg = structuredClone(value.args[value.args.length - 1]);
+                    onChange({
+                      ...value,
+                      args: [
+                        ...value.args,
+                        clonedArg
+                      ]
+                    });
+                  }}
+                />
+              </Tooltip>
+            </div>
+          );
         }
       });
     } else {
@@ -228,7 +261,7 @@ export const FunctionUI = <T extends GeoStylerFunction>({
         {argUIs}
       </div>
     );
-  }, [value, getUiForArg]);
+  }, [value, getUiForArg, locale, onChange]);
 
   function updateFunctionName(functionName: GeoStylerFunction['name']) {
     const newValue = structuredClone(value);

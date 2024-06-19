@@ -1,17 +1,20 @@
 import React, { useCallback } from 'react';
 import { Expression, FCaseParameter } from 'geostyler-style';
-import { Input } from 'antd';
 import BooleanExpressionInput from '../../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
 import './CaseInput.less';
+import { Type } from '../FunctionUI';
+import UnknownInput from '../UnknownInput/UnknownInput';
 
 export type CaseInputProps = {
   value?: FCaseParameter;
   onChange: (newValue: FCaseParameter) => void;
+  type?: Type;
 };
 
 export const CaseInput: React.FC<CaseInputProps> = ({
   value,
-  onChange
+  onChange,
+  type
 }) => {
 
   const onCaseChange = useCallback((newCase: Expression<boolean>) => {
@@ -35,7 +38,8 @@ export const CaseInput: React.FC<CaseInputProps> = ({
         onCancel={() => onChange(undefined)}
         value={value?.case}
       />
-      <Input
+      <UnknownInput
+        forcedType={type}
         onChange={onValueChange}
         value={value?.value as any}
       />

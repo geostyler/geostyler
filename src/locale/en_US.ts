@@ -450,6 +450,10 @@ const en_US: GeoStylerLocale = {
   UnknownInput: {
     typeSelectToolip: 'Select input type'
   },
+  FunctionUI: {
+    add: 'add',
+    remove: 'remove'
+  },
   ...antd_en_US
 };
 
