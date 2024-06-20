@@ -29,6 +29,7 @@
 import React, {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState
 } from 'react';
@@ -171,6 +172,18 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const previousStyle = usePrevious(style);
   const previouseParser = usePrevious(activeParser);
   const monaco = useMonaco();
+
+  const accept = useMemo(() => {
+    let type = undefined;
+    if (activeParser instanceof SldStyleParser) {
+      type = '.sld';
+    } else if (activeParser instanceof QGISStyleParser) {
+      type = '.qml';
+    } else if (activeParser instanceof MapboxStyleParser) {
+      type = '.json';
+    }
+    return type;
+  }, [activeParser]);
 
   useEffect(() => {
     if (writeStyleResult?.output) {
@@ -368,12 +381,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         {
           showUploadButton &&
           <Upload
+            accept={accept}
             showUploadList={false}
             maxCount={1}
-            // beforeUpload={onBeforeUpload}
             onChange={onFileChanged}
           >
-            <Button icon={<UploadOutlined />}>{locale.uploadButtonLabel}</Button>
+            <Button
+              className="gs-code-editor-upload-button"
+              icon={<UploadOutlined />}
+              type={'primary'}>
+              {locale.uploadButtonLabel}</Button>
           </Upload>
         }
       </div>
