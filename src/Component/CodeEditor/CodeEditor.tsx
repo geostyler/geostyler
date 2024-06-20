@@ -174,15 +174,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const monaco = useMonaco();
 
   const accept = useMemo(() => {
-    let type = undefined;
-    if (activeParser instanceof SldStyleParser) {
-      type = '.sld';
-    } else if (activeParser instanceof QGISStyleParser) {
-      type = '.qml';
-    } else if (activeParser instanceof MapboxStyleParser) {
-      type = '.json';
-    }
-    return type;
+    const fileFormat = getFileFormat(activeParser);
+    return fileFormat.extension;
   }, [activeParser]);
 
   useEffect(() => {
@@ -300,10 +293,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       const str = reader.result as string;
       onChange(str);
     };
-    let l = info.fileList.length;
-    if (l === 1) {
-      reader.readAsText(info.fileList[l-1].originFileObj);
-    }
+    reader.readAsText(info.fileList[0].originFileObj);
   };
 
   const onDownloadButtonClick = () => {
