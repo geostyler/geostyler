@@ -33,7 +33,7 @@
   "homepage": "https://github.com/geostyler/geostyler",
   "scripts": {
     "build-package": "npm run build-browser && tsc && npm run build-dist",
-    "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.less\" dist --up 1 && node transform-less.cjs",
+    "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.less\" dist --up 1",
     "build-styleguide": "styleguidist build --config styleguide.config.cjs",
     "build-browser": "vite build",
     "browser-sample": "npx http-server . -o /public/browser.html",
