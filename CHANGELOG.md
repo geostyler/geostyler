@@ -1,3 +1,10 @@
+## [15.0.0-beta.2](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.1...v15.0.0-beta.2) (2024-06-21)
+
+
+### Features
+
+* update base package versions ([3dc6760](https://github.com/geostyler/geostyler/commit/3dc6760c85197ecb1b659b5eee516d6b7d765039))
+
 ## [15.0.0-beta.1](https://github.com/geostyler/geostyler/compare/v14.1.4...v15.0.0-beta.1) (2024-06-18)
 
 ### ⚠ BREAKING CHANGES
