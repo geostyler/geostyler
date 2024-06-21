@@ -1,3 +1,10 @@
+## [15.0.0-beta.3](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.2...v15.0.0-beta.3) (2024-06-21)
+
+
+### Bug Fixes
+
+* keep less files in esm build ([b22ea27](https://github.com/geostyler/geostyler/commit/b22ea272bf3eb179b6dfaa09fcab803318c93212))
+
 ## [15.0.0-beta.2](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.1...v15.0.0-beta.2) (2024-06-21)
 
 
