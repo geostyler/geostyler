@@ -28,12 +28,13 @@
 import React from 'react';
 import { act, render, fireEvent } from '@testing-library/react';
 import { ScaleDenominator } from './ScaleDenominator';
+import { vi } from 'vitest';
 
 describe('ScaleDenominator', () => {
 
-  let onChangeDummy: jest.Mock;
+  let onChangeDummy;
   beforeEach(() => {
-    onChangeDummy = jest.fn();
+    onChangeDummy = vi.fn();
   });
 
   it('is defined', () => {

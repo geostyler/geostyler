@@ -32,12 +32,14 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconSymbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
 
+import { vi } from 'vitest';
+
 describe('IconEditor', () => {
 
   let dummySymbolizer: IconSymbolizer = SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer;
   const props: IconEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: jest.fn()
+    onSymbolizerChange: vi.fn()
   };
 
   it('is defined', () => {
@@ -60,7 +62,7 @@ describe('IconEditor', () => {
           target: { value: 'strudel.png' }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -75,7 +77,7 @@ describe('IconEditor', () => {
           target: { value: 4 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -90,7 +92,7 @@ describe('IconEditor', () => {
           target: { value: 3 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -105,7 +107,7 @@ describe('IconEditor', () => {
           target: { value: 10 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -120,7 +122,7 @@ describe('IconEditor', () => {
           target: { value: 45 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -131,11 +133,11 @@ describe('IconEditor', () => {
       newSymbolizer.opacity = 0.5;
       const input = iconEditor.container.querySelector('.opacity-field input');
       await act(async() => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: { value: 0.5 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 

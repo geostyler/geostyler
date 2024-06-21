@@ -30,11 +30,12 @@ import React from 'react';
 import { RenderResult, render } from '@testing-library/react';
 import { OlRenderer, OlRendererProps } from './OlRenderer';
 import { Symbolizer } from 'geostyler-style';
+import { vi } from 'vitest';
 
 describe('OlRenderer', () => {
 
   let wrapper: RenderResult;
-  let onClickDummy: jest.Mock;
+  let onClickDummy;
   const dummySymbolizers: Symbolizer[] = [{
     kind: 'Mark',
     wellKnownName: 'circle',
@@ -42,7 +43,7 @@ describe('OlRenderer', () => {
   }];
 
   beforeEach(() => {
-    onClickDummy = jest.fn();
+    onClickDummy = vi.fn();
     const props: OlRendererProps = {
       onClick: onClickDummy,
       symbolizers: dummySymbolizers

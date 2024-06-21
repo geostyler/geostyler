@@ -35,6 +35,7 @@ import {
 
 import _cloneDeep from 'lodash/cloneDeep';
 import { render, act, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('RuleReorderButtons', () => {
 
@@ -96,7 +97,7 @@ describe('RuleReorderButtons', () => {
       // reordered rules
       const rulesClone = _cloneDeep(rules);
       rulesClone.splice(1, 0, rulesClone.splice(0, 1)[0]);
-      const onRulesMove =jest.fn();
+      const onRulesMove = vi.fn();
       const ruleReorderButtons = render(
         <RuleReorderButtons
           rules={rules}

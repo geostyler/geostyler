@@ -29,12 +29,13 @@
 import React from 'react';
 import { render, act, fireEvent } from '@testing-library/react';
 import { Breadcrumb, Crumb } from './Breadcrumb';
+import { vi } from 'vitest';
 
 describe('Breadcrumb', () => {
 
-  let onClickDummy: jest.Mock;
+  let onClickDummy;
   beforeEach(() => {
-    onClickDummy = jest.fn();
+    onClickDummy = vi.fn();
   });
 
   it('is defined', () => {
@@ -86,7 +87,7 @@ describe('Breadcrumb', () => {
       const breadcrumb = render(<Breadcrumb crumbs={crumbs} onClick={onClickDummy} />);
       const prevButton = breadcrumb.container.querySelector('.gs-breadcrumb-prev-button');
       await act(async () => {
-        fireEvent.click(prevButton);
+        fireEvent.click(prevButton as Element);
       });
       expect(onClickDummy).toHaveBeenCalled();
     });
@@ -100,7 +101,7 @@ describe('Breadcrumb', () => {
       const breadcrumb = render(<Breadcrumb crumbs={crumbs} onClick={onClickDummy} />);
       const prevButton = breadcrumb.container.querySelector('.gs-breadcrumb-prev-button');
       await act(async () => {
-        fireEvent.click(prevButton);
+        fireEvent.click(prevButton as Element);
       });
       expect(onClickDummy).toHaveBeenCalledWith(view, indices);
     });

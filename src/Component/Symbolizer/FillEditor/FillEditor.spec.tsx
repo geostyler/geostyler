@@ -31,13 +31,14 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 import { FillSymbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('FillEditor', () => {
 
   let dummySymbolizer: FillSymbolizer = SymbolizerUtil.generateSymbolizer('Fill') as FillSymbolizer;
   const props: FillEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: jest.fn()
+    onSymbolizerChange: vi.fn()
   };
 
   it('is defined', () => {
