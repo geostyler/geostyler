@@ -19,5 +19,8 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0'
+  },
+  resolve: {
+    mainFields: ['module', 'main', 'jsnext:main', 'jsnext']
   }
 });

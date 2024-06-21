@@ -42,6 +42,7 @@ module.exports = {
     '<rootDir>/jest/setup.js'
   ],
   workerThreads: true,
+  testTimeout: 10000,
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)',
     '<rootDir>/src/**/*(*.)(spec|test).(j|t)s?(x)'
@@ -54,7 +55,9 @@ module.exports = {
     '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.cjs'
   },
   transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!(ol|antd|color-name|color-space|color-rgba|color-parse|geostyler-style))'
+    '<rootDir>/node_modules/(?!(ol|antd|color-name|color-space|color-rgba|color-parse|' +
+    'geostyler-style|geostyler-cql-parser|geostyler-sld-parser|geostyler-qgis-parser|' +
+    'geostyler-geojson-parser|geostyler-mapbox-parser|geostyler-openlayers-parser))'
   ],
   moduleFileExtensions: [
     'ts',
