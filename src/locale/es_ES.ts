@@ -194,6 +194,7 @@ const es_ES: GeoStylerLocale = {
   CodeEditor: {
     downloadButtonLabel: 'Guardar archivo',
     copyButtonLabel: 'Copiar al portapapeles',
+    uploadButtonLabel: 'TODO(en_ES):Open a file',
     formatSelectLabel: 'Formato',
     styleCopied: 'Estilo copiado al portapapales!',
     writeFeedback: 'Retroalimentación al escribir con',

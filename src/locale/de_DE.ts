@@ -47,6 +47,7 @@ const de_DE: GeoStylerLocale = {
   CodeEditor: {
     downloadButtonLabel: 'Als Datei speichern',
     copyButtonLabel: 'In Zwischenablage kopieren',
+    uploadButtonLabel: 'Datei öffnen',
     formatSelectLabel: 'Format',
     styleCopied: 'Style in Zwischenablage kopiert!',
     writeFeedback: 'Feedback während des Schreibens mit dem',

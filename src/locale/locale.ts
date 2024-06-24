@@ -3,6 +3,7 @@ export default interface GeoStylerLocale {
     downloadButtonLabel: string;
     formatSelectLabel: string;
     copyButtonLabel: string;
+    uploadButtonLabel: string;
     styleCopied: string;
     writeFeedback: string;
     readFeedback: string;

@@ -29,6 +29,7 @@
 import React, {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState
 } from 'react';
@@ -41,11 +42,14 @@ import {
 } from 'file-saver';
 
 import './CodeEditor.less';
+import { UploadOutlined } from '@ant-design/icons';
+import type { UploadChangeParam } from 'antd/lib/upload/interface';
 
 import {
   Button,
   message,
-  Select
+  Select,
+  Upload
 } from 'antd';
 const Option = Select.Option;
 
@@ -75,6 +79,8 @@ import { MbStyle } from 'geostyler-mapbox-parser';
 export interface CodeEditorProps {
   /** Delay in ms until onStyleChange will be called */
   delay?: number;
+  /** Show upload file button */
+  showUploadButton?: boolean;
   /** Show save button */
   showSaveButton?: boolean;
   /** show copy button */
@@ -149,6 +155,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   onStyleChange = () => undefined,
   onActiveParserChange = () => undefined,
   parsers = [],
+  showUploadButton = false,
   showCopyButton = false,
   showSaveButton = false,
   style
@@ -165,6 +172,11 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const previousStyle = usePrevious(style);
   const previouseParser = usePrevious(activeParser);
   const monaco = useMonaco();
+
+  const accept = useMemo(() => {
+    const fileFormat = getFileFormat(activeParser);
+    return fileFormat.extension;
+  }, [activeParser]);
 
   useEffect(() => {
     if (writeStyleResult?.output) {
@@ -275,6 +287,15 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   });
   parserOptions = [...parserOptions, ...additionalOptions];
 
+  const onFileChanged = (info: UploadChangeParam) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const str = reader.result as string;
+      onChange(str);
+    };
+    reader.readAsText(info.fileList[0].originFileObj);
+  };
+
   const onDownloadButtonClick = () => {
     if (style) {
       const fileFormat = getFileFormat(activeParser);
@@ -346,6 +367,21 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         {
           parserHasUnitSelect &&
             <SLDUnitsSelect changeHandler={onUnitSelect} />
+        }
+        {
+          showUploadButton &&
+          <Upload
+            accept={accept}
+            showUploadList={false}
+            maxCount={1}
+            onChange={onFileChanged}
+          >
+            <Button
+              className="gs-code-editor-upload-button"
+              icon={<UploadOutlined />}
+              type={'primary'}>
+              {locale.uploadButtonLabel}</Button>
+          </Upload>
         }
       </div>
       <Editor
