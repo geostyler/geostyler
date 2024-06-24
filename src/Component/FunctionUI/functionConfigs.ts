@@ -668,7 +668,7 @@ export const functionConfigs: FunctionConfig[] = [
       'than the value of the first argument',
     args: [{
       type: 'number',
-      placeholder: '… u might want to use the property function here'
+      placeholder: '… you might want to use the property function here'
     }, {
       type: 'unknown',
       placeholder: '… the initial value'

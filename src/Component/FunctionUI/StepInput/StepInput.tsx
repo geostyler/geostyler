@@ -17,7 +17,7 @@ export const StepInput: React.FC<StepInputProps> = ({
   type
 }) => {
 
-  const onBoundaryChante = useCallback((newBoundary: Expression<number>) => {
+  const onBoundaryChange = useCallback((newBoundary: Expression<number>) => {
     onChange({
       ...value,
       boundary: newBoundary
@@ -34,9 +34,12 @@ export const StepInput: React.FC<StepInputProps> = ({
   return (
     <div className="gs-step-input">
       <NumberExpressionInput
-        onChange={onBoundaryChante}
+        onChange={onBoundaryChange}
         onCancel={() => onChange(undefined)}
         value={value?.boundary}
+        inputProps={{
+          prefix: '>'
+        }}
       />
       <UnknownInput
         forcedType={type}
