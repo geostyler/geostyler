@@ -1967,6 +1967,9 @@ mark {
 .gs-code-editor .gs-code-editor-toolbar .gs-code-editor-format-select {
   width: 300px;
 }
+.gs-code-editor .gs-code-editor-toolbar .gs-code-editor-upload-button {
+  margin: 0 5px;
+}
 .gs-code-editor .gs-code-editor-bottombar .center-items {
   flex: 6;
   display: flex;
