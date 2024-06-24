@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import NumberExpressionInput from '../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
-import StringExpressionInput from '../../ExpressionInput/StringExpressionInput/StringExpressionInput';
-import BooleanExpressionInput from '../../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
+import NumberExpressionInput,
+{ NumberExpressionInputProps } from '../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import StringExpressionInput,
+{ StringExpressionInputProps } from '../../ExpressionInput/StringExpressionInput/StringExpressionInput';
+import BooleanExpressionInput,
+{ BooleanExpressionInputProps } from '../../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
 import { Expression, isGeoStylerNumberFunction } from 'geostyler-style';
 import { isGeoStylerBooleanFunction } from 'geostyler-style';
 
@@ -15,12 +18,16 @@ export type UnknownInputProps = {
   value?: Expression<unknown>;
   onChange: (newValue: Expression<unknown>) => void;
   forcedType?: Type;
+  inputProps?: StringExpressionInputProps['inputProps']
+  | NumberExpressionInputProps['inputProps']
+  | BooleanExpressionInputProps['switchProps'];
 };
 
 export const UnknownInput: React.FC<UnknownInputProps> = ({
   value,
   onChange,
-  forcedType
+  forcedType,
+  inputProps
 }) => {
 
   const locale = useGeoStylerLocale('UnknownInput');
@@ -40,6 +47,7 @@ export const UnknownInput: React.FC<UnknownInputProps> = ({
     onChange={onChange}
     onCancel={() => onChange(undefined)}
     value={value as string}
+    inputProps={inputProps as StringExpressionInputProps['inputProps']}
   />;
 
   if (type === 'number') {
@@ -47,12 +55,14 @@ export const UnknownInput: React.FC<UnknownInputProps> = ({
       onChange={onChange}
       onCancel={() => onChange(undefined)}
       value={value as number}
+      inputProps={inputProps as NumberExpressionInputProps['inputProps']}
     />;
   } else if (type === 'boolean') {
     input = <BooleanExpressionInput
       onChange={onChange}
       onCancel={() => onChange(undefined)}
       value={value as boolean}
+      switchProps={inputProps as BooleanExpressionInputProps['switchProps']}
     />;
   }
 
@@ -82,9 +92,9 @@ export const UnknownInput: React.FC<UnknownInputProps> = ({
         <Select
           className="gs-type-select"
           options={[
-            {label: <FieldStringOutlined />, value: 'string'},
-            {label: <FieldNumberOutlined />, value: 'number'},
-            {label: <FieldBinaryOutlined />, value: 'boolean'}
+            { label: <FieldStringOutlined />, value: 'string' },
+            { label: <FieldNumberOutlined />, value: 'number' },
+            { label: <FieldBinaryOutlined />, value: 'boolean' }
           ]}
           value={type}
           onChange={onTypeChange}

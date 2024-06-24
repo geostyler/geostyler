@@ -101,6 +101,9 @@ export const FunctionUI = <T extends GeoStylerFunction>({
         onChange={(val) => {
           updateFunctionArg(val, index);
         }}
+        inputProps={{
+          placeholder: cfg.placeholder
+        }}
       />
     );
 
@@ -131,6 +134,9 @@ export const FunctionUI = <T extends GeoStylerFunction>({
           value={functionArgs?.[index]}
           onChange={(val) => {
             updateFunctionArg(val, index);
+          }}
+          inputProps={{
+            placeholder: cfg.placeholder
           }}
         />
       );
