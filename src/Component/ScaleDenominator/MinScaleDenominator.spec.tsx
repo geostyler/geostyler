@@ -29,13 +29,14 @@
 import React from 'react';
 import { MinScaleDenominator, MinScaleDenominatorProps } from './MinScaleDenominator';
 import { RenderResult, render } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('MinScaleDenominator', () => {
 
   let wrapper: RenderResult;
-  let onChangeDummy: jest.Mock;
+  let onChangeDummy;
   beforeEach(() => {
-    onChangeDummy = jest.fn();
+    onChangeDummy = vi.fn();
     const props: MinScaleDenominatorProps = {
       onChange: onChangeDummy
     };

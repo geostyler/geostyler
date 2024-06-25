@@ -31,10 +31,11 @@ import {
   BulkEditModalsProps
 } from './BulkEditModals';
 import { render } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('BulkEditModals', () => {
 
-  const dummyFct = jest.fn();
+  const dummyFct = vi.fn();
   const props: BulkEditModalsProps = {
     colorModalVisible: false,
     sizeModalVisible: false,

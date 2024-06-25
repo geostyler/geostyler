@@ -31,6 +31,7 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 import { LineSymbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('LineEditor', () => {
 
@@ -38,7 +39,7 @@ describe('LineEditor', () => {
 
   const props: LineEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: jest.fn()
+    onSymbolizerChange: vi.fn()
   };
 
   it('is defined', () => {
@@ -71,7 +72,7 @@ describe('LineEditor', () => {
           target: { value: 5 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -86,7 +87,7 @@ describe('LineEditor', () => {
           target: { value: 13}
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -101,7 +102,7 @@ describe('LineEditor', () => {
           target: { value: 0.5 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -125,7 +126,6 @@ describe('LineEditor', () => {
         <LineEditor
           symbolizer={passedSymbolizer}
           onSymbolizerChange={props.onSymbolizerChange}
-          locale={props.locale}
         />
       );
       const newSymbolizer = {...passedSymbolizer};
@@ -136,7 +136,7 @@ describe('LineEditor', () => {
           target: { value: 7 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 

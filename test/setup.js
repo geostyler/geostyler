@@ -25,45 +25,30 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+import util from 'util';
+global.TextEncoder = util.TextEncoder;
+global.TextDecoder = util.TextDecoder;
+import '@babel/polyfill';
+import '@testing-library/jest-dom';
 
-module.exports = {
-  testEnvironment: './jest/Environment.cjs',
-  testEnvironmentOptions : {
-    url: 'http://localhost',
-  },
-  collectCoverageFrom: [
-    'src/Component/**/*.{tsx,jsx}',
-    'src/Util/**/*.{ts,js}'
-  ],
-  setupFilesAfterEnv: [
-    // Runs special logic, such as cleaning up components
-    // when using React Testing Library and adds special
-    // extended assertions to Jest
-    '<rootDir>/jest/setup.js'
-  ],
-  workerThreads: true,
-  testTimeout: 10000,
-  testMatch: [
-    '<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)',
-    '<rootDir>/src/**/*(*.)(spec|test).(j|t)s?(x)'
-  ],
-  transform: {
-    '^.+\\.jsx?$': '<rootDir>/node_modules/babel-jest',
-    '^.+\\.tsx?$': '<rootDir>/node_modules/babel-jest'
-  },
-  moduleNameMapper: {
-    '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.cjs'
-  },
-  transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!(ol|antd|color-name|color-space|color-rgba|color-parse|' +
-    'geostyler-style|geostyler-cql-parser|geostyler-sld-parser|geostyler-qgis-parser|' +
-    'geostyler-geojson-parser|geostyler-mapbox-parser|geostyler-openlayers-parser))'
-  ],
-  moduleFileExtensions: [
-    'ts',
-    'tsx',
-    'js',
-    'jsx',
-    'json'
-  ]
-};
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn()
+  }))
+});
+
+Object.defineProperty(window, 'ResizeObserver', {
+  value: vi.fn().mockImplementation(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  }))
+});

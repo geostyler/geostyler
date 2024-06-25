@@ -31,9 +31,10 @@ import { fireEvent, render, RenderResult } from '@testing-library/react';
 import { ColorMapEditor } from './ColorMapEditor';
 import { ColorMap } from 'geostyler-style';
 import RasterUtil from '../../../Util/RasterUtil';
+import { vi } from 'vitest';
 
-jest.mock('antd', () => {
-  const antd = jest.requireActual('antd');
+vi.mock('antd', async (importOriginal) => {
+  const antd = await importOriginal();
 
   const Select = ({ children, onChange }: {children: React.ReactElement; onChange: (value: any) => void}) => {
     return <select onChange={e => onChange(e.target.value)}>{children}</select>;
@@ -52,7 +53,7 @@ jest.mock('antd', () => {
 describe('ColorMapEditor', () => {
   let dummyColorMap: ColorMap;
   let colorMapEditor: RenderResult;
-  let onChangeMock = jest.fn();
+  let onChangeMock = vi.fn();
   beforeEach(() => {
     dummyColorMap = {
       colorMapEntries: [RasterUtil.generateColorMapEntry()],

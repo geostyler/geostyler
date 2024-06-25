@@ -30,9 +30,10 @@ import { MarkEditor, MarkEditorProps } from './MarkEditor';
 import { render, act, fireEvent } from '@testing-library/react';
 import { MarkSymbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
+import { vi } from 'vitest';
 
-jest.mock('antd', () => {
-  const antd = jest.requireActual('antd');
+vi.mock('antd', async (original) => {
+  const antd = await original();
 
   const Select = ({ children, onChange }: {children: React.ReactElement; onChange: (value: any) => void}) => {
     return <select onChange={e => onChange(e.target.value)}>{children}</select>;
@@ -53,8 +54,7 @@ describe('MarkEditor', () => {
   let dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
   const props: MarkEditorProps = {
     symbolizer:dummySymbolizer,
-    onSymbolizerChange: jest.fn(),
-    defaultValues: undefined
+    onSymbolizerChange: vi.fn(),
   };
 
   it('is defined', () => {
