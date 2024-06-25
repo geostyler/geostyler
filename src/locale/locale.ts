@@ -421,4 +421,11 @@ export default interface GeoStylerLocale {
     on: string;
     off: string;
   };
+  UnknownInput: {
+    typeSelectToolip: string;
+  };
+  FunctionUI: {
+    add: string;
+    remove: string;
+  };
 };

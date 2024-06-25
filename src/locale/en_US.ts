@@ -447,6 +447,13 @@ const en_US: GeoStylerLocale = {
     on: 'on',
     off: 'off',
   },
+  UnknownInput: {
+    typeSelectToolip: 'Select input type'
+  },
+  FunctionUI: {
+    add: 'add',
+    remove: 'remove'
+  },
   ...antd_en_US
 };
 

@@ -43,8 +43,7 @@ const FunctionUIExample = () => {
   const [gsFunction, setGsFunction] = useState();
 
   const style = {
-    height: '300px',
-    width: '300px'
+    width: '500px'
   };
 
   const onChange = (evt) => {
