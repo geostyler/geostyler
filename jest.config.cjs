@@ -54,7 +54,9 @@ module.exports = {
     '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.cjs'
   },
   transformIgnorePatterns: [
-    '<rootDir>/node_modules/(?!(ol|antd|color-name|color-space|color-rgba|color-parse|geostyler-style))'
+    '<rootDir>/node_modules/(?!(ol|antd|color-name|color-space|color-rgba|color-parse|geostyler-style|' +
+    'geostyler-openlayers-parser|geostyler-sld-parser|geostyler-cql-parser|geostyler-geojson-parser|' +
+    'geostyler-qgis-parser|geostyler-mapbox-parser))'
   ],
   moduleFileExtensions: [
     'ts',
