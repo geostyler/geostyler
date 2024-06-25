@@ -7,7 +7,7 @@ export default defineConfig({
         inline: true
       }
     },
-    setupFiles: ['./jest/setup.js'],
+    setupFiles: ['./test/setup.js'],
     coverage: {
       provider: 'istanbul',
       reporter: ['text', 'html', 'clover', 'json', 'lcov']
