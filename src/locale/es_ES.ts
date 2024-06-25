@@ -449,6 +449,13 @@ const es_ES: GeoStylerLocale = {
     on: 'TODO(es_ES):on',
     off: 'TODO(es_ES):off',
   },
+  UnknownInput: {
+    typeSelectToolip: 'TODO(es_ES):Select the type of the input'
+  },
+  FunctionUI: {
+    add: 'TODO(es_ES):add',
+    remove: 'TODO(es_ES):remove',
+  },
   ...antd_es_ES
 };
 
