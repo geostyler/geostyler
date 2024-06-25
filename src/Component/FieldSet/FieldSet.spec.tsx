@@ -28,10 +28,11 @@
 import React from 'react';
 import { RenderResult, fireEvent, render } from '@testing-library/react';
 import { FieldSet } from './FieldSet';
+import { vi } from 'vitest';
 
 describe('FieldSet', () => {
   let fieldSet: RenderResult;
-  const onCheckChangeDummy = jest.fn();
+  const onCheckChangeDummy = vi.fn();
   beforeEach(() => {
     fieldSet = render(
       <FieldSet

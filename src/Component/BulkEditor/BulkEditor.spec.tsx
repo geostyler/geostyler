@@ -29,12 +29,13 @@
 import React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
 import { BulkEditor } from './BulkEditor';
+import { vi } from 'vitest';
 
 describe('BulkEditor', () => {
 
-  let onStylePropChangeDummy: jest.Mock;
+  let onStylePropChangeDummy;
   beforeEach(() => {
-    onStylePropChangeDummy = jest.fn();
+    onStylePropChangeDummy = vi.fn();
   });
 
   it('is defined', () => {
@@ -52,7 +53,7 @@ describe('BulkEditor', () => {
       const bulkEditor = render(<BulkEditor onStylePropChange={onStylePropChangeDummy} />);
       const input = bulkEditor.container.querySelector('input.ant-input-number-input');
       await act(async () => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: {
             value: 12
           }
@@ -66,7 +67,7 @@ describe('BulkEditor', () => {
       const input = bulkEditor.container.querySelector('input.ant-input-number-input');
       const inputValue = 12;
       await act(async () => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: {
             value: inputValue
           }

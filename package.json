@@ -43,10 +43,10 @@
     "cleanup": "rimraf dist/** && rimraf build/**",
     "prepublishOnly": "npm run build-package",
     "styleguide": "styleguidist server --config styleguide.config.cjs",
-    "test": "jest --maxWorkers=50% --coverage",
+    "test": "NODE_OPTIONS=--import=extensionless/register vitest --coverage",
     "typecheck": "tsc --noEmit",
-    "test-ci": "jest --ci --coverage",
-    "test-watch": "jest --watchAll",
+    "test-ci": "NODE_OPTIONS=--import=extensionless/register vitest --coverage",
+    "test-watch": "NODE_OPTIONS=--import=extensionless/register vitest",
     "start-dev": "vite -c vite.dev.config.ts",
     "preview": "vite preview",
     "build": "npm run build-package && npm run build-styleguide"
@@ -111,6 +111,7 @@
     "@typescript-eslint/eslint-plugin-tslint": "^7.0.2",
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react": "4.3.1",
+    "@vitest/coverage-istanbul": "^1.6.0",
     "ast-types": "^0.14.2",
     "babel-jest": "^29.7.0",
     "buffer": "^6.0.3",
@@ -143,7 +144,7 @@
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.2",
     "vite": "5.3.1",
-    "vitest": "1.6.0",
+    "vitest": "^1.6.0",
     "whatwg-fetch": "^3.6.20"
   },
   "peerDependencies": {

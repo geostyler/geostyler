@@ -30,6 +30,8 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { ColorMapEntryField } from './ColorMapEntryField';
 
+import { vi } from 'vitest';
+
 describe('ColorMapEntryField', () => {
 
   it('is defined', () => {
@@ -43,7 +45,7 @@ describe('ColorMapEntryField', () => {
 
   describe('onQuantityChange', () => {
     it('calls onChange', async() => {
-      const onChangeMock = jest.fn();
+      const onChangeMock = vi.fn();
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
       const input = document.querySelectorAll('input')[0];
@@ -54,7 +56,7 @@ describe('ColorMapEntryField', () => {
 
   describe('onLabelChange', () => {
     it('calls onChange', async() => {
-      const onChangeMock = jest.fn();
+      const onChangeMock = vi.fn();
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
       const input = document.querySelectorAll('input')[1];
@@ -65,7 +67,7 @@ describe('ColorMapEntryField', () => {
 
   describe('onOpacityChange', () => {
     it('calls onChange', async() => {
-      const onChangeMock = jest.fn();
+      const onChangeMock = vi.fn();
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
       const input = document.querySelectorAll('input')[2];

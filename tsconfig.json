@@ -38,6 +38,7 @@
     "**.config.js",
     "**/*.spec.ts*",
     "vite.config.ts",
-    "vite.dev.config.ts"
+    "vite.dev.config.ts",
+    "vitest.config.ts"
   ]
 }

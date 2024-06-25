@@ -30,6 +30,7 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { ComparisonFilter } from './ComparisonFilter';
 import { ComparisonFilter as GsComparisionFilter} from 'geostyler-style';
+import { vi } from 'vitest';
 
 describe('ComparisonFilter', () => {
 
@@ -45,11 +46,11 @@ describe('ComparisonFilter', () => {
   describe('#onAttributeChange', () => {
     it('calls onFilterChange', () => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
-      const onFilterChangeDummy = jest.fn();
+      const onFilterChangeDummy = vi.fn();
       const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
       const attribute = 'bar';
       const input = field.container.querySelector('.gs-attribute-combo input');
-      fireEvent.change(input, { target: { value: attribute}});
+      fireEvent.change(input as Element, { target: { value: attribute}});
       expect(onFilterChangeDummy).toHaveBeenCalledWith(['==', attribute, 'Peter']);
     });
   });
@@ -57,13 +58,13 @@ describe('ComparisonFilter', () => {
   describe('#onOperatorChange', () => {
     it('calls onFilterChange is available', async() => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
-      const onFilterChangeDummy = jest.fn();
+      const onFilterChangeDummy = vi.fn();
       const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
       const operator = '!=';
       const input = field.container.querySelector('.gs-operator-combo input');
       // const input = await field.findByRole('combobox');
       await act(async() => {
-        fireEvent.mouseDown(input);
+        fireEvent.mouseDown(input as Element);
       });
       const option = await screen.findByTitle(operator);
       fireEvent.click(option);
@@ -74,11 +75,11 @@ describe('ComparisonFilter', () => {
   describe('#onValueChange', () => {
     it('calls onFilterChange is available', async() => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
-      const onFilterChangeDummy = jest.fn();
+      const onFilterChangeDummy = vi.fn();
       const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
       const value = 'Hilde';
       const input = field.container.querySelector('.gs-text-filter-field input');
-      fireEvent.change(input, { target: { value: value}});
+      fireEvent.change(input as Element, { target: { value: value}});
       expect(onFilterChangeDummy).toHaveBeenCalledWith(['==', 'foo', value]);
     });
   });
@@ -96,9 +97,9 @@ describe('ComparisonFilter', () => {
 
     it('calls validator functions if passed as props', () => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
-      const attributeValidatorDummy = jest.fn();
-      const operatorValidatorDummy = jest.fn();
-      const valueValidatorDummy = jest.fn();
+      const attributeValidatorDummy = vi.fn();
+      const operatorValidatorDummy = vi.fn();
+      const valueValidatorDummy = vi.fn();
       valueValidatorDummy.mockReturnValue({
         isValid: false,
         errorMsg: 'MOCK MESSAGE'
