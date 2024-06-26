@@ -39,9 +39,3 @@ jobs:
 
     - name: Build artifacts 🏗️
       run: npm run build
-
-    - name: Publish to coveralls ⭐
-      # coverage/lcov.info was generated in the previous npm run build step
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
