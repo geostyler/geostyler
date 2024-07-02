@@ -351,6 +351,10 @@ mark {
   margin: 0.25em 0;
   flex: 1;
 }
+.gs-function-ui .gs-function-arguments .gs-function-arg .remove-argument-button {
+  flex: unset;
+  align-self: center;
+}
 .gs-function-ui .gs-function-arguments .gs-function-arg .tree-icon {
   width: 28px;
   background-image: linear-gradient(grey, grey), linear-gradient(grey, grey);
@@ -395,6 +399,7 @@ mark {
   align-items: center;
 }
 .number-expression-input .gs-function-ui,
+.number-expression-input .ant-input-number-affix-wrapper,
 .number-expression-input .ant-input-number {
   flex: 1;
 }
@@ -405,7 +410,8 @@ mark {
 .number-expression-input:hover button.ant-btn {
   display: inline-block;
 }
-.number-expression-input:hover .ant-input-number {
+.number-expression-input:hover .ant-input-number,
+.number-expression-input:hover .ant-input-number-affix-wrapper {
   border-radius: 6px 0 0 6px;
 }
 
@@ -413,13 +419,44 @@ mark {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 32px;
 }
 .boolean-expression-input button.ant-btn {
   display: none;
 }
 .boolean-expression-input:hover button.ant-btn {
   display: inline-block;
+}
+
+.gs-case-input {
+  display: flex;
+  gap: 0.25em;
+}
+.gs-case-input .boolean-expression-input {
+  flex: 1;
+}
+.gs-case-input > .gs-unknown-input {
+  max-width: calc(40% - 32px);
+}
+
+.gs-unknown-input {
+  display: flex;
+}
+.gs-unknown-input .string-expression-input,
+.gs-unknown-input .number-expression-input,
+.gs-unknown-input .boolean-expression-input {
+  flex: 1;
+}
+.gs-unknown-input .gs-type-select {
+  min-width: 56px;
+}
+
+.gs-step-input {
+  display: flex;
+  gap: 0.25em;
+}
+.gs-step-input .gs-unknown-input,
+.gs-step-input .number-expression-input {
+  flex: 1;
 }
 
 /* Released under the BSD 2-Clause License
