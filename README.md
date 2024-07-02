@@ -18,10 +18,6 @@ Developer Guide:
 
 [![Discord Banner 2](https://discordapp.com/api/guilds/1016992288028762132/widget.png?style=banner2)](https://discord.gg/yrXHDpcFcB)
 
-## :rocket: GeoStyler Code Sprint 2024
-
-We are happy to announce the third GeoStyler Code Sprint from **17.-21.06.2024** in Paris. Be part of it! More infos on https://geostyler.org/.
-
 ## 📆 Monthly meetings
 
 On the first tuesday of every month, there is a video meeting on the [GeoStyler Discord](https://discord.gg/yrXHDpcFcB) at 2pm CET. The meeting is for all contributors, users or other people interested in GeoStyler.
