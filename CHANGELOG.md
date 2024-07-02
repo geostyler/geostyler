@@ -1,3 +1,15 @@
+## [15.0.0-beta.4](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.3...v15.0.0-beta.4) (2024-07-02)
+
+
+### Features
+
+* introduce CaseInput and StepInput ([fbfdf04](https://github.com/geostyler/geostyler/commit/fbfdf04c315f8768f6a4515ab0fd2f49f424b913))
+
+
+### Bug Fixes
+
+* remove coveralls ([5904b25](https://github.com/geostyler/geostyler/commit/5904b258442c5d71db44d6788f2b9e4ef9bdf5bf))
+
 ## [15.0.0-beta.3](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.2...v15.0.0-beta.3) (2024-06-21)
 
 
