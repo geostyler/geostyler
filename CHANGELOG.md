@@ -1,3 +1,10 @@
+## [15.0.0-beta.5](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.4...v15.0.0-beta.5) (2024-07-02)
+
+
+### Bug Fixes
+
+* fix build with wfs parser update ([96dc112](https://github.com/geostyler/geostyler/commit/96dc112699e715f10cd88258168d8e3af0d52193))
+
 ## [15.0.0-beta.4](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.3...v15.0.0-beta.4) (2024-07-02)
 
 
