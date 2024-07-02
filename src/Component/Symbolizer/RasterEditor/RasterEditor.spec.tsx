@@ -31,13 +31,14 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 import { RasterSymbolizer } from 'geostyler-style';
 import { act, render, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('RasterEditor', () => {
 
   let dummySymbolizer: RasterSymbolizer = SymbolizerUtil.generateSymbolizer('Raster') as RasterSymbolizer;
   const props: RasterEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: jest.fn()
+    onSymbolizerChange: vi.fn()
   };
 
   it('is defined', () => {

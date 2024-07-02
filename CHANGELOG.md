@@ -1,3 +1,56 @@
+## [15.0.0-beta.5](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.4...v15.0.0-beta.5) (2024-07-02)
+
+
+### Bug Fixes
+
+* fix build with wfs parser update ([96dc112](https://github.com/geostyler/geostyler/commit/96dc112699e715f10cd88258168d8e3af0d52193))
+
+## [15.0.0-beta.4](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.3...v15.0.0-beta.4) (2024-07-02)
+
+
+### Features
+
+* introduce CaseInput and StepInput ([fbfdf04](https://github.com/geostyler/geostyler/commit/fbfdf04c315f8768f6a4515ab0fd2f49f424b913))
+
+
+### Bug Fixes
+
+* remove coveralls ([5904b25](https://github.com/geostyler/geostyler/commit/5904b258442c5d71db44d6788f2b9e4ef9bdf5bf))
+
+## [15.0.0-beta.3](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.2...v15.0.0-beta.3) (2024-06-21)
+
+
+### Bug Fixes
+
+* keep less files in esm build ([b22ea27](https://github.com/geostyler/geostyler/commit/b22ea272bf3eb179b6dfaa09fcab803318c93212))
+
+## [15.0.0-beta.2](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.1...v15.0.0-beta.2) (2024-06-21)
+
+
+### Features
+
+* update base package versions ([3dc6760](https://github.com/geostyler/geostyler/commit/3dc6760c85197ecb1b659b5eee516d6b7d765039))
+
+## [15.0.0-beta.1](https://github.com/geostyler/geostyler/compare/v14.1.4...v15.0.0-beta.1) (2024-06-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* This will include many breaking changes, including
+the switch to an esm build which may cause different import locations
+or the need to make configuration changes to your bundler in your
+downstream project.
+
+### Features
+
+* prepare the next major release ([dc35140](https://github.com/geostyler/geostyler/commit/dc35140834005fd08e88bd34766debd0d6e4ed76))
+
+
+### Bug Fixes
+
+* **deps:** update dependency geostyler-wfs-parser to v2.0.3 ([8283f7b](https://github.com/geostyler/geostyler/commit/8283f7bf3a97521520a3486f451e8c8d27aa524f))
+* **deps:** update dependency typescript-json-schema to ^0.64.0 ([9c3b8e8](https://github.com/geostyler/geostyler/commit/9c3b8e87277e395e7926ab1deeba25b2679f4f2f))
+
 ## [14.1.4](https://github.com/geostyler/geostyler/compare/v14.1.3...v14.1.4) (2024-05-28)
 
 

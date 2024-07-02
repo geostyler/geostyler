@@ -27,7 +27,7 @@
  */
 
 const path = require('path');
-const webpackConfig = require('./webpack.dev.config');
+const webpackConfig = require('./webpack.dev.config.cjs');
 const rdt = require('react-docgen-typescript');
 const packageJson = require('./package.json');
 

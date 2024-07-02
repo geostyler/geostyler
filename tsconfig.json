@@ -5,14 +5,14 @@
     "esModuleInterop": true,
     "declaration": true,
     "outDir": "dist",
-    "module": "commonjs",
-    "target": "es5",
-    "lib": ["es2021", "dom"],
+    "module": "ES2022",
+    "target": "ES2022",
+    "lib": ["ES2022", "dom"],
     "sourceMap": true,
     "inlineSources": true,
     "allowJs": false,
     "jsx": "react",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -38,6 +38,7 @@
     "**.config.js",
     "**/*.spec.ts*",
     "vite.config.ts",
-    "vite.dev.config.ts"
+    "vite.dev.config.ts",
+    "vitest.config.ts"
   ]
 }

@@ -31,13 +31,14 @@ import { WellKnownNameEditor, WellKnownNameEditorProps } from './WellKnownNameEd
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 import { MarkSymbolizer } from 'geostyler-style';
+import { vi } from 'vitest';
 
 describe('WellKnownNameEditor', () => {
 
   let dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
   const props: WellKnownNameEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: jest.fn()
+    onSymbolizerChange: vi.fn()
   };
 
   it('is defined', () => {
@@ -56,11 +57,11 @@ describe('WellKnownNameEditor', () => {
       newSymbolizer.radius = 12;
       const input = wellKnownNameEditor.container.querySelector('.radius-field input');
       await act(async() => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: { value: 12 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -75,7 +76,7 @@ describe('WellKnownNameEditor', () => {
           target: { value: 3 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -90,7 +91,7 @@ describe('WellKnownNameEditor', () => {
           target: { value: 10 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -115,7 +116,7 @@ describe('WellKnownNameEditor', () => {
           target: { value: 0.5 }
         });
       });
-      expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+      expect(props.onSymbolizerChange).toHaveBeenCalledWith(newSymbolizer);
     });
   });
 
@@ -150,7 +151,7 @@ describe('WellKnownNameEditor', () => {
       newSymbolizer.strokeWidth = 0.76;
       const input = wellKnownNameEditor.container.querySelector('.width-field input');
       await act(async() => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: { value: 0.76 }
         });
       });
@@ -178,7 +179,7 @@ describe('WellKnownNameEditor', () => {
       newSymbolizer.strokeOpacity = 0.9;
       const input = wellKnownNameEditor.container.querySelector('.rotate-field input');
       await act(async() => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: { value: 0.9 }
         });
       });

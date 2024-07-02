@@ -29,13 +29,14 @@
 import React from 'react';
 import { MaxScaleDenominator, MaxScaleDenominatorProps } from './MaxScaleDenominator';
 import { RenderResult, render } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('MaxScaleDenominator', () => {
 
   let wrapper: RenderResult;
-  let onChangeDummy: jest.Mock;
+  let onChangeDummy;
   beforeEach(() => {
-    onChangeDummy = jest.fn();
+    onChangeDummy = vi.fn();
     const props: MaxScaleDenominatorProps = {
       onChange: onChangeDummy
     };

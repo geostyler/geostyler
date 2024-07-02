@@ -28,6 +28,8 @@
 
 import HTTPUtil, { PostOptions } from './HTTPUtil';
 
+import { vi } from 'vitest';
+
 describe('HTTPUtil', () => {
 
   describe('post', () => {
@@ -35,7 +37,7 @@ describe('HTTPUtil', () => {
       expect(HTTPUtil.post).toBeDefined();
     });
     it('calls fetch with the expect params', async() => {
-      global.fetch = jest.fn();
+      global.fetch = vi.fn();
       const headers = new Headers();
       headers.set('Content-Type', 'application/x-www-form-urlencoded');
       headers.set('superheader', 'header-abc');

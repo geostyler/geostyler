@@ -31,11 +31,12 @@ import TestUtil from '../../Util/TestUtil';
 import en_US from '../../locale/en_US';
 import _cloneDeep from 'lodash/cloneDeep';
 import { render, act, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('Style', () => {
 
   const props: StyleProps = {
-    onStyleChange: jest.fn(),
+    onStyleChange: vi.fn(),
     style: TestUtil.getLineStyle()
   };
 
@@ -54,7 +55,7 @@ describe('Style', () => {
     newStyle.name = 'Peter';
     const input = style.container.querySelector('.gs-style-name-classification-row input');
     await act(async() => {
-      fireEvent.change(input, {
+      fireEvent.change(input as Element, {
         target: { value: 'Peter' }
       });
     });
@@ -63,7 +64,7 @@ describe('Style', () => {
 
   it('adds a Rule', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = jest.fn();
+    const mock = vi.fn();
     const style = render(<Style
       {...props}
       onStyleChange={mock}
@@ -78,7 +79,7 @@ describe('Style', () => {
 
   it('clones Rules', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = jest.fn();
+    const mock = vi.fn();
     const style = render(<Style
       {...props}
       onStyleChange={mock}
@@ -100,7 +101,7 @@ describe('Style', () => {
 
   it('removes a Rule', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = jest.fn();
+    const mock = vi.fn();
     const style = render(<Style
       {...props}
       onStyleChange={mock}
@@ -120,7 +121,7 @@ describe('Style', () => {
 
   it('enables the multi edit menu when multiple rules are selected', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = jest.fn();
+    const mock = vi.fn();
     const style = render(<Style
       {...props}
       onStyleChange={mock}
@@ -139,7 +140,7 @@ describe('Style', () => {
 
   it('enables the clone button when multiple rules are selected', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = jest.fn();
+    const mock = vi.fn();
     const style = render(<Style
       {...props}
       onStyleChange={mock}

@@ -75,7 +75,7 @@ export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
           {...functionUiProps}
           onChange={onChange}
           onCancel={() => onCancel?.('string')}
-        />;
+        />
       </span>
     );
   }

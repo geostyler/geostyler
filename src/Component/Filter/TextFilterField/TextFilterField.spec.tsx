@@ -31,6 +31,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { TextFilterField } from './TextFilterField';
 import TestUtil from '../../../Util/TestUtil';
 import { GeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { vi } from 'vitest';
 
 describe('TextFilterField', () => {
 
@@ -59,10 +60,10 @@ describe('TextFilterField', () => {
 
     it('calls onValueChange of props', () => {
       const value = 'Test';
-      const onChangeMock = jest.fn();
+      const onChangeMock = vi.fn();
       render(<TextFilterField onValueChange={onChangeMock} />);
       const textInput = document.querySelector('.ant-input');
-      fireEvent.change(textInput, { target: { value }});
+      fireEvent.change(textInput as Element, { target: { value }});
       expect(onChangeMock).toHaveBeenCalledWith(value);
     });
 
@@ -83,7 +84,7 @@ describe('TextFilterField', () => {
     });
 
     it('calls onValueChange of props', async() => {
-      const onChangeMock = jest.fn();
+      const onChangeMock = vi.fn();
       const field = render(
         <GeoStylerContext.Provider value={{data: dummyData}}>
           <TextFilterField

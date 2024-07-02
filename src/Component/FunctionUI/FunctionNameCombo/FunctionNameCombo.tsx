@@ -25,7 +25,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
 import React from 'react';
 
 import { Button, Select } from 'antd';
@@ -38,14 +37,13 @@ import { NodeCollapseOutlined } from '@ant-design/icons';
 
 import './FunctionNameCombo.less';
 
-
-type Type = 'string' | 'number' | 'boolean' | 'unknown';
+export type FunctionType = 'string' | 'number' | 'boolean' | 'unknown';
 
 export interface FunctionNameComboProps {
-  type?: Type;
+  type?: FunctionType;
   value?: GeoStylerFunction['name'] | undefined;
   onChange?: (functionName: GeoStylerFunction['name']) => void;
-  onCancel?: (type: Type) => void;
+  onCancel?: (type: FunctionType) => void;
   size?: 'large' | 'middle' | 'small';
 }
 

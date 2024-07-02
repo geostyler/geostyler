@@ -29,6 +29,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { ExtendedField } from './ExtendedField';
+import { vi } from 'vitest';
 
 describe('ExtendedField', () => {
 
@@ -43,7 +44,7 @@ describe('ExtendedField', () => {
 
   describe('onExtendedChange', () => {
     it('calls onChange', async() => {
-      const onChangeMock = jest.fn();
+      const onChangeMock = vi.fn();
       const field = render(<ExtendedField onChange={onChangeMock} />);
       const input16 = await field.findByLabelText('16-bit');
       const input32 = await field.findByLabelText('32-bit');

@@ -25,7 +25,6 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import OlMap from 'ol/Map';
@@ -106,7 +105,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
     const dataLayer = dataLayerRef.current;
     const extent = dataLayer.getSource().getExtent();
     if (extent && !isEmpty(extent)) {
-      map.getView().fit(extent, { maxZoom: 10 });
+      map.getView().fit(extent, { padding: [20, 20, 20, 20] });
     }
   };
 

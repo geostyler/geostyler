@@ -30,20 +30,21 @@ import React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
 import { Rules } from './Rules';
 import { Rule } from 'geostyler-style';
+import { vi } from 'vitest';
 
 describe('Rules', () => {
 
-  let onRulesChangeDummy: jest.Mock;
-  let onEditRuleClickDummy: jest.Mock;
-  let onClassificationClickDummy: jest.Mock;
-  let onEditSelectionClickDummy: jest.Mock;
+  let onRulesChangeDummy;
+  let onEditRuleClickDummy;
+  let onClassificationClickDummy;
+  let onEditSelectionClickDummy;
   let dummyRule: Rule;
 
   beforeEach(() => {
-    onRulesChangeDummy = jest.fn();
-    onEditRuleClickDummy = jest.fn();
-    onClassificationClickDummy = jest.fn();
-    onEditSelectionClickDummy = jest.fn();
+    onRulesChangeDummy = vi.fn();
+    onEditRuleClickDummy = vi.fn();
+    onClassificationClickDummy = vi.fn();
+    onEditSelectionClickDummy = vi.fn();
     dummyRule = {
       name: 'foo',
       symbolizers: []
@@ -65,7 +66,7 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[]} onRulesChange={onRulesChangeDummy} />);
       const addButton = rules.container.querySelector('.gs-add-rule-button');
       await act(async() => {
-        fireEvent.click(addButton);
+        fireEvent.click(addButton as Element);
       });
 
       expect(onRulesChangeDummy).toHaveBeenCalled();
@@ -75,7 +76,7 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[]} onRulesChange={onRulesChangeDummy} />);
       const addButton = rules.container.querySelector('.gs-add-rule-button');
       await act(async() => {
-        fireEvent.click(addButton);
+        fireEvent.click(addButton as Element);
       });
 
       const changedRules = onRulesChangeDummy.mock.lastCall[0];
@@ -89,7 +90,7 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule]} onEditRuleClick={onEditRuleClickDummy} />);
       const ruleCard = rules.container.querySelector('.gs-rule-card');
       await act(async() => {
-        fireEvent.click(ruleCard);
+        fireEvent.click(ruleCard as Element);
       });
       expect(onEditRuleClickDummy).toHaveBeenCalled();
     });
@@ -98,7 +99,7 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule]} onEditRuleClick={onEditRuleClickDummy} />);
       const ruleCard = rules.container.querySelector('.gs-rule-card');
       await act(async() => {
-        fireEvent.click(ruleCard);
+        fireEvent.click(ruleCard as Element);
       });
       expect(onEditRuleClickDummy).toHaveBeenCalledWith(0);
     });
@@ -110,7 +111,7 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule]} onRulesChange={onRulesChangeDummy} />);
       const removeButton = rules.container.querySelector('.gs-removable-item-icon');
       await act(async() => {
-        fireEvent.click(removeButton);
+        fireEvent.click(removeButton as Element);
       });
 
       expect(onRulesChangeDummy).toHaveBeenCalled();
@@ -120,7 +121,7 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule]} onRulesChange={onRulesChangeDummy} />);
       const removeButton = rules.container.querySelector('.gs-removable-item-icon');
       await act(async() => {
-        fireEvent.click(removeButton);
+        fireEvent.click(removeButton as Element);
       });
 
       expect(onRulesChangeDummy).toHaveBeenCalledWith([]);
@@ -133,7 +134,7 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule]} onClassificationClick={onClassificationClickDummy} />);
       const classificationButton = rules.container.querySelector('.gs-classification-button');
       await act(async() => {
-        fireEvent.click(classificationButton);
+        fireEvent.click(classificationButton as Element);
       });
 
       expect(onClassificationClickDummy).toHaveBeenCalled();
@@ -146,23 +147,23 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule]} />);
       const selectToggle = rules.container.querySelector('.gs-multi-select-toggle');
       await act(async() => {
-        fireEvent.click(selectToggle);
+        fireEvent.click(selectToggle as Element);
       });
       const ruleActions = rules.container.querySelector('.gs-rules-actions');
-      expect(ruleActions.children).toHaveLength(3);
+      expect(ruleActions?.children).toHaveLength(3);
     });
 
     it('deactivates multi selection mode when clicked twice', async () => {
       const rules = render(<Rules rules={[dummyRule]} />);
       const selectToggle = rules.container.querySelector('.gs-multi-select-toggle');
       await act(async() => {
-        fireEvent.click(selectToggle);
+        fireEvent.click(selectToggle as Element);
       });
       await act(async() => {
-        fireEvent.click(selectToggle);
+        fireEvent.click(selectToggle as Element);
       });
       const ruleActions = rules.container.querySelector('.gs-rules-actions');
-      expect(ruleActions.children).toHaveLength(2);
+      expect(ruleActions?.children).toHaveLength(2);
     });
   });
 
@@ -172,12 +173,12 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule, {...dummyRule}]} onRulesChange={onRulesChangeDummy} />);
       const selectToggle = rules.container.querySelector('.gs-multi-select-toggle');
       await act(async() => {
-        fireEvent.click(selectToggle);
+        fireEvent.click(selectToggle as Element);
       });
 
       const removeButton = rules.container.querySelector('.gs-remove-rules-button');
       await act(async () => {
-        fireEvent.click(removeButton);
+        fireEvent.click(removeButton as Element);
       });
 
       expect(onRulesChangeDummy).toHaveBeenCalled();
@@ -187,7 +188,7 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule, {...dummyRule}]} onRulesChange={onRulesChangeDummy} />);
       const selectToggle = rules.container.querySelector('.gs-multi-select-toggle');
       await act(async() => {
-        fireEvent.click(selectToggle);
+        fireEvent.click(selectToggle as Element);
       });
 
       // The click event triggers a new rendering of the component. Therefore,
@@ -204,7 +205,7 @@ describe('Rules', () => {
 
       const removeButton = rules.container.querySelector('.gs-remove-rules-button');
       await act(async () => {
-        fireEvent.click(removeButton);
+        fireEvent.click(removeButton as Element);
       });
 
       const changedRules = onRulesChangeDummy.mock.lastCall[0];
@@ -218,12 +219,12 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule, {...dummyRule}]} onRulesChange={onRulesChangeDummy} />);
       const selectToggle = rules.container.querySelector('.gs-multi-select-toggle');
       await act(async() => {
-        fireEvent.click(selectToggle);
+        fireEvent.click(selectToggle as Element);
       });
 
       const cloneButton = rules.container.querySelector('.gs-clone-rules-button');
       await act(async() => {
-        fireEvent.click(cloneButton);
+        fireEvent.click(cloneButton as Element);
       });
 
       expect(onRulesChangeDummy).toHaveBeenCalled();
@@ -233,17 +234,17 @@ describe('Rules', () => {
       const rules = render(<Rules rules={[dummyRule, {...dummyRule}]} onRulesChange={onRulesChangeDummy} />);
       const selectToggle = rules.container.querySelector('.gs-multi-select-toggle');
       await act(async() => {
-        fireEvent.click(selectToggle);
+        fireEvent.click(selectToggle as Element);
       });
 
       const ruleItem = rules.container.querySelector('.gs-selectable-item');
       await act(async () => {
-        fireEvent.click(ruleItem);
+        fireEvent.click(ruleItem as Element);
       });
 
       const cloneButton = rules.container.querySelector('.gs-clone-rules-button');
       await act(async() => {
-        fireEvent.click(cloneButton);
+        fireEvent.click(cloneButton as Element);
       });
 
       const changedRules = onRulesChangeDummy.mock.lastCall[0];
@@ -259,12 +260,12 @@ describe('Rules', () => {
       );
       const selectToggle = rules.container.querySelector('.gs-multi-select-toggle');
       await act(async() => {
-        fireEvent.click(selectToggle);
+        fireEvent.click(selectToggle as Element);
       });
 
       const editButton = rules.container.querySelector('.gs-edit-rules-button');
       await act(async() => {
-        fireEvent.click(editButton);
+        fireEvent.click(editButton as Element);
       });
 
       expect(onEditSelectionClickDummy).toHaveBeenCalled();
@@ -276,17 +277,17 @@ describe('Rules', () => {
       );
       const selectToggle = rules.container.querySelector('.gs-multi-select-toggle');
       await act(async() => {
-        fireEvent.click(selectToggle);
+        fireEvent.click(selectToggle as Element);
       });
 
       const ruleItem = rules.container.querySelector('.gs-selectable-item');
       await act(async () => {
-        fireEvent.click(ruleItem);
+        fireEvent.click(ruleItem as Element);
       });
 
       const editButton = rules.container.querySelector('.gs-edit-rules-button');
       await act(async() => {
-        fireEvent.click(editButton);
+        fireEvent.click(editButton as Element);
       });
 
       expect(onEditSelectionClickDummy).toHaveBeenCalledWith([0]);

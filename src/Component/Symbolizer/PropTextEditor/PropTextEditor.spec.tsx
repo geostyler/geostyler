@@ -32,12 +32,14 @@ import { act, render, fireEvent } from '@testing-library/react';
 import { TextSymbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
+import { vi } from 'vitest';
+
 describe('PropTextEditor', () => {
 
   let dummySymbolizer = SymbolizerUtil.generateSymbolizer('Text') as TextSymbolizer;
   const props: PropTextEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: jest.fn()
+    onSymbolizerChange: vi.fn()
   };
 
   it('is defined', () => {
@@ -49,40 +51,40 @@ describe('PropTextEditor', () => {
     expect(textEditor.container).toBeInTheDocument();
   });
 
-  describe('onLabelChange', () => {
-    // it('calls the onSymbolizerChange prop with correct symbolizer ', async () => {
-    //   const textEditor = render(<PropTextEditor {...props} />);
-    //   const newSymbolizer = {...dummySymbolizer};
-    //   newSymbolizer.label = '{{Peter}}';
-    //   const input = (await textEditor.findAllByRole('combobox'))[0];
-    //   await act(async() => {
-    //     fireEvent.change(input, {
-    //       target: { value: '{{Peter}}' }
-    //     });
-    //   });
-    //   expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
-    // });
-  });
+  // describe('onLabelChange', () => {
+  // it('calls the onSymbolizerChange prop with correct symbolizer ', async () => {
+  //   const textEditor = render(<PropTextEditor {...props} />);
+  //   const newSymbolizer = {...dummySymbolizer};
+  //   newSymbolizer.label = '{{Peter}}';
+  //   const input = (await textEditor.findAllByRole('combobox'))[0];
+  //   await act(async() => {
+  //     fireEvent.change(input, {
+  //       target: { value: '{{Peter}}' }
+  //     });
+  //   });
+  //   expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+  // });
+  // });
 
-  describe('onColorChange', () => {
-    // it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
-    //   const onColorChange = wrapper.instance().onColorChange;
-    //   const newSymbolizer = {...dummySymbolizer};
-    //   newSymbolizer.color = '#00AA00';
-    //   onColorChange('#00AA00');
-    //   expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
-    // });
-  });
+  // describe('onColorChange', () => {
+  // it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
+  //   const onColorChange = wrapper.instance().onColorChange;
+  //   const newSymbolizer = {...dummySymbolizer};
+  //   newSymbolizer.color = '#00AA00';
+  //   onColorChange('#00AA00');
+  //   expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+  // });
+  // });
 
-  describe('onFontChange', () => {
-    // it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
-    //   const onFontChange = wrapper.instance().onFontChange;
-    //   const newSymbolizer = {...dummySymbolizer};
-    //   newSymbolizer.font = ['Arial', 'Times new Roman'];
-    //   onFontChange(['Arial', 'Times new Roman']);
-    //   expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
-    // });
-  });
+  // describe('onFontChange', () => {
+  // it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
+  //   const onFontChange = wrapper.instance().onFontChange;
+  //   const newSymbolizer = {...dummySymbolizer};
+  //   newSymbolizer.font = ['Arial', 'Times new Roman'];
+  //   onFontChange(['Arial', 'Times new Roman']);
+  //   expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+  // });
+  // });
 
   describe('onOpacityChange', () => {
     it('calls the onOpacityChange prop with correct symbolizer ', async () => {
@@ -91,7 +93,7 @@ describe('PropTextEditor', () => {
       newSymbolizer.opacity = 0.5;
       const input = wellKnownNameEditor.container.querySelector('.opacity-field input');
       await act(async() => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: { value: 0.5 }
         });
       });
@@ -159,15 +161,15 @@ describe('PropTextEditor', () => {
     });
   });
 
-  describe('onHaloColorChange', () => {
-    // it('calls the onHaloColorChange prop with correct symbolizer ', () => {
-    //   const onHaloColorChange = wrapper.instance().onHaloColorChange;
-    //   const newSymbolizer = {...dummySymbolizer};
-    //   newSymbolizer.haloColor = '#FFAA00';
-    //   onHaloColorChange('#FFAA00');
-    //   expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
-    // });
-  });
+  // describe('onHaloColorChange', () => {
+  // it('calls the onHaloColorChange prop with correct symbolizer ', () => {
+  //   const onHaloColorChange = wrapper.instance().onHaloColorChange;
+  //   const newSymbolizer = {...dummySymbolizer};
+  //   newSymbolizer.haloColor = '#FFAA00';
+  //   onHaloColorChange('#FFAA00');
+  //   expect(onSymbolizerChangeDummy).toBeCalledWith(newSymbolizer);
+  // });
+  // });
 
   describe('onHaloWidthChange', () => {
     it('calls the onHaloWidthChange prop with correct symbolizer ', async () => {

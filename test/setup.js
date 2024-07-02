@@ -25,15 +25,30 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+import util from 'util';
+global.TextEncoder = util.TextEncoder;
+global.TextDecoder = util.TextDecoder;
+import '@babel/polyfill';
+import '@testing-library/jest-dom';
 
-module.exports = {
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-typescript",
-    "@babel/preset-react"
-  ],
-  "plugins": [
-    "@babel/proposal-class-properties",
-    "@babel/proposal-object-rest-spread"
-  ]
-};
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn()
+  }))
+});
+
+Object.defineProperty(window, 'ResizeObserver', {
+  value: vi.fn().mockImplementation(() => ({
+    observe: vi.fn(),
+    unobserve: vi.fn(),
+    disconnect: vi.fn(),
+  }))
+});

@@ -31,6 +31,7 @@ import { render } from '@testing-library/react';
 import { AttributeCombo } from './AttributeCombo';
 import TestUtil from '../../../Util/TestUtil';
 import { GeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { vi } from 'vitest';
 
 describe('AttributeCombo', () => {
 
@@ -46,7 +47,7 @@ describe('AttributeCombo', () => {
   });
 
   it('calls attribute filter function for each property', () => {
-    const dummyFilterFn = jest.fn();
+    const dummyFilterFn = vi.fn();
     render(
       <GeoStylerContext.Provider value={{data: dummyData}}>
         <AttributeCombo attributeNameFilter={dummyFilterFn} />

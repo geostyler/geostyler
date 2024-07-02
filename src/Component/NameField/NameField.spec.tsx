@@ -29,6 +29,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { NameField } from './NameField';
+import { vi } from 'vitest';
 
 describe('NameField', () => {
 
@@ -43,10 +44,10 @@ describe('NameField', () => {
 
   it('calls onValueChange of props', () => {
     const value = 'Test';
-    const onChangeMock = jest.fn();
+    const onChangeMock = vi.fn();
     render(<NameField onChange={onChangeMock} />);
     const textInput = document.querySelector('.gs-namefield.ant-input');
-    fireEvent.change(textInput, { target: { value } });
+    fireEvent.change(textInput as Element, { target: { value } });
     expect(onChangeMock).toHaveBeenCalledWith(value);
   });
 

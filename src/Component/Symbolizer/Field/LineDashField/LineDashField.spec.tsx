@@ -29,6 +29,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { LineDashField } from './LineDashField';
+import { vi } from 'vitest';
 
 describe('OffsetField', () => {
 
@@ -45,7 +46,7 @@ describe('OffsetField', () => {
 
   describe('InputFields', () => {
     it('change handlers call the onChange prop method correctly', async() => {
-      const onChangeMock = jest.fn();
+      const onChangeMock = vi.fn();
       const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
       const inputs = await field.findAllByRole('spinbutton');
 
@@ -61,10 +62,10 @@ describe('OffsetField', () => {
 
   describe('onAddDash', () => {
     it('calls a passed onChange function with the new dashArray', async() => {
-      const onChangeMock = jest.fn();
+      const onChangeMock = vi.fn();
       const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
       const addButton = field.container.querySelector('button.gs-add-dash-button');
-      fireEvent.click(addButton);
+      fireEvent.click(addButton as Element);
       let newDashArray = [...dashArray, 1];
       expect(onChangeMock).toHaveBeenCalledWith(newDashArray);
     });
@@ -72,10 +73,10 @@ describe('OffsetField', () => {
 
   describe('onRemoveDash', () => {
     it('calls a passed onChange function with the new dashArray', async() => {
-      const onChangeMock = jest.fn();
+      const onChangeMock = vi.fn();
       const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
       const removeButton = field.container.querySelector('button.gs-rm-dash-button');
-      fireEvent.click(removeButton);
+      fireEvent.click(removeButton as Element);
       let newDashArray = [...dashArray];
       newDashArray.splice(newDashArray.length - 1, 1);
       expect(onChangeMock).toHaveBeenCalledWith(newDashArray);

@@ -28,12 +28,14 @@
 
 import FieldUtil from './FieldUtil';
 
+import { vi } from 'vitest';
+
 describe('FieldUtil', () => {
 
-  const listener = jest.fn();
+  const listener = vi.fn();
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('nullToUndefined', () => {

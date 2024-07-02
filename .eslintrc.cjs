@@ -2,7 +2,7 @@ module.exports = {
   extends: '@terrestris/eslint-config-typescript-react',
   rules: {
     camelcase: [
-      "off",
+      'off',
       {
         ignoreImports: true
       }
@@ -12,11 +12,11 @@ module.exports = {
   overrides: [
     {
       files: [
-        "**/*.spec.ts",
-        "**/*.spec.tsx"
+        '**/*.spec.ts',
+        '**/*.spec.tsx'
       ],
       env: {
-        "jest": true
+        'jest': true
       }
     }
   ]

@@ -16,6 +16,11 @@ jobs:
         with:
           node-version: 20
 
+      - name: Prepare git config
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       - name: Install dependencies ⏬
         run: npm ci
 
@@ -32,8 +37,6 @@ jobs:
       - name: Update README.md 📄
         run: |
           sed -i "s/Documentation:.*/Documentation: [main](https:\/\/geostyler.github.io\/geostyler\/main\/index.html) \/ [latest](https:\/\/geostyler.github.io\/geostyler\/latest\/index.html) \/ [${{ steps.semantic.outputs.new_release_version }}](https:\/\/geostyler.github.io\/geostyler\/v${{ steps.semantic.outputs.new_release_version }}\/index.html)/g" README.md
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -u
           git commit -m "docs: Update README.md with new version"
           git push

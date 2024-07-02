@@ -31,16 +31,17 @@ import { act, fireEvent, render } from '@testing-library/react';
 import { CardStyle } from './CardStyle';
 import { Rule, Style, Symbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
+import { vi } from 'vitest';
 
 describe('CardStyle', () => {
 
-  let onStyleChangeDummy: jest.Mock;
+  let onStyleChangeDummy;
   let dummyStyle: Style;
   let dummyRule: Rule;
   let dummySymbolizer: Symbolizer;
 
   beforeEach(() => {
-    onStyleChangeDummy = jest.fn();
+    onStyleChangeDummy = vi.fn();
 
     dummyStyle = {
       name: 'foo',
@@ -70,7 +71,7 @@ describe('CardStyle', () => {
       const cardStyle = render(<CardStyle onStyleChange={onStyleChangeDummy} />);
       const input = cardStyle.container.querySelector('.gs-namefield');
       await act(async () => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: {
             value: 'foo'
           }
@@ -85,7 +86,7 @@ describe('CardStyle', () => {
       const cardStyle = render(<CardStyle style={dummyStyle} onStyleChange={onStyleChangeDummy} />);
       const input = cardStyle.container.querySelector('.gs-namefield');
       await act(async () => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: {
             value: name
           }
@@ -112,7 +113,7 @@ describe('CardStyle', () => {
       const ruleCard = cardStyle.container.querySelector('.gs-rule-card');
 
       await act(async () => {
-        fireEvent.click(ruleCard);
+        fireEvent.click(ruleCard as Element);
       });
 
       const ruleOverview = cardStyle.container.querySelector('.gs-rule-overview');
@@ -124,7 +125,7 @@ describe('CardStyle', () => {
 
       const classificationButton = cardStyle.container.querySelector('.gs-classification-button');
       await act(async () => {
-        fireEvent.click(classificationButton);
+        fireEvent.click(classificationButton as Element);
       });
 
       const ruleGenerator = cardStyle.container.querySelector('.gs-rule-generator');
@@ -136,12 +137,12 @@ describe('CardStyle', () => {
 
       const multiSelectToggle = cardStyle.container.querySelector('.gs-multi-select-toggle');
       await act(async () => {
-        fireEvent.click(multiSelectToggle);
+        fireEvent.click(multiSelectToggle as Element);
       });
 
       const multiEditButton = cardStyle.container.querySelector('.gs-edit-rules-button');
       await act(async () => {
-        fireEvent.click(multiEditButton);
+        fireEvent.click(multiEditButton as Element);
       });
 
       const ruleGenerator = cardStyle.container.querySelector('.gs-bulkeditor');
@@ -158,12 +159,12 @@ describe('CardStyle', () => {
 
       const ruleCard = cardStyle.container.querySelector('.gs-rule-card');
       await act(async () => {
-        fireEvent.click(ruleCard);
+        fireEvent.click(ruleCard as Element);
       });
 
       const symbolizerCard = cardStyle.container.querySelector('.gs-symbolizer-card');
       await act(async () => {
-        fireEvent.click(symbolizerCard);
+        fireEvent.click(symbolizerCard as Element);
       });
 
       const editorView = cardStyle.container.querySelector('.gs-symbolizer-editor');
@@ -177,12 +178,12 @@ describe('CardStyle', () => {
 
       const ruleCard = cardStyle.container.querySelector('.gs-rule-card');
       await act(async () => {
-        fireEvent.click(ruleCard);
+        fireEvent.click(ruleCard as Element);
       });
 
       const addFilterButton = cardStyle.container.querySelector('.gs-filter-overview-add button');
       await act(async () => {
-        fireEvent.click(addFilterButton);
+        fireEvent.click(addFilterButton as Element);
       });
 
       const filterTree = cardStyle.container.querySelector('.gs-filter-tree');

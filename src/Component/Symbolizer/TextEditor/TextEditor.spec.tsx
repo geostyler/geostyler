@@ -31,13 +31,14 @@ import { TextEditor, TextEditorProps } from './TextEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 import { TextSymbolizer } from 'geostyler-style';
+import { vi } from 'vitest';
 
 describe('TextEditor', () => {
 
   let dummySymbolizer: TextSymbolizer = SymbolizerUtil.generateSymbolizer('Text') as TextSymbolizer;
   const props: TextEditorProps = {
     symbolizer: dummySymbolizer as TextSymbolizer,
-    onSymbolizerChange: jest.fn()
+    onSymbolizerChange: vi.fn()
   };
 
   it('is defined', () => {
@@ -64,7 +65,7 @@ describe('TextEditor', () => {
     });
   });
 
-  describe('onColorChange', () => {
+  // describe('onColorChange', () => {
   //   it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
   //     const onColorChange = wrapper.instance().onColorChange;
   //     const newSymbolizer = {...dummySymbolizer};
@@ -72,17 +73,17 @@ describe('TextEditor', () => {
   //     onColorChange('#00AA00');
   //     expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
   //   });
-  });
+  // });
 
-  describe('onFontChange', () => {
-    // it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
-    //   const onFontChange = wrapper.instance().onFontChange;
-    //   const newSymbolizer = {...dummySymbolizer};
-    //   newSymbolizer.font = ['Arial', 'Times new Roman'];
-    //   onFontChange(['Arial', 'Times new Roman']);
-    //   expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
-    // });
-  });
+  // describe('onFontChange', () => {
+  // it('calls the onSymbolizerChange prop with correct symbolizer ', () => {
+  //   const onFontChange = wrapper.instance().onFontChange;
+  //   const newSymbolizer = {...dummySymbolizer};
+  //   newSymbolizer.font = ['Arial', 'Times new Roman'];
+  //   onFontChange(['Arial', 'Times new Roman']);
+  //   expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
+  // });
+  // });
 
   describe('onOpacityChange', () => {
     it('calls the onOpacityChange prop with correct symbolizer ', async () => {
@@ -91,7 +92,7 @@ describe('TextEditor', () => {
       newSymbolizer.opacity = 0.5;
       const input = textEditor.container.querySelector('.opacity-field input');
       await act(async() => {
-        fireEvent.change(input, {
+        fireEvent.change(input as Element, {
           target: { value: 0.5 }
         });
       });
@@ -159,7 +160,7 @@ describe('TextEditor', () => {
     });
   });
 
-  describe('onHaloColorChange', () => {
+  // describe('onHaloColorChange', () => {
   //   it('calls the onHaloColorChange prop with correct symbolizer ', () => {
   //     const onHaloColorChange = wrapper.instance().onHaloColorChange;
   //     const newSymbolizer = {...dummySymbolizer};
@@ -167,7 +168,7 @@ describe('TextEditor', () => {
   //     onHaloColorChange('#FFAA00');
   //     expect(props.onSymbolizerChange).toBeCalledWith(newSymbolizer);
   //   });
-  });
+  // });
 
   describe('onHaloWidthChange', () => {
     it('calls the onHaloWidthChange prop with correct symbolizer ', async () => {

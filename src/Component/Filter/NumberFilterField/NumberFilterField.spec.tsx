@@ -29,6 +29,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { NumberFilterField } from './NumberFilterField';
+import { vi } from 'vitest';
 
 describe('NumberFilterField', () => {
 
@@ -43,7 +44,7 @@ describe('NumberFilterField', () => {
 
   describe('#onChange', () => {
     it('calls onValueChange of props', async() => {
-      const onChangeDummy = jest.fn();
+      const onChangeDummy = vi.fn();
       const value = 1909.09;
       const field = render(<NumberFilterField onValueChange={onChangeDummy} />);
       const input = await field.findByRole('spinbutton');
