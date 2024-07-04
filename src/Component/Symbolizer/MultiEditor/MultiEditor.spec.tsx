@@ -30,6 +30,7 @@ import { MultiEditor, MultiEditorProps } from './MultiEditor';
 
 import { Symbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('MultiEditor', () => {
 
@@ -44,7 +45,7 @@ describe('MultiEditor', () => {
   }];
 
   const props: MultiEditorProps = {
-    onSymbolizersChange: jest.fn(),
+    onSymbolizersChange: vi.fn(),
     symbolizers: dummySymbolizers
   };
 

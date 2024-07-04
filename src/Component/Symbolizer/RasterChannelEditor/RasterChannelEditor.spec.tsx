@@ -28,13 +28,14 @@
 import React from 'react';
 import { RasterChannelEditor, RasterChannelEditorProps } from './RasterChannelEditor';
 import { render } from '@testing-library/react';
+import { vi } from 'vitest';
 
 describe('RasterChannelEditor', () => {
   const props: RasterChannelEditorProps = {
     channelSelection: {
       grayChannel: {}
     },
-    onChange: jest.fn()
+    onChange: vi.fn()
   };
 
   it('is defined', () => {

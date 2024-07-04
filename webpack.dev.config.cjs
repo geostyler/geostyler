@@ -21,7 +21,7 @@ module.exports = {
       buffer: false,
       fs: false,
       path: false
-    }
+    },
   },
   module: {
     rules: [
@@ -33,8 +33,12 @@ module.exports = {
           },
           'css-loader'
         ],
-      },
-      {
+      }, {
+        test: /\.m?js$/,
+        resolve: {
+          fullySpecified: false
+        }
+      }, {
         test: /\.less$/,
         use: [
           {
@@ -69,5 +73,5 @@ module.exports = {
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM'
-  }
+  },
 };

@@ -31,12 +31,14 @@ import { fireEvent, render } from '@testing-library/react';
 import { RemovableItem } from './RemovableItem';
 import { act } from 'react-dom/test-utils';
 
+import { vi } from 'vitest';
+
 describe('RemovableItem', () => {
 
-  let onRemoveClickDummy: jest.Mock;
+  let onRemoveClickDummy;
 
   beforeEach(() => {
-    onRemoveClickDummy = jest.fn();
+    onRemoveClickDummy = vi.fn();
   });
 
   it('is defined', () => {
@@ -52,7 +54,7 @@ describe('RemovableItem', () => {
     const item = render(<RemovableItem onRemoveClick={onRemoveClickDummy} />);
     const removeButton = item.container.querySelector('.gs-removable-item-icon');
     await act(() => {
-      fireEvent.click(removeButton);
+      fireEvent.click(removeButton as Element);
     });
 
     expect(onRemoveClickDummy).toHaveBeenCalled();

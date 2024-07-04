@@ -27,40 +27,13 @@
  */
 
 module.exports = {
-  testEnvironment: "./jest/Environment.js",
-  testEnvironmentOptions : {
-    url: "http://localhost",
-  },
-  collectCoverageFrom: [
-    "src/Component/**/*.{tsx,jsx}",
-    "src/Util/**/*.{ts,js}"
+  'presets': [
+    '@babel/preset-env',
+    '@babel/preset-typescript',
+    '@babel/preset-react'
   ],
-  setupFilesAfterEnv: [
-    // Runs special logic, such as cleaning up components
-    // when using React Testing Library and adds special
-    // extended assertions to Jest
-    "<rootDir>/jest/setup.js"
-  ],
-  workerThreads: true,
-  testMatch: [
-    "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
-    "<rootDir>/src/**/*(*.)(spec|test).(j|t)s?(x)"
-  ],
-  transform: {
-    "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
-    "^.+\\.tsx?$": "<rootDir>/node_modules/babel-jest"
-  },
-  moduleNameMapper: {
-    '^.+\\.(css|less)$': '<rootDir>/jest/cssTransform.js'
-  },
-  transformIgnorePatterns: [
-    "<rootDir>/node_modules/(?!(ol|antd|color-name|color-space|color-rgba|color-parse|geostyler-style))"
-  ],
-  moduleFileExtensions: [
-    "ts",
-    "tsx",
-    "js",
-    "jsx",
-    "json"
+  'plugins': [
+    '@babel/proposal-class-properties',
+    '@babel/proposal-object-rest-spread'
   ]
 };
