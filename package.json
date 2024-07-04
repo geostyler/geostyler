@@ -1,6 +1,6 @@
 {
   "name": "geostyler",
-  "version": "14.1.4",
+  "version": "14.2.0",
   "description": "Framework for styling geodata",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

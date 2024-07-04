@@ -1,3 +1,17 @@
+## [14.2.0](https://github.com/geostyler/geostyler/compare/v14.1.4...v14.2.0) (2024-07-04)
+
+
+### Features
+
+* add upload button to CodeEditor ([a46d16b](https://github.com/geostyler/geostyler/commit/a46d16b3bb599463f5c990e73442e43aaf78e35a))
+
+
+### Bug Fixes
+
+* code editor onchange string to mapbox style ([c5dc04e](https://github.com/geostyler/geostyler/commit/c5dc04ed6fcfb019f4bcab414e8fe1ddf97e5fd3))
+* **deps:** update dependency geostyler-wfs-parser to v2.0.3 ([8283f7b](https://github.com/geostyler/geostyler/commit/8283f7bf3a97521520a3486f451e8c8d27aa524f))
+* **deps:** update dependency typescript-json-schema to ^0.64.0 ([9c3b8e8](https://github.com/geostyler/geostyler/commit/9c3b8e87277e395e7926ab1deeba25b2679f4f2f))
+
 ## [14.1.4](https://github.com/geostyler/geostyler/compare/v14.1.3...v14.1.4) (2024-05-28)
 
 
