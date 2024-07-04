@@ -1,3 +1,28 @@
+## [15.0.0](https://github.com/geostyler/geostyler/compare/v14.2.0...v15.0.0) (2024-07-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* This will include many breaking changes, including
+the switch to an esm build which may cause different import locations
+or the need to make configuration changes to your bundler in your
+downstream project.
+
+### Features
+
+* introduce CaseInput and StepInput ([42e905a](https://github.com/geostyler/geostyler/commit/42e905a87c510a2c3e9b803db564f9bf203ed7aa))
+* prepare the next major release ([2efc0fd](https://github.com/geostyler/geostyler/commit/2efc0fdebf791a2655f6ede179a7527c2c5e5d94))
+* update base package versions ([794a3f9](https://github.com/geostyler/geostyler/commit/794a3f9c032f1f1819edd24b130d13f4a6355816))
+
+
+### Bug Fixes
+
+* fix build with wfs parser update ([e31a4d9](https://github.com/geostyler/geostyler/commit/e31a4d97f6f76d314ce90a900aaa0a8b5a2f7d82))
+* keep less files in esm build ([a8b7975](https://github.com/geostyler/geostyler/commit/a8b79757552edc1b62688c1d239db512046623c6))
+* remove coveralls ([38d67cc](https://github.com/geostyler/geostyler/commit/38d67cc91470aef83b5f0693917d0584d6e66b9a))
+* update package lock ([f27a36e](https://github.com/geostyler/geostyler/commit/f27a36e8bcd9bb169ebb778e83d490c0fafd7e5e))
+* update sld parser ([9980198](https://github.com/geostyler/geostyler/commit/9980198c55dbf4450a80d6456845688bf27e882c))
+
 ## [15.0.0-beta.5](https://github.com/geostyler/geostyler/compare/v15.0.0-beta.4...v15.0.0-beta.5) (2024-07-02)
 
 
