@@ -44,6 +44,7 @@ import {
 } from 'geostyler-style';
 import { FunctionUI } from '../../../FunctionUI/FunctionUI';
 import { FunctionOutlined } from '@ant-design/icons';
+import { AggregationColor } from 'antd/es/color-picker/color';
 
 export interface ColorFieldProps extends Omit<ColorPickerProps, 'onChange' | 'value' | 'defaultValue'> {
   value?: Expression<string>;
@@ -63,13 +64,13 @@ export const ColorField: React.FC<ColorFieldProps> = ({
 
   const locale = useGeoStylerLocale('ColorField');
 
-  const onColorPickerChange = useCallback((_: any, hex: string) => {
-    // contains 0% opacity --> should only happen when clear is clicked
-    if (hex?.length === 9) {
+  const onColorPickerChange = useCallback((color?: AggregationColor) => {
+    if (!color) {
       onChange(undefined);
-    } else {
-      onChange(hex);
+      return;
     }
+    const hex = color.toHexString();
+    onChange(hex);
   }, [onChange]);
 
   function onCancel() {
@@ -91,7 +92,7 @@ export const ColorField: React.FC<ColorFieldProps> = ({
 
   let textColor;
   try {
-    textColor = Color(value || defaultValue).negate().grayscale().string();
+    textColor = Color(value || defaultValue).isLight() ? '#000000' : '#FFFFFF';
   } catch (error) {
     textColor = '#000000';
   }
@@ -110,9 +111,10 @@ export const ColorField: React.FC<ColorFieldProps> = ({
     <span className="editor-field gs-color-field">
       <ColorPicker
         allowClear
-        format='hex'
         {...passThroughProps}
+        disabledAlpha={true}
         onChange={onColorPickerChange}
+        onClear={() => onColorPickerChange()}
         value={colorString}
       >
         <Button style={btnStyle} className="color-picker-trigger">

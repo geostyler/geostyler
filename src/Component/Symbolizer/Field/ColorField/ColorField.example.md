@@ -36,12 +36,11 @@ import { ColorField } from 'geostyler';
 
 const ColorFieldExample = () => {
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("#013370");
 
   return (
     <ColorField
       value={value}
-      defaultValue="#013370"
       label="Color"
       onChange={setValue}
     />

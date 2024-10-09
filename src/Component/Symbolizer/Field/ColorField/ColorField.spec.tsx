@@ -27,8 +27,10 @@
  */
 
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ColorField } from './ColorField';
+import { vi } from 'vitest';
 
 describe('ColorField', () => {
 
@@ -39,6 +41,22 @@ describe('ColorField', () => {
   it('renders correctly', () => {
     const field = render(<ColorField />);
     expect(field.container).toBeInTheDocument();
+  });
+
+  it('change handler returns a hex code string', async () => {
+    const onChangeMock = vi.fn();
+    const field = render(<ColorField
+      onChange={onChangeMock}
+      format='rgb'
+      value='#000000'
+    />);
+    const colorPickerButton = field.container.querySelector('.color-picker-trigger');
+    await userEvent.click(colorPickerButton!);
+    const inputs = await screen.findAllByRole('spinbutton');
+    expect(inputs).toHaveLength(3);
+
+    fireEvent.change(inputs[1], { target: { value: 255 } });
+    expect(onChangeMock).toHaveBeenCalledWith('#00ff00');
   });
 
 });
