@@ -115,7 +115,7 @@
     "ast-types": "^0.14.2",
     "babel-jest": "^29.7.0",
     "buffer": "^6.0.3",
-    "cheerio": "1.0.0-rc.12",
+    "cheerio": "1.0.0",
     "copyfiles": "^2.4.1",
     "css-loader": "^7.1.2",
     "eslint": "^8.57.0",
