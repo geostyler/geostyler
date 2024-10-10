@@ -32,7 +32,9 @@ import OlLayerVector from 'ol/layer/Vector';
 import OlSourceVector from 'ol/source/Vector';
 import OlFormatGeoJSON from 'ol/format/GeoJSON';
 import { Projection, ProjectionLike } from 'ol/proj';
-import OlFeature from 'ol/Feature';
+import OlFeature, {
+  FeatureLike as OlFeatureLike
+} from 'ol/Feature';
 import {
   get as getProjection,
 } from 'ol/proj';
@@ -83,7 +85,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
 
   /** the vector layer for the passed features */
   const dataLayerRef = useRef<OlLayerVector<any>>(new OlLayerVector({
-    source: new OlSourceVector()
+    source: new OlSourceVector<OlFeatureLike>()
   }));
 
   /** the underlying OpenLayers map */

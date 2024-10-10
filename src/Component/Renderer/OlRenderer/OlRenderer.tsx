@@ -34,7 +34,9 @@ import OlSourceVector from 'ol/source/Vector';
 import OlGeomPoint from 'ol/geom/Point';
 import OlGeomLineString from 'ol/geom/LineString';
 import OlGeomPolygon from 'ol/geom/Polygon';
-import OlFeature from 'ol/Feature';
+import OlFeature, {
+  FeatureLike as OlFeatureLike
+} from 'ol/Feature';
 import OlView from 'ol/View';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
@@ -120,7 +122,7 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
 
   useEffect(() => {
     layer.current = new OlLayerVector({
-      source: new OlSourceVector()
+      source: new OlSourceVector<OlFeatureLike>()
     });
     map.current = new OlMap({
       layers: [layer.current],
