@@ -289,11 +289,6 @@ mark {
 .ant-color-picker .ant-color-picker-slider-container .ant-color-picker-slider-group {
   align-self: end;
 }
-.ant-color-picker .ant-color-picker-slider-alpha,
-.ant-color-picker .ant-color-picker-alpha-input,
-.ant-color-picker .ant-color-picker-format-select {
-  display: none;
-}
 .gs-color-field {
   display: flex;
 }
@@ -1194,6 +1189,10 @@ mark {
 
 .ol-overviewmap .ol-overviewmap-box:hover {
   cursor: move;
+}
+
+.ol-overviewmap .ol-viewport:hover {
+  cursor: pointer;
 }
 
 /* Released under the BSD 2-Clause License
