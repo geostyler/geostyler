@@ -1,3 +1,10 @@
+## [15.0.1](https://github.com/geostyler/geostyler/compare/v15.0.0...v15.0.1) (2024-10-11)
+
+### Bug Fixes
+
+* **deps:** update dependency antd to v5.21.3 ([0340bf5](https://github.com/geostyler/geostyler/commit/0340bf50161b3e70ad3a9bac9028ff5893c189b6))
+* update ColorPicker ([f1edbe4](https://github.com/geostyler/geostyler/commit/f1edbe42fe983cc7155f80e7af74b05a28a37410))
+
 ## [15.0.0](https://github.com/geostyler/geostyler/compare/v14.2.0...v15.0.0) (2024-07-04)
 
 
