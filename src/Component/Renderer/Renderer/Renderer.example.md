@@ -79,7 +79,7 @@ function RendererExample () {
       rendererType='SLD'
       symbolizers={symbolizers}
       hideEditButton={true}
-      wmsBaseUrl='https://ows-demo.terrestris.de/geoserver/ows?'
+      wmsBaseUrl='https://ows-demo.terrestris.de/geoserver/wms?'
       layer='terrestris:bundeslaender'
     />
   );
@@ -88,8 +88,10 @@ function RendererExample () {
 <RendererExample />
 ```
 
-This shows a Renderer with a geostyler function. When using "property" function
-it is needed to pass it via GeoStylerContext.
+This shows a Renderer with a geostyler function. When using a GeoStyler function (like "property")
+it is helpful to provide the data via GeoStyler context. Otherwise a placeholder symbol is shown.
+
+⚠️ Please note that the value of the input is set on the data, not on the symbolizer
 
 ```jsx
 import React, { useState } from 'react';
@@ -138,18 +140,28 @@ function RendererExample () {
 
   return (
     <div>
-      property value of "size":
+      <label>Property value of "size": </label>
       <InputNumber
         value={size}
         min={0}
         onChange={setSize}
       />
-      <GeoStylerContext.Provider value={ctx}>
+      <div class="sample">
+        <GeoStylerContext.Provider value={ctx}>
+          Data provided via context
+          <Renderer
+            symbolizers={symbolizers}
+            hideEditButton={true}
+          />
+        </GeoStylerContext.Provider>
+      </div>
+      <div class="sample">
+        No data provided
         <Renderer
           symbolizers={symbolizers}
           hideEditButton={true}
         />
-      </GeoStylerContext.Provider>
+      </div>
     </div>
   );
 }

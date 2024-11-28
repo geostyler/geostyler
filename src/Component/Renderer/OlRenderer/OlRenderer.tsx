@@ -41,7 +41,7 @@ import OlView from 'ol/View';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
 
-import { Symbolizer, SymbolizerKind } from 'geostyler-style';
+import { IconSymbolizer, isGeoStylerFunction, Symbolizer, SymbolizerKind } from 'geostyler-style';
 
 import './OlRenderer.less';
 
@@ -51,6 +51,7 @@ import _isEqual from 'lodash/isEqual';
 import _get from 'lodash/get';
 import _uniqueId from 'lodash/uniqueId';
 import { useGeoStylerData } from '../../../context/GeoStylerContext/GeoStylerContext';
+import placeholder from './placeholder';
 
 export interface OlRendererProps {
   symbolizers: Symbolizer[];
@@ -140,8 +141,8 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
   }, [updateFeature]);
 
   useEffect(() => {
-    applySymbolizers(symbolizers);
-  }, [symbolizers]);
+    applySymbolizers(symbolizers, data !== undefined);
+  }, [symbolizers, data]);
 
   /**
    * Transforms the incoming symbolizers to an OpenLayers style object the
@@ -149,11 +150,51 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
    *
    * @param {Symbolizer[]} newSymbolizers The symbolizers holding the style to apply
    */
-  const applySymbolizers = async(newSymbolizers: Symbolizer[]) => {
+  const applySymbolizers = async(newSymbolizers: Symbolizer[], hasData = false) => {
     if (!newSymbolizers) {
       return undefined;
     }
     const styleParser = new OlStyleParser();
+    newSymbolizers = structuredClone(newSymbolizers);
+
+    // no geostyler data provided we replace the expressions with a placeholder symbol
+    if (!hasData) {
+      for (let i = 0; i < newSymbolizers.length; i++) {
+        for (const value of Object.values(newSymbolizers[i])) {
+          if (isGeoStylerFunction(value)) {
+            const kind = newSymbolizers[i].kind;
+            if (['Mark', 'Icon', 'Text'].includes(kind)) {
+              newSymbolizers[i] = {
+                kind: 'Icon',
+                image: placeholder,
+                size: 24
+              } as IconSymbolizer;
+            }
+            if (kind === 'Fill') {
+              newSymbolizers[i] = {
+                kind: 'Fill',
+                graphicFill: {
+                  kind: 'Icon',
+                  image: placeholder
+                }
+              };
+            }
+            // this is currently not supported by the openlayers parser
+            if (kind === 'Line') {
+              newSymbolizers[i] = {
+                kind: 'Line',
+                graphicStroke: {
+                  kind: 'Icon',
+                  image: placeholder,
+                  size: 24
+                }
+              };
+            }
+            break;
+          }
+        }
+      }
+    }
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
     // only accepts a Style object
@@ -161,7 +202,7 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
       name: 'WrapperStyle4Symbolizer',
       rules: [{
         name: 'WrapperRule4Symbolizer',
-        symbolizers: structuredClone(newSymbolizers)
+        symbolizers: newSymbolizers
       }]
     };
     // parser style to OL style
