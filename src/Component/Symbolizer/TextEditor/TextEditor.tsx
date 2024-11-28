@@ -70,13 +70,13 @@ export interface TextEditorComposableProps {
   };
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   sizeField?: InputConfig<SizeFieldProps['value']>;
-  offsetXField?: InputConfig<OffsetFieldProps['offset']>;
-  offsetYField?: InputConfig<OffsetFieldProps['offset']>;
-  rotateField?: InputConfig<RotateFieldProps['rotate']>;
+  offsetXField?: InputConfig<OffsetFieldProps['value']>;
+  offsetYField?: InputConfig<OffsetFieldProps['value']>;
+  rotateField?: InputConfig<RotateFieldProps['value']>;
   haloColorField?: InputConfig<ColorFieldProps['value']>;
   haloWidthField?: InputConfig<WidthFieldProps['value']>;
   // TODO add support for default values in VisibilityField
-  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
+  visibilityField?: InputConfig<VisibilityFieldProps['value']>;
 }
 
 export interface TextEditorInternalProps {
@@ -248,7 +248,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             label={locale.visibilityLabel}
           >
             <VisibilityField
-              visibility={visibility}
+              value={visibility}
               onChange={onVisibilityChange}
             />
           </Form.Item>
@@ -345,7 +345,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField
-              offset={offsetX}
+              value={offsetX}
               defaultValue={offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
@@ -360,7 +360,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField
-              offset={offsetY}
+              value={offsetY}
               defaultValue={offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
@@ -375,7 +375,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             {...getFormItemSupportProps('rotate')}
           >
             <RotateField
-              rotate={rotate as number}
+              value={rotate as number}
               defaultValue={rotateField?.default as number}
               onChange={onRotateChange}
             />

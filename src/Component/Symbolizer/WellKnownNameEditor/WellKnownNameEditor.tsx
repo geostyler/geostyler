@@ -50,16 +50,16 @@ import {
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface WellKnownNameEditorComposableProps {
-  radiusField?: InputConfig<RadiusFieldProps['radius']>;
-  offsetXField?: InputConfig<OffsetFieldProps['offset']>;
-  offsetYField?: InputConfig<OffsetFieldProps['offset']>;
+  radiusField?: InputConfig<RadiusFieldProps['value']>;
+  offsetXField?: InputConfig<OffsetFieldProps['value']>;
+  offsetYField?: InputConfig<OffsetFieldProps['value']>;
   fillColorField?: InputConfig<ColorFieldProps['value']>;
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   fillOpacityField?: InputConfig<OpacityFieldProps['value']>;
   strokeColorField?: InputConfig<ColorFieldProps['value']>;
   strokeWidthField?: InputConfig<WidthFieldProps['value']>;
   strokeOpacityField?: InputConfig<OpacityFieldProps['value']>;
-  rotateField?: InputConfig<RotateFieldProps['rotate']>;
+  rotateField?: InputConfig<RotateFieldProps['value']>;
 }
 
 export interface WellKnownNameEditorInternalProps {
@@ -202,7 +202,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.radiusLabel}
           >
             <RadiusField
-              radius={radius}
+              value={radius}
               defaultValue={radiusField?.default as number}
               onChange={onRadiusChange}
             />
@@ -216,7 +216,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.offsetXLabel}
           >
             <OffsetField
-              offset={offset?.[0]}
+              value={offset?.[0]}
               defaultValue={offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
@@ -230,7 +230,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.offsetYLabel}
           >
             <OffsetField
-              offset={offset?.[1]}
+              value={offset?.[1]}
               defaultValue={offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
@@ -328,7 +328,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
             label={locale.rotateLabel}
           >
             <RotateField
-              rotate={rotate}
+              value={rotate}
               defaultValue={rotateField?.default as number}
               onChange={onRotateChange}
             />

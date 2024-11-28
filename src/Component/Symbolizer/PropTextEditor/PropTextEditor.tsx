@@ -236,7 +236,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.offsetXLabel}
       >
         <OffsetField
-          offset={offsetX}
+          value={offsetX}
           onChange={onOffsetXChange}
         />
       </Form.Item>
@@ -245,7 +245,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.offsetYLabel}
       >
         <OffsetField
-          offset={offsetY}
+          value={offsetY}
           onChange={onOffsetYChange}
         />
       </Form.Item>
@@ -254,7 +254,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.rotateLabel}
       >
         <RotateField
-          rotate={rotate}
+          value={rotate}
           onChange={onRotateChange}
         />
       </Form.Item>

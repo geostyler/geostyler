@@ -34,7 +34,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface RotateFieldProps extends InputProps {
-  rotate?: Expression<number>;
+  value?: Expression<number>;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -43,7 +43,7 @@ export interface RotateFieldProps extends InputProps {
  */
 export const RotateField: React.FC<RotateFieldProps> = ({
   onChange,
-  rotate,
+  value,
   ...inputNumberProps
 }) => {
 
@@ -54,7 +54,7 @@ export const RotateField: React.FC<RotateFieldProps> = ({
   return (
     <NumberExpressionInput
       className="editor-field rotate-field"
-      value={rotate}
+      value={value}
       onChange={onChange}
       onCancel={onCancel}
       inputProps={{

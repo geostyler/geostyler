@@ -36,14 +36,9 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 import './LineDashField.less';
 
-// default props
-interface LineDashFieldDefaultProps {
-  dashArray: number[];
-}
-
-// non default props
-export interface LineDashFieldProps extends Partial<LineDashFieldDefaultProps> {
+export interface LineDashFieldProps {
   onChange?: (dashArray: number[]) => void;
+  value?: number[];
 }
 
 /**
@@ -51,12 +46,12 @@ export interface LineDashFieldProps extends Partial<LineDashFieldDefaultProps> {
  */
 export const LineDashField: React.FC<LineDashFieldProps> = ({
   onChange,
-  dashArray = []
+  value = []
 }) => {
 
   const onAddDash = () => {
     // add a new dash (UI)
-    let newDashArray = [...dashArray];
+    let newDashArray = [...value];
     newDashArray.push(1);
     if (onChange) {
       onChange(newDashArray);
@@ -65,7 +60,7 @@ export const LineDashField: React.FC<LineDashFieldProps> = ({
 
   const onRemoveDash = () => {
     // remove last dash (UI)
-    let newDashArray = [...dashArray];
+    let newDashArray = [...value];
     newDashArray.splice(newDashArray.length - 1, 1);
     if (onChange) {
       onChange(newDashArray);
@@ -75,16 +70,16 @@ export const LineDashField: React.FC<LineDashFieldProps> = ({
   return (
     <div className="editor-field linedash-field">
       {
-        dashArray.map((dash, idx) => <InputNumber
+        value.map((dash, idx) => <InputNumber
           key={idx}
           value={dash}
           min={1}
           step={1}
           style={{ width: 55 }}
-          onChange={(value: number) => {
+          onChange={(newValue: number) => {
             // replace current dash value
-            let newDashArray = [...dashArray];
-            newDashArray[idx] = value;
+            let newDashArray = [...value];
+            newDashArray[idx] = newValue;
             if (onChange) {
               onChange(newDashArray);
             }

@@ -43,7 +43,7 @@ import { getFormItemConfig } from '../../../../Util/FormItemUtil';
 export interface GrayChannelFieldProps {
   sourceChannelNames?: string[];
   onChange?: (channelSelection: ChannelSelection) => void;
-  channelSelection?: ChannelSelection;
+  value?: ChannelSelection;
 }
 
 /**
@@ -51,17 +51,17 @@ export interface GrayChannelFieldProps {
  */
 export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
   onChange,
-  channelSelection,
+  value,
   sourceChannelNames
 }) => {
 
   const locale = useGeoStylerLocale('GrayChannelField');
 
-  const onGrayChannelChange = (value: string) => {
-    const gray = value;
+  const onGrayChannelChange = (newValue: string) => {
+    const gray = newValue;
     let newChannelSelection: GrayChannel;
-    if (channelSelection && channelSelection.hasOwnProperty('grayChannel')) {
-      newChannelSelection = _cloneDeep(channelSelection) as GrayChannel;
+    if (newValue && newValue.hasOwnProperty('grayChannel')) {
+      newChannelSelection = _cloneDeep(value) as GrayChannel;
       newChannelSelection.grayChannel.sourceChannelName = gray;
     } else {
       newChannelSelection = {
@@ -86,7 +86,7 @@ export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}
           onChange={onGrayChannelChange}
-          sourceChannelName={_get(channelSelection, 'grayChannel.sourceChannelName')}
+          value={_get(value, 'grayChannel.sourceChannelName')}
         />
       </Form.Item>
     </div>

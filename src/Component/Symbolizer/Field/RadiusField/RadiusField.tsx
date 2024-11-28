@@ -34,7 +34,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface RadiusFieldProps extends InputProps {
-  radius?: Expression<number>;
+  value?: Expression<number>;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -43,7 +43,7 @@ export interface RadiusFieldProps extends InputProps {
  */
 export const RadiusField: React.FC<RadiusFieldProps> = ({
   onChange,
-  radius,
+  value,
   ...inputNumberProps
 }) => {
 
@@ -54,7 +54,7 @@ export const RadiusField: React.FC<RadiusFieldProps> = ({
   return (
     <NumberExpressionInput
       className="editor-field radius-field"
-      value={radius}
+      value={value}
       onChange={onChange}
       onCancel={onCancel}
       inputProps={{

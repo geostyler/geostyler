@@ -37,13 +37,8 @@ import _get from 'lodash/get';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 const Option = Select.Option;
 
-// default props
-interface WellKnownNameFieldDefaultProps {
-}
-
-// non default props
-export interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefaultProps> {
-  wellKnownName?: WellKnownName;
+export interface WellKnownNameFieldProps {
+  value?: WellKnownName;
   wellKnownNames?: WellKnownName[];
   onChange?: (wellKnownName: WellKnownName) => void;
 }
@@ -53,7 +48,7 @@ export interface WellKnownNameFieldProps extends Partial<WellKnownNameFieldDefau
  */
 export const WellKnownNameField: React.FC<WellKnownNameFieldProps> = ({
   onChange,
-  wellKnownName = 'circle',
+  value = 'circle',
   wellKnownNames = ['circle', 'square', 'triangle', 'star', 'cross', 'x',
     'shape://backslash', 'shape://carrow', 'shape://dot',
     'shape://horline', 'shape://oarrow', 'shape://plus',
@@ -80,7 +75,7 @@ export const WellKnownNameField: React.FC<WellKnownNameFieldProps> = ({
   return (
     <Select
       className="editor-field wellknownname-field"
-      value={wellKnownName}
+      value={value}
       onChange={onChange}
     >
       {getWKNSelectOptions()}

@@ -34,7 +34,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface FadeDurationFieldProps extends InputProps {
-  fadeDuration?: number;
+  value?: number;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -43,7 +43,7 @@ export interface FadeDurationFieldProps extends InputProps {
  */
 export const FadeDurationField: React.FC<FadeDurationFieldProps> = ({
   onChange,
-  fadeDuration,
+  value,
   ...inputNumberProps
 }) => {
 
@@ -54,7 +54,7 @@ export const FadeDurationField: React.FC<FadeDurationFieldProps> = ({
   return (
     <NumberExpressionInput
       className="editor-field fadeDuration-field"
-      value={fadeDuration}
+      value={value}
       onChange={onChange}
       onCancel={onCancel}
       inputProps={{

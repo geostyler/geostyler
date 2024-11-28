@@ -36,8 +36,8 @@ import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStyl
 
 type InputProps = BooleanExpressionInputProps['switchProps'];
 
-export interface VisibilityFieldProps extends InputProps {
-  visibility?: Expression<boolean>;
+export interface VisibilityFieldProps extends Omit<InputProps, 'value'> {
+  value?: Expression<boolean>;
   onChange?: (newValue: Expression<boolean>) => void;
 }
 
@@ -46,7 +46,7 @@ export interface VisibilityFieldProps extends InputProps {
  */
 export const VisibilityField: React.FC<VisibilityFieldProps> = ({
   onChange,
-  visibility,
+  value,
   ...inputBooleanProps
 }) => {
 
@@ -59,7 +59,7 @@ export const VisibilityField: React.FC<VisibilityFieldProps> = ({
   return (
     <BooleanExpressionInput
       className="editor-field visibility-field"
-      value={visibility === undefined ? true : visibility}
+      value={value === undefined ? true : value}
       onChange={onChange}
       onCancel={onCancel}
       switchProps={{...inputBooleanProps}}

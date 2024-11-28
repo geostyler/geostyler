@@ -34,7 +34,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface GammaFieldProps extends InputProps {
-  gamma?: number;
+  value?: number;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -43,7 +43,7 @@ export interface GammaFieldProps extends InputProps {
  */
 export const GammaField: React.FC<GammaFieldProps> = ({
   onChange,
-  gamma,
+  value,
   ...inputNumberProps
 }) => {
 
@@ -54,7 +54,7 @@ export const GammaField: React.FC<GammaFieldProps> = ({
   return (
     <NumberExpressionInput
       className="editor-field gamma-field"
-      value={gamma}
+      value={value}
       onChange={onChange}
       onCancel={onCancel}
       inputProps={{

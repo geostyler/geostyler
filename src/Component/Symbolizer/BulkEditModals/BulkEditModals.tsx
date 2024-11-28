@@ -153,7 +153,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
       >
         {locale.radiusLabel}
         <RadiusField
-          radius={size}
+          value={size}
           onChange={updateMultiSizes}
         />
       </Modal>
@@ -179,13 +179,13 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
       >
         <KindField
           symbolizerKinds={['Mark', 'Icon']}
-          kind={kind}
+          value={kind}
           onChange={setKind}
         />
         {
           kind === 'Mark' ? (
             <WellKnownNameField
-              wellKnownName={symbol}
+              value={symbol}
               onChange={(val) => {
                 updateMultiSymbols(val, kind);
               }}

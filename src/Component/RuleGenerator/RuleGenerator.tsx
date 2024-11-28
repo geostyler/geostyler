@@ -258,7 +258,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
           {...itemConfig}
         >
           <KindField
-            kind={symbolizerKind}
+            value={symbolizerKind}
             symbolizerKinds={[
               'Fill',
               'Mark',
@@ -272,7 +272,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
             {...itemConfig}
           >
             <WellKnownNameField
-              wellKnownName={wellKnownName}
+              value={wellKnownName}
               onChange={setWellKnownName}
             />
           </Form.Item>

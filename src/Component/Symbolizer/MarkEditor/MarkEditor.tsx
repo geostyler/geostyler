@@ -56,7 +56,7 @@ export interface MarkEditorComposableProps {
     visibility?: boolean;
   };
   // TODO add support for default values in VisibilityField
-  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
+  visibilityField?: InputConfig<VisibilityFieldProps['value']>;
 }
 
 export interface MarkEditorInternalProps {
@@ -111,7 +111,7 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
             label={locale.visibilityLabel}
           >
             <VisibilityField
-              visibility={symbolizer.visibility}
+              value={symbolizer.visibility}
               onChange={onVisibilityChange}
             />
           </Form.Item>
@@ -125,7 +125,7 @@ export const MarkEditor: React.FC<MarkEditorProps> = (props) => {
             {...getFormItemSupportProps('wellKnownName')}
           >
             <WellKnownNameField
-              wellKnownName={symbolizer.wellKnownName}
+              value={symbolizer.wellKnownName}
               onChange={onWellKnownNameChange}
             />
           </Form.Item>

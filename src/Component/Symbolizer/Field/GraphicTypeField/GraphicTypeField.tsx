@@ -44,7 +44,7 @@ export interface GraphicTypeFieldDefaultProps {
 
 export interface GraphicTypeFieldProps extends Partial<GraphicTypeFieldDefaultProps> {
   /** Currently selected GraphicType */
-  graphicType?: GraphicType;
+  value?: GraphicType;
   /** Callback when selection changes */
   onChange?: (type: GraphicType) => void;
 }
@@ -52,7 +52,7 @@ export interface GraphicTypeFieldProps extends Partial<GraphicTypeFieldDefaultPr
 /** GraphicTypeField to select between different GraphicTypes */
 export const GraphicTypeField: React.FC<GraphicTypeFieldProps> = ({
   onChange,
-  graphicType,
+  value,
   graphicTypes = ['Mark', 'Icon'],
   clearable = true,
   ...passThroughProps
@@ -75,7 +75,7 @@ export const GraphicTypeField: React.FC<GraphicTypeFieldProps> = ({
   return (
     <Select
       className="editor-field graphictype-field"
-      value={graphicType}
+      value={value}
       onChange={onChange}
       allowClear={clearable}
       {...passThroughProps}
