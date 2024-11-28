@@ -260,9 +260,8 @@ const zh_CN: GeoStylerLocale = {
     labelLabel: '图例',
     opacityLabel: '不透明度'
   },
-  Preview: {
-    openEditorText: '符号编辑',
-    closeEditorText: '关闭编辑器'
+  PreviewMap: {
+    errorTitle: '无效的 geostyler-style',
   },
   ColorField: {
     chooseText: '选取'

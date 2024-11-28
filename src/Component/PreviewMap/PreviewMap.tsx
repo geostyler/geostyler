@@ -25,7 +25,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import OlMap from 'ol/Map';
 import OlLayerVector from 'ol/layer/Vector';
@@ -53,7 +53,8 @@ import GeometryUtil from '../../Util/GeometryUtil';
 import './PreviewMap.less';
 import { StandardLonghandProperties } from 'csstype';
 import { isString } from 'lodash';
-import { useGeoStylerData } from '../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerData, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import { Alert } from 'antd';
 
 export interface PreviewMapProps {
   /** The projection of the data to visualize */
@@ -82,6 +83,10 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
   const containerRef = useRef();
 
   const data = useGeoStylerData();
+
+  const [errorMsg, setErrorMsg] = useState<string | undefined>();
+
+  const locale = useGeoStylerLocale('PreviewMap');
 
   /** the vector layer for the passed features */
   const dataLayerRef = useRef<OlLayerVector<any>>(new OlLayerVector({
@@ -153,15 +158,18 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
 
       let proj: Projection = getProjection(dataProjection);
 
+      setErrorMsg(undefined);
       if (!proj && isString(dataProjection)) {
         try {
           proj = await fetchInfo(dataProjection);
         } catch (error) {
-          throw new Error(`Could not get dataProjection: ${dataProjection}`);
+          setErrorMsg(`Could not get dataProjection: ${dataProjection}`);
+          // throw new Error(`Could not get dataProjection: ${dataProjection}`);
         }
       }
       if (!proj) {
-        throw new Error(`Could not get dataProjection: ${dataProjection}`);
+        setErrorMsg(`Could not get dataProjection: ${dataProjection}`);
+        // throw new Error(`Could not get dataProjection: ${dataProjection}`);
       }
 
       const format = new OlFormatGeoJSON({
@@ -196,13 +204,18 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
   useEffect(() => {
     const map = mapRef.current;
     const dataLayer = dataLayerRef.current;
-    if (!data && dataLayer && map && style) {
-      const geoms = GeometryUtil.getSampleGeomFromStyle(style, map.getView().getProjection());
-      geoms.forEach((geometry: any) => {
-        const feature = new OlFeature({ geometry });
-        dataLayer.getSource().addFeature(feature);
-      });
-      zoomToData();
+    setErrorMsg(undefined);
+    try {
+      if (!data && dataLayer && map && style) {
+        const geoms = GeometryUtil.getSampleGeomFromStyle(style, map.getView().getProjection());
+        geoms.forEach((geometry: any) => {
+          const feature = new OlFeature({ geometry });
+          dataLayer.getSource().addFeature(feature);
+        });
+        zoomToData();
+      }
+    } catch (error) {
+      setErrorMsg(`Could not create sample geometries: ${error}`);
     }
   }, [style, data]);
 
@@ -237,6 +250,16 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
       }
     }
   }, [onMapDidMount]);
+
+  if (errorMsg) {
+    return (
+      <Alert
+        type='error'
+        message={locale.errorTitle}
+        description={errorMsg}
+      />
+    );
+  }
 
   return (
     <div

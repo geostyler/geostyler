@@ -260,9 +260,8 @@ const fr_FR: GeoStylerLocale = {
     labelLabel: 'Étiquette',
     opacityLabel: 'Opacité'
   },
-  Preview: {
-    openEditorText: 'Modifier la symbolisation',
-    closeEditorText: 'Fermer l\'éditeur'
+  PreviewMap: {
+    errorTitle: 'geostyler-style invalide',
   },
   ColorField: {
     chooseText: 'Choisir'

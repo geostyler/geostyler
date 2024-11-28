@@ -284,9 +284,8 @@ const es_ES: GeoStylerLocale = {
     haloColorLabel: 'Halo-Color',
     haloWidthLabel: 'Halo-Width'
   },
-  Preview: {
-    openEditorText: 'Editor de simbología',
-    closeEditorText: 'Cerrar editor'
+  PreviewMap: {
+    errorTitle: 'geostyler-style inválido',
   },
   ColorField: {
     chooseText: 'Elegir'
