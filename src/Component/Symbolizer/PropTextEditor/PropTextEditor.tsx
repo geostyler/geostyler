@@ -209,7 +209,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
         label={locale.fontLabel}
       >
         <FontPicker
-          font={font as string[]}
+          value={font as string[]}
           onChange={onFontChange}
         />
       </Form.Item>
