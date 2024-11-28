@@ -33,13 +33,9 @@ import {
 
 import './NameField.less';
 
-// default props
-export interface NameFieldDefaultProps {
+export interface NameFieldProps {
   /** The placeholder text of the input field if no value was specified */
-  placeholder: string;
-}
-// non default props
-export interface NameFieldProps extends Partial<NameFieldDefaultProps> {
+  placeholder?: string;
   /** The value to display in input field */
   value?: string | undefined;
   /** The callback method that is triggered when the state changes */

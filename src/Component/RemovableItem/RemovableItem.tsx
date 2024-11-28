@@ -30,14 +30,9 @@ import { CloseCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import './RemovableItem.less';
 
-// default props
-export interface RemovableItemDefaultProps extends React.PropsWithChildren {
+export interface RemovableItemProps extends React.PropsWithChildren {
   /** The callback that is being called, when the item was clicked. */
-  onRemoveClick: () => void;
-}
-
-// non default props
-export interface RemovableItemProps extends Partial<RemovableItemDefaultProps> {
+  onRemoveClick?: () => void;
 }
 
 export const RemovableItem: React.FC<RemovableItemProps> = ({

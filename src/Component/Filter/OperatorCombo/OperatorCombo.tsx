@@ -32,27 +32,23 @@ import { ComparisonOperator } from 'geostyler-style';
 import { Select, Form } from 'antd';
 const Option = Select.Option;
 
-// default props
-interface OperatorComboDefaultProps {
+export interface OperatorComboProps {
   /** Label for this field */
-  label: string;
+  label?: string;
   /** Show title of selected item */
-  showTitles: boolean;
+  showTitles?: boolean;
   /** The default text to place into the empty field */
-  placeholder: string;
+  placeholder?: string;
   /** List of operators to show in this combo */
-  operators: ComparisonOperator[];
+  operators?: ComparisonOperator[];
   /** Mapping function for operator names in this combo */
-  operatorNameMappingFunction: (originalOperatorName: string) => string;
+  operatorNameMappingFunction?: (originalOperatorName: string) => string;
   /** Mapping function for operator title in this combo */
-  operatorTitleMappingFunction: (originalOperatorName: string) => string;
+  operatorTitleMappingFunction?: (originalOperatorName: string) => string;
   /** Validation status */
-  validateStatus: 'success' | 'warning' | 'error' | 'validating';
+  validateStatus?: 'success' | 'warning' | 'error' | 'validating';
   /** Element to show a help text */
-  help: React.ReactNode;
-}
-// non default props
-export interface OperatorComboProps extends Partial<OperatorComboDefaultProps> {
+  help?: React.ReactNode;
   /** Callback function for onChange */
   onOperatorChange?: ((newOperator: ComparisonOperator) => void);
   /** Initial value set to the field */

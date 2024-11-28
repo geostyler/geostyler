@@ -30,12 +30,7 @@ import React, { ReactNode, useState } from 'react';
 import './Selectable.less';
 import { SelectableItem } from './SelectableItem/SelectableItem';
 
-// default props
-export interface SelectableDefaultProps extends React.PropsWithChildren {
-}
-
-// non default props
-export interface SelectableProps extends Partial<SelectableDefaultProps> {
+export interface SelectableProps extends React.PropsWithChildren {
   /** The ids of the selected items. */
   selection?: number[];
   /** The change event that is triggered, when the selection changes. */

@@ -32,7 +32,6 @@ import {
   Radio
 } from 'antd';
 
-// non default props
 export interface ExtendedFieldProps {
   onChange?: (extended: boolean) => void;
   value?: boolean;

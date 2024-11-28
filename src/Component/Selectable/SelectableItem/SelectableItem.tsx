@@ -30,16 +30,11 @@ import { CheckCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import './SelectableItem.less';
 
-// default props
-export interface SelectableItemDefaultProps extends React.PropsWithChildren {
+export interface SelectableItemProps extends React.PropsWithChildren {
   /** The callback that is being called, when the item was clicked. */
-  onItemClick: () => void;
+  onItemClick?: () => void;
   /** Whether the item is currently selected. */
-  selected: boolean;
-}
-
-// non default props
-export interface SelectableItemProps extends Partial<SelectableItemDefaultProps> {
+  selected?: boolean;
 }
 
 export const SelectableItem: React.FC<SelectableItemProps> = ({

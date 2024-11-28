@@ -38,14 +38,9 @@ import {
 } from 'geostyler-style';
 import FunctionUtil from '../../../../Util/FunctionUtil';
 
-// default props
-interface ContrastEnhancementFieldDefaultProps {
-  contrastEnhancementOptions: ContrastEnhancement['enhancementType'][];
-}
-
-// non default props
-export interface ContrastEnhancementFieldProps extends Partial<ContrastEnhancementFieldDefaultProps> {
+export interface ContrastEnhancementFieldProps {
   onChange?: (contrastEnhancement: ContrastEnhancement['enhancementType']) => void;
+  contrastEnhancementOptions?: ContrastEnhancement['enhancementType'][];
   value?: ContrastEnhancement['enhancementType'];
 }
 

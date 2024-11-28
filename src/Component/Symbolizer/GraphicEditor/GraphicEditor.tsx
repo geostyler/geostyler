@@ -43,13 +43,9 @@ import { Form } from 'antd';
 import _get from 'lodash/get';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
-export interface GraphicEditorDefaultProps {
+export interface GraphicEditorProps {
   /** Label being used on TypeField */
-  graphicTypeFieldLabel: string;
-}
-
-// non default props
-export interface GraphicEditorProps extends Partial<GraphicEditorDefaultProps> {
+  graphicTypeFieldLabel?: string;
   /** PointSymbolizer that is being used as graphic */
   value: PointSymbolizer;
   /** Currently selected GraphicType */

@@ -34,13 +34,8 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-// default props
-interface SourceChannelNameFieldDefaultProps {
-  placeholder: string;
-}
-
-// non default props
-export interface SourceChannelNameFieldProps extends Partial<SourceChannelNameFieldDefaultProps> {
+export interface SourceChannelNameFieldProps {
+  placeholder?: string;
   sourceChannelNames?: string[];
   onChange?: (sourceChannelName: string) => void;
   value?: string;

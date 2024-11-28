@@ -53,19 +53,14 @@ import './BulkEditModals.less';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 
-// default props
-interface BulkEditModalsDefaultProps {
-  colorModalVisible: boolean;
-  sizeModalVisible: boolean;
-  opacityModalVisible: boolean;
-  symbolModalVisible: boolean;
-  style: GsStyle;
-  selectedRowKeys: number[];
-  modalsClosed: ModalProps['onCancel'];
-}
-
-// non default props
-export interface BulkEditModalsProps extends Partial<BulkEditModalsDefaultProps> {
+export interface BulkEditModalsProps {
+  colorModalVisible?: boolean;
+  sizeModalVisible?: boolean;
+  opacityModalVisible?: boolean;
+  symbolModalVisible?: boolean;
+  style?: GsStyle;
+  selectedRowKeys?: number[];
+  modalsClosed?: ModalProps['onCancel'];
   updateMultiColors?: (x: Expression<string>) => void;
   updateMultiSizes?: (x: Expression<number> | undefined) => void;
   updateMultiOpacities?: (x: Expression<number> | undefined) => void;

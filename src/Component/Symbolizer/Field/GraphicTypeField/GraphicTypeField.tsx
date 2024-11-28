@@ -35,14 +35,11 @@ import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStyl
 
 const Option = Select.Option;
 
-export interface GraphicTypeFieldDefaultProps {
+export interface GraphicTypeFieldProps {
   /** List of selectable GraphicTypes for Select */
-  graphicTypes: GraphicType[];
+  graphicTypes?: GraphicType[];
   /** If true GraphicTypeField can be cleared  */
-  clearable: boolean;
-}
-
-export interface GraphicTypeFieldProps extends Partial<GraphicTypeFieldDefaultProps> {
+  clearable?: boolean;
   /** Currently selected GraphicType */
   value?: GraphicType;
   /** Callback when selection changes */
