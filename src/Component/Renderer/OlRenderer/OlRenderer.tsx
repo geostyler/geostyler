@@ -84,24 +84,14 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
       case 'Mark':
       case 'Icon':
       case 'Text':
-        return new OlGeomPoint([7.10066, 50.735851]);
+        return new OlGeomPoint([7, 50]);
       case 'Fill':
         return new OlGeomPolygon([[
-          [7.1031761169433585, 50.734268655851345],
-          [7.109270095825195, 50.734268655851345, ],
-          [7.109270095825195, 50.73824770380063],
-          [7.1031761169433585, 50.73824770380063],
-          [7.1031761169433585, 50.734268655851345, ]
+          [7, 50],[8, 51],[9, 51],[10, 50],[9, 49],[8, 48],[7, 48],[6, 49],[6, 50],[7, 50]
         ]]);
       case 'Line':
         return new OlGeomLineString([
-          [7.062578201293945, 50.721786104206004],
-          [7.077512741088867, 50.729610159968296],
-          [7.082319259643555, 50.732435192351126],
-          [7.097940444946289, 50.73748722929948],
-          [7.106866836547852, 50.73775882875318],
-          [7.117509841918945, 50.73889952925885],
-          [7.129182815551758, 50.7504679214779]
+          [7, 50], [8, 50], [8.4, 50.75], [9, 49], [9.5, 52], [10, 49.5], [10.2, 50], [12, 50]
         ]);
       default:
         return new OlGeomPoint([7.10066, 50.735851]);
@@ -118,7 +108,8 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
     // zoom to feature extent
     const extent = layer.current.getSource().getExtent();
     map.current.getView().fit(extent, {
-      maxZoom: 20
+      maxZoom: 20,
+      padding: [10, 10, 10, 10]
     });
   }, [getSampleGeomFromSymbolizer]);
 
@@ -167,14 +158,24 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
           const kind = newSymbolizers[i].kind;
           if (['Mark', 'Icon', 'Text'].includes(kind)) {
             clonedSymbolizers = [{
+              kind: 'Mark',
+              wellKnownName: 'circle',
+              strokeColor: '#000000',
+              strokeWidth: 2,
+              color: '#FFFFFF',
+              radius: 20
+            }, {
               kind: 'Icon',
               image: placeholder,
-              size: 24
+              size: 24,
+              offset: [24, -24]
             }];
           }
           if (kind === 'Fill') {
             clonedSymbolizers = [{
               kind: 'Fill',
+              outlineColor: '#000000',
+              outlineWidth: 2,
               graphicFill: {
                 kind: 'Icon',
                 image: placeholder,
@@ -186,11 +187,11 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
           if (kind === 'Line') {
             clonedSymbolizers = [{
               kind: 'Line',
-              graphicStroke: {
-                kind: 'Icon',
-                image: placeholder,
-                size: 24
-              }
+              width: 2
+            }, {
+              kind: 'Icon',
+              image: placeholder,
+              size: 24
             }];
           }
           break;
