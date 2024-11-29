@@ -83,7 +83,9 @@ class TextEditorExample extends React.Component {
 <TextEditorExample />
 ```
 
-This demonstrates the usage of `TextEditor` with `GeoStylerContext`.
+This demonstrates the usage of `TextEditor` with `GeoStylerContext`. The visibility
+of each field can be toggled and a default value can be set. Also the fonts for the
+fontField can be specified.
 
 ```jsx
 import React, { useState } from 'react';
@@ -102,7 +104,14 @@ function TextEditorExample () {
           visibility: true
         },
         fontField: {
-          visibility: true
+          visibility: true,
+          default: ['Wingdings', 'Comic Sans MS'],
+          fonts: [
+            'Comic Sans MS',
+            'Wingdings',
+            'Arial',
+            'Verdana',
+          ]
         },
         opacityField: {
           visibility: true

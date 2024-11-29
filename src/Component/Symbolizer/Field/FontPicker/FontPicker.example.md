@@ -39,27 +39,26 @@ class FontPickerExample extends React.Component {
     super(props);
 
     this.state = {
-      font: ['arial']
+      value: ['arial']
     };
 
     this.onChange = this.onChange.bind(this);
   }
 
-  onChange(font) {
+  onChange(value) {
     this.setState({
-      font: font
+      value
     });
   }
 
   render() {
     const {
-      font
+      value
     } = this.state;
 
     return (
       <FontPicker
-        font={font}
-        fontOptions={['monospace', 'fantasy', 'serif', 'sans-serif']}
+        value={value}
         onChange={this.onChange}
       />
     );

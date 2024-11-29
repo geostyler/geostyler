@@ -29,36 +29,30 @@
 import React from 'react';
 
 import {
-  Select
+  Select,
+  SelectProps
 } from 'antd';
 
-// default props
-interface FontPickerDefaultProps {
-  fontOptions: string[];
-}
-
-// non default props
-export interface FontPickerProps extends Partial<FontPickerDefaultProps> {
-  onChange?: (fonts: string[]) => void;
-  font?: string[];
+export interface FontPickerProps extends Omit<SelectProps, 'options' | 'defaultValue'> {
+  fonts?: string[];
+  defaultValue?: string[];
 }
 
 /**
  * FontPicker to select font types / families
  */
 export const FontPicker: React.FC<FontPickerProps> = ({
-  onChange,
-  font,
-  fontOptions = [
+  fonts = [
     'Arial', 'Verdana', 'Sans-serif',
     'Courier New', 'Lucida Console', 'Monospace',
     'Times New Roman', 'Georgia', 'Serif'
-  ]
+  ],
+  ...restProps
 }) => {
 
   let options: {label: string; value: string}[];
-  if (fontOptions) {
-    options = fontOptions.map((fontOpt: string) => {
+  if (fonts) {
+    options = fonts.map((fontOpt: string) => {
       return {
         label: fontOpt,
         value: fontOpt
@@ -70,8 +64,7 @@ export const FontPicker: React.FC<FontPickerProps> = ({
     <Select
       className="editor-field font-picker"
       mode="tags"
-      value={font}
-      onChange={onChange}
+      {...restProps}
       options={options}
     />
   );

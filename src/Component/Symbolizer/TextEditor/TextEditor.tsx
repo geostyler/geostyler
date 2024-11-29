@@ -44,7 +44,7 @@ import {
 import { ColorField, ColorFieldProps } from '../Field/ColorField/ColorField';
 import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
 import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
-import { FontPicker } from '../Field/FontPicker/FontPicker';
+import { FontPicker, FontPickerProps } from '../Field/FontPicker/FontPicker';
 import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
 import { RotateField, RotateFieldProps } from '../Field/RotateField/RotateField';
 import { SizeFieldProps } from '../Field/SizeField/SizeField';
@@ -64,10 +64,7 @@ import { getFormItemConfig } from '../../../Util/FormItemUtil';
 export interface TextEditorComposableProps {
   templateField?: InputConfig<string>;
   colorField?: InputConfig<ColorFieldProps['value']>;
-  // TODO add support for default values in FontPicker
-  fontField?: {
-    visibility?: boolean;
-  };
+  fontField?: InputConfig<FontPickerProps['value']> & { fonts?: FontPickerProps['fonts'] };
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   sizeField?: InputConfig<SizeFieldProps['value']>;
   offsetXField?: InputConfig<OffsetFieldProps['offset']>;
@@ -301,8 +298,10 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
             {...getFormItemSupportProps('font')}
           >
             <FontPicker
-              font={font as string[]}
+              value={font as string[]}
+              defaultValue={fontField?.default as string[]}
               onChange={onFontChange}
+              fonts={fontField?.fonts}
             />
           </Form.Item>
         )
