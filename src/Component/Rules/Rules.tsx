@@ -60,10 +60,6 @@ export interface RulesComposableProps {
 }
 
 export interface RulesInternalProps {
-  /** Display the number of features that match a rule */
-  showAmount?: boolean;
-  /** Display the number of features that match more than one rule */
-  showDuplicates?: boolean;
   /** List of rules to display in rule table */
   rules: GsRule[];
   /** The callback function that is triggered when the rules change */
