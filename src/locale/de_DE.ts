@@ -261,9 +261,9 @@ const de_DE: GeoStylerLocale = {
     opacityLabel: 'Deckkraft'
   },
   PreviewMap: {
-    errorTitle: 'Invalider geostyler-style',
-    couldNotGetDataProjection: 'Konnte Datenprojektion nicht erhalten',
-    couldNotCreateSampleGeometries: 'Konnte keine Beispiele Geometrien erstellen'
+    errorTitle: 'Ungültiger geostyler-style',
+    couldNotGetDataProjection: 'Projektion der Daten konnte nicht ermittelt werden',
+    couldNotCreateSampleGeometries: 'Beispielgeometrien konnten nicht erstellt werden'
   },
   ColorField: {
     chooseText: 'Wählen'
