@@ -284,9 +284,10 @@ const es_ES: GeoStylerLocale = {
     haloColorLabel: 'Halo-Color',
     haloWidthLabel: 'Halo-Width'
   },
-  Preview: {
-    openEditorText: 'Editor de simbología',
-    closeEditorText: 'Cerrar editor'
+  PreviewMap: {
+    errorTitle: 'geostyler-style inválido',
+    couldNotGetDataProjection: 'No se pudo obtener la proyección de los datos',
+    couldNotCreateSampleGeometries: 'No se pudieron crear geometrías de ejemplo',
   },
   ColorField: {
     chooseText: 'Elegir'

@@ -219,9 +219,10 @@ export default interface GeoStylerLocale {
     labelLabel: string;
     opacityLabel: string;
   };
-  Preview: {
-    openEditorText: string;
-    closeEditorText: string;
+  PreviewMap: {
+    errorTitle: string;
+    couldNotGetDataProjection: string;
+    couldNotCreateSampleGeometries: string;
   };
   ColorField: {
     chooseText: string;

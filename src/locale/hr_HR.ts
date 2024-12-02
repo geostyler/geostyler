@@ -259,9 +259,10 @@ const hr_HR: GeoStylerLocale = {
     labelLabel: 'Oznaka',
     opacityLabel: 'Prozirnost'
   },
-  Preview: {
-    openEditorText: 'Uredi Simbolizator',
-    closeEditorText: 'Zatvori editor'
+  PreviewMap: {
+    errorTitle: 'Nevažeći geostyler-style',
+    couldNotGetDataProjection: 'Nije moguće dobiti projekciju podataka',
+    couldNotCreateSampleGeometries: 'Nije moguće kreirati uzorak geometrije',
   },
   ColorField: {
     chooseText: 'Izaberi'

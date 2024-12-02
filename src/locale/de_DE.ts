@@ -260,9 +260,10 @@ const de_DE: GeoStylerLocale = {
     labelLabel: 'Beschriftung',
     opacityLabel: 'Deckkraft'
   },
-  Preview: {
-    openEditorText: 'Symbolisierung editieren',
-    closeEditorText: 'Editor schließen'
+  PreviewMap: {
+    errorTitle: 'Ungültiger geostyler-style',
+    couldNotGetDataProjection: 'Projektion der Daten konnte nicht ermittelt werden',
+    couldNotCreateSampleGeometries: 'Beispielgeometrien konnten nicht erstellt werden'
   },
   ColorField: {
     chooseText: 'Wählen'
