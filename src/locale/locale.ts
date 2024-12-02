@@ -430,4 +430,7 @@ export default interface GeoStylerLocale {
     add: string;
     remove: string;
   };
+  Renderer: {
+    placeholderInfo: string;
+  };
 };

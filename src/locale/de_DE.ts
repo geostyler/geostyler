@@ -457,6 +457,9 @@ const de_DE: GeoStylerLocale = {
     add: 'hinzufügen',
     remove: 'entfernen'
   },
+  Renderer: {
+    placeholderInfo: 'Dies ist ein Platzhalter, da der symbolizer Funktionen enthält und nicht angezeigt werden kann.'
+  },
   ...antd_de_DE
 };
 

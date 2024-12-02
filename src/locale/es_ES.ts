@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* Released under the BSD 2-Clause License
  *
@@ -456,6 +457,9 @@ const es_ES: GeoStylerLocale = {
   FunctionUI: {
     add: 'TODO(es_ES):add',
     remove: 'TODO(es_ES):remove',
+  },
+  Renderer: {
+    placeholderInfo: 'Esto es un marcador de posición ya que el simbolizador contiene funciones y no se puede previsualizar.'
   },
   ...antd_es_ES
 };

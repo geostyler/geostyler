@@ -447,15 +447,18 @@ const zh_CN: GeoStylerLocale = {
     placeholder: '… 选择GeoStylerFunction'
   },
   VisibilityField: {
-    on: 'TODO(zh_CN):on',
-    off: 'TODO(zh_CN):off',
+    on: '开',
+    off: '关'
   },
   UnknownInput: {
-    typeSelectToolip: 'TODO(zh_CN): Select input type'
+    typeSelectToolip: '选择输入类型'
   },
   FunctionUI: {
-    add: 'TODO(zh_CN):add',
-    remove: 'TODO(zh_CN):remove',
+    add: '添加',
+    remove: '移除'
+  },
+  Renderer: {
+    placeholderInfo: '这是一个占位符，因为符号包含函数，无法预览。'
   },
   ...antd_zh_CN
 };

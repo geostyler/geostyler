@@ -446,15 +446,18 @@ const hr_HR: GeoStylerLocale = {
     placeholder: '… odaberite GeoStylerFunction'
   },
   VisibilityField: {
-    on: 'TODO(hr_HR):on',
-    off: 'TODO(hr_HR):off',
+    on: 'uključeno',
+    off: 'isključeno'
   },
   UnknownInput: {
-    typeSelectToolip: 'TODO(hr_HR): Select input type'
+    typeSelectToolip: 'Odaberite tip unosa'
   },
   FunctionUI: {
-    add: 'TODO(hr_HR):add',
-    remove: 'TODO(hr_HR):remove'
+    add: 'Dodaj',
+    remove: 'Ukloni'
+  },
+  Renderer: {
+    placeholderInfo: 'Ovo je mjesto kao simbolizator sadrži funkcije i ne može se pregledati.'
   },
   ...antd_hr_HR
 };

@@ -41,7 +41,7 @@ import OlView from 'ol/View';
 
 import OlStyleParser from 'geostyler-openlayers-parser';
 
-import { Symbolizer, SymbolizerKind } from 'geostyler-style';
+import { isGeoStylerFunction, Symbolizer, SymbolizerKind } from 'geostyler-style';
 
 import './OlRenderer.less';
 
@@ -50,7 +50,10 @@ import 'ol/ol.css';
 import _isEqual from 'lodash/isEqual';
 import _get from 'lodash/get';
 import _uniqueId from 'lodash/uniqueId';
-import { useGeoStylerData } from '../../../context/GeoStylerContext/GeoStylerContext';
+import placeholder from './placeholder';
+import { InfoCircleTwoTone } from '@ant-design/icons';
+import { Tooltip } from 'antd';
+import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface OlRendererProps {
   symbolizers: Symbolizer[];
@@ -71,7 +74,9 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
   const map = useRef<OlMap>();
   const layer = useRef<OlLayerVector<any>>();
   const [ mapId ] = useState(_uniqueId('map_'));
-  const data = useGeoStylerData();
+  const [containsFunctions, setContainsFunctions] = useState(false);
+
+  const locale = useGeoStylerLocale('Renderer');
 
   const getSampleGeomFromSymbolizer = useCallback(() => {
     const kind: SymbolizerKind = symbolizerKind || _get(symbolizers, '[0].kind');
@@ -79,24 +84,14 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
       case 'Mark':
       case 'Icon':
       case 'Text':
-        return new OlGeomPoint([7.10066, 50.735851]);
+        return new OlGeomPoint([7, 50]);
       case 'Fill':
         return new OlGeomPolygon([[
-          [7.1031761169433585, 50.734268655851345],
-          [7.109270095825195, 50.734268655851345, ],
-          [7.109270095825195, 50.73824770380063],
-          [7.1031761169433585, 50.73824770380063],
-          [7.1031761169433585, 50.734268655851345, ]
+          [7, 50],[8, 51],[9, 51],[10, 50],[9, 49],[8, 48],[7, 48],[6, 49],[6, 50],[7, 50]
         ]]);
       case 'Line':
         return new OlGeomLineString([
-          [7.062578201293945, 50.721786104206004],
-          [7.077512741088867, 50.729610159968296],
-          [7.082319259643555, 50.732435192351126],
-          [7.097940444946289, 50.73748722929948],
-          [7.106866836547852, 50.73775882875318],
-          [7.117509841918945, 50.73889952925885],
-          [7.129182815551758, 50.7504679214779]
+          [7, 50], [8, 50], [8.4, 50.75], [9, 49], [9.5, 52], [10, 49.5], [10.2, 50], [12, 50]
         ]);
       default:
         return new OlGeomPoint([7.10066, 50.735851]);
@@ -104,21 +99,19 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
   }, [symbolizerKind, symbolizers]);
 
   const updateFeature = useCallback(() => {
-    const exampleFeatureProps: object = _get(data, 'exampleFeatures.features[0].properties');
-
     layer.current.getSource().clear();
     const sampleFeature = new OlFeature({
       geometry: getSampleGeomFromSymbolizer(),
-      Name: 'Sample Feature',
-      ...exampleFeatureProps
+      Name: 'Sample Feature'
     });
     layer.current.getSource().addFeature(sampleFeature);
     // zoom to feature extent
     const extent = layer.current.getSource().getExtent();
     map.current.getView().fit(extent, {
-      maxZoom: 20
+      maxZoom: 20,
+      padding: [10, 10, 10, 10]
     });
-  }, [data, getSampleGeomFromSymbolizer]);
+  }, [getSampleGeomFromSymbolizer]);
 
   useEffect(() => {
     layer.current = new OlLayerVector({
@@ -154,6 +147,59 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
       return undefined;
     }
     const styleParser = new OlStyleParser();
+    let clonedSymbolizers = structuredClone(newSymbolizers);
+    let hasFunctions = false;
+
+    // no geostyler data provided we replace the expressions with a placeholder symbol
+    for (let i = 0; i < newSymbolizers.length; i++) {
+      for (const value of Object.values(newSymbolizers[i])) {
+        if (isGeoStylerFunction(value)) {
+          hasFunctions = true;
+          const kind = newSymbolizers[i].kind;
+          if (['Mark', 'Icon', 'Text'].includes(kind)) {
+            clonedSymbolizers = [{
+              kind: 'Mark',
+              wellKnownName: 'circle',
+              strokeColor: '#000000',
+              strokeWidth: 2,
+              color: '#FFFFFF',
+              radius: 20
+            }, {
+              kind: 'Icon',
+              image: placeholder,
+              size: 24,
+              offset: [24, -24]
+            }];
+          }
+          if (kind === 'Fill') {
+            clonedSymbolizers = [{
+              kind: 'Fill',
+              outlineColor: '#000000',
+              outlineWidth: 2,
+              graphicFill: {
+                kind: 'Icon',
+                image: placeholder,
+                size: 24
+              }
+            }];
+          }
+          // this is currently not supported by the openlayers parser
+          if (kind === 'Line') {
+            clonedSymbolizers = [{
+              kind: 'Line',
+              width: 2
+            }, {
+              kind: 'Icon',
+              image: placeholder,
+              size: 24
+            }];
+          }
+          break;
+        }
+      }
+    }
+
+    setContainsFunctions(hasFunctions);
 
     // we have to wrap the symbolizer in a Style object since the writeStyle
     // only accepts a Style object
@@ -161,7 +207,7 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
       name: 'WrapperStyle4Symbolizer',
       rules: [{
         name: 'WrapperRule4Symbolizer',
-        symbolizers: structuredClone(newSymbolizers)
+        symbolizers: clonedSymbolizers
       }]
     };
     // parser style to OL style
@@ -177,15 +223,22 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
 
   return (
     <div
+      id={mapId}
+      className="gs-symbolizer-olrenderer"
+      role="presentation"
       onClick={(event) => {
         if (onClick) {
           onClick(symbolizers, event);
         }
       }}
-      className="gs-symbolizer-olrenderer"
-      role="presentation"
-      id={mapId}
-    />
+    >
+      {
+        containsFunctions &&
+          <Tooltip title={locale.placeholderInfo}>
+            <InfoCircleTwoTone />
+          </Tooltip>
+      }
+    </div>
   );
 
 };

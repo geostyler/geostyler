@@ -79,7 +79,7 @@ function RendererExample () {
       rendererType='SLD'
       symbolizers={symbolizers}
       hideEditButton={true}
-      wmsBaseUrl='https://ows-demo.terrestris.de/geoserver/ows?'
+      wmsBaseUrl='https://ows-demo.terrestris.de/geoserver/wms?'
       layer='terrestris:bundeslaender'
     />
   );
@@ -88,68 +88,66 @@ function RendererExample () {
 <RendererExample />
 ```
 
-This shows a Renderer with a geostyler function. When using "property" function
-it is needed to pass it via GeoStylerContext.
+If the passed symbolizers contain one or more geostyler functions the style of
+the feature is related to the data and can not be previewed. In this case the
+preview shows a placeholder symbolizer.
 
 ```jsx
-import React, { useState } from 'react';
-import { InputNumber } from 'antd';
-import { Renderer, GeoStylerContext } from 'geostyler';
+import React from 'react';
+import { Renderer } from 'geostyler';
 
 function RendererExample () {
 
-  const [size, setSize] = useState(8);
-
-  const symbolizers = [{
+  const markSymbolizer = {
     kind: 'Mark',
     wellKnownName: 'circle',
     color: {
       name: 'property',
       args: ['color']
     },
-    radius: {
-      name: 'min',
-      args: [{
-        name: 'property',
-        args: ['size']
-      }, 36]
-    },
-    strokeWidth: {
-      name: 'sqrt',
-      args: [{
-        name: 'property',
-        args: ['size']
-      }]
-    }
-  }];
+    radius: 24,
+    strokeWidth: 2
+  };
 
-  const ctx = {
-    data: {
-      exampleFeatures: {
-        features: [{
-          properties: {
-            color: '#00ff00',
-            size
-          }
-        }]
-      }
+  const fillSymbolizer = {
+    kind: 'Fill',
+    outlineColor: {
+      name: 'property',
+      args: ['color']
+    }
+  };
+
+  const lineSymbolizer = {
+    kind: 'Line',
+    width: {
+      name: 'property',
+      args: ['width']
     }
   };
 
   return (
     <div>
-      property value of "size":
-      <InputNumber
-        value={size}
-        min={0}
-        onChange={setSize}
-      />
-      <GeoStylerContext.Provider value={ctx}>
+      <div className="sample">
+        MarkSymbolizer
         <Renderer
-          symbolizers={symbolizers}
+          symbolizers={[markSymbolizer]}
           hideEditButton={true}
         />
-      </GeoStylerContext.Provider>
+      </div>
+      <div className="sample">
+        FillSymbolizer
+        <Renderer
+          symbolizers={[fillSymbolizer]}
+          hideEditButton={true}
+        />
+      </div>
+      <div className="sample">
+        LineSymbolizer
+        <Renderer
+          symbolizers={[lineSymbolizer]}
+          hideEditButton={true}
+        />
+      </div>
     </div>
   );
 }
