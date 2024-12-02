@@ -221,6 +221,8 @@ export default interface GeoStylerLocale {
   };
   PreviewMap: {
     errorTitle: string;
+    couldNotGetDataProjection: string;
+    couldNotCreateSampleGeometries: string;
   };
   ColorField: {
     chooseText: string;

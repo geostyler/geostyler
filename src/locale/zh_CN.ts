@@ -262,6 +262,8 @@ const zh_CN: GeoStylerLocale = {
   },
   PreviewMap: {
     errorTitle: '无效的 geostyler-style',
+    couldNotGetDataProjection: '无法获取数据投影',
+    couldNotCreateSampleGeometries: '无法创建示例几何',
   },
   ColorField: {
     chooseText: '选取'

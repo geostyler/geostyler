@@ -163,13 +163,11 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
         try {
           proj = await fetchInfo(dataProjection);
         } catch (error) {
-          setErrorMsg(`Could not get dataProjection: ${dataProjection}`);
-          // throw new Error(`Could not get dataProjection: ${dataProjection}`);
+          setErrorMsg(`${locale.couldNotGetDataProjection}: ${dataProjection}`);
         }
       }
       if (!proj) {
-        setErrorMsg(`Could not get dataProjection: ${dataProjection}`);
-        // throw new Error(`Could not get dataProjection: ${dataProjection}`);
+        setErrorMsg(`${locale.couldNotGetDataProjection}: ${dataProjection}`);
       }
 
       const format = new OlFormatGeoJSON({
@@ -180,7 +178,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
       dataLayer.getSource().addFeatures(olFeatures);
       zoomToData();
     }
-  }, [data, dataProjection]);
+  }, [data, dataProjection, locale]);
 
   useEffect(() => {
     refreshData();
@@ -215,9 +213,9 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
         zoomToData();
       }
     } catch (error) {
-      setErrorMsg(`Could not create sample geometries: ${error}`);
+      setErrorMsg(`${locale.couldNotCreateSampleGeometries} ${error}`);
     }
-  }, [style, data]);
+  }, [style, data, locale]);
 
   // Set the map if a mapProp is passed
   useEffect(() => {

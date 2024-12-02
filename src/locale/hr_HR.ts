@@ -261,6 +261,8 @@ const hr_HR: GeoStylerLocale = {
   },
   PreviewMap: {
     errorTitle: 'Nevažeći geostyler-style',
+    couldNotGetDataProjection: 'Nije moguće dobiti projekciju podataka',
+    couldNotCreateSampleGeometries: 'Nije moguće kreirati uzorak geometrije',
   },
   ColorField: {
     chooseText: 'Izaberi'

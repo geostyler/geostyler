@@ -286,6 +286,8 @@ const es_ES: GeoStylerLocale = {
   },
   PreviewMap: {
     errorTitle: 'geostyler-style inválido',
+    couldNotGetDataProjection: 'No se pudo obtener la proyección de los datos',
+    couldNotCreateSampleGeometries: 'No se pudieron crear geometrías de ejemplo',
   },
   ColorField: {
     chooseText: 'Elegir'
