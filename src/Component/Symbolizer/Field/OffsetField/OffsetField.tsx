@@ -34,7 +34,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface OffsetFieldProps extends InputProps {
-  offset?: Expression<number>;
+  value?: Expression<number>;
   className?: string;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
@@ -43,7 +43,7 @@ export interface OffsetFieldProps extends InputProps {
  * OffsetField for map labels
  */
 export const OffsetField: React.FC<OffsetFieldProps> = ({
-  offset,
+  value,
   onChange,
   className,
   ...inputNumberProps
@@ -61,7 +61,7 @@ export const OffsetField: React.FC<OffsetFieldProps> = ({
   return (
     <NumberExpressionInput
       className={finalClassName}
-      value={offset}
+      value={value}
       onChange={onChange}
       onCancel={onCancel}
       inputProps={{

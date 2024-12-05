@@ -71,12 +71,12 @@ export interface RasterEditorComposableProps {
   rasterChannelEditor?: {
     visibility?: boolean;
   };
-  gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
+  gammaValueField?: InputConfig<GammaFieldProps['value']>;
   colorRamps?: {
     [name: string]: string[];
   };
   // TODO add support for default values in VisibilityField
-  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
+  visibilityField?: InputConfig<VisibilityFieldProps['value']>;
 }
 
 export interface RasterEditorInternalProps {
@@ -207,7 +207,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
                   label={locale.visibilityLabel}
                 >
                   <VisibilityField
-                    visibility={visibility}
+                    value={visibility}
                     onChange={onVisibilityChange}
                   />
                 </Form.Item>
@@ -238,7 +238,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
                   {...getFormItemSupportProps('contrastEnhancement')}
                 >
                   <ContrastEnhancementField
-                    contrastEnhancement={_get(contrastEnhancement, 'enhancementType')}
+                    value={_get(contrastEnhancement, 'enhancementType')}
                     onChange={onContrastEnhancementChange}
                   />
                 </Form.Item>
@@ -252,7 +252,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
                   {...getFormItemSupportProps('contrastEnhancement')}
                 >
                   <GammaField
-                    gamma={_get(contrastEnhancement, 'gammaValue') as number}
+                    value={_get(contrastEnhancement, 'gammaValue') as number}
                     defaultValue={gammaValueField?.default}
                     onChange={onGammaValueChange}
                   />

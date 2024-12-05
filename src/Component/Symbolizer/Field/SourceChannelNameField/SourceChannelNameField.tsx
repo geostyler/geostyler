@@ -34,16 +34,11 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-// default props
-interface SourceChannelNameFieldDefaultProps {
-  placeholder: string;
-}
-
-// non default props
-export interface SourceChannelNameFieldProps extends Partial<SourceChannelNameFieldDefaultProps> {
+export interface SourceChannelNameFieldProps {
+  placeholder?: string;
   sourceChannelNames?: string[];
   onChange?: (sourceChannelName: string) => void;
-  sourceChannelName?: string;
+  value?: string;
 }
 
 /**
@@ -52,7 +47,7 @@ export interface SourceChannelNameFieldProps extends Partial<SourceChannelNameFi
 export const SourceChannelNameField: React.FC<SourceChannelNameFieldProps> = ({
   sourceChannelNames,
   onChange,
-  sourceChannelName,
+  value,
   placeholder = 'Name of band'
 }) => {
 
@@ -76,7 +71,7 @@ export const SourceChannelNameField: React.FC<SourceChannelNameFieldProps> = ({
           (
             <Select
               className="editor-field sourceChannelName-field"
-              value={sourceChannelName}
+              value={value}
               onChange={onChange}
             >
               {getSourceChannelNameSelectOptions()}
@@ -84,8 +79,8 @@ export const SourceChannelNameField: React.FC<SourceChannelNameFieldProps> = ({
           ) : (
             <Input
               className="editor-field sourceChannelName-field"
-              defaultValue={sourceChannelName}
-              value={sourceChannelName}
+              defaultValue={value}
+              value={value}
               placeholder={placeholder}
               onChange={(evt: any) => {
                 if (onChange) {

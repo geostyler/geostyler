@@ -39,7 +39,6 @@ import _isEqual from 'lodash/isEqual';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 
-// non default props
 export interface IconSelectorWindowProps extends Partial<ModalProps> {
   iconLibraries: IconLibrary[];
   selectedIconSrc?: string;

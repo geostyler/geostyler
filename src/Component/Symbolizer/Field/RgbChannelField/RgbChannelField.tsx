@@ -43,7 +43,7 @@ import { getFormItemConfig } from '../../../../Util/FormItemUtil';
 export interface RgbChannelFieldProps {
   sourceChannelNames?: string[];
   onChange?: (channelSelection: ChannelSelection) => void;
-  channelSelection?: ChannelSelection;
+  value?: ChannelSelection;
 }
 
 /**
@@ -52,21 +52,21 @@ export interface RgbChannelFieldProps {
 export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
   sourceChannelNames,
   onChange,
-  channelSelection
+  value
 }) => {
 
   const locale = useGeoStylerLocale('RgbChannelField');
 
   const onRedChannelChange = (red: string) => {
     let rgb: RGBChannel;
-    if (!channelSelection || (channelSelection && channelSelection.hasOwnProperty('grayChannel'))) {
+    if (!value || (value && value.hasOwnProperty('grayChannel'))) {
       rgb = {
         redChannel: {
           sourceChannelName: red
         }
       } as RGBChannel;
     } else {
-      rgb = _cloneDeep(channelSelection as RGBChannel);
+      rgb = _cloneDeep(value as RGBChannel);
       rgb.redChannel = {
         sourceChannelName: red
       };
@@ -78,14 +78,14 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
 
   const onGreenChannelChange = (green: string) => {
     let rgb: RGBChannel;
-    if (!channelSelection || (channelSelection && channelSelection.hasOwnProperty('grayChannel'))) {
+    if (!value || (value && value.hasOwnProperty('grayChannel'))) {
       rgb = {
         greenChannel: {
           sourceChannelName: green
         }
       } as RGBChannel;
     } else {
-      rgb = _cloneDeep(channelSelection as RGBChannel);
+      rgb = _cloneDeep(value as RGBChannel);
       rgb.greenChannel = {
         sourceChannelName: green
       };
@@ -97,14 +97,14 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
 
   const onBlueChannelChange = (blue: string) => {
     let rgb: RGBChannel;
-    if (!channelSelection || (channelSelection && channelSelection.hasOwnProperty('grayChannel'))) {
+    if (!value || (value && value.hasOwnProperty('grayChannel'))) {
       rgb = {
         blueChannel: {
           sourceChannelName: blue
         }
       } as RGBChannel;
     } else {
-      rgb = _cloneDeep(channelSelection as RGBChannel);
+      rgb = _cloneDeep(value as RGBChannel);
       rgb.blueChannel = {
         sourceChannelName: blue
       };
@@ -125,7 +125,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}
           onChange={onRedChannelChange}
-          sourceChannelName={_get(channelSelection, 'redChannel.sourceChannelName')}
+          value={_get(value, 'redChannel.sourceChannelName')}
         />
       </Form.Item>
       <Form.Item
@@ -135,7 +135,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}
           onChange={onGreenChannelChange}
-          sourceChannelName={_get(channelSelection, 'greenChannel.sourceChannelName')}
+          value={_get(value, 'greenChannel.sourceChannelName')}
         />
       </Form.Item>
       <Form.Item
@@ -145,7 +145,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}
           onChange={onBlueChannelChange}
-          sourceChannelName={_get(channelSelection, 'blueChannel.sourceChannelName')}
+          value={_get(value, 'blueChannel.sourceChannelName')}
         />
       </Form.Item>
     </div>

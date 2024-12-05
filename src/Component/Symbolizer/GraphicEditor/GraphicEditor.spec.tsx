@@ -48,7 +48,7 @@ describe('GraphicEditor', () => {
   const dummyGraphicIcon: IconSymbolizer = SymbolizerUtil.iconSymbolizer;
   const onGraphicChangeSpy = vi.fn();
   const props: GraphicEditorProps = {
-    graphic: dummyGraphicMark,
+    value: dummyGraphicMark,
     graphicType: dummyGraphicType,
     onGraphicChange: onGraphicChangeSpy
   };
@@ -64,13 +64,13 @@ describe('GraphicEditor', () => {
   });
 
   it('renders MarkEditor if graphic is Mark', () => {
-    const graphicEditor = render(<GraphicEditor {...props} graphic={dummyGraphicMark} />);
+    const graphicEditor = render(<GraphicEditor {...props} value={dummyGraphicMark} />);
     const markEditor = graphicEditor.container.querySelector('.gs-mark-symbolizer-editor');
     expect(markEditor).toBeInTheDocument();
   });
 
   it('renders IconEditor if graphic is Icon', () => {
-    const graphicEditor = render(<GraphicEditor {...props} graphic={dummyGraphicIcon} />);
+    const graphicEditor = render(<GraphicEditor {...props} value={dummyGraphicIcon} />);
     const iconEditor = graphicEditor.container.querySelector('.gs-icon-symbolizer-editor');
     expect(iconEditor).toBeInTheDocument();
   });
@@ -80,7 +80,7 @@ describe('GraphicEditor', () => {
     const graphic: any = {};
     const graphicEditor = render(<GraphicEditor
       graphicType={graphicType}
-      graphic={graphic}
+      value={graphic}
     />);
     const markEditor = graphicEditor.container.querySelector('.gs-mark-symbolizer-editor');
     const iconEditor = graphicEditor.container.querySelector('.gs-icon-symbolizer-editor');

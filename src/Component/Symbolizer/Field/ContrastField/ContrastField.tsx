@@ -34,7 +34,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface ContrastFieldProps extends InputProps {
-  contrast?: Expression<number>;
+  value?: Expression<number>;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -43,7 +43,7 @@ export interface ContrastFieldProps extends InputProps {
  */
 export const ContrastField: React.FC<ContrastFieldProps> = ({
   onChange,
-  contrast,
+  value,
   ...inputNumberProps
 }) => {
 
@@ -55,7 +55,7 @@ export const ContrastField: React.FC<ContrastFieldProps> = ({
   return (
     <NumberExpressionInput
       className="editor-field contrast-field"
-      value={contrast}
+      value={value}
       onChange={onChange}
       onCancel={onCancel}
       inputProps={{

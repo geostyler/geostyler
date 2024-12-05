@@ -193,7 +193,7 @@ export const Editor: React.FC<EditorProps> = (props) => {
         label={locale.kindFieldLabel}
       >
         <KindField
-          kind={symbolizer.kind}
+          value={symbolizer.kind}
           onChange={onKindFieldChange}
           symbolizerKinds={filteredSymbolizerKinds}
         />

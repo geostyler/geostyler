@@ -54,7 +54,7 @@ export interface ChannelFieldComposableProps {
   contrastEnhancementField?: {
     visibility?: boolean;
   };
-  gammaValueField?: InputConfig<GammaFieldProps['gamma']>;
+  gammaValueField?: InputConfig<GammaFieldProps['value']>;
 }
 
 export interface ChannelFieldInternalProps {
@@ -143,7 +143,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
           >
             <SourceChannelNameField
               onChange={onSourceChannelNameChange}
-              sourceChannelName={sourceChannelName as string}
+              value={sourceChannelName as string}
               sourceChannelNames={sourceChannelNames}
             />
           </Form.Item>
@@ -156,7 +156,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
             label={locale.contrastEnhancementTypeLabel}
           >
             <ContrastEnhancementField
-              contrastEnhancement={contrastEnhancementType}
+              value={contrastEnhancementType}
               contrastEnhancementOptions={contrastEnhancementTypes}
               onChange={onContrastEnhancementChange}
             />
@@ -170,7 +170,7 @@ export const ChannelField: React.FC<ChannelFieldProps> = (props) => {
             label={locale.gammaValueLabel}
           >
             <GammaField
-              gamma={gamma as any}
+              value={gamma as any}
               defaultValue={gammaValueField?.default}
               onChange={onGammaChange}
             />

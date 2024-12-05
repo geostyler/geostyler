@@ -163,7 +163,7 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) =
             <Select
               className="editor-field rgb-or-gray-field"
               allowClear={true}
-              value={rgbOrGray as 'rgb' | 'gray'}
+              value={rgbOrGray}
               onChange={onSelectionChange}
             >
               <Option

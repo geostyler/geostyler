@@ -253,7 +253,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
     const input = (
       <OffsetField
         className="gs-colormap-quantity-input"
-        offset={record.quantity}
+        value={record.quantity}
         onChange={value => {
           setValueForColorMapEntry(record.key, 'quantity', value);
         }}
@@ -324,7 +324,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
               label={locale.typeLabel}
             >
               <ColorMapTypeField
-                colorMapType={colorMapType}
+                value={colorMapType}
                 onChange={onTypeChange}
               />
             </Form.Item>
@@ -368,7 +368,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
               label={locale.extendedLabel}
             >
               <ExtendedField
-                extended={colorMap?.extended as boolean}
+                value={colorMap?.extended as boolean}
                 onChange={onExtendedChange}
               />
             </Form.Item>

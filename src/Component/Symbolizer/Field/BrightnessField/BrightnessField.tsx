@@ -35,7 +35,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface BrightnessFieldProps extends InputProps {
-  brightness?: number;
+  value?: number;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -45,7 +45,7 @@ export interface BrightnessFieldProps extends InputProps {
  */
 export const BrightnessField: React.FC<BrightnessFieldProps> = ({
   onChange,
-  brightness,
+  value,
   ...inputNumberProps
 }) => {
 
@@ -56,7 +56,7 @@ export const BrightnessField: React.FC<BrightnessFieldProps> = ({
   return (
     <NumberExpressionInput
       className="editor-field brightness-field"
-      value={brightness}
+      value={value}
       onChange={onChange}
       onCancel={onCancel}
       inputProps={{

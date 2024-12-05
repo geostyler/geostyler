@@ -74,7 +74,7 @@ export interface FillEditorComposableProps {
   };
   outlineWidthField?: InputConfig<WidthFieldProps['value']>;
   // TODO add support for default values in VisibilityField
-  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
+  visibilityField?: InputConfig<VisibilityFieldProps['value']>;
   // TODO add support for graphicFill
 }
 
@@ -206,7 +206,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
                 label={locale.visibilityLabel}
               >
                 <VisibilityField
-                  visibility={visibility}
+                  value={visibility}
                   onChange={onVisibilityChange}
                 />
               </Form.Item>
@@ -310,7 +310,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
                 {...getFormItemSupportProps('outlineDasharray')}
               >
                 <LineDashField
-                  dashArray={outlineDasharray as number[]}
+                  value={outlineDasharray as number[]}
                   onChange={onOutlineDasharrayChange}
                 />
               </Form.Item>
@@ -321,7 +321,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           {/* TODO: allow changing graphicFill via composition context */}
           <GraphicEditor
             graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-            graphic={graphicFill}
+            value={graphicFill}
             graphicType={_get(graphicFill, 'kind') as GraphicType}
             onGraphicChange={onGraphicChange}
           />

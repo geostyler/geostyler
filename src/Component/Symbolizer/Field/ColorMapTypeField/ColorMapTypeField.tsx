@@ -41,7 +41,7 @@ import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStyl
 export interface ColorMapTypeFieldProps {
   colorMapTypeOptions?: ColorMapType[];
   onChange?: (colorMapType: ColorMapType) => void;
-  colorMapType?: ColorMapType;
+  value?: ColorMapType;
 }
 
 /**
@@ -50,7 +50,7 @@ export interface ColorMapTypeFieldProps {
 export const ColorMapTypeField: React.FC<ColorMapTypeFieldProps> = ({
   colorMapTypeOptions = ['ramp', 'intervals', 'values'],
   onChange,
-  colorMapType
+  value
 }) => {
 
   const locale = useGeoStylerLocale('ColorMapTypeField');
@@ -69,7 +69,7 @@ export const ColorMapTypeField: React.FC<ColorMapTypeFieldProps> = ({
     }
   };
 
-  const mapType = colorMapType ? colorMapType : colorMapTypeOptions[0];
+  const mapType = value ? value : colorMapTypeOptions[0];
   return (
     <Radio.Group
       className="color-map-type-field"

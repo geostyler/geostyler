@@ -103,7 +103,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
         label={locale.radiusLabel}
       >
         <RadiusField
-          radius={radius}
+          value={radius}
           onChange={onRadiusChange}
         />
       </Form.Item>
@@ -122,14 +122,14 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
         className='gs-symbol-selection'
       >
         <KindField
-          kind={kind}
+          value={kind}
           onChange={setKind}
           symbolizerKinds={symbolizerKinds}
         />
         {
           kind === 'Mark' && (
             <WellKnownNameField
-              wellKnownName={wellKnownName}
+              value={wellKnownName}
               onChange={onWellKnownNameChange}
             />
           )

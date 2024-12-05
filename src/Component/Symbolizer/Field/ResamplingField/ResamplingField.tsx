@@ -38,15 +38,10 @@ import {
 } from 'geostyler-style';
 import FunctionUtil from '../../../../Util/FunctionUtil';
 
-// default props
-interface ResamplingFieldDefaultProps {
-  resamplingOptions: RasterSymbolizer['resampling'][];
-}
-
-// non default props
-export interface ResamplingFieldProps extends Partial<ResamplingFieldDefaultProps> {
+export interface ResamplingFieldProps {
   onChange?: (resamplings: RasterSymbolizer['resampling']) => void;
-  resampling?: RasterSymbolizer['resampling'];
+  value?: RasterSymbolizer['resampling'];
+  resamplingOptions?: RasterSymbolizer['resampling'][];
 }
 
 /**
@@ -55,7 +50,7 @@ export interface ResamplingFieldProps extends Partial<ResamplingFieldDefaultProp
 export const ResamplingField: React.FC<ResamplingFieldProps> = ({
   resamplingOptions =['linear', 'nearest'],
   onChange,
-  resampling
+  value
 }) => {
 
   const resamplingSelectOptions = resamplingOptions.map(resamplingOpt => {
@@ -76,7 +71,7 @@ export const ResamplingField: React.FC<ResamplingFieldProps> = ({
     <Select
       className="editor-field resampling-field"
       allowClear={true}
-      value={resampling}
+      value={value}
       onChange={onChange}
     >
       {resamplingSelectOptions}

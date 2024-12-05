@@ -47,7 +47,7 @@ describe('OffsetField', () => {
   describe('InputFields', () => {
     it('change handlers call the onChange prop method correctly', async() => {
       const onChangeMock = vi.fn();
-      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
+      const field = render(<LineDashField value={dashArray} onChange={onChangeMock} />);
       const inputs = await field.findAllByRole('spinbutton');
 
       // const numberInputs = wrapper.find('InputNumber');
@@ -63,7 +63,7 @@ describe('OffsetField', () => {
   describe('onAddDash', () => {
     it('calls a passed onChange function with the new dashArray', async() => {
       const onChangeMock = vi.fn();
-      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
+      const field = render(<LineDashField value={dashArray} onChange={onChangeMock} />);
       const addButton = field.container.querySelector('button.gs-add-dash-button');
       fireEvent.click(addButton as Element);
       let newDashArray = [...dashArray, 1];
@@ -74,7 +74,7 @@ describe('OffsetField', () => {
   describe('onRemoveDash', () => {
     it('calls a passed onChange function with the new dashArray', async() => {
       const onChangeMock = vi.fn();
-      const field = render(<LineDashField dashArray={dashArray} onChange={onChangeMock} />);
+      const field = render(<LineDashField value={dashArray} onChange={onChangeMock} />);
       const removeButton = field.container.querySelector('button.gs-rm-dash-button');
       fireEvent.click(removeButton as Element);
       let newDashArray = [...dashArray];

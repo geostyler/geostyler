@@ -69,13 +69,13 @@ const Panel = Collapse.Panel;
 export interface LineEditorComposableProps {
   colorField?: InputConfig<ColorFieldProps['value']>;
   widthField?: InputConfig<WidthFieldProps['value']>;
-  perpendicularOffsetField?: InputConfig<OffsetFieldProps['offset']>;
+  perpendicularOffsetField?: InputConfig<OffsetFieldProps['value']>;
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   // TODO add support for default values in LineDashField
   lineDashField?: {
     visibility?: boolean;
   };
-  dashOffsetField?: InputConfig<OffsetFieldProps['offset']>;
+  dashOffsetField?: InputConfig<OffsetFieldProps['value']>;
   // TODO add support for default values in LineCapField
   capField?: {
     visibility?: boolean;
@@ -83,11 +83,11 @@ export interface LineEditorComposableProps {
   // TODO add support for default values in LineJoinField
   joinField?: InputConfig<LineJoinFieldProps['value']>;
   // TODO add support for default values in GraphicEditor
-  graphicStrokeField?: InputConfig<GraphicEditorProps['graphic']>;
+  graphicStrokeField?: InputConfig<GraphicEditorProps['value']>;
   // TODO add support for default values in GraphicEditor
-  graphicFillField?: InputConfig<GraphicEditorProps['graphic']>;
+  graphicFillField?: InputConfig<GraphicEditorProps['value']>;
   // TODO add support for default values in VisibilityField
-  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
+  visibilityField?: InputConfig<VisibilityFieldProps['value']>;
 }
 
 export interface LineEditorInternalProps {
@@ -240,7 +240,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 label={locale.visibilityLabel}
               >
                 <VisibilityField
-                  visibility={visibility}
+                  value={visibility}
                   onChange={onVisibilityChange}
                 />
               </Form.Item>
@@ -284,7 +284,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getFormItemSupportProps('perpendicularOffset')}
               >
                 <OffsetField
-                  offset={perpendicularOffset}
+                  value={perpendicularOffset}
                   defaultValue={perpendicularOffsetField?.default as number}
                   onChange={onPerpendicularOffsetChange}
                 />
@@ -314,7 +314,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getFormItemSupportProps('dasharray')}
               >
                 <LineDashField
-                  dashArray={dasharray as number[]}
+                  value={dasharray as number[]}
                   onChange={onDasharrayChange}
                 />
               </Form.Item>
@@ -328,7 +328,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 {...getFormItemSupportProps('dashOffset')}
               >
                 <OffsetField
-                  offset={dashOffset}
+                  value={dashOffset}
                   defaultValue={dashOffsetField?.default as number}
                   onChange={onDashOffsetChange}
                   disabled={
@@ -371,7 +371,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           graphicStrokeField?.visibility === false ? null : (
             <Panel header="Graphic Stroke" key="2">
               <GraphicEditor
-                graphic={graphicStroke}
+                value={graphicStroke}
                 onGraphicChange={onGraphicStrokeChange}
                 graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
                 graphicType={_get(graphicStroke, 'kind') as GraphicType}
@@ -383,7 +383,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           graphicFillField?.visibility === false ? null : (
             <Panel header="Graphic Fill" key="3">
               <GraphicEditor
-                graphic={graphicFill}
+                value={graphicFill}
                 onGraphicChange={onGraphicFillChange}
                 graphicTypeFieldLabel={locale.graphicFillTypeLabel}
                 graphicType={_get(graphicFill, 'kind') as GraphicType}

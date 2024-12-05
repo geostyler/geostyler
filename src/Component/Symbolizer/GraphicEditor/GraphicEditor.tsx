@@ -43,15 +43,11 @@ import { Form } from 'antd';
 import _get from 'lodash/get';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
-export interface GraphicEditorDefaultProps {
+export interface GraphicEditorProps {
   /** Label being used on TypeField */
-  graphicTypeFieldLabel: string;
-}
-
-// non default props
-export interface GraphicEditorProps extends Partial<GraphicEditorDefaultProps> {
+  graphicTypeFieldLabel?: string;
   /** PointSymbolizer that is being used as graphic */
-  graphic: PointSymbolizer;
+  value: PointSymbolizer;
   /** Currently selected GraphicType */
   graphicType: GraphicType;
   /** Gets called when changing a graphic */
@@ -66,7 +62,7 @@ export interface GraphicEditorProps extends Partial<GraphicEditorDefaultProps> {
 /** GraphicEditor to select between different graphic options */
 export const GraphicEditor: React.FC<GraphicEditorProps> = ({
   graphicTypeFieldLabel = 'Graphic-Type',
-  graphic,
+  value,
   graphicType,
   onGraphicChange,
   graphicTypeFieldProps,
@@ -75,15 +71,15 @@ export const GraphicEditor: React.FC<GraphicEditorProps> = ({
 }) => {
 
   let graphicsField: React.ReactNode;
-  if (graphic?.kind === 'Mark') {
-    let markGraphic: MarkSymbolizer = graphic as MarkSymbolizer;
+  if (value?.kind === 'Mark') {
+    let markGraphic: MarkSymbolizer = value as MarkSymbolizer;
     graphicsField = <MarkEditor
       symbolizer={markGraphic}
       onSymbolizerChange={onGraphicChange}
     />;
-  } else if (graphic?.kind === 'Icon') {
+  } else if (value?.kind === 'Icon') {
     graphicsField =  <IconEditor
-      symbolizer={graphic}
+      symbolizer={value}
       onSymbolizerChange={onGraphicChange}
       iconLibraries={iconLibraries}
       {...iconEditorProps}
@@ -117,7 +113,7 @@ export const GraphicEditor: React.FC<GraphicEditorProps> = ({
         label={graphicTypeFieldLabel}
       >
         <GraphicTypeField
-          graphicType={graphicType}
+          value={graphicType}
           onChange={onGraphicTypeChange}
           {...graphicTypeFieldProps}
         />

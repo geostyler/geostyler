@@ -40,7 +40,7 @@ import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStyl
 export interface ColorMapEntryFieldProps {
   labelPlaceholder?: string;
   onChange?: (colorMapEntry: ColorMapEntry) => void;
-  colorMapEntry?: ColorMapEntry;
+  value?: ColorMapEntry;
 }
 
 /**
@@ -49,14 +49,14 @@ export interface ColorMapEntryFieldProps {
 export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
   labelPlaceholder = 'Color Map Label',
   onChange,
-  colorMapEntry
+  value
 }) => {
 
   const locale = useGeoStylerLocale('ColorMapEntryField');
 
-  const updateColorMapEntry = (prop: string, value: any) => {
-    let updated: ColorMapEntry = {...colorMapEntry};
-    updated[prop as keyof ColorMapEntry] = value;
+  const updateColorMapEntry = (prop: string, newValue: any) => {
+    let updated: ColorMapEntry = {...value};
+    updated[prop as keyof ColorMapEntry] = newValue;
     if (onChange) {
       onChange(updated);
     }
@@ -84,7 +84,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
         label={locale.colorLabel}
       >
         <ColorField
-          value={_get(colorMapEntry, 'color') as string}
+          value={_get(value, 'color') as string}
           onChange={onColorChange}
         />
       </Form.Item>
@@ -92,7 +92,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
         label={locale.quantityLabel}
       >
         <OffsetField
-          offset={_get(colorMapEntry, 'quantity') as number}
+          value={_get(value, 'quantity') as number}
           onChange={onQuantityChange}
         />
       </Form.Item>
@@ -101,8 +101,8 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
       >
         <Input
           className="editor-field colormapentry-label-field"
-          defaultValue={_get(colorMapEntry, 'label') as string}
-          value={_get(colorMapEntry, 'label') as string}
+          defaultValue={_get(value, 'label') as string}
+          value={_get(value, 'label') as string}
           placeholder={labelPlaceholder}
           onChange={(evt: any) => {
             onLabelChange(evt.target.value);
@@ -113,7 +113,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
         label={locale.opacityLabel}
       >
         <OpacityField
-          value={colorMapEntry?.opacity}
+          value={value?.opacity}
           onChange={onOpacityChange}
         />
       </Form.Item>

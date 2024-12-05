@@ -39,8 +39,6 @@ import { Modal, ModalProps } from 'antd';
 import _isEqual from 'lodash/isEqual';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-
-// non default props
 export interface SymbolizerEditorWindowProps extends Partial<ModalProps> {
   symbolizers: Symbolizer[];
   onClose?: () => void;

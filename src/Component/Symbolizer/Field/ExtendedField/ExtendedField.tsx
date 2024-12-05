@@ -32,10 +32,9 @@ import {
   Radio
 } from 'antd';
 
-// non default props
 export interface ExtendedFieldProps {
   onChange?: (extended: boolean) => void;
-  extended?: boolean;
+  value?: boolean;
 }
 
 /**
@@ -43,7 +42,7 @@ export interface ExtendedFieldProps {
  */
 export const ExtendedField: React.FC<ExtendedFieldProps> = ({
   onChange,
-  extended
+  value
 }) => {
 
   const onExtendedChange = (evt: any) => {
@@ -55,7 +54,7 @@ export const ExtendedField: React.FC<ExtendedFieldProps> = ({
   return (
     <Radio.Group
       className="extend-field"
-      defaultValue={extended === true ? extended : false}
+      defaultValue={value === true ? value : false}
       buttonStyle="solid"
       onChange={onExtendedChange}
       size="small"

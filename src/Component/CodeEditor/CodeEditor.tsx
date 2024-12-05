@@ -74,7 +74,6 @@ import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerCont
 import { isString } from 'lodash';
 import { MbStyle } from 'geostyler-mapbox-parser';
 
-// non default props
 export interface CodeEditorProps {
   /** Delay in ms until onStyleChange will be called */
   delay?: number;

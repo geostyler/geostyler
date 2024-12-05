@@ -34,7 +34,6 @@ import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 
 import _isEqual from 'lodash/isEqual';
 
-// non default props
 export interface ColorsPreviewProps {
   /** List of colors to preview */
   colors: string[];

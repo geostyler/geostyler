@@ -62,12 +62,12 @@ export interface IconEditorComposableProps {
   sizeField?: {
     visibility?: boolean;
   };
-  offsetXField?: InputConfig<OffsetFieldProps['offset']>;
-  offsetYField?: InputConfig<OffsetFieldProps['offset']>;
-  rotateField?: InputConfig<RotateFieldProps['rotate']>;
+  offsetXField?: InputConfig<OffsetFieldProps['value']>;
+  offsetYField?: InputConfig<OffsetFieldProps['value']>;
+  rotateField?: InputConfig<RotateFieldProps['value']>;
   opacityField?: InputConfig<OpacityFieldProps['value']>;
   // TODO add support for default values in VisibilityField
-  visibilityField?: InputConfig<VisibilityFieldProps['visibility']>;
+  visibilityField?: InputConfig<VisibilityFieldProps['value']>;
   iconLibraries?: IconLibrary[];
 }
 
@@ -187,7 +187,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             label={locale.visibilityLabel}
           >
             <VisibilityField
-              visibility={visibility}
+              value={visibility}
               onChange={onVisibilityChange}
             />
           </Form.Item>
@@ -233,7 +233,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField
-              offset={offset?.[0]}
+              value={offset?.[0]}
               defaultValue={offsetXField?.default as number}
               onChange={onOffsetXChange}
             />
@@ -248,7 +248,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField
-              offset={offset?.[1]}
+              value={offset?.[1]}
               defaultValue={offsetYField?.default as number}
               onChange={onOffsetYChange}
             />
@@ -263,7 +263,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
             {...getFormItemSupportProps('rotate')}
           >
             <RotateField
-              rotate={rotate}
+              value={rotate}
               defaultValue={rotateField?.default as number}
               onChange={onRotateChange}
             />

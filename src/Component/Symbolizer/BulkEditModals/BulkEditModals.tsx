@@ -53,19 +53,14 @@ import './BulkEditModals.less';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 
-// default props
-interface BulkEditModalsDefaultProps {
-  colorModalVisible: boolean;
-  sizeModalVisible: boolean;
-  opacityModalVisible: boolean;
-  symbolModalVisible: boolean;
-  style: GsStyle;
-  selectedRowKeys: number[];
-  modalsClosed: ModalProps['onCancel'];
-}
-
-// non default props
-export interface BulkEditModalsProps extends Partial<BulkEditModalsDefaultProps> {
+export interface BulkEditModalsProps {
+  colorModalVisible?: boolean;
+  sizeModalVisible?: boolean;
+  opacityModalVisible?: boolean;
+  symbolModalVisible?: boolean;
+  style?: GsStyle;
+  selectedRowKeys?: number[];
+  modalsClosed?: ModalProps['onCancel'];
   updateMultiColors?: (x: Expression<string>) => void;
   updateMultiSizes?: (x: Expression<number> | undefined) => void;
   updateMultiOpacities?: (x: Expression<number> | undefined) => void;
@@ -153,7 +148,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
       >
         {locale.radiusLabel}
         <RadiusField
-          radius={size}
+          value={size}
           onChange={updateMultiSizes}
         />
       </Modal>
@@ -179,13 +174,13 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
       >
         <KindField
           symbolizerKinds={['Mark', 'Icon']}
-          kind={kind}
+          value={kind}
           onChange={setKind}
         />
         {
           kind === 'Mark' ? (
             <WellKnownNameField
-              wellKnownName={symbol}
+              value={symbol}
               onChange={(val) => {
                 updateMultiSymbols(val, kind);
               }}

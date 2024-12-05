@@ -34,7 +34,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface SaturationFieldProps extends InputProps {
-  saturation?: Expression<number>;
+  value?: Expression<number>;
   onChange?: (newValue: Expression<number> | undefined) => void;
 }
 
@@ -43,7 +43,7 @@ export interface SaturationFieldProps extends InputProps {
  */
 export const SaturationField: React.FC<SaturationFieldProps> = ({
   onChange,
-  saturation,
+  value,
   ...inputNumberProps
 }) => {
 
@@ -54,7 +54,7 @@ export const SaturationField: React.FC<SaturationFieldProps> = ({
   return (
     <NumberExpressionInput
       className="editor-field saturation-field"
-      value={saturation}
+      value={value}
       onChange={onChange}
       onCancel={onCancel}
       inputProps={{

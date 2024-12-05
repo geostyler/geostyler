@@ -38,15 +38,10 @@ import {
 } from 'geostyler-style';
 import FunctionUtil from '../../../../Util/FunctionUtil';
 
-// default props
-interface ContrastEnhancementFieldDefaultProps {
-  contrastEnhancementOptions: ContrastEnhancement['enhancementType'][];
-}
-
-// non default props
-export interface ContrastEnhancementFieldProps extends Partial<ContrastEnhancementFieldDefaultProps> {
+export interface ContrastEnhancementFieldProps {
   onChange?: (contrastEnhancement: ContrastEnhancement['enhancementType']) => void;
-  contrastEnhancement?: ContrastEnhancement['enhancementType'];
+  contrastEnhancementOptions?: ContrastEnhancement['enhancementType'][];
+  value?: ContrastEnhancement['enhancementType'];
 }
 
 /**
@@ -55,7 +50,7 @@ export interface ContrastEnhancementFieldProps extends Partial<ContrastEnhanceme
 export const ContrastEnhancementField: React.FC<ContrastEnhancementFieldProps> = ({
   onChange,
   contrastEnhancementOptions = ['normalize', 'histogram'],
-  contrastEnhancement
+  value
 }) => {
 
   const getContrastEnhancementSelectOptions = () => {
@@ -78,7 +73,7 @@ export const ContrastEnhancementField: React.FC<ContrastEnhancementFieldProps> =
     <Select
       className="editor-field contrastEnhancement-field"
       allowClear={true}
-      value={contrastEnhancement}
+      value={value}
       onChange={onChange}
     >
       {getContrastEnhancementSelectOptions()}
