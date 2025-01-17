@@ -79,19 +79,74 @@ render() {
 }
 ```
 
-## <a name="geostyler-behind-the-scenes"></a>GeoStyler - Behind the Scenes
+## <a name="geostyler-ecosystem"></a>GeoStyler - Ecosystem
 
-Internally we are using our own style definition called `GeoStyler Style` (see [TypeScript Declaration Files](#typescript-declaration-files)), which takes the best from SLD and Mapbox. We are not trying to establish just another standard, but we need an exchange format that is flexible and highly compatible with current styling standards. **Understanding GeoStyler Style is only necessary for developers of the project, not for users!** Our style parsers all read and write from and to GeoStyler Style to keep the complexity low. As a positive side effect this lets you translate from any supported style to any other supported style.
+The GeoStyler ecosystem is spread across multiple packages.
 
-Imagine your previous project was based on QGIS and now you want to setup your own web application. With GeoStyler you can still use your QGIS styles and either save all future formats in qml as well, or you simply translate all your old styles to another format e.g. OpenLayers styles or SLD. It's simple as that!
+```mermaid
+flowchart RL
+  classDef parserCls fill:#fffdbc,stroke:#333,stroke-width:2px,color:#333;
+  classDef toolCls fill:#c2f2ff,stroke:#333,stroke-width:2px,color:#333;
+  classDef styleCls fill:white,stroke:#333,stroke-width:2px,color:#333;
+  style convert fill:#EEE,color:#333;
+  style editAndDisplay fill:#EEE,color:#333;
+  style parser fill:#EEE,color:#333;
 
-To populate the UI with information from imported data we provide a set of data parsers (defined in [GeoStyler Data](#typescript-declaration-files)). Currently, we support GeoJSON, Shapefile and WFS.
+  subgraph convert[Conversion]
+    cli[GeoStyler CLI]:::toolCls
+    rest[GeoStyler Rest]:::toolCls
+  end
+  subgraph editAndDisplay[Edit and Display]
+    ui[GeoStyler UI]:::toolCls
+    legend[GeoStyler Legend]:::toolCls
+  end
+  geostylerStyle[/GeoStyler Style Format/]
+  subgraph parser["Parsers"]
+    direction LR
+    sld([SLD]):::parserCls
+    ol([OpenLayers]):::parserCls
+    lyrx([Arc GIS]):::parserCls
+    mapbox([MapLibre/MapbBox]):::parserCls
+    qgis([QGIS]):::parserCls
+    mapfile([Mapfile]):::parserCls
+  end
+  convert <--> geostylerStyle
+  editAndDisplay <--> geostylerStyle:::styleCls
+  geostylerStyle <--> parser
 
-With these two formats there come two interfaces.
-You can implement these interfaces to create a parser.
-Compare the list of existing parsers below.
+  click geostylerStyle "https://github.com/geostyler/geostyler-style"
+  click sld "https://github.com/geostyler/geostyler-sld-parser"
+  click qgis "https://github.com/geostyler/geostyler-qgis-parser"
+  click lyrx "https://github.com/geostyler/geostyler-lyrx-parser"
+  click ol "https://github.com/geostyler/geostyler-openlayers-parser"
+  click mapbox "https://github.com/geostyler/geostyler-mapbox-parser"
+  click mapfile "https://github.com/geostyler/geostyler-mapfile-parser"
+  click cli "https://github.com/geostyler/geostyler-cli"
+  click rest "https://github.com/geostyler/geostyler-rest"
+  click legend "https://github.com/geostyler/geostyler-legend"
+  click ui "https://github.com/geostyler/geostyler"
+```
 
-![Architecture](/docs/ComponentView.jpg)
+#### GeoStyler UI
+
+The main package of the GeoStyler ecosystem is the UI library. It contains a collection of React components that can be used to build a styling UI for geodata. The main components are the `<Style />` or `<CardStyle />` component which serve as an entry point. The `<Style />` component is a full-featured style editor that allows users to create and edit styles for geodata. The `<CardStyle / >` component offers a streamlined and compact alternative to the `<Style / >` component, optimized for utilization within drawer or card layouts. The library also contains lots of subcomponents that can be used for particular parts of the style editing process, such as the Symbolizer `<Editor />` or the `<RuleTable >`.
+
+#### GeoStyler Style
+
+The UI library is built on top of the `geostyler-style`. This is the centerpiece of the GeoStyler ecosystem. The `geostyler-style` package is a TypeScript declaration that defines the GeoStyler style format. The style format is used to represent styles in a generic way that can be converted to and from other style formats. We are not trying to establish just another standard, but we need an exchange format that is flexible and highly compatible with current styling standards.
+
+#### Parsers
+
+The parsers make use of the `geostyler-style` package to convert between different style formats. The parsers are separate packages that can be used independently of the UI library. The parsers are used to convert between different style formats, such as SLD, OpenLayers, and Mapbox. Each parser is build on top of an interface defined in the `geostyler-style` package to make sure that read and write operations are consistent across all parsers.
+
+#### Conversion tools
+
+To convert between styles without a UI you can make use of conversion tools like the `geostyler-cli` or the `geostyler-rest` package. The `geostyler-cli` package is a command-line interface that uses the parsers so you can convert between different style formats directly from the command line. The `geostyler-rest` package is a REST API that is built on top of the command-line interface.
+
+#### Legend
+
+The `geostyler-legend` is a react component that renders a legend based on a GeoStyler style. Combined with the powers of the
+parsers this allows to render a legend for a variety of style formats.
 
 <!-- Code: https://github.com/geostyler/geostyler-demo -->
 
@@ -119,6 +174,8 @@ Compare the list of existing parsers below.
       [npm](https://www.npmjs.com/package/geostyler-sld-parser))
   - OpenLayers Style ([github](https://github.com/geostyler/geostyler-openlayers-parser) /
       [npm](https://www.npmjs.com/package/geostyler-openlayers-parser))
+  - ARC GIS Style [*.lyrx] ([github](https://github.com/geostyler/geostyler-lyrx-parser) /
+      [npm](https://www.npmjs.com/package/geostyler-lyrx-parser))
   - Mapbox Style ([github](https://github.com/geostyler/geostyler-mapbox-parser) /
       [npm](https://www.npmjs.com/package/geostyler-mapbox-parser))
   - MapServer Mapfiles ([github](https://github.com/geostyler/geostyler-mapfile-parser) /
@@ -133,7 +190,8 @@ Compare the list of existing parsers below.
       [npm](https://www.npmjs.com/package/geostyler-legend))
   - CLI (Command Line Interface) ([github](https://github.com/geostyler/geostyler-cli) /
       [npm](https://www.npmjs.com/package/geostyler-cli))
-
+  - REST Interface ([github](https://github.com/geostyler/geostyler-rest) /
+      [npm](https://www.npmjs.com/package/geostyler-rest))
 
 ## <a name="developer-guide"></a>Developer Guide
 
@@ -161,4 +219,3 @@ Maintenance and further development of this code can be funded through the
 [GeoStyler Open Collective](https://opencollective.com/geostyler). All contributions and
 expenses can transparently be reviewed by anyone; you see what we use the donated money for.
 Thank you for any financial support you give the GeoStyler project 💞
-
