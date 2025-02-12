@@ -1,3 +1,60 @@
+## [16.0.0](https://github.com/geostyler/geostyler/compare/v15.0.1...v16.0.0) (2025-02-12)
+
+### ⚠ BREAKING CHANGES
+
+* removes sevearal default prop declarations
+- removes OperatorComboDefaultProps (now included in OperatorComboProps)
+- removes NameFieldDefaultProps (now included in NameFieldProps)
+- removes RemovableItemDefaultProps (now included in RemovableItemProps)
+- removes SelectableDefaultProps (now included in SelectableProps)
+- removes SelectableItemDefaultProps (now included in SelectableItemProps)
+- removes BulkEditModalsDefaultProps (now included in BulkEditModalsProps)
+- removes ContrastEnhancementFieldDefaultProps (now included in ContrastEnhancementFieldProps)
+- removes GraphicTypeFieldDefaultProps (now included in GraphicTypeFieldProps)
+- removes SourceChannelNameFieldDefaultProps (now included in SourceChannelNameFieldProps)
+- removes GraphicEditorDefaultProps (now included in GraphicEditorProps)
+* This renames the value prop of every editor field to `value`.
+- prop "brightness" of the BrightnessField is now "value"
+- prop "gamma" of the GammaField is now "value"
+- prop "colorMapEntry" of the ColorMapEntryField is now "value"
+- prop "colorMapType" of the ColorMapTypeField is now "value"
+- prop "contrastEnhancement" of the ContrastEnhancementField is now "value"
+- prop "contrast" of the ContrastField is now "value"
+- prop "extended" of the ExtendedField is now "value"
+- prop "fadeDuration" of the FadeDurationField is now "value"
+- prop "gamma" of the GammaField is now "value"
+- prop "graphicType" of the GraphicTypeField is now "value"
+- prop "channelSelection" of the GrayChannelField is now "value"
+- prop "kind" of the KindField is now "value"
+- prop "dashArray" of the LineDashField is now "value"
+- prop "offset" of the OffsetField is now "value"
+- prop "radius" of the RadiusField is now "value"
+- prop "resampling" of the ResamplingField is now "value"
+- prop "channelSelection" of the RgbChannelField is now "value"
+- prop "rotate" of the RotateField is now "value"
+- prop "saturation" of the SaturationField is now "value"
+- prop "sourceChannelName" of the SourceChannelNameField is now "value"
+- prop "visibility" of the VisibilityField is now "value"
+- prop "wellKnownName" of the WellKnownNameField is now "value"
+* `showAmount` and `showDuplicates` are removed from
+the `Rules` component. Use context instead.
+* The FontPickers value name changed from `font` to `value`
+
+### Features
+
+* add placeholder for renderer with functions ([b616e1f](https://github.com/geostyler/geostyler/commit/b616e1fde347dfad5a27b8909f1d7d75df50dc71))
+* i18n of error messages ([d8c191b](https://github.com/geostyler/geostyler/commit/d8c191badf932089a138871b378426243ca5c218))
+* improve props composition for FontPicker ([ca6ee87](https://github.com/geostyler/geostyler/commit/ca6ee877a7bd05a55737e0caee11f2db03ae4ff4))
+
+### Bug Fixes
+
+* prevent PreviewMap from crashing ([d59d876](https://github.com/geostyler/geostyler/commit/d59d8769056ef2d4de59860c35f48729aa7bde45))
+* remove unused props ([1584500](https://github.com/geostyler/geostyler/commit/1584500bc37054cb9588b6d3c11b34200ee50413))
+* unify value prop name to `value` ([691cf1d](https://github.com/geostyler/geostyler/commit/691cf1dcb70b6819f50dd3e5cee0a852dfdd9117))
+* update default props declaration ([c8d52a6](https://github.com/geostyler/geostyler/commit/c8d52a62ab312970c7751992f8008bbe1eb8169a))
+* update renderer geometries ([fc0708e](https://github.com/geostyler/geostyler/commit/fc0708e53448ab66648d29c76cec54afe3ff7d4d)), closes [#2230](https://github.com/geostyler/geostyler/issues/2230)
+* updates PreviewMap to use spatialreference.org ([60d8f46](https://github.com/geostyler/geostyler/commit/60d8f46a5135c2fd0086c2bb72830046d9caf29f))
+
 ## [15.0.1](https://github.com/geostyler/geostyler/compare/v15.0.0...v15.0.1) (2024-10-11)
 
 ### Bug Fixes
