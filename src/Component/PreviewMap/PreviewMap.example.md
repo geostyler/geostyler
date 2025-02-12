@@ -32,66 +32,85 @@ This demonstrates the usage of the `PreviewMap` component.
 
 ```jsx
 import React, { useState } from 'react';
-import { PreviewMap } from 'geostyler';
+import { GeoStylerContext, PreviewMap } from 'geostyler';
+
+import Map from 'ol/Map.js';
+import View from 'ol/View.js';
+import TileLayer from 'ol/layer/Tile.js';
+import OSM from 'ol/source/OSM.js';
+
+const map = new Map({
+  layers: [
+    new TileLayer({
+      source: new OSM()
+    })
+  ]
+});
 
 const PreviewMapExample = () => {
   const [style, setStyle] = useState({
-          name: "Demo Style",
-          rules: [
-            {
-              name: "Rule 1",
-              symbolizers: [
-                {
-                  kind: "Mark",
-                  wellKnownName: "circle",
-                  color: "red"
-                }
-              ]
+    name: "Demo Style",
+    rules: [
+      {
+        name: "Rule 1",
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle",
+            color: "red"
+          }
+        ]
+      }
+    ]
+  });
+
+  const myContext = {
+    data: {
+      schema: {
+        type: '',
+        properties: {}
+      },
+      exampleFeatures: {
+        type: 'FeatureCollection',
+        name: 'geojson32614',
+        features: [
+          {
+            type: 'Feature',
+            properties: { },
+            geometry: {
+              type: 'Point',
+              coordinates: [ 785433.013395566958934, 2032298.458539120620117 ]
             }
-          ]
-        });
+          },
+          {
+            type: 'Feature',
+            properties: { },
+            geometry: {
+              type: 'Point',
+              coordinates: [ 787905.450309246662073, 2030118.025881822220981 ]
+            }
+          },
+          {
+            type: 'Feature',
+            properties: { },
+            geometry: {
+              type: 'Point',
+              coordinates: [ 786123.196085085393861, 2028597.680797176202759 ]
+            }
+          }
+        ]
+      }
+    }
+  };
 
   return (
-    <PreviewMap
-      style={style}
-      dataProjection="EPSG:32614"
-      data={{
-        schema: {
-          type: '',
-          properties: {}
-        },
-        exampleFeatures: {
-          type: 'FeatureCollection',
-          name: 'geojson32614',
-          features: [
-            {
-              type: 'Feature',
-              properties: { },
-              geometry: {
-                type: 'Point',
-                coordinates: [ 785433.013395566958934, 2032298.458539120620117 ]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: { },
-              geometry: {
-                type: 'Point',
-                coordinates: [ 787905.450309246662073, 2030118.025881822220981 ]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: { },
-              geometry: {
-                type: 'Point',
-                coordinates: [ 786123.196085085393861, 2028597.680797176202759 ]
-              }
-            }
-          ]
-        }
-      }}
-    />
+    <GeoStylerContext.Provider value={myContext}>
+      <PreviewMap
+        style={style}
+        map={map}
+        dataProjection="EPSG:32614"
+      />
+    </GeoStylerContext.Provider>
   );
 }
 

@@ -112,7 +112,10 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
     const dataLayer = dataLayerRef.current;
     const extent = dataLayer.getSource().getExtent();
     if (extent && !isEmpty(extent)) {
-      map.getView().fit(extent, { padding: [20, 20, 20, 20] });
+      map.getView().fit(extent, {
+        padding: [50, 50, 50, 50],
+        maxZoom: 16
+      });
     }
   };
 
@@ -128,19 +131,21 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
   };
 
   /**
-   * Fetches EPSG information from epsg.io registers the definition for openlayers
+   * Fetches EPSG information from spatialreference.org registers the definition for openlayers
    * and returns a Promise resolving to the Projection.
    *
    * @param epsgCode An ESPG code string. e. EPSG:32614
    * @returns
    */
   const fetchInfo = async (epsgCode: string): Promise<Projection | undefined> => {
-    const response = await fetch('https://epsg.io/?format=json&q=' + epsgCode);
-    const json = await response.json();
-    const result: any = json.results?.[0];
-    if (result) {
-      const proj4def = result.wkt;
-      proj4.defs(epsgCode, proj4def);
+    if (!epsgCode) {
+      return undefined;
+    }
+    const code = epsgCode.split(':').pop();
+    const response = await fetch(`https://spatialreference.org/ref/epsg/${code}/ogcwkt`);
+    const wkt = await response.text();
+    if (wkt) {
+      proj4.defs(epsgCode, wkt);
       register(proj4);
       return getProjection(epsgCode);
     }
@@ -153,6 +158,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
   const refreshData = useCallback(async () => {
     const map = mapRef.current;
     const dataLayer = dataLayerRef.current;
+
     if (dataLayer && (data as VectorData)?.exampleFeatures && map) {
       dataLayer.getSource().clear();
 
