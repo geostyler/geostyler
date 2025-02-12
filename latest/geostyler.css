@@ -839,6 +839,11 @@ mark {
   min-width: 4px;
   min-height: 4px;
 }
+.gs-symbolizer-olrenderer .anticon.anticon-info-circle {
+  position: absolute;
+  right: 0.25em;
+  bottom: 0.25em;
+}
 
 :root,
 :host {
@@ -2405,5 +2410,9 @@ mark {
 
 .ol-viewport {
   min-height: 100px;
+}
+
+.sample {
+  margin: 2em 0;
 }
 
