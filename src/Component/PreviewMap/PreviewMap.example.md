@@ -42,27 +42,27 @@ import OSM from 'ol/source/OSM.js';
 const map = new Map({
   layers: [
     new TileLayer({
-      source: new OSM(),
-    }),
+      source: new OSM()
+    })
   ]
 });
 
 const PreviewMapExample = () => {
   const [style, setStyle] = useState({
-          name: "Demo Style",
-          rules: [
-            {
-              name: "Rule 1",
-              symbolizers: [
-                {
-                  kind: "Mark",
-                  wellKnownName: "circle",
-                  color: "red"
-                }
-              ]
-            }
-          ]
-        });
+    name: "Demo Style",
+    rules: [
+      {
+        name: "Rule 1",
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle",
+            color: "red"
+          }
+        ]
+      }
+    ]
+  });
 
   const myContext = {
     data: {
