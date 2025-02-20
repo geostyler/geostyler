@@ -49,7 +49,6 @@ import 'ol/ol.css';
 
 import _isEqual from 'lodash/isEqual';
 import _get from 'lodash/get';
-import _uniqueId from 'lodash/uniqueId';
 import placeholder from './placeholder';
 import { InfoCircleTwoTone } from '@ant-design/icons';
 import { Tooltip } from 'antd';
@@ -72,8 +71,8 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
 
   /** reference to the underlying OpenLayers map */
   const map = useRef<OlMap>();
+  const mapEl = useRef(null);
   const layer = useRef<OlLayerVector<any>>();
-  const [ mapId ] = useState(_uniqueId('map_'));
   const [containsFunctions, setContainsFunctions] = useState(false);
 
   const locale = useGeoStylerLocale('Renderer');
@@ -114,6 +113,10 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
   }, [getSampleGeomFromSymbolizer]);
 
   useEffect(() => {
+    if (!mapEl.current) {
+      return undefined;
+    }
+
     layer.current = new OlLayerVector({
       source: new OlSourceVector<OlFeatureLike>()
     });
@@ -121,12 +124,18 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
       layers: [layer.current],
       controls: [],
       interactions: [],
-      target: mapId,
+      target: mapEl.current,
       view: new OlView({
         projection: 'EPSG:4326'
       })
     });
-  }, [mapId]);
+
+    return () => {
+      if (map.current) {
+        map.current.setTarget(undefined);
+      }
+    };
+  }, [mapEl]);
 
   useEffect(() => {
     updateFeature();
@@ -223,7 +232,7 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
 
   return (
     <div
-      id={mapId}
+      ref={mapEl}
       className="gs-symbolizer-olrenderer"
       role="presentation"
       onClick={(event) => {
