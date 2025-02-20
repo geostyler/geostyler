@@ -1,3 +1,9 @@
+## [16.0.1](https://github.com/geostyler/geostyler/compare/v16.0.0...v16.0.1) (2025-02-20)
+
+### Bug Fixes
+
+* cleanup ol instance when destroying <OlRenderer> ([#2542](https://github.com/geostyler/geostyler/issues/2542)) ([c4fdfb8](https://github.com/geostyler/geostyler/commit/c4fdfb8f2a3237796182e08955d14779cbd430d9))
+
 ## [16.0.0](https://github.com/geostyler/geostyler/compare/v15.0.1...v16.0.0) (2025-02-12)
 
 ### ⚠ BREAKING CHANGES
