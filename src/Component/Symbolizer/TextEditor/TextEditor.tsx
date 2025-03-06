@@ -57,7 +57,7 @@ import {
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-import './TextEditor.less';
+import './TextEditor.css';
 import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
 

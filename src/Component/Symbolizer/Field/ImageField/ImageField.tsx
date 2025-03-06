@@ -35,12 +35,12 @@ import {
 import { IconSelectorWindow } from '../../IconSelectorWindow/IconSelectorWindow';
 import { IconLibrary } from '../../IconSelector/IconSelector';
 
-import './ImageField.less';
+import './ImageField.css';
 import { PictureOutlined } from '@ant-design/icons';
 import { Expression, IconSymbolizer, Sprite, isSprite } from 'geostyler-style';
 import StringExpressionInput from '../../../ExpressionInput/StringExpressionInput/StringExpressionInput';
 
-import './ImageField.less';
+import './ImageField.css';
 import { FieldSet } from '../../../FieldSet/FieldSet';
 import NumberExpressionInput from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 

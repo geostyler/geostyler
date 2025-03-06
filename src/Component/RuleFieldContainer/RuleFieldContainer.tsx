@@ -28,7 +28,7 @@
 
 import React from 'react';
 
-import './RuleFieldContainer.less';
+import './RuleFieldContainer.css';
 
 import { Form, Divider } from 'antd';
 

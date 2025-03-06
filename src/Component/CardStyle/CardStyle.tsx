@@ -41,7 +41,7 @@ import {
   isIconSymbolizer
 } from 'geostyler-style';
 
-import './CardStyle.less';
+import './CardStyle.css';
 import { Breadcrumb, Crumb } from '../Breadcrumb/Breadcrumb';
 import { StyleOverview } from '../StyleOverview/StyleOverview';
 import { RuleOverview } from '../RuleOverview/RuleOverview';

@@ -29,7 +29,7 @@ import React, { useCallback, useEffect, useRef, useState }  from 'react';
 import SldStyleParser from 'geostyler-sld-parser';
 import _isEqual from 'lodash/isEqual';
 
-import './SLDRenderer.less';
+import './SLDRenderer.css';
 import { Style, Symbolizer } from 'geostyler-style';
 import HTTPUtil from '../../../Util/HTTPUtil';
 import loading from './LoadingIcon';

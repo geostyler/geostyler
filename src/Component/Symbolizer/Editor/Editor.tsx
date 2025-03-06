@@ -38,7 +38,7 @@ import { LineEditor } from '../LineEditor/LineEditor';
 import { FillEditor } from '../FillEditor/FillEditor';
 import { TextEditor } from '../TextEditor/TextEditor';
 
-import './Editor.less';
+import './Editor.css';
 
 import 'ol/ol.css';
 

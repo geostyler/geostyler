@@ -27,7 +27,7 @@
  */
 
 import React, { ReactNode, useState } from 'react';
-import './Selectable.less';
+import './Selectable.css';
 import { SelectableItem } from './SelectableItem/SelectableItem';
 
 export interface SelectableProps extends React.PropsWithChildren {

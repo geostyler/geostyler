@@ -38,7 +38,7 @@
     overflow: hidden;
     transition: max-height 0.3s ease-out;
     position: absolute;
-    bottom: 42px; // bottombar-height
+    bottom: 42px; /* bottombar-height */
     width: 100%;
 
     .write-feedback, .read-feedback{
@@ -72,7 +72,7 @@
       width: 300px;
     }
     .gs-code-editor-upload-button {
-      margin: 0 5px;  
+      margin: 0 5px;
     }
   }
 

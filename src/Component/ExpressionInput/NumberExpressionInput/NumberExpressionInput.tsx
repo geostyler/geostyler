@@ -41,7 +41,7 @@ import {
 } from 'geostyler-style';
 import { FunctionOutlined } from '@ant-design/icons';
 
-import './NumberExpressionInput.less';
+import './NumberExpressionInput.css';
 
 export interface NumberExpressionInputProps {
   className?: string;

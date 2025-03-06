@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Expression, FStepParameter } from 'geostyler-style';
-import './StepInput.less';
+import './StepInput.css';
 import NumberExpressionInput from '../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 import UnknownInput from '../UnknownInput/UnknownInput';
 import { Type } from '../FunctionUI';

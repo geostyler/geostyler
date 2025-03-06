@@ -33,7 +33,7 @@ import {
   Symbolizer
 } from 'geostyler-style';
 
-import './MultiEditor.less';
+import './MultiEditor.css';
 
 import 'ol/ol.css';
 

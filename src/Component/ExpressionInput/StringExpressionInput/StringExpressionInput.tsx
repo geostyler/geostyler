@@ -41,7 +41,7 @@ import {
 } from 'geostyler-style';
 import { FunctionOutlined } from '@ant-design/icons';
 
-import './StringExpressionInput.less';
+import './StringExpressionInput.css';
 
 export interface StringExpressionInputProps {
   className?: string;

@@ -33,7 +33,7 @@
   "homepage": "https://github.com/geostyler/geostyler",
   "scripts": {
     "build-package": "npm run build-browser && tsc && npm run build-dist",
-    "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.less\" dist --up 1",
+    "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
     "build-styleguide": "styleguidist build --config styleguide.config.cjs",
     "build-browser": "vite build",
     "browser-sample": "npx http-server . -o /public/browser.html",
@@ -126,8 +126,6 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^24.1.0",
-    "less": "^4.2.0",
-    "less-loader": "^12.2.0",
     "mini-css-extract-plugin": "^2.9.0",
     "ol": "^10.2.1",
     "react": "^18.3.1",

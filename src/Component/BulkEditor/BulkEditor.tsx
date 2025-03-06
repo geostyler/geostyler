@@ -30,7 +30,7 @@ import React, { useState } from 'react';
 
 import { Form } from 'antd';
 
-import './BulkEditor.less';
+import './BulkEditor.css';
 import { ColorField } from '../Symbolizer/Field/ColorField/ColorField';
 import { RadiusField } from '../Symbolizer/Field/RadiusField/RadiusField';
 import { OpacityField } from '../Symbolizer/Field/OpacityField/OpacityField';

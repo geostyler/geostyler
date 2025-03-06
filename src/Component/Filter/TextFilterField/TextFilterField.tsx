@@ -33,7 +33,7 @@ import { Input, Form, AutoComplete, InputRef } from 'antd';
 import _get from 'lodash/get';
 import { Feature } from 'geojson';
 
-import './TextFilterField.less';
+import './TextFilterField.css';
 import {
   useGeoStylerData,
   useGeoStylerLocale

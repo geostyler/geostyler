@@ -41,7 +41,7 @@ import {
 } from 'geostyler-style';
 import { FunctionOutlined } from '@ant-design/icons';
 
-import './BooleanExpressionInput.less';
+import './BooleanExpressionInput.css';
 
 export interface BooleanExpressionInputProps {
   value?: Expression<boolean>;

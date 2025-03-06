@@ -29,7 +29,7 @@
 import React from 'react';
 import { InputNumber, Form, FormItemProps } from 'antd';
 
-import './MinScaleDenominator.less';
+import './MinScaleDenominator.css';
 import { Expression, isGeoStylerFunction } from 'geostyler-style';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 

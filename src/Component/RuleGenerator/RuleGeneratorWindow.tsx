@@ -33,7 +33,7 @@ import {
   Rule
 } from 'geostyler-style';
 
-import './RuleGeneratorWindow.less';
+import './RuleGeneratorWindow.css';
 import { Modal, ModalProps } from 'antd';
 
 import { RuleGenerator } from './RuleGenerator';

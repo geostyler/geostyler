@@ -32,7 +32,7 @@ import { Select } from 'antd';
 
 import _isEqual from 'lodash/isEqual';
 
-import './ClassificationCombo.less';
+import './ClassificationCombo.css';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export type ClassificationMethod = 'equalInterval' | 'quantile' | 'logarithmic' | 'kmeans';

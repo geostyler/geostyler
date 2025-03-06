@@ -28,7 +28,7 @@
 
 import React from 'react';
 
-import './FilterEditorWindow.less';
+import './FilterEditorWindow.css';
 import { Modal, ModalProps } from 'antd';
 
 

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Expression, FCaseParameter } from 'geostyler-style';
 import BooleanExpressionInput from '../../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
-import './CaseInput.less';
+import './CaseInput.css';
 import { Type } from '../FunctionUI';
 import UnknownInput from '../UnknownInput/UnknownInput';
 

@@ -28,7 +28,7 @@
 
 import React from 'react';
 
-import './StyleFieldContainer.less';
+import './StyleFieldContainer.css';
 
 import { Form } from 'antd';
 

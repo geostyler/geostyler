@@ -43,7 +43,7 @@ import OlStyleParser from 'geostyler-openlayers-parser';
 
 import { isGeoStylerFunction, Symbolizer, SymbolizerKind } from 'geostyler-style';
 
-import './OlRenderer.less';
+import './OlRenderer.css';
 
 import 'ol/ol.css';
 

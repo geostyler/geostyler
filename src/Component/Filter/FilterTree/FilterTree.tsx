@@ -52,7 +52,7 @@ import {
   Filter,
 } from 'geostyler-style';
 
-import './FilterTree.less';
+import './FilterTree.css';
 
 import { ComparisonFilter } from '../ComparisonFilter/ComparisonFilter';
 

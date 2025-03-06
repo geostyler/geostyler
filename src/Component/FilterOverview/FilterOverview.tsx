@@ -33,7 +33,7 @@ import {
   Filter as GsFilter
 } from 'geostyler-style';
 
-import './FilterOverview.less';
+import './FilterOverview.css';
 
 import { Button, Divider, Tree } from 'antd';
 import FilterUtil from '../../Util/FilterUtil';

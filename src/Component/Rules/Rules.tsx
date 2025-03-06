@@ -53,7 +53,7 @@ import {
   useGeoStylerLocale
 } from '../../context/GeoStylerContext/GeoStylerContext';
 
-import './Rules.less';
+import './Rules.css';
 
 export interface RulesComposableProps {
   disableClassification?: boolean;

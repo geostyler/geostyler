@@ -50,7 +50,7 @@ import {
   Symbolizer
 } from 'geostyler-style';
 
-import './RuleTable.less';
+import './RuleTable.css';
 import { FilterEditorWindow } from '../Filter/FilterEditorWindow/FilterEditorWindow';
 import { SymbolizerEditorWindow } from '../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow';
 import { ColumnProps, TableProps } from 'antd/lib/table';

@@ -8,7 +8,7 @@ import BooleanExpressionInput,
 import { Expression, isGeoStylerNumberFunction } from 'geostyler-style';
 import { isGeoStylerBooleanFunction } from 'geostyler-style';
 
-import './UnknownInput.less';
+import './UnknownInput.css';
 import { Select, Tooltip } from 'antd';
 import { FieldBinaryOutlined, FieldNumberOutlined, FieldStringOutlined } from '@ant-design/icons';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';

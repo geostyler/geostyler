@@ -38,17 +38,6 @@ module.exports = {
         resolve: {
           fullySpecified: false
         }
-      }, {
-        test: /\.less$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          'css-loader',
-          {
-            loader: 'less-loader'
-          }
-        ]
       },
       {
         test: /\.(ts|tsx)$/,
