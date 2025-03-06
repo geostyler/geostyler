@@ -164,7 +164,9 @@ const fr_FR: GeoStylerLocale = {
     outlineWidthLabel: 'Épaisseur du contour',
     outlineDasharrayLabel: 'Tireté ou pointillé du remplissage',
     graphicFillTypeLabel: 'Motif du remplissage',
-    visibilityLabel: 'Visibilité'
+    visibilityLabel: 'Visibilité',
+    generalSectionLabel: 'Généralités',
+    graphicFillSectionLabel: 'Motif de remplissage'
   },
   IconEditor: {
     iconTooltipLabel: 'Ouvrir la galerie',
@@ -193,7 +195,10 @@ const fr_FR: GeoStylerLocale = {
     opacityLabel: 'Opacité',
     perpendicularOffsetLabel: 'Décalage perpendiculaire',
     widthLabel: 'Épaisseur',
-    visibilityLabel: 'Visibilité'
+    visibilityLabel: 'Visibilité',
+    generalSectionLabel: 'Généralités',
+    graphicStrokeSectionLabel: 'Type de tracé',
+    graphicFillSectionLabel: 'Motif de remplissage'
   },
   TextEditor: {
     fontLabel: 'Police',

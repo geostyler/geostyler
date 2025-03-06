@@ -226,7 +226,9 @@ const es_ES: GeoStylerLocale = {
     outlineWidthLabel: 'Contorno-Ancho',
     outlineDasharrayLabel: 'Outline-Dasharray',
     graphicFillTypeLabel: 'Tipo gráfico de relleno',
-    visibilityLabel: 'Visibilidad'
+    visibilityLabel: 'Visibilidad',
+    generalSectionLabel: 'General',
+    graphicFillSectionLabel: 'Relleno gráfico'
   },
   IconEditor: {
     iconTooltipLabel: 'Abrir galería',
@@ -251,7 +253,10 @@ const es_ES: GeoStylerLocale = {
     opacityLabel: 'Transparencia',
     perpendicularOffsetLabel: 'Perpendicular Offset',
     widthLabel: 'Ancho',
-    visibilityLabel: 'Visibilidad'
+    visibilityLabel: 'Visibilidad',
+    generalSectionLabel: 'General',
+    graphicStrokeSectionLabel: 'Trazado gráfico',
+    graphicFillSectionLabel: 'Relleno gráfico'
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Simbolo',

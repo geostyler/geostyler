@@ -163,6 +163,8 @@ const en_US: GeoStylerLocale = {
     outlineDasharrayLabel: 'Outline-Dasharray',
     graphicFillTypeLabel: 'Graphic Fill Type',
     visibilityLabel: 'Visibility',
+    generalSectionLabel: 'General',
+    graphicFillSectionLabel: 'Graphic Fill'
   },
   IconEditor: {
     iconTooltipLabel: 'Open Gallery',
@@ -191,7 +193,10 @@ const en_US: GeoStylerLocale = {
     opacityLabel: 'Opacity',
     perpendicularOffsetLabel: 'Perpendicular Offset',
     widthLabel: 'Width',
-    visibilityLabel: 'Visibility'
+    visibilityLabel: 'Visibility',
+    generalSectionLabel: 'General',
+    graphicStrokeSectionLabel: 'Graphic Stroke',
+    graphicFillSectionLabel: 'Graphic Fill'
   },
   TextEditor: {
     fontLabel: 'Font',
