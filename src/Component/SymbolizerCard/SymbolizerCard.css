@@ -31,8 +31,10 @@
   height: 100px;
   width: 100px;
 
-  .ant-card-body {
-    padding: 0;
+  &.ant-card {
+    .ant-card-body {
+      padding: 0;
+    }
   }
 
   &.ant-card-bordered {
