@@ -28,7 +28,7 @@
 
 import React from 'react';
 
-import './Renderer.less';
+import './Renderer.css';
 
 import { OlRenderer, OlRendererProps } from '../OlRenderer/OlRenderer';
 import { SLDRenderer, SLDRendererProps } from '../SLDRenderer/SLDRenderer';

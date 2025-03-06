@@ -35,7 +35,7 @@ import { functionConfigs } from '../functionConfigs';
 import { GeoStylerFunction } from 'geostyler-style';
 import { NodeCollapseOutlined } from '@ant-design/icons';
 
-import './FunctionNameCombo.less';
+import './FunctionNameCombo.css';
 
 export type FunctionType = 'string' | 'number' | 'boolean' | 'unknown';
 

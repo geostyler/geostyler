@@ -28,7 +28,7 @@
 
 import React from 'react';
 
-import './ColorRampCombo.less';
+import './ColorRampCombo.css';
 
 import { brewer } from 'chroma-js';
 

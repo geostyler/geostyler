@@ -31,7 +31,7 @@ import BooleanExpressionInput, { type BooleanExpressionInputProps }
   from '../../../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
 import { Expression } from 'geostyler-style';
 
-import './VisibilityField.less';
+import './VisibilityField.css';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 type InputProps = BooleanExpressionInputProps['switchProps'];

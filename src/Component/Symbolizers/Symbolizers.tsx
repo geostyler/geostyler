@@ -36,7 +36,7 @@ import {
 import { closestCenter, DndContext } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 
-import './Symbolizers.less';
+import './Symbolizers.css';
 import { Button, Card, Divider } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';

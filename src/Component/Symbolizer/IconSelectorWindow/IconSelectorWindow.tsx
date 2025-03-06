@@ -33,7 +33,7 @@ import {
 } from 'antd';
 
 import { IconSelector, IconLibrary } from '../IconSelector/IconSelector';
-import './IconSelectorWindow.less';
+import './IconSelectorWindow.css';
 
 import _isEqual from 'lodash/isEqual';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';

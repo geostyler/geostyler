@@ -28,7 +28,7 @@
 
 import React from 'react';
 import { Breadcrumb as AntdBreadcrumb, Button } from 'antd';
-import './Breadcrumb.less';
+import './Breadcrumb.css';
 import { LeftOutlined } from '@ant-design/icons';
 
 export interface Crumb {

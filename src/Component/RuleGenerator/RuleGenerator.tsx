@@ -32,7 +32,7 @@ import { VectorData } from 'geostyler-data';
 import { Radio, Form, Button, InputNumber, Tooltip } from 'antd';
 import { AttributeCombo } from '../Filter/AttributeCombo/AttributeCombo';
 
-import './RuleGenerator.less';
+import './RuleGenerator.css';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import RuleGeneratorUtil from '../../Util/RuleGeneratorUtil';
 import { KindField } from '../Symbolizer/Field/KindField/KindField';

@@ -50,7 +50,7 @@ import OlStyleParser from 'geostyler-openlayers-parser';
 
 import GeometryUtil from '../../Util/GeometryUtil';
 
-import './PreviewMap.less';
+import './PreviewMap.css';
 import { StandardLonghandProperties } from 'csstype';
 import { isString } from 'lodash';
 import { useGeoStylerData, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';

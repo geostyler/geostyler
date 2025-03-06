@@ -44,7 +44,7 @@ import { Rules } from '../Rules/Rules';
 import CardViewUtil from '../../Util/CardViewUtil';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
-import './StyleOverview.less';
+import './StyleOverview.css';
 
 export interface StyleOverviewProps {
   /** The callback when the style changed. */

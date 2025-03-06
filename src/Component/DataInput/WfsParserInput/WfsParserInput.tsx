@@ -40,7 +40,7 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-import './WfsParserInput.less';
+import './WfsParserInput.css';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
 

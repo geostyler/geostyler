@@ -29,7 +29,7 @@
 import React from 'react';
 import { Checkbox } from 'antd';
 
-import './FieldSet.less';
+import './FieldSet.css';
 
 export interface FieldSetProps extends React.PropsWithChildren {
   /**

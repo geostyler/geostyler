@@ -28,7 +28,7 @@
 
 import React from 'react';
 
-import './ColorsPreview.less';
+import './ColorsPreview.css';
 
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 

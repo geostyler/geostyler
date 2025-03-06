@@ -40,7 +40,7 @@ import {
   saveAs
 } from 'file-saver';
 
-import './CodeEditor.less';
+import './CodeEditor.css';
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadChangeParam } from 'antd/lib/upload/interface';
 

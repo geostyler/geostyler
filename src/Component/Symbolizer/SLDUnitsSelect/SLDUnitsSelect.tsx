@@ -30,7 +30,7 @@ import { Select } from 'antd';
 const Option = Select.Option;
 import React, { useState } from 'react';
 
-import './SLDUnitsSelect.less';
+import './SLDUnitsSelect.css';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface SLDUnitsSelectProps {

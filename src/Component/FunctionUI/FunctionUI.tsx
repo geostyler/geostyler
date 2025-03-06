@@ -35,7 +35,7 @@ import {
 } from 'geostyler-style';
 import FunctionNameCombo from './FunctionNameCombo/FunctionNameCombo';
 
-import './FunctionUI.less';
+import './FunctionUI.css';
 import StringExpressionInput from '../ExpressionInput/StringExpressionInput/StringExpressionInput';
 import NumberExpressionInput from '../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 import BooleanExpressionInput from '../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';

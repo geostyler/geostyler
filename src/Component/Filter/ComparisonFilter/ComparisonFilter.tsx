@@ -52,7 +52,7 @@ import { BoolFilterField } from '../BoolFilterField/BoolFilterField';
 
 import { useGeoStylerComposition, useGeoStylerData } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-import './ComparisonFilter.less';
+import './ComparisonFilter.css';
 
 type ValidationResult = {
   isValid: boolean;

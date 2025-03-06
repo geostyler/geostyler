@@ -47,7 +47,7 @@ import {RotateField} from '../Field/RotateField/RotateField';
 import {WidthField} from '../Field/WidthField/WidthField';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
-import './PropTextEditor.less';
+import './PropTextEditor.css';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface PropTextEditorProps {

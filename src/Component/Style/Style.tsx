@@ -60,7 +60,7 @@ import {
   useGeoStylerLocale
 } from '../../context/GeoStylerContext/GeoStylerContext';
 
-import './Style.less';
+import './Style.css';
 import { ItemType } from 'antd/es/menu/interface';
 
 export interface StyleComposableProps {

@@ -35,7 +35,7 @@ import {
   ColorPickerProps
 } from 'antd';
 
-import './ColorField.less';
+import './ColorField.css';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 import {
   Expression,

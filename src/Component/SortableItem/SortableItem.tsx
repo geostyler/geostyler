@@ -29,7 +29,7 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-import './SortableItem.less';
+import './SortableItem.css';
 
 export interface SortableItemProps extends React.PropsWithChildren {
   id: any;

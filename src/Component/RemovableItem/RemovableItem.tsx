@@ -28,7 +28,7 @@
 
 import { CloseCircleOutlined } from '@ant-design/icons';
 import React from 'react';
-import './RemovableItem.less';
+import './RemovableItem.css';
 
 export interface RemovableItemProps extends React.PropsWithChildren {
   /** The callback that is being called, when the item was clicked. */

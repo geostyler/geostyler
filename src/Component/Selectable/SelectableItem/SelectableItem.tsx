@@ -28,7 +28,7 @@
 
 import { CheckCircleOutlined } from '@ant-design/icons';
 import React from 'react';
-import './SelectableItem.less';
+import './SelectableItem.css';
 
 export interface SelectableItemProps extends React.PropsWithChildren {
   /** The callback that is being called, when the item was clicked. */

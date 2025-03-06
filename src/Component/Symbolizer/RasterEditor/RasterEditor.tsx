@@ -44,7 +44,7 @@ import { GammaField, GammaFieldProps } from '../Field/GammaField/GammaField';
 import DataUtil from '../../../Util/DataUtil';
 import { ColorMapEditor } from '../ColorMapEditor/ColorMapEditor';
 
-import './RasterEditor.less';
+import './RasterEditor.css';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';

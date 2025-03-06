@@ -34,7 +34,7 @@ import {
   Symbolizer as GsSymbolizer
 } from 'geostyler-style';
 
-import './RuleOverview.less';
+import './RuleOverview.css';
 
 import { RuleFieldContainer } from '../RuleFieldContainer/RuleFieldContainer';
 import { Divider } from 'antd';

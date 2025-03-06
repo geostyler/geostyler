@@ -49,7 +49,7 @@ import { KindField } from '../Field/KindField/KindField';
 import { ImageField } from '../Field/ImageField/ImageField';
 import { IconSelector, IconLibrary } from '../IconSelector/IconSelector';
 
-import './BulkEditModals.less';
+import './BulkEditModals.css';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 

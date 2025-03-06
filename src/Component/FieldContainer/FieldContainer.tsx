@@ -28,7 +28,7 @@
 
 import React from 'react';
 
-import './FieldContainer.less';
+import './FieldContainer.css';
 
 export interface FieldContainerProps {
   children?: React.ReactElement | React.ReactElement[];

@@ -33,7 +33,7 @@ import { Symbolizer } from 'geostyler-style';
 import { MultiEditor } from '../MultiEditor/MultiEditor';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
-import './SymbolizerEditorWindow.less';
+import './SymbolizerEditorWindow.css';
 import { Modal, ModalProps } from 'antd';
 
 import _isEqual from 'lodash/isEqual';

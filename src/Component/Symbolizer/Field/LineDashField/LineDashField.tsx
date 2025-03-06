@@ -34,7 +34,7 @@ import {
 
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
-import './LineDashField.less';
+import './LineDashField.css';
 
 export interface LineDashFieldProps {
   onChange?: (dashArray: number[]) => void;

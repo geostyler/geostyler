@@ -31,7 +31,7 @@ import {
   Input
 } from 'antd';
 
-import './NameField.less';
+import './NameField.css';
 
 export interface NameFieldProps {
   /** The placeholder text of the input field if no value was specified */

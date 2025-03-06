@@ -35,7 +35,7 @@ import {
 } from 'antd';
 const Option = Select.Option;
 
-import './IconSelector.less';
+import './IconSelector.css';
 
 import _isEqual from 'lodash/isEqual';
 
