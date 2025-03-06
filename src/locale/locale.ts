@@ -123,6 +123,8 @@ export default interface GeoStylerLocale {
     outlineDasharrayLabel: string;
     graphicFillTypeLabel: string;
     visibilityLabel: string;
+    generalSectionLabel: string;
+    graphicFillSectionLabel: string;
   };
   IconEditor: {
     iconTooltipLabel: string;
@@ -148,6 +150,9 @@ export default interface GeoStylerLocale {
     graphicStrokeTypeLabel: string;
     graphicFillTypeLabel: string;
     visibilityLabel: string;
+    generalSectionLabel: string;
+    graphicStrokeSectionLabel: string;
+    graphicFillSectionLabel: string;
   };
   MarkEditor: {
     wellKnownNameFieldLabel: string;

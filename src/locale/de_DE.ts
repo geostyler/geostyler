@@ -163,7 +163,9 @@ const de_DE: GeoStylerLocale = {
     outlineWidthLabel: 'Randbreite',
     outlineDasharrayLabel: 'Rand-Strichmuster',
     graphicFillTypeLabel: 'Graphic Fill Type',
-    visibilityLabel: 'Sichtbarkeit'
+    visibilityLabel: 'Sichtbarkeit',
+    generalSectionLabel: 'Allgemein',
+    graphicFillSectionLabel: 'Graphische Füllung'
   },
   IconEditor: {
     iconTooltipLabel: 'Öffne Galerie',
@@ -188,7 +190,10 @@ const de_DE: GeoStylerLocale = {
     opacityLabel: 'Deckkraft',
     perpendicularOffsetLabel: 'Senkrechter Versatz',
     widthLabel: 'Breite',
-    visibilityLabel: 'Sichtbarkeit'
+    visibilityLabel: 'Sichtbarkeit',
+    generalSectionLabel: 'Allgemein',
+    graphicStrokeSectionLabel: 'Graphischer Strich',
+    graphicFillSectionLabel: 'Graphische Füllung'
   },
   MarkEditor: {
     wellKnownNameFieldLabel: 'Symbol',

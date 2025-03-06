@@ -163,7 +163,9 @@ const zh_CN: GeoStylerLocale = {
     outlineWidthLabel: '轮廓-宽度',
     outlineDasharrayLabel: '轮廓-点划样式',
     graphicFillTypeLabel: '填充样式',
-    visibilityLabel: '可见性'
+    visibilityLabel: '可见性',
+    generalSectionLabel: '常规',
+    graphicFillSectionLabel: '填充'
   },
   IconEditor: {
     iconTooltipLabel: '打开图库',
@@ -192,7 +194,10 @@ const zh_CN: GeoStylerLocale = {
     joinLabel: '角点',
     graphicStrokeTypeLabel: '画笔类型',
     graphicFillTypeLabel: '填充类型',
-    visibilityLabel: '可见性'
+    visibilityLabel: '可见性',
+    generalSectionLabel: '常规',
+    graphicStrokeSectionLabel: '画笔',
+    graphicFillSectionLabel: '填充'
   },
   TextEditor: {
     fontLabel: '字体',

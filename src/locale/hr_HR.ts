@@ -162,7 +162,9 @@ const hr_HR: GeoStylerLocale = {
     outlineWidthLabel: 'Obrub-Širina',
     outlineDasharrayLabel: 'Obrub-Crtkano',
     graphicFillTypeLabel: 'Vrsta grafičke ispune',
-    visibilityLabel: 'Vidljivost'
+    visibilityLabel: 'Vidljivost',
+    generalSectionLabel: 'Általános',
+    graphicFillSectionLabel: 'Grafikus kitöltés'
   },
   IconEditor: {
     iconTooltipLabel: 'Otvori galeriju',
@@ -191,7 +193,10 @@ const hr_HR: GeoStylerLocale = {
     opacityLabel: 'Prozirnost',
     perpendicularOffsetLabel: 'Okomiti pomak',
     widthLabel: 'Širina',
-    visibilityLabel: 'Vidljivost'
+    visibilityLabel: 'Vidljivost',
+    generalSectionLabel: 'Általános',
+    graphicStrokeSectionLabel: 'Grafikus potez',
+    graphicFillSectionLabel: 'Grafikus kitöltés'
   },
   TextEditor: {
     fontLabel: 'Font',
