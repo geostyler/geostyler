@@ -76,7 +76,7 @@
     "geostyler-openlayers-parser": "^5.0.0",
     "geostyler-qgis-parser": "^3.0.0",
     "geostyler-sld-parser": "^7.0.0",
-    "geostyler-style": "^9.0.1",
+    "geostyler-style": "^10.0.0",
     "geostyler-wfs-parser": "^3.0.1",
     "lodash": "^4.17.21",
     "monaco-editor": "^0.50.0",
