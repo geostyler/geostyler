@@ -74,7 +74,7 @@
     "geostyler-geojson-parser": "^2.0.0",
     "geostyler-mapbox-parser": "^6.0.0",
     "geostyler-openlayers-parser": "^5.0.0",
-    "geostyler-qgis-parser": "^3.0.0",
+    "geostyler-qgis-parser": "^4.0.0",
     "geostyler-sld-parser": "^7.0.0",
     "geostyler-style": "^9.0.1",
     "geostyler-wfs-parser": "^3.0.1",
