@@ -8,7 +8,7 @@
 Code: [github](https://github.com/geostyler/geostyler)
 Package: [npm](https://www.npmjs.com/package/geostyler)
 <!-- DO NOT TOUCH next line. It will be replaced auotmaticaly via RELEASE.yml -->
-Documentation: [main](https://geostyler.github.io/geostyler/main/index.html) / [latest](https://geostyler.github.io/geostyler/latest/index.html) / [16.0.1](https://geostyler.github.io/geostyler/v16.0.1/index.html)
+Documentation: [main](https://geostyler.github.io/geostyler/main/index.html) / [latest](https://geostyler.github.io/geostyler/latest/index.html) / [17.0.0](https://geostyler.github.io/geostyler/v17.0.0/index.html)
 
 Examples:
 [Demo application](https://geostyler.github.io/geostyler-demo/)
