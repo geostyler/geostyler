@@ -1,3 +1,18 @@
+## [17.0.0](https://github.com/geostyler/geostyler/compare/v16.0.1...v17.0.0) (2025-05-27)
+
+### ⚠ BREAKING CHANGES
+
+* GeoStyler now runs with plain CSS, so no additional
+tooling is needed. Thus, you probably do not have to change anything.
+But if your application's configuration assumes the existence of .less
+files, you probably have to adjust these configurations now.
+
+### Bug Fixes
+
+* increase specificity of symbolizercard padding ([bcda2f4](https://github.com/geostyler/geostyler/commit/bcda2f423f66928228296cd5803e2460a46ba216))
+* replace less with plain css ([d51b224](https://github.com/geostyler/geostyler/commit/d51b2248c00bddbc4da92fa1e0ceffb7eb844164))
+* update geostyler dependencies ([9651459](https://github.com/geostyler/geostyler/commit/965145930ae82bfcd359ff3547ba06b561fd408e))
+
 ## [16.0.1](https://github.com/geostyler/geostyler/compare/v16.0.0...v16.0.1) (2025-02-20)
 
 ### Bug Fixes
