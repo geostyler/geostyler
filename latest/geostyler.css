@@ -252,8 +252,12 @@ mark {
   background-color: #feffe6;
 }
 
-.gs-bulkeditor .gs-symbol-selection .kind-field {
-  margin-bottom: 12px;
+.gs-bulkeditor {
+  .gs-symbol-selection {
+    .kind-field {
+      margin-bottom: 12px;
+    }
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -283,175 +287,235 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.ant-color-picker .ant-color-picker-slider-container {
-  padding-bottom: 6px;
+.ant-color-picker {
+  .ant-color-picker-slider-container {
+    padding-bottom: 6px;
+
+    .ant-color-picker-slider-group {
+      align-self: end;
+    }
+  }
 }
-.ant-color-picker .ant-color-picker-slider-container .ant-color-picker-slider-group {
-  align-self: end;
-}
+
 .gs-color-field {
   display: flex;
-}
-.gs-color-field .gs-function-ui,
-.gs-color-field .ant-input,
-.gs-color-field button.color-picker-trigger {
-  flex: 1;
-}
-.gs-color-field button.function-ui-trigger {
-  display: none;
-  border-radius: 0 6px 6px 0;
-}
-.gs-color-field:hover button.ant-btn {
-  display: inline-block;
-}
-.gs-color-field:hover button.color-picker-trigger {
-  border-radius: 6px 0 0 6px;
+
+  .gs-function-ui,
+  .ant-input,
+  button.color-picker-trigger {
+    flex: 1;
+  }
+
+  button.function-ui-trigger {
+    display: none;
+    border-radius: 0 6px 6px 0;
+  }
+
+  &:hover {
+    button.ant-btn {
+      display: inline-block;
+    }
+
+    button.color-picker-trigger {
+      border-radius: 6px 0 0 6px;
+    }
+  }
 }
 
 .gs-function-name-combo {
   display: flex;
-}
-.gs-function-name-combo .ant-select {
-  flex: 1;
-}
-.gs-function-name-combo button.ant-btn {
-  display: none;
-}
-.gs-function-name-combo:hover button.ant-btn {
-  display: inline-block;
+
+  .ant-select {
+    flex: 1;
+  }
+
+  button.ant-btn {
+    display: none;
+  }
+
+  &:hover {
+    button.ant-btn {
+      display: inline-block;
+    }
+  }
 }
 
 .gs-function-ui {
+
+  .gs-function-name-combo {
+    width: 100%;
+  }
+
+  .ant-input-wrapper {
+    .ant-input-group-addon {
+      display: none;
+    }
+
+    &:hover {
+      .ant-input-group-addon {
+        display: table-cell;
+      }
+    }
+  }
+
   /**
    * Nested Functions
    **/
-}
-.gs-function-ui .gs-function-name-combo {
-  width: 100%;
-}
-.gs-function-ui .ant-input-wrapper .ant-input-group-addon {
-  display: none;
-}
-.gs-function-ui .ant-input-wrapper:hover .ant-input-group-addon {
-  display: table-cell;
-}
-.gs-function-ui .gs-function-ui {
-  margin: 0.25em 0;
-  width: 100%;
-}
-.gs-function-ui .gs-function-arguments .gs-function-arg {
-  display: flex;
-}
-.gs-function-ui .gs-function-arguments .gs-function-arg > :not(.tree-icon) {
-  margin: 0.25em 0;
-  flex: 1;
-}
-.gs-function-ui .gs-function-arguments .gs-function-arg .remove-argument-button {
-  flex: unset;
-  align-self: center;
-}
-.gs-function-ui .gs-function-arguments .gs-function-arg .tree-icon {
-  width: 28px;
-  background-image: linear-gradient(grey, grey), linear-gradient(grey, grey);
-  background-size: 1px 100%, 50% 1px;
-  background-repeat: no-repeat, no-repeat;
-}
-.gs-function-ui .gs-function-arguments .gs-function-arg:not(:last-child) .tree-icon {
-  background-position: center center, 100% 20px;
-}
-.gs-function-ui .gs-function-arguments .gs-function-arg:last-child .tree-icon {
-  width: 28px;
-  height: 40px;
-  background-size: 1px 50%, 50% 1px;
-  background-position: top center, center right;
+  .gs-function-ui {
+    margin: 0.25em 0;
+    width: 100%;
+  }
+
+  .gs-function-arguments {
+    .gs-function-arg {
+      display: flex;
+
+      >:not(.tree-icon) {
+        margin: 0.25em 0;
+        flex: 1;
+      }
+
+      .remove-argument-button {
+        flex: unset;
+        align-self: center;
+      }
+
+      .tree-icon {
+        width: 28px;
+        background-image: linear-gradient(grey, grey), linear-gradient(grey, grey);
+        background-size: 1px 100%, 50% 1px;
+        background-repeat: no-repeat, no-repeat;
+      }
+
+      &:not(:last-child) {
+        .tree-icon {
+          background-position: center center, 100% 20px;
+        }
+      }
+
+      &:last-child {
+        .tree-icon {
+          width: 28px;
+          height: 40px;
+          background-size: 1px 50%, 50% 1px;
+          background-position: top center, center right;
+        }
+      }
+    }
+
+  }
 }
 
 .string-expression-input {
   display: flex;
   align-items: center;
-}
-.string-expression-input .gs-function-ui,
-.string-expression-input .ant-input {
-  flex: 1;
-}
-.string-expression-input button.ant-btn {
-  display: none;
-  border-radius: 0 6px 6px 0;
-}
-.string-expression-input:hover button.ant-btn {
-  display: inline-block;
-}
-.string-expression-input:hover .ant-input-affix-wrapper,
-.string-expression-input:hover .ant-input-group-addon {
-  border-radius: 0;
-}
-.string-expression-input:hover .ant-input {
-  border-radius: 6px 0 0 6px;
+
+  .gs-function-ui,
+  .ant-input {
+    flex: 1;
+  }
+
+  button.ant-btn {
+    display: none;
+    border-radius: 0 6px 6px 0;
+  }
+
+  &:hover {
+    button.ant-btn {
+      display: inline-block;
+    }
+
+    .ant-input-affix-wrapper,
+    .ant-input-group-addon {
+      border-radius: 0;
+    }
+    .ant-input {
+      border-radius: 6px 0 0 6px;
+    }
+  }
+
 }
 
 .number-expression-input {
   display: flex;
   align-items: center;
-}
-.number-expression-input .gs-function-ui,
-.number-expression-input .ant-input-number-affix-wrapper,
-.number-expression-input .ant-input-number {
-  flex: 1;
-}
-.number-expression-input button.ant-btn {
-  display: none;
-  border-radius: 0 6px 6px 0;
-}
-.number-expression-input:hover button.ant-btn {
-  display: inline-block;
-}
-.number-expression-input:hover .ant-input-number,
-.number-expression-input:hover .ant-input-number-affix-wrapper {
-  border-radius: 6px 0 0 6px;
+
+  .gs-function-ui,
+  .ant-input-number-affix-wrapper,
+  .ant-input-number {
+    flex: 1;
+  }
+
+  button.ant-btn {
+    display: none;
+    border-radius: 0 6px 6px 0;
+  }
+
+  &:hover {
+    button.ant-btn {
+      display: inline-block;
+    }
+
+    .ant-input-number,
+    .ant-input-number-affix-wrapper {
+      border-radius: 6px 0 0 6px;
+    }
+  }
+
 }
 
 .boolean-expression-input {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.boolean-expression-input button.ant-btn {
-  display: none;
-}
-.boolean-expression-input:hover button.ant-btn {
-  display: inline-block;
+
+  button.ant-btn {
+    display: none;
+  }
+
+  &:hover {
+    button.ant-btn {
+      display: inline-block;
+    }
+  }
 }
 
 .gs-case-input {
   display: flex;
   gap: 0.25em;
-}
-.gs-case-input .boolean-expression-input {
-  flex: 1;
-}
-.gs-case-input > .gs-unknown-input {
-  max-width: calc(40% - 32px);
+
+  .boolean-expression-input {
+    flex: 1;
+  }
+
+  >.gs-unknown-input {
+    max-width: calc(40% - 32px);
+  }
+
 }
 
 .gs-unknown-input {
   display: flex;
-}
-.gs-unknown-input .string-expression-input,
-.gs-unknown-input .number-expression-input,
-.gs-unknown-input .boolean-expression-input {
-  flex: 1;
-}
-.gs-unknown-input .gs-type-select {
-  min-width: 56px;
+
+  .string-expression-input,
+  .number-expression-input,
+  .boolean-expression-input {
+    flex: 1;
+  }
+
+  .gs-type-select {
+    min-width: 56px;
+  }
 }
 
 .gs-step-input {
   display: flex;
   gap: 0.25em;
-}
-.gs-step-input .gs-unknown-input,
-.gs-step-input .number-expression-input {
-  flex: 1;
+
+  .gs-unknown-input,
+  .number-expression-input {
+    flex: 1;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -481,42 +545,53 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-icon-selector .gs-icon-selector-grid {
-  cursor: pointer;
-  box-shadow: none;
-  display: flex;
-  flex-direction: column;
-}
-.gs-icon-selector .gs-icon-selector-grid:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  /* box-shadow: 1px 0px 3px 1px rgba(0, 0, 0, 0.5); */
-}
-.gs-icon-selector .gs-icon-selector-grid-selected {
-  background-color: rgba(0, 0, 0, 0);
-  box-shadow: inset 0px 0px 2px 2px rgba(24, 144, 255, 0.8);
-}
-.gs-icon-selector .gs-icon-selector-grid-selected:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0px 0px 2px 2px rgba(24, 144, 255, 0.8);
-}
-.gs-icon-selector .gs-lib-row {
-  display: flex;
-  padding: 3px 0 3px 3px;
-}
-.gs-icon-selector .gs-lib-row .gs-label {
-  padding-right: 10px;
-  vertical-align: middle;
-  line-height: 30px;
-}
-.gs-icon-selector .gs-lib-row .gs-select {
-  flex: 1;
-}
-.gs-icon-selector .gs-icon-selector-grid-avatar {
-  align-self: center;
-}
-.gs-icon-selector .gs-icon-selector-grid-description {
-  text-align: center;
-  padding-top: 5px;
+
+.gs-icon-selector {
+  .gs-icon-selector-grid {
+    cursor: pointer;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gs-icon-selector-grid:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    /* box-shadow: 1px 0px 3px 1px rgba(0, 0, 0, 0.5); */
+  }
+
+  .gs-icon-selector-grid-selected {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: inset 0px 0px 2px 2px rgba(24, 144, 255, 0.8);
+  }
+
+  .gs-icon-selector-grid-selected:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0px 0px 2px 2px rgba(24, 144, 255, 0.8);
+  }
+
+  .gs-lib-row {
+    display: flex;
+    padding: 3px 0 3px 3px;
+
+    .gs-label {
+      padding-right: 10px;
+      vertical-align: middle;
+      line-height: 30px;
+    }
+
+    .gs-select {
+      flex: 1;
+    }
+  }
+
+  .gs-icon-selector-grid-avatar {
+    align-self: center;
+  }
+
+  .gs-icon-selector-grid-description {
+    text-align: center;
+    padding-top: 5px;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -546,10 +621,14 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-icon-selector-window .ant-modal-body {
-  padding-top: 15px;
-  max-height: calc(100vh - 100px);
-  overflow: auto;
+
+.gs-icon-selector-window {
+  .ant-modal-body {
+    padding-top: 15px;
+
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -579,17 +658,21 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-image-field .spriterow {
-  display: flex;
-}
-.gs-image-field .spriterow > span {
-  flex: 1;
-  display: inline-flex;
-  align-items: center;
-  padding-inline: 1em;
-}
-.gs-image-field .spriterow > span .number-expression-input {
-  margin-left: 0.25em;
+.gs-image-field {
+  .spriterow {
+    display: flex;
+
+    & > span {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      padding-inline: 1em;
+
+      .number-expression-input {
+        margin-left: .25em;
+      }
+    }
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -619,30 +702,46 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-fieldset .fieldset-title {
-  position: relative;
-  top: 0.75em;
-  left: 1em;
-  background: white;
-  padding-left: 0.25em;
-}
-.gs-fieldset .fieldset-body {
-  border-top: 1px solid lightgrey;
-}
-.gs-fieldset.checked .fieldset-body {
-  border: 1px solid lightgrey;
-  border-radius: 4px;
-  padding-top: 1em;
-  padding-bottom: 0.5em;
+
+.gs-fieldset {
+
+  .fieldset-title {
+    position: relative;
+    top: 0.75em;
+    left: 1em;
+    background: white;
+    padding-left: 0.25em;
+  }
+
+  .fieldset-body {
+    border-top: 1px solid lightgrey;
+  }
+
+  &.checked {
+    .fieldset-body {
+      border: 1px solid lightgrey;
+      border-radius: 4px;
+      padding-top: 1em;
+      padding-bottom: .5em;
+    }
+  }
+
 }
 
 .gs-breadcrumb {
+
   display: flex;
   align-items: center;
-}
-.gs-breadcrumb .gs-breadcrumb-crumbs :not(span.ant-breadcrumb-separator) {
-  cursor: pointer;
-  text-decoration: underline;
+
+  .gs-breadcrumb-crumbs {
+
+    :not(span.ant-breadcrumb-separator) {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+  }
+
 }
 
 /* Released under the BSD 2-Clause License
@@ -672,27 +771,35 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-bulk-edit-modals-icon-selector {
   padding-top: 10px;
 }
 
-.gs-card-style > .gs-renderer .gs-symbolizer-olrenderer {
-  width: 50px;
-  height: 50px;
-  cursor: default;
-}
-.gs-card-style > .gs-renderer .gs-symbolizer-sldrenderer {
-  width: 50px;
-  height: 50px;
-  cursor: default;
+.gs-card-style {
+  > .gs-renderer {
+
+    .gs-symbolizer-olrenderer {
+      width: 50px;
+      height: 50px;
+      cursor: default;
+    }
+
+    .gs-symbolizer-sldrenderer {
+      width: 50px;
+      height: 50px;
+      cursor: default;
+    }
+  }
 }
 
 
 .gs-field-container {
   width: 100%;
-}
-.gs-field-container .ant-form-item {
-  margin-bottom: 12px;
+
+  .ant-form-item {
+    margin-bottom: 12px;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -722,24 +829,29 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-namefield-input {
   width: inherit;
 }
 
 
 .gs-selectable-item {
+
   position: relative;
-}
-.gs-selectable-item.selected > :last-child {
-  background-color: #eee;
-}
-.gs-selectable-item > .anticon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  z-index: 99;
-  font-size: x-large;
+
+  &.selected >:last-child {
+    background-color: #eee;
+  }
+
+  >.anticon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 99;
+    font-size: x-large;
+  }
+
 }
 
 /* Released under the BSD 2-Clause License
@@ -769,37 +881,47 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-rule-card > .ant-card-body {
-  display: flex;
-}
-.gs-rule-card .ant-divider {
-  height: auto;
-  margin: 0 20px;
-}
-.gs-rule-card .gs-symbolizer-olrenderer {
-  width: 100px;
-  height: 100px;
-}
-.gs-rule-card .gs-rule-card-content {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.gs-rule-card .gs-rule-card-content .gs-rule-card-content-icon-row > span:not(:first-child) {
-  padding-left: 10px;
-}
-.gs-rule-card .gs-rule-card-content .gs-rule-card-icon {
-  font-size: medium;
-  padding-right: 3px;
-}
-.gs-rule-card .gs-rule-card-content .gs-rule-card-cql {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.gs-rule-card .gs-rule-card-content .gs-rule-card-cql .gs-rule-card-icon {
-  padding-right: 10px;
+.gs-rule-card {
+
+  >.ant-card-body {
+    display: flex;
+  }
+
+  .ant-divider {
+    height: auto;
+    margin: 0 20px;
+  }
+
+  .gs-symbolizer-olrenderer {
+    width: 100px;
+    height: 100px;
+  }
+
+  .gs-rule-card-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+
+    .gs-rule-card-content-icon-row>span:not(:first-child) {
+      padding-left: 10px;
+    }
+
+    .gs-rule-card-icon {
+      font-size: medium;
+      padding-right: 3px;
+    }
+
+    .gs-rule-card-cql {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      .gs-rule-card-icon {
+        padding-right: 10px;
+      }
+    }
+  }
 }
 
 
@@ -830,6 +952,7 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-symbolizer-olrenderer {
   position: relative;
   border: 1px solid lightgrey;
@@ -838,11 +961,12 @@ mark {
   cursor: pointer;
   min-width: 4px;
   min-height: 4px;
-}
-.gs-symbolizer-olrenderer .anticon.anticon-info-circle {
-  position: absolute;
-  right: 0.25em;
-  bottom: 0.25em;
+
+  .anticon.anticon-info-circle {
+    position: absolute;
+    right: .25em;
+    bottom: .25em;
+  }
 }
 
 :root,
@@ -1227,6 +1351,7 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-symbolizer-sldrenderer {
   position: relative;
   border: 1px solid lightgrey;
@@ -1236,36 +1361,45 @@ mark {
 
 
 .gs-removable-item {
+
   position: relative;
-}
-.gs-removable-item > .anticon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-  z-index: 99;
-  font-size: x-large;
-}
-.gs-removable-item > .anticon:hover {
-  color: #1890ff;
+
+  >.anticon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 99;
+    font-size: x-large;
+
+    &:hover {
+      color: #1890ff;
+    }
+  }
+
 }
 
 .gs-rules {
   display: flex;
   flex-direction: column;
-}
-.gs-rules .gs-rules-header {
-  display: flex;
-}
-.gs-rules .gs-rules-header > h2 {
-  flex: 1;
-}
-.gs-rules .gs-rules-list {
-  flex: 1;
-  overflow-y: auto;
-}
-.gs-rules .gs-rules-list .gs-rule-card {
-  margin-bottom: 15px;
+
+  .gs-rules-header {
+    display: flex;
+
+    >h2 {
+      flex: 1;
+    }
+  }
+
+  .gs-rules-list {
+    flex: 1;
+    overflow-y: auto;
+
+    .gs-rule-card {
+      margin-bottom: 15px;
+    }
+  }
+
 }
 
 /* Released under the BSD 2-Clause License
@@ -1326,24 +1460,28 @@ mark {
  */
 .gs-rule-field-container {
   display: flex;
-}
-.gs-rule-field-container .gs-rule-field-container-header {
-  flex: 2;
-}
-.gs-rule-field-container .ant-divider {
-  height: auto;
-  margin: 0 20px;
-}
-.gs-rule-field-container .gs-renderer {
-  flex: 1;
-}
-.gs-rule-field-container .gs-renderer .gs-symbolizer-olrenderer {
-  height: 100%;
-  cursor: default;
-}
-.gs-rule-field-container .gs-renderer .gs-symbolizer-sldrenderer {
-  height: 100%;
-  cursor: default;
+
+  .gs-rule-field-container-header {
+    flex: 2;
+  }
+
+  .ant-divider {
+    height: auto;
+    margin: 0 20px;
+  }
+  .gs-renderer {
+    flex: 1;
+
+    .gs-symbolizer-olrenderer {
+      height: 100%;
+      cursor: default;
+    }
+
+    .gs-symbolizer-sldrenderer {
+      height: 100%;
+      cursor: default;
+    }
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -1373,6 +1511,7 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-min-scaledenominator-input {
   width: 100%;
 }
@@ -1404,6 +1543,7 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-max-scaledenominator-input {
   width: 100%;
 }
@@ -1435,38 +1575,51 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-symbolizers .gs-symbolizers-content {
-  display: flex;
-}
-.gs-symbolizers .gs-symbolizers-content > * {
-  margin: 5px;
-}
-.gs-symbolizers .gs-add-button {
-  font-size: xxx-large;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: lightgrey;
-  border-radius: 4px;
-  border: 1px solid lightgrey;
-}
-.gs-symbolizers .gs-symbolizer-card {
-  margin: 5px;
-}
-.gs-symbolizers .gs-symbolizers-grid {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-.gs-symbolizers .gs-symbolizers-list {
-  display: flex;
-  overflow: hidden;
-}
-.gs-symbolizers .gs-symbolizers-footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+
+.gs-symbolizers {
+
+  .gs-symbolizers-content {
+    display: flex;
+
+    >*{
+      margin: 5px;
+    }
+  }
+
+  .gs-add-button {
+    font-size: xxx-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: lightgrey;
+    border-radius: 4px;
+    border: 1px solid lightgrey
+  }
+
+  .gs-symbolizer-card {
+    margin: 5px;
+  }
+
+  .gs-symbolizers-grid {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .gs-symbolizers-list {
+    display: flex;
+    overflow: hidden;
+  }
+
+  .gs-symbolizers-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
 }
 
 /* Released under the BSD 2-Clause License
@@ -1496,26 +1649,35 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-symbolizer-card {
+
   height: 100px;
   width: 100px;
-}
-.gs-symbolizer-card .ant-card-body {
-  padding: 0;
-}
-.gs-symbolizer-card.ant-card-bordered {
-  border: none;
-}
-.gs-symbolizer-card .gs-symbolizer-olrenderer {
-  height: 100px;
-  width: 100px;
+
+  &.ant-card {
+    .ant-card-body {
+      padding: 0;
+    }
+  }
+
+  &.ant-card-bordered {
+    border: none;
+  }
+
+  .gs-symbolizer-olrenderer {
+    height: 100px;
+    width: 100px;
+  }
 }
 
-.gs-filter-overview .gs-filter-overview-add {
-  display: flex;
-  align-content: center;
-  align-items: center;
-  flex-direction: column;
+.gs-filter-overview {
+  .gs-filter-overview-add {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 .visibility-field {
@@ -1523,10 +1685,11 @@ mark {
   align-items: center;
   height: auto;
   min-height: 32px;
-}
-.visibility-field .gs-function-ui,
-.visibility-field .ant-checkbox-input {
-  flex: 1;
+
+  .gs-function-ui,
+  .ant-checkbox-input {
+    flex: 1;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -1556,6 +1719,7 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-add-dash-button {
   margin-left: 10px;
 }
@@ -1563,20 +1727,27 @@ mark {
 .string-expression-select {
   display: flex;
   align-items: center;
-}
-.string-expression-select .gs-function-ui,
-.string-expression-select .ant-select {
-  flex: 1;
-}
-.string-expression-select button.ant-btn {
-  display: none;
-  border-radius: 0 6px 6px 0;
-}
-.string-expression-select:hover button.ant-btn {
-  display: inline-block;
-}
-.string-expression-select:hover .ant-select-selector {
-  border-radius: 6px 0 0 6px;
+
+  .gs-function-ui,
+  .ant-select {
+    flex: 1;
+  }
+
+  button.ant-btn {
+    display: none;
+    border-radius: 0 6px 6px 0;
+  }
+
+  &:hover {
+    button.ant-btn {
+      display: inline-block;
+    }
+
+    .ant-select-selector {
+      border-radius: 6px 0 0 6px;
+    }
+  }
+
 }
 
 /* Released under the BSD 2-Clause License
@@ -1606,8 +1777,11 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-text-symbolizer-editor .ant-row.ant-form-item.ant-form-item-no-colon {
-  margin-bottom: 0;
+
+.gs-text-symbolizer-editor {
+  .ant-row.ant-form-item.ant-form-item-no-colon {
+    margin-bottom: 0;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -1637,11 +1811,15 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-symbolizer-editor .ant-input-number {
-  width: 100%;
-}
-.gs-symbolizer-editor .ant-form-item {
-  margin-bottom: 12px;
+
+.gs-symbolizer-editor {
+  .ant-input-number {
+    width: 100%;
+  }
+
+  .ant-form-item {
+    margin-bottom: 12px;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -1671,19 +1849,25 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-color-ramp-select {
   border-radius: 4px;
   font-weight: bold;
-}
-.gs-color-ramp-select .ant-select-selection {
-  font-weight: bold;
-  background-color: inherit;
-}
-.gs-color-ramp-select.ant-select.ant-select-single .ant-select-selector {
-  background-color: unset;
-}
-.gs-color-ramp-select li.gs-color-ramp-option {
-  font-weight: bold;
+
+  .ant-select-selection {
+    font-weight: bold;
+    background-color: inherit;
+  }
+
+  &.ant-select.ant-select-single {
+    .ant-select-selector {
+      background-color: unset;
+    }
+  }
+
+  li.gs-color-ramp-option {
+    font-weight: bold;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -1713,12 +1897,15 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-colormap-symbolizer-editor .gs-colormap-label-input {
-  max-width: 100px;
-}
-.gs-colormap-symbolizer-editor .gs-colormap-opacity-input,
-.gs-colormap-symbolizer-editor .gs-colormap-quantity-input {
-  max-width: 60px;
+
+.gs-colormap-symbolizer-editor {
+  .gs-colormap-label-input {
+    max-width: 100px;
+  }
+
+  .gs-colormap-opacity-input,.gs-colormap-quantity-input {
+    max-width: 60px;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -1748,6 +1935,7 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-raster-editor-view-toggle {
   text-align: right;
 }
@@ -1779,47 +1967,71 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-filter-tree {
   text-align: left;
-}
-.gs-filter-tree.ant-tree .style-filter-node.and-filter,
-.gs-filter-tree.ant-tree .style-filter-node.or-filter,
-.gs-filter-tree.ant-tree .style-filter-node.not-filter {
-  border-radius: 4px;
-  margin-bottom: 5px;
-}
-.gs-filter-tree.ant-tree .style-filter-node {
-  width: 100%;
-}
-.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .gs-comparison-filter-ui {
-  padding-left: 0;
-}
-.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-form-item .ant-form-item-control-input {
-  min-height: unset;
-}
-.gs-filter-tree.ant-tree .style-filter-node.comparison-filter .ant-tree-switcher {
-  display: none;
-}
-.gs-filter-tree.ant-tree .style-filter-node .ant-tree-node-content-wrapper {
-  flex: 1;
-  height: inherit;
-  padding: 0;
-}
-.gs-filter-tree.ant-tree .style-filter-node .node-title {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-}
-.gs-filter-tree.ant-tree .style-filter-node .node-title .filter-menu-button {
-  margin-left: 0.5em;
-  visibility: hidden;
-}
-.gs-filter-tree.ant-tree .style-filter-node:hover .node-title .filter-menu-button {
-  visibility: visible;
+
+  &.ant-tree {
+    .style-filter-node.and-filter,
+    .style-filter-node.or-filter,
+    .style-filter-node.not-filter {
+      border-radius: 4px;
+      margin-bottom: 5px;
+    }
+
+    .style-filter-node {
+      width: 100%;
+
+      &.comparison-filter {
+
+        .gs-comparison-filter-ui {
+          padding-left: 0;
+        }
+
+        .ant-form-item {
+          .ant-form-item-control-input {
+            min-height: unset;
+          }
+        }
+
+        .ant-tree-switcher {
+          display: none;
+        }
+      }
+
+      .ant-tree-node-content-wrapper {
+        flex: 1;
+        height: inherit;
+        padding: 0;
+      }
+
+      .node-title {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+
+        .filter-menu-button {
+          margin-left: 0.5em;
+          visibility: hidden;
+        }
+      }
+
+      &:hover {
+        .node-title {
+          .filter-menu-button {
+            visibility: visible;
+          }
+        }
+      }
+    }
+
+  }
 }
 
-.gs-text-filter-field .ant-select {
-  min-width: 10rem;
+.gs-text-filter-field {
+  .ant-select {
+    min-width: 10rem;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -1849,22 +2061,29 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-comparison-filter-ui {
   padding-left: 5px;
   display: flex;
   flex: 1;
-}
-.gs-comparison-filter-ui .gs-attribute-combo {
-  flex: 1;
-}
-.gs-comparison-filter-ui .gs-text-filter-field {
-  flex: 1;
-}
-.gs-comparison-filter-ui.micro .ant-form-item {
-  margin-bottom: 0;
-}
-.gs-comparison-filter-ui.micro .ant-form-item-label {
-  display: none;
+
+  .gs-attribute-combo {
+    flex: 1;
+  }
+
+  .gs-text-filter-field {
+    flex: 1;
+  }
+
+  &.micro {
+    .ant-form-item {
+      margin-bottom: 0;
+    }
+
+    .ant-form-item-label {
+      display: none;
+    }
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -1894,17 +2113,21 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-rule-generator {
   padding: 20px;
-}
-.gs-rule-generator .ant-input-number {
-  width: 100%;
-}
-.gs-rule-generator .gs-rule-generator-submit-button {
-  float: right;
-}
-.gs-rule-generator .ant-form-item {
-  margin-bottom: 12px;
+
+  .ant-input-number {
+    width: 100%;
+  }
+
+  .gs-rule-generator-submit-button {
+    float: right;
+  }
+
+  .ant-form-item {
+    margin-bottom: 12px;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -1934,6 +2157,7 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .colors-preview {
   height: 30px;
   border-radius: 4px;
@@ -1970,66 +2194,80 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-code-editor {
+
+.gs-code-editor{
   height: 100%;
   text-align: left;
   display: flex;
   flex-direction: column;
   position: relative;
-}
-.gs-code-editor .gs-code-editor-feedback {
-  background-color: lightgray;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
-  position: absolute;
-  bottom: 42px;
-  width: 100%;
-}
-.gs-code-editor .gs-code-editor-feedback .write-feedback span,
-.gs-code-editor .gs-code-editor-feedback .read-feedback span {
-  padding: 0 1em;
-  font-weight: bold;
-}
-.gs-code-editor .gs-code-editor-feedback.feedback-hidden {
-  max-height: 0;
-}
-.gs-code-editor .gs-code-editor-feedback.feedback-visible {
-  max-height: 400px;
-}
-.gs-code-editor .gs-code-editor-toolbar,
-.gs-code-editor .gs-code-editor-bottombar {
-  width: 100%;
-  height: 42px;
-  padding: 5px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.gs-code-editor .gs-code-editor-toolbar .gs-code-editor-format-select {
-  width: 300px;
-}
-.gs-code-editor .gs-code-editor-toolbar .gs-code-editor-upload-button {
-  margin: 0 5px;
-}
-.gs-code-editor .gs-code-editor-bottombar .center-items {
-  flex: 6;
-  display: flex;
-  justify-content: center;
-}
-.gs-code-editor .gs-code-editor-bottombar .left-items {
-  flex: 1;
-  padding-left: 1em;
-}
-.gs-code-editor .gs-code-editor-bottombar .right-items {
-  flex: 1;
-  padding-right: 1em;
-}
-.gs-code-editor .gs-code-editor-bottombar .anticon {
-  font-size: 1.5em;
-}
-.gs-code-editor .gs-code-editor-download-button,
-.gs-code-editor .gs-code-editor-copy-button {
-  margin: 0 5px;
+
+  .gs-code-editor-feedback {
+    background-color: lightgray;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    position: absolute;
+    bottom: 42px; /* bottombar-height */
+    width: 100%;
+
+    .write-feedback, .read-feedback{
+      span {
+        padding: 0 1em;
+        font-weight: bold;
+      }
+    }
+
+    &.feedback-hidden {
+      max-height: 0
+    }
+
+    &.feedback-visible {
+      max-height: 400px;
+    }
+  }
+
+  .gs-code-editor-toolbar,
+  .gs-code-editor-bottombar {
+    width: 100%;
+    height: 42px;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gs-code-editor-toolbar {
+    .gs-code-editor-format-select {
+      width: 300px;
+    }
+    .gs-code-editor-upload-button {
+      margin: 0 5px;
+    }
+  }
+
+  .gs-code-editor-bottombar {
+    .center-items {
+      flex: 6;
+      display: flex;
+      justify-content: center;
+    }
+    .left-items {
+      flex: 1;
+      padding-left: 1em;
+    }
+    .right-items {
+      flex: 1;
+      padding-right: 1em;
+    }
+    .anticon {
+      font-size: 1.5em;
+    }
+  }
+
+  .gs-code-editor-download-button,
+  .gs-code-editor-copy-button {
+    margin: 0 5px;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -2059,6 +2297,8 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+
 .symbolizer-units-label {
   padding-left: 10px;
 }
@@ -2090,20 +2330,33 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.wfs-parser-modal .ant-modal-footer {
-  display: none;
-}
-.wfs-parser-modal .wfs-parser-input .ant-row.ant-form-item {
-  display: flex;
-}
-.wfs-parser-modal .wfs-parser-input .ant-row .ant-form-item-label {
-  flex: 2;
-}
-.wfs-parser-modal .wfs-parser-input .ant-row .ant-form-item-control-wrapper {
-  flex: 3;
-}
-.wfs-parser-modal .wfs-parser-input .wfs-parser-submit-button {
-  float: right;
+
+.wfs-parser-modal {
+  .ant-modal-footer {
+    display: none;
+  }
+
+  .wfs-parser-input {
+
+    .ant-row {
+      &.ant-form-item {
+        display: flex;
+      }
+
+      .ant-form-item-label {
+        flex: 2;
+      }
+
+      .ant-form-item-control-wrapper {
+        flex: 3;
+      }
+    }
+
+    .wfs-parser-submit-button {
+      float: right;
+    }
+  }
+
 }
 
 /* Released under the BSD 2-Clause License
@@ -2133,10 +2386,14 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.filter-editor-modal .ant-modal-body {
-  padding-top: 15px;
-  max-height: calc(100vh - 100px);
-  overflow: auto;
+
+.filter-editor-modal {
+  .ant-modal-body {
+    padding-top: 15px;
+
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -2166,16 +2423,19 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-symbolizer-multi-editor {
   overflow: inherit;
-}
-.gs-symbolizer-multi-editor .ant-tabs-extra-content {
-  margin-right: 5px;
-}
-.gs-symbolizer-multi-editor .gs-symbolizer-multi-editor-tab {
-  padding: 20px;
-  max-height: 70vh;
-  overflow-y: auto;
+
+  .ant-tabs-extra-content {
+    margin-right: 5px;
+  }
+
+  .gs-symbolizer-multi-editor-tab {
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -2205,6 +2465,7 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-symbolizer-previewmap {
   position: relative;
   border: 1px solid lightgrey;
@@ -2238,11 +2499,18 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-text-symbolizer-prop-editor .ant-row.ant-form-item.ant-form-item-no-colon {
-  margin-bottom: 0;
-}
-.gs-text-symbolizer-prop-editor .gs-attribute-combo .ant-form-item-label {
-  display: none;
+
+.gs-text-symbolizer-prop-editor {
+
+  .ant-row.ant-form-item.ant-form-item-no-colon {
+    margin-bottom: 0;
+  }
+
+  .gs-attribute-combo {
+    .ant-form-item-label {
+      display: none;
+    }
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -2272,10 +2540,14 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.rule-generator-window .ant-modal-body {
-  padding-top: 15px;
-  max-height: calc(100vh - 100px);
-  overflow: auto;
+
+.rule-generator-window {
+  .ant-modal-body {
+    padding-top: 15px;
+
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -2305,36 +2577,49 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 .gs-rule-table {
   padding: 10px;
-}
-.gs-rule-table .ant-table-tbody td {
-  padding: 0;
-  border-bottom: 0;
-}
-.gs-rule-table .ant-table-tbody .ant-input,
-.gs-rule-table .ant-table-tbody .ant-input-number,
-.gs-rule-table .ant-table-tbody .gs-symbolizer-olrenderer {
-  border-radius: 0;
-}
-.gs-rule-table .ant-table-tbody .ant-input-search .ant-input-search-button {
-  border-radius: 0;
-}
-.gs-rule-table .ant-table-tbody .gs-symbolizer-olrenderer {
-  height: 32px;
-  width: 48px;
-}
-.gs-rule-table .ant-table-tbody .gs-symbolizer-sldrenderer,
-.gs-rule-table .ant-table-tbody .gs-symbolizer-sldrenderer img {
-  height: 32px;
-  width: 48px;
-}
-.gs-rule-table .ant-table-tbody .scale-denominator {
-  width: 100%;
-}
-.gs-rule-table .ant-table-tbody .gs-rule-table-filter-cell > input,
-.gs-rule-table .ant-table-tbody .gs-rule-table-numeric-cell {
-  cursor: default;
+
+  .ant-table-tbody {
+    td {
+      padding: 0;
+      border-bottom: 0;
+    }
+
+    .ant-input,
+    .ant-input-number,
+    .gs-symbolizer-olrenderer {
+      border-radius: 0;
+    }
+
+    .ant-input-search {
+      .ant-input-search-button {
+        border-radius: 0;
+      }
+    }
+
+    .gs-symbolizer-olrenderer {
+      height: 32px;
+      width: 48px;
+    }
+
+    .gs-symbolizer-sldrenderer,
+    .gs-symbolizer-sldrenderer img {
+      height: 32px;
+      width: 48px;
+    }
+
+    .scale-denominator {
+      width: 100%
+    }
+
+    .gs-rule-table-filter-cell>input,
+    .gs-rule-table-numeric-cell {
+      cursor: default;
+    }
+  }
+
 }
 
 /* Released under the BSD 2-Clause License
@@ -2364,8 +2649,11 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.symbolizer-editor-modal .ant-modal-body {
-  padding-top: 15px;
+
+.symbolizer-editor-modal {
+  .ant-modal-body {
+    padding-top: 15px;
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -2395,17 +2683,22 @@ mark {
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-.gs-style .gs-style-name-classification-row {
-  display: flex;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-.gs-style .gs-rule-table .ant-table-footer {
-  margin-top: 1px;
-  padding: 0;
-}
-.gs-style .gs-style-rulegenerator {
-  margin-left: auto;
+
+.gs-style {
+  .gs-style-name-classification-row {
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .gs-rule-table .ant-table-footer {
+    margin-top: 1px;
+    padding: 0;
+  }
+
+  .gs-style-rulegenerator {
+    margin-left: auto;
+  }
 }
 
 .ol-viewport {
