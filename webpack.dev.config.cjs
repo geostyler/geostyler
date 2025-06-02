@@ -1,10 +1,10 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-require('@babel/polyfill');
 
 module.exports = {
   entry: [
-    '@babel/polyfill',
+    'core-js/stable',
+    'regenerator-runtime/runtime',
     'whatwg-fetch',
     './src/index.ts'
   ],
