@@ -81,7 +81,7 @@ export const Style: React.FC<StyleProps> = (props) => {
   const data = useGeoStylerData();
 
   const composition = useGeoStylerComposition('Style');
-  const composed = { ...props, composition };
+  const composed = { ...props, ...composition };
   const {
     disableClassification = false,
     style: styleProp = {
