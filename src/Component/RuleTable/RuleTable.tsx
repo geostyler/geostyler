@@ -40,7 +40,7 @@ import {
   InputNumber,
   Popover,
   Tooltip,
-  Button,
+  Button
 } from 'antd';
 
 import {
@@ -56,7 +56,7 @@ import { ColumnProps, TableProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { RuleReorderButtons } from './RuleReorderButtons/RuleReorderButtons';
-import { BgColorsOutlined, BlockOutlined, EditOutlined } from '@ant-design/icons';
+import { BgColorsOutlined, BlockOutlined, EditOutlined, CopyOutlined, CloseOutlined } from '@ant-design/icons';
 import { Renderer } from '../Renderer/Renderer/Renderer';
 import {
   useGeoStylerComposition,
@@ -84,6 +84,8 @@ export interface RuleTableInternalProps {
   onRulesChange?: (rules: GsRule[]) => void;
   /** The callback function that is triggered when the selection changes */
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
+  onCloneRule?: (rule: RuleRecord) => void;
+  onRemoveRule?: (rule: RuleRecord) => void;
   /** Properties that will be passed to the Comparison Filters */
 }
 
@@ -94,6 +96,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   const data = useGeoStylerData();
 
   const composition = useGeoStylerComposition('Rule') as RuleComposableProps;
+  const styleComposition = useGeoStylerComposition('Style');
   const composed = { ...props, ...composition };
   const {
     amountField,
@@ -102,9 +105,15 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     maxScaleField,
     minScaleField,
     nameField,
+    /** show actions column by default if disableMultiEdit is true */
+    actionsField = {
+      visibility: styleComposition.disableMultiEdit === true
+    },
     onRulesChange,
     rendererType = 'OpenLayers',
     rules,
+    onCloneRule,
+    onRemoveRule,
     // The composableProps include the antd table props
     ...antdTableProps
   } = composed;
@@ -311,6 +320,42 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     );
   };
 
+  const actionsRenderer = (text: string, record: RuleRecord) => {
+    return (
+      <Button.Group>
+        {!(actionsField.clone === false) &&
+          <Button
+            className="gs-rule-table-action-buttons"
+            icon={<CopyOutlined />}
+            title={locale.actionCloneLabel}
+            color="default"
+            variant="text"
+            onClick={() => {
+              if (onCloneRule) {
+                onCloneRule(record);
+              }
+            }}
+          />
+        }
+        {!(actionsField.remove === false) &&
+          <Button
+            className="gs-rule-table-action-buttons"
+            icon={<CloseOutlined />}
+            color="default"
+            variant="text"
+            title={locale.actionRemoveLabel}
+            onClick={() => {
+              if (onRemoveRule) {
+                onRemoveRule(record);
+              }
+            }}
+            disabled={rules.length <= 1}
+          />
+        }
+      </Button.Group>
+    );
+  };
+
   const ruleReorderRenderer = (record: RuleRecord) => {
     return (
       <RuleReorderButtons
@@ -410,6 +455,13 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       render: duplicatesRenderer
     });
   };
+
+  if (!(actionsField?.visibility === false)) {
+    columns.push({
+      title: locale.actionsColumnTitle,
+      render: actionsRenderer,
+    });
+  }
 
   if (hasError) {
     return <h1>An error occurred in the RuleTable UI.</h1>;

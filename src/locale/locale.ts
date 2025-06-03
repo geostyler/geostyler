@@ -322,6 +322,9 @@ export default interface GeoStylerLocale {
     maxScaleColumnTitle: string;
     amountColumnTitle: string;
     duplicatesColumnTitle: string;
+    actionsColumnTitle: string;
+    actionCloneLabel: string;
+    actionRemoveLabel: string;
     // locale from antd
     filterConfirm?: string;
     filterReset?: string;
