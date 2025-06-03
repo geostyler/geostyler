@@ -63,7 +63,7 @@
     "@types/geojson": "^7946.0.14",
     "@types/lodash": "^4.17.5",
     "@ungap/url-search-params": "^0.2.2",
-    "antd": "^5.18.3",
+    "antd": "^5.25.4",
     "chroma-js": "2.4.2",
     "color": "^4.2.3",
     "csstype": "^3.1.3",
