@@ -46,7 +46,7 @@ import './NumberExpressionInput.css';
 
 export interface NumberExpressionInputProps {
   className?: string;
-  asSlider?: boolean;
+  slider?: boolean;
   functionUiProps?: FunctionUIProps<GeoStylerNumberFunction>;
   inputProps?: Omit<InputNumberProps, 'value' | 'onChange' | 'className'>;
   onCancel?: (type: 'number') => void;
@@ -55,7 +55,7 @@ export interface NumberExpressionInputProps {
 }
 
 export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
-  asSlider = false,
+  slider = false,
   onChange,
   onCancel,
   value,
@@ -89,7 +89,7 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
 
   return (
     <span className={finalClassName}>
-      {asSlider ? (
+      {slider ? (
         <div className={'slider-wrapper'}>
           {/* @ts-ignore */}
           <Slider
@@ -104,7 +104,7 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
             }}
             {...inputProps}
           />
-          <div>
+          <div className={'number-wrapper'}>
             <InputNumber
               min={0}
               max={1}

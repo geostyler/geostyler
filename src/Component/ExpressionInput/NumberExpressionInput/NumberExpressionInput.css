@@ -32,4 +32,8 @@
       flex: 1;
     }
   }
+
+  .number-wrapper {
+    display: flex;
+  }
 }

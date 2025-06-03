@@ -34,7 +34,7 @@ import { Expression } from 'geostyler-style';
 type InputProps = NumberExpressionInputProps['inputProps'];
 
 export interface OpacityFieldProps extends InputProps {
-  asSlider?: boolean;
+  slider?: boolean;
   value?: Expression<number>;
   className?: string;
   onChange?: (newValue: Expression<number> | undefined) => void;
@@ -44,7 +44,7 @@ export interface OpacityFieldProps extends InputProps {
  * OpacityField
  */
 export const OpacityField: React.FC<OpacityFieldProps> = ({
-  asSlider = true,
+  slider = true,
   onChange,
   value,
   className,
@@ -63,7 +63,7 @@ export const OpacityField: React.FC<OpacityFieldProps> = ({
   return (
     <NumberExpressionInput
       className={finalClassName}
-      asSlider={asSlider}
+      slider={slider}
       value={value}
       onChange={onChange}
       onCancel={onCancel}
