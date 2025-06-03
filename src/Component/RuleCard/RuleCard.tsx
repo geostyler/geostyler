@@ -30,6 +30,7 @@
 import React from 'react';
 
 import {
+  GeoStylerNumberFunction,
   Rule as GsRule,
 } from 'geostyler-style';
 import { CqlParser } from 'geostyler-cql-parser';
@@ -39,7 +40,7 @@ import { Renderer } from '../Renderer/Renderer/Renderer';
 import FilterUtil from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { Divider, Card, Typography } from 'antd';
-import { BlockOutlined, FilterFilled, MinusOutlined } from '@ant-design/icons';
+import { BlockOutlined, FilterFilled } from '@ant-design/icons';
 import { useGeoStylerComposition, useGeoStylerData } from '../../context/GeoStylerContext/GeoStylerContext';
 const { Text } = Typography;
 
@@ -104,6 +105,19 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
     cql = cqlParser.write(rule.filter);
   }
 
+  const getLabel = (min: number | GeoStylerNumberFunction, max: number | GeoStylerNumberFunction) => {
+    if (min === undefined && max === undefined) {
+      return '-';
+    }
+    if (min === undefined) {
+      return `1:${max}`;
+    }
+    if (max === undefined) {
+      return `1:${min}`;
+    }
+    return `1:${min} < 1:${max}`;
+  };
+
   return (
     <Card
       className='gs-rule-card'
@@ -123,9 +137,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
         {
           maxScaleField?.visibility === false || minScaleField?.visibility === false ? null : (
             <span>
-              <>
-                1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}
-              </>
+              {getLabel(rule.scaleDenominator?.min, rule.scaleDenominator?.max)}
             </span>
           )
         }

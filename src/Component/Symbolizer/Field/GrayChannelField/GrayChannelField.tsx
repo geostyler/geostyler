@@ -26,24 +26,22 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import {
   Form
 } from 'antd';
 
 import { SourceChannelNameField } from '../SourceChannelNameField/SourceChannelNameField';
-import { ChannelSelection, GrayChannel } from 'geostyler-style';
+import { GrayChannel, isGeoStylerFunction } from 'geostyler-style';
 
-import _get from 'lodash/get';
-import _cloneDeep from 'lodash/cloneDeep';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 import { getFormItemConfig } from '../../../../Util/FormItemUtil';
 
 export interface GrayChannelFieldProps {
   sourceChannelNames?: string[];
-  onChange?: (channelSelection: ChannelSelection) => void;
-  value?: ChannelSelection;
+  onChange?: (channelSelection: GrayChannel) => void;
+  value?: GrayChannel;
 }
 
 /**
@@ -56,12 +54,17 @@ export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
 }) => {
 
   const locale = useGeoStylerLocale('GrayChannelField');
+  const channelName = useMemo(() => {
+    return isGeoStylerFunction(value.grayChannel?.sourceChannelName)
+      ? undefined
+      : value.grayChannel?.sourceChannelName;
+  }, [value]);
 
   const onGrayChannelChange = (newValue: string) => {
     const gray = newValue;
     let newChannelSelection: GrayChannel;
     if (newValue && Object.prototype.hasOwnProperty.call(newValue, 'grayChannel')) {
-      newChannelSelection = _cloneDeep(value) as GrayChannel;
+      newChannelSelection = structuredClone(value) as GrayChannel;
       newChannelSelection.grayChannel.sourceChannelName = gray;
     } else {
       newChannelSelection = {
@@ -78,17 +81,15 @@ export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
   const itemConfig = getFormItemConfig();
 
   return (
-    <div>
-      <Form.Item
-        {...itemConfig}
-        label={locale.grayLabel}
-      >
-        <SourceChannelNameField
-          sourceChannelNames={sourceChannelNames}
-          onChange={onGrayChannelChange}
-          value={_get(value, 'grayChannel.sourceChannelName')}
-        />
-      </Form.Item>
-    </div>
+    <Form.Item
+      {...itemConfig}
+      label={locale.grayLabel}
+    >
+      <SourceChannelNameField
+        sourceChannelNames={sourceChannelNames}
+        onChange={onGrayChannelChange}
+        value={channelName}
+      />
+    </Form.Item>
   );
 };

@@ -26,24 +26,23 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import {
   Form
 } from 'antd';
 
 import { SourceChannelNameField } from '../SourceChannelNameField/SourceChannelNameField';
-import { ChannelSelection, RGBChannel } from 'geostyler-style';
+import { isGeoStylerFunction, RGBChannel } from 'geostyler-style';
 
-import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 import { getFormItemConfig } from '../../../../Util/FormItemUtil';
 
 export interface RgbChannelFieldProps {
   sourceChannelNames?: string[];
-  onChange?: (channelSelection: ChannelSelection) => void;
-  value?: ChannelSelection;
+  onChange?: (channelSelection: RGBChannel) => void;
+  value?: RGBChannel;
 }
 
 /**
@@ -56,6 +55,21 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
 }) => {
 
   const locale = useGeoStylerLocale('RgbChannelField');
+  const redChannelname = useMemo(() => {
+    return isGeoStylerFunction(value.redChannel?.sourceChannelName)
+      ? undefined
+      : value.redChannel?.sourceChannelName;
+  }, [value]);
+  const greenChannelName = useMemo(() => {
+    return isGeoStylerFunction(value.greenChannel?.sourceChannelName)
+      ? undefined
+      : value.greenChannel?.sourceChannelName;
+  }, [value]);
+  const blueChannelName = useMemo(() => {
+    return isGeoStylerFunction(value.blueChannel?.sourceChannelName)
+      ? undefined
+      : value.blueChannel?.sourceChannelName;
+  }, [value]);
 
   const onRedChannelChange = (red: string) => {
     let rgb: RGBChannel;
@@ -125,7 +139,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}
           onChange={onRedChannelChange}
-          value={_get(value, 'redChannel.sourceChannelName')}
+          value={redChannelname}
         />
       </Form.Item>
       <Form.Item
@@ -135,7 +149,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}
           onChange={onGreenChannelChange}
-          value={_get(value, 'greenChannel.sourceChannelName')}
+          value={greenChannelName}
         />
       </Form.Item>
       <Form.Item
@@ -145,7 +159,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
         <SourceChannelNameField
           sourceChannelNames={sourceChannelNames}
           onChange={onBlueChannelChange}
-          value={_get(value, 'blueChannel.sourceChannelName')}
+          value={blueChannelName}
         />
       </Form.Item>
     </div>

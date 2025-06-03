@@ -91,7 +91,6 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
     <span className={finalClassName}>
       {slider ? (
         <div className={'slider-wrapper'}>
-          {/* @ts-ignore */}
           <Slider
             value={inputValue}
             range={false}
@@ -102,7 +101,6 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
               onChange?.(val);
               setInputValue(val === null ? undefined : val);
             }}
-            {...inputProps}
           />
           <div className={'number-wrapper'}>
             <InputNumber
@@ -110,12 +108,13 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
               max={1}
               step={0.01}
               value={inputValue}
+              {...inputProps}
               onChange={(val) => {
                 if (val === null) {
                   onChange?.(undefined);
                 }
-                onChange?.(val);
-                setInputValue(val === null ? undefined : val);
+                onChange?.(Number(val));
+                setInputValue(val === null ? undefined : Number(val));
               }}
             />
             <Button
