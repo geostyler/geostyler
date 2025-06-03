@@ -110,78 +110,78 @@ describe('FilterUtil', () => {
 
       const rules: Rule[] = [
         {
-          'name': 'Mehr als 4',
-          'symbolizers': [
+          name: 'Mehr als 4',
+          symbolizers: [
             {
-              'kind': 'Mark',
-              'wellKnownName': 'circle'
+              kind: 'Mark',
+              wellKnownName: 'circle'
             }
           ],
-          'filter': [
+          filter: [
             '>',
             'pop',
             4000000
           ],
-          'scaleDenominator': {
-            'max': 10000,
-            'min': 0
+          scaleDenominator: {
+            max: 10000,
+            min: 0
           }
         },
         {
-          'name': 'Mehr als 8',
-          'symbolizers': [
+          name: 'Mehr als 8',
+          symbolizers: [
             {
-              'kind': 'Mark',
-              'wellKnownName': 'circle',
-              'color': '#0E1058'
+              kind: 'Mark',
+              wellKnownName: 'circle',
+              color: '#0E1058'
             }
           ],
-          'filter': [
+          filter: [
             '>',
             'pop',
             8000000
           ],
-          'scaleDenominator': {
-            'max': 10000,
-            'min': 0
+          scaleDenominator: {
+            max: 10000,
+            min: 0
           }
         },
         {
-          'name': 'Mehr als 4',
-          'symbolizers': [
+          name: 'Mehr als 4',
+          symbolizers: [
             {
-              'kind': 'Mark',
-              'wellKnownName': 'circle',
-              'color': '#0E1058'
+              kind: 'Mark',
+              wellKnownName: 'circle',
+              color: '#0E1058'
             }
           ],
-          'filter': [
+          filter: [
             '>',
             'pop',
             4000000
           ],
-          'scaleDenominator': {
-            'min': 10000,
-            'max': 0
+          scaleDenominator: {
+            min: 10000,
+            max: 0
           }
         },
         {
-          'name': 'Mehr als 8',
-          'symbolizers': [
+          name: 'Mehr als 8',
+          symbolizers: [
             {
-              'kind': 'Mark',
-              'wellKnownName': 'circle',
-              'color': '#0E1058'
+              kind: 'Mark',
+              wellKnownName: 'circle',
+              color: '#0E1058'
             }
           ],
-          'filter': [
+          filter: [
             '>',
             'pop',
             8000000
           ],
-          'scaleDenominator': {
-            'min': 10000,
-            'max': null
+          scaleDenominator: {
+            min: 10000,
+            max: null
           }
         }
       ];

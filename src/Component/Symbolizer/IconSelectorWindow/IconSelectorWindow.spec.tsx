@@ -35,7 +35,7 @@ import {
 
 describe('IconSelectorWindow', () => {
 
-  let dummyLibraries: IconLibrary[] = TestUtil.getDummyGsIconLibraries();
+  const dummyLibraries: IconLibrary[] = TestUtil.getDummyGsIconLibraries();
   const props: IconSelectorWindowProps = {
     iconLibraries: dummyLibraries
   };

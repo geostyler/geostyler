@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -42,8 +42,6 @@ import { Editor } from '../Editor/Editor';
 
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
-
-import _isEqual from 'lodash/isEqual';
 
 import { Tab } from 'rc-tabs/lib/interface';
 

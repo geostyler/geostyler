@@ -72,9 +72,7 @@ export interface RasterEditorComposableProps {
     visibility?: boolean;
   };
   gammaValueField?: InputConfig<GammaFieldProps['value']>;
-  colorRamps?: {
-    [name: string]: string[];
-  };
+  colorRamps?: Record<string, string[]>;
   // TODO add support for default values in VisibilityField
   visibilityField?: InputConfig<VisibilityFieldProps['value']>;
 }

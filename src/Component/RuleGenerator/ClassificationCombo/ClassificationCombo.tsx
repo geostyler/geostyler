@@ -30,8 +30,6 @@ import React from 'react';
 
 import { Select } from 'antd';
 
-import _isEqual from 'lodash/isEqual';
-
 import './ClassificationCombo.css';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 

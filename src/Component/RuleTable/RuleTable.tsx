@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -32,7 +32,6 @@ import { CqlParser } from 'geostyler-cql-parser';
 
 import _get from 'lodash/get';
 import _set from 'lodash/set';
-import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
@@ -47,7 +46,6 @@ import {
   Rule as GsRule,
   Symbolizer as GsSymbolizer,
   Filter as GsFilter,
-  Symbolizer
 } from 'geostyler-style';
 
 import './RuleTable.css';
@@ -133,7 +131,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       } else {
         countsAndDuplicates = {};
       }
-    } catch (e) {
+    } catch {
       setHasError(true);
       // make sure to update state when checks/calculation fails
     }
@@ -148,16 +146,15 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     };
   });
 
-  const onSymbolizerClick = (record: RuleRecord, newSymbolizerEditorPosition: DOMRect) => {
+  const onSymbolizerClick = (record: RuleRecord) => {
     setRuleEditIndex(record.key);
     setSymbolizerEditorVisible(true);
     setFilterEditorVisible(false);
   };
 
   const symbolizerRenderer = (text: string, record: RuleRecord) => {
-    const onSymbolizerRendererClick = (symbolizers: Symbolizer[], event: any) => {
-      const filterPosition = event.target.getBoundingClientRect();
-      onSymbolizerClick(record, filterPosition);
+    const onSymbolizerRendererClick = () => {
+      onSymbolizerClick(record);
     };
 
     return (
@@ -277,7 +274,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     if (data && filter) {
       try {
         amount = counts[record?.key] || 0;
-      } catch (error) {
+      } catch {
         amount = '-';
       }
     } else if (data && DataUtil.isVector(data)) {
@@ -296,7 +293,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     if (data && rules) {
       try {
         calculatedDuplicates = duplicates[record.key];
-      } catch (error) {
+      } catch {
         calculatedDuplicates = '-';
       }
     }

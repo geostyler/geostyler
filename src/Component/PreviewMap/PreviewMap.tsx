@@ -31,13 +31,12 @@ import OlMap from 'ol/Map';
 import OlLayerVector from 'ol/layer/Vector';
 import OlSourceVector from 'ol/source/Vector';
 import OlFormatGeoJSON from 'ol/format/GeoJSON';
-import { Projection, ProjectionLike } from 'ol/proj';
+import { Projection, ProjectionLike ,
+  get as getProjection,
+} from 'ol/proj';
 import OlFeature, {
   FeatureLike as OlFeatureLike
 } from 'ol/Feature';
-import {
-  get as getProjection,
-} from 'ol/proj';
 import {
   register
 } from 'ol/proj/proj4.js';
@@ -46,7 +45,7 @@ import { isEmpty } from 'ol/extent';
 
 import { Style } from 'geostyler-style';
 import { VectorData } from 'geostyler-data';
-import OlStyleParser from 'geostyler-openlayers-parser';
+import { OlStyleParser } from 'geostyler-openlayers-parser';
 
 import GeometryUtil from '../../Util/GeometryUtil';
 
@@ -80,7 +79,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
   onMapDidMount
 }) => {
 
-  const containerRef = useRef();
+  const containerRef = useRef(undefined);
 
   const data = useGeoStylerData();
 
@@ -168,7 +167,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
       if (!proj && isString(dataProjection)) {
         try {
           proj = await fetchInfo(dataProjection);
-        } catch (error) {
+        } catch {
           setErrorMsg(`${locale.couldNotGetDataProjection}: ${dataProjection}`);
         }
       }

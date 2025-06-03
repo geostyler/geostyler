@@ -149,7 +149,7 @@ export const FunctionUI = <T extends GeoStylerFunction>({
           onChange={(val) => {
             updateFunctionArg(val, index);
           }}
-          onCancel={t => {
+          onCancel={() => {
             updateFunctionArg(undefined, index);
           }}
         />

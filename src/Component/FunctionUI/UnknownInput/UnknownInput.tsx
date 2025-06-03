@@ -5,8 +5,7 @@ import StringExpressionInput,
 { StringExpressionInputProps } from '../../ExpressionInput/StringExpressionInput/StringExpressionInput';
 import BooleanExpressionInput,
 { BooleanExpressionInputProps } from '../../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
-import { Expression, isGeoStylerNumberFunction } from 'geostyler-style';
-import { isGeoStylerBooleanFunction } from 'geostyler-style';
+import { Expression, isGeoStylerNumberFunction , isGeoStylerBooleanFunction } from 'geostyler-style';
 
 import './UnknownInput.css';
 import { Select, Tooltip } from 'antd';

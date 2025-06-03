@@ -34,7 +34,6 @@ import {
 } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
-import _isEqual from 'lodash/isEqual';
 
 import {
   Symbolizer,
@@ -158,7 +157,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
 
   const onOffsetXChange = (value: TextSymbolizer['offset']['0']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: TextSymbolizer['offset'] = [
+    const newOffset: TextSymbolizer['offset'] = [
       value,
       (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)
     ];
@@ -170,7 +169,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
 
   const onOffsetYChange = (value: TextSymbolizer['offset']['1']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: TextSymbolizer['offset'] = [
+    const newOffset: TextSymbolizer['offset'] = [
       (symbolizerClone.offset ? symbolizerClone.offset[0] : 0),
       value
     ];

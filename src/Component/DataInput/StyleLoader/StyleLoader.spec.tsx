@@ -28,7 +28,7 @@
 
 import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
-import SldStyleParser from 'geostyler-sld-parser';
+import { SldStyleParser } from 'geostyler-sld-parser';
 import { StyleLoader } from './StyleLoader';
 import { StyleParser } from 'geostyler-style';
 

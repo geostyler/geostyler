@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -45,7 +46,7 @@ import { useEffect, useRef } from 'react';
  * @returns The previously stored variable value.
  */
 export const usePrevious = <T extends unknown>(value: T): T | undefined => {
-  const ref = useRef<T>();
+  const ref = useRef<T>(undefined);
   useEffect(() => {
     ref.current = value;
   });

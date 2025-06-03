@@ -59,7 +59,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
 
   const onRedChannelChange = (red: string) => {
     let rgb: RGBChannel;
-    if (!value || (value && value.hasOwnProperty('grayChannel'))) {
+    if (!value || (value && Object.prototype.hasOwnProperty.call(value, 'grayChannel'))) {
       rgb = {
         redChannel: {
           sourceChannelName: red
@@ -78,7 +78,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
 
   const onGreenChannelChange = (green: string) => {
     let rgb: RGBChannel;
-    if (!value || (value && value.hasOwnProperty('grayChannel'))) {
+    if (!value || (value && Object.prototype.hasOwnProperty.call(value, 'grayChannel'))) {
       rgb = {
         greenChannel: {
           sourceChannelName: green
@@ -97,7 +97,7 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
 
   const onBlueChannelChange = (blue: string) => {
     let rgb: RGBChannel;
-    if (!value || (value && value.hasOwnProperty('grayChannel'))) {
+    if (!value || (value && Object.prototype.hasOwnProperty.call(value, 'grayChannel'))) {
       rgb = {
         blueChannel: {
           sourceChannelName: blue

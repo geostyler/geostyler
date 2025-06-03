@@ -60,7 +60,7 @@ export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
   const onGrayChannelChange = (newValue: string) => {
     const gray = newValue;
     let newChannelSelection: GrayChannel;
-    if (newValue && newValue.hasOwnProperty('grayChannel')) {
+    if (newValue && Object.prototype.hasOwnProperty.call(newValue, 'grayChannel')) {
       newChannelSelection = _cloneDeep(value) as GrayChannel;
       newChannelSelection.grayChannel.sourceChannelName = gray;
     } else {

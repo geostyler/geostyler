@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -64,13 +64,13 @@ export const StyleOverview: React.FC<StyleOverviewProps> = ({
   const locale = useGeoStylerLocale('StyleOverview');
 
   const onNameChange = (name: string) => {
-    let newStyle = _cloneDeep(style);
+    const newStyle = _cloneDeep(style);
     newStyle.name = name;
     onStyleChange(newStyle);
   };
 
   const onRulesChange = (rules: GsRule[]) => {
-    let newStyle = _cloneDeep(style);
+    const newStyle = _cloneDeep(style);
     newStyle.rules = rules;
     onStyleChange(newStyle);
   };

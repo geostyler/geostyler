@@ -34,6 +34,9 @@ jobs:
     - name: Lint code 💄
       run: npm run lint
 
+    - name: Type check 🔍
+      run: npm run check
+
     - name: Test code ✅
       run: npm run test-ci
 

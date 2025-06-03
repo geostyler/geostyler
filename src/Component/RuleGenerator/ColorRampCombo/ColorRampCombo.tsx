@@ -36,14 +36,11 @@ import { Select } from 'antd';
 
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 
-import _isEqual from 'lodash/isEqual';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ColorRampComboProps {
   /** Object containing predefined color ramps */
-  colorRamps?: {
-    [name: string]: string[];
-  };
+  colorRamps?: Record<string, string[]>;
   /** The callback method that is triggered when the state changes */
   onChange?: (colorRamp: string) => void;
   /** The selected color ramp */

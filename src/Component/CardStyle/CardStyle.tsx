@@ -28,10 +28,7 @@
 
 import React, { useState } from 'react';
 
-import _get from 'lodash/get';
-import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
-import _merge from 'lodash/merge';
 
 import {
   Style as GsStyle,
@@ -134,7 +131,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   };
 
   const changeView = (viewName: string, indices: number[]) => {
-    let view: CardView = { view: viewName, props: indices, path: [] };
+    const view: CardView = { view: viewName, props: indices, path: [] };
     view.path = getPathForView(viewName, indices);
     setCurrentView(view);
   };
@@ -156,7 +153,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   };
 
   const onRuleChange = (newRule: GsRule) => {
-    let styleClone = _cloneDeep(style);
+    const styleClone = _cloneDeep(style);
     const ruleIdx = currentView.path[currentView.path.length - 1].indices[0];
     styleClone.rules[ruleIdx] = newRule;
     const pathClone = _cloneDeep(currentView.path);
@@ -168,7 +165,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   };
 
   const onRulesChange = (rules: GsRule[]) => {
-    let styleClone = _cloneDeep(style);
+    const styleClone = _cloneDeep(style);
     styleClone.rules = rules;
     if (onStyleChange) {
       onStyleChange(styleClone);
@@ -177,7 +174,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   };
 
   const onSymbolizerChange = (symbolizer: GsSymbolizer) => {
-    let styleClone = _cloneDeep(style);
+    const styleClone = _cloneDeep(style);
     const ruleIdx = currentView.path[currentView.path.length - 1].indices[0];
     const symbolizerIdx = currentView.path[currentView.path.length - 1].indices[1];
     styleClone.rules[ruleIdx].symbolizers[symbolizerIdx] = symbolizer;
@@ -187,7 +184,7 @@ export const CardStyle: React.FC<CardStyleProps> = ({
   };
 
   const onFilterChange = (filter: GsFilter) => {
-    let styleClone = _cloneDeep(style);
+    const styleClone = _cloneDeep(style);
     const ruleIdx = currentView.path[currentView.path.length - 1].indices[0];
     styleClone.rules[ruleIdx].filter = filter;
     if (onStyleChange) {

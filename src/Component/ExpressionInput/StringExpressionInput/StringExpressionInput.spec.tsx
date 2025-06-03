@@ -33,7 +33,7 @@ import { GeoStylerStringFunction } from 'geostyler-style';
 
 describe('StringExpressionInput', () => {
 
-  const stringValue: string = '1337';
+  const stringValue = '1337';
   const stringFunction: GeoStylerStringFunction = {
     name: 'strToLowerCase',
     args: ['Bretzelbude']

@@ -83,15 +83,15 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
     }
   }, [inputSelectionStart, inputSelectionEnd, value]);
 
-  let options: Object[] = [];
+  let options: object[] = [];
 
   if (data) {
     const attrDefs = data.schema.properties;
 
     // create sth like ['foo', 'bar', 'kalle'];
     const attrNames = [];
-    for (var key in attrDefs) {
-      if (attrDefs.hasOwnProperty(key)) {
+    for (const key in attrDefs) {
+      if (Object.prototype.hasOwnProperty.call(attrDefs, key)) {
         attrNames.push(key);
       }
     }

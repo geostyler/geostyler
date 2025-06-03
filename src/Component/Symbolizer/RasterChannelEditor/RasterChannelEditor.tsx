@@ -45,7 +45,6 @@ import {
 import { ChannelField } from '../Field/ChannelField/ChannelField';
 
 import _get from 'lodash/get';
-import _cloneDeep from 'lodash/cloneDeep';
 
 import {
   InputConfig,
@@ -96,7 +95,7 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) =
   };
 
   const getTabLabel = (band: 'red' | 'green' | 'blue' | 'gray'): string => {
-    let label = _get(locale, `${band}BandLabel`) ? _get(locale, `${band}BandLabel`) : band;
+    const label = _get(locale, `${band}BandLabel`) ? _get(locale, `${band}BandLabel`) : band;
     return label;
   };
 
@@ -105,18 +104,17 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) =
    * from GrayChannel to RGBChannel or vice versa.
    */
   const onChannelFieldChange = (name: 'red' | 'green' | 'blue' | 'gray', channel: Channel) => {
-    let newChannelSelection: ChannelSelection;
+    let newChannelSelection: any;
+    const key = `${name}Channel` as const;
 
     if (!channelSelection
       || (isGrayChannel(channelSelection) && name !== 'gray')
       || (isRgbChannel(channelSelection) && name === 'gray')) {
-      newChannelSelection = {} as ChannelSelection;
-      // @ts-ignore
-      newChannelSelection[`${name}Channel`] = channel;
+      newChannelSelection = {};
+      newChannelSelection[key] = channel;
     } else {
-      newChannelSelection = _cloneDeep(channelSelection);
-      // @ts-ignore
-      newChannelSelection[`${name}Channel`] = channel;
+      newChannelSelection = structuredClone(channelSelection);
+      newChannelSelection[key] = channel;
     }
 
     if (onChange) {

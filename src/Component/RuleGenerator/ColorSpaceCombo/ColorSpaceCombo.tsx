@@ -32,7 +32,6 @@ import { Select } from 'antd';
 
 import { InterpolationMode } from 'chroma-js';
 
-import _isEqual from 'lodash/isEqual';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ColorSpaceComboProps {

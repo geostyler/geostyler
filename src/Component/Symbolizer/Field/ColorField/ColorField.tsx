@@ -93,7 +93,7 @@ export const ColorField: React.FC<ColorFieldProps> = ({
   let textColor;
   try {
     textColor = Color(value || defaultValue).isLight() ? '#000000' : '#FFFFFF';
-  } catch (error) {
+  } catch {
     textColor = '#000000';
   }
 

@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -77,7 +77,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
   };
 
   const onMinScaleChange = (minScale: number) => {
-    let newRule: GsRule = { ...rule };
+    const newRule: GsRule = { ...rule };
     if (!newRule.scaleDenominator) {
       newRule.scaleDenominator = {};
     }
@@ -86,7 +86,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
   };
 
   const onMaxScaleChange = (maxScale: number) => {
-    let newRule: GsRule = { ...rule };
+    const newRule: GsRule = { ...rule };
     if (!newRule.scaleDenominator) {
       newRule.scaleDenominator = {};
     }
@@ -95,7 +95,7 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
   };
 
   const onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
-    let newRule: GsRule = { ...rule, symbolizers };
+    const newRule: GsRule = { ...rule, symbolizers };
     onRuleChange(newRule);
   };
 

@@ -26,8 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import React, { useCallback, useEffect, useRef, useState }  from 'react';
-import SldStyleParser from 'geostyler-sld-parser';
-import _isEqual from 'lodash/isEqual';
+import { SldStyleParser } from 'geostyler-sld-parser';
 
 import './SLDRenderer.css';
 import { Style, Symbolizer } from 'geostyler-style';
@@ -62,7 +61,7 @@ export const SLDRenderer: React.FC<SLDRendererProps> = (props) => {
 
   const composition = useGeoStylerComposition('SLDRenderer');
   const composed = {...props, ...composition};
-  let {
+  const {
     requestDelay = 500,
     width = 150,
     height = 100,
@@ -83,7 +82,7 @@ export const SLDRenderer: React.FC<SLDRendererProps> = (props) => {
 
   const [alt, setAlt] = useState<string>();
   const [legendDataUrl, setLegendDataUrl] = useState<string>();
-  const requestTimeout = useRef<any>();
+  const requestTimeout = useRef<any>(undefined);
 
   /**
    * The function that sets the legends graphic for the symbolizers
@@ -123,15 +122,15 @@ export const SLDRenderer: React.FC<SLDRendererProps> = (props) => {
         const response = await HTTPUtil.post({
           url: wmsBaseUrl,
           params: {
-            'SERVICE': 'WMS',
-            'VERSION': '1.3.0',
-            'REQUEST': 'GetLegendGraphic',
-            'FORMAT': 'image/png',
-            'TRANSPARENT': 'true',
-            'LAYER': lyr,
-            'SLD_BODY': sld,
-            'WIDTH': width,
-            'HEIGHT': height,
+            SERVICE: 'WMS',
+            VERSION: '1.3.0',
+            REQUEST: 'GetLegendGraphic',
+            FORMAT: 'image/png',
+            TRANSPARENT: 'true',
+            LAYER: lyr,
+            SLD_BODY: sld,
+            WIDTH: width,
+            HEIGHT: height,
             ...wmsParams
           },
           additionalHeaders: additionalHeaders

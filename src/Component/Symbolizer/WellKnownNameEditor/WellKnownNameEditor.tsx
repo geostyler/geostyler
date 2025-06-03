@@ -39,7 +39,6 @@ import { RotateField, RotateFieldProps } from '../Field/RotateField/RotateField'
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
-import _isEqual from 'lodash/isEqual';
 
 import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
 import {
@@ -100,7 +99,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
 
   const onOffsetXChange = (value: MarkSymbolizer['offset']['0']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: MarkSymbolizer['offset'] = [
+    const newOffset: MarkSymbolizer['offset'] = [
       value,
       (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)
     ];
@@ -112,7 +111,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
 
   const onOffsetYChange = (value: MarkSymbolizer['offset']['1']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: MarkSymbolizer['offset'] = [
+    const newOffset: MarkSymbolizer['offset'] = [
       (symbolizerClone.offset ? symbolizerClone.offset[0] : 0),
       value
     ];

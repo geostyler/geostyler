@@ -35,7 +35,7 @@ import { vi } from 'vitest';
 
 describe('LineEditor', () => {
 
-  let dummySymbolizer: LineSymbolizer = SymbolizerUtil.generateSymbolizer('Line') as LineSymbolizer;
+  const dummySymbolizer: LineSymbolizer = SymbolizerUtil.generateSymbolizer('Line') as LineSymbolizer;
 
   const props: LineEditorProps = {
     symbolizer: dummySymbolizer,

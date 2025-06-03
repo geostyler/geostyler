@@ -80,9 +80,7 @@ export interface ColorMapEditorComposableProps {
   colorMapTable?: {
     visibility?: boolean;
   };
-  colorRamps?: {
-    [name: string]: string[];
-  };
+  colorRamps?: Record<string, string[]>;
 }
 
 export interface ColorMapEditorInternalProps {

@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -41,7 +41,6 @@ import { Button, Card, Divider } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _uniqueId from 'lodash/uniqueId';
-import _merge from 'lodash/merge';
 import { SymbolizerCard } from '../SymbolizerCard/SymbolizerCard';
 import { PlusOutlined } from '@ant-design/icons';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
