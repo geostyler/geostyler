@@ -447,13 +447,13 @@ mark {
   }
 
   button.ant-btn {
-    display: none;
+    visibility: hidden;
     border-radius: 0 6px 6px 0;
   }
 
   &:hover {
     button.ant-btn {
-      display: inline-block;
+      visibility: visible;
     }
 
     .ant-input-number,
@@ -462,6 +462,18 @@ mark {
     }
   }
 
+  .slider-wrapper {
+    display: flex;
+    gap: 5px;
+    flex: 1;
+    .ant-slider {
+      flex: 1;
+    }
+  }
+
+  .number-wrapper {
+    display: flex;
+  }
 }
 
 .boolean-expression-input {
