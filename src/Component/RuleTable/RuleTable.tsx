@@ -41,6 +41,7 @@ import {
   InputNumber,
   Popover,
   Tooltip,
+  Button,
 } from 'antd';
 
 import {
@@ -161,11 +162,17 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     };
 
     return (
-      <Renderer
-        rendererType={rendererType}
-        symbolizers={record.symbolizers}
-        onClick={onSymbolizerRendererClick}
-      />
+      <div className={'gs-symbolizer-wrapper'}>
+        <Renderer
+          rendererType={rendererType}
+          symbolizers={record.symbolizers}
+        />
+        <Button
+          className={'square-button'}
+          type={'primary'}
+          icon={<EditOutlined />}
+          onClick={(e) => onSymbolizerRendererClick(record.symbolizers, e)} />
+      </div>
     );
   };
 
