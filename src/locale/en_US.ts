@@ -303,12 +303,12 @@ const en_US: GeoStylerLocale = {
   },
   WellKnownNameField: {
     wellKnownNames: {
-      Circle: 'Circle',
-      Square: 'Square',
-      Triangle: 'Triangle',
-      Star: 'Star',
-      Cross: 'Cross',
-      X: 'X'
+      circle: 'Circle',
+      square: 'Square',
+      triangle: 'Triangle',
+      star: 'Star',
+      cross: 'Cross',
+      x: 'X'
     }
   },
   ColorMapEntryField: {
@@ -446,6 +446,20 @@ const en_US: GeoStylerLocale = {
   },
   BoolFilterField: {
     label: 'Value'
+  },
+  LineCapField: {
+    lineCapOptions: {
+      butt: 'Butt',
+      round: 'Round',
+      square: 'Square'
+    }
+  },
+  LineJoinField: {
+    lineJoinOptions: {
+      bevel: 'Bevel',
+      round: 'Round',
+      miter: 'Miter'
+    }
   },
   UnsupportedPropertiesUtil: {
     notSupported: 'Not supported by selected parser.',

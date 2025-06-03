@@ -36,6 +36,9 @@ import {
 import StringExpressionSelect, { StringExpressionSelectProps }
   from '../../../ExpressionInput/StringExpressionSelect/StringExpressionSelect';
 
+import _get from 'lodash/get';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
+
 export interface LineJoinFieldProps {
   joinOptions?: JoinType[];
   onChange?: (join: LineSymbolizer['join'] | Expression<string>) => void;
@@ -50,14 +53,19 @@ type SelectProps = StringExpressionSelectProps['selectProps'];
 export const LineJoinField: React.FC<LineJoinFieldProps & SelectProps> = ({
   onChange,
   value,
-  joinOptions = ['butt', 'round', 'square'],
+  joinOptions = ['bevel', 'round', 'miter'],
   ...selectProps
 }) => {
 
-  const options =  joinOptions.map(opt => ({
-    label: opt,
-    value: opt
-  }));
+  const locale = useGeoStylerLocale('LineJoinField');
+
+  const options =  joinOptions.map(joinOpt => {
+    const loc = _get(locale, 'lineJoinOptions[' + joinOpt + ']') || joinOpt;
+    return {
+      label: loc,
+      value: joinOpt,
+    };
+  });
 
   function onCancel() {
     onChange(undefined);

@@ -250,12 +250,12 @@ export default interface GeoStylerLocale {
   };
   WellKnownNameField: {
     wellKnownNames: {
-      Circle: string;
-      Square: string;
-      Triangle: string;
-      Star: string;
-      Cross: string;
-      X: string;
+      circle: string;
+      square: string;
+      triangle: string;
+      star: string;
+      cross: string;
+      x: string;
     };
   };
   ColorMapEntryField: {
@@ -419,6 +419,20 @@ export default interface GeoStylerLocale {
   };
   BoolFilterField: {
     label: string;
+  };
+  LineCapField: {
+    lineCapOptions: {
+      butt: string;
+      round: string;
+      square: string;
+    };
+  };
+  LineJoinField: {
+    lineJoinOptions: {
+      bevel: string;
+      round: string;
+      miter: string;
+    };
   };
   UnsupportedPropertiesUtil: {
     notSupported: string;

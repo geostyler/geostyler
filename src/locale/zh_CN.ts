@@ -304,12 +304,12 @@ const zh_CN: GeoStylerLocale = {
   },
   WellKnownNameField: {
     wellKnownNames: {
-      Circle: '圆形',
-      Square: '方块',
-      Triangle: '三角形',
-      Star: '星形',
-      Cross: '十字',
-      X: '叉'
+      circle: '圆形',
+      square: '方块',
+      triangle: '三角形',
+      star: '星形',
+      cross: '十字',
+      x: '叉'
     }
   },
   ColorMapEntryField: {
@@ -447,6 +447,20 @@ const zh_CN: GeoStylerLocale = {
   },
   BoolFilterField: {
     label: '价值'
+  },
+  LineCapField: {
+    lineCapOptions: {
+      butt: 'TODO(zh_CN): butt',
+      round: 'TODO(zh_CN): round',
+      square: 'TODO(zh_CN): square'
+    }
+  },
+  LineJoinField: {
+    lineJoinOptions: {
+      bevel: 'TODO(zh_CN): bevel',
+      round: 'TODO(zh_CN): round',
+      miter: 'TODO(zh_CN): miter'
+    }
   },
   UnsupportedPropertiesUtil: {
     notSupported: '所选分析器不支持',

@@ -321,12 +321,12 @@ const es_ES: GeoStylerLocale = {
   },
   WellKnownNameField: {
     wellKnownNames: {
-      Circle: 'Círculo',
-      Square: 'Cuadrado',
-      Triangle: 'Triangulo',
-      Star: 'Estrella',
-      Cross: 'Cruz',
-      X: 'X'
+      circle: 'Círculo',
+      square: 'Cuadrado',
+      triangle: 'Triangulo',
+      star: 'Estrella',
+      cross: 'Cruz',
+      x: 'X'
     }
   },
   SymbolizerEditorWindow: {
@@ -448,6 +448,20 @@ const es_ES: GeoStylerLocale = {
   },
   BoolFilterField: {
     label: 'Valor'
+  },
+  LineCapField: {
+    lineCapOptions: {
+      butt: 'TODO(es_ES): butt',
+      round: 'TODO(es_ES): round',
+      square: 'TODO(es_ES): square'
+    }
+  },
+  LineJoinField: {
+    lineJoinOptions: {
+      bevel: 'TODO(es_ES): bevel',
+      round: 'TODO(es_ES): round',
+      miter: 'TODO(es_ES): miter'
+    }
   },
   UnsupportedPropertiesUtil: {
     notSupported: 'TODO(es_ES):Not supported by selected parser.',

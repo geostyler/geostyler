@@ -163,7 +163,7 @@ const fr_FR: GeoStylerLocale = {
     fillColorLabel: 'Couleur du remplissage',
     outlineColorLabel: 'Couleur du contour',
     outlineWidthLabel: 'Épaisseur du contour',
-    outlineDasharrayLabel: 'Tireté ou pointillé du remplissage',
+    outlineDasharrayLabel: 'Tirets ou pointillés',
     graphicFillTypeLabel: 'Motif du remplissage',
     visibilityLabel: 'Visibilité',
     generalSectionLabel: 'Généralités',
@@ -188,8 +188,8 @@ const fr_FR: GeoStylerLocale = {
   LineEditor: {
     capLabel: 'Terminaison',
     colorLabel: 'Couleur',
-    dashLabel: 'Motif de tireté',
-    dashOffsetLabel: 'Décalage du tireté',
+    dashLabel: 'Tirets ou pointillés',
+    dashOffsetLabel: 'Décalage des tirets',
     graphicFillTypeLabel: 'Type de remplissage',
     graphicStrokeTypeLabel: 'Type de tracé',
     joinLabel: 'Jointure',
@@ -305,12 +305,12 @@ const fr_FR: GeoStylerLocale = {
   },
   WellKnownNameField: {
     wellKnownNames: {
-      Circle: 'Cercle',
-      Square: 'Carré',
-      Triangle: 'Triangle',
-      Star: 'Etoile',
-      Cross: 'Croix',
-      X: 'X'
+      circle: 'Cercle',
+      square: 'Carré',
+      triangle: 'Triangle',
+      star: 'Étoile',
+      cross: 'Croix',
+      x: 'X'
     }
   },
   ColorMapEntryField: {
@@ -358,11 +358,11 @@ const fr_FR: GeoStylerLocale = {
     notFilterText: 'NON'
   },
   RuleTable: {
-    symbolizersColumnTitle: 'Symbolisations',
+    symbolizersColumnTitle: 'Aperçu',
     nameColumnTitle: 'Nom',
     filterColumnTitle: 'Filtre',
-    minScaleColumnTitle: 'Échelle minimum',
-    maxScaleColumnTitle: 'Échelle maximum',
+    minScaleColumnTitle: 'Échelle min.',
+    maxScaleColumnTitle: 'Échelle max.',
     amountColumnTitle: 'Nombre d\'objets concernés',
     duplicatesColumnTitle: 'Doublons',
     actionsColumnTitle: 'Actions',
@@ -449,6 +449,20 @@ const fr_FR: GeoStylerLocale = {
   BoolFilterField: {
     label: 'Valeur'
   },
+  LineCapField: {
+    lineCapOptions: {
+      butt: 'Plat',
+      round: 'Rond',
+      square: 'Carré'
+    }
+  },
+  LineJoinField: {
+    lineJoinOptions: {
+      bevel: 'Oblique',
+      round: 'Rond',
+      miter: 'Angle droit'
+    }
+  },
   UnsupportedPropertiesUtil: {
     notSupported: 'Non supporté par l\'analyseur sélectionné.',
     partiallySupported: 'Partiellement supporté par l\'analyseur sélectionné.'
@@ -457,15 +471,15 @@ const fr_FR: GeoStylerLocale = {
     placeholder: '… choisissez GeoStylerFunction'
   },
   VisibilityField: {
-    on: 'TODO(fr_FR):on',
-    off: 'TODO(fr_FR):off',
+    on: 'activé',
+    off: 'désactivé',
   },
   UnknownInput: {
-    typeSelectToolip: 'TODO(fr_FR): Select input type'
+    typeSelectToolip: 'Sélectionnez un type'
   },
   FunctionUI: {
-    add: 'TODO(fr_FR):add',
-    remove: 'TODO(fr_FR):remove'
+    add: 'ajouter',
+    remove: 'supprimer'
   },
   Renderer: {
     placeholderInfo: 'Ceci est un espace réservé car le symbole contient des fonctions et ne peut pas être prévisualisé.'
