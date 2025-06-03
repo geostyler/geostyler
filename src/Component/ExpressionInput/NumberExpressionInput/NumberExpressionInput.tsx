@@ -26,11 +26,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   Button,
-  InputNumber
+  Slider,
+  InputNumber,
 } from 'antd';
 import { InputNumberProps } from 'antd/lib/input-number';
 import { FunctionUI, FunctionUIProps } from '../../FunctionUI/FunctionUI';
@@ -45,6 +46,7 @@ import './NumberExpressionInput.css';
 
 export interface NumberExpressionInputProps {
   className?: string;
+  slider?: boolean;
   functionUiProps?: FunctionUIProps<GeoStylerNumberFunction>;
   inputProps?: Omit<InputNumberProps, 'value' | 'onChange' | 'className'>;
   onCancel?: (type: 'number') => void;
@@ -53,6 +55,7 @@ export interface NumberExpressionInputProps {
 }
 
 export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
+  slider = false,
   onChange,
   onCancel,
   value,
@@ -65,6 +68,10 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
   if (className) {
     finalClassName += ` ${className}`;
   }
+
+  const [inputValue, setInputValue] = useState<number>(() => {
+    return isGeoStylerFunction(value) ? undefined : value;
+  });
 
   if (isGeoStylerFunction(value)) {
     return (
@@ -82,25 +89,70 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
 
   return (
     <span className={finalClassName}>
-      <InputNumber
-        value={value}
-        onChange={(val) => {
-          if (val === null) {
-            onChange?.(undefined);
-          }
-          onChange?.(val as number);
-        }}
-        {...inputProps}
-      />
-      <Button
-        icon={<FunctionOutlined />}
-        onClick={() => {
-          onChange?.({
-            name: 'property',
-            args: ['']
-          });
-        }}
-      />
+      {slider ? (
+        <div className={'slider-wrapper'}>
+          {/* @ts-ignore */}
+          <Slider
+            value={inputValue}
+            range={false}
+            onChange={(val) => {
+              if (val === null) {
+                onChange?.(undefined);
+              }
+              onChange?.(val);
+              setInputValue(val === null ? undefined : val);
+            }}
+            {...inputProps}
+          />
+          <div className={'number-wrapper'}>
+            <InputNumber
+              min={0}
+              max={1}
+              step={0.01}
+              value={inputValue}
+              onChange={(val) => {
+                if (val === null) {
+                  onChange?.(undefined);
+                }
+                onChange?.(val);
+                setInputValue(val === null ? undefined : val);
+              }}
+            />
+            <Button
+              icon={<FunctionOutlined />}
+              onClick={() => {
+                onChange?.({
+                  name: 'property',
+                  args: ['']
+                });
+              }}
+            />
+          </div>
+        </div>
+      ) : (
+        <>
+          <InputNumber
+            value={value}
+            onChange={(val) => {
+              if (val === null) {
+                onChange?.(undefined);
+              }
+              onChange?.(val as number);
+            }}
+            {...inputProps}
+          />
+          <Button
+            icon={<FunctionOutlined />}
+            onClick={() => {
+              onChange?.({
+                name: 'property',
+                args: ['']
+              });
+            }}
+          />
+        </>
+
+      )}
     </span>
   );
 };
