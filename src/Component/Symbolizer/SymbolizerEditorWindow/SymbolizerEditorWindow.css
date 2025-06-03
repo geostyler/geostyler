@@ -30,4 +30,8 @@
   .ant-modal-body {
     padding-top: 15px;
   }
+  
+  .gs-renderer {
+    margin-bottom: 15px;
+  }
 }
