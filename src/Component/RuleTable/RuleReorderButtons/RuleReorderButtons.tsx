@@ -26,18 +26,19 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
-import { Button } from 'antd';
+import React from "react";
+import { Button } from "antd";
 
-import {
-  Rule as GsRule,
-} from 'geostyler-style';
+import { Rule as GsRule } from "geostyler-style";
 
-import { UpOutlined, DownOutlined } from '@ant-design/icons';
+import { UpOutlined, DownOutlined } from "@ant-design/icons";
+import { CSS } from '@dnd-kit/utilities';
+
 
 const ButtonGroup = Button.Group;
-import _cloneDeep from 'lodash/cloneDeep';
-import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import _cloneDeep from "lodash/cloneDeep";
+import { useGeoStylerLocale } from "../../../context/GeoStylerContext/GeoStylerContext";
+import { useSortable } from "@dnd-kit/sortable";
 
 export interface RuleReorderButtonsProps {
   /** Index of the corresponding Rule object */
@@ -54,10 +55,9 @@ export interface RuleReorderButtonsProps {
 export const RuleReorderButtons: React.FC<RuleReorderButtonsProps> = ({
   ruleIndex,
   onRulesMove,
-  rules
+  rules,
 }) => {
-
-  const locale = useGeoStylerLocale('RuleReorderButtons');
+  const locale = useGeoStylerLocale("RuleReorderButtons");
 
   const onRuleOrderChange = (moveDown: boolean) => {
     const nextRuleIndex = moveDown ? ruleIndex + 1 : ruleIndex - 1;
@@ -70,28 +70,42 @@ export const RuleReorderButtons: React.FC<RuleReorderButtonsProps> = ({
     }
   };
 
+  const { attributes, listeners, transform, transition, setNodeRef } = useSortable({ id: ruleIndex });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  };
+
   return (
-    <ButtonGroup>
-      <Button
-        role="button"
-        name="move-rule-up"
-        icon={<UpOutlined />}
-        disabled={ruleIndex === 0}
-        title={locale.ruleMoveUpTip}
-        onClick={() => {
-          onRuleOrderChange(false);
-        }}
-      />
-      <Button
-        role="button"
-        name="move-rule-down"
-        icon={<DownOutlined />}
-        disabled={ruleIndex === rules.length - 1}
-        title={locale.ruleMoveDownTip}
-        onClick={() => {
-          onRuleOrderChange(true);
-        }}
-      />
-    </ButtonGroup>
+    <div  >
+      {/* ☰ */}
+    </div>
+  );
+
+  return (
+    <div>
+      ☰
+      {/* <Button
+          role="button"
+          name="move-rule-up"
+          icon={<UpOutlined />}
+          disabled={ruleIndex === 0}
+          title={locale.ruleMoveUpTip}
+          onClick={() => {
+            onRuleOrderChange(false);
+          }}
+        />
+        <Button
+          role="button"
+          name="move-rule-down"
+          icon={<DownOutlined />}
+          disabled={ruleIndex === rules.length - 1}
+          title={locale.ruleMoveDownTip}
+          onClick={() => {
+            onRuleOrderChange(true);
+          }}
+        /> */}
+    </div>
   );
 };

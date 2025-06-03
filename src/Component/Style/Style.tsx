@@ -178,7 +178,11 @@ export const Style: React.FC<StyleProps> = (props) => {
   };
 
   const onRulesSelectionChange = (newSelectedRowKeys: (React.Key)[]) => {
-    setSelectedRowKeys(newSelectedRowKeys as string[]);
+    console.log(newSelectedRowKeys);
+
+    // console.log(newSelectedRowKeys.map(key => style.rules.findIndex(r => r.key === key)));
+
+    setSelectedRowKeys(newSelectedRowKeys);
   };
 
   const onTableMenuClick = (param: any) => {
@@ -388,13 +392,13 @@ export const Style: React.FC<StyleProps> = (props) => {
         {
           // TODO: Rule GeneratorWindow should only be available if data is VectorData
           !disableClassification &&
-            <Button
-              className="gs-style-rulegenerator"
-              onClick={showRuleGeneratorWindow}
-              disabled={!data}
-            >
-              {locale.ruleGeneratorWindowBtnText}
-            </Button>
+          <Button
+            className="gs-style-rulegenerator"
+            onClick={showRuleGeneratorWindow}
+            disabled={!data}
+          >
+            {locale.ruleGeneratorWindowBtnText}
+          </Button>
         }
       </div>
       <RuleGeneratorWindow
@@ -407,7 +411,7 @@ export const Style: React.FC<StyleProps> = (props) => {
         onRulesChange={onRulesChange}
         rowSelection={{
           selectedRowKeys,
-          onChange: onRulesSelectionChange
+          onChange: (_, selectedRows) => onRulesSelectionChange(selectedRows.map(s => s.index))
         }}
         footer={createFooter}
       />
