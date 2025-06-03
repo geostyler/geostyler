@@ -46,7 +46,7 @@
     "cleanup": "rimraf dist/** && rimraf build/**",
     "prepublishOnly": "npm run build-package",
     "styleguide": "styleguidist server --config styleguide.config.cjs",
-    "test": "NODE_OPTIONS='--import=extensionless/register --max-old-space-size=4096' vitest --coverage",
+    "test": "NODE_OPTIONS='--import=extensionless/register --max-old-space-size=16384' vitest --coverage",
     "typecheck": "tsc --noEmit",
     "test-ci": "NODE_OPTIONS=--import=extensionless/register vitest --coverage",
     "test-watch": "NODE_OPTIONS=--import=extensionless/register vitest",

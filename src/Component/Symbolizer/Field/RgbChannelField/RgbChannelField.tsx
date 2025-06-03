@@ -56,19 +56,19 @@ export const RgbChannelField: React.FC<RgbChannelFieldProps> = ({
 
   const locale = useGeoStylerLocale('RgbChannelField');
   const redChannelname = useMemo(() => {
-    return isGeoStylerFunction(value.redChannel?.sourceChannelName)
+    return isGeoStylerFunction(value?.redChannel?.sourceChannelName)
       ? undefined
-      : value.redChannel?.sourceChannelName;
+      : value?.redChannel?.sourceChannelName;
   }, [value]);
   const greenChannelName = useMemo(() => {
-    return isGeoStylerFunction(value.greenChannel?.sourceChannelName)
+    return isGeoStylerFunction(value?.greenChannel?.sourceChannelName)
       ? undefined
-      : value.greenChannel?.sourceChannelName;
+      : value?.greenChannel?.sourceChannelName;
   }, [value]);
   const blueChannelName = useMemo(() => {
-    return isGeoStylerFunction(value.blueChannel?.sourceChannelName)
+    return isGeoStylerFunction(value?.blueChannel?.sourceChannelName)
       ? undefined
-      : value.blueChannel?.sourceChannelName;
+      : value?.blueChannel?.sourceChannelName;
   }, [value]);
 
   const onRedChannelChange = (red: string) => {

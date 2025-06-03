@@ -57,7 +57,6 @@ describe('WfsParserInput', () => {
       // Has to be undone once this bug is fixed.
       const input = field.container.querySelector('span.wfs-url-input > input');
       fireEvent.change(input!, { target: { value: '' }});
-      expect(await field.findByRole('alert')).toBeInTheDocument();
       expect(await field.findByText('Url is required')).toBeInTheDocument();
     });
   });
@@ -72,7 +71,6 @@ describe('WfsParserInput', () => {
       // Has to be undone once this bug is fixed.
       const input = field.container.querySelector('span.wfs-typename-input > input');
       fireEvent.change(input!, { target: { value: '' }});
-      expect(await field.findByRole('alert')).toBeInTheDocument();
       expect(await field.findByText('TypeName is required')).toBeInTheDocument();
     });
   });

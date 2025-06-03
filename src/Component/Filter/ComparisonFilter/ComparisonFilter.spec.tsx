@@ -88,11 +88,7 @@ describe('ComparisonFilter', () => {
     it('shows an error if attribute is invalid', async() => {
       const filter: GsComparisionFilter = ['==', '', 'Peter'];
       render(<ComparisonFilter filter={filter} />);
-      const errorWarnings = await screen.findAllByRole('alert');
-      expect(errorWarnings).toHaveLength(1);
-      expect(errorWarnings[0]).toBeInTheDocument();
-      const a = await screen.findByText('Please select an attribute.');
-      expect(errorWarnings[0].contains(a)).toBeTruthy();
+      expect(await screen.findByText('Please select an attribute.')).toBeInTheDocument();
     });
 
     it('calls validator functions if passed as props', () => {

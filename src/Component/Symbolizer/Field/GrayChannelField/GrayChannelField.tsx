@@ -55,9 +55,9 @@ export const GrayChannelField: React.FC<GrayChannelFieldProps> = ({
 
   const locale = useGeoStylerLocale('GrayChannelField');
   const channelName = useMemo(() => {
-    return isGeoStylerFunction(value.grayChannel?.sourceChannelName)
+    return isGeoStylerFunction(value?.grayChannel?.sourceChannelName)
       ? undefined
-      : value.grayChannel?.sourceChannelName;
+      : value?.grayChannel?.sourceChannelName;
   }, [value]);
 
   const onGrayChannelChange = (newValue: string) => {
