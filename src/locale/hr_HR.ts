@@ -461,6 +461,14 @@ const hr_HR: GeoStylerLocale = {
       miter: 'TODO(hr_HR): miter'
     }
   },
+  ImageField: {
+    sprite: {
+      x: 'TODO(hr_HR): x',
+      y: 'TODO(hr_HR): y',
+      height: 'TODO(hr_HR): height',
+      width: 'TODO(hr_HR): width'
+    }
+  },
   UnsupportedPropertiesUtil: {
     notSupported: 'Nije podržano od strane odabranog parsera.',
     partiallySupported: 'Samo djelomično podržano od strane odabranog parsera.'

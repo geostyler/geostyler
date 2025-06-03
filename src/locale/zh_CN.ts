@@ -462,6 +462,14 @@ const zh_CN: GeoStylerLocale = {
       miter: 'TODO(zh_CN): miter'
     }
   },
+  ImageField: {
+    sprite: {
+      x: 'TODO(zh_CN): x',
+      y: 'TODO(zh_CN): y',
+      height: 'TODO(zh_CN): height',
+      width: 'TODO(zh_CN): width'
+    }
+  },
   UnsupportedPropertiesUtil: {
     notSupported: '所选分析器不支持',
     partiallySupported: '只被选定的解析器部分支持'

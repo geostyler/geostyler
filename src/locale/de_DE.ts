@@ -462,6 +462,14 @@ const de_DE: GeoStylerLocale = {
       miter: 'TODO(de_DE): miter'
     }
   },
+  ImageField: {
+    sprite: {
+      x: 'TODO(de_DE): x',
+      y: 'TODO(de_DE): y',
+      height: 'TODO(de_DE): height',
+      width: 'TODO(de_DE): width'
+    }
+  },
   UnsupportedPropertiesUtil: {
     notSupported: 'Vom ausgewählten Parser nicht unterstützt.',
     partiallySupported: 'Vom ausgewählten Parser nur teilweise unterstützt.'

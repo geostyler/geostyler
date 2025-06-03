@@ -434,6 +434,14 @@ export default interface GeoStylerLocale {
       miter: string;
     };
   };
+  ImageField: {
+    sprite: {
+      x: string;
+      y: string;
+      height: string;
+      width: string;
+    };
+  };
   UnsupportedPropertiesUtil: {
     notSupported: string;
     partiallySupported: string;

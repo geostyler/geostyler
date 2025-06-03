@@ -461,6 +461,14 @@ const en_US: GeoStylerLocale = {
       miter: 'Miter'
     }
   },
+  ImageField: {
+    sprite: {
+      x: 'X',
+      y: 'Y',
+      height: 'Height',
+      width: 'Width'
+    }
+  },
   UnsupportedPropertiesUtil: {
     notSupported: 'Not supported by selected parser.',
     partiallySupported: 'Only partially supported by selected parser.'

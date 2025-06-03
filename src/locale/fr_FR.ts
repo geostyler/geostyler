@@ -463,6 +463,14 @@ const fr_FR: GeoStylerLocale = {
       miter: 'Angle droit'
     }
   },
+  ImageField: {
+    sprite: {
+      x: 'X',
+      y: 'Y',
+      height: 'Hauteur',
+      width: 'Largeur'
+    }
+  },
   UnsupportedPropertiesUtil: {
     notSupported: 'Non supporté par l\'analyseur sélectionné.',
     partiallySupported: 'Partiellement supporté par l\'analyseur sélectionné.'
