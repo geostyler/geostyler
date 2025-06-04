@@ -79,7 +79,6 @@ import { CSS } from '@dnd-kit/utilities';
 
 export interface RuleRecord extends GsRule {
   key: string;
-  index: number;
   amount?: number;
   duplicates?: number;
   maxScale?: number;
@@ -184,7 +183,6 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   const ruleRecords = rules?.map((rule: GsRule, index: number): RuleRecord => {
     return {
       ...rule,
-      index,
       key: uniqueIds.current[index]
     };
   });
@@ -498,10 +496,9 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     // changing the selected indices to their respective indices after reordering.
     // this will ensure that the same items remain selected, instead of the items at the same indices.
 
-    ruleRecords.forEach((r) => r.index = uniqueIds.current.indexOf(r.key));
     onChangeSelection(
       previouslySelectedRowKeys,
-      ruleRecords.filter((r) => previouslySelectedRowKeys.includes(r.key)),
+      arrayMove(ruleRecords, activeIndex, overIndex).filter((r) => previouslySelectedRowKeys.includes(r.key)),
       null
     );
   };
