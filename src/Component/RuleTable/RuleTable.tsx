@@ -46,8 +46,7 @@ import {
 import {
   Rule as GsRule,
   Symbolizer as GsSymbolizer,
-  Filter as GsFilter,
-  Symbolizer
+  Filter as GsFilter
 } from 'geostyler-style';
 
 import './RuleTable.css';
@@ -56,7 +55,6 @@ import { SymbolizerEditorWindow } from '../Symbolizer/SymbolizerEditorWindow/Sym
 import { ColumnProps, TableProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
-import { RuleReorderButtons } from './RuleReorderButtons/RuleReorderButtons';
 import { BgColorsOutlined, BlockOutlined, EditOutlined, HolderOutlined } from '@ant-design/icons';
 import { Renderer } from '../Renderer/Renderer/Renderer';
 import {
@@ -65,7 +63,7 @@ import {
   useGeoStylerLocale
 } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
-import { closestCenter, DndContext, DragEndEvent, useDraggable } from '@dnd-kit/core';
+import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -130,6 +128,8 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     return rules.map<string>(() => crypto.randomUUID());
   };
 
+  // these ids are used to keep track of the position of a row after a reorder per drag and drop happens,
+  // which then allows us to provide semantically correct React keys, which ensure correct behaviour for drag and drop
   const uniqueIds = useRef(createUniqueIds());
 
   const sensors = useDragDropSensors();
@@ -327,15 +327,6 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     );
   };
 
-  const ruleReorderRenderer = (text: unknown, record: RuleRecord, index: number) => {
-    return (
-      <RuleReorderButtons
-        ruleIndex={index}
-        rules={rules}
-        onRulesMove={onRulesChange}
-      />
-    );
-  };
 
   const onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
     setValueForRule(ruleEditIndex, 'symbolizers', symbolizers);
@@ -361,20 +352,16 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     setFilterEditorVisible(false);
   };
 
-  const columns: ColumnProps<RuleRecord>[] = [{
-    dataIndex: '',
-    width: 70,
-    render: ruleReorderRenderer
-  },
-  {
-    title: (
-      <Tooltip title={locale.symbolizersColumnTitle}>
-        <BgColorsOutlined />
-      </Tooltip>
-    ),
-    dataIndex: 'symbolizers',
-    render: symbolizerRenderer
-  }];
+  const columns: ColumnProps<RuleRecord>[] = [
+    {
+      title: (
+        <Tooltip title={locale.symbolizersColumnTitle}>
+          <BgColorsOutlined />
+        </Tooltip>
+      ),
+      dataIndex: 'symbolizers',
+      render: symbolizerRenderer
+    }];
 
   if (!(nameField?.visibility === false)) {
     columns.push({
@@ -427,9 +414,8 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   };
 
-
-  const changeSelection: TableProps<RuleRecord>['rowSelection']['onChange'] = (keys, rows, infos) => {
-    return antdTableProps.rowSelection.onChange(keys, rows, infos);
+  const changeSelection: typeof antdTableProps.rowSelection.onChange = (keys, rows, infos) => {
+    return antdTableProps.rowSelection.onChange(keys.map(k => uniqueIds.current.indexOf(k as string)), rows, infos);
   };
 
   const handleDragEnd = ({ active, over }: DragEndEvent) => {
@@ -438,23 +424,36 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     const activeIndex = ruleRecords.findIndex((i) => i.key === active.id);
     const overIndex = ruleRecords.findIndex((i) => i.key === over?.id);
 
-    const previouslySelectedRowKeys = antdTableProps.rowSelection.selectedRowKeys.map(k => uniqueIds.current[k as number]);
+    const previouslySelectedRowKeys =
+      antdTableProps.rowSelection.selectedRowKeys.map(
+        (k) => uniqueIds.current[k as number]
+      );
+
     uniqueIds.current = arrayMove(uniqueIds.current, activeIndex, overIndex);
     onRulesChange(arrayMove(rules, activeIndex, overIndex));
-    console.log(previouslySelectedRowKeys, ruleRecords, uniqueIds);
+
+    if (!antdTableProps.rowSelection || antdTableProps.rowSelection.selectedRowKeys.length === 0) { return; }
+    // if the user of the RuleTable controls the selection via input, we need to update the selection by
+    // changing the selected indices to their respective indices after reordering.
+    // this will ensure that the same items remain selected, instead of the items at the same indices.
+
     ruleRecords.forEach((r) => r.index = uniqueIds.current.indexOf(r.key));
-    changeSelection(previouslySelectedRowKeys.map(k => uniqueIds.current.indexOf(k)), ruleRecords.filter(r => previouslySelectedRowKeys.includes(r.key)), null);
+    changeSelection(
+      previouslySelectedRowKeys,
+      ruleRecords.filter((r) => previouslySelectedRowKeys.includes(r.key)),
+      null
+    );
   };
 
   if (hasError) {
     return <h1>An error occurred in the RuleTable UI.</h1>;
   }
 
-  const rowSelection: TableProps<RuleRecord>['rowSelection'] = {
+  const rowSelection: TableProps<RuleRecord>['rowSelection'] = antdTableProps.rowSelection ? {
     ...antdTableProps.rowSelection,
     selectedRowKeys: antdTableProps.rowSelection.selectedRowKeys.map(k => uniqueIds.current[k as number]),
     onChange: changeSelection
-  };
+  } : {};
 
   return (
     <div className="gs-rule-table">
@@ -464,19 +463,23 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
             columns={columns}
             dataSource={ruleRecords}
             pagination={false}
-            rowKey={'key'}
+            rowKey='key'
             components={{
               header: {
-                row: ({ ...props }) => {
-                  return (<><tr><th></th>{props.children}</tr></>);
-                }
+                row: (rowProps: PropsWithChildren) => (
+                  <tr>
+                    {/* the empty table header is creating a placeholder column for the drag handle */}
+                    <th></th>
+                    {rowProps.children}
+                  </tr>
+                )
               },
               body: {
                 row: DraggableRow,
               }
             }}
             {...antdTableProps}
-            rowSelection={rowSelection}
+            {...{ rowSelection }}
           />
         </SortableContext>
       </DndContext>
@@ -496,18 +499,39 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   );
 };
 
-const DraggableRow: React.FC<{ 'data-row-key': string, children: ReactNode }> = ({ 'data-row-key': id, children, ...props }) => {
-  const { attributes, listeners, transform, transition, setNodeRef, setActivatorNodeRef } = useSortable({ id });
+const DraggableRow: React.FC<{
+  'data-row-key': string;
+  children: ReactNode;
+}> = ({ 'data-row-key': id, children, ...props }) => {
+  const {
+    attributes,
+    listeners,
+    transform,
+    transition,
+    setNodeRef,
+    setActivatorNodeRef,
+    isDragging,
+  } = useSortable({ id });
 
-  const style = {
+  const style: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
-    'background-color': 'white'
+    backgroundColor: 'white',
+
+    // the currently dragged element must be visually above the other ones
+    ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
   };
 
   return (
     <tr {...props} key={id} ref={setNodeRef} {...attributes} style={style}>
-      <td ref={setActivatorNodeRef} {...listeners}><HolderOutlined /></td>{children}
+      <td
+        ref={setActivatorNodeRef}
+        {...listeners}
+        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+      >
+        <HolderOutlined />
+      </td>
+      {children}
     </tr>
   );
 };

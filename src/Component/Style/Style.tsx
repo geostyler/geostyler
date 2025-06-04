@@ -178,10 +178,6 @@ export const Style: React.FC<StyleProps> = (props) => {
   };
 
   const onRulesSelectionChange = (newSelectedRowKeys: (React.Key)[]) => {
-    console.log(newSelectedRowKeys);
-
-    // console.log(newSelectedRowKeys.map(key => style.rules.findIndex(r => r.key === key)));
-
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
@@ -411,7 +407,7 @@ export const Style: React.FC<StyleProps> = (props) => {
         onRulesChange={onRulesChange}
         rowSelection={{
           selectedRowKeys,
-          onChange: (_, selectedRows) => onRulesSelectionChange(selectedRows.map(s => s.index))
+          onChange: onRulesSelectionChange
         }}
         footer={createFooter}
       />
