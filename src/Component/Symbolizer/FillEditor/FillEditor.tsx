@@ -26,29 +26,29 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
-  Collapse,
-  Form
+  Divider,
+  Form,
+  Switch
 } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
 
 import {
-  Symbolizer,
+  Expression,
   FillSymbolizer,
-  PointSymbolizer,
   GraphicType,
-  Expression
+  PointSymbolizer,
+  Symbolizer
 } from 'geostyler-style';
 
 import { ColorField, ColorFieldProps } from '../Field/ColorField/ColorField';
-import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
-import { GraphicEditor } from '../GraphicEditor/GraphicEditor';
-import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
 import { LineDashField } from '../Field/LineDashField/LineDashField';
+import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
+import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
 
 import {
   InputConfig,
@@ -56,8 +56,11 @@ import {
   useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
-import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
+import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
+import { GraphicEditor } from '../GraphicEditor/GraphicEditor';
+
+import './FillEditor.css';
 
 export interface FillEditorComposableProps {
   fillColorField?: InputConfig<ColorFieldProps['value']>;
@@ -73,6 +76,7 @@ export interface FillEditorComposableProps {
   // TODO add support for default values in VisibilityField
   visibilityField?: InputConfig<VisibilityFieldProps['value']>;
   // TODO add support for graphicFill
+  graphicFillSwitch?: InputConfig<boolean>;
 }
 
 export interface FillEditorInternalProps {
@@ -96,10 +100,15 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
     outlineOpacityField,
     outlineWidthField,
     visibilityField,
+    graphicFillSwitch,
     symbolizer
   } = composed;
 
   const locale = useGeoStylerLocale('FillEditor');
+
+  const [displayGraphicFill, setDisplayGraphicFill] = useState<boolean>(
+    graphicFillSwitch?.default === true ? true: false
+  );
 
   const {
     getFormItemSupportProps
@@ -192,151 +201,145 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
 
   const itemConfig = getFormItemConfig();
 
-  const collapseItems = [{
-    key: '1',
-    label: locale.generalSectionLabel,
-    children: (
-      <>
-        {
-          visibilityField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.visibilityLabel}
-            >
-              <VisibilityField
-                value={visibility}
-                onChange={onVisibilityChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          fillColorField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.fillColorLabel}
-              {...getFormItemSupportProps('color')}
-            >
-              <ColorField
-                value={color as string}
-                defaultValue={fillColorField?.default}
-                onChange={onFillColorChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          fillOpacityField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.fillOpacityLabel}
-              {...getFormItemSupportProps('fillOpacity')}
-            >
-              <OpacityField
-                value={fillOpacity}
-                defaultValue={fillOpacityField?.default as number}
-                onChange={onFillOpacityChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          opacityField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.opacityLabel}
-              {...getFormItemSupportProps('opacity')}
-            >
-              <OpacityField
-                value={opacity}
-                defaultValue={opacityField?.default as number}
-                onChange={onOpacityChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          outlineOpacityField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.outlineOpacityLabel}
-              {...getFormItemSupportProps('outlineOpacity')}
-            >
-              <OpacityField
-                value={outlineOpacity}
-                defaultValue={outlineOpacityField?.default as number}
-                onChange={onOutlineOpacityChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          outlineColorField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.outlineColorLabel}
-              {...getFormItemSupportProps('outlineColor')}
-            >
-              <ColorField
-                value={outlineColor as string}
-                defaultValue={outlineColorField?.default}
-                onChange={onOutlineColorChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          outlineWidthField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.outlineWidthLabel}
-              {...getFormItemSupportProps('outlineWidth')}
-            >
-              <WidthField
-                value={outlineWidth}
-                defaultValue={outlineWidthField?.default as number}
-                onChange={onOutlineWidthChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          outlineDasharrayField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.outlineDasharrayLabel}
-              {...getFormItemSupportProps('outlineDasharray')}
-            >
-              <LineDashField
-                value={outlineDasharray as number[]}
-                onChange={onOutlineDasharrayChange}
-              />
-            </Form.Item>
-          )
-        }
-      </>
-    )
-  }, {
-    key: '2',
-    label: locale.graphicFillSectionLabel,
-    // TODO: allow changing graphicFill via composition context
-    children: (
-      <GraphicEditor
-        graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-        value={graphicFill}
-        graphicType={_get(graphicFill, 'kind') as GraphicType}
-        onGraphicChange={onGraphicChange}
-      />
-    )
-  }];
-
   return (
     <div className="gs-fill-symbolizer-editor" >
-      <Collapse
-        items={collapseItems}
-        defaultActiveKey={['1']}
-        bordered={false}
-      />
+      {
+        visibilityField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.visibilityLabel}
+          >
+            <VisibilityField
+              value={visibility}
+              onChange={onVisibilityChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        fillColorField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.fillColorLabel}
+            {...getFormItemSupportProps('color')}
+          >
+            <ColorField
+              value={color as string}
+              defaultValue={fillColorField?.default}
+              onChange={onFillColorChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        fillOpacityField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.fillOpacityLabel}
+            {...getFormItemSupportProps('fillOpacity')}
+          >
+            <OpacityField
+              value={fillOpacity}
+              defaultValue={fillOpacityField?.default as number}
+              onChange={onFillOpacityChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        opacityField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.opacityLabel}
+            {...getFormItemSupportProps('opacity')}
+          >
+            <OpacityField
+              value={opacity}
+              defaultValue={opacityField?.default as number}
+              onChange={onOpacityChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        outlineOpacityField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.outlineOpacityLabel}
+            {...getFormItemSupportProps('outlineOpacity')}
+          >
+            <OpacityField
+              value={outlineOpacity}
+              defaultValue={outlineOpacityField?.default as number}
+              onChange={onOutlineOpacityChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        outlineColorField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.outlineColorLabel}
+            {...getFormItemSupportProps('outlineColor')}
+          >
+            <ColorField
+              value={outlineColor as string}
+              defaultValue={outlineColorField?.default}
+              onChange={onOutlineColorChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        outlineWidthField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.outlineWidthLabel}
+            {...getFormItemSupportProps('outlineWidth')}
+          >
+            <WidthField
+              value={outlineWidth}
+              defaultValue={outlineWidthField?.default as number}
+              onChange={onOutlineWidthChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        outlineDasharrayField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.outlineDasharrayLabel}
+            {...getFormItemSupportProps('outlineDasharray')}
+          >
+            <LineDashField
+              value={outlineDasharray as number[]}
+              onChange={onOutlineDasharrayChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        graphicFillSwitch?.visibility === false ? null : (
+          <>
+            <Divider style={{margin: '16px 0'}} />
+            <Form.Item
+              label={locale.graphicFillSectionLabel}
+            >
+              <Switch value={displayGraphicFill} onChange={setDisplayGraphicFill} />
+            </Form.Item>
+          </>
+        )
+      }
+      {
+        displayGraphicFill && <GraphicEditor
+          graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+          value={graphicFill}
+          graphicType={_get(graphicFill, 'kind') as GraphicType}
+          onGraphicChange={onGraphicChange}
+        />
+      }
     </div >
   );
 };
