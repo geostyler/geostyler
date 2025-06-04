@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2022-present, terrestris GmbH & Co. KG and GeoStyler contributors

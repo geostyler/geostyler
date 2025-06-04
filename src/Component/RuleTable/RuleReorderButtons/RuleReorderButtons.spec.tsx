@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -35,7 +37,7 @@ import {
 
 import _cloneDeep from 'lodash/cloneDeep';
 import { render, act, fireEvent } from '@testing-library/react';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('RuleReorderButtons', () => {
 
@@ -97,7 +99,7 @@ describe('RuleReorderButtons', () => {
       // reordered rules
       const rulesClone = _cloneDeep(rules);
       rulesClone.splice(1, 0, rulesClone.splice(0, 1)[0]);
-      const onRulesMove = vi.fn();
+      const onRulesMove = mock(() => {});
       const ruleReorderButtons = render(
         <RuleReorderButtons
           rules={rules}

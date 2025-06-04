@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -31,7 +33,7 @@ import { ReadParams } from 'geostyler-wfs-parser';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { WfsParserInput } from './WfsParserInput';
 import defaultLocale from '../../../locale/en_US';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 const locale = defaultLocale.WfsParserInput;
 
@@ -42,14 +44,14 @@ describe('WfsParserInput', () => {
   });
 
   it('renders correctly', () => {
-    const onClickMock = vi.fn();
+    const onClickMock = mock(() => {});
     const field = render(<WfsParserInput onClick={onClickMock} />);
     expect(field.container).toBeInTheDocument();
   });
 
   describe('onUrlChange', () => {
     it('shows and error when url is to short', async() => {
-      const onClickMock = vi.fn();
+      const onClickMock = mock(() => {});
       const field = render(<WfsParserInput onClick={onClickMock} />);
       // const input = field.container.querySelector('input.wfs-url-input');
       // https://github.com/ant-design/ant-design/issues/35600
@@ -63,7 +65,7 @@ describe('WfsParserInput', () => {
 
   describe('onTypeNameChange', () => {
     it('shows and error when typeName is to short', async() => {
-      const onClickMock = vi.fn();
+      const onClickMock = mock(() => {});
       const field = render(<WfsParserInput onClick={onClickMock} />);
       // const input = field.container.querySelector('input.wfs-typename-input');
       // https://github.com/ant-design/ant-design/issues/35600
@@ -86,7 +88,7 @@ describe('WfsParserInput', () => {
           count: 999
         }
       };
-      const onClickMock = vi.fn();
+      const onClickMock = mock(() => {});
       const field = render(<WfsParserInput onClick={onClickMock} />);
 
       // url

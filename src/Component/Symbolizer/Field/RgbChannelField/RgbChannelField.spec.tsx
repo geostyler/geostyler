@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,7 +32,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
 import { RgbChannelField } from './RgbChannelField';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('RgbChannelField', () => {
 
@@ -46,7 +48,7 @@ describe('RgbChannelField', () => {
   describe('onRedChannelChange', () => {
     it('every SourceChannelNameField change calls passed onChange', async() => {
       const dummyChannelName = 'dummy band';
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       const field = render(<RgbChannelField onChange={onChangeMock} />);
       const inputs = await field.findAllByPlaceholderText('Name of band');
       await Promise.all(inputs.map(input => fireEvent.change(input, { target: { value: dummyChannelName }})));

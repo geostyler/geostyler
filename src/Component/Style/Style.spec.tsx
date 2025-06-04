@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,12 +32,11 @@ import { Style, StyleProps } from './Style';
 import TestUtil from '../../Util/TestUtil';
 import defaultLocale from '../../locale/en_US';
 import { render, act, fireEvent } from '@testing-library/react';
-import { vi } from 'vitest';
 
 describe('Style', () => {
 
   const props: StyleProps = {
-    onStyleChange: vi.fn(),
+    onStyleChange: mock(() => {}),
     style: TestUtil.getLineStyle()
   };
 
@@ -63,7 +64,7 @@ describe('Style', () => {
 
   it('adds a Rule', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
+    const mock = mock(() => {});
     const style = render(<Style
       {...props}
       onStyleChange={mock}
@@ -78,7 +79,7 @@ describe('Style', () => {
 
   it('clones Rules', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
+    const mock = mock(() => {});
     const style = render(<Style
       {...props}
       onStyleChange={mock}
@@ -100,7 +101,7 @@ describe('Style', () => {
 
   it('removes a Rule', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
+    const mock = mock(() => {});
     const style = render(<Style
       {...props}
       onStyleChange={mock}
@@ -120,7 +121,7 @@ describe('Style', () => {
 
   it('enables the multi edit menu when multiple rules are selected', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
+    const mock = mock(() => {});
     const style = render(<Style
       {...props}
       onStyleChange={mock}
@@ -139,7 +140,7 @@ describe('Style', () => {
 
   it('enables the clone button when multiple rules are selected', async () => {
     const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
+    const mock = mock(() => {});
     const style = render(<Style
       {...props}
       onStyleChange={mock}

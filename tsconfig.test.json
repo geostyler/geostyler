@@ -3,7 +3,9 @@
   "compilerOptions": {
     "declaration": false,
     "module": "commonjs",
-    "noUnusedLocals": false
+    "noUnusedLocals": false,
+    "typeRoots": ["./node_modules/@types", "./test"],
+    "types": ["bun-types"]
   },
   "exclude": [
     "node_modules",

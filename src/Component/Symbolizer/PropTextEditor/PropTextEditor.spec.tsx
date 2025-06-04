@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -32,14 +34,14 @@ import { act, render, fireEvent } from '@testing-library/react';
 import { TextSymbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('PropTextEditor', () => {
 
   const dummySymbolizer = SymbolizerUtil.generateSymbolizer('Text') as TextSymbolizer;
   const props: PropTextEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: vi.fn()
+    onSymbolizerChange: mock(() => {})
   };
 
   it('is defined', () => {

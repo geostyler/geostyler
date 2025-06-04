@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,7 +32,7 @@ import React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
 import { Rules } from './Rules';
 import { Rule } from 'geostyler-style';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('Rules', () => {
 
@@ -41,10 +43,10 @@ describe('Rules', () => {
   let dummyRule: Rule;
 
   beforeEach(() => {
-    onRulesChangeDummy = vi.fn();
-    onEditRuleClickDummy = vi.fn();
-    onClassificationClickDummy = vi.fn();
-    onEditSelectionClickDummy = vi.fn();
+    onRulesChangeDummy = mock(() => {});
+    onEditRuleClickDummy = mock(() => {});
+    onClassificationClickDummy = mock(() => {});
+    onEditSelectionClickDummy = mock(() => {});
     dummyRule = {
       name: 'foo',
       symbolizers: []

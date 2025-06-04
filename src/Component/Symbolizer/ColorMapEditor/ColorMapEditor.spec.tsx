@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -31,11 +33,9 @@ import { fireEvent, render, RenderResult } from '@testing-library/react';
 import { ColorMapEditor } from './ColorMapEditor';
 import { ColorMap } from 'geostyler-style';
 import RasterUtil from '../../../Util/RasterUtil';
-import { vi } from 'vitest';
+import { mock } from 'bun:test';
 
-vi.mock('antd', async (importOriginal) => {
-  const antd = await importOriginal();
-
+mock.module('antd', () => {
   const Select = ({ children, onChange }: {children: React.ReactElement; onChange: (value: any) => void}) => {
     return <select onChange={e => onChange(e.target.value)}>{children}</select>;
   };
@@ -44,17 +44,28 @@ vi.mock('antd', async (importOriginal) => {
     return <option {...otherProps}>{children}</option>;
   };
 
+  const InputNumber = ({ onChange }: { onChange: (value: any) => void }) => {
+    return <input type="number" onChange={e => onChange(parseFloat(e.target.value))} />;
+  };
+
+  const Input = ({ onChange }: { onChange: (value: any) => void }) => {
+    return <input onChange={e => onChange(e.target.value)} />;
+  };
+
   return {
-    ...antd,
     Select,
+    InputNumber,
+    Input
   };
 });
 
 describe('ColorMapEditor', () => {
   let dummyColorMap: ColorMap;
   let colorMapEditor: RenderResult;
-  const onChangeMock = vi.fn();
+  let onChangeMock: ReturnType<typeof mock>;
+
   beforeEach(() => {
+    onChangeMock = mock(() => {});
     dummyColorMap = {
       colorMapEntries: [RasterUtil.generateColorMapEntry()],
       type: 'ramp'

@@ -1,3 +1,5 @@
+// / <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,12 +32,7 @@ import { Editor, EditorProps } from './Editor';
 import TestUtil from '../../../Util/TestUtil';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { render } from '@testing-library/react';
-import { vi } from 'vitest';
-
-vi.mock('antd', async (importOriginal) => {
-  const antd = await importOriginal();
-  return antd;
-});
+import { mock } from 'bun:test';
 
 describe('SymbolizerEditor', () => {
 
@@ -43,7 +40,7 @@ describe('SymbolizerEditor', () => {
   dummySymbolizer.kind = 'Fill';
   const props: EditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: vi.fn()
+    onSymbolizerChange: mock(() => {})
   };
 
   it('is defined', () => {

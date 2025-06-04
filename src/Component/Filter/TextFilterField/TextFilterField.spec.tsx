@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -31,7 +33,7 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import { TextFilterField } from './TextFilterField';
 import TestUtil from '../../../Util/TestUtil';
 import { GeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('TextFilterField', () => {
 
@@ -60,7 +62,7 @@ describe('TextFilterField', () => {
 
     it('calls onValueChange of props', () => {
       const value = 'Test';
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       render(<TextFilterField onValueChange={onChangeMock} />);
       const textInput = document.querySelector('.ant-input');
       fireEvent.change(textInput as Element, { target: { value }});
@@ -84,7 +86,7 @@ describe('TextFilterField', () => {
     });
 
     it('calls onValueChange of props', async() => {
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       const field = render(
         <GeoStylerContext.Provider value={{data: dummyData}}>
           <TextFilterField

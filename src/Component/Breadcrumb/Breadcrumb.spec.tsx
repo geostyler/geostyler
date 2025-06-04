@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -29,13 +30,12 @@
 import React from 'react';
 import { render, act, fireEvent } from '@testing-library/react';
 import { Breadcrumb, Crumb } from './Breadcrumb';
-import { vi } from 'vitest';
 
 describe('Breadcrumb', () => {
 
   let onClickDummy;
   beforeEach(() => {
-    onClickDummy = vi.fn();
+    onClickDummy = mock(() => {});
   });
 
   it('is defined', () => {

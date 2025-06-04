@@ -1,3 +1,5 @@
+// / <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -34,19 +36,13 @@ import {
 } from 'geostyler-style';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { render, waitFor } from '@testing-library/react';
-import { vi } from 'vitest';
-
-vi.mock('antd', async (importOriginal) => {
-  const antd = await importOriginal();
-  return antd;
-});
 
 describe('GraphicEditor', () => {
 
   const dummyGraphicType: GraphicType = 'Mark';
   const dummyGraphicMark: MarkSymbolizer = SymbolizerUtil.markSymbolizer;
   const dummyGraphicIcon: IconSymbolizer = SymbolizerUtil.iconSymbolizer;
-  const onGraphicChangeSpy = vi.fn();
+  const onGraphicChangeSpy = mock(() => {});
   const props: GraphicEditorProps = {
     value: dummyGraphicMark,
     graphicType: dummyGraphicType,

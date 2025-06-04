@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -62,7 +64,7 @@ describe('CodeEditor', () => {
   // TODO fix this test, somehow the props lead to a rendering error
   // describe('generates an option for every parser', () => {
   //   it('returns a Select.Option for every passed parser', async () => {
-  //     onStyleChangeDummy = vi.fn();
+  //     onStyleChangeDummy = mock(() => {});
   //     const props: CodeEditorProps = {
   //       style: dummyStyle,
   //       onStyleChange: onStyleChangeDummy,

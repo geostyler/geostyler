@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -29,7 +31,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { NumberFilterField } from './NumberFilterField';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('NumberFilterField', () => {
 
@@ -44,7 +46,7 @@ describe('NumberFilterField', () => {
 
   describe('#onChange', () => {
     it('calls onValueChange of props', async() => {
-      const onChangeDummy = vi.fn();
+      const onChangeDummy = mock(() => {});
       const value = 1909.09;
       const field = render(<NumberFilterField onValueChange={onChangeDummy} />);
       const input = await field.findByRole('spinbutton');

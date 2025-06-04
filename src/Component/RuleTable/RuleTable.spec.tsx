@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* eslint-disable max-len */
 /* Released under the BSD 2-Clause License
  *

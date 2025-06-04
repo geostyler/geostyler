@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -31,7 +33,7 @@ import { act, fireEvent, render } from '@testing-library/react';
 import { CardStyle } from './CardStyle';
 import { Rule, Style, Symbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('CardStyle', () => {
 
@@ -41,7 +43,7 @@ describe('CardStyle', () => {
   let dummySymbolizer: Symbolizer;
 
   beforeEach(() => {
-    onStyleChangeDummy = vi.fn();
+    onStyleChangeDummy = mock(() => {});
 
     dummyStyle = {
       name: 'foo',

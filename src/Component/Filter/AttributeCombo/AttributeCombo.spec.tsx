@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -31,7 +33,7 @@ import { render } from '@testing-library/react';
 import { AttributeCombo } from './AttributeCombo';
 import TestUtil from '../../../Util/TestUtil';
 import { GeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('AttributeCombo', () => {
 
@@ -47,7 +49,7 @@ describe('AttributeCombo', () => {
   });
 
   it('calls attribute filter function for each property', () => {
-    const dummyFilterFn = vi.fn();
+    const dummyFilterFn = mock(() => {});
     render(
       <GeoStylerContext.Provider value={{data: dummyData}}>
         <AttributeCombo attributeNameFilter={dummyFilterFn} />
