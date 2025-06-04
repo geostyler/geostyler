@@ -96,7 +96,7 @@ export const Style: React.FC<StyleProps> = (props) => {
   const locale = useGeoStylerLocale('Style');
 
   const [style, setStyle] = useState(styleProp);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
   const [colorModalVisible, setColorModalVisible] = useState(false);
   const [sizeModalVisible, setSizeModalVisible] = useState(false);
   const [opacityModalVisible, setOpacityModalVisible] = useState(false);
@@ -142,13 +142,13 @@ export const Style: React.FC<StyleProps> = (props) => {
     setStyle(clonedStyle);
   };
 
-  const cloneRules = (rowKeys: number[]) => {
+  const cloneRules = (...ruleIndices: number[]) => {
     const clonedStyle = _cloneDeep(style);
 
     // create rules to clone
     const newRules: GsRule[] = [];
     clonedStyle.rules.forEach((rule: GsRule, index: number) => {
-      if (rowKeys.includes(index)) {
+      if (ruleIndices.includes(index)) {
         const ruleClone = _cloneDeep(rule);
         // TODO We need to ensure that rule names are unique
         const randomId = Math.floor(Math.random() * 10000);
@@ -165,10 +165,10 @@ export const Style: React.FC<StyleProps> = (props) => {
     setStyle(clonedStyle);
   };
 
-  const removeRules = (rowKeys: number[]) => {
+  const removeRules = (...ruleIndices: number[]) => {
     const clonedStyle = _cloneDeep(style);
     const newRules = clonedStyle.rules.filter((rule: GsRule, index: number) => {
-      return !rowKeys.includes(index);
+      return !ruleIndices.includes(index);
     });
     clonedStyle.rules = newRules;
     if (onStyleChange) {
@@ -178,8 +178,8 @@ export const Style: React.FC<StyleProps> = (props) => {
     setStyle(clonedStyle);
   };
 
-  const onRulesSelectionChange = (newSelectedRowKeys: (React.Key)[]) => {
-    setSelectedRowKeys(newSelectedRowKeys);
+  const onRulesSelectionChange = (newSelectedRowKeys: React.Key[]) => {
+    setSelectedRowKeys(newSelectedRowKeys as number[]);
   };
 
   const onTableMenuClick = (param: any) => {
@@ -188,10 +188,10 @@ export const Style: React.FC<StyleProps> = (props) => {
         addRule();
         break;
       case 'cloneRules':
-        cloneRules(selectedRowKeys);
+        cloneRules(...selectedRowKeys);
         break;
       case 'removeRule':
-        removeRules(selectedRowKeys);
+        removeRules(...selectedRowKeys);
         break;
       case 'color':
         setColorModalVisible(true);
@@ -410,14 +410,8 @@ export const Style: React.FC<StyleProps> = (props) => {
           selectedRowKeys,
           onChange: onRulesSelectionChange
         }}
-        onCloneRule={(rule: RuleRecord) => {
-          const ruleKey = rule.key;
-          delete rule.key;
-          cloneRules([ruleKey]);
-        }}
-        onRemoveRule={(rule: RuleRecord) => {
-          removeRules([rule.key]);
-        }}
+        onCloneRule={cloneRules}
+        onRemoveRule={removeRules}
         footer={createFooter}
       />
       <BulkEditModals

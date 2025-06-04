@@ -90,8 +90,8 @@ export interface RuleTableInternalProps {
   onRulesChange?: (rules: GsRule[]) => void;
   /** The callback function that is triggered when the selection changes */
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
-  onCloneRule?: (rule: RuleRecord) => void;
-  onRemoveRule?: (rule: RuleRecord) => void;
+  onCloneRule?: (index: number) => void;
+  onRemoveRule?: (index: number) => void;
   /** Properties that will be passed to the Comparison Filters */
 }
 
@@ -346,7 +346,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     );
   };
 
-  const actionsRenderer = (text: string, record: RuleRecord) => {
+  const actionsRenderer = (text: string, record: RuleRecord, index: number) => {
     return (
       <Space.Compact block>
         {!(actionsField.clone === false) &&
@@ -356,11 +356,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
             title={locale.actionCloneLabel}
             color="default"
             variant="text"
-            onClick={() => {
-              if (onCloneRule) {
-                onCloneRule(record);
-              }
-            }}
+            onClick={() => onCloneRule?.(index)}
           />
         }
         {!(actionsField.remove === false) &&
@@ -370,11 +366,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
             color="default"
             variant="text"
             title={locale.actionRemoveLabel}
-            onClick={() => {
-              if (onRemoveRule) {
-                onRemoveRule(record);
-              }
-            }}
+            onClick={() => onRemoveRule?.(index)}
             disabled={rules.length <= 1}
           />
         }
