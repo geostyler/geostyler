@@ -35,7 +35,7 @@ import { vi } from 'vitest';
 
 describe('FillEditor', () => {
 
-  let dummySymbolizer: FillSymbolizer = SymbolizerUtil.generateSymbolizer('Fill') as FillSymbolizer;
+  const dummySymbolizer: FillSymbolizer = SymbolizerUtil.generateSymbolizer('Fill') as FillSymbolizer;
   const props: FillEditorProps = {
     symbolizer: dummySymbolizer,
     onSymbolizerChange: vi.fn()

@@ -93,7 +93,7 @@ describe('RuleReorderButtons', () => {
     });
 
     it('calls the onRulesChange with the reordered rules ', async () => {
-      let rules: GsRule[] = TestUtil.getTwoRulesStyle().rules;
+      const rules: GsRule[] = TestUtil.getTwoRulesStyle().rules;
       // reordered rules
       const rulesClone = _cloneDeep(rules);
       rulesClone.splice(1, 0, rulesClone.splice(0, 1)[0]);

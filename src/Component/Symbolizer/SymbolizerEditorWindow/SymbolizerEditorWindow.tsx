@@ -36,7 +36,6 @@ import { IconLibrary } from '../IconSelector/IconSelector';
 import './SymbolizerEditorWindow.css';
 import { Modal, ModalProps } from 'antd';
 
-import _isEqual from 'lodash/isEqual';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface SymbolizerEditorWindowProps extends Partial<ModalProps> {
@@ -44,9 +43,7 @@ export interface SymbolizerEditorWindowProps extends Partial<ModalProps> {
   onClose?: () => void;
   onSymbolizersChange?: (symbolizers: Symbolizer[]) => void;
   iconLibraries?: IconLibrary[];
-  colorRamps?: {
-    [name: string]: string[];
-  };
+  colorRamps?: Record<string, string[]>;
 }
 
 export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({

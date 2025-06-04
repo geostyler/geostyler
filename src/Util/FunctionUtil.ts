@@ -101,7 +101,7 @@ class FunctionUtil {
         return (args[0] as string).endsWith(args[1] as string);
       case 'strEqualsIgnoreCase':
         return (args[0] as string).toLowerCase() === (args[1] as string).toLowerCase() ;
-      case 'strMatches':
+      case 'strMatches': {
         const regEx = (args[1] as string);
         const regexArray = regEx.match(/\/(.*?)\/([gimy]{0,4})$/);
         if (regexArray && regexArray.length === 3){
@@ -109,6 +109,7 @@ class FunctionUtil {
         } else {
           return false;
         }
+      }
       case 'strStartsWith':
         return (args[0] as string).startsWith(args[1] as string);
       default:
@@ -214,14 +215,15 @@ class FunctionUtil {
       case 'strAbbreviate':
         // TODO: evaluate this correctly
         return args[0] as string;
-      case 'strCapitalize':
+      case 'strCapitalize': {
         // https://stackoverflow.com/a/32589289/10342669
-        var words = (args[0] as string).toLowerCase().split(' ');
-        var capitalizedWords = [];
-        for (let word of words) {
+        const words = (args[0] as string).toLowerCase().split(' ');
+        const capitalizedWords = [];
+        for (const word of words) {
           capitalizedWords.push(word.charAt(0).toUpperCase() + word.substring(1));
         }
         return capitalizedWords.join(' ');
+      }
       case 'strConcat':
         return args.join('');
       case 'strDefaultIfBlank':

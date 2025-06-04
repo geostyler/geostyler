@@ -35,7 +35,7 @@ import { vi } from 'vitest';
 
 describe('TextEditor', () => {
 
-  let dummySymbolizer: TextSymbolizer = SymbolizerUtil.generateSymbolizer('Text') as TextSymbolizer;
+  const dummySymbolizer: TextSymbolizer = SymbolizerUtil.generateSymbolizer('Text') as TextSymbolizer;
   const props: TextEditorProps = {
     symbolizer: dummySymbolizer as TextSymbolizer,
     onSymbolizerChange: vi.fn()

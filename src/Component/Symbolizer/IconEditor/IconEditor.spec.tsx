@@ -36,7 +36,7 @@ import { vi } from 'vitest';
 
 describe('IconEditor', () => {
 
-  let dummySymbolizer: IconSymbolizer = SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer;
+  const dummySymbolizer: IconSymbolizer = SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer;
   const props: IconEditorProps = {
     symbolizer: dummySymbolizer,
     onSymbolizerChange: vi.fn()

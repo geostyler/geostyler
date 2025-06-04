@@ -35,7 +35,6 @@ import {
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
-import _isEqual from 'lodash/isEqual';
 
 import {
   Symbolizer,

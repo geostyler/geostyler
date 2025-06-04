@@ -51,9 +51,7 @@ import { LineJoinField, LineJoinFieldProps } from '../Field/LineJoinField/LineJo
 import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
 import { GraphicEditor, GraphicEditorProps } from '../GraphicEditor/GraphicEditor';
 
-import _cloneDeep from 'lodash/cloneDeep';
 import _get from 'lodash/get';
-import _isEqual from 'lodash/isEqual';
 
 import {
   InputConfig,
@@ -124,7 +122,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   } = useGeoStylerUnsupportedProperties(symbolizer);
 
   const onColorChange = (value: LineSymbolizer['color']) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.color = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -132,7 +130,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onWidthChange = (value: LineSymbolizer['width']) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.width = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -140,7 +138,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onPerpendicularOffsetChange = (value: LineSymbolizer['perpendicularOffset']) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.perpendicularOffset = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -148,7 +146,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onOpacityChange = (value: LineSymbolizer['opacity']) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.opacity = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -156,7 +154,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onDasharrayChange = (value: LineSymbolizer['dasharray']) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.dasharray = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -164,7 +162,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onDashOffsetChange = (value: LineSymbolizer['dashOffset']) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.dashOffset = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -172,7 +170,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onCapChange = (value: LineSymbolizer['cap']) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.cap = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -180,7 +178,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onJoinChange = (value: LineSymbolizer['join']) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.join = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -188,7 +186,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onGraphicStrokeChange = (value: PointSymbolizer) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.graphicStroke = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -196,7 +194,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onGraphicFillChange = (value: PointSymbolizer) => {
-    const symbolizerClone = _cloneDeep(symbolizer);
+    const symbolizerClone = structuredClone(symbolizer);
     symbolizerClone.graphicFill = value;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -204,7 +202,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
   };
 
   const onVisibilityChange = (newVisibility: LineSymbolizer['visibility']) => {
-    const symbolizerClone: LineSymbolizer = _cloneDeep(symbolizer);
+    const symbolizerClone: LineSymbolizer = structuredClone(symbolizer);
     symbolizerClone.visibility = newVisibility;
     if (onSymbolizerChange) {
       onSymbolizerChange(symbolizerClone);
@@ -223,7 +221,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     perpendicularOffset,
     graphicFill,
     visibility
-  } = _cloneDeep(symbolizer);
+  } = structuredClone(symbolizer);
 
   const itemConfig = getFormItemConfig();
 

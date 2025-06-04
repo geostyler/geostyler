@@ -4,5 +4,26 @@
     "declaration": false,
     "module": "commonjs",
     "noUnusedLocals": false
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "browser",
+    "config",
+    "dist",
+    "scripts",
+    "coverage",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "coverage",
+    "**.config.js",
+    "vite.config.ts",
+    "vite.dev.config.ts",
+    "vitest.config.ts"
+  ],
+  "include": [
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ]
 }

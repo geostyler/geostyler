@@ -55,7 +55,7 @@ export const ColorMapEntryField: React.FC<ColorMapEntryFieldProps> = ({
   const locale = useGeoStylerLocale('ColorMapEntryField');
 
   const updateColorMapEntry = (prop: string, newValue: any) => {
-    let updated: ColorMapEntry = {...value};
+    const updated: ColorMapEntry = {...value};
     updated[prop as keyof ColorMapEntry] = newValue;
     if (onChange) {
       onChange(updated);

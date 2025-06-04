@@ -56,9 +56,7 @@ export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 
 export interface RuleGeneratorComposableProps {
   /** List of provided color ramps */
-  colorRamps?: {
-    [name: string]: string[];
-  };
+  colorRamps?: Record<string, string[]>;
   /** List of color spaces to use */
   colorSpaces?: (InterpolationMode)[];
 }
@@ -116,7 +114,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
       setDistinctValues(newDistinctValues);
       setLevelOfMeasurement(newAttributeType === 'string' ? 'nominal' : 'cardinal');
       setClassificationMethod(newClassficationMethod);
-    } catch (error) {
+    } catch {
       setHasError(true);
     }
   };
@@ -162,7 +160,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
       if (onRulesChange) {
         onRulesChange(rules);
       }
-    } catch (error) {
+    } catch {
       setHasError(true);
     }
   };
@@ -228,7 +226,7 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
         help={classificationMethod === 'kmeans'
           ? locale.numberOfRulesViaKmeans
           : numberOfRules < minNrClasses
-            // eslint-disable-next-line max-len
+
             ? `${locale.colorRampMinClassesWarningPre} ${minNrClasses} ${locale.colorRampMinClassesWarningPost}`
             : undefined
         }

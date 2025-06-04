@@ -38,16 +38,12 @@ import { Modal, ModalProps } from 'antd';
 
 import { RuleGenerator } from './RuleGenerator';
 
-import _isEqual from 'lodash/isEqual';
-import _isFinite from 'lodash/isFinite';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export interface RuleGeneratorWindowProps extends Partial<ModalProps> {
   onClose?: () => void;
   onRulesChange?: (rules: Rule[]) => void;
-  colorRamps?: {
-    [name: string]: string[];
-  };
+  colorRamps?: Record<string, string[]>;
   useBrewerColorRamps?: boolean;
   colorSpaces?: (InterpolationMode)[];
 }

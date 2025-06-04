@@ -51,7 +51,7 @@ vi.mock('antd', async (original) => {
 
 describe('MarkEditor', () => {
 
-  let dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
+  const dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
   const props: MarkEditorProps = {
     symbolizer:dummySymbolizer,
     onSymbolizerChange: vi.fn(),

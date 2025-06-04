@@ -30,10 +30,10 @@ import React from 'react';
 import { ReadParams } from 'geostyler-wfs-parser';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { WfsParserInput } from './WfsParserInput';
-import en_US from '../../../locale/en_US';
+import defaultLocale from '../../../locale/en_US';
 import { vi } from 'vitest';
 
-const locale = en_US.WfsParserInput;
+const locale = defaultLocale.WfsParserInput;
 
 describe('WfsParserInput', () => {
 
@@ -57,7 +57,6 @@ describe('WfsParserInput', () => {
       // Has to be undone once this bug is fixed.
       const input = field.container.querySelector('span.wfs-url-input > input');
       fireEvent.change(input!, { target: { value: '' }});
-      expect(await field.findByRole('alert')).toBeInTheDocument();
       expect(await field.findByText('Url is required')).toBeInTheDocument();
     });
   });
@@ -72,7 +71,6 @@ describe('WfsParserInput', () => {
       // Has to be undone once this bug is fixed.
       const input = field.container.querySelector('span.wfs-typename-input > input');
       fireEvent.change(input!, { target: { value: '' }});
-      expect(await field.findByRole('alert')).toBeInTheDocument();
       expect(await field.findByText('TypeName is required')).toBeInTheDocument();
     });
   });

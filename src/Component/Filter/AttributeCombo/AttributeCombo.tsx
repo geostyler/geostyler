@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { Select, Form, Input } from 'antd';
 import {
@@ -63,7 +63,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
   value,
   hideAttributeType = false,
   attributeNameFilter = () => true,
-  attributeNameMappingFunction =n => n,
+  attributeNameMappingFunction = n => n,
   validateStatus = 'success',
   onAttributeChange,
   size
@@ -83,32 +83,33 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
     }
   }, [inputSelectionStart, inputSelectionEnd, value]);
 
-  let options: Object[] = [];
+  const options = useMemo(() => {
+    if (data) {
+      const attrDefs = data.schema.properties;
 
-  if (data) {
-    const attrDefs = data.schema.properties;
-
-    // create sth like ['foo', 'bar', 'kalle'];
-    const attrNames = [];
-    for (var key in attrDefs) {
-      if (attrDefs.hasOwnProperty(key)) {
-        attrNames.push(key);
+      // create sth like ['foo', 'bar', 'kalle'];
+      const attrNames = [];
+      for (const key in attrDefs) {
+        if (Object.prototype.hasOwnProperty.call(attrDefs, key)) {
+          attrNames.push(key);
+        }
       }
-    }
 
-    // create an option per attribute
-    options = attrNames.filter(attributeNameFilter!).map(attrName => {
-      const attrNameMapped = attributeNameMappingFunction(attrName);
-      return (
-        <Option
-          key={attrName}
-          value={attrName}
-        >
-          {hideAttributeType ? attrNameMapped : `${attrNameMapped} (${attrDefs[attrName].type})`}
-        </Option>
-      );
-    });
-  }
+      // create an option per attribute
+      return attrNames.filter(attributeNameFilter!).map(attrName => {
+        const attrNameMapped = attributeNameMappingFunction(attrName);
+        return (
+          <Option
+            key={attrName}
+            value={attrName}
+          >
+            {hideAttributeType ? attrNameMapped : `${attrNameMapped} (${attrDefs[attrName].type})`}
+          </Option>
+        );
+      });
+    }
+    return [];
+  }, [data, attributeNameFilter, attributeNameMappingFunction, hideAttributeType]);
 
   const helpTxt = validateStatus !== 'success' ? locale.help : null;
   const itemConfig = getFormItemConfig();
@@ -130,9 +131,7 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
               placeholder={locale.placeholder}
               size={size}
             >
-              <>
-                {options}
-              </>
+              {options}
             </Select>
             :
             <Input

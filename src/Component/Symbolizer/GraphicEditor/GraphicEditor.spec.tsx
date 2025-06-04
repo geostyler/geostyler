@@ -33,7 +33,7 @@ import {
   IconSymbolizer
 } from 'geostyler-style';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import { render, act, fireEvent, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 
 vi.mock('antd', async (importOriginal) => {

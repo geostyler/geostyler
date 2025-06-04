@@ -31,7 +31,6 @@ import React from 'react';
 import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
-import _isEqual from 'lodash/isEqual';
 
 import {
   Symbolizer,
@@ -68,7 +67,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
   const locale = useGeoStylerLocale('PropTextEditor');
 
   const formatLabel = (label: string): string => {
-    const regExp: RegExp = /\{\{(.*)\}\}/g;
+    const regExp = /\{\{(.*)\}\}/g;
     return label.replace(regExp, '$1');
   };
 
@@ -116,7 +115,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
 
   const onOffsetXChange = (value: TextSymbolizer['offset']['0']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: TextSymbolizer['offset'] = [
+    const newOffset: TextSymbolizer['offset'] = [
       value,
       (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)
     ];
@@ -128,7 +127,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
 
   const onOffsetYChange = (value: TextSymbolizer['offset']['1']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: TextSymbolizer['offset'] = [
+    const newOffset: TextSymbolizer['offset'] = [
       (symbolizerClone.offset ? symbolizerClone.offset[0] : 0),
       value
     ];

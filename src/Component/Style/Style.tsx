@@ -29,7 +29,6 @@
 import React, { useEffect, useState } from 'react';
 
 import _get from 'lodash/get';
-import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
@@ -145,10 +144,10 @@ export const Style: React.FC<StyleProps> = (props) => {
     const clonedStyle = _cloneDeep(style);
 
     // create rules to clone
-    let newRules: GsRule[] = [];
+    const newRules: GsRule[] = [];
     clonedStyle.rules.forEach((rule: GsRule, index: number) => {
       if (selectedRowKeys.includes(index)) {
-        let ruleClone = _cloneDeep(rule);
+        const ruleClone = _cloneDeep(rule);
         // TODO We need to ensure that rule names are unique
         const randomId = Math.floor(Math.random() * 10000);
         ruleClone.name = 'rule_' + randomId;
@@ -287,9 +286,9 @@ export const Style: React.FC<StyleProps> = (props) => {
     switch (name) {
       case 'size':
         rowKeys.forEach((key: number) => {
-          let symbolizers = style.rules[key].symbolizers;
+          const symbolizers = style.rules[key].symbolizers;
           symbolizers.forEach((symbolizer: GsSymbolizer) => {
-            let kind = symbolizer.kind;
+            const kind = symbolizer.kind;
             if (kind === 'Fill' || kind === 'Text' || kind === 'Line') {
               isValid = false;
             }
@@ -298,9 +297,9 @@ export const Style: React.FC<StyleProps> = (props) => {
         return !isValid;
       case 'symbol':
         rowKeys.forEach((key: number) => {
-          let symbolizers = style.rules[key].symbolizers;
+          const symbolizers = style.rules[key].symbolizers;
           symbolizers.forEach((symbolizer: GsSymbolizer) => {
-            let kind = symbolizer.kind;
+            const kind = symbolizer.kind;
             if (kind !== 'Mark' && kind !== 'Icon') {
               isValid = false;
             }
@@ -309,9 +308,9 @@ export const Style: React.FC<StyleProps> = (props) => {
         return !isValid;
       case 'color':
         rowKeys.forEach((key: number) => {
-          let symbolizers = style.rules[key].symbolizers;
+          const symbolizers = style.rules[key].symbolizers;
           symbolizers.forEach((symbolizer: GsSymbolizer) => {
-            let kind = symbolizer.kind;
+            const kind = symbolizer.kind;
             if (kind === 'Icon') {
               isValid = false;
             }
@@ -371,7 +370,7 @@ export const Style: React.FC<StyleProps> = (props) => {
     );
   };
 
-  let rules: GsRule[] = style?.rules || [];
+  const rules: GsRule[] = style?.rules || [];
 
   return (
     <div className="gs-style" >

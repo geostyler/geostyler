@@ -68,7 +68,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
   const data = useGeoStylerData();
   const locale = useGeoStylerLocale('TextFilterField');
 
-  const inputRef = useRef<InputRef>();
+  const inputRef = useRef<InputRef>(undefined);
   const [inputSelectionStart, setInputSelectionStart] = useState<number>(0);
   const [inputSelectionEnd, setInputSelectionEnd] = useState<number>(0);
 
@@ -97,7 +97,7 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
 
   const helpTxt = validateStatus !== 'success' ? locale.help : null;
 
-  let sampleValues: string[] = [];
+  const sampleValues: string[] = [];
   if (data && 'exampleFeatures' in data) {
     const features = data?.exampleFeatures?.features;
     features.forEach((feature: Feature) => {

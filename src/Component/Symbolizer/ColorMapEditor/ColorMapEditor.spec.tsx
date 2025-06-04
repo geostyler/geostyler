@@ -53,7 +53,7 @@ vi.mock('antd', async (importOriginal) => {
 describe('ColorMapEditor', () => {
   let dummyColorMap: ColorMap;
   let colorMapEditor: RenderResult;
-  let onChangeMock = vi.fn();
+  const onChangeMock = vi.fn();
   beforeEach(() => {
     dummyColorMap = {
       colorMapEntries: [RasterUtil.generateColorMapEntry()],

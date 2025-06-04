@@ -42,8 +42,6 @@ import './Editor.css';
 
 import 'ol/ol.css';
 
-import _cloneDeep from 'lodash/cloneDeep';
-
 import { KindField } from '../Field/KindField/KindField';
 import { IconEditor } from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';

@@ -33,7 +33,7 @@ import { GeoStylerNumberFunction } from 'geostyler-style';
 
 describe('NumberExpressionInput', () => {
 
-  const numberValue: number = 1337;
+  const numberValue = 1337;
   const numberFunction: GeoStylerNumberFunction = {
     name: 'pi'
   };

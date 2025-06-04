@@ -29,7 +29,7 @@ import React from 'react';
 import { Editor, EditorProps } from './Editor';
 import TestUtil from '../../../Util/TestUtil';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import { render, act, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { vi } from 'vitest';
 
 vi.mock('antd', async (importOriginal) => {
@@ -39,7 +39,7 @@ vi.mock('antd', async (importOriginal) => {
 
 describe('SymbolizerEditor', () => {
 
-  let dummySymbolizer = TestUtil.getPolygonStyle().rules[0].symbolizers[0];
+  const dummySymbolizer = TestUtil.getPolygonStyle().rules[0].symbolizers[0];
   dummySymbolizer.kind = 'Fill';
   const props: EditorProps = {
     symbolizer: dummySymbolizer,

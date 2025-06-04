@@ -34,14 +34,14 @@ import React, {
   useState
 } from 'react';
 
-import Editor, { useMonaco } from '@monaco-editor/react';
+import { Editor, useMonaco } from '@monaco-editor/react';
 
 import {
   saveAs
 } from 'file-saver';
 
 import './CodeEditor.css';
-import { UploadOutlined } from '@ant-design/icons';
+import { UploadOutlined , ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
 import type { UploadChangeParam } from 'antd/lib/upload/interface';
 
 import {
@@ -63,16 +63,14 @@ import schema from 'geostyler-style/schema.json';
 
 import _isEqual from 'lodash/isEqual';
 
-import SldStyleParser from 'geostyler-sld-parser';
+import { SldStyleParser } from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 import { usePrevious } from '../../hook/UsePrevious';
 import ParserFeedback from '../ParserFeedback/ParserFeedback';
-import { ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
-import QGISStyleParser from 'geostyler-qgis-parser';
-import MapboxStyleParser from 'geostyler-mapbox-parser';
+import { QGISStyleParser } from 'geostyler-qgis-parser';
+import { MapboxStyleParser, MbStyle} from 'geostyler-mapbox-parser';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { isString } from 'lodash';
-import { MbStyle } from 'geostyler-mapbox-parser';
 
 export interface CodeEditorProps {
   /** Delay in ms until onStyleChange will be called */
@@ -160,7 +158,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 }) => {
 
   const locale = useGeoStylerLocale('CodeEditor');
-  const editTimeout = useRef<number>();
+  const editTimeout = useRef<number>(undefined);
   const [activeParser, setActiveParser] = useState<StyleParser>(defaultParser);
   const [value, setValue] = useState<string>('');
   const [writeStyleResult, setWriteStyleResult] = useState<WriteStyleResult>();
@@ -202,19 +200,19 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   }, [monaco]);
 
-  const updateValueFromStyle = useCallback((s: GsStyle) => {
+  const updateValueFromStyle = useCallback(async (s: GsStyle) => {
     setHasError(false);
-    (new Promise(async() => {
+    try {
       if (activeParser) {
         setWriteStyleResult(await activeParser.writeStyle(s));
       } else {
         setValue(JSON.stringify(s, null, 2));
       }
-    })).catch((err) => {
+    } catch (err: any) {
       setWriteStyleResult({
         errors: [err.message]
       });
-    });
+    }
   }, [activeParser]);
 
   useEffect(() => {
@@ -287,7 +285,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
   const onFileChanged = (info: UploadChangeParam) => {
     const reader = new FileReader();
-    reader.onload = e => {
+    reader.onload = () => {
       const str = reader.result as string;
       onChange(str);
     };

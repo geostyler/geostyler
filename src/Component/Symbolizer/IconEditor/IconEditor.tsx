@@ -32,7 +32,6 @@ import { Form } from 'antd';
 
 import _cloneDeep from 'lodash/cloneDeep';
 import _isEmpty from 'lodash/isEmpty';
-import _isEqual from 'lodash/isEqual';
 
 import { IconSymbolizer } from 'geostyler-style';
 
@@ -120,7 +119,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
 
   const onOffsetXChange = (value: IconSymbolizer['offset']['0']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: IconSymbolizer['offset'] = [
+    const newOffset: IconSymbolizer['offset'] = [
       value,
       (symbolizerClone.offset ? symbolizerClone.offset[1] : 0)
     ];
@@ -132,7 +131,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
 
   const onOffsetYChange = (value: IconSymbolizer['offset']['1']) => {
     const symbolizerClone = _cloneDeep(symbolizer);
-    let newOffset: IconSymbolizer['offset'] = [
+    const newOffset: IconSymbolizer['offset'] = [
       (symbolizerClone.offset ? symbolizerClone.offset[0] : 0),
       value
     ];
