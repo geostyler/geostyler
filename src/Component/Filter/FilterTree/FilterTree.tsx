@@ -143,7 +143,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
   /**
    * Creates a DataNode for a given filter at the given position.
    */
-  const getNodeByFilter = (filter: Filter | CombinationOperator, position: string = ''): DataNode => {
+  const getNodeByFilter = (filter: Filter | CombinationOperator, position = ''): DataNode => {
     const onMenuClick = (e: any) => {
       const keyPath: string[] = e.keyPath;
       const reversedKeyPath = keyPath.reverse();

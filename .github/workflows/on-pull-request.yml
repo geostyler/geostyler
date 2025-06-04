@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [24.x]
 
     steps:
     - name: Checkout sources
@@ -33,6 +33,9 @@ jobs:
 
     - name: Lint code 💄
       run: npm run lint
+
+    - name: Type check 🔍
+      run: npm run check
 
     - name: Test code ✅
       run: npm run test-ci

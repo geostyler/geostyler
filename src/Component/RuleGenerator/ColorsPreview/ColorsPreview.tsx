@@ -32,8 +32,6 @@ import './ColorsPreview.css';
 
 import RuleGeneratorUtil from '../../../Util/RuleGeneratorUtil';
 
-import _isEqual from 'lodash/isEqual';
-
 export interface ColorsPreviewProps {
   /** List of colors to preview */
   colors: string[];

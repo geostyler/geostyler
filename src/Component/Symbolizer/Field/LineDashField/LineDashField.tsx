@@ -51,7 +51,7 @@ export const LineDashField: React.FC<LineDashFieldProps> = ({
 
   const onAddDash = () => {
     // add a new dash (UI)
-    let newDashArray = [...value];
+    const newDashArray = [...value];
     newDashArray.push(1);
     if (onChange) {
       onChange(newDashArray);
@@ -60,7 +60,7 @@ export const LineDashField: React.FC<LineDashFieldProps> = ({
 
   const onRemoveDash = () => {
     // remove last dash (UI)
-    let newDashArray = [...value];
+    const newDashArray = [...value];
     newDashArray.splice(newDashArray.length - 1, 1);
     if (onChange) {
       onChange(newDashArray);
@@ -78,7 +78,7 @@ export const LineDashField: React.FC<LineDashFieldProps> = ({
           style={{ width: 55 }}
           onChange={(newValue: number) => {
             // replace current dash value
-            let newDashArray = [...value];
+            const newDashArray = [...value];
             newDashArray[idx] = newValue;
             if (onChange) {
               onChange(newDashArray);

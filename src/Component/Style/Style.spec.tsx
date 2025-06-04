@@ -28,8 +28,7 @@
 import React from 'react';
 import { Style, StyleProps } from './Style';
 import TestUtil from '../../Util/TestUtil';
-import en_US from '../../locale/en_US';
-import _cloneDeep from 'lodash/cloneDeep';
+import defaultLocale from '../../locale/en_US';
 import { render, act, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 
@@ -70,7 +69,7 @@ describe('Style', () => {
       onStyleChange={mock}
       style={twoRulesStyle}
     />);
-    const addButton = await style.findByText(en_US.Style.addRuleBtnText);
+    const addButton = await style.findByText(defaultLocale.Style.addRuleBtnText);
     await act(async() => {
       fireEvent.click(addButton);
     });
@@ -89,7 +88,7 @@ describe('Style', () => {
     await act(async() => {
       fireEvent.click(checkbox);
     });
-    const cloneButton = await style.findByText(en_US.Style.cloneRulesBtnText);
+    const cloneButton = await style.findByText(defaultLocale.Style.cloneRulesBtnText);
     await act(async() => {
       fireEvent.click(cloneButton);
     });
@@ -111,7 +110,7 @@ describe('Style', () => {
     await act(async() => {
       fireEvent.click(checkbox);
     });
-    const cloneButton = await style.findByText(en_US.Style.removeRulesBtnText);
+    const cloneButton = await style.findByText(defaultLocale.Style.removeRulesBtnText);
     await act(async() => {
       fireEvent.click(cloneButton);
     });
@@ -128,7 +127,7 @@ describe('Style', () => {
       style={twoRulesStyle}
     />);
     const checkbox = style.container.querySelectorAll('input[type="checkbox"]')[0];
-    const multiEditLabel = await style.findByText(en_US.Style.multiEditLabel);
+    const multiEditLabel = await style.findByText(defaultLocale.Style.multiEditLabel);
     const multiEditMenu = multiEditLabel?.closest('li');
     expect(multiEditMenu?.classList).toContain('ant-menu-submenu-disabled');
     await act(async() => {
@@ -147,7 +146,7 @@ describe('Style', () => {
       style={twoRulesStyle}
     />);
     const checkbox = style.container.querySelectorAll('input[type="checkbox"]')[0];
-    const cloneButtonLabel = await style.findByText(en_US.Style.multiEditLabel);
+    const cloneButtonLabel = await style.findByText(defaultLocale.Style.multiEditLabel);
     const cloneButton = cloneButtonLabel?.closest('li');
     expect(cloneButton?.classList).toContain('ant-menu-submenu-disabled');
     await act(async() => {

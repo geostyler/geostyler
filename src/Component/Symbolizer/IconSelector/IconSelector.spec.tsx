@@ -32,7 +32,7 @@ import { render } from '@testing-library/react';
 
 describe('IconSelector', () => {
 
-  let dummyLibraries: IconLibrary[] = TestUtil.getDummyGsIconLibraries();
+  const dummyLibraries: IconLibrary[] = TestUtil.getDummyGsIconLibraries();
   const props: IconSelectorProps = {
     iconLibraries: dummyLibraries
   };

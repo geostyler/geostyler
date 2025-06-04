@@ -148,7 +148,7 @@ class FilterUtil {
     if (filter?.length === 0) {
       return true;
     }
-    let matchesFilter: boolean = true;
+    let matchesFilter = true;
     if (isComparisonFilter(filter)) {
       matchesFilter = FilterUtil.handleSimpleFilter(filter, feature);
     } else if (isCombinationFilter(filter) || isNegationFilter(filter)) {
@@ -281,7 +281,7 @@ class FilterUtil {
     if (!Array.isArray(filter)) {
       throw new Error(`Passed filter is not an array: ${filter}`);
     }
-    let newFilter = structuredClone(filter);
+    const newFilter = structuredClone(filter);
     const dragNodeSubPosition = position.substr(position.length - 3);
     const dragNodeIndex = parseInt(dragNodeSubPosition.slice(1, 2), 10);
     const parentPosition = position.substring(0, position.length - 3);
@@ -310,7 +310,7 @@ class FilterUtil {
     const dropTargetSubPosition = position.substring(position.length - 3);
     const dropTargetSubIndex = parseInt(dropTargetSubPosition.slice(1, 2), 10);
     const dropTargetIsComparison = !['&&', '||', '!'].includes(insertFilter[0]);
-    let newFilter: Filter = structuredClone(baseFilter);
+    const newFilter: Filter = structuredClone(baseFilter);
 
     const newSubFilter = dropTargetParentPosition === ''
       ? newFilter
@@ -453,7 +453,7 @@ class FilterUtil {
    * Helper method for FilterUtil.filterToTree().
    */
   static filterToTreeHelper = (filter: Filter) => {
-    let tree: any = {
+    const tree: any = {
       key: _uniqueId()
     };
 
@@ -461,7 +461,7 @@ class FilterUtil {
       throw new Error('Filter is not an array.');
     }
 
-    let filterClone = structuredClone(filter);
+    const filterClone = structuredClone(filter);
     const operator = filterClone.shift();
     if (isComparisonOperator(operator)) {
       tree.title = `${filterClone[0]} ${operator} ${filterClone[1]}`;

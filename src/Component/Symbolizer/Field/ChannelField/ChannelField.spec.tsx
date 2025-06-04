@@ -72,7 +72,7 @@ describe('ChannelField', () => {
 
   describe('onGammaChange', () => {
     it('calls onChange', async() => {
-      const dummyGamma: number = 0.5;
+      const dummyGamma = 0.5;
       const onChangeMock = vi.fn();
       const field = render(<ChannelField onChange={onChangeMock} />);
       const input = await field.findByRole('spinbutton');

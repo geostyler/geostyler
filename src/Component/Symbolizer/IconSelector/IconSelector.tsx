@@ -37,8 +37,6 @@ const Option = Select.Option;
 
 import './IconSelector.css';
 
-import _isEqual from 'lodash/isEqual';
-
 import { IconEditorComposableProps } from '../IconEditor/IconEditor';
 import { useGeoStylerComposition, useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
@@ -91,7 +89,7 @@ export const IconSelector: React.FC<IconSelectorProps & Pick<IconEditorComposabl
   const getSelectedIconFromSrc = (src: string, newIconLibraries: IconLibrary[]): SelectedIcon => {
     let libIndex: number;
     let iconIndex: number;
-    let found: boolean = false;
+    let found = false;
 
     for (let i = 0; i < newIconLibraries.length; i++) {
       const lib = newIconLibraries[i];

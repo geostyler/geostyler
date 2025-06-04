@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -361,7 +362,10 @@ const hr_HR: GeoStylerLocale = {
     minScaleColumnTitle: 'Min. Mjerilo',
     maxScaleColumnTitle: 'Max. Mjerilo',
     amountColumnTitle: 'Količina',
-    duplicatesColumnTitle: 'Duplikati'
+    duplicatesColumnTitle: 'Duplikati',
+    actionsColumnTitle: 'Akcije',
+    actionCloneLabel: 'Kloniraj',
+    actionRemoveLabel: 'Ukloni'
   },
   Rules: {
     rulesTitle: 'Pravila',

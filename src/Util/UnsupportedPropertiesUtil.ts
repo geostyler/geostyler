@@ -28,7 +28,7 @@
 
 import { FormItemProps } from 'antd';
 import { SupportDef, Symbolizer, UnsupportedProperties } from 'geostyler-style';
-import en_US from '../locale/en_US';
+import defaultLocale from '../locale/en_US';
 import { UnsupportedPropertiesContext } from '../context/GeoStylerContext/GeoStylerContext';
 
 export type SymbolizerName = `${Symbolizer['kind']}Symbolizer`;
@@ -58,7 +58,7 @@ class UnsupportedPropertiesUtil {
 
     const {
       hideUnsupported = false,
-      locale = en_US.UnsupportedPropertiesUtil
+      locale = defaultLocale.UnsupportedPropertiesUtil
     } = context.options;
 
     const props: Partial<FormItemProps> = {};

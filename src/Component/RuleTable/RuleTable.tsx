@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -32,7 +32,6 @@ import { CqlParser } from 'geostyler-cql-parser';
 
 import _get from 'lodash/get';
 import _set from 'lodash/set';
-import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
@@ -41,6 +40,8 @@ import {
   InputNumber,
   Popover,
   Tooltip,
+  Button,
+  Space
 } from 'antd';
 
 import {
@@ -55,7 +56,7 @@ import { SymbolizerEditorWindow } from '../Symbolizer/SymbolizerEditorWindow/Sym
 import { ColumnProps, TableProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
-import { BgColorsOutlined, BlockOutlined, EditOutlined, HolderOutlined } from '@ant-design/icons';
+import { BgColorsOutlined, BlockOutlined, EditOutlined, CopyOutlined, CloseOutlined, HolderOutlined } from '@ant-design/icons';
 import { Renderer } from '../Renderer/Renderer/Renderer';
 import {
   useGeoStylerComposition,
@@ -89,6 +90,8 @@ export interface RuleTableInternalProps {
   onRulesChange?: (rules: GsRule[]) => void;
   /** The callback function that is triggered when the selection changes */
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
+  onCloneRule?: (rule: RuleRecord) => void;
+  onRemoveRule?: (rule: RuleRecord) => void;
   /** Properties that will be passed to the Comparison Filters */
 }
 
@@ -99,6 +102,10 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   const data = useGeoStylerData();
 
   const composition = useGeoStylerComposition('Rule');
+
+  // Reading the `Style` composition to get the `disableMultiEdit` property
+  // and show `actionsField` column by default when true
+  const styleComposition = useGeoStylerComposition('Style');
   const composed = { ...props, ...composition };
   const {
     amountField,
@@ -107,9 +114,15 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     maxScaleField,
     minScaleField,
     nameField,
+    /** show actions column by default if disableMultiEdit is true */
+    actionsField = {
+      visibility: styleComposition.disableMultiEdit === true
+    },
     onRulesChange,
     rendererType = 'OpenLayers',
     rules,
+    onCloneRule,
+    onRemoveRule,
     // The composableProps include the antd table props
     ...antdTableProps
   } = composed;
@@ -148,7 +161,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       } else {
         countsAndDuplicates = {};
       }
-    } catch (e) {
+    } catch {
       setHasError(true);
       // make sure to update state when checks/calculation fails
     }
@@ -181,11 +194,17 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     };
 
     return (
-      <Renderer
-        rendererType={rendererType}
-        symbolizers={record.symbolizers}
-        onClick={onSymbolizerRendererClick}
-      />
+      <div className={'gs-symbolizer-wrapper'}>
+        <Renderer
+          rendererType={rendererType}
+          symbolizers={record.symbolizers}
+        />
+        <Button
+          className={'square-button'}
+          type={'primary'}
+          icon={<EditOutlined />}
+          onClick={onSymbolizerRendererClick} />
+      </div>
     );
   };
 
@@ -297,7 +316,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     if (data && filter) {
       try {
         amount = counts[index] || 0;
-      } catch (error) {
+      } catch {
         amount = '-';
       }
     } else if (data && DataUtil.isVector(data)) {
@@ -316,7 +335,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     if (data && rules) {
       try {
         calculatedDuplicates = duplicates[index];
-      } catch (error) {
+      } catch {
         calculatedDuplicates = '-';
       }
     }
@@ -327,6 +346,41 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     );
   };
 
+  const actionsRenderer = (text: string, record: RuleRecord) => {
+    return (
+      <Space.Compact block>
+        {!(actionsField.clone === false) &&
+          <Button
+            className="gs-rule-table-action-buttons"
+            icon={<CopyOutlined />}
+            title={locale.actionCloneLabel}
+            color="default"
+            variant="text"
+            onClick={() => {
+              if (onCloneRule) {
+                onCloneRule(record);
+              }
+            }}
+          />
+        }
+        {!(actionsField.remove === false) &&
+          <Button
+            className="gs-rule-table-action-buttons"
+            icon={<CloseOutlined />}
+            color="default"
+            variant="text"
+            title={locale.actionRemoveLabel}
+            onClick={() => {
+              if (onRemoveRule) {
+                onRemoveRule(record);
+              }
+            }}
+            disabled={rules.length <= 1}
+          />
+        }
+      </Space.Compact>
+    );
+  };
 
   const onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
     setValueForRule(ruleEditIndex, 'symbolizers', symbolizers);
@@ -413,6 +467,13 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       render: duplicatesRenderer
     });
   };
+
+  if (!(actionsField?.visibility === false)) {
+    columns.push({
+      title: locale.actionsColumnTitle,
+      render: actionsRenderer,
+    });
+  }
 
   // remaps the selected keys from uuids to indices
   const onChangeSelection: typeof antdTableProps.rowSelection.onChange = (keys, rows, infos) => {

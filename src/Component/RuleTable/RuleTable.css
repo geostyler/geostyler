@@ -66,6 +66,16 @@
     .gs-rule-table-numeric-cell {
       cursor: default;
     }
-  }
 
+    .gs-rule-table-action-buttons {
+      border-radius: 0;
+    }
+
+    .gs-symbolizer-wrapper {
+      display: flex;
+      .square-button {
+        border-radius: 0;
+      }
+    }
+  }
 }

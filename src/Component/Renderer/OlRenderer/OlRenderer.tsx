@@ -39,7 +39,7 @@ import OlFeature, {
 } from 'ol/Feature';
 import OlView from 'ol/View';
 
-import OlStyleParser from 'geostyler-openlayers-parser';
+import { OlStyleParser } from 'geostyler-openlayers-parser';
 
 import { isGeoStylerFunction, Symbolizer, SymbolizerKind } from 'geostyler-style';
 
@@ -47,7 +47,6 @@ import './OlRenderer.css';
 
 import 'ol/ol.css';
 
-import _isEqual from 'lodash/isEqual';
 import _get from 'lodash/get';
 import placeholder from './placeholder';
 import { InfoCircleTwoTone } from '@ant-design/icons';
@@ -70,9 +69,9 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
 }) => {
 
   /** reference to the underlying OpenLayers map */
-  const map = useRef<OlMap>();
+  const map = useRef<OlMap>(undefined);
   const mapEl = useRef(null);
-  const layer = useRef<OlLayerVector<any>>();
+  const layer = useRef<OlLayerVector<any>>(undefined);
   const [containsFunctions, setContainsFunctions] = useState(false);
 
   const locale = useGeoStylerLocale('Renderer');
@@ -160,11 +159,11 @@ export const OlRenderer: React.FC<OlRendererProps> = ({
     let hasFunctions = false;
 
     // no geostyler data provided we replace the expressions with a placeholder symbol
-    for (let i = 0; i < newSymbolizers.length; i++) {
-      for (const value of Object.values(newSymbolizers[i])) {
+    for (const symbolizer of newSymbolizers) {
+      for (const value of Object.values(symbolizer)) {
         if (isGeoStylerFunction(value)) {
           hasFunctions = true;
-          const kind = newSymbolizers[i].kind;
+          const kind = symbolizer.kind;
           if (['Mark', 'Icon', 'Text'].includes(kind)) {
             clonedSymbolizers = [{
               kind: 'Mark',

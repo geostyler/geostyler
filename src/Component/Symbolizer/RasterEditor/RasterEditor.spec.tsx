@@ -35,7 +35,7 @@ import { vi } from 'vitest';
 
 describe('RasterEditor', () => {
 
-  let dummySymbolizer: RasterSymbolizer = SymbolizerUtil.generateSymbolizer('Raster') as RasterSymbolizer;
+  const dummySymbolizer: RasterSymbolizer = SymbolizerUtil.generateSymbolizer('Raster') as RasterSymbolizer;
   const props: RasterEditorProps = {
     symbolizer: dummySymbolizer,
     onSymbolizerChange: vi.fn()

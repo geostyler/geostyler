@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,6 +30,7 @@
 import React from 'react';
 
 import {
+  GeoStylerNumberFunction,
   Rule as GsRule,
 } from 'geostyler-style';
 import { CqlParser } from 'geostyler-cql-parser';
@@ -39,7 +40,7 @@ import { Renderer } from '../Renderer/Renderer/Renderer';
 import FilterUtil from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { Divider, Card, Typography } from 'antd';
-import { BlockOutlined, FilterFilled, MinusOutlined } from '@ant-design/icons';
+import { BlockOutlined, FilterFilled } from '@ant-design/icons';
 import { useGeoStylerComposition, useGeoStylerData } from '../../context/GeoStylerContext/GeoStylerContext';
 const { Text } = Typography;
 
@@ -61,6 +62,13 @@ export interface RuleComposableProps {
   };
   nameField?: {
     visibility?: boolean;
+  };
+  actionsField?: {
+    visibility?: boolean;
+    /** ignored if actionsField.visibility is falsy */
+    clone?: boolean;
+    /** ignored if actionsField.visibility is falsy */
+    remove?: boolean;
   };
 }
 
@@ -90,7 +98,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
     filterField,
     maxScaleField,
     minScaleField,
-    nameField
+    nameField,
   } = composed;
 
   let amount;
@@ -103,6 +111,19 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
   if (rule.filter) {
     cql = cqlParser.write(rule.filter);
   }
+
+  const getLabel = (min: number | GeoStylerNumberFunction, max: number | GeoStylerNumberFunction) => {
+    if (min === undefined && max === undefined) {
+      return '-';
+    }
+    if (min === undefined) {
+      return `1:${max}`;
+    }
+    if (max === undefined) {
+      return `1:${min}`;
+    }
+    return `1:${min} < 1:${max}`;
+  };
 
   return (
     <Card
@@ -123,9 +144,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
         {
           maxScaleField?.visibility === false || minScaleField?.visibility === false ? null : (
             <span>
-              <>
-                1:{rule.scaleDenominator?.min || '-'} <MinusOutlined /> 1:{rule.scaleDenominator?.max || '-'}
-              </>
+              {getLabel(rule.scaleDenominator?.min, rule.scaleDenominator?.max)}
             </span>
           )
         }

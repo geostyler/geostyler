@@ -34,8 +34,6 @@ import { Expression, isGeoStylerFunction } from 'geostyler-style';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export interface MinScaleDenominatorProps extends Partial<FormItemProps> {
-  /** The placeholder text to display if no value is set */
-  placeholder?: string;
   /** The minScaleDenominator value */
   value?: Expression<number>;
   /** The callback function that is triggered when the state changes */
@@ -46,7 +44,6 @@ export interface MinScaleDenominatorProps extends Partial<FormItemProps> {
  * Input field for the minimum scale of a rule.
  */
 export const MinScaleDenominator: React.FC<MinScaleDenominatorProps> = ({
-  placeholder,
   value,
   onChange,
   ...formItemLayout

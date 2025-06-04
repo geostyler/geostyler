@@ -96,6 +96,8 @@ class RuleGeneratorUtil {
       case 'Polygon':
       case 'MultiPolygon':
         return 'Fill';
+      case 'GeometryCollection':
+        return 'Mark';
       default:
         return 'Mark';
     }
@@ -104,7 +106,7 @@ class RuleGeneratorUtil {
   static generateColors(colors: string[], numberOfRules: number, colorSpace: InterpolationMode = 'hsl'): string[] {
     try {
       return chromaScale(colors).mode(colorSpace).colors(numberOfRules);
-    } catch (error) {
+    } catch {
       return undefined;
     }
   }

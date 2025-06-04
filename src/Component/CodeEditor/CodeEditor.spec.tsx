@@ -25,21 +25,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-import React from 'react';
-import { CodeEditor, CodeEditorProps } from './CodeEditor';
-import { render, act, fireEvent, waitFor } from '@testing-library/react';
-import TestUtil from '../../Util/TestUtil';
-
-import SldStyleParser from 'geostyler-sld-parser';
-import { vi } from 'vitest';
+import { CodeEditor } from './CodeEditor';
 
 describe('CodeEditor', () => {
-  let dummyStyle = TestUtil.getMarkStyle();
-  let onStyleChangeDummy;
-  let sldParser = new SldStyleParser();
-  const delay = 1337;
-
   it('is defined', () => {
     expect(CodeEditor).toBeDefined();
   });

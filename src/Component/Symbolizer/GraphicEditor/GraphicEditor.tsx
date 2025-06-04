@@ -40,7 +40,6 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 import { Form } from 'antd';
 
-import _get from 'lodash/get';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
 export interface GraphicEditorProps {
@@ -72,7 +71,7 @@ export const GraphicEditor: React.FC<GraphicEditorProps> = ({
 
   let graphicsField: React.ReactNode;
   if (value?.kind === 'Mark') {
-    let markGraphic: MarkSymbolizer = value as MarkSymbolizer;
+    const markGraphic: MarkSymbolizer = value as MarkSymbolizer;
     graphicsField = <MarkEditor
       symbolizer={markGraphic}
       onSymbolizerChange={onGraphicChange}

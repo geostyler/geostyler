@@ -34,8 +34,6 @@ import { Expression, isGeoStylerFunction } from 'geostyler-style';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export interface MaxScaleDenominatorProps extends Partial<FormItemProps> {
-  /** The placeholder text to display if no value is set */
-  placeholder?: string;
   /** The maxScaleDenominator value */
   value?: Expression<number>;
   /** The callback function that is triggered when the state changes */
@@ -46,7 +44,6 @@ export interface MaxScaleDenominatorProps extends Partial<FormItemProps> {
  * Input field for the maximum scale of a rule.
  */
 export const MaxScaleDenominator: React.FC<MaxScaleDenominatorProps> = ({
-  placeholder,
   value,
   onChange,
   ...formItemLayout

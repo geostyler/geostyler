@@ -46,7 +46,7 @@ export const Renderer: React.FC<RendererProps> = (props) => {
 
   const composition = useGeoStylerComposition('Renderer');
   const composed = {...props, ...composition};
-  let {
+  const {
     rendererType = 'OpenLayers',
     ...rendererProps
   } = composed;

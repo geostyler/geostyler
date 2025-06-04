@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -363,7 +364,10 @@ const es_ES: GeoStylerLocale = {
     minScaleColumnTitle: 'Escala Min.',
     maxScaleColumnTitle: 'Escala Max.',
     amountColumnTitle: 'Cantidad',
-    duplicatesColumnTitle: 'Duplicados'
+    duplicatesColumnTitle: 'Duplicados',
+    actionsColumnTitle: 'Acciones',
+    actionCloneLabel: 'Duplicar',
+    actionRemoveLabel: 'Eliminar',
   },
   Rules: {
     rulesTitle: 'Reglas',

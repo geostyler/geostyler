@@ -35,7 +35,7 @@ import { vi } from 'vitest';
 
 describe('WellKnownNameEditor', () => {
 
-  let dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
+  const dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
   const props: WellKnownNameEditorProps = {
     symbolizer: dummySymbolizer,
     onSymbolizerChange: vi.fn()

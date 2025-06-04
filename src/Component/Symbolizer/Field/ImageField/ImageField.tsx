@@ -40,7 +40,6 @@ import { PictureOutlined } from '@ant-design/icons';
 import { Expression, IconSymbolizer, Sprite, isSprite } from 'geostyler-style';
 import StringExpressionInput from '../../../ExpressionInput/StringExpressionInput/StringExpressionInput';
 
-import './ImageField.css';
 import { FieldSet } from '../../../FieldSet/FieldSet';
 import NumberExpressionInput from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 

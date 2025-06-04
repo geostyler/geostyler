@@ -63,7 +63,7 @@ describe('MultiEditor', () => {
     const addButton = (await textEditor.findAllByLabelText('Add tab'))[0];
     const got = [
       ...dummySymbolizers,
-      {'color': '#0E1058', 'kind': 'Mark', 'wellKnownName': 'circle'}
+      {color: '#0E1058', kind: 'Mark', wellKnownName: 'circle'}
     ];
     await act(async() => {
       fireEvent.click(addButton);

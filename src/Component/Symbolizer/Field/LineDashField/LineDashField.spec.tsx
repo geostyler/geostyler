@@ -66,7 +66,7 @@ describe('OffsetField', () => {
       const field = render(<LineDashField value={dashArray} onChange={onChangeMock} />);
       const addButton = field.container.querySelector('button.gs-add-dash-button');
       fireEvent.click(addButton as Element);
-      let newDashArray = [...dashArray, 1];
+      const newDashArray = [...dashArray, 1];
       expect(onChangeMock).toHaveBeenCalledWith(newDashArray);
     });
   });
@@ -77,7 +77,7 @@ describe('OffsetField', () => {
       const field = render(<LineDashField value={dashArray} onChange={onChangeMock} />);
       const removeButton = field.container.querySelector('button.gs-rm-dash-button');
       fireEvent.click(removeButton as Element);
-      let newDashArray = [...dashArray];
+      const newDashArray = [...dashArray];
       newDashArray.splice(newDashArray.length - 1, 1);
       expect(onChangeMock).toHaveBeenCalledWith(newDashArray);
     });

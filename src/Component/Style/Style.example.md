@@ -104,3 +104,57 @@ class StyleExample extends React.Component {
 
 <StyleExample />
 ```
+
+This demonstrates the use of `Style`, customized using `GeoStylerContext` (multi edit disabled).
+
+```jsx
+import { GeoStylerContext, Style } from 'geostyler';
+import { Style as GsStyle } from 'geostyler-style';
+
+function StyleExample() {
+  const myContext = {
+    composition: {
+      Style: {
+        disableMultiEdit: true,
+      },
+      Rule: {
+        amountField: {
+          visibility: false,
+        },
+        duplicateField: {
+          visibility: false,
+        },
+        actionsField: {
+          visibility: true,
+        }
+      }
+    },
+  };
+
+  const style = {
+    'name': 'Demo Style',
+    'rules': [
+      {
+        'name': 'Rule 1',
+        'symbolizers': [
+          {
+            'kind': 'Mark',
+            'wellKnownName': 'circle'
+          }
+        ]
+      }
+    ]
+  };
+
+  return (
+    <GeoStylerContext.Provider value={myContext}>
+      <Style
+        style={style}
+      />
+    </GeoStylerContext.Provider>
+  );
+}
+
+
+<StyleExample />
+```

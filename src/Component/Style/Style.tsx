@@ -29,7 +29,6 @@
 import React, { useEffect, useState } from 'react';
 
 import _get from 'lodash/get';
-import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
@@ -51,7 +50,7 @@ import {
 import { NameField } from '../NameField/NameField';
 import { BulkEditModals } from '../Symbolizer/BulkEditModals/BulkEditModals';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import { RuleTable } from '../RuleTable/RuleTable';
+import { RuleRecord, RuleTable } from '../RuleTable/RuleTable';
 import { RuleGeneratorWindow } from '../RuleGenerator/RuleGeneratorWindow';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import {
@@ -66,6 +65,7 @@ import { ItemType } from 'antd/es/menu/interface';
 export interface StyleComposableProps {
   /** Should the classification be disabled */
   disableClassification?: boolean;
+  disableMultiEdit: boolean;
 }
 
 export interface StyleInternalProps {
@@ -82,9 +82,10 @@ export const Style: React.FC<StyleProps> = (props) => {
   const data = useGeoStylerData();
 
   const composition = useGeoStylerComposition('Style');
-  const composed = { ...props, composition };
+  const composed = { ...props, ...composition };
   const {
     disableClassification = false,
+    disableMultiEdit = false,
     style: styleProp = {
       name: 'My Style',
       rules: []
@@ -141,14 +142,14 @@ export const Style: React.FC<StyleProps> = (props) => {
     setStyle(clonedStyle);
   };
 
-  const cloneRules = () => {
+  const cloneRules = (rowKeys: number[]) => {
     const clonedStyle = _cloneDeep(style);
 
     // create rules to clone
-    let newRules: GsRule[] = [];
+    const newRules: GsRule[] = [];
     clonedStyle.rules.forEach((rule: GsRule, index: number) => {
-      if (selectedRowKeys.includes(index)) {
-        let ruleClone = _cloneDeep(rule);
+      if (rowKeys.includes(index)) {
+        const ruleClone = _cloneDeep(rule);
         // TODO We need to ensure that rule names are unique
         const randomId = Math.floor(Math.random() * 10000);
         ruleClone.name = 'rule_' + randomId;
@@ -164,10 +165,10 @@ export const Style: React.FC<StyleProps> = (props) => {
     setStyle(clonedStyle);
   };
 
-  const removeRules = () => {
+  const removeRules = (rowKeys: number[]) => {
     const clonedStyle = _cloneDeep(style);
     const newRules = clonedStyle.rules.filter((rule: GsRule, index: number) => {
-      return !selectedRowKeys.includes(index);
+      return !rowKeys.includes(index);
     });
     clonedStyle.rules = newRules;
     if (onStyleChange) {
@@ -187,10 +188,10 @@ export const Style: React.FC<StyleProps> = (props) => {
         addRule();
         break;
       case 'cloneRules':
-        cloneRules();
+        cloneRules(selectedRowKeys);
         break;
       case 'removeRule':
-        removeRules();
+        removeRules(selectedRowKeys);
         break;
       case 'color':
         setColorModalVisible(true);
@@ -287,9 +288,9 @@ export const Style: React.FC<StyleProps> = (props) => {
     switch (name) {
       case 'size':
         rowKeys.forEach((key: number) => {
-          let symbolizers = style.rules[key].symbolizers;
+          const symbolizers = style.rules[key].symbolizers;
           symbolizers.forEach((symbolizer: GsSymbolizer) => {
-            let kind = symbolizer.kind;
+            const kind = symbolizer.kind;
             if (kind === 'Fill' || kind === 'Text' || kind === 'Line') {
               isValid = false;
             }
@@ -298,9 +299,9 @@ export const Style: React.FC<StyleProps> = (props) => {
         return !isValid;
       case 'symbol':
         rowKeys.forEach((key: number) => {
-          let symbolizers = style.rules[key].symbolizers;
+          const symbolizers = style.rules[key].symbolizers;
           symbolizers.forEach((symbolizer: GsSymbolizer) => {
-            let kind = symbolizer.kind;
+            const kind = symbolizer.kind;
             if (kind !== 'Mark' && kind !== 'Icon') {
               isValid = false;
             }
@@ -309,9 +310,9 @@ export const Style: React.FC<StyleProps> = (props) => {
         return !isValid;
       case 'color':
         rowKeys.forEach((key: number) => {
-          let symbolizers = style.rules[key].symbolizers;
+          const symbolizers = style.rules[key].symbolizers;
           symbolizers.forEach((symbolizer: GsSymbolizer) => {
-            let kind = symbolizer.kind;
+            const kind = symbolizer.kind;
             if (kind === 'Icon') {
               isValid = false;
             }
@@ -332,17 +333,17 @@ export const Style: React.FC<StyleProps> = (props) => {
       key: 'addRule',
       label: locale.addRuleBtnText,
       icon: <PlusOutlined />
-    }, {
+    }, !disableMultiEdit && {
       key: 'cloneRules',
       label: locale.cloneRulesBtnText,
       disabled: !allowClone,
       icon: <CopyOutlined />
-    }, {
+    }, !disableMultiEdit && {
       key: 'removeRule',
       label: locale.removeRulesBtnText,
       disabled: !allowRemove,
-      icon: <MinusOutlined />
-    }, {
+      icon: <MinusOutlined />,
+    }, !disableMultiEdit && {
       key: 'multi-edit',
       label: <span><MenuUnfoldOutlined /><span>{locale.multiEditLabel}</span></span>,
       disabled: selectedRowKeys.length <= 1,
@@ -371,7 +372,7 @@ export const Style: React.FC<StyleProps> = (props) => {
     );
   };
 
-  let rules: GsRule[] = style?.rules || [];
+  const rules: GsRule[] = style?.rules || [];
 
   return (
     <div className="gs-style" >
@@ -405,9 +406,17 @@ export const Style: React.FC<StyleProps> = (props) => {
       <RuleTable
         rules={rules}
         onRulesChange={onRulesChange}
-        rowSelection={{
+        rowSelection={!disableMultiEdit && {
           selectedRowKeys,
           onChange: onRulesSelectionChange
+        }}
+        onCloneRule={(rule: RuleRecord) => {
+          const ruleKey = rule.key;
+          delete rule.key;
+          cloneRules([ruleKey]);
+        }}
+        onRemoveRule={(rule: RuleRecord) => {
+          removeRules([rule.key]);
         }}
         footer={createFooter}
       />

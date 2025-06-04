@@ -31,13 +31,11 @@ import { Row, Col } from 'antd';
 import { MinScaleDenominator } from './MinScaleDenominator';
 import { MaxScaleDenominator } from './MaxScaleDenominator';
 
-import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
   ScaleDenominator as GsScaleDenominator
 } from 'geostyler-style';
-import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ScaleDenominatorProps {
   /** The scaleDenominator */
@@ -55,8 +53,6 @@ export const ScaleDenominator: React.FC<ScaleDenominatorProps> = ({
   scaleDenominator,
   onChange
 }) => {
-
-  const locale = useGeoStylerLocale('ScaleDenominator');
 
   /**
    * Reacts on changing min scale and pushes the updated scaleDenominator to the 'onChange' function
@@ -93,14 +89,12 @@ export const ScaleDenominator: React.FC<ScaleDenominatorProps> = ({
           <MinScaleDenominator
             value={scaleDenominator?.min}
             onChange={onMinScaleDenomChange}
-            placeholder={locale.minScaleDenominatorPlaceholderText}
           />
         </Col>
         <Col span={12} className="gs-small-col">
           <MaxScaleDenominator
             value={scaleDenominator?.max}
             onChange={onMaxScaleDenomChange}
-            placeholder={locale.maxScaleDenominatorPlaceholderText}
           />
         </Col>
       </Row>

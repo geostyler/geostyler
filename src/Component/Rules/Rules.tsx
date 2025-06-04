@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -124,7 +124,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
 
   const cloneSelectedRules = () => {
     if (onRulesChange) {
-      let rulesClone = _cloneDeep(rules);
+      const rulesClone = _cloneDeep(rules);
       selectedRules.forEach((selectedIdx: number) => {
         rulesClone.push(_cloneDeep(rulesClone[selectedIdx]));
       });
@@ -217,7 +217,7 @@ export const Rules: React.FC<RulesProps> = (props) => {
     );
   });
 
-  let defaultActions = [
+  const defaultActions = [
     <Button
       className="gs-add-rule-button"
       onClick={addRule}

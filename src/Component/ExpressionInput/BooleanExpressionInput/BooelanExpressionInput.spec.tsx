@@ -33,7 +33,7 @@ import { GeoStylerBooleanFunction } from 'geostyler-style';
 
 describe('BooleanExpressionInput', () => {
 
-  const booleanValue: boolean = false;
+  const booleanValue = false;
   const booleanFunction: GeoStylerBooleanFunction = {
     name: 'between',
     args: [12, 11, 13]

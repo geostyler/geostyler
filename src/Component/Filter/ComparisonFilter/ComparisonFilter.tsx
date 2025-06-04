@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/member-ordering */
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -117,27 +117,23 @@ export const ComparisonFilterDefaultValidator = (
   // read out attribute type
   const attrType = _get(data, `schema.properties[${selectedAttribute}].type`);
 
-  switch (attrType) {
-    case 'number':
-      // detect min / max from schema
-      const minVal = _get(data, `schema.properties[${selectedAttribute}].minimum`);
-      const maxVal = _get(data, `schema.properties[${selectedAttribute}].maximum`);
+  if (attrType === 'number') {
+    // detect min / max from schema
+    const minVal = _get(data, `schema.properties[${selectedAttribute}].minimum`);
+    const maxVal = _get(data, `schema.properties[${selectedAttribute}].maximum`);
 
-      if (!isNaN(minVal) && !isNaN(maxVal)) {
-        if (typeof newValue !== 'number') {
-          isValid = false;
-          errorMsg = 'Please enter a number';
-        } else if (newValue < minVal) {
-          isValid = false;
-          errorMsg = 'Minimum Value is ' + minVal;
-        } else if (newValue > maxVal) {
-          isValid = false;
-          errorMsg = 'Maximum Value is ' + maxVal;
-        }
+    if (!isNaN(minVal) && !isNaN(maxVal)) {
+      if (typeof newValue !== 'number') {
+        isValid = false;
+        errorMsg = 'Please enter a number';
+      } else if (newValue < minVal) {
+        isValid = false;
+        errorMsg = 'Minimum Value is ' + minVal;
+      } else if (newValue > maxVal) {
+        isValid = false;
+        errorMsg = 'Maximum Value is ' + maxVal;
       }
-      break;
-    default:
-      break;
+    }
   }
 
   return {
@@ -147,14 +143,18 @@ export const ComparisonFilterDefaultValidator = (
 };
 
 const operatorsMap: Record<JSONSchema4TypeName, ComparisonOperator[]> = {
-  'string': ['==', '*=', '!='],
-  'number': ['==', '!=', '<', '<=', '>', '>=', '<=x<='],
-  'integer': ['==', '!=', '<', '<=', '>', '>=', '<=x<='],
-  'boolean': ['==', '!='],
-  'any': undefined,
-  'object': undefined,
-  'array': undefined,
-  'null': undefined
+  // eslint-disable-next-line id-blacklist
+  string: ['==', '*=', '!='],
+  // eslint-disable-next-line id-blacklist
+  number: ['==', '!=', '<', '<=', '>', '>=', '<=x<='],
+  integer: ['==', '!=', '<', '<=', '>', '>=', '<=x<='],
+  // eslint-disable-next-line id-blacklist
+  boolean: ['==', '!='],
+  // eslint-disable-next-line id-blacklist
+  any: undefined,
+  object: undefined,
+  array: undefined,
+  null: undefined
 };
 
 export type ComparisonFilterProps = ComparisonFilterInternalProps & ComparisonFilterComposableProps;
@@ -197,7 +197,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
    * Changes the input field for the filter value and stores the appropriate attribute name as member.
    */
   const onAttributeChange = (newAttrName: string) => {
-    let newFilter = _cloneDeep(filter);
+    const newFilter = _cloneDeep(filter);
     newFilter[1] = newAttrName;
     if (onFilterChange) {
       onFilterChange(newFilter);
@@ -210,7 +210,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
    * Stores the appropriate operator as member.
    */
   const onOperatorChange = (newOperator: ComparisonOperator) => {
-    let newFilter = _cloneDeep(filter);
+    const newFilter = _cloneDeep(filter);
     newFilter[0] = newOperator;
     if (newOperator !== '<=x<=' && newFilter.length > 3) {
       newFilter.splice(3, 1);
@@ -229,7 +229,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
    * Stores the appropriate filter value as member.
    */
   const onValueChange = (newValue: string | number | boolean, filterIndex = 2) => {
-    let newFilter = _cloneDeep(filter);
+    const newFilter = _cloneDeep(filter);
     newFilter[filterIndex] = newValue;
     if (onFilterChange) {
       onFilterChange(newFilter);
