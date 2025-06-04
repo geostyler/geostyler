@@ -63,6 +63,13 @@ export interface RuleComposableProps {
   nameField?: {
     visibility?: boolean;
   };
+  actionsField?: {
+    visibility?: boolean;
+    /** ignored if actionsField.visibility is falsy */
+    clone?: boolean;
+    /** ignored if actionsField.visibility is falsy */
+    remove?: boolean;
+  };
 }
 
 export interface RuleCardInternalProps {
@@ -91,7 +98,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
     filterField,
     maxScaleField,
     minScaleField,
-    nameField
+    nameField,
   } = composed;
 
   let amount;

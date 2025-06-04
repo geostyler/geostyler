@@ -363,7 +363,10 @@ const zh_CN: GeoStylerLocale = {
     minScaleColumnTitle: '最小比例尺',
     maxScaleColumnTitle: '最大比例尺',
     amountColumnTitle: '数量',
-    duplicatesColumnTitle: '副本'
+    duplicatesColumnTitle: '副本',
+    actionsColumnTitle: '操作',
+    actionCloneLabel: '克隆',
+    actionRemoveLabel: '移除',
   },
   Rules: {
     rulesTitle: '规则',

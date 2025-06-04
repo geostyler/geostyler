@@ -362,7 +362,10 @@ const hr_HR: GeoStylerLocale = {
     minScaleColumnTitle: 'Min. Mjerilo',
     maxScaleColumnTitle: 'Max. Mjerilo',
     amountColumnTitle: 'Količina',
-    duplicatesColumnTitle: 'Duplikati'
+    duplicatesColumnTitle: 'Duplikati',
+    actionsColumnTitle: 'Akcije',
+    actionCloneLabel: 'Kloniraj',
+    actionRemoveLabel: 'Ukloni'
   },
   Rules: {
     rulesTitle: 'Pravila',

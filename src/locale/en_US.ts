@@ -362,7 +362,10 @@ const en_US: GeoStylerLocale = {
     minScaleColumnTitle: 'Min. Scale',
     maxScaleColumnTitle: 'Max. Scale',
     amountColumnTitle: 'Amount',
-    duplicatesColumnTitle: 'Duplicates'
+    duplicatesColumnTitle: 'Duplicates',
+    actionsColumnTitle: 'Actions',
+    actionCloneLabel: 'Clone',
+    actionRemoveLabel: 'Remove',
   },
   Rules: {
     rulesTitle: 'Rules',
