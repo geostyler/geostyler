@@ -180,7 +180,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
           className={'square-button'}
           type={'primary'}
           icon={<EditOutlined />}
-          onClick={(e) => onSymbolizerRendererClick(record.symbolizers, e)} />
+          onClick={onSymbolizerRendererClick} />
       </div>
     );
   };
