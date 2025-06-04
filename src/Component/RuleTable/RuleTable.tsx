@@ -96,6 +96,9 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   const data = useGeoStylerData();
 
   const composition = useGeoStylerComposition('Rule') as RuleComposableProps;
+
+  // Reading the `Style` composition to get the `disableMultiEdit` property
+  // and show `actionsField` column by default when true
   const styleComposition = useGeoStylerComposition('Style');
   const composed = { ...props, ...composition };
   const {
