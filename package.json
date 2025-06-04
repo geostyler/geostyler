@@ -32,8 +32,9 @@
   ],
   "homepage": "https://github.com/geostyler/geostyler",
   "scripts": {
+    "build": "npm run build-package && npm run build-styleguide",
     "build-package": "npm run build-browser && tsc && npm run build-dist",
-    "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1",
+    "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1 && node scripts/add-extensions.js",
     "build-styleguide": "styleguidist build --config styleguide.config.cjs",
     "build-browser": "vite build",
     "browser-sample": "npx http-server . -o /public/browser.html",
@@ -51,8 +52,7 @@
     "test-ci": "NODE_OPTIONS=--import=extensionless/register vitest --coverage",
     "test-watch": "NODE_OPTIONS=--import=extensionless/register vitest",
     "start-dev": "vite -c vite.dev.config.ts",
-    "preview": "vite preview",
-    "build": "npm run build-package && npm run build-styleguide"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
