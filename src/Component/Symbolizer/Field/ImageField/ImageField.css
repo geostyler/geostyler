@@ -34,10 +34,6 @@
       display: inline-flex;
       align-items: center;
       padding-inline: 1em;
-
-      .number-expression-input {
-        margin-left: .25em;
-      }
     }
   }
 }

@@ -303,12 +303,12 @@ const hr_HR: GeoStylerLocale = {
   },
   WellKnownNameField: {
     wellKnownNames: {
-      Circle: 'Krug',
-      Square: 'Kocka',
-      Triangle: 'Trokut',
-      Star: 'Zvijezda',
-      Cross: 'Križ',
-      X: 'X'
+      circle: 'Krug',
+      square: 'Kocka',
+      triangle: 'Trokut',
+      star: 'Zvijezda',
+      cross: 'Križ',
+      x: 'X'
     }
   },
   ColorMapEntryField: {
@@ -446,6 +446,28 @@ const hr_HR: GeoStylerLocale = {
   },
   BoolFilterField: {
     label: 'Vrijednost'
+  },
+  LineCapField: {
+    lineCapOptions: {
+      butt: 'TODO(hr_HR): butt',
+      round: 'TODO(hr_HR): round',
+      square: 'TODO(hr_HR): square'
+    }
+  },
+  LineJoinField: {
+    lineJoinOptions: {
+      bevel: 'TODO(hr_HR): bevel',
+      round: 'TODO(hr_HR): round',
+      miter: 'TODO(hr_HR): miter'
+    }
+  },
+  ImageField: {
+    sprite: {
+      x: 'TODO(hr_HR): x',
+      y: 'TODO(hr_HR): y',
+      height: 'TODO(hr_HR): height',
+      width: 'TODO(hr_HR): width'
+    }
   },
   UnsupportedPropertiesUtil: {
     notSupported: 'Nije podržano od strane odabranog parsera.',

@@ -28,13 +28,12 @@
 
 import React from 'react';
 
-import {
-  CapType,
-  Expression,
-  LineSymbolizer
-} from 'geostyler-style';
-import StringExpressionSelect, { StringExpressionSelectProps }
-  from '../../../ExpressionInput/StringExpressionSelect/StringExpressionSelect';
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
+
+import { CapType, Expression, LineSymbolizer } from 'geostyler-style';
+import StringExpressionSelect, {
+  StringExpressionSelectProps,
+} from '../../../ExpressionInput/StringExpressionSelect/StringExpressionSelect';
 
 export interface LineCapFieldProps {
   capOptions?: CapType[];
@@ -53,10 +52,11 @@ export const LineCapField: React.FC<LineCapFieldProps & SelectProps> = ({
   capOptions = ['butt', 'round', 'square'],
   ...selectProps
 }) => {
+  const locale = useGeoStylerLocale('LineCapField');
 
-  const options =  capOptions.map(capOpt => ({
-    label: capOpt,
-    value: capOpt
+  const options = capOptions.map((capOpt) => ({
+    label: locale.lineCapOptions[capOpt],
+    value: capOpt,
   }));
 
   function onCancel() {
@@ -67,11 +67,11 @@ export const LineCapField: React.FC<LineCapFieldProps & SelectProps> = ({
     <StringExpressionSelect
       className="editor-field line-cap-field"
       value={value}
-      onChange={val => onChange(val)}
+      onChange={(val) => onChange(val)}
       onCancel={onCancel}
       selectProps={{
         ...selectProps,
-        options
+        options,
       }}
     />
   );

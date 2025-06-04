@@ -29,6 +29,7 @@
 import React, { useCallback } from 'react';
 
 import {
+  Form,
   Tooltip
 } from 'antd';
 
@@ -42,6 +43,8 @@ import StringExpressionInput from '../../../ExpressionInput/StringExpressionInpu
 
 import { FieldSet } from '../../../FieldSet/FieldSet';
 import NumberExpressionInput from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+
+import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ImageFieldProps {
   /** The tooltip label for the iconLibraries button. */
@@ -81,6 +84,8 @@ export const ImageField: React.FC<ImageFieldProps> = ({
   disableSprite = false,
   onIconLibrariesClick = () => { }
 }) => {
+
+  const locale = useGeoStylerLocale('ImageField');
 
   const [windowVisible, setWindowVisible] = React.useState<boolean>(false);
 
@@ -157,20 +162,36 @@ export const ImageField: React.FC<ImageFieldProps> = ({
               {isSprite(value) &&
                 <div className='spriterow'>
                   <span>
-                    x
-                    <NumberExpressionInput value={value.position[0]} onChange={(val) => onSpriteChange(val, 'x')} />
+                    <Form.Item
+                      label={locale.sprite.x}
+                      colon={false}
+                    >
+                      <NumberExpressionInput value={value.position[0]} onChange={(val) => onSpriteChange(val, 'x')} />
+                    </Form.Item>
                   </span>
                   <span>
-                    y
-                    <NumberExpressionInput value={value.position[1]} onChange={(val) => onSpriteChange(val, 'y')} />
+                    <Form.Item
+                      label={locale.sprite.y}
+                      colon={false}
+                    >
+                      <NumberExpressionInput value={value.position[1]} onChange={(val) => onSpriteChange(val, 'y')} />
+                    </Form.Item>
                   </span>
                   <span>
-                    width
-                    <NumberExpressionInput value={value.size[0]} onChange={(val) => onSpriteChange(val, 'width')} />
+                    <Form.Item
+                      label={locale.sprite.width}
+                      colon={false}
+                    >
+                      <NumberExpressionInput value={value.size[0]} onChange={(val) => onSpriteChange(val, 'width')} />
+                    </Form.Item>
                   </span>
                   <span>
-                    height
-                    <NumberExpressionInput value={value.size[1]} onChange={(val) => onSpriteChange(val, 'height')} />
+                    <Form.Item
+                      label={locale.sprite.height}
+                      colon={false}
+                    >
+                      <NumberExpressionInput value={value.size[1]} onChange={(val) => onSpriteChange(val, 'height')} />
+                    </Form.Item>
                   </span>
                 </div>
               }
