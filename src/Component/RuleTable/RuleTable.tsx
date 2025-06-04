@@ -40,7 +40,8 @@ import {
   InputNumber,
   Popover,
   Tooltip,
-  Button
+  Button,
+  Space
 } from 'antd';
 
 import {
@@ -325,7 +326,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
 
   const actionsRenderer = (text: string, record: RuleRecord) => {
     return (
-      <Button.Group>
+      <Space.Compact block>
         {!(actionsField.clone === false) &&
           <Button
             className="gs-rule-table-action-buttons"
@@ -355,7 +356,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
             disabled={rules.length <= 1}
           />
         }
-      </Button.Group>
+      </Space.Compact>
     );
   };
 

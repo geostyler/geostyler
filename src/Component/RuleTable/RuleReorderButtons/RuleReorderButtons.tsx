@@ -27,7 +27,7 @@
  */
 
 import React from 'react';
-import { Button } from 'antd';
+import { Button, Space } from 'antd';
 
 import {
   Rule as GsRule,
@@ -35,7 +35,6 @@ import {
 
 import { UpOutlined, DownOutlined } from '@ant-design/icons';
 
-const ButtonGroup = Button.Group;
 import _cloneDeep from 'lodash/cloneDeep';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
@@ -71,7 +70,7 @@ export const RuleReorderButtons: React.FC<RuleReorderButtonsProps> = ({
   };
 
   return (
-    <ButtonGroup>
+    <Space.Compact block>
       <Button
         role="button"
         name="move-rule-up"
@@ -92,6 +91,6 @@ export const RuleReorderButtons: React.FC<RuleReorderButtonsProps> = ({
           onRuleOrderChange(true);
         }}
       />
-    </ButtonGroup>
+    </Space.Compact>
   );
 };
