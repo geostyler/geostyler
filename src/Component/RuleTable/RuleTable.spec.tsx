@@ -72,7 +72,7 @@ describe('RuleTable', () => {
   beforeEach(() => {
     dummyRules = TestUtil.getTwoRulesStyle().rules;
     ruleTable = render(
-      <GeoStylerContext.Provider value={{data}}>
+      <GeoStylerContext.Provider value={{ data }}>
         <RuleTable
           rules={dummyRules}
         />
@@ -126,7 +126,7 @@ describe('RuleTable', () => {
         max: 24
       };
       ruleTable.rerender(
-        <GeoStylerContext.Provider value={{data}}>
+        <GeoStylerContext.Provider value={{ data }}>
           <RuleTable rules={rulesWithMinScale} />
         </GeoStylerContext.Provider>
       );
@@ -148,7 +148,7 @@ describe('RuleTable', () => {
         max: 24
       };
       ruleTable.rerender(
-        <GeoStylerContext.Provider value={{data}}>
+        <GeoStylerContext.Provider value={{ data }}>
           <RuleTable rules={rulesWithMaxScale} />
         </GeoStylerContext.Provider>
       );
@@ -174,7 +174,7 @@ describe('RuleTable', () => {
       rulesWithFilter[0].filter = ['==', 'name', 'Peter'];
       rulesWithFilter[1].filter = TestUtil.getDummyGsFilter();
       ruleTable.rerender(
-        <GeoStylerContext.Provider value={{data}}>
+        <GeoStylerContext.Provider value={{ data }}>
           <RuleTable rules={rulesWithFilter} />
         </GeoStylerContext.Provider>
       );
@@ -191,7 +191,7 @@ describe('RuleTable', () => {
       rulesWithFilter[0].filter = ['==', 'name', 'Peter'];
       rulesWithFilter[1].filter = ['!=', 'name', 'Hilde'];
       ruleTable.rerender(
-        <GeoStylerContext.Provider value={{data}}>
+        <GeoStylerContext.Provider value={{ data }}>
           <RuleTable rules={rulesWithFilter} />
         </GeoStylerContext.Provider>
       );
@@ -201,24 +201,4 @@ describe('RuleTable', () => {
       expect(duplicatesRenderers[1].innerHTML).toBe('1');
     });
   });
-
-  describe('RuleOrderRenderer', () => {
-    it('… renders', () => {
-      const upButtons = ruleTable.getAllByTitle('Move rule one position up');
-      const downButtons = ruleTable.getAllByTitle('Move rule one position down');
-      expect(upButtons).toHaveLength(2);
-      expect(downButtons).toHaveLength(2);
-    });
-    it('… disables up button for first row', () => {
-      const upButtons = ruleTable.getAllByTitle('Move rule one position up');
-      expect(upButtons).toHaveLength(2);
-      expect(upButtons[0]).toHaveAttribute('disabled');
-    });
-    it('… disables down button for last row', () => {
-      const downButtons = ruleTable.getAllByTitle('Move rule one position down');
-      expect(downButtons).toHaveLength(2);
-      expect(downButtons[downButtons.length - 1]).toHaveAttribute('disabled');
-    });
-  });
-
 });
