@@ -44,7 +44,6 @@ import StringExpressionInput from '../../../ExpressionInput/StringExpressionInpu
 import { FieldSet } from '../../../FieldSet/FieldSet';
 import NumberExpressionInput from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 
-import _get from 'lodash/get';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ImageFieldProps {
