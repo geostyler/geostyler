@@ -47,7 +47,7 @@ import { IconEditor } from '../IconEditor/IconEditor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 import { RasterEditor } from '../RasterEditor/RasterEditor';
-import { Form } from 'antd';
+import { Form, Alert } from 'antd';
 
 import {
   useGeoStylerComposition,
@@ -186,6 +186,7 @@ export const Editor: React.FC<EditorProps> = (props) => {
 
   return (
     <div className="gs-symbolizer-editor" >
+      <Alert type='info' message={locale.pixelInfo} />
       <Form.Item
         {...itemConfig}
         label={locale.kindFieldLabel}

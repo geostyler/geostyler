@@ -263,7 +263,6 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.widthLabel}
-              extra={locale.sizeExtra}
               {...getFormItemSupportProps('width')}
             >
               <WidthField
@@ -279,7 +278,6 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.perpendicularOffsetLabel}
-              extra={locale.sizeExtra}
               {...getFormItemSupportProps('perpendicularOffset')}
             >
               <OffsetField

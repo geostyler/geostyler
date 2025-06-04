@@ -199,7 +199,6 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
           <Form.Item
             {...itemConfig}
             label={locale.radiusLabel}
-            extra={locale.sizeExtra}
           >
             <RadiusField
               value={radius}
@@ -214,7 +213,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
           <Form.Item
             {...itemConfig}
             label={locale.offsetXLabel}
-            extra={locale.sizeExtra}
+            extra={locale.offsetXExtra}
           >
             <OffsetField
               value={offset?.[0]}
@@ -229,7 +228,7 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
           <Form.Item
             {...itemConfig}
             label={locale.offsetYLabel}
-            extra={locale.sizeExtra}
+            extra={locale.offsetYExtra}
           >
             <OffsetField
               value={offset?.[1]}
@@ -302,7 +301,6 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
           <Form.Item
             {...itemConfig}
             label={locale.strokeWidthLabel}
-            extra={locale.sizeExtra}
           >
             <WidthField
               value={strokeWidth}

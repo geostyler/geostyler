@@ -19,7 +19,6 @@ export default interface GeoStylerLocale {
   BulkEditor: {
     colorLabel: string;
     radiusLabel: string;
-    radiusExtra: string;
     opacityLabel: string;
     opacityExtra: string;
     symbolLabel: string;
@@ -107,8 +106,9 @@ export default interface GeoStylerLocale {
     fillColorLabel: string;
     fillOpacityLabel: string;
     offsetXLabel: string;
+    offsetXExtra: string;
     offsetYLabel: string;
-    sizeExtra: string;
+    offsetYExtra: string;
     opacityLabel: string;
     opacityExtra: string;
     radiusLabel: string;
@@ -126,7 +126,6 @@ export default interface GeoStylerLocale {
     fillColorLabel: string;
     outlineColorLabel: string;
     outlineWidthLabel: string;
-    outlineWidthExtra: string;
     outlineDasharrayLabel: string;
     outlineDasharrayExtra: string;
     graphicFillTypeLabel: string;
@@ -139,20 +138,20 @@ export default interface GeoStylerLocale {
     imageLabel: string;
     imagePlaceholder: string;
     offsetXLabel: string;
+    offsetXExtra: string;
     offsetYLabel: string;
+    offsetYExtra: string;
     opacityLabel: string;
     opacityExtra: string;
     rotateLabel: string;
     rotateExtra: string;
     sizeLabel: string;
-    sizeExtra: string;
     iconSpriteTooltipLabel: string;
     visibilityLabel: string;
   };
   LineEditor: {
     colorLabel: string;
     widthLabel: string;
-    sizeExtra: string;
     opacityLabel: string;
     opacityExtra: string;
     dashLabel: string;
@@ -180,8 +179,9 @@ export default interface GeoStylerLocale {
     colorLabel: string;
     sizeLabel: string;
     offsetXLabel: string;
+    offsetXExtra: string;
     offsetYLabel: string;
-    sizeExtra: string;
+    offsetYExtra: string;
     attributeComboPlaceholder: string;
     rotateLabel: string;
     rotateExtra: string;
@@ -200,8 +200,9 @@ export default interface GeoStylerLocale {
     colorLabel: string;
     sizeLabel: string;
     offsetXLabel: string;
+    offsetXExtra: string;
     offsetYLabel: string;
-    sizeExtra: string;
+    offsetYExtra: string;
     attributeComboPlaceholder: string;
     rotateLabel: string;
     rotateExtra: string;
@@ -420,6 +421,7 @@ export default interface GeoStylerLocale {
     titleFieldPlaceholder: string;
   };
   Editor: {
+    pixelInfo: string;
     kindFieldLabel: string;
     unknownSymbolizerText: string;
   };

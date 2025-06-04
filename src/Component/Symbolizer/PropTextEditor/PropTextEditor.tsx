@@ -234,7 +234,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       <Form.Item
         {...itemConfig}
         label={locale.offsetXLabel}
-        extra={locale.sizeExtra}
+        extra={locale.offsetXExtra}
       >
         <OffsetField
           value={offsetX}
@@ -244,7 +244,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       <Form.Item
         {...itemConfig}
         label={locale.offsetYLabel}
-        extra={locale.sizeExtra}
+        extra={locale.offsetYExtra}
       >
         <OffsetField
           value={offsetY}
@@ -273,7 +273,6 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       <Form.Item
         {...itemConfig}
         label={locale.haloWidthLabel}
-        extra={locale.sizeExtra}
       >
         <WidthField
           value={haloWidth}

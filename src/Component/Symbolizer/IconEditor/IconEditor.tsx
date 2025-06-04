@@ -215,7 +215,6 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.sizeLabel}
-            extra={locale.sizeExtra}
             {...getFormItemSupportProps('size')}
           >
             <SizeField
@@ -230,7 +229,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.offsetXLabel}
-            extra={locale.sizeExtra}
+            extra={locale.offsetXExtra}
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField
@@ -246,7 +245,7 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.offsetYLabel}
-            extra={locale.sizeExtra}
+            extra={locale.offsetYExtra}
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField

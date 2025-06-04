@@ -341,7 +341,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.offsetXLabel}
-            extra={locale.sizeExtra}
+            extra={locale.offsetXExtra}
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField
@@ -357,7 +357,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.offsetYLabel}
-            extra={locale.sizeExtra}
+            extra={locale.offsetYExtra}
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField
@@ -404,7 +404,6 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.haloWidthLabel}
-            extra={locale.sizeExtra}
             {...getFormItemSupportProps('haloWidth')}
           >
             <WidthField

@@ -293,7 +293,6 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.outlineWidthLabel}
-              extra={locale.outlineWidthExtra}
               {...getFormItemSupportProps('outlineWidth')}
             >
               <WidthField
