@@ -414,8 +414,9 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   };
 
-  const changeSelection: typeof antdTableProps.rowSelection.onChange = (keys, rows, infos) => {
-    return antdTableProps.rowSelection.onChange(keys.map(k => uniqueIds.current.indexOf(k as string)), rows, infos);
+  // remaps the selected keys from uuids to indices
+  const onChangeSelection: typeof antdTableProps.rowSelection.onChange = (keys, rows, infos) => {
+    return antdTableProps.rowSelection?.onChange?.(keys.map(k => uniqueIds.current.indexOf(k as string)), rows, infos);
   };
 
   const handleDragEnd = ({ active, over }: DragEndEvent) => {
@@ -438,7 +439,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     // this will ensure that the same items remain selected, instead of the items at the same indices.
 
     ruleRecords.forEach((r) => r.index = uniqueIds.current.indexOf(r.key));
-    changeSelection(
+    onChangeSelection(
       previouslySelectedRowKeys,
       ruleRecords.filter((r) => previouslySelectedRowKeys.includes(r.key)),
       null
@@ -449,16 +450,18 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     return <h1>An error occurred in the RuleTable UI.</h1>;
   }
 
+  // if the user provides a rowSelection we need to "patch" some properties to do the remapping of uuids to indices,
+  // since all external uses of the RulesTable assume that a selected key is equal to the index of that rule.
   const rowSelection: TableProps<RuleRecord>['rowSelection'] = antdTableProps.rowSelection ? {
     ...antdTableProps.rowSelection,
     selectedRowKeys: antdTableProps.rowSelection.selectedRowKeys.map(k => uniqueIds.current[k as number]),
-    onChange: changeSelection
+    onChange: onChangeSelection
   } : {};
 
   return (
     <div className="gs-rule-table">
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} >
-        <SortableContext items={ruleRecords.map(r => r.key)} strategy={verticalListSortingStrategy}>
+        <SortableContext items={uniqueIds.current} strategy={verticalListSortingStrategy}>
           <Table
             columns={columns}
             dataSource={ruleRecords}
@@ -479,7 +482,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
               }
             }}
             {...antdTableProps}
-            {...{ rowSelection }}
+            {...{ rowSelection: { ...rowSelection } }}
           />
         </SortableContext>
       </DndContext>
