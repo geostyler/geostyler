@@ -56,7 +56,14 @@ import { SymbolizerEditorWindow } from '../Symbolizer/SymbolizerEditorWindow/Sym
 import { ColumnProps, TableProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
-import { BgColorsOutlined, BlockOutlined, EditOutlined, CopyOutlined, CloseOutlined, HolderOutlined } from '@ant-design/icons';
+import {
+  BgColorsOutlined,
+  BlockOutlined,
+  EditOutlined,
+  CopyOutlined,
+  CloseOutlined,
+  HolderOutlined,
+} from "@ant-design/icons";
 import { Renderer } from '../Renderer/Renderer/Renderer';
 import {
   useGeoStylerComposition,

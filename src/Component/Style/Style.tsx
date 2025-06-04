@@ -50,7 +50,7 @@ import {
 import { NameField } from '../NameField/NameField';
 import { BulkEditModals } from '../Symbolizer/BulkEditModals/BulkEditModals';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';
-import { RuleRecord, RuleTable } from '../RuleTable/RuleTable';
+import { RuleTable } from '../RuleTable/RuleTable';
 import { RuleGeneratorWindow } from '../RuleGenerator/RuleGeneratorWindow';
 import { CopyOutlined, MenuUnfoldOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import {
