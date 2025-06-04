@@ -28,7 +28,6 @@
 
 import React from 'react';
 
-import _get from 'lodash/get';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 import { CapType, Expression, LineSymbolizer } from 'geostyler-style';
@@ -55,13 +54,10 @@ export const LineCapField: React.FC<LineCapFieldProps & SelectProps> = ({
 }) => {
   const locale = useGeoStylerLocale('LineCapField');
 
-  const options = capOptions.map((capOpt) => {
-    const loc = _get(locale, 'lineCapOptions[' + capOpt + ']') || capOpt;
-    return {
-      label: loc,
-      value: capOpt,
-    };
-  });
+  const options = capOptions.map((capOpt) => ({
+    label: locale.lineCapOptions[capOpt],
+    value: capOpt,
+  }));
 
   function onCancel() {
     onChange(undefined);
