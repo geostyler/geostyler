@@ -328,13 +328,17 @@ const de_DE: GeoStylerLocale = {
     grayLabel: 'Graues band'
   },
   SymbolizerEditorWindow: {
-    symbolizersEditor: 'Symbolisierungseditor'
+    symbolizersEditor: 'Symbolisierungseditor',
+    cancelButtonLabel: 'Abbrechen',
+    saveButtonLabel: 'TODO'
   },
   FilterOverview: {
     filterTitle: 'Filter'
   },
   FilterEditorWindow: {
-    filterEditor: 'Filtereditor'
+    filterEditor: 'Filtereditor',
+    cancelButtonLabel: 'Abbrechen',
+    saveButtonLabel: 'TODO'
   },
   MultiEditor: {
     add: 'Hinzufügen',

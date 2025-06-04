@@ -327,13 +327,17 @@ const hr_HR: GeoStylerLocale = {
     valuesMapTypeLabel: 'Vrijednost'
   },
   SymbolizerEditorWindow: {
-    symbolizersEditor: 'Uređenje simbola'
+    symbolizersEditor: 'Uređenje simbola',
+    cancelButtonLabel: 'Otkazati',
+    saveButtonLabel: 'TODO'
   },
   FilterOverview: {
     filterTitle: 'Filteri'
   },
   FilterEditorWindow: {
-    filterEditor: 'Uređenje filtera'
+    filterEditor: 'Uređenje filtera',
+    cancelButtonLabel: 'Otkazati',
+    saveButtonLabel: 'TODO'
   },
   MultiEditor: {
     add: 'Dodaj',

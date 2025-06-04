@@ -26,15 +26,15 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
+import { Button, Modal, ModalProps } from 'antd';
 import './FilterEditorWindow.css';
-import { Modal, ModalProps } from 'antd';
 
 
 import { Filter } from 'geostyler-style';
-import { FilterTree } from '../FilterTree/FilterTree';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { FilterTree } from '../FilterTree/FilterTree';
 
 export interface FilterEditorWindowProps extends Partial<ModalProps> {
   /** The filter to edit */
@@ -54,19 +54,34 @@ export const FilterEditorWindow: React.FC<FilterEditorWindowProps> = ({
 
   const locale = useGeoStylerLocale('FilterEditorWindow');
 
+  const [filterClone, setFilterClone] = useState<Filter>();
+
+  const handleCancel = () => {
+    setFilterClone(filter);
+    onClose();
+  };
+
+  const handleRecord = () => {
+    onFilterChange(filterClone);
+    onClose();
+  };
+
   return (
     <Modal
       className="filter-editor-modal"
       title={locale.filterEditor}
       onCancel={onClose}
       width={800}
-      footer={false}
       centered={true}
+      footer={[
+        <Button key="cancel" onClick={handleCancel}>{locale.cancelButtonLabel}</Button>,
+        <Button key="record" type="primary" onClick={handleRecord}>{locale.saveButtonLabel}</Button>
+      ]}
       {...passThroughProps}
     >
       <FilterTree
-        filter={filter}
-        onFilterChange={onFilterChange}
+        filter={filterClone}
+        onFilterChange={setFilterClone}
       />
     </Modal>
   );

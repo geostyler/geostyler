@@ -329,14 +329,17 @@ const fr_FR: GeoStylerLocale = {
     valuesMapTypeLabel: 'Valeurs'
   },
   SymbolizerEditorWindow: {
-    symbolizersEditor: 'Éditeur de symbolisation'
+    symbolizersEditor: 'Éditeur de symbolisation',
+    cancelButtonLabel: 'Annuler',
+    saveButtonLabel: 'Enregistrer'
   },
   FilterOverview: {
     filterTitle: 'Filters'
   },
   FilterEditorWindow: {
-    filterEditor: 'Éditeur de filtre'
-  },
+    filterEditor: 'Éditeur de filtre',
+    cancelButtonLabel: 'Annuler',
+    saveButtonLabel: 'Enregistrer'  },
   MultiEditor: {
     add: 'Ajouter',
     remove: 'Supprimer'

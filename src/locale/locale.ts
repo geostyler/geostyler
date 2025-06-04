@@ -288,12 +288,16 @@ export default interface GeoStylerLocale {
   };
   SymbolizerEditorWindow: {
     symbolizersEditor: string;
+    cancelButtonLabel: string;
+    saveButtonLabel: string;
   };
   FilterOverview: {
     filterTitle: string;
   };
   FilterEditorWindow: {
     filterEditor: string;
+    cancelButtonLabel: string;
+    saveButtonLabel: string;
   };
   MultiEditor: {
     add: string;
