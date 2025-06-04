@@ -483,14 +483,14 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     const overIndex = ruleRecords.findIndex((i) => i.key === over?.id);
 
     const previouslySelectedRowKeys =
-      antdTableProps.rowSelection.selectedRowKeys.map(
+      antdTableProps?.rowSelection?.selectedRowKeys?.map(
         (k) => uniqueIds.current[k as number]
       );
 
     uniqueIds.current = arrayMove(uniqueIds.current, activeIndex, overIndex);
     onRulesChange(arrayMove(rules, activeIndex, overIndex));
 
-    if (!antdTableProps.rowSelection || antdTableProps.rowSelection.selectedRowKeys.length === 0) { return; }
+    if (!antdTableProps.rowSelection || antdTableProps.rowSelection.selectedRowKeys?.length === 0) { return; }
     // if the user of the RuleTable controls the selection via input, we need to update the selection by
     // changing the selected indices to their respective indices after reordering.
     // this will ensure that the same items remain selected, instead of the items at the same indices.
