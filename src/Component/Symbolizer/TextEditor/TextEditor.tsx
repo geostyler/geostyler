@@ -310,6 +310,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.opacityLabel}
+            extra={locale.opacityExtra}
             {...getFormItemSupportProps('opacity')}
           >
             <OpacityField
@@ -340,6 +341,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.offsetXLabel}
+            extra={locale.sizeExtra}
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField
@@ -355,6 +357,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.offsetYLabel}
+            extra={locale.sizeExtra}
             {...getFormItemSupportProps('offset')}
           >
             <OffsetField
@@ -370,6 +373,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.rotateLabel}
+            extra={locale.rotateExtra}
             {...getFormItemSupportProps('rotate')}
           >
             <RotateField
@@ -400,6 +404,7 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
           <Form.Item
             {...itemConfig}
             label={locale.haloWidthLabel}
+            extra={locale.sizeExtra}
             {...getFormItemSupportProps('haloWidth')}
           >
             <WidthField

@@ -230,6 +230,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.fillOpacityLabel}
+              extra={locale.opacityExtra}
               {...getFormItemSupportProps('fillOpacity')}
             >
               <OpacityField
@@ -245,6 +246,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.opacityLabel}
+              extra={locale.opacityExtra}
               {...getFormItemSupportProps('opacity')}
             >
               <OpacityField
@@ -260,6 +262,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.outlineOpacityLabel}
+              extra={locale.opacityExtra}
               {...getFormItemSupportProps('outlineOpacity')}
             >
               <OpacityField
@@ -290,6 +293,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.outlineWidthLabel}
+              extra={locale.outlineWidthExtra}
               {...getFormItemSupportProps('outlineWidth')}
             >
               <WidthField
@@ -305,6 +309,7 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.outlineDasharrayLabel}
+              extra={locale.outlineDasharrayExtra}
               {...getFormItemSupportProps('outlineDasharray')}
             >
               <LineDashField

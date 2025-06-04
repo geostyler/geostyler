@@ -19,7 +19,9 @@ export default interface GeoStylerLocale {
   BulkEditor: {
     colorLabel: string;
     radiusLabel: string;
+    radiusExtra: string;
     opacityLabel: string;
+    opacityExtra: string;
     symbolLabel: string;
     imageFieldLabel: string;
   };
@@ -106,9 +108,12 @@ export default interface GeoStylerLocale {
     fillOpacityLabel: string;
     offsetXLabel: string;
     offsetYLabel: string;
+    sizeExtra: string;
     opacityLabel: string;
+    opacityExtra: string;
     radiusLabel: string;
     rotateLabel: string;
+    rotateExtra: string;
     strokeColorLabel: string;
     strokeOpacityLabel: string;
     strokeWidthLabel: string;
@@ -116,11 +121,14 @@ export default interface GeoStylerLocale {
   FillEditor: {
     opacityLabel: string;
     fillOpacityLabel: string;
+    opacityExtra: string;
     outlineOpacityLabel: string;
     fillColorLabel: string;
     outlineColorLabel: string;
     outlineWidthLabel: string;
+    outlineWidthExtra: string;
     outlineDasharrayLabel: string;
+    outlineDasharrayExtra: string;
     graphicFillTypeLabel: string;
     visibilityLabel: string;
     generalSectionLabel: string;
@@ -133,16 +141,22 @@ export default interface GeoStylerLocale {
     offsetXLabel: string;
     offsetYLabel: string;
     opacityLabel: string;
+    opacityExtra: string;
     rotateLabel: string;
+    rotateExtra: string;
     sizeLabel: string;
+    sizeExtra: string;
     iconSpriteTooltipLabel: string;
     visibilityLabel: string;
   };
   LineEditor: {
     colorLabel: string;
     widthLabel: string;
+    sizeExtra: string;
     opacityLabel: string;
+    opacityExtra: string;
     dashLabel: string;
+    dashExtra: string;
     dashOffsetLabel: string;
     perpendicularOffsetLabel: string;
     capLabel: string;
@@ -162,12 +176,15 @@ export default interface GeoStylerLocale {
     fontLabel: string;
     templateFieldLabel: string;
     opacityLabel: string;
+    opacityExtra: string;
     colorLabel: string;
     sizeLabel: string;
     offsetXLabel: string;
     offsetYLabel: string;
+    sizeExtra: string;
     attributeComboPlaceholder: string;
     rotateLabel: string;
+    rotateExtra: string;
     haloColorLabel: string;
     haloWidthLabel: string;
     attributeNotFound: string;
@@ -179,15 +196,19 @@ export default interface GeoStylerLocale {
     haloColorLabel: string;
     haloWidthLabel: string;
     opacityLabel: string;
+    opacityExtra: string;
     colorLabel: string;
     sizeLabel: string;
     offsetXLabel: string;
     offsetYLabel: string;
+    sizeExtra: string;
     attributeComboPlaceholder: string;
     rotateLabel: string;
+    rotateExtra: string;
   };
   RasterEditor: {
     opacityLabel: string;
+    opacityExtra: string;
     hueRotateLabel: string;
     brightnessMinLabel: string;
     brightnessMaxLabel: string;

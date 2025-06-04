@@ -101,6 +101,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
       <Form.Item
         {...itemConfig}
         label={locale.radiusLabel}
+        extra={locale.radiusExtra}
       >
         <RadiusField
           value={radius}
@@ -110,6 +111,7 @@ export const BulkEditor: React.FC<BulkEditorProps> = ({
       <Form.Item
         {...itemConfig}
         label={locale.opacityLabel}
+        extra={locale.opacityExtra}
       >
         <OpacityField
           value={opacity}

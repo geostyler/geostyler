@@ -216,6 +216,7 @@ export const RasterEditor: React.FC<RasterEditorProps> = (props) => {
                 <Form.Item
                   {...itemConfig}
                   label={locale.opacityLabel}
+                  extra={locale.opacityExtra}
                   {...getFormItemSupportProps('opacity')}
                 >
                   {

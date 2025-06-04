@@ -263,6 +263,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.widthLabel}
+              extra={locale.sizeExtra}
               {...getFormItemSupportProps('width')}
             >
               <WidthField
@@ -278,6 +279,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.perpendicularOffsetLabel}
+              extra={locale.sizeExtra}
               {...getFormItemSupportProps('perpendicularOffset')}
             >
               <OffsetField
@@ -293,6 +295,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.opacityLabel}
+              extra={locale.opacityExtra}
               {...getFormItemSupportProps('opacity')}
             >
               <OpacityField
@@ -308,6 +311,7 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
             <Form.Item
               {...itemConfig}
               label={locale.dashLabel}
+              extra={locale.dashExtra}
               {...getFormItemSupportProps('dasharray')}
             >
               <LineDashField
