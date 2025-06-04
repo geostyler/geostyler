@@ -63,7 +63,7 @@ import {
   CopyOutlined,
   CloseOutlined,
   HolderOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 import { Renderer } from '../Renderer/Renderer/Renderer';
 import {
   useGeoStylerComposition,
