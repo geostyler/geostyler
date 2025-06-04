@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { PropsWithChildren, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { CqlParser } from 'geostyler-cql-parser';
 
 import _get from 'lodash/get';
@@ -62,7 +62,6 @@ import {
   EditOutlined,
   CopyOutlined,
   CloseOutlined,
-  HolderOutlined,
 } from '@ant-design/icons';
 import { Renderer } from '../Renderer/Renderer/Renderer';
 import {
@@ -73,8 +72,8 @@ import {
 import { RuleComposableProps } from '../RuleCard/RuleCard';
 import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';
-import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { DraggableRow } from '../DraggableTableRow/DraggableTablerow';
 
 
 export interface RuleRecord extends GsRule {
@@ -513,7 +512,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     ...antdTableProps.rowSelection,
     selectedRowKeys: antdTableProps.rowSelection.selectedRowKeys.map(k => uniqueIds.current[k as number]),
     onChange: onChangeSelection
-  } : {};
+  } : undefined;
 
   return (
     <div className="gs-rule-table">
@@ -539,7 +538,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
               }
             }}
             {...antdTableProps}
-            {...{ rowSelection: { ...rowSelection } }}
+            rowSelection={rowSelection}
           />
         </SortableContext>
       </DndContext>
@@ -559,39 +558,3 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   );
 };
 
-const DraggableRow: React.FC<{
-  'data-row-key': string;
-  children: ReactNode;
-}> = ({ 'data-row-key': id, children, ...props }) => {
-  const {
-    attributes,
-    listeners,
-    transform,
-    transition,
-    setNodeRef,
-    setActivatorNodeRef,
-    isDragging,
-  } = useSortable({ id });
-
-  const style: React.CSSProperties = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    backgroundColor: 'white',
-
-    // the currently dragged element must be visually above the other ones
-    ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
-  };
-
-  return (
-    <tr {...props} key={id} ref={setNodeRef} {...attributes} style={style}>
-      <td
-        ref={setActivatorNodeRef}
-        {...listeners}
-        style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
-      >
-        <HolderOutlined />
-      </td>
-      {children}
-    </tr>
-  );
-};
