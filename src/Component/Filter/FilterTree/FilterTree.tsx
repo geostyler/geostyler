@@ -67,7 +67,7 @@ import FilterUtil from '../../../Util/FilterUtil';
 
 import { DataNode } from 'rc-tree/lib/interface';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
-import { isBoolean } from 'lodash';
+import _isBoolean from 'lodash-es/isBoolean.js';
 
 export interface FilterTreeProps {
   /** The filter to edit */
@@ -101,7 +101,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
     }
 
     let newFilter = structuredClone(rootFilter);
-    if (position === '' || isGeoStylerBooleanFunction(newFilter) || isBoolean(newFilter)) {
+    if (position === '' || isGeoStylerBooleanFunction(newFilter) || _isBoolean(newFilter)) {
       newFilter = filter;
     } else {
       _set(newFilter, position, filter);
