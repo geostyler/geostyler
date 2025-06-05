@@ -27,15 +27,6 @@
  */
 
 import {
-  Filter,
-  ComparisonFilter,
-  Rule,
-  CombinationFilter,
-  NegationFilter,
-  CombinationOperator
-} from 'geostyler-style';
-
-import {
   isCombinationFilter,
   isComparisonFilter,
   isNegationFilter,
@@ -43,8 +34,14 @@ import {
   isCombinationOperator,
   isNegationOperator,
   isFilter,
-  isGeoStylerBooleanFunction
-} from 'geostyler-style/dist/typeguards';
+  isGeoStylerBooleanFunction,
+  Filter,
+  ComparisonFilter,
+  Rule,
+  CombinationFilter,
+  NegationFilter,
+  CombinationOperator
+} from 'geostyler-style';
 
 import {
   VectorData

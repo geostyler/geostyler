@@ -47,22 +47,20 @@ import _get from 'lodash-es/get.js';
 import _set from 'lodash-es/set.js';
 import _isEqual from 'lodash-es/isEqual.js';
 
-import {
-  CombinationOperator,
-  Filter,
-} from 'geostyler-style';
-
 import './FilterTree.css';
 
 import { ComparisonFilter } from '../ComparisonFilter/ComparisonFilter';
 
 import {
+  CombinationOperator,
+  Filter,
   isCombinationFilter,
   isComparisonFilter,
   isGeoStylerBooleanFunction,
   isGeoStylerFunction,
   isNegationFilter
-} from 'geostyler-style/dist/typeguards';
+} from 'geostyler-style';
+
 import FilterUtil from '../../../Util/FilterUtil';
 
 import { DataNode } from 'rc-tree/lib/interface';
