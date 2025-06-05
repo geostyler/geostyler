@@ -62,6 +62,7 @@ import {
 import schema from 'geostyler-style/schema.json';
 
 import _isEqual from 'lodash-es/isEqual.js';
+import _isString from 'lodash-es/isString.js';
 
 import { SldStyleParser } from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
@@ -70,7 +71,6 @@ import ParserFeedback from '../ParserFeedback/ParserFeedback';
 import { QGISStyleParser } from 'geostyler-qgis-parser';
 import { MapboxStyleParser, MbStyle} from 'geostyler-mapbox-parser';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
-import { isString } from 'lodash';
 
 export interface CodeEditorProps {
   /** Delay in ms until onStyleChange will be called */
@@ -177,7 +177,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   useEffect(() => {
     if (writeStyleResult?.output) {
       const fileFormat = getFileFormat(activeParser);
-      if (isString(writeStyleResult.output)) {
+      if (_isString(writeStyleResult.output)) {
         setValue(writeStyleResult.output);
       } else if (fileFormat.language === 'json') {
         setValue(JSON.stringify(writeStyleResult.output, null, 2));

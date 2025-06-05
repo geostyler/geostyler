@@ -51,10 +51,10 @@ import GeometryUtil from '../../Util/GeometryUtil';
 
 import './PreviewMap.css';
 import { StandardLonghandProperties } from 'csstype';
-import { isString } from 'lodash';
 import { useGeoStylerData, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { Alert } from 'antd';
 
+import _isString from 'lodash-es/isString';
 export interface PreviewMapProps {
   /** The projection of the data to visualize */
   dataProjection?: ProjectionLike;
@@ -164,7 +164,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
       let proj: Projection = getProjection(dataProjection);
 
       setErrorMsg(undefined);
-      if (!proj && isString(dataProjection)) {
+      if (!proj && _isString(dataProjection)) {
         try {
           proj = await fetchInfo(dataProjection);
         } catch {

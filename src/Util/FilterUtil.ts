@@ -52,8 +52,8 @@ import {
 
 import _get from 'lodash-es/get.js';
 import _set from 'lodash-es/set.js';
+import _isBoolean from 'lodash-es/isBoolean.js';
 import _uniqueId from 'lodash-es/uniqueId.js';
-import { isBoolean } from 'lodash';
 import FunctionUtil from './FunctionUtil';
 import { Feature } from 'geojson';
 
@@ -139,7 +139,7 @@ class FilterUtil {
    * Returns true if it matches, otherwise returns false.
    */
   static featureMatchesFilter = (filter: Filter | CombinationOperator, feature: Feature): boolean => {
-    if (isBoolean(filter)) {
+    if (_isBoolean(filter)) {
       return filter;
     }
     if (isGeoStylerBooleanFunction(filter)) {
