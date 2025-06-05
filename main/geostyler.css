@@ -2672,6 +2672,10 @@ mark {
   .ant-modal-body {
     padding-top: 15px;
   }
+  
+  .gs-renderer {
+    margin-bottom: 15px;
+  }
 }
 
 /* Released under the BSD 2-Clause License
