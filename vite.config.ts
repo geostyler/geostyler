@@ -1,26 +1,41 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import dts from 'vite-plugin-dts';
 
-// https://vitejs.dev/config/
+import pkg from './package.json';
+
+const externalDeps = [
+  ...Object.keys(pkg.dependencies || {}),
+  ...Object.keys(pkg.peerDependencies || {}),
+];
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true,
+      outDir: 'dist'
+    }),
+  ],
   build: {
-    manifest: true,
     lib: {
-      entry: './src/index.ts',
+      entry: 'src/index.ts',
       name: 'GeoStyler',
-      formats: ['iife'],
-      fileName: 'geostyler',
+      fileName: 'index',
+      formats: ['es'],
     },
-    sourcemap: true,
+    rollupOptions: {
+      external: (id) => {
+        return externalDeps.some(
+          dep => id === dep || id.startsWith(`${dep}/`)
+        );
+      },
+      output: {
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+        entryFileNames: '[name].js',
+      },
+    },
+    cssCodeSplit: false,
   },
-  define: {
-    appName: 'GeoStyler'
-  },
-  server: {
-    host: '0.0.0.0'
-  },
-  resolve: {
-    mainFields: ['module', 'main', 'jsnext:main', 'jsnext']
-  }
 });

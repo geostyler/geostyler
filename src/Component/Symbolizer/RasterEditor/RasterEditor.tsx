@@ -46,8 +46,8 @@ import { ColorMapEditor } from '../ColorMapEditor/ColorMapEditor';
 
 import './RasterEditor.css';
 
-import _cloneDeep from 'lodash/cloneDeep';
-import _get from 'lodash/get';
+import _cloneDeep from 'lodash-es/cloneDeep.js';
+import _get from 'lodash-es/get.js';
 
 import {
   InputConfig,

@@ -34,7 +34,7 @@ import {OffsetField} from '../OffsetField/OffsetField';
 import { Input, Form } from 'antd';
 import {OpacityField} from '../OpacityField/OpacityField';
 
-import _get from 'lodash/get';
+import _get from 'lodash-es/get.js';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ColorMapEntryFieldProps {

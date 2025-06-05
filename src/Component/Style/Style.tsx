@@ -28,8 +28,8 @@
 
 import React, { useEffect, useState } from 'react';
 
-import _get from 'lodash/get';
-import _cloneDeep from 'lodash/cloneDeep';
+import _get from 'lodash-es/get.js';
+import _cloneDeep from 'lodash-es/cloneDeep.js';
 
 import {
   Button,

@@ -37,8 +37,8 @@ import { Form } from 'antd';
 import { ContrastEnhancementField } from '../ContrastEnhancementField/ContrastEnhancementField';
 import { GammaField, GammaFieldProps } from '../GammaField/GammaField';
 
-import _get from 'lodash/get';
-import _cloneDeep from 'lodash/cloneDeep';
+import _get from 'lodash-es/get.js';
+import _cloneDeep from 'lodash-es/cloneDeep.js';
 import {
   InputConfig,
   useGeoStylerComposition,
