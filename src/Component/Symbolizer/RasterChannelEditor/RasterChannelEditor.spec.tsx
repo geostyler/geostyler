@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -28,14 +30,14 @@
 import React from 'react';
 import { RasterChannelEditor, RasterChannelEditorProps } from './RasterChannelEditor';
 import { render } from '@testing-library/react';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('RasterChannelEditor', () => {
   const props: RasterChannelEditorProps = {
     channelSelection: {
       grayChannel: {}
     },
-    onChange: vi.fn()
+    onChange: mock(() => {})
   };
 
   it('is defined', () => {

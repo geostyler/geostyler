@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -29,7 +31,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { LineDashField } from './LineDashField';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('OffsetField', () => {
 
@@ -46,7 +48,7 @@ describe('OffsetField', () => {
 
   describe('InputFields', () => {
     it('change handlers call the onChange prop method correctly', async() => {
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       const field = render(<LineDashField value={dashArray} onChange={onChangeMock} />);
       const inputs = await field.findAllByRole('spinbutton');
 
@@ -62,7 +64,7 @@ describe('OffsetField', () => {
 
   describe('onAddDash', () => {
     it('calls a passed onChange function with the new dashArray', async() => {
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       const field = render(<LineDashField value={dashArray} onChange={onChangeMock} />);
       const addButton = field.container.querySelector('button.gs-add-dash-button');
       fireEvent.click(addButton as Element);
@@ -73,7 +75,7 @@ describe('OffsetField', () => {
 
   describe('onRemoveDash', () => {
     it('calls a passed onChange function with the new dashArray', async() => {
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       const field = render(<LineDashField value={dashArray} onChange={onChangeMock} />);
       const removeButton = field.container.querySelector('button.gs-rm-dash-button');
       fireEvent.click(removeButton as Element);

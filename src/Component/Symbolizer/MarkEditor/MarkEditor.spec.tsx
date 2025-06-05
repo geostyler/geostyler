@@ -1,3 +1,5 @@
+// / <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,11 +32,9 @@ import { MarkEditor, MarkEditorProps } from './MarkEditor';
 import { render, act, fireEvent } from '@testing-library/react';
 import { MarkSymbolizer } from 'geostyler-style';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
-import { vi } from 'vitest';
+import { mock } from 'bun:test';
 
-vi.mock('antd', async (original) => {
-  const antd = await original();
-
+mock.module('antd', () => {
   const Select = ({ children, onChange }: {children: React.ReactElement; onChange: (value: any) => void}) => {
     return <select onChange={e => onChange(e.target.value)}>{children}</select>;
   };
@@ -43,9 +43,18 @@ vi.mock('antd', async (original) => {
     return <option {...otherProps}>{children}</option>;
   };
 
+  const InputNumber = ({ onChange }: { onChange: (value: any) => void }) => {
+    return <input type="number" onChange={e => onChange(parseFloat(e.target.value))} />;
+  };
+
+  const Input = ({ onChange }: { onChange: (value: any) => void }) => {
+    return <input onChange={e => onChange(e.target.value)} />;
+  };
+
   return {
-    ...antd,
     Select,
+    InputNumber,
+    Input
   };
 });
 
@@ -54,7 +63,7 @@ describe('MarkEditor', () => {
   const dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
   const props: MarkEditorProps = {
     symbolizer:dummySymbolizer,
-    onSymbolizerChange: vi.fn(),
+    onSymbolizerChange: mock(() => {}),
   };
 
   it('is defined', () => {

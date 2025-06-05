@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,7 +32,7 @@ import React from 'react';
 import { act, render, fireEvent } from '@testing-library/react';
 import { ChannelField } from './ChannelField';
 import { ContrastEnhancement } from 'geostyler-style';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('ChannelField', () => {
 
@@ -46,7 +48,7 @@ describe('ChannelField', () => {
   describe('onSourceChannelNameChange', () => {
     it('calls onChange', async() => {
       const dummySourceChannelName = 'dummyChannel';
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       const field = render(<ChannelField onChange={onChangeMock} />);
       const input = await field.findByPlaceholderText('Name of band');
       fireEvent.change(input, { target: { value: dummySourceChannelName }});
@@ -57,7 +59,7 @@ describe('ChannelField', () => {
   describe('onContrastEnhancementChange', () => {
     it('calls onChange', async() => {
       const dummyCeType: ContrastEnhancement['enhancementType'] = 'histogram';
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       const field = render(<ChannelField onChange={onChangeMock} />);
       const input = await field.findByRole('combobox');
       await act(async() => {
@@ -73,7 +75,7 @@ describe('ChannelField', () => {
   describe('onGammaChange', () => {
     it('calls onChange', async() => {
       const dummyGamma = 0.5;
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       const field = render(<ChannelField onChange={onChangeMock} />);
       const input = await field.findByRole('spinbutton');
       fireEvent.change(input, { target: { value: dummyGamma }});

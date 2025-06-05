@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,7 +32,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { ColorMapEntryField } from './ColorMapEntryField';
 
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('ColorMapEntryField', () => {
 
@@ -45,7 +47,7 @@ describe('ColorMapEntryField', () => {
 
   describe('onQuantityChange', () => {
     it('calls onChange', async() => {
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
       const input = document.querySelectorAll('input')[0];
@@ -56,7 +58,7 @@ describe('ColorMapEntryField', () => {
 
   describe('onLabelChange', () => {
     it('calls onChange', async() => {
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
       const input = document.querySelectorAll('input')[1];
@@ -67,7 +69,7 @@ describe('ColorMapEntryField', () => {
 
   describe('onOpacityChange', () => {
     it('calls onChange', async() => {
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       render(<ColorMapEntryField onChange={onChangeMock} />);
       // TODO: find a better selector
       const input = document.querySelectorAll('input')[2];

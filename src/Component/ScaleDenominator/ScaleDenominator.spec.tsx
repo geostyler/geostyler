@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -28,13 +30,13 @@
 import React from 'react';
 import { act, render, fireEvent } from '@testing-library/react';
 import { ScaleDenominator } from './ScaleDenominator';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('ScaleDenominator', () => {
 
   let onChangeDummy;
   beforeEach(() => {
-    onChangeDummy = vi.fn();
+    onChangeDummy = mock(() => {});
   });
 
   it('is defined', () => {

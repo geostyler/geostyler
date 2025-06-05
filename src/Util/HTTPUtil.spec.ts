@@ -28,7 +28,7 @@
 
 import HTTPUtil, { PostOptions } from './HTTPUtil';
 
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('HTTPUtil', () => {
 
@@ -37,7 +37,7 @@ describe('HTTPUtil', () => {
       expect(HTTPUtil.post).toBeDefined();
     });
     it('calls fetch with the expect params', async() => {
-      global.fetch = vi.fn();
+      global.fetch = mock(() => {});
       const headers = new Headers();
       headers.set('Content-Type', 'application/x-www-form-urlencoded');
       headers.set('superheader', 'header-abc');

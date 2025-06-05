@@ -21,7 +21,10 @@
     "strictNullChecks": false,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": [
+      "bun-types"
+    ]
   },
   "exclude": [
     "node_modules",

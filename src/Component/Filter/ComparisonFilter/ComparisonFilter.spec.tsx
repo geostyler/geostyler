@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,7 +32,7 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { ComparisonFilter } from './ComparisonFilter';
 import { ComparisonFilter as GsComparisionFilter} from 'geostyler-style';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('ComparisonFilter', () => {
 
@@ -46,7 +48,7 @@ describe('ComparisonFilter', () => {
   describe('#onAttributeChange', () => {
     it('calls onFilterChange', () => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
-      const onFilterChangeDummy = vi.fn();
+      const onFilterChangeDummy = mock(() => {});
       const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
       const attribute = 'bar';
       const input = field.container.querySelector('.gs-attribute-combo input');
@@ -58,7 +60,7 @@ describe('ComparisonFilter', () => {
   describe('#onOperatorChange', () => {
     it('calls onFilterChange is available', async() => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
-      const onFilterChangeDummy = vi.fn();
+      const onFilterChangeDummy = mock(() => {});
       const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
       const operator = '!=';
       const input = field.container.querySelector('.gs-operator-combo input');
@@ -75,7 +77,7 @@ describe('ComparisonFilter', () => {
   describe('#onValueChange', () => {
     it('calls onFilterChange is available', async() => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
-      const onFilterChangeDummy = vi.fn();
+      const onFilterChangeDummy = mock(() => {});
       const field = render(<ComparisonFilter filter={filter} onFilterChange={onFilterChangeDummy} />);
       const value = 'Hilde';
       const input = field.container.querySelector('.gs-text-filter-field input');
@@ -93,9 +95,9 @@ describe('ComparisonFilter', () => {
 
     it('calls validator functions if passed as props', () => {
       const filter: GsComparisionFilter = ['==', 'foo', 'Peter'];
-      const attributeValidatorDummy = vi.fn();
-      const operatorValidatorDummy = vi.fn();
-      const valueValidatorDummy = vi.fn();
+      const attributeValidatorDummy = mock(() => {});
+      const operatorValidatorDummy = mock(() => {});
+      const valueValidatorDummy = mock(() => {});
       valueValidatorDummy.mockReturnValue({
         isValid: false,
         errorMsg: 'MOCK MESSAGE'

@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -32,14 +34,14 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconSymbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
 
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('IconEditor', () => {
 
   const dummySymbolizer: IconSymbolizer = SymbolizerUtil.generateSymbolizer('Icon') as IconSymbolizer;
   const props: IconEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: vi.fn()
+    onSymbolizerChange: mock(() => {})
   };
 
   it('is defined', () => {

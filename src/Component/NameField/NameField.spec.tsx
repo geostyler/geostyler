@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -29,7 +31,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { NameField } from './NameField';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('NameField', () => {
 
@@ -44,7 +46,7 @@ describe('NameField', () => {
 
   it('calls onValueChange of props', () => {
     const value = 'Test';
-    const onChangeMock = vi.fn();
+    const onChangeMock = mock(() => {});
     render(<NameField onChange={onChangeMock} />);
     const textInput = document.querySelector('.gs-namefield.ant-input');
     fireEvent.change(textInput as Element, { target: { value } });

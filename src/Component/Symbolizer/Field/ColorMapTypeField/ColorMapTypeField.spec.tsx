@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -30,7 +32,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { ColorMapTypeField } from './ColorMapTypeField';
 import defaultLocale from '../../../../locale/en_US';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('ColorMapTypeField', () => {
 
@@ -57,7 +59,7 @@ describe('ColorMapTypeField', () => {
 
   describe('onColorMapTypeChange', () => {
     it('calls onChange', async() => {
-      const onChangeMock = vi.fn();
+      const onChangeMock = mock(() => {});
       const field = render(<ColorMapTypeField onChange={onChangeMock} />);
       const rampInput = await field.findByLabelText(defaultLocale.ColorMapTypeField.rampMapTypeLabel);
       const intervalsInput = await field.findByLabelText(defaultLocale.ColorMapTypeField.intervalsMapTypeLabel);

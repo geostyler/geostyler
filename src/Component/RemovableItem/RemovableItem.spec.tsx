@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2021-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -31,14 +33,12 @@ import { fireEvent, render } from '@testing-library/react';
 import { RemovableItem } from './RemovableItem';
 import { act } from 'react-dom/test-utils';
 
-import { vi } from 'vitest';
-
 describe('RemovableItem', () => {
 
   let onRemoveClickDummy;
 
   beforeEach(() => {
-    onRemoveClickDummy = vi.fn();
+    onRemoveClickDummy = mock(() => {});
   });
 
   it('is defined', () => {

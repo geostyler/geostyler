@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -31,14 +33,14 @@ import { WellKnownNameEditor, WellKnownNameEditorProps } from './WellKnownNameEd
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 import { MarkSymbolizer } from 'geostyler-style';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('WellKnownNameEditor', () => {
 
   const dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
   const props: WellKnownNameEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: vi.fn()
+    onSymbolizerChange: mock(() => {})
   };
 
   it('is defined', () => {

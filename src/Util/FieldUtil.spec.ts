@@ -28,14 +28,14 @@
 
 import FieldUtil from './FieldUtil';
 
-import { vi } from 'vitest';
+import { mock } from 'bun:test';
 
 describe('FieldUtil', () => {
 
-  const listener = vi.fn();
+  const listener = mock(() => {});
 
   afterEach(() => {
-    vi.clearAllMocks();
+    listener.mockClear();
   });
 
   describe('nullToUndefined', () => {

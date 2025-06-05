@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -31,14 +33,14 @@ import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 
 import { FillSymbolizer } from 'geostyler-style';
 import { render, act, fireEvent } from '@testing-library/react';
-import { vi } from 'vitest';
+import { mock } from "bun:test";
 
 describe('FillEditor', () => {
 
   const dummySymbolizer: FillSymbolizer = SymbolizerUtil.generateSymbolizer('Fill') as FillSymbolizer;
   const props: FillEditorProps = {
     symbolizer: dummySymbolizer,
-    onSymbolizerChange: vi.fn()
+    onSymbolizerChange: mock(() => {})
   };
 
   it('is defined', () => {
