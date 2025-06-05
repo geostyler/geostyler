@@ -366,6 +366,7 @@ const fr_FR: GeoStylerLocale = {
     filterColumnTitle: 'Filtre',
     minScaleColumnTitle: 'Échelle min.',
     maxScaleColumnTitle: 'Échelle max.',
+    scalesColumnTitle: 'Échelles',
     amountColumnTitle: 'Nombre d\'objets concernés',
     duplicatesColumnTitle: 'Doublons',
     actionsColumnTitle: 'Actions',

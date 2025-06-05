@@ -37,7 +37,6 @@ import _cloneDeep from 'lodash-es/cloneDeep.js';
 import {
   Table,
   Input,
-  InputNumber,
   Popover,
   Tooltip,
   Button,
@@ -47,7 +46,8 @@ import {
 import {
   Rule as GsRule,
   Symbolizer as GsSymbolizer,
-  Filter as GsFilter
+  Filter as GsFilter,
+  ScaleDenominator
 } from 'geostyler-style';
 
 import './RuleTable.css';
@@ -75,6 +75,7 @@ import { useDragDropSensors } from '../../hook/UseDragDropSensors';
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { DraggableRow } from '../DraggableTableRow/DraggableTablerow';
 
+import { InputScaleDenominator } from '../ScaleDenominator/InputScaleDenominator';
 
 export interface RuleRecord extends GsRule {
   key: string;
@@ -105,6 +106,7 @@ export type RuleTableProps = RuleTableInternalProps & RuleComposableProps & Tabl
 export const RuleTable: React.FC<RuleTableProps> = (props) => {
 
   const data = useGeoStylerData();
+  const scaleDenominators  = data?.scaleDenominators;
 
   const composition = useGeoStylerComposition('Rule');
 
@@ -116,8 +118,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     amountField,
     duplicateField,
     filterField,
-    maxScaleField,
-    minScaleField,
+    scalesField,
     nameField,
     /** show actions column by default if disableMultiEdit is true */
     actionsField = {
@@ -275,42 +276,19 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     setFilterEditorVisible(true);
   };
 
-  // TODO: Refactor to stand alone component
-  const minScaleRenderer = (text: string, record: RuleRecord, index: number) => {
-    const minScaleDenominator = _get(record, 'scaleDenominator.min');
-    const value = minScaleDenominator ? parseFloat(minScaleDenominator as any) : undefined;
-    return (
-      <InputNumber
-        className="scale-denominator min-scale-denominator"
-        name="min-scale-renderer"
-        value={value}
-        min={0}
-        formatter={val => val ? `1:${val}` : ''}
-        parser={(val: string) => parseFloat(val.replace('1:', ''))}
-        onChange={(newValue: number) => {
-          setValueForRule(index, 'scaleDenominator.min', newValue);
+  const scaleRenderer = (text: string, record: RuleRecord, index: number) => {
+    const scaleDenominator = _get(record, 'scaleDenominator');
+    return scaleDenominators ?
+      <SelectScaleDenominator
+        scaleDenominators={scaleDenominators}
+        scaleDenominator={scaleDenominator}
+        onChange={(newValue: ScaleDenominator) => {
+          setValueForRule(index, 'scaleDenominator', newValue);
         }}
-      />
-    );
-  };
-
-  // TODO: Refactor to stand alone component
-  const maxScaleRenderer = (text: string, record: RuleRecord, index: number) => {
-    const maxScaleDenominator = _get(record, 'scaleDenominator.max');
-    const value = maxScaleDenominator ? parseFloat(maxScaleDenominator as any) : undefined;
-    return (
-      <InputNumber
-        className="scale-denominator max-scale-denominator"
-        name="max-scale-renderer"
-        value={value}
-        min={0}
-        formatter={val => val ? `1:${val}` : ''}
-        parser={(val: string) => parseFloat(val.replace('1:', ''))}
-        onChange={(newValue: number) => {
-          setValueForRule(index, 'scaleDenominator.max', newValue);
-        }}
-      />
-    );
+      /> :
+      <InputScaleDenominator scaleDenominator={scaleDenominator} onChange={(newValue: ScaleDenominator) => {
+        setValueForRule(index, 'scaleDenominator', newValue);
+      }} />;
   };
 
   // TODO: Refactor to stand alone component
@@ -429,19 +407,11 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   }
 
-  if (!(minScaleField?.visibility === false)) {
+  if (!(scalesField?.visibility === false)) {
     columns.push({
-      title: locale.minScaleColumnTitle,
-      dataIndex: 'minScale',
-      render: minScaleRenderer
-    });
-  }
-
-  if (!(maxScaleField?.visibility === false)) {
-    columns.push({
-      title: locale.maxScaleColumnTitle,
-      dataIndex: 'maxScale',
-      render: maxScaleRenderer
+      title: locale.scalesColumnTitle,
+      dataIndex: 'scaleDenominator',
+      render: scaleRenderer
     });
   }
 
