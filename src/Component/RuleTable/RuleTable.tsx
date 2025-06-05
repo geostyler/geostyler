@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { CqlParser } from 'geostyler-cql-parser';
 
 import _get from 'lodash/get';
@@ -47,7 +47,7 @@ import {
 import {
   Rule as GsRule,
   Symbolizer as GsSymbolizer,
-  Filter as GsFilter,
+  Filter as GsFilter
 } from 'geostyler-style';
 
 import './RuleTable.css';
@@ -56,8 +56,13 @@ import { SymbolizerEditorWindow } from '../Symbolizer/SymbolizerEditorWindow/Sym
 import { ColumnProps, TableProps } from 'antd/lib/table';
 import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
-import { RuleReorderButtons } from './RuleReorderButtons/RuleReorderButtons';
-import { BgColorsOutlined, BlockOutlined, EditOutlined, CopyOutlined, CloseOutlined } from '@ant-design/icons';
+import {
+  BgColorsOutlined,
+  BlockOutlined,
+  EditOutlined,
+  CopyOutlined,
+  CloseOutlined,
+} from '@ant-design/icons';
 import { Renderer } from '../Renderer/Renderer/Renderer';
 import {
   useGeoStylerComposition,
@@ -65,9 +70,14 @@ import {
   useGeoStylerLocale
 } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
+import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core';
+import { useDragDropSensors } from '../../hook/UseDragDropSensors';
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { DraggableRow } from '../DraggableTableRow/DraggableTablerow';
+
 
 export interface RuleRecord extends GsRule {
-  key: number;
+  key: string;
   amount?: number;
   duplicates?: number;
   maxScale?: number;
@@ -85,8 +95,8 @@ export interface RuleTableInternalProps {
   onRulesChange?: (rules: GsRule[]) => void;
   /** The callback function that is triggered when the selection changes */
   onSelectionChange?: (selectedRowKeys: string[], selectedRows: any[]) => void;
-  onCloneRule?: (rule: RuleRecord) => void;
-  onRemoveRule?: (rule: RuleRecord) => void;
+  onCloneRule?: (index: number) => void;
+  onRemoveRule?: (index: number) => void;
   /** Properties that will be passed to the Comparison Filters */
 }
 
@@ -96,7 +106,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
 
   const data = useGeoStylerData();
 
-  const composition = useGeoStylerComposition('Rule') as RuleComposableProps;
+  const composition = useGeoStylerComposition('Rule');
 
   // Reading the `Style` composition to get the `disableMultiEdit` property
   // and show `actionsField` column by default when true
@@ -131,6 +141,17 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   const [counts, setCounts] = useState<number[]>();
   const [duplicates, setDuplicates] = useState<number[]>();
 
+
+  const createUniqueIds = () => {
+    return rules.map<string>(() => crypto.randomUUID());
+  };
+
+  // these ids are used to keep track of the position of a row after a reorder per drag and drop happens,
+  // which then allows us to provide semantically correct React keys, which ensure correct behaviour for drag and drop
+  const uniqueIds = useRef(createUniqueIds());
+
+  const sensors = useDragDropSensors();
+
   /**
    * The Parser to read and write CQL Filter
    *
@@ -153,22 +174,27 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     setDuplicates(countsAndDuplicates?.duplicates);
   }, [rules, data]);
 
+
+  if (uniqueIds.current.length < rules.length) {
+    uniqueIds.current = createUniqueIds();
+  }
+
   const ruleRecords = rules?.map((rule: GsRule, index: number): RuleRecord => {
     return {
-      key: index,
-      ...rule
+      ...rule,
+      key: uniqueIds.current[index]
     };
   });
 
-  const onSymbolizerClick = (record: RuleRecord) => {
-    setRuleEditIndex(record.key);
+  const onSymbolizerClick = (index: number) => {
+    setRuleEditIndex(index);
     setSymbolizerEditorVisible(true);
     setFilterEditorVisible(false);
   };
 
-  const symbolizerRenderer = (text: string, record: RuleRecord) => {
+  const symbolizerRenderer = (text: string, record: RuleRecord, index: number) => {
     const onSymbolizerRendererClick = () => {
-      onSymbolizerClick(record);
+      onSymbolizerClick(index);
     };
 
     return (
@@ -187,7 +213,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   };
 
   // TODO: Refactor to stand alone component
-  const nameRenderer = (text: string, record: RuleRecord) => {
+  const nameRenderer = (text: string, record: RuleRecord, index: number) => {
     return (
       <Popover
         content={record.name}
@@ -198,7 +224,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
           name="name-renderer"
           onChange={(event) => {
             const target = event.target;
-            setValueForRule(record.key, 'name', target.value);
+            setValueForRule(index, 'name', target.value);
           }}
         />
       </Popover>
@@ -206,7 +232,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   };
 
   // TODO: Refactor to stand alone component
-  const filterRenderer = (text: string, record: RuleRecord) => {
+  const filterRenderer = (text: string, record: RuleRecord, index: number) => {
     const cql = cqlParser.write(record.filter) as string;
     let filterCell: React.ReactNode;
     const inputSearch = (
@@ -226,7 +252,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
         }}
         enterButton={<EditOutlined />}
         onSearch={() => {
-          onFilterEditClick(record.key);
+          onFilterEditClick(index);
         }}
       />);
     if (cql && cql.length > 0) {
@@ -250,7 +276,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   };
 
   // TODO: Refactor to stand alone component
-  const minScaleRenderer = (text: string, record: RuleRecord) => {
+  const minScaleRenderer = (text: string, record: RuleRecord, index: number) => {
     const minScaleDenominator = _get(record, 'scaleDenominator.min');
     const value = minScaleDenominator ? parseFloat(minScaleDenominator as any) : undefined;
     return (
@@ -262,14 +288,14 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
         formatter={val => val ? `1:${val}` : ''}
         parser={(val: string) => parseFloat(val.replace('1:', ''))}
         onChange={(newValue: number) => {
-          setValueForRule(record.key, 'scaleDenominator.min', newValue);
+          setValueForRule(index, 'scaleDenominator.min', newValue);
         }}
       />
     );
   };
 
   // TODO: Refactor to stand alone component
-  const maxScaleRenderer = (text: string, record: RuleRecord) => {
+  const maxScaleRenderer = (text: string, record: RuleRecord, index: number) => {
     const maxScaleDenominator = _get(record, 'scaleDenominator.max');
     const value = maxScaleDenominator ? parseFloat(maxScaleDenominator as any) : undefined;
     return (
@@ -281,19 +307,19 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
         formatter={val => val ? `1:${val}` : ''}
         parser={(val: string) => parseFloat(val.replace('1:', ''))}
         onChange={(newValue: number) => {
-          setValueForRule(record.key, 'scaleDenominator.max', newValue);
+          setValueForRule(index, 'scaleDenominator.max', newValue);
         }}
       />
     );
   };
 
   // TODO: Refactor to stand alone component
-  const amountRenderer = (text: string, record: RuleRecord) => {
+  const amountRenderer = (text: string, record: RuleRecord, index: number) => {
     let amount: (number | '-') = '-';
     const filter: GsFilter | undefined = record.filter;
     if (data && filter) {
       try {
-        amount = counts[record?.key] || 0;
+        amount = counts[index] || 0;
       } catch {
         amount = '-';
       }
@@ -308,11 +334,11 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   };
 
   // TODO: Refactor to stand alone component
-  const duplicatesRenderer = (text: string, record: RuleRecord) => {
+  const duplicatesRenderer = (text: string, record: RuleRecord, index: number) => {
     let calculatedDuplicates: (number | '-') = '-';
     if (data && rules) {
       try {
-        calculatedDuplicates = duplicates[record.key];
+        calculatedDuplicates = duplicates[index];
       } catch {
         calculatedDuplicates = '-';
       }
@@ -324,7 +350,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     );
   };
 
-  const actionsRenderer = (text: string, record: RuleRecord) => {
+  const actionsRenderer = (text: string, record: RuleRecord, index: number) => {
     return (
       <Space.Compact block>
         {!(actionsField.clone === false) &&
@@ -334,11 +360,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
             title={locale.actionCloneLabel}
             color="default"
             variant="text"
-            onClick={() => {
-              if (onCloneRule) {
-                onCloneRule(record);
-              }
-            }}
+            onClick={() => onCloneRule?.(index)}
           />
         }
         {!(actionsField.remove === false) &&
@@ -348,25 +370,11 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
             color="default"
             variant="text"
             title={locale.actionRemoveLabel}
-            onClick={() => {
-              if (onRemoveRule) {
-                onRemoveRule(record);
-              }
-            }}
+            onClick={() => onRemoveRule?.(index)}
             disabled={rules.length <= 1}
           />
         }
       </Space.Compact>
-    );
-  };
-
-  const ruleReorderRenderer = (record: RuleRecord) => {
-    return (
-      <RuleReorderButtons
-        ruleIndex={record.key}
-        rules={rules}
-        onRulesMove={onRulesChange}
-      />
     );
   };
 
@@ -394,20 +402,16 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     setFilterEditorVisible(false);
   };
 
-  const columns: ColumnProps<RuleRecord>[] = [{
-    dataIndex: '',
-    width: 70,
-    render: ruleReorderRenderer
-  },
-  {
-    title: (
-      <Tooltip title={locale.symbolizersColumnTitle}>
-        <BgColorsOutlined />
-      </Tooltip>
-    ),
-    dataIndex: 'symbolizers',
-    render: symbolizerRenderer
-  }];
+  const columns: ColumnProps<RuleRecord>[] = [
+    {
+      title: (
+        <Tooltip title={locale.symbolizersColumnTitle}>
+          <BgColorsOutlined />
+        </Tooltip>
+      ),
+      dataIndex: 'symbolizers',
+      render: symbolizerRenderer
+    }];
 
   if (!(nameField?.visibility === false)) {
     columns.push({
@@ -467,18 +471,77 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   }
 
+  // remaps the selected keys from uuids to indices
+  const onChangeSelection: typeof antdTableProps.rowSelection.onChange = (keys, rows, infos) => {
+    return antdTableProps.rowSelection?.onChange?.(keys.map(k => uniqueIds.current.indexOf(k as string)), rows, infos);
+  };
+
+  const handleDragEnd = ({ active, over }: DragEndEvent) => {
+    if (active.id === over?.id) { return; }
+
+    const activeIndex = ruleRecords.findIndex((i) => i.key === active.id);
+    const overIndex = ruleRecords.findIndex((i) => i.key === over?.id);
+
+    const previouslySelectedRowKeys =
+      antdTableProps?.rowSelection?.selectedRowKeys?.map(
+        (k) => uniqueIds.current[k as number]
+      );
+
+    uniqueIds.current = arrayMove(uniqueIds.current, activeIndex, overIndex);
+    onRulesChange(arrayMove(rules, activeIndex, overIndex));
+
+    if (!antdTableProps.rowSelection || antdTableProps.rowSelection.selectedRowKeys?.length === 0) { return; }
+    // if the user of the RuleTable controls the selection via input, we need to update the selection by
+    // changing the selected indices to their respective indices after reordering.
+    // this will ensure that the same items remain selected, instead of the items at the same indices.
+
+    onChangeSelection(
+      previouslySelectedRowKeys,
+      arrayMove(ruleRecords, activeIndex, overIndex).filter((r) => previouslySelectedRowKeys.includes(r.key)),
+      null
+    );
+  };
+
   if (hasError) {
     return <h1>An error occurred in the RuleTable UI.</h1>;
   }
 
+  // if the user provides a rowSelection we need to "patch" some properties to do the remapping of uuids to indices,
+  // since all external uses of the RulesTable assume that a selected key is equal to the index of that rule.
+  const rowSelection: TableProps<RuleRecord>['rowSelection'] = antdTableProps.rowSelection ? {
+    ...antdTableProps.rowSelection,
+    selectedRowKeys: antdTableProps.rowSelection.selectedRowKeys.map(k => uniqueIds.current[k as number]),
+    onChange: onChangeSelection
+  } : undefined;
+
   return (
     <div className="gs-rule-table">
-      <Table
-        columns={columns}
-        dataSource={ruleRecords}
-        pagination={false}
-        {...antdTableProps}
-      />
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} >
+        <SortableContext items={uniqueIds.current} strategy={verticalListSortingStrategy}>
+          <Table
+            columns={columns}
+            dataSource={ruleRecords}
+            pagination={false}
+            rowKey='key'
+            components={{
+              header: {
+                row: (rowProps: PropsWithChildren) => (
+                  <tr>
+                    {/* the empty table header is creating a placeholder column for the drag handle */}
+                    <th></th>
+                    {rowProps.children}
+                  </tr>
+                )
+              },
+              body: {
+                row: DraggableRow,
+              }
+            }}
+            {...antdTableProps}
+            rowSelection={rowSelection}
+          />
+        </SortableContext>
+      </DndContext>
       <SymbolizerEditorWindow
         open={symbolizerEditorVisible}
         onClose={onSymbolizerEditorWindowClose}
@@ -494,3 +557,4 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     </div>
   );
 };
+

@@ -35,13 +35,28 @@ import React, { useState } from 'react';
 import { RuleTable } from 'geostyler';
 
 function RuleTableExample() {
-  const [rules, setRules] = useState([{
-    name: "Rule 1",
-    symbolizers: [{
-      kind: "Mark",
-      wellKnownName: "circle"
-    }]
-  }]);
+  const [rules, setRules] = useState([
+    {
+        name: "Rule 1",
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle",
+            color: 'blue'
+          }
+        ]
+      },
+      {
+        name: "Rule 2",
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle",
+            color: 'red'
+          }
+        ]
+      }
+  ]);
 
   const onRulesChange = (newRules) => {
     setRules(newRules);
@@ -93,12 +108,23 @@ function RuleTableExample() {
   const [style, setStyle] = useState({
     name: "Demo Style",
     rules: [
-      {
+{
         name: "Rule 1",
         symbolizers: [
           {
             kind: "Mark",
-            wellKnownName: "circle"
+            wellKnownName: "circle",
+            color: 'blue'
+          }
+        ]
+      },
+      {
+        name: "Rule 2",
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle",
+            color: 'red'
           }
         ]
       }
