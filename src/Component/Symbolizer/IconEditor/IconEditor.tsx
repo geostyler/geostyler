@@ -225,54 +225,6 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
         )
       }
       {
-        offsetXField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.offsetXLabel}
-            extra={locale.offsetXExtra}
-            {...getFormItemSupportProps('offset')}
-          >
-            <OffsetField
-              value={offset?.[0]}
-              defaultValue={offsetXField?.default as number}
-              onChange={onOffsetXChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        offsetYField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.offsetYLabel}
-            extra={locale.offsetYExtra}
-            {...getFormItemSupportProps('offset')}
-          >
-            <OffsetField
-              value={offset?.[1]}
-              defaultValue={offsetYField?.default as number}
-              onChange={onOffsetYChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        rotateField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.rotateLabel}
-            extra={locale.rotateExtra}
-            {...getFormItemSupportProps('rotate')}
-          >
-            <RotateField
-              value={rotate}
-              defaultValue={rotateField?.default as number}
-              onChange={onRotateChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
         opacityField?.visibility === false ? null : (
           <Form.Item
             {...itemConfig}
@@ -288,6 +240,57 @@ export const IconEditor: React.FC<IconEditorProps> = (props) => {
           </Form.Item>
         )
       }
+      <fieldset>
+        <legend>{locale.position}</legend>
+        {
+          offsetXField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.offsetXLabel}
+              extra={locale.offsetXExtra}
+              {...getFormItemSupportProps('offset')}
+            >
+              <OffsetField
+                value={offset?.[0]}
+                defaultValue={offsetXField?.default as number}
+                onChange={onOffsetXChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          offsetYField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.offsetYLabel}
+              extra={locale.offsetYExtra}
+              {...getFormItemSupportProps('offset')}
+            >
+              <OffsetField
+                value={offset?.[1]}
+                defaultValue={offsetYField?.default as number}
+                onChange={onOffsetYChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          rotateField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.rotateLabel}
+              extra={locale.rotateExtra}
+              {...getFormItemSupportProps('rotate')}
+            >
+              <RotateField
+                value={rotate}
+                defaultValue={rotateField?.default as number}
+                onChange={onRotateChange}
+              />
+            </Form.Item>
+          )
+        }
+      </fieldset>
     </div>
   );
 };

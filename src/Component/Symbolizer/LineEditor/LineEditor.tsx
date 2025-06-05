@@ -244,21 +244,6 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           )
         }
         {
-          colorField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.colorLabel}
-              {...getFormItemSupportProps('color')}
-            >
-              <ColorField
-                value={color as string}
-                defaultValue={colorField?.default}
-                onChange={onColorChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
           widthField?.visibility === false ? null : (
             <Form.Item
               {...itemConfig}
@@ -274,16 +259,16 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           )
         }
         {
-          perpendicularOffsetField?.visibility === false ? null : (
+          colorField?.visibility === false ? null : (
             <Form.Item
               {...itemConfig}
-              label={locale.perpendicularOffsetLabel}
-              {...getFormItemSupportProps('perpendicularOffset')}
+              label={locale.colorLabel}
+              {...getFormItemSupportProps('color')}
             >
-              <OffsetField
-                value={perpendicularOffset}
-                defaultValue={perpendicularOffsetField?.default as number}
-                onChange={onPerpendicularOffsetChange}
+              <ColorField
+                value={color as string}
+                defaultValue={colorField?.default}
+                onChange={onColorChange}
               />
             </Form.Item>
           )
@@ -300,6 +285,21 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
                 value={opacity}
                 defaultValue={opacityField?.default as number}
                 onChange={onOpacityChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          perpendicularOffsetField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.perpendicularOffsetLabel}
+              {...getFormItemSupportProps('perpendicularOffset')}
+            >
+              <OffsetField
+                value={perpendicularOffset}
+                defaultValue={perpendicularOffsetField?.default as number}
+                onChange={onPerpendicularOffsetChange}
               />
             </Form.Item>
           )

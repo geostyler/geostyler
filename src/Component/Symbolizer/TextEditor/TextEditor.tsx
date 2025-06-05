@@ -275,6 +275,21 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
         )
       }
       {
+        sizeField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.sizeLabel}
+            {...getFormItemSupportProps('size')}
+          >
+            <WidthField
+              value={size}
+              defaultValue={sizeField?.default as number}
+              onChange={onSizeChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
         colorField?.visibility === false ? null : (
           <Form.Item
             {...itemConfig}
@@ -285,22 +300,6 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
               value={color as string}
               defaultValue={colorField?.default}
               onChange={onColorChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        fontField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.fontLabel}
-            {...getFormItemSupportProps('font')}
-          >
-            <FontPicker
-              value={font as string[]}
-              defaultValue={fontField?.default as string[]}
-              onChange={onFontChange}
-              fonts={fontField?.fonts}
             />
           </Form.Item>
         )
@@ -322,98 +321,105 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
         )
       }
       {
-        sizeField?.visibility === false ? null : (
+        fontField?.visibility === false ? null : (
           <Form.Item
             {...itemConfig}
-            label={locale.sizeLabel}
-            {...getFormItemSupportProps('size')}
+            label={locale.fontLabel}
+            {...getFormItemSupportProps('font')}
           >
-            <WidthField
-              value={size}
-              defaultValue={sizeField?.default as number}
-              onChange={onSizeChange}
+            <FontPicker
+              value={font as string[]}
+              defaultValue={fontField?.default as string[]}
+              onChange={onFontChange}
+              fonts={fontField?.fonts}
             />
           </Form.Item>
         )
       }
-      {
-        offsetXField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.offsetXLabel}
-            extra={locale.offsetXExtra}
-            {...getFormItemSupportProps('offset')}
-          >
-            <OffsetField
-              value={offsetX}
-              defaultValue={offsetXField?.default as number}
-              onChange={onOffsetXChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        offsetYField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.offsetYLabel}
-            extra={locale.offsetYExtra}
-            {...getFormItemSupportProps('offset')}
-          >
-            <OffsetField
-              value={offsetY}
-              defaultValue={offsetYField?.default as number}
-              onChange={onOffsetYChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        rotateField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.rotateLabel}
-            extra={locale.rotateExtra}
-            {...getFormItemSupportProps('rotate')}
-          >
-            <RotateField
-              value={rotate as number}
-              defaultValue={rotateField?.default as number}
-              onChange={onRotateChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        haloColorField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.haloColorLabel}
-            {...getFormItemSupportProps('haloColor')}
-          >
-            <ColorField
-              value={haloColor as string}
-              defaultValue={haloColorField?.default}
-              onChange={onHaloColorChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        haloWidthField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.haloWidthLabel}
-            {...getFormItemSupportProps('haloWidth')}
-          >
-            <WidthField
-              value={haloWidth}
-              defaultValue={haloWidthField?.default as number}
-              onChange={onHaloWidthChange}
-            />
-          </Form.Item>
-        )
-      }
+      <fieldset>
+        <legend>{locale.halo}</legend>
+        {
+          haloWidthField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.haloWidthLabel}
+              {...getFormItemSupportProps('haloWidth')}
+            >
+              <WidthField
+                value={haloWidth}
+                defaultValue={haloWidthField?.default as number}
+                onChange={onHaloWidthChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          haloColorField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.haloColorLabel}
+              {...getFormItemSupportProps('haloColor')}
+            >
+              <ColorField
+                value={haloColor as string}
+                defaultValue={haloColorField?.default}
+                onChange={onHaloColorChange}
+              />
+            </Form.Item>
+          )
+        }
+      </fieldset>
+      <fieldset>
+        <legend>{locale.position}</legend>
+        {
+          offsetXField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.offsetXLabel}
+              extra={locale.offsetXExtra}
+              {...getFormItemSupportProps('offset')}
+            >
+              <OffsetField
+                value={offsetX}
+                defaultValue={offsetXField?.default as number}
+                onChange={onOffsetXChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          offsetYField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.offsetYLabel}
+              extra={locale.offsetYExtra}
+              {...getFormItemSupportProps('offset')}
+            >
+              <OffsetField
+                value={offsetY}
+                defaultValue={offsetYField?.default as number}
+                onChange={onOffsetYChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          rotateField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.rotateLabel}
+              extra={locale.rotateExtra}
+              {...getFormItemSupportProps('rotate')}
+            >
+              <RotateField
+                value={rotate as number}
+                defaultValue={rotateField?.default as number}
+                onChange={onRotateChange}
+              />
+            </Form.Item>
+          )
+        }
+      </fieldset>
     </div>
   );
 };

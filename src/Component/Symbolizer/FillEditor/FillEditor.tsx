@@ -211,37 +211,6 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
           )
         }
         {
-          fillColorField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.fillColorLabel}
-              {...getFormItemSupportProps('color')}
-            >
-              <ColorField
-                value={color as string}
-                defaultValue={fillColorField?.default}
-                onChange={onFillColorChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          fillOpacityField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.fillOpacityLabel}
-              extra={locale.opacityExtra}
-              {...getFormItemSupportProps('fillOpacity')}
-            >
-              <OpacityField
-                value={fillOpacity}
-                defaultValue={fillOpacityField?.default as number}
-                onChange={onFillOpacityChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
           opacityField?.visibility === false ? null : (
             <Form.Item
               {...itemConfig}
@@ -257,67 +226,104 @@ export const FillEditor: React.FC<FillEditorProps> = (props) => {
             </Form.Item>
           )
         }
-        {
-          outlineOpacityField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.outlineOpacityLabel}
-              extra={locale.opacityExtra}
-              {...getFormItemSupportProps('outlineOpacity')}
-            >
-              <OpacityField
-                value={outlineOpacity}
-                defaultValue={outlineOpacityField?.default as number}
-                onChange={onOutlineOpacityChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          outlineColorField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.outlineColorLabel}
-              {...getFormItemSupportProps('outlineColor')}
-            >
-              <ColorField
-                value={outlineColor as string}
-                defaultValue={outlineColorField?.default}
-                onChange={onOutlineColorChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          outlineWidthField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.outlineWidthLabel}
-              {...getFormItemSupportProps('outlineWidth')}
-            >
-              <WidthField
-                value={outlineWidth}
-                defaultValue={outlineWidthField?.default as number}
-                onChange={onOutlineWidthChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          outlineDasharrayField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.outlineDasharrayLabel}
-              extra={locale.outlineDasharrayExtra}
-              {...getFormItemSupportProps('outlineDasharray')}
-            >
-              <LineDashField
-                value={outlineDasharray as number[]}
-                onChange={onOutlineDasharrayChange}
-              />
-            </Form.Item>
-          )
-        }
+        <fieldset>
+          <legend>{locale.fill}</legend>
+          {
+            fillColorField?.visibility === false ? null : (
+              <Form.Item
+                {...itemConfig}
+                label={locale.fillColorLabel}
+                {...getFormItemSupportProps('color')}
+              >
+                <ColorField
+                  value={color as string}
+                  defaultValue={fillColorField?.default}
+                  onChange={onFillColorChange}
+                />
+              </Form.Item>
+            )
+          }
+          {
+            fillOpacityField?.visibility === false ? null : (
+              <Form.Item
+                {...itemConfig}
+                label={locale.fillOpacityLabel}
+                extra={locale.opacityExtra}
+                {...getFormItemSupportProps('fillOpacity')}
+              >
+                <OpacityField
+                  value={fillOpacity}
+                  defaultValue={fillOpacityField?.default as number}
+                  onChange={onFillOpacityChange}
+                />
+              </Form.Item>
+            )
+          }
+        </fieldset>
+        <fieldset>
+          <legend>{locale.outline}</legend>
+          {
+            outlineWidthField?.visibility === false ? null : (
+              <Form.Item
+                {...itemConfig}
+                label={locale.outlineWidthLabel}
+                {...getFormItemSupportProps('outlineWidth')}
+              >
+                <WidthField
+                  value={outlineWidth}
+                  defaultValue={outlineWidthField?.default as number}
+                  onChange={onOutlineWidthChange}
+                />
+              </Form.Item>
+            )
+          }
+          {
+            outlineColorField?.visibility === false ? null : (
+              <Form.Item
+                {...itemConfig}
+                label={locale.outlineColorLabel}
+                {...getFormItemSupportProps('outlineColor')}
+              >
+                <ColorField
+                  value={outlineColor as string}
+                  defaultValue={outlineColorField?.default}
+                  onChange={onOutlineColorChange}
+                />
+              </Form.Item>
+            )
+          }
+          {
+            outlineOpacityField?.visibility === false ? null : (
+              <Form.Item
+                {...itemConfig}
+                label={locale.outlineOpacityLabel}
+                extra={locale.opacityExtra}
+                {...getFormItemSupportProps('outlineOpacity')}
+              >
+                <OpacityField
+                  value={outlineOpacity}
+                  defaultValue={outlineOpacityField?.default as number}
+                  onChange={onOutlineOpacityChange}
+                />
+              </Form.Item>
+            )
+          }
+          {
+            outlineDasharrayField?.visibility === false ? null : (
+              <Form.Item
+                {...itemConfig}
+                label={locale.outlineDasharrayLabel}
+                extra={locale.outlineDasharrayExtra}
+                {...getFormItemSupportProps('outlineDasharray')}
+              >
+                <LineDashField
+                  value={outlineDasharray as number[]}
+                  onChange={onOutlineDasharrayChange}
+                />
+              </Form.Item>
+            )
+          }
+        </fieldset>
       </>
     )
   }, {
