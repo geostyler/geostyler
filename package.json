@@ -144,7 +144,7 @@
     "rimraf": "^5.0.7",
     "rollup-plugin-polyfill-node": "^0.13.0",
     "semantic-release": "^24.2.3",
-    "stream": "^0.0.2",
+    "stream": "^0.0.3",
     "terser-webpack-plugin": "^5.3.10",
     "ts-loader": "^9.5.1",
     "typescript": "^5.5.2",
