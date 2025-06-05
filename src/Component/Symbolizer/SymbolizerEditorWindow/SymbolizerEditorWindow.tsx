@@ -38,6 +38,7 @@ import { Modal, ModalProps } from 'antd';
 
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
+import { Renderer } from '../../Renderer/Renderer/Renderer';
 export interface SymbolizerEditorWindowProps extends Partial<ModalProps> {
   symbolizers: Symbolizer[];
   onClose?: () => void;
@@ -67,6 +68,7 @@ export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
       centered={true}
       {...passThroughProps}
     >
+      <Renderer symbolizers={symbolizers} />
       <MultiEditor
         symbolizers={symbolizers}
         onSymbolizersChange={onSymbolizersChange}
