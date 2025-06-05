@@ -35,7 +35,7 @@ import {
 import { ColorMapType } from 'geostyler-style';
 import { RadioChangeEvent } from 'antd/lib/radio';
 
-import _get from 'lodash/get';
+import _get from 'lodash-es/get.js';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
 export interface ColorMapTypeFieldProps {

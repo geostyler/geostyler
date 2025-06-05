@@ -35,7 +35,7 @@ import {
 import { SourceChannelNameField } from '../SourceChannelNameField/SourceChannelNameField';
 import { isGeoStylerFunction, RGBChannel } from 'geostyler-style';
 
-import _cloneDeep from 'lodash/cloneDeep';
+import _cloneDeep from 'lodash-es/cloneDeep.js';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 import { getFormItemConfig } from '../../../../Util/FormItemUtil';
 

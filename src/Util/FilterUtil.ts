@@ -50,9 +50,9 @@ import {
   VectorData
 } from 'geostyler-data';
 
-import _get from 'lodash/get';
-import _set from 'lodash/set';
-import _uniqueId from 'lodash/uniqueId';
+import _get from 'lodash-es/get.js';
+import _set from 'lodash-es/set.js';
+import _uniqueId from 'lodash-es/uniqueId.js';
 import { isBoolean } from 'lodash';
 import FunctionUtil from './FunctionUtil';
 import { Feature } from 'geojson';

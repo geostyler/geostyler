@@ -48,7 +48,7 @@ import { brewer } from 'chroma-js';
 
 import './ColorMapEditor.css';
 
-import _cloneDeep from 'lodash/cloneDeep';
+import _cloneDeep from 'lodash-es/cloneDeep.js';
 
 import {
   InputConfig,

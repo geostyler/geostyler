@@ -43,9 +43,9 @@ import {
   PlusOutlined
 } from '@ant-design/icons';
 
-import _get from 'lodash/get';
-import _set from 'lodash/set';
-import _isEqual from 'lodash/isEqual';
+import _get from 'lodash-es/get.js';
+import _set from 'lodash-es/set.js';
+import _isEqual from 'lodash-es/isEqual.js';
 
 import {
   CombinationOperator,

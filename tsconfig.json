@@ -5,13 +5,13 @@
     "esModuleInterop": true,
     "declaration": true,
     "outDir": "dist",
-    "module": "ES2022",
+    "module": "ESNext",
     "target": "ES2022",
     "lib": ["ES2022", "dom"],
     "sourceMap": true,
     "inlineSources": true,
     "allowJs": false,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "moduleResolution": "bundler",
     "rootDir": "src",
     "forceConsistentCasingInFileNames": true,
@@ -38,7 +38,7 @@
     "**.config.js",
     "**/*.spec.ts*",
     "vite.config.ts",
-    "vite.dev.config.ts",
+    "vite.*.config.ts",
     "vitest.config.ts"
   ]
 }

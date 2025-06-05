@@ -33,7 +33,7 @@ This demonstrates the usage of the `RemovableItem` component.
 ```jsx
 import React from 'react';
 import { RemovableItem } from 'geostyler';
-import _uniqueId from 'lodash/uniqueId';
+import _uniqueId from 'lodash-es/uniqueId';
 
 class RemovableItemExample extends React.Component {
   constructor(props) {

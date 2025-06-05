@@ -3,6 +3,7 @@
   "version": "17.0.0",
   "description": "Framework for styling geodata",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "files": [
     "dist"
@@ -34,9 +35,9 @@
   "scripts": {
     "build": "npm run build-package && npm run build-styleguide",
     "build-package": "npm run build-browser && tsc && npm run build-dist",
-    "build-dist": "tsc -p ./ && copyfiles \"./src/**/*.css\" dist --up 1 && node scripts/add-extensions.js",
+    "build-dist": "vite build",
     "build-styleguide": "styleguidist build --config styleguide.config.cjs",
-    "build-browser": "vite build",
+    "build-browser": "vite build -c vite.browser.config.ts",
     "browser-sample": "npx http-server . -o /public/browser.html",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
@@ -47,10 +48,10 @@
     "cleanup": "rimraf dist/** && rimraf build/**",
     "prepublishOnly": "npm run build-package",
     "styleguide": "styleguidist server --config styleguide.config.cjs",
-    "test": "NODE_OPTIONS='--import=extensionless/register --max-old-space-size=16384' vitest --coverage",
+    "test": "NODE_OPTIONS='--max-old-space-size=16384' vitest --coverage",
     "typecheck": "tsc --noEmit",
-    "test-ci": "NODE_OPTIONS=--import=extensionless/register vitest --coverage",
-    "test-watch": "NODE_OPTIONS=--import=extensionless/register vitest",
+    "test-ci": "vitest --coverage",
+    "test-watch": "NODE_OPTIONS='--max-old-space-size=16384' vitest",
     "start-dev": "vite -c vite.dev.config.ts",
     "preview": "vite preview"
   },
@@ -80,7 +81,7 @@
     "geostyler-sld-parser": "^7.3.0",
     "geostyler-style": "^10.0.0",
     "geostyler-wfs-parser": "^3.0.1",
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "monaco-editor": "^0.50.0",
     "proj4": "^2.11.0",
     "typescript-json-schema": "^0.64.0"
@@ -107,6 +108,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@types/jest-diff": "^24.3.0",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.15.29",
     "@types/proj4": "^2.5.5",
     "@types/react": "^19.1.6",
@@ -148,6 +150,7 @@
     "typescript": "^5.5.2",
     "typescript-eslint": "^8.33.1",
     "vite": "6.3.5",
+    "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.0",
     "whatwg-fetch": "^3.6.20"
   },

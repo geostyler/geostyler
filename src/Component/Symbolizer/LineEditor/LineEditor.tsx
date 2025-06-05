@@ -51,7 +51,7 @@ import { LineJoinField, LineJoinFieldProps } from '../Field/LineJoinField/LineJo
 import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
 import { GraphicEditor, GraphicEditorProps } from '../GraphicEditor/GraphicEditor';
 
-import _get from 'lodash/get';
+import _get from 'lodash-es/get.js';
 
 import {
   InputConfig,

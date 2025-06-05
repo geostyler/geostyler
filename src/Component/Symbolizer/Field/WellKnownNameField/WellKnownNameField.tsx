@@ -33,7 +33,7 @@ import {
 } from 'antd';
 import { WellKnownName } from 'geostyler-style';
 
-import _get from 'lodash/get';
+import _get from 'lodash-es/get.js';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 const Option = Select.Option;
 

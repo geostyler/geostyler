@@ -30,9 +30,9 @@
 import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { CqlParser } from 'geostyler-cql-parser';
 
-import _get from 'lodash/get';
-import _set from 'lodash/set';
-import _cloneDeep from 'lodash/cloneDeep';
+import _get from 'lodash-es/get.js';
+import _set from 'lodash-es/set.js';
+import _cloneDeep from 'lodash-es/cloneDeep.js';
 
 import {
   Table,
