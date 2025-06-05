@@ -240,20 +240,20 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
           )
         }
         {
-        fillOpacityField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.fillOpacityLabel}
-            extra={locale.opacityExtra}
-          >
-            <OpacityField
-              value={fillOpacity}
-              defaultValue={fillOpacityField?.default as number}
-              onChange={onFillOpacityChange}
-            />
-          </Form.Item>
-        )
-      }
+          fillOpacityField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.fillOpacityLabel}
+              extra={locale.opacityExtra}
+            >
+              <OpacityField
+                value={fillOpacity}
+                defaultValue={fillOpacityField?.default as number}
+                onChange={onFillOpacityChange}
+              />
+            </Form.Item>
+          )
+        }
       </fieldset>
       <fieldset>
         <legend>{locale.stroke}</legend>
