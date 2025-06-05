@@ -57,6 +57,9 @@ export interface RuleComposableProps {
   minScaleField?: {
     visibility?: boolean;
   };
+  scalesField?: {
+    visibility?: boolean;  
+  }
   filterField?: {
     visibility?: boolean;
   };

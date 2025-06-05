@@ -75,11 +75,8 @@ function RuleTableExample() {
         filterField: {
           visibility: true
         },
-        minScaleField: {
-          visibility: true
-        },
-        maxScaleField: {
-          visibility: true
+        scalesField: {
+          visibility: true  
         },
         amountField: {
           visibility: true
@@ -135,16 +132,10 @@ function RuleTableExample() {
           unCheckedChildren="Filter"
         />
         <Switch
-          checked={myContext.composition.Rule.minScaleField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'minScaleField')}}
-          checkedChildren="Min. Scale"
-          unCheckedChildren="Min. Scale"
-        />
-        <Switch
-          checked={myContext.composition.Rule.maxScaleField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'maxScaleField')}}
-          checkedChildren="Max. Scale"
-          unCheckedChildren="Max. Scale"
+          checked={myContext.composition.Rule.scalesField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'scalesField')}}
+          checkedChildren="Scales"
+          unCheckedChildren="Scales"
         />
         <Switch
           checked={myContext.composition.Rule.amountField.visibility}

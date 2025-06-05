@@ -37,7 +37,6 @@ import _cloneDeep from 'lodash/cloneDeep';
 import {
   Table,
   Input,
-  InputNumber,
   Popover,
   Tooltip,
   Button,
@@ -48,6 +47,7 @@ import {
   Rule as GsRule,
   Symbolizer as GsSymbolizer,
   Filter as GsFilter,
+  ScaleDenominator,
 } from 'geostyler-style';
 
 import './RuleTable.css';
@@ -65,6 +65,7 @@ import {
   useGeoStylerLocale
 } from '../../context/GeoStylerContext/GeoStylerContext';
 import { RuleComposableProps } from '../RuleCard/RuleCard';
+import { InputScaleDenominator } from '../ScaleDenominator/InputScaleDenominator';
 
 export interface RuleRecord extends GsRule {
   key: number;
@@ -106,8 +107,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     amountField,
     duplicateField,
     filterField,
-    maxScaleField,
-    minScaleField,
+    scalesField,
     nameField,
     /** show actions column by default if disableMultiEdit is true */
     actionsField = {
@@ -159,6 +159,8 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       ...rule
     };
   });
+
+  console.log('RULERECORDS : ', ruleRecords);
 
   const onSymbolizerClick = (record: RuleRecord) => {
     setRuleEditIndex(record.key);
@@ -250,7 +252,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
   };
 
   // TODO: Refactor to stand alone component
-  const minScaleRenderer = (text: string, record: RuleRecord) => {
+  /* const minScaleRenderer = (text: string, record: RuleRecord) => {
     const minScaleDenominator = _get(record, 'scaleDenominator.min');
     const value = minScaleDenominator ? parseFloat(minScaleDenominator as any) : undefined;
     return (
@@ -284,6 +286,15 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
           setValueForRule(record.key, 'scaleDenominator.max', newValue);
         }}
       />
+    );
+  }; */
+
+  const scaleRenderer = (text: string, record: RuleRecord) => {
+    const scaleDenominator = _get(record, 'scaleDenominator');
+    return (
+      <InputScaleDenominator scaleDenominator={scaleDenominator} onChange={(newValue: ScaleDenominator) => {
+        setValueForRule(record.key, 'scaleDenominator', newValue);  
+      }}/>
     );
   };
 
@@ -425,21 +436,21 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     });
   }
 
-  if (!(minScaleField?.visibility === false)) {
+  if (!(scalesField?.visibility === false)) {
     columns.push({
-      title: locale.minScaleColumnTitle,
-      dataIndex: 'minScale',
-      render: minScaleRenderer
+      title: locale.scalesColumnTitle,
+      dataIndex: 'scaleDenominator',
+      render: scaleRenderer
     });
   }
 
-  if (!(maxScaleField?.visibility === false)) {
+  /* if (!(maxScaleField?.visibility === false)) {
     columns.push({
       title: locale.maxScaleColumnTitle,
       dataIndex: 'maxScale',
       render: maxScaleRenderer
     });
-  }
+  } */
 
   if (!(amountField?.visibility === false)) {
     columns.push({
