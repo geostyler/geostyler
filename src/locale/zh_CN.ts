@@ -329,13 +329,17 @@ const zh_CN: GeoStylerLocale = {
     valuesMapTypeLabel: '唯一值'
   },
   SymbolizerEditorWindow: {
-    symbolizersEditor: '符号编辑器'
+    symbolizersEditor: '符号编辑器',
+    cancelButtonLabel: '取消',
+    saveButtonLabel: 'TODO'
   },
   FilterOverview: {
     filterTitle: '过滤器'
   },
   FilterEditorWindow: {
-    filterEditor: '过滤器编辑器'
+    filterEditor: '过滤器编辑器',
+    cancelButtonLabel: '取消',
+    saveButtonLabel: 'TODO'
   },
   MultiEditor: {
     add: '添加',

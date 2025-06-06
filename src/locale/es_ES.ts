@@ -330,13 +330,17 @@ const es_ES: GeoStylerLocale = {
     }
   },
   SymbolizerEditorWindow: {
-    symbolizersEditor: 'Editor de simbología'
+    symbolizersEditor: 'Editor de simbología',
+    cancelButtonLabel: 'Cancelar',
+    saveButtonLabel: 'Aceptar'
   },
   FilterOverview: {
     filterTitle: 'Filtros'
   },
   FilterEditorWindow: {
-    filterEditor: 'Editor de filtro'
+    filterEditor: 'Editor de filtro',
+    cancelButtonLabel: 'Cancelar',
+    saveButtonLabel: 'Aceptar'
   },
   MultiEditor: {
     add: 'Añadir',

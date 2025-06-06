@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Symbolizer } from 'geostyler-style';
 
@@ -34,7 +34,7 @@ import { MultiEditor } from '../MultiEditor/MultiEditor';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
 import './SymbolizerEditorWindow.css';
-import { Modal, ModalProps } from 'antd';
+import { Button, Modal, ModalProps } from 'antd';
 
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 
@@ -58,20 +58,41 @@ export const SymbolizerEditorWindow: React.FC<SymbolizerEditorWindowProps> = ({
 
   const locale = useGeoStylerLocale('SymbolizerEditorWindow');
 
+  const [symbolizersClone, setSymbolizersClone] = useState<Symbolizer[]>([]);
+
+  useEffect(() => {
+    if (Array.isArray(symbolizers)) {
+      setSymbolizersClone([...symbolizers]);
+    }
+  },[symbolizers]);
+
+  const handleCancel = () => {
+    setSymbolizersClone(symbolizers);
+    onClose();
+  };
+
+  const handleRecord = () => {
+    onSymbolizersChange(symbolizersClone);
+    onClose();
+  };
+
   return (
     <Modal
       className="symbolizer-editor-modal"
       title={locale.symbolizersEditor}
       onCancel={onClose}
       width={800}
-      footer={false}
       centered={true}
+      footer={[
+        <Button key="cancel" onClick={handleCancel}>{locale.cancelButtonLabel}</Button>,
+        <Button key="record" type="primary" onClick={handleRecord}>{locale.saveButtonLabel}</Button>
+      ]}
       {...passThroughProps}
     >
       <Renderer symbolizers={symbolizers} />
       <MultiEditor
-        symbolizers={symbolizers}
-        onSymbolizersChange={onSymbolizersChange}
+        symbolizers={symbolizersClone}
+        onSymbolizersChange={setSymbolizersClone}
         iconLibraries={iconLibraries}
         editorProps={{ colorRamps }}
       />
