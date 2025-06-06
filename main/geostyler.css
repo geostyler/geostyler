@@ -2599,6 +2599,7 @@ mark {
     .ant-input-number,
     .gs-symbolizer-olrenderer {
       border-radius: 0;
+      cursor: default;
     }
 
     .ant-input-search {
@@ -2675,6 +2676,11 @@ mark {
   
   .gs-renderer {
     margin-bottom: 15px;
+    
+    .gs-symbolizer-olrenderer {
+      border-radius: 0;
+      cursor: default;
+    }
   }
 }
 
