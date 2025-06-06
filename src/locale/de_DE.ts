@@ -330,7 +330,7 @@ const de_DE: GeoStylerLocale = {
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Symbolisierungseditor',
     cancelButtonLabel: 'Abbrechen',
-    saveButtonLabel: 'TODO'
+    saveButtonLabel: 'Anwenden'
   },
   FilterOverview: {
     filterTitle: 'Filter'
