@@ -339,7 +339,7 @@ const es_ES: GeoStylerLocale = {
   FilterEditorWindow: {
     filterEditor: 'Editor de filtro',
     cancelButtonLabel: 'Cancelar',
-    saveButtonLabel: 'Cancelar'
+    saveButtonLabel: 'Aceptar'
   },
   MultiEditor: {
     add: 'Añadir',
