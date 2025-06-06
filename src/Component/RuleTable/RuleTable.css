@@ -39,6 +39,7 @@
     .ant-input-number,
     .gs-symbolizer-olrenderer {
       border-radius: 0;
+      cursor: default;
     }
 
     .ant-input-search {

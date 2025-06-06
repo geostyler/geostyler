@@ -33,5 +33,10 @@
   
   .gs-renderer {
     margin-bottom: 15px;
+    
+    .gs-symbolizer-olrenderer {
+      border-radius: 0;
+      cursor: default;
+    }
   }
 }
