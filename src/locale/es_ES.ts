@@ -331,7 +331,7 @@ const es_ES: GeoStylerLocale = {
   SymbolizerEditorWindow: {
     symbolizersEditor: 'Editor de simbología',
     cancelButtonLabel: 'Cancelar',
-    saveButtonLabel: 'Cancelar'
+    saveButtonLabel: 'Aceptar'
   },
   FilterOverview: {
     filterTitle: 'Filtros'
