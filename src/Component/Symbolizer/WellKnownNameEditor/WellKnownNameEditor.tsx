@@ -209,52 +209,11 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
         )
       }
       {
-        offsetXField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.offsetXLabel}
-          >
-            <OffsetField
-              value={offset?.[0]}
-              defaultValue={offsetXField?.default as number}
-              onChange={onOffsetXChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        offsetYField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.offsetYLabel}
-          >
-            <OffsetField
-              value={offset?.[1]}
-              defaultValue={offsetYField?.default as number}
-              onChange={onOffsetYChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        fillColorField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.fillColorLabel}
-          >
-            <ColorField
-              value={color as string}
-              defaultValue={fillColorField?.default}
-              onChange={onColorChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
         opacityField?.visibility === false ? null : (
           <Form.Item
             {...itemConfig}
             label={locale.opacityLabel}
+            extra={locale.opacityExtra}
           >
             <OpacityField
               value={opacity}
@@ -264,76 +223,132 @@ export const WellKnownNameEditor: React.FC<WellKnownNameEditorProps> = (props) =
           </Form.Item>
         )
       }
-      {
-        fillOpacityField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.fillOpacityLabel}
-          >
-            <OpacityField
-              value={fillOpacity}
-              defaultValue={fillOpacityField?.default as number}
-              onChange={onFillOpacityChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        strokeColorField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.strokeColorLabel}
-          >
-            <ColorField
-              value={strokeColor as string}
-              defaultValue={strokeColorField?.default as string}
-              onChange={onStrokeColorChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        strokeWidthField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.strokeWidthLabel}
-          >
-            <WidthField
-              value={strokeWidth}
-              defaultValue={strokeWidthField?.default as number}
-              onChange={onStrokeWidthChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        strokeOpacityField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.strokeOpacityLabel}
-          >
-            <OpacityField
-              value={strokeOpacity}
-              defaultValue={strokeOpacityField?.default as number}
-              onChange={onStrokeOpacityChange}
-            />
-          </Form.Item>
-        )
-      }
-      {
-        rotateField?.visibility === false ? null : (
-          <Form.Item
-            {...itemConfig}
-            label={locale.rotateLabel}
-          >
-            <RotateField
-              value={rotate}
-              defaultValue={rotateField?.default as number}
-              onChange={onRotateChange}
-            />
-          </Form.Item>
-        )
-      }
+      <fieldset>
+        <legend>{locale.fill}</legend>
+        {
+          fillColorField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.fillColorLabel}
+            >
+              <ColorField
+                value={color as string}
+                defaultValue={fillColorField?.default}
+                onChange={onColorChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          fillOpacityField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.fillOpacityLabel}
+              extra={locale.opacityExtra}
+            >
+              <OpacityField
+                value={fillOpacity}
+                defaultValue={fillOpacityField?.default as number}
+                onChange={onFillOpacityChange}
+              />
+            </Form.Item>
+          )
+        }
+      </fieldset>
+      <fieldset>
+        <legend>{locale.stroke}</legend>
+        {
+          strokeWidthField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.strokeWidthLabel}
+            >
+              <WidthField
+                value={strokeWidth}
+                defaultValue={strokeWidthField?.default as number}
+                onChange={onStrokeWidthChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          strokeColorField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.strokeColorLabel}
+            >
+              <ColorField
+                value={strokeColor as string}
+                defaultValue={strokeColorField?.default as string}
+                onChange={onStrokeColorChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          strokeOpacityField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.strokeOpacityLabel}
+              extra={locale.opacityExtra}
+            >
+              <OpacityField
+                value={strokeOpacity}
+                defaultValue={strokeOpacityField?.default as number}
+                onChange={onStrokeOpacityChange}
+              />
+            </Form.Item>
+          )
+        }
+      </fieldset>
+      <fieldset>
+        <legend>{locale.position}</legend>
+        {
+          offsetXField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.offsetXLabel}
+              extra={locale.offsetXExtra}
+            >
+              <OffsetField
+                value={offset?.[0]}
+                defaultValue={offsetXField?.default as number}
+                onChange={onOffsetXChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          offsetYField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.offsetYLabel}
+              extra={locale.offsetYExtra}
+            >
+              <OffsetField
+                value={offset?.[1]}
+                defaultValue={offsetYField?.default as number}
+                onChange={onOffsetYChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
+          rotateField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.rotateLabel}
+              extra={locale.rotateExtra}
+            >
+              <RotateField
+                value={rotate}
+                defaultValue={rotateField?.default as number}
+                onChange={onRotateChange}
+              />
+            </Form.Item>
+          )
+        }
+      </fieldset>
     </div>
   );
 };
