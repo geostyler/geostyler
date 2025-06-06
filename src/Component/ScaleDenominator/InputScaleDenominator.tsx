@@ -125,7 +125,7 @@ export const InputScaleDenominator: React.FC<InputScaleDenominatorProps> = ({
         <Col span={12} className="gs-small-col">
           <InputNumber
             addonBefore={'1: '}
-            //className="scale-denominator"
+            // className="scale-denominator"
             name="max-scale-denominator"
             value={maxValue}
             min={0}
