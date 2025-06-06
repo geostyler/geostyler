@@ -338,7 +338,7 @@ const de_DE: GeoStylerLocale = {
   FilterEditorWindow: {
     filterEditor: 'Filtereditor',
     cancelButtonLabel: 'Abbrechen',
-    saveButtonLabel: 'TODO'
+    saveButtonLabel: 'Anwenden'
   },
   MultiEditor: {
     add: 'Hinzufügen',
