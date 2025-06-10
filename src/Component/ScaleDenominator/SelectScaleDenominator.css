@@ -1,0 +1,6 @@
+.gs-select-scale {
+  min-width: 15rem;
+  .ant-select {
+    width: 100%;
+  }
+}

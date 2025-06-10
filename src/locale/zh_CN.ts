@@ -367,6 +367,7 @@ const zh_CN: GeoStylerLocale = {
     minScaleColumnTitle: '最小比例尺',
     maxScaleColumnTitle: '最大比例尺',
     scalesColumnTitle: 'TODO(zh_CN): Scales',
+    errorMaxScaleGreaterThanMinScale: 'TODO(zh_CN): errorMaxScaleGreaterThanMinScale',
     amountColumnTitle: '数量',
     duplicatesColumnTitle: '副本',
     actionsColumnTitle: '操作',

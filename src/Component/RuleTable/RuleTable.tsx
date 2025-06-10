@@ -76,6 +76,7 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-ki
 import { DraggableRow } from '../DraggableTableRow/DraggableTablerow';
 
 import { InputScaleDenominator } from '../ScaleDenominator/InputScaleDenominator';
+import { SelectScaleDenominator } from '../ScaleDenominator/SelectScaleDenominator';
 
 export interface RuleRecord extends GsRule {
   key: string;

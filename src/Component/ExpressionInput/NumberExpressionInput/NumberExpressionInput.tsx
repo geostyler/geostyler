@@ -92,6 +92,9 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
       {slider ? (
         <div className={'slider-wrapper'}>
           <Slider
+            min={0}
+            max={1}
+            step={0.01}
             value={inputValue}
             range={false}
             onChange={(val) => {

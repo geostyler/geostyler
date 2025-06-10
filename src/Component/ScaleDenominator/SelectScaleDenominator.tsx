@@ -26,38 +26,60 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import { Col, Form, InputNumber, Row } from 'antd';
-import React from 'react';
+import { Col, Row, Select } from 'antd';
+import React, { useMemo } from 'react';
 
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
   ScaleDenominator as GsScaleDenominator
 } from 'geostyler-style';
+import { Scales } from 'geostyler-data';
+import { DefaultOptionType } from 'antd/lib/select';
 
-import './InputScaleDenominator.css';
-import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import './SelectScaleDenominator.css';
 
-export interface InputScaleDenominatorProps {
+export interface SelectScaleDenominatorProps {
+  /** The scale denominators defined in context (scales in data) */
+  scaleDenominators: Scales;
   /** The scaleDenominator */
   scaleDenominator?: GsScaleDenominator;
   /** The callback method that is triggered when the state changes */
   onChange?: (scaleDenominator: GsScaleDenominator) => void;
 }
 
-export const COMPONENTNAME = 'InputScaleDenominator';
+export const COMPONENTNAME = 'SelectScaleDenominator';
 
 /**
  * Combined UI for input fields for the minimum and maximum scale of a rule.
  */
-export const InputScaleDenominator: React.FC<InputScaleDenominatorProps> = ({
+export const SelectScaleDenominator: React.FC<SelectScaleDenominatorProps> = ({
+  scaleDenominators,
   scaleDenominator,
   onChange
 }) => {
-  const locale = useGeoStylerLocale('RuleTable');
 
   const minValue = scaleDenominator?.min ? parseFloat(scaleDenominator.min as any) : undefined;
   const maxValue = scaleDenominator?.max ? parseFloat(scaleDenominator.max as any) : undefined;
+
+  const options = useMemo(() => {
+    const o: DefaultOptionType[] = [];
+    Object.keys(scaleDenominators).forEach((key) => {
+      const v = parseInt(key, 10);
+      o.push({ label: key, value: scaleDenominators[v] });
+    });
+    return o;
+  },[scaleDenominators]);
+
+  const maxOptions = useMemo(() => {
+    return options.filter((option) => {
+      if (! minValue) {
+        return true;
+      }
+
+      return (option.value as number) >= minValue;
+    });
+  }, [options, minValue]);
 
   /**
    * Reacts on changing min scale and pushes the updated scaleDenominator to the 'onChange' function
@@ -69,6 +91,9 @@ export const InputScaleDenominator: React.FC<InputScaleDenominatorProps> = ({
     }
 
     scaleDenominatorClone.min = minScaleDenominator;
+    if (scaleDenominatorClone.max && scaleDenominatorClone.max as number < minScaleDenominator) {
+      scaleDenominatorClone.max = minScaleDenominator;
+    }
     if (onChange) {
       onChange(scaleDenominatorClone);
     }
@@ -88,57 +113,24 @@ export const InputScaleDenominator: React.FC<InputScaleDenominatorProps> = ({
     }
   };
 
-  const [form] = Form.useForm();
-
   return (
-    <div className="gs-scaledenominator">
-      <Form form={form}>
-        <Row gutter={4}>
-          <Col span={12} className="gs-small-col">
-            <Form.Item
-              name="min-scale-denominator"
-            >
-              <InputNumber
-                addonBefore={'1: '}
-                controls={false}
-                value={minValue}
-                min={0}
-                onChange={(newValue: number) => {
-                  onMinScaleDenominatorChange(newValue);
-                }}
-              />
-            </Form.Item>
-          </Col>
-          <Col span={12} className="gs-small-col">
-            <Form.Item
-              name="max-scale-denominator"
-              dependencies={['min-scale-denominator']}
-              hasFeedback
-              rules={[
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    const minScaleDenominator = getFieldValue('min-scale-denominator');
-                    if (value && minValue && value < minScaleDenominator) {
-                      return Promise.reject(locale.errorMaxScaleGreaterThanMinScale);
-                    }
-                    return Promise.resolve();
-                  },
-                })
-              ]}
-            >
-              <InputNumber
-                addonBefore={'1: '}
-                controls={false}
-                value={maxValue}
-                min={0}
-                onChange={(newValue: number) => {
-                  onMaxScaleDenominatorChange(newValue);
-                }}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-      </Form>
-    </div>
+    <Row gutter={4} className={'gs-select-scale'}>
+      <Col span={12}>
+        <Select
+          value={minValue}
+          options={options}
+          allowClear
+          onChange={onMinScaleDenominatorChange}
+        />
+      </Col>
+      <Col span={12}>
+        <Select
+          value={maxValue}
+          options={maxOptions}
+          allowClear
+          onChange={onMaxScaleDenominatorChange}
+        />
+      </Col>
+    </Row>
   );
 };

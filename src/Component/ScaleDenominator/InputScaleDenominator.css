@@ -1,0 +1,11 @@
+.gs-scaledenominator {
+    .ant-form-item {
+        margin-bottom: 0;
+        .ant-form-item-explain-error {
+            font-size: 10px;
+        }
+        .ant-input-number-group-addon {
+            padding: 4px;
+        }
+    }
+}

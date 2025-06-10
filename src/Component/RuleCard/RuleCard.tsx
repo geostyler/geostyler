@@ -58,8 +58,8 @@ export interface RuleComposableProps {
     visibility?: boolean;
   };
   scalesField?: {
-    visibility?: boolean;  
-  }
+    visibility?: boolean;
+  };
   filterField?: {
     visibility?: boolean;
   };
