@@ -50,7 +50,6 @@ export const OpacityField: React.FC<OpacityFieldProps> = ({
   className,
   ...inputNumberProps
 }) => {
-
   function onCancel() {
     onChange(inputNumberProps.defaultValue ? Number(inputNumberProps.defaultValue) : undefined);
   }
@@ -64,15 +63,11 @@ export const OpacityField: React.FC<OpacityFieldProps> = ({
     <NumberExpressionInput
       className={finalClassName}
       slider={slider}
+      sliderProps={slider ? { min: 0, max: 1, step: 0.01 } : undefined}
       value={value}
       onChange={onChange}
       onCancel={onCancel}
-      inputProps={{
-        ...inputNumberProps,
-        min: 0,
-        max: 1,
-        step: 0.01
-      }}
+      inputProps={slider ? undefined : { ...inputNumberProps }}
     />
   );
 };

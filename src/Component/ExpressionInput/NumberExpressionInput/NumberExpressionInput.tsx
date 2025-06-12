@@ -44,9 +44,15 @@ import { FunctionOutlined } from '@ant-design/icons';
 
 import './NumberExpressionInput.css';
 
+type SliderProps = {
+  min?: number;
+  max?: number;
+  step?: number;
+};
 export interface NumberExpressionInputProps {
   className?: string;
   slider?: boolean;
+  sliderProps?: SliderProps;
   functionUiProps?: FunctionUIProps<GeoStylerNumberFunction>;
   inputProps?: Omit<InputNumberProps, 'value' | 'onChange' | 'className'>;
   onCancel?: (type: 'number') => void;
@@ -56,14 +62,14 @@ export interface NumberExpressionInputProps {
 
 export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
   slider = false,
+  sliderProps = {}, /* more safety */
   onChange,
   onCancel,
   value,
   className,
-  inputProps,
+  inputProps = {},  /* more safety */
   functionUiProps
 }) => {
-
   let finalClassName = 'number-expression-input';
   if (className) {
     finalClassName += ` ${className}`;
@@ -92,9 +98,7 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
       {slider ? (
         <div className={'slider-wrapper'}>
           <Slider
-            min={0}
-            max={1}
-            step={0.01}
+            {...sliderProps}
             value={inputValue}
             range={false}
             onChange={(val) => {
@@ -107,11 +111,8 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
           />
           <div className={'number-wrapper'}>
             <InputNumber
-              min={0}
-              max={1}
-              step={0.01}
+              {...sliderProps}
               value={inputValue}
-              {...inputProps}
               onChange={(val) => {
                 if (val === null) {
                   onChange?.(undefined);
