@@ -65,8 +65,7 @@ export const SelectScaleDenominator: React.FC<SelectScaleDenominatorProps> = ({
   const options = useMemo(() => {
     const o: DefaultOptionType[] = [];
     Object.keys(scaleDenominators).forEach((key) => {
-      const v = parseInt(key, 10);
-      o.push({ label: key, value: scaleDenominators[v] });
+      o.push({ label: key, value: scaleDenominators[key] });
     });
     return o;
   },[scaleDenominators]);
