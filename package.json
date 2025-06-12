@@ -78,7 +78,7 @@
     "geostyler-mapbox-parser": "^6.1.1",
     "geostyler-openlayers-parser": "^5.1.1",
     "geostyler-qgis-parser": "^4.0.2",
-    "geostyler-sld-parser": "^7.3.0",
+    "geostyler-sld-parser": "^8.0.0",
     "geostyler-style": "^10.0.0",
     "geostyler-wfs-parser": "^3.0.1",
     "lodash-es": "^4.17.21",
