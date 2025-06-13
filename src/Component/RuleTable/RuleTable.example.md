@@ -90,11 +90,8 @@ function RuleTableExample() {
         filterField: {
           visibility: true
         },
-        minScaleField: {
-          visibility: true
-        },
-        maxScaleField: {
-          visibility: true
+        scalesField: {
+          visibility: true  
         },
         amountField: {
           visibility: true
@@ -161,16 +158,10 @@ function RuleTableExample() {
           unCheckedChildren="Filter"
         />
         <Switch
-          checked={myContext.composition.Rule.minScaleField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'minScaleField')}}
-          checkedChildren="Min. Scale"
-          unCheckedChildren="Min. Scale"
-        />
-        <Switch
-          checked={myContext.composition.Rule.maxScaleField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'maxScaleField')}}
-          checkedChildren="Max. Scale"
-          unCheckedChildren="Max. Scale"
+          checked={myContext.composition.Rule.scalesField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'scalesField')}}
+          checkedChildren="Scales"
+          unCheckedChildren="Scales"
         />
         <Switch
           checked={myContext.composition.Rule.amountField.visibility}
@@ -193,6 +184,66 @@ function RuleTableExample() {
         />
       </GeoStylerContext.Provider>
     </div>
+  );
+}
+
+<RuleTableExample />
+```
+
+This demonstrates the use of `RuleTable` with `GeoStylerContext` (Scale denominators defined in data).
+
+
+```jsx
+import React, { useState } from 'react';
+import { GeoStylerContext, RuleTable } from 'geostyler';
+
+function RuleTableExample() {
+  const [myContext, setMyContext] = useState({
+    data: {
+      scaleDenominators: {
+        500: 500,
+        1000: 1000,
+        2500: 2500,
+        5000: 5000,
+        10000: 10000,
+        25000: 25000,
+        50000: 50000,
+        100000: 100000,
+        250000: 250000,
+        500000: 500000,
+        1000000: 1000000
+      }
+    }  
+  });
+
+  const [style, setStyle] = useState({
+    name: "Demo Style",
+    rules: [
+      {
+        name: "Rule 1",
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle"
+          }
+        ]
+      }
+    ]
+  });
+
+  const onRulesChange = (rules) => {
+    const newStyle = JSON.parse(JSON.stringify(style));
+    newStyle.rules = rules;
+    setStyle(newStyle);
+  };
+
+  return (
+    <GeoStylerContext.Provider value={myContext}>
+      <RuleTable
+        rules={style.rules}
+        onRulesChange={onRulesChange}
+      />
+    </GeoStylerContext.Provider>
   );
 }
 

@@ -324,6 +324,8 @@ export default interface GeoStylerLocale {
     filterColumnTitle: string;
     minScaleColumnTitle: string;
     maxScaleColumnTitle: string;
+    scalesColumnTitle: string;
+    errorMaxScaleGreaterThanMinScale: string;
     amountColumnTitle: string;
     duplicatesColumnTitle: string;
     actionsColumnTitle: string;

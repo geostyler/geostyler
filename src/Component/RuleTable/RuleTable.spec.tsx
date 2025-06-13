@@ -118,46 +118,28 @@ describe('RuleTable', () => {
     });
   });
 
-  describe('MinScaleRenderer', () => {
-    it('… renders the minScale for every rule', () => {
-      const rulesWithMinScale = TestUtil.getTwoRulesStyle().rules;
-      rulesWithMinScale[0].scaleDenominator = {
+  describe('ScalesRenderer', () => {
+    it('… renders scales for every rule', () => {
+      const rulesWithScales = TestUtil.getTwoRulesStyle().rules;
+      rulesWithScales[0].scaleDenominator = {
         min: 12,
         max: 24
       };
       ruleTable.rerender(
-        <GeoStylerContext.Provider value={{ data }}>
-          <RuleTable rules={rulesWithMinScale} />
+        <GeoStylerContext.Provider value={{data}}>
+          <RuleTable rules={rulesWithScales} />
         </GeoStylerContext.Provider>
       );
-      const minScaleRenderers = ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=min-scale-renderer]');
-      minScaleRenderers.forEach((nameRenderer, index) => {
-        const expected = rulesWithMinScale[index].scaleDenominator?.min
-          ? `1:${rulesWithMinScale[index]?.scaleDenominator?.min}`
-          : '';
-        expect(minScaleRenderers[index].value).toEqual(expected);
+      const minScaleDenominators = ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=min-scale-denominator]');
+      minScaleDenominators.forEach((_, index) => {
+        const value = rulesWithScales[index].scaleDenominator?.min ?? undefined;
+        expect(minScaleDenominators[index].value).toEqual(value ? `${value}` : '');
       });
-    });
-  });
 
-  describe('MaxScaleRenderer', () => {
-    it('… renders the maxScale for every rule', () => {
-      const rulesWithMaxScale = TestUtil.getTwoRulesStyle().rules;
-      rulesWithMaxScale[0].scaleDenominator = {
-        min: 12,
-        max: 24
-      };
-      ruleTable.rerender(
-        <GeoStylerContext.Provider value={{ data }}>
-          <RuleTable rules={rulesWithMaxScale} />
-        </GeoStylerContext.Provider>
-      );
-      const maxScaleRenderers = ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=max-scale-renderer]');
-      maxScaleRenderers.forEach((nameRenderer, index) => {
-        const expected = rulesWithMaxScale[index].scaleDenominator?.max
-          ? `1:${rulesWithMaxScale[index]?.scaleDenominator?.max}`
-          : '';
-        expect(maxScaleRenderers[index].value).toEqual(expected);
+      const maxScaleDenominators = ruleTable.container.querySelectorAll<HTMLInputElement>('input[name=max-scale-denominator]');
+      maxScaleDenominators.forEach((_, index) => {
+        const value = rulesWithScales[index].scaleDenominator?.max ?? undefined;
+        expect(maxScaleDenominators[index].value).toEqual(value ? `${value}` : '');
       });
     });
   });

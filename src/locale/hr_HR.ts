@@ -365,6 +365,8 @@ const hr_HR: GeoStylerLocale = {
     filterColumnTitle: 'Filter',
     minScaleColumnTitle: 'Min. Mjerilo',
     maxScaleColumnTitle: 'Max. Mjerilo',
+    scalesColumnTitle: 'TODO(hr_HR): Scales',
+    errorMaxScaleGreaterThanMinScale: 'TODO(hr_HR): errorMaxScaleGreaterThanMinScale',
     amountColumnTitle: 'Količina',
     duplicatesColumnTitle: 'Duplikati',
     actionsColumnTitle: 'Akcije',
