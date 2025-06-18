@@ -447,13 +447,13 @@ mark {
   }
 
   button.ant-btn {
-    display: none;
+    visibility: hidden;
     border-radius: 0 6px 6px 0;
   }
 
   &:hover {
     button.ant-btn {
-      display: inline-block;
+      visibility: visible;
     }
 
     .ant-input-number,
@@ -462,6 +462,18 @@ mark {
     }
   }
 
+  .slider-wrapper {
+    display: flex;
+    gap: 5px;
+    flex: 1;
+    .ant-slider {
+      flex: 1;
+    }
+  }
+
+  .number-wrapper {
+    display: flex;
+  }
 }
 
 .boolean-expression-input {
@@ -667,10 +679,6 @@ mark {
       display: inline-flex;
       align-items: center;
       padding-inline: 1em;
-
-      .number-expression-input {
-        margin-left: .25em;
-      }
     }
   }
 }
@@ -2591,6 +2599,7 @@ mark {
     .ant-input-number,
     .gs-symbolizer-olrenderer {
       border-radius: 0;
+      cursor: default;
     }
 
     .ant-input-search {
@@ -2618,8 +2627,18 @@ mark {
     .gs-rule-table-numeric-cell {
       cursor: default;
     }
-  }
 
+    .gs-rule-table-action-buttons {
+      border-radius: 0;
+    }
+
+    .gs-symbolizer-wrapper {
+      display: flex;
+      .square-button {
+        border-radius: 0;
+      }
+    }
+  }
 }
 
 /* Released under the BSD 2-Clause License
@@ -2653,6 +2672,34 @@ mark {
 .symbolizer-editor-modal {
   .ant-modal-body {
     padding-top: 15px;
+  }
+  
+  .gs-renderer {
+    margin-bottom: 15px;
+    
+    .gs-symbolizer-olrenderer {
+      border-radius: 0;
+      cursor: default;
+    }
+  }
+}
+
+.gs-scaledenominator {
+    .ant-form-item {
+        margin-bottom: 0;
+        .ant-form-item-explain-error {
+            font-size: 10px;
+        }
+        .ant-input-number-group-addon {
+            padding: 4px;
+        }
+    }
+}
+
+.gs-select-scale {
+  min-width: 15rem;
+  .ant-select {
+    width: 100%;
   }
 }
 
