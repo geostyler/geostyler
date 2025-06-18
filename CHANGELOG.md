@@ -1,3 +1,39 @@
+## [18.0.0](https://github.com/geostyler/geostyler/compare/v17.0.0...v18.0.0) (2025-06-18)
+
+### ⚠ BREAKING CHANGES
+
+* This removes `<RuleReorderButton>` in favour of drag an drop functionality. Also, the signatures of `onCloneRule` and `onRemoveRule` of `<RuleTable>` changed from expecting a RuleRecord to expecting a numeric value. If you are using `<RuleTable>` explicitly, you have to adjust you callbacks.
+
+### Features
+
+* add a button to open the symbolizer editor [#2568](https://github.com/geostyler/geostyler/issues/2568) ([a0901af](https://github.com/geostyler/geostyler/commit/a0901af4353289b29bdc7955c826fb8285766814))
+* add apply & cancel buttons to modal ([042e4f1](https://github.com/geostyler/geostyler/commit/042e4f14e0341ce3531893fe95d370dcf158eeae))
+* add locale strings for Cap and Join + minor updates ([3b8bd33](https://github.com/geostyler/geostyler/commit/3b8bd332cc6b2fa4ef993487495a8057caad27dd))
+* add localized texts and proper labels for sprites ([8e49749](https://github.com/geostyler/geostyler/commit/8e49749c254f89946c8f99e133924b4e51f094fc))
+* add symbol preview in symbolizer editor [#2562](https://github.com/geostyler/geostyler/issues/2562) ([d6ea83e](https://github.com/geostyler/geostyler/commit/d6ea83e30d381c4ba5bde35542625172f3139ff6))
+* **deps:** update eslint ([4a1c9bf](https://github.com/geostyler/geostyler/commit/4a1c9bf00065f4c9febd27a587916d8b087c98e4))
+* **deps:** update react and vite ([7ee8de3](https://github.com/geostyler/geostyler/commit/7ee8de37b236cb8c2b03cb6ca7c4dfe89867ffbc))
+* enable drag and drop on rule table ([e68fb2e](https://github.com/geostyler/geostyler/commit/e68fb2e2f06314d90dc12b4ea35ba38d0f86cfa8))
+* improve min and max denominator scale ([#2600](https://github.com/geostyler/geostyler/issues/2600)) ([7a43ebb](https://github.com/geostyler/geostyler/commit/7a43ebb171682d843a674c69a0645fa2ed7f9ab1))
+* opacity field as slider [#2565](https://github.com/geostyler/geostyler/issues/2565) ([b2387e2](https://github.com/geostyler/geostyler/commit/b2387e27a40eff5fcc620ecf6e74d01b7fa723a7))
+* **Style:** make multi edit optional ([b1ed160](https://github.com/geostyler/geostyler/commit/b1ed16046a547a2cfbd79a5368bdac948caa299a))
+
+### Bug Fixes
+
+* after review ([2eb6abd](https://github.com/geostyler/geostyler/commit/2eb6abd4941234ff2729229cae5aa1b77f856901))
+* **build:** adds postbuild script to add file extensions ([2203792](https://github.com/geostyler/geostyler/commit/22037924508dc62da805c67f22db2a140d23483e))
+* **build:** bundle with vite ([d91a3fa](https://github.com/geostyler/geostyler/commit/d91a3facf02cbd347b657dff52ea157bfbdfa2a7))
+* default cursor on non clickable renderers ([b386d64](https://github.com/geostyler/geostyler/commit/b386d6415ec5430e47744f4112660c8f7e6df6b4))
+* **deps:** update dependency geostyler-data to v1.1.0 ([677696c](https://github.com/geostyler/geostyler/commit/677696c29d3e2ae1ac38741e213f19be11a5e56a))
+* **deps:** update dependency monaco-editor to ^0.52.0 ([#2520](https://github.com/geostyler/geostyler/issues/2520)) ([4eaf1c5](https://github.com/geostyler/geostyler/commit/4eaf1c596741a2d84d7e3f0a19f712b704660844))
+* **deps:** update dependency typescript-json-schema to ^0.65.0 ([#2522](https://github.com/geostyler/geostyler/issues/2522)) ([af5a452](https://github.com/geostyler/geostyler/commit/af5a45235367143476426251ef17a2ba403ed55c))
+* **deps:** update geostyler dependencies ([64a1d2d](https://github.com/geostyler/geostyler/commit/64a1d2d38690a59714d14dbb5fadb5b59e0d528d))
+* **deps:** update geostyler-cql-parser ([a45369b](https://github.com/geostyler/geostyler/commit/a45369bb39ff40f145c7ec07ad6ce5aca44a6d8f))
+* **deps:** update geostyler-sld-parser to version 8.1.0 ([#2608](https://github.com/geostyler/geostyler/issues/2608)) ([981e957](https://github.com/geostyler/geostyler/commit/981e957ba9a9c3899c57ea8a9857a36fe60f5756))
+* remove _get() usage ([b67c747](https://github.com/geostyler/geostyler/commit/b67c747f7428f6787ca5b6cf8e5ef32bb791ecb9))
+* remove unused lodash import ([76e9c10](https://github.com/geostyler/geostyler/commit/76e9c107087bfbb4ffdada7b4d96a68fad602a19))
+* use lodash-es imports ([cb5603b](https://github.com/geostyler/geostyler/commit/cb5603b0a82c63204c8df02133d703a85371546d))
+
 ## [17.0.0](https://github.com/geostyler/geostyler/compare/v16.0.1...v17.0.0) (2025-05-27)
 
 ### ⚠ BREAKING CHANGES
