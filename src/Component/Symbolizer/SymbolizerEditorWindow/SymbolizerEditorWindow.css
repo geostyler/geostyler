@@ -37,6 +37,7 @@
     .gs-symbolizer-olrenderer {
       border-radius: 0;
       cursor: default;
+      height: 100px;
     }
   }
 }
