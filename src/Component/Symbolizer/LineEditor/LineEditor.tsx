@@ -26,29 +26,30 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
-  Collapse,
-  Form
+  Divider,
+  Form,
+  Switch
 } from 'antd';
 
 import {
-  Symbolizer,
+  CapType,
+  GraphicType,
+  JoinType,
   LineSymbolizer,
   PointSymbolizer,
-  GraphicType,
-  CapType,
-  JoinType
+  Symbolizer
 } from 'geostyler-style';
 
 import { ColorField, ColorFieldProps } from '../Field/ColorField/ColorField';
-import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
-import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
-import { LineDashField } from '../Field/LineDashField/LineDashField';
 import { LineCapField } from '../Field/LineCapField/LineCapField';
+import { LineDashField } from '../Field/LineDashField/LineDashField';
 import { LineJoinField, LineJoinFieldProps } from '../Field/LineJoinField/LineJoinField';
 import { OffsetField, OffsetFieldProps } from '../Field/OffsetField/OffsetField';
+import { OpacityField, OpacityFieldProps } from '../Field/OpacityField/OpacityField';
+import { WidthField, WidthFieldProps } from '../Field/WidthField/WidthField';
 import { GraphicEditor, GraphicEditorProps } from '../GraphicEditor/GraphicEditor';
 
 import _get from 'lodash-es/get.js';
@@ -59,8 +60,10 @@ import {
   useGeoStylerLocale,
   useGeoStylerUnsupportedProperties
 } from '../../../context/GeoStylerContext/GeoStylerContext';
-import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
+import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
+
+import './LineEditor.css';
 
 export interface LineEditorComposableProps {
   colorField?: InputConfig<ColorFieldProps['value']>;
@@ -84,6 +87,8 @@ export interface LineEditorComposableProps {
   graphicFillField?: InputConfig<GraphicEditorProps['value']>;
   // TODO add support for default values in VisibilityField
   visibilityField?: InputConfig<VisibilityFieldProps['value']>;
+  graphicStrokeSwitch?: InputConfig<boolean>;
+  graphicFillSwitch?: InputConfig<boolean>;
 }
 
 export interface LineEditorInternalProps {
@@ -103,8 +108,6 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     capField,
     colorField,
     dashOffsetField,
-    graphicFillField,
-    graphicStrokeField,
     joinField,
     lineDashField,
     onSymbolizerChange,
@@ -113,9 +116,19 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
     symbolizer,
     widthField,
     visibilityField,
+    graphicStrokeSwitch,
+    graphicFillSwitch
   } = composed;
 
   const locale = useGeoStylerLocale('LineEditor');
+
+  const [displayGraphicStroke, setDisplayGraphicStroke] = useState<boolean>(
+    graphicStrokeSwitch?.default === true ? true: false
+  );
+
+  const [displayGraphicFill, setDisplayGraphicFill] = useState<boolean>(
+    graphicFillSwitch?.default === true ? true: false
+  );
 
   const {
     getFormItemSupportProps
@@ -225,185 +238,181 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
 
   const itemConfig = getFormItemConfig();
 
-  const collapseItems = [{
-    key: '1',
-    label: locale.generalSectionLabel,
-    children: (
-      <>
-        {
-          visibilityField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.visibilityLabel}
-            >
-              <VisibilityField
-                value={visibility}
-                onChange={onVisibilityChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          colorField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.colorLabel}
-              {...getFormItemSupportProps('color')}
-            >
-              <ColorField
-                value={color as string}
-                defaultValue={colorField?.default}
-                onChange={onColorChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          widthField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.widthLabel}
-              {...getFormItemSupportProps('width')}
-            >
-              <WidthField
-                value={width}
-                defaultValue={widthField?.default as number}
-                onChange={onWidthChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          perpendicularOffsetField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.perpendicularOffsetLabel}
-              {...getFormItemSupportProps('perpendicularOffset')}
-            >
-              <OffsetField
-                value={perpendicularOffset}
-                defaultValue={perpendicularOffsetField?.default as number}
-                onChange={onPerpendicularOffsetChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          opacityField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.opacityLabel}
-              {...getFormItemSupportProps('opacity')}
-            >
-              <OpacityField
-                value={opacity}
-                defaultValue={opacityField?.default as number}
-                onChange={onOpacityChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          lineDashField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.dashLabel}
-              {...getFormItemSupportProps('dasharray')}
-            >
-              <LineDashField
-                value={dasharray as number[]}
-                onChange={onDasharrayChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          dashOffsetField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.dashOffsetLabel}
-              {...getFormItemSupportProps('dashOffset')}
-            >
-              <OffsetField
-                value={dashOffset}
-                defaultValue={dashOffsetField?.default as number}
-                onChange={onDashOffsetChange}
-                disabled={
-                  symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0
-                }
-              />
-            </Form.Item>
-          )
-        }
-        {
-          capField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.capLabel}
-              {...getFormItemSupportProps('cap')}
-            >
-              <LineCapField
-                value={cap}
-                onChange={(val) => onCapChange(val as CapType)}
-              />
-            </Form.Item>
-          )
-        }
-        {
-          joinField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.joinLabel}
-              {...getFormItemSupportProps('join')}
-            >
-              <LineJoinField
-                value={join}
-                onChange={(val) => onJoinChange(val as JoinType)}
-              />
-            </Form.Item>
-          )
-        }
-
-      </>
-    )
-  }];
-
-  if (graphicStrokeField?.visibility !== false) {
-    collapseItems.push({
-      key: '2',
-      label: locale.graphicStrokeSectionLabel,
-      children: (
-        <GraphicEditor
-          value={graphicStroke}
-          onGraphicChange={onGraphicStrokeChange}
-          graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
-          graphicType={_get(graphicStroke, 'kind') as GraphicType}
-        />
-      )
-    });
-  }
-  if (graphicFillField?.visibility !== false) {
-    collapseItems.push({
-      key: '3',
-      label: locale.graphicFillSectionLabel,
-      children: (
-        <GraphicEditor
-          value={graphicFill}
-          onGraphicChange={onGraphicFillChange}
-          graphicTypeFieldLabel={locale.graphicFillTypeLabel}
-          graphicType={_get(graphicFill, 'kind') as GraphicType}
-        />
-      )
-    });
-  }
-
   return (
     <div className="gs-line-symbolizer-editor" >
-      <Collapse
-        items={collapseItems}
-        defaultActiveKey={['1']}
-        bordered={false}
-      />
+      {
+        visibilityField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.visibilityLabel}
+          >
+            <VisibilityField
+              value={visibility}
+              onChange={onVisibilityChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        colorField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.colorLabel}
+            {...getFormItemSupportProps('color')}
+          >
+            <ColorField
+              value={color as string}
+              defaultValue={colorField?.default}
+              onChange={onColorChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        widthField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.widthLabel}
+            {...getFormItemSupportProps('width')}
+          >
+            <WidthField
+              value={width}
+              defaultValue={widthField?.default as number}
+              onChange={onWidthChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        perpendicularOffsetField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.perpendicularOffsetLabel}
+            {...getFormItemSupportProps('perpendicularOffset')}
+          >
+            <OffsetField
+              value={perpendicularOffset}
+              defaultValue={perpendicularOffsetField?.default as number}
+              onChange={onPerpendicularOffsetChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        opacityField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.opacityLabel}
+            {...getFormItemSupportProps('opacity')}
+          >
+            <OpacityField
+              value={opacity}
+              defaultValue={opacityField?.default as number}
+              onChange={onOpacityChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        lineDashField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.dashLabel}
+            {...getFormItemSupportProps('dasharray')}
+          >
+            <LineDashField
+              value={dasharray as number[]}
+              onChange={onDasharrayChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        dashOffsetField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.dashOffsetLabel}
+            {...getFormItemSupportProps('dashOffset')}
+          >
+            <OffsetField
+              value={dashOffset}
+              defaultValue={dashOffsetField?.default as number}
+              onChange={onDashOffsetChange}
+              disabled={
+                symbolizer.dasharray === undefined || _get(symbolizer, 'dasharray.length') === 0
+              }
+            />
+          </Form.Item>
+        )
+      }
+      {
+        capField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.capLabel}
+            {...getFormItemSupportProps('cap')}
+          >
+            <LineCapField
+              value={cap}
+              onChange={(val) => onCapChange(val as CapType)}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        joinField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.joinLabel}
+            {...getFormItemSupportProps('join')}
+          >
+            <LineJoinField
+              value={join}
+              onChange={(val) => onJoinChange(val as JoinType)}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        graphicStrokeSwitch?.visibility === false ? null : (
+          <>
+            <Divider />
+            <Form.Item
+              label={locale.graphicStrokeSectionLabel}
+            >
+              <Switch value={displayGraphicStroke} onChange={setDisplayGraphicStroke} />
+            </Form.Item>
+          </>
+        )
+      }
+      {
+        displayGraphicStroke && <GraphicEditor
+          graphicTypeFieldLabel={locale.graphicStrokeTypeLabel}
+          value={graphicStroke}
+          graphicType={_get(graphicStroke, 'kind') as GraphicType}
+          onGraphicChange={onGraphicStrokeChange}
+        />
+      }
+      {
+        graphicFillSwitch?.visibility === false ? null : (
+          <>
+            <Divider />
+            <Form.Item
+              label={locale.graphicFillSectionLabel}
+            >
+              <Switch value={displayGraphicFill} onChange={setDisplayGraphicFill} />
+            </Form.Item>
+          </>
+        )
+      }
+      {
+        displayGraphicFill && <GraphicEditor
+          graphicTypeFieldLabel={locale.graphicFillTypeLabel}
+          value={graphicFill}
+          graphicType={_get(graphicFill, 'kind') as GraphicType}
+          onGraphicChange={onGraphicFillChange}
+        />
+      }
     </div>
   );
 };
