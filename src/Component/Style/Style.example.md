@@ -105,6 +105,66 @@ class StyleExample extends React.Component {
 <StyleExample />
 ```
 
+This demonstrates the use of `Style` with name disabled.
+
+```jsx
+import React from 'react';
+import { Style } from 'geostyler';
+
+import { Switch } from 'antd';
+
+class StyleExample extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      style: {
+        "name": "Demo Style",
+        "rules": [
+          {
+            "name": "Rule 1",
+            "symbolizers": [
+              {
+                "kind": "Mark",
+                "wellKnownName": "circle"
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    this.onStyleChange = this.onStyleChange.bind(this);
+  }
+
+  onStyleChange(style) {
+    this.setState({
+      style: style
+    });
+  }
+
+  render() {
+    const {
+      style
+    } = this.state;
+
+    return (
+      <div>
+        <hr/>
+        <Style
+          style={style}
+          disableName={true}
+          onStyleChange={this.onStyleChange}
+        />
+      </div>
+    );
+  }
+
+}
+
+<StyleExample />
+```
+
 This demonstrates the use of `Style`, customized using `GeoStylerContext` (multi edit disabled).
 
 ```jsx
@@ -154,7 +214,6 @@ function StyleExample() {
     </GeoStylerContext.Provider>
   );
 }
-
 
 <StyleExample />
 ```

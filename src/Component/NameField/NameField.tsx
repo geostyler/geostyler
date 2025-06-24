@@ -38,6 +38,8 @@ export interface NameFieldProps {
   placeholder?: string;
   /** The value to display in input field */
   value?: string | undefined;
+  /** Is it disabled or not */
+  disabled?: boolean;
   /** The callback method that is triggered when the state changes */
   onChange?: (newValue: string) => void;
 }
@@ -47,6 +49,7 @@ export interface NameFieldProps {
  */
 export const NameField: React.FC<NameFieldProps> = ({
   value,
+  disabled = false,
   placeholder = 'Enter Name',
   onChange: onChangeProp
 }) => {
@@ -64,6 +67,7 @@ export const NameField: React.FC<NameFieldProps> = ({
   return (
     <Input
       className="gs-namefield"
+      disabled={disabled}
       value={value}
       onChange={onChange}
       placeholder={placeholder}

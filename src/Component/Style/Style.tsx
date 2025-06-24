@@ -65,7 +65,8 @@ import { ItemType } from 'antd/es/menu/interface';
 export interface StyleComposableProps {
   /** Should the classification be disabled */
   disableClassification?: boolean;
-  disableMultiEdit: boolean;
+  disableMultiEdit?: boolean;
+  disableName?: boolean;
 }
 
 export interface StyleInternalProps {
@@ -86,6 +87,7 @@ export const Style: React.FC<StyleProps> = (props) => {
   const {
     disableClassification = false,
     disableMultiEdit = false,
+    disableName = false,
     style: styleProp = {
       name: 'My Style',
       rules: []
@@ -382,6 +384,7 @@ export const Style: React.FC<StyleProps> = (props) => {
         >
           <NameField
             value={style.name}
+            disabled={disableName}
             onChange={onNameChange}
             placeholder={locale.nameFieldPlaceholder}
           />
