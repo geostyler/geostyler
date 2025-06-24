@@ -105,7 +105,7 @@ class StyleExample extends React.Component {
 <StyleExample />
 ```
 
-This demonstrates the use of `Style` with name disabled.
+This demonstrates the use of `Style`, customized using `GeoStylerContext` (name disabled).
 
 ```jsx
 import React from 'react';
