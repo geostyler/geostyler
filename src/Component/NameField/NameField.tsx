@@ -49,7 +49,6 @@ export interface NameFieldProps {
  */
 export const NameField: React.FC<NameFieldProps> = ({
   value,
-  disabled = false,
   placeholder = 'Enter Name',
   onChange: onChangeProp
 }) => {
@@ -67,7 +66,6 @@ export const NameField: React.FC<NameFieldProps> = ({
   return (
     <Input
       className="gs-namefield"
-      disabled={disabled}
       value={value}
       onChange={onChange}
       placeholder={placeholder}

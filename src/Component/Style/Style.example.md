@@ -105,61 +105,45 @@ class StyleExample extends React.Component {
 <StyleExample />
 ```
 
-This demonstrates the use of `Style`, customized using `GeoStylerContext` (name disabled).
+This demonstrates the use of `Style`, customized using `GeoStylerContext` (name not visible).
 
 ```jsx
-import React from 'react';
-import { Style } from 'geostyler';
+import { GeoStylerContext, Style } from 'geostyler';
+import { Style as GsStyle } from 'geostyler-style';
 
-import { Switch } from 'antd';
+function StyleExample() {
+  const myContext = {
+    composition: {
+      Style: {
+        nameField: {
+          visibility: false
+        }
+      }
+    }
+  };
 
-class StyleExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      style: {
-        "name": "Demo Style",
-        "rules": [
+  const style = {
+    'name': 'Demo Style',
+    'rules': [
+      {
+        'name': 'Rule 1',
+        'symbolizers': [
           {
-            "name": "Rule 1",
-            "symbolizers": [
-              {
-                "kind": "Mark",
-                "wellKnownName": "circle"
-              }
-            ]
+            'kind': 'Mark',
+            'wellKnownName': 'circle'
           }
         ]
       }
-    };
+    ]
+  };
 
-    this.onStyleChange = this.onStyleChange.bind(this);
-  }
-
-  onStyleChange(style) {
-    this.setState({
-      style: style
-    });
-  }
-
-  render() {
-    const {
-      style
-    } = this.state;
-
-    return (
-      <div>
-        <hr/>
-        <Style
-          style={style}
-          disableName={true}
-          onStyleChange={this.onStyleChange}
-        />
-      </div>
-    );
-  }
-
+  return (
+    <GeoStylerContext.Provider value={myContext}>
+      <Style
+        style={style}
+      />
+    </GeoStylerContext.Provider>
+  );
 }
 
 <StyleExample />
