@@ -63,9 +63,14 @@ import './Style.css';
 import { ItemType } from 'antd/es/menu/interface';
 
 export interface StyleComposableProps {
+  // TODO add support for default values in nameField
+  // TODO add support for default values in nameField
+  nameField?: {
+    visibility?: boolean;
+  };
   /** Should the classification be disabled */
   disableClassification?: boolean;
-  disableMultiEdit: boolean;
+  disableMultiEdit?: boolean;
 }
 
 export interface StyleInternalProps {
@@ -84,6 +89,7 @@ export const Style: React.FC<StyleProps> = (props) => {
   const composition = useGeoStylerComposition('Style');
   const composed = { ...props, ...composition };
   const {
+    nameField,
     disableClassification = false,
     disableMultiEdit = false,
     style: styleProp = {
@@ -377,15 +383,19 @@ export const Style: React.FC<StyleProps> = (props) => {
   return (
     <div className="gs-style" >
       <div className="gs-style-name-classification-row">
-        <Form.Item
-          label={locale.nameFieldLabel}
-        >
-          <NameField
-            value={style.name}
-            onChange={onNameChange}
-            placeholder={locale.nameFieldPlaceholder}
-          />
-        </Form.Item>
+        {
+          nameField?.visibility === false ? null : (
+            <Form.Item
+              label={locale.nameFieldLabel}
+            >
+              <NameField
+                value={style.name}
+                onChange={onNameChange}
+                placeholder={locale.nameFieldPlaceholder}
+              />
+            </Form.Item>
+          )
+        }
         {
           // TODO: Rule GeneratorWindow should only be available if data is VectorData
           !disableClassification &&
