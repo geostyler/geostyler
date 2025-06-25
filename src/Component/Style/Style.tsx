@@ -63,6 +63,7 @@ import './Style.css';
 import { ItemType } from 'antd/es/menu/interface';
 
 export interface StyleComposableProps {
+  // TODO add support for default values in nameField
   nameField?: {
     visibility?: boolean;
   };

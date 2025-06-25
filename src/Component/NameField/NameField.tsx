@@ -38,8 +38,6 @@ export interface NameFieldProps {
   placeholder?: string;
   /** The value to display in input field */
   value?: string | undefined;
-  /** Is it disabled or not */
-  disabled?: boolean;
   /** The callback method that is triggered when the state changes */
   onChange?: (newValue: string) => void;
 }
