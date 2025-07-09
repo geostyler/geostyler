@@ -130,13 +130,17 @@ import en_US from './locale/en_US';
 import es_ES from './locale/es_ES';
 import fr_FR from './locale/fr_FR';
 import zh_CN from './locale/zh_CN';
+import pl_Pl from './locale/pl_PL';
+import cs_CZ from './locale/cs_CZ';
 
 export const locale = {
   de_DE,
   en_US,
   es_ES,
   fr_FR,
-  zh_CN
+  zh_CN,
+  cs_CZ,
+  pl_Pl
 };
 
 export {
