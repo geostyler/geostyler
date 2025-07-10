@@ -1,3 +1,14 @@
+## [18.1.0](https://github.com/geostyler/geostyler/compare/v18.0.0...v18.1.0) (2025-07-10)
+
+### Features
+
+* add option to disable name [#2618](https://github.com/geostyler/geostyler/issues/2618) ([#2623](https://github.com/geostyler/geostyler/issues/2623)) ([89c7c64](https://github.com/geostyler/geostyler/commit/89c7c64c72599fc40f10a4abf7c3ff204ad3cd50))
+* **i18n:** add Polish and Czech translations to GeoStylerLocale ([bd8ee1d](https://github.com/geostyler/geostyler/commit/bd8ee1db2e39c0dfc78db9e3bcf045568f598322))
+
+### Bug Fixes
+
+* height renderer in symbolizer editor ([f90fd66](https://github.com/geostyler/geostyler/commit/f90fd6682857361dee6f8474240fd57e992b4d8c))
+
 ## [18.0.0](https://github.com/geostyler/geostyler/compare/v17.0.0...v18.0.0) (2025-06-18)
 
 ### ⚠ BREAKING CHANGES
