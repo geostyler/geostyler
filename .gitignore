@@ -12,7 +12,6 @@
 # production
 /dist
 /build
-/dist
 /browser
 
 # history
