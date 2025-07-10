@@ -1,3 +1,9 @@
+## [18.1.1](https://github.com/geostyler/geostyler/compare/v18.1.0...v18.1.1) (2025-07-10)
+
+### Bug Fixes
+
+* add browser build to package ([a20c9dd](https://github.com/geostyler/geostyler/commit/a20c9dd4b84f43c87bb0650809d558dbf6b853cc))
+
 ## [18.1.0](https://github.com/geostyler/geostyler/compare/v18.0.0...v18.1.0) (2025-07-10)
 
 ### Features
