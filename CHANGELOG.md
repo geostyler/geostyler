@@ -1,3 +1,10 @@
+## [18.1.2](https://github.com/geostyler/geostyler/compare/v18.1.1...v18.1.2) (2025-07-11)
+
+### Bug Fixes
+
+* update browserbuild config ([14bda33](https://github.com/geostyler/geostyler/commit/14bda3364451827f31ec9092d98f4d1165576df5))
+* use default value also for slider ([01348f4](https://github.com/geostyler/geostyler/commit/01348f45f72dca0ffc9a78b1ce5ecb5c955393f2))
+
 ## [18.1.1](https://github.com/geostyler/geostyler/compare/v18.1.0...v18.1.1) (2025-07-10)
 
 ### Bug Fixes
