@@ -13,10 +13,24 @@ export default defineConfig({
       formats: ['iife'],
       fileName: 'geostyler',
     },
-    sourcemap: true,
+    // Sourcemaps are not needed for the browser build
+    sourcemap: false,
+    rollupOptions: {
+      external: [
+        'react',
+        'react-dom'
+      ],
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM'
+        }
+      }
+    }
   },
   define: {
-    appName: 'GeoStyler'
+    appName: 'GeoStyler',
+    "process.env.NODE_ENV": '"production"'
   },
   server: {
     host: '0.0.0.0'
