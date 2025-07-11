@@ -30,6 +30,7 @@ import React from 'react';
 import NumberExpressionInput, { type NumberExpressionInputProps }
   from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 import { Expression } from 'geostyler-style';
+import { SliderProps } from 'antd/lib/slider';
 
 type InputProps = NumberExpressionInputProps['inputProps'];
 
@@ -59,11 +60,18 @@ export const OpacityField: React.FC<OpacityFieldProps> = ({
     finalClassName += ` ${className}`;
   }
 
+  const sliderProps: SliderProps = {
+    min: 0,
+    max: 1,
+    step: 0.01,
+    defaultValue: inputNumberProps.defaultValue ? [Number(inputNumberProps.defaultValue)] : undefined
+  };
+
   return (
     <NumberExpressionInput
       className={finalClassName}
       slider={slider}
-      sliderProps={slider ? { min: 0, max: 1, step: 0.01 } : undefined}
+      sliderProps={slider ? sliderProps : undefined}
       value={value}
       onChange={onChange}
       onCancel={onCancel}
