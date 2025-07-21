@@ -120,7 +120,7 @@
     "ast-types": "^0.14.2",
     "babel-jest": "^29.7.0",
     "buffer": "^6.0.3",
-    "cheerio": "1.0.0",
+    "cheerio": "1.1.2",
     "copyfiles": "^2.4.1",
     "core-js": "^3.42.0",
     "css-loader": "^7.1.2",
