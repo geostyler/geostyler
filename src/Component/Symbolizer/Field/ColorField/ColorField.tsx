@@ -116,6 +116,7 @@ export const ColorField: React.FC<ColorFieldProps> = ({
         onChange={onColorPickerChange}
         onClear={() => onColorPickerChange()}
         value={colorString}
+        rootClassName='color-picker-popover'
       >
         <Button style={btnStyle} className="color-picker-trigger">
           {value ? value.toString() : locale.chooseText}
