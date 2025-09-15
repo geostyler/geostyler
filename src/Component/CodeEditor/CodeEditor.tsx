@@ -34,7 +34,8 @@ import React, {
   useState
 } from 'react';
 
-import { Editor, useMonaco } from '@monaco-editor/react';
+import * as monaco from 'monaco-editor';
+import { loader, Editor, useMonaco } from '@monaco-editor/react';
 
 import {
   saveAs
@@ -102,6 +103,8 @@ type FileFormat = {
   extension: FileExtension;
   mimeType: MimeType;
 };
+
+loader.config({ monaco });
 
 const MODELPATH = 'geostyler.json'; // associate with our model
 const SCHEMAURI = schema.$id;
