@@ -1,3 +1,16 @@
+## [18.2.0](https://github.com/geostyler/geostyler/compare/v18.1.2...v18.2.0) (2025-10-30)
+
+### Features
+
+* **locale:** added hebrew locale ([5bddffa](https://github.com/geostyler/geostyler/commit/5bddffa5c8e69345e3b0e18054d13cb65ecbd546))
+
+### Bug Fixes
+
+* **ColorField:** scope color picker styles ([#2632](https://github.com/geostyler/geostyler/issues/2632)) ([fe02a2f](https://github.com/geostyler/geostyler/commit/fe02a2fb662efe1c7cc09804053fb0e6ae839235))
+* **deps:** update dependency geostyler-cql-parser to v4.1.1 ([e78770c](https://github.com/geostyler/geostyler/commit/e78770c1264b086aede4aacb0c5344034d751454))
+* **deps:** update dependency proj4 to v2.19.10 ([3c44ea1](https://github.com/geostyler/geostyler/commit/3c44ea154bb66ad2f068611bf1b73a61469330fc))
+* externalize antd and ol for browserbuild ([ab3b5be](https://github.com/geostyler/geostyler/commit/ab3b5bee6508c378f2137d3ac9f37b9a47742ed6))
+
 ## [18.1.2](https://github.com/geostyler/geostyler/compare/v18.1.1...v18.1.2) (2025-07-11)
 
 ### Bug Fixes
