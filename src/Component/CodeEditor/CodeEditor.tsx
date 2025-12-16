@@ -68,9 +68,9 @@ import { SldStyleParser } from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 import { usePrevious } from '../../hook/UsePrevious';
 import ParserFeedback from '../ParserFeedback/ParserFeedback';
-import { QGISStyleParser } from 'geostyler-qgis-parser';
 import { MapboxStyleParser, MbStyle} from 'geostyler-mapbox-parser';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
+import { QGISStyleParser } from 'geostyler-qgis-parser';
 
 export interface CodeEditorProps {
   /** Delay in ms until onStyleChange will be called */
@@ -115,19 +115,19 @@ const getFileFormat = (parser: StyleParser): FileFormat => {
     mimeType: 'text/plain',
   };
 
-  if (parser instanceof SldStyleParser){
+  if (parser && parser.title === SldStyleParser.title) {
     fileFormat = {
       extension: '.sld',
       language: 'xml',
       mimeType: 'text/xml',
     };
-  } else if (parser instanceof QGISStyleParser){
+  } else if (parser && parser.title === QGISStyleParser.title){
     fileFormat = {
       extension: '.qml',
       language: 'xml',
       mimeType: 'text/xml',
     };
-  } else if (parser instanceof MapboxStyleParser){
+  } else if (parser && parser.title === MapboxStyleParser.title) {
     fileFormat = {
       extension: '.json',
       language: 'json',
