@@ -1,3 +1,14 @@
+## [18.2.1](https://github.com/geostyler/geostyler/compare/v18.2.0...v18.2.1) (2025-12-17)
+
+### Bug Fixes
+
+* fix format check ([c996948](https://github.com/geostyler/geostyler/commit/c99694875e85eaf79b844fc691dcd7a414185f53))
+* fix release workflow ([80ac846](https://github.com/geostyler/geostyler/commit/80ac846e959929f7a3b6390657574b92bcbc4992))
+* fix release workflow ([87588cf](https://github.com/geostyler/geostyler/commit/87588cf8f7f0f4e11e4bcfeb86ef27a8a2c09d0b))
+* fix release workflow ([7ae5495](https://github.com/geostyler/geostyler/commit/7ae549594fe3430e9395d28abe22cbb12e21651b))
+* fix release workflow ([caaa46a](https://github.com/geostyler/geostyler/commit/caaa46a72119a9ced071e28836a149e6e001f0e6))
+* fix release workflow ([509e836](https://github.com/geostyler/geostyler/commit/509e836880ccba272c1863d217a74d33af45a531))
+
 ## [18.2.0](https://github.com/geostyler/geostyler/compare/v18.1.2...v18.2.0) (2025-10-30)
 
 ### Features
