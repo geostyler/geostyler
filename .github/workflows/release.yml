@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies ⏬
         run: npm ci
 
+      - name: Build artifacts 🏗️
+        run: npm run build
+
       - name: Release 🚀
         uses: cycjimmy/semantic-release-action@v4.2.2
         id: semantic
@@ -32,7 +35,6 @@ jobs:
           # trigger other workflows (e.g. updating gh-pages,
           # notification to Discord, etc.)
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Update README.md 📄
         run: |
