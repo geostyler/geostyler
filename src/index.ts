@@ -50,7 +50,6 @@ export { DataLoader } from './Component/DataInput/DataLoader/DataLoader';
 export { Editor } from './Component/Symbolizer/Editor/Editor';
 export { ExtendedField } from './Component/Symbolizer/Field/ExtendedField/ExtendedField';
 export { FadeDurationField } from './Component/Symbolizer/Field/FadeDurationField/FadeDurationField';
-export { FieldSet } from './Component/FieldSet/FieldSet';
 export { FieldContainer } from './Component/FieldContainer/FieldContainer';
 export { FillEditor } from './Component/Symbolizer/FillEditor/FillEditor';
 export { FilterEditorWindow } from './Component/Filter/FilterEditorWindow/FilterEditorWindow';
