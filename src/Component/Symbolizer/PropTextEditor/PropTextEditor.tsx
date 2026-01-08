@@ -215,6 +215,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       <Form.Item
         {...itemConfig}
         label={locale.opacityLabel}
+        extra={locale.opacityExtra}
       >
         <OpacityField
           value={opacity}
@@ -233,6 +234,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       <Form.Item
         {...itemConfig}
         label={locale.offsetXLabel}
+        extra={locale.offsetXExtra}
       >
         <OffsetField
           value={offsetX}
@@ -242,6 +244,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       <Form.Item
         {...itemConfig}
         label={locale.offsetYLabel}
+        extra={locale.offsetYExtra}
       >
         <OffsetField
           value={offsetY}
@@ -251,6 +254,7 @@ export const PropTextEditor: React.FC<PropTextEditorProps> = ({
       <Form.Item
         {...itemConfig}
         label={locale.rotateLabel}
+        extra={locale.rotateExtra}
       >
         <RotateField
           value={rotate}

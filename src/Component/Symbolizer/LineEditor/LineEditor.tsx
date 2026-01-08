@@ -244,6 +244,21 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           )
         }
         {
+          widthField?.visibility === false ? null : (
+            <Form.Item
+              {...itemConfig}
+              label={locale.widthLabel}
+              {...getFormItemSupportProps('width')}
+            >
+              <WidthField
+                value={width}
+                defaultValue={widthField?.default as number}
+                onChange={onWidthChange}
+              />
+            </Form.Item>
+          )
+        }
+        {
           colorField?.visibility === false ? null : (
             <Form.Item
               {...itemConfig}
@@ -259,16 +274,17 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           )
         }
         {
-          widthField?.visibility === false ? null : (
+          opacityField?.visibility === false ? null : (
             <Form.Item
               {...itemConfig}
-              label={locale.widthLabel}
-              {...getFormItemSupportProps('width')}
+              label={locale.opacityLabel}
+              extra={locale.opacityExtra}
+              {...getFormItemSupportProps('opacity')}
             >
-              <WidthField
-                value={width}
-                defaultValue={widthField?.default as number}
-                onChange={onWidthChange}
+              <OpacityField
+                value={opacity}
+                defaultValue={opacityField?.default as number}
+                onChange={onOpacityChange}
               />
             </Form.Item>
           )
@@ -289,25 +305,11 @@ export const LineEditor: React.FC<LineEditorProps> = (props) => {
           )
         }
         {
-          opacityField?.visibility === false ? null : (
-            <Form.Item
-              {...itemConfig}
-              label={locale.opacityLabel}
-              {...getFormItemSupportProps('opacity')}
-            >
-              <OpacityField
-                value={opacity}
-                defaultValue={opacityField?.default as number}
-                onChange={onOpacityChange}
-              />
-            </Form.Item>
-          )
-        }
-        {
           lineDashField?.visibility === false ? null : (
             <Form.Item
               {...itemConfig}
               label={locale.dashLabel}
+              extra={locale.dashExtra}
               {...getFormItemSupportProps('dasharray')}
             >
               <LineDashField

@@ -65,7 +65,7 @@ describe('FillEditor', () => {
       const textEditor = render(<FillEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.opacity = 0.5;
-      const input = textEditor.container.querySelectorAll('.opacity-field input')[1];
+      const input = textEditor.container.querySelectorAll('.opacity-field input')[0];
       await act(async() => {
         fireEvent.change(input, {
           target: { value: 0.5 }
@@ -80,7 +80,7 @@ describe('FillEditor', () => {
       const textEditor = render(<FillEditor {...props} />);
       const newSymbolizer = {...dummySymbolizer};
       newSymbolizer.fillOpacity = 0.5;
-      const input = textEditor.container.querySelectorAll('.opacity-field input')[0];
+      const input = textEditor.container.querySelectorAll('.opacity-field input')[1];
       await act(async() => {
         fireEvent.change(input, {
           target: { value: 0.5 }
