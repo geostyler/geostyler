@@ -27,7 +27,7 @@
  */
 
 import { Alert } from 'antd';
-import { ReadStyleResult, WriteStyleResult } from 'geostyler-style';
+import { ReadStyleResult, UnsupportedProperties, WriteStyleResult } from 'geostyler-style';
 import React from 'react';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 
@@ -72,50 +72,52 @@ export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
     />
   ));
 
-  const strings: string[] = [];
-
-  const getTextualRepresentation = (value: any) => {
-    let text;
-    if (typeof value === 'string' || value instanceof String) {
-      if (value === 'none') {
-        text = locale.notSupported;
-      } else if (value === 'partial') {
-        text = locale.partiallySupported;
-      }
-    } else if (value.support) {
-      if (value.support === 'none') {
-        text = `${locale.notSupported}: ${value.info}`;
-      } else if (value.support === 'partial') {
-        text = `${locale.partiallySupported}: ${value.info}`;
-      }
+  const getAlerts = (obj?: UnsupportedProperties) => {
+    if (!obj) {
+      return null;
     }
-    return text;
-  };
+    const alerts: React.ReactNode[] = [];
+    const iterate = (subObj: UnsupportedProperties, path: string[]) => {
+      // Check if current object has a 'support' key
+      if ('support' in subObj) {
+        // create alert for this level
+        let infoText = '';
+        if ('info' in subObj) {
+          infoText = ` - ${subObj.info}`;
+        }
+        const propertyPath = path.join('.');
+        const supportLevel = subObj.support;
+        const {
+          partiallySupported,
+          notSupported
+        } = locale;
+        const notSupportedText = supportLevel === 'partial' ? partiallySupported : notSupported;
+        const message = `${propertyPath} ${notSupportedText}${infoText}`;
+        alerts.push(
+          <Alert
+            showIcon
+            key={`unsupported-${path.join('-')}`}
+            type='warning'
+            message={message}
+          />
+        );
+      }
 
-  const prepareUnsupportedProperties = (obj: any, prefix = '') => {
-    Object.keys(obj)
-      .forEach(key => {
-        const value = obj[key];
-        if (typeof value === 'string' || value instanceof String || value.support) {
-          strings.push(`${prefix}${key} ${getTextualRepresentation(value)}`);
-        } else {
-          prepareUnsupportedProperties(value, `${key}.`);
+      // Continue iterating through all keys (except 'support' and 'info')
+      Object.keys(subObj).forEach((key) => {
+        if (key === 'support' || key === 'info') {
+          return;
+        }
+        const value = subObj[key as keyof UnsupportedProperties];
+        const currentPath = [...path, key];
+        if (typeof value === 'object' && value !== null) {
+          iterate(value as UnsupportedProperties, currentPath);
         }
       });
+    };
+    iterate(obj, []);
+    return alerts;
   };
-
-  if (unsupportedProperties) {
-    prepareUnsupportedProperties(unsupportedProperties);
-  }
-
-  const unsupportedPropertiesAlerts = strings?.map((unsupportedProperty, index) => (
-    <Alert
-      showIcon
-      key={`unsupportedProperty-${index}`}
-      type='warning'
-      message={unsupportedProperty}
-    />
-  ));
 
   return (
     <div className="gs-parser-feedback">
@@ -124,7 +126,7 @@ export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
       </div>
       <div className={'warning-alerts'}>
         {warningAlerts}
-        {unsupportedPropertiesAlerts}
+        {getAlerts(unsupportedProperties)}
       </div>
     </div>
   );
