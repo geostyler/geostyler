@@ -163,8 +163,8 @@ const fr_FR: GeoStylerLocale = {
     fillColorLabel: 'Couleur du remplissage',
     outlineColorLabel: 'Couleur du contour',
     outlineWidthLabel: 'Épaisseur du contour',
-    outlineDasharrayLabel: 'Tirets ou pointillés',
-    graphicFillTypeLabel: 'Motif du remplissage',
+    outlineDasharrayLabel: 'Tireté ou pointillé du remplissage',
+    graphicFillTypeLabel: 'Type de remplissage',
     visibilityLabel: 'Visibilité',
     generalSectionLabel: 'Généralités',
     graphicFillSectionLabel: 'Motif de remplissage'
@@ -198,7 +198,7 @@ const fr_FR: GeoStylerLocale = {
     widthLabel: 'Épaisseur',
     visibilityLabel: 'Visibilité',
     generalSectionLabel: 'Généralités',
-    graphicStrokeSectionLabel: 'Type de tracé',
+    graphicStrokeSectionLabel: 'Motif de tracé',
     graphicFillSectionLabel: 'Motif de remplissage'
   },
   TextEditor: {
