@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Button,
@@ -79,6 +79,12 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
     return isGeoStylerFunction(value) ? undefined : value;
   });
 
+  useEffect(() => {
+    if (!isGeoStylerFunction(value)) {
+      setInputValue(value);
+    }
+  }, [value]);
+
   if (isGeoStylerFunction(value)) {
     return (
       <span className={finalClassName}>
@@ -106,7 +112,7 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
                 onChange?.(undefined);
               }
               onChange?.(val);
-              setInputValue(val === null ? undefined : val);
+              setInputValue(val === null ? undefined : Number(val));
             }}
           />
           <div className={'number-wrapper'}>
