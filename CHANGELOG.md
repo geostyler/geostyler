@@ -1,3 +1,14 @@
+## [18.3.0](https://github.com/geostyler/geostyler/compare/v18.2.1...v18.3.0) (2026-01-30)
+
+### Features
+
+* **TextEditor:** introduce placement and repeat fields ([f1a0381](https://github.com/geostyler/geostyler/commit/f1a0381ffaae6b6cd1b659be9c5f6541f2cce198))
+
+### Bug Fixes
+
+* **NumberExpressionInput:** avoid repeated onChange calls ([5b1eadc](https://github.com/geostyler/geostyler/commit/5b1eadcc757b246d9f0f1b6d09d9634b679f19aa))
+* update inputValue correctly ([969e7da](https://github.com/geostyler/geostyler/commit/969e7daa35069946b9342c7a1eabbdc339cb2f18))
+
 ## [18.2.1](https://github.com/geostyler/geostyler/compare/v18.2.0...v18.2.1) (2025-12-17)
 
 ### Bug Fixes
