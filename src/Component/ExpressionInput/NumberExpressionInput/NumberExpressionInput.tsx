@@ -108,11 +108,9 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
             value={inputValue}
             range={false}
             onChange={(val) => {
-              if (val === null) {
-                onChange?.(undefined);
-              }
-              onChange?.(val);
-              setInputValue(val === null ? undefined : Number(val));
+              const castVal = val === null ? undefined : Number(val);
+              onChange?.(castVal);
+              setInputValue(castVal);
             }}
           />
           <div className={'number-wrapper'}>
@@ -120,11 +118,9 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
               {...sliderProps}
               value={inputValue}
               onChange={(val) => {
-                if (val === null) {
-                  onChange?.(undefined);
-                }
-                onChange?.(Number(val));
-                setInputValue(val === null ? undefined : Number(val));
+                const castVal = val === null ? undefined : Number(val);
+                onChange?.(castVal);
+                setInputValue(castVal);
               }}
             />
             <Button
@@ -143,10 +139,8 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
           <InputNumber
             value={value}
             onChange={(val) => {
-              if (val === null) {
-                onChange?.(undefined);
-              }
-              onChange?.(val as number);
+              const castVal = val === null ? undefined : Number(val);
+              onChange?.(castVal);
             }}
             {...inputProps}
           />
