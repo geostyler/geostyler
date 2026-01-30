@@ -212,7 +212,9 @@ const hr_HR: GeoStylerLocale = {
     haloColorLabel: 'Halo-Boja',
     haloWidthLabel: 'Halo-Širina',
     attributeNotFound: 'Polje nije pronađeno',
-    visibilityLabel: 'Vidljivost'
+    visibilityLabel: 'Vidljivost',
+    placementLabel: 'Postavljanje',
+    repeatLabel: 'Ponavljanje'
   },
   PropTextEditor: {
     propFieldLabel: 'Polje',
@@ -465,6 +467,13 @@ const hr_HR: GeoStylerLocale = {
       bevel: 'TODO(hr_HR): bevel',
       round: 'TODO(hr_HR): round',
       miter: 'TODO(hr_HR): miter'
+    }
+  },
+  PlacementField: {
+    placementOptions: {
+      point: 'Točka',
+      line: 'Linija',
+      'line-center': 'Središte linije'
     }
   },
   ImageField: {

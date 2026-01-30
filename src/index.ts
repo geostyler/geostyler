@@ -86,6 +86,7 @@ export { RadiusField } from './Component/Symbolizer/Field/RadiusField/RadiusFiel
 export { RasterChannelEditor } from './Component/Symbolizer/RasterChannelEditor/RasterChannelEditor';
 export { RasterEditor } from './Component/Symbolizer/RasterEditor/RasterEditor';
 export { RemovableItem } from './Component/RemovableItem/RemovableItem';
+export { RepeatField } from './Component/Symbolizer/Field/RepeatField/RepeatField';
 export { OlRenderer } from './Component/Renderer/OlRenderer/OlRenderer';
 export { Renderer } from './Component/Renderer/Renderer/Renderer';
 export { RgbChannelField } from './Component/Symbolizer/Field/RgbChannelField/RgbChannelField';

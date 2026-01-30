@@ -212,7 +212,9 @@ const cs_CZ: GeoStylerLocale = {
     haloColorLabel: 'Barva halo',
     haloWidthLabel: 'Šířka halo',
     attributeNotFound: 'Pole nenalezeno',
-    visibilityLabel: 'Viditelnost'
+    visibilityLabel: 'Viditelnost',
+    placementLabel: 'Umístění',
+    repeatLabel: 'Opakovat'
   },
   PropTextEditor: {
     propFieldLabel: 'Pole',
@@ -465,6 +467,13 @@ const cs_CZ: GeoStylerLocale = {
       bevel: 'Zkosený',
       round: 'Kulatý',
       miter: 'Hrot'
+    }
+  },
+  PlacementField: {
+    placementOptions: {
+      point: 'Bod',
+      line: 'Čára',
+      'line-center': 'Střed čáry'
     }
   },
   ImageField: {

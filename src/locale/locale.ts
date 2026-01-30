@@ -172,6 +172,8 @@ export default interface GeoStylerLocale {
     haloWidthLabel: string;
     attributeNotFound: string;
     visibilityLabel: string;
+    placementLabel: string;
+    repeatLabel: string;
   };
   PropTextEditor: {
     fontLabel: string;
@@ -438,6 +440,13 @@ export default interface GeoStylerLocale {
       bevel: string;
       round: string;
       miter: string;
+    };
+  };
+  PlacementField: {
+    placementOptions: {
+      point: string;
+      line: string;
+      'line-center': string;
     };
   };
   ImageField: {

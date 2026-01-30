@@ -213,7 +213,9 @@ const he_IL: GeoStylerLocale = {
     haloColorLabel: 'צבע הילה',
     haloWidthLabel: 'רוחב הילה',
     attributeNotFound: 'שדה לא נמצא',
-    visibilityLabel: 'נראות'
+    visibilityLabel: 'נראות',
+    placementLabel: 'מיקום',
+    repeatLabel: 'חזור'
   },
   PropTextEditor: {
     propFieldLabel: 'שדה',
@@ -466,6 +468,13 @@ const he_IL: GeoStylerLocale = {
       bevel: 'משופע',
       round: 'עגול',
       miter: 'חד'
+    }
+  },
+  PlacementField: {
+    placementOptions: {
+      point: 'נקודה',
+      line: 'קו',
+      'line-center': 'מרכז קו'
     }
   },
   ImageField: {
