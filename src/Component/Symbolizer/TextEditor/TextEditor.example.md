@@ -133,6 +133,12 @@ function TextEditorExample () {
         },
         haloWidthField: {
           visibility: true
+        },
+        placementField: {
+          visibility: true
+        },
+        repeatField: {
+          visibility: true
         }
       }
     }
@@ -216,6 +222,18 @@ function TextEditorExample () {
           onChange={visibility => {onVisibilityChange(visibility, 'haloWidthField')}}
           checkedChildren="Halo-Width"
           unCheckedChildren="Halo-Width"
+        />
+        <Switch
+          checked={myContext.composition.TextEditor.placementField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'placementField')}}
+          checkedChildren="Placement"
+          unCheckedChildren="Placement"
+        />
+        <Switch
+          checked={myContext.composition.TextEditor.repeatField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'repeatField')}}
+          checkedChildren="Repeat"
+          unCheckedChildren="Repeat"
         />
       </div>
       <hr />

@@ -212,7 +212,9 @@ const en_US: GeoStylerLocale = {
     haloColorLabel: 'Halo-Color',
     haloWidthLabel: 'Halo-Width',
     attributeNotFound: 'Field not found',
-    visibilityLabel: 'Visibility'
+    visibilityLabel: 'Visibility',
+    placementLabel: 'Placement',
+    repeatLabel: 'Repeat'
   },
   PropTextEditor: {
     propFieldLabel: 'Field',
@@ -465,6 +467,13 @@ const en_US: GeoStylerLocale = {
       bevel: 'Bevel',
       round: 'Round',
       miter: 'Miter'
+    }
+  },
+  PlacementField: {
+    placementOptions: {
+      point: 'Point',
+      line: 'Line',
+      'line-center': 'Line Center'
     }
   },
   ImageField: {

@@ -213,7 +213,9 @@ const zh_CN: GeoStylerLocale = {
     haloColorLabel: '光晕颜色',
     haloWidthLabel: '光晕宽度',
     attributeNotFound: '字段未找到',
-    visibilityLabel: '可见性'
+    visibilityLabel: '可见性',
+    placementLabel: '位置',
+    repeatLabel: '重复'
   },
   PropTextEditor: {
     propFieldLabel: '字段',
@@ -466,6 +468,13 @@ const zh_CN: GeoStylerLocale = {
       bevel: 'TODO(zh_CN): bevel',
       round: 'TODO(zh_CN): round',
       miter: 'TODO(zh_CN): miter'
+    }
+  },
+  PlacementField: {
+    placementOptions: {
+      point: '点',
+      line: '线',
+      'line-center': '线中心'
     }
   },
   ImageField: {

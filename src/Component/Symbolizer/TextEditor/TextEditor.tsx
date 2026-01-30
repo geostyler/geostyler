@@ -36,6 +36,7 @@ import {
 import _cloneDeep from 'lodash-es/cloneDeep.js';
 
 import {
+  PlacementType,
   Symbolizer,
   TextSymbolizer
 } from 'geostyler-style';
@@ -59,6 +60,8 @@ import {
 import './TextEditor.css';
 import VisibilityField, { VisibilityFieldProps } from '../Field/VisibilityField/VisibilityField';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
+import { RepeatField, RepeatFieldProps } from '../Field/RepeatField/RepeatField';
+import { PlacementField, PlacementFieldProps } from '../Field/PlacementField/PlacementField';
 
 export interface TextEditorComposableProps {
   templateField?: InputConfig<string>;
@@ -73,6 +76,8 @@ export interface TextEditorComposableProps {
   haloWidthField?: InputConfig<WidthFieldProps['value']>;
   // TODO add support for default values in VisibilityField
   visibilityField?: InputConfig<VisibilityFieldProps['value']>;
+  placementField?: InputConfig<PlacementFieldProps['value']>;
+  repeatField?: InputConfig<RepeatFieldProps['value']>;
 }
 
 export interface TextEditorInternalProps {
@@ -106,7 +111,9 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     sizeField,
     symbolizer,
     templateField,
-    visibilityField
+    visibilityField,
+    placementField,
+    repeatField
   } = composed;
 
   const locale = useGeoStylerLocale('TextEditor');
@@ -211,6 +218,22 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     }
   };
 
+  const onPlacementChange = (newPlacement: TextSymbolizer['placement']) => {
+    const symbolizerClone: TextSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.placement = newPlacement;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
+  const onRepeatChange = (newRepeat: TextSymbolizer['repeat']) => {
+    const symbolizerClone: TextSymbolizer = _cloneDeep(symbolizer);
+    symbolizerClone.repeat = newRepeat;
+    if (onSymbolizerChange) {
+      onSymbolizerChange(symbolizerClone);
+    }
+  };
+
   const clonedSymbolizer = _cloneDeep(symbolizer);
 
   const {
@@ -222,7 +245,9 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
     rotate,
     haloColor,
     haloWidth,
-    visibility
+    visibility,
+    placement,
+    repeat
   } = clonedSymbolizer;
 
   // split the current offset
@@ -406,6 +431,35 @@ export const TextEditor: React.FC<TextEditorProps> = (props) => {
               value={haloWidth}
               defaultValue={haloWidthField?.default as number}
               onChange={onHaloWidthChange}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        placementField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.placementLabel}
+            {...getFormItemSupportProps('placement')}
+          >
+            <PlacementField
+              value={placement}
+              onChange={(val) => onPlacementChange(val as PlacementType)}
+            />
+          </Form.Item>
+        )
+      }
+      {
+        repeatField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.repeatLabel}
+            {...getFormItemSupportProps('repeat')}
+          >
+            <RepeatField
+              value={repeat}
+              defaultValue={repeatField?.default as number}
+              onChange={onRepeatChange}
             />
           </Form.Item>
         )

@@ -214,7 +214,9 @@ const fr_FR: GeoStylerLocale = {
     haloColorLabel: 'Couleur du halo',
     haloWidthLabel: 'Épaisseur du halo',
     attributeNotFound: 'Champ nom trouvé',
-    visibilityLabel: 'Visibilité'
+    visibilityLabel: 'Visibilité',
+    placementLabel: 'Placement',
+    repeatLabel: 'Répéter'
   },
   PropTextEditor: {
     propFieldLabel: 'Champ',
@@ -466,6 +468,13 @@ const fr_FR: GeoStylerLocale = {
       bevel: 'Oblique',
       round: 'Rond',
       miter: 'Angle droit'
+    }
+  },
+  PlacementField: {
+    placementOptions: {
+      point: 'Point',
+      line: 'Ligne',
+      'line-center': 'Centre de ligne'
     }
   },
   ImageField: {
