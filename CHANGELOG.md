@@ -1,3 +1,9 @@
+## [18.3.1](https://github.com/geostyler/geostyler/compare/v18.3.0...v18.3.1) (2026-01-30)
+
+### Bug Fixes
+
+* **ci:** update README when releasing new version ([#2700](https://github.com/geostyler/geostyler/issues/2700)) ([f8b1a5b](https://github.com/geostyler/geostyler/commit/f8b1a5bcc1b134e7374a0b2f2e8381d43fa2bdea))
+
 ## [18.3.0](https://github.com/geostyler/geostyler/compare/v18.2.1...v18.3.0) (2026-01-30)
 
 ### Features
