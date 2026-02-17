@@ -33,7 +33,6 @@ import {
   Card,
   Select
 } from 'antd';
-const Option = Select.Option;
 
 import './IconSelector.css';
 
@@ -61,7 +60,7 @@ export interface IconSelectorProps {
 export const IconSelector: React.FC<IconSelectorProps & Pick<IconEditorComposableProps, 'iconLibraries'>> = (props) => {
 
   const composition = useGeoStylerComposition('IconEditor');
-  const composed = {...props, ...composition};
+  const composed = { ...props, ...composition };
 
   const {
     iconLibraries = [],
@@ -147,6 +146,13 @@ export const IconSelector: React.FC<IconSelectorProps & Pick<IconEditorComposabl
     );
   };
 
+  const librarySelectOptions = iconLibraries.map((lib: IconLibrary, index: number) => {
+    return {
+      label: lib.name,
+      value: index
+    };
+  });
+
   return (
     <div className="gs-icon-selector">
       <div className="gs-lib-row">
@@ -156,15 +162,8 @@ export const IconSelector: React.FC<IconSelectorProps & Pick<IconEditorComposabl
           allowClear={false}
           defaultValue={selectedLibIndex}
           onChange={onLibChange}
-        >
-          {
-            iconLibraries.map((lib: IconLibrary, index: number) => {
-              return (
-                <Option value={index} key={index.toString()}>{lib.name}</Option>
-              );
-            })
-          }
-        </Select>
+          options={librarySelectOptions}
+        />
       </div>
       <Card className="gs-icon-selector-card">
         {

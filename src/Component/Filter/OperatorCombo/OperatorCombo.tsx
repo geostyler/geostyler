@@ -30,7 +30,6 @@ import React from 'react';
 
 import { ComparisonOperator } from 'geostyler-style';
 import { Select, Form } from 'antd';
-const Option = Select.Option;
 
 export interface OperatorComboProps {
   /** Label for this field */
@@ -79,15 +78,10 @@ export const OperatorCombo: React.FC<OperatorComboProps> = ({
       ? operatorTitleMappingFunction(operator)
       : ' ';
 
-    return (
-      <Option
-        key={operator}
-        value={operator}
-        title={title}
-      >
-        {operatorNameMappingFunction(operator)}
-      </Option>
-    );
+    return {
+      label: title,
+      value: operator
+    };
   });
 
   let helpText = validateStatus !== 'success' ? help : null;
@@ -109,9 +103,8 @@ export const OperatorCombo: React.FC<OperatorComboProps> = ({
           value={value}
           onChange={onOperatorChange}
           placeholder={placeholder}
-        >
-          {options}
-        </Select>
+          options={options}
+        />
 
       </Form.Item>
 

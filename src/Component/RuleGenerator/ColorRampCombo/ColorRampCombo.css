@@ -30,15 +30,8 @@
   border-radius: 4px;
   font-weight: bold;
 
-  .ant-select-selection {
-    font-weight: bold;
-    background-color: inherit;
-  }
-
-  &.ant-select.ant-select-single {
-    .ant-select-selector {
-      background-color: unset;
-    }
+  .ant-select-content-value {
+    background-image: unset !important;
   }
 
   li.gs-color-ramp-option {

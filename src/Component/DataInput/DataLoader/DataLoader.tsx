@@ -29,9 +29,6 @@
 import React from 'react';
 
 import { Select, Modal } from 'antd';
-import { UploadRequestOption } from 'rc-upload/lib/interface';
-
-const Option = Select.Option;
 
 import {
   VectorData,
@@ -66,7 +63,7 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
   const [activeParser, setActitveParser] = React.useState<DataParser>();
 
-  const parseGeoJsonUploadData = (uploadObject: UploadRequestOption<any>) => {
+  const parseGeoJsonUploadData = (uploadObject: any) => {
     if (!activeParser) {
       return;
     }
@@ -88,7 +85,7 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
     };
   };
 
-  const parseShapefileUploadData = (uploadObject: UploadRequestOption<any>) => {
+  const parseShapefileUploadData = (uploadObject: any) => {
     if (!activeParser) {
       return;
     }
@@ -122,9 +119,9 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
       });
   };
 
-  const parserOptions = parsers.map((parser: any) =>
-    <Option key={parser.title} value={parser.title}>{parser.title}</Option>
-  );
+  const parserOptions = parsers.map((parser: any) => {
+    return { label: parser.title, value: parser.title };
+  });
 
   const onSelect = (selection: string) => {
     const newActiveParser = parsers.find(parser => parser.title === selection);
@@ -186,9 +183,8 @@ export const DataLoader: React.FC<DataLoaderProps> = ({
       <Select
         style={{ width: 300 }}
         onSelect={onSelect}
-      >
-        {parserOptions}
-      </Select>
+        options={parserOptions}
+      />
       {getInputFromParser()}
     </div>
   );

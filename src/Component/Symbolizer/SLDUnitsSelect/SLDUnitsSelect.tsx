@@ -27,7 +27,6 @@
  */
 
 import { Select } from 'antd';
-const Option = Select.Option;
 import React, { useState } from 'react';
 
 import './SLDUnitsSelect.css';
@@ -65,11 +64,12 @@ export const SLDUnitsSelect: React.FC<SLDUnitsSelectProps> = ({
         style={{ width: 100 }}
         onSelect={unitsChanged}
         value={symbolizerUnit}
-      >
-        <Option value="pixel">{locale.symbolizerUnitsPixel}</Option>
-        <Option value="metre">{locale.symbolizerUnitsMeter}</Option>
-        <Option value="foot">{locale.symbolizerUnitsFoot}</Option>
-      </Select>
+        options={[
+          { label: locale.symbolizerUnitsPixel, value: 'pixel' },
+          { label: locale.symbolizerUnitsMeter, value: 'metre' },
+          { label: locale.symbolizerUnitsFoot, value: 'foot' }
+        ]}
+      />
     </>
   );
 };

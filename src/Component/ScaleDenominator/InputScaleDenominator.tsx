@@ -99,7 +99,7 @@ export const InputScaleDenominator: React.FC<InputScaleDenominatorProps> = ({
               name="min-scale-denominator"
             >
               <InputNumber
-                addonBefore={'1: '}
+                prefix="1: "
                 controls={false}
                 value={minValue}
                 min={0}
@@ -127,7 +127,7 @@ export const InputScaleDenominator: React.FC<InputScaleDenominatorProps> = ({
               ]}
             >
               <InputNumber
-                addonBefore={'1: '}
+                prefix="1: "
                 controls={false}
                 value={maxValue}
                 min={0}

@@ -34,7 +34,7 @@ import {
 import { SymbolizerKind } from 'geostyler-style';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
-const Option = Select.Option;
+import './KindField.css';
 
 export interface KindFieldProps {
   value?: SymbolizerKind;
@@ -53,22 +53,19 @@ export const KindField: React.FC<KindFieldProps> = ({
 
   const locale = useGeoStylerLocale('KindField');
 
-  const kindSelectOptions = symbolizerKinds.map(symbolizerKind =>
-    <Option
-      key={symbolizerKind}
-      value={symbolizerKind}
-    >
-      {locale.symbolizerKinds?.[symbolizerKind] || symbolizerKind}
-    </Option>
-  );
+  const kindSelectOptions = symbolizerKinds.map(symbolizerKind => {
+    return {
+      label: locale.symbolizerKinds?.[symbolizerKind] || symbolizerKind,
+      value: symbolizerKind
+    };
+  });
 
   return (
     <Select
       className="editor-field kind-field"
       value={value}
       onChange={onChange}
-    >
-      {kindSelectOptions}
-    </Select>
+      options={kindSelectOptions}
+    />
   );
 };

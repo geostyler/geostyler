@@ -41,7 +41,7 @@ import {
 } from 'file-saver';
 
 import './CodeEditor.css';
-import { UploadOutlined , ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
+import { UploadOutlined, ExclamationCircleTwoTone, WarningTwoTone } from '@ant-design/icons';
 import type { UploadChangeParam } from 'antd/lib/upload/interface';
 
 import {
@@ -50,7 +50,6 @@ import {
   Select,
   Upload
 } from 'antd';
-const Option = Select.Option;
 
 import {
   ReadStyleResult,
@@ -68,7 +67,7 @@ import { SldStyleParser } from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';
 import { usePrevious } from '../../hook/UsePrevious';
 import ParserFeedback from '../ParserFeedback/ParserFeedback';
-import { MapboxStyleParser, MbStyle} from 'geostyler-mapbox-parser';
+import { MapboxStyleParser, MbStyle } from 'geostyler-mapbox-parser';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { QGISStyleParser } from 'geostyler-qgis-parser';
 
@@ -94,7 +93,7 @@ export interface CodeEditorProps {
 }
 
 type EditorLanguage = 'xml' | 'json' | 'plaintext';
-type FileExtension = '.sld' | '.qml' | '.json' | '.txt' ;
+type FileExtension = '.sld' | '.qml' | '.json' | '.txt';
 type MimeType = 'application/json' | 'text/xml' | 'text/plain';
 
 type FileFormat = {
@@ -121,7 +120,7 @@ const getFileFormat = (parser: StyleParser): FileFormat => {
       language: 'xml',
       mimeType: 'text/xml',
     };
-  } else if (parser && parser.title === QGISStyleParser.title){
+  } else if (parser && parser.title === QGISStyleParser.title) {
     fileFormat = {
       extension: '.qml',
       language: 'xml',
@@ -133,7 +132,7 @@ const getFileFormat = (parser: StyleParser): FileFormat => {
       language: 'json',
       mimeType: 'application/json',
     };
-  } else if (parser === undefined ) {
+  } else if (parser === undefined) {
     // parser == undefined -> GeostylerStyle
     fileFormat = {
       extension: '.json',
@@ -216,7 +215,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   }, [activeParser]);
 
   useEffect(() => {
-    if (!_isEqual(previousStyle, style) || !_isEqual(previouseParser, activeParser) ) {
+    if (!_isEqual(previousStyle, style) || !_isEqual(previouseParser, activeParser)) {
       updateValueFromStyle(style);
     }
   }, [activeParser, style, updateValueFromStyle, previousStyle, previouseParser]);
@@ -225,7 +224,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     return (<h1>An error occurred in the CodeEditor UI.</h1>);
   }
 
-  const onChange = async(v: string) => {
+  const onChange = async (v: string) => {
     setValue(v);
     setReadStyleResult(undefined);
     try {
@@ -275,11 +274,11 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   let parserOptions = [
-    <Option key="GeoStyler Style" value="GeoStyler Style" >Geostyler Style</Option>
+    { label: 'GeoStyler Style', value: 'GeoStyler Style' }
   ];
   const additionalOptions = parsers.map((parser: any) => {
     const title = parser.title;
-    return <Option key={title} value={title}>{title}</Option>;
+    return { label: title, value: title };
   });
   parserOptions = [...parserOptions, ...additionalOptions];
 
@@ -299,7 +298,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       fileName += fileFormat.extension;
 
       const type = `${fileFormat.mimeType};charset=utf-8`;
-      const blob = new Blob([value], {type});
+      const blob = new Blob([value], { type });
       saveAs(blob, fileName);
     }
   };
@@ -357,12 +356,11 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           className="gs-code-editor-format-select"
           onSelect={onParserSelect}
           value={activeParser ? activeParser.title : 'GeoStyler Style'}
-        >
-          {parserOptions}
-        </Select>
+          options={parserOptions}
+        />
         {
           parserHasUnitSelect &&
-            <SLDUnitsSelect changeHandler={onUnitSelect} />
+          <SLDUnitsSelect changeHandler={onUnitSelect} />
         }
         {
           showUploadButton &&
@@ -384,7 +382,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         className="gs-code-editor-monaco"
         value={value}
         // activeParser === undefined -> GeostylerStyle
-        path={activeParser === undefined ? MODELPATH : undefined }
+        path={activeParser === undefined ? MODELPATH : undefined}
         language={getFileFormat(activeParser).language}
         onChange={handleOnChange}
       />
@@ -398,16 +396,16 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         }
         {
           (readStyleHasFeedback) &&
-            <div className='read-feedback'>
-              <span>{`${locale.readFeedback} ${activeParser?.title}`}</span>
-              <ParserFeedback feedback={readStyleResult} />
-            </div>
+          <div className='read-feedback'>
+            <span>{`${locale.readFeedback} ${activeParser?.title}`}</span>
+            <ParserFeedback feedback={readStyleResult} />
+          </div>
         }
       </div>
       <div className="gs-code-editor-bottombar">
         <div className='left-items'>
-          { hasAlerts && <WarningTwoTone twoToneColor="#ff4d4f" onClick={toggleFeedback} /> }
-          { hasWarnings && <ExclamationCircleTwoTone twoToneColor="#faad14" onClick={toggleFeedback} /> }
+          {hasAlerts && <WarningTwoTone twoToneColor="#ff4d4f" onClick={toggleFeedback} />}
+          {hasWarnings && <ExclamationCircleTwoTone twoToneColor="#faad14" onClick={toggleFeedback} />}
         </div>
         <div className='center-items'>
           {

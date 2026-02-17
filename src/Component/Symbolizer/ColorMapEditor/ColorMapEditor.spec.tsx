@@ -36,12 +36,8 @@ import { vi } from 'vitest';
 vi.mock('antd', async (importOriginal) => {
   const antd = await importOriginal();
 
-  const Select = ({ children, onChange }: {children: React.ReactElement; onChange: (value: any) => void}) => {
+  const Select = ({ children, onChange }: { children: React.ReactElement; onChange: (value: any) => void }) => {
     return <select onChange={e => onChange(e.target.value)}>{children}</select>;
-  };
-
-  Select.Option = ({ children, ...otherProps }: {children: React.ReactElement}) => {
-    return <option {...otherProps}>{children}</option>;
   };
 
   return {

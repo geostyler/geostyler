@@ -31,7 +31,8 @@ import OlMap from 'ol/Map';
 import OlLayerVector from 'ol/layer/Vector';
 import OlSourceVector from 'ol/source/Vector';
 import OlFormatGeoJSON from 'ol/format/GeoJSON';
-import { Projection, ProjectionLike ,
+import {
+  Projection, ProjectionLike,
   get as getProjection,
 } from 'ol/proj';
 import OlFeature, {
@@ -258,7 +259,7 @@ export const PreviewMap: React.FC<PreviewMapProps> = ({
     return (
       <Alert
         type='error'
-        message={locale.errorTitle}
+        title={locale.errorTitle}
         description={errorMsg}
       />
     );

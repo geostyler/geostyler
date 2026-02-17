@@ -32,7 +32,6 @@ import {
   Input,
   Select
 } from 'antd';
-const Option = Select.Option;
 
 export interface SourceChannelNameFieldProps {
   placeholder?: string;
@@ -51,18 +50,12 @@ export const SourceChannelNameField: React.FC<SourceChannelNameFieldProps> = ({
   placeholder = 'Name of band'
 }) => {
 
-  const getSourceChannelNameSelectOptions = () => {
-    return sourceChannelNames.map(name => {
-      return (
-        <Option
-          key={name}
-          value={name}
-        >
-          {name}
-        </Option>
-      );
-    });
-  };
+  const sourceChannelNameOptions = sourceChannelNames.map(name => {
+    return {
+      label: name,
+      value: name
+    };
+  });
 
   return (
     <div>
@@ -73,9 +66,8 @@ export const SourceChannelNameField: React.FC<SourceChannelNameFieldProps> = ({
               className="editor-field sourceChannelName-field"
               value={value}
               onChange={onChange}
-            >
-              {getSourceChannelNameSelectOptions()}
-            </Select>
+              options={sourceChannelNameOptions}
+            />
           ) : (
             <Input
               className="editor-field sourceChannelName-field"

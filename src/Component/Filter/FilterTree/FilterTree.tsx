@@ -63,7 +63,6 @@ import {
 
 import FilterUtil from '../../../Util/FilterUtil';
 
-import { DataNode } from 'rc-tree/lib/interface';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 import _isBoolean from 'lodash-es/isBoolean.js';
 
@@ -141,7 +140,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
   /**
    * Creates a DataNode for a given filter at the given position.
    */
-  const getNodeByFilter = (filter: Filter | CombinationOperator, position = ''): DataNode => {
+  const getNodeByFilter: any = (filter: Filter | CombinationOperator, position = '') => {
     const onMenuClick = (e: any) => {
       const keyPath: string[] = e.keyPath;
       const reversedKeyPath = keyPath.reverse();
@@ -223,7 +222,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
     let extraClassName = '';
     let title;
     const isLeaf = !(isCombinationFilter(filter) || isNegationFilter(filter));
-    let children: DataNode[] = [];
+    let children = [];
 
     if (isCombinationFilter(filter)) {
       const text = filter[0] === '&&' ? locale.andFilterText : locale.orFilterText;
@@ -237,7 +236,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
       children = filter.slice(1).map((subFilter: Filter | CombinationOperator, index: number) => {
         const pos = `${position}[${index + 1}]`;
         return getNodeByFilter(subFilter, pos);
-      });
+      }) as any[];
     } else if (isNegationFilter(filter)) {
       extraClassName = 'not-filter';
       title = (

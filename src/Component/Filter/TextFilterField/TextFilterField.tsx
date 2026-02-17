@@ -124,12 +124,14 @@ export const TextFilterField: React.FC<TextFilterFieldProps> = ({
               value={value}
               onChange={onAutoCompleteChange}
               placeholder={locale.placeholder}
-              dataSource={sampleValues}
-              filterOption={(val: string|number, option: any) => {
-                if (typeof val !== 'string') {
-                  return false;
+              options={sampleValues}
+              showSearch={{
+                filterOption: (val: string | number, option: any) => {
+                  if (typeof val !== 'string') {
+                    return false;
+                  }
+                  return option.key.toLowerCase().includes(val.toLowerCase());
                 }
-                return option.key.toLowerCase().includes(val.toLowerCase());
               }}
             />
             :

@@ -55,27 +55,22 @@ export const ColorSpaceCombo: React.FC<ColorSpaceComboProps> = ({
   const locale = useGeoStylerLocale('ColorSpaceCombo');
 
   const colorSpaceOptions = colorSpaces.map((cSpace: InterpolationMode) => {
-    return (
-      <Select.Option
-        className="color-space-option"
-        key={cSpace}
-        value={cSpace}
-      >
-        {cSpace.toUpperCase()}
-      </Select.Option>
-    );
+    return {
+      label: cSpace.toUpperCase(),
+      value: cSpace
+    };
   });
-
 
   return (
     <Select
       className="color-space-select"
       placeholder={locale.colorSpacePlaceholder}
-      optionFilterProp="children"
+      showSearch={{
+        optionFilterProp: 'children'
+      }}
+      options={colorSpaceOptions}
       value={colorSpace}
       onChange={onChange}
-    >
-      {colorSpaceOptions}
-    </Select>
+    />
   );
 };

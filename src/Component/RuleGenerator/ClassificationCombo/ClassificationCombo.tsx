@@ -56,25 +56,21 @@ export const ClassificationCombo: React.FC<ClassificationComboProps> = ({
   const locale = useGeoStylerLocale('ClassificationCombo');
 
   const classificationOptions = classifications.map((method: ClassificationMethod) => {
-    return (
-      <Select.Option
-        className="classification-option"
-        key={method}
-        value={method}
-      >
-        {locale[method] || method}
-      </Select.Option>
-    );
+    return {
+      label: locale[method] || method,
+      value: method
+    };
   });
 
   return (
     <Select
       className="classification-combo"
-      optionFilterProp="children"
+      showSearch={{
+        optionFilterProp: 'children'
+      }}
       value={classification}
       onChange={onChange}
-    >
-      {classificationOptions}
-    </Select>
+      options={classificationOptions}
+    />
   );
 };

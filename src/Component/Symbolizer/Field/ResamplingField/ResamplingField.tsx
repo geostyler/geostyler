@@ -31,12 +31,13 @@ import React from 'react';
 import {
   Select
 } from 'antd';
-const Option = Select.Option;
 
 import {
   RasterSymbolizer, isGeoStylerFunction
 } from 'geostyler-style';
 import FunctionUtil from '../../../../Util/FunctionUtil';
+
+import './ResamplingField.css';
 
 export interface ResamplingFieldProps {
   onChange?: (resamplings: RasterSymbolizer['resampling']) => void;
@@ -48,7 +49,7 @@ export interface ResamplingFieldProps {
  * ResamplingField to select between different resampling options
  */
 export const ResamplingField: React.FC<ResamplingFieldProps> = ({
-  resamplingOptions =['linear', 'nearest'],
+  resamplingOptions = ['linear', 'nearest'],
   onChange,
   value
 }) => {
@@ -57,14 +58,10 @@ export const ResamplingField: React.FC<ResamplingFieldProps> = ({
     if (isGeoStylerFunction(resamplingOpt)) {
       resamplingOpt = FunctionUtil.evaluateFunction(resamplingOpt) as ('linear' | 'nearest');
     }
-    return (
-      <Option
-        key={resamplingOpt}
-        value={resamplingOpt}
-      >
-        {resamplingOpt}
-      </Option>
-    );
+    return {
+      label: resamplingOpt,
+      value: resamplingOpt
+    };
   });
 
   return (
@@ -73,8 +70,7 @@ export const ResamplingField: React.FC<ResamplingFieldProps> = ({
       allowClear={true}
       value={value}
       onChange={onChange}
-    >
-      {resamplingSelectOptions}
-    </Select>
+      options={resamplingSelectOptions}
+    />
   );
 };
