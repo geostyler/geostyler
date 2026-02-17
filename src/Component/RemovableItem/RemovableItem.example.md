@@ -31,58 +31,41 @@
 This demonstrates the usage of the `RemovableItem` component.
 
 ```jsx
-import React from 'react';
-import { RemovableItem } from 'geostyler';
-import _uniqueId from 'lodash-es/uniqueId';
+import React, { useState } from "react";
+import { RemovableItem } from "geostyler";
+import _uniqueId from "lodash-es/uniqueId";
 
-class RemovableItemExample extends React.Component {
-  constructor(props) {
-    super(props);
+function RemovableItemExample() {
+  const [items, setItems] = useState([
+    "first item",
+    "second item",
+    "third item",
+  ]);
 
-    this.state = {
-      items: [
-        'first item',
-        'second item',
-        'third item'
-      ]
-    };
+  const onRemove = (idx) => {
+    const newItems = [...items];
+    newItems.splice(idx, 1);
+    setItems(newItems);
+  };
 
-    this.onRemove = this.onRemove.bind(this);
-  }
-
-  onRemove(idx) {
-    const items = [...this.state.items];
-    items.splice(idx, 1)
-    this.setState({items});
-  }
-
-  render() {
-    const { items } = this.state;
-
-    return (
-      <>
-        {
-          items.map((item, idx) => (
-            <RemovableItem
-              key={_uniqueId()}
-              onRemoveClick={() => {
-                this.onRemove(idx);
-              }}
-            >
-              <div
-                style={{
-                  border: 'solid 1px lightgray',
-                  margin: '5px',
-                  height: '50px'
-                }}
-              >{item}</div>
-            </RemovableItem>
-          ))
-        }
-      </>
-    );
-  }
+  return (
+    <>
+      {items.map((item, idx) => (
+        <RemovableItem key={_uniqueId()} onRemoveClick={() => onRemove(idx)}>
+          <div
+            style={{
+              border: "solid 1px lightgray",
+              margin: "5px",
+              height: "50px",
+            }}
+          >
+            {item}
+          </div>
+        </RemovableItem>
+      ))}
+    </>
+  );
 }
 
-<RemovableItemExample />
+<RemovableItemExample />;
 ```

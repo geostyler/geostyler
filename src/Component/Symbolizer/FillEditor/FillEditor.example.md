@@ -31,84 +31,60 @@
 This demonstrates the use of `FillEditor`.
 
 ```jsx
-import React from 'react';
-import { FillEditor } from 'geostyler';
+import React, { useState } from "react";
+import { FillEditor } from "geostyler";
 
-class FillEditorExample extends React.Component {
-  constructor(props) {
-    super(props);
+function FillEditorExample() {
+  const [symbolizer, setSymbolizer] = useState({
+    kind: "Fill",
+  });
 
-    this.state = {
-      symbolizer: {
-        kind: 'Fill'
-      }
-    };
-
-    this.onSymbolizerChange = this.onSymbolizerChange.bind(this);
-  }
-
-  onSymbolizerChange(symbolizer) {
-    this.setState({
-      symbolizer: symbolizer
-    });
-  }
-
-  render() {
-    const {
-      symbolizer
-    } = this.state;
-
-    return (
-      <FillEditor
-        symbolizer={symbolizer}
-        onSymbolizerChange={this.onSymbolizerChange}
-      />
-    );
-  }
+  return (
+    <FillEditor symbolizer={symbolizer} onSymbolizerChange={setSymbolizer} />
+  );
 }
 
-<FillEditorExample />
+<FillEditorExample />;
 ```
 
 This demonstrates the usage of `FillEditor` with the `GeoStylerContext`.
 
 ```jsx
-import React, { useState } from 'react';
-import { Switch } from 'antd';
-import { FillEditor, GeoStylerContext } from 'geostyler';
+import React, { useState } from "react";
+import { Switch } from "antd";
+import { FillEditor, GeoStylerContext } from "geostyler";
 
-function FillEditorExample () {
-
+function FillEditorExample() {
   const [myContext, setMyContext] = useState({
     composition: {
       FillEditor: {
         fillColorField: {
-          visibility: true
+          visibility: true,
         },
         fillOpacityField: {
-          visibility: true
+          visibility: true,
         },
         opacityField: {
-          visibility: true
+          visibility: true,
         },
         outlineOpacityField: {
-          visibility: true
+          visibility: true,
         },
         outlineColorField: {
-          visibility: true
+          visibility: true,
         },
         outlineWidthField: {
-          visibility: true
+          visibility: true,
         },
         outlineDasharrayField: {
-          visibility: true
-        }
-      }
-    }
+          visibility: true,
+        },
+      },
+    },
   });
 
   const [symbolizer, setSymbolizer] = useState({
-    kind: 'Fill'
+    kind: "Fill",
   });
 
   const onSymbolizerChange = (s) => {
@@ -116,8 +92,8 @@ function FillEditorExample () {
   };
 
   const onVisibilityChange = (visibility, prop) => {
-    setMyContext(oldContext => {
-      const newContext = {...oldContext};
+    setMyContext((oldContext) => {
+      const newContext = { ...oldContext };
       newContext.composition.FillEditor[prop].visibility = visibility;
       return newContext;
     });
@@ -125,46 +101,68 @@ function FillEditorExample () {
 
   return (
     <div>
-      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
         <Switch
           checked={myContext.composition.FillEditor.fillColorField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'fillColorField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "fillColorField");
+          }}
           checkedChildren="Fill-Color"
           unCheckedChildren="Fill-Color"
         />
         <Switch
           checked={myContext.composition.FillEditor.fillOpacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'fillOpacityField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "fillOpacityField");
+          }}
           checkedChildren="Fill-Opacity"
           unCheckedChildren="Fill-Opacity"
         />
         <Switch
           checked={myContext.composition.FillEditor.opacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'opacityField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "opacityField");
+          }}
           checkedChildren="Opacity"
           unCheckedChildren="Opacity"
         />
         <Switch
-          checked={myContext.composition.FillEditor.outlineOpacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'outlineOpacityField')}}
+          checked={
+            myContext.composition.FillEditor.outlineOpacityField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "outlineOpacityField");
+          }}
           checkedChildren="Outline-Opacity"
           unCheckedChildren="Outline-Opacity"
         />
         <Switch
-          checked={myContext.composition.FillEditor.outlineColorField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'outlineColorField')}}
+          checked={
+            myContext.composition.FillEditor.outlineColorField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "outlineColorField");
+          }}
           checkedChildren="Outline-Color"
           unCheckedChildren="Outline-Color"
         />
         <Switch
-          checked={myContext.composition.FillEditor.outlineWidthField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'outlineWidthField')}}
+          checked={
+            myContext.composition.FillEditor.outlineWidthField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "outlineWidthField");
+          }}
           checkedChildren="Outline-Width"
           unCheckedChildren="Outline-Width"
         />
         <Switch
-          checked={myContext.composition.FillEditor.outlineDasharrayField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'outlineDasharrayField')}}
+          checked={
+            myContext.composition.FillEditor.outlineDasharrayField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "outlineDasharrayField");
+          }}
           checkedChildren="Outline-Dasharray"
           unCheckedChildren="Outline-Dasharray"
         />
@@ -178,7 +176,7 @@ function FillEditorExample () {
       </GeoStylerContext.Provider>
     </div>
   );
-};
+}
 
-<FillEditorExample />
+<FillEditorExample />;
 ```

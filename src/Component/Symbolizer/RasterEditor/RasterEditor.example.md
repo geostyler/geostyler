@@ -31,105 +31,81 @@
 This demonstrates the use of `RasterEditor`.
 
 ```jsx
-import React from 'react';
-import { RasterEditor } from 'geostyler';
+import React, { useState } from "react";
+import { RasterEditor } from "geostyler";
 
-class RasterEditorExample extends React.Component {
-  constructor(props) {
-    super(props);
+function RasterEditorExample() {
+  const [symbolizer, setSymbolizer] = useState({
+    kind: "Raster",
+  });
 
-    this.state = {
-      symbolizer: {
-        kind: 'Raster'
-      }
-    };
-
-    this.onSymbolizerChange = this.onSymbolizerChange.bind(this);
-  }
-
-  onSymbolizerChange(symbolizer) {
-    this.setState({
-      symbolizer: symbolizer
-    });
-  }
-
-  render() {
-    const {
-      symbolizer
-    } = this.state;
-
-    return (
-      <RasterEditor
-        symbolizer={symbolizer}
-        onSymbolizerChange={this.onSymbolizerChange}
-      />
-    );
-  }
+  return (
+    <RasterEditor symbolizer={symbolizer} onSymbolizerChange={setSymbolizer} />
+  );
 }
 
-<RasterEditorExample />
+<RasterEditorExample />;
 ```
 
 This demonstrates the usage of `RasterEditor` with `GeoStylerContext`.
 
 ```jsx
-import React, { useState } from 'react';
-import { Switch } from 'antd';
-import { RasterEditor, GeoStylerContext } from 'geostyler';
+import React, { useState } from "react";
+import { Switch } from "antd";
+import { RasterEditor, GeoStylerContext } from "geostyler";
 
-function RasterEditorExample () {
-
+function RasterEditorExample() {
   const [myContext, setMyContext] = useState({
     composition: {
       RasterEditor: {
         opacityField: {
-          visibility: true
+          visibility: true,
         },
         contrastEnhancementField: {
-          visibility: true
+          visibility: true,
         },
         gammaValueField: {
-          visibility: true
+          visibility: true,
         },
       },
       ColorMapEditor: {
         visibility: true,
         colorMapTypeField: {
-          visibility: true
+          visibility: true,
         },
         nrOfClassesField: {
-          visibility: true
+          visibility: true,
         },
         colorRampComboField: {
-          visibility: true
+          visibility: true,
         },
         extendedField: {
-          visibility: true
+          visibility: true,
         },
         colorMapTable: {
-          visibility: true
-        }
+          visibility: true,
+        },
       },
       RasterChannelEditor: {
         visibility: true,
         channelSelectionField: {
-          visibility: true
+          visibility: true,
         },
         sourceChannelNameField: {
-          visibility: true
+          visibility: true,
         },
         contrastEnhancementField: {
-          visibility: true
+          visibility: true,
         },
         gammaValueField: {
-          visibility: true
-        }
-      }
-    }
+          visibility: true,
+        },
+      },
+    },
   });
 
   const [symbolizer, setSymbolizer] = useState({
-    kind: 'Raster'
+    kind: "Raster",
   });
 
   const onSymbolizerChange = (s) => {
@@ -137,16 +113,16 @@ function RasterEditorExample () {
   };
 
   const onVisibilityChange = (visibility, editor, prop) => {
-    setMyContext(oldContext => {
-      const newContext = {...oldContext};
+    setMyContext((oldContext) => {
+      const newContext = { ...oldContext };
       newContext.composition[editor][prop].visibility = visibility;
       return newContext;
     });
   };
 
   const onEditorVisibilityChange = (visibility, editor) => {
-    setMyContext(oldContext => {
-      const newContext = {...oldContext};
+    setMyContext((oldContext) => {
+      const newContext = { ...oldContext };
       newContext.composition[editor].visibility = visibility;
       return newContext;
     });
@@ -154,88 +130,174 @@ function RasterEditorExample () {
 
   return (
     <div>
-      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
         <Switch
           checked={myContext.composition.RasterEditor.opacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'RasterEditor', 'opacityField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "RasterEditor", "opacityField");
+          }}
           checkedChildren="Opacity"
           unCheckedChildren="Opacity"
         />
         <Switch
-          checked={myContext.composition.RasterEditor.contrastEnhancementField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'RasterEditor', 'contrastEnhancementField')}}
+          checked={
+            myContext.composition.RasterEditor.contrastEnhancementField
+              .visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(
+              visibility,
+              "RasterEditor",
+              "contrastEnhancementField",
+            );
+          }}
           checkedChildren="Contrast Enhancement"
           unCheckedChildren="Contrast Enhancement"
         />
         <Switch
-          checked={myContext.composition.RasterEditor.gammaValueField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'RasterEditor', 'gammaValueField')}}
+          checked={
+            myContext.composition.RasterEditor.gammaValueField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "RasterEditor", "gammaValueField");
+          }}
           checkedChildren="Gamma"
           unCheckedChildren="Gamma"
         />
         <Switch
           checked={myContext.composition.ColorMapEditor.visibility}
-          onChange={visibility => {onEditorVisibilityChange(visibility, 'ColorMapEditor')}}
+          onChange={(visibility) => {
+            onEditorVisibilityChange(visibility, "ColorMapEditor");
+          }}
           checkedChildren="Color Map"
           unCheckedChildren="Color Map"
         />
         <Switch
           checked={myContext.composition.RasterChannelEditor.visibility}
-          onChange={visibility => {onEditorVisibilityChange(visibility, 'RasterChannelEditor')}}
+          onChange={(visibility) => {
+            onEditorVisibilityChange(visibility, "RasterChannelEditor");
+          }}
           checkedChildren="Channel Selection"
           unCheckedChildren="Channel Selection"
         />
         <Switch
-          checked={myContext.composition.RasterChannelEditor.channelSelectionField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'RasterChannelEditor', 'channelSelectionField')}}
+          checked={
+            myContext.composition.RasterChannelEditor.channelSelectionField
+              .visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(
+              visibility,
+              "RasterChannelEditor",
+              "channelSelectionField",
+            );
+          }}
           checkedChildren="Edit Channels"
           unCheckedChildren="Edit Channels"
         />
         <Switch
-          checked={myContext.composition.RasterChannelEditor.sourceChannelNameField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'RasterChannelEditor', 'sourceChannelNameField')}}
+          checked={
+            myContext.composition.RasterChannelEditor.sourceChannelNameField
+              .visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(
+              visibility,
+              "RasterChannelEditor",
+              "sourceChannelNameField",
+            );
+          }}
           checkedChildren="Channel Name"
           unCheckedChildren="Channel Name"
         />
         <Switch
-          checked={myContext.composition.RasterChannelEditor.contrastEnhancementField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'RasterChannelEditor', 'contrastEnhancementField')}}
+          checked={
+            myContext.composition.RasterChannelEditor.contrastEnhancementField
+              .visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(
+              visibility,
+              "RasterChannelEditor",
+              "contrastEnhancementField",
+            );
+          }}
           checkedChildren="Channel Contrast Enhancement"
           unCheckedChildren="Channel Contrast Enhancement"
         />
         <Switch
-          checked={myContext.composition.RasterChannelEditor.gammaValueField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'RasterChannelEditor', 'gammaValueField')}}
+          checked={
+            myContext.composition.RasterChannelEditor.gammaValueField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(
+              visibility,
+              "RasterChannelEditor",
+              "gammaValueField",
+            );
+          }}
           checkedChildren="Channel Gamma"
           unCheckedChildren="Channel Gamma"
         />
         <Switch
-          checked={myContext.composition.ColorMapEditor.colorMapTypeField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'colorMapTypeField')}}
+          checked={
+            myContext.composition.ColorMapEditor.colorMapTypeField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(
+              visibility,
+              "ColorMapEditor",
+              "colorMapTypeField",
+            );
+          }}
           checkedChildren="Color Map Type"
           unCheckedChildren="Color Map Type"
         />
         <Switch
-          checked={myContext.composition.ColorMapEditor.nrOfClassesField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'nrOfClassesField')}}
+          checked={
+            myContext.composition.ColorMapEditor.nrOfClassesField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(
+              visibility,
+              "ColorMapEditor",
+              "nrOfClassesField",
+            );
+          }}
           checkedChildren="Nr. of classes"
           unCheckedChildren="Nr. of classes"
         />
         <Switch
-          checked={myContext.composition.ColorMapEditor.colorRampComboField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'colorRampComboField')}}
+          checked={
+            myContext.composition.ColorMapEditor.colorRampComboField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(
+              visibility,
+              "ColorMapEditor",
+              "colorRampComboField",
+            );
+          }}
           checkedChildren="Color Ramp"
           unCheckedChildren="Color Ramp"
         />
         <Switch
-          checked={myContext.composition.ColorMapEditor.extendedField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'extendedField')}}
+          checked={
+            myContext.composition.ColorMapEditor.extendedField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "ColorMapEditor", "extendedField");
+          }}
           checkedChildren="Color Depth"
           unCheckedChildren="Color Depth"
         />
         <Switch
-          checked={myContext.composition.ColorMapEditor.colorMapTable.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'ColorMapEditor', 'colorMapTable')}}
+          checked={
+            myContext.composition.ColorMapEditor.colorMapTable.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "ColorMapEditor", "colorMapTable");
+          }}
           checkedChildren="Color Map Table"
           unCheckedChildren="Color Map Table"
         />
@@ -249,7 +311,7 @@ function RasterEditorExample () {
       </GeoStylerContext.Provider>
     </div>
   );
-};
+}
 
-<RasterEditorExample />
+<RasterEditorExample />;
 ```

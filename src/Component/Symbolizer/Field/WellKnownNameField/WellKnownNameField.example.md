@@ -31,40 +31,20 @@
 This demonstrates the use of `WellKnownNameField`.
 
 ```jsx
-import React from 'react';
-import { WellKnownNameField } from 'geostyler';
+import React, { useState } from "react";
+import { WellKnownNameField } from "geostyler";
 
-class WellKnownNameFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function WellKnownNameFieldExample() {
+  const [wellKnownName, setWellKnownName] = useState("circle");
 
-    this.state = {
-      wellKnownName: 'circle'
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(wellKnownName) {
-    this.setState({
-      wellKnownName: wellKnownName
-    });
-  }
-
-  render() {
-    const {
-      wellKnownName
-    } = this.state;
-
-    return (
-      <WellKnownNameField
-        wellKnownName={wellKnownName}
-        wellKnownNames={['Circle', 'Square', 'Triangle', 'Star', 'Cross', 'X']}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return (
+    <WellKnownNameField
+      wellKnownName={wellKnownName}
+      wellKnownNames={["Circle", "Square", "Triangle", "Star", "Cross", "X"]}
+      onChange={setWellKnownName}
+    />
+  );
 }
 
-<WellKnownNameFieldExample />
+<WellKnownNameFieldExample />;
 ```

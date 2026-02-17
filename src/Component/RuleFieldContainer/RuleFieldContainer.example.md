@@ -31,19 +31,12 @@
 This demonstrates the use of `RuleFieldContainer`.
 
 ```jsx
-import React from 'react';
-import { RuleFieldContainer } from 'geostyler';
+import React from "react";
+import { RuleFieldContainer } from "geostyler";
 
-class RuleFieldContainerExample extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return <RuleFieldContainer/>;
-  }
-
+function RuleFieldContainerExample() {
+  return <RuleFieldContainer />;
 }
 
-<RuleFieldContainerExample />
+<RuleFieldContainerExample />;
 ```

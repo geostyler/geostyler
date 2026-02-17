@@ -31,25 +31,17 @@
 This demonstrates the use of `FieldContainer`.
 
 ```jsx
-import React from 'react';
-import { FieldContainer } from 'geostyler';
+import React from "react";
+import { FieldContainer } from "geostyler";
 
-class FieldContainerExample extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-
-    return (
-      <FieldContainer>
-        <div>child 1</div>
-        <div>child 2</div>
-      </FieldContainer>
-    );
-  }
-
+function FieldContainerExample() {
+  return (
+    <FieldContainer>
+      <div>child 1</div>
+      <div>child 2</div>
+    </FieldContainer>
+  );
 }
 
-<FieldContainerExample />
+<FieldContainerExample />;
 ```

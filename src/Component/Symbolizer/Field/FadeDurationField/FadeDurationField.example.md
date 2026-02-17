@@ -31,38 +31,14 @@
 This demonstrates the use of `FadeDurationField`.
 
 ```jsx
-import React from 'react';
-import { FadeDurationField } from 'geostyler';
+import React, { useState } from "react";
+import { FadeDurationField } from "geostyler";
 
-class FadeDurationFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function FadeDurationFieldExample() {
+  const [fadeDuration, setFadeDuration] = useState(300);
 
-    this.state = {
-      fadeDuration: 300
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(fadeDuration) {
-    this.setState({
-      fadeDuration: fadeDuration
-    });
-  }
-
-  render() {
-    const {
-      fadeDuration
-    } = this.state;
-
-    return (
-      <FadeDurationField
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <FadeDurationField onChange={setFadeDuration} />;
 }
 
-<FadeDurationFieldExample />
+<FadeDurationFieldExample />;
 ```

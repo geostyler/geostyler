@@ -31,40 +31,20 @@
 This demonstrates the use of `KindField`.
 
 ```jsx
-import React from 'react';
-import { KindField } from 'geostyler';
+import React, { useState } from "react";
+import { KindField } from "geostyler";
 
-class KindFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function KindFieldExample() {
+  const [kind, setKind] = useState("Mark");
 
-    this.state = {
-      kind: 'Mark'
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(kind) {
-    this.setState({
-      kind: kind
-    });
-  }
-
-  render() {
-    const {
-      kind
-    } = this.state;
-
-    return (
-      <KindField
-        kind={kind}
-        symbolizerKinds={['Mark', 'Fill', 'Line', 'Icon', 'Text']}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return (
+    <KindField
+      kind={kind}
+      symbolizerKinds={["Mark", "Fill", "Line", "Icon", "Text"]}
+      onChange={setKind}
+    />
+  );
 }
 
-<KindFieldExample />
+<KindFieldExample />;
 ```

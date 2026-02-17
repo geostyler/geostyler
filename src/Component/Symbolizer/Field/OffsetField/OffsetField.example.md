@@ -31,39 +31,14 @@
 This demonstrates the use of `OffsetField`.
 
 ```jsx
-import React from 'react';
-import { OffsetField } from 'geostyler';
+import React, { useState } from "react";
+import { OffsetField } from "geostyler";
 
-class OffsetFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function OffsetFieldExample() {
+  const [offset, setOffset] = useState(10);
 
-    this.state = {
-      offset: 10
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(offset) {
-    this.setState({
-      offset: offset
-    });
-  }
-
-  render() {
-    const {
-      offset
-    } = this.state;
-
-    return (
-      <OffsetField
-        offset={offset}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <OffsetField offset={offset} onChange={setOffset} />;
 }
 
-<OffsetFieldExample />
+<OffsetFieldExample />;
 ```

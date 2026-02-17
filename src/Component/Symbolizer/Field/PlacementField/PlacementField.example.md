@@ -31,40 +31,20 @@
 This demonstrates the use of `PlacementField`.
 
 ```jsx
-import React from 'react';
-import { PlacementField } from 'geostyler';
+import React, { useState } from "react";
+import { PlacementField } from "geostyler";
 
-class PlacementFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function PlacementFieldExample() {
+  const [placement, setPlacement] = useState("point");
 
-    this.state = {
-      placement: 'point'
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(join) {
-    this.setState({
-      placement: placement
-    });
-  }
-
-  render() {
-    const {
-      placement
-    } = this.state;
-
-    return (
-      <PlacementField
-        placement={placement}
-        placementOptions={['point', 'line', 'line-center']}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return (
+    <PlacementField
+      placement={placement}
+      placementOptions={["point", "line", "line-center"]}
+      onChange={setPlacement}
+    />
+  );
 }
 
-<PlacementFieldExample />
+<PlacementFieldExample />;
 ```

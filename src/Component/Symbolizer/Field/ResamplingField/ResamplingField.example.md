@@ -31,40 +31,20 @@
 This demonstrates the use of `ResamplingField`.
 
 ```jsx
-import React from 'react';
-import { ResamplingField } from 'geostyler';
+import React, { useState } from "react";
+import { ResamplingField } from "geostyler";
 
-class ResamplingFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function ResamplingFieldExample() {
+  const [resampling, setResampling] = useState("linear");
 
-    this.state = {
-      resampling: 'linear'
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(resampling) {
-    this.setState({
-      resampling: resampling
-    });
-  }
-
-  render() {
-    const {
-      resampling
-    } = this.state;
-
-    return (
-      <ResamplingField
-        resampling={resampling}
-        resamplingOptions={['linear', 'nearest']}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return (
+    <ResamplingField
+      resampling={resampling}
+      resamplingOptions={["linear", "nearest"]}
+      onChange={setResampling}
+    />
+  );
 }
 
-<ResamplingFieldExample />
+<ResamplingFieldExample />;
 ```

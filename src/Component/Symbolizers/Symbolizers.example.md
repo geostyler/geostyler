@@ -31,64 +31,62 @@
 This demonstrates the usage of the `Symbolizers` component.
 
 ```jsx
-import React from 'react';
-import { Symbolizers } from 'geostyler';
+import React, { useState } from "react";
+import { Symbolizers } from "geostyler";
 
-class SymbolizersExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      symbolizers: [{
-        kind: 'Mark',
-        wellKnownName: 'circle'
-      }, {
-        kind: 'Mark',
-        wellKnownName: 'square'
-      }, {
-        kind: 'Mark',
-        wellKnownName: 'circle'
-      }, {
-        kind: 'Mark',
-        wellKnownName: 'square'
-      }, {
-        kind: 'Mark',
-        wellKnownName: 'square'
-      }, {
-        kind: 'Mark',
-        wellKnownName: 'square'
-      }, {
-        kind: 'Mark',
-        wellKnownName: 'square'
-      }, {
-        kind: 'Mark',
-        wellKnownName: 'square'
-      }, {
-        kind: 'Mark',
-        wellKnownName: 'square'
-      }, {
-        kind: 'Mark',
-        wellKnownName: 'triangle'
-      }]
-    };
-  }
+function SymbolizersExample() {
+  const [symbolizers, setSymbolizers] = useState([
+    {
+      kind: "Mark",
+      wellKnownName: "circle",
+    },
+    {
+      kind: "Mark",
+      wellKnownName: "square",
+    },
+    {
+      kind: "Mark",
+      wellKnownName: "circle",
+    },
+    {
+      kind: "Mark",
+      wellKnownName: "square",
+    },
+    {
+      kind: "Mark",
+      wellKnownName: "square",
+    },
+    {
+      kind: "Mark",
+      wellKnownName: "square",
+    },
+    {
+      kind: "Mark",
+      wellKnownName: "square",
+    },
+    {
+      kind: "Mark",
+      wellKnownName: "square",
+    },
+    {
+      kind: "Mark",
+      wellKnownName: "square",
+    },
+    {
+      kind: "Mark",
+      wellKnownName: "triangle",
+    },
+  ]);
 
-  render() {
-    const {
-      symbolizers
-    } = this.state;
-
-    return (
-      <div>
-        <Symbolizers
-          symbolizers={symbolizers}
-          onSymbolizersChange={(symbolizers) => {
-            this.setState({symbolizers});
-          }}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Symbolizers
+        symbolizers={symbolizers}
+        onSymbolizersChange={setSymbolizers}
+      />
+    </div>
+  );
 }
 
-<SymbolizersExample />
+<SymbolizersExample />;
 ```

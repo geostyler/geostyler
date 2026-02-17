@@ -31,56 +31,20 @@
 This demonstrates the use of `TextEditor`.
 
 ```jsx
-import React from 'react';
-import { TextEditor } from 'geostyler';
+import React, { useState } from "react";
+import { TextEditor } from "geostyler";
 
-class TextEditorExample extends React.Component {
-  constructor(props) {
-    super(props);
+function TextEditorExample() {
+  const [symbolizer, setSymbolizer] = useState({
+    kind: "Text",
+  });
 
-    this.data = {
-      schema: {
-        properties: {
-          foo: {
-            type: 'Number'
-          },
-          bar: {
-            type: 'String'
-          }
-        }
-      }
-    };
-
-    this.state = {
-      symbolizer: {
-        kind: 'Text'
-      }
-    };
-
-    this.onSymbolizerChange = this.onSymbolizerChange.bind(this);
-  }
-
-  onSymbolizerChange(symbolizer) {
-    this.setState({
-      symbolizer: symbolizer
-    });
-  }
-
-  render() {
-    const {
-      symbolizer
-    } = this.state;
-
-    return (
-      <TextEditor
-        symbolizer={symbolizer}
-        onSymbolizerChange={this.onSymbolizerChange}
-      />
-    );
-  }
+  return (
+    <TextEditor symbolizer={symbolizer} onSymbolizerChange={setSymbolizer} />
+  );
 }
 
-<TextEditorExample />
+<TextEditorExample />;
 ```
 
 This demonstrates the usage of `TextEditor` with `GeoStylerContext`. The visibility
@@ -88,64 +52,58 @@ of each field can be toggled and a default value can be set. Also the fonts for 
 fontField can be specified.
 
 ```jsx
-import React, { useState } from 'react';
-import { Switch } from 'antd';
-import { TextEditor, GeoStylerContext } from 'geostyler';
+import React, { useState } from "react";
+import { Switch } from "antd";
+import { TextEditor, GeoStylerContext } from "geostyler";
 
-function TextEditorExample () {
-
+function TextEditorExample() {
   const [myContext, setMyContext] = useState({
     composition: {
       TextEditor: {
         templateField: {
-          visibility: true
+          visibility: true,
         },
         colorField: {
-          visibility: true
+          visibility: true,
         },
         fontField: {
           visibility: true,
-          default: ['Wingdings', 'Comic Sans MS'],
-          fonts: [
-            'Comic Sans MS',
-            'Wingdings',
-            'Arial',
-            'Verdana',
-          ]
+          default: ["Wingdings", "Comic Sans MS"],
+          fonts: ["Comic Sans MS", "Wingdings", "Arial", "Verdana"],
         },
         opacityField: {
-          visibility: true
+          visibility: true,
         },
         sizeField: {
-          visibility: true
+          visibility: true,
         },
         offsetXField: {
-          visibility: true
+          visibility: true,
         },
         offsetYField: {
-          visibility: true
+          visibility: true,
         },
         rotateField: {
-          visibility: true
+          visibility: true,
         },
         haloColorField: {
-          visibility: true
+          visibility: true,
         },
         haloWidthField: {
-          visibility: true
+          visibility: true,
         },
         placementField: {
-          visibility: true
+          visibility: true,
         },
         repeatField: {
-          visibility: true
-        }
-      }
-    }
+          visibility: true,
+        },
+      },
+    },
   });
 
   const [symbolizer, setSymbolizer] = useState({
-    kind: 'Text'
+    kind: "Text",
   });
 
   const onSymbolizerChange = (s) => {
@@ -153,8 +111,8 @@ function TextEditorExample () {
   };
 
   const onVisibilityChange = (visibility, prop) => {
-    setMyContext(oldContext => {
-      const newContext = {...oldContext};
+    setMyContext((oldContext) => {
+      const newContext = { ...oldContext };
       newContext.composition.TextEditor[prop].visibility = visibility;
       return newContext;
     });
@@ -162,76 +120,100 @@ function TextEditorExample () {
 
   return (
     <div>
-      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
         <Switch
           checked={myContext.composition.TextEditor.templateField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'templateField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "templateField");
+          }}
           checkedChildren="Template"
           unCheckedChildren="Template"
         />
         <Switch
           checked={myContext.composition.TextEditor.colorField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'colorField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "colorField");
+          }}
           checkedChildren="Text-Color"
           unCheckedChildren="Text-Color"
         />
         <Switch
           checked={myContext.composition.TextEditor.fontField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'fontField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "fontField");
+          }}
           checkedChildren="Font"
           unCheckedChildren="Font"
         />
         <Switch
           checked={myContext.composition.TextEditor.opacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'opacityField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "opacityField");
+          }}
           checkedChildren="Text-Opacity"
           unCheckedChildren="Text-Opacity"
         />
         <Switch
           checked={myContext.composition.TextEditor.sizeField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'sizeField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "sizeField");
+          }}
           checkedChildren="Text-Size"
           unCheckedChildren="Text-Size"
         />
         <Switch
           checked={myContext.composition.TextEditor.offsetXField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'offsetXField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "offsetXField");
+          }}
           checkedChildren="Offset X"
           unCheckedChildren="Offset X"
         />
         <Switch
           checked={myContext.composition.TextEditor.offsetYField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'offsetYField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "offsetYField");
+          }}
           checkedChildren="Offset Y"
           unCheckedChildren="Offset Y"
         />
         <Switch
           checked={myContext.composition.TextEditor.rotateField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'rotateField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "rotateField");
+          }}
           checkedChildren="Rotation"
           unCheckedChildren="Rotation"
         />
         <Switch
           checked={myContext.composition.TextEditor.haloColorField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'haloColorField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "haloColorField");
+          }}
           checkedChildren="Halo-Color"
           unCheckedChildren="Halo-Color"
         />
         <Switch
           checked={myContext.composition.TextEditor.haloWidthField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'haloWidthField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "haloWidthField");
+          }}
           checkedChildren="Halo-Width"
           unCheckedChildren="Halo-Width"
         />
         <Switch
           checked={myContext.composition.TextEditor.placementField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'placementField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "placementField");
+          }}
           checkedChildren="Placement"
           unCheckedChildren="Placement"
         />
         <Switch
           checked={myContext.composition.TextEditor.repeatField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'repeatField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "repeatField");
+          }}
           checkedChildren="Repeat"
           unCheckedChildren="Repeat"
         />
@@ -245,7 +227,7 @@ function TextEditorExample () {
       </GeoStylerContext.Provider>
     </div>
   );
-};
+}
 
-<TextEditorExample />
+<TextEditorExample />;
 ```

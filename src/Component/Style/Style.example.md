@@ -31,129 +31,114 @@
 This demonstrates the use of `Style`.
 
 ```jsx
-import React from 'react';
-import { Style } from 'geostyler';
+import React, { useState } from "react";
+import { Style } from "geostyler";
 
-import { Switch } from 'antd';
+import { Switch } from "antd";
 
-class StyleExample extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      style: {
-        "name": "Demo Style",
-        "rules": [
+function StyleExample() {
+  const [style, setStyle] = useState({
+    name: "Demo Style",
+    rules: [
+      {
+        name: "Rule 1",
+        symbolizers: [
           {
-            "name": "Rule 1",
-            "symbolizers": [
-              {
-                "kind": "Mark",
-                "wellKnownName": "circle"
-              }
-            ]
-          }
-        ]
-      }
-    };
+            kind: "Mark",
+            wellKnownName: "circle",
+          },
+        ],
+      },
+    ],
+  });
 
-    this.onStyleChange = this.onStyleChange.bind(this);
+  const iconLibraries = [
+    {
+      name: "foo",
+      icons: [
+        {
+          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png",
+          caption: "Parking",
+        },
+        {
+          src: "https://raw.githubusercontent.com/geostyler/geostyler/main/public/logo.svg",
+          caption: "GeoStyler Logo",
+        },
+      ],
+    },
+    {
+      name: "bar",
+      icons: [
+        {
+          src: "https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg",
+          caption: "Highway",
+        },
+      ],
+    },
+  ];
 
-    this.iconLibraries = [{
-      name: 'foo',
-      icons: [{
-        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
-        caption: 'Parking'
-      }, {
-        src: 'https://raw.githubusercontent.com/geostyler/geostyler/main/public/logo.svg',
-        caption: 'GeoStyler Logo'
-      }]
-    }, {
-      name: 'bar',
-      icons: [{
-        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
-        caption: 'Highway'
-      }]
-    }];
-  }
-
-  onStyleChange(style) {
-    this.setState({
-      style: style
-    });
-  }
-
-  render() {
-    const {
-      style
-    } = this.state;
-
-    return (
-      <div>
-        <hr/>
-        <Style
-          style={style}
-          onStyleChange={this.onStyleChange}
-          iconLibraries={this.iconLibraries}
-        />
-      </div>
-    );
-  }
-
+  return (
+    <div>
+      <hr />
+      <Style
+        style={style}
+        onStyleChange={setStyle}
+        iconLibraries={iconLibraries}
+      />
+    </div>
+  );
 }
 
-<StyleExample />
+<StyleExample />;
 ```
 
 This demonstrates the use of `Style`, customized using `GeoStylerContext` (name not visible).
 
 ```jsx
-import { GeoStylerContext, Style } from 'geostyler';
-import { Style as GsStyle } from 'geostyler-style';
+import { GeoStylerContext, Style } from "geostyler";
+import { Style as GsStyle } from "geostyler-style";
 
 function StyleExample() {
   const myContext = {
     composition: {
       Style: {
         nameField: {
-          visibility: false
-        }
-      }
-    }
+          visibility: false,
+        },
+      },
+    },
   };
 
   const style = {
-    'name': 'Demo Style',
-    'rules': [
+    name: "Demo Style",
+    rules: [
       {
-        'name': 'Rule 1',
-        'symbolizers': [
+        name: "Rule 1",
+        symbolizers: [
           {
-            'kind': 'Mark',
-            'wellKnownName': 'circle'
-          }
-        ]
-      }
-    ]
+            kind: "Mark",
+            wellKnownName: "circle",
+          },
+        ],
+      },
+    ],
   };
 
   return (
     <GeoStylerContext.Provider value={myContext}>
-      <Style
-        style={style}
-      />
+      <Style style={style} />
     </GeoStylerContext.Provider>
   );
 }
 
-<StyleExample />
+<StyleExample />;
 ```
 
 This demonstrates the use of `Style`, customized using `GeoStylerContext` (multi edit disabled).
 
 ```jsx
-import { GeoStylerContext, Style } from 'geostyler';
-import { Style as GsStyle } from 'geostyler-style';
+import { GeoStylerContext, Style } from "geostyler";
+import { Style as GsStyle } from "geostyler-style";
 
 function StyleExample() {
   const myContext = {
@@ -170,34 +155,32 @@ function StyleExample() {
         },
         actionsField: {
           visibility: true,
-        }
-      }
+        },
+      },
     },
   };
 
   const style = {
-    'name': 'Demo Style',
-    'rules': [
+    name: "Demo Style",
+    rules: [
       {
-        'name': 'Rule 1',
-        'symbolizers': [
+        name: "Rule 1",
+        symbolizers: [
           {
-            'kind': 'Mark',
-            'wellKnownName': 'circle'
-          }
-        ]
-      }
-    ]
+            kind: "Mark",
+            wellKnownName: "circle",
+          },
+        ],
+      },
+    ],
   };
 
   return (
     <GeoStylerContext.Provider value={myContext}>
-      <Style
-        style={style}
-      />
+      <Style style={style} />
     </GeoStylerContext.Provider>
   );
 }
 
-<StyleExample />
+<StyleExample />;
 ```

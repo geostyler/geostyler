@@ -31,22 +31,16 @@
 This demonstrates the usage of the `BulkEditor` component.
 
 ```jsx
-import React from 'react';
-import { BulkEditor } from 'geostyler';
+import React from "react";
+import { BulkEditor } from "geostyler";
 
-class BulkEditorExample extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <BulkEditor />
-      </div>
-    );
-  }
+function BulkEditorExample() {
+  return (
+    <div>
+      <BulkEditor />
+    </div>
+  );
 }
 
-<BulkEditorExample />
+<BulkEditorExample />;
 ```

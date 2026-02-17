@@ -31,40 +31,30 @@
 This demonstrates the use of `SLDRenderer`.
 
 ```jsx
-import React from 'react';
-import { SLDRenderer } from 'geostyler';
+import React from "react";
+import { SLDRenderer } from "geostyler";
 
-class SLDRendererExample extends React.Component {
-  constructor(props) {
-    super(props);
+function SLDRendererExample() {
+  const symbolizers = [
+    {
+      kind: "Mark",
+      wellKnownName: "circle",
+      color: "#ff0000",
+      strokeColor: "000000",
+      strokeWidth: 3,
+      radius: 10,
+    },
+  ];
 
-    this.state = {
-      symbolizers: [{
-        kind: 'Mark',
-        wellKnownName: 'circle',
-        color: '#ff0000',
-        strokeColor: '000000',
-        strokeWidth: 3,
-        radius: 10
-      }]
-    };
-  }
-
-  render() {
-    const {
-      symbolizers
-    } = this.state;
-
-    return (
-      <SLDRenderer
-        symbolizers={symbolizers}
-        hideEditButton={true}
-        wmsBaseUrl='https://ows-demo.terrestris.de/geoserver/ows?'
-        layer='terrestris:bundeslaender'
-      />
-    );
-  }
+  return (
+    <SLDRenderer
+      symbolizers={symbolizers}
+      hideEditButton={true}
+      wmsBaseUrl="https://data.geostyler.org/geoserver/wms?"
+      layer="osm:osm_roads"
+    />
+  );
 }
 
-<SLDRendererExample />
+<SLDRendererExample />;
 ```

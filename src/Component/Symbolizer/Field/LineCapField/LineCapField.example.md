@@ -31,40 +31,20 @@
 This demonstrates the use of `LineCapField`.
 
 ```jsx
-import React from 'react';
-import { LineCapField } from 'geostyler';
+import React, { useState } from "react";
+import { LineCapField } from "geostyler";
 
-class LineCapFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function LineCapFieldExample() {
+  const [cap, setCap] = useState("butt");
 
-    this.state = {
-      cap: 'butt'
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(cap) {
-    this.setState({
-      cap: cap
-    });
-  }
-
-  render() {
-    const {
-      cap
-    } = this.state;
-
-    return (
-      <LineCapField
-        cap={cap}
-        capOptions={['butt', 'round', 'square']}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return (
+    <LineCapField
+      cap={cap}
+      capOptions={["butt", "round", "square"]}
+      onChange={setCap}
+    />
+  );
 }
 
-<LineCapFieldExample />
+<LineCapFieldExample />;
 ```

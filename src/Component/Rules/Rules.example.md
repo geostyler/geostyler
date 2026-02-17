@@ -31,180 +31,138 @@
 This demonstrates the usage of the `Rules` component.
 
 ```jsx
-import React from 'react';
-import { Rules } from 'geostyler';
+import React, { useState } from "react";
+import { Rules } from "geostyler";
 
-class RulesExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rules: [{
-        name: 'myRule',
-        symbolizers: [{
-          kind: 'Mark',
-          wellKnownName: 'circle'
-        }]
-      }, {
-        name: 'myRule 2',
-        symbolizers: [{
-          kind: 'Mark',
-          wellKnownName: 'circle'
-        }]
-      }]
-    };
-  }
+function RulesExample() {
+  const [rules, setRules] = useState([
+    {
+      name: "myRule",
+      symbolizers: [
+        {
+          kind: "Mark",
+          wellKnownName: "circle",
+        },
+      ],
+    },
+    {
+      name: "myRule 2",
+      symbolizers: [
+        {
+          kind: "Mark",
+          wellKnownName: "circle",
+        },
+      ],
+    },
+  ]);
 
-  render() {
-    const {
-      rules
-    } = this.state;
-
-    return (
-      <div>
-        <Rules
-          rules={rules}
-          onRulesChange={(newRules) => {
-            this.setState({
-              rules: newRules
-            });
-          }}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Rules rules={rules} onRulesChange={setRules} />
+    </div>
+  );
 }
 
-<RulesExample />
+<RulesExample />;
 ```
 
 `Rules` component with data and filter.
 
 ```jsx
-import React from 'react';
-import { Rules } from 'geostyler';
+import React, { useState } from "react";
+import { Rules } from "geostyler";
 
-class RulesExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rules: [{
-        name: 'myRule',
-        symbolizers: [{
-          kind: 'Mark',
-          wellKnownName: 'circle'
-        }],
-        filter: [
-          '<=',
-          'foo',
-          2
-        ],
-      }, {
-        name: 'myRule 2',
-        symbolizers: [{
-          kind: 'Mark',
-          wellKnownName: 'circle'
-        }],
-        filter: [
-          '<=',
-          'foo',
-          2
-        ],
-      }],
-      data: {
-        exampleFeatures: {
-          type: 'FeatureCollection',
-          features: [
-            {
-              type: 'Feature',
-              properties: {
-                foo: 1
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [7, 50]
-              }
-            },
-            {
-              type: 'Feature',
-              properties: {
-                foo: 2
-              },
-              geometry: {
-                type: 'Point',
-                coordinates: [6, 50]
-              }
-            }
-          ]
-        }
-      }
-    }
-  }
+function RulesExample() {
+  const [rules, setRules] = useState([
+    {
+      name: "myRule",
+      symbolizers: [
+        {
+          kind: "Mark",
+          wellKnownName: "circle",
+        },
+      ],
+      filter: ["<=", "foo", 2],
+    },
+    {
+      name: "myRule 2",
+      symbolizers: [
+        {
+          kind: "Mark",
+          wellKnownName: "circle",
+        },
+      ],
+      filter: ["<=", "foo", 2],
+    },
+  ]);
 
-  render() {
-    const {
-      rules,
-      data
-    } = this.state;
+  const data = {
+    exampleFeatures: {
+      type: "FeatureCollection",
+      features: [
+        {
+          type: "Feature",
+          properties: {
+            foo: 1,
+          },
+          geometry: {
+            type: "Point",
+            coordinates: [7, 50],
+          },
+        },
+        {
+          type: "Feature",
+          properties: {
+            foo: 2,
+          },
+          geometry: {
+            type: "Point",
+            coordinates: [6, 50],
+          },
+        },
+      ],
+    },
+  };
 
-    return (
-      <div>
-        <Rules
-          rules={rules}
-          data={data}
-          onRulesChange={(newRules) => {
-            this.setState({
-              rules: newRules
-            });
-          }}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Rules rules={rules} data={data} onRulesChange={setRules} />
+    </div>
+  );
 }
 
-<RulesExample />
+<RulesExample />;
 ```
 
 `Rules` component with disabled classification.
 
 ```jsx
-import React from 'react';
-import { Rules } from 'geostyler';
+import React, { useState } from "react";
+import { Rules } from "geostyler";
 
-class RulesExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rules: [{
-        name: 'myRule',
-        symbolizers: [{
-          kind: 'Mark',
-          wellKnownName: 'circle'
-        }]
-      }]
-    };
-  }
+function RulesExample() {
+  const [rules, setRules] = useState([
+    {
+      name: "myRule",
+      symbolizers: [
+        {
+          kind: "Mark",
+          wellKnownName: "circle",
+        },
+      ],
+    },
+  ]);
 
-  render() {
-    const {
-      rules
-    } = this.state;
-
-    return (
-      <div>
-        <Rules
-          rules={rules}
-          onRulesChange={(newRules) => {
-            this.setState({
-              rules: newRules
-            });
-          }}
-          enableClassification={false}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Rules
+        rules={rules}
+        onRulesChange={setRules}
+        enableClassification={false}
+      />
+    </div>
+  );
 }
 
-<RulesExample />
+<RulesExample />;
 ```

@@ -31,46 +31,30 @@
 This demonstrates the use of `GraphicEditor`.
 
 ```jsx
-import React from 'react';
-import { GraphicEditor } from 'geostyler';
+import React, { useState } from "react";
+import { GraphicEditor } from "geostyler";
 
-class GraphicEditorExample extends React.Component {
-  constructor(props) {
-    super(props);
+function GraphicEditorExample() {
+  const [graphic, setGraphic] = useState({
+    kind: "Mark",
+    wellKnownName: "circle",
+  });
 
-    this.state = {
-      graphic: {
-        kind: 'Mark',
-        wellKnownName: 'circle'
-      },
-      graphicType: 'Mark'
-    };
+  const [graphicType, setGraphicType] = useState("Mark");
 
-    this.onGraphicChange = this.onGraphicChange.bind(this);
-  }
+  const onGraphicChange = (newGraphic) => {
+    setGraphic(newGraphic);
+    setGraphicType(newGraphic.kind);
+  };
 
-  onGraphicChange(graphic) {
-    this.setState({
-      graphic: graphic,
-      graphicType: graphic.kind
-    });
-  }
-
-  render() {
-    const {
-      graphic,
-      graphicType
-    } = this.state;
-
-    return (
-      <GraphicEditor
-        graphic={graphic}
-        graphicType={graphicType}
-        onGraphicChange={this.onGraphicChange}
-      />
-    );
-  }
+  return (
+    <GraphicEditor
+      graphic={graphic}
+      graphicType={graphicType}
+      onGraphicChange={onGraphicChange}
+    />
+  );
 }
 
-<GraphicEditorExample />
+<GraphicEditorExample />;
 ```

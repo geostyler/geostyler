@@ -31,39 +31,14 @@
 This demonstrates the use of `FontPicker`.
 
 ```jsx
-import React from 'react';
-import { FontPicker } from 'geostyler';
+import React, { useState } from "react";
+import { FontPicker } from "geostyler";
 
-class FontPickerExample extends React.Component {
-  constructor(props) {
-    super(props);
+function FontPickerExample() {
+  const [value, setValue] = useState(["arial"]);
 
-    this.state = {
-      value: ['arial']
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(value) {
-    this.setState({
-      value
-    });
-  }
-
-  render() {
-    const {
-      value
-    } = this.state;
-
-    return (
-      <FontPicker
-        value={value}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <FontPicker value={value} onChange={setValue} />;
 }
 
-<FontPickerExample />
+<FontPickerExample />;
 ```

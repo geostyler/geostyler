@@ -31,209 +31,140 @@
 This demonstrates the use of `ImageField`.
 
 ```jsx
-import React from 'react';
-import { ImageField } from 'geostyler';
+import React, { useState } from "react";
+import { ImageField } from "geostyler";
 
-class ImageFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ''
-    };
+function ImageFieldExample() {
+  const [value, setValue] = useState("");
 
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(value) {
-    this.setState({
-      value: value
-    });
-  }
-
-  render() {
-    const {
-      value
-    } = this.state;
-
-    return (
-      <ImageField
-        value={value}
-        placeholder="URL to image"
-        onChange={this.onChange}
-      />
-    );
-  }
+  return (
+    <ImageField value={value} placeholder="URL to image" onChange={setValue} />
+  );
 }
 
-<ImageFieldExample />
+<ImageFieldExample />;
 ```
 
 `ImageField` with a Sprite value.
 
 ```jsx
-import React, { useState } from 'react';
-import { OlRenderer } from 'geostyler';
+import React, { useState } from "react";
+import { OlRenderer } from "geostyler";
 
-const ImageFieldExample  = () => {
+const ImageFieldExample = () => {
   const [value, setValue] = useState({
-    source: './Geo_Styler_Logo_300_RGB.jpg',
+    source: "./Geo_Styler_Logo_300_RGB.jpg",
     position: [164, 33],
-    size: [95, 110]
+    size: [95, 110],
   });
 
-  return (
-    <ImageField
-      value={value}
-      onChange={setValue}
-    />
-  );
-}
+  return <ImageField value={value} onChange={setValue} />;
+};
 
-<ImageFieldExample />
+<ImageFieldExample />;
 ```
 
 `ImageField` with iconLibraries.
 
 ```jsx
-import React from 'react';
-import { ImageField } from 'geostyler';
+import React, { useState } from "react";
+import { ImageField } from "geostyler";
 
-class ImageFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ''
-    };
+function ImageFieldExample() {
+  const [value, setValue] = useState("");
 
-    this.onChange = this.onChange.bind(this);
-  }
+  const iconLibraries = [
+    {
+      name: "foo",
+      icons: [
+        {
+          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png",
+          caption: "Parking",
+        },
+        {
+          src: "https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg",
+          caption: "GeoStyler Logo",
+        },
+      ],
+    },
+    {
+      name: "bar",
+      icons: [
+        {
+          src: "https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg",
+          caption: "Highway",
+        },
+      ],
+    },
+  ];
 
-  onChange(value) {
-    this.setState({
-      value: value
-    });
-  }
-
-  render() {
-    const {
-      value
-    } = this.state;
-
-    const iconLibraries = [{
-      name: 'foo',
-      icons: [{
-        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
-        caption: 'Parking'
-      }, {
-        src: 'https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg',
-        caption: 'GeoStyler Logo'
-      }]
-    }, {
-      name: 'bar',
-      icons: [{
-        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
-        caption: 'Highway'
-      }]
-    }]
-
-    return (
-      <ImageField
-        value={value}
-        placeholder="URL to image"
-        onChange={this.onChange}
-        iconLibraries={iconLibraries}
-      />
-    );
-  }
+  return (
+    <ImageField
+      value={value}
+      placeholder="URL to image"
+      onChange={setValue}
+      iconLibraries={iconLibraries}
+    />
+  );
 }
 
-<ImageFieldExample />
+<ImageFieldExample />;
 ```
 
 `ImageField` with custom implementation of iconLibraries view.
 
 ```jsx
-import React from 'react';
-import { ImageField } from 'geostyler';
+import React, { useState } from "react";
+import { ImageField } from "geostyler";
 
-class ImageFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-      customViewOpened: false
-    };
+function ImageFieldExample() {
+  const [value, setValue] = useState("");
+  const [customViewOpened, setCustomViewOpened] = useState(false);
 
-    this.onChange = this.onChange.bind(this);
-    this.openCustomView = this.openCustomView.bind(this);
-    this.closeCustomView = this.closeCustomView.bind(this);
-  }
-
-  onChange(value) {
-    this.setState({
-      value: value
-    });
-  }
-
-  openCustomView() {
-    this.setState({
-      customViewOpened: true
-    });
-  }
-
-  closeCustomView() {
-    this.setState({
-      customViewOpened: false
-    });
-  }
-
-  render() {
-    const {
-      value,
-      customViewOpened
-    } = this.state;
-
-    const iconLibraries = [{
-      name: 'foo',
-      icons: [{
-        src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png',
-        caption: 'Parking'
-      }, {
-        src: 'https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg',
-        caption: 'GeoStyler Logo'
-      }]
-    }, {
-      name: 'bar',
-      icons: [{
-        src: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg',
-        caption: 'Highway'
-      }]
-    }];
-
-    return (
-      <>
-        <ImageField
-          value={value}
-          placeholder="URL to image"
-          onChange={this.onChange}
-          iconLibraries={iconLibraries}
-          windowless={true}
-          onIconLibrariesClick={this.openCustomView}
-        />
+  const iconLibraries = [
+    {
+      name: "foo",
+      icons: [
         {
-          customViewOpened && (
-            <div style={{'border': 'solid lightgrey'}}>
-              Implement your custom iconLibraries view here, or anywhere you like.
-              <button onClick={this.closeCustomView}>
-                Close
-              </button>
-            </div>
-          )
-        }
-      </>
-    );
-  }
+          src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Parking_icon.svg/128px-Parking_icon.svg.png",
+          caption: "Parking",
+        },
+        {
+          src: "https://raw.githubusercontent.com/geostyler/geostyler/master/public/logo.svg",
+          caption: "GeoStyler Logo",
+        },
+      ],
+    },
+    {
+      name: "bar",
+      icons: [
+        {
+          src: "https://upload.wikimedia.org/wikipedia/commons/a/ac/RWB-RWBA_Autobahn.svg",
+          caption: "Highway",
+        },
+      ],
+    },
+  ];
+
+  return (
+    <>
+      <ImageField
+        value={value}
+        placeholder="URL to image"
+        onChange={setValue}
+        iconLibraries={iconLibraries}
+        windowless={true}
+        onIconLibrariesClick={() => setCustomViewOpened(true)}
+      />
+      {customViewOpened && (
+        <div style={{ border: "solid lightgrey" }}>
+          Implement your custom iconLibraries view here, or anywhere you like.
+          <button onClick={() => setCustomViewOpened(false)}>Close</button>
+        </div>
+      )}
+    </>
+  );
 }
 
-<ImageFieldExample />
+<ImageFieldExample />;
 ```
