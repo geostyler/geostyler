@@ -2072,7 +2072,7 @@ mark {
 .gs-comparison-filter-ui {
   padding-left: 5px;
   display: flex;
-  flex: 1;
+  gap: 5px;
 
   .gs-attribute-combo {
     flex: 1;
@@ -2403,6 +2403,18 @@ mark {
   }
 }
 
+.gs-scaledenominator {
+    .ant-form-item {
+        margin-bottom: 0;
+        .ant-form-item-explain-error {
+            font-size: 10px;
+        }
+        .ant-input-number-group-addon {
+            padding: 4px;
+        }
+    }
+}
+
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -2682,18 +2694,6 @@ mark {
       height: 100px;
     }
   }
-}
-
-.gs-scaledenominator {
-    .ant-form-item {
-        margin-bottom: 0;
-        .ant-form-item-explain-error {
-            font-size: 10px;
-        }
-        .ant-input-number-group-addon {
-            padding: 4px;
-        }
-    }
 }
 
 .gs-select-scale {
