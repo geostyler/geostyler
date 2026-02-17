@@ -31,39 +31,14 @@
 This demonstrates the use of `SaturationField`.
 
 ```jsx
-import React from 'react';
-import { SaturationField } from 'geostyler';
+import React, { useState } from "react";
+import { SaturationField } from "geostyler";
 
-class SaturationFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function SaturationFieldExample() {
+  const [saturation, setSaturation] = useState(0);
 
-    this.state = {
-      saturation: 0
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(saturation) {
-    this.setState({
-      saturation: saturation
-    });
-  }
-
-  render() {
-    const {
-      saturation
-    } = this.state;
-
-    return (
-      <SaturationField
-        saturation={saturation}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <SaturationField saturation={saturation} onChange={setSaturation} />;
 }
 
-<SaturationFieldExample />
+<SaturationFieldExample />;
 ```

@@ -31,39 +31,14 @@
 This demonstrates the use of `RadiusField`.
 
 ```jsx
-import React from 'react';
-import { RadiusField } from 'geostyler';
+import React, { useState } from "react";
+import { RadiusField } from "geostyler";
 
-class RadiusFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function RadiusFieldExample() {
+  const [radius, setRadius] = useState(10);
 
-    this.state = {
-      radius: 10
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(radius) {
-    this.setState({
-      radius: radius
-    });
-  }
-
-  render() {
-    const {
-      radius
-    } = this.state;
-
-    return (
-      <RadiusField
-        radius={radius}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <RadiusField radius={radius} onChange={setRadius} />;
 }
 
-<RadiusFieldExample />
+<RadiusFieldExample />;
 ```

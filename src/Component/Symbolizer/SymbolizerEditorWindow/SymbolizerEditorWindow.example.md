@@ -31,65 +31,35 @@
 This demonstrates the use of `SymbolizerEditorWindow`.
 
 ```jsx
-import React from 'react';
-import { Button } from 'antd';
-import { SymbolizerEditorWindow } from 'geostyler';
+import React, { useState } from "react";
+import { Button } from "antd";
+import { SymbolizerEditorWindow } from "geostyler";
 
-class SymbolizerEditorWindowExample extends React.Component {
-  constructor(props) {
-    super(props);
+function SymbolizerEditorWindowExample() {
+  const [showWindow, setShowWindow] = useState(false);
+  const [symbolizers, setSymbolizers] = useState([
+    {
+      kind: "Fill",
+    },
+    {
+      kind: "Line",
+    },
+  ]);
 
-    this.state = {
-      showWindow: false,
-      symbolizers: [{
-        kind: 'Fill'
-      }, {
-        kind: 'Line'
-      }]
-    };
-
-    this.onSymbolizersChange = this.onSymbolizersChange.bind(this);
-    this.onButtonClick = this.onButtonClick.bind(this);
-    this.onClose = this.onClose.bind(this);
-  }
-
-  onSymbolizersChange(symbolizers) {
-    this.setState({
-      symbolizers: symbolizers
-    });
-  }
-
-  onButtonClick() {
-    this.setState({
-      showWindow: true
-    });
-  }
-
-  onClose() {
-    this.setState({
-      showWindow: false
-    });
-  }
-
-  render() {
-    const {
-      symbolizers,
-      showWindow
-    } = this.state;
-
-    return (
-      <div>
-        <Button onClick={this.onButtonClick}>Show SymbolizerEditorWindow</Button>
-        <SymbolizerEditorWindow
-          open={showWindow}
-          symbolizers={symbolizers}
-          onSymbolizersChange={this.onSymbolizersChange}
-          onClose={this.onClose}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Button onClick={() => setShowWindow(true)}>
+        Show SymbolizerEditorWindow
+      </Button>
+      <SymbolizerEditorWindow
+        open={showWindow}
+        symbolizers={symbolizers}
+        onSymbolizersChange={setSymbolizers}
+        onClose={() => setShowWindow(false)}
+      />
+    </div>
+  );
 }
 
-<SymbolizerEditorWindowExample />
+<SymbolizerEditorWindowExample />;
 ```

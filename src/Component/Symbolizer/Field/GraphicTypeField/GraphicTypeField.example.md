@@ -31,42 +31,22 @@
 This demonstrates the use of `GraphicTypeField`.
 
 ```jsx
-import React from 'react';
-import { GraphicTypeField } from 'geostyler';
+import React, { useState } from "react";
+import { GraphicTypeField } from "geostyler";
 
-class GraphicTypeFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function GraphicTypeFieldExample() {
+  const [graphicType, setGraphicType] = useState("Mark");
 
-    this.state = {
-      graphicType: 'Mark'
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(graphicType) {
-    this.setState({
-      graphicType: graphicType
-    });
-  }
-
-  render() {
-    const {
-      graphicType
-    } = this.state;
-
-    return (
-      <GraphicTypeField
-        graphicType={graphicType}
-        graphicTypes={['Mark', 'Icon']}
-        label="GraphicType"
-        clearable={true}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return (
+    <GraphicTypeField
+      graphicType={graphicType}
+      graphicTypes={["Mark", "Icon"]}
+      label="GraphicType"
+      clearable={true}
+      onChange={setGraphicType}
+    />
+  );
 }
 
-<GraphicTypeFieldExample />
+<GraphicTypeFieldExample />;
 ```

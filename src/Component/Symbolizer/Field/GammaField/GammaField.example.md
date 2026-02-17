@@ -31,39 +31,14 @@
 This demonstrates the use of `GammaField`.
 
 ```jsx
-import React from 'react';
-import { GammaField } from 'geostyler';
+import React, { useState } from "react";
+import { GammaField } from "geostyler";
 
-class GammaFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function GammaFieldExample() {
+  const [gamma, setGamma] = useState(10);
 
-    this.state = {
-      gamma: 10
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(gamma) {
-    this.setState({
-      gamma: gamma
-    });
-  }
-
-  render() {
-    const {
-      gamma
-    } = this.state;
-
-    return (
-      <GammaField
-        gamma={gamma}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <GammaField gamma={gamma} onChange={setGamma} />;
 }
 
-<GammaFieldExample />
+<GammaFieldExample />;
 ```

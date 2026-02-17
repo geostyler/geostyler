@@ -31,95 +31,74 @@
 This demonstrates the use of `WellKnownNameEditor`.
 
 ```jsx
-import React from 'react';
-import { WellKnownNameEditor } from 'geostyler';
+import React, { useState } from "react";
+import { WellKnownNameEditor } from "geostyler";
 
-class WellKnownNameEditorExample extends React.Component {
-  constructor(props) {
-    super(props);
+function WellKnownNameEditorExample() {
+  const [symbolizer, setSymbolizer] = useState({
+    kind: "Mark",
+    wellKnownName: "circle",
+  });
 
-    this.state = {
-      symbolizer: {
-        kind: 'Mark',
-        wellKnownName: 'circle'
-      }
-    };
-
-    this.onSymbolizerChange = this.onSymbolizerChange.bind(this);
-  }
-
-  onSymbolizerChange(symbolizer) {
-    this.setState({
-      symbolizer: symbolizer
-    });
-  }
-
-  render() {
-    const {
-      symbolizer
-    } = this.state;
-
-    return (
-      <WellKnownNameEditor
-        symbolizer={symbolizer}
-        onSymbolizerChange={this.onSymbolizerChange}
-      />
-    );
-  }
+  return (
+    <WellKnownNameEditor
+      symbolizer={symbolizer}
+      onSymbolizerChange={setSymbolizer}
+    />
+  );
 }
 
-<WellKnownNameEditorExample />
+<WellKnownNameEditorExample />;
 ```
 
 This demonstrates the usage of `WellKnownNameEditor` with `GeoStylerContext`.
 
 ```jsx
-import React, { useState } from 'react';
-import { Switch } from 'antd';
-import { WellKnownNameEditor, GeoStylerContext } from 'geostyler';
+import React, { useState } from "react";
+import { Switch } from "antd";
+import { WellKnownNameEditor, GeoStylerContext } from "geostyler";
 
-function WellKnownNameEditorExample () {
-
+function WellKnownNameEditorExample() {
   const [myContext, setMyContext] = useState({
     composition: {
       WellKnownNameEditor: {
         radiusField: {
-          visibility: true
+          visibility: true,
         },
         offsetXField: {
-          visibility: true
+          visibility: true,
         },
         offsetYField: {
-          visibility: true
+          visibility: true,
         },
         fillColorField: {
-          visibility: true
+          visibility: true,
         },
         opacityField: {
-          visibility: true
+          visibility: true,
         },
         fillOpacityField: {
-          visibility: true
+          visibility: true,
         },
         strokeColorField: {
-          visibility: true
+          visibility: true,
         },
         strokeWidthField: {
-          visibility: true
+          visibility: true,
         },
         strokeOpacityField: {
-          visibility: true
+          visibility: true,
         },
         rotateField: {
-          visibility: true
-        }
-      }
-    }
+          visibility: true,
+        },
+      },
+    },
   });
 
   const [symbolizer, setSymbolizer] = useState({
-    kind: 'Mark',
-    wellKnownName: 'circle'
+    kind: "Mark",
+    wellKnownName: "circle",
   });
 
   const onSymbolizerChange = (s) => {
@@ -127,8 +106,8 @@ function WellKnownNameEditorExample () {
   };
 
   const onVisibilityChange = (visibility, prop) => {
-    setMyContext(oldContext => {
-      const newContext = {...oldContext};
+    setMyContext((oldContext) => {
+      const newContext = { ...oldContext };
       newContext.composition.WellKnownNameEditor[prop].visibility = visibility;
       return newContext;
     });
@@ -136,64 +115,108 @@ function WellKnownNameEditorExample () {
 
   return (
     <div>
-      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.radiusField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'radiusField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.radiusField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "radiusField");
+          }}
           checkedChildren="Radius"
           unCheckedChildren="Radius"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.offsetXField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'offsetXField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.offsetXField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "offsetXField");
+          }}
           checkedChildren="Offset X"
           unCheckedChildren="Offset X"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.offsetYField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'offsetYField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.offsetYField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "offsetYField");
+          }}
           checkedChildren="Offset Y"
           unCheckedChildren="Offset Y"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.fillColorField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'fillColorField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.fillColorField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "fillColorField");
+          }}
           checkedChildren="Fill-Color"
           unCheckedChildren="Fill-Color"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.opacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'opacityField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.opacityField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "opacityField");
+          }}
           checkedChildren="Opacity"
           unCheckedChildren="Opacity"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.fillOpacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'fillOpacityField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.fillOpacityField
+              .visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "fillOpacityField");
+          }}
           checkedChildren="Fill-Opacity"
           unCheckedChildren="Fill-Opacity"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.strokeColorField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'strokeColorField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.strokeColorField
+              .visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "strokeColorField");
+          }}
           checkedChildren="Stroke-Color"
           unCheckedChildren="Stroke-Color"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.strokeWidthField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'strokeWidthField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.strokeWidthField
+              .visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "strokeWidthField");
+          }}
           checkedChildren="Stroke-Width"
           unCheckedChildren="Stroke-Width"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.strokeOpacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'strokeOpacityField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.strokeOpacityField
+              .visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "strokeOpacityField");
+          }}
           checkedChildren="Stroke-Opacity"
           unCheckedChildren="Stroke-Opacity"
         />
         <Switch
-          checked={myContext.composition.WellKnownNameEditor.rotateField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'rotateField')}}
+          checked={
+            myContext.composition.WellKnownNameEditor.rotateField.visibility
+          }
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "rotateField");
+          }}
           checkedChildren="Rotation"
           unCheckedChildren="Rotation"
         />
@@ -207,7 +230,7 @@ function WellKnownNameEditorExample () {
       </GeoStylerContext.Provider>
     </div>
   );
-};
+}
 
-<WellKnownNameEditorExample />
+<WellKnownNameEditorExample />;
 ```

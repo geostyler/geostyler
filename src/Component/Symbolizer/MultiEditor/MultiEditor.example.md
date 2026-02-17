@@ -31,43 +31,26 @@
 This demonstrates the use of `MultiEditor`.
 
 ```jsx
-import React from 'react';
-import { MultiEditor } from 'geostyler';
+import React, { useState } from "react";
+import { MultiEditor } from "geostyler";
 
-class MultiEditorExample extends React.Component {
-  constructor(props) {
-    super(props);
+function MultiEditorExample() {
+  const [symbolizers, setSymbolizers] = useState([
+    {
+      kind: "Fill",
+    },
+    {
+      kind: "Line",
+    },
+  ]);
 
-    this.state = {
-      symbolizers: [{
-        kind: 'Fill'
-      }, {
-        kind: 'Line'
-      }]
-    };
-
-    this.onSymbolizersChange = this.onSymbolizersChange.bind(this);
-  }
-
-  onSymbolizersChange(symbolizers) {
-    this.setState({
-      symbolizers: symbolizers
-    });
-  }
-
-  render() {
-    const {
-      symbolizers
-    } = this.state;
-
-    return (
-      <MultiEditor
-        symbolizers={symbolizers}
-        onSymbolizersChange={this.onSymbolizersChange}
-      />
-    );
-  }
+  return (
+    <MultiEditor
+      symbolizers={symbolizers}
+      onSymbolizersChange={setSymbolizers}
+    />
+  );
 }
 
-<MultiEditorExample />
+<MultiEditorExample />;
 ```

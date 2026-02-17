@@ -31,39 +31,14 @@
 This demonstrates the use of `OpacityField`.
 
 ```jsx
-import React from 'react';
-import { OpacityField } from 'geostyler';
+import React, { useState } from "react";
+import { OpacityField } from "geostyler";
 
-class OpacityFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function OpacityFieldExample() {
+  const [opacity, setOpacity] = useState(10);
 
-    this.state = {
-      opacity: 10
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(opacity) {
-    this.setState({
-      opacity: opacity
-    });
-  }
-
-  render() {
-    const {
-      opacity
-    } = this.state;
-
-    return (
-      <OpacityField
-        opacity={opacity}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <OpacityField opacity={opacity} onChange={setOpacity} />;
 }
 
-<OpacityFieldExample />
+<OpacityFieldExample />;
 ```

@@ -31,82 +31,58 @@
 This demonstrates the use of `IconEditor`.
 
 ```jsx
-import React from 'react';
-import { IconEditor } from 'geostyler';
+import React, { useState } from "react";
+import { IconEditor } from "geostyler";
 
-class IconEditorExample extends React.Component {
-  constructor(props) {
-    super(props);
+function IconEditorExample() {
+  const [symbolizer, setSymbolizer] = useState({
+    kind: "Icon",
+  });
 
-    this.state = {
-      symbolizer: {
-        kind: 'Icon'
-      }
-    };
-
-    this.onSymbolizerChange = this.onSymbolizerChange.bind(this);
-  }
-
-  onSymbolizerChange(symbolizer) {
-    this.setState({
-      symbolizer: symbolizer
-    });
-  }
-
-  render() {
-    const {
-      symbolizer
-    } = this.state;
-
-    return (
-      <IconEditor
-        symbolizer={symbolizer}
-        onSymbolizerChange={this.onSymbolizerChange}
-      />
-    );
-  }
+  return (
+    <IconEditor symbolizer={symbolizer} onSymbolizerChange={setSymbolizer} />
+  );
 }
 
-<IconEditorExample />
+<IconEditorExample />;
 ```
 
 This demonstrates the usage of `IconEditor` with `GeoStylerContext`.
 
 ```jsx
-import React, { useState } from 'react';
-import { Switch } from 'antd';
-import { IconEditor, GeoStylerContext } from 'geostyler';
+import React, { useState } from "react";
+import { Switch } from "antd";
+import { IconEditor, GeoStylerContext } from "geostyler";
 
-function IconEditorExample () {
-
+function IconEditorExample() {
   const [myContext, setMyContext] = useState({
     composition: {
       IconEditor: {
         imageField: {
           visibility: true,
-          disableSprite: false
+          disableSprite: false,
         },
         sizeField: {
-          visibility: true
+          visibility: true,
         },
         offsetXField: {
-          visibility: true
+          visibility: true,
         },
         offsetYField: {
-          visibility: true
+          visibility: true,
         },
         rotateField: {
-          visibility: true
+          visibility: true,
         },
         opacityField: {
-          visibility: true
-        }
-      }
-    }
+          visibility: true,
+        },
+      },
+    },
   });
 
   const [symbolizer, setSymbolizer] = useState({
-    kind: 'Icon'
+    kind: "Icon",
   });
 
   const onSymbolizerChange = (s) => {
@@ -114,16 +90,17 @@ function IconEditorExample () {
   };
 
   const onVisibilityChange = (checked, prop) => {
-    setMyContext(oldContext => {
-      const newContext = {...oldContext};
-      newContext.composition.IconEditor[prop].imageField.disableSprite = checked;
+    setMyContext((oldContext) => {
+      const newContext = { ...oldContext };
+      newContext.composition.IconEditor[prop].imageField.disableSprite =
+        checked;
       return newContext;
     });
   };
 
   const onSpriteChange = (checked, prop) => {
-    setMyContext(oldContext => {
-      const newContext = {...oldContext};
+    setMyContext((oldContext) => {
+      const newContext = { ...oldContext };
       newContext.composition.IconEditor.imageField.disableSprite = checked;
       return newContext;
     });
@@ -131,40 +108,52 @@ function IconEditorExample () {
 
   return (
     <div>
-      <div style={{display: 'flex', flexWrap: 'wrap', gap: '15px'}}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "15px" }}>
         <Switch
           checked={myContext.composition.IconEditor.imageField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'imageField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "imageField");
+          }}
           checkedChildren="Source"
           unCheckedChildren="Source"
         />
         <Switch
           checked={myContext.composition.IconEditor.sizeField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'sizeField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "sizeField");
+          }}
           checkedChildren="Size"
           unCheckedChildren="Size"
         />
         <Switch
           checked={myContext.composition.IconEditor.offsetXField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'offsetXField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "offsetXField");
+          }}
           checkedChildren="Offset X"
           unCheckedChildren="Offset X"
         />
         <Switch
           checked={myContext.composition.IconEditor.offsetYField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'offsetYField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "offsetYField");
+          }}
           checkedChildren="Offset Y"
           unCheckedChildren="Offset Y"
         />
         <Switch
           checked={myContext.composition.IconEditor.rotateField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'rotateField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "rotateField");
+          }}
           checkedChildren="Rotation"
           unCheckedChildren="Rotation"
         />
         <Switch
           checked={myContext.composition.IconEditor.opacityField.visibility}
-          onChange={visibility => {onVisibilityChange(visibility, 'opacityField')}}
+          onChange={(visibility) => {
+            onVisibilityChange(visibility, "opacityField");
+          }}
           checkedChildren="Opacity"
           unCheckedChildren="Opacity"
         />
@@ -184,7 +173,7 @@ function IconEditorExample () {
       </GeoStylerContext.Provider>
     </div>
   );
-};
+}
 
-<IconEditorExample />
+<IconEditorExample />;
 ```

@@ -33,19 +33,14 @@ This demonstrates the use of `VisibilityField`.
 By default the visibility field will be checked, it will only be unchecked if the visibility of the symbolizer is configured to false.
 
 ```jsx
-import React from 'react';
-import { VisibilityField } from './VisibilityField';
+import React from "react";
+import { VisibilityField } from "geostyler";
 
 function VisibilityFieldExample() {
   const [visibility, setVisibility] = React.useState(true);
 
-    return (
-      <VisibilityField
-        visibility={visibility}
-        onChange={setVisibility}
-      />
-    );
+  return <VisibilityField visibility={visibility} onChange={setVisibility} />;
 }
 
-<VisibilityFieldExample />
+<VisibilityFieldExample />;
 ```

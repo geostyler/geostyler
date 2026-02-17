@@ -31,61 +31,58 @@
 This demonstrates the usage of the `Renderer` component with 'OpenLayers' renderer.
 
 ```jsx
-import React, { useState } from 'react';
-import { Renderer } from 'geostyler';
-import './Renderer.example.css';
+import React, { useState } from "react";
+import { Renderer } from "geostyler";
+import "./Renderer.example.css";
 
-function RendererExample () {
+function RendererExample() {
+  const symbolizers = [
+    {
+      kind: "Mark",
+      wellKnownName: "circle",
+      color: "#ff0000",
+      strokeColor: "000000",
+      strokeWidth: 3,
+      radius: 10,
+    },
+  ];
 
-  const symbolizers = [{
-    kind: 'Mark',
-    wellKnownName: 'circle',
-    color: '#ff0000',
-    strokeColor: '000000',
-    strokeWidth: 3,
-    radius: 10
-  }];
-
-  return (
-    <Renderer
-      rendererType='OpenLayers'
-      symbolizers={symbolizers}
-    />
-  );
+  return <Renderer rendererType="OpenLayers" symbolizers={symbolizers} />;
 }
 
-<RendererExample />
+<RendererExample />;
 ```
 
 This demonstrates the usage of the `Renderer` component with 'SLD' renderer.
 
 ```jsx
-import React, { useState } from 'react';
-import { Renderer } from 'geostyler';
+import React, { useState } from "react";
+import { Renderer } from "geostyler";
 
-function RendererExample () {
-
-  const symbolizers = [{
-    kind: 'Mark',
-    wellKnownName: 'circle',
-    color: '#ff0000',
-    strokeColor: '000000',
-    strokeWidth: 3,
-    radius: 10
-  }];
+function RendererExample() {
+  const symbolizers = [
+    {
+      kind: "Mark",
+      wellKnownName: "circle",
+      color: "#ff0000",
+      strokeColor: "000000",
+      strokeWidth: 3,
+      radius: 10,
+    },
+  ];
 
   return (
     <Renderer
-      rendererType='SLD'
+      rendererType="SLD"
       symbolizers={symbolizers}
       hideEditButton={true}
-      wmsBaseUrl='https://ows-demo.terrestris.de/geoserver/wms?'
-      layer='terrestris:bundeslaender'
+      wmsBaseUrl="https://data.geostyler.org/geoserver/wms?"
+      layer="osm:osm_roads"
     />
   );
 }
 
-<RendererExample />
+<RendererExample />;
 ```
 
 If the passed symbolizers contain one or more geostyler functions the style of
@@ -93,64 +90,54 @@ the feature is related to the data and can not be previewed. In this case the
 preview shows a placeholder symbolizer.
 
 ```jsx
-import React from 'react';
-import { Renderer } from 'geostyler';
+import React from "react";
+import { Renderer } from "geostyler";
 
-function RendererExample () {
-
+function RendererExample() {
   const markSymbolizer = {
-    kind: 'Mark',
-    wellKnownName: 'circle',
+    kind: "Mark",
+    wellKnownName: "circle",
     color: {
-      name: 'property',
-      args: ['color']
+      name: "property",
+      args: ["color"],
     },
     radius: 24,
-    strokeWidth: 2
+    strokeWidth: 2,
   };
 
   const fillSymbolizer = {
-    kind: 'Fill',
+    kind: "Fill",
     outlineColor: {
-      name: 'property',
-      args: ['color']
-    }
+      name: "property",
+      args: ["color"],
+    },
   };
 
   const lineSymbolizer = {
-    kind: 'Line',
+    kind: "Line",
     width: {
-      name: 'property',
-      args: ['width']
-    }
+      name: "property",
+      args: ["width"],
+    },
   };
 
   return (
     <div>
       <div className="sample">
         MarkSymbolizer
-        <Renderer
-          symbolizers={[markSymbolizer]}
-          hideEditButton={true}
-        />
+        <Renderer symbolizers={[markSymbolizer]} hideEditButton={true} />
       </div>
       <div className="sample">
         FillSymbolizer
-        <Renderer
-          symbolizers={[fillSymbolizer]}
-          hideEditButton={true}
-        />
+        <Renderer symbolizers={[fillSymbolizer]} hideEditButton={true} />
       </div>
       <div className="sample">
         LineSymbolizer
-        <Renderer
-          symbolizers={[lineSymbolizer]}
-          hideEditButton={true}
-        />
+        <Renderer symbolizers={[lineSymbolizer]} hideEditButton={true} />
       </div>
     </div>
   );
 }
 
-<RendererExample />
+<RendererExample />;
 ```

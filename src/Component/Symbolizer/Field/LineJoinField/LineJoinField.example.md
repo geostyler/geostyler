@@ -31,40 +31,20 @@
 This demonstrates the use of `LineJoinField`.
 
 ```jsx
-import React from 'react';
-import { LineJoinField } from 'geostyler';
+import React, { useState } from "react";
+import { LineJoinField } from "geostyler";
 
-class LineJoinFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function LineJoinFieldExample() {
+  const [join, setJoin] = useState("bevel");
 
-    this.state = {
-      join: 'bevel'
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(join) {
-    this.setState({
-      join: join
-    });
-  }
-
-  render() {
-    const {
-      join
-    } = this.state;
-
-    return (
-      <LineJoinField
-        join={join}
-        joinOptions={['bevel', 'round', 'miter']}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return (
+    <LineJoinField
+      join={join}
+      joinOptions={["bevel", "round", "miter"]}
+      onChange={setJoin}
+    />
+  );
 }
 
-<LineJoinFieldExample />
+<LineJoinFieldExample />;
 ```

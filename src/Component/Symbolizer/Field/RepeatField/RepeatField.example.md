@@ -31,39 +31,14 @@
 This demonstrates the use of `RepeatField`.
 
 ```jsx
-import React from 'react';
-import { RepeatField } from 'geostyler';
+import React, { useState } from "react";
+import { RepeatField } from "geostyler";
 
-class RepeatFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function RepeatFieldExample() {
+  const [repeat, setRepeat] = useState(10);
 
-    this.state = {
-      repeat: 10
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(repeat) {
-    this.setState({
-      repeat: repeat
-    });
-  }
-
-  render() {
-    const {
-      repeat
-    } = this.state;
-
-    return (
-      <RepeatField
-        repeat={repeat}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <RepeatField repeat={repeat} onChange={setRepeat} />;
 }
 
-<RepeatFieldExample />
+<RepeatFieldExample />;
 ```

@@ -31,39 +31,14 @@
 This demonstrates the use of `LineDashField`.
 
 ```jsx
-import React from 'react';
-import { LineDashField } from 'geostyler';
+import React, { useState } from "react";
+import { LineDashField } from "geostyler";
 
-class LineDashFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function LineDashFieldExample() {
+  const [dashArray, setDashArray] = useState([]);
 
-    this.state = {
-      dashArray: []
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(dashArray) {
-    this.setState({
-      dashArray: dashArray
-    });
-  }
-
-  render() {
-    const {
-      dashArray
-    } = this.state;
-
-    return (
-      <LineDashField
-        dashArray={dashArray}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <LineDashField dashArray={dashArray} onChange={setDashArray} />;
 }
 
-<LineDashFieldExample />
+<LineDashFieldExample />;
 ```

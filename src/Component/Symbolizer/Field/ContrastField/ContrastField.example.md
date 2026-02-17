@@ -31,39 +31,14 @@
 This demonstrates the use of `ContrastField`.
 
 ```jsx
-import React from 'react';
-import { ContrastField } from 'geostyler';
+import React, { useState } from "react";
+import { ContrastField } from "geostyler";
 
-class ContrastFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function ContrastFieldExample() {
+  const [contrast, setContrast] = useState(0);
 
-    this.state = {
-      contrast: 0
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(contrast) {
-    this.setState({
-      contrast: contrast
-    });
-  }
-
-  render() {
-    const {
-      contrast
-    } = this.state;
-
-    return (
-      <ContrastField
-        contrast={contrast}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <ContrastField contrast={contrast} onChange={setContrast} />;
 }
 
-<ContrastFieldExample />
+<ContrastFieldExample />;
 ```

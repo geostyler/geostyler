@@ -60,9 +60,9 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
 
   const locale = useGeoStylerLocale('WfsParserInput');
 
-  const [url, setUrl] = useState<string>('https://ows-demo.terrestris.de/geoserver/terrestris/ows');
+  const [url, setUrl] = useState<string>('https://data.geostyler.org/geoserver/ows');
   const [version, setVersion] = useState<WfsVersion>('1.1.0');
-  const [typeName, setTypeName] = useState<string>('terrestris:bundeslaender');
+  const [typeName, setTypeName] = useState<string>('osm:roads');
   const [featureID, setFeatureID] = useState<string>();
   const [propertyName, setPropertyName] = useState<string>();
   const [srsName, setSrsName] = useState<string>();
@@ -210,7 +210,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
       >
         <Select
           className='wfs-version-input'
-          style={{width: '100%'}}
+          style={{ width: '100%' }}
           value={version}
           onChange={onVersionChange}
         >
@@ -253,7 +253,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
       >
         <Select
           className='wfs-propertyname-input'
-          style={{width: '100%'}}
+          style={{ width: '100%' }}
           mode="tags"
           value={propertyName}
           onChange={onPropertyNameChange}
@@ -268,7 +268,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
       >
         <InputNumber
           className='wfs-maxfeatures-input'
-          style={{width: '100%'}}
+          style={{ width: '100%' }}
           min={0}
           value={maxFeatures}
           onChange={onMaxFeaturesChange}

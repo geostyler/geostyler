@@ -31,45 +31,40 @@
 This demonstrates the usage of the `ComparisonFilter` component.
 
 ```jsx
-import React, { useState } from 'react';
-import { ComparisonFilter } from 'geostyler';
+import React, { useState } from "react";
+import { ComparisonFilter } from "geostyler";
 
 function ComparisonFilterExample() {
-  const [filter, setFilter] = useState(['<=x<=', 'population', 100000, 200000]);
+  const [filter, setFilter] = useState(["<=x<=", "population", 100000, 200000]);
 
-  return <>
-    <ComparisonFilter onFilterChange={setFilter} filter={filter} />
-    {JSON.stringify(filter)}
-  </>;
-
+  return <ComparisonFilter onFilterChange={setFilter} filter={filter} />;
 }
 
-<ComparisonFilterExample />
+<ComparisonFilterExample />;
 ```
 
 This demonstrates the usage of the `ComparisonFilter` with `GeoStylerContext`.
 
 ```jsx
-import React, { useState } from 'react';
-import { ComparisonFilter, GeoStylerContext } from 'geostyler';
+import React, { useState } from "react";
+import { ComparisonFilter, GeoStylerContext } from "geostyler";
 
 function ComparisonFilterExample() {
   const [myContext, setMyContext] = useState({
     composition: {
       ComparisonFilter: {
-        operatorNameMappingFunction: (n) => 'foo'
-      }
-    }
+        operatorNameMappingFunction: (n) => "foo",
+      },
+    },
   });
-  const [filter, setFilter] = useState(['<=x<=', 'population', 100000, 200000]);
+  const [filter, setFilter] = useState(["<=x<=", "population", 100000, 200000]);
 
   return (
     <GeoStylerContext.Provider value={myContext}>
       <ComparisonFilter onFilterChange={setFilter} filter={filter} />
-      {JSON.stringify(filter)}
     </GeoStylerContext.Provider>
   );
 }
 
-<ComparisonFilterExample />
+<ComparisonFilterExample />;
 ```

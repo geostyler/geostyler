@@ -31,39 +31,14 @@
 This demonstrates the use of `BrightnessField`.
 
 ```jsx
-import React from 'react';
-import { RuleGenerator } from 'geostyler';
+import React, { useState } from "react";
+import { BrightnessField } from "geostyler";
 
-class BrightnessFieldExample extends React.Component {
-  constructor(props) {
-    super(props);
+function BrightnessFieldExample() {
+  const [brightness, setBrightness] = useState(10);
 
-    this.state = {
-      brightness: 10
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(brightness) {
-    this.setState({
-      brightness: brightness
-    });
-  }
-
-  render() {
-    const {
-      brightness
-    } = this.state;
-
-    return (
-      <BrightnessField
-        brightness={brightness}
-        onChange={this.onChange}
-      />
-    );
-  }
+  return <BrightnessField brightness={brightness} onChange={setBrightness} />;
 }
 
-<BrightnessFieldExample />
+<BrightnessFieldExample />;
 ```

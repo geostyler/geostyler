@@ -31,50 +31,40 @@
 This demonstrates the usage of the `StyleOverview` component.
 
 ```jsx
-import React from 'react';
-import { StyleOverview } from 'geostyler';
+import React, { useState } from "react";
+import { StyleOverview } from "geostyler";
 
-class StyleOverviewExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      style: {
-        name: 'my style',
-        rules: [{
-          name: 'myRule',
-          symbolizers: [{
-            kind: 'Mark',
-            wellKnownName: 'circle'
-          }]
-        }, {
-          name: 'myRule 2',
-          symbolizers: [{
-            kind: 'Mark',
-            wellKnownName: 'circle'
-          }]
-        }]
-      }
-    };
+function StyleOverviewExample() {
+  const [style, setStyle] = useState({
+    name: "my style",
+    rules: [
+      {
+        name: "myRule",
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle",
+          },
+        ],
+      },
+      {
+        name: "myRule 2",
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle",
+          },
+        ],
+      },
+    ],
+  });
 
-  }
-
-  render() {
-    const {
-      style
-    } = this.state;
-
-    return (
-      <div>
-        <StyleOverview
-          style={style}
-          onStyleChange={() => {
-            this.setState({style});
-          }}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <StyleOverview style={style} onStyleChange={setStyle} />
+    </div>
+  );
 }
 
-<StyleOverviewExample />
+<StyleOverviewExample />;
 ```

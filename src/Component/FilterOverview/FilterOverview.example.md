@@ -31,69 +31,18 @@
 This demonstrates the usage of the `FilterOverview` component.
 
 ```jsx
-import React from 'react';
-import { FilterOverview } from 'geostyler';
+import React from "react";
+import { FilterOverview } from "geostyler";
 
-class FilterOverviewExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filter: [
-        '&&',
-        ['==', 'foo', 'bar'],
-        ['!=', 'faz', 'baz']
-      ]
-    };
+function FilterOverviewExample() {
+  const filter = ["&&", ["==", "foo", "bar"], ["!=", "faz", "baz"]];
 
-  }
-
-  render() {
-    const {
-      filter
-    } = this.state;
-
-    return (
-      <div>
-        <FilterOverview
-          filter={filter}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <FilterOverview filter={filter} />
+    </div>
+  );
 }
 
-<FilterOverviewExample />
-```
-
-Example with empty filter.
-
-```jsx
-import React from 'react';
-import { FilterOverview } from 'geostyler';
-
-class FilterOverviewExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filter: undefined
-    };
-
-  }
-
-  render() {
-    const {
-      filter
-    } = this.state;
-
-    return (
-      <div>
-        <FilterOverview
-          filter={filter}
-        />
-      </div>
-    );
-  }
-}
-
-<FilterOverviewExample />
+<FilterOverviewExample />;
 ```

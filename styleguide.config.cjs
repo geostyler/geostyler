@@ -46,12 +46,14 @@ module.exports = {
   assetsDir: './docs',
   propsParser: process.env.NODE_ENV === 'production' ?
     rdt
-      .withCustomConfig('./tsconfig.json', {propFilter: (prop) => {
-        if (prop.parent) {
-          return !prop.parent.fileName.includes('node_modules');
+      .withCustomConfig('./tsconfig.json', {
+        propFilter: (prop) => {
+          if (prop.parent) {
+            return !prop.parent.fileName.includes('node_modules');
+          }
+          return true;
         }
-        return true;
-      }})
+      })
       .parse :
     undefined,
   components: 'src/Component/**/*.tsx',
@@ -100,14 +102,8 @@ module.exports = {
       name: 'FunctionUI',
       components: 'src/Component/FunctionUI/**/*.tsx'
     }, {
-      name: 'LocaleWrapper',
-      components: 'src/Component/LocaleWrapper/**/*.tsx'
-    }, {
       name: 'NameField',
       components: 'src/Component/NameField/**/*.tsx'
-    }, {
-      name: 'Rule',
-      components: 'src/Component/Rule/**/*.tsx'
     }, {
       name: 'RuleCard',
       components: 'src/Component/RuleCard/**/*.tsx'
@@ -116,7 +112,7 @@ module.exports = {
       components: 'src/Component/Rules/**/*.tsx'
     }, {
       name: 'RuleGenerator',
-      components: 'src/Component/RuleGenerator/**/*.tsx'
+      components: 'src/Component/RuleGenerator/RuleGenerator.tsx'
     }, {
       name: 'RuleTable',
       components: 'src/Component/RuleTable/**/*.tsx'

@@ -31,34 +31,21 @@
 This demonstrates the usage of the `SymbolizerCard` component.
 
 ```jsx
-import React from 'react';
-import { SymbolizerCard } from 'geostyler';
+import React from "react";
+import { SymbolizerCard } from "geostyler";
 
-class SymbolizerCardExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      symbolizer: {
-        kind: 'Mark',
-        wellKnownName: 'circle'
-      }
-    };
-  }
+function SymbolizerCardExample() {
+  const symbolizer = {
+    kind: "Mark",
+    wellKnownName: "circle",
+  };
 
-  render() {
-    const {
-      symbolizer
-    } = this.state;
-
-    return (
-      <div>
-        <SymbolizerCard
-          symbolizer={symbolizer}
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <SymbolizerCard symbolizer={symbolizer} />
+    </div>
+  );
 }
 
-<SymbolizerCardExample />
+<SymbolizerCardExample />;
 ```
