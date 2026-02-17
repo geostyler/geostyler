@@ -31,7 +31,6 @@ import React from 'react';
 import {
   Select
 } from 'antd';
-const Option = Select.Option;
 
 import {
   ContrastEnhancement, isGeoStylerFunction
@@ -53,30 +52,23 @@ export const ContrastEnhancementField: React.FC<ContrastEnhancementFieldProps> =
   value
 }) => {
 
-  const getContrastEnhancementSelectOptions = () => {
-    return contrastEnhancementOptions.map(contrastEnhancementOpt => {
-      if (isGeoStylerFunction(contrastEnhancementOpt)) {
-        contrastEnhancementOpt = FunctionUtil.evaluateFunction(contrastEnhancementOpt) as ('normalize' | 'histogram');
-      }
-      return (
-        <Option
-          key={contrastEnhancementOpt}
-          value={contrastEnhancementOpt}
-        >
-          {contrastEnhancementOpt}
-        </Option>
-      );
-    });
-  };
+  const contrastSelectOptiopns = contrastEnhancementOptions.map(contrastEnhancementOpt => {
+    if (isGeoStylerFunction(contrastEnhancementOpt)) {
+      contrastEnhancementOpt = FunctionUtil.evaluateFunction(contrastEnhancementOpt) as ('normalize' | 'histogram');
+    }
+    return {
+      label: contrastEnhancementOpt,
+      value: contrastEnhancementOpt
+    };
+  });
 
   return (
     <Select
       className="editor-field contrastEnhancement-field"
       allowClear={true}
       value={value}
+      options={contrastSelectOptiopns}
       onChange={onChange}
-    >
-      {getContrastEnhancementSelectOptions()}
-    </Select>
+    />
   );
 };

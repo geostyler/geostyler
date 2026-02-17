@@ -35,8 +35,6 @@ import {
 } from '../../../context/GeoStylerContext/GeoStylerContext';
 import { getFormItemConfig } from '../../../Util/FormItemUtil';
 
-const Option = Select.Option;
-
 export interface AttributeComboProps {
   /** Set true to hide the attribute's type in the select options */
   hideAttributeType?: boolean;
@@ -98,14 +96,10 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
       // create an option per attribute
       return attrNames.filter(attributeNameFilter!).map(attrName => {
         const attrNameMapped = attributeNameMappingFunction(attrName);
-        return (
-          <Option
-            key={attrName}
-            value={attrName}
-          >
-            {hideAttributeType ? attrNameMapped : `${attrNameMapped} (${attrDefs[attrName].type})`}
-          </Option>
-        );
+        return {
+          label: hideAttributeType ? attrNameMapped : `${attrNameMapped} (${attrDefs[attrName].type})`,
+          value: attrName
+        };
       });
     }
     return [];
@@ -130,9 +124,8 @@ export const AttributeCombo: React.FC<AttributeComboProps> = ({
               onChange={onAttributeChange}
               placeholder={locale.placeholder}
               size={size}
-            >
-              {options}
-            </Select>
+              options={options}
+            />
             :
             <Input
               ref={inputRef}

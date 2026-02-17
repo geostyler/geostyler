@@ -59,34 +59,4 @@ describe('CodeEditor', () => {
   //   });
   // });
 
-  // TODO fix this test, somehow the props lead to a rendering error
-  // describe('generates an option for every parser', () => {
-  //   it('returns a Select.Option for every passed parser', async () => {
-  //     onStyleChangeDummy = vi.fn();
-  //     const props: CodeEditorProps = {
-  //       style: dummyStyle,
-  //       onStyleChange: onStyleChangeDummy,
-  //       parsers: [
-  //         sldParser
-  //       ],
-  //       delay
-  //     };
-  //     const codeEditor = render(<CodeEditor {...props} />);
-
-  //     const combobox = await codeEditor.findByRole('combobox');
-
-  //     await act(async () => {
-  //       fireEvent.keyDown(combobox, { key: 'Enter' });
-  //     });
-
-  //     let entry = codeEditor.queryAllByText('GeoStyler Style');
-
-  //     expect(entry.length).toBeGreaterThanOrEqual(1);
-
-  //     entry = codeEditor.queryAllByText('SLD Style Parser');
-
-  //     expect(entry.length).toBeGreaterThanOrEqual(1);
-  //   });
-  // });
-
 });

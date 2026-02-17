@@ -38,7 +38,6 @@ import {
   Select,
   InputNumber
 } from 'antd';
-const Option = Select.Option;
 
 import './WfsParserInput.css';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
@@ -210,13 +209,14 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
       >
         <Select
           className='wfs-version-input'
-          style={{width: '100%'}}
+          style={{ width: '100%' }}
           value={version}
           onChange={onVersionChange}
-        >
-          <Option value="1.1.0">1.1.0</Option>
-          <Option value="2.0.0">2.0.0</Option>
-        </Select>
+          options={[
+            { label: '1.1.0', value: '1.1.0' },
+            { label: '2.0.0', value: '2.0.0' }
+          ]}
+        />
       </Form.Item>
       <Form.Item
         {...itemConfig}
@@ -253,7 +253,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
       >
         <Select
           className='wfs-propertyname-input'
-          style={{width: '100%'}}
+          style={{ width: '100%' }}
           mode="tags"
           value={propertyName}
           onChange={onPropertyNameChange}
@@ -268,7 +268,7 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
       >
         <InputNumber
           className='wfs-maxfeatures-input'
-          style={{width: '100%'}}
+          style={{ width: '100%' }}
           min={0}
           value={maxFeatures}
           onChange={onMaxFeaturesChange}

@@ -35,12 +35,8 @@ import { vi } from 'vitest';
 vi.mock('antd', async (original) => {
   const antd = await original();
 
-  const Select = ({ children, onChange }: {children: React.ReactElement; onChange: (value: any) => void}) => {
+  const Select = ({ children, onChange }: { children: React.ReactElement; onChange: (value: any) => void }) => {
     return <select onChange={e => onChange(e.target.value)}>{children}</select>;
-  };
-
-  Select.Option = ({ children, ...otherProps }: {children: React.ReactElement}) => {
-    return <option {...otherProps}>{children}</option>;
   };
 
   return {
@@ -53,7 +49,7 @@ describe('MarkEditor', () => {
 
   const dummySymbolizer: MarkSymbolizer = SymbolizerUtil.generateSymbolizer('Mark') as MarkSymbolizer;
   const props: MarkEditorProps = {
-    symbolizer:dummySymbolizer,
+    symbolizer: dummySymbolizer,
     onSymbolizerChange: vi.fn(),
   };
 
@@ -69,10 +65,10 @@ describe('MarkEditor', () => {
   describe('onWellKnownNameChange', () => {
     it('calls the onSymbolizerChange prop with correct symbolizer ', async () => {
       const markEditor = render(<MarkEditor {...props} />);
-      const newSymbolizer = {...props.symbolizer};
+      const newSymbolizer = { ...props.symbolizer };
       newSymbolizer.wellKnownName = 'square';
       const input = markEditor.container.querySelector('select');
-      await act(async() => {
+      await act(async () => {
         fireEvent.change(input!, {
           target: { value: 'square' }
         });

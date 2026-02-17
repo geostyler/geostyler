@@ -43,8 +43,6 @@ import { Editor } from '../Editor/Editor';
 import SymbolizerUtil from '../../../Util/SymbolizerUtil';
 import { IconLibrary } from '../IconSelector/IconSelector';
 
-import { Tab } from 'rc-tabs/lib/interface';
-
 export interface MultiEditorProps {
   editorProps?: any;
   symbolizers: Symbolizer[];
@@ -101,7 +99,7 @@ export const MultiEditor: React.FC<MultiEditorProps> = ({
     }
   };
 
-  const tabs: Tab[] = symbolizers.map((symbolizer: Symbolizer, idx: number) => {
+  const tabs = symbolizers.map((symbolizer: Symbolizer, idx: number) => {
     return {
       className: 'gs-symbolizer-multi-editor-tab',
       key: idx.toString(),

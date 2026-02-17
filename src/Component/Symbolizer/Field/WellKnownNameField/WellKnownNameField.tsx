@@ -35,7 +35,6 @@ import { WellKnownName } from 'geostyler-style';
 
 import _get from 'lodash-es/get.js';
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
-const Option = Select.Option;
 
 export interface WellKnownNameFieldProps {
   value?: WellKnownName;
@@ -57,28 +56,21 @@ export const WellKnownNameField: React.FC<WellKnownNameFieldProps> = ({
 
   const locale = useGeoStylerLocale('WellKnownNameField');
 
-  const getWKNSelectOptions = () => {
-    return wellKnownNames.map(name => {
-      // if locales are not available, set Option text to name value
-      const loc = _get(locale, 'wellKnownNames[' + name + ']') || name;
-      return (
-        <Option
-          key={name}
-          value={name}
-        >
-          {loc}
-        </Option>
-      );
-    });
-  };
+  const wknSelectOptions = wellKnownNames.map(name => {
+    // if locales are not available, set Option text to name value
+    const loc = _get(locale, 'wellKnownNames[' + name + ']') || name;
+    return {
+      label: loc,
+      value: name
+    };
+  });
 
   return (
     <Select
       className="editor-field wellknownname-field"
       value={value}
       onChange={onChange}
-    >
-      {getWKNSelectOptions()}
-    </Select>
+      options={wknSelectOptions}
+    />
   );
 };

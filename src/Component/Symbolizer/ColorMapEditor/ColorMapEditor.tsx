@@ -380,7 +380,7 @@ export const ColorMapEditor: React.FC<ColorMapEditorProps> = (props) => {
             columns={columns}
             dataSource={colorMapRecords}
             pagination={{
-              position: ['bottomCenter']
+              placement: ['bottomCenter']
             }}
             size="small"
           />

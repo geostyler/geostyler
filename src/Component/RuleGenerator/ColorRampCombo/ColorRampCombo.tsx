@@ -62,22 +62,15 @@ export const ColorRampCombo: React.FC<ColorRampComboProps> = ({
 
   const locale = useGeoStylerLocale('ColorRampCombo');
 
-  const colorRampOptions = Object.keys(colorRamps)
-    .map((name: string) => {
-      const colors = colorRamps[name];
-      const style = RuleGeneratorUtil.generateBackgroundStyleFromColors(colors);
-      return (
-        <Select.Option
-          className="gs-color-ramp-option"
-          key={name}
-          value={name}
-          style={style}
-        >
-          {name}
-        </Select.Option>
-      );
-    });
-
+  const colorRampOptions = Object.keys(colorRamps).map((name: string) => {
+    const colors = colorRamps[name];
+    const style = RuleGeneratorUtil.generateBackgroundStyleFromColors(colors);
+    return {
+      label: name,
+      value: name,
+      style
+    };
+  });
 
   let colorRampStyle;
   if (colorRamp) {
@@ -90,11 +83,12 @@ export const ColorRampCombo: React.FC<ColorRampComboProps> = ({
       className="gs-color-ramp-select"
       style={colorRampStyle}
       placeholder={locale.colorRampPlaceholder}
-      optionFilterProp="children"
+      showSearch={{
+        optionFilterProp: 'children'
+      }}
+      options={colorRampOptions}
       value={colorRamp}
       onChange={onChange}
-    >
-      {colorRampOptions}
-    </Select>
+    />
   );
 };

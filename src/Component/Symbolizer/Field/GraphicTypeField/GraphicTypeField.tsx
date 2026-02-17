@@ -33,7 +33,7 @@ import { GraphicType } from 'geostyler-style';
 
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
-const Option = Select.Option;
+import './GraphicTypeField.css';
 
 export interface GraphicTypeFieldProps {
   /** List of selectable GraphicTypes for Select */
@@ -59,14 +59,10 @@ export const GraphicTypeField: React.FC<GraphicTypeFieldProps> = ({
 
   const typeSelectOptions = graphicTypes.map((type: GraphicType) => {
     const loc = locale?.[type] || type;
-    return (
-      <Option
-        key={type}
-        value={type}
-      >
-        {loc}
-      </Option>
-    );
+    return {
+      label: loc,
+      value: type
+    };
   });
 
   return (
@@ -75,9 +71,8 @@ export const GraphicTypeField: React.FC<GraphicTypeFieldProps> = ({
       value={value}
       onChange={onChange}
       allowClear={clearable}
+      options={typeSelectOptions}
       {...passThroughProps}
-    >
-      {typeSelectOptions}
-    </Select>
+    />
   );
 };

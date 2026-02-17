@@ -29,8 +29,6 @@
 import React, { useState } from 'react';
 
 import { Select } from 'antd';
-import { UploadRequestOption } from 'rc-upload/lib/interface';
-const Option = Select.Option;
 
 import {
   Style,
@@ -51,13 +49,13 @@ export interface StyleLoaderProps {
 
 export const StyleLoader: React.FC<StyleLoaderProps> = ({
   parsers,
-  onStyleRead = () => {}
+  onStyleRead = () => { }
 }) => {
 
   const locale = useGeoStylerLocale('StyleLoader');
   const [activeParser, setActiveParser] = useState<StyleParser>();
 
-  const parseStyle = async(uploadObject: UploadRequestOption<any>) => {
+  const parseStyle = async (uploadObject: any) => {
     if (!activeParser) {
       return undefined;
     }
@@ -82,9 +80,9 @@ export const StyleLoader: React.FC<StyleLoaderProps> = ({
     }
   };
 
-  const parserOptions = parsers.map((parser: any) =>
-    <Option key={parser.title} value={parser.title}>{parser.title}</Option>
-  );
+  const parserOptions = parsers.map((parser: any) => {
+    return { label: parser.title, value: parser.title };
+  });
 
   const onSelect = (selection: string) => {
     const newActiveParser = parsers.find(parser => parser.title === selection);
@@ -99,9 +97,8 @@ export const StyleLoader: React.FC<StyleLoaderProps> = ({
       <Select
         style={{ width: 300 }}
         onSelect={onSelect}
-      >
-        {parserOptions}
-      </Select>
+        options={parserOptions}
+      />
       {
         activeParser ?
           <UploadButton

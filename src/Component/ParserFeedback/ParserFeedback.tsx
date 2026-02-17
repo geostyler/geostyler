@@ -59,7 +59,7 @@ export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
       showIcon
       key={`warning-${index}`}
       type='warning'
-      message={warning}
+      title={warning}
     />
   ));
 
@@ -68,7 +68,7 @@ export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
       showIcon
       key={`error-${index}`}
       type='error'
-      message={error.message}
+      title={error.message}
     />
   ));
 
@@ -113,7 +113,7 @@ export const ParserFeedback: React.FC<ParserFeedbackProps> = ({
       showIcon
       key={`unsupportedProperty-${index}`}
       type='warning'
-      message={unsupportedProperty}
+      title={unsupportedProperty}
     />
   ));
 

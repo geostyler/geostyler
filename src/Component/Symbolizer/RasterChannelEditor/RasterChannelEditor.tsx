@@ -33,7 +33,6 @@ import {
   Select,
   Tabs
 } from 'antd';
-const Option = Select.Option;
 
 import {
   ChannelSelection,
@@ -163,16 +162,11 @@ export const RasterChannelEditor: React.FC<RasterChannelEditorProps> = (props) =
               allowClear={true}
               value={rgbOrGray}
               onChange={onSelectionChange}
-            >
-              <Option
-                key="rgb"
-                value="rgb"
-              >{locale.channelSelectionRgbLabel}</Option>
-              <Option
-                key="gray"
-                value="gray"
-              >{locale.channelSelectionGrayLabel}</Option>
-            </Select>
+              options={[
+                { label: locale.channelSelectionRgbLabel, value: 'rgb' },
+                { label: locale.channelSelectionGrayLabel, value: 'gray' }
+              ]}
+            />
           </Form.Item>
         )
       }
