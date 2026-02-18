@@ -83,7 +83,7 @@
     "geostyler-style": "^11.0.2",
     "geostyler-wfs-parser": "^3.0.1",
     "lodash-es": "^4.17.21",
-    "monaco-editor": "^0.52.0",
+    "monaco-editor": "^0.55.0",
     "proj4": "^2.11.0",
     "typescript-json-schema": "^0.67.0"
   },
