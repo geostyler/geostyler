@@ -126,6 +126,8 @@ class FilterUtil {
         return (parseFloat(featureValue) > Number(filterValue));
       case '>=':
         return (parseFloat(featureValue) >= Number(filterValue));
+      case '<=x<=':
+        return (parseFloat(featureValue) >= Number(filter[2]) && parseFloat(featureValue) <= Number(filter[3]));
       default:
         throw new Error('Cannot parse Filter. Unknown comparison operator.');
     }
@@ -333,7 +335,7 @@ class FilterUtil {
    */
   static addFilter(rootFilter: Filter, position: string, type: string) {
 
-    let addedFilter: Filter ;
+    let addedFilter: Filter;
     let newFilter: Filter = structuredClone(rootFilter);
 
     switch (type) {
@@ -379,7 +381,7 @@ class FilterUtil {
 
     switch (type) {
       case 'and':
-        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
+        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||')) {
           addedFilter = previousFilter;
           if (!Array.isArray(addedFilter)) {
             throw new Error('Cannot change filter. Filter is not an array.');
@@ -390,7 +392,7 @@ class FilterUtil {
         }
         break;
       case 'or':
-        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||' )) {
+        if (previousFilter && (previousFilter[0] === '&&' || previousFilter[0] === '||')) {
           addedFilter = previousFilter;
           if (!Array.isArray(addedFilter)) {
             throw new Error('Cannot change filter. Filter is not an array.');
@@ -461,7 +463,11 @@ class FilterUtil {
     const filterClone = structuredClone(filter);
     const operator = filterClone.shift();
     if (isComparisonOperator(operator)) {
-      tree.title = `${filterClone[0]} ${operator} ${filterClone[1]}`;
+      if (operator === '<=x<=') {
+        tree.title = `${filterClone[1]} <= ${filterClone[0]} <= ${filterClone[2]}`;
+      } else {
+        tree.title = `${filterClone[0]} ${operator} ${filterClone[1]}`;
+      }
     } else if (isCombinationOperator(operator)) {
       tree.title = operator;
       tree.children = filterClone.map((f: any) => {

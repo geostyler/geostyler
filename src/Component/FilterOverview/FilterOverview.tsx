@@ -49,7 +49,7 @@ export interface FilterOverviewProps {
 
 export const FilterOverview: React.FC<FilterOverviewProps> = ({
   filter,
-  onEditFilterClick = () => {}
+  onEditFilterClick = () => { }
 }) => {
 
   const locale = useGeoStylerLocale('FilterOverview');
@@ -69,8 +69,7 @@ export const FilterOverview: React.FC<FilterOverviewProps> = ({
             treeData={treeData}
             defaultExpandAll
             selectable={false}
-            showLine={{showLeafIcon: false}}
-            switcherIcon={<div></div>}
+            showLine={{ showLeafIcon: false }}
             onClick={onEditFilterClick}
           />
         ) : (
