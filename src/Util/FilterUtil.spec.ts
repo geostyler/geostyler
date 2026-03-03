@@ -38,6 +38,233 @@ describe('FilterUtil', () => {
     filter = TestUtil.getDummyGsFilter();
   });
 
+  describe('handleSimpleFilter', () => {
+    const dummyData = TestUtil.getComplexGsDummyData();
+    const feature = dummyData.exampleFeatures.features[0];
+
+    describe('equality operator (==)', () => {
+      it('returns true when values are equal', () => {
+        feature.properties.name = 'Berlin';
+        const simpleFilter: Filter = ['==', 'name', 'Berlin'];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns false when values are not equal', () => {
+        feature.properties.name = 'Berlin';
+        const simpleFilter: Filter = ['==', 'name', 'Munich'];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+
+      it('works with numeric values', () => {
+        feature.properties.population = 100000;
+        const simpleFilter: Filter = ['==', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+    });
+
+    describe('inequality operator (!=)', () => {
+      it('returns true when values are not equal', () => {
+        feature.properties.name = 'Berlin';
+        const simpleFilter: Filter = ['!=', 'name', 'Munich'];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns false when values are equal', () => {
+        feature.properties.name = 'Berlin';
+        const simpleFilter: Filter = ['!=', 'name', 'Berlin'];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('contains operator (*=)', () => {
+      it('returns true when value contains substring', () => {
+        feature.properties.name = 'Berlin City';
+        const simpleFilter: Filter = ['*=', 'name', 'Berlin'];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns false when value does not contain substring', () => {
+        feature.properties.name = 'Munich';
+        const simpleFilter: Filter = ['*=', 'name', 'Berlin'];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+
+      it('returns false when substring is longer than value', () => {
+        feature.properties.name = 'Ber';
+        const simpleFilter: Filter = ['*=', 'name', 'Berlin'];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+
+      it('returns false when value is undefined', () => {
+        feature.properties.name = undefined;
+        const simpleFilter: Filter = ['*=', 'name', 'Berlin'];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('less than operator (<)', () => {
+      it('returns true when value is less than filter value', () => {
+        feature.properties.population = 50000;
+        const simpleFilter: Filter = ['<', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns false when value is equal to filter value', () => {
+        feature.properties.population = 100000;
+        const simpleFilter: Filter = ['<', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+
+      it('returns false when value is greater than filter value', () => {
+        feature.properties.population = 150000;
+        const simpleFilter: Filter = ['<', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('less than or equal operator (<=)', () => {
+      it('returns true when value is less than filter value', () => {
+        feature.properties.population = 50000;
+        const simpleFilter: Filter = ['<=', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns true when value equals filter value', () => {
+        feature.properties.population = 100000;
+        const simpleFilter: Filter = ['<=', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns false when value is greater than filter value', () => {
+        feature.properties.population = 150000;
+        const simpleFilter: Filter = ['<=', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('greater than operator (>)', () => {
+      it('returns true when value is greater than filter value', () => {
+        feature.properties.population = 150000;
+        const simpleFilter: Filter = ['>', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns false when value is equal to filter value', () => {
+        feature.properties.population = 100000;
+        const simpleFilter: Filter = ['>', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+
+      it('returns false when value is less than filter value', () => {
+        feature.properties.population = 50000;
+        const simpleFilter: Filter = ['>', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('greater than or equal operator (>=)', () => {
+      it('returns true when value is greater than filter value', () => {
+        feature.properties.population = 150000;
+        const simpleFilter: Filter = ['>=', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns true when value equals filter value', () => {
+        feature.properties.population = 100000;
+        const simpleFilter: Filter = ['>=', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns false when value is less than filter value', () => {
+        feature.properties.population = 50000;
+        const simpleFilter: Filter = ['>=', 'population', 100000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+    });
+
+    describe('between operator (<=x<=)', () => {
+      it('returns true when value is within range', () => {
+        feature.properties.population = 150000;
+        const simpleFilter: Filter = ['<=x<=', 'population', 100000, 200000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns true when value equals lower boundary', () => {
+        feature.properties.population = 100000;
+        const simpleFilter: Filter = ['<=x<=', 'population', 100000, 200000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns true when value equals upper boundary', () => {
+        feature.properties.population = 200000;
+        const simpleFilter: Filter = ['<=x<=', 'population', 100000, 200000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('returns false when value is below lower boundary', () => {
+        feature.properties.population = 50000;
+        const simpleFilter: Filter = ['<=x<=', 'population', 100000, 200000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+
+      it('returns false when value is above upper boundary', () => {
+        feature.properties.population = 300000;
+        const simpleFilter: Filter = ['<=x<=', 'population', 100000, 200000];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(false);
+      });
+
+      it('works with decimal values', () => {
+        feature.properties.temperature = 23.5;
+        const simpleFilter: Filter = ['<=x<=', 'temperature', 20.0, 25.0];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+
+      it('works with negative values', () => {
+        feature.properties.altitude = -5;
+        const simpleFilter: Filter = ['<=x<=', 'altitude', -10, 0];
+        const result = FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        expect(result).toBe(true);
+      });
+    });
+
+    describe('unknown operator', () => {
+      it('throws an error for unknown comparison operator', () => {
+        feature.properties.name = 'Berlin';
+        const simpleFilter: any = ['~=', 'name', 'Berlin'];
+        expect(() => {
+          FilterUtil.handleSimpleFilter(simpleFilter, feature);
+        }).toThrow('Cannot parse Filter. Unknown comparison operator.');
+      });
+    });
+  });
+
   describe('featureMatchesFilter', () => {
     it('returns true if a feature matches the filter', () => {
       const dummyData = TestUtil.getComplexGsDummyData();

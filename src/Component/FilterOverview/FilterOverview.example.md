@@ -35,7 +35,13 @@ import React from "react";
 import { FilterOverview } from "geostyler";
 
 function FilterOverviewExample() {
-  const filter = ["&&", ["==", "foo", "bar"], ["!=", "faz", "baz"]];
+  const filter = [
+    "&&",
+    ["==", "state", "germany"],
+    ["<=x<=", "population", 100000, 200000],
+    ["||", [">=", "population", 100000], ["<", "population", 200000]],
+    ["!", ["==", "name", "Schalke"]],
+  ];
 
   return (
     <div>
