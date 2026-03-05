@@ -39,7 +39,11 @@ function BooleanExpressionInputExample() {
 
   return (
     <>
-      <BooleanExpressionInput value={value} onChange={setValue} />
+      <BooleanExpressionInput
+        value={value}
+        onChange={setValue}
+        onCancel={() => setValue(false)}
+      />
       <div>Current value: {JSON.stringify(value)}</div>
     </>
   );
@@ -62,6 +66,7 @@ function BooleanExpressionInputExample() {
       <BooleanExpressionInput
         value={value}
         onChange={setValue}
+        onCancel={() => setValue(false)}
         labelOn="Yes"
         labelOff="No"
       />
@@ -81,8 +86,14 @@ import { BooleanExpressionInput, GeoStylerContext } from "geostyler";
 
 function BooleanExpressionInputExample() {
   const [value, setValue] = useState({
-    name: "property",
-    args: ["active"],
+    name: "equalTo",
+    args: [
+      {
+        name: "property",
+        args: ["population"],
+      },
+      10000,
+    ],
   });
 
   const context = {
@@ -103,11 +114,7 @@ function BooleanExpressionInputExample() {
 
   return (
     <GeoStylerContext.Provider value={context}>
-      <BooleanExpressionInput
-        value={value}
-        onChange={setValue}
-        onCancel={() => setValue(false)}
-      />
+      <BooleanExpressionInput value={value} onChange={setValue} />
       <div>Current value: {JSON.stringify(value)}</div>
     </GeoStylerContext.Provider>
   );

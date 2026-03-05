@@ -1,28 +1,18 @@
 .string-expression-input {
   display: flex;
-  align-items: center;
 
-  .gs-function-ui,
   .ant-input {
+    border-radius: 6px 0 0 6px;
     flex: 1;
   }
 
   button.ant-btn {
-    display: none;
     border-radius: 0 6px 6px 0;
-  }
+    border-left: none;
+    transition: border-width 0s;
 
-  &:hover {
-    button.ant-btn {
-      display: inline-block;
-    }
-
-    .ant-input-affix-wrapper,
-    .ant-input-group-addon {
-      border-radius: 0;
-    }
-    .ant-input {
-      border-radius: 6px 0 0 6px;
+    &:hover {
+      border-left: 1px solid;
     }
   }
 

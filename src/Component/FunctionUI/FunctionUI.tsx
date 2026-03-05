@@ -47,14 +47,14 @@ import { Button, Tooltip } from 'antd';
 import { useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
-export type Type = 'string' | 'number' | 'boolean' | 'unknown';
+export type FunctionUiType = 'string' | 'number' | 'boolean' | 'unknown';
 
 export interface FunctionUIProps<T extends GeoStylerFunction> {
-  type: Type;
+  type: FunctionUiType;
   value?: T;
   parentKey?: string;
   onChange?: (newValue: T) => void;
-  onCancel?: (type: Type) => void;
+  onCancel?: (type: FunctionUiType) => void;
 }
 
 export const FunctionUI = <T extends GeoStylerFunction>({
@@ -118,7 +118,7 @@ export const FunctionUI = <T extends GeoStylerFunction>({
         />
       );
     } else if (cfg.type === 'step') {
-      comp =  (
+      comp = (
         <StepInput
           type={type}
           value={functionArgs?.[index]}
@@ -128,7 +128,7 @@ export const FunctionUI = <T extends GeoStylerFunction>({
         />
       );
     } else if (cfg.type === 'unknown') {
-      comp =  (
+      comp = (
         <UnknownInput
           forcedType={type}
           value={functionArgs?.[index]}
@@ -145,7 +145,7 @@ export const FunctionUI = <T extends GeoStylerFunction>({
         <FunctionUI
           type={cfg.type}
           value={functionArgs[index]}
-          parentKey={key+''+index}
+          parentKey={key + '' + index}
           onChange={(val) => {
             updateFunctionArg(val, index);
           }}

@@ -28,22 +28,23 @@
 
 import React from 'react';
 
-import { Checkbox, Form } from 'antd';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox/Checkbox';
+import { Form } from 'antd';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import BooleanExpressionInput from '../../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
+import { Expression } from 'geostyler-style';
 
 export interface BoolFilterFieldProps {
   /** Label for this field */
   label?: string;
   /** Initial value set to the field */
-  value?: boolean;
+  value?: Expression<boolean>;
   /** Callback function for onChange */
-  onValueChange?: ((newValue: boolean) => void);
+  onValueChange?: (newValue: Expression<boolean>) => void;
   size?: 'large' | 'middle' | 'small';
 }
 
 /**
- * Checkbox field for a boolean filter value.
+ * Boolean expression input field for a boolean filter value.
  */
 export const BoolFilterField: React.FC<BoolFilterFieldProps> = ({
   value = false,
@@ -54,27 +55,29 @@ export const BoolFilterField: React.FC<BoolFilterFieldProps> = ({
   const locale = useGeoStylerLocale('BoolFilterField');
 
   /**
-   * Extracts the boolean value out of the CheckboxChangeEvent of 'onChange'
+   * Extracts the boolean value out of the BooleanExpressionInput 'onChange'
    * and passes it to the passed in 'onValueChange' handler.
    */
-  const onChange = (e: CheckboxChangeEvent) => {
+  const onChange = (newValue: Expression<boolean>) => {
     if (onValueChange) {
-      onValueChange(e.target.checked);
+      onValueChange(newValue);
     }
   };
 
   let className = 'gs-bool-filter-field';
   if (size === 'small') {
-    // TODO: make use of this for the checkbox
     className += ' ant-input-sm';
   }
 
   return (
     <div className={className}>
       <Form.Item label={locale.label} colon={false} >
-        <Checkbox
-          checked={value === true}
+        <BooleanExpressionInput
+          value={value}
           onChange={onChange}
+          onCancel={() => {
+            onChange(false);
+          }}
         />
       </Form.Item>
     </div>

@@ -499,8 +499,8 @@ const en_US: GeoStylerLocale = {
     typeSelectToolip: 'Select input type'
   },
   FunctionUI: {
-    add: 'add',
-    remove: 'remove'
+    add: 'add argument',
+    remove: 'remove argument'
   },
   Renderer: {
     placeholderInfo: 'This is a placeholder as the symbolizer contains functions and can\'t be previewed.'

@@ -3,12 +3,12 @@ import { Expression, FStepParameter } from 'geostyler-style';
 import './StepInput.css';
 import NumberExpressionInput from '../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 import UnknownInput from '../UnknownInput/UnknownInput';
-import { Type } from '../FunctionUI';
+import { FunctionUiType } from '../FunctionUI';
 
 export type StepInputProps = {
   value?: FStepParameter;
   onChange: (newValue: FStepParameter) => void;
-  type?: Type;
+  type?: FunctionUiType;
 };
 
 export const StepInput: React.FC<StepInputProps> = ({

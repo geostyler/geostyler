@@ -5,18 +5,18 @@ import StringExpressionInput,
 { StringExpressionInputProps } from '../../ExpressionInput/StringExpressionInput/StringExpressionInput';
 import BooleanExpressionInput,
 { BooleanExpressionInputProps } from '../../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
-import { Expression, isGeoStylerNumberFunction , isGeoStylerBooleanFunction } from 'geostyler-style';
+import { Expression, isGeoStylerNumberFunction, isGeoStylerBooleanFunction } from 'geostyler-style';
 
 import './UnknownInput.css';
 import { Select, Tooltip } from 'antd';
 import { FieldBinaryOutlined, FieldNumberOutlined, FieldStringOutlined } from '@ant-design/icons';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
-import { Type } from '../FunctionUI';
+import { FunctionUiType } from '../FunctionUI';
 
 export type UnknownInputProps = {
   value?: Expression<unknown>;
   onChange: (newValue: Expression<unknown>) => void;
-  forcedType?: Type;
+  forcedType?: FunctionUiType;
   inputProps?: StringExpressionInputProps['inputProps']
   | NumberExpressionInputProps['inputProps']
   | BooleanExpressionInputProps['switchProps'];
@@ -30,7 +30,7 @@ export const UnknownInput: React.FC<UnknownInputProps> = ({
 }) => {
 
   const locale = useGeoStylerLocale('UnknownInput');
-  const [type, setType] = useState<Type>(forcedType || 'string');
+  const [type, setType] = useState<FunctionUiType>(forcedType || 'string');
 
   useEffect(() => {
     if (typeof value === 'number' || isGeoStylerNumberFunction(value)) {
@@ -65,7 +65,7 @@ export const UnknownInput: React.FC<UnknownInputProps> = ({
     />;
   }
 
-  const onTypeChange = (t: Type) => {
+  const onTypeChange = (t: FunctionUiType) => {
     setType(t);
     if (t === 'string') {
       onChange('');

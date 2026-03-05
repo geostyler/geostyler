@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import { Expression, FCaseParameter } from 'geostyler-style';
 import BooleanExpressionInput from '../../ExpressionInput/BooleanExpressionInput/BooleanExpressionInput';
 import './CaseInput.css';
-import { Type } from '../FunctionUI';
+import { FunctionUiType } from '../FunctionUI';
 import UnknownInput from '../UnknownInput/UnknownInput';
 
 export type CaseInputProps = {
   value?: FCaseParameter;
   onChange: (newValue: FCaseParameter) => void;
-  type?: Type;
+  type?: FunctionUiType;
 };
 
 export const CaseInput: React.FC<CaseInputProps> = ({

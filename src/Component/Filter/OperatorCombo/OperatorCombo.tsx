@@ -30,6 +30,8 @@ import React from 'react';
 
 import { ComparisonOperator } from 'geostyler-style';
 import { Select, Form } from 'antd';
+
+import './OperatorCombo.css';
 const Option = Select.Option;
 
 export interface OperatorComboProps {

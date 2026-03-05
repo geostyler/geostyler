@@ -97,8 +97,8 @@ export const BooleanExpressionInput: React.FC<BooleanExpressionInputProps> = ({
         icon={<FunctionOutlined />}
         onClick={() => {
           onChange?.({
-            name: 'property',
-            args: ['']
+            name: 'equalTo',
+            args: [1, 1]
           });
         }}
       />

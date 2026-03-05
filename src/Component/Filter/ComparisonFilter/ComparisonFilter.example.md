@@ -68,3 +68,40 @@ function ComparisonFilterExample() {
 
 <ComparisonFilterExample />;
 ```
+
+This demonstrates the usage of the `ComparisonFilter` with function in the filter.
+
+```jsx
+import React, { useState } from "react";
+import { ComparisonFilter, GeoStylerContext } from "geostyler";
+
+function ComparisonFilterExample() {
+  const [filter, setFilter] = useState([
+    ">",
+    {
+      name: "mul",
+      args: [
+        {
+          name: "div",
+          args: [
+            {
+              name: "property",
+              args: ["men_pauv"],
+            },
+            {
+              name: "property",
+              args: ["men"],
+            },
+          ],
+        },
+        100,
+      ],
+    },
+    25,
+  ]);
+
+  return <ComparisonFilter onFilterChange={setFilter} filter={filter} />;
+}
+
+<ComparisonFilterExample />;
+```

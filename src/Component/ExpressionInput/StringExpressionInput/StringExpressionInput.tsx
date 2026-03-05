@@ -81,7 +81,7 @@ export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
   }
 
   return (
-    <span className={finalClassName}>
+    <div className={finalClassName}>
       <Input
         value={value}
         onChange={(evt) => {
@@ -101,7 +101,7 @@ export const StringExpressionInput: React.FC<StringExpressionInputProps> = ({
           });
         }}
       />
-    </span>
+    </div>
   );
 };
 

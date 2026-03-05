@@ -2,14 +2,4 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  button.ant-btn {
-    display: none;
-  }
-
-  &:hover {
-    button.ant-btn {
-      display: inline-block;
-    }
-  }
 }

@@ -5,22 +5,17 @@
   .gs-function-ui,
   .ant-input-number-affix-wrapper,
   .ant-input-number {
+    border-radius: 6px 0 0 6px;
     flex: 1;
   }
 
   button.ant-btn {
-    visibility: hidden;
+    border-left: none;
     border-radius: 0 6px 6px 0;
-  }
+    transition: border-width 0s;
 
-  &:hover {
-    button.ant-btn {
-      visibility: visible;
-    }
-
-    .ant-input-number,
-    .ant-input-number-affix-wrapper {
-      border-radius: 6px 0 0 6px;
+    &:hover {
+      border-left: 1px solid;
     }
   }
 
@@ -28,8 +23,10 @@
     display: flex;
     gap: 5px;
     flex: 1;
+
     .ant-slider {
       flex: 1;
+      margin: 10px 5px;
     }
   }
 

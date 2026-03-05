@@ -115,7 +115,7 @@ export const NumberExpressionInput: React.FC<NumberExpressionInputProps> = ({
           />
           <div className={'number-wrapper'}>
             <InputNumber
-              {...sliderProps}
+              {...inputProps}
               value={inputValue}
               onChange={(val) => {
                 const castVal = val === null ? undefined : Number(val);

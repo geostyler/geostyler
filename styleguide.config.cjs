@@ -90,6 +90,9 @@ module.exports = {
       name: 'DataInput',
       components: 'src/Component/DataInput/**/*.tsx'
     }, {
+      name: 'ExpressionInput',
+      components: 'src/Component/ExpressionInput/**/*.tsx'
+    }, {
       name: 'FieldSet',
       components: 'src/Component/FieldSet/**/*.tsx'
     }, {

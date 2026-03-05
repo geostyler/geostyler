@@ -33,9 +33,13 @@
         flex: 1;
       }
 
+      &:has(.remove-argument-button:hover) {
+        background-color: rgba(50, 224, 195, 0.1);
+      }
+
       .remove-argument-button {
         flex: unset;
-        align-self: center;
+        align-self: flex-start;
       }
 
       .tree-icon {

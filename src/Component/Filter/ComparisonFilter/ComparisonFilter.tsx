@@ -41,7 +41,8 @@ import { Data as GeoStylerData } from 'geostyler-data';
 import {
   ComparisonFilter as GsComparisonFilter,
   ComparisonOperator,
-  PropertyType
+  PropertyType,
+  Expression
 } from 'geostyler-style';
 
 import { AttributeCombo } from '../AttributeCombo/AttributeCombo';
@@ -228,7 +229,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
    *
    * Stores the appropriate filter value as member.
    */
-  const onValueChange = (newValue: string | number | boolean, filterIndex = 2) => {
+  const onValueChange = (newValue: Expression<string | number | boolean>, filterIndex = 2) => {
     const newFilter = _cloneDeep(filter);
     newFilter[filterIndex] = newValue;
     if (onFilterChange) {

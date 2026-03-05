@@ -1,0 +1,5 @@
+.gs-operator-combo {
+  .ant-form-item-control-input {
+    min-width: 80px;
+  }
+}
