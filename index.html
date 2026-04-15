@@ -25,7 +25,7 @@
   <script defer type="module">
     import { createRoot } from 'react-dom/client';
     import React from 'react';
-    import { PreviewMap, Style } from './src/index';
+    import { PreviewMap, Style, GeoStylerContext } from './src/index';
     const geostylerNode = createRoot(
       document.getElementById('geostyler-ui')
     );
@@ -54,13 +54,18 @@
         });
       preview.render(gsPreview);
     };
-    const geostyler = React.createElement(Style, {
-      style: defaultStyle,
-      onStyleChange: (gsStyle) => {
-        document.getElementById('textual_style').value = JSON.stringify(gsStyle, null, 2);
-        renderPreview(gsStyle);
-      }
-    });
+    const geostylerContext = {};
+    const geostyler = React.createElement(
+      GeoStylerContext.Provider,
+      { value: geostylerContext },
+      React.createElement(Style, {
+        style: defaultStyle,
+        onStyleChange: (gsStyle) => {
+          document.getElementById('textual_style').value = JSON.stringify(gsStyle, null, 2);
+          renderPreview(gsStyle);
+        }
+      })
+    );
     renderPreview(defaultStyle);
     geostylerNode.render(geostyler);
   </script>
