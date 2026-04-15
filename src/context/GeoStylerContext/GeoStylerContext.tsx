@@ -24,6 +24,9 @@ import UnsupportedPropertiesUtil, { SymbolizerName } from '../../Util/Unsupporte
 import defaultLocale from '../../locale/en_US';
 import { Data as GeoStylerData } from 'geostyler-data';
 import { SLDRendererComposableProps } from '../../Component/Renderer/SLDRenderer/SLDRenderer';
+import {
+  WellKnownNameFieldComposableProps
+} from 'src/Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 
 export type InputConfig<T> = {
   visibility?: boolean;
@@ -49,6 +52,7 @@ export type CompositionContext = {
   Rules?: RulesComposableProps;
   Rule?: RuleComposableProps;
   Style?: StyleComposableProps;
+  WellKnownNamesField?: WellKnownNameFieldComposableProps;
 };
 
 export interface UnsupportedPropertiesContext extends UnsupportedProperties {

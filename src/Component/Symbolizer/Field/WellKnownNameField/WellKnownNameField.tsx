@@ -34,8 +34,12 @@ import {
 import { WellKnownName } from 'geostyler-style';
 
 import _get from 'lodash-es/get.js';
-import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerComposition, useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 const Option = Select.Option;
+
+export interface WellKnownNameFieldComposableProps {
+  wellKnownNames?: WellKnownName[];
+}
 
 export interface WellKnownNameFieldProps {
   value?: WellKnownName;
@@ -56,9 +60,13 @@ export const WellKnownNameField: React.FC<WellKnownNameFieldProps> = ({
 }) => {
 
   const locale = useGeoStylerLocale('WellKnownNameField');
+  const {
+    wellKnownNames: compositionWellKnownNames
+  } = useGeoStylerComposition('WellKnownNamesField');
+  const composedWellKnownNames = compositionWellKnownNames ?? wellKnownNames;
 
   const getWKNSelectOptions = () => {
-    return wellKnownNames.map(name => {
+    return composedWellKnownNames.map(name => {
       // if locales are not available, set Option text to name value
       const loc = _get(locale, 'wellKnownNames[' + name + ']') || name;
       return (
