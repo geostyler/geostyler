@@ -1,3 +1,15 @@
+## [18.4.0](https://github.com/geostyler/geostyler/compare/v18.3.1...v18.4.0) (2026-04-16)
+
+### Features
+
+* add composition for WellKnownNameField ([b78c9ab](https://github.com/geostyler/geostyler/commit/b78c9ab85050f5906d4868d6e25b158b953dcb02))
+* add support for between filter ([e119f71](https://github.com/geostyler/geostyler/commit/e119f71eb4f23bef1967bb816bb657e56de9302f))
+
+### Bug Fixes
+
+* add missing exports and update examples ([85814a1](https://github.com/geostyler/geostyler/commit/85814a16e58fc5c087a6b62f5161d5f5bb06a66e))
+* **deps:** update dependency typescript-json-schema to ^0.67.0 ([77fa28d](https://github.com/geostyler/geostyler/commit/77fa28d3fbebad67d728ca690d75f6c0c11787ee))
+
 ## [18.3.1](https://github.com/geostyler/geostyler/compare/v18.3.0...v18.3.1) (2026-01-30)
 
 ### Bug Fixes
