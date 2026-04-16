@@ -48,10 +48,14 @@
       ]
     };
     const renderPreview = (style) => {
-      const gsPreview = React.createElement(PreviewMap, {
-          style: style,
-          mapHeight: 300
-        });
+      const gsPreview = React.createElement(
+        GeoStylerContext.Provider,
+        { value: geostylerContext },
+        React.createElement(PreviewMap, {
+            style: style,
+            mapHeight: 300
+          })
+      );
       preview.render(gsPreview);
     };
     const geostylerContext = {};
