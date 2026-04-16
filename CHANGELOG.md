@@ -1,3 +1,9 @@
+## [18.4.2](https://github.com/geostyler/geostyler/compare/v18.4.1...v18.4.2) (2026-04-16)
+
+### Bug Fixes
+
+* **deps:** bump geostyler-openlayers-parser ([#2736](https://github.com/geostyler/geostyler/issues/2736)) ([d192193](https://github.com/geostyler/geostyler/commit/d19219381101f87fc0cf0399e203bcce7ef78127))
+
 ## [18.4.1](https://github.com/geostyler/geostyler/compare/v18.4.0...v18.4.1) (2026-04-16)
 
 ### Bug Fixes
