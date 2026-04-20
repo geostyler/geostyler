@@ -1,3 +1,9 @@
+## [18.5.0](https://github.com/geostyler/geostyler/compare/v18.4.2...v18.5.0) (2026-04-20)
+
+### Features
+
+* add support for else-rules ([#2738](https://github.com/geostyler/geostyler/issues/2738)) ([3389760](https://github.com/geostyler/geostyler/commit/33897604b07d2759d85761d24ead6269505adbec))
+
 ## [18.4.2](https://github.com/geostyler/geostyler/compare/v18.4.1...v18.4.2) (2026-04-16)
 
 ### Bug Fixes
