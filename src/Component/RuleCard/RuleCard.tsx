@@ -37,11 +37,9 @@ import { CqlParser } from 'geostyler-cql-parser';
 
 import './RuleCard.css';
 import { Renderer } from '../Renderer/Renderer/Renderer';
-import FilterUtil from '../../Util/FilterUtil';
-import DataUtil from '../../Util/DataUtil';
 import { Divider, Card, Typography } from 'antd';
 import { BlockOutlined, FilterFilled } from '@ant-design/icons';
-import { useGeoStylerComposition, useGeoStylerData } from '../../context/GeoStylerContext/GeoStylerContext';
+import { useGeoStylerComposition } from '../../context/GeoStylerContext/GeoStylerContext';
 const { Text } = Typography;
 
 export interface RuleComposableProps {
@@ -73,6 +71,9 @@ export interface RuleComposableProps {
     /** ignored if actionsField.visibility is falsy */
     remove?: boolean;
   };
+  elseRuleField?: {
+    visibility?: boolean;
+  };
 }
 
 export interface RuleCardInternalProps {
@@ -80,6 +81,8 @@ export interface RuleCardInternalProps {
   rule: GsRule;
   /** The number of features that are also matched by other rules. */
   duplicates?: number;
+  /** The number of features that are matched by this rule. */
+  amount?: number;
   /** The callback when the card was clicked. */
   onClick?: () => void;
 }
@@ -88,13 +91,12 @@ export type RuleCardProps = RuleCardInternalProps & RuleComposableProps;
 
 export const RuleCard: React.FC<RuleCardProps> = (props) => {
 
-  const data = useGeoStylerData();
-
   const composition = useGeoStylerComposition('Rule');
   const composed = {...props, ...composition};
   const {
     rule,
     duplicates,
+    amount,
     onClick,
     amountField,
     duplicateField,
@@ -103,11 +105,6 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
     minScaleField,
     nameField,
   } = composed;
-
-  let amount;
-  if (DataUtil.isVector(data)) {
-    amount = FilterUtil.getMatches(rule.filter, data).length;
-  }
 
   const cqlParser = new CqlParser();
   let cql;
@@ -141,7 +138,7 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
       <div className='gs-rule-card-content'>
         {
           nameField?.visibility === false ? null : (
-            <h2>{rule.name}</h2>
+            <h2>{rule.elseRule ? <i>{rule.name}</i> : rule.name}</h2>
           )
         }
         {
@@ -167,6 +164,13 @@ export const RuleCard: React.FC<RuleCardProps> = (props) => {
                 {duplicates !== undefined ? duplicates : '-'}
               </Text>
             )
+          }
+          {
+            rule.elseRule ? (
+              <Text type='secondary'>
+                <span className='gs-rule-card-icon'>≠</span>
+              </Text>
+            ) : null
           }
         </span>
         {

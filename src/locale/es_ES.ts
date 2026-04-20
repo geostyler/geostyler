@@ -106,7 +106,8 @@ const es_ES: GeoStylerLocale = {
   },
   RuleFieldContainer: {
     nameFieldLabel: 'TODO(es_ES):Name',
-    nameFieldPlaceholder: 'TODO(es_ES):Enter name'
+    nameFieldPlaceholder: 'TODO(es_ES):Enter name',
+    elseRuleFieldLabel: 'Regla Else'
   },
   BulkEditModals: {
     colorLabel: 'Seleccionar color',
@@ -373,6 +374,7 @@ const es_ES: GeoStylerLocale = {
     errorMaxScaleGreaterThanMinScale: 'TODO(es_ES_DE): errorMaxScaleGreaterThanMinScale',
     amountColumnTitle: 'Cantidad',
     duplicatesColumnTitle: 'Duplicados',
+    elseRuleColumnTitle: 'Regla Else',
     actionsColumnTitle: 'Acciones',
     actionCloneLabel: 'Duplicar',
     actionRemoveLabel: 'Eliminar',
@@ -411,6 +413,7 @@ const es_ES: GeoStylerLocale = {
     numberOfRulesViaKmeans: '…afectados por la clasificación k-Means.',
     allDistinctValues: 'Utilizar todos los valores distintos',
     equalInterval: 'TODO(es_ES):Equal Interval',
+    elseRuleFieldLabel: 'Regla Else'
   },
   ColorRampCombo: {
     colorRampPlaceholder: 'Seleccionar…'
@@ -494,6 +497,10 @@ const es_ES: GeoStylerLocale = {
     placeholder: '… elija GeoStylerFunction'
   },
   VisibilityField: {
+    on: 'TODO(es_ES):on',
+    off: 'TODO(es_ES):off',
+  },
+  ElseRuleField: {
     on: 'TODO(es_ES):on',
     off: 'TODO(es_ES):off',
   },

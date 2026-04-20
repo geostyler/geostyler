@@ -94,6 +94,11 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
     onRuleChange(newRule);
   };
 
+  const onElseRuleChange = (elseRule: GsRule['elseRule']) => {
+    const newRule: GsRule = { ...rule, elseRule };
+    onRuleChange(newRule);
+  };
+
   const onSymbolizersChange = (symbolizers: GsSymbolizer[]) => {
     const newRule: GsRule = { ...rule, symbolizers };
     onRuleChange(newRule);
@@ -119,6 +124,8 @@ export const RuleOverview: React.FC<RuleOverviewProps> = (props) => {
         onMinScaleChange={onMinScaleChange}
         onMaxScaleChange={onMaxScaleChange}
         symbolizers={rule.symbolizers}
+        elseRule={rule.elseRule}
+        onElseRuleChange={onElseRuleChange}
       />
       <Symbolizers
         symbolizers={rule.symbolizers}

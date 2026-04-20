@@ -42,7 +42,8 @@ const cs_CZ: GeoStylerLocale = {
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Jméno',
-    nameFieldPlaceholder: 'Zadejte jméno'
+    nameFieldPlaceholder: 'Zadejte jméno',
+    elseRuleFieldLabel: 'Else pravidlo'
   },
   BulkEditModals: {
     colorLabel: 'Vyberte barvu',
@@ -371,6 +372,7 @@ const cs_CZ: GeoStylerLocale = {
     errorMaxScaleGreaterThanMinScale: 'Maximální měřítko musí být větší než minimální měřítko',
     amountColumnTitle: 'Množství',
     duplicatesColumnTitle: 'Duplikáty',
+    elseRuleColumnTitle: 'Else pravidlo',
     actionsColumnTitle: 'Akce',
     actionCloneLabel: 'Klonovat',
     actionRemoveLabel: 'Odstranit'
@@ -408,7 +410,8 @@ const cs_CZ: GeoStylerLocale = {
     equalInterval: 'Stejný interval',
     preview: 'Náhled barev',
     numberOfRulesViaKmeans: '… ovlivněno klasifikací k-means.',
-    allDistinctValues: 'Použít všechny odlišné hodnoty'
+    allDistinctValues: 'Použít všechny odlišné hodnoty',
+    elseRuleFieldLabel: 'Else pravidlo'
   },
   ColorRampCombo: {
     colorRampPlaceholder: 'Vybrat…'
@@ -492,6 +495,10 @@ const cs_CZ: GeoStylerLocale = {
     placeholder: '… vyberte GeoStylerFunction'
   },
   VisibilityField: {
+    on: 'zapnuto',
+    off: 'vypnuto'
+  },
+  ElseRuleField: {
     on: 'zapnuto',
     off: 'vypnuto'
   },

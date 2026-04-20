@@ -171,7 +171,7 @@ class FilterUtil {
   };
 
   /**
-   * Calculates the number of features that are covered by more then one rule per
+   * Calculates the number of features that are covered by more than one rule per
    * rule.
    *
    * @param {object} matches An object containing the count of matches for every
@@ -233,8 +233,13 @@ class FilterUtil {
     });
 
     const matches: any = [];
+    const alreadyMatchedFeatures = new Set();
     rules.forEach((rule, index) => {
-      const currentMatches = rule.filter ? FilterUtil.getMatches(rule.filter, data) : data.exampleFeatures.features;
+      let currentMatches = rule.filter ? FilterUtil.getMatches(rule.filter, data) : data.exampleFeatures.features;
+      if (rule.elseRule) {
+        currentMatches = currentMatches.filter(f => !alreadyMatchedFeatures.has(f.id));
+      }
+      currentMatches.forEach(f => alreadyMatchedFeatures.add(f.id));
       result.counts.push(currentMatches.length);
       matches[index] = currentMatches;
     });

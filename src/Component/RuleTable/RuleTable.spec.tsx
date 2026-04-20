@@ -183,4 +183,20 @@ describe('RuleTable', () => {
       expect(duplicatesRenderers[1].innerHTML).toBe('1');
     });
   });
+
+  describe('ElseRuleRenderer', () => {
+    it('… renders the else rule flag for every rule', () => {
+      const rulesWithElseRule = TestUtil.getTwoRulesStyle().rules;
+      rulesWithElseRule[0].elseRule = true;
+      ruleTable.rerender(
+        <GeoStylerContext.Provider value={{ data }}>
+          <RuleTable rules={rulesWithElseRule} />
+        </GeoStylerContext.Provider>
+      );
+      const elseRuleRenderers = ruleTable.container.querySelectorAll<HTMLInputElement>('.gs-rule-table-else-rule-renderer .ant-switch');
+      const activeElseRuleRenderers = ruleTable.container.querySelectorAll<HTMLInputElement>('.gs-rule-table-else-rule-renderer .ant-switch.ant-switch-checked');
+      expect(elseRuleRenderers).toHaveLength(2);
+      expect(activeElseRuleRenderers).toHaveLength(1);
+    });
+  });
 });

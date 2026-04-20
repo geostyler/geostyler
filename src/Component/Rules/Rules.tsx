@@ -171,14 +171,13 @@ export const Rules: React.FC<RulesProps> = (props) => {
   }
 
   const rulesCards = rules.map((rule: GsRule, idx: number) => {
-    let ruleDuplicates;
-    if (countAndDuplicates) {
-      ruleDuplicates = countAndDuplicates.duplicates[idx];
-    }
+    const ruleDuplicates = countAndDuplicates ? countAndDuplicates.duplicates[idx] : undefined;
+    const ruleAmount = countAndDuplicates ? countAndDuplicates.counts[idx] : undefined;
     return (
       <RuleCard
         key={_uniqueId('rule')}
         rule={rule}
+        amount={ruleAmount}
         duplicates={ruleDuplicates}
         onClick={() => {
           if (!multiEditActive) {

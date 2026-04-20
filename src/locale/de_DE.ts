@@ -43,7 +43,8 @@ const de_DE: GeoStylerLocale = {
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Name',
-    nameFieldPlaceholder: 'Name eingeben'
+    nameFieldPlaceholder: 'Name eingeben',
+    elseRuleFieldLabel: 'Else-Regel'
   },
   CodeEditor: {
     downloadButtonLabel: 'Als Datei speichern',
@@ -372,6 +373,7 @@ const de_DE: GeoStylerLocale = {
     errorMaxScaleGreaterThanMinScale: 'TODO(de_DE): errorMaxScaleGreaterThanMinScale',
     amountColumnTitle: 'Anzahl',
     duplicatesColumnTitle: 'Doppelte',
+    elseRuleColumnTitle: 'Else-Regel',
     actionsColumnTitle: 'Aktionen',
     actionCloneLabel: 'Duplizieren',
     actionRemoveLabel: 'Entfernen',
@@ -409,7 +411,8 @@ const de_DE: GeoStylerLocale = {
     preview: 'Farb Vorschau',
     equalInterval: 'Equal-Interval',
     numberOfRulesViaKmeans: '…betroffen durch k-Means Klassifizierung.',
-    allDistinctValues: 'Alle eindeutigen Werte verwenden'
+    allDistinctValues: 'Alle eindeutigen Werte verwenden',
+    elseRuleFieldLabel: 'Else-Regel hinzufügen'
   },
   ColorRampCombo: {
     colorRampPlaceholder: 'Auswählen…'
@@ -493,6 +496,10 @@ const de_DE: GeoStylerLocale = {
     placeholder: '… GeoStylerFunction wählen'
   },
   VisibilityField: {
+    on: 'an',
+    off: 'aus',
+  },
+  ElseRuleField: {
     on: 'an',
     off: 'aus',
   },

@@ -124,3 +124,126 @@ const CardStyleExample = () => {
 
 <CardStyleExample />;
 ```
+
+`CardStyle` with else rule.
+
+```jsx
+import React, { useState } from "react";
+import { CardStyle, GeoStylerContext } from "geostyler";
+
+const CardStyleExample = () => {
+  const myContext = {
+    data: {
+      exampleFeatures: {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [90.0, 10.0],
+            },
+            properties: {
+              name: "point_0",
+              "distance [m]": 10,
+            },
+          },
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [90.01, 10.0],
+            },
+            properties: {
+              name: "point_1",
+              "distance [m]": 11,
+            },
+          },
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [90.02, 10.0],
+            },
+            properties: {
+              name: "point_2",
+              "distance [m]": 12,
+            },
+          },
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [90.03, 10.0],
+            },
+            properties: {
+              name: "point_3",
+              "distance [m]": 13,
+            },
+          },
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [90.04, 10.0],
+            },
+            properties: {
+              name: "point_4",
+              "distance [m]": 14,
+            },
+          },
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [90.05, 10.0],
+            },
+            properties: {
+              name: "point_5",
+              "distance [m]": 15,
+            },
+          },
+        ],
+      }
+    }
+  };
+
+  const [style, setStyle] = useState({
+    name: "Demo Style",
+    rules: [
+      {
+        name: "Rule 1",
+        filter: ["==", "name", "point_0"],
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle",
+            color: "#FF0000",
+            radius: 10
+          },
+        ],
+      },
+      {
+        name: "Else Rule",
+        elseRule: true,
+        symbolizers: [
+          {
+            kind: "Mark",
+            wellKnownName: "circle",
+            color: "#00FF00",
+            radius: 10
+          },
+        ],
+      },
+    ],
+  });
+
+  return (
+    <GeoStylerContext.Provider value={myContext}>
+      <CardStyle style={style} onStyleChange={setStyle} />
+    </GeoStylerContext.Provider>
+  );
+};
+
+<CardStyleExample />;
+```

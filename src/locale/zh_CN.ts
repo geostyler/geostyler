@@ -43,7 +43,8 @@ const zh_CN: GeoStylerLocale = {
   },
   RuleFieldContainer: {
     nameFieldLabel: '名称',
-    nameFieldPlaceholder: '输入名称'
+    nameFieldPlaceholder: '输入名称',
+    elseRuleFieldLabel: 'Else规则'
   },
   BulkEditModals: {
     colorLabel: '选择颜色',
@@ -372,6 +373,7 @@ const zh_CN: GeoStylerLocale = {
     errorMaxScaleGreaterThanMinScale: 'TODO(zh_CN): errorMaxScaleGreaterThanMinScale',
     amountColumnTitle: '数量',
     duplicatesColumnTitle: '副本',
+    elseRuleColumnTitle: 'Else规则',
     actionsColumnTitle: '操作',
     actionCloneLabel: '克隆',
     actionRemoveLabel: '移除',
@@ -409,7 +411,8 @@ const zh_CN: GeoStylerLocale = {
     equalInterval: '相等间隔',
     preview: '颜色预览',
     numberOfRulesViaKmeans: '……被 k-Means 分类影响。',
-    allDistinctValues: '使用所有不同的值'
+    allDistinctValues: '使用所有不同的值',
+    elseRuleFieldLabel: 'Else规则'
   },
   ColorRampCombo: {
     colorRampPlaceholder: '选择……'
@@ -493,6 +496,10 @@ const zh_CN: GeoStylerLocale = {
     placeholder: '… 选择GeoStylerFunction'
   },
   VisibilityField: {
+    on: '开',
+    off: '关'
+  },
+  ElseRuleField: {
     on: '开',
     off: '关'
   },

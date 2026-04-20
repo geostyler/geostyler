@@ -32,7 +32,7 @@ This demonstrates the use of `RuleGenerator`.
 
 ```jsx
 import React, { useEffect, useState } from "react";
-import { RuleGenerator, RuleTable } from "geostyler";
+import { RuleGenerator, RuleTable, GeoStylerContext } from "geostyler";
 import Parser from "geostyler-geojson-parser";
 
 const geojson = {
@@ -119,12 +119,14 @@ const RuleGeneratorExample = ({}) => {
 
   useEffect(() => {
     readData();
-  }, [Parser]);
+  }, []);
 
   return (
     <div>
-      <RuleGenerator data={data} onRulesChange={setRules} />
-      <RuleTable rules={rules} />
+      <GeoStylerContext.Provider value={{ data }}>
+        <RuleGenerator data={data} onRulesChange={setRules} />
+        <RuleTable rules={rules} />
+      </GeoStylerContext.Provider>
     </div>
   );
 };

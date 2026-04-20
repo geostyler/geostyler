@@ -420,6 +420,44 @@ describe('FilterUtil', () => {
       expect(result.duplicates[2]).toBe(13);
       expect(result.duplicates[3]).toBe(9);
     });
+    it('calculates the right amounts and duplicates for else rules', () => {
+      const dummyData = TestUtil.getComplexGsDummyData();
+
+      const rules: Rule[] = [
+        {
+          name: 'More than 4',
+          symbolizers: [
+            {
+              kind: 'Mark',
+              wellKnownName: 'circle'
+            }
+          ],
+          filter: [
+            '>',
+            'pop',
+            4000000
+          ]
+        },
+        {
+          name: 'Everything else',
+          symbolizers: [
+            {
+              kind: 'Mark',
+              wellKnownName: 'circle',
+              color: '#0E1058'
+            }
+          ],
+          elseRule: true
+        }
+      ];
+
+      const result = FilterUtil.calculateCountAndDuplicates(rules, dummyData);
+
+      expect(result.counts[0]).toBe(7);
+      expect(result.counts[1]).toBe(9);
+      expect(result.duplicates[0]).toBe(0);
+      expect(result.duplicates[1]).toBe(0);
+    });
   });
 
   describe('positionArrayAsString', () => {

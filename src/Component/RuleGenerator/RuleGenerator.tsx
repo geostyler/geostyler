@@ -51,6 +51,8 @@ import {
   useGeoStylerLocale
 } from '../../context/GeoStylerContext/GeoStylerContext';
 import { getFormItemConfig } from '../../Util/FormItemUtil';
+import ElseRuleField from '../Symbolizer/Field/ElseRuleField/ElseRuleField';
+import { RuleComposableProps } from '../RuleCard/RuleCard';
 
 export type LevelOfMeasurement = 'nominal' | 'ordinal' | 'cardinal';
 
@@ -65,13 +67,16 @@ export interface RuleGeneratorInternalProps {
   onRulesChange?: (rules: Rule[]) => void;
 }
 
-export type RuleGeneratorProps = RuleGeneratorInternalProps & RuleGeneratorComposableProps;
+export type RuleGeneratorProps = RuleGeneratorInternalProps
+  & RuleGeneratorComposableProps
+  & Pick<RuleComposableProps, 'elseRuleField'>;
 
 export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
 
   const data = useGeoStylerData() as VectorData;
   const composition = useGeoStylerComposition('RuleGenerator');
-  const composed = {...props, ...composition};
+  const ruleComposition = useGeoStylerComposition('Rule');
+  const composed = {...props, ...composition, elseRuleField: ruleComposition?.elseRuleField};
   const {
     onRulesChange,
     colorSpaces = ['hsl', 'hsv', 'hsi', 'lab', 'lch', 'hcl', 'rgb'], // rgba, cmyk and gl crash
@@ -79,7 +84,8 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
       GeoStyler: ['#E7000E', '#F48E00', '#FFED00', '#00943D', '#272C82', '#611E82'],
       GreenRed: ['#00FF00', '#FF0000'],
       ...brewer
-    }
+    },
+    elseRuleField
   } = composed;
 
   const locale = useGeoStylerLocale('RuleGenerator');
@@ -93,12 +99,13 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
   const [colorRamp, setColorRamp] = useState<string>(colorRamps && colorRamps.GeoStyler ? 'GeoStyler' : undefined);
   const [colorSpace, setColorSpace] = useState<InterpolationMode>('hsl');
   const [numberOfRules, setNumberOfRules] = useState<number>(2);
-  const [distinctValues, setDistinctValues] = useState<any[]>();
+  const [distinctValues, setDistinctValues] = useState<any[]>([]);
   const [hasError, setHasError] = useState<boolean>();
   const [attributeType, setAttributeType] = useState<string>();
   const [attributeName, setAttributeName] = useState<string>();
   const [classificationMethod, setClassificationMethod] = useState<ClassificationMethod>();
   const [levelOfMeasurement, setLevelOfMeasurement] = useState<LevelOfMeasurement>();
+  const [elseRule, setElseRule] = useState<Rule['elseRule']>(false);
 
   const onAttributeChange = (newAttributeName: string) => {
     try {
@@ -117,6 +124,10 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
     } catch {
       setHasError(true);
     }
+  };
+
+  const onElseRuleChange = (newElseRule: Rule['elseRule']) => {
+    setElseRule(newElseRule);
   };
 
   const onLevelOfMeasurementChange = (event: RadioChangeEvent) => {
@@ -150,11 +161,13 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
         levelOfMeasurement,
         numberOfRules,
         symbolizerKind,
-        wellKnownName
+        wellKnownName,
+        elseRule,
       });
 
       if (classificationMethod === 'kmeans') {
-        setNumberOfRules(rules.length);
+        const ruleLength = elseRule ? rules.length : rules.length - 1;
+        setNumberOfRules(ruleLength);
       }
 
       if (onRulesChange) {
@@ -169,7 +182,9 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
     return <h1>An error occurred in the RuleGenerator UI.</h1>;
   }
 
-  const previewColors = RuleGeneratorUtil.generateColors(colorRamps[colorRamp], numberOfRules, colorSpace);
+  const previewColors = RuleGeneratorUtil.generateColors(
+    colorRamps[colorRamp], elseRule ? numberOfRules + 1 : numberOfRules, colorSpace
+  );
   const itemConfig = getFormItemConfig();
 
   return (
@@ -309,6 +324,19 @@ export const RuleGenerator: React.FC<RuleGeneratorProps> = (props) => {
           />
         </Form.Item>
       </fieldset>
+      {
+        elseRuleField?.visibility === false ? null : (
+          <Form.Item
+            {...itemConfig}
+            label={locale.elseRuleFieldLabel}
+          >
+            <ElseRuleField
+              value={elseRule}
+              onChange={onElseRuleChange}
+            />
+          </Form.Item>
+        )
+      }
       <Form.Item
         {...itemConfig}
       >
