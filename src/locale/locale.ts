@@ -42,6 +42,7 @@ export default interface GeoStylerLocale {
   RuleFieldContainer: {
     nameFieldLabel?: string;
     nameFieldPlaceholder?: string;
+    elseRuleFieldLabel?: string;
   };
   Style: {
     addRuleBtnText: string;
@@ -330,6 +331,7 @@ export default interface GeoStylerLocale {
     errorMaxScaleGreaterThanMinScale: string;
     amountColumnTitle: string;
     duplicatesColumnTitle: string;
+    elseRuleColumnTitle: string;
     actionsColumnTitle: string;
     actionCloneLabel: string;
     actionRemoveLabel: string;
@@ -372,6 +374,7 @@ export default interface GeoStylerLocale {
     preview: string;
     numberOfRulesViaKmeans: string;
     allDistinctValues: string;
+    elseRuleFieldLabel: string;
   };
   ColorRampCombo: {
     colorRampPlaceholder: string;
@@ -465,6 +468,10 @@ export default interface GeoStylerLocale {
     placeholder: string;
   };
   VisibilityField: {
+    on: string;
+    off: string;
+  };
+  ElseRuleField: {
     on: string;
     off: string;
   };

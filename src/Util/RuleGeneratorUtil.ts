@@ -60,6 +60,7 @@ export interface RuleGenerationParams {
   symbolizerKind: SymbolizerKind;
   wellKnownName?: WellKnownName;
   classificationMethod?: ClassificationMethod;
+  elseRule: Rule['elseRule'];
 }
 
 /**
@@ -120,11 +121,13 @@ class RuleGeneratorUtil {
       colorSpace,
       symbolizerKind,
       wellKnownName,
-      classificationMethod
+      classificationMethod,
+      elseRule
     } = params;
     let numberOfRules = params.numberOfRules;
 
-    let colors = RuleGeneratorUtil.generateColors(inputColors, numberOfRules, colorSpace);
+    const numberOfColors = elseRule ? numberOfRules + 1 : numberOfRules;
+    let colors = RuleGeneratorUtil.generateColors(inputColors, numberOfColors, colorSpace);
 
     let rules: Rule[] = [];
     if (levelOfMeasurement === 'nominal') {
@@ -189,6 +192,16 @@ class RuleGeneratorUtil {
           };
         });
       }
+    }
+    if (elseRule) {
+      rules.push({
+        name: 'Else',
+        elseRule: true,
+        symbolizers: [SymbolizerUtil.generateSymbolizer(symbolizerKind, {
+          color: colors[numberOfColors - 1],
+          wellKnownName
+        })]
+      });
     }
     return rules;
   }

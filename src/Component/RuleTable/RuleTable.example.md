@@ -91,12 +91,15 @@ function RuleTableExample() {
           visibility: true
         },
         scalesField: {
-          visibility: true  
+          visibility: true
         },
         amountField: {
           visibility: true
         },
         duplicateField: {
+          visibility: true
+        },
+        elseRuleField: {
           visibility: true
         }
       }
@@ -175,6 +178,12 @@ function RuleTableExample() {
           checkedChildren="Duplicate"
           unCheckedChildren="Duplicate"
         />
+        <Switch
+          checked={myContext.composition.Rule.elseRuleField.visibility}
+          onChange={visibility => {onVisibilityChange(visibility, 'elseRuleField')}}
+          checkedChildren="Else Rule"
+          unCheckedChildren="Else Rule"
+        />
       </div>
       <hr/>
       <GeoStylerContext.Provider value={myContext}>
@@ -213,7 +222,7 @@ function RuleTableExample() {
         500000: 500000,
         1000000: 1000000
       }
-    }  
+    }
   });
 
   const [style, setStyle] = useState({

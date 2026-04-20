@@ -42,7 +42,8 @@ const en_US: GeoStylerLocale = {
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Name',
-    nameFieldPlaceholder: 'Enter name'
+    nameFieldPlaceholder: 'Enter name',
+    elseRuleFieldLabel: 'Else rule'
   },
   BulkEditModals: {
     colorLabel: 'Select color',
@@ -371,6 +372,7 @@ const en_US: GeoStylerLocale = {
     errorMaxScaleGreaterThanMinScale: 'Max scale denominator must be greater than min scale denominator',
     amountColumnTitle: 'Amount',
     duplicatesColumnTitle: 'Duplicates',
+    elseRuleColumnTitle: 'Else rule',
     actionsColumnTitle: 'Actions',
     actionCloneLabel: 'Clone',
     actionRemoveLabel: 'Remove',
@@ -408,7 +410,8 @@ const en_US: GeoStylerLocale = {
     equalInterval: 'Equal Interval',
     preview: 'Color Preview',
     numberOfRulesViaKmeans: '…affected by k-Means classification.',
-    allDistinctValues: 'Use all distinct values'
+    allDistinctValues: 'Use all distinct values',
+    elseRuleFieldLabel: 'Include Else rule'
   },
   ColorRampCombo: {
     colorRampPlaceholder: 'Select…'
@@ -492,6 +495,10 @@ const en_US: GeoStylerLocale = {
     placeholder: '… choose GeoStylerFunction'
   },
   VisibilityField: {
+    on: 'on',
+    off: 'off',
+  },
+  ElseRuleField: {
     on: 'on',
     off: 'off',
   },

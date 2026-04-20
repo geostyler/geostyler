@@ -77,6 +77,7 @@ import { DraggableRow } from '../DraggableTableRow/DraggableTablerow';
 
 import { InputScaleDenominator } from '../ScaleDenominator/InputScaleDenominator';
 import { SelectScaleDenominator } from '../ScaleDenominator/SelectScaleDenominator';
+import ElseRuleField from '../Symbolizer/Field/ElseRuleField/ElseRuleField';
 
 export interface RuleRecord extends GsRule {
   key: string;
@@ -125,6 +126,7 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     actionsField = {
       visibility: styleComposition.disableMultiEdit === true
     },
+    elseRuleField,
     onRulesChange,
     rendererType = 'OpenLayers',
     rules,
@@ -292,18 +294,31 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       }} />;
   };
 
+  const elseRuleRenderer = (text: string, record: RuleRecord, index: number) => {
+    const elseRule = _get(record, 'elseRule');
+    return (
+      <div
+        className='gs-rule-table-else-rule-renderer'
+      >
+        <ElseRuleField
+          value={elseRule === undefined ? false : elseRule}
+          onChange={(checked) => {
+            setValueForRule(index, 'elseRule', checked);
+          }}
+        />
+      </div>
+    );
+  };
+
   // TODO: Refactor to stand alone component
   const amountRenderer = (text: string, record: RuleRecord, index: number) => {
     let amount: (number | '-') = '-';
-    const filter: GsFilter | undefined = record.filter;
-    if (data && filter) {
+    if (data && DataUtil.isVector(data)) {
       try {
         amount = counts[index] || 0;
       } catch {
         amount = '-';
       }
-    } else if (data && DataUtil.isVector(data)) {
-      amount = data.exampleFeatures.features.length;
     }
     return (
       <div className="ant-input gs-rule-table-numeric-cell amount-renderer">
@@ -413,6 +428,14 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
       title: locale.scalesColumnTitle,
       dataIndex: 'scaleDenominator',
       render: scaleRenderer
+    });
+  }
+
+  if (!(elseRuleField?.visibility === false)) {
+    columns.push({
+      title: (<Tooltip title={locale.elseRuleColumnTitle}>≠</Tooltip>),
+      dataIndex: 'elseRule',
+      render: elseRuleRenderer
     });
   }
 

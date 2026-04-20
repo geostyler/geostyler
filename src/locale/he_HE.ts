@@ -43,7 +43,8 @@ const he_IL: GeoStylerLocale = {
   },
   RuleFieldContainer: {
     nameFieldLabel: 'שם',
-    nameFieldPlaceholder: 'הזן שם'
+    nameFieldPlaceholder: 'הזן שם',
+    elseRuleFieldLabel: 'כלל Else'
   },
   BulkEditModals: {
     colorLabel: 'בחר צבע',
@@ -372,6 +373,7 @@ const he_IL: GeoStylerLocale = {
     errorMaxScaleGreaterThanMinScale: 'קנ"מ מקסימלי חייב להיות גדול מהקנ"מ המינימלי',
     amountColumnTitle: 'כמות',
     duplicatesColumnTitle: 'כפילויות',
+    elseRuleColumnTitle: 'כלל Else',
     actionsColumnTitle: 'פעולות',
     actionCloneLabel: 'שכפל',
     actionRemoveLabel: 'הסר'
@@ -409,7 +411,8 @@ const he_IL: GeoStylerLocale = {
     equalInterval: 'מרווחים שווים',
     preview: 'תצוגה מקדימה של צבע',
     numberOfRulesViaKmeans: '…מושפע מסיווג k-Means.',
-    allDistinctValues: 'השתמש בכל הערכים הייחודיים'
+    allDistinctValues: 'השתמש בכל הערכים הייחודיים',
+    elseRuleFieldLabel: 'כלל Else'
   },
   ColorRampCombo: {
     colorRampPlaceholder: 'בחר…'
@@ -493,6 +496,10 @@ const he_IL: GeoStylerLocale = {
     placeholder: '… בחר GeoStylerFunction'
   },
   VisibilityField: {
+    on: 'פעיל',
+    off: 'כבוי'
+  },
+  ElseRuleField: {
     on: 'פעיל',
     off: 'כבוי'
   },

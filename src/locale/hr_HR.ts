@@ -42,7 +42,8 @@ const hr_HR: GeoStylerLocale = {
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Ime',
-    nameFieldPlaceholder: 'Unesite ime'
+    nameFieldPlaceholder: 'Unesite ime',
+    elseRuleFieldLabel: 'Else pravilo'
   },
   BulkEditModals: {
     colorLabel: 'Izaberite boju',
@@ -371,6 +372,7 @@ const hr_HR: GeoStylerLocale = {
     errorMaxScaleGreaterThanMinScale: 'TODO(hr_HR): errorMaxScaleGreaterThanMinScale',
     amountColumnTitle: 'Količina',
     duplicatesColumnTitle: 'Duplikati',
+    elseRuleColumnTitle: 'Else pravilo',
     actionsColumnTitle: 'Akcije',
     actionCloneLabel: 'Kloniraj',
     actionRemoveLabel: 'Ukloni'
@@ -408,7 +410,8 @@ const hr_HR: GeoStylerLocale = {
     equalInterval: 'Jednaki interval',
     preview: 'Pretpregled boje',
     numberOfRulesViaKmeans: '...utjecano od strane k-centar klasifikacije.',
-    allDistinctValues: 'Koristi sve različite vrijednosti'
+    allDistinctValues: 'Koristi sve različite vrijednosti',
+    elseRuleFieldLabel: 'Else pravilo'
   },
   ColorRampCombo: {
     colorRampPlaceholder: 'Odabir...'
@@ -492,6 +495,10 @@ const hr_HR: GeoStylerLocale = {
     placeholder: '… odaberite GeoStylerFunction'
   },
   VisibilityField: {
+    on: 'uključeno',
+    off: 'isključeno'
+  },
+  ElseRuleField: {
     on: 'uključeno',
     off: 'isključeno'
   },

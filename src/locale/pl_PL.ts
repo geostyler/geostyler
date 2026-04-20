@@ -42,7 +42,8 @@ const pl_PL: GeoStylerLocale = {
   },
   RuleFieldContainer: {
     nameFieldLabel: 'Nazwa',
-    nameFieldPlaceholder: 'Wprowadź nazwę'
+    nameFieldPlaceholder: 'Wprowadź nazwę',
+    elseRuleFieldLabel: 'Else rule'
   },
   CodeEditor: {
     downloadButtonLabel: 'Zapisz jako plik',
@@ -371,6 +372,7 @@ const pl_PL: GeoStylerLocale = {
     errorMaxScaleGreaterThanMinScale: 'Maksymalna skala musi być większa niż minimalna',
     amountColumnTitle: 'Ilość',
     duplicatesColumnTitle: 'Duplikaty',
+    elseRuleColumnTitle: 'Else rule',
     actionsColumnTitle: 'Akcje',
     actionCloneLabel: 'Duplikuj',
     actionRemoveLabel: 'Usuń'
@@ -408,7 +410,8 @@ const pl_PL: GeoStylerLocale = {
     equalInterval: 'Równe przedziały',
     preview: 'Podgląd kolorów',
     numberOfRulesViaKmeans: '…dotyczy klasyfikacji k-średnich.',
-    allDistinctValues: 'Użyj wszystkich unikalnych wartości'
+    allDistinctValues: 'Użyj wszystkich unikalnych wartości',
+    elseRuleFieldLabel: 'Else rule'
   },
   ColorRampCombo: {
     colorRampPlaceholder: 'Wybierz…'
@@ -492,6 +495,10 @@ const pl_PL: GeoStylerLocale = {
     placeholder: '… wybierz GeoStylerFunction'
   },
   VisibilityField: {
+    on: 'włączone',
+    off: 'wyłączone'
+  },
+  ElseRuleField: {
     on: 'włączone',
     off: 'wyłączone'
   },
