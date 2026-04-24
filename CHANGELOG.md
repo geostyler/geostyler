@@ -1,3 +1,9 @@
+## [18.5.1](https://github.com/geostyler/geostyler/compare/v18.5.0...v18.5.1) (2026-04-24)
+
+### Bug Fixes
+
+* properly handle undefined in CardStyle else-rule ([#2743](https://github.com/geostyler/geostyler/issues/2743)) ([ced0c00](https://github.com/geostyler/geostyler/commit/ced0c0015e6de45ecbd7d8ff81c3af55007e752c))
+
 ## [18.5.0](https://github.com/geostyler/geostyler/compare/v18.4.2...v18.5.0) (2026-04-20)
 
 ### Features
