@@ -56,7 +56,7 @@ export const ElseRuleField: React.FC<ElseRuleFieldProps> = ({
   return (
     <span className="editor-field gs-elserule-field">
       <Switch
-        checked={value === undefined ? true : value}
+        checked={value === undefined ? false : value}
         onChange={(checked) => {
           onChange?.(checked);
         }}
