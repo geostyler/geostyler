@@ -50,6 +50,8 @@ export const ColorsPreview: React.FC<ColorsPreviewProps> = ({
     <div
       className="colors-preview"
       style={style}
-    />
+    >
+
+    </div>
   );
 };
