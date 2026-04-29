@@ -283,6 +283,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
       value={val}
       onValueChange={(newValue) => onValueChange(newValue, filterIndex)}
       validateStatus={validateStatus.value}
+      selectedAttribute={attribute}
     />;
   }
 

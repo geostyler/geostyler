@@ -27,8 +27,12 @@
  */
 
 import React from 'react';
-import { InputNumber, Form } from 'antd';
-import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { InputNumber, Form, AutoComplete } from 'antd';
+import { useGeoStylerData, useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
+import { Feature } from 'geojson';
+import _get from 'lodash-es/get.js';
+
+import './NumberFilterField.css';
 
 export interface NumberFilterFieldProps {
   /** Initial value set to the field */
@@ -38,6 +42,8 @@ export interface NumberFilterFieldProps {
   /** Callback for onChange */
   onValueChange?: ((newValue: number) => void);
   size?: 'large' | 'middle' | 'small';
+  /** The selected attribute name */
+  selectedAttribute?: string;
 }
 
 /**
@@ -47,12 +53,31 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
   value,
   validateStatus = 'success',
   onValueChange,
-  size
+  size,
+  selectedAttribute
 }) => {
+  const data = useGeoStylerData();
 
   const locale = useGeoStylerLocale('NumberFilterField');
 
   const helpTxt = validateStatus !== 'success' ? locale.help : null;
+
+  const onAutoCompleteChange = (text: string) => {
+    if (onValueChange) {
+      onValueChange(Number(text));
+    }
+  };
+
+  const sampleValues: string[] = [];
+  if (data && 'exampleFeatures' in data) {
+    const features = data?.exampleFeatures?.features;
+    features.forEach((feature: Feature) => {
+      const sampleValue = _get(feature, `properties[${selectedAttribute}]`);
+      if (sampleValue && sampleValues.indexOf(sampleValue) === -1) {
+        sampleValues.push(`${sampleValue}`);
+      }
+    });
+  }
 
   return (
     <div
@@ -67,13 +92,24 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
         help={helpTxt}
         hasFeedback={true}
       >
-        <InputNumber
-          size={size}
-          defaultValue={value}
-          value={value}
-          onChange={onValueChange}
-          placeholder={locale.placeholder}
-        />
+        {
+          sampleValues.length > 0 ?
+            <AutoComplete
+              size={size}
+              value={`${value || ''}`}
+              onChange={onAutoCompleteChange}
+              placeholder={locale.placeholder}
+              options={sampleValues.map((val) => ({ value: val }))}
+            />
+            :
+            <InputNumber
+              size={size}
+              defaultValue={value}
+              value={value}
+              onChange={onValueChange}
+              placeholder={locale.placeholder}
+            />
+        }
       </Form.Item>
     </div>
   );

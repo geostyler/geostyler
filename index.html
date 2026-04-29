@@ -58,7 +58,51 @@
       );
       preview.render(gsPreview);
     };
-    const geostylerContext = {};
+    const geostylerContext = {
+      data: {
+        schema: {
+          title: 'DummyData',
+          type: 'object',
+          properties: {
+            value: {
+              type: 'number',
+              minimum: -100000,
+              maximum: 100000
+            },
+            name: {
+              type: 'string',
+            }
+          }
+        },
+        exampleFeatures: {
+          type: 'FeatureCollection',
+          features: [
+            {
+              type: 'Feature',
+              properties: {
+                name: 'Feature 1',
+                value: 1234
+              },
+              geometry: {
+                type: 'Point',
+                coordinates: [0, 0]
+              }
+            },
+            {
+              type: 'Feature',
+              properties: {
+                name: 'Feature 2',
+                value: 5678
+              },
+              geometry: {
+                type: 'Point',
+                coordinates: [1, 1]
+              }
+            }
+          ]
+        }
+      }
+    };
     const geostyler = React.createElement(
       GeoStylerContext.Provider,
       { value: geostylerContext },
