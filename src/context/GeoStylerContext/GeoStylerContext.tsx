@@ -26,7 +26,7 @@ import { Data as GeoStylerData } from 'geostyler-data';
 import { SLDRendererComposableProps } from '../../Component/Renderer/SLDRenderer/SLDRenderer';
 import {
   WellKnownNameFieldComposableProps
-} from 'src/Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
+} from '../../Component/Symbolizer/Field/WellKnownNameField/WellKnownNameField';
 
 export type InputConfig<T> = {
   visibility?: boolean;
