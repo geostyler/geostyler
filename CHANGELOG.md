@@ -1,3 +1,14 @@
+## [18.6.0](https://github.com/geostyler/geostyler/compare/v18.5.1...v18.6.0) (2026-05-20)
+
+### Features
+
+* allow autoselect fields for numeric properties ([#2741](https://github.com/geostyler/geostyler/issues/2741)) ([c1abd7b](https://github.com/geostyler/geostyler/commit/c1abd7b6e8424ff1fbfa49764615b2e550fb48cb))
+
+### Bug Fixes
+
+* add min-width to ColorPreview ([de93e2d](https://github.com/geostyler/geostyler/commit/de93e2d5bfd3b068c0b0a32a0c1c32b30ffd4066))
+* adjust incorrect import path in GeoStylerContext ([#2748](https://github.com/geostyler/geostyler/issues/2748)) ([730c505](https://github.com/geostyler/geostyler/commit/730c505a841154c40d7cef75d8d0256d844a8044))
+
 ## [18.5.1](https://github.com/geostyler/geostyler/compare/v18.5.0...v18.5.1) (2026-04-24)
 
 ### Bug Fixes
