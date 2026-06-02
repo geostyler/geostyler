@@ -153,7 +153,7 @@
     "typescript-eslint": "^8.33.1",
     "vite": "6.4.1",
     "vite-plugin-dts": "^4.5.4",
-    "vitest": "^3.2.0",
+    "vitest": "^4.0.0",
     "whatwg-fetch": "^3.6.20"
   },
   "peerDependencies": {
