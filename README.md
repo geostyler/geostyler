@@ -18,9 +18,9 @@ Developer Guide:
 
 [![Discord Banner 2](https://discordapp.com/api/guilds/1016992288028762132/widget.png?style=banner2)](https://discord.gg/yrXHDpcFcB)
 
-## :rocket: GeoStyler Code Sprint 2025
+## :rocket: GeoStyler Code Sprint 2026
 
-We are happy to announce the next GeoStyler Code Sprint from **02.-06.06.2025** in Switzerland. Be part of it! More infos on https://geostyler.org/.
+We are happy to announce the next **online-only** GeoStyler Code Sprint from **28.-30.09.2026**. Be part of it! More infos on https://geostyler.org.
 
 ## 📆 Monthly meetings
 
