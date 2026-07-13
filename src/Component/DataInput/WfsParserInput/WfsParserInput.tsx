@@ -150,7 +150,10 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
         maxFeatures,
         featureID,
         propertyName,
-        srsName
+        srsName,
+        // this forces the app to send no outputFormat parameter in the request
+        // this is required to get a correct XML DescribeFeatureType response from GeoServer
+        outputFormat: null,
       };
     } else {
       requestParams = {
@@ -159,12 +162,16 @@ export const WfsParserInput: React.FC<WfsParserInputProps> = ({
         count: maxFeatures,
         featureID,
         propertyName,
-        srsName
+        srsName,
+        // this forces the app to send no outputFormat parameter in the request
+        // this is required to get a correct XML DescribeFeatureType response from GeoServer
+        outputFormat: null,
       };
     }
     onClickProp({
       url,
-      requestParams
+      requestParams,
+      // fetchParams: {headers: {'accept': 'application/xml'}},
     });
   };
 
