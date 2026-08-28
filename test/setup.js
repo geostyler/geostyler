@@ -28,8 +28,6 @@
 import util from 'util';
 global.TextEncoder = util.TextEncoder;
 global.TextDecoder = util.TextDecoder;
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
 import '@testing-library/jest-dom';
 
 Object.defineProperty(window, 'matchMedia', {
