@@ -118,7 +118,7 @@
     "@types/webpack": "^5.28.5",
     "@vitejs/plugin-react": "4.7.0",
     "@vitest/coverage-istanbul": "^3.2.0",
-    "ast-types": "^0.14.2",
+    "ast-types": "^0.16.0",
     "babel-jest": "^29.7.0",
     "buffer": "^6.0.3",
     "cheerio": "1.2.0",
