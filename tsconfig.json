@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "strict": true,
-    "baseUrl": ".",
     "esModuleInterop": true,
     "declaration": true,
     "outDir": "dist",
@@ -21,7 +20,7 @@
     "strictNullChecks": false,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "exclude": [
     "node_modules",
@@ -39,5 +38,5 @@
     "vite.config.ts",
     "vite.*.config.ts",
     "vitest.config.ts"
-  ]
+  ],
 }

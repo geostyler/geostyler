@@ -31,7 +31,7 @@ import Color from 'color';
 import { VectorData } from 'geostyler-data';
 import {
   LevelOfMeasurement
-} from 'src/Component/RuleGenerator/RuleGenerator';
+} from '../Component/RuleGenerator/RuleGenerator';
 import {
   Rule,
   Filter,
@@ -45,7 +45,7 @@ import {
   limits as chromaLimits,
   InterpolationMode
 } from 'chroma-js';
-import { ClassificationMethod } from 'src/Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
+import { ClassificationMethod } from '../Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
 
 import { Feature, GeoJsonGeometryTypes } from 'geojson';
 import _isNil from 'lodash/isNil';
