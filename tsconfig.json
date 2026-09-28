@@ -33,7 +33,6 @@
     "coverage",
     "acceptance-tests",
     "webpack",
-    "jest",
     "coverage",
     "**.config.js",
     "**/*.spec.ts*",

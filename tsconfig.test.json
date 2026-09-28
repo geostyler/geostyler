@@ -15,7 +15,6 @@
     "coverage",
     "acceptance-tests",
     "webpack",
-    "jest",
     "coverage",
     "**.config.js",
     "vite.config.ts",
