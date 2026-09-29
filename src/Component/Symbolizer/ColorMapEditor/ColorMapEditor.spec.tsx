@@ -33,6 +33,10 @@ import { ColorMap } from 'geostyler-style';
 import RasterUtil from '../../../Util/RasterUtil';
 import { vi } from 'vitest';
 
+vi.mock('../Field/ColorField/ColorField', () => ({
+  ColorField: () => <div className="gs-color-field" />
+}));
+
 vi.mock('antd', async (importOriginal) => {
   const antd = await importOriginal();
 

@@ -34,6 +34,19 @@ import TestUtil from '../../Util/TestUtil';
 import { Rule } from 'geostyler-style';
 import { Data } from 'geostyler-data';
 import { GeoStylerContext } from '../../context/GeoStylerContext/GeoStylerContext';
+import { vi } from 'vitest';
+
+vi.mock('../Renderer/Renderer/Renderer', () => ({
+  Renderer: () => <div className="gs-symbolizer-olrenderer" />
+}));
+
+vi.mock('../Symbolizer/SymbolizerEditorWindow/SymbolizerEditorWindow', () => ({
+  SymbolizerEditorWindow: () => null
+}));
+
+vi.mock('../Filter/FilterEditorWindow/FilterEditorWindow', () => ({
+  FilterEditorWindow: () => null
+}));
 
 describe('RuleTable', () => {
   let dummyRules: Rule[];

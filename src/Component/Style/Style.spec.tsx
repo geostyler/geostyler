@@ -32,6 +32,14 @@ import defaultLocale from '../../locale/en_US';
 import { render, act, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 
+vi.mock('../RuleGenerator/RuleGeneratorWindow', () => ({
+  RuleGeneratorWindow: () => null
+}));
+
+vi.mock('../Symbolizer/BulkEditModals/BulkEditModals', () => ({
+  BulkEditModals: () => null
+}));
+
 describe('Style', () => {
 
   const props: StyleProps = {
