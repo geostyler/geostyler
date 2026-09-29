@@ -32,6 +32,42 @@ import defaultLocale from '../../locale/en_US';
 import { render, act, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 
+vi.mock('../RuleTable/RuleTable', () => ({
+  RuleTable: (props: any) => {
+    const { rules, rowSelection, footer: Footer } = props;
+    const allKeys = rules.map((_: any, idx: number) => idx);
+    return (
+      <div data-testid="rule-table-mock">
+        {rowSelection && (
+          <input
+            key="select-all"
+            type="checkbox"
+            checked={rowSelection.selectedRowKeys.length === rules.length}
+            onChange={() => {
+              const next = rowSelection.selectedRowKeys.length === rules.length ? [] : allKeys;
+              rowSelection.onChange(next);
+            }}
+          />
+        )}
+        {rowSelection && rules.map((_: any, idx: number) => (
+          <input
+            key={idx}
+            type="checkbox"
+            checked={rowSelection.selectedRowKeys.includes(idx)}
+            onChange={() => {
+              const next = rowSelection.selectedRowKeys.includes(idx)
+                ? rowSelection.selectedRowKeys.filter((k: number) => k !== idx)
+                : [...rowSelection.selectedRowKeys, idx];
+              rowSelection.onChange(next);
+            }}
+          />
+        ))}
+        {Footer && Footer()}
+      </div>
+    );
+  }
+}));
+
 describe('Style', () => {
 
   const props: StyleProps = {
