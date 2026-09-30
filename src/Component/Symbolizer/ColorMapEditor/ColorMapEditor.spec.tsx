@@ -45,7 +45,7 @@ vi.mock('antd', async (importOriginal) => {
   };
 
   return {
-    ...antd,
+    ...antd as any,
     Select,
   };
 });

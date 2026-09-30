@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* Released under the BSD 2-Clause License
  *
  * Copyright © 2018-present, terrestris GmbH & Co. KG and GeoStyler contributors
@@ -27,7 +28,7 @@
  */
 
 import React from 'react';
-import { ReadParams } from 'geostyler-wfs-parser';
+import { ReadParams, RequestParams2_0_0 } from 'geostyler-wfs-parser';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { WfsParserInput } from './WfsParserInput';
 import defaultLocale from '../../../locale/en_US';
@@ -84,7 +85,7 @@ describe('WfsParserInput', () => {
           typeNames: 'my mock typeName',
           featureID: 'mock feature id',
           count: 999
-        }
+        } as RequestParams2_0_0
       };
       const onClickMock = vi.fn();
       const field = render(<WfsParserInput onClick={onClickMock} />);
@@ -102,7 +103,9 @@ describe('WfsParserInput', () => {
       // Due to a bug in antd the class is set on the wrong element.
       // Has to be undone once this bug is fixed.
       const typeNameInput = field.container.querySelector('span.wfs-typename-input > input');
-      fireEvent.change(typeNameInput!, { target: { value: mockParams.requestParams.typeNames }});
+      fireEvent.change(typeNameInput!, {
+        target: { value: (mockParams.requestParams as RequestParams2_0_0).typeNames }
+      });
       // feature id
       // const featureIdInput = field.container.querySelector('input.wfs-featureid-input');
       // https://github.com/ant-design/ant-design/issues/35600

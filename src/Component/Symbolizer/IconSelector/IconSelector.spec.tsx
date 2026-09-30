@@ -26,16 +26,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 import React from 'react';
-import { IconSelector, IconSelectorProps, IconLibrary } from './IconSelector';
-import TestUtil from '../../../Util/TestUtil';
+import { IconSelector, IconSelectorProps } from './IconSelector';
 import { render } from '@testing-library/react';
 
 describe('IconSelector', () => {
 
-  const dummyLibraries: IconLibrary[] = TestUtil.getDummyGsIconLibraries();
-  const props: IconSelectorProps = {
-    iconLibraries: dummyLibraries
-  };
+  const props: IconSelectorProps = {};
 
   it('is defined', () => {
     expect(IconSelector).toBeDefined();
