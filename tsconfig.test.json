@@ -1,31 +1,15 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "composite": true,
-    "module": "commonjs",
+    "declaration": false,
+    "noEmit": true,
     "noUnusedLocals": false,
-    "typeRoots": ["./node_modules/@types", "./node_modules"],
     "types": [
-      "vitest/globals", 
+      "vitest/globals",
       "@testing-library/jest-dom"
-    ],
+    ]
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "browser",
-    "config",
-    "dist",
-    "scripts",
-    "coverage",
-    "acceptance-tests",
-    "webpack",
-    "coverage",
-    "**.config.js",
-    "vite.config.ts",
-    "vite.dev.config.ts",
-    "vitest.config.ts"
-  ],
+  "exclude": [],
   "include": [
     "**/*.spec.ts",
     "**/*.spec.tsx"
