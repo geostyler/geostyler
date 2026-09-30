@@ -44,7 +44,7 @@ import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerC
 
 export interface StyleLoaderProps {
   /** The callback method that is triggered when the state changes */
-  onStyleRead: (style: Style) => void;
+  onStyleRead?: (style: Style) => void;
   /** List of data parsers to use */
   parsers: StyleParser[];
 }

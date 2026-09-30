@@ -35,7 +35,7 @@ import { StyleParser } from 'geostyler-style';
 describe('StyleLoader', () => {
   let sldStyleParser: StyleParser;
   beforeEach(() => {
-    sldStyleParser = new SldStyleParser();
+    sldStyleParser = (new SldStyleParser()) as StyleParser;
   });
 
   it('is defined', () => {
