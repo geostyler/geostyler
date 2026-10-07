@@ -30,16 +30,11 @@ import {
   RuleGenerator,
   RuleGeneratorProps
 } from './RuleGenerator';
-import TestUtil from '../../Util/TestUtil';
-import { Data } from 'geostyler-data';
 import { render } from '@testing-library/react';
 
 describe('RuleGenerator', () => {
 
-  const dummyData: Data = TestUtil.getDummyGsData();
-  const props: RuleGeneratorProps = {
-    data: dummyData
-  };
+  const props: RuleGeneratorProps = {};
 
   it('is defined', () => {
     expect(RuleGenerator).toBeDefined();
