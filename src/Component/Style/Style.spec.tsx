@@ -29,36 +29,27 @@ import React from 'react';
 import { Style, StyleProps } from './Style';
 import TestUtil from '../../Util/TestUtil';
 import defaultLocale from '../../locale/en_US';
-import { render, act, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
+import { Style as GsStyle } from 'geostyler-style';
 
 vi.mock('../RuleTable/RuleTable', () => ({
   RuleTable: (props: any) => {
     const { rules, rowSelection, footer: Footer } = props;
-    const allKeys = rules.map((_: any, idx: number) => idx);
     return (
-      <div data-testid="rule-table-mock">
-        {rowSelection && (
-          <input
-            key="select-all"
-            type="checkbox"
-            checked={rowSelection.selectedRowKeys.length === rules.length}
-            onChange={() => {
-              const next = rowSelection.selectedRowKeys.length === rules.length ? [] : allKeys;
-              rowSelection.onChange(next);
-            }}
-          />
-        )}
-        {rowSelection && rules.map((_: any, idx: number) => (
+      <div>
+        {rules.map((_: any, idx: number) => (
           <input
             key={idx}
             type="checkbox"
+            aria-label={`Rule ${idx}`}
             checked={rowSelection.selectedRowKeys.includes(idx)}
             onChange={() => {
-              const next = rowSelection.selectedRowKeys.includes(idx)
-                ? rowSelection.selectedRowKeys.filter((k: number) => k !== idx)
-                : [...rowSelection.selectedRowKeys, idx];
-              rowSelection.onChange(next);
+              const keys = rowSelection.selectedRowKeys;
+              rowSelection.onChange(
+                keys.includes(idx) ? keys.filter((k: number) => k !== idx) : [...keys, idx]
+              );
             }}
           />
         ))}
@@ -75,153 +66,81 @@ describe('Style', () => {
     style: TestUtil.getLineStyle()
   };
 
+  const renderStyle = (style: GsStyle) => {
+    const onStyleChange = vi.fn();
+    const user = userEvent.setup();
+    const utils = render(<Style style={style} onStyleChange={onStyleChange} />);
+    return { onStyleChange, user, ...utils };
+  };
+
+  // antd menu items render an icon before the label, so the accessible name is
+  // "iconLabel <text>" - match on the label substring.
+  const menuName = (label: string) => new RegExp(label);
+  const addRuleBtn = () => screen.getByRole('menuitem', { name: menuName(defaultLocale.Style.addRuleBtnText) });
+  const cloneRulesBtn = () => screen.getByRole('menuitem', { name: menuName(defaultLocale.Style.cloneRulesBtnText) });
+  const removeRulesBtn = () => screen.getByRole('menuitem', { name: menuName(defaultLocale.Style.removeRulesBtnText) });
+  const multiEditBtn = () => screen.getByRole('menuitem', { name: menuName(defaultLocale.Style.multiEditLabel) });
+  const nameInput = () => screen.getByRole('textbox');
+  const ruleCheckbox = (index: number) => screen.getByRole('checkbox', { name: `Rule ${index}` });
+
   it('is defined', () => {
     expect(Style).toBeDefined();
   });
 
   it('renders correctly', () => {
-    const wellKnownNameEditor = render(<Style {...props} />);
-    expect(wellKnownNameEditor.container).toBeInTheDocument();
+    render(<Style {...props} />);
+    expect(nameInput()).toBeInTheDocument();
+    expect(addRuleBtn()).toBeInTheDocument();
   });
 
   it('onNameChange changes Style.name', async () => {
-    const style = render(<Style {...props} />);
-    const newStyle = {...props.style};
-    newStyle.name = 'Peter';
-    const input = style.container.querySelector('.gs-style-name-classification-row input');
-    await act(async() => {
-      fireEvent.change(input as Element, {
-        target: { value: 'Peter' }
-      });
-    });
-    expect(props.onStyleChange).toBeCalledWith(newStyle);
+    const style = TestUtil.getLineStyle();
+    const { onStyleChange, user } = renderStyle(style);
+    await user.clear(nameInput());
+    await user.type(nameInput(), 'Peter');
+    expect(onStyleChange).toBeCalledWith({ ...style, name: 'Peter' });
   });
 
   it('adds a Rule', async () => {
-    const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
-    const style = render(<Style
-      {...props}
-      onStyleChange={mock}
-      style={twoRulesStyle}
-    />);
-    const addButton = await style.findByText(defaultLocale.Style.addRuleBtnText);
-    await act(async() => {
-      fireEvent.click(addButton);
-    });
-    expect(mock.mock.calls[0][0].rules).toHaveLength(3);
+    const { onStyleChange, user } = renderStyle(TestUtil.getTwoRulesStyle());
+    await user.click(addRuleBtn());
+    expect(onStyleChange).toHaveBeenCalledTimes(1);
+    expect(onStyleChange.mock.calls[0][0].rules).toHaveLength(3);
   });
 
   it('clones Rules', async () => {
-    const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
-    const style = render(<Style
-      {...props}
-      onStyleChange={mock}
-      style={twoRulesStyle}
-    />);
-    const checkbox = style.container.querySelectorAll('input[type="checkbox"]')[0];
-    await act(async() => {
-      fireEvent.click(checkbox);
-    });
-    const cloneButton = await style.findByText(defaultLocale.Style.cloneRulesBtnText);
-    await act(async() => {
-      fireEvent.click(cloneButton);
-    });
-    const updatedStyle = mock.mock.calls[0][0];
+    const { onStyleChange, user } = renderStyle(TestUtil.getTwoRulesStyle());
+    await user.click(ruleCheckbox(0));
+    await user.click(ruleCheckbox(1));
+    await user.click(cloneRulesBtn());
+    const updatedStyle = onStyleChange.mock.calls.at(-1)[0];
     expect(updatedStyle.rules).toHaveLength(4);
     expect(updatedStyle.rules[0].symbolizer).toEqual(updatedStyle.rules[2].symbolizer);
     expect(updatedStyle.rules[1].symbolizer).toEqual(updatedStyle.rules[3].symbolizer);
   });
 
   it('removes a Rule', async () => {
-    const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
-    const style = render(<Style
-      {...props}
-      onStyleChange={mock}
-      style={twoRulesStyle}
-    />);
-    const checkbox = style.container.querySelectorAll('input[type="checkbox"]')[1];
-    await act(async() => {
-      fireEvent.click(checkbox);
-    });
-    const cloneButton = await style.findByText(defaultLocale.Style.removeRulesBtnText);
-    await act(async() => {
-      fireEvent.click(cloneButton);
-    });
-    const updatedStyle = mock.mock.calls[0][0];
+    const { onStyleChange, user } = renderStyle(TestUtil.getTwoRulesStyle());
+    await user.click(ruleCheckbox(0));
+    await user.click(removeRulesBtn());
+    const updatedStyle = onStyleChange.mock.calls.at(-1)[0];
     expect(updatedStyle.rules).toHaveLength(1);
   });
 
   it('enables the multi edit menu when multiple rules are selected', async () => {
-    const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
-    const style = render(<Style
-      {...props}
-      onStyleChange={mock}
-      style={twoRulesStyle}
-    />);
-    const checkbox = style.container.querySelectorAll('input[type="checkbox"]')[0];
-    const multiEditLabel = await style.findByText(defaultLocale.Style.multiEditLabel);
-    const multiEditMenu = multiEditLabel?.closest('li');
-    expect(multiEditMenu?.classList).toContain('ant-menu-submenu-disabled');
-    await act(async() => {
-      fireEvent.click(checkbox);
-    });
-    // all rules should be selected
-    expect(multiEditMenu?.classList).not.toContain('ant-menu-submenu-disabled');
+    const { user } = renderStyle(TestUtil.getTwoRulesStyle());
+    const multiEdit = multiEditBtn();
+    expect(multiEdit).toHaveAttribute('aria-disabled', 'true');
+    await user.click(ruleCheckbox(0));
+    await user.click(ruleCheckbox(1));
+    expect(multiEdit).not.toHaveAttribute('aria-disabled', 'true');
   });
 
-  it('enables the clone button when multiple rules are selected', async () => {
-    const twoRulesStyle = TestUtil.getTwoRulesStyle();
-    const mock = vi.fn();
-    const style = render(<Style
-      {...props}
-      onStyleChange={mock}
-      style={twoRulesStyle}
-    />);
-    const checkbox = style.container.querySelectorAll('input[type="checkbox"]')[0];
-    const cloneButtonLabel = await style.findByText(defaultLocale.Style.multiEditLabel);
-    const cloneButton = cloneButtonLabel?.closest('li');
-    expect(cloneButton?.classList).toContain('ant-menu-submenu-disabled');
-    await act(async() => {
-      fireEvent.click(checkbox);
-    });
-    // all rules should be selected
-    expect(cloneButton?.classList).not.toContain('ant-menu-item-disabled');
+  it('enables the clone menu item when rules are selected', async () => {
+    const { user } = renderStyle(TestUtil.getTwoRulesStyle());
+    const cloneItem = cloneRulesBtn();
+    expect(cloneItem).toHaveAttribute('aria-disabled', 'true');
+    await user.click(ruleCheckbox(0));
+    expect(cloneItem).not.toHaveAttribute('aria-disabled', 'true');
   });
-
-  // it('disables the color menu item', () => {
-  //   let twoRules = TestUtil.getTwoRulesStyle();
-  //   wrapper.instance().setState({style: twoRules});
-  //   let disabled = wrapper.instance().disableMenu('color', [0, 1]);
-  //   expect(disabled).toEqual(false);
-  //   twoRules.rules[0].symbolizers[0].kind = 'Icon';
-  //   wrapper.instance().setState({style: twoRules});
-  //   disabled = wrapper.instance().disableMenu('color', [0, 1]);
-  //   expect(disabled).toEqual(true);
-  // });
-
-  // it('disables the size menu item', () => {
-  //   let twoRules = TestUtil.getTwoRulesStyle();
-  //   wrapper.instance().setState({style: twoRules});
-  //   let disabled = wrapper.instance().disableMenu('size', [0, 1]);
-  //   expect(disabled).toEqual(false);
-  //   twoRules.rules[0].symbolizers[0].kind = 'Line';
-  //   wrapper.instance().setState({style: twoRules});
-  //   disabled = wrapper.instance().disableMenu('size', [0, 1]);
-  //   expect(disabled).toEqual(true);
-  // });
-
-  // it('disables the symbol menu item', () => {
-  //   let twoRules = TestUtil.getTwoRulesStyle();
-  //   wrapper.instance().setState({style: twoRules});
-  //   let disabled = wrapper.instance().disableMenu('symbol', [0, 1]);
-  //   expect(disabled).toEqual(false);
-  //   twoRules.rules[0].symbolizers[0].kind = 'Line';
-  //   wrapper.instance().setState({style: twoRules});
-  //   disabled = wrapper.instance().disableMenu('symbol', [0, 1]);
-  //   expect(disabled).toEqual(true);
-  // });
 });
