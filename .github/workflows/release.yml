@@ -7,7 +7,7 @@ jobs:
   release:
     uses: geostyler/workflows/.github/workflows/release.yml@main
     secrets:
-      github-token: ${{ secrets.GH_RELEASE_TOKEN }}
+      github-token: ${{ secrets.GITHUB_TOKEN }}
 
   notify-discord:
     needs: release
