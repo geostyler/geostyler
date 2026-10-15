@@ -1,7 +1,6 @@
 import reactPlugin from 'eslint-plugin-react';
 import importPlugin from 'eslint-plugin-import';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
-import reactRefreshPlugin from 'eslint-plugin-react-refresh';
 import stylisticPlugin from '@stylistic/eslint-plugin'
 
 import tsEslint from 'typescript-eslint';
@@ -23,8 +22,7 @@ export default tsEslint.config({
   plugins: {
     react: reactPlugin,
     '@stylistic': stylisticPlugin,
-    'react-hooks': reactHooksPlugin,
-    'react-refresh': reactRefreshPlugin
+    'react-hooks': reactHooksPlugin
   },
   languageOptions: {
     globals: globals.browser,

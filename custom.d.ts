@@ -26,3 +26,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 declare module '@ungap/url-search-params';
+
+declare module '*.css' {
+  const content: Record<string, string>;
+  export default content;
+}
