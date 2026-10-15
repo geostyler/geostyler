@@ -36,7 +36,7 @@ describe('FileUtil', () => {
       await expect(FileUtil.readFile(fakeFile)).resolves.toBe('abc123');
     });
     it('rejects on error', async() => {
-      let aFile: File;
+      const aFile = undefined as unknown as File;
       await expect(FileUtil.readFile(aFile)).rejects.toThrowError();
     });
   });

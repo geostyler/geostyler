@@ -90,7 +90,7 @@ export const BulkEditModals: React.FC<BulkEditModalsProps> = ({
 
   const [kind, setKind] = useState<SymbolizerKind>('Mark');
 
-  let rules: GsRule[] = [];
+  let rules: GsRule[];
   let color = '#000000';
   let size = 5;
   let opacity = 1;
