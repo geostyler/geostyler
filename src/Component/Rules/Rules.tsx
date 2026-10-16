@@ -40,8 +40,7 @@ import FilterUtil, { CountResult } from '../../Util/FilterUtil';
 import DataUtil from '../../Util/DataUtil';
 import { Button, Switch, Divider } from 'antd';
 
-import _cloneDeep from 'lodash-es/cloneDeep.js';
-import _uniqueId from 'lodash-es/uniqueId.js';
+import { cloneDeep as _cloneDeep, uniqueId as _uniqueId } from '../../Util/NativeUtil';
 import { Selectable } from '../Selectable/Selectable';
 import { RuleCard } from '../RuleCard/RuleCard';
 import { useDragDropSensors } from '../../hook/UseDragDropSensors';

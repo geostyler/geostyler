@@ -43,9 +43,7 @@ import {
   PlusOutlined
 } from '@ant-design/icons';
 
-import _get from 'lodash-es/get.js';
-import _set from 'lodash-es/set.js';
-import _isEqual from 'lodash-es/isEqual.js';
+import { get as _get, set as _set, isEqual as _isEqual, isBoolean as _isBoolean } from '../../../Util/NativeUtil';
 
 import './FilterTree.css';
 
@@ -65,7 +63,6 @@ import FilterUtil from '../../../Util/FilterUtil';
 
 import { DataNode } from 'rc-tree/lib/interface';
 import { useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
-import _isBoolean from 'lodash-es/isBoolean.js';
 
 export interface FilterTreeProps {
   /** The filter to edit */

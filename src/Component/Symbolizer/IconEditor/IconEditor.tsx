@@ -30,8 +30,7 @@ import React from 'react';
 
 import { Form } from 'antd';
 
-import _cloneDeep from 'lodash-es/cloneDeep.js';
-import _isEmpty from 'lodash-es/isEmpty.js';
+import { cloneDeep as _cloneDeep, isEmpty as _isEmpty } from '../../../Util/NativeUtil';
 
 import { IconSymbolizer } from 'geostyler-style';
 

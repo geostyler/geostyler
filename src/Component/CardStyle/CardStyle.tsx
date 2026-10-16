@@ -28,7 +28,7 @@
 
 import React, { useState } from 'react';
 
-import _cloneDeep from 'lodash-es/cloneDeep.js';
+import { cloneDeep as _cloneDeep } from '../../Util/NativeUtil';
 
 import {
   Style as GsStyle,
