@@ -48,7 +48,7 @@ import {
 import { ClassificationMethod } from '../Component/RuleGenerator/ClassificationCombo/ClassificationCombo';
 
 import { Feature, GeoJsonGeometryTypes } from 'geojson';
-import _isNil from 'lodash/isNil';
+import { isNil as _isNil } from './NativeUtil';
 
 export interface RuleGenerationParams {
   data: VectorData;

@@ -61,8 +61,7 @@ import {
 
 import schema from 'geostyler-style/schema.json';
 
-import _isEqual from 'lodash-es/isEqual.js';
-import _isString from 'lodash-es/isString.js';
+import { isEqual as _isEqual, isString as _isString } from '../../Util/NativeUtil';
 
 import { SldStyleParser } from 'geostyler-sld-parser';
 import { SLDUnitsSelect } from '../Symbolizer/SLDUnitsSelect/SLDUnitsSelect';

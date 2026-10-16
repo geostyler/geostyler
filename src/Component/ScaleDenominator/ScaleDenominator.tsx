@@ -31,7 +31,7 @@ import { Row, Col } from 'antd';
 import { MinScaleDenominator } from './MinScaleDenominator';
 import { MaxScaleDenominator } from './MaxScaleDenominator';
 
-import _cloneDeep from 'lodash-es/cloneDeep.js';
+import { cloneDeep as _cloneDeep } from '../../Util/NativeUtil';
 
 import {
   ScaleDenominator as GsScaleDenominator

@@ -43,7 +43,7 @@ import { ColorRampCombo } from './ColorRampCombo/ColorRampCombo';
 import { ColorSpaceCombo } from './ColorSpaceCombo/ColorSpaceCombo';
 import { ColorsPreview } from './ColorsPreview/ColorsPreview';
 import { ClassificationCombo, ClassificationMethod } from './ClassificationCombo/ClassificationCombo';
-import _get from 'lodash-es/get.js';
+import { get as _get } from '../../Util/NativeUtil';
 import { PlusSquareOutlined } from '@ant-design/icons';
 import {
   useGeoStylerComposition,

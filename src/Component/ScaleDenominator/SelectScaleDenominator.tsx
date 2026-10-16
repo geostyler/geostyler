@@ -29,7 +29,7 @@
 import { Col, Row, Select } from 'antd';
 import React, { useMemo } from 'react';
 
-import _cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep as _cloneDeep } from '../../Util/NativeUtil';
 
 import {
   ScaleDenominator as GsScaleDenominator

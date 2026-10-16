@@ -30,9 +30,7 @@
 import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { CqlParser } from 'geostyler-cql-parser';
 
-import _get from 'lodash-es/get.js';
-import _set from 'lodash-es/set.js';
-import _cloneDeep from 'lodash-es/cloneDeep.js';
+import { get as _get, set as _set, cloneDeep as _cloneDeep } from '../../Util/NativeUtil';
 
 import {
   Table,
@@ -551,4 +549,3 @@ export const RuleTable: React.FC<RuleTableProps> = (props) => {
     </div>
   );
 };
-

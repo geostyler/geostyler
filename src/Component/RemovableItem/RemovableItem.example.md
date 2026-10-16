@@ -33,7 +33,6 @@ This demonstrates the usage of the `RemovableItem` component.
 ```jsx
 import React, { useState } from "react";
 import { RemovableItem } from "geostyler";
-import _uniqueId from "lodash-es/uniqueId";
 
 function RemovableItemExample() {
   const [items, setItems] = useState([
@@ -51,7 +50,7 @@ function RemovableItemExample() {
   return (
     <>
       {items.map((item, idx) => (
-        <RemovableItem key={_uniqueId()} onRemoveClick={() => onRemove(idx)}>
+        <RemovableItem key={item} onRemoveClick={() => onRemove(idx)}>
           <div
             style={{
               border: "solid 1px lightgray",

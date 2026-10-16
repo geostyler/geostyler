@@ -47,10 +47,7 @@ import {
   VectorData
 } from 'geostyler-data';
 
-import _get from 'lodash-es/get.js';
-import _set from 'lodash-es/set.js';
-import _isBoolean from 'lodash-es/isBoolean.js';
-import _uniqueId from 'lodash-es/uniqueId.js';
+import { get as _get, set as _set, isBoolean as _isBoolean, uniqueId as _uniqueId } from './NativeUtil';
 import FunctionUtil from './FunctionUtil';
 import { Feature } from 'geojson';
 

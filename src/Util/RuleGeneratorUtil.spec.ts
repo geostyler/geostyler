@@ -28,7 +28,7 @@
 
 import RuleGeneratorUtil from './RuleGeneratorUtil';
 import TestUtil from './TestUtil';
-import _cloneDeep from 'lodash-es/cloneDeep.js';
+import { cloneDeep as _cloneDeep } from './NativeUtil';
 
 describe('RuleGeneratorUtil', () => {
   const dummyData = TestUtil.getComplexGsDummyData();

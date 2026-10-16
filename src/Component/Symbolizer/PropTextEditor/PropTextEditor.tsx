@@ -30,7 +30,7 @@ import React from 'react';
 
 import { Form } from 'antd';
 
-import _cloneDeep from 'lodash-es/cloneDeep.js';
+import { cloneDeep as _cloneDeep } from '../../../Util/NativeUtil';
 
 import {
   Symbolizer,
