@@ -24,7 +24,7 @@
     "url": "https://github.com/geostyler/geostyler/issues"
   },
   "engines": {
-    "node": ">=20.6.0"
+    "node": ">=20.19.0"
   },
   "browserslist": [
     ">1%",
@@ -95,12 +95,11 @@
     "@babel/runtime": "^7.27.4",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
-    "@eslint/js": "^9.28.0",
+    "@eslint/js": "^10.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
-    "@stylistic/eslint-plugin": "^4.4.0",
-    "@terrestris/eslint-config-typescript-react": "^5.0.1",
+    "@stylistic/eslint-plugin": "^5.0.0",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
@@ -116,8 +115,8 @@
     "buffer": "^6.0.3",
     "core-js": "^3.42.0",
     "css-loader": "^7.1.2",
-    "eslint": "^9.28.0",
-    "eslint-plugin-import": "^2.31.0",
+    "eslint": "^10.0.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^16.2.0",
     "jsdom": "^24.1.0",
     "mini-css-extract-plugin": "^2.9.0",
