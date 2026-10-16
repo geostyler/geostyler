@@ -30,19 +30,19 @@ import React, { useCallback } from 'react';
 
 import {
   Form,
+  Switch,
   Tooltip
 } from 'antd';
 
-import { IconSelectorWindow } from '../../IconSelectorWindow/IconSelectorWindow';
 import { IconLibrary } from '../../IconSelector/IconSelector';
+import { IconSelectorWindow } from '../../IconSelectorWindow/IconSelectorWindow';
 
-import './ImageField.css';
 import { PictureOutlined } from '@ant-design/icons';
 import { Expression, IconSymbolizer, Sprite, isSprite } from 'geostyler-style';
+import NumberExpressionInput from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
 import StringExpressionInput from '../../../ExpressionInput/StringExpressionInput/StringExpressionInput';
 
-import { FieldSet } from '../../../FieldSet/FieldSet';
-import NumberExpressionInput from '../../../ExpressionInput/NumberExpressionInput/NumberExpressionInput';
+import './ImageField.css';
 
 import { useGeoStylerLocale } from '../../../../context/GeoStylerContext/GeoStylerContext';
 
@@ -133,7 +133,6 @@ export const ImageField: React.FC<ImageFieldProps> = ({
 
   const stringValue = (isSprite(value) ? value.source : value) as string;
 
-
   return (
     <>
       <div className="editor-field gs-image-field">
@@ -158,7 +157,15 @@ export const ImageField: React.FC<ImageFieldProps> = ({
         />
         {
           !disableSprite &&
-            <FieldSet title={spriteTooltipLabel} checked={isSprite(value)} onCheckChange={onCheckSpriteChange} >
+            <>
+              <Form.Item
+                label={spriteTooltipLabel}
+              >
+                <Switch
+                  checked={isSprite(value)}
+                  onChange={onCheckSpriteChange}
+                />
+              </Form.Item>
               {isSprite(value) &&
                 <div className='spriterow'>
                   <span>
@@ -195,7 +202,7 @@ export const ImageField: React.FC<ImageFieldProps> = ({
                   </span>
                 </div>
               }
-            </FieldSet>
+            </>
         }
       </div>
       <IconSelectorWindow
