@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "strict": true,
-    "baseUrl": ".",
     "esModuleInterop": true,
     "declaration": true,
     "outDir": "dist",
@@ -21,7 +20,7 @@
     "strictNullChecks": false,
     "noUnusedLocals": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "exclude": [
     "node_modules",
@@ -33,12 +32,11 @@
     "coverage",
     "acceptance-tests",
     "webpack",
-    "jest",
     "coverage",
     "**.config.js",
     "**/*.spec.ts*",
     "vite.config.ts",
     "vite.*.config.ts",
     "vitest.config.ts"
-  ]
+  ],
 }

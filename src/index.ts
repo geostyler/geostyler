@@ -149,6 +149,8 @@ import fr_FR from './locale/fr_FR';
 import zh_CN from './locale/zh_CN';
 import pl_Pl from './locale/pl_PL';
 import cs_CZ from './locale/cs_CZ';
+import he_HE from './locale/he_HE';
+import hr_HR from './locale/hr_HR';
 
 export const locale = {
   de_DE,
@@ -156,6 +158,8 @@ export const locale = {
   es_ES,
   fr_FR,
   zh_CN,
+  he_HE,
+  hr_HR,
   cs_CZ,
   pl_Pl
 };

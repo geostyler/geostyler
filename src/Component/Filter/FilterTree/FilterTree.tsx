@@ -220,7 +220,7 @@ export const FilterTree: React.FC<FilterTreeProps & Partial<TreeProps>> = ({
       </Dropdown>
     );
 
-    let extraClassName = '';
+    let extraClassName: string;
     let title;
     const isLeaf = !(isCombinationFilter(filter) || isNegationFilter(filter));
     let children: DataNode[] = [];

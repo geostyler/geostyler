@@ -143,14 +143,10 @@ export const ComparisonFilterDefaultValidator = (
 };
 
 const operatorsMap: Record<JSONSchema4TypeName, ComparisonOperator[]> = {
-  // eslint-disable-next-line id-blacklist
   string: ['==', '*=', '!='],
-  // eslint-disable-next-line id-blacklist
   number: ['==', '!=', '<', '<=', '>', '>=', '<=x<='],
   integer: ['==', '!=', '<', '<=', '>', '>=', '<=x<='],
-  // eslint-disable-next-line id-blacklist
   boolean: ['==', '!='],
-  // eslint-disable-next-line id-blacklist
   any: undefined,
   object: undefined,
   array: undefined,
