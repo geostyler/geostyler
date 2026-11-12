@@ -54,7 +54,7 @@ import { StandardLonghandProperties } from 'csstype';
 import { useGeoStylerData, useGeoStylerLocale } from '../../context/GeoStylerContext/GeoStylerContext';
 import { Alert } from 'antd';
 
-import _isString from 'lodash-es/isString';
+import { isString as _isString } from '../../Util/NativeUtil';
 export interface PreviewMapProps {
   /** The projection of the data to visualize */
   dataProjection?: ProjectionLike;

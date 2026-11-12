@@ -31,10 +31,12 @@ import React from 'react';
 
 import { JSONSchema4TypeName } from 'json-schema';
 
-import _get from 'lodash-es/get.js';
-import _cloneDeep from 'lodash-es/cloneDeep.js';
-import _isEmpty from 'lodash-es/isEmpty.js';
-import _isString from 'lodash-es/isString.js';
+import {
+  get as _get,
+  cloneDeep as _cloneDeep,
+  isEmpty as _isEmpty,
+  isString as _isString
+} from '../../../Util/NativeUtil';
 
 import { Data as GeoStylerData } from 'geostyler-data';
 

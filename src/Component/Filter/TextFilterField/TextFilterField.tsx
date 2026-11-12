@@ -30,7 +30,7 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 
 import { Input, Form, AutoComplete, InputRef } from 'antd';
 
-import _get from 'lodash-es/get.js';
+import { get as _get } from '../../../Util/NativeUtil';
 import { Feature } from 'geojson';
 
 import './TextFilterField.css';

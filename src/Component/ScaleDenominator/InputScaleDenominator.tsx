@@ -29,7 +29,7 @@
 import { Col, Form, InputNumber, Row } from 'antd';
 import React from 'react';
 
-import _cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep as _cloneDeep } from '../../Util/NativeUtil';
 
 import {
   ScaleDenominator as GsScaleDenominator

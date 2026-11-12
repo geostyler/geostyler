@@ -44,7 +44,7 @@ import {
 } from 'geostyler-style';
 import { ChannelField } from '../Field/ChannelField/ChannelField';
 
-import _get from 'lodash-es/get.js';
+import { get as _get } from '../../../Util/NativeUtil';
 
 import {
   InputConfig,

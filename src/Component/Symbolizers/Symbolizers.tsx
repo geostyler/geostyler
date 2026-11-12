@@ -39,8 +39,7 @@ import { arrayMove, SortableContext } from '@dnd-kit/sortable';
 import './Symbolizers.css';
 import { Button, Card, Divider } from 'antd';
 
-import _cloneDeep from 'lodash-es/cloneDeep.js';
-import _uniqueId from 'lodash-es/uniqueId.js';
+import { cloneDeep as _cloneDeep, uniqueId as _uniqueId } from '../../Util/NativeUtil';
 import { SymbolizerCard } from '../SymbolizerCard/SymbolizerCard';
 import { PlusOutlined } from '@ant-design/icons';
 import SymbolizerUtil from '../../Util/SymbolizerUtil';

@@ -30,7 +30,7 @@ import React from 'react';
 import { InputNumber, Form, AutoComplete } from 'antd';
 import { useGeoStylerData, useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 import { Feature } from 'geojson';
-import _get from 'lodash-es/get.js';
+import { get as _get } from '../../../Util/NativeUtil';
 
 import './NumberFilterField.css';
 

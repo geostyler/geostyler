@@ -47,7 +47,7 @@ import './OlRenderer.css';
 
 import 'ol/ol.css';
 
-import _get from 'lodash-es/get.js';
+import { get as _get } from '../../../Util/NativeUtil';
 import placeholder from './placeholder';
 import { InfoCircleTwoTone } from '@ant-design/icons';
 import { Tooltip } from 'antd';
