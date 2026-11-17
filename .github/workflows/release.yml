@@ -3,6 +3,12 @@ name: Release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
 jobs:
   release:
     uses: geostyler/workflows/.github/workflows/release.yml@v1.0.0
