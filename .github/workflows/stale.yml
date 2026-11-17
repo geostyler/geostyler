@@ -5,4 +5,4 @@ on:
 
 jobs:
   close-issues:
-    uses: geostyler/workflows/.github/workflows/stale.yml@main
+    uses: geostyler/workflows/.github/workflows/stale.yml@v1.0.0

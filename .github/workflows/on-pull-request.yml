@@ -3,7 +3,6 @@ on: pull_request
 
 jobs:
   build:
-    uses: geostyler/workflows/.github/workflows/on-pull-request.yml@main
+    uses: geostyler/workflows/.github/workflows/on-pull-request.yml@v1.0.0
     with:
       node-versions: '["22", "24", "26"]'
-

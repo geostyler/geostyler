@@ -5,13 +5,13 @@ on:
 
 jobs:
   release:
-    uses: geostyler/workflows/.github/workflows/release.yml@main
+    uses: geostyler/workflows/.github/workflows/release.yml@v1.0.0
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
 
   notify-discord:
     needs: release
     if: needs.release.outputs.tag_name != ''
-    uses: geostyler/workflows/.github/workflows/notify-discord.yml@main
+    uses: geostyler/workflows/.github/workflows/notify-discord.yml@v1.0.0
     secrets:
       discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}

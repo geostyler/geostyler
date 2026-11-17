@@ -3,4 +3,4 @@ on: [pull_request, push]
 
 jobs:
   commitlint:
-    uses: geostyler/workflows/.github/workflows/commitlint.yml@main
+    uses: geostyler/workflows/.github/workflows/commitlint.yml@v1.0.0
