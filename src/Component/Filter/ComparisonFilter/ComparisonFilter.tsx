@@ -127,7 +127,7 @@ export const ComparisonFilterDefaultValidator = (
     const maxVal = _get(data, `schema.properties[${selectedAttribute}].maximum`);
 
     if (!isNaN(minVal) && !isNaN(maxVal)) {
-      if (typeof newValue !== 'number') {
+      if (typeof newValue !== 'number' || isNaN(newValue)) {
         isValid = false;
         errorMsg = 'Please enter a number';
       } else if (newValue < minVal) {
