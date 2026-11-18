@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputNumber, Form, AutoComplete } from 'antd';
 import { useGeoStylerData, useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 import { Feature } from 'geojson';
@@ -103,11 +103,12 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
             />
             :
             <InputNumber
-              size={size}
+              decimalSeparator={decimalSeparator}
               defaultValue={value}
-              value={value}
               onChange={onValueChange}
               placeholder={locale.placeholder}
+              size={size}
+              value={value}
             />
         }
       </Form.Item>

@@ -26,11 +26,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import { ComparisonFilter } from './ComparisonFilter';
 import { ComparisonFilter as GsComparisionFilter} from 'geostyler-style';
 import { vi } from 'vitest';
+import { GeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 describe('ComparisonFilter', () => {
 
@@ -125,5 +126,47 @@ describe('ComparisonFilter', () => {
       expect(operatorValidatorDummy).toHaveBeenCalledWith('!=');
     });
 
+  });
+
+  describe('decimalSeparator', () => {
+    const data: any = {
+      schema: {
+        title: 'd',
+        type: 'object',
+        properties: { foo: { type: 'number', minimum: 0.1, maximum: 2 } }
+      },
+      exampleFeatures: {
+        type: 'FeatureCollection',
+        features: [{ type: 'Feature', properties: { foo: 0.9 }, geometry: { type: 'Point', coordinates: [0, 0] } }]
+      }
+    };
+
+    const Wrapper = () => {
+      const [filter, setFilter] = useState<GsComparisionFilter>(['==', 'foo', 0.9]);
+      return (
+        <GeoStylerContext.Provider value={{data}}>
+          <ComparisonFilter filter={filter} onFilterChange={setFilter} decimalSeparator="," />
+          <output data-testid="value">{String(filter[2])}</output>
+        </GeoStylerContext.Provider>
+      );
+    };
+
+    it('accepts "0,25" as valid number', async() => {
+      const field = render(<Wrapper />);
+      const input = (await field.findAllByRole('combobox'))
+        .find(el => (el as HTMLInputElement).value === '0,9') as HTMLInputElement;
+      fireEvent.change(input, { target: { value: '0,25' }});
+      expect(field.getByTestId('value').textContent).toBe('0.25');
+      expect(input.value).toBe('0,25');
+      expect(field.container.querySelector('.ant-form-item-explain')).not.toBeInTheDocument();
+    });
+
+    it('shows the validator message instead of the generic help text', async() => {
+      const field = render(<Wrapper />);
+      const input = (await field.findAllByRole('combobox'))
+        .find(el => (el as HTMLInputElement).value === '0,9') as HTMLInputElement;
+      fireEvent.change(input, { target: { value: '0,' }});
+      expect(field.container.querySelector('.ant-form-item-explain')?.textContent).toBe('Minimum Value is 0.1');
+    });
   });
 });

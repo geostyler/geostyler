@@ -68,3 +68,61 @@ function ComparisonFilterExample() {
 
 <ComparisonFilterExample />;
 ```
+
+This demonstrates the usage of the `ComparisonFilter` containing a `NumberField` for decimal numbers with `GeoStylerContext` with `","` as decimal seperator.
+
+```jsx
+import React, { useState } from "react";
+import { ComparisonFilter, GeoStylerContext } from "geostyler";
+
+const dummyData = {
+  schema: {
+    title: 'DummyData',
+    type: 'object',
+    properties: {
+      foo: {
+        type: 'number',
+        minimum: 0.1,
+        maximum: 1.9
+      }
+    }
+  },
+  exampleFeatures: {
+    type: 'FeatureCollection',
+    features: [{
+      type: 'Feature',
+      properties: {
+        foo: 0.9,
+      },
+      geometry: {
+        type: 'Point',
+        coordinates: [0, 0]
+      }
+    }]
+  }
+};
+
+function ComparisonFilterExample() {
+
+  const [filter, setFilter] = useState(["<=", "foo", 0.9]);
+
+  return (
+    <>
+      <GeoStylerContext.Provider value={{
+        data: dummyData,
+        composition: {
+          ComparisonFilter: {
+            decimalSeparator: ","
+          }
+        }
+      }}>
+        <ComparisonFilter filter={filter} onFilterChange={setFilter} />
+      </GeoStylerContext.Provider>
+      <div>Current filter: {JSON.stringify(filter)}</div>
+    </>
+);
+
+}
+
+<ComparisonFilterExample />;
+```
