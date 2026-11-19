@@ -30,6 +30,8 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { NumberFilterField } from './NumberFilterField';
 import { vi } from 'vitest';
+import TestUtil from '../../../Util/TestUtil';
+import { GeoStylerContext } from '../../../context/GeoStylerContext/GeoStylerContext';
 
 describe('NumberFilterField', () => {
 
@@ -50,6 +52,26 @@ describe('NumberFilterField', () => {
       const input = await field.findByRole('spinbutton');
       fireEvent.change(input, { target: { value }});
       expect(onChangeDummy).toHaveBeenCalledWith(value);
+    });
+  });
+
+  describe('AutoComplete', () => {
+    it.each([',', '.'])('accepts "0%s25" with matching decimalSeparator', async(sep) => {
+      const onChangeMock = vi.fn();
+      const field = render(
+        <GeoStylerContext.Provider value={{data: TestUtil.getDummyGsData()}}>
+          <NumberFilterField
+            decimalSeparator={sep}
+            onValueChange={onChangeMock}
+            selectedAttribute="foo"
+          />
+        </GeoStylerContext.Provider>
+      );
+      const input = await field.findByRole('combobox');
+      fireEvent.change(input, { target: { value: `0${sep}` }});
+      fireEvent.change(input, { target: { value: `0${sep}25` }});
+      expect(onChangeMock).toHaveBeenLastCalledWith(0.25);
+      expect(input).toHaveValue(`0${sep}25`);
     });
   });
 });

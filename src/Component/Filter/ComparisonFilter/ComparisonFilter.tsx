@@ -87,7 +87,9 @@ export interface ComparisonFilterComposableProps {
   validators?: Validators;
   /** Show ui in micro mode. Which disables labels etc. */
   microUI?: boolean;
-};
+  /** The decimal separator used in number fields */
+  decimalSeparator?: string;
+}
 
 export interface ComparisonFilterInternalProps {
   /** Initial comparison filter object */
@@ -125,7 +127,7 @@ export const ComparisonFilterDefaultValidator = (
     const maxVal = _get(data, `schema.properties[${selectedAttribute}].maximum`);
 
     if (!isNaN(minVal) && !isNaN(maxVal)) {
-      if (typeof newValue !== 'number') {
+      if (typeof newValue !== 'number' || isNaN(newValue)) {
         isValid = false;
         errorMsg = 'Please enter a number';
       } else if (newValue < minVal) {
@@ -172,6 +174,7 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
   const {
     attributeNameFilter = () => true,
     attributeNameMappingFunction = n => n,
+    decimalSeparator,
     filter = ['==', '', null],
     hideAttributeType = false,
     microUI = false,
@@ -282,6 +285,8 @@ export const ComparisonFilter: React.FC<ComparisonFilterProps> = (props) => {
       onValueChange={(newValue) => onValueChange(newValue, filterIndex)}
       validateStatus={validateStatus.value}
       selectedAttribute={attribute}
+      decimalSeparator={decimalSeparator}
+      help={valueValidation.errorMsg}
     />;
   }
 

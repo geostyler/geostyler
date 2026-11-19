@@ -26,7 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputNumber, Form, AutoComplete } from 'antd';
 import { useGeoStylerData, useGeoStylerLocale } from '../../../context/GeoStylerContext/GeoStylerContext';
 import { Feature } from 'geojson';
@@ -44,27 +44,48 @@ export interface NumberFilterFieldProps {
   size?: 'large' | 'middle' | 'small';
   /** The selected attribute name */
   selectedAttribute?: string;
+  /** The decimal seperator */
+  decimalSeparator?: string;
+  /** Help text shown on validation errors, defaults to the locale text */
+  help?: string;
 }
 
 /**
  * Input field for a numeric filter value.
  */
 export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
-  value,
-  validateStatus = 'success',
+  decimalSeparator = '.',
+  help,
   onValueChange,
+  selectedAttribute,
   size,
-  selectedAttribute
+  validateStatus = 'success',
+  value
 }) => {
   const data = useGeoStylerData();
 
   const locale = useGeoStylerLocale('NumberFilterField');
 
-  const helpTxt = validateStatus !== 'success' ? locale.help : null;
+  const helpTxt = validateStatus !== 'success' ? (help || locale.help) : null;
 
-  const onAutoCompleteChange = (text: string) => {
+  const format = (v?: number) => (v == null || isNaN(v) ? '' : String(v).replace('.', decimalSeparator));
+
+  const parse = (t: string) => Number(t.replace(decimalSeparator, '.'));
+
+  // Keep the raw text so partial input like "0," is not overwritten by the parsed number.
+  const [text, setText] = useState(format(value));
+
+  useEffect(() => {
+    if (!Object.is(value, parse(text))) {
+      setText(format(value));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  const onAutoCompleteChange = (newText: string) => {
+    setText(newText);
     if (onValueChange) {
-      onValueChange(Number(text));
+      onValueChange(parse(newText));
     }
   };
 
@@ -95,19 +116,20 @@ export const NumberFilterField: React.FC<NumberFilterFieldProps> = ({
         {
           sampleValues.length > 0 ?
             <AutoComplete
-              size={size}
-              value={`${value || ''}`}
               onChange={onAutoCompleteChange}
+              options={sampleValues.map((val) => ({ value: format(Number(val)) || val }))}
               placeholder={locale.placeholder}
-              options={sampleValues.map((val) => ({ value: val }))}
+              size={size}
+              value={text}
             />
             :
             <InputNumber
-              size={size}
+              decimalSeparator={decimalSeparator}
               defaultValue={value}
-              value={value}
               onChange={onValueChange}
               placeholder={locale.placeholder}
+              size={size}
+              value={value}
             />
         }
       </Form.Item>
