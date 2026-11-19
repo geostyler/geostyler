@@ -39,7 +39,7 @@
     "build-dist": "vite build",
     "build-styleguide": "styleguidist build --config styleguide.config.cjs",
     "build-browser": "vite build -c vite.browser.config.ts",
-    "browser-sample": "npx http-server . -o /public/browser.html",
+    "browser-sample": "npx http-server . -o /browser/browser.html",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "check": "tsc --noEmit --project tsconfig.json",
