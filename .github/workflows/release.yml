@@ -20,6 +20,6 @@ jobs:
     if: needs.release.outputs.tag_name != ''
     uses: geostyler/workflows/.github/workflows/notify-discord.yml@v1.0.0
     with:
-      message: ${{ github.event.repository.name }} [${{ github.event.release.tag_name }}](${{ github.event.release.html_url }}) has been released. 🚀
+        message: ${{ github.event.repository.name }} [${{ needs.release.outputs.tag_name }}] has been released. 🚀
     secrets:
       discord-webhook: ${{ secrets.DISCORD_WEBHOOK }}
