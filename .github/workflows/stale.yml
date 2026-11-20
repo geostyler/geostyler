@@ -9,4 +9,4 @@ permissions:
 
 jobs:
   close-issues:
-    uses: geostyler/workflows/.github/workflows/stale.yml@v1.0.0
+    uses: geostyler/workflows/.github/workflows/stale.yml@v1.0.1
